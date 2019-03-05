@@ -25,6 +25,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.MainScreen.Controller.EatingAdapter;
+import com.wsoteam.diet.POJOsCircleProgress.Water;
 import com.wsoteam.diet.R;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ import java.util.concurrent.ExecutionException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.itangqi.waveloadingview.WaveLoadingView;
 
 public class FragmentEatingScroll extends Fragment {
     private static final String TAG_OF_BUNDLE = "FragmentEatingScroll";
@@ -45,10 +47,12 @@ public class FragmentEatingScroll extends Fragment {
     private List<List<Eating>> allEat;
     int day, month, year;
     private TextView parentTitleWithDate, tvCircleProgressCarbo, tvCircleProgressFat, tvCircleProgressProt;
-    ArcProgress apCollapsingKcal;
-    ArcProgress apCollapsingProt;
-    ArcProgress apCollapsingCarbo;
-    ArcProgress apCollapsingFat;
+    private ArcProgress apCollapsingKcal;
+    private ArcProgress apCollapsingProt;
+    private ArcProgress apCollapsingCarbo;
+    private ArcProgress apCollapsingFat;
+    private WaveLoadingView waveLoadingView;
+    private Water water;
 
     public static FragmentEatingScroll newInstance(int position) {
         Bundle bundle = new Bundle();
@@ -63,7 +67,14 @@ public class FragmentEatingScroll extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isResumed()) {
             parentTitleWithDate.setText(setDateTitle(day, month, year));
-            new LoadMainParamsAndSetInProgressBars().execute(allEat);
+            //new LoadMainParamsAndSetInProgressBars().execute(allEat);
+            setMainParamsInBars(allEat);
+            waveLoadingView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.e("TAG", String.valueOf(enterPosition));
+                }
+            });
         }
     }
 
@@ -99,6 +110,7 @@ public class FragmentEatingScroll extends Fragment {
         tvCircleProgressCarbo = getActivity().findViewById(R.id.tvCircleProgressCarbo);
         tvCircleProgressFat = getActivity().findViewById(R.id.tvCircleProgressFat);
         tvCircleProgressProt = getActivity().findViewById(R.id.tvCircleProgressProt);
+        waveLoadingView = getActivity().findViewById(R.id.waveLoadingView);
 
         return view;
     }
@@ -147,6 +159,53 @@ public class FragmentEatingScroll extends Fragment {
 
     }
 
+    private void setMainParamsInBars(List<List<Eating>> lists) {
+        int kcal = 0, fat = 0, prot = 0, carbo = 0;
+
+        for (int i = 0; i < lists.size(); i++) {
+            for (int j = 0; j < lists.get(i).size(); j++) {
+                kcal += lists.get(i).get(j).getCalories();
+                fat += lists.get(i).get(j).getFat();
+                prot += lists.get(i).get(j).getProtein();
+                carbo += lists.get(i).get(j).getCarbohydrates();
+            }
+        }
+        apCollapsingKcal.setProgress(kcal);
+        apCollapsingProt.setProgress(prot);
+        apCollapsingCarbo.setProgress(carbo);
+        apCollapsingFat.setProgress(fat);
+
+        if (apCollapsingKcal.getMax() < kcal) {
+            apCollapsingKcal.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
+            apCollapsingKcal.setSuffixText("-" + String.valueOf(kcal - apCollapsingKcal.getMax()));
+        } else {
+            apCollapsingKcal.setFinishedStrokeColor(getResources().getColor(R.color.kcalColor));
+            apCollapsingKcal.setSuffixText("+" + String.valueOf(apCollapsingKcal.getMax() - kcal));
+        }
+        if (apCollapsingCarbo.getMax() < carbo) {
+            apCollapsingCarbo.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
+            tvCircleProgressCarbo.setText("избыток  " + String.valueOf(carbo - apCollapsingCarbo.getMax()) + " г");
+        } else {
+            apCollapsingCarbo.setFinishedStrokeColor(getResources().getColor(R.color.carboColor));
+            tvCircleProgressCarbo.setText("осталось  " + String.valueOf(apCollapsingCarbo.getMax() - carbo) + " г");
+        }
+        if (apCollapsingFat.getMax() < fat) {
+            apCollapsingFat.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
+            tvCircleProgressFat.setText("избыток  " + String.valueOf(fat - apCollapsingFat.getMax()) + " г");
+        } else {
+            apCollapsingFat.setFinishedStrokeColor(getResources().getColor(R.color.fatColor));
+            tvCircleProgressFat.setText("осталось  " + String.valueOf(apCollapsingFat.getMax() - fat) + " г");
+        }
+        if (apCollapsingProt.getMax() < prot) {
+            apCollapsingProt.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
+            tvCircleProgressProt.setText("избыток " + String.valueOf(prot - apCollapsingProt.getMax()) + " г");
+        } else {
+            apCollapsingProt.setFinishedStrokeColor(getResources().getColor(R.color.protColor));
+            tvCircleProgressProt.setText("осталось " + String.valueOf(apCollapsingProt.getMax() - prot) + " г");
+        }
+
+    }
+
     public class LoadEatingForThisDay extends AsyncTask<Integer, Void, List<List<Eating>>> {
         @Override
         protected List<List<Eating>> doInBackground(Integer... ints) {
@@ -158,12 +217,16 @@ public class FragmentEatingScroll extends Fragment {
 
             List<Breakfast> breakfasts = Select.from(Breakfast.class).where(Condition.prop("day").eq(day),
                     Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();
+
             List<Lunch> lunches = Select.from(Lunch.class).where(Condition.prop("day").eq(day),
-                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();;
+                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();
+
             List<Dinner> dinners = Select.from(Dinner.class).where(Condition.prop("day").eq(day),
-                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();;
+                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();
+
             List<Snack> snacks = Select.from(Snack.class).where(Condition.prop("day").eq(day),
-                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();;
+                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();
+
 
             allEatingForThisDay.add(breakfasts);
             allEatingForThisDay.add(lunches);
@@ -171,7 +234,6 @@ public class FragmentEatingScroll extends Fragment {
             allEatingForThisDay.add(snacks);
 
             allEat = allEatingForThisDay;
-
             return allEatingForThisDay;
         }
 
@@ -180,63 +242,6 @@ public class FragmentEatingScroll extends Fragment {
             super.onPostExecute(lists);
             eatingAdapter = new EatingAdapter(lists, getActivity());
             rvMainScreen.setAdapter(eatingAdapter);
-        }
-    }
-
-    public class LoadMainParamsAndSetInProgressBars extends AsyncTask<List<List<Eating>>, Void, Integer[]> {
-        @Override
-        protected Integer[] doInBackground(List<List<Eating>>... lists) {
-            int kcal = 0, fat = 0, prot = 0, carbo = 0;
-
-            for (int i = 0; i < lists[0].size(); i++) {
-                for (int j = 0; j < lists[0].get(i).size(); j++) {
-                    kcal += lists[0].get(i).get(j).getCalories();
-                    fat += lists[0].get(i).get(j).getFat();
-                    prot += lists[0].get(i).get(j).getProtein();
-                    carbo += lists[0].get(i).get(j).getCarbohydrates();
-                }
-            }
-            return new Integer[] {kcal, fat, prot, carbo};
-        }
-
-        @Override
-        protected void onPostExecute(Integer[] integers) {
-            super.onPostExecute(integers);
-            int kcal = integers[0], fat = integers[1], prot = integers[2], carbo = integers[3];
-
-            apCollapsingKcal.setProgress(kcal);
-            apCollapsingProt.setProgress(prot);
-            apCollapsingCarbo.setProgress(carbo);
-            apCollapsingFat.setProgress(fat);
-
-            if (apCollapsingKcal.getMax() < kcal) {
-                apCollapsingKcal.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
-                apCollapsingKcal.setSuffixText("-" + String.valueOf(kcal - apCollapsingKcal.getMax()));
-            } else {
-                apCollapsingKcal.setFinishedStrokeColor(getResources().getColor(R.color.kcalColor));
-                apCollapsingKcal.setSuffixText("+" + String.valueOf(apCollapsingKcal.getMax() - kcal));
-            }
-            if (apCollapsingCarbo.getMax() < carbo) {
-                apCollapsingCarbo.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
-                tvCircleProgressCarbo.setText("избыток  " + String.valueOf(carbo - apCollapsingCarbo.getMax()) + " г");
-            } else {
-                apCollapsingCarbo.setFinishedStrokeColor(getResources().getColor(R.color.carboColor));
-                tvCircleProgressCarbo.setText("осталось  " + String.valueOf(apCollapsingCarbo.getMax() - carbo) + " г");
-            }
-            if (apCollapsingFat.getMax() < fat) {
-                apCollapsingFat.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
-                tvCircleProgressFat.setText("избыток  " + String.valueOf(fat - apCollapsingFat.getMax()) + " г");
-            } else {
-                apCollapsingFat.setFinishedStrokeColor(getResources().getColor(R.color.fatColor));
-                tvCircleProgressFat.setText("осталось  " + String.valueOf(apCollapsingFat.getMax() - fat) + " г");
-            }
-            if (apCollapsingProt.getMax() < prot) {
-                apCollapsingProt.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
-                tvCircleProgressProt.setText("избыток " + String.valueOf(prot - apCollapsingProt.getMax()) + " г");
-            } else {
-                apCollapsingProt.setFinishedStrokeColor(getResources().getColor(R.color.protColor));
-                tvCircleProgressProt.setText("осталось " + String.valueOf(apCollapsingProt.getMax() - prot) + " г");
-            }
         }
     }
 }

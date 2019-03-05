@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        waveLoadingView.setOnClickListener(new View.OnClickListener() {
+        /*waveLoadingView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!isFullWater) {
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity
                     increaseCountOfWater();
                 }
             }
-        });
+        });*/
 
         ivLeftNBAvatar.setOnClickListener(new View.OnClickListener() {
             @Override

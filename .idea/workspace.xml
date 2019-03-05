@@ -21,7 +21,6 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wsoteam/diet/MainScreen/AlertDialogs/AlertDialogChoiseEating.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wsoteam/diet/MainScreen/Support/AlertDialogChoiseEating.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wsoteam/diet/MainScreen/Fragments/FragmentEatingScroll.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wsoteam/diet/MainScreen/Fragments/FragmentEatingScroll.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wsoteam/diet/MainScreen/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wsoteam/diet/MainScreen/MainActivity.java" afterDir="false" />
     </list>
@@ -39,8 +38,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wsoteam/diet/MainScreen/MainActivity.java">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="187">
-                    <caret line="456" column="58" selection-start-line="456" selection-start-column="58" selection-end-line="456" selection-end-column="58" />
+                  <state relative-caret-position="397">
+                    <caret line="177" column="36" selection-start-line="177" selection-start-column="36" selection-end-line="177" selection-end-column="36" />
                     <folding>
                       <element signature="e#5474#6487#0" />
                       <element signature="e#8772#9626#0" />
@@ -52,6 +51,15 @@
                       <element signature="e#16122#17376#0" />
                       <element signature="e#17382#18896#0" />
                     </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wsoteam/diet/POJOsCircleProgress/Water.java">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="85">
+                    <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
                   </state>
                 </provider>
               </entry>
@@ -127,26 +135,26 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="20" />
+          <entry key="java" value="22" />
           <entry key="xml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="20" />
+          <entry key="JAVA" value="22" />
           <entry key="XML" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="9" />
-          <entry key="java" value="1290" />
+          <entry key="java" value="1494" />
           <entry key="xml" value="86" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1290" />
+          <entry key="JAVA" value="1494" />
           <entry key="PLAIN_TEXT" value="9" />
           <entry key="XML" value="86" />
         </counts>
@@ -158,9 +166,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wsoteam/diet/MainScreen/Fragments/FragmentEatingScroll.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="159" column="95" lean-forward="true" selection-start-line="159" selection-start-column="95" selection-end-line="159" selection-end-column="95" />
+            <state relative-caret-position="1347">
+              <caret line="172" column="43" lean-forward="true" selection-start-line="172" selection-start-column="43" selection-end-line="172" selection-end-column="43" />
               <folding>
+                <element signature="e#2926#2927#0" expanded="true" />
+                <element signature="e#3009#3010#0" expanded="true" />
                 <element signature="method#onDestroyView#0;class#FragmentEatingScroll#0" />
               </folding>
             </state>
@@ -231,6 +241,13 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="diet" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="8Petals" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="diet" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="BranchOfAnalyzer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="8Petals" type="1abcf292:AndroidViewProjectNode" />
@@ -357,7 +374,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.19530201" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.19530201" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Build Variants" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
@@ -561,13 +578,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wsoteam/diet/POJOsCircleProgress/Water.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wsoteam/diet/MainScreen/Support/AlertDialogChoiseEating.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -575,10 +585,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wsoteam/diet/POJOsCircleProgress/Water.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wsoteam/diet/MainScreen/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="456" column="58" selection-start-line="456" selection-start-column="58" selection-end-line="456" selection-end-column="58" />
+        <state relative-caret-position="397">
+          <caret line="177" column="36" selection-start-line="177" selection-start-column="36" selection-end-line="177" selection-end-column="36" />
           <folding>
             <element signature="e#5474#6487#0" />
             <element signature="e#8772#9626#0" />
@@ -595,9 +612,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wsoteam/diet/MainScreen/Fragments/FragmentEatingScroll.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="159" column="95" lean-forward="true" selection-start-line="159" selection-start-column="95" selection-end-line="159" selection-end-column="95" />
+        <state relative-caret-position="1347">
+          <caret line="172" column="43" lean-forward="true" selection-start-line="172" selection-start-column="43" selection-end-line="172" selection-end-column="43" />
           <folding>
+            <element signature="e#2926#2927#0" expanded="true" />
+            <element signature="e#3009#3010#0" expanded="true" />
             <element signature="method#onDestroyView#0;class#FragmentEatingScroll#0" />
           </folding>
         </state>
