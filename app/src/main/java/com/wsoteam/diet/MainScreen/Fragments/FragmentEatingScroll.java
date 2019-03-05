@@ -158,9 +158,12 @@ public class FragmentEatingScroll extends Fragment {
 
             List<Breakfast> breakfasts = Select.from(Breakfast.class).where(Condition.prop("day").eq(day),
                     Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();
-            List<Lunch> lunches = Lunch.listAll(Lunch.class);
-            List<Dinner> dinners = Dinner.listAll(Dinner.class);
-            List<Snack> snacks = Snack.listAll(Snack.class);
+            List<Lunch> lunches = Select.from(Lunch.class).where(Condition.prop("day").eq(day),
+                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();;
+            List<Dinner> dinners = Select.from(Dinner.class).where(Condition.prop("day").eq(day),
+                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();;
+            List<Snack> snacks = Select.from(Snack.class).where(Condition.prop("day").eq(day),
+                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();;
 
             allEatingForThisDay.add(breakfasts);
             allEatingForThisDay.add(lunches);
