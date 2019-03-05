@@ -29,6 +29,7 @@ import com.wsoteam.diet.R;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,16 +54,24 @@ public class FragmentEatingScroll extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser){
-            new LoadEatingForThisDay().execute(getChooseDate(getArguments().getInt(TAG_OF_BUNDLE)));
+        if (isVisibleToUser && isResumed()){
+
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-
+            try {
+                new LoadEatingForThisDay().execute(getChooseDate(getArguments().getInt(TAG_OF_BUNDLE))).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        if (getUserVisibleHint()) {
+            setUserVisibleHint(true);
+        }
     }
 
     @Nullable
