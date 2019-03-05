@@ -622,6 +622,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_exit:
                 signOut();
+                intent = new Intent(MainActivity.this, ActivityAuthenticate.class);
                 break;
         }
         startActivity(intent);

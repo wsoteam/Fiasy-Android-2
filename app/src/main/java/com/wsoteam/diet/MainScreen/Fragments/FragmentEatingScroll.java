@@ -51,9 +51,6 @@ public class FragmentEatingScroll extends Fragment {
     private ArcProgress apCollapsingProt;
     private ArcProgress apCollapsingCarbo;
     private ArcProgress apCollapsingFat;
-    private WaveLoadingView waveLoadingView;
-    private Water water;
-    private boolean isEmptyWater = true;
 
     public static FragmentEatingScroll newInstance(int position) {
         Bundle bundle = new Bundle();
@@ -70,24 +67,9 @@ public class FragmentEatingScroll extends Fragment {
             parentTitleWithDate.setText(setDateTitle(day, month, year));
             //new LoadMainParamsAndSetInProgressBars().execute(allEat);
             setMainParamsInBars(allEat);
-            fillWaterView();
-            waveLoadingView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    
-                }
-            });
         }
     }
 
-    private void fillWaterView() {
-        int progress = 0;
-        if (!isEmptyWater){
-            progress = water.getCurrentNumber();
-        }
-        waveLoadingView.setCenterTitle(String.valueOf(water.getCurrentNumber())
-                + "/" + waveLoadingView.getCenterTitle().split("/")[1]);
-    }
 
 
     @Override
@@ -121,7 +103,6 @@ public class FragmentEatingScroll extends Fragment {
         tvCircleProgressCarbo = getActivity().findViewById(R.id.tvCircleProgressCarbo);
         tvCircleProgressFat = getActivity().findViewById(R.id.tvCircleProgressFat);
         tvCircleProgressProt = getActivity().findViewById(R.id.tvCircleProgressProt);
-        waveLoadingView = getActivity().findViewById(R.id.waveLoadingView);
 
         return view;
     }
@@ -238,9 +219,6 @@ public class FragmentEatingScroll extends Fragment {
             List<Snack> snacks = Select.from(Snack.class).where(Condition.prop("day").eq(day),
                     Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();
 
-            List<Water> waters= Select.from(Water.class).where(Condition.prop("day").eq(day),
-                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();
-
 
             allEatingForThisDay.add(breakfasts);
             allEatingForThisDay.add(lunches);
@@ -248,11 +226,6 @@ public class FragmentEatingScroll extends Fragment {
             allEatingForThisDay.add(snacks);
 
             allEat = allEatingForThisDay;
-
-            if (waters.size() != 0){
-                water = waters.get(0);
-                isEmptyWater = false;
-            }
 
             return allEatingForThisDay;
         }
