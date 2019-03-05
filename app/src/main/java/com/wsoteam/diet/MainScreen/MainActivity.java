@@ -44,6 +44,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.facebook.login.LoginManager;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -53,6 +54,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.orm.query.Condition;
 import com.orm.query.Select;
+import com.wsoteam.diet.Authenticate.ActivityAuth;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
@@ -679,24 +681,11 @@ public class MainActivity extends AppCompatActivity
 
         // Firebase sign out
         FirebaseAuth.getInstance().signOut();
+        //Facebook signOut
+        LoginManager.getInstance().logOut();
 
-        // Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-
-        // Google sign out
-        GoogleSignIn.getClient(this, gso).signOut().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Log.d("Authenticate", "signOut Google: in MainActivity ");
-
-                    }
-                });
-        startActivity(new Intent(this, ActivityAuthenticate.class));
+        startActivity(new Intent(this, ActivityAuth.class));
+        finish();
     }
 
 
@@ -729,7 +718,6 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_exit:
                 signOut();
-                intent = new Intent(MainActivity.this, ActivityAuthenticate.class);
                 break;
         }
         startActivity(intent);

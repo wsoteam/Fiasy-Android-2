@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wsoteam.diet.Authenticate.ActivityAuth;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.MainScreen.MainActivity;
@@ -72,7 +73,7 @@ public class ActivitySplash extends AppCompatActivity {
 
 
                 if (user == null) {
-                    startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
+                    startActivity(new Intent(ActivitySplash.this, ActivityAuth.class));
                     finish();
                 } else {
                     startActivity(new Intent(ActivitySplash.this, MainActivity.class));
