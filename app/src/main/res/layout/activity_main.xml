@@ -241,6 +241,21 @@
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tvDateForMainScreen"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 
     <android.support.v4.view.ViewPager
@@ -248,6 +263,8 @@
         android:layout_height="match_parent"
         android:id="@+id/vpEatingTimeLine"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    </LinearLayout>
 
     <!--<android.support.v7.widget.RecyclerView
         android:id="@+id/rvMainScreen"

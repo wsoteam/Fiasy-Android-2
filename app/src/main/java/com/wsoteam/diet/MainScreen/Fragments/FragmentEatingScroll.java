@@ -42,6 +42,8 @@ public class FragmentEatingScroll extends Fragment {
     @BindView(R.id.rvMainScreen) RecyclerView rvMainScreen;
     Unbinder unbinder;
     private List<List<Eating>> allEat;
+    int day, month, year;
+    private TextView parentTitleWithDate;
 
     public static FragmentEatingScroll newInstance(int position) {
         Bundle bundle = new Bundle();
@@ -54,21 +56,23 @@ public class FragmentEatingScroll extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && isResumed()){
-
+        if (isVisibleToUser && isResumed()) {
+            parentTitleWithDate = getActivity().findViewById(R.id.tvDateForMainScreen);
+            parentTitleWithDate.setText(setDateTitle(day, month, year));
         }
     }
+
 
     @Override
     public void onResume() {
         super.onResume();
-            try {
-                new LoadEatingForThisDay().execute(getChooseDate(getArguments().getInt(TAG_OF_BUNDLE))).get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+        try {
+            new LoadEatingForThisDay().execute(getChooseDate(getArguments().getInt(TAG_OF_BUNDLE))).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         if (getUserVisibleHint()) {
             setUserVisibleHint(true);
         }
@@ -92,6 +96,26 @@ public class FragmentEatingScroll extends Fragment {
         unbinder.unbind();
     }
 
+    private String setDateTitle(int day, int month, int year) {
+        String dayInString, monthInString, yearInString;
+
+        if (day < 10) {
+            dayInString = "0" + String.valueOf(day);
+        } else {
+            dayInString = String.valueOf(day);
+        }
+
+        if (month < 10) {
+            monthInString = "0" + String.valueOf(month + 1);
+        } else {
+            monthInString = String.valueOf(month);
+        }
+
+        yearInString = String.valueOf(year);
+
+        return dayInString + "." + monthInString + "." + yearInString;
+    }
+
     private Integer[] getChooseDate(int position) {
         int dateIndex = position - Config.COUNT_PAGE;
         Calendar cal = Calendar.getInstance();
@@ -100,6 +124,10 @@ public class FragmentEatingScroll extends Fragment {
         Integer chooseDay = cal.get(Calendar.DAY_OF_MONTH);
         Integer chooseMonth = cal.get(Calendar.MONTH);
         Integer chooseYear = cal.get(Calendar.YEAR);
+
+        day = chooseDay;
+        month = chooseMonth;
+        year = chooseYear;
 
         return new Integer[]{chooseDay, chooseMonth, chooseYear};
 

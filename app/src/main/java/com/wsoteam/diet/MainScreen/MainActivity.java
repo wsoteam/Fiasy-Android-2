@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,12 +50,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.orm.query.Condition;
-import com.orm.query.Select;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.BranchOfCalculating.ActivityListOfCalculating;
@@ -71,17 +67,14 @@ import com.wsoteam.diet.MainScreen.AlertDialogs.AlertDialogChoiseEating;
 import com.wsoteam.diet.MainScreen.Controller.EatingAdapter;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEatingScroll;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
-import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOsCircleProgress.Water;
 import com.wsoteam.diet.R;
 import com.yandex.metrica.YandexMetrica;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -107,6 +100,7 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.collapsingToolbarLayout) CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.nav_view_g) NavigationView navViewG;
     @BindView(R.id.vpEatingTimeLine) ViewPager vpEatingTimeLine;
+    @BindView(R.id.tvDateForMainScreen) TextView tvDateForMainScreen;
     private TextView tvLeftNBName;
     private CircleImageView ivLeftNBAvatar;
     private EatingAdapter eatingAdapter;
@@ -740,7 +734,6 @@ public class MainActivity extends AppCompatActivity
 
         return true;
     }
-
 
 
 }
