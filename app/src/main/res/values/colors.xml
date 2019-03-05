@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3e0169</color>
+    <color name="colorPrimaryDark">#460261</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorTitleText">#1d1c1c</color>
+
+    <color name="black">#1d1c1c</color>
+    <color name="black_for_background">#371d1c1c</color>
+
+    <color name="colorPrimaryDarkAlfa">#cd340447</color>
+
+
+    <color name="green">#1cae17</color>
+    <color name="пку">#1cae17</color>
+    <color name="white">#ffffff</color>
+    <color name="red">#e12a2a</color>
+    <color name="light_red">#cf3838</color>
+    <color name="white_red">#f14a4a</color>
+    <color name="blue">#4a5bf1</color>
+    <color name="orange">#fb651a</color>
+    <color name="purple">#961afb</color>
+    <color name="gray">#3c3c3c</color>
+    <color name="light_gray">#8f8f8f</color>
+    <color name="yellow">#f9e72a</color>
+    <color name="images_filter">#e17d218f</color>
+    <color name="images_filter_edit_profile">#be252525</color>
+
+
+
+    <color name="red_progress">#fa3939</color>
+    <color name="yellow_progress">#fcd537</color>
+    <color name="green_progress">#2ae133</color>
+
+
+    <color name="uninated_nations_blue">#fa6b44</color>
+    <color name="frostbite">#de32aa</color>
+    <color name="light_green">#4fe76d</color>
+
+    <color name="alfa">#00ffffff</color>
+
+    <!--Exercises-->
+    <color name="whiteColor">#ffffff</color>
+    <color name="dark">#6d050505</color>
+    <color name="darkWithoutAlfa">#ffffff</color>
+    <color name="darkWithoutAlfaJustMoreBlack">#262525</color>
+    <color name="darkWithoutAlfaMoreLight">#4b4a4a</color>
+    <color name="backgroundDelete">#b41c1c</color>
+    <color name="transparent">#00b41c1c</color>
+
+
+    <!--Colors for cirlce progress on main screen-->
+    <color name="fatColor">#fbaa1d</color>
+    <color name="kcalColor">#fffc21</color>
+    <color name="protColor">#ff2b8e</color>
+    <color name="carboColor">#45ff17</color>
+    <color name="little_transparent">#5e303030</color>
+    <color name="littlejust_transparent">#c143d448</color>
+    <color name="textColor">#ffffff</color>
+    <color name="backgroundColor">#ffffff</color>
+
+
+
+    <color name="over_eat_color">#ff0008</color>
+    <color name="bottom_color_for_eating_diary_style">#a943fe</color>
+
+
+    <color name="text_color_item_eating_diary">#7091be</color>
+
+
+    <color name="wave_color">#00d2ff</color>
+    <color name="glass_color">#3784899d</color>
+
+    <color name="level_easy">#43d448</color>
+    <color name="level_normal">#fbaa1d</color>
+    <color name="level_hard">#b41c1c</color>
+
+
+    <color name="add_food_green">#00a82d</color>
+    <color name="add_food_red">#f44336</color>
+
+
+    <color name="imt_close_ad">#00a82d</color>
+</resources>

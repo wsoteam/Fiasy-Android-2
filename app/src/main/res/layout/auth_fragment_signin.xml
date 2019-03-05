@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/auth_signin_btn_google"
+        android:layout_width="230dp"
+        android:layout_height="42dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="136dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/auth_signin_et_email"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="340dp"
+        android:ems="10"
+        android:hint="@string/auth_hint_email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/auth_signin_et_password"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/auth_hint_password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/auth_signin_et_email"
+        app:layout_constraintStart_toStartOf="@+id/auth_signin_et_email"
+        app:layout_constraintTop_toBottomOf="@+id/auth_signin_et_email" />
+
+    <Button
+        android:id="@+id/auth_signin_btn_signin"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="162dp"
+        android:text="@string/auth_signin_btn_signin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/auth_signin_et_password" />
+
+    <Button
+        android:id="@+id/auth_signin_btn_signout"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Выйти"
+        app:layout_constraintEnd_toEndOf="@+id/auth_signin_btn_signin"
+        app:layout_constraintStart_toStartOf="@+id/auth_signin_btn_signin"
+        app:layout_constraintTop_toBottomOf="@+id/auth_signin_btn_signin" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.startapp:inapp-sdk:3.8.4@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/inapp-sdk-3.8.4.aar/32cefa8441a1050748e747e552cba8e0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/inapp-sdk-3.8.4.aar/32cefa8441a1050748e747e552cba8e0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.startapp/inapp-sdk/3.8.4/3fcc74b6c10bedb2e19050bba5fe857eb378c6f9/inapp-sdk-3.8.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

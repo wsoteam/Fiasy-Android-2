@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "588344798889",
+    "firebase_url": "https://diet-for-test.firebaseio.com",
+    "project_id": "diet-for-test",
+    "storage_bucket": "diet-for-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588344798889:android:9e20405dfc5e7aea",
+        "android_client_info": {
+          "package_name": "com.wild.diet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588344798889-cr28eaof07tfndusqa5a51bjfkqj9tla.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS15atgMhaM1AklHvC-3rUMKloZvqgSgA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/btn_nav_eating_breakfast"
+        android:title="@string/btn_nav_eating_breakfast"
+        android:icon="@drawable/btn_nav_eating_breakfast"/>
+
+    <item
+        android:id="@+id/btn_nav_eating_lunch"
+        android:title="@string/btn_nav_eating_lunch"
+        android:icon="@drawable/btn_nav_eating_lunch"/>
+
+    <item
+        android:id="@+id/btn_nav_eating_dinner"
+        android:title="@string/navigation_dinner"
+        android:icon="@drawable/btn_nav_eating_dinner"/>
+
+    <item
+        android:id="@+id/btn_nav_eating_snack"
+        android:title="@string/navigation_snack"
+        android:icon="@drawable/btn_nav_eating_snack"/>
+
+
+</menu>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group>
+        <item
+            android:id="@+id/nav_diary"
+            android:title="Дневник" />
+            <!--android:icon="@drawable/nav_left_gym"-->
+        <item
+            android:id="@+id/nav_diets"
+            android:title="Монодиеты" />
+        <item
+            android:id="@+id/nav_recipes"
+            android:title="Рецепты" />
+        <item
+            android:id="@+id/nav_notifications"
+            android:title="Задачи" />
+        <item
+            android:id="@+id/nav_fitness"
+            android:title="Упражнения" />
+        <item
+            android:id="@+id/nav_calculating"
+            android:title="Расчеты" />
+        <item
+            android:id="@+id/nav_settings"
+            android:title="Настройки" />
+        <item
+            android:id="@+id/nav_exit"
+            android:title="Выход" />
+
+
+    </group>
+
+</menu>

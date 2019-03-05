@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wsoteam.diet"
+    android:installLocation="internalOnly">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+    <application
+        android:name=".RunClass.Diet"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Authenticate.ActivityAuthenticate"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+            android:value="true"/>
+        <meta-data
+            android:name="DATABASE"
+            android:value="diet_database_diary_items2.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="2" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.wsoteam.diet" />
+
+        <activity
+            android:name=".OtherActivity.ActivitySplash"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".BranchOfMonoDiets.ActivityViewerOfBodyItem" />
+        <activity
+            android:name=".OtherActivity.ActivitySettings"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfMonoDiets.ActivityMonoDiet"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfCalculating.ActivityListOfCalculating"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainScreen.MainActivity"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".BranchOfCalculating.ActivityCalculatorBrok"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfCalculating.ActivityCalculatorLorenc"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".OtherActivity.ActivityEmpty"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfCalculating.ActivityCalculatorIMT"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfRecipes.ActivityRecipes"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfRecipes.ActivityGroupsOfRecipes"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfDiary.ActivityAddData"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfDiary.ActivityListOfDiary"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".BranchOfDescription.ActivityDescription"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".BranchOfNotifications.ActivityDetailNotification"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfNotifications.ActivityListOfNotifications"
+            android:theme="@style/NotificationListActivity" />
+        <activity
+            android:name=".OtherActivity.ActivityAboutSetingsNotifications"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfCalculating.ActivityCalculatorSPK"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfNews.ActivityListOfNews"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfNews.ActivityDetailPhoto"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.vk.sdk.VKServiceActivity"
+            android:label="ServiceActivity"
+            android:theme="@style/VK.Transparent" />
+        <activity
+            android:name=".BranchOfExercises.Activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityListOfExGroups"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityListOfEx"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityExDetail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfExercises.ActivitiesProgramm.ActivityListOfTraining"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfExercises.ActivitiesProgramm.ActivityWithTiles"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfExercises.ActivitiesArticles.ActivityDetailAcrticles"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfAnalyzer.ActivityListAndSearch"
+            android:theme="@style/NotificationListActivity" />
+        <activity
+            android:name=".BranchOfAnalyzer.ActivityDetailOfFood"
+            android:theme="@style/NotificationListActivity" />
+        <activity
+            android:name=".BranchOfBilling.ActivityPresentation"
+            android:theme="@style/NotificationListActivity" />
+        <activity
+            android:name=".BranchOfAnalyzer.ActivityRequestOfWatchADVideo"
+            android:theme="@style/NotificationListActivity" />
+        <activity
+            android:name=".BranchEatingDiary.ActivityEatingDiary"
+            android:theme="@style/EatingDiaryStyle" />
+        <activity
+            android:name=".BranchProfile.ActivityProfile"
+            android:theme="@style/EatingDiaryStyle" />
+        <activity
+            android:name=".BranchProfile.ActivityEditProfile"
+            android:theme="@style/EatingDiaryStyle" />
+        <activity
+            android:name=".BranchProfile.ActivityHelp"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <receiver
+            android:name=".Services.AlarmManagerBR"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver android:name=".Services.RestartReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkWithoutAlfa"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/mainappbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_for_main_collapsing"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="5dp">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginEnd="5dp"
+            app:expandedTitleMarginStart="5dp"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Subhead"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <me.itangqi.waveloadingview.WaveLoadingView
+                    android:id="@+id/waveLoadingView"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:wlv_titleCenterColor="@color/white"
+                    app:wlv_titleCenter="0/2000"
+                    app:wlv_titleCenterSize="14sp"
+                    android:layout_marginBottom="38dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/apCollapsingKcal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/apCollapsingKcal"
+                    app:layout_constraintTop_toTopOf="@+id/apCollapsingKcal"
+                    app:layout_constraintVertical_bias="1.0"
+                    app:wlv_borderColor="@color/glass_color"
+                    app:wlv_borderWidth="1dp"
+                    app:wlv_progressValue="0"
+                    app:wlv_waveColor="@color/wave_color" />
+
+                <com.github.lzyzsd.circleprogress.ArcProgress
+                    android:id="@+id/apCollapsingKcal"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="32dp"
+                    app:arc_bottom_text="Калории"
+                    app:arc_bottom_text_size="17sp"
+                    app:arc_finished_color="@color/kcalColor"
+                    app:arc_max="2000"
+                    app:arc_progress="1900"
+                    app:arc_stroke_width="2dp"
+                    app:arc_suffix_text="ккал"
+                    app:arc_suffix_text_padding="20dp"
+                    app:arc_text_color="@color/textColor"
+                    app:arc_text_size="45sp"
+                    app:arc_unfinished_color="@color/little_transparent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.github.lzyzsd.circleprogress.ArcProgress
+                    android:id="@+id/apCollapsingProt"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginStart="16dp"
+                    app:arc_bottom_text="Белки"
+                    app:arc_bottom_text_size="9sp"
+                    app:arc_finished_color="@color/protColor"
+                    app:arc_max="1000"
+                    app:arc_progress="0"
+                    app:arc_stroke_width="3dp"
+                    app:arc_suffix_text="@string/gramm"
+                    app:arc_text_color="@color/textColor"
+                    app:arc_text_size="20sp"
+                    app:arc_unfinished_color="@color/little_transparent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/apCollapsingCarbo"
+                    app:layout_constraintTop_toTopOf="@+id/apCollapsingCarbo" />
+
+                <com.github.lzyzsd.circleprogress.ArcProgress
+                    android:id="@+id/apCollapsingCarbo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="8dp"
+                    app:arc_bottom_text="Углеводы"
+                    app:arc_bottom_text_size="9sp"
+                    app:arc_finished_color="@color/carboColor"
+                    app:arc_max="1000"
+                    app:arc_progress="0"
+                    app:arc_stroke_width="3dp"
+                    app:arc_suffix_text="@string/gramm"
+                    app:arc_text_color="@color/textColor"
+                    app:arc_text_size="20sp"
+                    app:arc_unfinished_color="@color/little_transparent"
+                    app:layout_constraintEnd_toStartOf="@+id/apCollapsingProt"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/apCollapsingFat"
+                    app:layout_constraintTop_toBottomOf="@+id/apCollapsingKcal" />
+
+                <com.github.lzyzsd.circleprogress.ArcProgress
+                    android:id="@+id/apCollapsingFat"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="24dp"
+                    app:arc_bottom_text="Жиры"
+                    app:arc_bottom_text_size="9dp"
+                    app:arc_finished_color="@color/fatColor"
+                    app:arc_max="1000"
+                    app:arc_progress="0"
+                    app:arc_stroke_width="3dp"
+                    app:arc_suffix_text="@string/gramm"
+                    app:arc_text_color="@color/textColor"
+                    app:arc_text_size="20sp"
+                    app:arc_unfinished_color="@color/little_transparent"
+                    app:layout_constraintEnd_toStartOf="@+id/apCollapsingCarbo"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/apCollapsingCarbo" />
+
+
+                <TextView
+                    android:id="@+id/tvCircleProgressProt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Белки"
+                    android:textColor="@color/textColor"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/apCollapsingProt"
+                    app:layout_constraintStart_toStartOf="@+id/apCollapsingProt"
+                    app:layout_constraintTop_toBottomOf="@+id/apCollapsingProt" />
+
+                <TextView
+                    android:id="@+id/tvCircleProgressCarbo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="32dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Углеводы"
+                    android:textColor="@color/textColor"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/apCollapsingCarbo"
+                    app:layout_constraintStart_toStartOf="@+id/apCollapsingCarbo"
+                    app:layout_constraintTop_toBottomOf="@+id/apCollapsingCarbo" />
+
+                <TextView
+                    android:id="@+id/tvCircleProgressFat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Жиры"
+                    android:textColor="@color/textColor"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/apCollapsingFat"
+                    app:layout_constraintStart_toStartOf="@+id/apCollapsingFat"
+                    app:layout_constraintTop_toBottomOf="@+id/apCollapsingFat" />
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="99dp"
+                    android:src="@drawable/highlight_ball"
+                    app:layout_constraintBottom_toBottomOf="@+id/waveLoadingView"
+                    app:layout_constraintEnd_toEndOf="@+id/waveLoadingView"
+                    app:layout_constraintStart_toStartOf="@+id/waveLoadingView"
+                    app:layout_constraintTop_toTopOf="@+id/waveLoadingView" />
+
+                <TextView
+                    android:id="@+id/textView46"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Вода"
+                    android:textSize="17sp"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintEnd_toEndOf="@+id/waveLoadingView"
+                    app:layout_constraintStart_toStartOf="@+id/waveLoadingView"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+
+                <ImageView
+                    android:id="@+id/ivMainScreenCollapsingCancelWater"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_main_collapsing_cancel_water"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView46"
+                    app:layout_constraintStart_toEndOf="@+id/textView46"
+                    app:layout_constraintTop_toTopOf="@+id/textView46" />
+
+                <ImageView
+                    android:id="@+id/ivCollapsingMainCompleteWater"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    android:src="@drawable/image_complete_tick"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView11"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView11"
+                    app:layout_constraintStart_toStartOf="@+id/imageView11"
+                    app:layout_constraintTop_toTopOf="@+id/waveLoadingView" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"></android.support.v7.widget.Toolbar>
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/vpEatingTimeLine"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <!--<android.support.v7.widget.RecyclerView
+        android:id="@+id/rvMainScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAddEating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_fab_mainmenu_eating_diary"
+        app:backgroundTint="@color/white"
+        app:elevation="8dp"
+        app:borderWidth="0dp"
+        app:layout_anchor="@id/mainappbar"
+        app:layout_anchorGravity="bottom|right"
+        android:layout_marginRight="8dp"
+        tools:layout_editor_absoluteX="252dp"
+        tools:layout_editor_absoluteY="228dp" />
+</android.support.design.widget.CoordinatorLayout>
