@@ -32,6 +32,7 @@ android {
 
 repositories {
     jcenter()
+    mavenCentral()
 }
 ext {
     supportLibrary = "27.0.2"

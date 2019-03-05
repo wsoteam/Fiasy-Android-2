@@ -1,5 +1,12 @@
 <resources>
 
+
+    <!--auth_fragment_main-->
+    <string name="auth_main_et_hint_email">Имейл</string>
+    <string name="auth_main_et_hint_pass">Пароль</string>
+    <string name="auth_main_btn_signin">Войти</string>
+    <string name="auth_main_btn_create">Зарегестрироваться</string>
+
     <!--auth_fragment_registration-->
     <string name="reg_tv_hou_copmfortable">Как тебе удобней входить в систему?</string>
     <string name="reg_tv_contract">Условия предоставления услуг</string>

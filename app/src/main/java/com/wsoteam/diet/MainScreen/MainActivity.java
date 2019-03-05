@@ -46,8 +46,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.orm.query.Condition;
 import com.orm.query.Select;
+import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
@@ -65,6 +71,7 @@ import com.wsoteam.diet.MainScreen.AlertDialogs.AlertDialogChoiseEating;
 import com.wsoteam.diet.MainScreen.Controller.EatingAdapter;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEatingScroll;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
+import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOsCircleProgress.Water;
 import com.wsoteam.diet.R;
@@ -666,6 +673,32 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    private void signOut() {
+
+        Log.d("Authenticate", "signOut: in MainActivity ");
+
+        // Firebase sign out
+        FirebaseAuth.getInstance().signOut();
+
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+
+        // Google sign out
+        GoogleSignIn.getClient(this, gso).signOut().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.d("Authenticate", "signOut Google: in MainActivity ");
+
+                    }
+                });
+        startActivity(new Intent(this, ActivityAuthenticate.class));
+    }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -695,7 +728,7 @@ public class MainActivity extends AppCompatActivity
                 intent = new Intent(MainActivity.this, ActivitySettings.class);
                 break;
             case R.id.nav_exit:
-
+                signOut();
                 break;
         }
         startActivity(intent);
