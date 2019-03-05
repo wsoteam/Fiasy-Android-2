@@ -1,7 +1,9 @@
 package com.wsoteam.diet.Authenticate;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +14,6 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -43,8 +44,6 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private CallbackManager callbackManager;
-    private LoginButton loginButton;
-    private LoginManager loginManager;
 
     private EditText emailEditText;
     private EditText passEditText;
@@ -182,8 +181,6 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
-
-
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
         if (email.matches("") ||
@@ -250,6 +247,24 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(getString(R.string.exit_alerdialog_title))
+                .setMessage(getString(R.string.exit_alertdialog_body))
+                .setPositiveButton(getString(R.string.exit_alertdialog_btn_yes), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+
+                })
+                .setNegativeButton(getString(R.string.exit_alertdialog_btn_no), null)
+                .show();
     }
 
     @Override

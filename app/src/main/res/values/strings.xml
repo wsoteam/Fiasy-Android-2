@@ -1,5 +1,10 @@
 <resources>
 
+    <!--exit alert dialog-->
+    <string name="exit_alerdialog_title">Выход из приложения</string>
+    <string name="exit_alertdialog_body">Вы уверены, что хотите выйти?</string>
+    <string name="exit_alertdialog_btn_no">Нет</string>
+    <string name="exit_alertdialog_btn_yes">Да</string>
 
     <!--auth_fragment_main-->
     <string name="auth_main_et_hint_email">Имейл</string>
