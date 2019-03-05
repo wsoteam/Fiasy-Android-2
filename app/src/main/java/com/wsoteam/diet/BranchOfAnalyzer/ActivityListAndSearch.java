@@ -259,6 +259,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
                 Intent intent = new Intent(ActivityListAndSearch.this, ActivityDetailOfFood.class);
                 intent.putExtra("ActivityDetailOfFood", tempListOfGroupsFoods.get(getAdapterPosition()));
                 intent.putExtra(Config.TAG_CHOISE_EATING, getIntent().getStringExtra(Config.TAG_CHOISE_EATING));
+                intent.putExtra(Config.INTENT_DATE_FOR_SAVE, getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
                 startActivity(intent);
             }
 

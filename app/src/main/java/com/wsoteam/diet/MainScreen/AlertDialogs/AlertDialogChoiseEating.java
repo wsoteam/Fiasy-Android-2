@@ -14,7 +14,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
 public class AlertDialogChoiseEating {
-    public static AlertDialog createChoiseEatingAlertDialog(Context context) {
+    public static AlertDialog createChoiseEatingAlertDialog(Context context, String date) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         AlertDialog alertDialog = builder.create();
         View view = LayoutInflater.from(context).inflate(R.layout.alert_dialog_choise_eating_type, null);
@@ -30,7 +30,8 @@ public class AlertDialogChoiseEating {
             @Override
             public void onClick(View view) {
                 context.startActivity(new Intent(context, ActivityListAndSearch.class)
-                        .putExtra(Config.TAG_CHOISE_EATING, Config.INTENT_CHOISE_BREAKFAST));
+                        .putExtra(Config.TAG_CHOISE_EATING, Config.INTENT_CHOISE_BREAKFAST)
+                        .putExtra(Config.INTENT_DATE_FOR_SAVE, date));
                 alertDialog.cancel();
             }
         });
@@ -38,7 +39,8 @@ public class AlertDialogChoiseEating {
             @Override
             public void onClick(View view) {
                 context.startActivity(new Intent(context, ActivityListAndSearch.class)
-                        .putExtra(Config.TAG_CHOISE_EATING, Config.INTENT_CHOISE_LUNCH));
+                        .putExtra(Config.TAG_CHOISE_EATING, Config.INTENT_CHOISE_LUNCH)
+                        .putExtra(Config.INTENT_DATE_FOR_SAVE, date));
                 alertDialog.cancel();
             }
         });
@@ -46,7 +48,8 @@ public class AlertDialogChoiseEating {
             @Override
             public void onClick(View view) {
                 context.startActivity(new Intent(context, ActivityListAndSearch.class)
-                        .putExtra(Config.TAG_CHOISE_EATING, Config.INTENT_CHOISE_DINNER));
+                        .putExtra(Config.TAG_CHOISE_EATING, Config.INTENT_CHOISE_DINNER)
+                        .putExtra(Config.INTENT_DATE_FOR_SAVE, date));
                 alertDialog.cancel();
             }
         });
@@ -54,7 +57,8 @@ public class AlertDialogChoiseEating {
             @Override
             public void onClick(View view) {
                 context.startActivity(new Intent(context, ActivityListAndSearch.class)
-                        .putExtra(Config.TAG_CHOISE_EATING, Config.INTENT_CHOISE_SNACK));
+                        .putExtra(Config.TAG_CHOISE_EATING, Config.INTENT_CHOISE_SNACK)
+                        .putExtra(Config.INTENT_DATE_FOR_SAVE, date));
                 alertDialog.cancel();
             }
         });

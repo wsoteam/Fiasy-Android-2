@@ -144,7 +144,14 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     }
 
     private void savePortion(String stringExtra) {
-        Calendar calendar = Calendar.getInstance();
+
+        String wholeDate = getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE);
+        Log.e("TER", wholeDate);
+        String[] arrayOfNumbersForDate = wholeDate.split("\\.");
+
+        int day = Integer.parseInt(arrayOfNumbersForDate[0]);
+        int month = Integer.parseInt(arrayOfNumbersForDate[1]) - 1;
+        int year = Integer.parseInt(arrayOfNumbersForDate[2]);
 
         int kcal = Integer.parseInt(tvCalculateKcal.getText().toString().split(" ")[0]);
         int carbo = Integer.parseInt(tvCalculateCarbohydrates.getText().toString().split(" ")[0]);
@@ -153,9 +160,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
         int weight = Integer.parseInt(edtWeight.getText().toString());
 
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int month = calendar.get(Calendar.MONTH);
-        int year = calendar.get(Calendar.YEAR);
+
 
         String name = foodItem.getName();
         String urlOfImage = foodItem.getUrlOfImages();

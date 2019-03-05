@@ -268,7 +268,8 @@ public class MainActivity extends AppCompatActivity
         fabAddEating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialogChoiseEating.createChoiseEatingAlertDialog(MainActivity.this).show();
+                AlertDialogChoiseEating.createChoiseEatingAlertDialog(MainActivity.this,
+                        tvDateForMainScreen.getText().toString()).show();
             }
         });
 

@@ -31,6 +31,7 @@ public class Config {
 
     //MainActivity
     public static final int COUNT_PAGE = 3650;
+    public static final String INTENT_DATE_FOR_SAVE = "INTENT_DATE_FOR_SAVE";
 
 
 }
