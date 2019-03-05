@@ -51,10 +51,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.BranchOfCalculating.ActivityListOfCalculating;
 import com.wsoteam.diet.BranchOfDiary.ActivityListOfDiary;
 import com.wsoteam.diet.BranchOfMonoDiets.ActivityMonoDiet;
@@ -63,7 +59,7 @@ import com.wsoteam.diet.BranchOfRecipes.ActivityGroupsOfRecipes;
 import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.BranchProfile.ActivityProfile;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.MainScreen.AlertDialogs.AlertDialogChoiseEating;
+import com.wsoteam.diet.MainScreen.Support.AlertDialogChoiseEating;
 import com.wsoteam.diet.MainScreen.Controller.EatingAdapter;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEatingScroll;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
@@ -74,7 +70,6 @@ import com.yandex.metrica.YandexMetrica;
 
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -170,7 +165,7 @@ public class MainActivity extends AppCompatActivity
         bindHandler.post(new Runnable() {
             @Override
             public void run() {
-                bindCircleProgressBars(day, month, year, profile);
+                setMaxParamsInProgressBars(day, month, year, profile);
                 fillWaterView(day, month, year, profile);
             }
         });
@@ -207,7 +202,6 @@ public class MainActivity extends AppCompatActivity
                 decreaseCountOfWater();
             }
         });
-        //new LoadEatingForThisDay().execute();
     }
 
     private void showThankToast() {
@@ -457,9 +451,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void bindCircleProgressBars(int day, int month, int year, @Nullable Profile profile) {
-        Log.e("LOL", "Start");
-
+    private void setMaxParamsInProgressBars(int day, int month, int year, @Nullable Profile profile) {
         if (profile != null) {
             apCollapsingKcal.setMax(profile.getMaxKcal());
             apCollapsingProt.setMax(profile.getMaxProt());
@@ -470,100 +462,6 @@ public class MainActivity extends AppCompatActivity
             apCollapsingProt.setMax(100);
             apCollapsingCarbo.setMax(100);
             apCollapsingFat.setMax(100);
-        }
-
-
-        int prot = 0, kcal = 0, fat = 0, carbo = 0;
-
-        List<Breakfast> breakfasts = Breakfast.listAll(Breakfast.class);
-        List<Lunch> lunches = Lunch.listAll(Lunch.class);
-        List<Dinner> dinners = Dinner.listAll(Dinner.class);
-        List<Snack> snacks = Snack.listAll(Snack.class);
-
-        Breakfast.deleteAll(Breakfast.class);
-        Lunch.deleteAll(Lunch.class);
-        Dinner.deleteAll(Dinner.class);
-        Snack.deleteAll(Snack.class);
-
-        for (int i = 0; i < breakfasts.size(); i++) {
-            if (breakfasts.get(i).getDay() < day || breakfasts.get(i).getMonth() < month || breakfasts.get(i).getYear() < year) {
-
-            } else {
-                breakfasts.get(i).save();
-                prot += breakfasts.get(i).getProtein();
-                kcal += breakfasts.get(i).getCalories();
-                fat += breakfasts.get(i).getFat();
-                carbo += breakfasts.get(i).getCarbohydrates();
-            }
-        }
-        for (int i = 0; i < lunches.size(); i++) {
-            if (lunches.get(i).getDay() < day || lunches.get(i).getMonth() < month || lunches.get(i).getYear() < year) {
-
-            } else {
-                lunches.get(i).save();
-                prot += lunches.get(i).getProtein();
-                kcal += lunches.get(i).getCalories();
-                fat += lunches.get(i).getFat();
-                carbo += lunches.get(i).getCarbohydrates();
-            }
-        }
-        for (int i = 0; i < dinners.size(); i++) {
-            if (dinners.get(i).getDay() < day || dinners.get(i).getMonth() < month || dinners.get(i).getYear() < year) {
-
-            } else {
-                dinners.get(i).save();
-                prot += dinners.get(i).getProtein();
-                kcal += dinners.get(i).getCalories();
-                fat += dinners.get(i).getFat();
-                carbo += dinners.get(i).getCarbohydrates();
-            }
-        }
-        for (int i = 0; i < snacks.size(); i++) {
-            if (snacks.get(i).getDay() < day || snacks.get(i).getMonth() < month || snacks.get(i).getYear() < year) {
-
-            } else {
-                snacks.get(i).save();
-                prot += snacks.get(i).getProtein();
-                kcal += snacks.get(i).getCalories();
-                fat += snacks.get(i).getFat();
-                carbo += snacks.get(i).getCarbohydrates();
-            }
-        }
-        Log.e("LOL", "Finish");
-
-        apCollapsingKcal.setProgress(kcal);
-        apCollapsingProt.setProgress(prot);
-        apCollapsingCarbo.setProgress(carbo);
-        apCollapsingFat.setProgress(fat);
-
-
-        if (apCollapsingKcal.getMax() < kcal) {
-            apCollapsingKcal.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
-            apCollapsingKcal.setSuffixText("-" + String.valueOf(kcal - apCollapsingKcal.getMax()));
-        } else {
-            apCollapsingKcal.setFinishedStrokeColor(getResources().getColor(R.color.kcalColor));
-            apCollapsingKcal.setSuffixText("+" + String.valueOf(apCollapsingKcal.getMax() - kcal));
-        }
-        if (apCollapsingCarbo.getMax() < carbo) {
-            apCollapsingCarbo.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
-            tvCircleProgressCarbo.setText("избыток  " + String.valueOf(carbo - apCollapsingCarbo.getMax()) + " г");
-        } else {
-            apCollapsingCarbo.setFinishedStrokeColor(getResources().getColor(R.color.carboColor));
-            tvCircleProgressCarbo.setText("осталось  " + String.valueOf(apCollapsingCarbo.getMax() - carbo) + " г");
-        }
-        if (apCollapsingFat.getMax() < fat) {
-            apCollapsingFat.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
-            tvCircleProgressFat.setText("избыток  " + String.valueOf(fat - apCollapsingFat.getMax()) + " г");
-        } else {
-            apCollapsingFat.setFinishedStrokeColor(getResources().getColor(R.color.fatColor));
-            tvCircleProgressFat.setText("осталось  " + String.valueOf(apCollapsingFat.getMax() - fat) + " г");
-        }
-        if (apCollapsingProt.getMax() < prot) {
-            apCollapsingProt.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
-            tvCircleProgressProt.setText("избыток " + String.valueOf(prot - apCollapsingProt.getMax()) + " г");
-        } else {
-            apCollapsingProt.setFinishedStrokeColor(getResources().getColor(R.color.protColor));
-            tvCircleProgressProt.setText("осталось " + String.valueOf(apCollapsingProt.getMax() - prot) + " г");
         }
 
     }

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.orm.query.Condition;
 import com.orm.query.Select;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
@@ -43,7 +44,11 @@ public class FragmentEatingScroll extends Fragment {
     Unbinder unbinder;
     private List<List<Eating>> allEat;
     int day, month, year;
-    private TextView parentTitleWithDate;
+    private TextView parentTitleWithDate, tvCircleProgressCarbo, tvCircleProgressFat, tvCircleProgressProt;
+    ArcProgress apCollapsingKcal;
+    ArcProgress apCollapsingProt;
+    ArcProgress apCollapsingCarbo;
+    ArcProgress apCollapsingFat;
 
     public static FragmentEatingScroll newInstance(int position) {
         Bundle bundle = new Bundle();
@@ -57,8 +62,8 @@ public class FragmentEatingScroll extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isResumed()) {
-            parentTitleWithDate = getActivity().findViewById(R.id.tvDateForMainScreen);
             parentTitleWithDate.setText(setDateTitle(day, month, year));
+            new LoadMainParamsAndSetInProgressBars().execute(allEat);
         }
     }
 
@@ -85,6 +90,15 @@ public class FragmentEatingScroll extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         enterPosition = getArguments().getInt(TAG_OF_BUNDLE);
         rvMainScreen.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        parentTitleWithDate = getActivity().findViewById(R.id.tvDateForMainScreen);
+        apCollapsingKcal = getActivity().findViewById(R.id.apCollapsingKcal);
+        apCollapsingProt = getActivity().findViewById(R.id.apCollapsingProt);
+        apCollapsingCarbo = getActivity().findViewById(R.id.apCollapsingCarbo);
+        apCollapsingFat = getActivity().findViewById(R.id.apCollapsingFat);
+        tvCircleProgressCarbo = getActivity().findViewById(R.id.tvCircleProgressCarbo);
+        tvCircleProgressFat = getActivity().findViewById(R.id.tvCircleProgressFat);
+        tvCircleProgressProt = getActivity().findViewById(R.id.tvCircleProgressProt);
 
         return view;
     }
@@ -153,6 +167,8 @@ public class FragmentEatingScroll extends Fragment {
             allEatingForThisDay.add(dinners);
             allEatingForThisDay.add(snacks);
 
+            allEat = allEatingForThisDay;
+
             return allEatingForThisDay;
         }
 
@@ -161,7 +177,63 @@ public class FragmentEatingScroll extends Fragment {
             super.onPostExecute(lists);
             eatingAdapter = new EatingAdapter(lists, getActivity());
             rvMainScreen.setAdapter(eatingAdapter);
-            allEat = lists;
+        }
+    }
+
+    public class LoadMainParamsAndSetInProgressBars extends AsyncTask<List<List<Eating>>, Void, Integer[]> {
+        @Override
+        protected Integer[] doInBackground(List<List<Eating>>... lists) {
+            int kcal = 0, fat = 0, prot = 0, carbo = 0;
+
+            for (int i = 0; i < lists[0].size(); i++) {
+                for (int j = 0; j < lists[0].get(i).size(); j++) {
+                    kcal += lists[0].get(i).get(j).getCalories();
+                    fat += lists[0].get(i).get(j).getFat();
+                    prot += lists[0].get(i).get(j).getProtein();
+                    carbo += lists[0].get(i).get(j).getCarbohydrates();
+                }
+            }
+            return new Integer[] {kcal, fat, prot, carbo};
+        }
+
+        @Override
+        protected void onPostExecute(Integer[] integers) {
+            super.onPostExecute(integers);
+            int kcal = integers[0], fat = integers[1], prot = integers[2], carbo = integers[3];
+
+            apCollapsingKcal.setProgress(kcal);
+            apCollapsingProt.setProgress(prot);
+            apCollapsingCarbo.setProgress(carbo);
+            apCollapsingFat.setProgress(fat);
+
+            if (apCollapsingKcal.getMax() < kcal) {
+                apCollapsingKcal.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
+                apCollapsingKcal.setSuffixText("-" + String.valueOf(kcal - apCollapsingKcal.getMax()));
+            } else {
+                apCollapsingKcal.setFinishedStrokeColor(getResources().getColor(R.color.kcalColor));
+                apCollapsingKcal.setSuffixText("+" + String.valueOf(apCollapsingKcal.getMax() - kcal));
+            }
+            if (apCollapsingCarbo.getMax() < carbo) {
+                apCollapsingCarbo.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
+                tvCircleProgressCarbo.setText("избыток  " + String.valueOf(carbo - apCollapsingCarbo.getMax()) + " г");
+            } else {
+                apCollapsingCarbo.setFinishedStrokeColor(getResources().getColor(R.color.carboColor));
+                tvCircleProgressCarbo.setText("осталось  " + String.valueOf(apCollapsingCarbo.getMax() - carbo) + " г");
+            }
+            if (apCollapsingFat.getMax() < fat) {
+                apCollapsingFat.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
+                tvCircleProgressFat.setText("избыток  " + String.valueOf(fat - apCollapsingFat.getMax()) + " г");
+            } else {
+                apCollapsingFat.setFinishedStrokeColor(getResources().getColor(R.color.fatColor));
+                tvCircleProgressFat.setText("осталось  " + String.valueOf(apCollapsingFat.getMax() - fat) + " г");
+            }
+            if (apCollapsingProt.getMax() < prot) {
+                apCollapsingProt.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
+                tvCircleProgressProt.setText("избыток " + String.valueOf(prot - apCollapsingProt.getMax()) + " г");
+            } else {
+                apCollapsingProt.setFinishedStrokeColor(getResources().getColor(R.color.protColor));
+                tvCircleProgressProt.setText("осталось " + String.valueOf(apCollapsingProt.getMax() - prot) + " г");
+            }
         }
     }
 }

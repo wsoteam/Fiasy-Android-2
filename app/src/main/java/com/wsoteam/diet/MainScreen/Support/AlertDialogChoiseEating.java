@@ -1,4 +1,4 @@
-package com.wsoteam.diet.MainScreen.AlertDialogs;
+package com.wsoteam.diet.MainScreen.Support;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
 
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.Config;
