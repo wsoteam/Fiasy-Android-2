@@ -684,8 +684,8 @@ public class MainActivity extends AppCompatActivity
         //Facebook signOut
         LoginManager.getInstance().logOut();
 
-        startActivity(new Intent(this, ActivityAuth.class));
-        finish();
+//        startActivity(new Intent(this, ActivityAuth.class));
+//        finish();
     }
 
 
@@ -717,6 +717,7 @@ public class MainActivity extends AppCompatActivity
                 intent = new Intent(MainActivity.this, ActivitySettings.class);
                 break;
             case R.id.nav_exit:
+                intent = new Intent(MainActivity.this, ActivityAuth.class);
                 signOut();
                 break;
         }
