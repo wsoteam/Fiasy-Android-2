@@ -65,7 +65,6 @@ public class FragmentEatingScroll extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isResumed()) {
             parentTitleWithDate.setText(setDateTitle(day, month, year));
-            //new LoadMainParamsAndSetInProgressBars().execute(allEat);
             setMainParamsInBars(allEat);
         }
     }
