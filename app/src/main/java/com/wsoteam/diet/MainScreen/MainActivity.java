@@ -83,8 +83,6 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.apCollapsingProt) ArcProgress apCollapsingProt;
     @BindView(R.id.apCollapsingCarbo) ArcProgress apCollapsingCarbo;
     @BindView(R.id.apCollapsingFat) ArcProgress apCollapsingFat;
-    @BindView(R.id.waveLoadingView) WaveLoadingView waveLoadingView;
-    @BindView(R.id.ivMainScreenCollapsingCancelWater) ImageView ivMainScreenCollapsingCancelWater;
     @BindView(R.id.ivCollapsingMainCompleteWater) ImageView ivCollapsingMainCompleteWater;
     @BindView(R.id.fabAddEating) FloatingActionButton fabAddEating;
     @BindView(R.id.tvCircleProgressCarbo) TextView tvCircleProgressCarbo;
@@ -166,19 +164,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void run() {
                 setMaxParamsInProgressBars(day, month, year, profile);
-                fillWaterView(day, month, year, profile);
             }
         });
-
-        /*waveLoadingView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isFullWater) {
-                    soundPool.play(soundIDdBubble, 1, 1, 0, 0, 1);
-                    increaseCountOfWater();
-                }
-            }
-        });*/
 
         ivLeftNBAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,15 +178,6 @@ public class MainActivity extends AppCompatActivity
                     startActivity(intent);
                 }
 
-            }
-        });
-
-        ivMainScreenCollapsingCancelWater.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                soundPool.play(soundIDdBubble, 1, 1, 0, 0, 1);
-                ivMainScreenCollapsingCancelWater.startAnimation(animRotateCancelWater);
-                decreaseCountOfWater();
             }
         });
     }
@@ -268,13 +246,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        waveLoadingView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                showChoisePortionOfWaterAD();
-                return true;
-            }
-        });
+
     }
 
     private void bindViewPager() {
@@ -309,34 +281,7 @@ public class MainActivity extends AppCompatActivity
         ivLeftNBAvatar = view.findViewById(R.id.ivLeftNBAvatar);
     }
 
-    private void showChoisePortionOfWaterAD() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = getLayoutInflater().inflate(R.layout.alert_dialog_show_choise_portion_of_water, null);
-        EditText edtADChoiseWaterPortion = view.findViewById(R.id.edtADChoiseWaterPortion);
-        builder.setView(view);
-        builder.setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (edtADChoiseWaterPortion.getText().toString().equals("")
-                        || Integer.parseInt(edtADChoiseWaterPortion.getText().toString()) == 0) {
-                    Toast.makeText(MainActivity.this, "Введите порцию воды", Toast.LENGTH_SHORT).show();
-                } else {
-                    water = Water.last(Water.class);
-                    water.setStep(Integer.parseInt(edtADChoiseWaterPortion.getText().toString()));
-                    Water.deleteAll(Water.class);
-                    water.save();
-                    Toast.makeText(MainActivity.this, "Новая порция сохранена", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
 
-            }
-        });
-        builder.show();
-    }
 
     private void loadSound() {
         soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
@@ -345,109 +290,6 @@ public class MainActivity extends AppCompatActivity
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-    }
-
-    private void increaseCountOfWater() {
-        double defaultWaterCount = 2000;
-
-        if (profile != null) {
-            double percent = (double) water.getStep() / (double) profile.getWaterCount();
-            int step = (int) Math.round(percent * 100);
-            int newCurrentNumber = water.getCurrentNumber() + water.getStep();
-            waveLoadingView.setCenterTitle(String.valueOf(newCurrentNumber) + "/" + String.valueOf(profile.getWaterCount()));
-            waveLoadingView.setProgressValue(waveLoadingView.getProgressValue() + step);
-
-
-            water.setCurrentNumber(newCurrentNumber);
-            Water.deleteAll(Water.class);
-            water.save();
-        } else {
-            double percent = (double) water.getStep() / defaultWaterCount;
-            int step = (int) Math.round(percent * 100);
-            int newCurrentNumber = water.getCurrentNumber() + water.getStep();
-            waveLoadingView.setCenterTitle(String.valueOf(newCurrentNumber) + "/" + String.valueOf((int) defaultWaterCount));
-            waveLoadingView.setProgressValue(waveLoadingView.getProgressValue() + step);
-
-            water.setCurrentNumber(newCurrentNumber);
-            Water.deleteAll(Water.class);
-            water.save();
-        }
-
-
-        if (waveLoadingView.getProgressValue() >= 100) {
-            waveLoadingView.setCenterTitle("");
-            isFullWater = true;
-            ivMainScreenCollapsingCancelWater.setVisibility(View.GONE);
-            ivCollapsingMainCompleteWater.setVisibility(View.VISIBLE);
-            ivCollapsingMainCompleteWater.startAnimation(animWaterComplete);
-        }
-
-    }
-
-    private void decreaseCountOfWater() {
-        double defaultWaterCount = 2000;
-
-        if (profile != null) {
-            double percent = (double) water.getStep() / (double) profile.getWaterCount();
-            int step = (int) Math.round(percent * 100);
-            int newCurrentNumber = water.getCurrentNumber() - water.getStep();
-            waveLoadingView.setCenterTitle(String.valueOf(newCurrentNumber) + "/" + String.valueOf(profile.getWaterCount()));
-            waveLoadingView.setProgressValue(waveLoadingView.getProgressValue() - step);
-
-            water.setCurrentNumber(newCurrentNumber);
-            Water.deleteAll(Water.class);
-            water.save();
-        } else {
-            double percent = (double) water.getStep() / defaultWaterCount;
-            int step = (int) Math.round(percent * 100);
-            int newCurrentNumber = water.getCurrentNumber() - water.getStep();
-            waveLoadingView.setCenterTitle(String.valueOf(newCurrentNumber) + "/" + String.valueOf((int) defaultWaterCount));
-            waveLoadingView.setProgressValue(waveLoadingView.getProgressValue() - step);
-
-            water.setCurrentNumber(newCurrentNumber);
-            Water.deleteAll(Water.class);
-            water.save();
-        }
-    }
-
-    private void fillWaterView(int day, int month, int year, @Nullable Profile profile) {
-        final int DEFAULT_FIRST_STEP = 200;
-        final int DEFAULT_FIRST_MAX = 2000;
-
-        if (Water.count(Water.class) != 1) {
-            water = new Water(day, month, year, DEFAULT_FIRST_STEP, 0);
-            water.save();
-        } else {
-            water = Water.last(Water.class);
-            if (water.getDay() < day || water.getMonth() < month || water.getYear() < year) {
-                water = Water.last(Water.class);
-                water.setDay(day);
-                water.setMonth(month);
-                water.setYear(year);
-                water.setCurrentNumber(0);
-                Water.deleteAll(Water.class);
-
-                water.save();
-            }
-        }
-        int maxWater = DEFAULT_FIRST_MAX;
-        if (profile != null) {
-            maxWater = profile.getWaterCount();
-        }
-
-        waveLoadingView.setCenterTitle(String.valueOf(water.getCurrentNumber()) + "/" + String.valueOf(maxWater));
-        double percent = (double) water.getCurrentNumber() / (double) maxWater;
-        double progress = percent * 100;
-        waveLoadingView.setProgressValue((int) Math.round(progress));
-
-        if (waveLoadingView.getProgressValue() >= 100) {
-            isFullWater = true;
-            waveLoadingView.setCenterTitle("");
-            ivCollapsingMainCompleteWater.setVisibility(View.VISIBLE);
-            ivMainScreenCollapsingCancelWater.setVisibility(View.GONE);
-        }
-
 
     }
 
@@ -623,6 +465,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_exit:
                 signOut();
                 intent = new Intent(MainActivity.this, ActivityAuthenticate.class);
+                finish();
                 break;
         }
         startActivity(intent);
