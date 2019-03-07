@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -52,15 +51,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+
 import com.orm.query.Condition;
 import com.orm.query.Select;
 import com.wsoteam.diet.Authenticate.ActivityAuth;
+
+
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.BranchOfCalculating.ActivityListOfCalculating;
 import com.wsoteam.diet.BranchOfDiary.ActivityListOfDiary;
 import com.wsoteam.diet.BranchOfMonoDiets.ActivityMonoDiet;
@@ -69,21 +66,17 @@ import com.wsoteam.diet.BranchOfRecipes.ActivityGroupsOfRecipes;
 import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.BranchProfile.ActivityProfile;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.MainScreen.AlertDialogs.AlertDialogChoiseEating;
+import com.wsoteam.diet.MainScreen.Support.AlertDialogChoiseEating;
 import com.wsoteam.diet.MainScreen.Controller.EatingAdapter;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEatingScroll;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
-import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOsCircleProgress.Water;
 import com.wsoteam.diet.R;
 import com.yandex.metrica.YandexMetrica;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -97,8 +90,6 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.apCollapsingProt) ArcProgress apCollapsingProt;
     @BindView(R.id.apCollapsingCarbo) ArcProgress apCollapsingCarbo;
     @BindView(R.id.apCollapsingFat) ArcProgress apCollapsingFat;
-    @BindView(R.id.waveLoadingView) WaveLoadingView waveLoadingView;
-    @BindView(R.id.ivMainScreenCollapsingCancelWater) ImageView ivMainScreenCollapsingCancelWater;
     @BindView(R.id.ivCollapsingMainCompleteWater) ImageView ivCollapsingMainCompleteWater;
     @BindView(R.id.fabAddEating) FloatingActionButton fabAddEating;
     @BindView(R.id.tvCircleProgressCarbo) TextView tvCircleProgressCarbo;
@@ -109,6 +100,7 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.collapsingToolbarLayout) CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.nav_view_g) NavigationView navViewG;
     @BindView(R.id.vpEatingTimeLine) ViewPager vpEatingTimeLine;
+    @BindView(R.id.tvDateForMainScreen) TextView tvDateForMainScreen;
     private TextView tvLeftNBName;
     private CircleImageView ivLeftNBAvatar;
     private EatingAdapter eatingAdapter;
@@ -178,18 +170,7 @@ public class MainActivity extends AppCompatActivity
         bindHandler.post(new Runnable() {
             @Override
             public void run() {
-                bindCircleProgressBars(day, month, year, profile);
-                fillWaterView(day, month, year, profile);
-            }
-        });
-
-        waveLoadingView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isFullWater) {
-                    soundPool.play(soundIDdBubble, 1, 1, 0, 0, 1);
-                    increaseCountOfWater();
-                }
+                setMaxParamsInProgressBars(day, month, year, profile);
             }
         });
 
@@ -206,16 +187,6 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-
-        ivMainScreenCollapsingCancelWater.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                soundPool.play(soundIDdBubble, 1, 1, 0, 0, 1);
-                ivMainScreenCollapsingCancelWater.startAnimation(animRotateCancelWater);
-                decreaseCountOfWater();
-            }
-        });
-        //new LoadEatingForThisDay().execute();
     }
 
     private void showThankToast() {
@@ -276,18 +247,13 @@ public class MainActivity extends AppCompatActivity
         fabAddEating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialogChoiseEating.createChoiseEatingAlertDialog(MainActivity.this).show();
+                AlertDialogChoiseEating.createChoiseEatingAlertDialog(MainActivity.this,
+                        tvDateForMainScreen.getText().toString()).show();
             }
         });
 
 
-        waveLoadingView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                showChoisePortionOfWaterAD();
-                return true;
-            }
-        });
+
     }
 
     private void bindViewPager() {
@@ -322,34 +288,7 @@ public class MainActivity extends AppCompatActivity
         ivLeftNBAvatar = view.findViewById(R.id.ivLeftNBAvatar);
     }
 
-    private void showChoisePortionOfWaterAD() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = getLayoutInflater().inflate(R.layout.alert_dialog_show_choise_portion_of_water, null);
-        EditText edtADChoiseWaterPortion = view.findViewById(R.id.edtADChoiseWaterPortion);
-        builder.setView(view);
-        builder.setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (edtADChoiseWaterPortion.getText().toString().equals("")
-                        || Integer.parseInt(edtADChoiseWaterPortion.getText().toString()) == 0) {
-                    Toast.makeText(MainActivity.this, "Введите порцию воды", Toast.LENGTH_SHORT).show();
-                } else {
-                    water = Water.last(Water.class);
-                    water.setStep(Integer.parseInt(edtADChoiseWaterPortion.getText().toString()));
-                    Water.deleteAll(Water.class);
-                    water.save();
-                    Toast.makeText(MainActivity.this, "Новая порция сохранена", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
 
-            }
-        });
-        builder.show();
-    }
 
     private void loadSound() {
         soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
@@ -361,112 +300,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void increaseCountOfWater() {
-        double defaultWaterCount = 2000;
-
-        if (profile != null) {
-            double percent = (double) water.getStep() / (double) profile.getWaterCount();
-            int step = (int) Math.round(percent * 100);
-            int newCurrentNumber = water.getCurrentNumber() + water.getStep();
-            waveLoadingView.setCenterTitle(String.valueOf(newCurrentNumber) + "/" + String.valueOf(profile.getWaterCount()));
-            waveLoadingView.setProgressValue(waveLoadingView.getProgressValue() + step);
-
-
-            water.setCurrentNumber(newCurrentNumber);
-            Water.deleteAll(Water.class);
-            water.save();
-        } else {
-            double percent = (double) water.getStep() / defaultWaterCount;
-            int step = (int) Math.round(percent * 100);
-            int newCurrentNumber = water.getCurrentNumber() + water.getStep();
-            waveLoadingView.setCenterTitle(String.valueOf(newCurrentNumber) + "/" + String.valueOf((int) defaultWaterCount));
-            waveLoadingView.setProgressValue(waveLoadingView.getProgressValue() + step);
-
-            water.setCurrentNumber(newCurrentNumber);
-            Water.deleteAll(Water.class);
-            water.save();
-        }
-
-
-        if (waveLoadingView.getProgressValue() >= 100) {
-            waveLoadingView.setCenterTitle("");
-            isFullWater = true;
-            ivMainScreenCollapsingCancelWater.setVisibility(View.GONE);
-            ivCollapsingMainCompleteWater.setVisibility(View.VISIBLE);
-            ivCollapsingMainCompleteWater.startAnimation(animWaterComplete);
-        }
-
-    }
-
-    private void decreaseCountOfWater() {
-        double defaultWaterCount = 2000;
-
-        if (profile != null) {
-            double percent = (double) water.getStep() / (double) profile.getWaterCount();
-            int step = (int) Math.round(percent * 100);
-            int newCurrentNumber = water.getCurrentNumber() - water.getStep();
-            waveLoadingView.setCenterTitle(String.valueOf(newCurrentNumber) + "/" + String.valueOf(profile.getWaterCount()));
-            waveLoadingView.setProgressValue(waveLoadingView.getProgressValue() - step);
-
-            water.setCurrentNumber(newCurrentNumber);
-            Water.deleteAll(Water.class);
-            water.save();
-        } else {
-            double percent = (double) water.getStep() / defaultWaterCount;
-            int step = (int) Math.round(percent * 100);
-            int newCurrentNumber = water.getCurrentNumber() - water.getStep();
-            waveLoadingView.setCenterTitle(String.valueOf(newCurrentNumber) + "/" + String.valueOf((int) defaultWaterCount));
-            waveLoadingView.setProgressValue(waveLoadingView.getProgressValue() - step);
-
-            water.setCurrentNumber(newCurrentNumber);
-            Water.deleteAll(Water.class);
-            water.save();
-        }
-    }
-
-    private void fillWaterView(int day, int month, int year, @Nullable Profile profile) {
-        final int DEFAULT_FIRST_STEP = 200;
-        final int DEFAULT_FIRST_MAX = 2000;
-
-        if (Water.count(Water.class) != 1) {
-            water = new Water(day, month, year, DEFAULT_FIRST_STEP, 0);
-            water.save();
-        } else {
-            water = Water.last(Water.class);
-            if (water.getDay() < day || water.getMonth() < month || water.getYear() < year) {
-                water = Water.last(Water.class);
-                water.setDay(day);
-                water.setMonth(month);
-                water.setYear(year);
-                water.setCurrentNumber(0);
-                Water.deleteAll(Water.class);
-
-                water.save();
-            }
-        }
-        int maxWater = DEFAULT_FIRST_MAX;
-        if (profile != null) {
-            maxWater = profile.getWaterCount();
-        }
-
-        waveLoadingView.setCenterTitle(String.valueOf(water.getCurrentNumber()) + "/" + String.valueOf(maxWater));
-        double percent = (double) water.getCurrentNumber() / (double) maxWater;
-        double progress = percent * 100;
-        waveLoadingView.setProgressValue((int) Math.round(progress));
-
-        if (waveLoadingView.getProgressValue() >= 100) {
-            isFullWater = true;
-            waveLoadingView.setCenterTitle("");
-            ivCollapsingMainCompleteWater.setVisibility(View.VISIBLE);
-            ivMainScreenCollapsingCancelWater.setVisibility(View.GONE);
-        }
-
-
-    }
-
-    private void bindCircleProgressBars(int day, int month, int year, @Nullable Profile profile) {
-        Log.e("LOL", "Start");
-
+    private void setMaxParamsInProgressBars(int day, int month, int year, @Nullable Profile profile) {
         if (profile != null) {
             apCollapsingKcal.setMax(profile.getMaxKcal());
             apCollapsingProt.setMax(profile.getMaxProt());
@@ -477,100 +311,6 @@ public class MainActivity extends AppCompatActivity
             apCollapsingProt.setMax(100);
             apCollapsingCarbo.setMax(100);
             apCollapsingFat.setMax(100);
-        }
-
-
-        int prot = 0, kcal = 0, fat = 0, carbo = 0;
-
-        List<Breakfast> breakfasts = Breakfast.listAll(Breakfast.class);
-        List<Lunch> lunches = Lunch.listAll(Lunch.class);
-        List<Dinner> dinners = Dinner.listAll(Dinner.class);
-        List<Snack> snacks = Snack.listAll(Snack.class);
-
-        Breakfast.deleteAll(Breakfast.class);
-        Lunch.deleteAll(Lunch.class);
-        Dinner.deleteAll(Dinner.class);
-        Snack.deleteAll(Snack.class);
-
-        for (int i = 0; i < breakfasts.size(); i++) {
-            if (breakfasts.get(i).getDay() < day || breakfasts.get(i).getMonth() < month || breakfasts.get(i).getYear() < year) {
-
-            } else {
-                breakfasts.get(i).save();
-                prot += breakfasts.get(i).getProtein();
-                kcal += breakfasts.get(i).getCalories();
-                fat += breakfasts.get(i).getFat();
-                carbo += breakfasts.get(i).getCarbohydrates();
-            }
-        }
-        for (int i = 0; i < lunches.size(); i++) {
-            if (lunches.get(i).getDay() < day || lunches.get(i).getMonth() < month || lunches.get(i).getYear() < year) {
-
-            } else {
-                lunches.get(i).save();
-                prot += lunches.get(i).getProtein();
-                kcal += lunches.get(i).getCalories();
-                fat += lunches.get(i).getFat();
-                carbo += lunches.get(i).getCarbohydrates();
-            }
-        }
-        for (int i = 0; i < dinners.size(); i++) {
-            if (dinners.get(i).getDay() < day || dinners.get(i).getMonth() < month || dinners.get(i).getYear() < year) {
-
-            } else {
-                dinners.get(i).save();
-                prot += dinners.get(i).getProtein();
-                kcal += dinners.get(i).getCalories();
-                fat += dinners.get(i).getFat();
-                carbo += dinners.get(i).getCarbohydrates();
-            }
-        }
-        for (int i = 0; i < snacks.size(); i++) {
-            if (snacks.get(i).getDay() < day || snacks.get(i).getMonth() < month || snacks.get(i).getYear() < year) {
-
-            } else {
-                snacks.get(i).save();
-                prot += snacks.get(i).getProtein();
-                kcal += snacks.get(i).getCalories();
-                fat += snacks.get(i).getFat();
-                carbo += snacks.get(i).getCarbohydrates();
-            }
-        }
-        Log.e("LOL", "Finish");
-
-        apCollapsingKcal.setProgress(kcal);
-        apCollapsingProt.setProgress(prot);
-        apCollapsingCarbo.setProgress(carbo);
-        apCollapsingFat.setProgress(fat);
-
-
-        if (apCollapsingKcal.getMax() < kcal) {
-            apCollapsingKcal.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
-            apCollapsingKcal.setSuffixText("-" + String.valueOf(kcal - apCollapsingKcal.getMax()));
-        } else {
-            apCollapsingKcal.setFinishedStrokeColor(getResources().getColor(R.color.kcalColor));
-            apCollapsingKcal.setSuffixText("+" + String.valueOf(apCollapsingKcal.getMax() - kcal));
-        }
-        if (apCollapsingCarbo.getMax() < carbo) {
-            apCollapsingCarbo.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
-            tvCircleProgressCarbo.setText("избыток  " + String.valueOf(carbo - apCollapsingCarbo.getMax()) + " г");
-        } else {
-            apCollapsingCarbo.setFinishedStrokeColor(getResources().getColor(R.color.carboColor));
-            tvCircleProgressCarbo.setText("осталось  " + String.valueOf(apCollapsingCarbo.getMax() - carbo) + " г");
-        }
-        if (apCollapsingFat.getMax() < fat) {
-            apCollapsingFat.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
-            tvCircleProgressFat.setText("избыток  " + String.valueOf(fat - apCollapsingFat.getMax()) + " г");
-        } else {
-            apCollapsingFat.setFinishedStrokeColor(getResources().getColor(R.color.fatColor));
-            tvCircleProgressFat.setText("осталось  " + String.valueOf(apCollapsingFat.getMax() - fat) + " г");
-        }
-        if (apCollapsingProt.getMax() < prot) {
-            apCollapsingProt.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
-            tvCircleProgressProt.setText("избыток " + String.valueOf(prot - apCollapsingProt.getMax()) + " г");
-        } else {
-            apCollapsingProt.setFinishedStrokeColor(getResources().getColor(R.color.protColor));
-            tvCircleProgressProt.setText("осталось " + String.valueOf(apCollapsingProt.getMax() - prot) + " г");
         }
 
     }
@@ -730,7 +470,6 @@ public class MainActivity extends AppCompatActivity
 
         return true;
     }
-
 
 
 }
