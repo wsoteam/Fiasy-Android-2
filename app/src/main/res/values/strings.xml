@@ -1,5 +1,8 @@
 <resources>
 
+    <!--ActivitySubscription-->
+    <string name="subsc_btn_bay">Купить премиум</string>
+
     <!--exit alert dialog-->
     <string name="exit_alerdialog_title">Выход из приложения</string>
     <string name="exit_alertdialog_body">Вы уверены, что хотите выйти?</string>
