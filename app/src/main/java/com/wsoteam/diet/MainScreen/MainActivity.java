@@ -218,6 +218,8 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         setTitle("");
 
+        WorkUserData.pushUserData();
+
         mainappbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
             int scrollRange = -1;

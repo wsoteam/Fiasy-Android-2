@@ -2,7 +2,9 @@ package com.wsoteam.diet.POJOProfile;
 
 import com.orm.SugarRecord;
 
-public class Profile extends SugarRecord {
+import java.io.Serializable;
+
+public class Profile extends SugarRecord implements Serializable {
     private String firstName;
     private String lastName;
 

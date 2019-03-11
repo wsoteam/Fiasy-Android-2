@@ -62,6 +62,7 @@ public class ActivitySplash extends AppCompatActivity {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
 
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_ENTITY_FOR_DB);
 
