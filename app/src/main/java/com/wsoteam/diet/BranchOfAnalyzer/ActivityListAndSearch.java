@@ -102,6 +102,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         ivEmptyImage = findViewById(R.id.ivActivityListAndSearchEmptyImage);
         tvEmptyText = findViewById(R.id.tvActivityListAndSearchEmptyText);
         fabSearchAddNewProduct = findViewById(R.id.fabSearchAddNewProduct);
+        fabSearchAddNewProduct.setVisibility(View.GONE);
 
         rvListOfSearchResponse.setLayoutManager(new LinearLayoutManager(ActivityListAndSearch.this));
         AsyncLoadFoodList asyncLoadFoodList = new AsyncLoadFoodList();
