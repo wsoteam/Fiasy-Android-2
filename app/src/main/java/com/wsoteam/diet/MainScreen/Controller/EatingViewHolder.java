@@ -21,7 +21,6 @@ import butterknife.ButterKnife;
 public class EatingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvTitleOfEatingCard) TextView tvTitleOfEatingCard;
     @BindView(R.id.rvListOfFoodEatingCard) RecyclerView rvListOfFoodEatingCard;
-    @BindView(R.id.tvSumOfKcal) TextView tvSumOfKcal;
     @BindView(R.id.ibtnOpenList) ImageButton ibtnOpenList;
     private boolean isButtonPressed = false;
 
@@ -32,7 +31,6 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(List<Eating> eatingGroup, Context context, String nameOfEatingGroup) {
-        tvSumOfKcal.setText(String.valueOf(calculateCalories(eatingGroup)) + " Ккал");
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
         rvListOfFoodEatingCard.setLayoutManager(new LinearLayoutManager(context));
         rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, false));
