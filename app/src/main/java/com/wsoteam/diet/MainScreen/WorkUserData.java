@@ -1,11 +1,9 @@
 package com.wsoteam.diet.MainScreen;
 
-import android.util.Log;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.POJOForSunc.UserData;
+import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.POJOProfile.Profile;
 
 public class WorkUserData {

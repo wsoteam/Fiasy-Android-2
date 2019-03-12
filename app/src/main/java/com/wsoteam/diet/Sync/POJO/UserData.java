@@ -1,4 +1,4 @@
-package com.wsoteam.diet.POJOForSunc;
+package com.wsoteam.diet.Sync.POJO;
 
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
