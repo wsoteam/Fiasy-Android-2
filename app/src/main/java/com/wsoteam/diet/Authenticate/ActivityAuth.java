@@ -110,10 +110,13 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
         });
     }
     private void signInGoogle() {
+        Log.d(TAG, "signInGoogle: 1");
         mGoogleSignInClient.signOut();
 
+        Log.d(TAG, "signInGoogle: 2");
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+        Log.d(TAG, "signInGoogle: 3");
     }
 
     @Override
@@ -132,7 +135,7 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e);
+                Log.d(TAG, "Google sign in failed", e);
                 // ...
             }
         }
