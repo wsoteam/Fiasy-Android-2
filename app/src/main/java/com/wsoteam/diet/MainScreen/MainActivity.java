@@ -457,7 +457,7 @@ public class MainActivity extends AppCompatActivity
                 intent = new Intent(MainActivity.this, ActivitySettings.class);
                 break;
             case R.id.nav_exit:
-                intent = new Intent(MainActivity.this, ActivityAuth.class);
+                intent = new Intent(MainActivity.this, ActivityAuthenticate.class);
                 signOut();
                 break;
         }

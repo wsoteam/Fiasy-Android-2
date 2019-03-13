@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.facebook.AccessToken;
@@ -39,6 +40,8 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
     private static final String TAG ="Authenticate";
     private static final int RC_SIGN_IN = 9001;
 
+    private boolean createUser;
+
 
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
@@ -46,10 +49,12 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
 
     private CallbackManager callbackManager;
 
+    private EditText nameEditText;
     private EditText emailEditText;
     private EditText passEditText;
     LoginButton facebookLoginButton;
     SignInButton mGoogleSignInButton;
+    Button signIn;
 
     private Intent intent;
 
@@ -58,14 +63,25 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
-        findViewById(R.id.auth_main_btn_signin).setOnClickListener(this);
-        findViewById(R.id.auth_main_btn_create).setOnClickListener(this);
+        createUser =  (boolean)getIntent().getBooleanExtra("createUser", false);
 
+        findViewById(R.id.auth_main_btn_signin).setOnClickListener(this);
+
+
+        nameEditText = findViewById(R.id.auth_main_name);
         emailEditText = findViewById(R.id.auth_main_email);
         passEditText = findViewById(R.id.auth_main_pass);
         facebookLoginButton = findViewById(R.id.auth_main_btn_facebook);
         mGoogleSignInButton = findViewById(R.id.auth_main_btn_google);
         mGoogleSignInButton.setOnClickListener(this);
+        signIn = findViewById(R.id.auth_main_btn_signin);
+
+
+
+        if (createUser) {
+            signIn.setText(R.string.auth_main_btn_create);
+            nameEditText.setVisibility(View.VISIBLE);
+        }
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -76,7 +92,7 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
 
         callbackManager = CallbackManager.Factory.create();
         mAuth = FirebaseAuth.getInstance();
-        intent = new Intent(this, ActivitySubscription.class);
+        intent = new Intent(this, MainActivity.class);
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -253,35 +269,36 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle(getString(R.string.exit_alerdialog_title))
-                .setMessage(getString(R.string.exit_alertdialog_body))
-                .setPositiveButton(getString(R.string.exit_alertdialog_btn_yes), new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-
-                })
-                .setNegativeButton(getString(R.string.exit_alertdialog_btn_no), null)
-                .show();
-    }
+//    @Override
+//    public void onBackPressed() {
+////        new AlertDialog.Builder(this)
+////                .setIcon(android.R.drawable.ic_dialog_alert)
+////                .setTitle(getString(R.string.exit_alerdialog_title))
+////                .setMessage(getString(R.string.exit_alertdialog_body))
+////                .setPositiveButton(getString(R.string.exit_alertdialog_btn_yes), new DialogInterface.OnClickListener()
+////                {
+////                    @Override
+////                    public void onClick(DialogInterface dialog, int which) {
+////                        finish();
+////                    }
+////
+////                })
+////                .setNegativeButton(getString(R.string.exit_alertdialog_btn_no), null)
+////                .show();
+//    }
 
     @Override
     public void onClick(View view) {
 
         switch (view.getId()){
             case R.id.auth_main_btn_signin:
-                signIn(emailEditText.getText().toString(),
-                        passEditText.getText().toString());
-                break;
-            case R.id.auth_main_btn_create:
-                createAccount(emailEditText.getText().toString(),
-                        passEditText.getText().toString());
+                if (createUser) {
+                    createAccount(emailEditText.getText().toString(),
+                            passEditText.getText().toString());
+                } else {
+                    signIn(emailEditText.getText().toString(),
+                            passEditText.getText().toString());
+                }
                 break;
             case R.id.auth_main_btn_google:
                 signInGoogle();

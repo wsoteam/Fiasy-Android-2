@@ -23,7 +23,6 @@ public class FragmentAuthMain extends Fragment  {
 
         view.findViewById(R.id.auth_main_btn_google).setOnClickListener((View.OnClickListener) getActivity());
         view.findViewById(R.id.auth_main_btn_signin).setOnClickListener((View.OnClickListener) getActivity());
-        view.findViewById(R.id.auth_main_btn_create).setOnClickListener((View.OnClickListener) getActivity());
         view.findViewById(R.id.auth_main_btn_facebook).setOnClickListener((View.OnClickListener) getActivity());
 
 

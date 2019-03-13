@@ -73,7 +73,7 @@ public class ActivitySplash extends AppCompatActivity {
 
 
                 if (user == null) {
-                    startActivity(new Intent(ActivitySplash.this, ActivityAuth.class));
+                    startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
                     finish();
                 } else {
                     startActivity(new Intent(ActivitySplash.this, MainActivity.class));

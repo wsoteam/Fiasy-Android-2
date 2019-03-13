@@ -1,5 +1,23 @@
 <resources>
 
+    <!--auth_fragment_data-->
+    <string name="auth_data_ask">Укажите ваши данные</string>
+    <string name="auth_data_hint_growth">Рост</string>
+    <string name="auth_data_hint_weight">Вес</string>
+    <string name="auth_data_hint_age">Возраст</string>
+    <string name="auth_data_btn_next">Дальше</string>
+
+
+    <!--auth_fragment_mission-->
+    <string name="auth_mission_ask">Цель</string>
+    <string name="auth_mission_lose">Похудеть</string>
+    <string name="auth_mission_get">Набрать вес</string>
+    <string name="auth_mission_save">Сохранить</string>
+
+    <!--auth_fragment_gender-->
+    <string name="auth_gender_tv_q">Укажите ваш пол</string>
+    <string name="auth_gender_btn_m">М</string>
+    <string name="auth_gender_btn_f">Ж</string>
     <!--ActivitySubscription-->
     <string name="subsc_btn_bay">Купить премиум</string>
     <string name="subsc_btn_exit">Позже</string>
@@ -11,6 +29,7 @@
     <string name="exit_alertdialog_btn_yes">Да</string>
 
     <!--auth_fragment_main-->
+    <string name="auth_main_et_hint_name">Имя</string>
     <string name="auth_main_et_hint_email">Имейл</string>
     <string name="auth_main_et_hint_pass">Пароль</string>
     <string name="auth_main_btn_signin">Войти</string>
