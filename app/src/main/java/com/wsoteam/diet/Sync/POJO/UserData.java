@@ -8,13 +8,14 @@ import com.wsoteam.diet.POJOForDB.DiaryData;
 import com.wsoteam.diet.POJOProfile.Profile;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 public class UserData implements Serializable {
-    private String uId;
+    private String name;
     private Profile profile;
 
-    private List<Breakfast> breakfasts;
+    private HashMap<String, Breakfast> breakfasts;
     private List<Lunch> lunches;
     private List<Dinner> dinners;
     private List<Snack> snacks;
@@ -23,8 +24,8 @@ public class UserData implements Serializable {
     public UserData() {
     }
 
-    public UserData(String uId, Profile profile, List<Breakfast> breakfasts, List<Lunch> lunches, List<Dinner> dinners, List<Snack> snacks, List<DiaryData> diaryDataList) {
-        this.uId = uId;
+    public UserData(String name, Profile profile, HashMap<String, Breakfast> breakfasts, List<Lunch> lunches, List<Dinner> dinners, List<Snack> snacks, List<DiaryData> diaryDataList) {
+        this.name = name;
         this.profile = profile;
         this.breakfasts = breakfasts;
         this.lunches = lunches;
@@ -33,12 +34,12 @@ public class UserData implements Serializable {
         this.diaryDataList = diaryDataList;
     }
 
-    public String getuId() {
-        return uId;
+    public String getName() {
+        return name;
     }
 
-    public void setuId(String uId) {
-        this.uId = uId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Profile getProfile() {
@@ -49,11 +50,11 @@ public class UserData implements Serializable {
         this.profile = profile;
     }
 
-    public List<Breakfast> getBreakfasts() {
+    public HashMap<String, Breakfast> getBreakfasts() {
         return breakfasts;
     }
 
-    public void setBreakfasts(List<Breakfast> breakfasts) {
+    public void setBreakfasts(HashMap<String, Breakfast> breakfasts) {
         this.breakfasts = breakfasts;
     }
 

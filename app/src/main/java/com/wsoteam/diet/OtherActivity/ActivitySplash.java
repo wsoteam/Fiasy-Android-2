@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,13 +34,15 @@ import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.ObjectHolder;
 import com.wsoteam.diet.POJOS.GlobalObject;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.POJO.UserData;
+import com.wsoteam.diet.Sync.UserDataHolder;
 
 public class ActivitySplash extends AppCompatActivity {
     private TextView tvTitle;
     private ImageView ivLoading;
     private Animation animationRotate;
     private FirebaseUser user;
-    //e
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,18 +64,14 @@ public class ActivitySplash extends AppCompatActivity {
         if (!hasConnection(this)) {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
-
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(Config.NAME_OF_ENTITY_FOR_DB);
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ObjectHolder objectHolder = new ObjectHolder();
-                objectHolder.bindObjectWithHolder(dataSnapshot.getValue(GlobalObject.class));
-
-
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
                 if (user == null) {
                     startActivity(new Intent(ActivitySplash.this, ActivityAuth.class));
                     finish();
@@ -80,15 +79,16 @@ public class ActivitySplash extends AppCompatActivity {
                     startActivity(new Intent(ActivitySplash.this, MainActivity.class));
                     finish();
                 }
-
-
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+
+
+
     }
 
     private boolean hasConnection(Context context) {
@@ -107,10 +107,6 @@ public class ActivitySplash extends AppCompatActivity {
         }
         return false;
     }
-
-
-
-
 
 
 }

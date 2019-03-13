@@ -1,6 +1,5 @@
 package com.wsoteam.diet.MainScreen;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Animatable2;
@@ -46,18 +45,16 @@ import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-import com.orm.query.Condition;
-import com.orm.query.Select;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.Authenticate.ActivityAuth;
 
 
-import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.BranchOfCalculating.ActivityListOfCalculating;
 import com.wsoteam.diet.BranchOfDiary.ActivityListOfDiary;
 import com.wsoteam.diet.BranchOfMonoDiets.ActivityMonoDiet;
@@ -73,6 +70,8 @@ import com.wsoteam.diet.OtherActivity.ActivitySettings;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOsCircleProgress.Water;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.POJO.UserData;
+import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.yandex.metrica.YandexMetrica;
 
@@ -82,7 +81,6 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
-import me.itangqi.waveloadingview.WaveLoadingView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -104,7 +102,6 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.tvDateForMainScreen) TextView tvDateForMainScreen;
     private TextView tvLeftNBName;
     private CircleImageView ivLeftNBAvatar;
-    private EatingAdapter eatingAdapter;
 
     private AnimatedVectorDrawable animatedVectorDrawable;
     private Animation animChangeScale, animRotateCancelWater, animWaterComplete;
@@ -118,7 +115,6 @@ public class MainActivity extends AppCompatActivity
     private final String TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG = "COUNT_OF_RUN";
     private SharedPreferences countOfRun;
     private boolean isFiveStarSend = false;
-    private boolean isFullWater;
 
 
     @Override
@@ -219,7 +215,6 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         setTitle("");
 
-        WorkWithFirebaseDB.setWholeTestObject();
 
         mainappbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
@@ -240,12 +235,12 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        loadSound();
         bindDrawer();
         showThankToast();
         additionOneToSharedPreference();
         checkFirstRun();
         bindViewPager();
+        WorkWithFirebaseDB.setFirebaseStateListener();
 
         fabAddEating.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -289,18 +284,6 @@ public class MainActivity extends AppCompatActivity
         View view = navViewG.getHeaderView(0);
         tvLeftNBName = view.findViewById(R.id.tvLeftNBName);
         ivLeftNBAvatar = view.findViewById(R.id.ivLeftNBAvatar);
-    }
-
-
-
-    private void loadSound() {
-        soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        try {
-            soundIDdBubble = soundPool.load(getAssets().openFd("buble.mp3"), 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     private void setMaxParamsInProgressBars(int day, int month, int year, @Nullable Profile profile) {

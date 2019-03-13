@@ -27,6 +27,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.MainScreen.Controller.EatingAdapter;
 import com.wsoteam.diet.POJOsCircleProgress.Water;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -206,18 +207,13 @@ public class FragmentEatingScroll extends Fragment {
 
             List allEatingForThisDay = new ArrayList<>();
 
-            List<Breakfast> breakfasts = Select.from(Breakfast.class).where(Condition.prop("day").eq(day),
-                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();
-
-            List<Lunch> lunches = Select.from(Lunch.class).where(Condition.prop("day").eq(day),
-                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();
-
-            List<Dinner> dinners = Select.from(Dinner.class).where(Condition.prop("day").eq(day),
-                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();
-
-            List<Snack> snacks = Select.from(Snack.class).where(Condition.prop("day").eq(day),
-                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();
-
+            List<Breakfast> breakfasts = new ArrayList<>();
+            for (int i = 0; i < UserDataHolder.getUserData().getBreakfasts().size(); i++) {
+                breakfasts.add(UserDataHolder.getUserData().getBreakfasts());
+            }
+            List<Lunch> lunches = UserDataHolder.getUserData().getLunches();
+            List<Dinner> dinners = UserDataHolder.getUserData().getDinners();
+            List<Snack> snacks = UserDataHolder.getUserData().getSnacks();
 
             allEatingForThisDay.add(breakfasts);
             allEatingForThisDay.add(lunches);
