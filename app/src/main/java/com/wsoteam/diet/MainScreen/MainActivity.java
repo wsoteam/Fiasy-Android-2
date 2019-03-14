@@ -1,6 +1,5 @@
 package com.wsoteam.diet.MainScreen;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Animatable2;
@@ -46,15 +45,7 @@ import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-
-import com.orm.query.Condition;
-import com.orm.query.Select;
-import com.wsoteam.diet.Authenticate.ActivityAuth;
 
 
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
@@ -70,6 +61,7 @@ import com.wsoteam.diet.MainScreen.Support.AlertDialogChoiseEating;
 import com.wsoteam.diet.MainScreen.Controller.EatingAdapter;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEatingScroll;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
+import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOsCircleProgress.Water;
 import com.wsoteam.diet.R;
@@ -81,7 +73,6 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
-import me.itangqi.waveloadingview.WaveLoadingView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -424,8 +415,8 @@ public class MainActivity extends AppCompatActivity
         //Facebook signOut
         LoginManager.getInstance().logOut();
 
-//        startActivity(new Intent(this, ActivityAuth.class));
-//        finish();
+        startActivity(new Intent(MainActivity.this, ActivitySplash.class));
+        finish();
     }
 
 
@@ -457,7 +448,6 @@ public class MainActivity extends AppCompatActivity
                 intent = new Intent(MainActivity.this, ActivitySettings.class);
                 break;
             case R.id.nav_exit:
-                intent = new Intent(MainActivity.this, ActivityAuthenticate.class);
                 signOut();
                 break;
         }

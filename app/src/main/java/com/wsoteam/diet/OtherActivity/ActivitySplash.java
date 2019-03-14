@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -26,9 +24,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.wsoteam.diet.Authenticate.ActivityAuth;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.ObjectHolder;
 import com.wsoteam.diet.POJOS.GlobalObject;
@@ -73,7 +71,7 @@ public class ActivitySplash extends AppCompatActivity {
 
 
                 if (user == null) {
-                    startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
+                    startActivity(new Intent(ActivitySplash.this, ActivitySubscription.class));
                     finish();
                 } else {
                     startActivity(new Intent(ActivitySplash.this, MainActivity.class));

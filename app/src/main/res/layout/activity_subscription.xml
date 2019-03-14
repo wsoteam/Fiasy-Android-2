@@ -6,13 +6,56 @@
     android:layout_height="match_parent"
     tools:context="com.wsoteam.diet.InApp.ActivitySubscription">
 
-    <Button
-        android:id="@+id/subsc_btn"
+    <TextView
+        android:id="@+id/subsc_tv_3m"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/subsc_btn_3m"
+        app:layout_constraintEnd_toEndOf="@+id/subsc_btn_3m"
+        app:layout_constraintStart_toStartOf="@+id/subsc_btn_3m" />
+
+    <TextView
+        android:id="@+id/subsc_tv_12m"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="290dp"
+        android:layout_marginBottom="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/subsc_btn_12m"
+        app:layout_constraintEnd_toEndOf="@+id/subsc_btn_12m"
+        app:layout_constraintStart_toStartOf="@+id/subsc_btn_12m" />
+
+    <Button
+        android:id="@+id/subsc_btn_12m"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="@string/subsc_btn_bay"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subsc_btn_3m" />
+
+    <Button
+        android:id="@+id/subsc_btn_3m"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/subsc_btn_bay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subsc_btn_1m" />
+
+    <Button
+        android:id="@+id/subsc_btn_1m"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="156dp"
+        android:text="@string/subsc_btn_bay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,30 +64,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="162dp"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="162dp"
         android:text="@string/subsc_btn_exit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subsc_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/subsc_btn_12m" />
 
     <TextView
-        android:id="@+id/subsc_tv_name"
+        android:id="@+id/subsc_tv_1m"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
+        android:layout_marginBottom="8dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/subsc_btn_1m"
+        app:layout_constraintEnd_toEndOf="@+id/subsc_btn_1m"
+        app:layout_constraintStart_toStartOf="@+id/subsc_btn_1m" />
 
-    <TextView
-        android:id="@+id/subsc_tv_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subsc_tv_name" />
 </android.support.constraint.ConstraintLayout>

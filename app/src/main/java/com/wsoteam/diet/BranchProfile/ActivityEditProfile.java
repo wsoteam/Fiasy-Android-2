@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.wsoteam.diet.Authenticate.ActivityAuthMain;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.yandex.metrica.YandexMetrica;
@@ -39,6 +40,8 @@ public class ActivityEditProfile extends AppCompatActivity {
     private ImageView ivHelpEditProfile;
 
     private InterstitialAd interstitialAd;
+
+    private boolean registration;
 
     private final String DEFAULT_AVATAR = "default";
     private final int WATER_ON_KG_FEMALE = 30;
@@ -77,6 +80,8 @@ public class ActivityEditProfile extends AppCompatActivity {
         if (Profile.count(Profile.class) == 1) {
             fillViewsIfProfileNotNull();
         }
+
+        registration = getIntent().getBooleanExtra("registration",false);
 
 
         ivHelpEditProfile.setOnClickListener(new View.OnClickListener() {
@@ -298,15 +303,29 @@ public class ActivityEditProfile extends AppCompatActivity {
         cvADChoiseDiffLevelHard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Profile.deleteAll(Profile.class);
-                Profile profile = new Profile(edtSpkName.getText().toString(), edtSpkSecondName.getText().toString(),
-                        isFemale, age, Integer.parseInt(edtHeight.getText().toString()), weight, 0,
-                        btnLevelLoad.getText().toString(),urlOfPhoto, maxWater, (int) downLineSPK, (int) protein,
-                        (int) fat, (int) carbohydrate, getString(R.string.dif_level_hard), day, month, year);
-                profile.save();
-                Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
-                alertDialog.cancel();
-                finish();
+
+                if (registration){
+                    Profile.deleteAll(Profile.class);
+                    Profile profile = new Profile(edtSpkName.getText().toString(), edtSpkSecondName.getText().toString(),
+                            isFemale, age, Integer.parseInt(edtHeight.getText().toString()), weight, 0,
+                            btnLevelLoad.getText().toString(),urlOfPhoto, maxWater, (int) downLineSPK, (int) protein,
+                            (int) fat, (int) carbohydrate, getString(R.string.dif_level_hard), day, month, year);
+                    Intent intent = new Intent(ActivityEditProfile.this, ActivityAuthMain.class);
+                    intent.putExtra("createUser", true);
+                    startActivity(intent);
+                    finish();
+
+                }else {
+                    Profile.deleteAll(Profile.class);
+                    Profile profile = new Profile(edtSpkName.getText().toString(), edtSpkSecondName.getText().toString(),
+                            isFemale, age, Integer.parseInt(edtHeight.getText().toString()), weight, 0,
+                            btnLevelLoad.getText().toString(),urlOfPhoto, maxWater, (int) downLineSPK, (int) protein,
+                            (int) fat, (int) carbohydrate, getString(R.string.dif_level_hard), day, month, year);
+                    profile.save();
+                    Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
+                    alertDialog.cancel();
+                    finish();
+                }
             }
         });
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));

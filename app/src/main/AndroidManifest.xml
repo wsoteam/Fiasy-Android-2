@@ -29,10 +29,10 @@
 
         </activity>
         <activity
-            android:name=".Authenticate.ActivityAuth"
+            android:name=".Authenticate.ActivityAuthMain"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:parentActivityName=".Authenticate.ActivityAuthenticate">
         </activity>
 
         <meta-data

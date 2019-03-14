@@ -1,9 +1,7 @@
 package com.wsoteam.diet.Authenticate;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,11 +29,10 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 
-public class ActivityAuth extends AppCompatActivity implements View.OnClickListener{
+public class ActivityAuthMain extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG ="Authenticate";
     private static final int RC_SIGN_IN = 9001;
@@ -61,7 +58,7 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_auth);
+        setContentView(R.layout.activity_auth_main);
 
         createUser =  (boolean)getIntent().getBooleanExtra("createUser", false);
 

@@ -39,14 +39,13 @@
 
     <Button
         android:id="@+id/auth_first_btn_registration"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
-        android:layout_marginLeft="112dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="112dp"
-        android:layout_marginRight="112dp"
         android:text="@string/reg_btn_reg"
+        android:background="@drawable/round_shape_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/auth_first_iv_image" />
@@ -67,12 +66,14 @@
 
     <Button
         android:id="@+id/auth_first_btn_signin"
-        android:layout_width="wrap_content"
+        style="@android:style/Widget.Material.Button"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="150dp"
         android:text="@string/reg_btn_login"
+        android:background="@drawable/round_shape_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/auth_first_tv_ask" />

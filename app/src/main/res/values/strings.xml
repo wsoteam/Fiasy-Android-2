@@ -30,7 +30,7 @@
 
     <!--auth_fragment_main-->
     <string name="auth_main_et_hint_name">Имя</string>
-    <string name="auth_main_et_hint_email">Имейл</string>
+    <string name="auth_main_et_hint_email">Эл. почта</string>
     <string name="auth_main_et_hint_pass">Пароль</string>
     <string name="auth_main_btn_signin">Войти</string>
     <string name="auth_main_btn_create">Регистрация</string>
