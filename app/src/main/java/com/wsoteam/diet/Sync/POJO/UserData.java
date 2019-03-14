@@ -16,15 +16,15 @@ public class UserData implements Serializable {
     private Profile profile;
 
     private HashMap<String, Breakfast> breakfasts;
-    private List<Lunch> lunches;
-    private List<Dinner> dinners;
-    private List<Snack> snacks;
-    private List<DiaryData> diaryDataList;
+    private HashMap<String, Lunch> lunches;
+    private HashMap<String, Dinner> dinners;
+    private HashMap<String, Snack> snacks;
+    private HashMap<String, DiaryData> diaryDataList;
 
     public UserData() {
     }
 
-    public UserData(String name, Profile profile, HashMap<String, Breakfast> breakfasts, List<Lunch> lunches, List<Dinner> dinners, List<Snack> snacks, List<DiaryData> diaryDataList) {
+    public UserData(String name, Profile profile, HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners, HashMap<String, Snack> snacks, HashMap<String, DiaryData> diaryDataList) {
         this.name = name;
         this.profile = profile;
         this.breakfasts = breakfasts;
@@ -58,35 +58,35 @@ public class UserData implements Serializable {
         this.breakfasts = breakfasts;
     }
 
-    public List<Lunch> getLunches() {
+    public HashMap<String, Lunch> getLunches() {
         return lunches;
     }
 
-    public void setLunches(List<Lunch> lunches) {
+    public void setLunches(HashMap<String, Lunch> lunches) {
         this.lunches = lunches;
     }
 
-    public List<Dinner> getDinners() {
+    public HashMap<String, Dinner> getDinners() {
         return dinners;
     }
 
-    public void setDinners(List<Dinner> dinners) {
+    public void setDinners(HashMap<String, Dinner> dinners) {
         this.dinners = dinners;
     }
 
-    public List<Snack> getSnacks() {
+    public HashMap<String, Snack> getSnacks() {
         return snacks;
     }
 
-    public void setSnacks(List<Snack> snacks) {
+    public void setSnacks(HashMap<String, Snack> snacks) {
         this.snacks = snacks;
     }
 
-    public List<DiaryData> getDiaryDataList() {
+    public HashMap<String, DiaryData> getDiaryDataList() {
         return diaryDataList;
     }
 
-    public void setDiaryDataList(List<DiaryData> diaryDataList) {
+    public void setDiaryDataList(HashMap<String, DiaryData> diaryDataList) {
         this.diaryDataList = diaryDataList;
     }
 }

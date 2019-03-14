@@ -39,19 +39,19 @@ public class WorkWithFirebaseDB {
 
         List<Lunch> lunches = new ArrayList<>();
         lunches.add(new Lunch());
-        userData.setLunches(lunches);
+        //userData.setLunches(lunches);
 
         List<Dinner> dinners = new ArrayList<>();
         dinners.add(new Dinner());
-        userData.setDinners(dinners);
+        //userData.setDinners(dinners);
 
         List<Snack> snacks = new ArrayList<>();
         snacks.add(new Snack());
-        userData.setSnacks(snacks);
+        //userData.setSnacks(snacks);
 
         List<DiaryData> diaryData = new ArrayList<>();
         diaryData.add(new DiaryData());
-        userData.setDiaryDataList(diaryData);
+        //userData.setDiaryDataList(diaryData);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).

@@ -12,4 +12,8 @@ public class UserDataHolder {
     public static UserData getUserData(){
         return userData;
     }
+
+    public static void clearObject(){
+        userData = new UserData();
+    }
 }

@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity
         additionOneToSharedPreference();
         checkFirstRun();
         bindViewPager();
-        //WorkWithFirebaseDB.setFirebaseStateListener();
+        WorkWithFirebaseDB.setFirebaseStateListener();
 
         fabAddEating.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -445,6 +445,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_exit:
                 intent = new Intent(MainActivity.this, ActivityAuth.class);
                 signOut();
+                UserDataHolder.clearObject();
                 break;
         }
         startActivity(intent);

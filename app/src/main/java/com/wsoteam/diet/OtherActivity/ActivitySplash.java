@@ -64,29 +64,30 @@ public class ActivitySplash extends AppCompatActivity {
         if (!hasConnection(this)) {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
-        /*FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
-                child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
-                if (user == null) {
-                    startActivity(new Intent(ActivitySplash.this, ActivityAuth.class));
-                    finish();
-                } else {
+        if (user != null) {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                    child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
                     startActivity(new Intent(ActivitySplash.this, MainActivity.class));
                     finish();
+
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });*/
-
+                }
+            });
+        } else {
+            startActivity(new Intent(ActivitySplash.this, ActivityAuth.class));
+            finish();
+        }
 
 
     }
