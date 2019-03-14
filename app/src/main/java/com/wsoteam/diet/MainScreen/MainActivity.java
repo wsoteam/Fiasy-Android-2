@@ -148,8 +148,9 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
 
-        if (Profile.count(Profile.class) == 1) {
-            profile = Profile.last(Profile.class);
+        if (UserDataHolder.getUserData().getProfile() != null) {
+            Log.e("LOL", "Pick");
+            profile = UserDataHolder.getUserData().getProfile();
             tvLeftNBName.setText(profile.getFirstName() + " " + profile.getLastName());
             tvLeftNBName.setTextSize(17);
             if (!profile.getPhotoUrl().equals("default")) {

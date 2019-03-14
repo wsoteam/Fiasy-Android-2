@@ -24,6 +24,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.yandex.metrica.YandexMetrica;
 
 import java.util.Calendar;
@@ -74,7 +76,7 @@ public class ActivityEditProfile extends AppCompatActivity {
         fabEditProfile = findViewById(R.id.fabEditProfile);
         ivHelpEditProfile = findViewById(R.id.ivHelpEditProfile);
 
-        if (Profile.count(Profile.class) == 1) {
+        if (UserDataHolder.getUserData().getProfile() != null) {
             fillViewsIfProfileNotNull();
         }
 
@@ -129,7 +131,7 @@ public class ActivityEditProfile extends AppCompatActivity {
     private void fillViewsIfProfileNotNull() {
 
 
-        Profile profile = Profile.last(Profile.class);
+        Profile profile = UserDataHolder.getUserData().getProfile();
 
         edtHeight.setText(String.valueOf(profile.getHeight()));
         edtAge.setText(String.valueOf(profile.getAge()));
@@ -267,15 +269,15 @@ public class ActivityEditProfile extends AppCompatActivity {
         CardView cvADChoiseDiffLevelNormal = view.findViewById(R.id.cvADChoiseDiffLevelNormal);
         CardView cvADChoiseDiffLevelEasy = view.findViewById(R.id.cvADChoiseDiffLevelEasy);
 
+
         cvADChoiseDiffLevelEasy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Profile.deleteAll(Profile.class);
                 Profile profile = new Profile(edtSpkName.getText().toString(), edtSpkSecondName.getText().toString(),
                         isFemale, age, Integer.parseInt(edtHeight.getText().toString()), weight, 0,
                         btnLevelLoad.getText().toString(),urlOfPhoto, maxWater, (int) SPK, (int) protein,
                         (int) fat, (int) carbohydrate, getString(R.string.dif_level_easy), day, month, year);
-                profile.save();
+                WorkWithFirebaseDB.putProfileValue(profile);
                 Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
                 alertDialog.cancel();
                 finish();
@@ -284,12 +286,11 @@ public class ActivityEditProfile extends AppCompatActivity {
         cvADChoiseDiffLevelNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Profile.deleteAll(Profile.class);
                 Profile profile = new Profile(edtSpkName.getText().toString(), edtSpkSecondName.getText().toString(),
                         isFemale, age, Integer.parseInt(edtHeight.getText().toString()), weight, 0,
                         btnLevelLoad.getText().toString(),urlOfPhoto, maxWater, (int) upLineSPK, (int) protein,
                         (int) fat, (int) carbohydrate, getString(R.string.dif_level_normal), day, month, year);
-                profile.save();
+                WorkWithFirebaseDB.putProfileValue(profile);
                 Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
                 alertDialog.cancel();
                 finish();
@@ -298,12 +299,11 @@ public class ActivityEditProfile extends AppCompatActivity {
         cvADChoiseDiffLevelHard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Profile.deleteAll(Profile.class);
                 Profile profile = new Profile(edtSpkName.getText().toString(), edtSpkSecondName.getText().toString(),
                         isFemale, age, Integer.parseInt(edtHeight.getText().toString()), weight, 0,
                         btnLevelLoad.getText().toString(),urlOfPhoto, maxWater, (int) downLineSPK, (int) protein,
                         (int) fat, (int) carbohydrate, getString(R.string.dif_level_hard), day, month, year);
-                profile.save();
+                WorkWithFirebaseDB.putProfileValue(profile);
                 Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
                 alertDialog.cancel();
                 finish();

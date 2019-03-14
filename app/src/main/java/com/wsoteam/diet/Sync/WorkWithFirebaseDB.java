@@ -126,4 +126,11 @@ public class WorkWithFirebaseDB {
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("snacks");
         myRef.push().setValue(snack);
     }
+
+    public static void putProfileValue(Profile profile){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("profile");
+        myRef.setValue(profile);
+    }
 }
