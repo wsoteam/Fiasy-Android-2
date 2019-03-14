@@ -32,6 +32,7 @@ import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.ObjectHolder;
+import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOS.GlobalObject;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;

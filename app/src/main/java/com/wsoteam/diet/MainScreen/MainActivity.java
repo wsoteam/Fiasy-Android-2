@@ -446,6 +446,7 @@ public class MainActivity extends AppCompatActivity
                 intent = new Intent(MainActivity.this, ActivityAuth.class);
                 signOut();
                 UserDataHolder.clearObject();
+                finish();
                 break;
         }
         startActivity(intent);

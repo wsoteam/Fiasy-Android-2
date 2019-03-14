@@ -31,11 +31,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.wsoteam.diet.MainScreen.MainActivity;
+import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.R;
 
-public class ActivityAuth extends AppCompatActivity implements View.OnClickListener{
+public class ActivityAuth extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG ="Authenticate";
+    private static final String TAG = "Authenticate";
     private static final int RC_SIGN_IN = 9001;
 
 
@@ -75,7 +76,7 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
 
         callbackManager = CallbackManager.Factory.create();
         mAuth = FirebaseAuth.getInstance();
-        intent = new Intent(this, MainActivity.class);
+        intent = new Intent(this, ActivitySplash.class);
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -89,7 +90,8 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-            }  };
+            }
+        };
 
         facebookLoginButton.setReadPermissions("email", "public_profile");
         facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -108,6 +110,7 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
     private void signInGoogle() {
         mGoogleSignInClient.signOut();
 
@@ -136,6 +139,7 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
@@ -255,8 +259,7 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(getString(R.string.exit_alerdialog_title))
                 .setMessage(getString(R.string.exit_alertdialog_body))
-                .setPositiveButton(getString(R.string.exit_alertdialog_btn_yes), new DialogInterface.OnClickListener()
-                {
+                .setPositiveButton(getString(R.string.exit_alertdialog_btn_yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
@@ -270,7 +273,7 @@ public class ActivityAuth extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.auth_main_btn_signin:
                 signIn(emailEditText.getText().toString(),
                         passEditText.getText().toString());
