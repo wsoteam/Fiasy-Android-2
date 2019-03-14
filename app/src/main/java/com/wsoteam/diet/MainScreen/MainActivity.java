@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity
         additionOneToSharedPreference();
         checkFirstRun();
         bindViewPager();
-        WorkWithFirebaseDB.setFirebaseStateListener();
+        //WorkWithFirebaseDB.setFirebaseStateListener();
 
         fabAddEating.setOnClickListener(new View.OnClickListener() {
             @Override

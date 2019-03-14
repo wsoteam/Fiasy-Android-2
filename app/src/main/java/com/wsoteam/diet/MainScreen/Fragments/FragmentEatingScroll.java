@@ -31,7 +31,10 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
@@ -208,12 +211,15 @@ public class FragmentEatingScroll extends Fragment {
             List allEatingForThisDay = new ArrayList<>();
 
             List<Breakfast> breakfasts = new ArrayList<>();
-            for (int i = 0; i < UserDataHolder.getUserData().getBreakfasts().size(); i++) {
-                breakfasts.add(UserDataHolder.getUserData().getBreakfasts());
+            Iterator iterator = UserDataHolder.getUserData().getBreakfasts().entrySet().iterator();
+            while (iterator.hasNext()){
+                Map.Entry pair = (Map.Entry) iterator.next();
+                Breakfast breakfast = (Breakfast) pair.getValue();
+                breakfasts.add(breakfast);
             }
-            List<Lunch> lunches = UserDataHolder.getUserData().getLunches();
-            List<Dinner> dinners = UserDataHolder.getUserData().getDinners();
-            List<Snack> snacks = UserDataHolder.getUserData().getSnacks();
+            List<Lunch> lunches = new ArrayList<>();
+            List<Dinner> dinners = new ArrayList<>();
+            List<Snack> snacks = new ArrayList<>();
 
             allEatingForThisDay.add(breakfasts);
             allEatingForThisDay.add(lunches);

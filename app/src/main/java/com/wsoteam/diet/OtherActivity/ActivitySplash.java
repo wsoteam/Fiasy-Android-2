@@ -64,7 +64,7 @@ public class ActivitySplash extends AppCompatActivity {
         if (!hasConnection(this)) {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        /*FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
@@ -85,7 +85,7 @@ public class ActivitySplash extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
 
 

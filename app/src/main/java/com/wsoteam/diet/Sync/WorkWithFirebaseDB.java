@@ -35,7 +35,7 @@ public class WorkWithFirebaseDB {
 
         List<Breakfast> breakfasts = new ArrayList<>();
         breakfasts.add(new Breakfast());
-        userData.setBreakfasts(breakfasts);
+        //userData.setBreakfasts(breakfasts);
 
         List<Lunch> lunches = new ArrayList<>();
         lunches.add(new Lunch());
