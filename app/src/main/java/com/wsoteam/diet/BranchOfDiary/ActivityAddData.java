@@ -26,8 +26,6 @@ public class ActivityAddData extends AppCompatActivity {
     private boolean isReadyToClose = false;
     InterstitialAd interstitialAd;
 
-    //TODO add main icon and split input form on four square
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -61,9 +59,6 @@ public class ActivityAddData extends AppCompatActivity {
                     getOtherData();
                     saveInToDB();
                     if (isReadyToClose) {
-                        if (interstitialAd.isLoaded()) {
-                            interstitialAd.show();
-                        }
                         finish();
                     }
                 }
@@ -127,7 +122,6 @@ public class ActivityAddData extends AppCompatActivity {
         if (!edtHips.getText().toString().equals("")) {
             diaryData.setHips(Integer.parseInt(edtHips.getText().toString()));
         }
-        //diaryData.setNote(edtNote.getText().toString());
     }
 
     private boolean getDate() {

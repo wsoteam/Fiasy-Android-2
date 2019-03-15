@@ -133,4 +133,11 @@ public class WorkWithFirebaseDB {
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("profile");
         myRef.setValue(profile);
     }
+
+    public static void addWeightDiaryItem(Profile profile){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("profile");
+        myRef.setValue(profile);
+    }
 }

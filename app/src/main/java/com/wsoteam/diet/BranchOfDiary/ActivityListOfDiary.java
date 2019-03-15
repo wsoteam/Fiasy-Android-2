@@ -11,12 +11,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,11 +26,12 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOForDB.DiaryData;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
@@ -96,9 +95,10 @@ public class ActivityListOfDiary extends AppCompatActivity {
             llEmptyStateLayout.setVisibility(View.GONE);
             bubbleSort();
             recyclerView.setAdapter(new ItemAdapter(diaryDataArrayList));
-            Profile profile;
 
-            if ((profile = Profile.last(Profile.class)) != null) {
+
+            if (UserDataHolder.getUserData().getProfile() != null) {
+                Profile profile = UserDataHolder.getUserData().getProfile();
                 // if the day when the profile was created earlier than
                 // the last entry in the diary or equal in weight and day of profile creation
                 if ((profile.getNumberOfDay() < diaryDataArrayList.get(0).getNumberOfDay()
@@ -125,8 +125,8 @@ public class ActivityListOfDiary extends AppCompatActivity {
                 }
 
                 profile.setLoseWeight(profile.getWeight() - diaryDataArrayList.get(diaryDataArrayList.size() - 1).getWeight());
-                Profile.deleteAll(Profile.class);
-                profile.save();
+
+                WorkWithFirebaseDB.putProfileValue(profile);
             }
         }
 
