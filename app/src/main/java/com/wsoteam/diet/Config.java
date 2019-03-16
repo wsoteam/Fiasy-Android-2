@@ -34,5 +34,11 @@ public class Config {
     public static final int COUNT_PAGE = 3650;
     public static final String INTENT_DATE_FOR_SAVE = "INTENT_DATE_FOR_SAVE";
 
+    //Intents tags for send first profile
+    public static final String INTENT_PROFILE = "INTENT_PROFILE";
+
+    //Key of billing state
+    public static final String STATE_BILLING = "STATE_BILLING";
+
 
 }

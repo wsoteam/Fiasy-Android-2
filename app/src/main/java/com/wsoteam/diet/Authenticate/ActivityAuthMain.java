@@ -1,9 +1,9 @@
 package com.wsoteam.diet.Authenticate;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,16 +30,14 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
-import com.wsoteam.diet.MainScreen.MainActivity;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.R;
-
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ActivityAuthMain extends AppCompatActivity implements View.OnClickListener{
+public class ActivityAuthMain extends AppCompatActivity implements View.OnClickListener {
 
 
     private static final String TAG = "Authenticate";
@@ -68,7 +66,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth_main);
 
-        createUser =  (boolean)getIntent().getBooleanExtra("createUser", false);
+        createUser = (boolean) getIntent().getBooleanExtra("createUser", false);
 
         findViewById(R.id.auth_main_btn_signin).setOnClickListener(this);
 
@@ -82,10 +80,8 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         signIn = findViewById(R.id.auth_main_btn_signin);
 
 
-
         if (createUser) {
             signIn.setText(R.string.auth_main_btn_create);
-            nameEditText.setVisibility(View.VISIBLE);
         }
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -97,7 +93,8 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
         callbackManager = CallbackManager.Factory.create();
         mAuth = FirebaseAuth.getInstance();
-        intent = new Intent(this, ActivitySplash.class);
+        intent = new Intent(this, ActivitySplash.class).
+                putExtra(Config.INTENT_PROFILE,getIntent().getSerializableExtra(Config.INTENT_PROFILE));
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -216,8 +213,9 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
             Log.d(TAG, "signIn: fail valid");
             return;
         }
-        if (!isValidEmail(email)){
-            Toast.makeText(ActivityAuthMain.this, "check e-mail", Toast.LENGTH_SHORT).show();}
+        if (!isValidEmail(email)) {
+            Toast.makeText(ActivityAuthMain.this, "check e-mail", Toast.LENGTH_SHORT).show();
+        }
 
 
         mAuth.signInWithEmailAndPassword(email, password)
@@ -249,8 +247,9 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
             return;
         }
 
-        if (!isValidEmail(email)){
-            Toast.makeText(ActivityAuthMain.this, "check e-mail", Toast.LENGTH_SHORT).show();}
+        if (!isValidEmail(email)) {
+            Toast.makeText(ActivityAuthMain.this, "check e-mail", Toast.LENGTH_SHORT).show();
+        }
 
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -304,12 +303,12 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 //    }
 
 
-        public boolean isValidEmail(String string){
-            final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-            Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-            Matcher matcher = pattern.matcher(string);
-            return matcher.matches();
-        }
+    public boolean isValidEmail(String string) {
+        final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher matcher = pattern.matcher(string);
+        return matcher.matches();
+    }
 
 
     @Override

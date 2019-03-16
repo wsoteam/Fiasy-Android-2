@@ -2,13 +2,9 @@ package com.wsoteam.diet.MainScreen;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Animatable2;
 import android.graphics.drawable.AnimatedVectorDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.AudioManager;
 import android.media.SoundPool;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -29,7 +25,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -46,15 +41,6 @@ import com.facebook.login.LoginManager;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.wsoteam.diet.Authenticate.ActivityAuth;
-
-
 import com.wsoteam.diet.BranchOfCalculating.ActivityListOfCalculating;
 import com.wsoteam.diet.BranchOfDiary.ActivityListOfDiary;
 import com.wsoteam.diet.BranchOfMonoDiets.ActivityMonoDiet;
@@ -63,24 +49,17 @@ import com.wsoteam.diet.BranchOfRecipes.ActivityGroupsOfRecipes;
 import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.BranchProfile.ActivityProfile;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.MainScreen.Support.AlertDialogChoiseEating;
-import com.wsoteam.diet.MainScreen.Controller.EatingAdapter;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEatingScroll;
+import com.wsoteam.diet.MainScreen.Support.AlertDialogChoiseEating;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
-
 import com.wsoteam.diet.OtherActivity.ActivitySplash;
-
-import com.wsoteam.diet.POJOForDB.DiaryData;
-
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOsCircleProgress.Water;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.yandex.metrica.YandexMetrica;
 
-import java.io.IOException;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -122,14 +101,11 @@ public class MainActivity extends AppCompatActivity
     private boolean isFiveStarSend = false;
 
 
-
-
-
     @Override
     protected void onResume() {
         super.onResume();
 
-        if (UserDataHolder.getUserData().getProfile() != null) {
+        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
             Log.e("LOL", "Pick");
             profile = UserDataHolder.getUserData().getProfile();
             tvLeftNBName.setText(profile.getFirstName() + " " + profile.getLastName());
@@ -231,7 +207,6 @@ public class MainActivity extends AppCompatActivity
                         tvDateForMainScreen.getText().toString()).show();
             }
         });
-
 
 
     }
@@ -383,18 +358,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void signOut() {
-
-        Log.d("Authenticate", "signOut: in MainActivity ");
-
-        // Firebase sign out
-        FirebaseAuth.getInstance().signOut();
-        //Facebook signOut
-        LoginManager.getInstance().logOut();
-
-        startActivity(new Intent(MainActivity.this, ActivitySplash.class));
-        finish();
-    }
 
 
     @Override
@@ -425,7 +388,9 @@ public class MainActivity extends AppCompatActivity
                 intent = new Intent(MainActivity.this, ActivitySettings.class);
                 break;
             case R.id.nav_exit:
-                signOut();
+                FirebaseAuth.getInstance().signOut();
+                LoginManager.getInstance().logOut();
+                intent = new Intent(MainActivity.this, ActivitySplash.class);
                 UserDataHolder.clearObject();
                 finish();
                 break;

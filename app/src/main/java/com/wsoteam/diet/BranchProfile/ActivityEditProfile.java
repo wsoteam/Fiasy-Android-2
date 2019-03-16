@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.wsoteam.diet.Authenticate.ActivityAuthMain;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -79,7 +80,7 @@ public class ActivityEditProfile extends AppCompatActivity {
         fabEditProfile = findViewById(R.id.fabEditProfile);
         ivHelpEditProfile = findViewById(R.id.ivHelpEditProfile);
 
-        if (UserDataHolder.getUserData().getProfile() != null) {
+        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
             fillViewsIfProfileNotNull();
         }
 
@@ -317,7 +318,7 @@ public class ActivityEditProfile extends AppCompatActivity {
             profile.setMaxKcal((int) maxInt);
             Intent intent = new Intent(ActivityEditProfile.this, ActivityAuthMain.class);
             intent.putExtra("createUser", true);
-            intent.putExtra("profile", profile);
+            intent.putExtra(Config.INTENT_PROFILE, profile);
             startActivity(intent);
         }else {
             profile.setMaxKcal((int) maxInt);
