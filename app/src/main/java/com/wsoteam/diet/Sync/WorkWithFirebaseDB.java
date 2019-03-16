@@ -22,13 +22,14 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOForDB.DiaryData;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.Sync.POJO.UserData;
+import com.wsoteam.diet.Sync.POJO.WeightDiaryObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WorkWithFirebaseDB {
 
-    public static void setStartEmptyObject(){
+    public static void setStartEmptyObject() {
         UserData userData = new UserData();
         userData.setName("name");
         userData.setProfile(new Profile());
@@ -62,7 +63,7 @@ public class WorkWithFirebaseDB {
     }
 
 
-    public static void setWholeTestObject(){
+    public static void setWholeTestObject() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -80,7 +81,8 @@ public class WorkWithFirebaseDB {
             }
         });
     }
-    public static void setFirebaseStateListener(){
+
+    public static void setFirebaseStateListener() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -99,45 +101,52 @@ public class WorkWithFirebaseDB {
 
     }
 
-    public static void addBreakfast(Breakfast breakfast){
+    public static void addBreakfast(Breakfast breakfast) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("breakfasts");
         myRef.push().setValue(breakfast);
     }
 
-    public static void addLunch(Lunch lunch){
+    public static void addLunch(Lunch lunch) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("lunches");
         myRef.push().setValue(lunch);
     }
 
-    public static void addDinner(Dinner dinner){
+    public static void addDinner(Dinner dinner) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("dinners");
         myRef.push().setValue(dinner);
     }
 
-    public static void addSnack(Snack snack){
+    public static void addSnack(Snack snack) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("snacks");
         myRef.push().setValue(snack);
     }
 
-    public static void putProfileValue(Profile profile){
+    public static void putProfileValue(Profile profile) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("profile");
         myRef.setValue(profile);
     }
 
-    public static void addWeightDiaryItem(Profile profile){
+    public static void addWeightDiaryItem(WeightDiaryObject data) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
-                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("profile");
-        myRef.setValue(profile);
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("diaryDataList");
+        myRef.push().setValue(data);
+    }
+
+    public static void replaceWeightDiaryItem(WeightDiaryObject data, String key) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("diaryDataList").child(key);
+        myRef.setValue(data);
     }
 }

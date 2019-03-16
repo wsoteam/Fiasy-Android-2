@@ -19,12 +19,12 @@ public class UserData implements Serializable {
     private HashMap<String, Lunch> lunches;
     private HashMap<String, Dinner> dinners;
     private HashMap<String, Snack> snacks;
-    private HashMap<String, DiaryData> diaryDataList;
+    private HashMap<String, WeightDiaryObject> diaryDataList;
 
     public UserData() {
     }
 
-    public UserData(String name, Profile profile, HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners, HashMap<String, Snack> snacks, HashMap<String, DiaryData> diaryDataList) {
+    public UserData(String name, Profile profile, HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners, HashMap<String, Snack> snacks, HashMap<String, WeightDiaryObject> diaryDataList) {
         this.name = name;
         this.profile = profile;
         this.breakfasts = breakfasts;
@@ -82,11 +82,11 @@ public class UserData implements Serializable {
         this.snacks = snacks;
     }
 
-    public HashMap<String, DiaryData> getDiaryDataList() {
+    public HashMap<String, WeightDiaryObject> getDiaryDataList() {
         return diaryDataList;
     }
 
-    public void setDiaryDataList(HashMap<String, DiaryData> diaryDataList) {
+    public void setDiaryDataList(HashMap<String, WeightDiaryObject> diaryDataList) {
         this.diaryDataList = diaryDataList;
     }
 }

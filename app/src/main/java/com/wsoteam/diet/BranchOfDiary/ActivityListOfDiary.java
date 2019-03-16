@@ -26,20 +26,25 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOForDB.DiaryData;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.POJO.WeightDiaryObject;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class ActivityListOfDiary extends AppCompatActivity {
     private FloatingActionButton fabAddData;
     private RecyclerView recyclerView;
-    private ArrayList<DiaryData> diaryDataArrayList = new ArrayList<>();
+    private ArrayList<WeightDiaryObject> diaryDataArrayList = new ArrayList<>();
     private GraphView graphView;
     private InterstitialAd interstitialAd;
     private SharedPreferences isRewrite;
@@ -58,8 +63,29 @@ public class ActivityListOfDiary extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         updateUI();
         drawGraphs();
+    }
+
+    private void writeFromSqlToFB() {
+        if (DiaryData.listAll(DiaryData.class).size() != 0) {
+            List<DiaryData> oldDiaryDataList = DiaryData.listAll(DiaryData.class);
+            for (int i = 0; i < oldDiaryDataList.size(); i++) {
+                WeightDiaryObject newDiaryDataObject = new WeightDiaryObject();
+                newDiaryDataObject.setOwnId(oldDiaryDataList.get(i).getOwnId());
+                newDiaryDataObject.setNumberOfDay(oldDiaryDataList.get(i).getNumberOfDay());
+                newDiaryDataObject.setMonth(oldDiaryDataList.get(i).getMonth());
+                newDiaryDataObject.setYear(oldDiaryDataList.get(i).getYear());
+                newDiaryDataObject.setWeight(oldDiaryDataList.get(i).getWeight());
+                newDiaryDataObject.setChest(oldDiaryDataList.get(i).getChest());
+                newDiaryDataObject.setWaist(oldDiaryDataList.get(i).getWaist());
+                newDiaryDataObject.setHips(oldDiaryDataList.get(i).getHips());
+                newDiaryDataObject.setNameOfMonth(oldDiaryDataList.get(i).getNameOfMonth());
+                WorkWithFirebaseDB.addWeightDiaryItem(newDiaryDataObject);
+            }
+        }
+        DiaryData.deleteAll(DiaryData.class);
     }
 
     @Override
@@ -70,6 +96,8 @@ public class ActivityListOfDiary extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvListOfDiary);
         llEmptyStateLayout = findViewById(R.id.llEmptyStateLayout);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //writeFromSqlToFB();
 
         fabAddData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,11 +115,10 @@ public class ActivityListOfDiary extends AppCompatActivity {
     }
 
     private void updateUI() {
-        int temp = 0;
-        diaryDataArrayList = (ArrayList<DiaryData>) DiaryData.listAll(DiaryData.class);
-        if (diaryDataArrayList.size() == 0) {
+        if (UserDataHolder.getUserData().getDiaryDataList() == null) {
             llEmptyStateLayout.setVisibility(View.VISIBLE);
         } else {
+            diaryDataArrayList = getListOfDiaryData();
             llEmptyStateLayout.setVisibility(View.GONE);
             bubbleSort();
             recyclerView.setAdapter(new ItemAdapter(diaryDataArrayList));
@@ -130,6 +157,17 @@ public class ActivityListOfDiary extends AppCompatActivity {
             }
         }
 
+    }
+
+    private ArrayList<WeightDiaryObject> getListOfDiaryData() {
+        ArrayList<WeightDiaryObject> diaryDataArrayList = new ArrayList<>();
+        Iterator iterator = UserDataHolder.getUserData().getDiaryDataList().entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry pair = (Map.Entry) iterator.next();
+            WeightDiaryObject diaryData = (WeightDiaryObject) pair.getValue();
+            diaryDataArrayList.add(diaryData);
+        }
+        return diaryDataArrayList;
     }
 
     //Repeat calculate from edit profile. Re - calculate SPK
@@ -365,7 +403,7 @@ public class ActivityListOfDiary extends AppCompatActivity {
             tvSubHips = itemView.findViewById(R.id.tvItemDiaryDataHipsCountSub);
         }
 
-        public void bind(DiaryData currentDiaryData, DiaryData previousDiaryData) {
+        public void bind(WeightDiaryObject currentDiaryData, WeightDiaryObject previousDiaryData) {
             tvDay.setText(String.valueOf(currentDiaryData.getNumberOfDay()));
             tvMonth.setText(currentDiaryData.getNameOfMonth());
             tvWeight.setText(String.valueOf(currentDiaryData.getWeight()) + " кг");
@@ -447,9 +485,9 @@ public class ActivityListOfDiary extends AppCompatActivity {
     }
 
     private class ItemAdapter extends RecyclerView.Adapter<ItemHolder> {
-        ArrayList<DiaryData> diaryDataArrayList;
+        ArrayList<WeightDiaryObject> diaryDataArrayList;
 
-        public ItemAdapter(ArrayList<DiaryData> diaryDataArrayList) {
+        public ItemAdapter(ArrayList<WeightDiaryObject> diaryDataArrayList) {
             this.diaryDataArrayList = diaryDataArrayList;
         }
 
@@ -465,7 +503,7 @@ public class ActivityListOfDiary extends AppCompatActivity {
             if (position + 1 != diaryDataArrayList.size()) {
                 holder.bind(diaryDataArrayList.get(position), diaryDataArrayList.get(position + 1));
             } else {
-                holder.bind(diaryDataArrayList.get(position), new DiaryData());
+                holder.bind(diaryDataArrayList.get(position), new WeightDiaryObject());
             }
         }
 
@@ -478,7 +516,7 @@ public class ActivityListOfDiary extends AppCompatActivity {
 
     private void bubbleSort() {
         if (diaryDataArrayList.size() > 1) {
-            DiaryData[] arrayForWrite = new DiaryData[diaryDataArrayList.size()];
+            WeightDiaryObject[] arrayForWrite = new WeightDiaryObject[diaryDataArrayList.size()];
 
             for (int i = 0; i < diaryDataArrayList.size(); i++) {
                 arrayForWrite[i] = diaryDataArrayList.get(i);
@@ -488,7 +526,7 @@ public class ActivityListOfDiary extends AppCompatActivity {
             for (int i = 0; i < lenght - 1; i++) {
                 for (int j = 0; j < lenght - i - 1; j++) {
                     if (arrayForWrite[j].getOwnId() < arrayForWrite[j + 1].getOwnId()) {
-                        DiaryData temp = arrayForWrite[j];
+                        WeightDiaryObject temp = arrayForWrite[j];
                         arrayForWrite[j] = arrayForWrite[j + 1];
                         arrayForWrite[j + 1] = temp;
                     }

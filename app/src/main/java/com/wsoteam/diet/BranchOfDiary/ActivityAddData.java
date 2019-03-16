@@ -11,16 +11,20 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.wsoteam.diet.POJOForDB.DiaryData;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.POJO.WeightDiaryObject;
+import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 public class ActivityAddData extends AppCompatActivity {
     private FloatingActionButton fabSaveData;
-    private EditText edtWeight, edtChest, edtWaist, edtHips, edtNote;
-    private DiaryData diaryData;
+    private EditText edtWeight, edtChest, edtWaist, edtHips;
+    private WeightDiaryObject diaryData;
     private DatePicker datePicker;
     private int maxDay, maxMonth, maxYear;
     private boolean isReadyToClose = false;
@@ -44,7 +48,7 @@ public class ActivityAddData extends AppCompatActivity {
         edtWaist = findViewById(R.id.edtInputDataDiaryWaist);
         edtHips = findViewById(R.id.edtInputDataDiaryHips);
         datePicker = findViewById(R.id.datePicker);
-        diaryData = new DiaryData();
+        diaryData = new WeightDiaryObject();
 
         maxDay = datePicker.getDayOfMonth();
         maxMonth = datePicker.getMonth();
@@ -57,7 +61,8 @@ public class ActivityAddData extends AppCompatActivity {
                 if (getDate()) {
                     getWeight();
                     getOtherData();
-                    saveInToDB();
+                    saveWeightDiaryItem();
+
                     if (isReadyToClose) {
                         finish();
                     }
@@ -73,44 +78,28 @@ public class ActivityAddData extends AppCompatActivity {
 
     }
 
-    private void saveInToDB() {
-        ArrayList<DiaryData> diaryDataArrayList = (ArrayList<DiaryData>) DiaryData.listAll(DiaryData.class);
-        for (int i = 0; i < diaryDataArrayList.size(); i++) {
-            if (diaryDataArrayList.get(i).getOwnId() == diaryData.getOwnId()) {
-                diaryDataArrayList.remove(i);
-            }
-        }
-        diaryDataArrayList.add(diaryData);
-        DiaryData[] arrayForWrite = new DiaryData[diaryDataArrayList.size()];
-        for (int i = 0; i < diaryDataArrayList.size(); i++) {
-            arrayForWrite[i] = diaryDataArrayList.get(i);
-        }
+    private void saveWeightDiaryItem() {
+        String keyOfReplaceObject;
+        /*if ((keyOfReplaceObject = findSameObject(diaryData)) != null){
+            WorkWithFirebaseDB.replaceWeightDiaryItem(diaryData, keyOfReplaceObject);
+        }else{*/
+            WorkWithFirebaseDB.addWeightDiaryItem(diaryData);
+        //}
 
-        DiaryData.deleteAll(DiaryData.class);
-
-        if (diaryDataArrayList.size() == 1) {
-            diaryData.save();
-        } else {
-            int lenght = arrayForWrite.length;
-            for (int i = 0; i < lenght; i++) {
-                for (int j = 0; j < lenght - i - 1; j++) {
-                    if (arrayForWrite[j].getOwnId() < arrayForWrite[j + 1].getOwnId()) {
-                        DiaryData temp = arrayForWrite[j];
-                        arrayForWrite[j] = arrayForWrite[j + 1];
-                        arrayForWrite[j + 1] = temp;
-                    }
-                }
-            }
-
-
-            for (int i = 0; i < arrayForWrite.length; i++) {
-                DiaryData diaryData = arrayForWrite[i];
-                diaryData.save();
-                diaryData = null;
-            }
-
-        }
     }
+
+    private String findSameObject(WeightDiaryObject weightDiaryObject) {
+        Iterator iterator = UserDataHolder.getUserData().getDiaryDataList().entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry pair = (Map.Entry) iterator.next();
+            WeightDiaryObject diaryData = (WeightDiaryObject) pair.getValue();
+            if(weightDiaryObject.getOwnId() == diaryData.getOwnId()){
+                return (String) pair.getKey();
+            }
+        }
+        return null;
+    }
+
 
     private void getOtherData() {
         if (!edtChest.getText().toString().equals("")) {
@@ -132,7 +121,7 @@ public class ActivityAddData extends AppCompatActivity {
             int weightOfDate = datePicker.getDayOfMonth() + datePicker.getMonth() * 100 + datePicker.getYear() * 2000;
             diaryData.setNumberOfDay(datePicker.getDayOfMonth());
             diaryData.setMonth(datePicker.getMonth());
-            diaryData.setNameOfMonth(datePicker.getMonth());
+            diaryData.setNameOfMonth(getNameOfMonth(datePicker.getMonth()));
             diaryData.setYear(datePicker.getYear());
             diaryData.setOwnId(weightOfDate);
             return true;
@@ -146,5 +135,48 @@ public class ActivityAddData extends AppCompatActivity {
             diaryData.setWeight(Double.parseDouble(edtWeight.getText().toString()));
             isReadyToClose = true;
         }
+    }
+
+    public String getNameOfMonth(int numberOfMonth) {
+        String nameOfMonth = new String();
+        switch (numberOfMonth) {
+            case 0:
+                nameOfMonth = "январь";
+                break;
+            case 1:
+                nameOfMonth = "февраль";
+                break;
+            case 2:
+                nameOfMonth = "март";
+                break;
+            case 3:
+                nameOfMonth = "апрель";
+                break;
+            case 4:
+                nameOfMonth = "май";
+                break;
+            case 5:
+                nameOfMonth = "июнь";
+                break;
+            case 6:
+                nameOfMonth = "июль";
+                break;
+            case 7:
+                nameOfMonth = "август";
+                break;
+            case 8:
+                nameOfMonth = "сентябрь";
+                break;
+            case 9:
+                nameOfMonth = "октябрь";
+                break;
+            case 10:
+                nameOfMonth = "ноябрь";
+                break;
+            case 11:
+                nameOfMonth = "декабрь";
+                break;
+        }
+        return nameOfMonth;
     }
 }
