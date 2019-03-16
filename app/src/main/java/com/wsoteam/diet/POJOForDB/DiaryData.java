@@ -2,7 +2,9 @@ package com.wsoteam.diet.POJOForDB;
 
 import com.orm.SugarRecord;
 
-public class DiaryData extends SugarRecord {
+import java.io.Serializable;
+
+public class DiaryData extends SugarRecord implements Serializable {
     private int ownId;
     private int numberOfDay;
     private int month;

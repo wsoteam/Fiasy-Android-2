@@ -23,6 +23,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.yandex.metrica.YandexMetrica;
 
 import java.util.Calendar;
@@ -167,16 +168,20 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
         switch (stringExtra) {
             case Config.INTENT_CHOISE_BREAKFAST:
-                new Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year).save();
+                WorkWithFirebaseDB.
+                        addBreakfast(new Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
                 break;
             case Config.INTENT_CHOISE_LUNCH:
-                new Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year).save();
+                WorkWithFirebaseDB.
+                        addLunch(new Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
                 break;
             case Config.INTENT_CHOISE_DINNER:
-                new Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year).save();
+                WorkWithFirebaseDB.
+                        addDinner(new Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
                 break;
             case Config.INTENT_CHOISE_SNACK:
-                new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year).save();
+                WorkWithFirebaseDB.
+                        addSnack(new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
                 break;
         }
         onBackPressed();

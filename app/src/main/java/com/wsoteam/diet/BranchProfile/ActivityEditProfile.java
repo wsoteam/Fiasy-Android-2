@@ -25,6 +25,8 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.wsoteam.diet.Authenticate.ActivityAuthMain;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.yandex.metrica.YandexMetrica;
 
 import java.util.Calendar;
@@ -77,7 +79,7 @@ public class ActivityEditProfile extends AppCompatActivity {
         fabEditProfile = findViewById(R.id.fabEditProfile);
         ivHelpEditProfile = findViewById(R.id.ivHelpEditProfile);
 
-        if (Profile.count(Profile.class) == 1) {
+        if (UserDataHolder.getUserData().getProfile() != null) {
             fillViewsIfProfileNotNull();
         }
 
@@ -134,7 +136,7 @@ public class ActivityEditProfile extends AppCompatActivity {
     private void fillViewsIfProfileNotNull() {
 
 
-        Profile profile = Profile.last(Profile.class);
+        Profile profile = UserDataHolder.getUserData().getProfile();
 
         edtHeight.setText(String.valueOf(profile.getHeight()));
         edtAge.setText(String.valueOf(profile.getAge()));
@@ -272,61 +274,35 @@ public class ActivityEditProfile extends AppCompatActivity {
         CardView cvADChoiseDiffLevelNormal = view.findViewById(R.id.cvADChoiseDiffLevelNormal);
         CardView cvADChoiseDiffLevelEasy = view.findViewById(R.id.cvADChoiseDiffLevelEasy);
 
+        Profile profile = new Profile(edtSpkName.getText().toString(), edtSpkSecondName.getText().toString(),
+                isFemale, age, Integer.parseInt(edtHeight.getText().toString()), weight, 0,
+                btnLevelLoad.getText().toString(),urlOfPhoto, maxWater, 0, (int) protein,
+                (int) fat, (int) carbohydrate, getString(R.string.dif_level_easy), day, month, year);
+
+
+
         cvADChoiseDiffLevelEasy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Profile.deleteAll(Profile.class);
-                Profile profile = new Profile(edtSpkName.getText().toString(), edtSpkSecondName.getText().toString(),
-                        isFemale, age, Integer.parseInt(edtHeight.getText().toString()), weight, 0,
-                        btnLevelLoad.getText().toString(),urlOfPhoto, maxWater, (int) SPK, (int) protein,
-                        (int) fat, (int) carbohydrate, getString(R.string.dif_level_easy), day, month, year);
-                profile.save();
+                saveProfile(registration, profile, SPK);
                 Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
                 alertDialog.cancel();
-                finish();
             }
         });
         cvADChoiseDiffLevelNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Profile.deleteAll(Profile.class);
-                Profile profile = new Profile(edtSpkName.getText().toString(), edtSpkSecondName.getText().toString(),
-                        isFemale, age, Integer.parseInt(edtHeight.getText().toString()), weight, 0,
-                        btnLevelLoad.getText().toString(),urlOfPhoto, maxWater, (int) upLineSPK, (int) protein,
-                        (int) fat, (int) carbohydrate, getString(R.string.dif_level_normal), day, month, year);
-                profile.save();
+                saveProfile(registration, profile, upLineSPK);
                 Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
                 alertDialog.cancel();
-                finish();
             }
         });
         cvADChoiseDiffLevelHard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (registration){
-                    Profile.deleteAll(Profile.class);
-                    Profile profile = new Profile(edtSpkName.getText().toString(), edtSpkSecondName.getText().toString(),
-                            isFemale, age, Integer.parseInt(edtHeight.getText().toString()), weight, 0,
-                            btnLevelLoad.getText().toString(),urlOfPhoto, maxWater, (int) downLineSPK, (int) protein,
-                            (int) fat, (int) carbohydrate, getString(R.string.dif_level_hard), day, month, year);
-                    Intent intent = new Intent(ActivityEditProfile.this, ActivityAuthMain.class);
-                    intent.putExtra("createUser", true);
-                    intent.putExtra("profile", profile);
-                    startActivity(intent);
-                    finish();
-
-                }else {
-                    Profile.deleteAll(Profile.class);
-                    Profile profile = new Profile(edtSpkName.getText().toString(), edtSpkSecondName.getText().toString(),
-                            isFemale, age, Integer.parseInt(edtHeight.getText().toString()), weight, 0,
-                            btnLevelLoad.getText().toString(),urlOfPhoto, maxWater, (int) downLineSPK, (int) protein,
-                            (int) fat, (int) carbohydrate, getString(R.string.dif_level_hard), day, month, year);
-                    profile.save();
-                    Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
-                    alertDialog.cancel();
-                    finish();
-                }
+                saveProfile(registration, profile, downLineSPK);
+                Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
+                alertDialog.cancel();
             }
         });
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
@@ -334,6 +310,20 @@ public class ActivityEditProfile extends AppCompatActivity {
         alertDialog.show();
 
 
+    }
+
+    private void saveProfile(boolean registration, Profile profile, double maxInt){
+        if (registration){
+            profile.setMaxKcal((int) maxInt);
+            Intent intent = new Intent(ActivityEditProfile.this, ActivityAuthMain.class);
+            intent.putExtra("createUser", true);
+            intent.putExtra("profile", profile);
+            startActivity(intent);
+        }else {
+            profile.setMaxKcal((int) maxInt);
+            WorkWithFirebaseDB.putProfileValue(profile);
+            finish();
+        }
     }
 
     private void createAlertDialogAboutLevelLoad() {

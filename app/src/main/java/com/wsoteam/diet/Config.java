@@ -7,6 +7,7 @@ public class Config {
     public static final String YANDEX_API_KEY = "8e2511af-4c77-48f5-bb85-5079916b7416";
     public static final String ADMOB_ID = "ca-app-pub-3050564412171997~8774716406";
     public static final String NAME_OF_ENTITY_FOR_DB = "GLOBAL_DATA_BASE";
+    public static final String NAME_OF_USER_DATA_LIST_ENTITY = "USER_LIST";
     public static final String ID_OF_SELECT_MENU = "id_of_selected_menu_item";
     public static final String KEY_OF_CLICK_ITEM_DETAIL_NEWS = "KEY_OF_CLICK_ITEM_DETAIL_NEWS";
 

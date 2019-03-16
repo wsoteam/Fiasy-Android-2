@@ -27,10 +27,14 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.MainScreen.Controller.EatingAdapter;
 import com.wsoteam.diet.POJOsCircleProgress.Water;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
@@ -68,7 +72,6 @@ public class FragmentEatingScroll extends Fragment {
             setMainParamsInBars(allEat);
         }
     }
-
 
 
     @Override
@@ -206,18 +209,53 @@ public class FragmentEatingScroll extends Fragment {
 
             List allEatingForThisDay = new ArrayList<>();
 
-            List<Breakfast> breakfasts = Select.from(Breakfast.class).where(Condition.prop("day").eq(day),
-                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();
+            List<Breakfast> breakfasts = new ArrayList<>();
+            if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getBreakfasts() != null) {
+                Iterator iterator = UserDataHolder.getUserData().getBreakfasts().entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry pair = (Map.Entry) iterator.next();
+                    Breakfast breakfast = (Breakfast) pair.getValue();
+                    if (breakfast.getDay() == day && breakfast.getMonth() == month && breakfast.getYear() == year) {
+                        breakfasts.add(breakfast);
+                    }
+                }
+            }
 
-            List<Lunch> lunches = Select.from(Lunch.class).where(Condition.prop("day").eq(day),
-                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();
+            List<Lunch> lunches = new ArrayList<>();
+            if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getLunches() != null) {
+                Iterator iterator = UserDataHolder.getUserData().getLunches().entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry pair = (Map.Entry) iterator.next();
+                    Lunch lunch = (Lunch) pair.getValue();
+                    if (lunch.getDay() == day && lunch.getMonth() == month && lunch.getYear() == year) {
+                        lunches.add(lunch);
+                    }
+                }
+            }
 
-            List<Dinner> dinners = Select.from(Dinner.class).where(Condition.prop("day").eq(day),
-                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();
+            List<Dinner> dinners = new ArrayList<>();
+            if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getDinners() != null) {
+                Iterator iterator = UserDataHolder.getUserData().getDinners().entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry pair = (Map.Entry) iterator.next();
+                    Dinner dinner = (Dinner) pair.getValue();
+                    if (dinner.getDay() == day && dinner.getMonth() == month && dinner.getYear() == year) {
+                        dinners.add(dinner);
+                    }
+                }
+            }
 
-            List<Snack> snacks = Select.from(Snack.class).where(Condition.prop("day").eq(day),
-                    Condition.prop("month").eq(month), Condition.prop("year").eq(year)).list();
-
+            List<Snack> snacks = new ArrayList<>();
+            if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getSnacks() != null) {
+                Iterator iterator = UserDataHolder.getUserData().getSnacks().entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry pair = (Map.Entry) iterator.next();
+                    Snack snack = (Snack) pair.getValue();
+                    if (snack.getDay() == day && snack.getMonth() == month && snack.getYear() == year) {
+                        snacks.add(snack);
+                    }
+                }
+            }
 
             allEatingForThisDay.add(breakfasts);
             allEatingForThisDay.add(lunches);

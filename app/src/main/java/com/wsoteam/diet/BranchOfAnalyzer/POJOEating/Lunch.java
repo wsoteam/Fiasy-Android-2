@@ -2,7 +2,9 @@ package com.wsoteam.diet.BranchOfAnalyzer.POJOEating;
 
 import com.orm.SugarRecord;
 
-public class Lunch extends Eating {
+import java.io.Serializable;
+
+public class Lunch extends Eating implements Serializable {
     public Lunch() {
     }
 

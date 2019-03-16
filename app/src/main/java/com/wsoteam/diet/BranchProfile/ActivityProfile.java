@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -49,8 +50,8 @@ public class ActivityProfile extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (Profile.count(Profile.class) == 1) {
-            Profile profile = Profile.last(Profile.class);
+        if (UserDataHolder.getUserData().getProfile() != null) {
+            Profile profile = UserDataHolder.getUserData().getProfile();
             updateUIOfList(profile);
             fillViewsIfProfileNotNull(profile);
         }

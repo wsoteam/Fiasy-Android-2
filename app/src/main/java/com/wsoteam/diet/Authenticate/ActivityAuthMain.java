@@ -32,14 +32,17 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.MainScreen.MainActivity;
+import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.R;
+
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ActivityAuthMain extends AppCompatActivity implements View.OnClickListener{
 
-    private static final String TAG ="Authenticate";
+
+    private static final String TAG = "Authenticate";
     private static final int RC_SIGN_IN = 9001;
 
     private boolean createUser;
@@ -94,7 +97,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
         callbackManager = CallbackManager.Factory.create();
         mAuth = FirebaseAuth.getInstance();
-        intent = new Intent(this, MainActivity.class);
+        intent = new Intent(this, ActivitySplash.class);
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -108,7 +111,8 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-            }  };
+            }
+        };
 
         facebookLoginButton.setReadPermissions("email", "public_profile");
         facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -127,6 +131,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
             }
         });
     }
+
     private void signInGoogle() {
         Log.d(TAG, "signInGoogle: 1");
         mGoogleSignInClient.signOut();
@@ -158,6 +163,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
             }
         }
     }
+
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
@@ -278,6 +284,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         }
     }
 
+
 //    @Override
 //    public void onBackPressed() {
 ////        new AlertDialog.Builder(this)
@@ -308,7 +315,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.auth_main_btn_signin:
                 if (createUser) {
                     createAccount(emailEditText.getText().toString(),

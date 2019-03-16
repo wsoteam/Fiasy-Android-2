@@ -2,7 +2,9 @@ package com.wsoteam.diet.BranchOfAnalyzer.POJOEating;
 
 import com.orm.SugarRecord;
 
-public class Eating extends SugarRecord {
+import java.io.Serializable;
+
+public class Eating extends SugarRecord implements Serializable {
     private String name;
     private String urlOfImages;
 

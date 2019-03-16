@@ -47,8 +47,14 @@ import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.wsoteam.diet.Authenticate.ActivityAuth;
 
-import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
+
 import com.wsoteam.diet.BranchOfCalculating.ActivityListOfCalculating;
 import com.wsoteam.diet.BranchOfDiary.ActivityListOfDiary;
 import com.wsoteam.diet.BranchOfMonoDiets.ActivityMonoDiet;
@@ -61,10 +67,17 @@ import com.wsoteam.diet.MainScreen.Support.AlertDialogChoiseEating;
 import com.wsoteam.diet.MainScreen.Controller.EatingAdapter;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEatingScroll;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
+
 import com.wsoteam.diet.OtherActivity.ActivitySplash;
+
+import com.wsoteam.diet.POJOForDB.DiaryData;
+
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOsCircleProgress.Water;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.POJO.UserData;
+import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.yandex.metrica.YandexMetrica;
 
 import java.io.IOException;
@@ -94,7 +107,6 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.tvDateForMainScreen) TextView tvDateForMainScreen;
     private TextView tvLeftNBName;
     private CircleImageView ivLeftNBAvatar;
-    private EatingAdapter eatingAdapter;
 
     private AnimatedVectorDrawable animatedVectorDrawable;
     private Animation animChangeScale, animRotateCancelWater, animWaterComplete;
@@ -108,7 +120,6 @@ public class MainActivity extends AppCompatActivity
     private final String TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG = "COUNT_OF_RUN";
     private SharedPreferences countOfRun;
     private boolean isFiveStarSend = false;
-    private boolean isFullWater;
 
 
 
@@ -118,8 +129,9 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
 
-        if (Profile.count(Profile.class) == 1) {
-            profile = Profile.last(Profile.class);
+        if (UserDataHolder.getUserData().getProfile() != null) {
+            Log.e("LOL", "Pick");
+            profile = UserDataHolder.getUserData().getProfile();
             tvLeftNBName.setText(profile.getFirstName() + " " + profile.getLastName());
             tvLeftNBName.setTextSize(17);
             if (!profile.getPhotoUrl().equals("default")) {
@@ -185,6 +197,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         setTitle("");
 
+
         mainappbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
             int scrollRange = -1;
@@ -204,12 +217,12 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        loadSound();
         bindDrawer();
         showThankToast();
         additionOneToSharedPreference();
         checkFirstRun();
         bindViewPager();
+        WorkWithFirebaseDB.setFirebaseStateListener();
 
         fabAddEating.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -253,18 +266,6 @@ public class MainActivity extends AppCompatActivity
         View view = navViewG.getHeaderView(0);
         tvLeftNBName = view.findViewById(R.id.tvLeftNBName);
         ivLeftNBAvatar = view.findViewById(R.id.ivLeftNBAvatar);
-    }
-
-
-
-    private void loadSound() {
-        soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        try {
-            soundIDdBubble = soundPool.load(getAssets().openFd("buble.mp3"), 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     private void setMaxParamsInProgressBars(int day, int month, int year, @Nullable Profile profile) {
@@ -425,6 +426,8 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_exit:
                 signOut();
+                UserDataHolder.clearObject();
+                finish();
                 break;
         }
         startActivity(intent);

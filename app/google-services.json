@@ -62,6 +62,16 @@
           }
         },
         {
+
+          "client_id": "588344798889-3fhr087b9oavkt4ljv7i3bm2ssn1rnjr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wild.diet",
+            "certificate_hash": "000e783dd4ee68f9ce143e738bb73160cf420260"
+          }
+        },
+        {
+
           "client_id": "588344798889-cr28eaof07tfndusqa5a51bjfkqj9tla.apps.googleusercontent.com",
           "client_type": 3
         }
