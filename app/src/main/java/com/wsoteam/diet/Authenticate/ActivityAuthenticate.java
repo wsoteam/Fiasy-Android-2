@@ -43,8 +43,6 @@ public class ActivityAuthenticate extends AppCompatActivity implements View.OnCl
 
         switch (view.getId()){
             case R.id.auth_first_btn_registration:
-//                fragment = new FragmentAuthGender();
-//                fm.beginTransaction().replace(R.id.auth_frame_layout, fragment).addToBackStack("FragmentAuthGender").commit();
                 startActivity(new Intent(this, ActivityEditProfile.class).putExtra("registration",true));
                 break;
             case R.id.auth_first_btn_signin:

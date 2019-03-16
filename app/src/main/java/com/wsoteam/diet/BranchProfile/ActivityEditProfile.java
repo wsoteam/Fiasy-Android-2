@@ -312,6 +312,7 @@ public class ActivityEditProfile extends AppCompatActivity {
                             (int) fat, (int) carbohydrate, getString(R.string.dif_level_hard), day, month, year);
                     Intent intent = new Intent(ActivityEditProfile.this, ActivityAuthMain.class);
                     intent.putExtra("createUser", true);
+                    intent.putExtra("profile", profile);
                     startActivity(intent);
                     finish();
 

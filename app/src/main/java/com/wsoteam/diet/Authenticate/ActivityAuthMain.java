@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -29,8 +30,12 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ActivityAuthMain extends AppCompatActivity implements View.OnClickListener{
 
@@ -205,6 +210,9 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
             Log.d(TAG, "signIn: fail valid");
             return;
         }
+        if (!isValidEmail(email)){
+            Toast.makeText(ActivityAuthMain.this, "check e-mail", Toast.LENGTH_SHORT).show();}
+
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -234,6 +242,10 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
             Log.d(TAG, "createAccount: fail valid");
             return;
         }
+
+        if (!isValidEmail(email)){
+            Toast.makeText(ActivityAuthMain.this, "check e-mail", Toast.LENGTH_SHORT).show();}
+
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -283,6 +295,15 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 ////                .setNegativeButton(getString(R.string.exit_alertdialog_btn_no), null)
 ////                .show();
 //    }
+
+
+        public boolean isValidEmail(String string){
+            final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+            Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+            Matcher matcher = pattern.matcher(string);
+            return matcher.matches();
+        }
+
 
     @Override
     public void onClick(View view) {
