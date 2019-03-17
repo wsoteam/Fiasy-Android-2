@@ -35,32 +35,16 @@
                     android:id="@+id/civEditProfile"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:src="@drawable/default_avatar"
                     app:civ_border_color="@color/white"
                     app:civ_border_width="3dp"
                     app:civ_circle_background_color="@color/white"
-                    app:layout_constraintEnd_toEndOf="@+id/textView56"
-                    app:layout_constraintStart_toStartOf="@+id/textView56"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView56"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Нажмите на фото для изменения"
-                    android:textColor="@color/white"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/civEditProfile"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textView50"
@@ -81,14 +65,14 @@
                     android:id="@+id/textView60"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:text="Здесь можно ввести свои профильные данные и расчитать важные показатели своего тела"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textView56"
+                    app:layout_constraintBottom_toBottomOf="@+id/civEditProfile"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/civEditProfile"
                     app:layout_constraintTop_toBottomOf="@+id/textView50" />

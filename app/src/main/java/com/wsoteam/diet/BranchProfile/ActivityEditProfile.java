@@ -111,14 +111,6 @@ public class ActivityEditProfile extends AppCompatActivity {
             }
         });
 
-        civEditProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, 1);
-            }
-        });
 
         Calendar calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH) - 1;
@@ -348,16 +340,5 @@ public class ActivityEditProfile extends AppCompatActivity {
             }
         });
         builder.show();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            Uri urlOfImage = data.getData();
-            Glide.with(this).load(urlOfImage).into(civEditProfile);
-            Log.e("LOl", String.valueOf(urlOfImage));
-            urlOfPhoto = String.valueOf(urlOfImage);
-        }
     }
 }

@@ -1,6 +1,7 @@
 package com.wsoteam.diet.BranchOfCalculating;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -18,8 +19,13 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
+import com.wsoteam.diet.BranchProfile.ActivityHelp;
 import com.wsoteam.diet.R;
 import com.yandex.metrica.YandexMetrica;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class ActivityCalculatorSPK extends AppCompatActivity {
@@ -33,7 +39,7 @@ public class ActivityCalculatorSPK extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(interstitialAd.isLoaded()){
+        if (interstitialAd.isLoaded()) {
             interstitialAd.show();
         }
     }
@@ -42,6 +48,7 @@ public class ActivityCalculatorSPK extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator_spk);
+        ButterKnife.bind(this);
         edtHeight = findViewById(R.id.edtSpkGrowth);
         edtAge = findViewById(R.id.edtSpkAge);
         edtWeight = findViewById(R.id.edtSpkWeight);
@@ -51,7 +58,7 @@ public class ActivityCalculatorSPK extends AppCompatActivity {
         tvTitle = findViewById(R.id.tvTitleOfSPK);
         adBanner = findViewById(R.id.bnrSPK);
 
-        tvTitle.setText(getResources().getStringArray(R.array.titles_of_calculating_list)[3]);
+        tvTitle.setText(getResources().getStringArray(R.array.titles_of_calculating_list)[1]);
 
         btnLevelLoad.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,5 +218,11 @@ public class ActivityCalculatorSPK extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    @OnClick(R.id.ivHelpEditProfile)
+    public void onViewClicked() {
+        Intent intent = new Intent(ActivityCalculatorSPK.this, ActivityHelp.class);
+        startActivity(intent);
     }
 }

@@ -369,14 +369,8 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_diary:
                 intent = new Intent(MainActivity.this, ActivityListOfDiary.class);
                 break;
-            case R.id.nav_diets:
-                intent = new Intent(MainActivity.this, ActivityMonoDiet.class);
-                break;
             case R.id.nav_recipes:
                 intent = new Intent(MainActivity.this, ActivityGroupsOfRecipes.class);
-                break;
-            case R.id.nav_notifications:
-                intent = new Intent(MainActivity.this, ActivityListOfNotifications.class);
                 break;
             case R.id.nav_fitness:
                 intent = new Intent(MainActivity.this, com.wsoteam.diet.BranchOfExercises.Activities.MainActivity.class);

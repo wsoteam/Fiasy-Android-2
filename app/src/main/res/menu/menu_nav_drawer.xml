@@ -6,38 +6,29 @@
     <group>
         <item
             android:id="@+id/nav_diary"
-            android:title="Дневник"
-            android:icon="@drawable/nav_draw_diary"/>
-        <item
-            android:id="@+id/nav_diets"
-            android:title="Монодиеты"
-            android:icon="@drawable/nav_drawable_diets"/>
+            android:icon="@drawable/nav_draw_diary"
+            android:title="Дневник" />
         <item
             android:id="@+id/nav_recipes"
-            android:title="Рецепты"
-            android:icon="@drawable/nav_draw_recipes"/>
-        <item
-            android:id="@+id/nav_notifications"
-            android:title="Задачи"
-            android:icon="@drawable/nav_draw_tasks"/>
+            android:icon="@drawable/nav_draw_recipes"
+            android:title="Рецепты" />
         <item
             android:id="@+id/nav_fitness"
-            android:title="Упражнения"
-            android:icon="@drawable/nav_draw_exercise"/>
+            android:icon="@drawable/nav_draw_exercise"
+            android:title="Упражнения" />
         <item
             android:id="@+id/nav_calculating"
-            android:title="Расчеты"
-            android:icon="@drawable/nav_draw_calculate"/>
+            android:icon="@drawable/nav_draw_calculate"
+            android:title="Расчеты" />
         <item
             android:id="@+id/nav_settings"
-            android:title="Настройки"
-            android:icon="@drawable/nav_draw_settings"/>
+            android:icon="@drawable/nav_draw_settings"
+            android:title="Настройки" />
         <item
             android:id="@+id/nav_exit"
-            android:title="Выход"
-            android:icon="@drawable/nav_draw_logout"/>
+            android:icon="@drawable/nav_draw_logout"
+            android:title="Выход" />
 
 
     </group>
-
 </menu>
