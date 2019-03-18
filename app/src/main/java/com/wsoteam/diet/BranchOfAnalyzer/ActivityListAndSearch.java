@@ -153,7 +153,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
     public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tvName, tvCal, tvNameOfGroup, tvLeterOfProduct;
         private ImageView ivMainImage, ivHardKcal, ivLockStatus;
-        private boolean isLock = false;
 
         public ItemHolder(LayoutInflater layoutInflater, ViewGroup viewGroup) {
             super(layoutInflater.inflate(R.layout.item_rv_list_of_search_response, viewGroup, false));
@@ -180,7 +179,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
             ivHardKcal.setVisibility(View.GONE);
             ivLockStatus.setVisibility(View.GONE);
             tvLeterOfProduct.setVisibility(View.GONE);
-            isLock = false;
             tvName.setText(itemOfGlobalBase.getName());
             tvCal.setText(itemOfGlobalBase.getCalories() + " " + getString(R.string.for_100_g_of_product));
 
@@ -256,6 +254,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
                 DbAnalyzer dbAnalyzer = foodConnect.getDbAnalyzer();
 
+                //load own products
                 if (ListOfFoodItem.count(ListOfFoodItem.class) > 0) {
                     ArrayList<ListOfFoodItem> listOfFoodItem = (ArrayList) ListOfFoodItem.listAll(ListOfFoodItem.class);
                     ListOfGroupsOfFood savedGroupFood = new ListOfGroupsOfFood(listOfFoodItem, TAG_OWN_PRODUCT, TAG_OWN_PRODUCT);

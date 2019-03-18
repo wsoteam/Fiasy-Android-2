@@ -27,7 +27,6 @@
     <color name="images_filter_edit_profile">#be252525</color>
 
 
-
     <color name="red_progress">#fa3939</color>
     <color name="yellow_progress">#fcd537</color>
     <color name="green_progress">#2ae133</color>
@@ -60,7 +59,6 @@
     <color name="backgroundColor">#ffffff</color>
 
 
-
     <color name="over_eat_color">#ff0008</color>
     <color name="bottom_color_for_eating_diary_style">#a943fe</color>
 
@@ -81,4 +79,7 @@
 
 
     <color name="imt_close_ad">#00a82d</color>
+
+
+    <color name="fab_main_activity">#39A298</color>
 </resources>
