@@ -23,8 +23,6 @@ public class AlertDialogChoiseEating {
         CardView cvChoiseEatingDinner = view.findViewById(R.id.cvChoiseEatingDinner);
         CardView cvChoiseEatingSnack = view.findViewById(R.id.cvChoiseEatingSnack);
 
-        Intent intent = new Intent(context, ActivityListAndSearch.class);
-
         cvChoiseEatingBreakFast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

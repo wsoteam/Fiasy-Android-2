@@ -11,19 +11,21 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
 import java.util.List;
 
 public class EatingAdapter extends RecyclerView.Adapter<EatingViewHolder> {
-    List<List<Eating>> allEatingGroups;
-    Context context;
+    private List<List<Eating>> allEatingGroups;
+    private Context context;
+    private String data;
 
-    public EatingAdapter(List<List<Eating>> allEatingGroups, Context context) {
+    public EatingAdapter(List<List<Eating>> allEatingGroups, Context context, String data) {
         this.allEatingGroups = allEatingGroups;
         this.context = context;
+        this.data = data;
     }
 
     @NonNull
     @Override
     public EatingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        return new EatingViewHolder(layoutInflater, parent);
+        return new EatingViewHolder(layoutInflater, parent, context, data);
     }
 
     @Override

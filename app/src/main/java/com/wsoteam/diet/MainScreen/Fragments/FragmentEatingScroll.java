@@ -201,11 +201,13 @@ public class FragmentEatingScroll extends Fragment {
     }
 
     public class LoadEatingForThisDay extends AsyncTask<Integer, Void, List<List<Eating>>> {
+        private int day = 0, month = 0, year = 0;
+
         @Override
         protected List<List<Eating>> doInBackground(Integer... ints) {
-            int day = ints[0];
-            int month = ints[1];
-            int year = ints[2];
+            day = ints[0];
+            month = ints[1];
+            year = ints[2];
 
             List allEatingForThisDay = new ArrayList<>();
 
@@ -270,7 +272,7 @@ public class FragmentEatingScroll extends Fragment {
         @Override
         protected void onPostExecute(List<List<Eating>> lists) {
             super.onPostExecute(lists);
-            eatingAdapter = new EatingAdapter(lists, getActivity());
+            eatingAdapter = new EatingAdapter(lists, getActivity(), setDateTitle(day, month, year));
             rvMainScreen.setAdapter(eatingAdapter);
         }
     }

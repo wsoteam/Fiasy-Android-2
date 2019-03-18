@@ -1,6 +1,7 @@
 package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
 import java.util.List;
@@ -25,11 +28,15 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvSumOfKcal) TextView tvSumOfKcal;
     private boolean isButtonPressed = false;
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3;
+    private Context context;
+    private String data;
 
 
-    public EatingViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup) {
+    public EatingViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, Context context, String data) {
         super(layoutInflater.inflate(R.layout.ms_item_eating_list, viewGroup, false));
         ButterKnife.bind(this, itemView);
+        this.context = context;
+        this.data = data;
     }
 
     public void bind(List<Eating> eatingGroup, Context context, String nameOfEatingGroup) {
@@ -55,5 +62,24 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-
+    @OnClick(R.id.imbAddFood)
+    public void onViewClicked() {
+        Intent intent = new Intent(context, ActivityListAndSearch.class);
+        intent.putExtra(Config.INTENT_DATE_FOR_SAVE, data);
+        switch (getAdapterPosition()) {
+            case BREAKFAST_POSITION:
+                intent.putExtra(Config.TAG_CHOISE_EATING, Config.INTENT_CHOISE_BREAKFAST);
+                break;
+            case LUNCH_POSITION:
+                intent.putExtra(Config.TAG_CHOISE_EATING, Config.INTENT_CHOISE_LUNCH);
+                break;
+            case DINNER_POSITION:
+                intent.putExtra(Config.TAG_CHOISE_EATING, Config.INTENT_CHOISE_DINNER);
+                break;
+            case SNACK_POSITION:
+                intent.putExtra(Config.TAG_CHOISE_EATING, Config.INTENT_CHOISE_SNACK);
+                break;
+        }
+        context.startActivity(intent);
+    }
 }
