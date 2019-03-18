@@ -360,16 +360,16 @@ public class MainActivity extends AppCompatActivity
                 intent = new Intent(MainActivity.this, ActivityListOfDiary.class);
                 break;
             case R.id.nav_recipes:
-                if (checkSubscribe()){
+                if (checkSubscribe()) {
                     intent = new Intent(MainActivity.this, ActivityGroupsOfRecipes.class);
-                }else {
+                } else {
                     intent = new Intent(MainActivity.this, ActivitySubscription.class);
                 }
                 break;
             case R.id.nav_fitness:
-                if (checkSubscribe()){
-                intent = new Intent(MainActivity.this, com.wsoteam.diet.BranchOfExercises.Activities.MainActivity.class);
-                }else {
+                if (checkSubscribe()) {
+                    intent = new Intent(MainActivity.this, com.wsoteam.diet.BranchOfExercises.Activities.MainActivity.class);
+                } else {
                     intent = new Intent(MainActivity.this, ActivitySubscription.class);
                 }
                 break;

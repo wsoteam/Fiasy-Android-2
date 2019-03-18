@@ -22,6 +22,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvTitleOfEatingCard) TextView tvTitleOfEatingCard;
     @BindView(R.id.rvListOfFoodEatingCard) RecyclerView rvListOfFoodEatingCard;
     @BindView(R.id.ibtnOpenList) ImageButton ibtnOpenList;
+    @BindView(R.id.tvSumOfKcal) TextView tvSumOfKcal;
     private boolean isButtonPressed = false;
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3;
 
@@ -32,6 +33,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(List<Eating> eatingGroup, Context context, String nameOfEatingGroup) {
+        tvSumOfKcal.setText(String.valueOf(calculateCalories(eatingGroup)) + " Ккал");
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
         rvListOfFoodEatingCard.setLayoutManager(new LinearLayoutManager(context));
         rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, false));
