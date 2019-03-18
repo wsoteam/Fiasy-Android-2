@@ -109,20 +109,10 @@ public class MainActivity extends AppCompatActivity
                 Uri uri = Uri.parse(profile.getPhotoUrl());
                 Glide.with(MainActivity.this).load(uri).into(ivLeftNBAvatar);
             }
+
+            setMaxParamsInProgressBars(profile);
         }
 
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int month = calendar.get(Calendar.MONTH);
-        int year = calendar.get(Calendar.YEAR);
-
-        Handler bindHandler = new Handler(Looper.getMainLooper());
-        bindHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                setMaxParamsInProgressBars(day, month, year, profile);
-            }
-        });
 
         ivLeftNBAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,19 +224,11 @@ public class MainActivity extends AppCompatActivity
         ivLeftNBAvatar = view.findViewById(R.id.ivLeftNBAvatar);
     }
 
-    private void setMaxParamsInProgressBars(int day, int month, int year, @Nullable Profile profile) {
-        if (profile != null) {
+    private void setMaxParamsInProgressBars(Profile profile) {
             apCollapsingKcal.setMax(profile.getMaxKcal());
             apCollapsingProt.setMax(profile.getMaxProt());
             apCollapsingCarbo.setMax(profile.getMaxCarbo());
             apCollapsingFat.setMax(profile.getMaxFat());
-        } else {
-            apCollapsingKcal.setMax(2000);
-            apCollapsingProt.setMax(100);
-            apCollapsingCarbo.setMax(100);
-            apCollapsingFat.setMax(100);
-        }
-
     }
 
     private void additionOneToSharedPreference() {
