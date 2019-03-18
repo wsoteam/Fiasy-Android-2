@@ -3,19 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group>
+    <item android:title="Премиум">
+        <menu>
+            <item
+                android:id="@+id/nav_recipes"
+                android:icon="@drawable/nav_draw_recipes"
+                android:title="Рецепты" />
+            <item
+                android:id="@+id/nav_fitness"
+                android:icon="@drawable/nav_draw_exercise"
+                android:title="Упражнения" />
+        </menu>
+    </item>
+
+    <item android:title="Стандартное">
+        <menu>
         <item
             android:id="@+id/nav_diary"
             android:icon="@drawable/nav_draw_diary"
             android:title="Дневник" />
-        <item
-            android:id="@+id/nav_recipes"
-            android:icon="@drawable/nav_draw_recipes"
-            android:title="Рецепты" />
-        <item
-            android:id="@+id/nav_fitness"
-            android:icon="@drawable/nav_draw_exercise"
-            android:title="Упражнения" />
         <item
             android:id="@+id/nav_calculating"
             android:icon="@drawable/nav_draw_calculate"
@@ -28,7 +34,8 @@
             android:id="@+id/nav_exit"
             android:icon="@drawable/nav_draw_logout"
             android:title="Выход" />
+        </menu>
+    </item>
 
 
-    </group>
 </menu>

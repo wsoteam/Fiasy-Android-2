@@ -49,6 +49,7 @@ import com.wsoteam.diet.BranchOfRecipes.ActivityGroupsOfRecipes;
 import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.BranchProfile.ActivityProfile;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEatingScroll;
 import com.wsoteam.diet.MainScreen.Support.AlertDialogChoiseEating;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
@@ -349,7 +350,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -360,10 +360,18 @@ public class MainActivity extends AppCompatActivity
                 intent = new Intent(MainActivity.this, ActivityListOfDiary.class);
                 break;
             case R.id.nav_recipes:
-                intent = new Intent(MainActivity.this, ActivityGroupsOfRecipes.class);
+                if (checkSubscribe()){
+                    intent = new Intent(MainActivity.this, ActivityGroupsOfRecipes.class);
+                }else {
+                    intent = new Intent(MainActivity.this, ActivitySubscription.class);
+                }
                 break;
             case R.id.nav_fitness:
+                if (checkSubscribe()){
                 intent = new Intent(MainActivity.this, com.wsoteam.diet.BranchOfExercises.Activities.MainActivity.class);
+                }else {
+                    intent = new Intent(MainActivity.this, ActivitySubscription.class);
+                }
                 break;
             case R.id.nav_calculating:
                 intent = new Intent(MainActivity.this, ActivityListOfCalculating.class);
@@ -387,6 +395,15 @@ public class MainActivity extends AppCompatActivity
 
 
         return true;
+    }
+
+    private boolean checkSubscribe() {
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+        if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

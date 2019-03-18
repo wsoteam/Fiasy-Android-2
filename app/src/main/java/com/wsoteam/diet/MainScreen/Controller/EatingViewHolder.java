@@ -12,17 +12,18 @@ import android.widget.TextView;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
 import com.wsoteam.diet.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class EatingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvTitleOfEatingCard) TextView tvTitleOfEatingCard;
     @BindView(R.id.rvListOfFoodEatingCard) RecyclerView rvListOfFoodEatingCard;
     @BindView(R.id.ibtnOpenList) ImageButton ibtnOpenList;
     private boolean isButtonPressed = false;
+    private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3;
 
 
     public EatingViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup) {
@@ -50,5 +51,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         }
         return sum;
     }
+
+
 
 }
