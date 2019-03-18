@@ -87,12 +87,6 @@ public class MainActivity extends AppCompatActivity
     private TextView tvLeftNBName;
     private CircleImageView ivLeftNBAvatar;
 
-    private AnimatedVectorDrawable animatedVectorDrawable;
-    private Animation animChangeScale, animRotateCancelWater, animWaterComplete;
-    private SoundPool soundPool;
-    private int soundIDdBubble;
-
-    private Water water;
     private Profile profile;
 
     private int COUNT_OF_RUN = 0;
@@ -169,7 +163,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
         ButterKnife.bind(this);
-        MobileAds.initialize(this, Config.ADMOB_ID);
         setSupportActionBar(toolbar);
         setTitle("");
 
@@ -234,9 +227,6 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navViewG.setNavigationItemSelectedListener(this);
-        animChangeScale = AnimationUtils.loadAnimation(this, R.anim.anim_change_scale);
-        animWaterComplete = AnimationUtils.loadAnimation(this, R.anim.anim_water_complete_tick);
-        animRotateCancelWater = AnimationUtils.loadAnimation(this, R.anim.anim_rotate_cancel_water);
 
         View view = navViewG.getHeaderView(0);
         tvLeftNBName = view.findViewById(R.id.tvLeftNBName);

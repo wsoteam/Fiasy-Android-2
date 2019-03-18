@@ -1,6 +1,5 @@
 package com.wsoteam.diet.BranchOfAnalyzer;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
@@ -11,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -23,25 +21,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOFoodItem.DbAnalyzer;
 import com.wsoteam.diet.POJOFoodItem.FoodConnect;
 import com.wsoteam.diet.POJOFoodItem.FoodItem;
 import com.wsoteam.diet.POJOFoodItem.ListOfFoodItem;
 import com.wsoteam.diet.POJOFoodItem.ListOfGroupsOfFood;
-import com.wsoteam.diet.POJOFoodItem.LockItemOfFoodBase;
-import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.yandex.metrica.YandexMetrica;
 
@@ -59,42 +50,15 @@ public class ActivityListAndSearch extends AppCompatActivity {
     private TextView tvEmptyText;
     private final int HARD_KCAL = 500;
     private DbAnalyzer dbAnalyzerGlobal = new DbAnalyzer();
-    private final String TAG_OF_FIRST_RUN = "ActivityListAndSearchTagOfFirstRun";
-    private SharedPreferences isRunEarly;
-    private List<LockItemOfFoodBase> lockItems = new ArrayList<>();
-    private boolean isReturnFromUnlockActivity = false;
     private final String EMPTY = "";
 
     private final String TAG_OWN_PRODUCT = "OWN";
 
-    InterstitialAd interstitialAd;
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (isReturnFromUnlockActivity) {
-            checkLockGroupsList();
-            edtSearchField.setText(edtSearchField.getText().toString());
-            isReturnFromUnlockActivity = false;
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if (interstitialAd.isLoaded()) {
-            interstitialAd.show();
-        }
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_and_search);
-
-        isRunEarly = getPreferences(MODE_PRIVATE);
-
-        checkLockGroupsList();
 
         ivCancel = findViewById(R.id.ibActivityListAndSearchCollapsingCancelButton);
         rvListOfSearchResponse = findViewById(R.id.rvListOfSearchResponse);
@@ -147,9 +111,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
         YandexMetrica.reportEvent("Открыт экран: Анализатор");
 
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId(getResources().getString(R.string.admob_interstitial));
-        interstitialAd.loadAd(new AdRequest.Builder().build());
 
     }
 
@@ -163,50 +124,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
             }
         }
         rvListOfSearchResponse.setAdapter(new ItemAdapter(tempListOfGroupsFoods));
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data == null) {
-            return;
-        }
-        String nameOfGroup = data.getStringExtra("nameOfGroup");
-        int idOfToastIcon = data.getIntExtra("idOfToastIcon", 0);
-        showToast(idOfToastIcon, nameOfGroup);
-        isReturnFromUnlockActivity = true;
-    }
-
-    private void showToast(int idOfToastIcon, String nameOfGroup) {
-        TextView tvToastCompleteGift;
-        ImageView ivToastCompleteGift;
-        LayoutInflater toastInflater = getLayoutInflater();
-        View toastLayout = toastInflater.inflate(R.layout.toast_complete_gift, null, false);
-        tvToastCompleteGift = toastLayout.findViewById(R.id.tvToastCompleteGift);
-        ivToastCompleteGift = toastLayout.findViewById(R.id.ivToastCompleteGift);
-        tvToastCompleteGift.setText("Открыт доступ к - " + nameOfGroup);
-
-        Glide.with(this).load(idOfToastIcon).into(ivToastCompleteGift);
-
-        Toast toast = new Toast(this);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(toastLayout);
-        toast.show();
-    }
-
-    private void checkLockGroupsList() {
-        if (isRunEarly.getBoolean(TAG_OF_FIRST_RUN, false)) {
-            lockItems = LockItemOfFoodBase.listAll(LockItemOfFoodBase.class);
-        } else {
-            SharedPreferences.Editor editor = isRunEarly.edit();
-            editor.putBoolean(TAG_OF_FIRST_RUN, true);
-            editor.commit();
-            String[] arrayLockGroups = getResources().getStringArray(R.array.lock_groups);
-            for (int i = 0; i < arrayLockGroups.length; i++) {
-                LockItemOfFoodBase item = new LockItemOfFoodBase(arrayLockGroups[i]);
-                item.save();
-            }
-            lockItems = LockItemOfFoodBase.listAll(LockItemOfFoodBase.class);
-        }
     }
 
 
@@ -252,19 +169,11 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-            if (isLock) {
-                Intent intent = new Intent(ActivityListAndSearch.this, ActivityRequestOfWatchADVideo.class);
-                intent.putExtra("ActivityRequestOfWatchADVideo", tempListOfGroupsFoods.get(getAdapterPosition()));
-                startActivityForResult(intent, 1);
-            } else {
-                Intent intent = new Intent(ActivityListAndSearch.this, ActivityDetailOfFood.class);
-                intent.putExtra("ActivityDetailOfFood", tempListOfGroupsFoods.get(getAdapterPosition()));
-                intent.putExtra(Config.TAG_CHOISE_EATING, getIntent().getStringExtra(Config.TAG_CHOISE_EATING));
-                intent.putExtra(Config.INTENT_DATE_FOR_SAVE, getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
-                startActivity(intent);
-            }
-
-
+            Intent intent = new Intent(ActivityListAndSearch.this, ActivityDetailOfFood.class);
+            intent.putExtra("ActivityDetailOfFood", tempListOfGroupsFoods.get(getAdapterPosition()));
+            intent.putExtra(Config.TAG_CHOISE_EATING, getIntent().getStringExtra(Config.TAG_CHOISE_EATING));
+            intent.putExtra(Config.INTENT_DATE_FOR_SAVE, getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
+            startActivity(intent);
         }
 
         public void bind(FoodItem itemOfGlobalBase, boolean isItemForSeparator) {
@@ -289,12 +198,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
                 ivHardKcal.setVisibility(View.VISIBLE);
             }
 
-            for (int i = 0; i < lockItems.size(); i++) {
-                if (itemOfGlobalBase.getNameOfGroup().equals(lockItems.get(i).getNameOfUnLockGroup())) {
-                    isLock = true;
-                    ivLockStatus.setVisibility(View.VISIBLE);
-                }
-            }
         }
     }
 

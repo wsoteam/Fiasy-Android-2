@@ -177,9 +177,6 @@
             android:name=".BranchOfBilling.ActivityPresentation"
             android:theme="@style/NotificationListActivity" />
         <activity
-            android:name=".BranchOfAnalyzer.ActivityRequestOfWatchADVideo"
-            android:theme="@style/NotificationListActivity" />
-        <activity
             android:name=".BranchEatingDiary.ActivityEatingDiary"
             android:theme="@style/EatingDiaryStyle" />
         <activity
