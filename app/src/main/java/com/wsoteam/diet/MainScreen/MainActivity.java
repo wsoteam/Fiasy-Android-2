@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
 
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
-            Log.e("LOL", "Pick");
             profile = UserDataHolder.getUserData().getProfile();
             tvLeftNBName.setText(profile.getFirstName() + " " + profile.getLastName());
             tvLeftNBName.setTextSize(17);

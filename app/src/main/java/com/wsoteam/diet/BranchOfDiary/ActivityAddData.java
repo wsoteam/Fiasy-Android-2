@@ -80,11 +80,13 @@ public class ActivityAddData extends AppCompatActivity {
 
     private void saveWeightDiaryItem() {
         String keyOfReplaceObject;
-        /*if ((keyOfReplaceObject = findSameObject(diaryData)) != null){
+        if (UserDataHolder.getUserData() != null
+                && UserDataHolder.getUserData().getDiaryDataList() != null
+                && (keyOfReplaceObject = findSameObject(diaryData)) != null){
             WorkWithFirebaseDB.replaceWeightDiaryItem(diaryData, keyOfReplaceObject);
-        }else{*/
+        }else{
             WorkWithFirebaseDB.addWeightDiaryItem(diaryData);
-        //}
+        }
 
     }
 
