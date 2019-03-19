@@ -48,7 +48,6 @@ import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import java.util.List;
 
 public class ActivitySplash extends AppCompatActivity {
-    private TextView tvTitle;
     private ImageView ivLoading;
     private Animation animationRotate;
     private FirebaseUser user;
@@ -65,12 +64,12 @@ public class ActivitySplash extends AppCompatActivity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        tvTitle = findViewById(R.id.tvTitleSplashScreen);
+
         ivLoading = findViewById(R.id.ivLoadingIcon);
-        tvTitle.setTypeface(Typeface.createFromAsset(getAssets(), "main_font.ttf"));
         animationRotate = AnimationUtils.loadAnimation(this, R.anim.animation_rotate);
         ivLoading.startAnimation(animationRotate);
 
