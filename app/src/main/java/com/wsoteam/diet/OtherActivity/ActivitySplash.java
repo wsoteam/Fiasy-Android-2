@@ -62,12 +62,17 @@ public class ActivitySplash extends AppCompatActivity {
         Log.e("LOL", "SPLASH");
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (!hasConnection(this)) {
+            Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
+        }
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         ivLoading = findViewById(R.id.ivLoadingIcon);
         animationRotate = AnimationUtils.loadAnimation(this, R.anim.animation_rotate);
@@ -102,9 +107,6 @@ public class ActivitySplash extends AppCompatActivity {
             }
         });
 
-        if (!hasConnection(this)) {
-            Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
-        }
 
         if (user != null) {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -119,7 +121,7 @@ public class ActivitySplash extends AppCompatActivity {
                     if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
                         WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
                     }
-                    startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
+                    startActivity(new Intent(ActivitySplash.this, MainActivity.class));
                     finish();
 
                 }

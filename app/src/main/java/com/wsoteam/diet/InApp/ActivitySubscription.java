@@ -21,6 +21,7 @@ import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.wsoteam.diet.InApp.Fragments.PremiumSliderFragment;
+import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 
 import java.util.ArrayList;
@@ -129,7 +130,7 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
                 buy("basic_subscription_3m");
                 break;
             case R.id.imbtnCancel:
-                //startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, MainActivity.class));
                 finish();
                 break;
             case R.id.tvPrivacyPolicy:

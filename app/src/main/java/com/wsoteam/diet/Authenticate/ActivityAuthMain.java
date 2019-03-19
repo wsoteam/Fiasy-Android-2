@@ -53,7 +53,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
     private CallbackManager callbackManager;
 
-    private EditText nameEditText;
     private EditText emailEditText;
     private EditText passEditText;
     LoginButton facebookLoginButton;
@@ -72,7 +71,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.auth_main_btn_signin).setOnClickListener(this);
 
 
-        nameEditText = findViewById(R.id.auth_main_name);
+
         emailEditText = findViewById(R.id.auth_main_email);
         passEditText = findViewById(R.id.auth_main_pass);
         facebookLoginButton = findViewById(R.id.auth_main_btn_facebook);
@@ -103,8 +102,8 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    startPrem();
-//                    startActivity(intent);
+//                    startPrem();
+                    startActivity(intent);
                     finish();
                 } else {
                     // User is signed out
