@@ -83,6 +83,8 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 
     implementation 'com.android.billingclient:billing:1.2'
+
+    implementation 'com.chabbal:slidingdotsplash:1.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

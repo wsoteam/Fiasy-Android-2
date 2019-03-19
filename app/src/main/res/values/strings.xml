@@ -1,5 +1,14 @@
 <resources>
 
+
+
+    <integer-array name="img_id_arr">
+        <item>@drawable/background_item_profile_carbo</item>
+        <item>@drawable/background_item_profile_prot</item>
+        <item>@drawable/background_item_profile_water</item>
+        <item>@drawable/background_gradient_data</item>
+    </integer-array>
+
     <!--auth_fragment_data-->
     <string name="auth_data_ask">Укажите ваши данные</string>
     <string name="auth_data_hint_growth">Рост</string>
@@ -18,8 +27,9 @@
     <string name="auth_gender_tv_q">Укажите ваш пол</string>
     <string name="auth_gender_btn_m">М</string>
     <string name="auth_gender_btn_f">Ж</string>
+
     <!--ActivitySubscription-->
-    <string name="subsc_btn_bay">Купить премиум</string>
+    <string name="subsc_btn_bay">обновить до premium</string>
     <string name="subsc_btn_exit">Позже</string>
 
     <!--exit alert dialog-->
@@ -34,6 +44,7 @@
     <string name="auth_main_et_hint_pass">Пароль</string>
     <string name="auth_main_btn_signin">Войти</string>
     <string name="auth_main_btn_create">Регистрация</string>
+
 
     <!--auth_fragment_registration-->
     <string name="reg_tv_hou_copmfortable">Как тебе удобней входить в систему?</string>
