@@ -39,7 +39,6 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 public class ActivitySplash extends AppCompatActivity {
-    private TextView tvTitle;
     private ImageView ivLoading;
     private Animation animationRotate;
     private FirebaseUser user;
@@ -57,9 +56,8 @@ public class ActivitySplash extends AppCompatActivity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        tvTitle = findViewById(R.id.tvTitleSplashScreen);
+
         ivLoading = findViewById(R.id.ivLoadingIcon);
-        tvTitle.setTypeface(Typeface.createFromAsset(getAssets(), "main_font.ttf"));
         animationRotate = AnimationUtils.loadAnimation(this, R.anim.animation_rotate);
         ivLoading.startAnimation(animationRotate);
 
