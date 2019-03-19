@@ -2,6 +2,7 @@ package com.wsoteam.diet.BranchOfRecipes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,12 +18,24 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.BranchOfMonoDiets.ActivityViewerOfBodyItem;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.ObjectHolder;
+import com.wsoteam.diet.OtherActivity.ActivitySplash;
+import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOS.ListOfGroupsRecipes;
 import com.wsoteam.diet.POJOS.ListOfRecipes;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.POJO.UserData;
+import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
@@ -46,19 +59,35 @@ public class ActivityGroupsOfRecipes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
 
-        listOfGroupsRecipes = (ArrayList<ListOfRecipes>) ObjectHolder.
-                getGlobalObject().
-                getListOfGroupsRecipes().
-                getListOfGroupsRecipes();
-        rvList = (RecyclerView) findViewById(R.id.rvRecipesList);
+        rvList = findViewById(R.id.rvRecipesList);
         rvList.setLayoutManager(new LinearLayoutManager(this));
-        rvList.setAdapter(new RecipeGroupAdapter(listOfGroupsRecipes));
+
+        updateUI();
 
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId(getResources().getString(R.string.admob_interstitial));
         interstitialAd.loadAd(new AdRequest.Builder().build());
 
         YandexMetrica.reportEvent("Открыт экран: Список рецептов");
+    }
+
+    private void updateUI() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_ENTITY_FOR_DB).
+                child("listOfGroupsRecipes");
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ListOfGroupsRecipes listOfGroupsRecipes = dataSnapshot.getValue(ListOfGroupsRecipes.class);
+                rvList.setAdapter(new RecipeGroupAdapter((ArrayList<ListOfRecipes>) listOfGroupsRecipes.getListOfGroupsRecipes()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private class RecipeGroupHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
