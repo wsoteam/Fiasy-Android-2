@@ -2,6 +2,7 @@ package com.wsoteam.diet.OtherActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -17,6 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,11 +44,16 @@ import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
+import java.util.List;
+
 public class ActivitySplash extends AppCompatActivity {
     private TextView tvTitle;
     private ImageView ivLoading;
     private Animation animationRotate;
     private FirebaseUser user;
+
+    private BillingClient mBillingClient;
+    private SharedPreferences countOfRun;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +73,34 @@ public class ActivitySplash extends AppCompatActivity {
         animationRotate = AnimationUtils.loadAnimation(this, R.anim.animation_rotate);
         ivLoading.startAnimation(animationRotate);
 
+        mBillingClient = BillingClient.newBuilder(this).setListener(new PurchasesUpdatedListener() {
+            @Override
+            public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
+                if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
+                    //сюда мы попадем когда будет осуществлена покупка
+
+                }
+            }
+        }).build();
+        mBillingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
+                if (billingResponseCode == BillingClient.BillingResponse.OK) {
+                    //здесь мы можем запросить информацию о товарах и покупках
+                    List<Purchase> purchasesList = queryPurchases(); //запрос о покупках
+
+                    checkSub("basic_subscription_1m",purchasesList);
+                    checkSub("basic_subscription_3m",purchasesList);
+                    checkSub("basic_subscription_4m",purchasesList);
+
+                }
+            }
+
+            @Override
+            public void onBillingServiceDisconnected() {
+                //сюда мы попадем если что-то пойдет не так
+            }
+        });
 
         if (!hasConnection(this)) {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
@@ -91,7 +130,7 @@ public class ActivitySplash extends AppCompatActivity {
                 }
             });
         } else {
-            startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
+            startActivity(new Intent(ActivitySplash.this, ActivitySubscription.class));
             finish();
         }
 
@@ -114,6 +153,30 @@ public class ActivitySplash extends AppCompatActivity {
         }
         return false;
     }
+
+    private void payComplete(){
+        countOfRun = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = countOfRun.edit();
+        editor.putBoolean(Config.STATE_BILLING, true);
+        editor.apply();
+    }
+
+    private List<Purchase> queryPurchases() {
+        Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.SUBS);
+        return purchasesResult.getPurchasesList();
+    }
+
+    private void checkSub(String mSkuId, List<Purchase> purchasesList){
+
+        //если товар уже куплен, предоставить его пользователю
+        for (int i = 0; i < purchasesList.size(); i++) {
+            String purchaseId = purchasesList.get(i).getSku();
+            if(TextUtils.equals(mSkuId, purchaseId)) {
+                payComplete();
+            }
+        }
+    }
+
 
 
 }
