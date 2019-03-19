@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wsoteam.diet.Authenticate.ActivityAuthMain;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
@@ -119,7 +120,7 @@ public class ActivitySplash extends AppCompatActivity {
                     if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
                         WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
                     }
-                    startActivity(new Intent(ActivitySplash.this, ActivitySubscription.class));
+                    startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
                     finish();
 
                 }
@@ -130,7 +131,7 @@ public class ActivitySplash extends AppCompatActivity {
                 }
             });
         } else {
-            startActivity(new Intent(ActivitySplash.this, ActivitySubscription.class));
+            startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
             finish();
         }
 

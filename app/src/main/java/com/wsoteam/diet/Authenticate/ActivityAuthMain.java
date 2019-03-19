@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.R;
 
@@ -102,7 +103,8 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    startActivity(intent);
+                    startPrem();
+//                    startActivity(intent);
                     finish();
                 } else {
                     // User is signed out
@@ -329,5 +331,10 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                 break;
         }
 
+    }
+
+    private void startPrem(){
+        Intent intent = new Intent(ActivityAuthMain.this, ActivitySubscription.class);
+        startActivity(intent);
     }
 }
