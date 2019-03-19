@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.FirebaseDatabase;
 import com.orm.SugarContext;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKAccessTokenTracker;
@@ -25,6 +26,7 @@ public class Diet extends Application {
         YandexMetrica.enableActivityAutoTracking(this);
         vkAccessTokenTracker.startTracking();
         VKSdk.initialize(this);
+
     }
 
     @Override

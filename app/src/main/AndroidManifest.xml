@@ -27,7 +27,7 @@
         <activity
             android:name=".InApp.ActivitySubscription"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/PremiumActivity"></activity>
         <activity
             android:name=".Authenticate.ActivityAuthMain"
             android:parentActivityName=".Authenticate.ActivityAuthenticate"

@@ -53,6 +53,7 @@ public class ActivitySplash extends AppCompatActivity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 

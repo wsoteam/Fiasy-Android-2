@@ -105,7 +105,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="url_gdpr" translatable="false">https://www.freeprivacypolicy.com/privacy/view/272200879b5cf29dd1b4fcd0f0299409</string>
+    <string name="url_gdpr" translatable="false">http://fiasy.com/PrivacyPolice.html</string>
 
     <string name="settings">Настройки</string>
     <string name="rate_us">Оцените нас</string>
@@ -340,6 +340,17 @@
     <string name="cm">см</string>
     <string name="kg">кг</string>
     <string name="profile_saved">Профиль сохранен</string>
+    <string name="premium_text_choise">Выберите подходящий для вас \n вариант</string>
+    <string name="premium_text_top">Вы сможете просматривать \nкалорийность своего блюда в \nрежиме реального времени</string>
+    <string name="three_mon">3 мес.</string>
+    <string name="text_premium_one">Подписки оплачиваемые \nодним платежем</string>
+
+    <string-array name="premium_slider_texts">
+        <item>Еще больше полезных статей на \nтему правильного питания. \nПодходите к похудению со \nзнанием дела.</item>
+        <item>Вы сможете просматривать \nкалорийность своего блюда в \nрежиме реального времени</item>
+        <item>Появится возможность \nзаписывать блюда в дневник \nпроизнося их вслух. Значительно \nэкономит ваше время</item>
+        <item>Персональные планы питания и \nтренировки. \nКвалифицированный тренер в \nвашем смартфоне.</item>
+    </string-array>
 
     <!--List of main max params in profile-->
     <string-array name="namesOfMainParam">
