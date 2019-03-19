@@ -48,6 +48,9 @@ import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import java.util.List;
 
 public class ActivitySplash extends AppCompatActivity {
+
+    private String TAG = "splash";
+
     private ImageView ivLoading;
     private Animation animationRotate;
     private FirebaseUser user;
@@ -121,7 +124,15 @@ public class ActivitySplash extends AppCompatActivity {
                     if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
                         WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
                     }
-                    startActivity(new Intent(ActivitySplash.this, MainActivity.class));
+
+                    boolean isPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).getBoolean(Config.STATE_BILLING,false);
+                    Intent intent;
+                    if (isPrem){
+                        intent = new Intent(ActivitySplash.this, MainActivity.class);
+                    } else {
+                       intent = new Intent(ActivitySplash.this, ActivitySubscription.class);
+                    }
+                    startActivity(intent);
                     finish();
 
                 }
@@ -175,6 +186,7 @@ public class ActivitySplash extends AppCompatActivity {
             String purchaseId = purchasesList.get(i).getSku();
             if(TextUtils.equals(mSkuId, purchaseId)) {
                 payComplete();
+                Log.d(TAG, "checkSub: payComplete");
             }
         }
     }

@@ -22,6 +22,7 @@ import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.wsoteam.diet.InApp.Fragments.PremiumSliderFragment;
 import com.wsoteam.diet.MainScreen.MainActivity;
+import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.R;
 
 import java.util.ArrayList;

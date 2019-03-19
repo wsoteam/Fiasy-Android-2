@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -28,6 +29,9 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.wsoteam.diet.Config;
@@ -77,6 +81,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         facebookLoginButton = findViewById(R.id.auth_main_btn_facebook);
         mGoogleSignInButton = findViewById(R.id.auth_main_btn_google);
         mGoogleSignInButton.setOnClickListener(this);
+        setGooglePlusButtonText(mGoogleSignInButton, getString(R.string.auth_main_signin_google));
         signIn = findViewById(R.id.auth_main_btn_signin);
 
 
@@ -113,6 +118,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         };
 
         facebookLoginButton.setReadPermissions("email", "public_profile");
+        facebookLoginButton.setText(R.string.auth_main_signin_facebook);
         facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -128,6 +134,19 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
             }
         });
+    }
+
+    protected void setGooglePlusButtonText(SignInButton signInButton, String buttonText) {
+        // Find the TextView that is inside of the SignInButton and set its text
+        for (int i = 0; i < signInButton.getChildCount(); i++) {
+            View v = signInButton.getChildAt(i);
+
+            if (v instanceof TextView) {
+                TextView tv = (TextView) v;
+                tv.setText(buttonText);
+                return;
+            }
+        }
     }
 
     private void signInGoogle() {
@@ -202,21 +221,25 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
                         }
 
-
                     }
                 });
     }
 
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
-        if (email.matches("") ||
-                password.matches("")) {
+        if (email.matches("")) {
+            Toast.makeText(ActivityAuthMain.this, "Пропущен email!", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "signIn: fail valid");
             return;
+        } else if (!isValidEmail(email)) {
+            Toast.makeText(ActivityAuthMain.this, "Проверь введенный email!", Toast.LENGTH_SHORT).show();
+            return;
+        }else if (password.matches("")){
+
+            Toast.makeText(ActivityAuthMain.this, "Пропущен пароль!", Toast.LENGTH_SHORT).show();
+            return;
         }
-        if (!isValidEmail(email)) {
-            Toast.makeText(ActivityAuthMain.this, "check e-mail", Toast.LENGTH_SHORT).show();
-        }
+
 
 
         mAuth.signInWithEmailAndPassword(email, password)
@@ -242,14 +265,17 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
     private void createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
-        if (email.matches("") ||
-                password.matches("")) {
+        if (email.matches("")) {
+            Toast.makeText(ActivityAuthMain.this, "Пропущен email!", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "createAccount: fail valid");
             return;
-        }
+        } else if (!isValidEmail(email)) {
+            Toast.makeText(ActivityAuthMain.this, "Проверь введенный email!", Toast.LENGTH_SHORT).show();
+            return;
+        }else if (password.matches("")){
 
-        if (!isValidEmail(email)) {
-            Toast.makeText(ActivityAuthMain.this, "check e-mail", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityAuthMain.this, "Пропущен пароль!", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         // [START create_user_with_email]
@@ -265,8 +291,32 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
 
                         }
-                    }
-                });
+                        if (!task.isSuccessful()) {
+                            try {
+                                throw task.getException();
+                            }
+                            // if user enters wrong email.
+                            catch (FirebaseAuthWeakPasswordException weakPassword) {
+                                Log.d(TAG, "onComplete: weak_password");
+                                Toast.makeText(ActivityAuthMain.this, "Слишком простой пароль!", Toast.LENGTH_SHORT).show();
+                                // TODO: take your actions!
+                            }
+                            // if user enters wrong password.
+                            catch (FirebaseAuthInvalidCredentialsException malformedEmail) {
+                                Log.d(TAG, "onComplete: malformed_email");
+
+                                // TODO: Take your action
+                            } catch (FirebaseAuthUserCollisionException existEmail) {
+                                Log.d(TAG, "onComplete: exist_email");
+                                Toast.makeText(ActivityAuthMain.this, "email уже используется!", Toast.LENGTH_SHORT).show();
+                                // TODO: Take your action
+                            } catch (Exception e) {
+                                Log.d(TAG, "onComplete: " + e.getMessage());
+                            }
+                        }
+
+
+                    }});
     }
 
 

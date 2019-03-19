@@ -23,16 +23,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OtherActivity.ActivityPrivacyPolicy"></activity>
+        <activity android:name=".OtherActivity.ActivityPrivacyPolicy"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
         <activity
             android:name=".InApp.ActivitySubscription"
             android:screenOrientation="portrait"
-            android:theme="@style/PremiumActivity"></activity>
+            android:theme="@style/PremiumActivity">
+
+        </activity>
         <activity
             android:name=".Authenticate.ActivityAuthMain"
             android:parentActivityName=".Authenticate.ActivityAuthenticate"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
