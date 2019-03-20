@@ -19,6 +19,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -67,7 +68,6 @@ public class ActivityEditProfile extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("LOL", "Create");
         setContentView(R.layout.activity_edit_profile);
         edtHeight = findViewById(R.id.edtSpkGrowth);
         edtAge = findViewById(R.id.edtSpkAge);
@@ -311,6 +311,7 @@ public class ActivityEditProfile extends AppCompatActivity {
             Intent intent = new Intent(ActivityEditProfile.this, ActivityAuthMain.class);
             intent.putExtra("createUser", true);
             intent.putExtra(Config.INTENT_PROFILE, profile);
+            Amplitude.getInstance().logEvent(Config.FILL_PROFILE);
             startActivity(intent);
         }else {
             profile.setMaxKcal((int) maxInt);

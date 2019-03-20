@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amplitude.api.Amplitude;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
@@ -62,14 +63,16 @@ public class ActivitySplash extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        Log.e("LOL", "SPLASH");
+        Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
+                .enableForegroundTracking(getApplication());
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
-
+        if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
+            Amplitude.getInstance().logEvent(Config.REGISTRATION);
+            WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
+        }
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         if (!hasConnection(this)) {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
@@ -121,9 +124,6 @@ public class ActivitySplash extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
-                    if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
-                        WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
-                    }
 
                     boolean isPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).getBoolean(Config.STATE_BILLING,false);
                     Intent intent;

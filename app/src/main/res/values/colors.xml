@@ -86,4 +86,5 @@
 
     <color name="background_premium">#44566D</color>
     <color name="premium_text">#F8B408</color>
+    <color name="select_card_premium">#F8B408</color>
 </resources>

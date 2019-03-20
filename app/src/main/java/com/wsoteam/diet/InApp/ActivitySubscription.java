@@ -9,9 +9,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 
+import com.amplitude.api.Amplitude;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
@@ -20,9 +22,9 @@ import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.Fragments.PremiumSliderFragment;
 import com.wsoteam.diet.MainScreen.MainActivity;
-import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.R;
 
 import java.util.ArrayList;
@@ -35,15 +37,22 @@ import butterknife.OnClick;
 
 public class ActivitySubscription extends AppCompatActivity implements PurchasesUpdatedListener {
     @BindView(R.id.viewPager) ViewPager viewPager;
+    @BindView(R.id.cvSub3mBack) CardView cvSub3mBack;
+    @BindView(R.id.cvSub12mBack) CardView cvSub12mBack;
+    @BindView(R.id.cvSub1mBack) CardView cvSub1mBack;
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
     private static final int COUNT_OF_PAGES = 4;
+    private boolean isEnterFromMainActivity = false;
+    private String sku = "basic_subscription_12m";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscription);
+        Amplitude.getInstance().logEvent(Config.SEE_PREMIUM);
+        isEnterFromMainActivity = getIntent().getBooleanExtra(Config.ENTER_FROM_MAIN_ACTIVITY, false);
         ButterKnife.bind(this);
         billingClient = BillingClient.newBuilder(this).setListener((PurchasesUpdatedListener) this).build();
         billingClient.startConnection(new BillingClientStateListener() {
@@ -61,6 +70,8 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
             }
         });
         bindViewPager();
+        cvSub3mBack.setVisibility(View.GONE);
+        cvSub1mBack.setVisibility(View.GONE);
     }
 
     private void bindViewPager() {
@@ -115,30 +126,49 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
 
     @Override
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
-
+        if (responseCode == BillingClient.BillingResponse.OK && purchases != null)
+            Amplitude.getInstance().logEvent(Config.BUY_PREMIUM);
     }
 
-    @OnClick({R.id.cvSub1m, R.id.cvSub12m, R.id.imbtnCancel, R.id.cvSub3m, R.id.tvPrivacyPolicy})
+    @OnClick({R.id.cvSub1m, R.id.cvSub12m, R.id.imbtnCancel, R.id.cvSub3m, R.id.tvPrivacyPolicy, R.id.btnBuyPrem})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.cvSub1m:
-                buy("basic_subscription_1m");
-                break;
-            case R.id.cvSub12m:
-                buy("basic_subscription_12m");
-                break;
-            case R.id.cvSub3m:
-                buy("basic_subscription_3m");
-                break;
-            case R.id.imbtnCancel:
+
+
+        if (view.getId() == R.id.cvSub1m) {
+            sku = "basic_subscription_1m";
+            cvSub1mBack.setVisibility(View.VISIBLE);
+            cvSub3mBack.setVisibility(View.GONE);
+            cvSub12mBack.setVisibility(View.GONE);
+        }
+        if (view.getId() == R.id.cvSub12m) {
+            sku = "basic_subscription_12m";
+            cvSub12mBack.setVisibility(View.VISIBLE);
+            cvSub3mBack.setVisibility(View.GONE);
+            cvSub1mBack.setVisibility(View.GONE);
+        }
+        if (view.getId() == R.id.cvSub3m) {
+            sku = "basic_subscription_3m";
+            cvSub3mBack.setVisibility(View.VISIBLE);
+            cvSub12mBack.setVisibility(View.GONE);
+            cvSub1mBack.setVisibility(View.GONE);
+        }
+        if (view.getId() == R.id.btnBuyPrem) {
+            buy(sku);
+        }
+        if (view.getId() == R.id.imbtnCancel) {
+            if (isEnterFromMainActivity) {
+                finish();
+            } else {
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
-                break;
-            case R.id.tvPrivacyPolicy:
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(getResources().getString(R.string.url_gdpr)));
-                startActivity(intent);
-                break;
+            }
         }
+        if (view.getId() == R.id.tvPrivacyPolicy) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(getResources().getString(R.string.url_gdpr)));
+            startActivity(intent);
+        }
+
     }
+
 }

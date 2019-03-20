@@ -1,5 +1,6 @@
 package com.wsoteam.diet.BranchOfAnalyzer;
 
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amplitude.api.Amplitude;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
 import com.wsoteam.diet.Config;
@@ -23,6 +25,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.yandex.metrica.YandexMetrica;
 
@@ -40,6 +43,9 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     private FoodItem foodItem;
     private final String TAG_OWN_PRODUCT = "OWN";
+    private SharedPreferences date, isTodayBreakfastSaved, isTodayLunchSaved, isTodayDinnerSaved, isTodaySnackSaved;
+    private final String TAG_OF_DATE = "TAG_OF_DATE", TAG_OF_BREAKFAST_SAVED = "TAG_OF_BREAKFAST_SAVED",
+            TAG_OF_LUNCH_SAVED = "TAG_OF_LUNCH_SAVED", TAG_OF_DINNER_SAVED = "TAG_OF_DINNER_SAVED", TAG_OF_SNACK_SAVED = "TAG_OF_SNACK_SAVED";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -147,7 +153,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     private void savePortion(String stringExtra) {
 
         String wholeDate = getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE);
-        Log.e("TER", wholeDate);
         String[] arrayOfNumbersForDate = wholeDate.split("\\.");
 
         int day = Integer.parseInt(arrayOfNumbersForDate[0]);
@@ -160,7 +165,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         int fat = Integer.parseInt(tvCalculateFat.getText().toString().split(" ")[0]);
 
         int weight = Integer.parseInt(edtWeight.getText().toString());
-
 
 
         String name = foodItem.getName();
@@ -184,8 +188,31 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                         addSnack(new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
                 break;
         }
+
+        date = getPreferences(MODE_PRIVATE);
+        isTodayBreakfastSaved = getPreferences(MODE_PRIVATE);
+        isTodayLunchSaved = getPreferences(MODE_PRIVATE);
+        isTodayDinnerSaved = getPreferences(MODE_PRIVATE);
+        isTodaySnackSaved = getPreferences(MODE_PRIVATE);
+
+        if (date.getString(TAG_OF_DATE, "").equals("") || !date.getString(TAG_OF_DATE, "").equals(getCurrentDate())) {
+            SharedPreferences.Editor editor = date.edit();
+            editor.putString(TAG_OF_DATE, getCurrentDate());
+            editor.commit();
+            Amplitude.getInstance().logEvent(Config.SAVE_ONE_CATEGORY);
+        }
+
         onBackPressed();
     }
+
+    private String getCurrentDate() {
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        return String.valueOf(day) + String.valueOf(month) + String.valueOf(year);
+    }
+
 
     private void calculateMainParameters() {
         Double fat, carbohydrates, protein, kcal, partOfStartWeight;

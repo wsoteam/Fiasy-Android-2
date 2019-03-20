@@ -9,8 +9,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.amplitude.api.Amplitude;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.WeightDiaryObject;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -62,7 +64,7 @@ public class ActivityAddData extends AppCompatActivity {
                     getWeight();
                     getOtherData();
                     saveWeightDiaryItem();
-
+                    Amplitude.getInstance().logEvent(Config.SAVE_DIARY_WEIGHT);
                     if (isReadyToClose) {
                         finish();
                     }

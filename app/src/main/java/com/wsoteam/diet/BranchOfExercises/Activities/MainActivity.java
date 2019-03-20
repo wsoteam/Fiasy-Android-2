@@ -23,6 +23,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.amplitude.api.Amplitude;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.FirebaseApp;
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.ex_activity_main);
 
         AdRequest request = new AdRequest.Builder().build();
+        Amplitude.getInstance().logEvent(Config.ENTER_IN_FITNESS);
 
         loadingBar = findViewById(R.id.ex_ivLoadingCircle);
         animationRotate = AnimationUtils.loadAnimation(this, R.anim.animation_rotate);

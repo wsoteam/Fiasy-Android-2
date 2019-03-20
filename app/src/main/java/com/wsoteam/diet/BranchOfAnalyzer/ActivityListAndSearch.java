@@ -51,9 +51,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
     private final int HARD_KCAL = 500;
     private DbAnalyzer dbAnalyzerGlobal = new DbAnalyzer();
     private final String EMPTY = "";
-
     private final String TAG_OWN_PRODUCT = "OWN";
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -261,11 +259,28 @@ public class ActivityListAndSearch extends AppCompatActivity {
                     dbAnalyzer.getListOfGroupsOfFood().add(0, savedGroupFood);
                 }
 
-                return dbAnalyzer;
+                //bk, kfc, mcDonalds and child food move to last position
+                return shuffleWithNewPriority(dbAnalyzer);
             } catch (Exception e) {
 
             }
             return null;
+        }
+
+        private DbAnalyzer shuffleWithNewPriority(DbAnalyzer dbAnalyzer) {
+            int BK = 0, KFC = 1, MCDonalds = 2, childEat = 4;
+
+            dbAnalyzer.getListOfGroupsOfFood().add(dbAnalyzer.getListOfGroupsOfFood().get(BK));
+            dbAnalyzer.getListOfGroupsOfFood().add(dbAnalyzer.getListOfGroupsOfFood().get(KFC));
+            dbAnalyzer.getListOfGroupsOfFood().add(dbAnalyzer.getListOfGroupsOfFood().get(MCDonalds));
+            dbAnalyzer.getListOfGroupsOfFood().add(dbAnalyzer.getListOfGroupsOfFood().get(childEat));
+
+            dbAnalyzer.getListOfGroupsOfFood().remove(childEat);
+            dbAnalyzer.getListOfGroupsOfFood().remove(MCDonalds);
+            dbAnalyzer.getListOfGroupsOfFood().remove(KFC);
+            dbAnalyzer.getListOfGroupsOfFood().remove(BK);
+
+            return dbAnalyzer;
         }
     }
 
@@ -358,3 +373,4 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
     }
 }
+

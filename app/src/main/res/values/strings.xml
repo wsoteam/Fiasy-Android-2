@@ -102,6 +102,7 @@
     <string name="admob_banner" translatable="false">ca-app-pub-3050564412171997/5103473829</string>
     <string name="admob_award" translatable="false">ca-app-pub-3050564412171997/4889189478</string>
     <string name="admob_banner_viewer_activity" translatable="false">ca-app-pub-3050564412171997/6423885238</string>
+    <string name="amplitude_api_key" translatable="false">b148a2e64cc862b4efb10865dfd4d579</string>
 
 
     <!--<string name="admob_interstitial" translatable="false">ca-app-pub-3940256099942544/1033173712</string>

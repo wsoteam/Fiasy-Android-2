@@ -36,6 +36,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.github.lzyzsd.circleprogress.ArcProgress;
@@ -183,6 +184,7 @@ public class MainActivity extends AppCompatActivity
         bindViewPager();
         WorkWithFirebaseDB.setFirebaseStateListener();
 
+
         fabAddEating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -224,10 +226,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setMaxParamsInProgressBars(Profile profile) {
-            apCollapsingKcal.setMax(profile.getMaxKcal());
-            apCollapsingProt.setMax(profile.getMaxProt());
-            apCollapsingCarbo.setMax(profile.getMaxCarbo());
-            apCollapsingFat.setMax(profile.getMaxFat());
+        apCollapsingKcal.setMax(profile.getMaxKcal());
+        apCollapsingProt.setMax(profile.getMaxProt());
+        apCollapsingCarbo.setMax(profile.getMaxCarbo());
+        apCollapsingFat.setMax(profile.getMaxFat());
     }
 
     private void additionOneToSharedPreference() {
@@ -345,6 +347,7 @@ public class MainActivity extends AppCompatActivity
                     intent = new Intent(MainActivity.this, ActivityGroupsOfRecipes.class);
                 } else {
                     intent = new Intent(MainActivity.this, ActivitySubscription.class);
+                    intent.putExtra(Config.ENTER_FROM_MAIN_ACTIVITY, true);
                 }
                 break;
             case R.id.nav_fitness:
@@ -352,6 +355,7 @@ public class MainActivity extends AppCompatActivity
                     intent = new Intent(MainActivity.this, com.wsoteam.diet.BranchOfExercises.Activities.MainActivity.class);
                 } else {
                     intent = new Intent(MainActivity.this, ActivitySubscription.class);
+                    intent.putExtra(Config.ENTER_FROM_MAIN_ACTIVITY, true);
                 }
                 break;
             case R.id.nav_calculating:
