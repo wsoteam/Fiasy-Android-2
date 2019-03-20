@@ -345,6 +345,7 @@ public class MainActivity extends AppCompatActivity
                     intent = new Intent(MainActivity.this, ActivityGroupsOfRecipes.class);
                 } else {
                     intent = new Intent(MainActivity.this, ActivitySubscription.class);
+                    intent.putExtra(Config.ENTER_FROM_MAIN_ACTIVITY, true);
                 }
                 break;
             case R.id.nav_fitness:
@@ -352,6 +353,7 @@ public class MainActivity extends AppCompatActivity
                     intent = new Intent(MainActivity.this, com.wsoteam.diet.BranchOfExercises.Activities.MainActivity.class);
                 } else {
                     intent = new Intent(MainActivity.this, ActivitySubscription.class);
+                    intent.putExtra(Config.ENTER_FROM_MAIN_ACTIVITY, true);
                 }
                 break;
             case R.id.nav_calculating:

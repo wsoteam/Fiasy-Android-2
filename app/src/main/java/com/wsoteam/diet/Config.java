@@ -39,6 +39,7 @@ public class Config {
 
     //Key of billing state
     public static final String STATE_BILLING = "STATE_BILLING";
+    public static final String ENTER_FROM_MAIN_ACTIVITY = "ENTER_FROM_MAIN_ACTIVITY";
 
 
 }

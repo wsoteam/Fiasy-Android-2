@@ -20,6 +20,7 @@ import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.Fragments.PremiumSliderFragment;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
@@ -38,12 +39,14 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
     private static final int COUNT_OF_PAGES = 4;
+    private boolean isEnterFromMainActivity = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscription);
+        isEnterFromMainActivity = getIntent().getBooleanExtra(Config.ENTER_FROM_MAIN_ACTIVITY, false);
         ButterKnife.bind(this);
         billingClient = BillingClient.newBuilder(this).setListener((PurchasesUpdatedListener) this).build();
         billingClient.startConnection(new BillingClientStateListener() {
@@ -131,8 +134,12 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
                 buy("basic_subscription_3m");
                 break;
             case R.id.imbtnCancel:
-                startActivity(new Intent(this, MainActivity.class));
-                finish();
+                if (isEnterFromMainActivity){
+                    finish();
+                }else {
+                    startActivity(new Intent(this, MainActivity.class));
+                    finish();
+                }
                 break;
             case R.id.tvPrivacyPolicy:
                 Intent intent = new Intent(Intent.ACTION_VIEW);
