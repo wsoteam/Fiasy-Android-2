@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amplitude.api.Amplitude;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
 import com.wsoteam.diet.Config;
@@ -189,11 +190,16 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         }
 
         date = getPreferences(MODE_PRIVATE);
+        isTodayBreakfastSaved = getPreferences(MODE_PRIVATE);
+        isTodayLunchSaved = getPreferences(MODE_PRIVATE);
+        isTodayDinnerSaved = getPreferences(MODE_PRIVATE);
+        isTodaySnackSaved = getPreferences(MODE_PRIVATE);
+
         if (date.getString(TAG_OF_DATE, "").equals("") || !date.getString(TAG_OF_DATE, "").equals(getCurrentDate())) {
             SharedPreferences.Editor editor = date.edit();
             editor.putString(TAG_OF_DATE, getCurrentDate());
             editor.commit();
-            Log.e("LOl", "PICK");
+            Amplitude.getInstance().logEvent(Config.SAVE_ONE_CATEGORY);
         }
 
         onBackPressed();
