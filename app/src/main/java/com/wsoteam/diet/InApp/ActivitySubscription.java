@@ -125,7 +125,8 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
 
     @Override
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
-        Amplitude.getInstance().logEvent(Config.BUY_PREMIUM);
+        if (responseCode == BillingClient.BillingResponse.OK && purchases != null)
+            Amplitude.getInstance().logEvent(Config.BUY_PREMIUM);
     }
 
     @OnClick({R.id.cvSub1m, R.id.cvSub12m, R.id.imbtnCancel, R.id.cvSub3m, R.id.tvPrivacyPolicy, R.id.btnBuyPrem})
