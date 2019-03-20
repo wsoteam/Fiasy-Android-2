@@ -26,6 +26,8 @@ public class Diet extends Application {
         YandexMetrica.enableActivityAutoTracking(this);
         vkAccessTokenTracker.startTracking();
         VKSdk.initialize(this);
+        FirebaseApp.initializeApp(getApplicationContext());
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
     }
 
