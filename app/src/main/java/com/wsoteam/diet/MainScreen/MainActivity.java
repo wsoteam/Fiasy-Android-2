@@ -36,6 +36,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.github.lzyzsd.circleprogress.ArcProgress;
@@ -183,6 +184,7 @@ public class MainActivity extends AppCompatActivity
         bindViewPager();
         WorkWithFirebaseDB.setFirebaseStateListener();
 
+
         fabAddEating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -224,10 +226,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setMaxParamsInProgressBars(Profile profile) {
-            apCollapsingKcal.setMax(profile.getMaxKcal());
-            apCollapsingProt.setMax(profile.getMaxProt());
-            apCollapsingCarbo.setMax(profile.getMaxCarbo());
-            apCollapsingFat.setMax(profile.getMaxFat());
+        apCollapsingKcal.setMax(profile.getMaxKcal());
+        apCollapsingProt.setMax(profile.getMaxProt());
+        apCollapsingCarbo.setMax(profile.getMaxCarbo());
+        apCollapsingFat.setMax(profile.getMaxFat());
     }
 
     private void additionOneToSharedPreference() {

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
+import com.amplitude.api.Amplitude;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orm.SugarContext;
@@ -12,6 +13,7 @@ import com.vk.sdk.VKAccessTokenTracker;
 import com.vk.sdk.VKSdk;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.MainScreen.MainActivity;
+import com.wsoteam.diet.R;
 import com.yandex.metrica.YandexMetrica;
 import com.yandex.metrica.YandexMetricaConfig;
 
@@ -28,7 +30,6 @@ public class Diet extends Application {
         VKSdk.initialize(this);
         FirebaseApp.initializeApp(getApplicationContext());
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
     }
 
     @Override

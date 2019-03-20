@@ -13,6 +13,7 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 
+import com.amplitude.api.Amplitude;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
@@ -49,6 +50,7 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscription);
+        Amplitude.getInstance().logEvent(Config.SEE_PREMIUM);
         isEnterFromMainActivity = getIntent().getBooleanExtra(Config.ENTER_FROM_MAIN_ACTIVITY, false);
         ButterKnife.bind(this);
         billingClient = BillingClient.newBuilder(this).setListener((PurchasesUpdatedListener) this).build();
@@ -123,7 +125,7 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
 
     @Override
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
-
+        Amplitude.getInstance().logEvent(Config.BUY_PREMIUM);
     }
 
     @OnClick({R.id.cvSub1m, R.id.cvSub12m, R.id.imbtnCancel, R.id.cvSub3m, R.id.tvPrivacyPolicy, R.id.btnBuyPrem})
