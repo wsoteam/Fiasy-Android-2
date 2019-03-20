@@ -174,21 +174,6 @@
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
-    <TextView
-        android:id="@+id/textView46"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:text="@string/premium_text_choise"
-        android:textColor="@color/premium_text"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivFrameCounter" />
-
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="395dp"
@@ -215,13 +200,13 @@
         android:layout_width="105dp"
         android:layout_height="120dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="4dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toStartOf="@+id/cvSub12m"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView46">
+        app:layout_constraintTop_toBottomOf="@+id/ivFrameCounter">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -299,12 +284,12 @@
         android:layout_width="1dp"
         android:layout_height="43dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvSub12m" />
+        app:layout_constraintTop_toBottomOf="@+id/btnBuyPrem" />
 
     <TextView
         android:id="@+id/textView79"
@@ -358,5 +343,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/btn_cancel_premium" />
+
+    <Button
+        android:id="@+id/btnBuyPrem"
+        android:layout_width="163dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/shape_btn_buy_prem"
+        android:gravity="center"
+        android:text="Обновить до \nPremium"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvSub12m" />
 
 </android.support.constraint.ConstraintLayout>

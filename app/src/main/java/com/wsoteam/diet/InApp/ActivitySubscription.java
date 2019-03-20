@@ -126,26 +126,30 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
 
     }
 
-    @OnClick({R.id.cvSub1m, R.id.cvSub12m, R.id.imbtnCancel, R.id.cvSub3m, R.id.tvPrivacyPolicy})
+    @OnClick({R.id.cvSub1m, R.id.cvSub12m, R.id.imbtnCancel, R.id.cvSub3m, R.id.tvPrivacyPolicy, R.id.btnBuyPrem})
     public void onViewClicked(View view) {
+        String sku = "basic_subscription_12m";
         switch (view.getId()) {
             case R.id.cvSub1m:
-                buy("basic_subscription_1m");
+                sku = "basic_subscription_1m";
                 cvSub1mBack.setVisibility(View.VISIBLE);
                 cvSub3mBack.setVisibility(View.GONE);
                 cvSub12mBack.setVisibility(View.GONE);
                 break;
             case R.id.cvSub12m:
-                buy("basic_subscription_12m");
+                sku = "basic_subscription_12m";
                 cvSub12mBack.setVisibility(View.VISIBLE);
                 cvSub3mBack.setVisibility(View.GONE);
                 cvSub1mBack.setVisibility(View.GONE);
                 break;
             case R.id.cvSub3m:
-                buy("basic_subscription_3m");
+                sku = "basic_subscription_3m";
                 cvSub3mBack.setVisibility(View.VISIBLE);
                 cvSub12mBack.setVisibility(View.GONE);
                 cvSub1mBack.setVisibility(View.GONE);
+                break;
+            case R.id.btnBuyPrem:
+                buy(sku);
                 break;
             case R.id.imbtnCancel:
                 if (isEnterFromMainActivity) {
@@ -162,4 +166,5 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
                 break;
         }
     }
+
 }
