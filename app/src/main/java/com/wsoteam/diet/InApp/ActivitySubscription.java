@@ -44,6 +44,7 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
     private static final String TAG = "inappbilling";
     private static final int COUNT_OF_PAGES = 4;
     private boolean isEnterFromMainActivity = false;
+    private String sku = "basic_subscription_12m";
 
 
     @Override
@@ -131,43 +132,43 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
 
     @OnClick({R.id.cvSub1m, R.id.cvSub12m, R.id.imbtnCancel, R.id.cvSub3m, R.id.tvPrivacyPolicy, R.id.btnBuyPrem})
     public void onViewClicked(View view) {
-        String sku = "basic_subscription_12m";
-        switch (view.getId()) {
-            case R.id.cvSub1m:
-                sku = "basic_subscription_1m";
-                cvSub1mBack.setVisibility(View.VISIBLE);
-                cvSub3mBack.setVisibility(View.GONE);
-                cvSub12mBack.setVisibility(View.GONE);
-                break;
-            case R.id.cvSub12m:
-                sku = "basic_subscription_12m";
-                cvSub12mBack.setVisibility(View.VISIBLE);
-                cvSub3mBack.setVisibility(View.GONE);
-                cvSub1mBack.setVisibility(View.GONE);
-                break;
-            case R.id.cvSub3m:
-                sku = "basic_subscription_3m";
-                cvSub3mBack.setVisibility(View.VISIBLE);
-                cvSub12mBack.setVisibility(View.GONE);
-                cvSub1mBack.setVisibility(View.GONE);
-                break;
-            case R.id.btnBuyPrem:
-                buy(sku);
-                break;
-            case R.id.imbtnCancel:
-                if (isEnterFromMainActivity) {
-                    finish();
-                } else {
-                    startActivity(new Intent(this, MainActivity.class));
-                    finish();
-                }
-                break;
-            case R.id.tvPrivacyPolicy:
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(getResources().getString(R.string.url_gdpr)));
-                startActivity(intent);
-                break;
+
+
+        if (view.getId() == R.id.cvSub1m) {
+            sku = "basic_subscription_1m";
+            cvSub1mBack.setVisibility(View.VISIBLE);
+            cvSub3mBack.setVisibility(View.GONE);
+            cvSub12mBack.setVisibility(View.GONE);
         }
+        if (view.getId() == R.id.cvSub12m) {
+            sku = "basic_subscription_12m";
+            cvSub12mBack.setVisibility(View.VISIBLE);
+            cvSub3mBack.setVisibility(View.GONE);
+            cvSub1mBack.setVisibility(View.GONE);
+        }
+        if (view.getId() == R.id.cvSub3m) {
+            sku = "basic_subscription_3m";
+            cvSub3mBack.setVisibility(View.VISIBLE);
+            cvSub12mBack.setVisibility(View.GONE);
+            cvSub1mBack.setVisibility(View.GONE);
+        }
+        if (view.getId() == R.id.btnBuyPrem) {
+            buy(sku);
+        }
+        if (view.getId() == R.id.imbtnCancel) {
+            if (isEnterFromMainActivity) {
+                finish();
+            } else {
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            }
+        }
+        if (view.getId() == R.id.tvPrivacyPolicy) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(getResources().getString(R.string.url_gdpr)));
+            startActivity(intent);
+        }
+
     }
 
 }
