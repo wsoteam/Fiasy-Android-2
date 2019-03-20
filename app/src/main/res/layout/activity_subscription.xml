@@ -8,6 +8,39 @@
     tools:context="com.wsoteam.diet.InApp.ActivitySubscription">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/cvSub3mBack"
+        android:layout_width="112dp"
+        android:layout_height="125dp"
+        app:cardBackgroundColor="@color/select_card_premium"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cvSub3m"
+        app:layout_constraintEnd_toEndOf="@+id/cvSub3m"
+        app:layout_constraintStart_toStartOf="@+id/cvSub3m"
+        app:layout_constraintTop_toTopOf="@+id/cvSub3m" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvSub12mBack"
+        android:layout_width="112dp"
+        android:layout_height="125dp"
+        app:cardBackgroundColor="@color/select_card_premium"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cvSub12m"
+        app:layout_constraintEnd_toEndOf="@+id/cvSub12m"
+        app:layout_constraintStart_toStartOf="@+id/cvSub12m"
+        app:layout_constraintTop_toTopOf="@+id/cvSub12m" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvSub1mBack"
+        android:layout_width="112dp"
+        android:layout_height="125dp"
+        app:cardBackgroundColor="@color/select_card_premium"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cvSub1m"
+        app:layout_constraintEnd_toEndOf="@+id/cvSub1m"
+        app:layout_constraintStart_toStartOf="@+id/cvSub1m"
+        app:layout_constraintTop_toTopOf="@+id/cvSub1m" />
+
+    <android.support.v7.widget.CardView
         android:id="@+id/cvSub1m"
         android:layout_width="105dp"
         android:layout_height="120dp"

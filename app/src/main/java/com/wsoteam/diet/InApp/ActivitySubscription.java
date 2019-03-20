@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 
@@ -23,7 +24,6 @@ import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.Fragments.PremiumSliderFragment;
 import com.wsoteam.diet.MainScreen.MainActivity;
-import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.R;
 
 import java.util.ArrayList;
@@ -36,6 +36,9 @@ import butterknife.OnClick;
 
 public class ActivitySubscription extends AppCompatActivity implements PurchasesUpdatedListener {
     @BindView(R.id.viewPager) ViewPager viewPager;
+    @BindView(R.id.cvSub3mBack) CardView cvSub3mBack;
+    @BindView(R.id.cvSub12mBack) CardView cvSub12mBack;
+    @BindView(R.id.cvSub1mBack) CardView cvSub1mBack;
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
     private static final int COUNT_OF_PAGES = 4;
@@ -64,6 +67,8 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
             }
         });
         bindViewPager();
+        cvSub3mBack.setVisibility(View.GONE);
+        cvSub1mBack.setVisibility(View.GONE);
     }
 
     private void bindViewPager() {
@@ -126,17 +131,26 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
         switch (view.getId()) {
             case R.id.cvSub1m:
                 buy("basic_subscription_1m");
+                cvSub1mBack.setVisibility(View.VISIBLE);
+                cvSub3mBack.setVisibility(View.GONE);
+                cvSub12mBack.setVisibility(View.GONE);
                 break;
             case R.id.cvSub12m:
                 buy("basic_subscription_12m");
+                cvSub12mBack.setVisibility(View.VISIBLE);
+                cvSub3mBack.setVisibility(View.GONE);
+                cvSub1mBack.setVisibility(View.GONE);
                 break;
             case R.id.cvSub3m:
                 buy("basic_subscription_3m");
+                cvSub3mBack.setVisibility(View.VISIBLE);
+                cvSub12mBack.setVisibility(View.GONE);
+                cvSub1mBack.setVisibility(View.GONE);
                 break;
             case R.id.imbtnCancel:
-                if (isEnterFromMainActivity){
+                if (isEnterFromMainActivity) {
                     finish();
-                }else {
+                } else {
                     startActivity(new Intent(this, MainActivity.class));
                     finish();
                 }
