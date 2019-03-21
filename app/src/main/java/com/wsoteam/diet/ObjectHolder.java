@@ -1,18 +1,16 @@
 package com.wsoteam.diet;
 
 import com.wsoteam.diet.POJOS.GlobalObject;
-import com.wsoteam.diet.POJOS.POJO;
-
-import java.util.ArrayList;
+import com.wsoteam.diet.POJOS.ListOfGroupsRecipes;
 
 public class ObjectHolder {
-    private static GlobalObject globalObject;
+    private static ListOfGroupsRecipes listOfGroupsRecipes;
 
-    public void bindObjectWithHolder(GlobalObject globalObject){
-        this.globalObject = globalObject;
+    public void bindObjectWithHolder(ListOfGroupsRecipes listOfGroupsRecipes){
+        this.listOfGroupsRecipes = listOfGroupsRecipes;
     }
 
-    public static GlobalObject getGlobalObject(){
-        return globalObject;
+    public static ListOfGroupsRecipes getListOfGroupsRecipes(){
+        return listOfGroupsRecipes;
     }
 }

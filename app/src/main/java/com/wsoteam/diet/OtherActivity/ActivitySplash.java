@@ -114,6 +114,7 @@ public class ActivitySplash extends AppCompatActivity {
         });
 
 
+
         if (user != null) {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
@@ -168,10 +169,10 @@ public class ActivitySplash extends AppCompatActivity {
     }
 
     private void payComplete(){
-        countOfRun = getPreferences(MODE_PRIVATE);
+        countOfRun = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
         SharedPreferences.Editor editor = countOfRun.edit();
         editor.putBoolean(Config.STATE_BILLING, true);
-        editor.apply();
+        editor.commit();
     }
 
     private List<Purchase> queryPurchases() {

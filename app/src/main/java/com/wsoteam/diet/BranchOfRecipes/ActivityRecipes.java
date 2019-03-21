@@ -13,10 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.wsoteam.diet.BranchOfMonoDiets.ActivityViewerOfBodyItem;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.ObjectHolder;
 import com.wsoteam.diet.POJOS.ItemRecipes;
@@ -46,7 +44,6 @@ public class ActivityRecipes extends AppCompatActivity {
         setContentView(R.layout.activity_recipes);
 
         listOfRecipes = (ArrayList<ItemRecipes>) ObjectHolder.
-                getGlobalObject().
                 getListOfGroupsRecipes().
                 getListOfGroupsRecipes().get((int)getIntent().getSerializableExtra(Config.ID_OF_RECIPE_GROUPS)).getListRecipes();
 
