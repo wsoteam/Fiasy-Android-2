@@ -31,6 +31,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -74,6 +75,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
     private CallbackManager callbackManager;
 
+    private TextView resPassTextView;
     private EditText emailEditText;
     private EditText passEditText;
     LoginButton facebookLoginButton;
@@ -96,6 +98,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         mDatabase = FirebaseDatabase.getInstance().getReference().child("USER_LIST");
 
 
+        resPassTextView = findViewById(R.id.auth_main_tv_respasss);
         emailEditText = findViewById(R.id.auth_main_email);
         passEditText = findViewById(R.id.auth_main_pass);
         facebookLoginButton = findViewById(R.id.auth_main_btn_facebook);
@@ -107,6 +110,10 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
         if (createUser) {
             signIn.setText(R.string.auth_main_btn_create);
+
+        }else {
+            resPassTextView.setVisibility(View.VISIBLE);
+            resPassTextView.setOnClickListener(this);
         }
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -488,6 +495,59 @@ private ValueEventListener getPostListener(){
         return false;
     }
 
+    private void restorePassword(){
+
+        final EditText edittext = new EditText(this);
+        edittext.setHint(getString(R.string.auth_main_hint_respass));
+
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.auth_main_title_respass))
+                .setMessage(R.string.auth_main_body_respass)
+                .setView(edittext)
+                .setNegativeButton(getString(R.string.auth_main_btn_close), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+
+                })
+                .setPositiveButton(getString(R.string.auth_main_btn_restore), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                   if (!isValidEmail(edittext.getText().toString())){
+                       Toast.makeText(ActivityAuthMain.this, "Проверь введенный email!", Toast.LENGTH_SHORT).show();
+                   } else {
+                       Log.d(TAG, "Email for reset:" + edittext.getText().toString());
+
+                       mAuth.sendPasswordResetEmail(edittext.getText().toString())
+                               .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                   @Override
+                                   public void onComplete(@NonNull Task<Void> task) {
+                                       if (task.isSuccessful()) {
+                                           Log.d(TAG, "Email sent." + edittext.getText().toString());
+                                           Toast.makeText(ActivityAuthMain.this, "Проверьте вашу почту!", Toast.LENGTH_SHORT).show();
+                                       }else {
+                                           Log.d(TAG, "Error");
+                                           Toast.makeText(ActivityAuthMain.this, "Ошибка, попробуйте позже.", Toast.LENGTH_SHORT).show();
+                                       }
+                                   }
+                               }).addOnFailureListener(new OnFailureListener() {
+                           @Override
+                           public void onFailure(@NonNull Exception e) {
+                               Log.d(TAG, e.getMessage());
+                           }
+                       });
+                   }
+                    }
+
+                })
+                .show();
+    }
+
+
+
     @Override
     public void onClick(View view) {
 
@@ -507,12 +567,10 @@ private ValueEventListener getPostListener(){
                 if (hasConnection(this))
                 signInGoogle();
                 break;
+            case R.id.auth_main_tv_respasss:
+                restorePassword();
+                break;
         }
-
     }
 
-    private void startPrem(){
-        Intent intent = new Intent(ActivityAuthMain.this, ActivitySubscription.class);
-        startActivity(intent);
-    }
 }

@@ -46,6 +46,12 @@
     <string name="auth_main_btn_create">Регистрация</string>
     <string name="auth_main_signin_google">Вход через Google</string>
     <string name="auth_main_signin_facebook">Вход через Facebook</string>
+    <string name="auth_main_tv_respasss">Забыли пароль?</string>
+    <string name="auth_main_hint_respass">Эл. почта</string>
+    <string name="auth_main_btn_restore">Отправить</string>
+    <string name="auth_main_btn_close">Отмена</string>
+    <string name="auth_main_title_respass">Сброс пароля</string>
+    <string name="auth_main_body_respass">Мы отправим вам письмо для восстановления доступа.</string>
 
     <string name="auth_main_alert_title">Упс...</string>
     <string name="auth_main_alert_body">Пользователь не найден. Зарегистрируйтесь!</string>
