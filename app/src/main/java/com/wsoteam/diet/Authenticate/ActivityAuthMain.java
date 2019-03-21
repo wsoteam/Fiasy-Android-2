@@ -1,8 +1,10 @@
 package com.wsoteam.diet.Authenticate;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,10 +13,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amplitude.api.Amplitude;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -34,10 +38,18 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.OtherActivity.ActivitySplash;
+import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -54,6 +66,8 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference mDatabase;
+
 
     private CallbackManager callbackManager;
 
@@ -62,6 +76,8 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     LoginButton facebookLoginButton;
     SignInButton mGoogleSignInButton;
     Button signIn;
+
+    private Profile profile;
 
     private Intent intent;
 
@@ -74,6 +90,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
         findViewById(R.id.auth_main_btn_signin).setOnClickListener(this);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("USER_LIST");
 
 
         emailEditText = findViewById(R.id.auth_main_email);
@@ -108,8 +125,17 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 //                    startPrem();
-                    startActivity(intent);
-                    finish();
+
+                    if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
+                        Amplitude.getInstance().logEvent(Config.REGISTRATION);
+                        WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
+                    }
+
+
+                   checkUserExist(user.getUid());
+
+
+
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -134,6 +160,27 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
             }
         });
+    }
+
+private ValueEventListener getPostListener(){
+    ValueEventListener postListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            // Get Post object and use the values to update the UI
+//            Post post = dataSnapshot.getValue(Post.class);
+            profile = dataSnapshot.getValue(Profile.class);
+            Log.d(TAG, "onDataChange: " + profile.getLastName());
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            // Getting Post failed, log a message
+            Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            // ...
+        }
+    };
+
+    return postListener;
     }
 
     protected void setGooglePlusButtonText(SignInButton signInButton, String buttonText) {
@@ -240,8 +287,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
             return;
         }
 
-
-
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -263,6 +308,13 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                 });
     }
 
+    private void signOutAll(){
+        Log.d(TAG, "signOutAll: ");
+        mAuth.signOut();
+        LoginManager.getInstance().logOut();
+        mGoogleSignInClient.signOut();
+
+    }
     private void createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
         if (email.matches("")) {
@@ -319,6 +371,59 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                     }});
     }
 
+    private void checkUserExist(String uid){
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+//            Post post = dataSnapshot.getValue(Post.class);
+                profile = dataSnapshot.getValue(Profile.class);
+                checkProfile(profile);
+                if (profile != null)
+                Log.d(TAG, "onDataChange: " + profile.getLastName());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.d(TAG, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+
+       mDatabase.child(uid).child("profile").addListenerForSingleValueEvent(postListener);
+
+    }
+
+    private void checkProfile(Profile profile){
+        if (profile == null){
+
+            new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(getString(R.string.auth_main_alert_title))
+                .setMessage(getString(R.string.auth_main_alert_body))
+                .setPositiveButton(getString(R.string.auth_main_alert_ok), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        signOutAll();
+                    }
+
+                })
+                .show();
+
+//            Toast.makeText(ActivityAuthMain.this, "Зарегай акк!!!", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "checkUserExist: false");
+
+        } else {
+//            Toast.makeText(ActivityAuthMain.this, "Приветствую!!!", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "checkUserExist: true");
+            startActivity(intent);
+            finish();
+        }
+
+    }
 
     @Override
     public void onStart() {

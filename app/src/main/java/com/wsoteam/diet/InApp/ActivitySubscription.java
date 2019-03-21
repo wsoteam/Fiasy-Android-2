@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.amplitude.api.Amplitude;
 import com.android.billingclient.api.BillingClient;
@@ -25,7 +26,9 @@ import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.Fragments.PremiumSliderFragment;
 import com.wsoteam.diet.MainScreen.MainActivity;
+import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
 
 import java.util.ArrayList;
 import java.util.List;

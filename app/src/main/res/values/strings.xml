@@ -47,6 +47,10 @@
     <string name="auth_main_signin_google">Вход через Google</string>
     <string name="auth_main_signin_facebook">Вход через Facebook</string>
 
+    <string name="auth_main_alert_title">Упс!</string>
+    <string name="auth_main_alert_body">Сначала пройдите регистрацию!</string>
+    <string name="auth_main_alert_ok">Ок</string>
+
 
     <!--auth_fragment_registration-->
     <string name="reg_tv_hou_copmfortable">Как тебе удобней входить в систему?</string>

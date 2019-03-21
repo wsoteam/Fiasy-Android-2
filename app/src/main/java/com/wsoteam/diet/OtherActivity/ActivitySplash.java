@@ -67,10 +67,10 @@ public class ActivitySplash extends AppCompatActivity {
                 .enableForegroundTracking(getApplication());
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
-            Amplitude.getInstance().logEvent(Config.REGISTRATION);
-            WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
-        }
+//        if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
+//            Amplitude.getInstance().logEvent(Config.REGISTRATION);
+//            WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
+//        }
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
 
