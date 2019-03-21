@@ -47,8 +47,8 @@
     <string name="auth_main_signin_google">Вход через Google</string>
     <string name="auth_main_signin_facebook">Вход через Facebook</string>
 
-    <string name="auth_main_alert_title">Упс!</string>
-    <string name="auth_main_alert_body">Сначала пройдите регистрацию!</string>
+    <string name="auth_main_alert_title">Упс...</string>
+    <string name="auth_main_alert_body">Пользователь не найден. Зарегистрируйтесь!</string>
     <string name="auth_main_alert_ok">Ок</string>
 
 

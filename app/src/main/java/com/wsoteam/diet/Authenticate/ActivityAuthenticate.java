@@ -1,6 +1,9 @@
 package com.wsoteam.diet.Authenticate;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +29,19 @@ public class ActivityAuthenticate extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authenticate);
+
+        /**snip **/
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.wsoteam.diet.ACTION_LOGOUT");
+        registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.d("onReceive","Logout in progress");
+                //At this point you should start the login activity and finish this one
+                finish();
+            }
+        }, intentFilter);
+        //** snip **//
 
         fm = getSupportFragmentManager();
         fragment = fm.findFragmentById(R.id.auth_frame_layout);

@@ -158,6 +158,11 @@ public class MainActivity extends AppCompatActivity
         setTitle("");
 
 
+        /** on your logout method:**/
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("com.wsoteam.diet.ACTION_LOGOUT");
+        sendBroadcast(broadcastIntent);
+
         mainappbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
             int scrollRange = -1;

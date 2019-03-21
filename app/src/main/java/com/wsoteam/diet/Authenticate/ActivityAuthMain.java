@@ -1,7 +1,10 @@
 package com.wsoteam.diet.Authenticate;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -157,6 +160,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onError(FacebookException error) {
+                hasConnection(ActivityAuthMain.this);
 
             }
         });
@@ -466,21 +470,41 @@ private ValueEventListener getPostListener(){
         return matcher.matches();
     }
 
+    private boolean hasConnection(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (wifiInfo != null && wifiInfo.isConnected()) {
+            return true;
+        }
+        wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if (wifiInfo != null && wifiInfo.isConnected()) {
+            return true;
+        }
+        wifiInfo = cm.getActiveNetworkInfo();
+        if (wifiInfo != null && wifiInfo.isConnected()) {
+            return true;
+        }
+        Toast.makeText(ActivityAuthMain.this, "Интернет отключен!", Toast.LENGTH_SHORT).show();
+        return false;
+    }
 
     @Override
     public void onClick(View view) {
 
         switch (view.getId()) {
             case R.id.auth_main_btn_signin:
-                if (createUser) {
+                if ( createUser) {
+                    if (hasConnection(this))
                     createAccount(emailEditText.getText().toString(),
                             passEditText.getText().toString());
                 } else {
+                    if (hasConnection(this))
                     signIn(emailEditText.getText().toString(),
                             passEditText.getText().toString());
                 }
                 break;
             case R.id.auth_main_btn_google:
+                if (hasConnection(this))
                 signInGoogle();
                 break;
         }
