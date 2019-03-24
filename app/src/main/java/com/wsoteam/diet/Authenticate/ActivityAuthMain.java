@@ -42,6 +42,8 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,6 +57,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -70,6 +73,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private DatabaseReference mDatabase;
 
 
@@ -81,6 +85,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     LoginButton facebookLoginButton;
     SignInButton mGoogleSignInButton;
     Button signIn;
+    Button phoneButton;
 
     private Profile profile;
 
@@ -101,8 +106,10 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         resPassTextView = findViewById(R.id.auth_main_tv_respasss);
         emailEditText = findViewById(R.id.auth_main_email);
         passEditText = findViewById(R.id.auth_main_pass);
+        phoneButton = findViewById(R.id.auth_main_btn_phone);
         facebookLoginButton = findViewById(R.id.auth_main_btn_facebook);
         mGoogleSignInButton = findViewById(R.id.auth_main_btn_google);
+        phoneButton.setOnClickListener(this);
         mGoogleSignInButton.setOnClickListener(this);
         setGooglePlusButtonText(mGoogleSignInButton, getString(R.string.auth_main_signin_google));
         signIn = findViewById(R.id.auth_main_btn_signin);
@@ -450,6 +457,90 @@ private ValueEventListener getPostListener(){
         }
     }
 
+    private void phoneAuth(){
+
+        View view = getLayoutInflater().inflate( R.layout.alert_dialog_phone_auth, null);
+
+        TextView infoTextView = view.findViewById(R.id.auth_phone_tv);
+        EditText phoneNumber = view.findViewById(R.id.auth_phone_et_number);
+        EditText code = view.findViewById(R.id.auth_phone_et_code);
+        Button okButton = view.findViewById(R.id.auth_phone_btn_ok);
+        Button cancelButton = view.findViewWithTag(R.id.auth_phone_btn_cancel);
+//        ListView listView = (ListView) view.findViewById(R.id.listView);
+
+        new AlertDialog.Builder(this)
+                .setView(view)
+                .show();
+
+    }
+
+    private void startPhoneNumberVerification(String phoneNumber) {
+        // [START start_phone_auth]
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phoneNumber,        // Phone number to verify
+                60,                 // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
+                this,               // Activity (for callback binding)
+                mCallbacks);        // OnVerificationStateChangedCallbacks
+        // [END start_phone_auth]
+
+    }
+
+    private void verifyPhoneNumberWithCode(String verificationId, String code) {
+        // [START verify_with_code]
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+        // [END verify_with_code]
+        signInWithPhoneAuthCredential(credential);
+    }
+
+    // [START resend_verification]
+    private void resendVerificationCode(String phoneNumber,
+                                        PhoneAuthProvider.ForceResendingToken token) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phoneNumber,        // Phone number to verify
+                60,                 // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
+                this,               // Activity (for callback binding)
+                mCallbacks,         // OnVerificationStateChangedCallbacks
+                token);             // ForceResendingToken from callbacks
+    }
+    // [END resend_verification]
+
+    // [START sign_in_with_phone]
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+
+                            FirebaseUser user = task.getResult().getUser();
+                            // [START_EXCLUDE]
+
+                            // [END_EXCLUDE]
+                        } else {
+                            // Sign in failed, display a message and update the UI
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                // The verification code entered was invalid
+                                // [START_EXCLUDE silent]
+                                Log.d(TAG, "onComplete: Invalid code.");
+                                // [END_EXCLUDE]
+                            }
+                            // [START_EXCLUDE silent]
+                            // Update UI
+                            Log.d(TAG, "onComplete: STATE_SIGNIN_FAILED");
+                            // [END_EXCLUDE]
+                        }
+                    }
+                });
+    }
+    // [END sign_in_with_phone]
+
+
+
 
 //    @Override
 //    public void onBackPressed() {
@@ -569,6 +660,9 @@ private ValueEventListener getPostListener(){
                 break;
             case R.id.auth_main_tv_respasss:
                 restorePassword();
+                break;
+            case R.id.auth_main_btn_phone:
+                phoneAuth();
                 break;
         }
     }

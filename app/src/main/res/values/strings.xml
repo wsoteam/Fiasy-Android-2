@@ -1,6 +1,18 @@
 <resources>
 
-
+    <string name="desc_firebase_lockup">Firebase logo and name</string>
+    <string name="phone_title_text">Phone Number</string>
+    <string name="hint_phone_number">Phone Number</string>
+    <string name="hint_verification_code">Verification Code</string>
+    <string name="start_phone_auth">Start</string>
+    <string name="verify_phone_auth">Verify</string>
+    <string name="resend_phone_auth">Resend</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="status_code_sent">Code Sent</string>
+    <string name="status_verification_failed">Verification failed</string>
+    <string name="status_verification_succeeded">Verification succeeded</string>
+    <string name="status_sign_in_failed">Sign-in failed</string>
+    <string name="instant_validation">(instant validation)</string>
 
     <integer-array name="img_id_arr">
         <item>@drawable/background_item_profile_carbo</item>
@@ -56,6 +68,12 @@
     <string name="auth_main_alert_title">Упс...</string>
     <string name="auth_main_alert_body">Пользователь не найден. Зарегистрируйтесь!</string>
     <string name="auth_main_alert_ok">Ок</string>
+
+    <string name="auth_main_phone_text_set_number">Введите номер для отправки смс с кодом.</string>
+    <string name="auth_main_phone_hint_phone">+375255446677</string>
+    <string name="auth_main_phone_hint_code">Код из смс</string>
+    <string name="auth_main_phone_btn_cancel">Отмена</string>
+    <string name="auth_main_phone_btn_send">Отправить</string>
 
 
     <!--auth_fragment_registration-->
