@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,6 +34,8 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
@@ -69,6 +72,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
     private boolean createUser;
 
+    boolean isSendCode = false;
 
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
@@ -76,6 +80,8 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private DatabaseReference mDatabase;
 
+    private String mVerificationId;
+    private PhoneAuthProvider.ForceResendingToken mResendToken;
 
     private CallbackManager callbackManager;
 
@@ -178,6 +184,76 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
             }
         });
+        // [START phone_auth_callbacks]
+        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+            @Override
+            public void onVerificationCompleted(PhoneAuthCredential credential) {
+                // This callback will be invoked in two situations:
+                // 1 - Instant verification. In some cases the phone number can be instantly
+                //     verified without needing to send or enter a verification code.
+                // 2 - Auto-retrieval. On some devices Google Play services can automatically
+                //     detect the incoming verification SMS and perform verification without
+                //     user action.
+                Log.d(TAG, "onVerificationCompleted:" + credential);
+                // [START_EXCLUDE silent]
+
+                // [END_EXCLUDE]
+
+                // [START_EXCLUDE silent]
+                // Update the UI and attempt sign in with the phone credential
+
+                // [END_EXCLUDE]
+                signInWithPhoneAuthCredential(credential);
+            }
+
+            @Override
+            public void onVerificationFailed(FirebaseException e) {
+                // This callback is invoked in an invalid request for verification is made,
+                // for instance if the the phone number format is not valid.
+                Log.w(TAG, "onVerificationFailed", e);
+                // [START_EXCLUDE silent]
+
+                // [END_EXCLUDE]
+
+                if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                    // Invalid request
+                    // [START_EXCLUDE]
+//                    mPhoneNumberField.setError("Invalid phone number.");
+                    // [END_EXCLUDE]
+                } else if (e instanceof FirebaseTooManyRequestsException) {
+                    // The SMS quota for the project has been exceeded
+                    // [START_EXCLUDE]
+                    Snackbar.make(findViewById(android.R.id.content), "Quota exceeded.",
+                            Snackbar.LENGTH_SHORT).show();
+                    // [END_EXCLUDE]
+                }
+
+                // Show a message and update the UI
+                // [START_EXCLUDE]
+//                updateUI(STATE_VERIFY_FAILED);
+                // [END_EXCLUDE]
+            }
+
+            @Override
+            public void onCodeSent(String verificationId,
+                                   PhoneAuthProvider.ForceResendingToken token) {
+                // The SMS verification code has been sent to the provided phone number, we
+                // now need to ask the user to enter the code and then construct a credential
+                // by combining the code with a verification ID.
+                Log.d(TAG, "onCodeSent:" + verificationId);
+
+                // Save verification ID and resending token so we can use them later
+                mVerificationId = verificationId;
+                mResendToken = token;
+
+                // [START_EXCLUDE]
+                // Update UI
+//                updateUI(STATE_CODE_SENT);
+                // [END_EXCLUDE]
+            }
+        };
+        // [END phone_auth_callbacks]
     }
 
 private ValueEventListener getPostListener(){
@@ -459,23 +535,67 @@ private ValueEventListener getPostListener(){
 
     private void phoneAuth(){
 
+        isSendCode = false;
+
         View view = getLayoutInflater().inflate( R.layout.alert_dialog_phone_auth, null);
 
         TextView infoTextView = view.findViewById(R.id.auth_phone_tv);
-        EditText phoneNumber = view.findViewById(R.id.auth_phone_et_number);
-        EditText code = view.findViewById(R.id.auth_phone_et_code);
+        EditText phoneNumberEditText = view.findViewById(R.id.auth_phone_et_number);
+        EditText codeEditText = view.findViewById(R.id.auth_phone_et_code);
         Button okButton = view.findViewById(R.id.auth_phone_btn_ok);
-        Button cancelButton = view.findViewWithTag(R.id.auth_phone_btn_cancel);
-//        ListView listView = (ListView) view.findViewById(R.id.listView);
+        Button cancelButton = view.findViewById(R.id.auth_phone_btn_cancel);
 
-        new AlertDialog.Builder(this)
-                .setView(view)
-                .show();
+
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setView(view).show();
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick:");
+                switch (view.getId()){
+                    case R.id.auth_phone_btn_cancel:
+                        alertDialog.dismiss();
+                        break;
+                    case R.id.auth_phone_btn_ok:
+
+                        if (!isSendCode){
+                            String phone = phoneNumberEditText.getText().toString();
+                            if (isValidPhone(phone)){
+                                startPhoneNumberVerification(phone);
+                                codeEditText.setEnabled(true);
+                                phoneNumberEditText.setEnabled(false);
+                                infoTextView.setText(R.string.auth_main_phone_text_set_code);
+                                okButton.setText(R.string.auth_main_phone_btn_sign_in);
+                                isSendCode = true;
+                            } else {
+                                Toast.makeText(ActivityAuthMain.this, "Проверьте введеный номер!", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else {
+                            String code = codeEditText.getText().toString();
+                            if (isValidCode(code)){
+                                verifyPhoneNumberWithCode(mVerificationId, code);
+                            }else {
+                                Toast.makeText(ActivityAuthMain.this, "Проверьте введеный код!", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                        break;
+                }
+
+            }
+        };
+
+        cancelButton.setOnClickListener(listener);
+        okButton.setOnClickListener(listener);
 
     }
 
     private void startPhoneNumberVerification(String phoneNumber) {
         // [START start_phone_auth]
+        Log.d(TAG, "startPhoneNumberVerification: " + phoneNumber);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
                 60,                 // Timeout duration
@@ -564,6 +684,20 @@ private ValueEventListener getPostListener(){
     public boolean isValidEmail(String string) {
         final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher matcher = pattern.matcher(string);
+        return matcher.matches();
+    }
+
+    private boolean isValidPhone(String string){
+        final  String PHONE_PATTERN = "^[+][0-9]{10,13}$";
+        Pattern pattern = Pattern.compile(PHONE_PATTERN);
+        Matcher matcher = pattern.matcher(string);
+        return matcher.matches();
+    }
+
+    private boolean isValidCode(String string){
+        final  String CODE_PATTERN = "^[0-9]{6}$";
+        Pattern pattern = Pattern.compile(CODE_PATTERN);
         Matcher matcher = pattern.matcher(string);
         return matcher.matches();
     }

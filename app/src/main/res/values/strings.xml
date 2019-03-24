@@ -70,10 +70,12 @@
     <string name="auth_main_alert_ok">Ок</string>
 
     <string name="auth_main_phone_text_set_number">Введите номер для отправки смс с кодом.</string>
+    <string name="auth_main_phone_text_set_code">Вам выслан код. Введите его.</string>
     <string name="auth_main_phone_hint_phone">+375255446677</string>
     <string name="auth_main_phone_hint_code">Код из смс</string>
     <string name="auth_main_phone_btn_cancel">Отмена</string>
     <string name="auth_main_phone_btn_send">Отправить</string>
+    <string name="auth_main_phone_btn_sign_in">Ввойти</string>
 
 
     <!--auth_fragment_registration-->
