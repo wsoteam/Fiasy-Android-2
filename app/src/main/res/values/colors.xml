@@ -87,4 +87,7 @@
     <color name="background_premium">#44566D</color>
     <color name="premium_text">#F8B408</color>
     <color name="select_card_premium">#F8B408</color>
+
+    <color name="is_exist_profile">#464646</color>
+    <color name="first_auth_description">#5A5A5A</color>
 </resources>

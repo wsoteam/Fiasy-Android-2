@@ -10,8 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.wsoteam.diet.R;
@@ -24,11 +26,12 @@ public class ActivityListOfCalculating extends AppCompatActivity {
     private String[] listOfDescriptions;
     private final int NUMBER_OF_IMT = 0, NUMBER_OF_SPK = 1;
     private InterstitialAd interstitialAd;
+    private int[] backgroundDrawables = new int[]{R.drawable.image_imt, R.drawable.image_spk};
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(interstitialAd.isLoaded()){
+        if (interstitialAd.isLoaded()) {
             interstitialAd.show();
         }
     }
@@ -48,7 +51,6 @@ public class ActivityListOfCalculating extends AppCompatActivity {
         YandexMetrica.reportEvent("Открыт экран: Список калькуляторов");
 
 
-
     }
 
     private void fillDataForList() {
@@ -59,12 +61,14 @@ public class ActivityListOfCalculating extends AppCompatActivity {
 
     private class CaclulatingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title, description;
+        ImageView ivBackground;
 
         public CaclulatingViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup) {
             super(layoutInflater.inflate(R.layout.item_of_list_calculating, viewGroup, false));
 
             title = itemView.findViewById(R.id.tvTitleOfItemListCalculating);
             description = itemView.findViewById(R.id.tvDescriptionOfItemListCalculating);
+            ivBackground = itemView.findViewById(R.id.ivCalculateItemBackImage);
 
             itemView.setOnClickListener(this);
         }
@@ -85,6 +89,7 @@ public class ActivityListOfCalculating extends AppCompatActivity {
         }
 
         public void bind(String title, String desription) {
+            Glide.with(ActivityListOfCalculating.this).load(backgroundDrawables[getAdapterPosition()]).into(ivBackground);
             this.title.setText(title);
             this.description.setText(desription);
         }

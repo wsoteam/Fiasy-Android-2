@@ -362,6 +362,7 @@
     <string name="premium_text_top">Вы сможете просматривать \nкалорийность своего блюда в \nрежиме реального времени</string>
     <string name="three_mon">3 мес.</string>
     <string name="text_premium_one">Подписки оплачиваемые \nодним платежем</string>
+    <string name="auth_first_description">Правильное питание - это \nнеотъемлемая часть здорового образа \nжизни.</string>
 
     <string-array name="premium_slider_texts">
         <item>Еще больше полезных статей на \nтему правильного питания. \nПодходите к похудению со \nзнанием дела.</item>
