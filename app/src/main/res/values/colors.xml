@@ -89,7 +89,15 @@
     <color name="select_card_premium">#F8B408</color>
 
 
+
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_300">#E0E0E0</color>
     <color name="grey_500">#9E9E9E</color>
+
+    <color name="is_exist_profile">#464646</color>
+    <color name="first_auth_description">#5A5A5A</color>
+
+
+    <color name="head_analyzer_search">#39A298</color>
+
 </resources>

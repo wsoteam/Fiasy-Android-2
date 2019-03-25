@@ -8,29 +8,25 @@
     android:background="@drawable/gradient_auth_first">
 
     <ImageView
-        android:id="@+id/auth_first_iv_image"
-        android:layout_width="195dp"
-        android:layout_height="167dp"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="38dp"
-        android:contentDescription="@string/todo"
-        android:scaleType="centerCrop"
+        android:id="@+id/imageView20"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView11"
-        app:srcCompat="@drawable/logo_for_onboard" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mask_group" />
 
     <Button
         android:id="@+id/auth_first_btn_registration"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginEnd="112dp"
-        android:layout_marginBottom="32dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/round_shape_btn"
         android:text="@string/reg_btn_reg"
         android:textColor="@color/white"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/auth_first_tv_ask"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -43,7 +39,7 @@
         android:layout_marginEnd="132dp"
         android:layout_marginBottom="8dp"
         android:text="@string/reg_et_have_account"
-        android:textColor="@color/white"
+        android:textColor="@color/is_exist_profile"
         app:layout_constraintBottom_toTopOf="@+id/auth_first_btn_signin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -51,27 +47,42 @@
     <Button
         android:id="@+id/auth_first_btn_signin"
         style="@android:style/Widget.Material.Button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginEnd="150dp"
+        android:layout_width="110dp"
+        android:layout_height="34dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/round_shape_btn"
         android:text="@string/reg_btn_login"
         android:textColor="@color/white"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="160dp"
-        android:layout_height="60dp"
+    <TextView
+        android:id="@+id/textView46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="137dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="@string/auth_first_description"
+        android:textColor="@color/first_auth_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView19" />
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="164dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fiasy_text_load" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView20"
+        app:srcCompat="@drawable/logo_registrtion" />
+
+
 </android.support.constraint.ConstraintLayout>

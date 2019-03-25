@@ -168,33 +168,33 @@ public class FragmentEatingScroll extends Fragment {
         apCollapsingProt.setProgress(prot);
         apCollapsingCarbo.setProgress(carbo);
         apCollapsingFat.setProgress(fat);
-
+        //TODO
         if (apCollapsingKcal.getMax() < kcal) {
             apCollapsingKcal.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
             apCollapsingKcal.setSuffixText("-" + String.valueOf(kcal - apCollapsingKcal.getMax()));
         } else {
-            apCollapsingKcal.setFinishedStrokeColor(getResources().getColor(R.color.kcalColor));
+            apCollapsingKcal.setFinishedStrokeColor(getResources().getColor(R.color.white));
             apCollapsingKcal.setSuffixText("+" + String.valueOf(apCollapsingKcal.getMax() - kcal));
         }
         if (apCollapsingCarbo.getMax() < carbo) {
             apCollapsingCarbo.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
             tvCircleProgressCarbo.setText("избыток  " + String.valueOf(carbo - apCollapsingCarbo.getMax()) + " г");
         } else {
-            apCollapsingCarbo.setFinishedStrokeColor(getResources().getColor(R.color.carboColor));
+            apCollapsingCarbo.setFinishedStrokeColor(getResources().getColor(R.color.white));
             tvCircleProgressCarbo.setText("осталось  " + String.valueOf(apCollapsingCarbo.getMax() - carbo) + " г");
         }
         if (apCollapsingFat.getMax() < fat) {
             apCollapsingFat.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
             tvCircleProgressFat.setText("избыток  " + String.valueOf(fat - apCollapsingFat.getMax()) + " г");
         } else {
-            apCollapsingFat.setFinishedStrokeColor(getResources().getColor(R.color.fatColor));
+            apCollapsingFat.setFinishedStrokeColor(getResources().getColor(R.color.white));
             tvCircleProgressFat.setText("осталось  " + String.valueOf(apCollapsingFat.getMax() - fat) + " г");
         }
         if (apCollapsingProt.getMax() < prot) {
             apCollapsingProt.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
             tvCircleProgressProt.setText("избыток " + String.valueOf(prot - apCollapsingProt.getMax()) + " г");
         } else {
-            apCollapsingProt.setFinishedStrokeColor(getResources().getColor(R.color.protColor));
+            apCollapsingProt.setFinishedStrokeColor(getResources().getColor(R.color.white));
             tvCircleProgressProt.setText("осталось " + String.valueOf(apCollapsingProt.getMax() - prot) + " г");
         }
 

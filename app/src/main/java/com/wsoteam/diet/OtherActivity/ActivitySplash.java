@@ -51,9 +51,6 @@ import java.util.List;
 public class ActivitySplash extends AppCompatActivity {
 
     private String TAG = "splash";
-
-    private ImageView ivLoading;
-    private Animation animationRotate;
     private FirebaseUser user;
 
     private BillingClient mBillingClient;
@@ -67,10 +64,6 @@ public class ActivitySplash extends AppCompatActivity {
                 .enableForegroundTracking(getApplication());
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
-//            Amplitude.getInstance().logEvent(Config.REGISTRATION);
-//            WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
-//        }
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
 
@@ -80,9 +73,7 @@ public class ActivitySplash extends AppCompatActivity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        ivLoading = findViewById(R.id.ivLoadingIcon);
-        animationRotate = AnimationUtils.loadAnimation(this, R.anim.animation_rotate);
-        ivLoading.startAnimation(animationRotate);
+
 
         mBillingClient = BillingClient.newBuilder(this).setListener(new PurchasesUpdatedListener() {
             @Override
