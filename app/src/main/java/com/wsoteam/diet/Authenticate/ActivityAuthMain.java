@@ -71,6 +71,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     private static final int RC_SIGN_IN = 9001;
 
     private boolean createUser;
+    AlertDialog alertDialogPhone;
 
     boolean isSendCode = false;
 
@@ -491,8 +492,12 @@ private ValueEventListener getPostListener(){
     }
 
     private void checkProfile(Profile profile){
-        if (profile == null){
 
+        if (alertDialogPhone != null){
+            alertDialogPhone.dismiss();
+        }
+
+        if (profile == null){
             new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(getString(R.string.auth_main_alert_title))
@@ -547,7 +552,7 @@ private ValueEventListener getPostListener(){
 
 
 
-        AlertDialog alertDialog = new AlertDialog.Builder(this)
+        alertDialogPhone = new AlertDialog.Builder(this)
                 .setView(view).show();
 
         View.OnClickListener listener = new View.OnClickListener() {
@@ -556,7 +561,7 @@ private ValueEventListener getPostListener(){
                 Log.d(TAG, "onClick:");
                 switch (view.getId()){
                     case R.id.auth_phone_btn_cancel:
-                        alertDialog.dismiss();
+                        alertDialogPhone.dismiss();
                         break;
                     case R.id.auth_phone_btn_ok:
 
