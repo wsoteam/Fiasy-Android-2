@@ -41,6 +41,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
@@ -760,13 +761,16 @@ private ValueEventListener getPostListener(){
                                            Toast.makeText(ActivityAuthMain.this, "Проверьте вашу почту!", Toast.LENGTH_SHORT).show();
                                        }else {
                                            Log.d(TAG, "Error");
-                                           Toast.makeText(ActivityAuthMain.this, "Ошибка, попробуйте позже.", Toast.LENGTH_SHORT).show();
+//                                           Toast.makeText(ActivityAuthMain.this, "Ошибка, попробуйте позже.", Toast.LENGTH_SHORT).show();
                                        }
                                    }
                                }).addOnFailureListener(new OnFailureListener() {
                            @Override
                            public void onFailure(@NonNull Exception e) {
-                               Log.d(TAG, e.getMessage());
+                               if (e instanceof FirebaseAuthInvalidUserException){
+                                   Toast.makeText(ActivityAuthMain.this, "Пользователь не найден.", Toast.LENGTH_SHORT).show();
+                               }
+                               Log.d(TAG, String.valueOf(e.getClass()));
                            }
                        });
                    }
