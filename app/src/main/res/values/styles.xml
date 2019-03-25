@@ -29,10 +29,10 @@
 
     </style>
 
-    <style name="NotificationListActivity" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AnalyzerTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/head_analyzer_search</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

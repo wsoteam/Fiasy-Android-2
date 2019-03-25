@@ -136,7 +136,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfNotifications.ActivityListOfNotifications"
-            android:theme="@style/NotificationListActivity" />
+            android:theme="@style/AnalyzerTheme" />
         <activity
             android:name=".OtherActivity.ActivityAboutSetingsNotifications"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -176,13 +176,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfAnalyzer.ActivityListAndSearch"
-            android:theme="@style/NotificationListActivity" />
+            android:theme="@style/AnalyzerTheme" />
         <activity
             android:name=".BranchOfAnalyzer.ActivityDetailOfFood"
-            android:theme="@style/NotificationListActivity" />
+            android:theme="@style/AnalyzerTheme" />
         <activity
             android:name=".BranchOfBilling.ActivityPresentation"
-            android:theme="@style/NotificationListActivity" />
+            android:theme="@style/AnalyzerTheme" />
         <activity
             android:name=".BranchEatingDiary.ActivityEatingDiary"
             android:theme="@style/EatingDiaryStyle" />
