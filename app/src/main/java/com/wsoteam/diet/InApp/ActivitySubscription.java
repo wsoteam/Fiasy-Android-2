@@ -91,6 +91,16 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        if (isEnterFromMainActivity) {
+            finish();
+        } else {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+        super.onBackPressed();
+    }
 
     private void getSKU() {
         List<String> skuList = new ArrayList<>();
