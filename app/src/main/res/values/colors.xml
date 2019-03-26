@@ -57,7 +57,7 @@
     <color name="little_transparent">#5e303030</color>
     <color name="littlejust_transparent">#c143d448</color>
     <color name="textColor">#ffffff</color>
-    <color name="backgroundColor">#ffffff</color>
+    <color name="backgroundColor">#FFFFFF</color>
 
 
     <color name="over_eat_color">#ff0008</color>

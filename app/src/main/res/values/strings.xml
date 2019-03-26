@@ -21,6 +21,10 @@
         <item>@drawable/background_gradient_data</item>
     </integer-array>
 
+    <!--alert_dialog_buy_info-->
+    <string name="alerd_buy_info_tv">Теперь вы являетесь обладателем аккаунта Premium!</string>
+    <string name="alerd_buy_info_btn">Продолжить</string>
+
     <!--auth_fragment_data-->
     <string name="auth_data_ask">Укажите ваши данные</string>
     <string name="auth_data_hint_growth">Рост</string>
@@ -50,7 +54,7 @@
     <string name="exit_alertdialog_btn_no">Нет</string>
     <string name="exit_alertdialog_btn_yes">Да</string>
 
-    <!--auth_fragment_main-->
+    <!--auth_main-->
     <string name="auth_main_et_hint_name">Имя</string>
     <string name="auth_main_et_hint_email">Эл. почта</string>
     <string name="auth_main_et_hint_pass">Пароль</string>
@@ -76,6 +80,8 @@
     <string name="auth_main_phone_btn_cancel">Отмена</string>
     <string name="auth_main_phone_btn_send">Отправить</string>
     <string name="auth_main_phone_btn_sign_in">Ввойти</string>
+
+    <string name="auth_main_log_email">e</string>
 
 
     <!--auth_fragment_registration-->

@@ -71,6 +71,7 @@ public class ActivitySplash extends AppCompatActivity {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
 
+
         user = FirebaseAuth.getInstance().getCurrentUser();
 
 
@@ -165,6 +166,8 @@ public class ActivitySplash extends AppCompatActivity {
         editor.putBoolean(Config.STATE_BILLING, true);
         editor.commit();
     }
+
+
 
     private List<Purchase> queryPurchases() {
         Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.SUBS);

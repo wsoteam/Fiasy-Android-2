@@ -2,6 +2,7 @@ package com.wsoteam.diet.InApp;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -48,6 +49,8 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
     private static final int COUNT_OF_PAGES = 4;
     private boolean isEnterFromMainActivity = false;
     private String sku = "basic_subscription_12m";
+
+    private SharedPreferences sharedPreferences;
 
 
     @Override
@@ -139,8 +142,18 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
 
     @Override
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
-        if (responseCode == BillingClient.BillingResponse.OK && purchases != null)
+        if (responseCode == BillingClient.BillingResponse.OK && purchases != null){
             Amplitude.getInstance().logEvent(Config.BUY_PREMIUM);
+
+            sharedPreferences = getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(Config.ALERT_BUY_SUBSCRIPTION, true);
+            editor.commit();
+
+            startActivity(new Intent(this, ActivitySplash.class));
+            finish();
+        }
+
     }
 
     @OnClick({R.id.cvSub1m, R.id.cvSub12m, R.id.imbtnCancel, R.id.cvSub3m, R.id.tvPrivacyPolicy, R.id.btnBuyPrem})

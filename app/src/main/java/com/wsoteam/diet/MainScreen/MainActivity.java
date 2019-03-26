@@ -20,6 +20,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -85,6 +86,8 @@ public class MainActivity extends AppCompatActivity
     private SharedPreferences countOfRun;
     private boolean isFiveStarSend = false;
 
+    private AlertDialog alertDialogBuyInfo;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onResume() {
@@ -150,6 +153,31 @@ public class MainActivity extends AppCompatActivity
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("com.wsoteam.diet.ACTION_LOGOUT");
         sendBroadcast(broadcastIntent);
+
+        boolean isPremAlert = getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE).getBoolean(Config.ALERT_BUY_SUBSCRIPTION,false);
+
+        if (isPremAlert){
+            Log.d("prem", "onCreate: ");
+
+            View view = getLayoutInflater().inflate( R.layout.alert_dialog_buy_sub_info, null);
+            Button button = view.findViewById(R.id.alerd_buy_info_btn);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (alertDialogBuyInfo != null){
+                        alertDialogBuyInfo.dismiss();
+                    }
+                }
+            });
+
+            alertDialogBuyInfo = new AlertDialog.Builder(this)
+                    .setView(view).show();
+
+            sharedPreferences = getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(Config.ALERT_BUY_SUBSCRIPTION, false);
+            editor.commit();
+        }
 
         mainappbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;

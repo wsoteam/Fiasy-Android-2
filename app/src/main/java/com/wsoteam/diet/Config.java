@@ -40,6 +40,7 @@ public class Config {
     //Key of billing state
     public static final String STATE_BILLING = "STATE_BILLING";
     public static final String ENTER_FROM_MAIN_ACTIVITY = "ENTER_FROM_MAIN_ACTIVITY";
+    public static final String ALERT_BUY_SUBSCRIPTION = "ALERT_BUY_SUBSCRIPTION";
 
     //amplitude names of events
     public static final String REGISTRATION = "Проходят регистрацию";
