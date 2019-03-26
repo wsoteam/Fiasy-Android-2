@@ -56,9 +56,9 @@
 
     <!--auth_main-->
     <string name="auth_main_et_hint_name">Имя</string>
-    <string name="auth_main_et_hint_email">Эл. почта</string>
-    <string name="auth_main_et_hint_pass">Пароль</string>
-    <string name="auth_main_btn_signin">Войти</string>
+    <string name="auth_main_et_hint_email">Login</string>
+    <string name="auth_main_et_hint_pass">Password</string>
+    <string name="auth_main_btn_signin">Вход по Email</string>
     <string name="auth_main_btn_create">Регистрация</string>
     <string name="auth_main_signin_google">Вход через Google</string>
     <string name="auth_main_signin_facebook">Вход через Facebook</string>

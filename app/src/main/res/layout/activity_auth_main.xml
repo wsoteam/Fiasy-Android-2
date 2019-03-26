@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_auth_main">
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/auth_main_btn_google"
@@ -32,10 +33,12 @@
         android:id="@+id/auth_main_email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="132dp"
+        android:drawableStart="@drawable/registration_icon_login"
         android:ems="10"
         android:hint="@string/auth_main_et_hint_email"
         android:inputType="textEmailAddress"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/auth_main_btn_facebook" />
@@ -54,10 +57,14 @@
 
     <Button
         android:id="@+id/auth_main_btn_signin"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        style="@android:style/Widget.Material.Button"
+        android:layout_width="148dp"
+        android:layout_height="44dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/round_shape_btn"
         android:text="@string/auth_main_btn_signin"
+        android:textColor="@color/white"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/auth_main_pass" />

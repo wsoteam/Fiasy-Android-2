@@ -76,6 +76,9 @@
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.wsoteam.diet" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".OtherActivity.ActivitySplash"
