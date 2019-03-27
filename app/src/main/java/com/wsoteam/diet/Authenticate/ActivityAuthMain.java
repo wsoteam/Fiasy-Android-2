@@ -90,11 +90,12 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     private TextView resPassTextView;
     private EditText emailEditText;
     private EditText passEditText;
-    LoginButton facebookLoginButton;
-    SignInButton mGoogleSignInButton;
-    Button signIn;
-    Button phoneButton;
-
+    private LoginButton facebookLoginButton;
+    private SignInButton mGoogleSignInButton;
+    private Button signIn;
+    private Button phoneButton;
+    private Button googleCustomButton;
+    private Button facebookCustomButton;
     private Profile profile;
 
     private Intent intent;
@@ -119,9 +120,23 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         mGoogleSignInButton = findViewById(R.id.auth_main_btn_google);
         phoneButton.setOnClickListener(this);
         mGoogleSignInButton.setOnClickListener(this);
-        setGooglePlusButtonText(mGoogleSignInButton, getString(R.string.auth_main_signin_google));
         signIn = findViewById(R.id.auth_main_btn_signin);
+        googleCustomButton = findViewById(R.id.auth_main_btn_google_custom);
+        facebookCustomButton = findViewById(R.id.auth_main_btn_facebook_custom);
 
+        googleCustomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signInGoogle();
+            }
+        });
+
+        facebookCustomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                facebookLoginButton.performClick();
+            }
+        });
 
         if (createUser) {
             signIn.setText(R.string.auth_main_btn_create);

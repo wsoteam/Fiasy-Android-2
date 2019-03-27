@@ -7,21 +7,47 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_auth_main">
 
+    <TextView
+        android:id="@+id/auth_main_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="96dp"
+        android:text="@string/auth_main_tv"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView21"
+            android:layout_width="match_parent"
+            android:layout_height="559dp"
+            android:padding="20dp"
+            app:srcCompat="@drawable/registration_back_logo" />
+
+    </FrameLayout>
+
     <com.google.android.gms.common.SignInButton
         android:id="@+id/auth_main_btn_google"
-        android:layout_width="300dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="96dp"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/auth_main_btn_facebook"
-        android:layout_width="293dp"
-        android:layout_height="10dp"
-
-
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:visibility="gone"
         android:layout_marginTop="20dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
@@ -32,25 +58,29 @@
     <EditText
         android:id="@+id/auth_main_email"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="132dp"
-        android:drawableStart="@drawable/registration_icon_login"
+        android:layout_height="50dp"
+        android:layout_marginTop="200dp"
+        android:drawableStart="@drawable/registration_icon_login_resize"
+        android:drawablePadding="15dp"
         android:ems="10"
         android:hint="@string/auth_main_et_hint_email"
         android:inputType="textEmailAddress"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/auth_main_btn_facebook" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/auth_main_pass"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:drawableStart="@drawable/registration_icon_password_resize"
+        android:drawablePadding="15dp"
         android:ems="10"
         android:hint="@string/auth_main_et_hint_pass"
         android:inputType="textPassword"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/auth_main_email" />
@@ -88,7 +118,7 @@
         android:id="@+id/auth_main_tv_respasss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="34dp"
         android:text="@string/auth_main_tv_respasss"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,15 +126,45 @@
         app:layout_constraintTop_toBottomOf="@+id/auth_main_btn_signin" />
 
     <Button
-        android:id="@+id/auth_main_btn_phone"
-        android:layout_width="300dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="42dp"
-        android:text="Войти по номеру телефона"
+        android:id="@+id/auth_main_btn_google_custom"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="15dp"
+        android:background="#1CFFFFFF"
+        android:drawableStart="@drawable/icon_google"
+        android:paddingLeft="30dp"
+        android:text="@string/auth_main_signin_google"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/auth_main_btn_facebook_custom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/auth_main_btn_facebook" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/auth_main_btn_facebook_custom"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="15dp"
+        android:background="#1CFFFFFF"
+        android:textAllCaps="false"
+        android:drawableStart="@drawable/icon_facebook"
+        android:paddingLeft="30dp"
+        android:text="@string/auth_main_signin_facebook"
+        app:layout_constraintBottom_toTopOf="@+id/auth_main_btn_phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/auth_main_btn_phone"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        android:textAllCaps="false"
+        android:background="#1CFFFFFF"
+        android:paddingLeft="60dp"
+        android:text="@string/auth_main_signin_phone"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

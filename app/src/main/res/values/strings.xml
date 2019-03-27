@@ -22,8 +22,15 @@
     </integer-array>
 
     <!--alert_dialog_buy_info-->
-    <string name="alerd_buy_info_tv">Теперь вы являетесь обладателем аккаунта Premium!</string>
-    <string name="alerd_buy_info_btn">Продолжить</string>
+    <string name="alert_buy_info_tv">Теперь вы являетесь обладателем аккаунта Premium!</string>
+    <string name="alert_buy_info_btn">Продолжить</string>
+
+    <string name="alert_buy_info_tv_1">Для вас открылись следующие функции</string>
+    <string name="alert_buy_info_tv_2">Расширенная база рецептов</string>
+    <string name="alert_buy_info_tv_3">Множество полезных статей о здоровье и правилном питании</string>
+    <string name="alert_buy_info_tv_4">Записывайте калорийность блюд с помощью AR технологии</string>
+    <string name="alert_buy_info_tv_5">Теперь вы можете подобрать точный план питания и тренировок, основываясь на своих целях</string>
+    <string name="alert_buy_info_tv_6">Осуществляйте быстрый поиск продуктов при помощи голосового ввода</string>
 
     <!--auth_fragment_data-->
     <string name="auth_data_ask">Укажите ваши данные</string>
@@ -55,13 +62,15 @@
     <string name="exit_alertdialog_btn_yes">Да</string>
 
     <!--auth_main-->
+    <string name="auth_main_tv">Вход</string>
     <string name="auth_main_et_hint_name">Имя</string>
     <string name="auth_main_et_hint_email">Login</string>
     <string name="auth_main_et_hint_pass">Password</string>
     <string name="auth_main_btn_signin">Вход по Email</string>
     <string name="auth_main_btn_create">Регистрация</string>
-    <string name="auth_main_signin_google">Вход через Google</string>
-    <string name="auth_main_signin_facebook">Вход через Facebook</string>
+    <string name="auth_main_signin_google">Вход через аккаунт Google</string>
+    <string name="auth_main_signin_facebook">Вход через аккаунт Facebook</string>
+    <string name="auth_main_signin_phone">Вход по номеру телефона</string>
     <string name="auth_main_tv_respasss">Забыли пароль?</string>
     <string name="auth_main_hint_respass">Эл. почта</string>
     <string name="auth_main_btn_restore">Отправить</string>
@@ -79,7 +88,7 @@
     <string name="auth_main_phone_hint_code">Код из смс</string>
     <string name="auth_main_phone_btn_cancel">Отмена</string>
     <string name="auth_main_phone_btn_send">Отправить</string>
-    <string name="auth_main_phone_btn_sign_in">Ввойти</string>
+    <string name="auth_main_phone_btn_sign_in">Войти</string>
 
     <string name="auth_main_log_email">e</string>
 

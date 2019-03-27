@@ -95,6 +95,7 @@ public class ActivitySplash extends AppCompatActivity {
                     checkSub("basic_subscription_1m",purchasesList);
                     checkSub("basic_subscription_3m",purchasesList);
                     checkSub("basic_subscription_4m",purchasesList);
+                    checkSub("test_subscription", purchasesList);
 
                 }
             }

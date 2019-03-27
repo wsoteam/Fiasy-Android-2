@@ -4,32 +4,120 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#498E8C"
+    android:padding="5dp"
+    android:elevation="5dp">
 
-    <Button
-        android:id="@+id/alerd_buy_info_btn"
+    <ImageView
+        android:id="@+id/imageView22"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="236dp"
-        android:background="@drawable/background_gradient_weight"
-        android:text="@string/alerd_buy_info_btn"
-        android:textColor="@color/backgroundColor"
+        android:layout_height="454dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alerd_buy_info_tv" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:color/background_light" />
 
     <TextView
         android:id="@+id/alerd_buy_info_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_gradient_data"
+        android:background="#B5EF7D02"
         android:padding="10dp"
-        android:text="@string/alerd_buy_info_tv"
+        android:text="@string/alert_buy_info_tv"
         android:textAlignment="center"
         android:textColor="@color/backgroundColor"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/imageView22" />
+
+    <Button
+        android:id="@+id/alerd_buy_info_btn"
+        android:layout_width="0dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="8dp"
+        android:background="#74A6B3"
+        android:text="@string/alert_buy_info_btn"
+        android:textColor="@color/backgroundColor"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView22"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alert_buy_info_tv_6"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/alert_buy_info_tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/alert_buy_info_tv_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alerd_buy_info_tv" />
+
+    <TextView
+        android:id="@+id/alert_buy_info_tv_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/alert_buy_info_tv_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alert_buy_info_tv_1" />
+
+    <TextView
+        android:id="@+id/alert_buy_info_tv_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/alert_buy_info_tv_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/alert_buy_info_tv_2"
+        app:layout_constraintTop_toBottomOf="@+id/alert_buy_info_tv_2" />
+
+    <TextView
+        android:id="@+id/alert_buy_info_tv_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/alert_buy_info_tv_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/alert_buy_info_tv_3"
+        app:layout_constraintTop_toBottomOf="@+id/alert_buy_info_tv_3" />
+
+    <TextView
+        android:id="@+id/alert_buy_info_tv_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/alert_buy_info_tv_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/alert_buy_info_tv_4"
+        app:layout_constraintTop_toBottomOf="@+id/alert_buy_info_tv_4" />
+
+    <TextView
+        android:id="@+id/alert_buy_info_tv_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/alert_buy_info_tv_6"
+        app:layout_constraintStart_toStartOf="@+id/alert_buy_info_tv_5"
+        app:layout_constraintTop_toBottomOf="@+id/alert_buy_info_tv_5" />
+
 </android.support.constraint.ConstraintLayout>
