@@ -139,9 +139,13 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         });
 
         if (createUser) {
+            intent = new Intent(this, ActivitySubscription.class).
+                    putExtra(Config.INTENT_PROFILE,getIntent().getSerializableExtra(Config.INTENT_PROFILE));
             signIn.setText(R.string.auth_main_btn_create);
 
         }else {
+            intent = new Intent(this, ActivitySplash.class).
+                    putExtra(Config.INTENT_PROFILE,getIntent().getSerializableExtra(Config.INTENT_PROFILE));
             resPassTextView.setVisibility(View.VISIBLE);
             resPassTextView.setOnClickListener(this);
         }
@@ -155,8 +159,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
         callbackManager = CallbackManager.Factory.create();
         mAuth = FirebaseAuth.getInstance();
-        intent = new Intent(this, ActivitySplash.class).
-                putExtra(Config.INTENT_PROFILE,getIntent().getSerializableExtra(Config.INTENT_PROFILE));
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {

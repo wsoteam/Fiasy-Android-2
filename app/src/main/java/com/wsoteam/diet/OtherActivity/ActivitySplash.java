@@ -45,6 +45,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.tvoytrener.PortionSize;
 
 import java.util.List;
 
@@ -66,6 +67,8 @@ public class ActivitySplash extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+
+        new PortionSize();
 
         if (!hasConnection(this)) {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
@@ -124,7 +127,8 @@ public class ActivitySplash extends AppCompatActivity {
                     if (isPrem){
                         intent = new Intent(ActivitySplash.this, MainActivity.class);
                     } else {
-                       intent = new Intent(ActivitySplash.this, ActivitySubscription.class);
+                        intent = new Intent(ActivitySplash.this, MainActivity.class);
+//                       intent = new Intent(ActivitySplash.this, ActivitySubscription.class);
                     }
                     startActivity(intent);
                     finish();

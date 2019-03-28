@@ -87,6 +87,10 @@ dependencies {
     implementation 'com.android.support:support-v4:27.+'
 
     compile 'com.amplitude:android-sdk:2.16.0'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-math3
+    compile group: 'org.apache.commons', name: 'commons-math3', version: '3.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

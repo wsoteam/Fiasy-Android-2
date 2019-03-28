@@ -99,7 +99,7 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
         if (isEnterFromMainActivity) {
             finish();
         } else {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, ActivitySplash.class));
             finish();
         }
         super.onBackPressed();
@@ -185,7 +185,7 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
             if (isEnterFromMainActivity) {
                 finish();
             } else {
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, ActivitySplash.class));
                 finish();
             }
         }
