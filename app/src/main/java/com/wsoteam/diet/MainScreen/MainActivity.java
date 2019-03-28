@@ -2,6 +2,7 @@ package com.wsoteam.diet.MainScreen;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -171,7 +172,10 @@ public class MainActivity extends AppCompatActivity
             });
 
             alertDialogBuyInfo = new AlertDialog.Builder(this)
-                    .setView(view).show();
+                    .setView(view).create();
+
+            alertDialogBuyInfo.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            alertDialogBuyInfo.show();
 
             sharedPreferences = getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
