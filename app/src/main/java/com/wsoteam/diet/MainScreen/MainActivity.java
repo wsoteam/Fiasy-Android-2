@@ -47,6 +47,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEatingScroll;
 import com.wsoteam.diet.MainScreen.Support.AlertDialogChoiseEating;
+import com.wsoteam.diet.Onboarding.OnboardingActivity;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
 import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.POJOProfile.Profile;
@@ -387,7 +388,8 @@ public class MainActivity extends AppCompatActivity
                 intent = new Intent(MainActivity.this, ActivityListOfCalculating.class);
                 break;
             case R.id.nav_settings:
-                intent = new Intent(MainActivity.this, ActivitySettings.class);
+                //intent = new Intent(MainActivity.this, ActivitySettings.class);
+                intent = new Intent(MainActivity.this, OnboardingActivity.class);
                 break;
             case R.id.nav_exit:
                 FirebaseAuth.getInstance().signOut();

@@ -1,16 +1,16 @@
 package com.wsoteam.diet.tvoytrener;
 
 import android.util.Log;
-import org.apache.commons.math3.util.Precision;
+
 
 
 public class PortionSize {
 
     private String TAG = "PortionSize";
 
-    public PortionSize(){
+    /*public PortionSize(){
         Log.d(TAG, "PortionSize: " + rashod2("ne_meniat",rashod("woman", training[3], ActivityLevel.HIGH.index(), 200, 70, 22)));
-    }
+    }*/
 
    /* if(trenirovok2 == 0){trenirovok2 = 0.9}
 if(trenirovok2 == 1){trenirovok2 = 0.95}
@@ -24,7 +24,7 @@ if(trenirovok2 == 7){trenirovok2 = 1.13}
 private double[] training = {0.9, 0.95, 1, 1.03, 1.06, 1.09, 1.11, 1.13};
 
 
-private double rashod(String gender, Double training, Double activityLevel, int growth, int weight, int age){
+/*private double rashod(String gender, Double training, Double activityLevel, int growth, int weight, int age){
 
     double result;
 
@@ -42,7 +42,7 @@ private double rashod(String gender, Double training, Double activityLevel, int 
                 break;
     }
     return Precision.round(result, 0);
-}
+}*/
 
 private double rashod2(String cel, Double rashod){
     Double result;
