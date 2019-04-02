@@ -16,6 +16,7 @@ import android.widget.Button;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.MainScreen.MainActivity;
@@ -75,7 +76,7 @@ public class OnboardingActivity extends AppCompatActivity {
             Log.d(TAG, "page selected " + position);
             if (position == viewList.size() - 1){
                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_onboarding));
-                startActivity(new Intent(OnboardingActivity.this, ActivitySubscription.class));
+                startActivity(new Intent(OnboardingActivity.this, ActivitySubscription.class).putExtra(Config.FROM_ONBOARDING, Config.FROM_ONBOARDING));
                 finish();
             }
 

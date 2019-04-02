@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,6 +77,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
     private static final String TAG = "Authenticate";
     private static final int RC_SIGN_IN = 9001;
+    private boolean isacceptedPprivacypolicy = false;
 
     private boolean createUser;
     AlertDialog alertDialogPhone;
@@ -104,6 +107,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     private Profile profile;
     private TextView statusTextView;
     private TextView checkPPTextView;
+    private CheckBox ppCheckBox;
 
     private Intent intent;
 
@@ -132,6 +136,14 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         facebookCustomButton = findViewById(R.id.auth_main_btn_facebook_custom);
         statusTextView = findViewById(R.id.auth_main_tv);
         checkPPTextView = findViewById(R.id.textView82);
+        ppCheckBox = findViewById(R.id.auth_main_check_pp);
+
+        ppCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                isacceptedPprivacypolicy = b;
+            }
+        });
 
         checkPPTextView.setOnClickListener(this);
 
@@ -815,6 +827,10 @@ private ValueEventListener getPostListener(){
     }
 
 
+    private boolean isPP(){
+
+        return false;
+    }
 
     @Override
     public void onClick(View view) {
