@@ -49,12 +49,10 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:multidex:1.0.3'
 
-    implementation 'com.android.installreferrer:installreferrer:1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.yandex.android:mobmetricalib:3.1.0'
-    implementation 'com.startapp:inapp-sdk:3.8.4'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.github.satyan:sugar:1.4'
@@ -65,7 +63,6 @@ dependencies {
 
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation files('StartADLib-1.0.1.jar')
     implementation 'com.github.lzyzsd:circleprogress:1.2.1'
     implementation 'com.android.billingclient:billing:1.2'
     implementation 'me.itangqi.waveloadingview:library:0.3.5'
@@ -90,6 +87,8 @@ dependencies {
 
     compile 'me.relex:circleindicator:1.2.2'
 
+    implementation 'com.adjust.sdk:adjust-android:4.17.0'
+    implementation 'com.android.installreferrer:installreferrer:1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

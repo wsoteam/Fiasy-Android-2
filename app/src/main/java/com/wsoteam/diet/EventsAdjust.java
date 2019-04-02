@@ -1,6 +1,9 @@
 package com.wsoteam.diet;
 
 public class EventsAdjust {
+    public static final String app_token = "9gsjine9aqyo";
+
+
     public static final String first_launch = "first_launch";
     public static final String session_launch = "session_launch";
     public static final String first_day = "first_day";
