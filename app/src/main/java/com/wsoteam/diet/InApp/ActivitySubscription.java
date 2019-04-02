@@ -75,7 +75,8 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
 
             }
         });
-        bindViewPager();
+
+
         cvSub3mBack.setVisibility(View.GONE);
         cvSub1mBack.setVisibility(View.GONE);
     }

@@ -86,7 +86,7 @@
     <!--auth_main-->
     <string name="auth_main_tv">Вход</string>
     <string name="auth_main_et_hint_name">Имя</string>
-    <string name="auth_main_et_hint_email">Login</string>
+    <string name="auth_main_et_hint_email">Email</string>
     <string name="auth_main_et_hint_pass">Password</string>
     <string name="auth_main_btn_signin">Вход по Email</string>
     <string name="auth_main_btn_create">Регистрация</string>
@@ -111,6 +111,12 @@
     <string name="auth_main_phone_btn_cancel">Отмена</string>
     <string name="auth_main_phone_btn_send">Отправить</string>
     <string name="auth_main_phone_btn_sign_in">Войти</string>
+
+    <string name="auth_main_reg_google">Регестрация через аккаунт Google</string>
+    <string name="auth_main_reg_facebook">Регестрация через аккаунт Facebook</string>
+    <string name="auth_main_reg_phone">Вход по номеру телефона</string>
+    <string name="auth_main_reg_tv">Создать аккаунт</string>
+    <string name="auth_main_check_box_pp">Я согласен с условиями <u>политики конфидециальности</u></string>
 
     <string name="auth_main_log_email">e</string>
 

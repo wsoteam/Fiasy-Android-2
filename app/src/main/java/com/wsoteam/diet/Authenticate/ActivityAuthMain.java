@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adjust.sdk.Adjust;
+import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -54,7 +56,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.ActivitySubscription;
+import com.wsoteam.diet.Onboarding.OnboardingActivity;
+import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
@@ -97,6 +102,8 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     private Button googleCustomButton;
     private Button facebookCustomButton;
     private Profile profile;
+    private TextView statusTextView;
+    private TextView checkPPTextView;
 
     private Intent intent;
 
@@ -123,6 +130,10 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         signIn = findViewById(R.id.auth_main_btn_signin);
         googleCustomButton = findViewById(R.id.auth_main_btn_google_custom);
         facebookCustomButton = findViewById(R.id.auth_main_btn_facebook_custom);
+        statusTextView = findViewById(R.id.auth_main_tv);
+        checkPPTextView = findViewById(R.id.textView82);
+
+        checkPPTextView.setOnClickListener(this);
 
         googleCustomButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,9 +150,13 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         });
 
         if (createUser) {
-            intent = new Intent(this, ActivitySubscription.class).
+            intent = new Intent(this, OnboardingActivity.class).
                     putExtra(Config.INTENT_PROFILE,getIntent().getSerializableExtra(Config.INTENT_PROFILE));
+            statusTextView.setText(R.string.auth_main_reg_tv);
             signIn.setText(R.string.auth_main_btn_create);
+            phoneButton.setText(R.string.auth_main_reg_phone);
+            googleCustomButton.setText(R.string.auth_main_reg_google);
+            facebookCustomButton.setText(R.string.auth_main_reg_facebook);
 
         }else {
             intent = new Intent(this, ActivitySplash.class).
@@ -171,6 +186,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
                     if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
                         Amplitude.getInstance().logEvent(Config.REGISTRATION);
+                        Adjust.trackEvent(new AdjustEvent(EventsAdjust.create_acount));
                         WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
                     }
 
@@ -824,6 +840,9 @@ private ValueEventListener getPostListener(){
                 break;
             case R.id.auth_main_btn_phone:
                 phoneAuth();
+                break;
+            case R.id.textView82:
+                startActivity(new Intent(this, ActivityPrivacyPolicy.class));
                 break;
         }
     }
