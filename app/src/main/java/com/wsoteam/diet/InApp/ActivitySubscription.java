@@ -161,7 +161,7 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
 
 
         if (view.getId() == R.id.cvSub1m) {
-            sku = "test_subscription";
+            sku = "basic_subscription_1m";
             cvSub1mBack.setVisibility(View.VISIBLE);
             cvSub3mBack.setVisibility(View.GONE);
             cvSub12mBack.setVisibility(View.GONE);

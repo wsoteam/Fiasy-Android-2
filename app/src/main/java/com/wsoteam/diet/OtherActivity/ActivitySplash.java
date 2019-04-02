@@ -3,7 +3,7 @@ package com.wsoteam.diet.OtherActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
+
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -13,10 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 import com.amplitude.api.Amplitude;
@@ -39,6 +36,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.ObjectHolder;
+import com.wsoteam.diet.Onboarding.OnboardingActivity;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOS.GlobalObject;
 import com.wsoteam.diet.R;
@@ -98,7 +96,7 @@ public class ActivitySplash extends AppCompatActivity {
                     checkSub("basic_subscription_1m",purchasesList);
                     checkSub("basic_subscription_3m",purchasesList);
                     checkSub("basic_subscription_4m",purchasesList);
-                    checkSub("test_subscription", purchasesList);
+
 
                 }
             }

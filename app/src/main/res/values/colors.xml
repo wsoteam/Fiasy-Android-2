@@ -14,7 +14,7 @@
 
     <color name="green">#1cae17</color>
     <color name="пку">#1cae17</color>
-    <color name="white">#ffffff</color>
+    <color name="white">#FFFFFF</color>
     <color name="red">#e12a2a</color>
     <color name="light_red">#cf3838</color>
     <color name="white_red">#f14a4a</color>
@@ -40,7 +40,7 @@
     <color name="alfa">#00ffffff</color>
 
     <!--Exercises-->
-    <color name="whiteColor">#ffffff</color>
+    <color name="whiteColor">#FFFFFF</color>
     <color name="dark">#6d050505</color>
     <color name="darkWithoutAlfa">#ffffff</color>
     <color name="darkWithoutAlfaJustMoreBlack">#262525</color>
