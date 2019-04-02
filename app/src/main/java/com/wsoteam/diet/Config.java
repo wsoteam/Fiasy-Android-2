@@ -55,4 +55,9 @@ public class Config {
     public static final String ENTER_IN_FITNESS = "Заходят в раздел тренировки";
 
 
+    public static final String TAG_PREMIUM_ENTER = "TAG_PREMIUM_ENTER";
+
+
+
+
 }
