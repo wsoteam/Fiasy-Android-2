@@ -88,8 +88,7 @@ dependencies {
 
     implementation 'com.amplitude:android-sdk:2.16.0'
 
-    // https://mvnrepository.com/artifact/org.apache.commons/commons-math3
-    compile group: 'org.apache.commons', name: 'commons-math3', version: '3.0'
+    compile 'me.relex:circleindicator:1.2.2'
 
 }
 
