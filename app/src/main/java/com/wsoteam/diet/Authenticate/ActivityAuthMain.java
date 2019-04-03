@@ -3,6 +3,7 @@ package com.wsoteam.diet.Authenticate;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -60,13 +61,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
-import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.Onboarding.OnboardingActivity;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import java.util.concurrent.TimeUnit;
@@ -78,7 +77,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
     private static final String TAG = "Authenticate";
     private static final int RC_SIGN_IN = 9001;
-    private boolean isacceptedPprivacypolicy = false;
+    private boolean isAcceptedPrivacyPolicy = false;
 
     private boolean createUser;
     AlertDialog alertDialogPhone;
@@ -142,7 +141,9 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         ppCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                isacceptedPprivacypolicy = b;
+                isAcceptedPrivacyPolicy = b;
+                if (b) checkPPTextView.setTextColor(Color.parseColor("#A63A3A3A"));
+                Log.d(TAG, "onCheckedChanged: PP = " + b);
             }
         });
 
@@ -158,7 +159,9 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         facebookCustomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                facebookLoginButton.performClick();
+                if (isPP()) {
+                    facebookLoginButton.performClick();
+                }
             }
         });
 
@@ -172,6 +175,9 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
             facebookCustomButton.setText(R.string.auth_main_reg_facebook);
 
         }else {
+            checkPPTextView.setVisibility(View.INVISIBLE);
+            ppCheckBox.setVisibility(View.INVISIBLE);
+            isAcceptedPrivacyPolicy = true;
             intent = new Intent(this, ActivitySplash.class).
                     putExtra(Config.INTENT_PROFILE,getIntent().getSerializableExtra(Config.INTENT_PROFILE));
             resPassTextView.setVisibility(View.VISIBLE);
@@ -198,6 +204,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 //                    startPrem();
 
                     if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
+                        //TODO Config.REGISTRATION ?
                         Amplitude.getInstance().logEvent(Config.REGISTRATION);
                         Adjust.trackEvent(new AdjustEvent(EventsAdjust.create_acount));
                         Amplitude.getInstance().logEvent(AmplitudaEvents.create_acount);
@@ -217,7 +224,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         };
 
         facebookLoginButton.setReadPermissions("email", "public_profile");
-        facebookLoginButton.setText(R.string.auth_main_signin_facebook);
         facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -341,6 +347,11 @@ private ValueEventListener getPostListener(){
     }
 
     private void signInGoogle() {
+
+        if (!isPP()){
+            return;
+        }
+
         Log.d(TAG, "signInGoogle: 1");
         mGoogleSignInClient.signOut();
 
@@ -566,6 +577,12 @@ private ValueEventListener getPostListener(){
 
         } else {
 //            Toast.makeText(ActivityAuthMain.this, "Приветствую!!!", Toast.LENGTH_SHORT).show();
+
+            if (isPP() && createUser){
+                Log.d(TAG, "logEvent: acept_police");
+                 Amplitude.getInstance().logEvent(AmplitudaEvents.acept_police);
+                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.acept_police));
+            }
             Log.d(TAG, "checkUserExist: true");
             startActivity(intent);
             finish();
@@ -831,7 +848,12 @@ private ValueEventListener getPostListener(){
 
     private boolean isPP(){
 
-        return false;
+        if (!isAcceptedPrivacyPolicy){
+            checkPPTextView.setTextColor(Color.RED);
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
@@ -840,7 +862,7 @@ private ValueEventListener getPostListener(){
         switch (view.getId()) {
             case R.id.auth_main_btn_signin:
                 if ( createUser) {
-                    if (hasConnection(this))
+                    if (hasConnection(this) && isPP())
                     createAccount(emailEditText.getText().toString(),
                             passEditText.getText().toString());
                 } else {
@@ -857,6 +879,7 @@ private ValueEventListener getPostListener(){
                 restorePassword();
                 break;
             case R.id.auth_main_btn_phone:
+                if (hasConnection(this) && isPP())
                 phoneAuth();
                 break;
             case R.id.textView82:

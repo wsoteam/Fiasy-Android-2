@@ -46,6 +46,7 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
     @BindView(R.id.cvSub1mBack) CardView cvSub1mBack;
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
+    private static final String TAG_METRICS = "METRICS";
     private static final int COUNT_OF_PAGES = 4;
     private boolean isEnterFromMainActivity = false;
     private String sku = "basic_subscription_12m";
@@ -152,8 +153,9 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
             Amplitude.getInstance().logEvent(getIntent().getStringExtra(Config.AMPLITUDE_BUY_FROM));
             Adjust.trackEvent(new AdjustEvent(getIntent().getStringExtra(Config.ADJUST_BUY_FROM)));
 
-            if (getIntent().getStringExtra(Config.ADJUST_COME_FROM) == Config.ADJUST_COME_FROM){
+            if (getIntent().getStringExtra(Config.ADJUST_COME_FROM).equals(Config.ADJUST_COME_FROM)) {
                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_onboarding));
+                Log.d(TAG_METRICS, "onPurchasesUpdated: " + Config.ADJUST_COME_FROM);
             }
 
             sharedPreferences = getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
