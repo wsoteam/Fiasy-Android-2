@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
@@ -29,10 +28,8 @@ import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.Fragments.PremiumSliderFragment;
-import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Sync.UserDataHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +57,11 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscription);
+
         Amplitude.getInstance().logEvent(Config.SEE_PREMIUM);
+
+        Adjust.trackEvent(new AdjustEvent(getIntent().getStringExtra(Config.COME_FROM)));
+
         isEnterFromMainActivity = getIntent().getBooleanExtra(Config.ENTER_FROM_MAIN_ACTIVITY, false);
         ButterKnife.bind(this);
         billingClient = BillingClient.newBuilder(this).setListener((PurchasesUpdatedListener) this).build();
@@ -82,6 +83,7 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
 
         cvSub3mBack.setVisibility(View.GONE);
         cvSub1mBack.setVisibility(View.GONE);
+        bindViewPager();
     }
 
     private void bindViewPager() {
@@ -147,9 +149,11 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
     @Override
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null){
-            Amplitude.getInstance().logEvent(Config.BUY_PREMIUM);
 
-            if (getIntent().getStringExtra(Config.FROM_ONBOARDING) == Config.FROM_ONBOARDING){
+            Amplitude.getInstance().logEvent(Config.BUY_PREMIUM);
+            Adjust.trackEvent(new AdjustEvent(getIntent().getStringExtra(Config.BUY_FROM)));
+
+            if (getIntent().getStringExtra(Config.COME_FROM) == Config.COME_FROM){
                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_onboarding));
             }
 

@@ -12,7 +12,10 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import com.adjust.sdk.Adjust;
+import com.adjust.sdk.AdjustEvent;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.R;
 import com.yandex.metrica.YandexMetrica;
 
@@ -31,6 +34,8 @@ public class ActivitySettings extends AppCompatActivity {
         cvNotification = findViewById(R.id.cvOpenAutoLaunch);
         switchRewrite = findViewById(R.id.switchRewrite);
         handleSwitch();
+
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_settings));
 
         cvRate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +59,7 @@ public class ActivitySettings extends AppCompatActivity {
         cvShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Adjust.trackEvent(new AdjustEvent(EventsAdjust.share));
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.accompanying_text)

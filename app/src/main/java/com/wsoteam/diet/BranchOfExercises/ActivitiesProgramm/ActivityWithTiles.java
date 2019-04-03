@@ -17,12 +17,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adjust.sdk.Adjust;
+import com.adjust.sdk.AdjustEvent;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.wsoteam.diet.BranchOfExercises.ObjectHolder;
+import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.POJOSExercises.ArrayOfTiles;
 import com.wsoteam.diet.POJOSExercises.ObjectLocalDatabase;
 import com.wsoteam.diet.POJOSExercises.Tile;
@@ -60,6 +63,7 @@ public class ActivityWithTiles extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_training));
 
         numberOfSelectedProgramm = getIntent().getIntExtra(NUMBER_OF_PROGRAM, 0);
         numberOfSelectedItemOfList = getIntent().getIntExtra(NUMBER_OF_ITEM_FROM_LIST, 0);

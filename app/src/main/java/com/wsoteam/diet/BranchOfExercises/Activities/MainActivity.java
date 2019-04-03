@@ -23,6 +23,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.adjust.sdk.Adjust;
+import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
@@ -39,6 +41,7 @@ import com.wsoteam.diet.BranchOfExercises.FragmentsOfMainScreen.FragmentProgramm
 import com.wsoteam.diet.BranchOfExercises.FragmentsOfMainScreen.FragmentsArticles;
 import com.wsoteam.diet.BranchOfExercises.ObjectHolder;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.POJOSExercises.GlobalObject;
 import com.wsoteam.diet.R;
 
@@ -89,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
         AdRequest request = new AdRequest.Builder().build();
         Amplitude.getInstance().logEvent(Config.ENTER_IN_FITNESS);
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_all_trainings));
 
         loadingBar = findViewById(R.id.ex_ivLoadingCircle);
         animationRotate = AnimationUtils.loadAnimation(this, R.anim.animation_rotate);

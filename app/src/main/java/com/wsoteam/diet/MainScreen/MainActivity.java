@@ -226,6 +226,35 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /*private void callAllEventsAdjust() {
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.first_launch));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.session_launch));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.start_registration));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.fill_reg_data));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.create_acount));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.acept_police));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_onboarding));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_prem_onboarding));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_onboarding));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.attempt_add_food));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_search_food));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_detail_food));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.success_add_food));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_prem_elements));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_elements));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_all_recipes));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_prem_recipe));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_recipe));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_recipe));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_all_trainings));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_prem_training));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_training));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_training));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_profile));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_settings));
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.add_weight));
+    }*/
+
     private void bindViewPager() {
         vpEatingTimeLine.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -378,6 +407,8 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     intent = new Intent(MainActivity.this, ActivitySubscription.class);
                     intent.putExtra(Config.ENTER_FROM_MAIN_ACTIVITY, true);
+                    intent.putExtra(Config.COME_FROM, EventsAdjust.view_prem_recipe);
+                    intent.putExtra(Config.BUY_FROM, EventsAdjust.buy_prem_recipe);
                 }
                 break;
             case R.id.nav_fitness:
@@ -386,6 +417,8 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     intent = new Intent(MainActivity.this, ActivitySubscription.class);
                     intent.putExtra(Config.ENTER_FROM_MAIN_ACTIVITY, true);
+                    intent.putExtra(Config.COME_FROM, EventsAdjust.view_prem_training);
+                    intent.putExtra(Config.BUY_FROM, EventsAdjust.buy_prem_training);
                 }
                 break;
             case R.id.nav_calculating:

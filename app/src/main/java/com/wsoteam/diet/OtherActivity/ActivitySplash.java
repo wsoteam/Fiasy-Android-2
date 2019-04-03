@@ -16,6 +16,8 @@ import android.view.WindowManager;
 
 import android.widget.Toast;
 
+import com.adjust.sdk.Adjust;
+import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
@@ -30,19 +32,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.wsoteam.diet.Authenticate.ActivityAuthMain;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.InApp.ActivitySubscription;
+import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.MainScreen.MainActivity;
-import com.wsoteam.diet.ObjectHolder;
-import com.wsoteam.diet.Onboarding.OnboardingActivity;
-import com.wsoteam.diet.POJOProfile.Profile;
-import com.wsoteam.diet.POJOS.GlobalObject;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.tvoytrener.PortionSize;
 
 import java.util.List;
@@ -54,6 +50,7 @@ public class ActivitySplash extends AppCompatActivity {
 
     private BillingClient mBillingClient;
     private SharedPreferences countOfRun;
+    private final String TAG_FIRST_RUN = "TAG_FIRST_RUN";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,6 +62,7 @@ public class ActivitySplash extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+        checkFirstLaunch();
 
         new PortionSize();
 
@@ -74,7 +72,6 @@ public class ActivitySplash extends AppCompatActivity {
 
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-
 
 
         mBillingClient = BillingClient.newBuilder(this).setListener(new PurchasesUpdatedListener() {
@@ -93,9 +90,9 @@ public class ActivitySplash extends AppCompatActivity {
                     //здесь мы можем запросить информацию о товарах и покупках
                     List<Purchase> purchasesList = queryPurchases(); //запрос о покупках
 
-                    checkSub("basic_subscription_1m",purchasesList);
-                    checkSub("basic_subscription_3m",purchasesList);
-                    checkSub("basic_subscription_4m",purchasesList);
+                    checkSub("basic_subscription_1m", purchasesList);
+                    checkSub("basic_subscription_3m", purchasesList);
+                    checkSub("basic_subscription_4m", purchasesList);
 
 
                 }
@@ -106,7 +103,6 @@ public class ActivitySplash extends AppCompatActivity {
                 //сюда мы попадем если что-то пойдет не так
             }
         });
-
 
 
         if (user != null) {
@@ -120,9 +116,9 @@ public class ActivitySplash extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
 
-                    boolean isPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).getBoolean(Config.STATE_BILLING,false);
+                    boolean isPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).getBoolean(Config.STATE_BILLING, false);
                     Intent intent;
-                    if (isPrem){
+                    if (isPrem) {
                         intent = new Intent(ActivitySplash.this, MainActivity.class);
                     } else {
                         intent = new Intent(ActivitySplash.this, MainActivity.class);
@@ -147,6 +143,19 @@ public class ActivitySplash extends AppCompatActivity {
 
     }
 
+    private void checkFirstLaunch() {
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+
+        if (sharedPreferences.getBoolean(TAG_FIRST_RUN, false)) {
+            Adjust.trackEvent(new AdjustEvent(EventsAdjust.first_launch));
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(TAG_FIRST_RUN, true);
+            editor.commit();
+        }
+
+    }
+
     private boolean hasConnection(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -164,7 +173,7 @@ public class ActivitySplash extends AppCompatActivity {
         return false;
     }
 
-    private void payComplete(){
+    private void payComplete() {
         countOfRun = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
         SharedPreferences.Editor editor = countOfRun.edit();
         editor.putBoolean(Config.STATE_BILLING, true);
@@ -172,24 +181,22 @@ public class ActivitySplash extends AppCompatActivity {
     }
 
 
-
     private List<Purchase> queryPurchases() {
         Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.SUBS);
         return purchasesResult.getPurchasesList();
     }
 
-    private void checkSub(String mSkuId, List<Purchase> purchasesList){
+    private void checkSub(String mSkuId, List<Purchase> purchasesList) {
 
         //если товар уже куплен, предоставить его пользователю
         for (int i = 0; i < purchasesList.size(); i++) {
             String purchaseId = purchasesList.get(i).getSku();
-            if(TextUtils.equals(mSkuId, purchaseId)) {
+            if (TextUtils.equals(mSkuId, purchaseId)) {
                 payComplete();
                 Log.d(TAG, "checkSub: payComplete");
             }
         }
     }
-
 
 
 }

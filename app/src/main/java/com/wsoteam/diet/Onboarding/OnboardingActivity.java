@@ -1,9 +1,7 @@
 package com.wsoteam.diet.Onboarding;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,9 +17,6 @@ import com.adjust.sdk.AdjustEvent;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.ActivitySubscription;
-import com.wsoteam.diet.MainScreen.MainActivity;
-import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
-import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.R;
 
 import java.util.LinkedList;
@@ -76,7 +71,9 @@ public class OnboardingActivity extends AppCompatActivity {
             Log.d(TAG, "page selected " + position);
             if (position == viewList.size() - 1){
                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_onboarding));
-                startActivity(new Intent(OnboardingActivity.this, ActivitySubscription.class).putExtra(Config.FROM_ONBOARDING, Config.FROM_ONBOARDING));
+                startActivity(new Intent(OnboardingActivity.this, ActivitySubscription.class)
+                        .putExtra(Config.COME_FROM, EventsAdjust.view_prem_onboarding)
+                        .putExtra(Config.BUY_FROM, EventsAdjust.buy_prem_onboarding));
                 finish();
             }
 
