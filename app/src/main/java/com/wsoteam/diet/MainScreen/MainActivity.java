@@ -214,7 +214,6 @@ public class MainActivity extends AppCompatActivity
         bindViewPager();
         WorkWithFirebaseDB.setFirebaseStateListener();
 
-
         fabAddEating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -226,7 +225,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    /*private void callAllEventsAdjust() {
+    private void callAllEventsAdjust() {
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.first_launch));
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.session_launch));
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.start_registration));
@@ -253,7 +252,7 @@ public class MainActivity extends AppCompatActivity
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_profile));
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_settings));
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.add_weight));
-    }*/
+    }
 
     private void bindViewPager() {
         vpEatingTimeLine.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
