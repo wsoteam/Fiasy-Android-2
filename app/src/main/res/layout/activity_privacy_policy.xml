@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context="com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy">
 
+    <ImageView
+        android:id="@+id/imageView24"
+        android:layout_width="wrap_content"
+        android:layout_height="292dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/scrollView3"
+        tools:srcCompat="@drawable/pp_head" />
+
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="match_parent"

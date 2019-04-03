@@ -57,6 +57,8 @@ public class Config {
 
     public static final String TAG_PREMIUM_ENTER = "TAG_PREMIUM_ENTER";
 
+    public static final String FROM_ONBOARDING = "FROM_ONBOARDING";
+
 
 
 

@@ -9,13 +9,16 @@ import java.util.List;
 
 public class OnboardinAdapter extends PagerAdapter {
 
+
     private List<View> viewList = null;
 
     public OnboardinAdapter(List<View> list){
         this.viewList = list;
+
     }
 
     @NonNull @Override public Object instantiateItem(@NonNull ViewGroup container, int position) {
+
 
         container.addView(viewList.get(position));
         return viewList.get(position);

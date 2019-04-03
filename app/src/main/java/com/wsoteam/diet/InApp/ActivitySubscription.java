@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.adjust.sdk.Adjust;
+import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
@@ -25,6 +27,7 @@ import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.Fragments.PremiumSliderFragment;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.OtherActivity.ActivitySplash;
@@ -75,7 +78,8 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
 
             }
         });
-        bindViewPager();
+
+
         cvSub3mBack.setVisibility(View.GONE);
         cvSub1mBack.setVisibility(View.GONE);
     }
@@ -144,6 +148,10 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null){
             Amplitude.getInstance().logEvent(Config.BUY_PREMIUM);
+
+            if (getIntent().getStringExtra(Config.FROM_ONBOARDING) == Config.FROM_ONBOARDING){
+                Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_onboarding));
+            }
 
             sharedPreferences = getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
