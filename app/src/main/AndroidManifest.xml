@@ -31,7 +31,8 @@
         </activity>
         <activity
             android:name=".OtherActivity.ActivityPrivacyPolicy"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/AppThemePolicy"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".InApp.ActivitySubscription"
             android:screenOrientation="portrait"

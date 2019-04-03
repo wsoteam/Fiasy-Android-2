@@ -136,7 +136,7 @@ public class ActivitySplash extends AppCompatActivity {
                 }
             });
         } else {
-//            startActivity(new Intent(ActivitySplash.this, OnboardingActivity.class));
+//            startActivity(new Intent(ActivitySplash.this, ActivityPrivacyPolicy.class));
             startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
             finish();
         }

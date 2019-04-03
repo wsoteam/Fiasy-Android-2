@@ -90,9 +90,9 @@
     <string name="auth_main_et_hint_pass">Password</string>
     <string name="auth_main_btn_signin">Вход по Email</string>
     <string name="auth_main_btn_create">Регистрация</string>
-    <string name="auth_main_signin_google">Вход через аккаунт Google</string>
-    <string name="auth_main_signin_facebook">Вход через аккаунт Facebook</string>
-    <string name="auth_main_signin_phone">Вход по номеру телефона</string>
+    <string name="auth_main_signin_google">   Вход через аккаунт Google</string>
+    <string name="auth_main_signin_facebook">   Вход через аккаунт Facebook</string>
+    <string name="auth_main_signin_phone">   Вход по номеру телефона</string>
     <string name="auth_main_tv_respasss">Забыли пароль?</string>
     <string name="auth_main_hint_respass">Эл. почта</string>
     <string name="auth_main_btn_restore">Отправить</string>
@@ -112,11 +112,11 @@
     <string name="auth_main_phone_btn_send">Отправить</string>
     <string name="auth_main_phone_btn_sign_in">Войти</string>
 
-    <string name="auth_main_reg_google">Регестрация через аккаунт Google</string>
-    <string name="auth_main_reg_facebook">Регестрация через аккаунт Facebook</string>
+    <string name="auth_main_reg_google">Регистрация через аккаунт Google</string>
+    <string name="auth_main_reg_facebook">Регистрация через аккаунт Facebook</string>
     <string name="auth_main_reg_phone">Вход по номеру телефона</string>
     <string name="auth_main_reg_tv">Создать аккаунт</string>
-    <string name="auth_main_check_box_pp">Я согласен с условиями <u>политики конфидециальности</u></string>
+    <string name="auth_main_check_box_pp">Я согласен с условиями <u>политики конфиденциальности</u></string>
 
     <string name="auth_main_log_email">e</string>
 
@@ -124,9 +124,9 @@
     <!--auth_fragment_registration-->
     <string name="reg_tv_hou_copmfortable">Как тебе удобней входить в систему?</string>
     <string name="reg_tv_contract">Условия предоставления услуг</string>
-    <string name="reg_btn_google">Войти через Google</string>
-    <string name="reg_btn_facebook">Войти через Facebook</string>
-    <string name="reg_btn_reg_email">Регистрация по Email</string>
+    <string name="reg_btn_google">   Войти через Google</string>
+    <string name="reg_btn_facebook">   Войти через Facebook</string>
+    <string name="reg_btn_reg_email">   Регистрация по Email</string>
 
     <!--auth_fragment_hello-->
     <string name="reg_tv_hello">Привет!</string>

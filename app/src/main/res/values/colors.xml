@@ -37,7 +37,7 @@
     <color name="frostbite">#de32aa</color>
     <color name="light_green">#4fe76d</color>
 
-    <color name="alfa">#00ffffff</color>
+    <color name="alfa">#00FFFFFF</color>
 
     <!--Exercises-->
     <color name="whiteColor">#FFFFFF</color>
@@ -99,5 +99,7 @@
 
 
     <color name="head_analyzer_search">#39A298</color>
+
+    <color name="colorPrimaryDarkPolicy">#AE8005</color>
 
 </resources>
