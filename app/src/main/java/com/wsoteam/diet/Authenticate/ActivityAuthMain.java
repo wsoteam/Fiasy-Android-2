@@ -57,6 +57,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.ActivitySubscription;
@@ -199,6 +200,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                     if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
                         Amplitude.getInstance().logEvent(Config.REGISTRATION);
                         Adjust.trackEvent(new AdjustEvent(EventsAdjust.create_acount));
+                        Amplitude.getInstance().logEvent(AmplitudaEvents.create_acount);
                         WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
                     }
 

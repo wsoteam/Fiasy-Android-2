@@ -14,6 +14,8 @@ import android.widget.Button;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
+import com.amplitude.api.Amplitude;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.ActivitySubscription;
@@ -45,11 +47,11 @@ public class OnboardingActivity extends AppCompatActivity {
 
 
         viewList = new LinkedList<>();
-        viewList.add( new OnboardingItem(this, R.string.onboarding_item_title1, R.string.onboarding_item_description1, R.drawable.onboard_img1).getView());
-        viewList.add( new OnboardingItem(this, R.string.onboarding_item_title2, R.string.onboarding_item_description2, R.drawable.onboard_img2).getView());
-        viewList.add( new OnboardingItem(this, R.string.onboarding_item_title3, R.string.onboarding_item_description3, R.drawable.onboard_img3).getView());
-        viewList.add( new OnboardingItem(this, R.string.onboarding_item_title4, R.string.onboarding_item_description4, R.drawable.onboard_img4).getView());
-        viewList.add( new OnboardingItem(this, R.string.onboarding_item_title5, R.string.onboarding_item_description5, R.drawable.onboard_img5).getView());
+        viewList.add(new OnboardingItem(this, R.string.onboarding_item_title1, R.string.onboarding_item_description1, R.drawable.onboard_img1).getView());
+        viewList.add(new OnboardingItem(this, R.string.onboarding_item_title2, R.string.onboarding_item_description2, R.drawable.onboard_img2).getView());
+        viewList.add(new OnboardingItem(this, R.string.onboarding_item_title3, R.string.onboarding_item_description3, R.drawable.onboard_img3).getView());
+        viewList.add(new OnboardingItem(this, R.string.onboarding_item_title4, R.string.onboarding_item_description4, R.drawable.onboard_img4).getView());
+        viewList.add(new OnboardingItem(this, R.string.onboarding_item_title5, R.string.onboarding_item_description5, R.drawable.onboard_img5).getView());
         viewList.add(LayoutInflater.from(this).inflate(R.layout.empty_layout, null));
 
         ViewPager viewPager = findViewById(R.id.view_pager_onboarding);
@@ -69,11 +71,14 @@ public class OnboardingActivity extends AppCompatActivity {
 
         public void onPageSelected(int position) {
             Log.d(TAG, "page selected " + position);
-            if (position == viewList.size() - 1){
+            if (position == viewList.size() - 1) {
                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_onboarding));
+                Amplitude.getInstance().logEvent(AmplitudaEvents.view_onboarding);
                 startActivity(new Intent(OnboardingActivity.this, ActivitySubscription.class)
-                        .putExtra(Config.COME_FROM, EventsAdjust.view_prem_onboarding)
-                        .putExtra(Config.BUY_FROM, EventsAdjust.buy_prem_onboarding));
+                        .putExtra(Config.AMPLITUDE_COME_FROM, EventsAdjust.view_prem_onboarding)
+                        .putExtra(Config.AMPLITUDE_BUY_FROM, EventsAdjust.buy_prem_onboarding)
+                        .putExtra(Config.ADJUST_COME_FROM, EventsAdjust.view_prem_onboarding)
+                        .putExtra(Config.ADJUST_BUY_FROM, EventsAdjust.buy_prem_onboarding));
                 finish();
             }
 

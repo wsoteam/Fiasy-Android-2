@@ -19,6 +19,7 @@ import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.github.lzyzsd.circleprogress.DonutProgress;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
@@ -151,6 +152,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         });
         YandexMetrica.reportEvent("Открыт экран: Детализация продукта группы - " + foodItem.getNameOfGroup());
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_detail_food));
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_detail_food);
 
     }
 
@@ -175,6 +177,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         String urlOfImage = foodItem.getUrlOfImages();
 
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.success_add_food));
+        Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
         switch (stringExtra) {
             case Config.INTENT_CHOISE_BREAKFAST:
                 WorkWithFirebaseDB.

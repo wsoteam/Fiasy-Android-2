@@ -35,6 +35,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfExercises.FragmentsOfMainScreen.FragmentFavorites;
 import com.wsoteam.diet.BranchOfExercises.FragmentsOfMainScreen.FragmentPartsOfBody;
 import com.wsoteam.diet.BranchOfExercises.FragmentsOfMainScreen.FragmentProgramms;
@@ -91,8 +92,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.ex_activity_main);
 
         AdRequest request = new AdRequest.Builder().build();
-        Amplitude.getInstance().logEvent(Config.ENTER_IN_FITNESS);
+
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_all_trainings));
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_all_trainings);
 
         loadingBar = findViewById(R.id.ex_ivLoadingCircle);
         animationRotate = AnimationUtils.loadAnimation(this, R.anim.animation_rotate);

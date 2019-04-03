@@ -58,9 +58,8 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscription);
 
-        Amplitude.getInstance().logEvent(Config.SEE_PREMIUM);
-
-        Adjust.trackEvent(new AdjustEvent(getIntent().getStringExtra(Config.COME_FROM)));
+        Amplitude.getInstance().logEvent(getIntent().getStringExtra(Config.AMPLITUDE_COME_FROM));
+        Adjust.trackEvent(new AdjustEvent(getIntent().getStringExtra(Config.ADJUST_COME_FROM)));
 
         isEnterFromMainActivity = getIntent().getBooleanExtra(Config.ENTER_FROM_MAIN_ACTIVITY, false);
         ButterKnife.bind(this);
@@ -150,10 +149,10 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null){
 
-            Amplitude.getInstance().logEvent(Config.BUY_PREMIUM);
-            Adjust.trackEvent(new AdjustEvent(getIntent().getStringExtra(Config.BUY_FROM)));
+            Amplitude.getInstance().logEvent(getIntent().getStringExtra(Config.AMPLITUDE_BUY_FROM));
+            Adjust.trackEvent(new AdjustEvent(getIntent().getStringExtra(Config.ADJUST_BUY_FROM)));
 
-            if (getIntent().getStringExtra(Config.COME_FROM) == Config.COME_FROM){
+            if (getIntent().getStringExtra(Config.ADJUST_COME_FROM) == Config.ADJUST_COME_FROM){
                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_onboarding));
             }
 

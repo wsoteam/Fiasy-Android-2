@@ -26,9 +26,11 @@ import android.widget.Toast;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
+import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.POJOFoodItem.DbAnalyzer;
@@ -113,6 +115,8 @@ public class ActivityListAndSearch extends AppCompatActivity {
         YandexMetrica.reportEvent("Открыт экран: Анализатор");
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.attempt_add_food));
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_search_food));
+        Amplitude.getInstance().logEvent(AmplitudaEvents.attempt_add_food);
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_search_food);
 
     }
 

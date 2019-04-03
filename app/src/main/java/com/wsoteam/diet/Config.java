@@ -55,8 +55,11 @@ public class Config {
     public static final String ENTER_IN_FITNESS = "Заходят в раздел тренировки";
 
 
-    public static final String COME_FROM = "COME_FROM";
-    public static final String BUY_FROM = "BUY_FROM";
+    public static final String ADJUST_COME_FROM = "ADJUST_COME_FROM";
+    public static final String ADJUST_BUY_FROM = "ADJUST_BUY_FROM";
+
+    public static final String AMPLITUDE_BUY_FROM = "AMPLITUDE_BUY_FROM";
+    public static final String AMPLITUDE_COME_FROM = "AMPLITUDE_COME_FROM";
 
 
 

@@ -14,6 +14,8 @@ import android.widget.Switch;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
+import com.amplitude.api.Amplitude;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.R;
@@ -36,6 +38,7 @@ public class ActivitySettings extends AppCompatActivity {
         handleSwitch();
 
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_settings));
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_settings);
 
         cvRate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +63,7 @@ public class ActivitySettings extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.share));
+                Amplitude.getInstance().logEvent(AmplitudaEvents.share);
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.accompanying_text)

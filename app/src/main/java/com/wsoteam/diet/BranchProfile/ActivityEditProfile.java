@@ -25,6 +25,7 @@ import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.ActivityAuthMain;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
@@ -316,6 +317,7 @@ public class ActivityEditProfile extends AppCompatActivity {
             intent.putExtra(Config.INTENT_PROFILE, profile);
             Amplitude.getInstance().logEvent(Config.FILL_PROFILE);
             Adjust.trackEvent(new AdjustEvent(EventsAdjust.fill_reg_data));
+            Amplitude.getInstance().logEvent(AmplitudaEvents.fill_reg_data);
             startActivity(intent);
         }else {
             profile.setMaxKcal((int) maxInt);

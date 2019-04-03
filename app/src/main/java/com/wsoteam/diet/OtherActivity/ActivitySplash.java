@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
@@ -148,6 +149,7 @@ public class ActivitySplash extends AppCompatActivity {
 
         if (sharedPreferences.getBoolean(TAG_FIRST_RUN, false)) {
             Adjust.trackEvent(new AdjustEvent(EventsAdjust.first_launch));
+            Amplitude.getInstance().logEvent(AmplitudaEvents.first_launch);
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(TAG_FIRST_RUN, true);

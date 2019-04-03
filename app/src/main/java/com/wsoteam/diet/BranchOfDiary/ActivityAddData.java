@@ -14,6 +14,7 @@ import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.R;
@@ -69,6 +70,7 @@ public class ActivityAddData extends AppCompatActivity {
                     saveWeightDiaryItem();
                     Amplitude.getInstance().logEvent(Config.SAVE_DIARY_WEIGHT);
                     Adjust.trackEvent(new AdjustEvent(EventsAdjust.add_weight));
+                    Amplitude.getInstance().logEvent(AmplitudaEvents.add_weight);
                     if (isReadyToClose) {
                         finish();
                     }

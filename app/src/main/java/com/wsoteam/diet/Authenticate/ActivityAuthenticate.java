@@ -14,7 +14,9 @@ import android.widget.EditText;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
+import com.amplitude.api.Amplitude;
 import com.facebook.login.LoginManager;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.R;
@@ -63,6 +65,7 @@ public class ActivityAuthenticate extends AppCompatActivity implements View.OnCl
         switch (view.getId()){
             case R.id.auth_first_btn_registration:
                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.start_registration));
+                Amplitude.getInstance().logEvent(AmplitudaEvents.start_registration);
                 startActivity(new Intent(this, ActivityEditProfile.class).putExtra("registration",true));
                 break;
             case R.id.auth_first_btn_signin:

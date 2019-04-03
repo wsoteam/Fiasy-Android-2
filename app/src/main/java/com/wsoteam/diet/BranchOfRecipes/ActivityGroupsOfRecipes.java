@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
+import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.ObjectHolder;
@@ -63,6 +65,7 @@ public class ActivityGroupsOfRecipes extends AppCompatActivity {
 
         YandexMetrica.reportEvent("Открыт экран: Список рецептов");
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_all_recipes));
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_all_recipes);
     }
 
     private void updateUI() {

@@ -14,9 +14,11 @@ import android.widget.TextView;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
+import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.ObjectHolder;
@@ -61,6 +63,7 @@ public class ActivityRecipes extends AppCompatActivity {
 
         YandexMetrica.reportEvent("Открыт экран: Список рецептов на день");
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_recipe));
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_recipe);
 
     }
 

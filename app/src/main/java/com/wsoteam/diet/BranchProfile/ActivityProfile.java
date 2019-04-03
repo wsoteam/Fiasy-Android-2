@@ -18,7 +18,9 @@ import android.widget.TextView;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
+import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
@@ -97,6 +99,7 @@ public class ActivityProfile extends AppCompatActivity {
         });
 
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_profile));
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_profile);
 
     }
 

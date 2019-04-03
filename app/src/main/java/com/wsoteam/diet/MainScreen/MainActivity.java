@@ -20,7 +20,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -36,10 +35,12 @@ import android.widget.Toast;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
+import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.google.firebase.auth.FirebaseAuth;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfCalculating.ActivityListOfCalculating;
 import com.wsoteam.diet.BranchOfDiary.ActivityListOfDiary;
 import com.wsoteam.diet.BranchOfRecipes.ActivityGroupsOfRecipes;
@@ -50,7 +51,6 @@ import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEatingScroll;
 import com.wsoteam.diet.MainScreen.Support.AlertDialogChoiseEating;
-import com.wsoteam.diet.Onboarding.OnboardingActivity;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
 import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.POJOProfile.Profile;
@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity
         setTitle("");
 
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.session_launch));
+        Amplitude.getInstance().logEvent(AmplitudaEvents.session_launch);
         /** on your logout method:**/
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("com.wsoteam.diet.ACTION_LOGOUT");
@@ -223,35 +224,6 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-    }
-
-    private void callAllEventsAdjust() {
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.first_launch));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.session_launch));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.start_registration));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.fill_reg_data));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.create_acount));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.acept_police));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_onboarding));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_prem_onboarding));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_onboarding));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.attempt_add_food));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_search_food));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_detail_food));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.success_add_food));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_prem_elements));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_elements));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_all_recipes));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_prem_recipe));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_recipe));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_recipe));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_all_trainings));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_prem_training));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_training));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_training));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_profile));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_settings));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.add_weight));
     }
 
     private void bindViewPager() {
@@ -406,8 +378,10 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     intent = new Intent(MainActivity.this, ActivitySubscription.class);
                     intent.putExtra(Config.ENTER_FROM_MAIN_ACTIVITY, true);
-                    intent.putExtra(Config.COME_FROM, EventsAdjust.view_prem_recipe);
-                    intent.putExtra(Config.BUY_FROM, EventsAdjust.buy_prem_recipe);
+                    intent.putExtra(Config.ADJUST_COME_FROM, EventsAdjust.view_prem_recipe);
+                    intent.putExtra(Config.ADJUST_BUY_FROM, EventsAdjust.buy_prem_recipe);
+                    intent.putExtra(Config.AMPLITUDE_COME_FROM, AmplitudaEvents.view_prem_recipe);
+                    intent.putExtra(Config.AMPLITUDE_BUY_FROM, AmplitudaEvents.buy_prem_recipe);
                 }
                 break;
             case R.id.nav_fitness:
@@ -416,8 +390,10 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     intent = new Intent(MainActivity.this, ActivitySubscription.class);
                     intent.putExtra(Config.ENTER_FROM_MAIN_ACTIVITY, true);
-                    intent.putExtra(Config.COME_FROM, EventsAdjust.view_prem_training);
-                    intent.putExtra(Config.BUY_FROM, EventsAdjust.buy_prem_training);
+                    intent.putExtra(Config.ADJUST_COME_FROM, EventsAdjust.view_prem_training);
+                    intent.putExtra(Config.ADJUST_BUY_FROM, EventsAdjust.buy_prem_training);
+                    intent.putExtra(Config.AMPLITUDE_COME_FROM, AmplitudaEvents.view_prem_training);
+                    intent.putExtra(Config.AMPLITUDE_BUY_FROM, AmplitudaEvents.buy_prem_training);
                 }
                 break;
             case R.id.nav_calculating:
