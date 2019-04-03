@@ -16,7 +16,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.adjust.sdk.Adjust;
+import com.adjust.sdk.AdjustEvent;
 import com.bumptech.glide.Glide;
+import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -92,6 +95,8 @@ public class ActivityProfile extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_profile));
 
     }
 

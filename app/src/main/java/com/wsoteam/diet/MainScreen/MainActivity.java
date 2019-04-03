@@ -392,8 +392,7 @@ public class MainActivity extends AppCompatActivity
                 intent = new Intent(MainActivity.this, ActivityListOfCalculating.class);
                 break;
             case R.id.nav_settings:
-                //intent = new Intent(MainActivity.this, ActivitySettings.class);
-                intent = new Intent(MainActivity.this, OnboardingActivity.class);
+                intent = new Intent(MainActivity.this, ActivitySettings.class);
                 break;
             case R.id.nav_exit:
                 FirebaseAuth.getInstance().signOut();

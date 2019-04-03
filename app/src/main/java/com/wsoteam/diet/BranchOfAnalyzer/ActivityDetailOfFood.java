@@ -15,10 +15,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adjust.sdk.Adjust;
+import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.POJOFoodItem.FoodItem;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
@@ -147,6 +150,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             }
         });
         YandexMetrica.reportEvent("Открыт экран: Детализация продукта группы - " + foodItem.getNameOfGroup());
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_detail_food));
 
     }
 
@@ -170,6 +174,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         String name = foodItem.getName();
         String urlOfImage = foodItem.getUrlOfImages();
 
+        Adjust.trackEvent(new AdjustEvent(EventsAdjust.success_add_food));
         switch (stringExtra) {
             case Config.INTENT_CHOISE_BREAKFAST:
                 WorkWithFirebaseDB.
