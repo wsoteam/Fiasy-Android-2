@@ -87,30 +87,8 @@ public class FragmentDiary extends Fragment {
         super.onResume();
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
             profile = UserDataHolder.getUserData().getProfile();
-            tvLeftNBName.setText(profile.getFirstName() + " " + profile.getLastName());
-            tvLeftNBName.setTextSize(17);
-            if (!profile.getPhotoUrl().equals("default")) {
-                Uri uri = Uri.parse(profile.getPhotoUrl());
-                Glide.with(getActivity()).load(uri).into(ivLeftNBAvatar);
-            }
-
             setMaxParamsInProgressBars(profile);
         }
-
-
-        ivLeftNBAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (profile == null) {
-                    Intent intent = new Intent(getActivity(), ActivityEditProfile.class);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(getActivity(), ActivityProfile.class);
-                    startActivity(intent);
-                }
-
-            }
-        });
     }
 
     @Nullable
