@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.wsoteam.diet.R;
 
 public class OnboardingItem {
@@ -28,7 +29,11 @@ public class OnboardingItem {
         TextView descriptionTextView = view.findViewById(R.id.onboarding_item_description);
         ImageView imageView = view.findViewById(R.id.onboarding_item_images);
 
-        imageView.setImageResource(img);
+        Glide
+                .with(context)
+                .load(img)
+                .into(imageView);
+//        imageView.setImageResource(img);
         titleTextView.setText(title);
         descriptionTextView.setText(description);
 

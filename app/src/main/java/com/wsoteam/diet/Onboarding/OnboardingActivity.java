@@ -53,6 +53,11 @@ public class OnboardingActivity extends AppCompatActivity {
         viewList.add(new OnboardingItem(this, R.string.onboarding_item_title4, R.string.onboarding_item_description4, R.drawable.onboard_img4).getView());
         viewList.add(new OnboardingItem(this, R.string.onboarding_item_title5, R.string.onboarding_item_description5, R.drawable.onboard_img5).getView());
         viewList.add(LayoutInflater.from(this).inflate(R.layout.empty_layout, null));
+//        viewList.add(LayoutInflater.from(this).inflate(R.layout.empty_layout, null));
+//        viewList.add(LayoutInflater.from(this).inflate(R.layout.empty_layout, null));
+//        viewList.add(LayoutInflater.from(this).inflate(R.layout.empty_layout, null));
+//        viewList.add(LayoutInflater.from(this).inflate(R.layout.empty_layout, null));
+//        viewList.add(LayoutInflater.from(this).inflate(R.layout.empty_layout, null));
 
         ViewPager viewPager = findViewById(R.id.view_pager_onboarding);
         OnboardinAdapter adapter = new OnboardinAdapter(viewList);
