@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,12 +42,15 @@ import java.util.Calendar;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ActivityEditProfile extends AppCompatActivity {
-    private EditText edtHeight, edtAge, edtWeight, edtSpkName, edtSpkSecondName;
+    private EditText edtHeight, edtAge, edtWeight;
+    private String SpkName = "default";
+    private String SpkSecondName = "default";
     private Button btnLevelLoad;
     private RadioGroup rgFemaleOrMale;
-    private CircleImageView civEditProfile;
-    private FloatingActionButton fabEditProfile;
+//    private CircleImageView civEditProfile;
+//    private FloatingActionButton fabEditProfile;
     private ImageView ivHelpEditProfile;
+    private Button nextButton;
 
     private InterstitialAd interstitialAd;
 
@@ -72,16 +77,19 @@ public class ActivityEditProfile extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_edit_profile);
         edtHeight = findViewById(R.id.edtSpkGrowth);
         edtAge = findViewById(R.id.edtSpkAge);
         edtWeight = findViewById(R.id.edtSpkWeight);
         btnLevelLoad = findViewById(R.id.btnSpkChoiseLevel);
         rgFemaleOrMale = findViewById(R.id.rgFemaleOrMaleSpk);
-        edtSpkName = findViewById(R.id.edtSpkName);
-        edtSpkSecondName = findViewById(R.id.edtSpkSecondName);
-        civEditProfile = findViewById(R.id.civEditProfile);
-        fabEditProfile = findViewById(R.id.fabEditProfile);
+//        edtSpkName = findViewById(R.id.edtSpkName);
+//        edtSpkSecondName = findViewById(R.id.edtSpkSecondName);
+//        civEditProfile = findViewById(R.id.civEditProfile);
+//        fabEditProfile = findViewById(R.id.fabEditProfile);
+        nextButton = findViewById(R.id.rectangle_8);
         ivHelpEditProfile = findViewById(R.id.ivHelpEditProfile);
 
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
@@ -106,7 +114,7 @@ public class ActivityEditProfile extends AppCompatActivity {
             }
         });
 
-        fabEditProfile.setOnClickListener(new View.OnClickListener() {
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkInputData()) {
@@ -139,8 +147,8 @@ public class ActivityEditProfile extends AppCompatActivity {
         edtAge.setText(String.valueOf(profile.getAge()));
         edtWeight.setText(String.valueOf(profile.getWeight()));
         btnLevelLoad.setText(profile.getExerciseStress());
-        edtSpkName.setText(profile.getFirstName());
-        edtSpkSecondName.setText(profile.getLastName());
+//        edtSpkName.setText(profile.getFirstName());
+//        edtSpkSecondName.setText(profile.getLastName());
         if (profile.isFemale()) {
             rgFemaleOrMale.check(R.id.rdSpkFemale);
         } else {
@@ -149,14 +157,12 @@ public class ActivityEditProfile extends AppCompatActivity {
         if (!profile.getPhotoUrl().equals(DEFAULT_AVATAR)){
             urlOfPhoto = profile.getPhotoUrl();
             Uri uri = Uri.parse(urlOfPhoto);
-            Glide.with(this).load(uri).into(civEditProfile);
+//            Glide.with(this).load(uri).into(civEditProfile);
         }
 
     }
 
     private boolean checkInputData() {
-        if (!edtSpkName.getText().toString().equals("")) {
-            if (!edtSpkSecondName.getText().toString().equals("")) {
                 if (rgFemaleOrMale.getCheckedRadioButtonId() != -1) {
                     if (!edtAge.getText().toString().equals("")
                             && Integer.parseInt(edtAge.getText().toString()) >= 18
@@ -184,14 +190,7 @@ public class ActivityEditProfile extends AppCompatActivity {
                     Toast.makeText(ActivityEditProfile.this, R.string.spk_choise_your_gender, Toast.LENGTH_SHORT).show();
                     return false;
                 }
-            } else {
-                Toast.makeText(ActivityEditProfile.this, "Введите фамилию", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        } else {
-            Toast.makeText(ActivityEditProfile.this, "Введите имя", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+
     }
 
 
@@ -271,7 +270,7 @@ public class ActivityEditProfile extends AppCompatActivity {
         CardView cvADChoiseDiffLevelNormal = view.findViewById(R.id.cvADChoiseDiffLevelNormal);
         CardView cvADChoiseDiffLevelEasy = view.findViewById(R.id.cvADChoiseDiffLevelEasy);
 
-        Profile profile = new Profile(edtSpkName.getText().toString(), edtSpkSecondName.getText().toString(),
+        Profile profile = new Profile(SpkName, SpkSecondName,
                 isFemale, age, Integer.parseInt(edtHeight.getText().toString()), weight, 0,
                 btnLevelLoad.getText().toString(),urlOfPhoto, maxWater, 0, (int) protein,
                 (int) fat, (int) carbohydrate, getString(R.string.dif_level_easy), day, month, year);

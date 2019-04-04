@@ -1,6 +1,9 @@
 <resources>
 
-
+    <string name="textViewProfileTitle">Заполните данные о себе</string>
+    <string name="rectangle_8">Далее</string>
+    <string name="slozhnost">Сложность</string>
+    <string name="fiz_nagruz">Уровень нагрузок</string>
     <!--onboarding_items-->
 
     <string name="onboarding_main_pp"><u>Положения и условия</u></string>
