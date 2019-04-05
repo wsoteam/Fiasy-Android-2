@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -24,7 +23,6 @@ import android.widget.Toast;
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
-import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.wsoteam.diet.AmplitudaEvents;
@@ -39,13 +37,15 @@ import com.yandex.metrica.YandexMetrica;
 
 import java.util.Calendar;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class ActivityEditProfile extends AppCompatActivity {
+
+    private String dif_level;
+
     private EditText edtHeight, edtAge, edtWeight;
     private String SpkName = "default";
     private String SpkSecondName = "default";
-    private Button btnLevelLoad;
+    private Button btnDifLevel;
+    private Button btnChoiseLevel;
     private RadioGroup rgFemaleOrMale;
 //    private CircleImageView civEditProfile;
 //    private FloatingActionButton fabEditProfile;
@@ -83,14 +83,23 @@ public class ActivityEditProfile extends AppCompatActivity {
         edtHeight = findViewById(R.id.edtSpkGrowth);
         edtAge = findViewById(R.id.edtSpkAge);
         edtWeight = findViewById(R.id.edtSpkWeight);
-        btnLevelLoad = findViewById(R.id.btnSpkChoiseLevel);
+        btnDifLevel = findViewById(R.id.btnSpkChoiseDif);
+        btnChoiseLevel = findViewById(R.id.btnSpkChoiseLevel);
         rgFemaleOrMale = findViewById(R.id.rgFemaleOrMaleSpk);
-//        edtSpkName = findViewById(R.id.edtSpkName);
-//        edtSpkSecondName = findViewById(R.id.edtSpkSecondName);
-//        civEditProfile = findViewById(R.id.civEditProfile);
-//        fabEditProfile = findViewById(R.id.fabEditProfile);
         nextButton = findViewById(R.id.rectangle_8);
         ivHelpEditProfile = findViewById(R.id.ivHelpEditProfile);
+
+        if (dif_level == null){
+            dif_level = getString(R.string.dif_level_easy);
+            btnDifLevel.setText(R.string.dif_level_easy);
+        }
+
+        btnDifLevel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDifLevel();
+            }
+        });
 
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
             fillViewsIfProfileNotNull();
@@ -107,7 +116,7 @@ public class ActivityEditProfile extends AppCompatActivity {
             }
         });
 
-        btnLevelLoad.setOnClickListener(new View.OnClickListener() {
+        btnChoiseLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createAlertDialogAboutLevelLoad();
@@ -146,7 +155,7 @@ public class ActivityEditProfile extends AppCompatActivity {
         edtHeight.setText(String.valueOf(profile.getHeight()));
         edtAge.setText(String.valueOf(profile.getAge()));
         edtWeight.setText(String.valueOf(profile.getWeight()));
-        btnLevelLoad.setText(profile.getExerciseStress());
+        btnDifLevel.setText(profile.getExerciseStress());
 //        edtSpkName.setText(profile.getFirstName());
 //        edtSpkSecondName.setText(profile.getLastName());
         if (profile.isFemale()) {
@@ -193,6 +202,46 @@ public class ActivityEditProfile extends AppCompatActivity {
 
     }
 
+    private void selectDifLevel(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog alertDialog = builder.create();
+        View view = View.inflate(this, R.layout.alert_dialog_choise_difficulty_level, null);
+        CardView cvADChoiseDiffLevelHard = view.findViewById(R.id.cvADChoiseDiffLevelHard);
+        CardView cvADChoiseDiffLevelNormal = view.findViewById(R.id.cvADChoiseDiffLevelNormal);
+        CardView cvADChoiseDiffLevelEasy = view.findViewById(R.id.cvADChoiseDiffLevelEasy);
+
+        cvADChoiseDiffLevelEasy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dif_level = getString(R.string.dif_level_easy);
+                btnDifLevel.setText(R.string.dif_level_easy);
+                alertDialog.cancel();
+            }
+        });
+        cvADChoiseDiffLevelNormal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dif_level = getString(R.string.dif_level_normal);
+                btnDifLevel.setText(R.string.dif_level_normal);
+                alertDialog.cancel();
+            }
+        });
+        cvADChoiseDiffLevelHard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dif_level = getString(R.string.dif_level_hard);
+                btnDifLevel.setText(R.string.dif_level_hard);
+                alertDialog.cancel();
+            }
+        });
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        alertDialog.setView(view);
+        alertDialog.show();
+
+
+    }
+
 
     /*Минимальные нагрузки (сидячая работа) - К=1.2
     Немного дневной активности и легкие упражнения 1-3 раза в неделю - К=1.375
@@ -226,25 +275,25 @@ public class ActivityEditProfile extends AppCompatActivity {
         }
 
         /*Check level load*/
-        if (btnLevelLoad.getText().toString().equals(getString(R.string.level_none))) {
+        if (btnDifLevel.getText().toString().equals(getString(R.string.level_none))) {
             SPK = BOO * rateNone;
         }
-        if (btnLevelLoad.getText().toString().equals(getString(R.string.level_easy))) {
+        if (btnDifLevel.getText().toString().equals(getString(R.string.level_easy))) {
             SPK = BOO * rateEasy;
         }
-        if (btnLevelLoad.getText().toString().equals(getString(R.string.level_medium))) {
+        if (btnDifLevel.getText().toString().equals(getString(R.string.level_medium))) {
             SPK = BOO * rateMedium;
         }
-        if (btnLevelLoad.getText().toString().equals(getString(R.string.level_hard))) {
+        if (btnDifLevel.getText().toString().equals(getString(R.string.level_hard))) {
             SPK = BOO * rateHard;
         }
-        if (btnLevelLoad.getText().toString().equals(getString(R.string.level_up_hard))) {
+        if (btnDifLevel.getText().toString().equals(getString(R.string.level_up_hard))) {
             SPK = BOO * rateUpHard;
         }
-        if (btnLevelLoad.getText().toString().equals(getString(R.string.level_super))) {
+        if (btnDifLevel.getText().toString().equals(getString(R.string.level_super))) {
             SPK = BOO * rateSuper;
         }
-        if (btnLevelLoad.getText().toString().equals(getString(R.string.level_up_super))) {
+        if (btnDifLevel.getText().toString().equals(getString(R.string.level_up_super))) {
             SPK = BOO * rateUpSuper;
         }
 
@@ -263,47 +312,25 @@ public class ActivityEditProfile extends AppCompatActivity {
 
         Log.e("LOl", String.valueOf(SPK));
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final AlertDialog alertDialog = builder.create();
-        View view = View.inflate(this, R.layout.alert_dialog_choise_difficulty_level, null);
-        CardView cvADChoiseDiffLevelHard = view.findViewById(R.id.cvADChoiseDiffLevelHard);
-        CardView cvADChoiseDiffLevelNormal = view.findViewById(R.id.cvADChoiseDiffLevelNormal);
-        CardView cvADChoiseDiffLevelEasy = view.findViewById(R.id.cvADChoiseDiffLevelEasy);
 
         Profile profile = new Profile(SpkName, SpkSecondName,
                 isFemale, age, Integer.parseInt(edtHeight.getText().toString()), weight, 0,
-                btnLevelLoad.getText().toString(),urlOfPhoto, maxWater, 0, (int) protein,
-                (int) fat, (int) carbohydrate, getString(R.string.dif_level_easy), day, month, year);
+                btnDifLevel.getText().toString(),urlOfPhoto, maxWater, 0, (int) protein,
+                (int) fat, (int) carbohydrate, dif_level, day, month, year);
 
 
+        if (dif_level.equals(getString(R.string.dif_level_easy))) {
+            saveProfile(registration, profile, SPK);
+            Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
 
-        cvADChoiseDiffLevelEasy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveProfile(registration, profile, SPK);
-                Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
-                alertDialog.cancel();
-            }
-        });
-        cvADChoiseDiffLevelNormal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveProfile(registration, profile, upLineSPK);
-                Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
-                alertDialog.cancel();
-            }
-        });
-        cvADChoiseDiffLevelHard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveProfile(registration, profile, downLineSPK);
-                Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
-                alertDialog.cancel();
-            }
-        });
-        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        alertDialog.setView(view);
-        alertDialog.show();
+        } else if (dif_level.equals(getString(R.string.dif_level_normal))){
+            saveProfile(registration, profile, upLineSPK);
+            Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
+
+        }else if (dif_level.equals(getString(R.string.dif_level_hard))) {
+            saveProfile(registration, profile, downLineSPK);
+            Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
+        }
 
 
     }
@@ -335,7 +362,7 @@ public class ActivityEditProfile extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (rgLevelLoad.getCheckedRadioButtonId() != -1) {
                     RadioButton radioButton = view.findViewById(rgLevelLoad.getCheckedRadioButtonId());
-                    btnLevelLoad.setText(radioButton.getText());
+                    btnChoiseLevel.setText(radioButton.getText());
                 }
             }
         });

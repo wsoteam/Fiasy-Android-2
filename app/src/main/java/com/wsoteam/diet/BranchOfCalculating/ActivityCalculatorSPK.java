@@ -51,7 +51,7 @@ public class ActivityCalculatorSPK extends AppCompatActivity {
         edtHeight = findViewById(R.id.edtSpkGrowth);
         edtAge = findViewById(R.id.edtSpkAge);
         edtWeight = findViewById(R.id.edtSpkWeight);
-        btnLevelLoad = findViewById(R.id.btnSpkChoiseLevel);
+        btnLevelLoad = findViewById(R.id.btnSpkChoiseDif);
         btnCalculate = findViewById(R.id.btnSpkCalculate);
         rgFemaleOrMale = findViewById(R.id.rgFemaleOrMaleSpk);
         tvTitle = findViewById(R.id.tvTitleOfSPK);

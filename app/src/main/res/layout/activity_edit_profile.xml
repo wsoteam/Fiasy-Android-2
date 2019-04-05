@@ -139,7 +139,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/rgFemaleOrMaleSpk" />
 
             <Button
-                android:id="@+id/btnSpkChoiseLevel"
+                android:id="@+id/btnSpkChoiseDif"
                 android:layout_width="137dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -157,21 +157,21 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/slozhnost"
                 android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="@+id/btnSpkChoiseLevel"
-                app:layout_constraintStart_toStartOf="@+id/btnSpkChoiseLevel"
-                app:layout_constraintTop_toBottomOf="@+id/btnSpkChoiseLevel" />
+                app:layout_constraintEnd_toEndOf="@+id/btnSpkChoiseDif"
+                app:layout_constraintStart_toStartOf="@+id/btnSpkChoiseDif"
+                app:layout_constraintTop_toBottomOf="@+id/btnSpkChoiseDif" />
 
             <Button
-                android:id="@+id/btnSpkChoiseLevel2"
+                android:id="@+id/btnSpkChoiseLevel"
                 android:layout_width="137dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/rectangle_9"
                 android:text="@string/level_none"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/btnSpkChoiseLevel"
-                app:layout_constraintStart_toEndOf="@+id/btnSpkChoiseLevel"
-                app:layout_constraintTop_toTopOf="@+id/btnSpkChoiseLevel" />
+                app:layout_constraintBottom_toBottomOf="@+id/btnSpkChoiseDif"
+                app:layout_constraintStart_toEndOf="@+id/btnSpkChoiseDif"
+                app:layout_constraintTop_toTopOf="@+id/btnSpkChoiseDif" />
 
             <TextView
                 android:id="@+id/textView52"
@@ -180,9 +180,9 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/fiz_nagruz"
                 android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="@+id/btnSpkChoiseLevel2"
-                app:layout_constraintStart_toStartOf="@+id/btnSpkChoiseLevel2"
-                app:layout_constraintTop_toBottomOf="@+id/btnSpkChoiseLevel2" />
+                app:layout_constraintEnd_toEndOf="@+id/btnSpkChoiseLevel"
+                app:layout_constraintStart_toStartOf="@+id/btnSpkChoiseLevel"
+                app:layout_constraintTop_toBottomOf="@+id/btnSpkChoiseLevel" />
 
             <TextView
                 android:id="@+id/textView24"
