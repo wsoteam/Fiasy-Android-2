@@ -28,9 +28,8 @@
     <color name="images_filter_edit_profile">#be252525</color>
 
 
-    <color name="red_progress">#fa3939</color>
-    <color name="yellow_progress">#fcd537</color>
-    <color name="green_progress">#2ae133</color>
+
+    <color name="finished_circle_detail_food">#9ACEDC</color>
 
 
     <color name="uninated_nations_blue">#fa6b44</color>
@@ -103,5 +102,8 @@
 
     <color name="unactive_color_bnv_main">#ABABAB</color>
     <color name="active_color_bnv_main">#FFC008</color>
+
+
+    <color name="gray_text_detail_food">#757575</color>
 
 </resources>
