@@ -23,6 +23,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -34,11 +35,8 @@ import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
-import com.wsoteam.diet.BranchProfile.ActivityProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
-import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.MainScreen.Support.AlertDialogChoiseEating;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
@@ -48,12 +46,14 @@ import com.yandex.metrica.YandexMetrica;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.Context.MODE_PRIVATE;
 
 public class FragmentDiary extends Fragment {
+    @BindView(R.id.ibOpenYesterday) ImageButton ibOpenYesterday;
+    @BindView(R.id.ibOpenTomorrow) ImageButton ibOpenTomorrow;
     private Unbinder unbinder;
     @BindView(R.id.tvCircleProgressProt) TextView tvCircleProgressProt;
     @BindView(R.id.apCollapsingKcal) ArcProgress apCollapsingKcal;
@@ -61,7 +61,6 @@ public class FragmentDiary extends Fragment {
     @BindView(R.id.apCollapsingCarbo) ArcProgress apCollapsingCarbo;
     @BindView(R.id.apCollapsingFat) ArcProgress apCollapsingFat;
     @BindView(R.id.ivCollapsingMainCompleteWater) ImageView ivCollapsingMainCompleteWater;
-    @BindView(R.id.fabAddEating) FloatingActionButton fabAddEating;
     @BindView(R.id.tvCircleProgressCarbo) TextView tvCircleProgressCarbo;
     @BindView(R.id.tvCircleProgressFat) TextView tvCircleProgressFat;
     @BindView(R.id.mainappbar) AppBarLayout mainappbar;
@@ -69,8 +68,6 @@ public class FragmentDiary extends Fragment {
     @BindView(R.id.collapsingToolbarLayout) CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.vpEatingTimeLine) ViewPager vpEatingTimeLine;
     @BindView(R.id.tvDateForMainScreen) TextView tvDateForMainScreen;
-    private TextView tvLeftNBName;
-    private CircleImageView ivLeftNBAvatar;
 
     private Profile profile;
 
@@ -108,17 +105,17 @@ public class FragmentDiary extends Fragment {
         getActivity().sendBroadcast(broadcastIntent);
 
         boolean isPremAlert = getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE)
-                .getBoolean(Config.ALERT_BUY_SUBSCRIPTION,false);
+                .getBoolean(Config.ALERT_BUY_SUBSCRIPTION, false);
 
-        if (isPremAlert){
+        if (isPremAlert) {
             Log.d("prem", "onCreate: ");
 
-            View view = getLayoutInflater().inflate( R.layout.alert_dialog_buy_sub_info, null);
+            View view = getLayoutInflater().inflate(R.layout.alert_dialog_buy_sub_info, null);
             Button button = view.findViewById(R.id.alerd_buy_info_btn);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (alertDialogBuyInfo != null){
+                    if (alertDialogBuyInfo != null) {
                         alertDialogBuyInfo.dismiss();
                     }
                 }
@@ -160,14 +157,6 @@ public class FragmentDiary extends Fragment {
         checkFirstRun();
         bindViewPager();
         WorkWithFirebaseDB.setFirebaseStateListener();
-
-        fabAddEating.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialogChoiseEating.createChoiseEatingAlertDialog(getActivity(),
-                        tvDateForMainScreen.getText().toString()).show();
-            }
-        });
 
         return mainView;
     }
@@ -314,6 +303,22 @@ public class FragmentDiary extends Fragment {
             return true;
         } else {
             return false;
+        }
+    }
+
+    @OnClick({R.id.ibOpenYesterday, R.id.ibOpenTomorrow, R.id.fabAddEating})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ibOpenYesterday:
+                vpEatingTimeLine.setCurrentItem(vpEatingTimeLine.getCurrentItem() - 1);
+                break;
+            case R.id.ibOpenTomorrow:
+                vpEatingTimeLine.setCurrentItem(vpEatingTimeLine.getCurrentItem() + 1);
+                break;
+            case R.id.fabAddEating:
+                AlertDialogChoiseEating.createChoiseEatingAlertDialog(getActivity(),
+                        tvDateForMainScreen.getText().toString()).show();
+                break;
         }
     }
 }

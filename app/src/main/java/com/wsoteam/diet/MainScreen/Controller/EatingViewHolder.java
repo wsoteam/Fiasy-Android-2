@@ -41,7 +41,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(List<Eating> eatingGroup, Context context, String nameOfEatingGroup) {
-        tvSumOfKcal.setText(String.valueOf(calculateCalories(eatingGroup)) + " Ккал");
+        tvSumOfKcal.setText(String.valueOf(calculateCalories(eatingGroup)) + " кк");
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
         rvListOfFoodEatingCard.setLayoutManager(new LinearLayoutManager(context));
         rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, false));
