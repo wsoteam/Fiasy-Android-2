@@ -60,12 +60,10 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
 
         tvTitle = findViewById(R.id.tvActivityDetailOfFoodCollapsingTitle);
-        tvKcal = findViewById(R.id.tvActivityDetailOfFoodKcal);
         tvCarbohydrates = findViewById(R.id.tvActivityDetailOfFoodCountOfCarbohydrates);
         tvFat = findViewById(R.id.tvActivityDetailOfFoodCountOfFat);
         tvProtein = findViewById(R.id.tvActivityDetailOfFoodCountOfProtein);
 
-        cvDetailOfFoodProperties = findViewById(R.id.cvDetailOfFoodProperties);
 
         btnSaveEating = findViewById(R.id.btnSaveEating);
 
@@ -74,7 +72,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         tvCalculateKcal = findViewById(R.id.tvActivityDetailOfFoodCalculateKcal);
         tvCalculateProtein = findViewById(R.id.tvActivityDetailOfFoodCalculateProtein);
 
-        tvProperties = findViewById(R.id.tvActivityDetailOfFoodProperties);
+
 
         edtWeight = findViewById(R.id.edtActivityDetailOfFoodPortion);
 
