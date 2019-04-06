@@ -28,9 +28,8 @@
     <color name="images_filter_edit_profile">#be252525</color>
 
 
-    <color name="red_progress">#fa3939</color>
-    <color name="yellow_progress">#fcd537</color>
-    <color name="green_progress">#2ae133</color>
+
+    <color name="finished_circle_detail_food">#9ACEDC</color>
 
 
     <color name="uninated_nations_blue">#fa6b44</color>
@@ -75,7 +74,7 @@
     <color name="level_hard">#b41c1c</color>
 
 
-    <color name="add_food_green">#00a82d</color>
+    <color name="add_food_green">#009688</color>
     <color name="add_food_red">#f44336</color>
 
 
@@ -100,6 +99,15 @@
 
     <color name="head_analyzer_search">#39A298</color>
 
+
     <color name="colorPrimaryDarkPolicy">#AE8005</color>
+
+
+    <color name="unactive_color_bnv_main">#ABABAB</color>
+    <color name="active_color_bnv_main">#FFC008</color>
+
+
+    <color name="gray_text_detail_food">#757575</color>
+
 
 </resources>

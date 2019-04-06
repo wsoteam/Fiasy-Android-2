@@ -439,7 +439,13 @@
     <string name="three_mon">3 мес.</string>
     <string name="text_premium_one">Подписки оплачиваемые \nодним платежем</string>
     <string name="auth_first_description">Правильное питание - это \nнеотъемлемая часть здорового образа \nжизни.</string>
-    <string name="bnv_main_iam">я</string>
+
+
+    <string name="bnv_main_diary">Дневник</string>
+    <string name="bnv_main_articles">Статьи</string>
+    <string name="bnv_main_trainer">Тренер</string>
+    <string name="bnv_main_recipes">Рецепты</string>
+    <string name="bnv_main_profile">Профиль</string>
 
     <string-array name="premium_slider_texts">
         <item>Еще больше полезных статей на \nтему правильного питания. \nПодходите к похудению со \nзнанием дела.</item>

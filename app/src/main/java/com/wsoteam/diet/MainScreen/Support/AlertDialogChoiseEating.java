@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.Config;
@@ -18,12 +19,12 @@ public class AlertDialogChoiseEating {
         AlertDialog alertDialog = builder.create();
         View view = LayoutInflater.from(context).inflate(R.layout.alert_dialog_choise_eating_type, null);
 
-        CardView cvChoiseEatingBreakFast = view.findViewById(R.id.cvChoiseEatingBreakFast);
-        CardView cvChoiseEatingLunch = view.findViewById(R.id.cvChoiseEatingLunch);
-        CardView cvChoiseEatingDinner = view.findViewById(R.id.cvChoiseEatingDinner);
-        CardView cvChoiseEatingSnack = view.findViewById(R.id.cvChoiseEatingSnack);
+        ImageButton ibChoiseEatingBreakFast = view.findViewById(R.id.ibChoiseEatingBreakFast);
+        ImageButton ibChoiseEatingLunch = view.findViewById(R.id.ibChoiseEatingLunch);
+        ImageButton ibChoiseEatingDinner = view.findViewById(R.id.ibChoiseEatingDinner);
+        ImageButton ibChoiseEatingSnack = view.findViewById(R.id.ibChoiseEatingSnack);
 
-        cvChoiseEatingBreakFast.setOnClickListener(new View.OnClickListener() {
+        ibChoiseEatingBreakFast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 context.startActivity(new Intent(context, ActivityListAndSearch.class)
@@ -32,7 +33,7 @@ public class AlertDialogChoiseEating {
                 alertDialog.cancel();
             }
         });
-        cvChoiseEatingLunch.setOnClickListener(new View.OnClickListener() {
+        ibChoiseEatingLunch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 context.startActivity(new Intent(context, ActivityListAndSearch.class)
@@ -41,7 +42,7 @@ public class AlertDialogChoiseEating {
                 alertDialog.cancel();
             }
         });
-        cvChoiseEatingDinner.setOnClickListener(new View.OnClickListener() {
+        ibChoiseEatingDinner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 context.startActivity(new Intent(context, ActivityListAndSearch.class)
@@ -50,7 +51,7 @@ public class AlertDialogChoiseEating {
                 alertDialog.cancel();
             }
         });
-        cvChoiseEatingSnack.setOnClickListener(new View.OnClickListener() {
+        ibChoiseEatingSnack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 context.startActivity(new Intent(context, ActivityListAndSearch.class)

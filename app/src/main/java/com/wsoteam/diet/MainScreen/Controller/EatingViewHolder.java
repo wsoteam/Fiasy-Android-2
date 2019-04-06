@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
 import com.wsoteam.diet.Config;
@@ -40,13 +41,18 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(List<Eating> eatingGroup, Context context, String nameOfEatingGroup) {
-        tvSumOfKcal.setText(String.valueOf(calculateCalories(eatingGroup)) + " Ккал");
+        tvSumOfKcal.setText(String.valueOf(calculateCalories(eatingGroup)) + " кк");
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
         rvListOfFoodEatingCard.setLayoutManager(new LinearLayoutManager(context));
         rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, false));
         ibtnOpenList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!isButtonPressed){
+                    Glide.with(context).load(R.drawable.close_eating_list).into(ibtnOpenList);
+                }else {
+                    Glide.with(context).load(R.drawable.open_eating_list).into(ibtnOpenList);
+                }
                 rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, !isButtonPressed));
                 isButtonPressed = !isButtonPressed;
             }
