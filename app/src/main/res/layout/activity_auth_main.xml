@@ -18,6 +18,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="42dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="#00FFFFFF"
+        android:drawableLeft="@drawable/back_arrow_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
@@ -64,8 +75,8 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="170dp"
-        android:drawableStart="@drawable/registration_icon_login_resize"
-        android:drawablePadding="15dp"
+        android:drawableStart="@drawable/registration_icon_login"
+        android:drawablePadding="11dp"
         android:ems="10"
         android:hint="@string/auth_main_et_hint_email"
         android:inputType="textEmailAddress"
@@ -79,7 +90,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:drawableStart="@drawable/registration_icon_password_resize"
+        android:drawableStart="@drawable/registration_icon_password"
         android:drawablePadding="15dp"
         android:ems="10"
         android:hint="@string/auth_main_et_hint_pass"
@@ -122,12 +133,14 @@
         android:id="@+id/auth_main_tv_respasss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/auth_main_tv_respasss"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/auth_main_btn_signin" />
 
     <Button
         android:id="@+id/auth_main_btn_google_custom"

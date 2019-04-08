@@ -28,6 +28,7 @@ import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.Fragments.PremiumSliderFragment;
+import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.R;
 
@@ -155,7 +156,7 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
 
 
             //TODO пиздос
-            if (getIntent().getStringExtra(Config.ADJUST_COME_FROM).equals(Config.ADJUST_COME_FROM)) {
+            if (getIntent().getStringExtra(Config.ADJUST_COME_FROM) != null) {
                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_onboarding));
                 Log.d(TAG_METRICS, "onPurchasesUpdated: " + Config.ADJUST_COME_FROM);
             }
@@ -205,8 +206,8 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
             }
         }
         if (view.getId() == R.id.tvPrivacyPolicy) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(getResources().getString(R.string.url_gdpr)));
+            Intent intent = new Intent(this, ActivityPrivacyPolicy.class);
+//            intent.setData(Uri.parse(getResources().getString(R.string.url_gdpr)));
             startActivity(intent);
         }
 

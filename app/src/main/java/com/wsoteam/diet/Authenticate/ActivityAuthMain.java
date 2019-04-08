@@ -109,6 +109,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     private TextView statusTextView;
     private TextView checkPPTextView;
     private CheckBox ppCheckBox;
+    private Button backButton;
 
     private Intent intent;
 
@@ -138,6 +139,16 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         statusTextView = findViewById(R.id.auth_main_tv);
         checkPPTextView = findViewById(R.id.textView82);
         ppCheckBox = findViewById(R.id.auth_main_check_pp);
+        backButton = findViewById(R.id.btnBack);
+
+
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         ppCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -147,6 +158,9 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                 Log.d(TAG, "onCheckedChanged: PP = " + b);
             }
         });
+        ppCheckBox.performClick();
+
+
 
         checkPPTextView.setOnClickListener(this);
 
@@ -174,6 +188,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
             phoneButton.setText(R.string.auth_main_reg_phone);
             googleCustomButton.setText(R.string.auth_main_reg_google);
             facebookCustomButton.setText(R.string.auth_main_reg_facebook);
+            emailEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.registration_icon_email, 0, 0, 0);
 
         }else {
             checkPPTextView.setVisibility(View.INVISIBLE);
