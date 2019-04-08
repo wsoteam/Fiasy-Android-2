@@ -1,5 +1,6 @@
 package com.wsoteam.diet.MainScreen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,8 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.wsoteam.diet.BranchOfRecipes.ActivityGroupsOfRecipes;
+import com.wsoteam.diet.BranchOfRecipes.fragments.FragmentListRecipes;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
+import com.wsoteam.diet.MainScreen.Fragments.FragmentRecipes;
 import com.wsoteam.diet.R;
 
 import butterknife.BindView;
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.bnv_main_trainer:
                     return true;
                 case R.id.bnv_main_recipes:
+                    transaction.replace(R.id.flFragmentContainer, new FragmentListRecipes()).commit();
                     return true;
                 case R.id.bnv_main_profile:
                     transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();

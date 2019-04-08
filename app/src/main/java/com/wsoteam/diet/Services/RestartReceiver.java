@@ -1,17 +1,12 @@
 package com.wsoteam.diet.Services;
 
 import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.wsoteam.diet.BranchOfNotifications.ActivityDetailNotification;
 import com.wsoteam.diet.POJOForDB.ObjectForNotification;
 import com.wsoteam.diet.R;
 

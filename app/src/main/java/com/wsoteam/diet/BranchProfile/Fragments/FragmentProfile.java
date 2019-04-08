@@ -19,9 +19,13 @@ import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.MainScreen.MainActivity;
+import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -35,7 +39,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FragmentProfile extends Fragment {
     @BindView(R.id.ibProfileEdit) ImageButton ibProfileEdit;
     @BindView(R.id.ibProfileLogout) ImageButton ibProfileLogout;
-    @BindView(R.id.tvProfileName) TextView tvProfileName;
     @BindView(R.id.tvProfileOld) TextView tvProfileOld;
     @BindView(R.id.tvProfileGender) TextView tvProfileGender;
     @BindView(R.id.tvProfileLifestyle) TextView tvProfileLifestyle;
@@ -103,7 +106,11 @@ public class FragmentProfile extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.ibProfileLogout:
-                
+                FirebaseAuth.getInstance().signOut();
+                LoginManager.getInstance().logOut();
+                UserDataHolder.clearObject();
+                getActivity().finish();
+                startActivity(new Intent(getActivity(), ActivitySplash.class));
                 break;
         }
     }
@@ -111,7 +118,6 @@ public class FragmentProfile extends Fragment {
     private void fillViewsIfProfileNotNull(Profile profile) {
         String day = "0", month = "0";
 
-        tvProfileName.setText(profile.getFirstName() + " " + profile.getLastName());
         tvProfileOld.setText(String.valueOf(profile.getAge()));
         if (profile.isFemale()) {
             tvProfileGender.setText("Женщина");
