@@ -61,6 +61,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.Onboarding.OnboardingActivity;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.OtherActivity.ActivitySplash;
@@ -166,7 +167,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         });
 
         if (createUser) {
-            intent = new Intent(this, OnboardingActivity.class).
+            intent = new Intent(this, ActivitySubscription.class).
                     putExtra(Config.INTENT_PROFILE,getIntent().getSerializableExtra(Config.INTENT_PROFILE));
             statusTextView.setText(R.string.auth_main_reg_tv);
             signIn.setText(R.string.auth_main_btn_create);
