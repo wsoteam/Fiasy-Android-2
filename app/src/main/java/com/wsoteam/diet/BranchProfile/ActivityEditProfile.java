@@ -1,6 +1,5 @@
 package com.wsoteam.diet.BranchProfile;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -47,8 +46,6 @@ public class ActivityEditProfile extends AppCompatActivity {
     private Button btnDifLevel;
     private Button btnChoiseLevel;
     private RadioGroup rgFemaleOrMale;
-//    private CircleImageView civEditProfile;
-//    private FloatingActionButton fabEditProfile;
     private ImageView ivHelpEditProfile;
     private Button nextButton;
 
@@ -119,7 +116,7 @@ public class ActivityEditProfile extends AppCompatActivity {
         btnChoiseLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createAlertDialogAboutLevelLoad();
+                createAlertDialogLevelLoad();
             }
         });
 
@@ -352,26 +349,32 @@ public class ActivityEditProfile extends AppCompatActivity {
         }
     }
 
-    private void createAlertDialogAboutLevelLoad() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    private void createAlertDialogLevelLoad() {
+        View.OnClickListener listener;
+
         final View view = View.inflate(this, R.layout.alert_dialog_level, null);
         final RadioGroup rgLevelLoad = view.findViewById(R.id.rgLevelLoad);
-        builder.setView(view);
-        builder.setPositiveButton("ок", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (rgLevelLoad.getCheckedRadioButtonId() != -1) {
-                    RadioButton radioButton = view.findViewById(rgLevelLoad.getCheckedRadioButtonId());
-                    btnChoiseLevel.setText(radioButton.getText());
-                }
-            }
-        });
-        builder.setNeutralButton("отмена", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
 
+        AlertDialog builder = new AlertDialog.Builder(this)
+                .setView(view)
+                .show();
+
+         listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RadioButton radioButton = view.findViewById(rgLevelLoad.getCheckedRadioButtonId());
+                btnChoiseLevel.setText(radioButton.getText());
+                builder.dismiss();
             }
-        });
-        builder.show();
+        };
+
+        view.findViewById(R.id.rbLevelLoadNone).setOnClickListener(listener);
+        view.findViewById(R.id.rbLevelLoadEasy).setOnClickListener(listener);
+        view.findViewById(R.id.rbLevelLoadMedium).setOnClickListener(listener);
+        view.findViewById(R.id.rbLevelLoadHard).setOnClickListener(listener);
+        view.findViewById(R.id.rbLevelLoadUpHard).setOnClickListener(listener);
+        view.findViewById(R.id.rbLevelLoadSuper).setOnClickListener(listener);
+        view.findViewById(R.id.rbLevelLoadUpSuper).setOnClickListener(listener);
+
     }
 }

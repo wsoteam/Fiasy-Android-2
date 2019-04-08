@@ -1,73 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <RadioGroup
-        android:id="@+id/rgLevelLoad"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19">
-
-        <RadioButton
-            android:id="@+id/rbLevelLoadNone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/level_none" />
-
-        <RadioButton
-            android:id="@+id/rbLevelLoadEasy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/level_easy"
-            android:layout_marginTop="8dp"/>
-
-        <RadioButton
-            android:id="@+id/rbLevelLoadMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/level_medium"
-            android:layout_marginTop="8dp"/>
-
-        <RadioButton
-            android:id="@+id/rbLevelLoadHard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/level_hard"
-            android:layout_marginTop="8dp"/>
-
-        <RadioButton
-            android:id="@+id/rbLevelLoadUpHard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/level_up_hard"
-            android:layout_marginTop="8dp"/>
-
-        <RadioButton
-            android:id="@+id/rbLevelLoadSuper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/level_super"
-            android:layout_marginTop="8dp"/>
-
-        <RadioButton
-            android:id="@+id/rbLevelLoadUpSuper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/level_up_super"
-            android:layout_marginTop="8dp"/>
-
-
-    </RadioGroup>
 
     <TextView
         android:id="@+id/textView19"
@@ -79,10 +15,143 @@
         android:paddingRight="8dp"
         android:paddingBottom="16dp"
         android:text="Физическая активность"
+        android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fillViewport="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="10dp">
+
+            <RadioGroup
+                android:id="@+id/rgLevelLoad"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                tools:layout_editor_absoluteX="123dp"
+                tools:layout_editor_absoluteY="67dp">
+
+                <RadioButton
+                    android:id="@+id/rbLevelLoadNone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/level_none" />
+
+                <TextView
+                    android:id="@+id/tv_level_none"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="33dp"
+                    android:text="@string/tv_level_none" />
+
+                <RadioButton
+                    android:id="@+id/rbLevelLoadEasy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/level_easy" />
+
+                <TextView
+                    android:id="@+id/tv_level_easy"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="33dp"
+                    android:text="@string/tv_level_easy" />
+
+                <RadioButton
+                    android:id="@+id/rbLevelLoadMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/level_medium" />
+
+                <TextView
+                    android:id="@+id/tv_level_medium"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="33dp"
+                    android:text="@string/tv_level_medium" />
+
+                <RadioButton
+                    android:id="@+id/rbLevelLoadHard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/level_hard" />
+
+                <TextView
+                    android:id="@+id/tv_level_hard"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="33dp"
+                    android:text="@string/tv_level_hard" />
+
+                <RadioButton
+                    android:id="@+id/rbLevelLoadUpHard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/level_up_hard" />
+
+                <TextView
+                    android:id="@+id/tv_level_up_hard"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="33dp"
+                    android:text="@string/tv_level_up_hard" />
+
+                <RadioButton
+                    android:id="@+id/rbLevelLoadSuper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/level_super" />
+
+                <TextView
+                    android:id="@+id/tv_level_super"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="33dp"
+                    android:text="@string/tv_level_super" />
+
+                <RadioButton
+                    android:id="@+id/rbLevelLoadUpSuper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/level_up_super" />
+
+                <TextView
+                    android:id="@+id/tv_level_up_super"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="33dp"
+                    android:text="@string/tv_level_up_super" />
+
+
+            </RadioGroup>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.constraint.ConstraintLayout>

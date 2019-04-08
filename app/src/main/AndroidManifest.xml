@@ -199,7 +199,7 @@
             android:theme="@style/EatingDiaryStyle" />
         <activity
             android:name=".BranchProfile.ActivityEditProfile"
-            android:theme="@style/EatingDiaryStyle"
+            android:theme="@style/EditProfile"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".BranchProfile.ActivityHelp"

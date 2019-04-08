@@ -274,13 +274,22 @@
         \nAndroid - </string>
 
     <!--Load levels-->
-    <string name="level_none">Минимальная активность</string>
-    <string name="level_easy">Легкая активность</string>
-    <string name="level_medium">Средняя активность</string>
-    <string name="level_hard">Повышенная активность</string>
-    <string name="level_up_hard">Высокая активность</string>
-    <string name="level_super">Сверхвысокая активность</string>
-    <string name="level_up_super">Предельная активность</string>
+    <string name="level_none">Минимальная нагрузка</string>
+    <string name="level_easy">Малоактивный</string>
+    <string name="level_medium">Среднеактивный</string>
+    <string name="level_hard">Интенсивная нагрузка</string>
+    <string name="level_up_hard">Ежедневные тренировки</string>
+    <string name="level_super">Ежедневные интенсивные тренировки</string>
+    <string name="level_up_super">Сверхтяжелые нагрузки</string>
+
+    <string name="tv_level_none">Работа в офисе</string>
+    <string name="tv_level_easy">Дневная активность и легкие упражнения 1-3 раза в неделю</string>
+    <string name="tv_level_medium">4-5 тренировок в неделю или тяжелая физическая работа</string>
+    <string name="tv_level_hard">Интенсивные тренировки 4-5 раз в неделю</string>
+    <string name="tv_level_up_hard">Ежедневные тренировки (в зале или проф спорт)</string>
+    <string name="tv_level_super">Интенсивные тренировки или тренировки 2 раза в день</string>
+    <string name="tv_level_up_super">Тяжелая физическая работа или интенсивные тренировки 2 раза в день</string>
+
     <string name="spk_choise_your_gender">Выберите Ваш пол</string>
     <string name="spk_check_your_age">Проверьте Ваш возраст</string>
     <string name="spk_check_your_height">Проверьте введенный рост</string>
