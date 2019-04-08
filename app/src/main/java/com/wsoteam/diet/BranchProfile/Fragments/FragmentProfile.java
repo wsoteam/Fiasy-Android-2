@@ -34,7 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FragmentProfile extends Fragment {
     @BindView(R.id.ibProfileEdit) ImageButton ibProfileEdit;
-    @BindView(R.id.ibProfileBack) ImageButton ibProfileBack;
+    @BindView(R.id.ibProfileLogout) ImageButton ibProfileLogout;
     @BindView(R.id.tvProfileName) TextView tvProfileName;
     @BindView(R.id.tvProfileOld) TextView tvProfileOld;
     @BindView(R.id.tvProfileGender) TextView tvProfileGender;
@@ -49,7 +49,6 @@ public class FragmentProfile extends Fragment {
 
     private ItemAdapter itemAdapter;
 
-    private int[] arrayOfDrawabaleArrowForChangeWeight = new int[]{R.drawable.ic_decrease_weight, R.drawable.ic_increase_weight};
     private int[] arrayOfBackgroundDrawables = new int[]{R.drawable.background_item_profile_kcal,
             R.drawable.background_item_profile_water, R.drawable.background_item_profile_fat,
             R.drawable.background_item_profile_carbo, R.drawable.background_item_profile_prot};
@@ -79,6 +78,7 @@ public class FragmentProfile extends Fragment {
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_profile));
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_profile);
 
+
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -95,15 +95,15 @@ public class FragmentProfile extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.ibProfileEdit, R.id.ibProfileBack})
+    @OnClick({R.id.ibProfileEdit, R.id.ibProfileLogout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibProfileEdit:
                 Intent intent = new Intent(getActivity(), ActivityEditProfile.class);
                 startActivity(intent);
                 break;
-            case R.id.ibProfileBack:
-                getActivity().onBackPressed();
+            case R.id.ibProfileLogout:
+                
                 break;
         }
     }

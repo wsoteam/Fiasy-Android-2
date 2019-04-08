@@ -93,7 +93,6 @@ public class FragmentDiary extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.activity_main, container, false);
         unbinder = ButterKnife.bind(this, mainView);
-
         getActivity().setTitle("");
 
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.session_launch));

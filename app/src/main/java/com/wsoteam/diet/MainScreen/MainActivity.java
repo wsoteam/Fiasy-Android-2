@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
-
     }
 
 }
