@@ -83,6 +83,7 @@ public class FragmentDiary extends Fragment {
     public void onResume() {
         super.onResume();
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
+            Log.e("LOL", "Not null");
             profile = UserDataHolder.getUserData().getProfile();
             setMaxParamsInProgressBars(profile);
         }
@@ -160,7 +161,7 @@ public class FragmentDiary extends Fragment {
     }
 
     private void bindViewPager() {
-        vpEatingTimeLine.setAdapter(new FragmentPagerAdapter(getActivity().getSupportFragmentManager()) {
+        vpEatingTimeLine.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return FragmentEatingScroll.newInstance(position);

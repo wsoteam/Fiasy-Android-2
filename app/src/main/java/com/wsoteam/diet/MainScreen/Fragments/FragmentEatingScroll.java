@@ -168,7 +168,7 @@ public class FragmentEatingScroll extends Fragment {
         apCollapsingProt.setProgress(prot);
         apCollapsingCarbo.setProgress(carbo);
         apCollapsingFat.setProgress(fat);
-        //TODO
+
         if (apCollapsingKcal.getMax() < kcal) {
             apCollapsingKcal.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
             apCollapsingKcal.setSuffixText("-" + String.valueOf(kcal - apCollapsingKcal.getMax()));

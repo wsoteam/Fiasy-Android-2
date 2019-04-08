@@ -198,4 +198,28 @@ public class Profile extends SugarRecord implements Serializable {
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
     }
+
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", isFemale=" + isFemale +
+                ", age=" + age +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", loseWeight=" + loseWeight +
+                ", exerciseStress='" + exerciseStress + '\'' +
+                ", photoUrl='" + photoUrl + '\'' +
+                ", waterCount=" + waterCount +
+                ", maxKcal=" + maxKcal +
+                ", maxProt=" + maxProt +
+                ", maxFat=" + maxFat +
+                ", maxCarbo=" + maxCarbo +
+                ", difficultyLevel='" + difficultyLevel + '\'' +
+                ", numberOfDay=" + numberOfDay +
+                ", month=" + month +
+                ", year=" + year +
+                '}';
+    }
 }
