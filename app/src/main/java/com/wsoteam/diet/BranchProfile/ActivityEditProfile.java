@@ -261,25 +261,25 @@ public class ActivityEditProfile extends AppCompatActivity {
         }
 
         /*Check level load*/
-        if (btnDifLevel.getText().toString().equals(getString(R.string.level_none))) {
+        if (btnChoiseLevel.getText().toString().equals(getString(R.string.level_none))) {
             SPK = BOO * rateNone;
         }
-        if (btnDifLevel.getText().toString().equals(getString(R.string.level_easy))) {
+        if (btnChoiseLevel.getText().toString().equals(getString(R.string.level_easy))) {
             SPK = BOO * rateEasy;
         }
-        if (btnDifLevel.getText().toString().equals(getString(R.string.level_medium))) {
+        if (btnChoiseLevel.getText().toString().equals(getString(R.string.level_medium))) {
             SPK = BOO * rateMedium;
         }
-        if (btnDifLevel.getText().toString().equals(getString(R.string.level_hard))) {
+        if (btnChoiseLevel.getText().toString().equals(getString(R.string.level_hard))) {
             SPK = BOO * rateHard;
         }
-        if (btnDifLevel.getText().toString().equals(getString(R.string.level_up_hard))) {
+        if (btnChoiseLevel.getText().toString().equals(getString(R.string.level_up_hard))) {
             SPK = BOO * rateUpHard;
         }
-        if (btnDifLevel.getText().toString().equals(getString(R.string.level_super))) {
+        if (btnChoiseLevel.getText().toString().equals(getString(R.string.level_super))) {
             SPK = BOO * rateSuper;
         }
-        if (btnDifLevel.getText().toString().equals(getString(R.string.level_up_super))) {
+        if (btnChoiseLevel.getText().toString().equals(getString(R.string.level_up_super))) {
             SPK = BOO * rateUpSuper;
         }
 
@@ -301,7 +301,7 @@ public class ActivityEditProfile extends AppCompatActivity {
 
         Profile profile = new Profile(SpkName, SpkSecondName,
                 isFemale, age, Integer.parseInt(edtHeight.getText().toString()), weight, 0,
-                btnDifLevel.getText().toString(),urlOfPhoto, maxWater, 0, (int) protein,
+                btnChoiseLevel.getText().toString(),urlOfPhoto, maxWater, 0, (int) protein,
                 (int) fat, (int) carbohydrate, dif_level, day, month, year);
 
 
@@ -348,6 +348,8 @@ public class ActivityEditProfile extends AppCompatActivity {
 
             final View view = View.inflate(this, R.layout.alert_dialog_level, null);
             final RadioGroup rgLevelLoad = view.findViewById(R.id.rgLevelLoad);
+            final  RadioButton radioButton = view.findViewById(R.id.rbLevelLoadNone);
+            radioButton.setChecked(true);
 
             alertDialogLevelLoad = new AlertDialog.Builder(this)
                     .setView(view)
