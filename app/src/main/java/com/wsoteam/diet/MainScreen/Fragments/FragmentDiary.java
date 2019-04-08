@@ -94,7 +94,6 @@ public class FragmentDiary extends Fragment {
         View mainView = inflater.inflate(R.layout.activity_main, container, false);
         unbinder = ButterKnife.bind(this, mainView);
 
-        //getActivity().setSupportActionBar(toolbar);
         getActivity().setTitle("");
 
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.session_launch));

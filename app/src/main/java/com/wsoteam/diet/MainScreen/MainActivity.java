@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.R;
 
@@ -17,6 +19,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.flFragmentContainer) FrameLayout flFragmentContainer;
     @BindView(R.id.bnv_main) BottomNavigationView bnvMain;
+    private FragmentTransaction transaction;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -24,8 +27,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            transaction = getSupportFragmentManager().beginTransaction();
             switch (item.getItemId()) {
                 case R.id.bnv_main_diary:
+                    transaction.replace(R.id.flFragmentContainer, new FragmentDiary()).commit();
                     return true;
                 case R.id.bnv_main_articles:
                     return true;
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.bnv_main_recipes:
                     return true;
                 case R.id.bnv_main_profile:
+                    transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
                     return true;
             }
             return false;
