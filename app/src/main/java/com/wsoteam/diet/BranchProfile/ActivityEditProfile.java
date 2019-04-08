@@ -50,6 +50,7 @@ public class ActivityEditProfile extends AppCompatActivity {
     private Button nextButton;
 
     private InterstitialAd interstitialAd;
+    AlertDialog alertDialogLevelLoad;
 
     private boolean registration;
 
@@ -350,31 +351,37 @@ public class ActivityEditProfile extends AppCompatActivity {
     }
 
     private void createAlertDialogLevelLoad() {
-        View.OnClickListener listener;
 
-        final View view = View.inflate(this, R.layout.alert_dialog_level, null);
-        final RadioGroup rgLevelLoad = view.findViewById(R.id.rgLevelLoad);
+        if (alertDialogLevelLoad != null){
+            alertDialogLevelLoad.show();
+        } else {
+            View.OnClickListener listener;
 
-        AlertDialog builder = new AlertDialog.Builder(this)
-                .setView(view)
-                .show();
+            final View view = View.inflate(this, R.layout.alert_dialog_level, null);
+            final RadioGroup rgLevelLoad = view.findViewById(R.id.rgLevelLoad);
 
-         listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RadioButton radioButton = view.findViewById(rgLevelLoad.getCheckedRadioButtonId());
-                btnChoiseLevel.setText(radioButton.getText());
-                builder.dismiss();
-            }
-        };
+            alertDialogLevelLoad = new AlertDialog.Builder(this)
+                    .setView(view)
+                    .show();
 
-        view.findViewById(R.id.rbLevelLoadNone).setOnClickListener(listener);
-        view.findViewById(R.id.rbLevelLoadEasy).setOnClickListener(listener);
-        view.findViewById(R.id.rbLevelLoadMedium).setOnClickListener(listener);
-        view.findViewById(R.id.rbLevelLoadHard).setOnClickListener(listener);
-        view.findViewById(R.id.rbLevelLoadUpHard).setOnClickListener(listener);
-        view.findViewById(R.id.rbLevelLoadSuper).setOnClickListener(listener);
-        view.findViewById(R.id.rbLevelLoadUpSuper).setOnClickListener(listener);
 
+            listener = new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    RadioButton radioButton = view.findViewById(rgLevelLoad.getCheckedRadioButtonId());
+                    btnChoiseLevel.setText(radioButton.getText());
+                    alertDialogLevelLoad.dismiss();
+                }
+            };
+
+            view.findViewById(R.id.rbLevelLoadNone).setOnClickListener(listener);
+            view.findViewById(R.id.rbLevelLoadEasy).setOnClickListener(listener);
+            view.findViewById(R.id.rbLevelLoadMedium).setOnClickListener(listener);
+            view.findViewById(R.id.rbLevelLoadHard).setOnClickListener(listener);
+            view.findViewById(R.id.rbLevelLoadUpHard).setOnClickListener(listener);
+            view.findViewById(R.id.rbLevelLoadSuper).setOnClickListener(listener);
+            view.findViewById(R.id.rbLevelLoadUpSuper).setOnClickListener(listener);
+
+        }
     }
 }
