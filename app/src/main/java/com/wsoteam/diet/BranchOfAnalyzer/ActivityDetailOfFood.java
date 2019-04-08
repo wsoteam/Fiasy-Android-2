@@ -36,14 +36,12 @@ import com.yandex.metrica.YandexMetrica;
 import java.util.Calendar;
 
 public class ActivityDetailOfFood extends AppCompatActivity {
-    private TextView tvTitle, tvKcal,
-            tvProtein, tvFat, tvCarbohydrates,
-            tvCalculateFat, tvCalculateProtein, tvCalculateCarbohydrates, tvCalculateKcal, tvProperties;
+    private TextView tvTitle,
+            tvCalculateFat, tvCalculateProtein, tvCalculateCarbohydrates, tvCalculateKcal;
     private DonutProgress pbCarbohydrates, pbFat, pbProtein;
     private EditText edtWeight;
     private Button btnSaveEating;
 
-    private CardView cvDetailOfFoodProperties;
 
     private FoodItem foodItem;
     private final String TAG_OWN_PRODUCT = "OWN";
@@ -58,15 +56,8 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
         foodItem = (FoodItem) getIntent().getSerializableExtra("ActivityDetailOfFood");
 
-
         tvTitle = findViewById(R.id.tvActivityDetailOfFoodCollapsingTitle);
-        tvCarbohydrates = findViewById(R.id.tvActivityDetailOfFoodCountOfCarbohydrates);
-        tvFat = findViewById(R.id.tvActivityDetailOfFoodCountOfFat);
-        tvProtein = findViewById(R.id.tvActivityDetailOfFoodCountOfProtein);
-
-
         btnSaveEating = findViewById(R.id.btnSaveEating);
-
         tvCalculateFat = findViewById(R.id.tvActivityDetailOfFoodCalculateFat);
         tvCalculateCarbohydrates = findViewById(R.id.tvActivityDetailOfFoodCalculateCarbo);
         tvCalculateKcal = findViewById(R.id.tvActivityDetailOfFoodCalculateKcal);
@@ -84,28 +75,10 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             foodItem.setDescription("");
             foodItem.setComposition("");
             foodItem.setProperties("");
-            cvDetailOfFoodProperties.setVisibility(View.GONE);
         }
 
 
         tvTitle.setText(foodItem.getName());
-        tvKcal.setText(foodItem.getCalories() + " " + getString(R.string.for_100_g));
-        tvFat.setText(getString(R.string.fat_detail) + " " + foodItem.getFat() + "" + getString(R.string.gramm));
-        tvProtein.setText(getString(R.string.protein_detail) + " " + foodItem.getProtein() + " " + getString(R.string.gramm));
-        tvCarbohydrates.setText(getString(R.string.carbohydrates_detail) + " " + foodItem.getCarbohydrates() + " " + getString(R.string.gramm));
-
-        if (!foodItem.getComposition().equals(".")) {
-            tvProperties.setText(foodItem.getComposition());
-        }
-
-        if (!foodItem.getDescription().equals(".")) {
-            tvProperties.setText(tvProperties.getText().toString() + "\n" + foodItem.getDescription());
-        }
-
-        if (!foodItem.getProperties().equals(".")) {
-            tvProperties.setText(tvProperties.getText().toString() + "\n" + foodItem.getProperties());
-        }
-
         calculateNumbersForProgressBars();
 
         edtWeight.addTextChangedListener(new TextWatcher() {

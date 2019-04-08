@@ -83,6 +83,7 @@ public class FragmentDiary extends Fragment {
     public void onResume() {
         super.onResume();
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
+            Log.e("LOL", "Not null");
             profile = UserDataHolder.getUserData().getProfile();
             setMaxParamsInProgressBars(profile);
         }
@@ -93,8 +94,6 @@ public class FragmentDiary extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.activity_main, container, false);
         unbinder = ButterKnife.bind(this, mainView);
-
-        //getActivity().setSupportActionBar(toolbar);
         getActivity().setTitle("");
 
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.session_launch));
@@ -162,7 +161,7 @@ public class FragmentDiary extends Fragment {
     }
 
     private void bindViewPager() {
-        vpEatingTimeLine.setAdapter(new FragmentPagerAdapter(getActivity().getSupportFragmentManager()) {
+        vpEatingTimeLine.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return FragmentEatingScroll.newInstance(position);

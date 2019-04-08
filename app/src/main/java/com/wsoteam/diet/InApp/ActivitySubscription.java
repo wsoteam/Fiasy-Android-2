@@ -148,11 +148,13 @@ public class ActivitySubscription extends AppCompatActivity implements Purchases
 
     @Override
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
-        if (responseCode == BillingClient.BillingResponse.OK && purchases != null){
+        if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
 
             Amplitude.getInstance().logEvent(getIntent().getStringExtra(Config.AMPLITUDE_BUY_FROM));
             Adjust.trackEvent(new AdjustEvent(getIntent().getStringExtra(Config.ADJUST_BUY_FROM)));
 
+
+            //TODO пиздос
             if (getIntent().getStringExtra(Config.ADJUST_COME_FROM).equals(Config.ADJUST_COME_FROM)) {
                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_onboarding));
                 Log.d(TAG_METRICS, "onPurchasesUpdated: " + Config.ADJUST_COME_FROM);

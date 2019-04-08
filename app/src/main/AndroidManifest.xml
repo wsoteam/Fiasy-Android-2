@@ -187,15 +187,12 @@
             android:theme="@style/AnalyzerTheme" />
         <activity
             android:name=".BranchOfAnalyzer.ActivityDetailOfFood"
-            android:theme="@style/AnalyzerTheme" />
+            android:theme="@style/DetailFood" />
         <activity
             android:name=".BranchOfBilling.ActivityPresentation"
             android:theme="@style/AnalyzerTheme" />
         <activity
             android:name=".BranchEatingDiary.ActivityEatingDiary"
-            android:theme="@style/EatingDiaryStyle" />
-        <activity
-            android:name=".BranchProfile.ActivityProfile"
             android:theme="@style/EatingDiaryStyle" />
         <activity
             android:name=".BranchProfile.ActivityEditProfile"

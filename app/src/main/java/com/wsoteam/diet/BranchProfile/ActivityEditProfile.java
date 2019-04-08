@@ -65,14 +65,6 @@ public class ActivityEditProfile extends AppCompatActivity {
 
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if (interstitialAd.isLoaded()) {
-            interstitialAd.show();
-        }
-    }
-
-    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -135,10 +127,6 @@ public class ActivityEditProfile extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH) - 1;
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
-
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId(getResources().getString(R.string.admob_interstitial));
-        interstitialAd.loadAd(new AdRequest.Builder().build());
 
         YandexMetrica.reportEvent("Открыт экран: Редактировать профиль");
 
@@ -337,6 +325,7 @@ public class ActivityEditProfile extends AppCompatActivity {
         if (registration){
             profile.setMaxKcal((int) maxInt);
             Intent intent = new Intent(ActivityEditProfile.this, ActivityAuthMain.class);
+            Log.e("LOL", profile.toString());
             intent.putExtra("createUser", true);
             intent.putExtra(Config.INTENT_PROFILE, profile);
             Amplitude.getInstance().logEvent(Config.FILL_PROFILE);

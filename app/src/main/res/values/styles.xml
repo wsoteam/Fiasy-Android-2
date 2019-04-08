@@ -20,7 +20,6 @@
 
 
     <style name="AppTheme2" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">#E68D3C</item>
         <item name="colorPrimaryDark">#DC8535</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -30,7 +29,6 @@
     </style>
 
     <style name="AnalyzerTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/head_analyzer_search</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -39,7 +37,6 @@
     </style>
 
     <style name="EatingDiaryStyle" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/bottom_color_for_eating_diary_style</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -58,7 +55,6 @@
 
 
     <style name="PremiumActivity" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/background_premium</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -98,6 +94,14 @@
 
     <style name="AppThemePolicy" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimaryDark">@color/colorPrimaryDarkPolicy</item>
+    </style>
+
+    <style name="DetailFood" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/head_detail_food</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
 </resources>
