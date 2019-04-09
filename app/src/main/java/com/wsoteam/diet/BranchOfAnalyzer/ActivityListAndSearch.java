@@ -1,7 +1,6 @@
 package com.wsoteam.diet.BranchOfAnalyzer;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,9 +17,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,14 +46,21 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class ActivityListAndSearch extends AppCompatActivity {
-    private FloatingActionButton fabSearchAddNewProduct;
-    private RecyclerView rvListOfSearchResponse;
+    @BindView(R.id.spnEatingList) Spinner spinner;
+    @BindView(R.id.edtActivityListAndSearchCollapsingSearchField) EditText edtSearchField;
+    @BindView(R.id.rvListOfSearchResponse) RecyclerView rvListOfSearchResponse;
+    @BindView(R.id.ivActivityListAndSearchEmptyImage) ImageView ivEmptyImage;
+    @BindView(R.id.tvActivityListAndSearchEmptyText) TextView tvEmptyText;
+    @BindView(R.id.fabSearchAddNewProduct) FloatingActionButton fabSearchAddNewProduct;
+
+
     private ArrayList<FoodItem> listOfGroupsFoods = new ArrayList<>();
     private ArrayList<FoodItem> tempListOfGroupsFoods = new ArrayList<>();
-    private EditText edtSearchField;
-    private ImageView ivCancel, ivEmptyImage;
-    private TextView tvEmptyText;
     private final int HARD_KCAL = 500;
     private DbAnalyzer dbAnalyzerGlobal = new DbAnalyzer();
     private final String EMPTY = "";
@@ -62,25 +70,18 @@ public class ActivityListAndSearch extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_and_search);
+        ButterKnife.bind(this);
 
-        ivCancel = findViewById(R.id.ibActivityListAndSearchCollapsingCancelButton);
-        rvListOfSearchResponse = findViewById(R.id.rvListOfSearchResponse);
-        edtSearchField = findViewById(R.id.edtActivityListAndSearchCollapsingSearchField);
-        ivEmptyImage = findViewById(R.id.ivActivityListAndSearchEmptyImage);
-        tvEmptyText = findViewById(R.id.tvActivityListAndSearchEmptyText);
-        fabSearchAddNewProduct = findViewById(R.id.fabSearchAddNewProduct);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.eatingList));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
         fabSearchAddNewProduct.setVisibility(View.GONE);
 
         rvListOfSearchResponse.setLayoutManager(new LinearLayoutManager(ActivityListAndSearch.this));
         AsyncLoadFoodList asyncLoadFoodList = new AsyncLoadFoodList();
         asyncLoadFoodList.execute();
-
-        fabSearchAddNewProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createADAboutAddNewProduct();
-            }
-        });
 
         edtSearchField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -105,12 +106,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
             }
         });
 
-        ivCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                edtSearchField.setText("");
-            }
-        });
 
         YandexMetrica.reportEvent("Открыт экран: Анализатор");
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.attempt_add_food));
@@ -155,6 +150,19 @@ public class ActivityListAndSearch extends AppCompatActivity {
         }
         return items;
     }
+
+    @OnClick({R.id.ibActivityListAndSearchCollapsingCancelButton, R.id.ivBack})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ibActivityListAndSearchCollapsingCancelButton:
+                edtSearchField.setText("");
+                break;
+            case R.id.ivBack:
+                onBackPressed();
+                break;
+        }
+    }
+
 
     public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tvName, tvCal, tvNameOfGroup, tvLeterOfProduct;
