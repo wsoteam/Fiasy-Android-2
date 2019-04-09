@@ -28,7 +28,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.ibtnOpenList) ImageButton ibtnOpenList;
     @BindView(R.id.tvSumOfKcal) TextView tvSumOfKcal;
     private boolean isButtonPressed = false;
-    private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3;
+
     private Context context;
     private String data;
 
@@ -72,20 +72,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     public void onViewClicked() {
         Intent intent = new Intent(context, ActivityListAndSearch.class);
         intent.putExtra(Config.INTENT_DATE_FOR_SAVE, data);
-        switch (getAdapterPosition()) {
-            case BREAKFAST_POSITION:
-                intent.putExtra(Config.TAG_CHOISE_EATING, Config.INTENT_CHOISE_BREAKFAST);
-                break;
-            case LUNCH_POSITION:
-                intent.putExtra(Config.TAG_CHOISE_EATING, Config.INTENT_CHOISE_LUNCH);
-                break;
-            case DINNER_POSITION:
-                intent.putExtra(Config.TAG_CHOISE_EATING, Config.INTENT_CHOISE_DINNER);
-                break;
-            case SNACK_POSITION:
-                intent.putExtra(Config.TAG_CHOISE_EATING, Config.INTENT_CHOISE_SNACK);
-                break;
-        }
+        intent.putExtra(Config.TAG_CHOISE_EATING, getAdapterPosition());
         context.startActivity(intent);
     }
 }

@@ -76,6 +76,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
                 R.layout.item_spinner_food_search, getResources().getStringArray(R.array.eatingList));
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search);
         spinner.setAdapter(adapter);
+        spinner.setSelection(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
 
         fabSearchAddNewProduct.setVisibility(View.GONE);
 
@@ -184,7 +185,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         public void onClick(View view) {
             Intent intent = new Intent(ActivityListAndSearch.this, ActivityDetailOfFood.class);
             intent.putExtra("ActivityDetailOfFood", tempListOfGroupsFoods.get(getAdapterPosition()));
-            intent.putExtra(Config.TAG_CHOISE_EATING, getIntent().getStringExtra(Config.TAG_CHOISE_EATING));
+            intent.putExtra(Config.TAG_CHOISE_EATING, spinner.getSelectedItemPosition());
             intent.putExtra(Config.INTENT_DATE_FOR_SAVE, getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
             startActivity(intent);
         }

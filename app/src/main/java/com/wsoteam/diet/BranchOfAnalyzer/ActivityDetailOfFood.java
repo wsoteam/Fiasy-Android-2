@@ -85,7 +85,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremCholy, R.id.btnPremSod, R.id.btnPremPot})
     List<View> viewList;
 
-
+    private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3;
     private FoodItem foodItem;
     private final String TAG_OWN_PRODUCT = "OWN";
     private SharedPreferences date, isTodayBreakfastSaved, isTodayLunchSaved, isTodayDinnerSaved, isTodaySnackSaved;
@@ -151,7 +151,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     }
 
-    private void savePortion(String stringExtra) {
+    private void savePortion(int idOfEating) {
 
         String wholeDate = getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE);
         String[] arrayOfNumbersForDate = wholeDate.split("\\.");
@@ -173,20 +173,20 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.success_add_food));
         Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
-        switch (stringExtra) {
-            case Config.INTENT_CHOISE_BREAKFAST:
+        switch (idOfEating) {
+            case BREAKFAST_POSITION:
                 WorkWithFirebaseDB.
                         addBreakfast(new Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
                 break;
-            case Config.INTENT_CHOISE_LUNCH:
+            case LUNCH_POSITION:
                 WorkWithFirebaseDB.
                         addLunch(new Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
                 break;
-            case Config.INTENT_CHOISE_DINNER:
+            case DINNER_POSITION:
                 WorkWithFirebaseDB.
                         addDinner(new Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
                 break;
-            case Config.INTENT_CHOISE_SNACK:
+            case SNACK_POSITION:
                 WorkWithFirebaseDB.
                         addSnack(new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
                 break;
@@ -273,7 +273,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                 if (edtWeight.getText().toString().equals("") || edtWeight.getText().toString().equals(" ")) {
                     Toast.makeText(ActivityDetailOfFood.this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
                 } else {
-                    savePortion(getIntent().getStringExtra(Config.TAG_CHOISE_EATING));
+                    savePortion(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
                 }
                 break;
             case R.id.ivBack:
