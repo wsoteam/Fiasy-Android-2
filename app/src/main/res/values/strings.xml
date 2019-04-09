@@ -1,5 +1,9 @@
 <resources>
 
+    <!--edit profile full-->
+    <string name="tv_load_level">Уровень физических нагрузок</string>
+    <string name="tv_first_name">Имя</string>
+    <string name="tv_second_name">Фамилия</string>
 
     <!--activity forgot password-->
     <string name="btn_forgot_password">Сбросить</string>
