@@ -266,12 +266,19 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.btnSaveEating)
-    public void onViewClicked() {
-        if (edtWeight.getText().toString().equals("") || edtWeight.getText().toString().equals(" ")) {
-            Toast.makeText(ActivityDetailOfFood.this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
-        } else {
-            savePortion(getIntent().getStringExtra(Config.TAG_CHOISE_EATING));
+    @OnClick({R.id.btnSaveEating, R.id.ivBack})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btnSaveEating:
+                if (edtWeight.getText().toString().equals("") || edtWeight.getText().toString().equals(" ")) {
+                    Toast.makeText(ActivityDetailOfFood.this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
+                } else {
+                    savePortion(getIntent().getStringExtra(Config.TAG_CHOISE_EATING));
+                }
+                break;
+            case R.id.ivBack:
+                onBackPressed();
+                break;
         }
     }
 }
