@@ -27,6 +27,9 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.rvListOfFoodEatingCard) RecyclerView rvListOfFoodEatingCard;
     @BindView(R.id.ibtnOpenList) ImageButton ibtnOpenList;
     @BindView(R.id.tvSumOfKcal) TextView tvSumOfKcal;
+    @BindView(R.id.tvSumProt) TextView tvSumProt;
+    @BindView(R.id.tvSumFats) TextView tvSumFats;
+    @BindView(R.id.tvSumCarbo) TextView tvSumCarbo;
     private boolean isButtonPressed = false;
 
     private Context context;
@@ -41,16 +44,16 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(List<Eating> eatingGroup, Context context, String nameOfEatingGroup) {
-        tvSumOfKcal.setText(String.valueOf(calculateCalories(eatingGroup)) + " Ккал");
+        setCPFC(eatingGroup);
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
         rvListOfFoodEatingCard.setLayoutManager(new LinearLayoutManager(context));
         rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, false));
         ibtnOpenList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isButtonPressed){
+                if (!isButtonPressed) {
                     Glide.with(context).load(R.drawable.close_eating_list).into(ibtnOpenList);
-                }else {
+                } else {
                     Glide.with(context).load(R.drawable.open_eating_list).into(ibtnOpenList);
                 }
                 rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, !isButtonPressed));
@@ -59,12 +62,20 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    private int calculateCalories(List<Eating> eatingGroup) {
-        int sum = 0;
+    private void setCPFC(List<Eating> eatingGroup) {
+        int sumKcal = 0, sumProt = 0, sumFats = 0, sumCarbo = 0;
         for (int i = 0; i < eatingGroup.size(); i++) {
-            sum += eatingGroup.get(i).getCalories();
+            sumKcal += eatingGroup.get(i).getCalories();
+            sumProt += eatingGroup.get(i).getProtein();
+            sumFats += eatingGroup.get(i).getFat();
+            sumCarbo += eatingGroup.get(i).getCarbohydrates();
         }
-        return sum;
+        tvSumOfKcal.setText(String.valueOf(sumKcal) + "Ккал");
+
+        tvSumProt.setText("Б. " + String.valueOf(sumProt));
+        tvSumFats.setText("Ж. " + String.valueOf(sumFats));
+        tvSumCarbo.setText("У. " + String.valueOf(sumCarbo));
+
     }
 
 
