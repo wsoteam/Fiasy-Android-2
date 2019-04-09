@@ -1,16 +1,12 @@
 package com.wsoteam.diet.BranchOfAnalyzer;
 
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,28 +16,74 @@ import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
-import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EventsAdjust;
-import com.wsoteam.diet.POJOFoodItem.FoodItem;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
+import com.wsoteam.diet.Config;
+import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.POJOFoodItem.FoodItem;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.yandex.metrica.YandexMetrica;
 
 import java.util.Calendar;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ActivityDetailOfFood extends AppCompatActivity {
-    private TextView tvTitle,
-            tvFats, tvCarbohydrates, tvProteins,
-            tvCalculateFat, tvCalculateProtein, tvCalculateCarbohydrates, tvCalculateKcal;
-    private DonutProgress pbCarbohydrates, pbFat, pbProtein;
-    private EditText edtWeight;
-    private Button btnSaveEating;
+    @BindView(R.id.tvActivityDetailOfFoodCollapsingTitle) TextView tvTitle;
+    @BindView(R.id.pbActivityDetailOfFoodCarbo) DonutProgress pbCarbohydrates;
+    @BindView(R.id.pbActivityDetailOfFoodFat) DonutProgress pbFat;
+    @BindView(R.id.pbActivityDetailOfFoodProtein) DonutProgress pbProtein;
+    @BindView(R.id.tvActivityDetailOfFoodCalculateKcal) TextView tvCalculateKcal;
+    @BindView(R.id.tvActivityDetailOfFoodCalculateFat) TextView tvCalculateFat;
+    @BindView(R.id.tvActivityDetailOfFoodCalculateCarbo) TextView tvCalculateCarbohydrates;
+    @BindView(R.id.tvActivityDetailOfFoodCalculateProtein) TextView tvCalculateProtein;
+    @BindView(R.id.edtActivityDetailOfFoodPortion) EditText edtWeight;
+
+
+    @BindView(R.id.tvLabelCellulose) TextView tvLabelCellulose;
+    @BindView(R.id.tvLabelSugar) TextView tvLabelSugar;
+    @BindView(R.id.tvLabelFats) TextView tvLabelFats;
+    @BindView(R.id.tvLabelSaturated) TextView tvLabelSaturated;
+    @BindView(R.id.tvLabelMonoUnSaturated) TextView tvLabelMonoUnSaturated;
+    @BindView(R.id.tvLabelPolyUnSaturated) TextView tvLabelPolyUnSaturated;
+    @BindView(R.id.tvLabelСholesterol) TextView tvLabelСholesterol;
+    @BindView(R.id.tvLabelSodium) TextView tvLabelSodium;
+    @BindView(R.id.tvLabelPotassium) TextView tvLabelPotassium;
+
+    @BindView(R.id.tvCarbohydrates) TextView tvCarbohydrates;
+    @BindView(R.id.tvCellulose) TextView tvCellulose;
+    @BindView(R.id.tvSugar) TextView tvSugar;
+    @BindView(R.id.tvFats) TextView tvFats;
+    @BindView(R.id.tvProteins) TextView tvProteins;
+    @BindView(R.id.tvSaturated) TextView tvSaturated;
+    @BindView(R.id.tvPolyUnSaturated) TextView tvPolyUnSaturated;
+    @BindView(R.id.tvMonoUnSaturated) TextView tvMonoUnSaturated;
+    @BindView(R.id.tvСholesterol) TextView tvСholesterol;
+    @BindView(R.id.tvSodium) TextView tvSodium;
+    @BindView(R.id.tvPotassium) TextView tvPotassium;
+
+    @BindView(R.id.btnPremCell) TextView btnPremCell;
+    @BindView(R.id.btnPremSugar) TextView btnPremSugar;
+    @BindView(R.id.btnPremUnSaturated) TextView btnPremUnSaturated;
+    @BindView(R.id.btnPremMonoUnSaturated) TextView btnPremMonoUnSaturated;
+    @BindView(R.id.btnPremPolyUnSaturated) TextView btnPremPolyUnSaturated2;
+    @BindView(R.id.btnPremCholy) TextView btnPremCholy;
+    @BindView(R.id.btnPremSod) TextView btnPremSod;
+    @BindView(R.id.btnPremPot) TextView btnPremPot;
+
+    @BindViews({R.id.tvCellulose, R.id.tvSugar, R.id.tvSaturated, R.id.tvСholesterol, R.id.tvSodium,
+            R.id.tvPotassium, R.id.tvMonoUnSaturated, R.id.tvPolyUnSaturated,
+            R.id.tvLabelCellulose, R.id.tvLabelSugar, R.id.tvLabelSaturated, R.id.tvLabelMonoUnSaturated, R.id.tvLabelPolyUnSaturated,
+            R.id.tvLabelСholesterol, R.id.tvLabelSodium, R.id.tvLabelPotassium, R.id.btnPremCell, R.id.btnPremSugar, R.id.btnPremUnSaturated,
+            R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremCholy, R.id.btnPremSod, R.id.btnPremPot})
+    List<View> viewList;
 
 
     private FoodItem foodItem;
@@ -54,33 +96,17 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_of_food);
+        ButterKnife.bind(this);
+
+        ButterKnife.apply(viewList, (view, value, index) -> view.setVisibility(value), View.GONE);
 
         foodItem = (FoodItem) getIntent().getSerializableExtra("ActivityDetailOfFood");
-
-        tvTitle = findViewById(R.id.tvActivityDetailOfFoodCollapsingTitle);
-        btnSaveEating = findViewById(R.id.btnSaveEating);
-        tvCalculateFat = findViewById(R.id.tvActivityDetailOfFoodCalculateFat);
-        tvCalculateCarbohydrates = findViewById(R.id.tvActivityDetailOfFoodCalculateCarbo);
-        tvCalculateKcal = findViewById(R.id.tvActivityDetailOfFoodCalculateKcal);
-        tvCalculateProtein = findViewById(R.id.tvActivityDetailOfFoodCalculateProtein);
-
-        tvFats = findViewById(R.id.tvFats);
-        tvCarbohydrates = findViewById(R.id.tvCarbohydrates);
-        tvProteins = findViewById(R.id.tvProteins);
-
-
-        edtWeight = findViewById(R.id.edtActivityDetailOfFoodPortion);
-
-        pbCarbohydrates = findViewById(R.id.pbActivityDetailOfFoodCarbo);
-        pbFat = findViewById(R.id.pbActivityDetailOfFoodFat);
-        pbProtein = findViewById(R.id.pbActivityDetailOfFoodProtein);
 
         if (foodItem.getNameOfGroup().equals(TAG_OWN_PRODUCT)) {
             foodItem.setDescription("");
             foodItem.setComposition("");
             foodItem.setProperties("");
         }
-
 
         tvTitle.setText(foodItem.getName());
 
@@ -119,17 +145,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             }
         });
 
-        btnSaveEating.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (edtWeight.getText().toString().equals("") || edtWeight.getText().toString().equals(" ")) {
-                    Toast.makeText(ActivityDetailOfFood.this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
-                } else {
-                    savePortion(getIntent().getStringExtra(Config.TAG_CHOISE_EATING));
-                }
-
-            }
-        });
         YandexMetrica.reportEvent("Открыт экран: Детализация продукта группы - " + foodItem.getNameOfGroup());
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_detail_food));
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_detail_food);
@@ -249,5 +264,14 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             pbCarbohydrates.setDonut_progress(String.valueOf(Math.round(carbohydrates)));
         }
 
+    }
+
+    @OnClick(R.id.btnSaveEating)
+    public void onViewClicked() {
+        if (edtWeight.getText().toString().equals("") || edtWeight.getText().toString().equals(" ")) {
+            Toast.makeText(ActivityDetailOfFood.this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
+        } else {
+            savePortion(getIntent().getStringExtra(Config.TAG_CHOISE_EATING));
+        }
     }
 }
