@@ -18,6 +18,14 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="ActivityAuthMain" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#E68D3C</item>
+        <item name="colorPrimaryDark">#B3B0A8</item>
+        <item name="colorAccent">#85161616</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+    </style>
 
     <style name="AppTheme2" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#E68D3C</item>

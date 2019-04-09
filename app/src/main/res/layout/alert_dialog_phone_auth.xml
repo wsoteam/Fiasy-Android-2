@@ -20,12 +20,25 @@
         android:layout_height="wrap_content"
         android:padding="20dp">
 
+        <TextView
+            android:id="@+id/auth_phone_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="147dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="147dp"
+            android:text="@string/auth_main_phone_text_set_number"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/auth_phone_et_number"
             android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="68dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="69dp"
             android:ems="10"
             android:hint="@string/auth_main_phone_hint_phone"
@@ -39,7 +52,7 @@
             android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="68dp"
-            android:layout_marginTop="23dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="69dp"
             android:clickable="false"
             android:ems="10"
@@ -50,24 +63,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/auth_phone_et_number" />
 
-        <TextView
-            android:id="@+id/auth_phone_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="147dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="147dp"
-            android:text="@string/auth_main_phone_text_set_number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <Button
             android:id="@+id/auth_phone_btn_cancel"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/aler_dialog_phone_auth_btn_background"
+            android:elevation="8dp"
             android:text="@string/auth_main_phone_btn_cancel"
+            android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="@+id/auth_phone_et_code"
             app:layout_constraintTop_toBottomOf="@+id/auth_phone_et_code" />
 
@@ -75,8 +79,11 @@
             android:id="@+id/auth_phone_btn_ok"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/aler_dialog_phone_auth_btn_background"
+            android:elevation="8dp"
             android:text="@string/auth_main_phone_btn_send"
+            android:textColor="@android:color/white"
             app:layout_constraintStart_toStartOf="@+id/auth_phone_et_code"
             app:layout_constraintTop_toBottomOf="@+id/auth_phone_et_code" />
     </android.support.constraint.ConstraintLayout>

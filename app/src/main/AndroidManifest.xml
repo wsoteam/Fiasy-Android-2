@@ -46,7 +46,7 @@
             android:name=".Authenticate.ActivityAuthMain"
             android:parentActivityName=".Authenticate.ActivityAuthenticate"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/ActivityAuthMain" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

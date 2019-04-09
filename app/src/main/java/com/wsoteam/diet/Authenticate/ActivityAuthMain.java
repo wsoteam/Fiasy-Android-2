@@ -657,7 +657,7 @@ private ValueEventListener getPostListener(){
                                 okButton.setText(R.string.auth_main_phone_btn_sign_in);
                                 isSendCode = true;
                             } else {
-                                Toast.makeText(ActivityAuthMain.this, "Проверьте введеный номер!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ActivityAuthMain.this, "Проверьте введенный номер!", Toast.LENGTH_SHORT).show();
                             }
 
                         } else {
@@ -665,7 +665,7 @@ private ValueEventListener getPostListener(){
                             if (Valid.isValidCode(code)){
                                 verifyPhoneNumberWithCode(mVerificationId, code);
                             }else {
-                                Toast.makeText(ActivityAuthMain.this, "Проверьте введеный код!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ActivityAuthMain.this, "Проверьте введенный код!", Toast.LENGTH_SHORT).show();
                             }
 
                         }
