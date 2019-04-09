@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.constraint.ConstraintLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -22,30 +22,24 @@
                 android:id="@+id/tvTitleOfEatingCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto_light"
                 android:text="Завтрак"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                android:textSize="14sp" />
 
             <ImageButton
                 android:id="@+id/imbAddFood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginBottom="8dp"
+                android:layout_gravity="right|center_vertical"
                 android:backgroundTint="@color/white"
-                android:src="@drawable/add_new_food_main_activity"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:src="@drawable/add_new_food_main_activity" />
 
-        </android.support.constraint.ConstraintLayout>
+        </FrameLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvListOfFoodEatingCard"
@@ -59,9 +53,10 @@
             android:layout_marginLeft="12dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
+            android:fontFamily="@font/roboto"
             android:text="486 Ккал"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="13sp" />
 
         <ImageButton
             android:id="@+id/ibtnOpenList"
