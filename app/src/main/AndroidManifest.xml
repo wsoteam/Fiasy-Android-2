@@ -23,16 +23,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Authenticate.ActivityForgotPassword"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+
+        </activity>
         <activity
             android:name=".Onboarding.OnboardingActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         </activity>
         <activity
             android:name=".OtherActivity.ActivityPrivacyPolicy"
-            android:theme="@style/AppThemePolicy"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemePolicy" />
         <activity
             android:name=".InApp.ActivitySubscription"
             android:screenOrientation="portrait"
@@ -196,8 +201,8 @@
             android:theme="@style/EatingDiaryStyle" />
         <activity
             android:name=".BranchProfile.ActivityEditProfile"
-            android:theme="@style/EditProfile"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/EditProfile" />
         <activity
             android:name=".BranchProfile.ActivityHelp"
             android:theme="@style/AppTheme.NoActionBar" />

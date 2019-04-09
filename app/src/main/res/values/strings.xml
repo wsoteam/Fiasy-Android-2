@@ -1,5 +1,12 @@
 <resources>
 
+
+    <!--activity forgot password-->
+    <string name="btn_forgot_password">Сбросить</string>
+    <string name="et_forgot_hint_email">E-mail address</string>
+    <string name="tv_forgot_title">Забыли пароль?</string>
+    <string name="tv_forgot_status">Письмо отправлено на ваш e-mail</string>
+
     <string name="textViewProfileTitle">Заполните данные о себе</string>
     <string name="rectangle_8">Далее</string>
     <string name="slozhnost">Сложность</string>
@@ -22,7 +29,6 @@
     <string name="onboarding_item_description3">Выберите любую подходящую для вас диету, как долгосрочную, так и нацеленную на быстрый результат</string>
     <string name="onboarding_item_description4">Подберите для себя тренировку исходя из ваших целей и уровня подготовки</string>
     <string name="onboarding_item_description5">Вы можете следить не только за калориями, белками, жирами и углеводами, но и отслеживать поступающие вместе с пищей в организм витамины и микроэлементы</string>
-
 
 
     <string name="desc_firebase_lockup">Firebase logo and name</string>

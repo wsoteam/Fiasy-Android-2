@@ -449,7 +449,7 @@ private ValueEventListener getPostListener(){
             Toast.makeText(ActivityAuthMain.this, "Пропущен email!", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "signIn: fail valid");
             return;
-        } else if (!isValidEmail(email)) {
+        } else if (!Valid.isValidEmail(email)) {
             Toast.makeText(ActivityAuthMain.this, "Проверь введенный email!", Toast.LENGTH_SHORT).show();
             return;
         }else if (password.matches("")){
@@ -492,7 +492,7 @@ private ValueEventListener getPostListener(){
             Toast.makeText(ActivityAuthMain.this, "Пропущен email!", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "createAccount: fail valid");
             return;
-        } else if (!isValidEmail(email)) {
+        } else if (!Valid.isValidEmail(email)) {
             Toast.makeText(ActivityAuthMain.this, "Проверь введенный email!", Toast.LENGTH_SHORT).show();
             return;
         }else if (password.matches("")){
@@ -649,7 +649,7 @@ private ValueEventListener getPostListener(){
 
                         if (!isSendCode){
                             String phone = phoneNumberEditText.getText().toString();
-                            if (isValidPhone(phone)){
+                            if (Valid.isValidPhone(phone)){
                                 startPhoneNumberVerification(phone);
                                 codeEditText.setEnabled(true);
                                 phoneNumberEditText.setEnabled(false);
@@ -662,7 +662,7 @@ private ValueEventListener getPostListener(){
 
                         } else {
                             String code = codeEditText.getText().toString();
-                            if (isValidCode(code)){
+                            if (Valid.isValidCode(code)){
                                 verifyPhoneNumberWithCode(mVerificationId, code);
                             }else {
                                 Toast.makeText(ActivityAuthMain.this, "Проверьте введеный код!", Toast.LENGTH_SHORT).show();
@@ -768,26 +768,7 @@ private ValueEventListener getPostListener(){
 //    }
 
 
-    public boolean isValidEmail(String string) {
-        final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-        Matcher matcher = pattern.matcher(string);
-        return matcher.matches();
-    }
 
-    private boolean isValidPhone(String string){
-        final  String PHONE_PATTERN = "^[+][0-9]{10,13}$";
-        Pattern pattern = Pattern.compile(PHONE_PATTERN);
-        Matcher matcher = pattern.matcher(string);
-        return matcher.matches();
-    }
-
-    private boolean isValidCode(String string){
-        final  String CODE_PATTERN = "^[0-9]{6}$";
-        Pattern pattern = Pattern.compile(CODE_PATTERN);
-        Matcher matcher = pattern.matcher(string);
-        return matcher.matches();
-    }
 
     private boolean hasConnection(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -807,59 +788,59 @@ private ValueEventListener getPostListener(){
         return false;
     }
 
-    private void restorePassword(){
-
-        final EditText edittext = new EditText(this);
-        edittext.setHint(getString(R.string.auth_main_hint_respass));
-
-        new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.auth_main_title_respass))
-                .setMessage(R.string.auth_main_body_respass)
-                .setView(edittext)
-                .setNegativeButton(getString(R.string.auth_main_btn_close), new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-
-                })
-                .setPositiveButton(getString(R.string.auth_main_btn_restore), new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                   if (!isValidEmail(edittext.getText().toString())){
-                       Toast.makeText(ActivityAuthMain.this, "Проверь введенный email!", Toast.LENGTH_SHORT).show();
-                   } else {
-                       Log.d(TAG, "Email for reset:" + edittext.getText().toString());
-
-                       mAuth.sendPasswordResetEmail(edittext.getText().toString())
-                               .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                   @Override
-                                   public void onComplete(@NonNull Task<Void> task) {
-                                       if (task.isSuccessful()) {
-                                           Log.d(TAG, "Email sent." + edittext.getText().toString());
-                                           Toast.makeText(ActivityAuthMain.this, "Проверьте вашу почту!", Toast.LENGTH_SHORT).show();
-                                       }else {
-                                           Log.d(TAG, "Error");
-//                                           Toast.makeText(ActivityAuthMain.this, "Ошибка, попробуйте позже.", Toast.LENGTH_SHORT).show();
-                                       }
-                                   }
-                               }).addOnFailureListener(new OnFailureListener() {
-                           @Override
-                           public void onFailure(@NonNull Exception e) {
-                               if (e instanceof FirebaseAuthInvalidUserException){
-                                   Toast.makeText(ActivityAuthMain.this, "Пользователь не найден.", Toast.LENGTH_SHORT).show();
-                               }
-                               Log.d(TAG, String.valueOf(e.getClass()));
-                           }
-                       });
-                   }
-                    }
-
-                })
-                .show();
-    }
+//    private void restorePassword(){
+//
+//        final EditText edittext = new EditText(this);
+//        edittext.setHint(getString(R.string.auth_main_hint_respass));
+//
+//        new AlertDialog.Builder(this)
+//                .setTitle(getString(R.string.auth_main_title_respass))
+//                .setMessage(R.string.auth_main_body_respass)
+//                .setView(edittext)
+//                .setNegativeButton(getString(R.string.auth_main_btn_close), new DialogInterface.OnClickListener()
+//                {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//
+//                })
+//                .setPositiveButton(getString(R.string.auth_main_btn_restore), new DialogInterface.OnClickListener()
+//                {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                   if (!Valid.isValidEmail(edittext.getText().toString())){
+//                       Toast.makeText(ActivityAuthMain.this, "Проверь введенный email!", Toast.LENGTH_SHORT).show();
+//                   } else {
+//                       Log.d(TAG, "Email for reset:" + edittext.getText().toString());
+//
+//                       mAuth.sendPasswordResetEmail(edittext.getText().toString())
+//                               .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                   @Override
+//                                   public void onComplete(@NonNull Task<Void> task) {
+//                                       if (task.isSuccessful()) {
+//                                           Log.d(TAG, "Email sent." + edittext.getText().toString());
+//                                           Toast.makeText(ActivityAuthMain.this, "Проверьте вашу почту!", Toast.LENGTH_SHORT).show();
+//                                       }else {
+//                                           Log.d(TAG, "Error");
+////                                           Toast.makeText(ActivityAuthMain.this, "Ошибка, попробуйте позже.", Toast.LENGTH_SHORT).show();
+//                                       }
+//                                   }
+//                               }).addOnFailureListener(new OnFailureListener() {
+//                           @Override
+//                           public void onFailure(@NonNull Exception e) {
+//                               if (e instanceof FirebaseAuthInvalidUserException){
+//                                   Toast.makeText(ActivityAuthMain.this, "Пользователь не найден.", Toast.LENGTH_SHORT).show();
+//                               }
+//                               Log.d(TAG, String.valueOf(e.getClass()));
+//                           }
+//                       });
+//                   }
+//                    }
+//
+//                })
+//                .show();
+//    }
 
 
     private boolean isPP(){
@@ -892,7 +873,7 @@ private ValueEventListener getPostListener(){
                 signInGoogle();
                 break;
             case R.id.auth_main_tv_respasss:
-                restorePassword();
+                startActivity(new Intent(this, ActivityForgotPassword.class));
                 break;
             case R.id.auth_main_btn_phone:
                 if (hasConnection(this) && isPP())
