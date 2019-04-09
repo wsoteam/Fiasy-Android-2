@@ -73,8 +73,8 @@ public class ActivityListAndSearch extends AppCompatActivity {
         ButterKnife.bind(this);
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.eatingList));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.item_spinner_food_search, getResources().getStringArray(R.array.eatingList));
+        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search);
         spinner.setAdapter(adapter);
 
         fabSearchAddNewProduct.setVisibility(View.GONE);
