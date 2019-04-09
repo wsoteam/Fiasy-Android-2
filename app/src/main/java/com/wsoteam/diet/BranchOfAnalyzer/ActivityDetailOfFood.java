@@ -37,6 +37,7 @@ import java.util.Calendar;
 
 public class ActivityDetailOfFood extends AppCompatActivity {
     private TextView tvTitle,
+            tvFats, tvCarbohydrates, tvProteins,
             tvCalculateFat, tvCalculateProtein, tvCalculateCarbohydrates, tvCalculateKcal;
     private DonutProgress pbCarbohydrates, pbFat, pbProtein;
     private EditText edtWeight;
@@ -63,6 +64,9 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         tvCalculateKcal = findViewById(R.id.tvActivityDetailOfFoodCalculateKcal);
         tvCalculateProtein = findViewById(R.id.tvActivityDetailOfFoodCalculateProtein);
 
+        tvFats = findViewById(R.id.tvFats);
+        tvCarbohydrates = findViewById(R.id.tvCarbohydrates);
+        tvProteins = findViewById(R.id.tvProteins);
 
 
         edtWeight = findViewById(R.id.edtActivityDetailOfFoodPortion);
@@ -79,6 +83,11 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
 
         tvTitle.setText(foodItem.getName());
+
+        tvFats.setText(foodItem.getFat() + " г");
+        tvCarbohydrates.setText(foodItem.getCarbohydrates() + " г");
+        tvProteins.setText(foodItem.getProtein() + " г");
+
         calculateNumbersForProgressBars();
 
         edtWeight.addTextChangedListener(new TextWatcher() {
