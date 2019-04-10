@@ -104,7 +104,7 @@
 
 
     <color name="unactive_color_bnv_main">#ABABAB</color>
-    <color name="active_color_bnv_main">#FFC008</color>
+    <color name="active_color_bnv_main">#DF8B30</color>
 
 
     <color name="gray_text_detail_food">#757575</color>
