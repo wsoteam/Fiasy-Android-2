@@ -188,8 +188,12 @@ public class ActivityListAndSearch extends AppCompatActivity {
         }
 
         public void bind(FoodItem itemOfGlobalBase, boolean isItemForSeparator) {
-
-
+            tvNameOfFood.setText(itemOfGlobalBase.getName());
+            tvCalories.setText(itemOfGlobalBase.getCalories() + " Ккал");
+            tvWeight.setText("Вес: 100г");
+            tvProt.setText("Б. " + itemOfGlobalBase.getProtein());
+            tvFats.setText("Ж. " + itemOfGlobalBase.getFat());
+            tvCarbo.setText("У. " + itemOfGlobalBase.getCarbohydrates());
         }
     }
 

@@ -296,14 +296,7 @@ public class FragmentDiary extends Fragment {
         }
     }
 
-    private boolean checkSubscribe() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-        if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+
 
     @OnClick({R.id.ibOpenYesterday, R.id.ibOpenTomorrow, R.id.fabAddEating})
     public void onViewClicked(View view) {

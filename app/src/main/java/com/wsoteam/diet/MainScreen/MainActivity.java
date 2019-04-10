@@ -1,6 +1,7 @@
 package com.wsoteam.diet.MainScreen;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,9 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfRecipes.ActivityGroupsOfRecipes;
 import com.wsoteam.diet.BranchOfRecipes.fragments.FragmentListRecipes;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
+import com.wsoteam.diet.Config;
+import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.InApp.Fragments.FragmentSubscription;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentRecipes;
 import com.wsoteam.diet.R;
@@ -37,11 +42,31 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.flFragmentContainer, new FragmentDiary()).commit();
                     return true;
                 case R.id.bnv_main_articles:
+                    if (checkSubscribe()) {
+
+                    } else {
+                        transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
+                                AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
+                                AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content)).commit();
+                    }
                     return true;
                 case R.id.bnv_main_trainer:
+                    if (checkSubscribe()) {
+
+                    } else {
+                        transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
+                                AmplitudaEvents.view_prem_training, EventsAdjust.view_prem_training,
+                                AmplitudaEvents.buy_prem_training, EventsAdjust.buy_prem_training)).commit();
+                    }
                     return true;
                 case R.id.bnv_main_recipes:
-                    transaction.replace(R.id.flFragmentContainer, new FragmentListRecipes()).commit();
+                    if (checkSubscribe()) {
+
+                    } else {
+                        transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
+                                AmplitudaEvents.view_prem_recipe, EventsAdjust.view_prem_recipe,
+                                AmplitudaEvents.buy_prem_recipe, EventsAdjust.buy_prem_recipe)).commit();
+                    }
                     return true;
                 case R.id.bnv_main_profile:
                     transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
@@ -58,6 +83,15 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
+    }
+
+    private boolean checkSubscribe() {
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+        if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
