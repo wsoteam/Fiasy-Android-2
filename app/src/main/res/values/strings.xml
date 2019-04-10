@@ -3,6 +3,15 @@
 
     <!--Add Measurements Activity-->
     <string name="tv_select_date_measur">Выберите дату</string>
+    <string name="tvTitleWeight">Вес</string>
+    <string name="tvTitleWaist">Обхват талии</string>
+    <string name="tvTitleChest">Обхват груди</string>
+    <string name="tvTitleHips">Обхват бедра</string>
+
+    <string name="tvWeight">60 кг</string>
+    <string name="tvWaist">65 см</string>
+    <string name="tvChest">95 см</string>
+    <string name="tvHips">100 см</string>
 
     <!--edit profile full-->
     <string name="tv_load_level">Уровень физических нагрузок</string>
