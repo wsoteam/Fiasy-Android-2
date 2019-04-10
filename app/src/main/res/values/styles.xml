@@ -29,7 +29,7 @@
 
     <style name="AppTheme2" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#E68D3C</item>
-        <item name="colorPrimaryDark">#DC8535</item>
+        <item name="colorPrimaryDark">#0FDC8535</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

@@ -6,122 +6,105 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
-    android:backgroundTint="@color/white"
-    android:orientation="vertical">
+    android:layout_marginBottom="8dp"
+    android:background="@color/white">
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/tvNameOfFood"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto"
         android:text="Name"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cardView"
+        app:layout_constraintEnd_toStartOf="@+id/tvCalories"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:cardElevation="6dp"
-        app:cardCornerRadius="9dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/ivImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/gradient_for_background_splash"/>
-    </android.support.v7.widget.CardView>
-
     <TextView
-        android:id="@+id/tvCal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:text="Kcal"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/tvNameOfGroup" />
-
-
-    <TextView
-        android:id="@+id/tvNameOfGroup"
+        android:id="@+id/tvCalories"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:text="Group"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto"
+        android:text="Kcal"
         android:textColor="@color/black"
         android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/tvName" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
-
-    <ImageView
-        android:id="@+id/ivHardKcal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvCal"
-        app:layout_constraintStart_toEndOf="@+id/tvCal"
-        app:layout_constraintTop_toTopOf="@+id/tvCal"
-        app:srcCompat="@drawable/ic_hard_kcal" />
-
-    <ImageView
-        android:id="@+id/ivLockStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvNameOfGroup"
-        app:layout_constraintStart_toEndOf="@+id/tvNameOfGroup"
-        app:layout_constraintTop_toTopOf="@+id/tvNameOfGroup"
-        app:srcCompat="@drawable/ic_padlock" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvLeterOfProduct"
+        android:id="@+id/tvWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Вес"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNameOfFood" />
+
+    <TextView
+        android:id="@+id/tvProt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="B"
+        android:textColor="@color/b_color"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWeight"
+        app:layout_constraintEnd_toStartOf="@+id/tvFats"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvWeight"
+        app:layout_constraintTop_toTopOf="@+id/tvWeight" />
+
+    <TextView
+        android:id="@+id/tvFats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_light"
+        android:text="G"
+        android:textColor="@color/g_color"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWeight"
+        app:layout_constraintEnd_toStartOf="@+id/tvCarbo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvProt"
+        app:layout_constraintTop_toTopOf="@+id/tvWeight" />
+
+    <TextView
+        android:id="@+id/tvCarbo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="U"
+        android:textColor="@color/u_color"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWeight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvCalories"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvFats"
+        app:layout_constraintTop_toTopOf="@+id/tvWeight" />
+
+    <View
+        android:id="@+id/divider8"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:elevation="9dp"
-        android:text="Г"
-        android:textColor="@color/white"
-        android:visibility="gone"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/cardView"
-        app:layout_constraintEnd_toEndOf="@+id/cardView"
-        app:layout_constraintStart_toStartOf="@+id/cardView"
-        app:layout_constraintTop_toTopOf="@+id/cardView" />
-
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWeight" />
 </android.support.constraint.ConstraintLayout>

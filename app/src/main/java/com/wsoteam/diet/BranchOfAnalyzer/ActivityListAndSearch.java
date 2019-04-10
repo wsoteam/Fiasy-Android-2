@@ -28,7 +28,6 @@ import android.widget.Toast;
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
-import com.bumptech.glide.Glide;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.wsoteam.diet.AmplitudaEvents;
@@ -166,18 +165,16 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
 
     public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView tvName, tvCal, tvNameOfGroup, tvLeterOfProduct;
-        private ImageView ivMainImage, ivHardKcal, ivLockStatus;
+        @BindView(R.id.tvNameOfFood) TextView tvNameOfFood;
+        @BindView(R.id.tvCalories) TextView tvCalories;
+        @BindView(R.id.tvWeight) TextView tvWeight;
+        @BindView(R.id.tvProt) TextView tvProt;
+        @BindView(R.id.tvFats) TextView tvFats;
+        @BindView(R.id.tvCarbo) TextView tvCarbo;
 
         public ItemHolder(LayoutInflater layoutInflater, ViewGroup viewGroup) {
             super(layoutInflater.inflate(R.layout.item_rv_list_of_search_response, viewGroup, false));
-            tvName = itemView.findViewById(R.id.tvName);
-            tvCal = itemView.findViewById(R.id.tvCal);
-            ivMainImage = itemView.findViewById(R.id.ivImage);
-            tvNameOfGroup = itemView.findViewById(R.id.tvNameOfGroup);
-            ivHardKcal = itemView.findViewById(R.id.ivHardKcal);
-            ivLockStatus = itemView.findViewById(R.id.ivLockStatus);
-            tvLeterOfProduct = itemView.findViewById(R.id.tvLeterOfProduct);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
@@ -191,26 +188,12 @@ public class ActivityListAndSearch extends AppCompatActivity {
         }
 
         public void bind(FoodItem itemOfGlobalBase, boolean isItemForSeparator) {
-            ivHardKcal.setVisibility(View.GONE);
-            ivLockStatus.setVisibility(View.GONE);
-            tvLeterOfProduct.setVisibility(View.GONE);
-            tvName.setText(itemOfGlobalBase.getName());
-            tvCal.setText(itemOfGlobalBase.getCalories() + " " + getString(R.string.for_100_g_of_product));
-
-            if (!itemOfGlobalBase.getNameOfGroup().equals(TAG_OWN_PRODUCT)) {
-                tvNameOfGroup.setText(itemOfGlobalBase.getNameOfGroup());
-                Glide.with(ActivityListAndSearch.this).load(itemOfGlobalBase.getUrlOfImages()).into(ivMainImage);
-            } else {
-                tvLeterOfProduct.setVisibility(View.VISIBLE);
-                tvNameOfGroup.setText("Сохраненные");
-                tvLeterOfProduct.setText(String.valueOf(Character.toUpperCase(itemOfGlobalBase.getName().charAt(0))));
-                Glide.with(ActivityListAndSearch.this).load(R.drawable.gradient_for_background_splash).into(ivMainImage);
-            }
-
-            if (Integer.parseInt(itemOfGlobalBase.getCalories()) > HARD_KCAL) {
-                ivHardKcal.setVisibility(View.VISIBLE);
-            }
-
+            tvNameOfFood.setText(itemOfGlobalBase.getName());
+            tvCalories.setText(itemOfGlobalBase.getCalories() + " Ккал");
+            tvWeight.setText("Вес: 100г");
+            tvProt.setText("Б. " + itemOfGlobalBase.getProtein());
+            tvFats.setText("Ж. " + itemOfGlobalBase.getFat());
+            tvCarbo.setText("У. " + itemOfGlobalBase.getCarbohydrates());
         }
     }
 

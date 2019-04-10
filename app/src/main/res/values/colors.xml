@@ -104,7 +104,7 @@
 
 
     <color name="unactive_color_bnv_main">#ABABAB</color>
-    <color name="active_color_bnv_main">#FFC008</color>
+    <color name="active_color_bnv_main">#DF8B30</color>
 
 
     <color name="gray_text_detail_food">#757575</color>
@@ -120,6 +120,10 @@
     <color name="b_color">#EF7D02</color>
     <color name="g_color">#7993B2</color>
     <color name="u_color">#694B74</color>
+
+
+    <color name="background_empty_fragment">#44566D</color>
+
 
 
 </resources>
