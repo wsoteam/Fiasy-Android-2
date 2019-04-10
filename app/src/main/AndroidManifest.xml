@@ -23,17 +23,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Authenticate.ActivityForgotPassword"
+        <activity android:name=".AddMeasurementsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+            android:theme="@style/Measurements"/>
 
-        </activity>
+        <activity
+            android:name=".Authenticate.ActivityForgotPassword"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".Onboarding.OnboardingActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".OtherActivity.ActivityPrivacyPolicy"
             android:screenOrientation="portrait"

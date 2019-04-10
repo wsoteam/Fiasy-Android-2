@@ -1,5 +1,9 @@
 <resources>
 
+
+    <!--Add Measurements Activity-->
+    <string name="tv_select_date_measur">Выберите дату</string>
+
     <!--edit profile full-->
     <string name="tv_load_level">Уровень физических нагрузок</string>
     <string name="tv_first_name">Имя</string>

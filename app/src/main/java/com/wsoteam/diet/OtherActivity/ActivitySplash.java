@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wsoteam.diet.AddMeasurementsActivity;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.Config;
@@ -136,8 +137,8 @@ public class ActivitySplash extends AppCompatActivity {
                 }
             });
         } else {
-//            startActivity(new Intent(ActivitySplash.this, OnboardingActivity.class));
-            startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
+            startActivity(new Intent(ActivitySplash.this, AddMeasurementsActivity.class));
+//            startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
             finish();
         }
 
