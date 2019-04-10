@@ -122,5 +122,8 @@
     <color name="u_color">#694B74</color>
 
 
+    <color name="background_empty_fragment">#44566D</color>
+
+
 
 </resources>

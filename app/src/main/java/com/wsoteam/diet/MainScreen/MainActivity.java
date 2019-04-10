@@ -1,6 +1,5 @@
 package com.wsoteam.diet.MainScreen;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,14 +11,12 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.BranchOfRecipes.ActivityGroupsOfRecipes;
-import com.wsoteam.diet.BranchOfRecipes.fragments.FragmentListRecipes;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscription;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
-import com.wsoteam.diet.MainScreen.Fragments.FragmentRecipes;
+import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
 import com.wsoteam.diet.R;
 
 import butterknife.BindView;
@@ -43,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.bnv_main_articles:
                     if (checkSubscribe()) {
-
+                        transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
                         transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
                                 AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
@@ -52,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.bnv_main_trainer:
                     if (checkSubscribe()) {
-
+                        transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
                         transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
                                 AmplitudaEvents.view_prem_training, EventsAdjust.view_prem_training,
@@ -61,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.bnv_main_recipes:
                     if (checkSubscribe()) {
-
+                        transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
                         transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
                                 AmplitudaEvents.view_prem_recipe, EventsAdjust.view_prem_recipe,
