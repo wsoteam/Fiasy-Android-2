@@ -17,8 +17,10 @@ import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.BranchProfile.ActivityEditCompletedProfile;
 import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.OtherActivity.ActivitySettings;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -107,7 +109,17 @@ public class FragmentProfile extends Fragment {
             month = String.valueOf(profile.getMonth() + 1);
         }
 
-        tvDateRegistration.setText("Зарегестрирован(а) с %1.%d.2019");
+        if (profile.isFemale()) {
+            tvDateRegistration.setText("Зарегестрирована с " + day + "." + month + "." + String.valueOf(profile.getYear()));
+        } else {
+            tvDateRegistration.setText("Зарегестрирован с " + day + "." + month + "." + String.valueOf(profile.getYear()));
+
+        }
+        tvKcalMax.setText(String.valueOf(profile.getMaxKcal()));
+        tvWaterMax.setText(String.valueOf(profile.getWaterCount()) + " мл");
+        tvCarboCount.setText(String.valueOf(profile.getMaxCarbo()) + " г");
+        tvFatCount.setText(String.valueOf(profile.getMaxFat()) + " г");
+        tvProtCount.setText(String.valueOf(profile.getMaxProt()) + " г");
 
         if (profile.getDifficultyLevel().equals(getString(R.string.dif_level_easy))) {
             tvProfileLevel.setTextColor(getResources().getColor(R.color.level_easy));
@@ -129,14 +141,18 @@ public class FragmentProfile extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibSettings:
+                startActivity(new Intent(getActivity(), ActivitySettings.class));
                 break;
             case R.id.civProfile:
                 break;
             case R.id.tvUserName:
+                startActivity(new Intent(getActivity(), ActivityEditCompletedProfile.class));
                 break;
             case R.id.ibEditName:
+                startActivity(new Intent(getActivity(), ActivityEditCompletedProfile.class));
                 break;
             case R.id.tvEditParams:
+                startActivity(new Intent(getActivity(), ActivityEditCompletedProfile.class));
                 break;
         }
     }

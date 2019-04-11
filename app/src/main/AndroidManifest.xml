@@ -222,6 +222,9 @@
         </receiver>
 
         <activity android:name=".Authenticate.ActivityAuthPhone" />
+
+        <activity android:name=".BranchProfile.ActivityEditCompletedProfile"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
