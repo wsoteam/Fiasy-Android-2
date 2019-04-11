@@ -10,21 +10,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
 import com.yandex.metrica.YandexMetrica;
 
 public class ActivitySettings extends AppCompatActivity {
-    private CardView cvRate, cvPrivacy, cvShare, cvNotification;
+    private CardView cvRate, cvPrivacy, cvShare, cvLogout;
     private Switch switchRewrite;
     private SharedPreferences isRewriteProfileData;
+    private ImageView ivBack;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,12 +38,31 @@ public class ActivitySettings extends AppCompatActivity {
         cvPrivacy = findViewById(R.id.cvPrivacy);
         cvRate = findViewById(R.id.cvRate);
         cvShare = findViewById(R.id.cvShare);
-        cvNotification = findViewById(R.id.cvOpenAutoLaunch);
+        cvLogout = findViewById(R.id.cvLogOut);
         switchRewrite = findViewById(R.id.switchRewrite);
+        ivBack = findViewById(R.id.ivBack);
         handleSwitch();
 
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_settings));
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_settings);
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        cvLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                LoginManager.getInstance().logOut();
+                UserDataHolder.clearObject();
+                finish();
+                startActivity(new Intent(ActivitySettings.this, ActivitySplash.class));
+            }
+        });
 
         cvRate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,14 +94,6 @@ public class ActivitySettings extends AppCompatActivity {
                         + "\n"
                         + "https://play.google.com/store/apps/details?id="
                         + getPackageName());
-                startActivity(intent);
-            }
-        });
-
-        cvNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ActivitySettings.this, ActivityAboutSetingsNotifications.class);
                 startActivity(intent);
             }
         });

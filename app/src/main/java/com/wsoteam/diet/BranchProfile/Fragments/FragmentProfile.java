@@ -75,23 +75,6 @@ public class FragmentProfile extends Fragment {
         unbinder.unbind();
     }
 
-    /*@OnClick({R.id.ibSettings})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ibSettings:
-                Intent intent = new Intent(getActivity(), ActivityEditProfile.class);
-                startActivity(intent);
-                break;
-           *//* case R.id.ibProfileLogout:
-                FirebaseAuth.getInstance().signOut();
-                LoginManager.getInstance().logOut();
-                UserDataHolder.clearObject();
-                getActivity().finish();
-                startActivity(new Intent(getActivity(), ActivitySplash.class));
-                break;*//*
-        }
-    }*/
-
     private void fillViewsIfProfileNotNull(Profile profile) {
         String day = "0", month = "0";
 
