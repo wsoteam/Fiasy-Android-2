@@ -123,6 +123,9 @@
 
 
     <color name="background_empty_fragment">#44566D</color>
+    <color name="white_profile">#A1FFFFFF</color>
+
+    <color name="head_settings">#FDBD0A</color>
 
 
 

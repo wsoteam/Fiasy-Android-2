@@ -1,278 +1,407 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:layout_height="match_parent">
 
-
-    <ImageView
-        android:id="@+id/imageView13"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/gradient_profile_head" />
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
-    <ImageButton
-        android:id="@+id/ibProfileEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/filter_state"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_edit_profile" />
 
-    <ImageButton
-        android:id="@+id/ibProfileLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/filter_state"
-        android:padding="16dp"
-        android:src="@drawable/ic_left_arrow_back_profile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvProfileOld"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:elevation="8dp"
+            android:fontFamily="@font/roboto"
+            android:text="24 года"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/ibEditName"
+            app:layout_constraintStart_toStartOf="@+id/tvUserName"
+            app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView8"
-        android:layout_width="match_parent"
-        android:layout_height="205dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="90dp"
-        android:layout_marginEnd="24dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <android.support.constraint.ConstraintLayout
+        <ImageView
+            android:id="@+id/imageView13"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="230dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/gradient_profile_head" />
 
-            <TextView
-                android:id="@+id/tvProfileOld"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="64dp"
-                android:drawableLeft="@drawable/ic_old_profile"
-                android:drawablePadding="4dp"
-                android:text="24"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/tvProfileGender"
-                app:layout_constraintEnd_toStartOf="@+id/tvProfileGender"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvProfileGender" />
+        <ImageButton
+            android:id="@+id/ibSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/filter_state"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/settings_profile" />
 
-            <TextView
-                android:id="@+id/tvProfileGender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="75dp"
-                android:layout_marginEnd="64dp"
-                android:drawableLeft="@drawable/ic_genders_prorfile"
-                android:drawablePadding="4dp"
-                android:text="Женщина"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tvProfileOld"
-                app:layout_constraintTop_toTopOf="parent" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civProfile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="24dp"
+            android:elevation="9dp"
+            android:src="@drawable/default_avatar"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="2dp"
+            app:civ_circle_background_color="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/divider5"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginBottom="70dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/tvUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/roboto"
+            android:text="Василиса Иванова"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/civProfile"
+            app:layout_constraintStart_toStartOf="@+id/civProfile"
+            app:layout_constraintTop_toBottomOf="@+id/civProfile" />
 
-            <View
-                android:id="@+id/divider6"
-                android:layout_width="2dp"
-                android:layout_height="0dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/divider7"
-                app:layout_constraintTop_toBottomOf="@+id/divider5"
-                app:layout_constraintVertical_bias="0.0" />
+        <ImageButton
+            android:id="@+id/ibEditName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
+            app:layout_constraintStart_toEndOf="@+id/tvUserName"
+            app:layout_constraintTop_toTopOf="@+id/tvUserName"
+            app:srcCompat="@drawable/profile_edit_name" />
 
-            <View
-                android:id="@+id/divider7"
-                android:layout_width="1dp"
-                android:layout_height="0dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/divider6"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider5" />
+        <TextView
+            android:id="@+id/tvDateRegistration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto"
+            android:text="Зарегистрирован(а) с 13.04.2019"
+            android:textColor="@color/white_profile"
+            app:layout_constraintEnd_toEndOf="@+id/tvProfileOld"
+            app:layout_constraintStart_toStartOf="@+id/tvProfileOld"
+            app:layout_constraintTop_toBottomOf="@+id/tvProfileOld" />
 
-            <TextView
-                android:id="@+id/tvProfileLifestyle"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
-                android:drawableLeft="@drawable/ic_lifestyle_profile"
-                android:drawablePadding="4dp"
-                android:text="Тяжелая физическая работа"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvProfileOld" />
+        <TextView
+            android:id="@+id/textView54"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Максимальные дневные значения"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView13" />
 
-            <TextView
-                android:id="@+id/textView51"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
-                android:text="Сложность"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                app:layout_constraintEnd_toStartOf="@+id/divider6"
-                app:layout_constraintStart_toEndOf="@+id/divider7"
-                app:layout_constraintTop_toBottomOf="@+id/divider5" />
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:layout_marginStart="32dp"
+            android:elevation="8dp"
+            android:src="@drawable/circle_kcal"
+            app:layout_constraintBottom_toBottomOf="@+id/cardView"
+            app:layout_constraintEnd_toStartOf="@+id/imageView14"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cardView" />
 
-            <TextView
-                android:id="@+id/textView53"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
-                android:text="Вес"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                app:layout_constraintEnd_toStartOf="@+id/divider7"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/divider5" />
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:layout_marginEnd="32dp"
+            android:elevation="8dp"
+            android:src="@drawable/circle_water"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageView10"
+            app:layout_constraintTop_toTopOf="@+id/imageView10" />
 
-            <TextView
-                android:id="@+id/textView54"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
-                android:text="Рост"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/divider6"
-                app:layout_constraintTop_toTopOf="@+id/divider5" />
-
-            <TextView
-                android:id="@+id/tvProfileLevel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="-"
-                android:textColor="@color/black"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textView51"
-                app:layout_constraintStart_toStartOf="@+id/textView51"
-                app:layout_constraintTop_toBottomOf="@+id/textView51" />
-
-            <TextView
-                android:id="@+id/tvProfileWeight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="-"
-                android:textColor="@color/black"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textView53"
-                app:layout_constraintStart_toStartOf="@+id/textView53"
-                app:layout_constraintTop_toBottomOf="@+id/textView53" />
-
-            <TextView
-                android:id="@+id/tvProfileHeight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="-"
-                android:textColor="@color/black"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textView54"
-                app:layout_constraintStart_toStartOf="@+id/textView54"
-                app:layout_constraintTop_toBottomOf="@+id/textView54" />
-
-        </android.support.constraint.ConstraintLayout>
-
-    </android.support.v7.widget.CardView>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/civProfile"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="155dp"
-        android:elevation="9dp"
-        android:src="@drawable/default_avatar"
-        app:civ_border_color="@color/white"
-        app:civ_border_width="2dp"
-        app:civ_circle_background_color="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/cardView8"
-        app:layout_constraintEnd_toEndOf="@+id/cardView8"
-        app:layout_constraintStart_toStartOf="@+id/cardView8" />
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView54">
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvProfileMainParams"
-        android:layout_width="match_parent"
-        android:layout_height="190dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView57"
-        tools:layout_editor_absoluteX="16dp" />
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView61"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:elevation="8dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Калории"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/imageView10"
+            app:layout_constraintStart_toStartOf="@+id/imageView10"
+            app:layout_constraintTop_toTopOf="@+id/imageView10" />
+
+        <TextView
+            android:id="@+id/tvKcalMax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:elevation="8dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="2000"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/textView61"
+            app:layout_constraintStart_toStartOf="@+id/textView61"
+            app:layout_constraintTop_toBottomOf="@+id/textView61" />
+
+        <TextView
+            android:id="@+id/textView87"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:elevation="8dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Вода"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/imageView14"
+            app:layout_constraintStart_toStartOf="@+id/imageView14"
+            app:layout_constraintTop_toTopOf="@+id/imageView14" />
+
+        <TextView
+            android:id="@+id/tvWaterMax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:elevation="8dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="2.5 л"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/textView87"
+            app:layout_constraintStart_toStartOf="@+id/textView87"
+            app:layout_constraintTop_toBottomOf="@+id/textView87" />
+
+        <TextView
+            android:id="@+id/textView89"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Цель"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView8"
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView89" />
+
+        <TextView
+            android:id="@+id/tvProfileLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            android:fontFamily="@font/roboto"
+            android:text="Легкая"
+            android:textColor="@color/green"
+            app:layout_constraintBottom_toBottomOf="@+id/cardView8"
+            app:layout_constraintEnd_toEndOf="@+id/textView89"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="@+id/textView89"
+            app:layout_constraintTop_toTopOf="@+id/cardView8" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvProfileLevel">
 
 
-    <TextView
-        android:id="@+id/textView57"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Максимальные дневные значения"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView8" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView91"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Углеводы"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvCarboCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="235 г"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView91"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView91" />
+
+                <TextView
+                    android:id="@+id/tvFatCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="60 г"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView92"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView92" />
+
+                <TextView
+                    android:id="@+id/tvProtCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="100 г"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView93"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView93" />
+
+                <TextView
+                    android:id="@+id/textView92"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Жиры"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider5" />
+
+                <TextView
+                    android:id="@+id/textView93"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Белки"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider6" />
+
+                <View
+                    android:id="@+id/divider5"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView91" />
+
+                <View
+                    android:id="@+id/divider6"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView92" />
+            </android.support.constraint.ConstraintLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvEditParams"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/roboto_light_italic"
+            android:text="Настроить свои параметры"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView9" />
+
+        <View
+            android:id="@+id/divider7"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="32dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvEditParams"
+            app:layout_constraintStart_toStartOf="@+id/tvEditParams"
+            app:layout_constraintTop_toBottomOf="@+id/tvEditParams"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

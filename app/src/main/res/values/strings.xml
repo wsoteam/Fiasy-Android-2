@@ -530,4 +530,13 @@
         <item>Перекус</item>
     </string-array>
 
+    <plurals name="years">
+        <item quantity="zero"></item>
+        <item quantity="one">%d год</item>
+        <item quantity="two">%d года</item>
+        <item quantity="few">%d года</item>
+        <item quantity="many">%d лет</item>
+        <item quantity="other">%d лет</item>
+    </plurals>
+
 </resources>

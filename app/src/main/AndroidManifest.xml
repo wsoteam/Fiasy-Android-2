@@ -108,7 +108,7 @@
         <activity android:name=".BranchOfMonoDiets.ActivityViewerOfBodyItem" />
         <activity
             android:name=".OtherActivity.ActivitySettings"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBarSettings" />
         <activity
             android:name=".BranchOfMonoDiets.ActivityMonoDiet"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -228,6 +228,9 @@
         </receiver>
 
         <activity android:name=".Authenticate.ActivityAuthPhone" />
+
+        <activity android:name=".BranchProfile.ActivityEditCompletedProfile"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
