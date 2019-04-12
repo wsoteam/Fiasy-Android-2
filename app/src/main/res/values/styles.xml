@@ -37,7 +37,7 @@
     <style name="AnalyzerTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/head_analyzer_search</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/head_detail_food</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
@@ -105,7 +105,7 @@
     <style name="DetailFood" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/head_detail_food</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/head_detail_food</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
@@ -121,7 +121,7 @@
     <style name="EditCompletedProfile" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/statusbar_prem</item>
         <item name="colorPrimaryDark">@color/statusbar_profile</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/head_detail_food</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
