@@ -106,8 +106,8 @@ public class ActivityEditCompletedProfile extends AppCompatActivity {
     }
 
     private boolean checkInputData() {
-        if (!edtName.getText().equals("")) {
-            if (!edtSecondName.getText().equals("")) {
+        if (!edtName.getText().toString().equals("")) {
+            if (!edtSecondName.getText().toString().equals("")) {
                 if (rgFemaleOrMale.getCheckedRadioButtonId() != -1) {
                     if (!edtAge.getText().toString().equals("")
                             && Integer.parseInt(edtAge.getText().toString()) >= 18

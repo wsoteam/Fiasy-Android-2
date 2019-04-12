@@ -296,7 +296,6 @@ public class ActivityEditProfile extends AppCompatActivity {
             maxWater = WATER_ON_KG_MALE * (int) weight;
         }
 
-        Log.e("LOl", String.valueOf(SPK));
 
 
         Profile profile = new Profile(SpkName, SpkSecondName,
