@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,6 @@ public class FragmentProfile extends Fragment {
     @BindView(R.id.tvCarboCount) TextView tvCarboCount;
     @BindView(R.id.tvFatCount) TextView tvFatCount;
     @BindView(R.id.tvProtCount) TextView tvProtCount;
-    Profile currentProfile;
 
 
     @Override
@@ -58,7 +58,6 @@ public class FragmentProfile extends Fragment {
         if (UserDataHolder.getUserData().getProfile() != null) {
             Profile profile = UserDataHolder.getUserData().getProfile();
             fillViewsIfProfileNotNull(profile);
-            currentProfile = profile;
         }
     }
 
@@ -151,6 +150,7 @@ public class FragmentProfile extends Fragment {
     }
 
     private void calculate(String hardLevel) {
+        Profile currentProfile = UserDataHolder.getUserData().getProfile();
 
         double SPK = 0, upLineSPK = 0, downLineSPK = 0;
         final int WATER_ON_KG_FEMALE = 30;
@@ -217,17 +217,23 @@ public class FragmentProfile extends Fragment {
         if (hardLevel.equals(getString(R.string.dif_level_easy))) {
             profile.setMaxKcal((int) SPK);
             WorkWithFirebaseDB.putProfileValue(profile);
+            fillViewsIfProfileNotNull(profile);
             Toast.makeText(getActivity(), R.string.profile_saved, Toast.LENGTH_SHORT).show();
+            Log.e("LOL", "easy");
 
         } else if (hardLevel.equals(getString(R.string.dif_level_normal))) {
-            profile.setMaxKcal((int) SPK);
+            profile.setMaxKcal((int) upLineSPK);
             WorkWithFirebaseDB.putProfileValue(profile);
+            fillViewsIfProfileNotNull(profile);
             Toast.makeText(getActivity(), R.string.profile_saved, Toast.LENGTH_SHORT).show();
+            Log.e("LOL", "normal");
 
         } else if (hardLevel.equals(getString(R.string.dif_level_hard))) {
-            profile.setMaxKcal((int) SPK);
+            profile.setMaxKcal((int) downLineSPK);
             WorkWithFirebaseDB.putProfileValue(profile);
+            fillViewsIfProfileNotNull(profile);
             Toast.makeText(getActivity(), R.string.profile_saved, Toast.LENGTH_SHORT).show();
+            Log.e("LOL", "hard");
         }
 
 
@@ -247,19 +253,21 @@ public class FragmentProfile extends Fragment {
             public void onClick(View view) {
                 calculate(getActivity().getResources().getString(R.string.dif_level_easy));
                 alertDialog.cancel();
+
             }
         });
         cvADChoiseDiffLevelNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calculate(getActivity().getResources().getString(R.string.dif_level_easy));
+                calculate(getActivity().getResources().getString(R.string.dif_level_normal));
+
                 alertDialog.cancel();
             }
         });
         cvADChoiseDiffLevelHard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calculate(getActivity().getResources().getString(R.string.dif_level_easy));
+                calculate(getActivity().getResources().getString(R.string.dif_level_hard));
                 alertDialog.cancel();
             }
         });
