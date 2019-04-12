@@ -60,7 +60,8 @@ public class ActivitySettings extends AppCompatActivity {
                 LoginManager.getInstance().logOut();
                 UserDataHolder.clearObject();
                 finish();
-                startActivity(new Intent(ActivitySettings.this, ActivitySplash.class));
+                startActivity(new Intent(ActivitySettings.this, ActivitySplash.class).
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
             }
         });
 
