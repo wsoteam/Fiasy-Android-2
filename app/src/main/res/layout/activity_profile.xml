@@ -80,7 +80,12 @@
             android:id="@+id/ibEditName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/filter_state"
             android:backgroundTint="@color/transparent"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
             app:layout_constraintStart_toEndOf="@+id/tvUserName"
             app:layout_constraintTop_toTopOf="@+id/tvUserName"
@@ -225,7 +230,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
         <android.support.v7.widget.CardView
-            android:id="@+id/cardView8"
+            android:id="@+id/cvDifficulty"
             android:layout_width="match_parent"
             android:layout_height="27dp"
             android:layout_marginStart="8dp"
@@ -245,11 +250,11 @@
             android:fontFamily="@font/roboto"
             android:text="Легкая"
             android:textColor="@color/green"
-            app:layout_constraintBottom_toBottomOf="@+id/cardView8"
+            app:layout_constraintBottom_toBottomOf="@+id/cvDifficulty"
             app:layout_constraintEnd_toEndOf="@+id/textView89"
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="@+id/textView89"
-            app:layout_constraintTop_toTopOf="@+id/cardView8" />
+            app:layout_constraintTop_toTopOf="@+id/cvDifficulty" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/cardView9"

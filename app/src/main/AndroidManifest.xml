@@ -207,8 +207,8 @@
             android:theme="@style/EatingDiaryStyle" />
         <activity
             android:name=".BranchProfile.ActivityEditProfile"
-            android:screenOrientation="portrait"
-            android:theme="@style/EditProfile" />
+            android:theme="@style/EditProfile"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".BranchProfile.ActivityHelp"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -233,9 +233,9 @@
         </receiver>
 
         <activity android:name=".Authenticate.ActivityAuthPhone" />
-        <activity
-            android:name=".BranchProfile.ActivityEditCompletedProfile"
-            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".BranchProfile.ActivityEditCompletedProfile"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

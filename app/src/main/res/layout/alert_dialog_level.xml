@@ -35,7 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:layout_marginLeft="8dp">
 
             <RadioGroup
                 android:id="@+id/rgLevelLoad"
