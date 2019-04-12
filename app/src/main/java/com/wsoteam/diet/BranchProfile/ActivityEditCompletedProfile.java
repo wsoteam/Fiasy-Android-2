@@ -220,7 +220,7 @@ public class ActivityEditCompletedProfile extends AppCompatActivity {
         Profile profile = new Profile(edtName.getText().toString(), edtSecondName.getText().toString(),
                 isFemale, age, Integer.parseInt(edtHeight.getText().toString()), weight, 0,
                 btnChoiseLevel.getText().toString(), urlOfPhoto, maxWater, 0, (int) protein,
-                (int) fat, (int) carbohydrate, btnChoiseLevel.getText().toString(), day, month, year);
+                (int) fat, (int) carbohydrate, UserDataHolder.getUserData().getProfile().getDifficultyLevel(), day, month, year);
 
         Log.e("LOL", profile.getExerciseStress());
 

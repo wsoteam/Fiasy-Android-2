@@ -99,9 +99,9 @@ public class FragmentProfile extends Fragment {
         }
 
         if (profile.isFemale()) {
-            tvDateRegistration.setText("Зарегестрирована с " + day + "." + month + "." + String.valueOf(profile.getYear()));
+            tvDateRegistration.setText("Зарегистрирована с " + day + "." + month + "." + String.valueOf(profile.getYear()));
         } else {
-            tvDateRegistration.setText("Зарегестрирован с " + day + "." + month + "." + String.valueOf(profile.getYear()));
+            tvDateRegistration.setText("Зарегистрирован с " + day + "." + month + "." + String.valueOf(profile.getYear()));
 
         }
         tvKcalMax.setText(String.valueOf(profile.getMaxKcal()));
@@ -110,6 +110,11 @@ public class FragmentProfile extends Fragment {
         tvFatCount.setText(String.valueOf(profile.getMaxFat()) + " г");
         tvProtCount.setText(String.valueOf(profile.getMaxProt()) + " г");
 
+        if (profile.getFirstName().equals("default")) {
+            tvUserName.setText("Введите Ваше имя");
+        } else {
+            tvUserName.setText(profile.getFirstName() + " " + profile.getLastName());
+        }
         if (profile.getDifficultyLevel().equals(getString(R.string.dif_level_easy))) {
             tvProfileLevel.setTextColor(getResources().getColor(R.color.level_easy));
         } else {
@@ -213,6 +218,7 @@ public class FragmentProfile extends Fragment {
                 currentProfile.getExerciseStress(), currentProfile.getPhotoUrl(), maxWater, 0, (int) protein,
                 (int) fat, (int) carbohydrate, hardLevel, currentProfile.getNumberOfDay(), currentProfile.getMonth(), currentProfile.getYear());
 
+        Log.e("LOL", profile.toString());
 
         if (hardLevel.equals(getString(R.string.dif_level_easy))) {
             profile.setMaxKcal((int) SPK);
@@ -239,7 +245,7 @@ public class FragmentProfile extends Fragment {
 
     }
 
-    private void selectHardLevel(){
+    private void selectHardLevel() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final AlertDialog alertDialog = builder.create();
