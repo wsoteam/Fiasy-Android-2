@@ -26,7 +26,9 @@ import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.R;
@@ -80,6 +82,16 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_subscription, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+        String startFrom = getActivity().getIntent().getStringExtra(Config.START_FROM);
+        Log.d("event", "String startFrom = " + startFrom );
+        if (startFrom != null){
+                if (startFrom.equals(Config.FROM_ONBOARDING)){
+            Amplitude.getInstance().logEvent(AmplitudaEvents.buy_prem_onboarding);
+            Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_onboarding));
+            Log.d("event", "onCreate: buy_prem_onboarding" );
+        }}
+
 
         Amplitude.getInstance().logEvent(getArguments().getString(AMPLITUDE_COME_FROM_TAG));
         Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_COME_FROM_TAG)));

@@ -139,8 +139,8 @@ public class ActivitySplash extends AppCompatActivity {
                 }
             });
         } else {
-            startActivity(new Intent(ActivitySplash.this, ForTestFragmentActivity.class));
-//            startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
+//            startActivity(new Intent(ActivitySplash.this, ForTestFragmentActivity.class));
+            startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
             finish();
         }
 
