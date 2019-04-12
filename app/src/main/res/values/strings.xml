@@ -1,5 +1,7 @@
 <resources>
 
+    <!--Menu-->
+    <string name="etSearch">Поиск</string>
 
     <!--Add Measurements Activity-->
     <string name="tv_select_date_measur">Выберите дату</string>

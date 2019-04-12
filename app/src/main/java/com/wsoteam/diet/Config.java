@@ -61,7 +61,8 @@ public class Config {
     public static final String AMPLITUDE_BUY_FROM = "AMPLITUDE_BUY_FROM";
     public static final String AMPLITUDE_COME_FROM = "AMPLITUDE_COME_FROM";
 
-
+    public static final String START_FROM = "START_FROM";
+    public static final String FROM_ONBOARDING = "FROM_ONBOARDING";
 
 
 }

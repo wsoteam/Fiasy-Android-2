@@ -35,12 +35,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.AddMeasurementsActivity;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
+import com.wsoteam.diet.BranchOfRecipes.ActivityRecipes;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.tvoytrener.ForTestFragmentActivity;
 import com.wsoteam.diet.tvoytrener.PortionSize;
 
 import java.util.List;
@@ -137,7 +139,7 @@ public class ActivitySplash extends AppCompatActivity {
                 }
             });
         } else {
-            startActivity(new Intent(ActivitySplash.this, AddMeasurementsActivity.class));
+            startActivity(new Intent(ActivitySplash.this, ForTestFragmentActivity.class));
 //            startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
             finish();
         }

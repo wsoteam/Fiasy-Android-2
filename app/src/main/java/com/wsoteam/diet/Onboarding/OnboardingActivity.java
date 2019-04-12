@@ -1,6 +1,7 @@
 package com.wsoteam.diet.Onboarding;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -83,7 +84,8 @@ public class OnboardingActivity extends AppCompatActivity {
                         .putExtra(Config.AMPLITUDE_COME_FROM, EventsAdjust.view_prem_onboarding)
                         .putExtra(Config.AMPLITUDE_BUY_FROM, EventsAdjust.buy_prem_onboarding)
                         .putExtra(Config.ADJUST_COME_FROM, EventsAdjust.view_prem_onboarding)
-                        .putExtra(Config.ADJUST_BUY_FROM, EventsAdjust.buy_prem_onboarding));
+                        .putExtra(Config.ADJUST_BUY_FROM, EventsAdjust.buy_prem_onboarding)
+                        .putExtra(Config.START_FROM, Config.FROM_ONBOARDING));
                 finish();
             }
 
