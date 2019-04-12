@@ -229,22 +229,19 @@ public class FragmentProfile extends Fragment {
             profile.setMaxKcal((int) SPK);
             WorkWithFirebaseDB.putProfileValue(profile);
             fillViewsIfProfileNotNull(profile);
-            Toast.makeText(getActivity(), R.string.profile_saved, Toast.LENGTH_SHORT).show();
-            Log.e("LOL", "easy");
+
+
 
         } else if (hardLevel.equals(getString(R.string.dif_level_normal))) {
             profile.setMaxKcal((int) upLineSPK);
             WorkWithFirebaseDB.putProfileValue(profile);
             fillViewsIfProfileNotNull(profile);
-            Toast.makeText(getActivity(), R.string.profile_saved, Toast.LENGTH_SHORT).show();
-            Log.e("LOL", "normal");
 
         } else if (hardLevel.equals(getString(R.string.dif_level_hard))) {
             profile.setMaxKcal((int) downLineSPK);
             WorkWithFirebaseDB.putProfileValue(profile);
             fillViewsIfProfileNotNull(profile);
-            Toast.makeText(getActivity(), R.string.profile_saved, Toast.LENGTH_SHORT).show();
-            Log.e("LOL", "hard");
+
         }
 
 
