@@ -1,32 +1,17 @@
 package com.wsoteam.diet.BranchProfile;
 
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
-import com.amplitude.api.Amplitude;
-import com.google.android.gms.ads.InterstitialAd;
-import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.Authenticate.ActivityAuthMain;
-import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -35,25 +20,18 @@ import com.yandex.metrica.YandexMetrica;
 
 import java.util.Calendar;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ActivityEditCompletedProfile extends AppCompatActivity {
-
-
-    private String dif_level;
-
+    @BindView(R.id.edtName) EditText edtName;
+    @BindView(R.id.edtSecondName) EditText edtSecondName;
     private EditText edtHeight, edtAge, edtWeight;
-    private String SpkName = "default";
-    private String SpkSecondName = "default";
-    private Button btnDifLevel;
     private Button btnChoiseLevel;
     private RadioGroup rgFemaleOrMale;
-    private ImageView ivHelpEditProfile;
-    private Button nextButton;
+    private Button btnSave;
 
-    AlertDialog alertDialogLevelLoad;
-
-    private boolean registration;
-
-    private final String DEFAULT_AVATAR = "default";
+    private AlertDialog alertDialogLevelLoad;
     private final int WATER_ON_KG_FEMALE = 30;
     private final int WATER_ON_KG_MALE = 40;
     private String urlOfPhoto = "default";
@@ -66,34 +44,19 @@ public class ActivityEditCompletedProfile extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_edit_completed_profile);
+        ButterKnife.bind(this);
         edtHeight = findViewById(R.id.edtSpkGrowth);
         edtAge = findViewById(R.id.edtSpkAge);
         edtWeight = findViewById(R.id.edtSpkWeight);
-        btnDifLevel = findViewById(R.id.btnSpkChoiseDif);
         btnChoiseLevel = findViewById(R.id.btnSpkChoiseLevel);
         rgFemaleOrMale = findViewById(R.id.rgFemaleOrMaleSpk);
-        nextButton = findViewById(R.id.rectangle_8);
-        ivHelpEditProfile = findViewById(R.id.ivHelpEditProfile);
+        btnSave = findViewById(R.id.rectangle_8);
 
-        if (dif_level == null){
-            dif_level = getString(R.string.dif_level_easy);
-            btnDifLevel.setText(R.string.dif_level_easy);
-        }
-
-        btnDifLevel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectDifLevel();
-            }
-        });
 
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
             fillViewsIfProfileNotNull();
         }
-
-        registration = getIntent().getBooleanExtra("registration",false);
 
 
         btnChoiseLevel.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +66,7 @@ public class ActivityEditCompletedProfile extends AppCompatActivity {
             }
         });
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkInputData()) {
@@ -129,9 +92,11 @@ public class ActivityEditCompletedProfile extends AppCompatActivity {
         edtHeight.setText(String.valueOf(profile.getHeight()));
         edtAge.setText(String.valueOf(profile.getAge()));
         edtWeight.setText(String.valueOf(profile.getWeight()));
-        btnDifLevel.setText(profile.getExerciseStress());
-//        edtSpkName.setText(profile.getFirstName());
-//        edtSpkSecondName.setText(profile.getLastName());
+        btnChoiseLevel.setText(profile.getExerciseStress());
+        if (!profile.getFirstName().equals("default")) {
+            edtName.setText(profile.getFirstName());
+            edtSecondName.setText(profile.getLastName());
+        }
         if (profile.isFemale()) {
             rgFemaleOrMale.check(R.id.rdSpkFemale);
         } else {
@@ -141,75 +106,47 @@ public class ActivityEditCompletedProfile extends AppCompatActivity {
     }
 
     private boolean checkInputData() {
-        if (rgFemaleOrMale.getCheckedRadioButtonId() != -1) {
-            if (!edtAge.getText().toString().equals("")
-                    && Integer.parseInt(edtAge.getText().toString()) >= 18
-                    && Integer.parseInt(edtAge.getText().toString()) <= 200) {
-                if (!edtHeight.getText().toString().equals("")
-                        && Integer.parseInt(edtHeight.getText().toString()) >= 100
-                        && Integer.parseInt(edtHeight.getText().toString()) <= 300) {
-                    if (!edtWeight.getText().toString().equals("")
-                            && Double.parseDouble(edtWeight.getText().toString()) >= 30
-                            && Double.parseDouble(edtWeight.getText().toString()) <= 300) {
-                        return true;
+        if (!edtName.getText().equals("")) {
+            if (!edtSecondName.getText().equals("")) {
+                if (rgFemaleOrMale.getCheckedRadioButtonId() != -1) {
+                    if (!edtAge.getText().toString().equals("")
+                            && Integer.parseInt(edtAge.getText().toString()) >= 18
+                            && Integer.parseInt(edtAge.getText().toString()) <= 200) {
+                        if (!edtHeight.getText().toString().equals("")
+                                && Integer.parseInt(edtHeight.getText().toString()) >= 100
+                                && Integer.parseInt(edtHeight.getText().toString()) <= 300) {
+                            if (!edtWeight.getText().toString().equals("")
+                                    && Double.parseDouble(edtWeight.getText().toString()) >= 30
+                                    && Double.parseDouble(edtWeight.getText().toString()) <= 300) {
+                                return true;
+                            } else {
+                                Toast.makeText(ActivityEditCompletedProfile.this, R.string.spk_check_weight, Toast.LENGTH_SHORT).show();
+                                return false;
+                            }
+                        } else {
+                            Toast.makeText(ActivityEditCompletedProfile.this, R.string.spk_check_your_height, Toast.LENGTH_SHORT).show();
+                            return false;
+                        }
                     } else {
-                        Toast.makeText(ActivityEditCompletedProfile.this, R.string.spk_check_weight, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityEditCompletedProfile.this, R.string.spk_check_your_age, Toast.LENGTH_SHORT).show();
                         return false;
                     }
                 } else {
-                    Toast.makeText(ActivityEditCompletedProfile.this, R.string.spk_check_your_height, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityEditCompletedProfile.this, R.string.spk_choise_your_gender, Toast.LENGTH_SHORT).show();
                     return false;
                 }
             } else {
-                Toast.makeText(ActivityEditCompletedProfile.this, R.string.spk_check_your_age, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityEditCompletedProfile.this, "Введите Вашу фамилию", Toast.LENGTH_SHORT).show();
                 return false;
             }
         } else {
-            Toast.makeText(ActivityEditCompletedProfile.this, R.string.spk_choise_your_gender, Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityEditCompletedProfile.this, "Введите Ваше имя", Toast.LENGTH_SHORT).show();
             return false;
         }
 
     }
 
-    private void selectDifLevel(){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final AlertDialog alertDialog = builder.create();
-        View view = View.inflate(this, R.layout.alert_dialog_choise_difficulty_level, null);
-        CardView cvADChoiseDiffLevelHard = view.findViewById(R.id.cvADChoiseDiffLevelHard);
-        CardView cvADChoiseDiffLevelNormal = view.findViewById(R.id.cvADChoiseDiffLevelNormal);
-        CardView cvADChoiseDiffLevelEasy = view.findViewById(R.id.cvADChoiseDiffLevelEasy);
-
-        cvADChoiseDiffLevelEasy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dif_level = getString(R.string.dif_level_easy);
-                btnDifLevel.setText(R.string.dif_level_easy);
-                alertDialog.cancel();
-            }
-        });
-        cvADChoiseDiffLevelNormal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dif_level = getString(R.string.dif_level_normal);
-                btnDifLevel.setText(R.string.dif_level_normal);
-                alertDialog.cancel();
-            }
-        });
-        cvADChoiseDiffLevelHard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dif_level = getString(R.string.dif_level_hard);
-                btnDifLevel.setText(R.string.dif_level_hard);
-                alertDialog.cancel();
-            }
-        });
-        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        alertDialog.setView(view);
-        alertDialog.show();
-
-
-    }
 
 
     /*Минимальные нагрузки (сидячая работа) - К=1.2
@@ -279,52 +216,40 @@ public class ActivityEditCompletedProfile extends AppCompatActivity {
             maxWater = WATER_ON_KG_MALE * (int) weight;
         }
 
-        Log.e("LOl", String.valueOf(SPK));
 
-
-        Profile profile = new Profile(SpkName, SpkSecondName,
+        Profile profile = new Profile(edtName.getText().toString(), edtSecondName.getText().toString(),
                 isFemale, age, Integer.parseInt(edtHeight.getText().toString()), weight, 0,
-                btnChoiseLevel.getText().toString(),urlOfPhoto, maxWater, 0, (int) protein,
-                (int) fat, (int) carbohydrate, dif_level, day, month, year);
+                btnChoiseLevel.getText().toString(), urlOfPhoto, maxWater, 0, (int) protein,
+                (int) fat, (int) carbohydrate, btnChoiseLevel.getText().toString(), day, month, year);
+
+        Log.e("LOL", profile.getExerciseStress());
 
 
-        if (dif_level.equals(getString(R.string.dif_level_easy))) {
-            saveProfile(registration, profile, SPK);
+        if (profile.getDifficultyLevel().equals(getString(R.string.dif_level_easy))) {
+            saveProfile(profile, SPK);
             Toast.makeText(ActivityEditCompletedProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
 
-        } else if (dif_level.equals(getString(R.string.dif_level_normal))){
-            saveProfile(registration, profile, upLineSPK);
+        } else if (profile.getDifficultyLevel().equals(getString(R.string.dif_level_normal))) {
+            saveProfile(profile, upLineSPK);
             Toast.makeText(ActivityEditCompletedProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
 
-        }else if (dif_level.equals(getString(R.string.dif_level_hard))) {
-            saveProfile(registration, profile, downLineSPK);
+        } else if (profile.getDifficultyLevel().equals(getString(R.string.dif_level_hard))) {
+            saveProfile(profile, downLineSPK);
             Toast.makeText(ActivityEditCompletedProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
         }
 
 
     }
 
-    private void saveProfile(boolean registration, Profile profile, double maxInt){
-        if (registration){
-            profile.setMaxKcal((int) maxInt);
-            Intent intent = new Intent(ActivityEditCompletedProfile.this, ActivityAuthMain.class);
-            Log.e("LOL", profile.toString());
-            intent.putExtra("createUser", true);
-            intent.putExtra(Config.INTENT_PROFILE, profile);
-            Amplitude.getInstance().logEvent(Config.FILL_PROFILE);
-            Adjust.trackEvent(new AdjustEvent(EventsAdjust.fill_reg_data));
-            Amplitude.getInstance().logEvent(AmplitudaEvents.fill_reg_data);
-            startActivity(intent);
-        }else {
-            profile.setMaxKcal((int) maxInt);
-            WorkWithFirebaseDB.putProfileValue(profile);
-            finish();
-        }
+    private void saveProfile(Profile profile, double maxInt) {
+        profile.setMaxKcal((int) maxInt);
+        WorkWithFirebaseDB.putProfileValue(profile);
+        finish();
     }
 
     private void createAlertDialogLevelLoad() {
 
-        if (alertDialogLevelLoad != null){
+        if (alertDialogLevelLoad != null) {
             alertDialogLevelLoad.show();
         } else {
             View.OnClickListener listener;
