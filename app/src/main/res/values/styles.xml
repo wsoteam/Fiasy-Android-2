@@ -110,4 +110,20 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="PremiumTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/statusbar_prem</item>
+        <item name="colorPrimaryDark">@color/statusbar_prem</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="EditCompletedProfile" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/statusbar_prem</item>
+        <item name="colorPrimaryDark">@color/statusbar_profile</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 </resources>

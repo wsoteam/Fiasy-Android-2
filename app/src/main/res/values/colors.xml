@@ -128,5 +128,10 @@
     <color name="head_settings">#FDBD0A</color>
 
 
+    <color name="statusbar_prem">#374557</color>
+
+    <color name="statusbar_profile">#2E4E4E</color>
+
+
 
 </resources>

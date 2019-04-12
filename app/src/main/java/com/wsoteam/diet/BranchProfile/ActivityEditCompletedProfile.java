@@ -22,6 +22,7 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ActivityEditCompletedProfile extends AppCompatActivity {
     @BindView(R.id.edtName) EditText edtName;
@@ -282,5 +283,10 @@ public class ActivityEditCompletedProfile extends AppCompatActivity {
             view.findViewById(R.id.rbLevelLoadUpSuper).setOnClickListener(listener);
 
         }
+    }
+
+    @OnClick(R.id.ibBack)
+    public void onViewClicked() {
+        onBackPressed();
     }
 }

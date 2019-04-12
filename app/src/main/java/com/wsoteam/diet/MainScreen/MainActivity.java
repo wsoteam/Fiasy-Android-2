@@ -1,6 +1,7 @@
 package com.wsoteam.diet.MainScreen;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +9,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.wsoteam.diet.AmplitudaEvents;
@@ -34,9 +37,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             transaction = getSupportFragmentManager().beginTransaction();
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             switch (item.getItemId()) {
                 case R.id.bnv_main_diary:
                     transaction.replace(R.id.flFragmentContainer, new FragmentDiary()).commit();
+                    window.setStatusBarColor(Color.parseColor("#AE6A23"));
                     return true;
                 case R.id.bnv_main_articles:
                     if (checkSubscribe()) {
@@ -45,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                         transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
                                 AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
                                 AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content)).commit();
+                        window.setStatusBarColor(Color.parseColor("#374557"));
                     }
                     return true;
                 case R.id.bnv_main_trainer:
@@ -54,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                         transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
                                 AmplitudaEvents.view_prem_training, EventsAdjust.view_prem_training,
                                 AmplitudaEvents.buy_prem_training, EventsAdjust.buy_prem_training)).commit();
+                        window.setStatusBarColor(Color.parseColor("#374557"));
                     }
                     return true;
                 case R.id.bnv_main_recipes:
@@ -63,10 +71,12 @@ public class MainActivity extends AppCompatActivity {
                         transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
                                 AmplitudaEvents.view_prem_recipe, EventsAdjust.view_prem_recipe,
                                 AmplitudaEvents.buy_prem_recipe, EventsAdjust.buy_prem_recipe)).commit();
+                        window.setStatusBarColor(Color.parseColor("#374557"));
                     }
                     return true;
                 case R.id.bnv_main_profile:
                     transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
+                    window.setStatusBarColor(Color.parseColor("#2E4E4E"));
                     return true;
             }
             return false;
