@@ -37,6 +37,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.app.Activity.RESULT_OK;
+
 public class FragmentProfile extends Fragment {
     @BindView(R.id.ibSettings) ImageButton ibProfileEdit;
     @BindView(R.id.tvProfileOld) TextView tvProfileOld;
@@ -138,6 +140,9 @@ public class FragmentProfile extends Fragment {
                 startActivity(new Intent(getActivity(), ActivitySettings.class));
                 break;
             case R.id.civProfile:
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, 1);
                 break;
             case R.id.tvUserName:
                 startActivity(new Intent(getActivity(), ActivityEditCompletedProfile.class));
@@ -282,5 +287,17 @@ public class FragmentProfile extends Fragment {
         alertDialog.show();
 
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            Uri urlOfImage = data.getData();
+            Glide.with(this).load(urlOfImage).into(civProfile);
+            Profile profile = UserDataHolder.getUserData().getProfile();
+            profile.setPhotoUrl(String.valueOf(urlOfImage));
+            WorkWithFirebaseDB.putProfileValue(profile);
+        }
     }
 }
