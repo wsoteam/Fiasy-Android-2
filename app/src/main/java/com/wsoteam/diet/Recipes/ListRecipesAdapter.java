@@ -15,32 +15,32 @@ import com.wsoteam.diet.R;
 
 import java.util.List;
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
+public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.ListRecipeViewHolder> {
 
     private List<ItemRecipes> listRecipes;
     private Context context;
 
-    public RecipeAdapter(List<ItemRecipes> listRecipes){
+    public ListRecipesAdapter(List<ItemRecipes> listRecipes){
         this.listRecipes = listRecipes;
     }
 
     @NonNull
     @Override
-    public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ListRecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         this.context = parent.getContext();
 
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View view = inflater.inflate(R.layout.recipe_item, parent, false);
 
-        RecipeAdapter.RecipeViewHolder viewHolder = new RecipeAdapter.RecipeViewHolder(view);
+        ListRecipeViewHolder viewHolder = new ListRecipeViewHolder(view);
 
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ListRecipeViewHolder holder, int position) {
         holder.bind(position);
 
     }
@@ -50,10 +50,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         return listRecipes.size();
     }
 
-    class RecipeViewHolder extends RecyclerView.ViewHolder{
+    class ListRecipeViewHolder extends RecyclerView.ViewHolder{
     ImageView imageView;
     TextView textView;
-    public RecipeViewHolder(View itemView) {
+    public ListRecipeViewHolder(View itemView) {
         super(itemView);
 
         imageView = itemView.findViewById(R.id.imageRecipe);
@@ -61,7 +61,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
     void bind(int position){
-        textView.setText(listRecipes.get(position).getName());
+
+        String name = listRecipes.get(position).getName();
+
+        if (name.length() > 25){
+            name = name.substring(0, 25) + "...";
+        }
+
+
+        textView.setText(name);
         Glide
                 .with(context)
                 .load(listRecipes.get(position).getUrl())

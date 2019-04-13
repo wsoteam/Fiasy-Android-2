@@ -1,8 +1,14 @@
 package com.wsoteam.diet.Recipes;
 
+
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,26 +17,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOS.ListOfRecipes;
 import com.wsoteam.diet.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupsRecipesAdapter extends RecyclerView.Adapter<GroupsRecipesAdapter.GroupsRecipeViewHolder>{
+public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder>{
 
     ArrayList<ListOfRecipes> listOfRecipesGroup;
     Context context;
-    GroupsRecipesFragment groupsRecipesFragment;
+    GroupsFragment groupsFragment;
+    FragmentTransaction transaction;
+    int containerID;
 
-    public GroupsRecipesAdapter(ArrayList<ListOfRecipes> listOfRecipesGroup, GroupsRecipesFragment groupsRecipesFragment){
+    public GroupsAdapter(ArrayList<ListOfRecipes> listOfRecipesGroup, GroupsFragment groupsFragment){
         this.listOfRecipesGroup = listOfRecipesGroup;
-        this.groupsRecipesFragment = groupsRecipesFragment;
+        this.groupsFragment = groupsFragment;
+        this.transaction = groupsFragment.getActivity().getSupportFragmentManager().beginTransaction();
+        this.containerID =  ((ViewGroup)groupsFragment.getView().getParent()).getId();
     }
 
     @NonNull
     @Override
-    public GroupsRecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GroupsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
 
         if (this.context == null) this.context = context;
@@ -40,13 +51,13 @@ public class GroupsRecipesAdapter extends RecyclerView.Adapter<GroupsRecipesAdap
         View view = inflater.inflate(R.layout.recipes_group_item, parent, false);
 
 
-        GroupsRecipeViewHolder viewHolder = new GroupsRecipeViewHolder(view);
+        GroupsViewHolder viewHolder = new GroupsViewHolder(view);
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GroupsRecipeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GroupsViewHolder holder, int position) {
         holder.bind(position);
     }
 
@@ -56,30 +67,37 @@ public class GroupsRecipesAdapter extends RecyclerView.Adapter<GroupsRecipesAdap
     }
 
 
-    class GroupsRecipeViewHolder extends RecyclerView.ViewHolder{
+    class GroupsViewHolder extends RecyclerView.ViewHolder{
 
         TextView tvTitle;
 
         List<ImageView> imageViewList;
         List<TextView> textViewList;
-        List<CalendarView> calendarViewList;
+        List<CardView> cardViewList;
 
 
-        public GroupsRecipeViewHolder(View itemView) {
+        public GroupsViewHolder(View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvGroupName);
 
             imageViewList = new ArrayList<>();
             textViewList = new ArrayList<>();
-            calendarViewList = new ArrayList<>();
+            cardViewList = new ArrayList<>();
 
             TextView detailTextView = itemView.findViewById(R.id.tvAllRecipes);
             detailTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-//                    detailTextView.setText("df");
-                groupsRecipesFragment.updateAdapter(listOfRecipesGroup.get(getAdapterPosition()).getListRecipes());
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(Config.RECIPES_BUNDLE, getAdapterPosition());
+
+                    ListRecipesFragment fragment = new ListRecipesFragment();
+                    fragment.setArguments(bundle);
+
+                    transaction.replace(containerID, fragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                 }
             });
 
@@ -95,11 +113,11 @@ public class GroupsRecipesAdapter extends RecyclerView.Adapter<GroupsRecipesAdap
             textViewList.add(itemView.findViewById(R.id.textRecipe4));
             textViewList.add(itemView.findViewById(R.id.textRecipe5));
 
-            calendarViewList.add(itemView.findViewById(R.id.cvRecipe1));
-            calendarViewList.add(itemView.findViewById(R.id.cvRecipe2));
-            calendarViewList.add(itemView.findViewById(R.id.cvRecipe3));
-            calendarViewList.add(itemView.findViewById(R.id.cvRecipe4));
-            calendarViewList.add(itemView.findViewById(R.id.cvRecipe5));
+            cardViewList.add(itemView.findViewById(R.id.cvRecipe1));
+            cardViewList.add(itemView.findViewById(R.id.cvRecipe2));
+            cardViewList.add(itemView.findViewById(R.id.cvRecipe3));
+            cardViewList.add(itemView.findViewById(R.id.cvRecipe4));
+            cardViewList.add(itemView.findViewById(R.id.cvRecipe5));
 
         }
 
@@ -111,15 +129,27 @@ public class GroupsRecipesAdapter extends RecyclerView.Adapter<GroupsRecipesAdap
             int listSize = listOfRecipesGroup.get(listIndex).getListRecipes().size();
             if (listSize < 5) {
                 border = listSize;
+
+                for (int i = border; i < 5; i++){
+                    cardViewList.get(i).setVisibility(View.GONE);
+                }
             }
 
             for (int i = 0; i < border; i++){
+                String name = listOfRecipesGroup.get(listIndex).getListRecipes().get(i).getName();
+
+                if (name.length() > 25){
+                    name = name.substring(0, 25) + "...";
+                }
+
                 Glide
                         .with(context)
                         .load(getUrl(listIndex, i))
                         .into(imageViewList.get(i));
-                textViewList.get(i).setText(listOfRecipesGroup.get(listIndex).getListRecipes().get(i).getName());
+                textViewList.get(i).setText(name);
+
             }
+
 
         }
 

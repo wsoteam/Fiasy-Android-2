@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,8 +19,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory;
-import com.wsoteam.diet.BranchOfRecipes.ActivityGroupsOfRecipes;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.ObjectHolder;
 import com.wsoteam.diet.POJOS.ItemRecipes;
@@ -30,16 +29,14 @@ import com.wsoteam.diet.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.support.v7.widget.GridLayoutManager.*;
+public class GroupsFragment extends Fragment {
 
-public class GroupsRecipesFragment extends Fragment {
-
-    GroupsRecipesFragment groupsRecipesFragment = this;
+    GroupsFragment groupsFragment = this;
     Context context = getContext();
 
     Button backButton;
 
-    RecyclerView groups;
+    RecyclerView recyclerView;
 
     @Nullable
     @Override
@@ -52,23 +49,18 @@ public class GroupsRecipesFragment extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                groups.setLayoutManager(layoutManager);
-                updateUI();
+                getActivity().onBackPressed();
             }
         });
 
 
-        groups = view.findViewById(R.id.rvGroupsRecipe);
+        recyclerView = view.findViewById(R.id.rvGroupsRecipe);
 
-        groups.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(layoutManager);
         updateUI();
         return view;
     }
 
-    public void updateAdapter(List<ItemRecipes> list) {
-        groups.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        groups.setAdapter(new RecipeAdapter(list));
-    }
 
 
     private void updateUI() {
@@ -81,7 +73,7 @@ public class GroupsRecipesFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ObjectHolder objectHolder = new ObjectHolder();
                 objectHolder.bindObjectWithHolder(dataSnapshot.getValue(ListOfGroupsRecipes.class));
-                groups.setAdapter(new GroupsRecipesAdapter((ArrayList<ListOfRecipes>) ObjectHolder.getListOfGroupsRecipes().getListOfGroupsRecipes(), groupsRecipesFragment));
+                recyclerView.setAdapter(new GroupsAdapter((ArrayList<ListOfRecipes>) ObjectHolder.getListOfGroupsRecipes().getListOfGroupsRecipes(), groupsFragment));
 
             }
 

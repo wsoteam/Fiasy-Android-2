@@ -9,9 +9,10 @@
         android:id="@+id/tvGroupName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,7 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Посмотреть все рецепты"
+        android:drawableRight="@drawable/recipes_arrow"
+        android:text="Посмотреть все рецепты  "
+        android:textColor="#EF7D02"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,14 +59,17 @@
                         android:id="@+id/imageRecipe1"
                         android:layout_width="match_parent"
                         android:layout_height="128dp"
+                        android:scaleType="center"
                         app:srcCompat="@drawable/ad_breakfast" />
 
                     <TextView
                         android:id="@+id/textRecipe1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:text="TextView"
-                        android:textAlignment="center" />
+                        android:textAlignment="textStart" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -84,14 +90,17 @@
                         android:id="@+id/imageRecipe2"
                         android:layout_width="match_parent"
                         android:layout_height="128dp"
+                        android:scaleType="center"
                         app:srcCompat="@drawable/ad_breakfast" />
 
                     <TextView
                         android:id="@+id/textRecipe2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:text="TextView"
-                        android:textAlignment="center" />
+                        android:textAlignment="textStart" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -112,14 +121,17 @@
                         android:id="@+id/imageRecipe3"
                         android:layout_width="match_parent"
                         android:layout_height="128dp"
+                        android:scaleType="center"
                         app:srcCompat="@drawable/ad_breakfast" />
 
                     <TextView
                         android:id="@+id/textRecipe3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:text="TextView"
-                        android:textAlignment="center" />
+                        android:textAlignment="textStart" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -140,14 +152,17 @@
                         android:id="@+id/imageRecipe4"
                         android:layout_width="match_parent"
                         android:layout_height="128dp"
+                        android:scaleType="center"
                         app:srcCompat="@drawable/ad_breakfast" />
 
                     <TextView
                         android:id="@+id/textRecipe4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:text="TextView"
-                        android:textAlignment="center" />
+                        android:textAlignment="textStart" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -168,14 +183,17 @@
                         android:id="@+id/imageRecipe5"
                         android:layout_width="match_parent"
                         android:layout_height="128dp"
+                        android:scaleType="center"
                         app:srcCompat="@drawable/ad_breakfast" />
 
                     <TextView
                         android:id="@+id/textRecipe5"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:text="TextView"
-                        android:textAlignment="center" />
+                        android:textAlignment="textStart" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>

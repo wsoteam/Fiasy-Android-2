@@ -7,7 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Recipes.GroupsRecipesFragment;
+import com.wsoteam.diet.Recipes.GroupsFragment;
+import com.wsoteam.diet.Recipes.ListRecipesFragment;
 
 public class ForTestFragmentActivity extends AppCompatActivity {
 
@@ -17,7 +18,8 @@ public class ForTestFragmentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_for_test_fragment);
 
 
-            Fragment addedFragment = new GroupsRecipesFragment();
+            Fragment fragment = new ListRecipesFragment();
+            Fragment addedFragment = new GroupsFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
             transaction.replace(R.id.testFrame, addedFragment);

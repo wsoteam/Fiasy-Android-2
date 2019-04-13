@@ -17,6 +17,9 @@ public class Config {
     public static final String ES = "es";
     public static final String DE = "de";
 
+    //Recipes
+    public static final String RECIPES_BUNDLE = "RECIPES_BUNDLE";
+
     //Diary rewrite
     public static final String TAG_OF_REWRITE = "TAG_OF_REWRITE";
     public static final int NOT_ENTER_EARLY = -1;
