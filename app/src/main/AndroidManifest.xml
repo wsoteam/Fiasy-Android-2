@@ -23,7 +23,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Recipes.ItemRecipeActivity"></activity>
+        <activity android:name=".Recipes.ItemActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu"/>
         <activity
             android:name=".tvoytrener.ForTestFragmentActivity"
             android:screenOrientation="portrait"

@@ -78,7 +78,7 @@ public class ListRecipesFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ObjectHolder objectHolder = new ObjectHolder();
                 objectHolder.bindObjectWithHolder(dataSnapshot.getValue(ListOfGroupsRecipes.class));
-                recyclerView.setAdapter(new ListRecipesAdapter((List<ItemRecipes>) ObjectHolder.getListOfGroupsRecipes().getListOfGroupsRecipes().get(position).getListRecipes()));
+                recyclerView.setAdapter(new ListRecipesAdapter((List<ItemRecipes>) ObjectHolder.getListOfGroupsRecipes().getListOfGroupsRecipes().get(position).getListRecipes(), getActivity()));
 
             }
 

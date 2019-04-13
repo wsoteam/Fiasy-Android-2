@@ -19,6 +19,7 @@ public class Config {
 
     //Recipes
     public static final String RECIPES_BUNDLE = "RECIPES_BUNDLE";
+    public static final String RECIPE_INTENT = "RECIPE_INTENT";
 
     //Diary rewrite
     public static final String TAG_OF_REWRITE = "TAG_OF_REWRITE";

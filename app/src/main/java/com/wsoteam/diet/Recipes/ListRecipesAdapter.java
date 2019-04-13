@@ -1,7 +1,10 @@
 package com.wsoteam.diet.Recipes;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOS.ItemRecipes;
 import com.wsoteam.diet.R;
 
@@ -19,9 +23,11 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.
 
     private List<ItemRecipes> listRecipes;
     private Context context;
+    private Activity activity;
 
-    public ListRecipesAdapter(List<ItemRecipes> listRecipes){
+    public ListRecipesAdapter(List<ItemRecipes> listRecipes, Activity activity){
         this.listRecipes = listRecipes;
+        this.activity = activity;
     }
 
     @NonNull
@@ -53,11 +59,21 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.
     class ListRecipeViewHolder extends RecyclerView.ViewHolder{
     ImageView imageView;
     TextView textView;
+    CardView cardView;
     public ListRecipeViewHolder(View itemView) {
         super(itemView);
 
         imageView = itemView.findViewById(R.id.imageRecipe);
         textView = itemView.findViewById(R.id.tvRecipeDescripion);
+        cardView = itemView.findViewById(R.id.ItemCard);
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, ItemActivity.class);
+                intent.putExtra(Config.RECIPE_INTENT, listRecipes.get(getAdapterPosition()));
+                activity.startActivity(intent);
+            }
+        });
     }
 
     void bind(int position){
