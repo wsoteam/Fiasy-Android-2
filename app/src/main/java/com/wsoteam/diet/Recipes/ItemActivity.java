@@ -1,5 +1,6 @@
 package com.wsoteam.diet.Recipes;
 
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -17,6 +18,7 @@ public class ItemActivity extends AppCompatActivity {
     private ImageView imageView;
     private TextView bodyTextView;
     private TextView nameTextView;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +26,14 @@ public class ItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_recipe);
 
         bodyTextView = findViewById(R.id.tvRecipe);
-        nameTextView = findViewById(R.id.tvRecipeNmae);
+//        nameTextView = findViewById(R.id.tvRecipeNmae);
         imageView = findViewById(R.id.ivRecipe);
+        collapsingToolbarLayout = findViewById(R.id.collapsingToolbar);
         itemRecipes = (ItemRecipes)getIntent().getSerializableExtra(Config.RECIPE_INTENT);
 
 
-        nameTextView.setText(Html.fromHtml(itemRecipes.getName()));
+//        nameTextView.setText(Html.fromHtml(itemRecipes.getName()));
+        collapsingToolbarLayout.setTitle(itemRecipes.getName());
         bodyTextView.setText(Html.fromHtml(itemRecipes.getBody()));
         Glide
                 .with(this)
