@@ -21,6 +21,7 @@ import com.wsoteam.diet.InApp.Fragments.FragmentSubscription;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.GroupsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,8 +66,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     return true;
                 case R.id.bnv_main_recipes:
-                    if (checkSubscribe()) {
-                        transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
+                    if (true) {
+                        transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
+
                     } else {
                         transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
                                 AmplitudaEvents.view_prem_recipe, EventsAdjust.view_prem_recipe,

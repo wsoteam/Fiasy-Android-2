@@ -2,6 +2,7 @@ package com.wsoteam.diet.Recipes;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -118,6 +119,19 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
             cardViewList.add(itemView.findViewById(R.id.cvRecipe3));
             cardViewList.add(itemView.findViewById(R.id.cvRecipe4));
             cardViewList.add(itemView.findViewById(R.id.cvRecipe5));
+
+
+            for (int i = 0; i < 5; i++) {
+                int y = i;
+                cardViewList.get(i).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(groupsFragment.getActivity(), ItemActivity.class);
+                        intent.putExtra(Config.RECIPE_INTENT, listOfRecipesGroup.get(getAdapterPosition()).getListRecipes().get(y));
+                        groupsFragment.getActivity().startActivity(intent);
+                    }
+                });
+            }
 
         }
 

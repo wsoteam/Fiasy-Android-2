@@ -43,7 +43,6 @@ public class ListRecipesFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-
             position = bundle.getInt(Config.RECIPES_BUNDLE);
             Log.d("testrt", "onCreateView: position " + position);
         }
