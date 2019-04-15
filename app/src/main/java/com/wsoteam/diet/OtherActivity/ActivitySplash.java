@@ -42,6 +42,7 @@ import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.tvoytrener.ForTestFragmentActivity;
 import com.wsoteam.diet.tvoytrener.PortionSize;
 
@@ -142,6 +143,7 @@ public class ActivitySplash extends AppCompatActivity {
             if (isNeedRegistration()) {
                 startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
             } else {
+                WorkWithFirebaseDB.setStartEmptyObject(this);
                 startActivity(new Intent(ActivitySplash.this, MainActivity.class));
             }
             finish();

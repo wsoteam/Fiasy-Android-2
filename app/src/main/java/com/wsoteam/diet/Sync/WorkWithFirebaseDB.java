@@ -27,6 +27,7 @@ import com.wsoteam.diet.Sync.POJO.WeightDiaryObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 public class WorkWithFirebaseDB {
@@ -82,12 +83,34 @@ public class WorkWithFirebaseDB {
         Snack beforeYesterdaySnackEat = new Snack(context.getResources().getString(R.string.beforeYesterdaySnackEat), "none",
                 115, 19, 3, 3, 100, currentDay - 2, currentMonth, currentYear);
 
+        HashMap<String, Breakfast> breakfastHashMap = new HashMap<>();
+        breakfastHashMap.put("currentBrekfastDrink", currentBrekfastDrink);
+        breakfastHashMap.put("yesterdayBreakfastDrink", yesterdayBreakfastDrink);
+        breakfastHashMap.put("beforeYesterdayBreakfastDrink", beforeYesterdayBreakfastDrink);
+        breakfastHashMap.put("currentBreakfastEat", currentBreakfastEat);
+        breakfastHashMap.put("yesterdayBreakfastEat", yesterdayBreakfastEat);
+        breakfastHashMap.put("beforeYesterdayBreakfastEat", beforeYesterdayBreakfastEat);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
-                child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        HashMap<String, Lunch> lunchHashMap = new HashMap<>();
+        lunchHashMap.put("currentLunchEat", currentLunchEat);
+        lunchHashMap.put("yesterdayLunchEat", yesterdayLunchEat);
+        lunchHashMap.put("beforeYesterdayLunchEat", beforeYesterdayLunchEat);
 
-        myRef.setValue(userData);
+        HashMap<String, Dinner> dinnerHashMap = new HashMap<>();
+        dinnerHashMap.put("currentDinnerEat", currentDinnerEat);
+        dinnerHashMap.put("yesterdayDinnerEat", yesterdayDinnerEat);
+        dinnerHashMap.put("beforeYesterdayDinnerEat", beforeYesterdayDinnerEat);
+
+        HashMap<String, Snack> snackHashMap = new HashMap<>();
+        snackHashMap.put("currentSnackEat", currentSnackEat);
+        snackHashMap.put("yesterdaySnackEat", yesterdaySnackEat);
+        snackHashMap.put("beforeYesterdaySnackEat", beforeYesterdaySnackEat);
+
+        UserData userData = new UserData("free", profile, breakfastHashMap, lunchHashMap, dinnerHashMap, snackHashMap, new HashMap<>());
+
+        new UserDataHolder().bindObjectWithHolder(userData);
+
+
 
     }
 
