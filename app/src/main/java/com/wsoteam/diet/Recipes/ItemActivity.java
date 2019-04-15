@@ -1,5 +1,6 @@
 package com.wsoteam.diet.Recipes;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.POJOS.ItemRecipes;
 import com.wsoteam.diet.R;
 
@@ -64,6 +66,13 @@ public class ItemActivity extends AppCompatActivity {
             arrowBackButton.setVisibility(View.INVISIBLE);
             nameTextView.setVisibility(View.INVISIBLE);
             xBackButton.setOnClickListener(listener);
+            premButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(ItemActivity.this, ActivitySubscription.class));
+                    finish();
+                }
+            });
         }
 
         Glide
