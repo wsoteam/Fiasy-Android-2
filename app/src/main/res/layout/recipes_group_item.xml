@@ -59,8 +59,7 @@
                         android:id="@+id/imageRecipe1"
                         android:layout_width="match_parent"
                         android:layout_height="128dp"
-                        android:scaleType="center"
-                        app:srcCompat="@drawable/ad_breakfast" />
+                        android:scaleType="center" />
 
                     <TextView
                         android:id="@+id/textRecipe1"
@@ -68,7 +67,7 @@
                         android:layout_height="match_parent"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:text="TextView"
+                        android:textColor="#000"
                         android:textAlignment="textStart" />
                 </LinearLayout>
 
@@ -90,8 +89,7 @@
                         android:id="@+id/imageRecipe2"
                         android:layout_width="match_parent"
                         android:layout_height="128dp"
-                        android:scaleType="center"
-                        app:srcCompat="@drawable/ad_breakfast" />
+                        android:scaleType="center" />
 
                     <TextView
                         android:id="@+id/textRecipe2"
@@ -99,7 +97,7 @@
                         android:layout_height="match_parent"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:text="TextView"
+                        android:textColor="#000"
                         android:textAlignment="textStart" />
                 </LinearLayout>
 
@@ -121,8 +119,7 @@
                         android:id="@+id/imageRecipe3"
                         android:layout_width="match_parent"
                         android:layout_height="128dp"
-                        android:scaleType="center"
-                        app:srcCompat="@drawable/ad_breakfast" />
+                        android:scaleType="center" />
 
                     <TextView
                         android:id="@+id/textRecipe3"
@@ -130,7 +127,7 @@
                         android:layout_height="match_parent"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:text="TextView"
+                        android:textColor="#000"
                         android:textAlignment="textStart" />
                 </LinearLayout>
 
@@ -152,8 +149,7 @@
                         android:id="@+id/imageRecipe4"
                         android:layout_width="match_parent"
                         android:layout_height="128dp"
-                        android:scaleType="center"
-                        app:srcCompat="@drawable/ad_breakfast" />
+                        android:scaleType="center" />
 
                     <TextView
                         android:id="@+id/textRecipe4"
@@ -161,7 +157,7 @@
                         android:layout_height="match_parent"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:text="TextView"
+                        android:textColor="#000"
                         android:textAlignment="textStart" />
                 </LinearLayout>
 
@@ -183,8 +179,7 @@
                         android:id="@+id/imageRecipe5"
                         android:layout_width="match_parent"
                         android:layout_height="128dp"
-                        android:scaleType="center"
-                        app:srcCompat="@drawable/ad_breakfast" />
+                        android:scaleType="center" />
 
                     <TextView
                         android:id="@+id/textRecipe5"
@@ -192,7 +187,7 @@
                         android:layout_height="match_parent"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:text="TextView"
+                        android:textColor="#000"
                         android:textAlignment="textStart" />
                 </LinearLayout>
 

@@ -2,6 +2,11 @@
 
     <!--Menu-->
     <string name="etSearch">Поиск</string>
+    <string name="btnRecipePrem">Обновление до Premium</string>
+    <string name="tvRecipePrem">Оформите подписку Premium - и вы \n
+                                будете получать рецепты, \n
+                                подобранные специально для Вас \n
+                                нашими диетологами.</string>
 
     <!--Add Measurements Activity-->
     <string name="tv_select_date_measur">Выберите дату</string>
