@@ -21,38 +21,29 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOForDB.DiaryData;
 import com.wsoteam.diet.POJOProfile.Profile;
+import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.POJO.WeightDiaryObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class WorkWithFirebaseDB {
 
-    public static void setStartEmptyObject() {
-        UserData userData = new UserData();
-        userData.setName("name");
-        userData.setProfile(new Profile());
+    public static void setStartEmptyObject(Context context) {
+        int currentDay, currentMonth, currentYear;
+        Calendar calendar = Calendar.getInstance();
+        currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        currentMonth = calendar.get(Calendar.MONTH);
+        currentYear = calendar.get(Calendar.YEAR);
 
-        List<Breakfast> breakfasts = new ArrayList<>();
-        breakfasts.add(new Breakfast());
-        //userData.setBreakfasts(breakfasts);
+        Profile profile = new Profile("Ivan", "Ivanov", true, 24, 180, 55, 0, context.getResources().getString(R.string.level_easy),
+                "default", 3000, 2500, 165, 50, 290, context.getResources().getString(R.string.dif_level_normal),
+                currentDay, currentMonth, currentYear);
 
-        List<Lunch> lunches = new ArrayList<>();
-        lunches.add(new Lunch());
-        //userData.setLunches(lunches);
-
-        List<Dinner> dinners = new ArrayList<>();
-        dinners.add(new Dinner());
-        //userData.setDinners(dinners);
-
-        List<Snack> snacks = new ArrayList<>();
-        snacks.add(new Snack());
-        //userData.setSnacks(snacks);
-
-        List<DiaryData> diaryData = new ArrayList<>();
-        diaryData.add(new DiaryData());
-        //userData.setDiaryDataList(diaryData);
+        Breakfast currentBrekfast = new Breakfast(context.getResources().getString(R.string.currentBreakfastDrink), "none", 140,
+                4, 20, 5, 100, currentDay, curre)
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).

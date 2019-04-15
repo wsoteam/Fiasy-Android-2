@@ -541,4 +541,12 @@
         <item quantity="other">%d лет</item>
     </plurals>
 
+    <string name="currentBreakfastDrink">Чай зеленый сухой</string>
+    <string name="yesterdayBreakfastDrink">Чай ромашковый</string>
+    <string name="beforeYesterdayBreakfastDrink">Чай зеленый сухой</string>
+    <string name="currentBreakfastEat">Чай зеленый сухой</string>
+    <string name="yesterdayBreakfastEat">Чай ромашковый</string>
+    <string name="beforeYesterdayBreakfastEat">Чай зеленый сухой</string>
+
+
 </resources>

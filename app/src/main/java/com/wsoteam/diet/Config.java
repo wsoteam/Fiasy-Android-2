@@ -68,5 +68,7 @@ public class Config {
     public static final String START_FROM = "START_FROM";
     public static final String FROM_ONBOARDING = "FROM_ONBOARDING";
 
+    public static final String FREE_USER = "FREE_USER";
+
 
 }

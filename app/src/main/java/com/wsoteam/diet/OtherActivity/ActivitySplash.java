@@ -53,7 +53,7 @@ public class ActivitySplash extends AppCompatActivity {
     private FirebaseUser user;
 
     private BillingClient mBillingClient;
-    private SharedPreferences countOfRun;
+    private SharedPreferences countOfRun, freeUser;
     private final String TAG_FIRST_RUN = "TAG_FIRST_RUN";
 
     @Override
@@ -139,12 +139,20 @@ public class ActivitySplash extends AppCompatActivity {
                 }
             });
         } else {
-//            startActivity(new Intent(ActivitySplash.this, ForTestFragmentActivity.class));
-            startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
+            if (isNeedRegistration()) {
+                startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
+            } else {
+                startActivity(new Intent(ActivitySplash.this, MainActivity.class));
+            }
             finish();
         }
 
 
+    }
+
+    private boolean isNeedRegistration() {
+        freeUser = getSharedPreferences(Config.FREE_USER, MODE_PRIVATE);
+        return freeUser.getBoolean(Config.FREE_USER, false);
     }
 
     private void checkFirstLaunch() {
