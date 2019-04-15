@@ -544,9 +544,23 @@
     <string name="currentBreakfastDrink">Чай зеленый сухой</string>
     <string name="yesterdayBreakfastDrink">Чай ромашковый</string>
     <string name="beforeYesterdayBreakfastDrink">Чай зеленый сухой</string>
-    <string name="currentBreakfastEat">Чай зеленый сухой</string>
-    <string name="yesterdayBreakfastEat">Чай ромашковый</string>
-    <string name="beforeYesterdayBreakfastEat">Чай зеленый сухой</string>
+    <string name="currentBreakfastEat">Яичница глазунья</string>
+    <string name="yesterdayBreakfastEat">Затрак Яичница с байстсами KFC</string>
+    <string name="beforeYesterdayBreakfastEat">Яичница глазунья</string>
+
+    <string name="currentLunchEat">Суп азиатский из фасоли</string>
+    <string name="yesterdayLunchEat">Суп из зеленого горошка</string>
+    <string name="beforeYesterdayLunchEat">Суп лимонный с рисом</string>
+
+    <string name="currentDinnerEat">Сосиски куриные</string>
+    <string name="yesterdayDinnerEat">Мясо цыпленка в собственном соку</string>
+    <string name="beforeYesterdayDinnerEat">Салат оливье с мясом готовый</string>
+
+    <string name="currentSnackEat">Кофе мокаччино</string>
+    <string name="yesterdaySnackEat">Драже изюм в шоколаде</string>
+    <string name="beforeYesterdaySnackEat">Салат оливье с мясом готовый</string>
+
+
 
 
 </resources>
