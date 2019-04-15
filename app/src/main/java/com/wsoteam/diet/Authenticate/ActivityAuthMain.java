@@ -11,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -144,6 +146,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
 
 
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -183,7 +186,8 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
         if (createUser) {
             intent = new Intent(this, ActivitySplash.class).
-                    putExtra(Config.INTENT_PROFILE,getIntent().getSerializableExtra(Config.INTENT_PROFILE));
+                    putExtra(Config.INTENT_PROFILE,getIntent().getSerializableExtra(Config.INTENT_PROFILE))
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             statusTextView.setText(R.string.auth_main_reg_tv);
             signIn.setText(R.string.auth_main_btn_create);
             phoneButton.setText(R.string.auth_main_reg_phone);
@@ -750,27 +754,6 @@ private ValueEventListener getPostListener(){
 
 
 
-//    @Override
-//    public void onBackPressed() {
-////        new AlertDialog.Builder(this)
-////                .setIcon(android.R.drawable.ic_dialog_alert)
-////                .setTitle(getString(R.string.exit_alerdialog_title))
-////                .setMessage(getString(R.string.exit_alertdialog_body))
-////                .setPositiveButton(getString(R.string.exit_alertdialog_btn_yes), new DialogInterface.OnClickListener()
-////                {
-////                    @Override
-////                    public void onClick(DialogInterface dialog, int which) {
-////                        finish();
-////                    }
-////
-////                })
-////                .setNegativeButton(getString(R.string.exit_alertdialog_btn_no), null)
-////                .show();
-//    }
-
-
-
-
     private boolean hasConnection(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -789,59 +772,6 @@ private ValueEventListener getPostListener(){
         return false;
     }
 
-//    private void restorePassword(){
-//
-//        final EditText edittext = new EditText(this);
-//        edittext.setHint(getString(R.string.auth_main_hint_respass));
-//
-//        new AlertDialog.Builder(this)
-//                .setTitle(getString(R.string.auth_main_title_respass))
-//                .setMessage(R.string.auth_main_body_respass)
-//                .setView(edittext)
-//                .setNegativeButton(getString(R.string.auth_main_btn_close), new DialogInterface.OnClickListener()
-//                {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//
-//                })
-//                .setPositiveButton(getString(R.string.auth_main_btn_restore), new DialogInterface.OnClickListener()
-//                {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                   if (!Valid.isValidEmail(edittext.getText().toString())){
-//                       Toast.makeText(ActivityAuthMain.this, "Проверь введенный email!", Toast.LENGTH_SHORT).show();
-//                   } else {
-//                       Log.d(TAG, "Email for reset:" + edittext.getText().toString());
-//
-//                       mAuth.sendPasswordResetEmail(edittext.getText().toString())
-//                               .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                   @Override
-//                                   public void onComplete(@NonNull Task<Void> task) {
-//                                       if (task.isSuccessful()) {
-//                                           Log.d(TAG, "Email sent." + edittext.getText().toString());
-//                                           Toast.makeText(ActivityAuthMain.this, "Проверьте вашу почту!", Toast.LENGTH_SHORT).show();
-//                                       }else {
-//                                           Log.d(TAG, "Error");
-////                                           Toast.makeText(ActivityAuthMain.this, "Ошибка, попробуйте позже.", Toast.LENGTH_SHORT).show();
-//                                       }
-//                                   }
-//                               }).addOnFailureListener(new OnFailureListener() {
-//                           @Override
-//                           public void onFailure(@NonNull Exception e) {
-//                               if (e instanceof FirebaseAuthInvalidUserException){
-//                                   Toast.makeText(ActivityAuthMain.this, "Пользователь не найден.", Toast.LENGTH_SHORT).show();
-//                               }
-//                               Log.d(TAG, String.valueOf(e.getClass()));
-//                           }
-//                       });
-//                   }
-//                    }
-//
-//                })
-//                .show();
-//    }
 
 
     private boolean isPP(){
@@ -883,6 +813,24 @@ private ValueEventListener getPostListener(){
             case R.id.textView82:
                 startActivity(new Intent(this, ActivityPrivacyPolicy.class));
                 break;
+        }
+    }
+
+
+
+    public class MyFilter implements InputFilter {
+        Pattern mPattern;
+
+        public MyFilter(String idFormatRegex) {
+            mPattern = Pattern.compile(idFormatRegex);
+        }
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            Matcher matcher = mPattern.matcher(dest);
+            if (!matcher.matches())
+                return "";
+            return null;
         }
     }
 
