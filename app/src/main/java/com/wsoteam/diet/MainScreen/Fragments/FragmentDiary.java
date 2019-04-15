@@ -64,7 +64,6 @@ public class FragmentDiary extends Fragment {
     @BindView(R.id.tvCircleProgressCarbo) TextView tvCircleProgressCarbo;
     @BindView(R.id.tvCircleProgressFat) TextView tvCircleProgressFat;
     @BindView(R.id.mainappbar) AppBarLayout mainappbar;
-    @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.collapsingToolbarLayout) CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.vpEatingTimeLine) ViewPager vpEatingTimeLine;
     @BindView(R.id.tvDateForMainScreen) TextView tvDateForMainScreen;
@@ -132,24 +131,7 @@ public class FragmentDiary extends Fragment {
             editor.commit();
         }
 
-        mainappbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            boolean isShow = false;
-            int scrollRange = -1;
 
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout.getTotalScrollRange();
-                }
-                if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbarLayout.setTitle(getString(R.string.main_menu));
-                    isShow = true;
-                } else if (isShow) {
-                    collapsingToolbarLayout.setTitle("");
-                    isShow = false;
-                }
-            }
-        });
 
         showThankToast();
         additionOneToSharedPreference();
