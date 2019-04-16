@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
     @BindView(R.id.ivTop) ImageView ivTop;
     private FragmentTransaction transaction;
-    private SharedPreferences freeUser, isNeedRegistration;
+    private SharedPreferences freeUser;
     private BottomSheetBehavior bottomSheetBehavior;
 
 
