@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        if (isFreeUser()) {
+        if (isFreeUser() && !checkSubscribe()) {
             setInterceptor();
         }
     }
@@ -124,9 +124,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 ivTop.setVisibility(View.GONE);
-                if (checkSubscribe()) {
-                    startActivity(new Intent(MainActivity.this, ActivitySubscription.class));
-                }
+                startActivity(new Intent(MainActivity.this, ActivitySubscription.class));
                 return false;
             }
         });
