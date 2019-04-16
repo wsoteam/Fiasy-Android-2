@@ -2,6 +2,11 @@
 
     <!--Menu-->
     <string name="etSearch">Поиск</string>
+    <string name="btnRecipePrem">Обновление до Premium</string>
+    <string name="tvRecipePrem">Оформите подписку Premium - и вы \n
+                                будете получать рецепты, \n
+                                подобранные специально для Вас \n
+                                нашими диетологами.</string>
 
     <!--Add Measurements Activity-->
     <string name="tv_select_date_measur">Выберите дату</string>
@@ -21,10 +26,10 @@
     <string name="tv_second_name">Фамилия</string>
 
     <!--activity forgot password-->
-    <string name="btn_forgot_password">Сбросить</string>
+    <string name="btn_forgot_password">Отправить</string>
     <string name="et_forgot_hint_email">E-mail address</string>
     <string name="tv_forgot_title">Забыли пароль?</string>
-    <string name="tv_forgot_status">Письмо отправлено на ваш e-mail</string>
+    <string name="tv_forgot_status">Письмо будет отправлено на ваш e-mail</string>
 
     <string name="textViewProfileTitle">Заполните данные о себе</string>
     <string name="rectangle_8">Далее</string>

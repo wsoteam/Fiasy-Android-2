@@ -26,7 +26,6 @@ public class ActivityForgotPassword extends AppCompatActivity {
     private Button backButon;
     private Button resetButton;
     private EditText emailEditText;
-    private TextView statusTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +37,6 @@ public class ActivityForgotPassword extends AppCompatActivity {
         backButon = findViewById(R.id.btnBackFP);
         resetButton = findViewById(R.id.btnResetPass);
         emailEditText = findViewById(R.id.etForgotEmail);
-        statusTextView = findViewById(R.id.tvForgotStatus);
-        statusTextView.setVisibility(View.INVISIBLE);
 
         backButon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,8 +65,8 @@ public class ActivityForgotPassword extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "Email sent." + emailEditText.getText().toString());
-                            statusTextView.setVisibility(View.VISIBLE);
                             Toast.makeText(ActivityForgotPassword.this, "Проверьте вашу почту!", Toast.LENGTH_SHORT).show();
+                            finish();
                         }else {
                             Log.d(TAG, "Error");
 
