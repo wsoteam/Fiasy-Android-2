@@ -76,7 +76,7 @@ public class FragmentDiary extends Fragment {
     private boolean isFiveStarSend = false;
 
     private AlertDialog alertDialogBuyInfo;
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences, freeUser;
 
     @Override
     public void onResume() {
@@ -137,9 +137,17 @@ public class FragmentDiary extends Fragment {
         additionOneToSharedPreference();
         checkFirstRun();
         bindViewPager();
-        WorkWithFirebaseDB.setFirebaseStateListener();
+
+        if (!isFreeUser()){
+            WorkWithFirebaseDB.setFirebaseStateListener();
+        }
 
         return mainView;
+    }
+
+    private boolean isFreeUser() {
+        freeUser = getActivity().getSharedPreferences(Config.FREE_USER, MODE_PRIVATE);
+        return freeUser.getBoolean(Config.FREE_USER, true);
     }
 
     private void bindViewPager() {

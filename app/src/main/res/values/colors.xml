@@ -132,6 +132,8 @@
 
     <color name="statusbar_profile">#2E4E4E</color>
 
+    <color name="btn_reg_sheet">#74A6B3</color>
+
 
 
 </resources>

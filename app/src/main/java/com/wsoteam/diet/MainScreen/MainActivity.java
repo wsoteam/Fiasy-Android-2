@@ -1,22 +1,30 @@
 package com.wsoteam.diet.MainScreen;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscription;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
@@ -25,11 +33,16 @@ import com.wsoteam.diet.Recipes.GroupsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.flFragmentContainer) FrameLayout flFragmentContainer;
     @BindView(R.id.bnv_main) BottomNavigationView bnvMain;
+    @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
+    @BindView(R.id.ivTop) ImageView ivTop;
     private FragmentTransaction transaction;
+    private SharedPreferences freeUser;
+    private BottomSheetBehavior bottomSheetBehavior;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -77,9 +90,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                     return true;
                 case R.id.bnv_main_profile:
-                    transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
-                    window.setStatusBarColor(Color.parseColor("#2E4E4E"));
-                    return true;
+                    if (!isFreeUser()) {
+                        transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
+                        window.setStatusBarColor(Color.parseColor("#2E4E4E"));
+                        return true;
+                    } else {
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        return false;
+                    }
+
             }
             return false;
         }
@@ -92,6 +111,22 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        if (isFreeUser()){
+            setInterceptor();
+        }
+    }
+
+    private void setInterceptor() {
+        ivTop.setVisibility(View.VISIBLE);
+        ivTop.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                ivTop.setVisibility(View.GONE);
+                startActivity(new Intent(MainActivity.this, ActivitySubscription.class));
+                return false;
+            }
+        });
     }
 
     private boolean checkSubscribe() {
@@ -100,6 +135,23 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else {
             return false;
+        }
+    }
+
+    private boolean isFreeUser() {
+        freeUser = getSharedPreferences(Config.FREE_USER, MODE_PRIVATE);
+        return freeUser.getBoolean(Config.FREE_USER, true);
+    }
+
+    @OnClick({R.id.ibSheetClose, R.id.btnReg})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ibSheetClose:
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                break;
+            case R.id.btnReg:
+
+                break;
         }
     }
 

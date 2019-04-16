@@ -84,19 +84,20 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
         unbinder = ButterKnife.bind(this, view);
 
         String startFrom = getActivity().getIntent().getStringExtra(Config.START_FROM);
-        Log.d("event", "String startFrom = " + startFrom );
-        if (startFrom != null){
-                if (startFrom.equals(Config.FROM_ONBOARDING)){
-            Amplitude.getInstance().logEvent(AmplitudaEvents.buy_prem_onboarding);
-            Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_onboarding));
-            Log.d("event", "onCreate: buy_prem_onboarding" );
-        }}
+        Log.d("event", "String startFrom = " + startFrom);
+        if (startFrom != null) {
+            if (startFrom.equals(Config.FROM_ONBOARDING)) {
+                Amplitude.getInstance().logEvent(AmplitudaEvents.buy_prem_onboarding);
+                Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_onboarding));
+                Log.d("event", "onCreate: buy_prem_onboarding");
+            }
+        }
 
 
         Amplitude.getInstance().logEvent(getArguments().getString(AMPLITUDE_COME_FROM_TAG));
         Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_COME_FROM_TAG)));
 
-        if (getArguments().getBoolean(ENTER_FROM_MAINACTIVITY_TAG)){
+        if (getArguments().getBoolean(ENTER_FROM_MAINACTIVITY_TAG)) {
             imbtnCancel.setVisibility(View.GONE);
         }
 
@@ -214,8 +215,12 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
             buy(sku);
         }
         if (view.getId() == R.id.imbtnCancel) {
-            startActivity(new Intent(getActivity(), ActivitySplash.class));
-            getActivity().finish();
+            if (getActivity().getSharedPreferences(Config.FREE_USER, MODE_PRIVATE).getBoolean(Config.FREE_USER, true)) {
+                getActivity().onBackPressed();
+            } else {
+                startActivity(new Intent(getActivity(), ActivitySplash.class));
+                getActivity().finish();
+            }
 
         }
         if (view.getId() == R.id.tvPrivacyPolicy) {

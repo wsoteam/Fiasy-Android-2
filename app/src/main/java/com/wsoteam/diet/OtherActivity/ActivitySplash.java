@@ -111,6 +111,7 @@ public class ActivitySplash extends AppCompatActivity {
 
 
         if (user != null) {
+            deleteFreeUser();
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                     child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -150,6 +151,13 @@ public class ActivitySplash extends AppCompatActivity {
         }
 
 
+    }
+
+    private void deleteFreeUser() {
+        freeUser = getSharedPreferences(Config.FREE_USER, MODE_PRIVATE);
+        SharedPreferences.Editor editor = freeUser.edit();
+        editor.putBoolean(Config.FREE_USER, false);
+        editor.commit();
     }
 
     private boolean isNeedRegistration() {
