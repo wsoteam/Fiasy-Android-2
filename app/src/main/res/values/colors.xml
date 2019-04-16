@@ -134,6 +134,10 @@
 
     <color name="btn_reg_sheet">#74A6B3</color>
 
+    <color name="prem_medium">#883A1B</color>
+    <color name="prem_head">#E4930B</color>
+    <color name="prem_filter">#61FF8E00</color>
+
 
 
 </resources>

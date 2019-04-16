@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
@@ -49,6 +50,9 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
     @BindView(R.id.cvSub12mBack) CardView cvSub12mBack;
     @BindView(R.id.cvSub1mBack) CardView cvSub1mBack;
     @BindView(R.id.imbtnCancel) ImageButton imbtnCancel;
+    @BindView(R.id.ivFilter1sub) ImageView ivFilter1sub;
+    @BindView(R.id.ivFilter12sub) ImageView ivFilter12sub;
+    @BindView(R.id.ivFilter3sub) ImageView ivFilter3sub;
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
     private static final int COUNT_OF_PAGES = 4;
@@ -120,6 +124,8 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
 
         cvSub3mBack.setVisibility(View.GONE);
         cvSub1mBack.setVisibility(View.GONE);
+        ivFilter1sub.setVisibility(View.GONE);
+        ivFilter3sub.setVisibility(View.GONE);
         bindViewPager();
         return view;
     }
@@ -196,20 +202,29 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
         if (view.getId() == R.id.cvSub1m) {
             sku = "basic_subscription_1m";
             cvSub1mBack.setVisibility(View.VISIBLE);
+            ivFilter1sub.setVisibility(View.VISIBLE);
             cvSub3mBack.setVisibility(View.GONE);
             cvSub12mBack.setVisibility(View.GONE);
+            ivFilter3sub.setVisibility(View.GONE);
+            ivFilter12sub.setVisibility(View.GONE);
         }
         if (view.getId() == R.id.cvSub12m) {
             sku = "basic_subscription_12m";
             cvSub12mBack.setVisibility(View.VISIBLE);
+            ivFilter12sub.setVisibility(View.VISIBLE);
             cvSub3mBack.setVisibility(View.GONE);
             cvSub1mBack.setVisibility(View.GONE);
+            ivFilter3sub.setVisibility(View.GONE);
+            ivFilter1sub.setVisibility(View.GONE);
         }
         if (view.getId() == R.id.cvSub3m) {
             sku = "basic_subscription_3m";
             cvSub3mBack.setVisibility(View.VISIBLE);
+            ivFilter3sub.setVisibility(View.VISIBLE);
             cvSub12mBack.setVisibility(View.GONE);
             cvSub1mBack.setVisibility(View.GONE);
+            ivFilter1sub.setVisibility(View.GONE);
+            ivFilter12sub.setVisibility(View.GONE);
         }
         if (view.getId() == R.id.btnBuyPrem) {
             buy(sku);

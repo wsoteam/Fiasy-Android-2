@@ -2,6 +2,8 @@
 
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_premium">
@@ -10,9 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
@@ -31,8 +31,8 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cvSub12mBack"
-                android:layout_width="112dp"
-                android:layout_height="125dp"
+                android:layout_width="126dp"
+                android:layout_height="139dp"
                 app:cardBackgroundColor="@color/select_card_premium"
                 app:cardCornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/cvSub12m"
@@ -75,16 +75,20 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="1 мес."
                         android:textColor="@color/black"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView90"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/textView90"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -92,14 +96,16 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="449 руб."
+                        android:fontFamily="@font/roboto"
+                        android:text="449р"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
+                        android:textSize="20sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/textView78"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView69" />
 
                     <TextView
                         android:id="@+id/textView78"
@@ -108,21 +114,30 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:text="В МЕСЯЦ"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/roboto_light"
+                        android:text="в месяц"
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView90" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@color/prem_filter"
+                        android:id="@+id/ivFilter1sub"/>
 
                 </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cvSub12m"
-                android:layout_width="105dp"
-                android:layout_height="120dp"
+                android:layout_width="119dp"
+                android:layout_height="134dp"
                 app:cardCornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/cvSub3m"
                 app:layout_constraintEnd_toStartOf="@+id/cvSub1m"
@@ -135,37 +150,50 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <ImageView
+                        android:id="@+id/imageView25"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:src="@color/prem_head"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/textView69"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="24dp"
                         android:layout_marginEnd="8dp"
-                        android:text="12 мес."
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="12 месяцев"
                         android:textColor="@color/black"
-                        android:textSize="12sp"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView88"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/textView88"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:text="199 руб."
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="199р"
+                        android:textColor="@color/prem_medium"
+                        android:textSize="20sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/textView78"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView69" />
 
                     <TextView
                         android:id="@+id/textView78"
@@ -174,13 +202,37 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:text="В МЕСЯЦ"
+                        android:layout_marginBottom="24dp"
+                        android:fontFamily="@font/roboto_light"
+                        android:text="в месяц"
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView88" />
+
+                    <TextView
+                        android:id="@+id/textView95"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="лучшая цена"
+                        android:textColor="@color/white"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView25"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@color/prem_filter"
+                        android:id="@+id/ivFilter12sub"/>
 
                 </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.CardView>
@@ -230,16 +282,20 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/three_mon"
                         android:textColor="@color/black"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView62"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/textView62"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -247,14 +303,16 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="319 руб."
+                        android:fontFamily="@font/roboto"
+                        android:text="319р"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
+                        android:textSize="20sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/textView78"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView69" />
 
                     <TextView
                         android:id="@+id/textView78"
@@ -263,13 +321,22 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:text="В МЕСЯЦ"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/roboto_light"
+                        android:text="в месяц"
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView62" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@color/prem_filter"
+                        android:id="@+id/ivFilter3sub"/>
 
                 </android.support.constraint.ConstraintLayout>
 

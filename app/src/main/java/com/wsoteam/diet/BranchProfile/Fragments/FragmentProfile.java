@@ -141,9 +141,9 @@ public class FragmentProfile extends Fragment {
                 startActivity(new Intent(getActivity(), ActivitySettings.class));
                 break;
             case R.id.civProfile:
-                Intent intent = new Intent(Intent.ACTION_PICK);
+                /*Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, 1);*/
                 break;
             case R.id.tvUserName:
                 startActivity(new Intent(getActivity(), ActivityEditCompletedProfile.class));
