@@ -3,11 +3,13 @@ package com.wsoteam.diet.BranchOfAnalyzer;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,6 +80,9 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     @BindView(R.id.btnPremSod) TextView btnPremSod;
     @BindView(R.id.btnPremPot) TextView btnPremPot;
 
+    @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
+    private BottomSheetBehavior bottomSheetBehavior;
+
     @BindViews({R.id.tvCellulose, R.id.tvSugar, R.id.tvSaturated, R.id.tvСholesterol, R.id.tvSodium,
             R.id.tvPotassium, R.id.tvMonoUnSaturated, R.id.tvPolyUnSaturated,
             R.id.tvLabelCellulose, R.id.tvLabelSugar, R.id.tvLabelSaturated, R.id.tvLabelMonoUnSaturated, R.id.tvLabelPolyUnSaturated,
@@ -144,6 +149,8 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
             }
         });
+
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
         YandexMetrica.reportEvent("Открыт экран: Детализация продукта группы - " + foodItem.getNameOfGroup());
         Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_detail_food));
@@ -266,12 +273,12 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     }
 
-    @OnClick({R.id.btnSaveEating, R.id.ivBack})
+    @OnClick({R.id.btnSaveEating, R.id.ivBack, R.id.ibSheetClose, R.id.btnReg})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSaveEating:
                 if (getSharedPreferences(Config.FREE_USER, MODE_PRIVATE).getBoolean(Config.FREE_USER, true)) {
-                    Toast.makeText(this, "Регнись", Toast.LENGTH_SHORT).show();
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 } else if (edtWeight.getText().toString().equals("") || edtWeight.getText().toString().equals(" ")) {
                     Toast.makeText(ActivityDetailOfFood.this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
                 } else {
@@ -280,6 +287,12 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                 break;
             case R.id.ivBack:
                 onBackPressed();
+                break;
+            case R.id.ibSheetClose:
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                break;
+            case R.id.btnReg:
+
                 break;
         }
     }
