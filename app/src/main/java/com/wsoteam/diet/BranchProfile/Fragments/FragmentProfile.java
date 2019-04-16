@@ -126,9 +126,10 @@ public class FragmentProfile extends Fragment {
                 tvProfileLevel.setTextColor(getResources().getColor(R.color.level_hard));
             }
         }
-        if (!profile.getPhotoUrl().equals("default")) {
-            Uri uri = Uri.parse(profile.getPhotoUrl());
-            Glide.with(this).load(uri).into(civProfile);
+        if (profile.isFemale()) {
+            Glide.with(this).load(R.drawable.female_avatar).into(civProfile);
+        }else {
+            Glide.with(this).load(R.drawable.male_avatar).into(civProfile);
         }
     }
 
