@@ -8,9 +8,6 @@ import android.support.annotation.Nullable;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
-import com.adjust.sdk.AdjustEvent;
-import com.amplitude.api.Amplitude;
-import com.bugsee.library.Bugsee;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orm.SugarContext;
@@ -20,7 +17,6 @@ import com.vk.sdk.VKSdk;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.MainScreen.MainActivity;
-import com.wsoteam.diet.R;
 import com.yandex.metrica.YandexMetrica;
 import com.yandex.metrica.YandexMetricaConfig;
 
@@ -37,7 +33,7 @@ public class Diet extends Application {
         VKSdk.initialize(this);
         FirebaseApp.initializeApp(getApplicationContext());
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
+        /*Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");*/
         Adjust.onCreate(new AdjustConfig(this, EventsAdjust.app_token, AdjustConfig.ENVIRONMENT_SANDBOX));
         registerActivityLifecycleCallbacks(new AdjustLifecycleCallbacks());
     }

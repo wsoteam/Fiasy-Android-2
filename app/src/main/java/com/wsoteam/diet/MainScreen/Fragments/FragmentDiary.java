@@ -133,13 +133,12 @@ public class FragmentDiary extends Fragment {
 
 
 
-        showThankToast();
-        additionOneToSharedPreference();
-        checkFirstRun();
+        //showThankToast();
+        //additionOneToSharedPreference();
+        //checkFirstRun();
         bindViewPager();
 
         if (!isFreeUser()){
-            Log.e("LOL", "KEK");
             WorkWithFirebaseDB.setFirebaseStateListener();
         }
 

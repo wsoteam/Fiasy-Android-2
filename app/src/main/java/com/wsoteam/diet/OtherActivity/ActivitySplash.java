@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -47,6 +48,7 @@ import com.wsoteam.diet.tvoytrener.ForTestFragmentActivity;
 import com.wsoteam.diet.tvoytrener.PortionSize;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ActivitySplash extends AppCompatActivity {
 
@@ -145,11 +147,13 @@ public class ActivitySplash extends AppCompatActivity {
             if (getIntent().getBooleanExtra(Config.IS_NEED_REG, false)) {
                 UserDataHolder.clearObject();
                 startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
+                finish();
             } else {
                 WorkWithFirebaseDB.setStartEmptyObject(this);
-                startActivity(new Intent(ActivitySplash.this, MainActivity.class));
+                new FuckingSleep().execute();
+
             }
-            finish();
+
         }
 
 
@@ -222,6 +226,25 @@ public class ActivitySplash extends AppCompatActivity {
                 payComplete();
                 Log.d(TAG, "checkSub: payComplete");
             }
+        }
+    }
+
+    private class FuckingSleep extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            startActivity(new Intent(ActivitySplash.this, MainActivity.class));
+            finish();
         }
     }
 
