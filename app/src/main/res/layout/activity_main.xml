@@ -213,7 +213,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="eeeeeeeeeeeeeee"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -255,6 +254,7 @@
         app:backgroundTint="@color/fab_main_activity"
         app:borderWidth="0dp"
         app:elevation="8dp"
+        android:visibility="gone"
         tools:layout_editor_absoluteX="252dp"
         tools:layout_editor_absoluteY="228dp" />
 </android.support.design.widget.CoordinatorLayout>

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -53,6 +54,7 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
     @BindView(R.id.ivFilter1sub) ImageView ivFilter1sub;
     @BindView(R.id.ivFilter12sub) ImageView ivFilter12sub;
     @BindView(R.id.ivFilter3sub) ImageView ivFilter3sub;
+    @BindView(R.id.tlDotsIndicator) TabLayout tlDotsIndicator;
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
     private static final int COUNT_OF_PAGES = 4;
@@ -127,6 +129,7 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
         ivFilter1sub.setVisibility(View.GONE);
         ivFilter3sub.setVisibility(View.GONE);
         bindViewPager();
+        tlDotsIndicator.setupWithViewPager(viewPager, true);
         return view;
     }
 

@@ -25,24 +25,8 @@ public class PremiumSliderFragment extends Fragment {
     @BindView(R.id.ivPremImage) ImageView ivPremImage;
     @BindView(R.id.tvPremOnboardingText) TextView tvPremOnboardingText;
     private Unbinder unbinder;
-    private ImageView ivCounter;
     private int[] drawablesForSlider = new int[] {R.drawable.prem_0, R.drawable.prem_1, R.drawable.prem_2, R.drawable.prem_3};
     private String[] arrayOfTexts;
-    private int[] drawablesForBottomCounter = new int[] {R.drawable.frame_0, R.drawable.frame_1,
-            R.drawable.frame_2, R.drawable.frame_3};
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && isResumed()) {
-            fillCounter(getArguments().getInt(TAG_OF_BUNDLE));
-        }
-    }
-
-    private void fillCounter(int positon) {
-        Log.e("LOL", String.valueOf(positon));
-        Glide.with(getActivity()).load(drawablesForBottomCounter[positon]).into(ivCounter);
-    }
 
 
     @Override
@@ -67,7 +51,6 @@ public class PremiumSliderFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.premium_slider_fragment, container, false);
         unbinder = ButterKnife.bind(this, view);
-        ivCounter = getActivity().findViewById(R.id.ivFrameCounter);
         arrayOfTexts = getActivity().getResources().getStringArray(R.array.premium_slider_texts);
         fillViews(getArguments().getInt(TAG_OF_BUNDLE));
         return view;

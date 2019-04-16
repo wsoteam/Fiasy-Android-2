@@ -155,4 +155,10 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+    <style name="Widget.BottomNavigationView"
+        parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/roboto_light</item>
+        <item name="android:textSize">9sp</item>
+    </style>
+
 </resources>
