@@ -28,6 +28,7 @@ import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscription;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
+import com.wsoteam.diet.OtherActivity.ActivitySplash;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
     @BindView(R.id.ivTop) ImageView ivTop;
     private FragmentTransaction transaction;
-    private SharedPreferences freeUser;
+    private SharedPreferences freeUser, isNeedRegistration;
     private BottomSheetBehavior bottomSheetBehavior;
 
 
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        if (isFreeUser()){
+        if (isFreeUser()) {
             setInterceptor();
         }
     }
@@ -123,7 +124,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 ivTop.setVisibility(View.GONE);
-                startActivity(new Intent(MainActivity.this, ActivitySubscription.class));
+                if (checkSubscribe()) {
+                    startActivity(new Intent(MainActivity.this, ActivitySubscription.class));
+                }
                 return false;
             }
         });
@@ -150,9 +153,12 @@ public class MainActivity extends AppCompatActivity {
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 break;
             case R.id.btnReg:
-
+                startActivity(new Intent(MainActivity.this, ActivitySplash.class)
+                        .putExtra(Config.IS_NEED_REG, true)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 break;
         }
     }
+
 
 }

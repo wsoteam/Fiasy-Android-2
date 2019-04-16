@@ -69,6 +69,7 @@ public class Config {
     public static final String FROM_ONBOARDING = "FROM_ONBOARDING";
 
     public static final String FREE_USER = "FREE_USER";
+    public static final String IS_NEED_REG = "IS_NEED_REG";
 
 
 }

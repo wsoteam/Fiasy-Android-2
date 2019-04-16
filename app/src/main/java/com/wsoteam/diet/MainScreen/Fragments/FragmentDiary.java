@@ -139,6 +139,7 @@ public class FragmentDiary extends Fragment {
         bindViewPager();
 
         if (!isFreeUser()){
+            Log.e("LOL", "KEK");
             WorkWithFirebaseDB.setFirebaseStateListener();
         }
 

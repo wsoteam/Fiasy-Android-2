@@ -54,7 +54,7 @@ public class ActivitySplash extends AppCompatActivity {
     private FirebaseUser user;
 
     private BillingClient mBillingClient;
-    private SharedPreferences countOfRun, freeUser;
+    private SharedPreferences countOfRun, freeUser, isNeedRegistration;
     private final String TAG_FIRST_RUN = "TAG_FIRST_RUN";
 
     @Override
@@ -141,7 +141,9 @@ public class ActivitySplash extends AppCompatActivity {
                 }
             });
         } else {
-            if (isNeedRegistration()) {
+            createFreeUser();
+            if (getIntent().getBooleanExtra(Config.IS_NEED_REG, false)) {
+                UserDataHolder.clearObject();
                 startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
             } else {
                 WorkWithFirebaseDB.setStartEmptyObject(this);
@@ -153,16 +155,18 @@ public class ActivitySplash extends AppCompatActivity {
 
     }
 
+    private void createFreeUser() {
+        freeUser = getSharedPreferences(Config.FREE_USER, MODE_PRIVATE);
+        SharedPreferences.Editor editor = freeUser.edit();
+        editor.putBoolean(Config.FREE_USER, true);
+        editor.commit();
+    }
+
     private void deleteFreeUser() {
         freeUser = getSharedPreferences(Config.FREE_USER, MODE_PRIVATE);
         SharedPreferences.Editor editor = freeUser.edit();
         editor.putBoolean(Config.FREE_USER, false);
         editor.commit();
-    }
-
-    private boolean isNeedRegistration() {
-        freeUser = getSharedPreferences(Config.FREE_USER, MODE_PRIVATE);
-        return freeUser.getBoolean(Config.FREE_USER, false);
     }
 
     private void checkFirstLaunch() {
