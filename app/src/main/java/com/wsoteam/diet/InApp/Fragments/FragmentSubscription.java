@@ -30,6 +30,7 @@ import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
@@ -59,7 +60,8 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
     private static final int COUNT_OF_PAGES = 4;
-    private String sku = "basic_subscription_12m";
+    private String currentSKU = "basic_subscription_12m", currentPrice = "199р";
+
 
     private SharedPreferences sharedPreferences;
 
@@ -89,6 +91,7 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_subscription, container, false);
         unbinder = ButterKnife.bind(this, view);
+        currentPrice = AmplitudaEvents.ONE_YEAR_PRICE;
 
         String startFrom = getActivity().getIntent().getStringExtra(Config.START_FROM);
         Log.d("event", "String startFrom = " + startFrom);
@@ -186,10 +189,10 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
 
             Amplitude.getInstance().logEvent(getArguments().getString(AMPLITUDE_BUY_FROM_TAG));
             Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_BUY_FROM_TAG)));
-
-            //Identify buyStatus = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy).set();
-            //Amplitude.getInstance().identify(buyStatus);
-
+            Identify identify = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy)
+                    .set(AmplitudaEvents.LONG_OF_PREM, currentSKU)
+                    .set(AmplitudaEvents.PRICE_OF_PREM, currentPrice);
+            Amplitude.getInstance().identify(identify);
 
             sharedPreferences = getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -207,7 +210,8 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
 
 
         if (view.getId() == R.id.cvSub1m) {
-            sku = "basic_subscription_1m";
+            currentPrice = AmplitudaEvents.ONE_MONTH_PRICE;
+            currentSKU = "basic_subscription_1m";
             cvSub1mBack.setVisibility(View.VISIBLE);
             ivFilter1sub.setVisibility(View.VISIBLE);
             cvSub3mBack.setVisibility(View.GONE);
@@ -216,7 +220,8 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
             ivFilter12sub.setVisibility(View.GONE);
         }
         if (view.getId() == R.id.cvSub12m) {
-            sku = "basic_subscription_12m";
+            currentPrice = AmplitudaEvents.ONE_YEAR_PRICE;
+            currentSKU = "basic_subscription_12m";
             cvSub12mBack.setVisibility(View.VISIBLE);
             ivFilter12sub.setVisibility(View.VISIBLE);
             cvSub3mBack.setVisibility(View.GONE);
@@ -225,7 +230,8 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
             ivFilter1sub.setVisibility(View.GONE);
         }
         if (view.getId() == R.id.cvSub3m) {
-            sku = "basic_subscription_3m";
+            currentPrice = AmplitudaEvents.THREE_MONTH_PRICE;
+            currentSKU = "basic_subscription_3m";
             cvSub3mBack.setVisibility(View.VISIBLE);
             ivFilter3sub.setVisibility(View.VISIBLE);
             cvSub12mBack.setVisibility(View.GONE);
@@ -234,7 +240,7 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
             ivFilter12sub.setVisibility(View.GONE);
         }
         if (view.getId() == R.id.btnBuyPrem) {
-            buy(sku);
+            buy(currentSKU);
         }
         if (view.getId() == R.id.imbtnCancel) {
             if (getActivity().getSharedPreferences(Config.FREE_USER, MODE_PRIVATE).getBoolean(Config.FREE_USER, true)) {

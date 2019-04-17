@@ -34,10 +34,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.wsoteam.diet.AddMeasurementsActivity;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
-import com.wsoteam.diet.BranchOfRecipes.ActivityRecipes;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.MainScreen.MainActivity;
@@ -45,7 +44,6 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.wsoteam.diet.tvoytrener.ForTestFragmentActivity;
 import com.wsoteam.diet.tvoytrener.PortionSize;
 
 import java.util.List;
@@ -57,8 +55,10 @@ public class ActivitySplash extends AppCompatActivity {
     private FirebaseUser user;
 
     private BillingClient mBillingClient;
-    private SharedPreferences countOfRun, freeUser, isNeedRegistration;
-    private final String TAG_FIRST_RUN = "TAG_FIRST_RUN";
+    private SharedPreferences isBuyPrem, freeUser, isNeedRegistration;
+    private final String TAG_FIRST_RUN = "TAG_FIRST_RUN",
+            ONE_MONTH_SKU = "basic_subscription_1m", THREE_MONTH_SKU = "basic_subscription_3m",
+            ONE_YEAR_SKU = "basic_subscription_12m";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,9 +80,7 @@ public class ActivitySplash extends AppCompatActivity {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
 
-
         user = FirebaseAuth.getInstance().getCurrentUser();
-
 
         mBillingClient = BillingClient.newBuilder(this).setListener(new PurchasesUpdatedListener() {
             @Override
@@ -99,12 +97,21 @@ public class ActivitySplash extends AppCompatActivity {
                 if (billingResponseCode == BillingClient.BillingResponse.OK) {
                     //здесь мы можем запросить информацию о товарах и покупках
                     List<Purchase> purchasesList = queryPurchases(); //запрос о покупках
-
-                    checkSub("basic_subscription_1m", purchasesList);
-                    checkSub("basic_subscription_3m", purchasesList);
-                    checkSub("basic_subscription_4m", purchasesList);
-
-
+                    if (purchasesList.size() > 0) {
+                        for (int i = 0; i < purchasesList.size(); i++) {
+                            if (purchasesList.get(i).getSku().equals(ONE_MONTH_SKU)) {
+                                setPremStatus(ONE_MONTH_SKU, AmplitudaEvents.ONE_MONTH_PRICE);
+                            } else if (purchasesList.get(i).getSku().equals(THREE_MONTH_SKU)) {
+                                setPremStatus(THREE_MONTH_SKU, AmplitudaEvents.THREE_MONTH_PRICE);
+                            } else if (purchasesList.get(i).getSku().equals(ONE_YEAR_SKU)) {
+                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE);
+                            } else {
+                                deletePremStatus();
+                            }
+                        }
+                    } else {
+                        deletePremStatus();
+                    }
                 }
             }
 
@@ -117,8 +124,7 @@ public class ActivitySplash extends AppCompatActivity {
 
         if (user != null) {
             deleteFreeUser();
-            Identify identify = new Identify().set(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
-            Amplitude.getInstance().identify(identify);
+            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                     child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -149,8 +155,7 @@ public class ActivitySplash extends AppCompatActivity {
             });
         } else {
             createFreeUser();
-            Identify identify = new Identify().set(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
-            Amplitude.getInstance().identify(identify);
+            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
             if (getIntent().getBooleanExtra(Config.IS_NEED_REG, false)) {
                 UserDataHolder.clearObject();
                 startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
@@ -211,14 +216,27 @@ public class ActivitySplash extends AppCompatActivity {
         return false;
     }
 
-    private void payComplete() {
-        countOfRun = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-        SharedPreferences.Editor editor = countOfRun.edit();
+    private void setPremStatus(String durationPrem, String pricePrem) {
+        isBuyPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+        SharedPreferences.Editor editor = isBuyPrem.edit();
         editor.putBoolean(Config.STATE_BILLING, true);
         editor.commit();
+        Identify premStatus = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy)
+                .set(AmplitudaEvents.LONG_OF_PREM, durationPrem)
+                .set(AmplitudaEvents.PRICE_OF_PREM, pricePrem);
+        Amplitude.getInstance().identify(premStatus);
+    }
 
-        Identify notBuyStatus = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
-        Amplitude.getInstance().identify(notBuyStatus);
+    private void deletePremStatus() {
+        isBuyPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+        SharedPreferences.Editor editor = isBuyPrem.edit();
+        editor.putBoolean(Config.STATE_BILLING, false);
+        editor.commit();
+        Identify deletePremStatus = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.not_buy)
+                .unset(AmplitudaEvents.LONG_OF_PREM)
+                .unset(AmplitudaEvents.PRICE_OF_PREM);
+        Amplitude.getInstance().identify(deletePremStatus);
+
     }
 
 
@@ -227,20 +245,7 @@ public class ActivitySplash extends AppCompatActivity {
         return purchasesResult.getPurchasesList();
     }
 
-    private void checkSub(String mSkuId, List<Purchase> purchasesList) {
-
-        //если товар уже куплен, предоставить его пользователю
-        for (int i = 0; i < purchasesList.size(); i++) {
-            String purchaseId = purchasesList.get(i).getSku();
-            if (TextUtils.equals(mSkuId, purchaseId)) {
-                payComplete();
-                Log.d(TAG, "checkSub: payComplete");
-            }
-        }
-        Log.e("LOL1", String.valueOf(purchasesList.size()));
-    }
-
-    private class FuckingSleep extends AsyncTask<Void, Void, Void>{
+    private class FuckingSleep extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
