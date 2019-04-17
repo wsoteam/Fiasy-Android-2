@@ -71,5 +71,7 @@ public class Config {
     public static final String FREE_USER = "FREE_USER";
     public static final String IS_NEED_REG = "IS_NEED_REG";
 
+    public static final String FIRST_SPAM = "FIRST_SPAM";
+
 
 }

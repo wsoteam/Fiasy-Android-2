@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
     @BindView(R.id.ivTop) ImageView ivTop;
     private FragmentTransaction transaction;
-    private SharedPreferences freeUser;
+    private SharedPreferences freeUser, firstRun;
     private BottomSheetBehavior bottomSheetBehavior;
 
 
@@ -113,10 +113,19 @@ public class MainActivity extends AppCompatActivity {
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        if (isFreeUser() && !checkSubscribe()) {
+        if (isFreeUser() && !checkSubscribe() && getPreferences(MODE_PRIVATE).getBoolean(Config.FIRST_SPAM, true)) {
             setInterceptor();
+            deleteSpamPremium();
         }
     }
+
+    private void deleteSpamPremium() {
+        firstRun = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = firstRun.edit();
+        editor.putBoolean(Config.FIRST_SPAM, false);
+        editor.commit();
+    }
+
 
     private void setInterceptor() {
         ivTop.setVisibility(View.VISIBLE);
