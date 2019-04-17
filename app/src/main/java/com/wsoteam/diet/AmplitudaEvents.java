@@ -46,4 +46,17 @@ public class AmplitudaEvents {
     public static final String off_notifications = "off_notifications";
     public static final String view_prem_profile = "view_prem_profile";
     public static final String buy_prem_profile = "buy_prem_profile";
+
+
+    public static final String REG_STATUS = "REG_STATUS";
+    public static final String registered = "registered";
+    public static final String unRegistered = "unRegistered";
+
+    public static final String PREM_STATUS = "PREM_STATUS";
+    public static final String buy = "buy";
+    public static final String not_buy = "not_buy";
+    public static final String LONG_OF_PREM = "not_buy";
+    public static final String one_month = "1m";
+    public static final String three_month = "3m";
+    public static final String one_year = "12m";
 }

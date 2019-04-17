@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
+import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
@@ -185,6 +186,9 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
 
             Amplitude.getInstance().logEvent(getArguments().getString(AMPLITUDE_BUY_FROM_TAG));
             Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_BUY_FROM_TAG)));
+
+            //Identify buyStatus = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy).set();
+            //Amplitude.getInstance().identify(buyStatus);
 
 
             sharedPreferences = getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);

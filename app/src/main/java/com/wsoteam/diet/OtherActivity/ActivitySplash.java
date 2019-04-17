@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
+import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
@@ -65,6 +66,8 @@ public class ActivitySplash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
                 .enableForegroundTracking(getApplication());
+        Identify buyProperties = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.not_buy);
+        Amplitude.getInstance().identify(buyProperties);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -114,6 +117,8 @@ public class ActivitySplash extends AppCompatActivity {
 
         if (user != null) {
             deleteFreeUser();
+            Identify identify = new Identify().set(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
+            Amplitude.getInstance().identify(identify);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                     child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -144,6 +149,8 @@ public class ActivitySplash extends AppCompatActivity {
             });
         } else {
             createFreeUser();
+            Identify identify = new Identify().set(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
+            Amplitude.getInstance().identify(identify);
             if (getIntent().getBooleanExtra(Config.IS_NEED_REG, false)) {
                 UserDataHolder.clearObject();
                 startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
@@ -209,6 +216,9 @@ public class ActivitySplash extends AppCompatActivity {
         SharedPreferences.Editor editor = countOfRun.edit();
         editor.putBoolean(Config.STATE_BILLING, true);
         editor.commit();
+
+        Identify notBuyStatus = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
+        Amplitude.getInstance().identify(notBuyStatus);
     }
 
 
@@ -227,6 +237,7 @@ public class ActivitySplash extends AppCompatActivity {
                 Log.d(TAG, "checkSub: payComplete");
             }
         }
+        Log.e("LOL1", String.valueOf(purchasesList.size()));
     }
 
     private class FuckingSleep extends AsyncTask<Void, Void, Void>{
