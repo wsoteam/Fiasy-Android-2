@@ -73,10 +73,7 @@ public class ActivitySplash extends Activity {
         Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
                 .enableForegroundTracking(getApplication());
 
-        Bundle bundle = new Bundle();
-        bundle.putString("test_status", "not_buy");
-        FirebaseAnalytics.getInstance(this).logEvent("RUN", bundle);
-
+        
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
