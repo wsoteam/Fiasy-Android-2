@@ -25,6 +25,7 @@ import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.bumptech.glide.Glide;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
+import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.MainScreen.MainActivity;
@@ -70,6 +72,10 @@ public class ActivitySplash extends Activity {
         Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
         Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
                 .enableForegroundTracking(getApplication());
+
+        Bundle bundle = new Bundle();
+        bundle.putString("test_status", "not_buy");
+        FirebaseAnalytics.getInstance(this).logEvent("RUN", bundle);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -159,16 +165,16 @@ public class ActivitySplash extends Activity {
         } else {
             createFreeUser();
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
-            /*if (getPreferences(MODE_PRIVATE).getBoolean(Config.SHOW_FREE_ONBOARD, false)) {
+            if (getPreferences(MODE_PRIVATE).getBoolean(Config.SHOW_FREE_ONBOARD, false)) {
                 UserDataHolder.clearObject();
                 startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
                 finish();
-            } else {*/
+            } else {
             getPreferences(MODE_PRIVATE).edit().putBoolean(Config.SHOW_FREE_ONBOARD, true).commit();
             WorkWithFirebaseDB.setStartEmptyObject(this);
             new FuckingSleep().execute();
 
-            //}
+            }
 
         }
 

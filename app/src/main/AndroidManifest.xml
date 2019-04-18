@@ -208,6 +208,8 @@
 
         <activity android:name=".BranchProfile.ActivityEditCompletedProfile"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+
     </application>
 
 </manifest>
