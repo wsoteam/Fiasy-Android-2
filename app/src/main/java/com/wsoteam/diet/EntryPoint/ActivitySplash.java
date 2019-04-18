@@ -1,31 +1,31 @@
-package com.wsoteam.diet.OtherActivity;
+package com.wsoteam.diet.EntryPoint;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.WindowManager;
-
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
+import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.bumptech.glide.Glide;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,10 +33,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.wsoteam.diet.AddMeasurementsActivity;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
-import com.wsoteam.diet.BranchOfRecipes.ActivityRecipes;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.MainScreen.MainActivity;
@@ -44,28 +43,37 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.wsoteam.diet.tvoytrener.ForTestFragmentActivity;
 import com.wsoteam.diet.tvoytrener.PortionSize;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class ActivitySplash extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private String TAG = "splash";
+public class ActivitySplash extends Activity {
+    @BindView(R.id.auth_first_iv_image) ImageView authFirstIvImage;
+    @BindView(R.id.tvSplashText) ImageView tvSplashText;
     private FirebaseUser user;
 
     private BillingClient mBillingClient;
-    private SharedPreferences countOfRun, freeUser, isNeedRegistration;
-    private final String TAG_FIRST_RUN = "TAG_FIRST_RUN";
+    private SharedPreferences isBuyPrem, freeUser;
+    private final String TAG_FIRST_RUN = "TAG_FIRST_RUN",
+            ONE_MONTH_SKU = "basic_subscription_1m", THREE_MONTH_SKU = "basic_subscription_3m",
+            ONE_YEAR_SKU = "basic_subscription_12m";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        ButterKnife.bind(this);
+        Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
+        Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
         Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
                 .enableForegroundTracking(getApplication());
 
+        
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
@@ -79,7 +87,6 @@ public class ActivitySplash extends AppCompatActivity {
 
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-
 
         mBillingClient = BillingClient.newBuilder(this).setListener(new PurchasesUpdatedListener() {
             @Override
@@ -96,12 +103,21 @@ public class ActivitySplash extends AppCompatActivity {
                 if (billingResponseCode == BillingClient.BillingResponse.OK) {
                     //здесь мы можем запросить информацию о товарах и покупках
                     List<Purchase> purchasesList = queryPurchases(); //запрос о покупках
-
-                    checkSub("basic_subscription_1m", purchasesList);
-                    checkSub("basic_subscription_3m", purchasesList);
-                    checkSub("basic_subscription_4m", purchasesList);
-
-
+                    if (purchasesList.size() > 0) {
+                        for (int i = 0; i < purchasesList.size(); i++) {
+                            if (purchasesList.get(i).getSku().equals(ONE_MONTH_SKU)) {
+                                setPremStatus(ONE_MONTH_SKU, AmplitudaEvents.ONE_MONTH_PRICE);
+                            } else if (purchasesList.get(i).getSku().equals(THREE_MONTH_SKU)) {
+                                setPremStatus(THREE_MONTH_SKU, AmplitudaEvents.THREE_MONTH_PRICE);
+                            } else if (purchasesList.get(i).getSku().equals(ONE_YEAR_SKU)) {
+                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE);
+                            } else {
+                                deletePremStatus();
+                            }
+                        }
+                    } else {
+                        deletePremStatus();
+                    }
                 }
             }
 
@@ -114,6 +130,7 @@ public class ActivitySplash extends AppCompatActivity {
 
         if (user != null) {
             deleteFreeUser();
+            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                     child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -144,13 +161,15 @@ public class ActivitySplash extends AppCompatActivity {
             });
         } else {
             createFreeUser();
-            if (getIntent().getBooleanExtra(Config.IS_NEED_REG, false)) {
+            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
+            if (getPreferences(MODE_PRIVATE).getBoolean(Config.SHOW_FREE_ONBOARD, false)) {
                 UserDataHolder.clearObject();
                 startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
                 finish();
             } else {
-                WorkWithFirebaseDB.setStartEmptyObject(this);
-                new FuckingSleep().execute();
+            getPreferences(MODE_PRIVATE).edit().putBoolean(Config.SHOW_FREE_ONBOARD, true).commit();
+            WorkWithFirebaseDB.setStartEmptyObject(this);
+            new FuckingSleep().execute();
 
             }
 
@@ -177,8 +196,18 @@ public class ActivitySplash extends AppCompatActivity {
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
 
         if (sharedPreferences.getBoolean(TAG_FIRST_RUN, false)) {
+            Calendar calendar = Calendar.getInstance();
+
+            String day = String.valueOf(calendar.get(Calendar.DAY_OF_YEAR));
+            String week = String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
+            String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+
             Adjust.trackEvent(new AdjustEvent(EventsAdjust.first_launch));
+            Identify date = new Identify().set(AmplitudaEvents.FIRST_DAY, day)
+                    .set(AmplitudaEvents.FIRST_WEEK, week).set(AmplitudaEvents.FIRST_MONTH, month);
+            Amplitude.getInstance().identify(date);
             Amplitude.getInstance().logEvent(AmplitudaEvents.first_launch);
+
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(TAG_FIRST_RUN, true);
@@ -204,11 +233,27 @@ public class ActivitySplash extends AppCompatActivity {
         return false;
     }
 
-    private void payComplete() {
-        countOfRun = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-        SharedPreferences.Editor editor = countOfRun.edit();
+    private void setPremStatus(String durationPrem, String pricePrem) {
+        isBuyPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+        SharedPreferences.Editor editor = isBuyPrem.edit();
         editor.putBoolean(Config.STATE_BILLING, true);
         editor.commit();
+        Identify premStatus = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy)
+                .set(AmplitudaEvents.LONG_OF_PREM, durationPrem)
+                .set(AmplitudaEvents.PRICE_OF_PREM, pricePrem);
+        Amplitude.getInstance().identify(premStatus);
+    }
+
+    private void deletePremStatus() {
+        isBuyPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+        SharedPreferences.Editor editor = isBuyPrem.edit();
+        editor.putBoolean(Config.STATE_BILLING, false);
+        editor.commit();
+        Identify deletePremStatus = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.not_buy)
+                .unset(AmplitudaEvents.LONG_OF_PREM)
+                .unset(AmplitudaEvents.PRICE_OF_PREM);
+        Amplitude.getInstance().identify(deletePremStatus);
+
     }
 
 
@@ -217,23 +262,11 @@ public class ActivitySplash extends AppCompatActivity {
         return purchasesResult.getPurchasesList();
     }
 
-    private void checkSub(String mSkuId, List<Purchase> purchasesList) {
-
-        //если товар уже куплен, предоставить его пользователю
-        for (int i = 0; i < purchasesList.size(); i++) {
-            String purchaseId = purchasesList.get(i).getSku();
-            if (TextUtils.equals(mSkuId, purchaseId)) {
-                payComplete();
-                Log.d(TAG, "checkSub: payComplete");
-            }
-        }
-    }
-
-    private class FuckingSleep extends AsyncTask<Void, Void, Void>{
+    private class FuckingSleep extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

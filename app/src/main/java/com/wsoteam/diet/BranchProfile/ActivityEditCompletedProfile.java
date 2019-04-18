@@ -12,6 +12,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.amplitude.api.Amplitude;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -82,7 +84,7 @@ public class ActivityEditCompletedProfile extends AppCompatActivity {
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
 
-        YandexMetrica.reportEvent("Открыт экран: Редактировать профиль");
+        Amplitude.getInstance().logEvent(AmplitudaEvents.edit_profile);
 
 
     }

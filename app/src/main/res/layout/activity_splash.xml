@@ -5,7 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_auth_first">
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/gradient_auth_first"/>
 
     <ImageView
         android:id="@+id/auth_first_iv_image"
@@ -24,7 +29,7 @@
         app:srcCompat="@drawable/logo_for_onboard" />
 
     <ImageView
-        android:id="@+id/imageView11"
+        android:id="@+id/tvSplashText"
         android:layout_width="160dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"

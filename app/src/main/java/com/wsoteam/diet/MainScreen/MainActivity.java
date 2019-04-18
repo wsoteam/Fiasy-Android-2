@@ -18,8 +18,8 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
+import com.amplitude.api.Amplitude;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
@@ -28,7 +28,7 @@ import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscription;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
-import com.wsoteam.diet.OtherActivity.ActivitySplash;
+import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
 
@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                         window.setStatusBarColor(Color.parseColor("#2E4E4E"));
                         return true;
                     } else {
+                        Amplitude.getInstance().logEvent(AmplitudaEvents.reg_offer);
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                         return false;
                     }
@@ -117,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
             setInterceptor();
             deleteSpamPremium();
         }
+
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_diary);
     }
 
     private void deleteSpamPremium() {
