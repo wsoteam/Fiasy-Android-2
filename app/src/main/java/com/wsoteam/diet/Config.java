@@ -72,6 +72,7 @@ public class Config {
     public static final String IS_NEED_REG = "IS_NEED_REG";
 
     public static final String FIRST_SPAM = "FIRST_SPAM";
+    public static final String SHOW_FREE_ONBOARD = "SHOW_FREE_ONBOARD";
 
 
 }

@@ -50,12 +50,10 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ActivitySplash extends AppCompatActivity {
-
-    private String TAG = "splash";
     private FirebaseUser user;
 
     private BillingClient mBillingClient;
-    private SharedPreferences isBuyPrem, freeUser, isNeedRegistration;
+    private SharedPreferences isBuyPrem, freeUser;
     private final String TAG_FIRST_RUN = "TAG_FIRST_RUN",
             ONE_MONTH_SKU = "basic_subscription_1m", THREE_MONTH_SKU = "basic_subscription_3m",
             ONE_YEAR_SKU = "basic_subscription_12m";
@@ -156,11 +154,12 @@ public class ActivitySplash extends AppCompatActivity {
         } else {
             createFreeUser();
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
-            if (getIntent().getBooleanExtra(Config.IS_NEED_REG, false)) {
+            if (getPreferences(MODE_PRIVATE).getBoolean(Config.SHOW_FREE_ONBOARD, false)) {
                 UserDataHolder.clearObject();
                 startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
                 finish();
             } else {
+                getPreferences(MODE_PRIVATE).edit().putBoolean(Config.SHOW_FREE_ONBOARD, true).commit();
                 WorkWithFirebaseDB.setStartEmptyObject(this);
                 new FuckingSleep().execute();
 
@@ -249,7 +248,7 @@ public class ActivitySplash extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
