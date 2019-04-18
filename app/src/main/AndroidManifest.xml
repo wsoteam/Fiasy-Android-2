@@ -103,21 +103,17 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".OtherActivity.ActivitySplash"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:name=".EntryPoint.ActivitySplash"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BranchOfMonoDiets.ActivityViewerOfBodyItem" />
         <activity
             android:name=".OtherActivity.ActivitySettings"
             android:theme="@style/AppTheme.NoActionBarSettings" />
-        <activity
-            android:name=".BranchOfMonoDiets.ActivityMonoDiet"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfCalculating.ActivityListOfCalculating"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -149,30 +145,11 @@
             android:name=".BranchOfDiary.ActivityListOfDiary"
             android:theme="@style/AppTheme2" />
         <activity
-            android:name=".BranchOfDescription.ActivityDescription"
-            android:theme="@style/AppTheme2" />
-        <activity
-            android:name=".BranchOfNotifications.ActivityDetailNotification"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BranchOfNotifications.ActivityListOfNotifications"
-            android:theme="@style/AnalyzerTheme" />
-        <activity
             android:name=".OtherActivity.ActivityAboutSetingsNotifications"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfCalculating.ActivityCalculatorSPK"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BranchOfNews.ActivityListOfNews"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BranchOfNews.ActivityDetailPhoto"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.vk.sdk.VKServiceActivity"
-            android:label="ServiceActivity"
-            android:theme="@style/VK.Transparent" />
         <activity
             android:name=".BranchOfExercises.Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -200,12 +177,6 @@
         <activity
             android:name=".BranchOfAnalyzer.ActivityDetailOfFood"
             android:theme="@style/DetailFood" />
-        <activity
-            android:name=".BranchOfBilling.ActivityPresentation"
-            android:theme="@style/AnalyzerTheme" />
-        <activity
-            android:name=".BranchEatingDiary.ActivityEatingDiary"
-            android:theme="@style/EatingDiaryStyle" />
         <activity
             android:name=".BranchProfile.ActivityEditProfile"
             android:theme="@style/EditProfile"

@@ -20,6 +20,7 @@ import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;

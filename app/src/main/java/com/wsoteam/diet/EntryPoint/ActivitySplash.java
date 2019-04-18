@@ -1,20 +1,17 @@
-package com.wsoteam.diet.OtherActivity;
+package com.wsoteam.diet.EntryPoint;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.WindowManager;
-
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.adjust.sdk.Adjust;
@@ -25,6 +22,7 @@ import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.bumptech.glide.Glide;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +34,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
-import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.MainScreen.MainActivity;
@@ -50,7 +47,12 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class ActivitySplash extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class ActivitySplash extends Activity {
+    @BindView(R.id.auth_first_iv_image) ImageView authFirstIvImage;
+    @BindView(R.id.tvSplashText) ImageView tvSplashText;
     private FirebaseUser user;
 
     private BillingClient mBillingClient;
@@ -63,6 +65,9 @@ public class ActivitySplash extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        ButterKnife.bind(this);
+        Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
+        Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
         Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
                 .enableForegroundTracking(getApplication());
 
@@ -154,16 +159,16 @@ public class ActivitySplash extends AppCompatActivity {
         } else {
             createFreeUser();
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
-            if (getPreferences(MODE_PRIVATE).getBoolean(Config.SHOW_FREE_ONBOARD, false)) {
+            /*if (getPreferences(MODE_PRIVATE).getBoolean(Config.SHOW_FREE_ONBOARD, false)) {
                 UserDataHolder.clearObject();
                 startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
                 finish();
-            } else {
-                getPreferences(MODE_PRIVATE).edit().putBoolean(Config.SHOW_FREE_ONBOARD, true).commit();
-                WorkWithFirebaseDB.setStartEmptyObject(this);
-                new FuckingSleep().execute();
+            } else {*/
+            getPreferences(MODE_PRIVATE).edit().putBoolean(Config.SHOW_FREE_ONBOARD, true).commit();
+            WorkWithFirebaseDB.setStartEmptyObject(this);
+            new FuckingSleep().execute();
 
-            }
+            //}
 
         }
 

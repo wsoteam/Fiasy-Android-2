@@ -18,7 +18,6 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.amplitude.api.Amplitude;
 import com.wsoteam.diet.AmplitudaEvents;
@@ -29,7 +28,7 @@ import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscription;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
-import com.wsoteam.diet.OtherActivity.ActivitySplash;
+import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
 

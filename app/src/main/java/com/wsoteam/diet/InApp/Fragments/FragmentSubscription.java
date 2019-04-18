@@ -30,11 +30,10 @@ import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
-import com.wsoteam.diet.OtherActivity.ActivitySplash;
+import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.R;
 
 import java.util.ArrayList;
