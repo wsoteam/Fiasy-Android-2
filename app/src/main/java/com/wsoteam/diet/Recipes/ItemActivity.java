@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.POJOS.ItemRecipes;
@@ -79,6 +81,7 @@ public class ItemActivity extends AppCompatActivity {
                 .with(this)
                 .load(itemRecipes.getUrl())
                 .into(imageView);
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_recipe);
 
     }
 

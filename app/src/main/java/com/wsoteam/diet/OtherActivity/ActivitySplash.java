@@ -46,6 +46,7 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.tvoytrener.PortionSize;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -64,8 +65,6 @@ public class ActivitySplash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
                 .enableForegroundTracking(getApplication());
-        Identify buyProperties = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.not_buy);
-        Amplitude.getInstance().identify(buyProperties);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -77,6 +76,7 @@ public class ActivitySplash extends AppCompatActivity {
         if (!hasConnection(this)) {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
+
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -188,8 +188,18 @@ public class ActivitySplash extends AppCompatActivity {
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
 
         if (sharedPreferences.getBoolean(TAG_FIRST_RUN, false)) {
+            Calendar calendar = Calendar.getInstance();
+
+            String day = String.valueOf(calendar.get(Calendar.DAY_OF_YEAR));
+            String week = String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
+            String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+
             Adjust.trackEvent(new AdjustEvent(EventsAdjust.first_launch));
+            Identify date = new Identify().set(AmplitudaEvents.FIRST_DAY, day)
+                    .set(AmplitudaEvents.FIRST_WEEK, week).set(AmplitudaEvents.FIRST_MONTH, month);
+            Amplitude.getInstance().identify(date);
             Amplitude.getInstance().logEvent(AmplitudaEvents.first_launch);
+
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(TAG_FIRST_RUN, true);

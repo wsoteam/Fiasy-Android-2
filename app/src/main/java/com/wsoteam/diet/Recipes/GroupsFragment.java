@@ -17,11 +17,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.amplitude.api.Amplitude;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.ObjectHolder;
 import com.wsoteam.diet.POJOS.ItemRecipes;
@@ -64,6 +66,7 @@ public class GroupsFragment extends Fragment {
 
         recyclerView.setLayoutManager(layoutManager);
         updateUI();
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_all_recipes);
         return view;
     }
 

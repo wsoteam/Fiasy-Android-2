@@ -3,9 +3,10 @@ package com.wsoteam.diet;
 public class AmplitudaEvents {
     public static final String first_launch = "first_launch";
     public static final String session_launch = "session_launch";
-    public static final String first_day = "first_day";
-    public static final String first_week = "first_week";
-    public static final String first_month = "first_month";
+
+    public static final String FIRST_DAY = "FIRST_DAY";
+    public static final String FIRST_WEEK = "FIRST_WEEK";
+    public static final String FIRST_MONTH = "FIRST_MONTH";
 
     public static final String start_registration = "start_registration";
     public static final String fill_reg_data = "fill_reg_data";
@@ -23,6 +24,7 @@ public class AmplitudaEvents {
     public static final String buy_prem_elements = "buy_prem_elements";
 
     public static final String view_all_recipes = "view_all_recipes";
+    public static final String view_group_recipes = "view_group_recipes";
     public static final String view_prem_recipe = "view_prem_recipe";
     public static final String buy_prem_recipe = "buy_prem_recipe";
     public static final String view_recipe = "view_recipe";
@@ -43,6 +45,7 @@ public class AmplitudaEvents {
 
     public static final String view_profile = "view_profile";
     public static final String view_settings = "view_settings";
+    public static final String edit_profile = "edit_profile";
     public static final String off_notifications = "off_notifications";
     public static final String view_prem_profile = "view_prem_profile";
     public static final String buy_prem_profile = "buy_prem_profile";
@@ -60,5 +63,9 @@ public class AmplitudaEvents {
     public static final String PRICE_OF_PREM = "PRICE_OF_PREM";
 
     public static final String  ONE_MONTH_PRICE = "449р", THREE_MONTH_PRICE = "319р", ONE_YEAR_PRICE = "199р";
+
+    public static final String  view_diary = "view_diary";
+    public static final String  reg_offer = "reg_offer";
+
 
 }

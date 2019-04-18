@@ -225,8 +225,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 //                    startPrem();
 
                     if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
-                        //TODO Config.REGISTRATION ?
-                        Amplitude.getInstance().logEvent(Config.REGISTRATION);
                         Adjust.trackEvent(new AdjustEvent(EventsAdjust.create_acount));
                         Amplitude.getInstance().logEvent(AmplitudaEvents.create_acount);
                         WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
