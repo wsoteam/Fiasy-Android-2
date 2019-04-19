@@ -136,7 +136,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 ivTop.setVisibility(View.GONE);
-                startActivity(new Intent(MainActivity.this, ActivitySubscription.class));
+                startActivity(new Intent(MainActivity.this, ActivitySubscription.class)
+                        .putExtra(Config.AMPLITUDE_COME_FROM, AmplitudaEvents.view_prem_free_onboard)
+                        .putExtra(Config.AMPLITUDE_BUY_FROM, AmplitudaEvents.buy_prem_free_onboard));
                 return false;
             }
         });
