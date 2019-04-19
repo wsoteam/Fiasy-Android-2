@@ -200,9 +200,8 @@ public class ActivitySplash extends Activity {
     private void checkFirstLaunch() {
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
 
-        if (sharedPreferences.getBoolean(TAG_FIRST_RUN, false)) {
+        if (!sharedPreferences.getBoolean(TAG_FIRST_RUN, false)) {
             Calendar calendar = Calendar.getInstance();
-
             String day = String.valueOf(calendar.get(Calendar.DAY_OF_YEAR));
             String week = String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
             String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
@@ -217,7 +216,6 @@ public class ActivitySplash extends Activity {
             editor.putBoolean(TAG_FIRST_RUN, true);
             editor.commit();
         }
-
     }
 
     private boolean hasConnection(Context context) {

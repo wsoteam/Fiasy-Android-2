@@ -95,6 +95,7 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
         AmplitudaEvents.logEventViewPremium(getArguments().getString(AMPLITUDE_COME_FROM_TAG));
         Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_COME_FROM_TAG)));
 
+        Log.e("LOL", getArguments().getString(AMPLITUDE_COME_FROM_TAG));
         if (getArguments().getBoolean(ENTER_FROM_MAINACTIVITY_TAG)) {
             imbtnCancel.setVisibility(View.GONE);
         }
@@ -177,6 +178,9 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
 
             AmplitudaEvents.logEventBuyPremium(getArguments().getString(AMPLITUDE_BUY_FROM_TAG));
             Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_BUY_FROM_TAG)));
+
+
+
             Identify identify = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy)
                     .set(AmplitudaEvents.LONG_OF_PREM, currentSKU)
                     .set(AmplitudaEvents.PRICE_OF_PREM, currentPrice);
