@@ -327,8 +327,6 @@ public class ActivityEditProfile extends AppCompatActivity {
             Log.e("LOL", profile.toString());
             intent.putExtra("createUser", true);
             intent.putExtra(Config.INTENT_PROFILE, profile);
-            Amplitude.getInstance().logEvent(Config.FILL_PROFILE);
-            Adjust.trackEvent(new AdjustEvent(EventsAdjust.fill_reg_data));
             Amplitude.getInstance().logEvent(AmplitudaEvents.fill_reg_data);
             startActivity(intent);
         }else {

@@ -78,11 +78,9 @@ public class OnboardingActivity extends AppCompatActivity {
         public void onPageSelected(int position) {
             Log.d(TAG, "page selected " + position);
             if (position == viewList.size() - 1) {
-                Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_onboarding));
-                Amplitude.getInstance().logEvent(AmplitudaEvents.view_onboarding);
                 startActivity(new Intent(OnboardingActivity.this, ActivitySubscription.class)
-                        .putExtra(Config.AMPLITUDE_COME_FROM, EventsAdjust.view_prem_onboarding)
-                        .putExtra(Config.AMPLITUDE_BUY_FROM, EventsAdjust.buy_prem_onboarding)
+                        .putExtra(Config.AMPLITUDE_COME_FROM, AmplitudaEvents.view_prem_onboarding)
+                        .putExtra(Config.AMPLITUDE_BUY_FROM, AmplitudaEvents.buy_prem_onboarding)
                         .putExtra(Config.ADJUST_COME_FROM, EventsAdjust.view_prem_onboarding)
                         .putExtra(Config.ADJUST_BUY_FROM, EventsAdjust.buy_prem_onboarding)
                         .putExtra(Config.START_FROM, Config.FROM_ONBOARDING));

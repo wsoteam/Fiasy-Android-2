@@ -93,8 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
         AdRequest request = new AdRequest.Builder().build();
 
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_all_trainings));
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_all_trainings);
 
         loadingBar = findViewById(R.id.ex_ivLoadingCircle);
         animationRotate = AnimationUtils.loadAnimation(this, R.anim.animation_rotate);

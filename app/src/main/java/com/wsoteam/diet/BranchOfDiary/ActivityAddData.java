@@ -68,9 +68,6 @@ public class ActivityAddData extends AppCompatActivity {
                     getWeight();
                     getOtherData();
                     saveWeightDiaryItem();
-                    Amplitude.getInstance().logEvent(Config.SAVE_DIARY_WEIGHT);
-                    Adjust.trackEvent(new AdjustEvent(EventsAdjust.add_weight));
-                    Amplitude.getInstance().logEvent(AmplitudaEvents.add_weight);
                     if (isReadyToClose) {
                         finish();
                     }

@@ -64,7 +64,6 @@ public class ActivityGroupsOfRecipes extends AppCompatActivity {
         interstitialAd.loadAd(new AdRequest.Builder().build());
 
         YandexMetrica.reportEvent("Открыт экран: Список рецептов");
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_all_recipes));
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_all_recipes);
     }
 

@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 break;
             case R.id.btnReg:
+                AmplitudaEvents.logEventRegistration(AmplitudaEvents.reg_from_diary);
                 startActivity(new Intent(MainActivity.this, ActivitySplash.class)
                         .putExtra(Config.IS_NEED_REG, true)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));

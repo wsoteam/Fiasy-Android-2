@@ -95,7 +95,6 @@ public class FragmentDiary extends Fragment {
         unbinder = ButterKnife.bind(this, mainView);
         getActivity().setTitle("");
 
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.session_launch));
         Amplitude.getInstance().logEvent(AmplitudaEvents.session_launch);
         /** on your logout method:**/
         Intent broadcastIntent = new Intent();

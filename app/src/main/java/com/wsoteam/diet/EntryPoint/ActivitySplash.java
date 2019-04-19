@@ -147,7 +147,6 @@ public class ActivitySplash extends Activity {
                         intent = new Intent(ActivitySplash.this, MainActivity.class);
                     } else {
                         intent = new Intent(ActivitySplash.this, MainActivity.class);
-//                       intent = new Intent(ActivitySplash.this, ActivitySubscription.class);
                     }
                     startActivity(intent);
                     finish();
@@ -168,6 +167,7 @@ public class ActivitySplash extends Activity {
                 finish();
             } else {
             getPreferences(MODE_PRIVATE).edit().putBoolean(Config.SHOW_FREE_ONBOARD, true).commit();
+            Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
             WorkWithFirebaseDB.setStartEmptyObject(this);
             new FuckingSleep().execute();
 
@@ -202,7 +202,6 @@ public class ActivitySplash extends Activity {
             String week = String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
             String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
 
-            Adjust.trackEvent(new AdjustEvent(EventsAdjust.first_launch));
             Identify date = new Identify().set(AmplitudaEvents.FIRST_DAY, day)
                     .set(AmplitudaEvents.FIRST_WEEK, week).set(AmplitudaEvents.FIRST_MONTH, month);
             Amplitude.getInstance().identify(date);

@@ -108,8 +108,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
 
         YandexMetrica.reportEvent("Открыт экран: Анализатор");
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.attempt_add_food));
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_search_food));
         Amplitude.getInstance().logEvent(AmplitudaEvents.attempt_add_food);
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_search_food);
 

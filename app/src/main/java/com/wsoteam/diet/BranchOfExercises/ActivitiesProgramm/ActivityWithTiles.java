@@ -65,8 +65,6 @@ public class ActivityWithTiles extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_training));
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_training);
 
         numberOfSelectedProgramm = getIntent().getIntExtra(NUMBER_OF_PROGRAM, 0);
         numberOfSelectedItemOfList = getIntent().getIntExtra(NUMBER_OF_ITEM_FROM_LIST, 0);

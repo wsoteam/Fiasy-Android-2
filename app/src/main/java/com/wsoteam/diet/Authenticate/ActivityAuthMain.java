@@ -220,7 +220,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 //                    startPrem();
 
                     if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
-                        Adjust.trackEvent(new AdjustEvent(EventsAdjust.create_acount));
                         Amplitude.getInstance().logEvent(AmplitudaEvents.create_acount);
                         WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
                     }
@@ -594,8 +593,7 @@ private ValueEventListener getPostListener(){
 
             if (isPP() && createUser){
                 Log.d(TAG, "logEvent: acept_police");
-                 Amplitude.getInstance().logEvent(AmplitudaEvents.acept_police);
-                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.acept_police));
+
             }
             Log.d(TAG, "checkUserExist: true");
             startActivity(intent);

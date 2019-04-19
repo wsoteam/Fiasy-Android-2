@@ -46,18 +46,6 @@ public class Config {
     public static final String ENTER_FROM_MAIN_ACTIVITY = "ENTER_FROM_MAIN_ACTIVITY";
     public static final String ALERT_BUY_SUBSCRIPTION = "ALERT_BUY_SUBSCRIPTION";
 
-    //amplitude names of events
-    public static final String REGISTRATION = "Проходят регистрацию";
-    public static final String SAVE_ONE_CATEGORY = "Заносят продукты, хотя бы в одну категорию";
-    public static final String SAVE_TWO_CATEGORY = "Заносят продукты, хотя бы в две категории";
-    public static final String SAVE_THREE_CATEGORY = "Заносят продукты, хотя бы в три категории";
-    public static final String SAVE_ALL_CATEGORY = "Заносят продукты во все категории";
-    public static final String SEE_PREMIUM = "Посмотрели premium страницу";
-    public static final String BUY_PREMIUM = "Купили платную подписку";
-    public static final String FILL_PROFILE = "Заполнили профиль";
-    public static final String SAVE_DIARY_WEIGHT = "Заносят данные о весе (дневник)";
-    public static final String ENTER_IN_FITNESS = "Заходят в раздел тренировки";
-
 
     public static final String ADJUST_COME_FROM = "ADJUST_COME_FROM";
     public static final String ADJUST_BUY_FROM = "ADJUST_BUY_FROM";
