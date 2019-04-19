@@ -64,8 +64,6 @@ public class ActivityAuthenticate extends AppCompatActivity implements View.OnCl
 
         switch (view.getId()){
             case R.id.auth_first_btn_registration:
-                Adjust.trackEvent(new AdjustEvent(EventsAdjust.start_registration));
-                Amplitude.getInstance().logEvent(AmplitudaEvents.start_registration);
                 startActivity(new Intent(this, ActivityEditProfile.class).putExtra("registration",true));
                 break;
             case R.id.auth_first_btn_signin:

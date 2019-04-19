@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
@@ -88,6 +90,7 @@ public class ActivitySplash extends Activity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
+
         mBillingClient = BillingClient.newBuilder(this).setListener(new PurchasesUpdatedListener() {
             @Override
             public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
@@ -129,6 +132,7 @@ public class ActivitySplash extends Activity {
 
 
         if (user != null) {
+            FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
             deleteFreeUser();
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -147,7 +151,6 @@ public class ActivitySplash extends Activity {
                         intent = new Intent(ActivitySplash.this, MainActivity.class);
                     } else {
                         intent = new Intent(ActivitySplash.this, MainActivity.class);
-//                       intent = new Intent(ActivitySplash.this, ActivitySubscription.class);
                     }
                     startActivity(intent);
                     finish();
@@ -160,6 +163,7 @@ public class ActivitySplash extends Activity {
                 }
             });
         } else {
+            FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
             createFreeUser();
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
             if (getPreferences(MODE_PRIVATE).getBoolean(Config.SHOW_FREE_ONBOARD, false)) {
@@ -168,6 +172,7 @@ public class ActivitySplash extends Activity {
                 finish();
             } else {
             getPreferences(MODE_PRIVATE).edit().putBoolean(Config.SHOW_FREE_ONBOARD, true).commit();
+            Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
             WorkWithFirebaseDB.setStartEmptyObject(this);
             new FuckingSleep().execute();
 
@@ -202,7 +207,6 @@ public class ActivitySplash extends Activity {
             String week = String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
             String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
 
-            Adjust.trackEvent(new AdjustEvent(EventsAdjust.first_launch));
             Identify date = new Identify().set(AmplitudaEvents.FIRST_DAY, day)
                     .set(AmplitudaEvents.FIRST_WEEK, week).set(AmplitudaEvents.FIRST_MONTH, month);
             Amplitude.getInstance().identify(date);
@@ -242,6 +246,7 @@ public class ActivitySplash extends Activity {
                 .set(AmplitudaEvents.LONG_OF_PREM, durationPrem)
                 .set(AmplitudaEvents.PRICE_OF_PREM, pricePrem);
         Amplitude.getInstance().identify(premStatus);
+        FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.PREM_STATUS, FirebaseUserProperties.buy);
     }
 
     private void deletePremStatus() {
@@ -253,7 +258,7 @@ public class ActivitySplash extends Activity {
                 .unset(AmplitudaEvents.LONG_OF_PREM)
                 .unset(AmplitudaEvents.PRICE_OF_PREM);
         Amplitude.getInstance().identify(deletePremStatus);
-
+        FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.PREM_STATUS, FirebaseUserProperties.un_buy);
     }
 
 

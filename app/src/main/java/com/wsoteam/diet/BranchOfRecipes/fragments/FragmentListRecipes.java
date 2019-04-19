@@ -54,7 +54,6 @@ public class FragmentListRecipes extends Fragment {
         updateUI();
 
         YandexMetrica.reportEvent("Открыт экран: Список рецептов");
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_all_recipes));
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_all_recipes);
         return view;
     }

@@ -44,7 +44,6 @@ public class ActivitySettings extends AppCompatActivity {
         ivBack = findViewById(R.id.ivBack);
         handleSwitch();
 
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_settings));
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_settings);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -88,8 +87,6 @@ public class ActivitySettings extends AppCompatActivity {
         cvShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Adjust.trackEvent(new AdjustEvent(EventsAdjust.share));
-                Amplitude.getInstance().logEvent(AmplitudaEvents.share);
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.accompanying_text)

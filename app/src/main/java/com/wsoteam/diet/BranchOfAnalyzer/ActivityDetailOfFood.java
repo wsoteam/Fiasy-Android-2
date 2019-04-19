@@ -95,10 +95,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3;
     private FoodItem foodItem;
     private final String TAG_OWN_PRODUCT = "OWN";
-    private SharedPreferences date, isTodayBreakfastSaved, isTodayLunchSaved, isTodayDinnerSaved, isTodaySnackSaved;
-    private final String TAG_OF_DATE = "TAG_OF_DATE", TAG_OF_BREAKFAST_SAVED = "TAG_OF_BREAKFAST_SAVED",
-            TAG_OF_LUNCH_SAVED = "TAG_OF_LUNCH_SAVED", TAG_OF_DINNER_SAVED = "TAG_OF_DINNER_SAVED", TAG_OF_SNACK_SAVED = "TAG_OF_SNACK_SAVED";
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,7 +151,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
         YandexMetrica.reportEvent("Открыт экран: Детализация продукта группы - " + foodItem.getNameOfGroup());
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_detail_food));
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_detail_food);
 
     }
@@ -180,7 +175,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         String name = foodItem.getName();
         String urlOfImage = foodItem.getUrlOfImages();
 
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.success_add_food));
         Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
         switch (idOfEating) {
             case BREAKFAST_POSITION:
@@ -199,19 +193,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                 WorkWithFirebaseDB.
                         addSnack(new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
                 break;
-        }
-
-        date = getPreferences(MODE_PRIVATE);
-        isTodayBreakfastSaved = getPreferences(MODE_PRIVATE);
-        isTodayLunchSaved = getPreferences(MODE_PRIVATE);
-        isTodayDinnerSaved = getPreferences(MODE_PRIVATE);
-        isTodaySnackSaved = getPreferences(MODE_PRIVATE);
-
-        if (date.getString(TAG_OF_DATE, "").equals("") || !date.getString(TAG_OF_DATE, "").equals(getCurrentDate())) {
-            SharedPreferences.Editor editor = date.edit();
-            editor.putString(TAG_OF_DATE, getCurrentDate());
-            editor.commit();
-            Amplitude.getInstance().logEvent(Config.SAVE_ONE_CATEGORY);
         }
 
         onBackPressed();
@@ -295,6 +276,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 break;
             case R.id.btnReg:
+                AmplitudaEvents.logEventRegistration(AmplitudaEvents.reg_from_add_food);
                 startActivity(new Intent(ActivityDetailOfFood.this, ActivitySplash.class)
                         .putExtra(Config.IS_NEED_REG, true)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));

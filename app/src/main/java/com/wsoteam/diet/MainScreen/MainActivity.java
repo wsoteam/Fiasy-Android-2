@@ -136,7 +136,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 ivTop.setVisibility(View.GONE);
-                startActivity(new Intent(MainActivity.this, ActivitySubscription.class));
+                startActivity(new Intent(MainActivity.this, ActivitySubscription.class)
+                        .putExtra(Config.AMPLITUDE_COME_FROM, AmplitudaEvents.view_prem_free_onboard)
+                        .putExtra(Config.AMPLITUDE_BUY_FROM, AmplitudaEvents.buy_prem_free_onboard));
                 return false;
             }
         });
@@ -163,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 break;
             case R.id.btnReg:
+                AmplitudaEvents.logEventRegistration(AmplitudaEvents.reg_from_diary);
                 startActivity(new Intent(MainActivity.this, ActivitySplash.class)
                         .putExtra(Config.IS_NEED_REG, true)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));

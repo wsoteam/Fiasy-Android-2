@@ -219,9 +219,13 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 //                    startPrem();
 
+                    if (createUser && mAuth.getCurrentUser().getProviders().size() > 0){
+                        AmplitudaEvents.logEventReg(mAuth.getCurrentUser().getProviders().get(0));
+                    }else {
+                        AmplitudaEvents.logEventReg("unknown");
+                    }
+
                     if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
-                        Adjust.trackEvent(new AdjustEvent(EventsAdjust.create_acount));
-                        Amplitude.getInstance().logEvent(AmplitudaEvents.create_acount);
                         WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
                     }
 
@@ -594,8 +598,7 @@ private ValueEventListener getPostListener(){
 
             if (isPP() && createUser){
                 Log.d(TAG, "logEvent: acept_police");
-                 Amplitude.getInstance().logEvent(AmplitudaEvents.acept_police);
-                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.acept_police));
+
             }
             Log.d(TAG, "checkUserExist: true");
             startActivity(intent);

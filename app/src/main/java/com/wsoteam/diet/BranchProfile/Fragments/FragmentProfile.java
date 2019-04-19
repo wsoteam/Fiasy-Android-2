@@ -69,7 +69,6 @@ public class FragmentProfile extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_profile, container, false);
 
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_profile));
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_profile);
 
 

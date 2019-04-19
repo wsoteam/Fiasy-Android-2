@@ -62,7 +62,6 @@ public class ActivityRecipes extends AppCompatActivity {
         interstitialAd.loadAd(new AdRequest.Builder().build());
 
         YandexMetrica.reportEvent("Открыт экран: Список рецептов на день");
-        Adjust.trackEvent(new AdjustEvent(EventsAdjust.view_recipe));
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_recipe);
 
     }

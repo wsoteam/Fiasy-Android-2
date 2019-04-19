@@ -92,18 +92,7 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
         unbinder = ButterKnife.bind(this, view);
         currentPrice = AmplitudaEvents.ONE_YEAR_PRICE;
 
-        String startFrom = getActivity().getIntent().getStringExtra(Config.START_FROM);
-        Log.d("event", "String startFrom = " + startFrom);
-        if (startFrom != null) {
-            if (startFrom.equals(Config.FROM_ONBOARDING)) {
-                Amplitude.getInstance().logEvent(AmplitudaEvents.buy_prem_onboarding);
-                Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_prem_onboarding));
-                Log.d("event", "onCreate: buy_prem_onboarding");
-            }
-        }
-
-
-        Amplitude.getInstance().logEvent(getArguments().getString(AMPLITUDE_COME_FROM_TAG));
+        AmplitudaEvents.logEventViewPremium(getArguments().getString(AMPLITUDE_COME_FROM_TAG));
         Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_COME_FROM_TAG)));
 
         if (getArguments().getBoolean(ENTER_FROM_MAINACTIVITY_TAG)) {
@@ -186,7 +175,7 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
 
-            Amplitude.getInstance().logEvent(getArguments().getString(AMPLITUDE_BUY_FROM_TAG));
+            AmplitudaEvents.logEventBuyPremium(getArguments().getString(AMPLITUDE_BUY_FROM_TAG));
             Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_BUY_FROM_TAG)));
             Identify identify = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy)
                     .set(AmplitudaEvents.LONG_OF_PREM, currentSKU)
