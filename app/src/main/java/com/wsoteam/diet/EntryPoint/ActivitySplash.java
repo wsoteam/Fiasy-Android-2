@@ -39,6 +39,7 @@ import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
@@ -131,7 +132,7 @@ public class ActivitySplash extends Activity {
 
 
         if (user != null) {
-            Log.e("LOL", user.getProviders().get(0));
+            FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
             deleteFreeUser();
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -162,6 +163,7 @@ public class ActivitySplash extends Activity {
                 }
             });
         } else {
+            FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
             createFreeUser();
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
             if (getPreferences(MODE_PRIVATE).getBoolean(Config.SHOW_FREE_ONBOARD, false)) {
@@ -244,6 +246,7 @@ public class ActivitySplash extends Activity {
                 .set(AmplitudaEvents.LONG_OF_PREM, durationPrem)
                 .set(AmplitudaEvents.PRICE_OF_PREM, pricePrem);
         Amplitude.getInstance().identify(premStatus);
+        FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.PREM_STATUS, FirebaseUserProperties.buy);
     }
 
     private void deletePremStatus() {
@@ -255,7 +258,7 @@ public class ActivitySplash extends Activity {
                 .unset(AmplitudaEvents.LONG_OF_PREM)
                 .unset(AmplitudaEvents.PRICE_OF_PREM);
         Amplitude.getInstance().identify(deletePremStatus);
-
+        FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.PREM_STATUS, FirebaseUserProperties.un_buy);
     }
 
 
