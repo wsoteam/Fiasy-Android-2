@@ -37,6 +37,9 @@ public class AmplitudaEvents {
     public static final String view_prem_training = "view_prem_training";
     public static final String buy_prem_training = "buy_prem_training";
 
+    public static final String view_prem_free_onboard = "view_prem_free_onboard";
+    public static final String buy_prem_free_onboard = "buy_prem_free_onboard";
+
 
     public static final String view_profile = "view_profile";
     public static final String view_settings = "view_settings";
