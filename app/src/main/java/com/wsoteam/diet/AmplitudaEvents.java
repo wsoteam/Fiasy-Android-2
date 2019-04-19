@@ -73,6 +73,9 @@ public class AmplitudaEvents {
     public static final String  BUY_PREM_FROM = "BUY_PREM_FROM";
 
 
+    public static final String  REG_VIA = "REG_VIA";
+
+
 
 
     public static void logEventRegistration(String from){
@@ -100,6 +103,15 @@ public class AmplitudaEvents {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(buy_prem, eventProperties);
+    }
+
+    public static void logEventReg(String via){
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(REG_VIA, via);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(create_acount, eventProperties);
     }
 
 }
