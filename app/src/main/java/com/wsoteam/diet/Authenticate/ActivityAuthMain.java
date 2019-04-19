@@ -219,6 +219,10 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 //                    startPrem();
 
+                    if (createUser){
+
+                    }
+
                     if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
                         Amplitude.getInstance().logEvent(AmplitudaEvents.create_acount);
                         WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));

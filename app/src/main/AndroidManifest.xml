@@ -104,6 +104,7 @@
 
         <activity
             android:name=".EntryPoint.ActivitySplash"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -113,69 +114,90 @@
         </activity>
         <activity
             android:name=".OtherActivity.ActivitySettings"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBarSettings" />
         <activity
             android:name=".BranchOfCalculating.ActivityListOfCalculating"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainScreen.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".BranchOfCalculating.ActivityCalculatorBrok"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfCalculating.ActivityCalculatorLorenc"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".OtherActivity.ActivityEmpty"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfCalculating.ActivityCalculatorIMT"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfRecipes.ActivityRecipes"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfRecipes.ActivityGroupsOfRecipes"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfDiary.ActivityAddData"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfDiary.ActivityListOfDiary"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".OtherActivity.ActivityAboutSetingsNotifications"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfCalculating.ActivityCalculatorSPK"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfExercises.Activities.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityListOfExGroups"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityListOfEx"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityExDetail"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfExercises.ActivitiesProgramm.ActivityListOfTraining"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfExercises.ActivitiesProgramm.ActivityWithTiles"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfExercises.ActivitiesArticles.ActivityDetailAcrticles"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfAnalyzer.ActivityListAndSearch"
+            android:screenOrientation="portrait"
             android:theme="@style/AnalyzerTheme" />
         <activity
             android:name=".BranchOfAnalyzer.ActivityDetailOfFood"
+            android:screenOrientation="portrait"
             android:theme="@style/DetailFood" />
         <activity
             android:name=".BranchProfile.ActivityEditProfile"
@@ -183,6 +205,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".BranchProfile.ActivityHelp"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver
@@ -204,9 +227,11 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Authenticate.ActivityAuthPhone" />
+        <activity android:name=".Authenticate.ActivityAuthPhone"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".BranchProfile.ActivityEditCompletedProfile"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
 
 
