@@ -29,6 +29,7 @@ public class ActivitySubscription extends AppCompatActivity {
                 FragmentSubscription.newInstance(getIntent().getBooleanExtra(Config.ENTER_FROM_MAIN_ACTIVITY, false),
                         getIntent().getStringExtra(Config.AMPLITUDE_COME_FROM), getIntent().getStringExtra(Config.ADJUST_COME_FROM),
                         getIntent().getStringExtra(Config.AMPLITUDE_BUY_FROM),
-                        getIntent().getStringExtra(Config.ADJUST_BUY_FROM))).commit();
+                        getIntent().getStringExtra(Config.ADJUST_BUY_FROM),
+                        getIntent().getBooleanExtra(Config.OPEN_PREM_FROM_INTRODACTION, false))).commit();
     }
 }

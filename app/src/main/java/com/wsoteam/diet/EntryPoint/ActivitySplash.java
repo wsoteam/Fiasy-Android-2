@@ -164,7 +164,6 @@ public class ActivitySplash extends Activity {
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
             if (getSharedPreferences(Config.SHOWED_FREE_ONBOARD, MODE_PRIVATE).getBoolean(Config.SHOWED_FREE_ONBOARD, false)
                     || getIntent().getBooleanExtra(Config.IS_NEED_REG, false)) {
-                UserDataHolder.clearObject();
                 startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
                 finish();
             } else {
@@ -275,8 +274,14 @@ public class ActivitySplash extends Activity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            startActivity(new Intent(ActivitySplash.this, MainActivity.class));
-            finish();
+            if (getSharedPreferences(Config.SHOWED_INTRODACTION, MODE_PRIVATE).getBoolean(Config.SHOWED_INTRODACTION, false)){
+                startActivity(new Intent(ActivitySplash.this, MainActivity.class));
+                finish();
+            }else{
+                getSharedPreferences(Config.SHOWED_INTRODACTION, MODE_PRIVATE).edit().putBoolean(Config.SHOWED_INTRODACTION, true).commit();
+                startActivity(new Intent(ActivitySplash.this, EditProfileIntrodaction.class));
+                finish();
+            }
         }
     }
 

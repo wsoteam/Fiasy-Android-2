@@ -62,5 +62,10 @@ public class Config {
     public static final String FIRST_SPAM = "FIRST_SPAM";
     public static final String SHOWED_FREE_ONBOARD = "SHOWED_FREE_ONBOARD";
 
+    public static final String SHOWED_INTRODACTION = "SHOWED_INTRODACTION";
+
+    public static final String OPEN_PREM_FROM_INTRODACTION = "SHOWED_INTRODACTION";
+    public static final String NAME_USER_FOR_INTRODACTION = "NAME_USER_FOR_INTRODACTION";
+
 
 }

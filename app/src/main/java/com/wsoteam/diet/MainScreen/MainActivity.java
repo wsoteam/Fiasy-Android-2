@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
                                 AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
-                                AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content)).commit();
+                                AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
                         window.setStatusBarColor(Color.parseColor("#374557"));
                     }
                     return true;
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
                                 AmplitudaEvents.view_prem_training, EventsAdjust.view_prem_training,
-                                AmplitudaEvents.buy_prem_training, EventsAdjust.buy_prem_training)).commit();
+                                AmplitudaEvents.buy_prem_training, EventsAdjust.buy_prem_training, false)).commit();
                         window.setStatusBarColor(Color.parseColor("#374557"));
                     }
                     return true;

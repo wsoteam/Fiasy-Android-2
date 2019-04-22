@@ -32,6 +32,7 @@ import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.R;
@@ -67,16 +68,20 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
     Unbinder unbinder;
     private static final String AMPLITUDE_COME_FROM_TAG = "AMPLITUDE_COME_FROM_TAG",
             ADJUST_COME_FROM_TAG = "ADJUST_COME_FROM_TAG", ENTER_FROM_MAINACTIVITY_TAG = "ENTER_FROM_MAINACTIVITY_TAG",
-            AMPLITUDE_BUY_FROM_TAG = "AMPLITUDE_BUY_FROM_TAG", ADJUST_BUY_FROM_TAG = "ADJUST_BUY_FROM_TAG";
+            AMPLITUDE_BUY_FROM_TAG = "AMPLITUDE_BUY_FROM_TAG", ADJUST_BUY_FROM_TAG = "ADJUST_BUY_FROM_TAG",
+            OPEN_PREM_FROM_INTRODACTION = "OPEN_PREM_FROM_INTRODACTION";
+    private boolean isOpenFromIntro = false;
 
     public static FragmentSubscription newInstance(boolean isEnterFromMainActivity, String amplitudeComeFrom,
-                                                   String adjustComeFrom, String amplitudeBuyFrom, String adjustBuyFrom) {
+                                                   String adjustComeFrom, String amplitudeBuyFrom, String adjustBuyFrom,
+                                                   boolean isOpenFromIntro) {
         Bundle bundle = new Bundle();
         bundle.putBoolean(ENTER_FROM_MAINACTIVITY_TAG, isEnterFromMainActivity);
         bundle.putString(AMPLITUDE_COME_FROM_TAG, amplitudeComeFrom);
         bundle.putString(ADJUST_COME_FROM_TAG, adjustComeFrom);
         bundle.putString(AMPLITUDE_BUY_FROM_TAG, amplitudeBuyFrom);
         bundle.putString(ADJUST_BUY_FROM_TAG, adjustBuyFrom);
+        bundle.putBoolean(OPEN_PREM_FROM_INTRODACTION, isOpenFromIntro);
 
         FragmentSubscription fragmentSubscription = new FragmentSubscription();
         fragmentSubscription.setArguments(bundle);
@@ -94,6 +99,8 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
 
         AmplitudaEvents.logEventViewPremium(getArguments().getString(AMPLITUDE_COME_FROM_TAG));
         Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_COME_FROM_TAG)));
+
+        isOpenFromIntro = getArguments().getBoolean(OPEN_PREM_FROM_INTRODACTION, false);
 
         Log.e("LOL", getArguments().getString(AMPLITUDE_COME_FROM_TAG));
         if (getArguments().getBoolean(ENTER_FROM_MAINACTIVITY_TAG)) {
@@ -180,7 +187,6 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
             Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_BUY_FROM_TAG)));
 
 
-
             Identify identify = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy)
                     .set(AmplitudaEvents.LONG_OF_PREM, currentSKU)
                     .set(AmplitudaEvents.PRICE_OF_PREM, currentPrice);
@@ -237,11 +243,16 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
         }
         if (view.getId() == R.id.imbtnCancel) {
             Amplitude.getInstance().logEvent(AmplitudaEvents.close_premium);
-            if (getActivity().getSharedPreferences(Config.FREE_USER, MODE_PRIVATE).getBoolean(Config.FREE_USER, true)) {
-                getActivity().onBackPressed();
-            } else {
-                startActivity(new Intent(getActivity(), ActivitySplash.class));
+            if (isOpenFromIntro) {
+                startActivity(new Intent(getActivity(), MainActivity.class));
                 getActivity().finish();
+            } else {
+                if (getActivity().getSharedPreferences(Config.FREE_USER, MODE_PRIVATE).getBoolean(Config.FREE_USER, true)) {
+                    getActivity().onBackPressed();
+                } else {
+                    startActivity(new Intent(getActivity(), ActivitySplash.class));
+                    getActivity().finish();
+                }
             }
 
         }
