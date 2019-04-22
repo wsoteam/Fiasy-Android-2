@@ -13,15 +13,12 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
-import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.yandex.metrica.YandexMetrica;
@@ -59,6 +56,7 @@ public class ActivitySettings extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 LoginManager.getInstance().logOut();
                 UserDataHolder.clearObject();
+                getSharedPreferences(Config.SHOWED_FREE_ONBOARD, MODE_PRIVATE).edit().putBoolean(Config.SHOWED_FREE_ONBOARD, true).commit();
                 finish();
                 startActivity(new Intent(ActivitySettings.this, ActivitySplash.class).
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));

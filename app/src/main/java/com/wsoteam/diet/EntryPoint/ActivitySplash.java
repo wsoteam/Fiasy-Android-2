@@ -10,13 +10,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
@@ -38,7 +35,6 @@ import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
@@ -166,12 +162,12 @@ public class ActivitySplash extends Activity {
             FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
             createFreeUser();
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
-            if (getPreferences(MODE_PRIVATE).getBoolean(Config.SHOW_FREE_ONBOARD, false)) {
+            if (getSharedPreferences(Config.SHOWED_FREE_ONBOARD, MODE_PRIVATE).getBoolean(Config.SHOWED_FREE_ONBOARD, false)
+                    || getIntent().getBooleanExtra(Config.IS_NEED_REG, false)) {
                 UserDataHolder.clearObject();
                 startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
                 finish();
             } else {
-            getPreferences(MODE_PRIVATE).edit().putBoolean(Config.SHOW_FREE_ONBOARD, true).commit();
             Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
             WorkWithFirebaseDB.setStartEmptyObject(this);
             new FuckingSleep().execute();
