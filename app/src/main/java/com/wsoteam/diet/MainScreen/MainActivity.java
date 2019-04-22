@@ -114,11 +114,6 @@ public class MainActivity extends AppCompatActivity {
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        if (isFreeUser() && !checkSubscribe() && getPreferences(MODE_PRIVATE).getBoolean(Config.FIRST_SPAM, true)) {
-            setInterceptor();
-            deleteSpamPremium();
-        }
-
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_diary);
     }
 
