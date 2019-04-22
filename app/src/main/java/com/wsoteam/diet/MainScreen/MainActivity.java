@@ -60,7 +60,11 @@ public class MainActivity extends AppCompatActivity {
                     window.setStatusBarColor(Color.parseColor("#AE6A23"));
                     return true;
                 case R.id.bnv_main_articles:
-                    if (checkSubscribe()) {
+                    if (isFreeUser()) {
+                        Amplitude.getInstance().logEvent(AmplitudaEvents.reg_offer);
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        return false;
+                    } else if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
                         transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
@@ -70,7 +74,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                     return true;
                 case R.id.bnv_main_trainer:
-                    if (checkSubscribe()) {
+                    if (isFreeUser()) {
+                        Amplitude.getInstance().logEvent(AmplitudaEvents.reg_offer);
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        return false;
+                    } else if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
                         transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
@@ -80,15 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     return true;
                 case R.id.bnv_main_recipes:
-                    if (true) {
-                        transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
-
-                    } else {
-                        transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
-                                AmplitudaEvents.view_prem_recipe, EventsAdjust.view_prem_recipe,
-                                AmplitudaEvents.buy_prem_recipe, EventsAdjust.buy_prem_recipe)).commit();
-                        window.setStatusBarColor(Color.parseColor("#374557"));
-                    }
+                    transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
                     return true;
                 case R.id.bnv_main_profile:
                     if (!isFreeUser()) {
