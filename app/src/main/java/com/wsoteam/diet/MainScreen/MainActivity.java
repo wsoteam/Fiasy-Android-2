@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.bnv_main_articles:
                     if (isFreeUser()) {
-                        Amplitude.getInstance().logEvent(AmplitudaEvents.reg_offer);
+                        AmplitudaEvents.logEventRegOffer(AmplitudaEvents.open_articles);
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                         return false;
                     } else if (checkSubscribe()) {
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.bnv_main_trainer:
                     if (isFreeUser()) {
-                        Amplitude.getInstance().logEvent(AmplitudaEvents.reg_offer);
+                        AmplitudaEvents.logEventRegOffer(AmplitudaEvents.open_trainer);
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                         return false;
                     } else if (checkSubscribe()) {
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                         window.setStatusBarColor(Color.parseColor("#2E4E4E"));
                         return true;
                     } else {
-                        Amplitude.getInstance().logEvent(AmplitudaEvents.reg_offer);
+                        AmplitudaEvents.logEventRegOffer(AmplitudaEvents.open_profile);
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                         return false;
                     }

@@ -78,6 +78,12 @@ public class AmplitudaEvents {
 
     public static final String  REG_VIA = "REG_VIA";
 
+    public static final String  REG_OFFER_WHEN = "REG_OFFER_WHEN";
+    public static final String  open_profile = "open_profile";
+    public static final String  open_trainer = "open_trainer";
+    public static final String  open_articles = "open_articles";
+    public static final String  add_food = "add_food";
+
 
 
 
@@ -115,6 +121,15 @@ public class AmplitudaEvents {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(create_acount, eventProperties);
+    }
+
+    public static void logEventRegOffer(String when){
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(REG_OFFER_WHEN, when);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(reg_offer, eventProperties);
     }
 
 }
