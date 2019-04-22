@@ -261,7 +261,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.btnSaveEating:
                 if (getSharedPreferences(Config.FREE_USER, MODE_PRIVATE).getBoolean(Config.FREE_USER, true)) {
-                    Amplitude.getInstance().logEvent(AmplitudaEvents.reg_offer);
+                    AmplitudaEvents.logEventRegOffer(AmplitudaEvents.add_food);
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 } else if (edtWeight.getText().toString().equals("") || edtWeight.getText().toString().equals(" ")) {
                     Toast.makeText(ActivityDetailOfFood.this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
@@ -276,7 +276,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 break;
             case R.id.btnReg:
-                AmplitudaEvents.logEventRegOffer(AmplitudaEvents.add_food);
+                AmplitudaEvents.logEventRegistration(AmplitudaEvents.reg_from_add_food);
                 startActivity(new Intent(ActivityDetailOfFood.this, ActivitySplash.class)
                         .putExtra(Config.IS_NEED_REG, true)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));

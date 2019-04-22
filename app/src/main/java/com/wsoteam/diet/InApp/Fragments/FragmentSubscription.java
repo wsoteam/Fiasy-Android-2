@@ -232,9 +232,11 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
             ivFilter12sub.setVisibility(View.GONE);
         }
         if (view.getId() == R.id.btnBuyPrem) {
+            AmplitudaEvents.logEventClickBuy(currentSKU);
             buy(currentSKU);
         }
         if (view.getId() == R.id.imbtnCancel) {
+            Amplitude.getInstance().logEvent(AmplitudaEvents.close_premium);
             if (getActivity().getSharedPreferences(Config.FREE_USER, MODE_PRIVATE).getBoolean(Config.FREE_USER, true)) {
                 getActivity().onBackPressed();
             } else {
