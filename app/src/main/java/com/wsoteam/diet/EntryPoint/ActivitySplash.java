@@ -68,6 +68,7 @@ public class ActivitySplash extends Activity {
         ButterKnife.bind(this);
         Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
         Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
+        Amplitude.getInstance().trackSessionEvents(true);
         Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
                 .enableForegroundTracking(getApplication());
 
