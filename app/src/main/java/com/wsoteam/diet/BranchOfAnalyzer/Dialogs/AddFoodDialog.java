@@ -20,8 +20,6 @@ public class AddFoodDialog {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         AlertDialog alertDialog = builder.create();
         View view = LayoutInflater.from(context).inflate(R.layout.alert_dialog_succes_add_food, null);
-        ImageView imageView = view.findViewById(R.id.ivSuccesAdd);
-        Glide.with(context).load(R.drawable.succes_add_food).into(imageView);
         alertDialog.setView(view);
         alertDialog.show();
 

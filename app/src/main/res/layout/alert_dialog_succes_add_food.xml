@@ -6,10 +6,11 @@
     android:background="@color/white">
 
     <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
         android:id="@+id/ivSuccesAdd"
         android:layout_marginTop="8dp"
+        android:src="@drawable/succes_add_food"
         android:layout_gravity="center_horizontal"/>
 
 
