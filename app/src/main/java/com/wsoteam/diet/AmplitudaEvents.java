@@ -7,7 +7,6 @@ import org.json.JSONObject;
 
 public class AmplitudaEvents {
     public static final String first_launch = "first_launch";
-    public static final String session_launch = "session_launch";
     public static final String free_enter = "free_enter";
 
 

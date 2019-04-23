@@ -138,6 +138,8 @@
     <color name="prem_head">#E4930B</color>
     <color name="prem_filter">#61FF8E00</color>
 
+    <color name="prem_text_color_head">#656565</color>
+
 
 
 </resources>

@@ -93,8 +93,7 @@ public class FragmentDiary extends Fragment {
         View mainView = inflater.inflate(R.layout.activity_main, container, false);
         unbinder = ButterKnife.bind(this, mainView);
         getActivity().setTitle("");
-
-        Amplitude.getInstance().logEvent(AmplitudaEvents.session_launch);
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_diary);
         /** on your logout method:**/
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("com.wsoteam.diet.ACTION_LOGOUT");

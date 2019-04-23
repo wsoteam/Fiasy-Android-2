@@ -13,6 +13,7 @@ import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscription;
+import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionWhite;
 import com.wsoteam.diet.R;
 
 
@@ -26,7 +27,7 @@ public class ActivitySubscription extends AppCompatActivity {
 
 
         getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                FragmentSubscription.newInstance(getIntent().getBooleanExtra(Config.ENTER_FROM_MAIN_ACTIVITY, false),
+                FragmentSubscriptionWhite.newInstance(getIntent().getBooleanExtra(Config.ENTER_FROM_MAIN_ACTIVITY, false),
                         getIntent().getStringExtra(Config.AMPLITUDE_COME_FROM), getIntent().getStringExtra(Config.ADJUST_COME_FROM),
                         getIntent().getStringExtra(Config.AMPLITUDE_BUY_FROM),
                         getIntent().getStringExtra(Config.ADJUST_BUY_FROM),

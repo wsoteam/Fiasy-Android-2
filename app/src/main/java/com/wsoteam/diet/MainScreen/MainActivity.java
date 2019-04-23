@@ -26,6 +26,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscription;
+import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionWhite;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     } else if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
-                        transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
+                        transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionWhite.newInstance(true,
                                 AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
                                 AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
                         window.setStatusBarColor(Color.parseColor("#374557"));
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     } else if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
-                        transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
+                        transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionWhite.newInstance(true,
                                 AmplitudaEvents.view_prem_training, EventsAdjust.view_prem_training,
                                 AmplitudaEvents.buy_prem_training, EventsAdjust.buy_prem_training, false)).commit();
                         window.setStatusBarColor(Color.parseColor("#374557"));
@@ -114,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_diary);
     }
 
     private void deleteSpamPremium() {
