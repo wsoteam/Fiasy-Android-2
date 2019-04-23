@@ -245,16 +245,13 @@
         android:id="@+id/fabAddEating"
         android:layout_width="56dp"
         android:layout_height="56dp"
+        app:maxImageSize="14dp"
         android:layout_gravity="bottom|right"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:padding="30dp"
         android:scaleType="center"
         android:src="@drawable/fab_main_act_add"
         app:backgroundTint="@color/fab_main_activity"
         app:borderWidth="0dp"
-        app:elevation="8dp"
-        android:visibility="gone"
-        tools:layout_editor_absoluteX="252dp"
-        tools:layout_editor_absoluteY="228dp" />
+        app:elevation="8dp" />
 </android.support.design.widget.CoordinatorLayout>

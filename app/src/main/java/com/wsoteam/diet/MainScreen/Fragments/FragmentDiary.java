@@ -82,7 +82,6 @@ public class FragmentDiary extends Fragment {
     public void onResume() {
         super.onResume();
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
-            Log.e("LOL", "Not null");
             profile = UserDataHolder.getUserData().getProfile();
             setMaxParamsInProgressBars(profile);
         }

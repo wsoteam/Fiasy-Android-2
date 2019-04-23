@@ -10,13 +10,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
@@ -38,7 +35,6 @@ import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
@@ -166,12 +162,11 @@ public class ActivitySplash extends Activity {
             FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
             createFreeUser();
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
-            if (getPreferences(MODE_PRIVATE).getBoolean(Config.SHOW_FREE_ONBOARD, false)) {
-                UserDataHolder.clearObject();
+            if (getSharedPreferences(Config.SHOWED_FREE_ONBOARD, MODE_PRIVATE).getBoolean(Config.SHOWED_FREE_ONBOARD, false)
+                    || getIntent().getBooleanExtra(Config.IS_NEED_REG, false)) {
                 startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
                 finish();
             } else {
-            getPreferences(MODE_PRIVATE).edit().putBoolean(Config.SHOW_FREE_ONBOARD, true).commit();
             Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
             WorkWithFirebaseDB.setStartEmptyObject(this);
             new FuckingSleep().execute();
@@ -200,9 +195,8 @@ public class ActivitySplash extends Activity {
     private void checkFirstLaunch() {
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
 
-        if (sharedPreferences.getBoolean(TAG_FIRST_RUN, false)) {
+        if (!sharedPreferences.getBoolean(TAG_FIRST_RUN, false)) {
             Calendar calendar = Calendar.getInstance();
-
             String day = String.valueOf(calendar.get(Calendar.DAY_OF_YEAR));
             String week = String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
             String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
@@ -217,7 +211,6 @@ public class ActivitySplash extends Activity {
             editor.putBoolean(TAG_FIRST_RUN, true);
             editor.commit();
         }
-
     }
 
     private boolean hasConnection(Context context) {
@@ -281,8 +274,14 @@ public class ActivitySplash extends Activity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            startActivity(new Intent(ActivitySplash.this, MainActivity.class));
-            finish();
+            if (getSharedPreferences(Config.SHOWED_INTRODACTION, MODE_PRIVATE).getBoolean(Config.SHOWED_INTRODACTION, false)){
+                startActivity(new Intent(ActivitySplash.this, MainActivity.class));
+                finish();
+            }else{
+                getSharedPreferences(Config.SHOWED_INTRODACTION, MODE_PRIVATE).edit().putBoolean(Config.SHOWED_INTRODACTION, true).commit();
+                startActivity(new Intent(ActivitySplash.this, EditProfileIntrodaction.class));
+                finish();
+            }
         }
     }
 

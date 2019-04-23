@@ -60,7 +60,12 @@ public class Config {
     public static final String IS_NEED_REG = "IS_NEED_REG";
 
     public static final String FIRST_SPAM = "FIRST_SPAM";
-    public static final String SHOW_FREE_ONBOARD = "SHOW_FREE_ONBOARD";
+    public static final String SHOWED_FREE_ONBOARD = "SHOWED_FREE_ONBOARD";
+
+    public static final String SHOWED_INTRODACTION = "SHOWED_INTRODACTION";
+
+    public static final String OPEN_PREM_FROM_INTRODACTION = "SHOWED_INTRODACTION";
+    public static final String NAME_USER_FOR_INTRODACTION = "NAME_USER_FOR_INTRODACTION";
 
 
 }

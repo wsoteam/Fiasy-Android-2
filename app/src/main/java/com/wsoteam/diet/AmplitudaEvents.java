@@ -10,6 +10,10 @@ public class AmplitudaEvents {
     public static final String session_launch = "session_launch";
     public static final String free_enter = "free_enter";
 
+
+    public static final String close_premium = "close_premium";
+    public static final String click_on_buy = "click_on_buy";
+
     public static final String FIRST_DAY = "FIRST_DAY";
     public static final String FIRST_WEEK = "FIRST_WEEK";
     public static final String FIRST_MONTH = "FIRST_MONTH";
@@ -78,6 +82,14 @@ public class AmplitudaEvents {
 
     public static final String  REG_VIA = "REG_VIA";
 
+    public static final String  REG_OFFER_WHEN = "REG_OFFER_WHEN";
+    public static final String  open_profile = "open_profile";
+    public static final String  open_trainer = "open_trainer";
+    public static final String  open_articles = "open_articles";
+    public static final String  add_food = "add_food";
+
+
+    public static final String  CLICK_BUY_WITH = "CLICK_BUY_WITH";
 
 
 
@@ -115,6 +127,24 @@ public class AmplitudaEvents {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(create_acount, eventProperties);
+    }
+
+    public static void logEventRegOffer(String when){
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(REG_OFFER_WHEN, when);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(reg_offer, eventProperties);
+    }
+
+    public static void logEventClickBuy(String plan){
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(CLICK_BUY_WITH, plan);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(click_on_buy, eventProperties);
     }
 
 }

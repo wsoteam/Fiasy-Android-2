@@ -232,7 +232,11 @@
 
         <activity android:name=".BranchProfile.ActivityEditCompletedProfile"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/EditProfile" />
+
+        <activity android:name=".EntryPoint.EditProfileIntrodaction"
+            android:screenOrientation="portrait"
+            android:theme="@style/EditProfile" />
 
 
     </application>

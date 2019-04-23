@@ -60,35 +60,35 @@ public class MainActivity extends AppCompatActivity {
                     window.setStatusBarColor(Color.parseColor("#AE6A23"));
                     return true;
                 case R.id.bnv_main_articles:
-                    if (checkSubscribe()) {
+                    if (isFreeUser()) {
+                        AmplitudaEvents.logEventRegOffer(AmplitudaEvents.open_articles);
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        return false;
+                    } else if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
                         transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
                                 AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
-                                AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content)).commit();
+                                AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
                         window.setStatusBarColor(Color.parseColor("#374557"));
                     }
                     return true;
                 case R.id.bnv_main_trainer:
-                    if (checkSubscribe()) {
+                    if (isFreeUser()) {
+                        AmplitudaEvents.logEventRegOffer(AmplitudaEvents.open_trainer);
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        return false;
+                    } else if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
                         transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
                                 AmplitudaEvents.view_prem_training, EventsAdjust.view_prem_training,
-                                AmplitudaEvents.buy_prem_training, EventsAdjust.buy_prem_training)).commit();
+                                AmplitudaEvents.buy_prem_training, EventsAdjust.buy_prem_training, false)).commit();
                         window.setStatusBarColor(Color.parseColor("#374557"));
                     }
                     return true;
                 case R.id.bnv_main_recipes:
-                    if (true) {
-                        transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
-
-                    } else {
-                        transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
-                                AmplitudaEvents.view_prem_recipe, EventsAdjust.view_prem_recipe,
-                                AmplitudaEvents.buy_prem_recipe, EventsAdjust.buy_prem_recipe)).commit();
-                        window.setStatusBarColor(Color.parseColor("#374557"));
-                    }
+                    transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
                     return true;
                 case R.id.bnv_main_profile:
                     if (!isFreeUser()) {
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                         window.setStatusBarColor(Color.parseColor("#2E4E4E"));
                         return true;
                     } else {
-                        Amplitude.getInstance().logEvent(AmplitudaEvents.reg_offer);
+                        AmplitudaEvents.logEventRegOffer(AmplitudaEvents.open_profile);
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                         return false;
                     }
@@ -114,11 +114,6 @@ public class MainActivity extends AppCompatActivity {
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        if (isFreeUser() && !checkSubscribe() && getPreferences(MODE_PRIVATE).getBoolean(Config.FIRST_SPAM, true)) {
-            setInterceptor();
-            deleteSpamPremium();
-        }
-
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_diary);
     }
 

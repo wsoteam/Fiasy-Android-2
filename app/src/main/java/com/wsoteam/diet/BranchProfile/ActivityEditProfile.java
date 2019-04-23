@@ -70,6 +70,19 @@ public class ActivityEditProfile extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_edit_profile);
+
+        if (UserDataHolder.getUserData() != null &&
+                UserDataHolder.getUserData().getProfile() != null
+                && UserDataHolder.getUserData().getProfile().getFirstName().equals(Config.NAME_USER_FOR_INTRODACTION)
+                && UserDataHolder.getUserData().getProfile().getFirstName().equals(Config.NAME_USER_FOR_INTRODACTION)){
+            Profile profile = UserDataHolder.getUserData().getProfile();
+            profile.setFirstName("default");
+            profile.setLastName("default");
+            saveProfile(true, profile, profile.getMaxKcal());
+            finish();
+        }
+
+
         edtHeight = findViewById(R.id.edtSpkGrowth);
         edtAge = findViewById(R.id.edtSpkAge);
         edtWeight = findViewById(R.id.edtSpkWeight);
