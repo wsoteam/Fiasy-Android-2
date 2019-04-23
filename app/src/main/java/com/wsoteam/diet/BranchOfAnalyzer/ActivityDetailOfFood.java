@@ -3,8 +3,10 @@ package com.wsoteam.diet.BranchOfAnalyzer;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +21,7 @@ import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
@@ -33,6 +36,7 @@ import com.yandex.metrica.YandexMetrica;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -194,8 +198,20 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                         addSnack(new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
                 break;
         }
+        AlertDialog alertDialog = AddFoodDialog.createChoiseEatingAlertDialog(ActivityDetailOfFood.this);
+        alertDialog.show();
+        new CountDownTimer(800, 100){
+            @Override
+            public void onTick(long millisUntilFinished) {
 
-        onBackPressed();
+            }
+
+            @Override
+            public void onFinish() {
+            alertDialog.dismiss();
+            onBackPressed();
+            }
+        }.start();
     }
 
     private String getCurrentDate() {
