@@ -35,6 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
@@ -84,7 +85,7 @@ public class ActivitySplash extends Activity {
             @Override
             public void onComplete(@NonNull Task<Boolean> task) {
                 if (task.isSuccessful()){
-                    Amplitude.getInstance().logEvent(firebaseRemoteConfig.getString("premium_version"));
+                    setABTestConfig(firebaseRemoteConfig.getString(ABConfig.REQUEST_STRING));
                 }
             }
         });
@@ -194,6 +195,15 @@ public class ActivitySplash extends Activity {
         }
 
 
+    }
+
+    private void setABTestConfig(String responseString) {
+        Identify abStatus = new Identify().set(ABConfig.AB_VERSION, responseString);
+        Amplitude.getInstance().identify(abStatus);
+
+        getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE,MODE_PRIVATE).
+                edit().putString(ABConfig.KEY_FOR_SAVE_STATE, responseString).
+                commit();
     }
 
     private void createFreeUser() {

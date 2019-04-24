@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.amplitude.api.Amplitude;
+import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
@@ -68,10 +69,18 @@ public class MainActivity extends AppCompatActivity {
                     } else if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
-                        transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionWhite.newInstance(true,
-                                AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
-                                AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
-                        window.setStatusBarColor(Color.parseColor("#374557"));
+                        if (getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
+                                getString(ABConfig.KEY_FOR_SAVE_STATE, ABConfig.A_VERSION).equals(ABConfig.A_VERSION)) {
+                            transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionWhite.newInstance(true,
+                                    AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
+                                    AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
+                            window.setStatusBarColor(Color.parseColor("#AEAEAE"));
+                        }else {
+                            transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
+                                    AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
+                                    AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
+                            window.setStatusBarColor(Color.parseColor("#374557"));
+                        }
                     }
                     return true;
                 case R.id.bnv_main_trainer:
@@ -82,10 +91,18 @@ public class MainActivity extends AppCompatActivity {
                     } else if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
-                        transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionWhite.newInstance(true,
-                                AmplitudaEvents.view_prem_training, EventsAdjust.view_prem_training,
-                                AmplitudaEvents.buy_prem_training, EventsAdjust.buy_prem_training, false)).commit();
-                        window.setStatusBarColor(Color.parseColor("#374557"));
+                        if (getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
+                                getString(ABConfig.KEY_FOR_SAVE_STATE, ABConfig.A_VERSION).equals(ABConfig.A_VERSION)) {
+                            transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionWhite.newInstance(true,
+                                    AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
+                                    AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
+                            window.setStatusBarColor(Color.parseColor("#AEAEAE"));
+                        }else {
+                            transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
+                                    AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
+                                    AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
+                            window.setStatusBarColor(Color.parseColor("#374557"));
+                        }
                     }
                     return true;
                 case R.id.bnv_main_recipes:
