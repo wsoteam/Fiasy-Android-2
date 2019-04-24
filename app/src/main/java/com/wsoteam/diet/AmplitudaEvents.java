@@ -101,19 +101,21 @@ public class AmplitudaEvents {
         Amplitude.getInstance().logEvent(start_registration, eventProperties);
     }
 
-    public static void logEventViewPremium(String from){
+    public static void logEventViewPremium(String from, String abVersion){
         JSONObject eventProperties = new JSONObject();
         try {
             eventProperties.put(VIEW_PREM_FROM, from);
+            eventProperties.put(ABConfig.PREMIUM_VERSION, abVersion);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(view_prem, eventProperties);
     }
 
-    public static void logEventBuyPremium(String from){
+    public static void logEventBuyPremium(String from, String abVersion){
         JSONObject eventProperties = new JSONObject();
         try {
             eventProperties.put(BUY_PREM_FROM, from);
+            eventProperties.put(ABConfig.PREMIUM_VERSION, abVersion);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(buy_prem, eventProperties);

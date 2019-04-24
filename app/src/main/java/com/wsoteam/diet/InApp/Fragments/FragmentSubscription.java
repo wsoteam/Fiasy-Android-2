@@ -98,9 +98,8 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
         unbinder = ButterKnife.bind(this, view);
         currentPrice = AmplitudaEvents.ONE_YEAR_PRICE;
 
-        AmplitudaEvents.logEventViewPremium(getArguments().getString(AMPLITUDE_COME_FROM_TAG));
+        AmplitudaEvents.logEventViewPremium(getArguments().getString(AMPLITUDE_COME_FROM_TAG), ABConfig.black_P1M);
         Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_COME_FROM_TAG)));
-        Amplitude.getInstance().logEvent(ABConfig.show_black);
 
         isOpenFromIntro = getArguments().getBoolean(OPEN_PREM_FROM_INTRODACTION, false);
 
@@ -185,7 +184,7 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
 
-            AmplitudaEvents.logEventBuyPremium(getArguments().getString(AMPLITUDE_BUY_FROM_TAG));
+            AmplitudaEvents.logEventBuyPremium(getArguments().getString(AMPLITUDE_BUY_FROM_TAG), ABConfig.black_P1M);
             Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_BUY_FROM_TAG)));
 
 

@@ -10,6 +10,8 @@ public class ABConfig {
     //Amplituda key
     public static final String AB_VERSION = "AB_VERSION";
 
-    public static final String show_white = "show_white";
-    public static final String show_black = "show_black";
+
+    public static final String PREMIUM_VERSION = "PREMIUM_VERSION";
+    public static final String white_P1M = "white_P1M";
+    public static final String black_P1M = "black_P1M";
 }
