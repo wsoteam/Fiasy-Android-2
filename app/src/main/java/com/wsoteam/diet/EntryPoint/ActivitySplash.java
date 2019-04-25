@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -71,27 +72,31 @@ public class ActivitySplash extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
         Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
         Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
 
-        Amplitude.getInstance().trackSessionEvents(true);
-        Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
-                .enableForegroundTracking(getApplication());
 
         FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         firebaseRemoteConfig.setDefaults(R.xml.default_config);
-        firebaseRemoteConfig.fetchAndActivate().addOnCompleteListener(this, new OnCompleteListener<Boolean>() {
+
+        firebaseRemoteConfig.fetch(3600).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onComplete(@NonNull Task<Boolean> task) {
+            public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
                     setABTestConfig(firebaseRemoteConfig.getString(ABConfig.REQUEST_STRING));
+                    firebaseRemoteConfig.activateFetched();
+                    Amplitude.getInstance().logEvent("norm_ab");
+                }else{
+                    Amplitude.getInstance().logEvent("crash_ab");
                 }
+
+                Amplitude.getInstance().logEvent(firebaseRemoteConfig.getString("premium_version") + "test");
             }
         });
 
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         checkFirstLaunch();
@@ -186,9 +191,9 @@ public class ActivitySplash extends Activity {
                 startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
                 finish();
             } else {
-            Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
-            WorkWithFirebaseDB.setStartEmptyObject(this);
-            new FuckingSleep().execute();
+                Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
+                WorkWithFirebaseDB.setStartEmptyObject(this);
+                new FuckingSleep().execute();
 
             }
 
@@ -200,8 +205,7 @@ public class ActivitySplash extends Activity {
     private void setABTestConfig(String responseString) {
         Identify abStatus = new Identify().set(ABConfig.AB_VERSION, responseString);
         Amplitude.getInstance().identify(abStatus);
-
-        getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE,MODE_PRIVATE).
+        getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
                 edit().putString(ABConfig.KEY_FOR_SAVE_STATE, responseString).
                 commit();
     }
@@ -302,10 +306,10 @@ public class ActivitySplash extends Activity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if (getSharedPreferences(Config.SHOWED_INTRODACTION, MODE_PRIVATE).getBoolean(Config.SHOWED_INTRODACTION, false)){
+            if (getSharedPreferences(Config.SHOWED_INTRODACTION, MODE_PRIVATE).getBoolean(Config.SHOWED_INTRODACTION, false)) {
                 startActivity(new Intent(ActivitySplash.this, MainActivity.class));
                 finish();
-            }else{
+            } else {
                 getSharedPreferences(Config.SHOWED_INTRODACTION, MODE_PRIVATE).edit().putBoolean(Config.SHOWED_INTRODACTION, true).commit();
                 startActivity(new Intent(ActivitySplash.this, EditProfileIntrodaction.class));
                 finish();
