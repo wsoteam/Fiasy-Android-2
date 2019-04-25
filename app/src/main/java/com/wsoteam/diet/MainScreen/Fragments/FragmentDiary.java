@@ -9,12 +9,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,20 +27,16 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.MainScreen.Support.AlertDialogChoiseEating;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.yandex.metrica.YandexMetrica;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -207,31 +201,17 @@ public class FragmentDiary extends Fragment {
 
             Animation movFromLeft = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_moving_from_left);
             Animation movOutToRight = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_moving_out_to_right);
-            Animation movFromRight = AnimationUtils.loadAnimation(getActivity(), R.anim.moving_from_right);
+            Animation movFromBottom = AnimationUtils.loadAnimation(getActivity(), R.anim.moving_from_bottom);
 
             RatingBar ratingBar = view.findViewById(R.id.ratingBar);
             EditText edtReport = view.findViewById(R.id.edtRatingReport);
             TextView tvThank = view.findViewById(R.id.tvForGrade);
-            Button btnGradeClose = view.findViewById(R.id.btnGradeClose);
-            Button btnGradeLate = view.findViewById(R.id.btnGradeLate);
+            ImageButton btnGradeClose = view.findViewById(R.id.btnGradeClose);
             Button btnGradeSend = view.findViewById(R.id.btnGradeSend);
 
             btnGradeClose.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    YandexMetrica.reportEvent("Отказ в оценке");
-                    alertDialog.cancel();
-                }
-            });
-
-            btnGradeLate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    countOfRun = getActivity().getPreferences(MODE_PRIVATE);
-                    SharedPreferences.Editor editor = countOfRun.edit();
-                    editor.putInt(TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG, 0);
-                    editor.commit();
-                    YandexMetrica.reportEvent("Оценка отложена");
                     alertDialog.cancel();
                 }
             });
@@ -254,7 +234,6 @@ public class FragmentDiary extends Fragment {
                 @Override
                 public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                     if (v >= 4) {
-                        YandexMetrica.reportEvent("Переход в ГП для оценки");
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setData(Uri.parse("market://details?id=" + getActivity().getPackageName()));
                         startActivity(intent);
@@ -269,7 +248,7 @@ public class FragmentDiary extends Fragment {
                             tvThank.setVisibility(View.VISIBLE);
                             tvThank.startAnimation(movFromLeft);
                             btnGradeSend.setVisibility(View.VISIBLE);
-                            btnGradeSend.startAnimation(movFromRight);
+                            btnGradeSend.startAnimation(movFromBottom);
                         }
                     }
                 }

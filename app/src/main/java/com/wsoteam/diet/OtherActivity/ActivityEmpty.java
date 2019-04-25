@@ -27,7 +27,7 @@ public class  ActivityEmpty extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_empty);
         floatingActionButton = findViewById(R.id.fabADEmptyActivity);
-        movingFromRight = AnimationUtils.loadAnimation(this, R.anim.moving_from_right);
+        movingFromRight = AnimationUtils.loadAnimation(this, R.anim.moving_from_bottom);
         floatingActionButton.setVisibility(View.GONE);
         loadAd();
         mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
