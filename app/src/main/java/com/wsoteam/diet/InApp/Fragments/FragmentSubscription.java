@@ -131,6 +131,9 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
         ivFilter3sub.setVisibility(View.GONE);
         bindViewPager();
         tlDotsIndicator.setupWithViewPager(viewPager, true);
+
+
+
         return view;
     }
 

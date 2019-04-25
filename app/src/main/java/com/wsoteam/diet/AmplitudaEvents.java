@@ -60,7 +60,7 @@ public class AmplitudaEvents {
     public static final String LONG_OF_PREM = "LONG_OF_PREM";
     public static final String PRICE_OF_PREM = "PRICE_OF_PREM";
 
-    public static final String  ONE_MONTH_PRICE = "449р", THREE_MONTH_PRICE = "319р", ONE_YEAR_PRICE = "199р";
+    public static final String  ONE_MONTH_PRICE = "299р", THREE_MONTH_PRICE = "199р", ONE_YEAR_PRICE = "99р";
 
     public static final String  view_diary = "view_diary";
     public static final String  reg_offer = "reg_offer";
