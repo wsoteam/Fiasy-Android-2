@@ -161,4 +161,11 @@
         <item name="android:textSize">9sp</item>
     </style>
 
+    <style name="ImageRatingBar" parent="@android:style/Widget.RatingBar">
+       <item name="android:progressDrawable">@drawable/orange_ratingbar</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
+    
+    
+
 </resources>

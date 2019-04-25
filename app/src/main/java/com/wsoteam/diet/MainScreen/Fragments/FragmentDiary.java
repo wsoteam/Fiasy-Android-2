@@ -129,10 +129,7 @@ public class FragmentDiary extends Fragment {
         }
 
 
-
-        //showThankToast();
-        //additionOneToSharedPreference();
-        //checkFirstRun();
+        checkFirstRun();
         bindViewPager();
 
         if (!isFreeUser()){
@@ -204,7 +201,6 @@ public class FragmentDiary extends Fragment {
     }
 
     private void checkFirstRun() {
-        if (countOfRun.getInt(TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG, COUNT_OF_RUN) == 3) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             AlertDialog alertDialog = builder.create();
             View view = getLayoutInflater().inflate(R.layout.alert_dialog_grade, null);
@@ -278,10 +274,11 @@ public class FragmentDiary extends Fragment {
                     }
                 }
             });
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
             alertDialog.setView(view);
             alertDialog.show();
         }
-    }
+
 
 
 
