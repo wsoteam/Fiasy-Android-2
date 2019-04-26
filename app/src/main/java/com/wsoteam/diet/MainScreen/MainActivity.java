@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                             transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
                                     AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
                                     AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
-                            window.setStatusBarColor(Color.parseColor("#374557"));
+                            window.setStatusBarColor(Color.parseColor("#747d3b"));
                         }
                     }
                     return true;
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                             transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
                                     AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
                                     AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
-                            window.setStatusBarColor(Color.parseColor("#374557"));
+                            window.setStatusBarColor(Color.parseColor("#747d3b"));
                         }
                     }
                     return true;
