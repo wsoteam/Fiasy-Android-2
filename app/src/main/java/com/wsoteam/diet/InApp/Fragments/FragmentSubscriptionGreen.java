@@ -50,7 +50,7 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
     private static final int COUNT_OF_PAGES = 4;
-    private String currentSKU = "basic_subscription_12m", currentPrice = "99р";
+    private String currentSKU = "basic_subscription_12m_trial", currentPrice = "99р";
 
 
     private SharedPreferences sharedPreferences;
@@ -117,8 +117,7 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
     private void getSKU() {
         List<String> skuList = new ArrayList<>();
         skuList.add("basic_subscription_1m");
-        skuList.add("basic_subscription_3m");
-        skuList.add("basic_subscription_12m");
+        skuList.add("basic_subscription_12m_trial");
 
         SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
         params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS);
@@ -182,7 +181,7 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
         }
         if (view.getId() == R.id.cvSub12m) {
             currentPrice = AmplitudaEvents.ONE_YEAR_PRICE;
-            currentSKU = "basic_subscription_12m";
+            currentSKU = "basic_subscription_12m_trial";
             backCV12mOrange.setVisibility(View.VISIBLE);
             backCV1mOrange.setVisibility(View.INVISIBLE);
         }

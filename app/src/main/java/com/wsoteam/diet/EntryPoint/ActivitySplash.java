@@ -66,7 +66,7 @@ public class ActivitySplash extends Activity {
     private SharedPreferences isBuyPrem, freeUser;
     private final String TAG_FIRST_RUN = "TAG_FIRST_RUN",
             ONE_MONTH_SKU = "basic_subscription_1m", THREE_MONTH_SKU = "basic_subscription_3m",
-            ONE_YEAR_SKU = "basic_subscription_12m";
+            ONE_YEAR_SKU = "basic_subscription_12m", ONE_YEAR_TRIAL_SKU = "basic_subscription_12m_trial";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,10 +84,10 @@ public class ActivitySplash extends Activity {
         firebaseRemoteConfig.fetch(3600).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     firebaseRemoteConfig.activateFetched();
                     Amplitude.getInstance().logEvent("norm_ab");
-                }else{
+                } else {
                     Amplitude.getInstance().logEvent("crash_ab");
                 }
                 setABTestConfig(firebaseRemoteConfig.getString(ABConfig.REQUEST_STRING));
@@ -132,6 +132,8 @@ public class ActivitySplash extends Activity {
                             } else if (purchasesList.get(i).getSku().equals(THREE_MONTH_SKU)) {
                                 setPremStatus(THREE_MONTH_SKU, AmplitudaEvents.THREE_MONTH_PRICE);
                             } else if (purchasesList.get(i).getSku().equals(ONE_YEAR_SKU)) {
+                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE);
+                            } else if (purchasesList.get(i).getSku().equals(ONE_YEAR_TRIAL_SKU)) {
                                 setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE);
                             } else {
                                 deletePremStatus();
