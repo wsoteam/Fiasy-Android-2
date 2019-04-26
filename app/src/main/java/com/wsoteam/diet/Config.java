@@ -68,4 +68,7 @@ public class Config {
     public static final String NAME_USER_FOR_INTRODACTION = "NAME_USER_FOR_INTRODACTION";
 
 
+    public static final String COUNT_RUN = "COUNT_RUN";
+
+
 }
