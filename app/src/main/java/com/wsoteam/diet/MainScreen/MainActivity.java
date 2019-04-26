@@ -27,6 +27,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscription;
+import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionWhite;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
@@ -93,12 +94,12 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         if (getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
                                 getString(ABConfig.KEY_FOR_SAVE_STATE, ABConfig.A_VERSION).equals(ABConfig.A_VERSION)) {
-                            transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionWhite.newInstance(true,
+                            transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
                                     AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
                                     AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
                             window.setStatusBarColor(Color.parseColor("#AEAEAE"));
                         }else {
-                            transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
+                            transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
                                     AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
                                     AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
                             window.setStatusBarColor(Color.parseColor("#374557"));

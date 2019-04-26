@@ -46,8 +46,6 @@ import static android.content.Context.MODE_PRIVATE;
 public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpdatedListener {
 
 
-
-    @BindView(R.id.cvSub3mBack) CardView cvSub3mBack;
     @BindView(R.id.cvSub12mBack) CardView cvSub12mBack;
     @BindView(R.id.cvSub1mBack) CardView cvSub1mBack;
     @BindView(R.id.imbtnCancel) ImageButton imbtnCancel;
@@ -87,7 +85,7 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_subscription_white, container, false);
+        View view = inflater.inflate(R.layout.fragment_subscription_green, container, false);
         unbinder = ButterKnife.bind(this, view);
         currentPrice = AmplitudaEvents.ONE_YEAR_PRICE;
 
@@ -116,8 +114,6 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
             }
         });
 
-
-        cvSub3mBack.setVisibility(View.GONE);
         cvSub1mBack.setVisibility(View.GONE);
         return view;
     }
@@ -186,20 +182,17 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
             currentPrice = AmplitudaEvents.ONE_MONTH_PRICE;
             currentSKU = "basic_subscription_1m";
             cvSub1mBack.setVisibility(View.VISIBLE);
-            cvSub3mBack.setVisibility(View.GONE);
             cvSub12mBack.setVisibility(View.GONE);
         }
         if (view.getId() == R.id.cvSub12m) {
             currentPrice = AmplitudaEvents.ONE_YEAR_PRICE;
             currentSKU = "basic_subscription_12m";
             cvSub12mBack.setVisibility(View.VISIBLE);
-            cvSub3mBack.setVisibility(View.GONE);
             cvSub1mBack.setVisibility(View.GONE);
         }
         if (view.getId() == R.id.cvSub3m) {
             currentPrice = AmplitudaEvents.THREE_MONTH_PRICE;
             currentSKU = "basic_subscription_3m";
-            cvSub3mBack.setVisibility(View.VISIBLE);
             cvSub12mBack.setVisibility(View.GONE);
             cvSub1mBack.setVisibility(View.GONE);
         }
