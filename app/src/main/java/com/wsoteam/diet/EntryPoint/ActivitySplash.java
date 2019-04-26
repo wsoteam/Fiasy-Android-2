@@ -85,13 +85,12 @@ public class ActivitySplash extends Activity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    setABTestConfig(firebaseRemoteConfig.getString(ABConfig.REQUEST_STRING));
                     firebaseRemoteConfig.activateFetched();
                     Amplitude.getInstance().logEvent("norm_ab");
                 }else{
                     Amplitude.getInstance().logEvent("crash_ab");
                 }
-
+                setABTestConfig(firebaseRemoteConfig.getString(ABConfig.REQUEST_STRING));
                 Amplitude.getInstance().logEvent(firebaseRemoteConfig.getString("premium_version") + "test");
             }
         });
