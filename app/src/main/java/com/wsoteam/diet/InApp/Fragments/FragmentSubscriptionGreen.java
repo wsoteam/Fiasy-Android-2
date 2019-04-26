@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
@@ -44,15 +44,13 @@ import butterknife.Unbinder;
 import static android.content.Context.MODE_PRIVATE;
 
 public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpdatedListener {
-
-
-    @BindView(R.id.cvSub12mBack) CardView cvSub12mBack;
-    @BindView(R.id.cvSub1mBack) CardView cvSub1mBack;
     @BindView(R.id.imbtnCancel) ImageButton imbtnCancel;
+    @BindView(R.id.backCV12mOrange) ImageView backCV12mOrange;
+    @BindView(R.id.backCV1mOrange) ImageView backCV1mOrange;
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
     private static final int COUNT_OF_PAGES = 4;
-    private String currentSKU = "basic_subscription_12m", currentPrice = "199р";
+    private String currentSKU = "basic_subscription_12m", currentPrice = "99р";
 
 
     private SharedPreferences sharedPreferences;
@@ -64,7 +62,7 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
             OPEN_PREM_FROM_INTRODACTION = "OPEN_PREM_FROM_INTRODACTION";
     private boolean isOpenFromIntro = false;
 
-    public static FragmentSubscriptionWhite newInstance(boolean isEnterFromMainActivity, String amplitudeComeFrom,
+    public static FragmentSubscriptionGreen newInstance(boolean isEnterFromMainActivity, String amplitudeComeFrom,
                                                         String adjustComeFrom, String amplitudeBuyFrom, String adjustBuyFrom,
                                                         boolean isOpenFromIntro) {
         Bundle bundle = new Bundle();
@@ -75,10 +73,10 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
         bundle.putString(ADJUST_BUY_FROM_TAG, adjustBuyFrom);
         bundle.putBoolean(OPEN_PREM_FROM_INTRODACTION, isOpenFromIntro);
 
-        FragmentSubscriptionWhite fragmentSubscriptionWhite = new FragmentSubscriptionWhite();
-        fragmentSubscriptionWhite.setArguments(bundle);
+        FragmentSubscriptionGreen fragmentSubscriptionGreen = new FragmentSubscriptionGreen();
+        fragmentSubscriptionGreen.setArguments(bundle);
 
-        return fragmentSubscriptionWhite;
+        return fragmentSubscriptionGreen;
     }
 
 
@@ -103,7 +101,6 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
             @Override
             public void onBillingSetupFinished(int responseCode) {
                 if (responseCode == BillingClient.BillingResponse.OK) {
-                    Log.d(TAG, "onBillingSetupFinished: OK");
                     getSKU();
                 }
             }
@@ -113,8 +110,7 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
 
             }
         });
-
-        cvSub1mBack.setVisibility(View.GONE);
+        backCV1mOrange.setVisibility(View.GONE);
         return view;
     }
 
@@ -174,27 +170,21 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
 
     }
 
-    @OnClick({R.id.cvSub1m, R.id.cvSub12m, R.id.imbtnCancel, R.id.cvSub3m, R.id.tvPrivacyPolicy, R.id.btnBuyPrem})
+    @OnClick({R.id.cvSub1m, R.id.cvSub12m, R.id.imbtnCancel, R.id.tvPrivacyPolicy, R.id.btnBuyPrem})
     public void onViewClicked(View view) {
 
 
         if (view.getId() == R.id.cvSub1m) {
             currentPrice = AmplitudaEvents.ONE_MONTH_PRICE;
             currentSKU = "basic_subscription_1m";
-            cvSub1mBack.setVisibility(View.VISIBLE);
-            cvSub12mBack.setVisibility(View.GONE);
+            backCV1mOrange.setVisibility(View.VISIBLE);
+            backCV12mOrange.setVisibility(View.INVISIBLE);
         }
         if (view.getId() == R.id.cvSub12m) {
             currentPrice = AmplitudaEvents.ONE_YEAR_PRICE;
             currentSKU = "basic_subscription_12m";
-            cvSub12mBack.setVisibility(View.VISIBLE);
-            cvSub1mBack.setVisibility(View.GONE);
-        }
-        if (view.getId() == R.id.cvSub3m) {
-            currentPrice = AmplitudaEvents.THREE_MONTH_PRICE;
-            currentSKU = "basic_subscription_3m";
-            cvSub12mBack.setVisibility(View.GONE);
-            cvSub1mBack.setVisibility(View.GONE);
+            backCV12mOrange.setVisibility(View.VISIBLE);
+            backCV1mOrange.setVisibility(View.INVISIBLE);
         }
         if (view.getId() == R.id.btnBuyPrem) {
             AmplitudaEvents.logEventClickBuy(currentSKU);

@@ -91,7 +91,7 @@
                         android:layout_marginBottom="8dp"
                         android:fontFamily="@font/roboto"
                         android:text="в месяц"
-                        android:textColor="@color/gray_prem_green"
+                        android:textColor="@color/gray_prem_green_text"
                         android:textSize="9sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -114,7 +114,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/cvSub1m"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView104">
+                app:layout_constraintTop_toBottomOf="@+id/textView103">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -154,7 +154,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView69" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView69"
+                        app:layout_constraintVertical_chainStyle="spread_inside" />
 
                     <TextView
                         android:id="@+id/textView78"
@@ -162,17 +163,52 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:fontFamily="@font/roboto_light"
-                        android:text="в месяц"
-                        android:textColor="@color/black"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="после"
+                        android:textColor="@color/gray_prem_green_text"
                         android:textSize="9sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView104"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView88" />
+
+                    <TextView
+                        android:id="@+id/textView104"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:elevation="8dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="3 дней бесплатного"
+                        android:textColor="@color/black"
+                        android:textSize="9sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView78"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textView78"
+                        app:layout_constraintTop_toTopOf="@+id/textView78" />
+
+                    <TextView
+                        android:id="@+id/textView129"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="периода"
+                        android:textColor="@color/gray_prem_green_text"
+                        android:textSize="9sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView104" />
+
+
 
                 </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.CardView>
@@ -263,13 +299,13 @@
                 android:layout_width="275dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/shape_btn_buy_prem_green"
+                android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
                 android:text="Продолжить"
                 android:textColor="@color/white"
-                android:fontFamily="@font/roboto_medium"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -306,7 +342,7 @@
                 android:id="@+id/textView100"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:drawableLeft="@drawable/check_green_prem"
                 android:drawablePadding="8dp"
                 android:fontFamily="@font/roboto_light"
@@ -360,20 +396,6 @@
                 app:layout_constraintStart_toStartOf="@+id/textView100"
                 app:layout_constraintTop_toBottomOf="@+id/textView102" />
 
-            <TextView
-                android:id="@+id/textView104"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:drawableLeft="@drawable/check_green_prem"
-                android:drawablePadding="8dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="Специальные статьи о правильном \nпитании"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@+id/textView100"
-                app:layout_constraintTop_toBottomOf="@+id/textView103" />
-
             <ImageView
                 android:id="@+id/imageView29"
                 android:layout_width="33dp"
@@ -384,6 +406,48 @@
                 app:layout_constraintBottom_toBottomOf="@+id/cvSub12m"
                 app:layout_constraintStart_toStartOf="@+id/cvSub12m"
                 app:srcCompat="@drawable/best_price_label" />
+
+            <ImageView
+                android:id="@+id/backCV12mOrange"
+                android:layout_width="160dp"
+                android:layout_height="134dp"
+                android:elevation="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cvSub12m"
+                app:layout_constraintEnd_toEndOf="@+id/cvSub12m"
+                app:layout_constraintStart_toStartOf="@+id/cvSub12m"
+                app:layout_constraintTop_toTopOf="@+id/cvSub12m"
+                app:srcCompat="@drawable/back_cv_green_prem" />
+
+            <ImageView
+                android:id="@+id/backCV1mOrange"
+                android:layout_width="160dp"
+                android:layout_height="134dp"
+                android:elevation="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cvSub1m"
+                app:layout_constraintEnd_toEndOf="@+id/cvSub1m"
+                app:layout_constraintStart_toStartOf="@+id/cvSub1m"
+                app:layout_constraintTop_toTopOf="@+id/cvSub1m"
+                app:srcCompat="@drawable/back_cv_green_prem" />
+
+            <ImageView
+                android:id="@+id/backCV1mGray"
+                android:layout_width="160dp"
+                android:layout_height="134dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cvSub1m"
+                app:layout_constraintEnd_toEndOf="@+id/cvSub1m"
+                app:layout_constraintStart_toStartOf="@+id/cvSub1m"
+                app:layout_constraintTop_toTopOf="@+id/cvSub1m"
+                app:srcCompat="@drawable/back_cv_green_prem_inactive" />
+
+            <ImageView
+                android:id="@+id/backCV12mGray"
+                android:layout_width="160dp"
+                android:layout_height="134dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cvSub12m"
+                app:layout_constraintEnd_toEndOf="@+id/cvSub12m"
+                app:layout_constraintStart_toStartOf="@+id/cvSub12m"
+                app:layout_constraintTop_toTopOf="@+id/cvSub12m"
+                app:srcCompat="@drawable/back_cv_green_prem_inactive" />
 
 
         </android.support.constraint.ConstraintLayout>
