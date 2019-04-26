@@ -7,5 +7,5 @@
         android:pathData="M20 2L18 0L10 8L2 0L0 2L8 10L0 18L2 20L10 12L18 20L20 18L12 10L20 2Z"
         android:fillType="evenOdd"
         android:fillColor="#FFFFFF"
-        android:fillAlpha="0.38" />
+        android:fillAlpha="1" />
 </vector>
