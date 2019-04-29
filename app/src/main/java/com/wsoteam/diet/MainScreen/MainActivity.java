@@ -76,10 +76,10 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         if (getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
                                 getString(ABConfig.KEY_FOR_SAVE_STATE, ABConfig.A_VERSION).equals(ABConfig.A_VERSION)) {
-                            transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionWhite.newInstance(true,
+                            transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
                                     AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
                                     AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
-                            window.setStatusBarColor(Color.parseColor("#AEAEAE"));
+                            window.setStatusBarColor(Color.parseColor("#374557"));
                         } else {
                             transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
                                     AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
@@ -98,10 +98,10 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         if (getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
                                 getString(ABConfig.KEY_FOR_SAVE_STATE, ABConfig.A_VERSION).equals(ABConfig.A_VERSION)) {
-                            transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionWhite.newInstance(true,
+                            transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
                                     AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
                                     AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
-                            window.setStatusBarColor(Color.parseColor("#AEAEAE"));
+                            window.setStatusBarColor(Color.parseColor("#374557"));
                         } else {
                             transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
                                     AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,

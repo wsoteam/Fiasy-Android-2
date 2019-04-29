@@ -161,14 +161,14 @@ public class FragmentSubscriptionWhite extends Fragment implements PurchasesUpda
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
 
-            AmplitudaEvents.logEventBuyPremium(getArguments().getString(AMPLITUDE_BUY_FROM_TAG), ABConfig.white_P1M);
-            Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_BUY_FROM_TAG)));
-
-
             Identify identify = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy)
                     .set(AmplitudaEvents.LONG_OF_PREM, currentSKU)
                     .set(AmplitudaEvents.PRICE_OF_PREM, currentPrice);
             Amplitude.getInstance().identify(identify);
+
+            AmplitudaEvents.logEventBuyPremium(getArguments().getString(AMPLITUDE_BUY_FROM_TAG), ABConfig.white_P1M, currentSKU);
+            Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_BUY_FROM_TAG)));
+
 
             sharedPreferences = getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();

@@ -34,7 +34,7 @@ public class ActivitySubscription extends AppCompatActivity {
 
         if (ABVersion.equals(ABConfig.A_VERSION)) {
             getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                    FragmentSubscriptionWhite.newInstance(getIntent().getBooleanExtra(Config.ENTER_FROM_MAIN_ACTIVITY, false),
+                    FragmentSubscription.newInstance(getIntent().getBooleanExtra(Config.ENTER_FROM_MAIN_ACTIVITY, false),
                             getIntent().getStringExtra(Config.AMPLITUDE_COME_FROM), getIntent().getStringExtra(Config.ADJUST_COME_FROM),
                             getIntent().getStringExtra(Config.AMPLITUDE_BUY_FROM),
                             getIntent().getStringExtra(Config.ADJUST_BUY_FROM),

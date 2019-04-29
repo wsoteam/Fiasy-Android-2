@@ -61,7 +61,7 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
     private static final int COUNT_OF_PAGES = 4;
-    private String currentSKU = "basic_subscription_12m", currentPrice = "199р";
+    private String currentSKU = "basic_subscription_12m_trial";
 
 
     private SharedPreferences sharedPreferences;
@@ -96,14 +96,12 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_subscription, container, false);
         unbinder = ButterKnife.bind(this, view);
-        currentPrice = AmplitudaEvents.ONE_YEAR_PRICE;
 
         AmplitudaEvents.logEventViewPremium(getArguments().getString(AMPLITUDE_COME_FROM_TAG), ABConfig.black_P1M);
         Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_COME_FROM_TAG)));
 
         isOpenFromIntro = getArguments().getBoolean(OPEN_PREM_FROM_INTRODACTION, false);
 
-        Log.e("LOL", getArguments().getString(AMPLITUDE_COME_FROM_TAG));
         if (getArguments().getBoolean(ENTER_FROM_MAINACTIVITY_TAG)) {
             imbtnCancel.setVisibility(View.GONE);
         }
@@ -131,9 +129,6 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
         ivFilter3sub.setVisibility(View.GONE);
         bindViewPager();
         tlDotsIndicator.setupWithViewPager(viewPager, true);
-
-
-
         return view;
     }
 
@@ -155,7 +150,7 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
         List<String> skuList = new ArrayList<>();
         skuList.add("basic_subscription_1m");
         skuList.add("basic_subscription_3m");
-        skuList.add("basic_subscription_12m");
+        skuList.add("basic_subscription_12m_trial");
 
         SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
         params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS);
@@ -187,14 +182,12 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
 
-            AmplitudaEvents.logEventBuyPremium(getArguments().getString(AMPLITUDE_BUY_FROM_TAG), ABConfig.black_P1M);
+            Identify identify = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy)
+                    .set(AmplitudaEvents.LONG_OF_PREM, currentSKU);
+            Amplitude.getInstance().identify(identify);
+            AmplitudaEvents.logEventBuyPremium(getArguments().getString(AMPLITUDE_BUY_FROM_TAG), ABConfig.black_P1M, currentSKU);
             Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_BUY_FROM_TAG)));
 
-
-            Identify identify = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy)
-                    .set(AmplitudaEvents.LONG_OF_PREM, currentSKU)
-                    .set(AmplitudaEvents.PRICE_OF_PREM, currentPrice);
-            Amplitude.getInstance().identify(identify);
 
             sharedPreferences = getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -212,7 +205,6 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
 
 
         if (view.getId() == R.id.cvSub1m) {
-            currentPrice = AmplitudaEvents.ONE_MONTH_PRICE;
             currentSKU = "basic_subscription_1m";
             cvSub1mBack.setVisibility(View.VISIBLE);
             ivFilter1sub.setVisibility(View.VISIBLE);
@@ -222,8 +214,7 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
             ivFilter12sub.setVisibility(View.GONE);
         }
         if (view.getId() == R.id.cvSub12m) {
-            currentPrice = AmplitudaEvents.ONE_YEAR_PRICE;
-            currentSKU = "basic_subscription_12m";
+            currentSKU = "basic_subscription_12m_trial";
             cvSub12mBack.setVisibility(View.VISIBLE);
             ivFilter12sub.setVisibility(View.VISIBLE);
             cvSub3mBack.setVisibility(View.GONE);
@@ -232,7 +223,6 @@ public class FragmentSubscription extends Fragment implements PurchasesUpdatedLi
             ivFilter1sub.setVisibility(View.GONE);
         }
         if (view.getId() == R.id.cvSub3m) {
-            currentPrice = AmplitudaEvents.THREE_MONTH_PRICE;
             currentSKU = "basic_subscription_3m";
             cvSub3mBack.setVisibility(View.VISIBLE);
             ivFilter3sub.setVisibility(View.VISIBLE);

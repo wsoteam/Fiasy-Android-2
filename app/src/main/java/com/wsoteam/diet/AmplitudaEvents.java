@@ -90,6 +90,8 @@ public class AmplitudaEvents {
 
     public static final String  CLICK_BUY_WITH = "CLICK_BUY_WITH";
 
+    public static final String  TYPE_PURCHASE = "TYPE_PURCHASE";
+
 
 
     public static void logEventRegistration(String from){
@@ -111,11 +113,12 @@ public class AmplitudaEvents {
         Amplitude.getInstance().logEvent(view_prem, eventProperties);
     }
 
-    public static void logEventBuyPremium(String from, String abVersion){
+    public static void logEventBuyPremium(String from, String abVersion, String typePurchase){
         JSONObject eventProperties = new JSONObject();
         try {
             eventProperties.put(BUY_PREM_FROM, from);
             eventProperties.put(ABConfig.PREMIUM_VERSION, abVersion);
+            eventProperties.put(TYPE_PURCHASE, typePurchase);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(buy_prem, eventProperties);
