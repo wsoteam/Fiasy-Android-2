@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -100,13 +102,10 @@ public class ActivitySplash extends Activity {
         AppEventsLogger.activateApp(this);
         checkFirstLaunch();
 
-        new PortionSize();
-
         if (!hasConnection(this)) {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
-
-
+        
         user = FirebaseAuth.getInstance().getCurrentUser();
 
 
