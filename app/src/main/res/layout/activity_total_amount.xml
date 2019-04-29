@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.wsoteam.diet.Onboard.TotalAmountActivity">
+
+    <ImageView
+        android:id="@+id/imageView30"
+        android:layout_width="0dp"
+        android:scaleType="fitXY"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/background_total_amount" />
+
+    <TextView
+        android:id="@+id/textView107"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="Мы рассчитали для вас \nрекомендуемую норму КБЖУ на день"
+        android:textColor="@color/total_title"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView108"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto"
+        android:text="Ккал"
+        android:textColor="@color/kcal_color"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView107" />
+
+    <TextView
+        android:id="@+id/textView110"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/roboto"
+        android:text="Белки"
+        android:textColor="@color/kcal_color"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView31"
+        app:layout_constraintEnd_toEndOf="@+id/imageView31"
+        app:layout_constraintStart_toStartOf="@+id/imageView31" />
+
+    <TextView
+        android:id="@+id/textView111"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/roboto"
+        android:text="Жиры"
+        android:textColor="@color/kcal_color"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView33"
+        app:layout_constraintEnd_toEndOf="@+id/imageView33"
+        app:layout_constraintStart_toStartOf="@+id/imageView33" />
+
+    <TextView
+        android:id="@+id/textView112"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/roboto"
+        android:text="Углеводы"
+        android:textColor="@color/kcal_color"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView32"
+        app:layout_constraintEnd_toEndOf="@+id/imageView32"
+        app:layout_constraintStart_toStartOf="@+id/imageView32" />
+
+    <TextView
+        android:id="@+id/tvKcalCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="1500"
+        android:textColor="@color/amount_total_count"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView108"
+        app:layout_constraintStart_toStartOf="@+id/textView108"
+        app:layout_constraintTop_toBottomOf="@+id/textView108" />
+
+    <ImageView
+        android:id="@+id/imageView31"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="52dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView33"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvKcalCount"
+        app:srcCompat="@drawable/circle_total_count" />
+
+    <ImageView
+        android:id="@+id/imageView32"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView33"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView33"
+        app:layout_constraintTop_toTopOf="@+id/imageView33"
+        app:srcCompat="@drawable/circle_total_count" />
+
+    <ImageView
+        android:id="@+id/imageView33"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView31"
+        app:layout_constraintEnd_toStartOf="@+id/imageView32"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView31"
+        app:layout_constraintTop_toTopOf="@+id/imageView31"
+        app:srcCompat="@drawable/circle_total_count" />
+
+    <TextView
+        android:id="@+id/tvProtCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="300 г"
+        android:textColor="@color/amount_total_count"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView31"
+        app:layout_constraintEnd_toEndOf="@+id/imageView31"
+        app:layout_constraintStart_toStartOf="@+id/imageView31"
+        app:layout_constraintTop_toTopOf="@+id/imageView31" />
+
+    <TextView
+        android:id="@+id/tvFatCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="300 г"
+        android:textColor="@color/amount_total_count"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView33"
+        app:layout_constraintEnd_toEndOf="@+id/imageView33"
+        app:layout_constraintStart_toStartOf="@+id/imageView33"
+        app:layout_constraintTop_toTopOf="@+id/imageView33" />
+
+    <TextView
+        android:id="@+id/tvCarboCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="300 г"
+        android:textColor="@color/amount_total_count"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView32"
+        app:layout_constraintEnd_toEndOf="@+id/imageView32"
+        app:layout_constraintStart_toStartOf="@+id/imageView32"
+        app:layout_constraintTop_toBottomOf="@+id/textView112" />
+
+    <ImageView
+        android:id="@+id/imageView34"
+        android:layout_width="338dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView37"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/line_graph" />
+
+    <ImageView
+        android:id="@+id/imageView35"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView34"
+        app:layout_constraintStart_toStartOf="@+id/imageView34"
+        app:srcCompat="@drawable/left_cloud" />
+
+    <TextView
+        android:id="@+id/textView114"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="Сейчас"
+        android:textColor="@color/left_cloud"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView35"
+        app:layout_constraintEnd_toEndOf="@+id/imageView35"
+        app:layout_constraintStart_toStartOf="@+id/imageView35"
+        app:layout_constraintTop_toTopOf="@+id/imageView35"
+        app:layout_constraintVertical_bias="0.32" />
+
+    <ImageView
+        android:id="@+id/imageView36"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="310dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView34"
+        app:layout_constraintStart_toStartOf="@+id/imageView34"
+        app:srcCompat="@drawable/right_cloud" />
+
+    <TextView
+        android:id="@+id/textView115"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="Через \nмесяц"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView36"
+        app:layout_constraintEnd_toEndOf="@+id/imageView36"
+        app:layout_constraintStart_toStartOf="@+id/imageView36"
+        app:layout_constraintTop_toTopOf="@+id/imageView36"
+        app:layout_constraintVertical_bias="0.19" />
+
+
+    <ImageView
+        android:id="@+id/imageView37"
+        android:layout_width="match_parent"
+        android:layout_height="206dp"
+        android:src="@color/half_transparent_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView116"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Результат за 28 дней"
+        android:textColor="@color/white"
+        android:textSize="21sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView37" />
+
+    <TextView
+        android:id="@+id/textView117"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
+        android:text="Подключите Fiasy Premium и \nполучите доступ ко всем \nпреимуществам"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView116" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/shape_total_button"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Узнать подробнее"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView37"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView117" />
+</android.support.constraint.ConstraintLayout>

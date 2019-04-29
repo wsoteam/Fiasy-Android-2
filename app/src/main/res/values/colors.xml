@@ -145,6 +145,12 @@
     <color name="head_green_prem">#919E40</color>
     <color name="price_green_prem">#E98A25</color>
     <color name="gray_prem_green_text">#6A6A6A</color>
+    <color name="sleep_title">#D91A1919</color>
+    <color name="total_title">#474747</color>
+    <color name="kcal_color">#3F3D3B</color>
+    <color name="amount_total_count">#EF7D02</color>
+    <color name="left_cloud">#96333232</color>
+    <color name="half_transparent_green">#40009C99</color>
 
 
 

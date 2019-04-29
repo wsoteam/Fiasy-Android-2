@@ -164,6 +164,22 @@
     <style name="ImageRatingBar" parent="@android:style/Widget.RatingBar">
        <item name="android:progressDrawable">@drawable/orange_ratingbar</item>
     </style>
+
+    <style name="SleepActivity" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#b49042</item>
+        <item name="colorPrimaryDark">#b49042</item>
+        <item name="colorAccent">@color/head_detail_food</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="TotalAmount" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#d6d6d6</item>
+        <item name="colorPrimaryDark">#d6d6d6</item>
+        <item name="colorAccent">@color/head_detail_food</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
     
     
 

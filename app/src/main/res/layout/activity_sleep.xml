@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_sleep"
+    tools:context="com.wsoteam.diet.Onboard.SleepActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView26"
+        android:layout_width="132dp"
+        android:layout_height="132dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25"
+        app:srcCompat="@drawable/head_image_sleep" />
+
+    <TextView
+        android:id="@+id/textView105"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto"
+        android:text="Подождите немного..."
+        android:textColor="@color/sleep_title"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView26" />
+
+    <TextView
+        android:id="@+id/textView106"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:text="Мы делаем рассчеты на основе ваших \nданных"
+        android:textColor="@color/sleep_title"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView105"
+        app:layout_constraintStart_toStartOf="@+id/textView105"
+        app:layout_constraintTop_toBottomOf="@+id/textView105" />
+
+    <ImageView
+        android:id="@+id/ivLoadingCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView106"
+        app:layout_constraintVertical_bias="0.13999999"
+        app:srcCompat="@drawable/loading_circle_sleep" />
+
+</android.support.constraint.ConstraintLayout>
