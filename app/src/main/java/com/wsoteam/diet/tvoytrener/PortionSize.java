@@ -5,66 +5,54 @@ import android.util.Log;
 
 
 public class PortionSize {
-
     private String TAG = "PortionSize";
 
-    /*public PortionSize(){
-        Log.d(TAG, "PortionSize: " + rashod2("ne_meniat",rashod("woman", training[3], ActivityLevel.HIGH.index(), 200, 70, 22)));
-    }*/
 
-   /* if(trenirovok2 == 0){trenirovok2 = 0.9}
-if(trenirovok2 == 1){trenirovok2 = 0.95}
-if(trenirovok2 == 2){trenirovok2 = 1}
-if(trenirovok2 == 3){trenirovok2 = 1.03}
-if(trenirovok2 == 4){trenirovok2 = 1.06}
-if(trenirovok2 == 5){trenirovok2 = 1.09}
-if(trenirovok2 == 6){trenirovok2 = 1.11}
-if(trenirovok2 == 7){trenirovok2 = 1.13}
-*/
-private double[] training = {0.9, 0.95, 1, 1.03, 1.06, 1.09, 1.11, 1.13};
-
-
-/*private double rashod(String gender, Double training, Double activityLevel, int growth, int weight, int age){
-
-    double result;
-
-    switch (gender){
-        case "man":
-            result = training * (activityLevel * (66 + (13.7 * weight) + (5 * growth) - (6.8 * age)));
-            break;
-
-        case "woman":
-            result = training * (activityLevel * (665.0 + (9.6 + weight) + (1.8 * growth) - (4.7 * age)));
-            break;
-
-        default:
-                result = 0;
-                break;
-    }
-    return Precision.round(result, 0);
-}*/
-
-private double rashod2(String cel, Double rashod){
-    Double result;
-
-    switch (cel){
-        case "pohydet":
-            result = rashod - ((rashod / 100) * 20);
-            break;
-        case "ne_meniat":
-            result = rashod;
-            break;
-        case "potolstet":
-            result = rashod + ((rashod / 100) * 20);
-            break;
-            default:
-                result = 0.0;
-                break;
+    public PortionSize() {
+        Log.d(TAG, "PortionSize: " + womenLossWeight(training[7], ActivityLevel.HIGH.index(), 170, 90, 35));
     }
 
-    return result;
-}
 
+
+    private double[] training = {0.9, 0.95, 1, 1.03, 1.06, 1.09, 1.11, 1.13};  // 0 or 7 days in week
+
+
+    private double caloriesMen(Double training, Double activityLevel, int growth, int weight, int age) {
+        return training * (activityLevel * (66 + (13.7 * weight) + (5 * growth) - (6.8 * age)));
+    }
+
+    private double caloriesWomen(Double training, Double activityLevel, int growth, int weight, int age) {
+        return training * (activityLevel * (665.0 + (9.6 * weight) + (1.8 * growth) - (4.7 * age)));
+    }
+
+    public double menSaveWeight(Double training, Double activityLevel, int growth, int weight, int age) {
+        return caloriesMen(training, activityLevel, growth, weight, age);
+    }
+
+    public double menGainWeight(Double training, Double activityLevel, int growth, int weight, int age) {
+        double rashod = caloriesMen(training, activityLevel, growth, weight, age);
+        return rashod + ((rashod / 100) * 20);
+    }
+
+    public double menLossWeight(Double training, Double activityLevel, int growth, int weight, int age) {
+        double rashod = caloriesMen(training, activityLevel, growth, weight, age);
+        return rashod - ((rashod / 100) * 20);
+    }
+
+
+    public double womenSaveWeight(Double training, Double activityLevel, int growth, int weight, int age) {
+        return caloriesWomen(training, activityLevel, growth, weight, age);
+    }
+
+    public double womenGainWeight(Double training, Double activityLevel, int growth, int weight, int age) {
+        double rashod = caloriesWomen(training, activityLevel, growth, weight, age);
+        return rashod + ((rashod / 100) * 20);
+    }
+
+    public double womenLossWeight(Double training, Double activityLevel, int growth, int weight, int age) {
+        double rashod = caloriesWomen(training, activityLevel, growth, weight, age);
+        return rashod - ((rashod / 100) * 20);
+    }
 }
 /*
 if (pol2 == 'man'){var rashod = Math.ceil(trenirovok2 * (aktivnost2 * (66 + (13.7 * ves2) + (5 * rost2) - (6.8 * vozrast2))));}

@@ -1,5 +1,23 @@
 <resources>
 
+    <!--Item Plan Recipe-->
+    <string name="tvItemPlanTime">Время готовки:</string>
+    <string name="tvItemPlanIngredients">Ингридиенты на одну порцию:</string>
+    <string name="tvItemPlanMinute">минут</string>
+    <string name="tvNourishment">Питательные вещества</string>
+    <string name="tvOnePortion">на 1 порцию</string>
+    <string name="tvCarbohydrates">Углеводы</string>
+    <string name="tvCellulose">Клетчатка</string>
+    <string name="tvSugar">Сахар</string>
+    <string name="tvFat">Жиры</string>
+    <string name="tvSaturatedFats">Насыщеные</string>
+    <string name="tvUnSaturatedFats">Ненасыщеные</string>
+    <string name="tvProtein">Белки</string>
+    <string name="tvCholesterol">Холестерин</string>
+    <string name="tvSodium">Натрий</string>
+    <string name="tvPotassium">Калий</string>
+    <string name="tvGram">г</string>
+
     <!--Menu-->
     <string name="etSearch">Поиск</string>
     <string name="btnRecipePrem">Обновление до Premium</string>
@@ -564,8 +582,6 @@
     <string name="currentSnackEat">Кофе мокаччино</string>
     <string name="yesterdaySnackEat">Драже изюм в шоколаде</string>
     <string name="beforeYesterdaySnackEat">Пудинг Чудо Шоколадный</string>
-
-
 
 
 </resources>

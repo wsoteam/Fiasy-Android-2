@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -22,9 +21,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Recipes.ItemActivity"
+        <activity android:name=".Recipes.ItemPlansActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu"/>
+        <activity
+            android:name=".Recipes.ItemActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" />
         <activity
             android:name=".tvoytrener.ForTestFragmentActivity"
             android:screenOrientation="portrait"
@@ -201,8 +204,8 @@
             android:theme="@style/DetailFood" />
         <activity
             android:name=".BranchProfile.ActivityEditProfile"
-            android:theme="@style/EditProfile"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/EditProfile" />
         <activity
             android:name=".BranchProfile.ActivityHelp"
             android:screenOrientation="portrait"
@@ -227,18 +230,17 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Authenticate.ActivityAuthPhone"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".BranchProfile.ActivityEditCompletedProfile"
+        <activity
+            android:name=".Authenticate.ActivityAuthPhone"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BranchProfile.ActivityEditCompletedProfile"
             android:screenOrientation="portrait"
             android:theme="@style/EditProfile" />
-
-        <activity android:name=".EntryPoint.EditProfileIntrodaction"
+        <activity
+            android:name=".EntryPoint.EditProfileIntrodaction"
             android:screenOrientation="portrait"
             android:theme="@style/EditProfile" />
-
-
     </application>
 
 </manifest>

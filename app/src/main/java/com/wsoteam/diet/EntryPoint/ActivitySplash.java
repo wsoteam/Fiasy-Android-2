@@ -47,6 +47,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.ItemPlansActivity;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
@@ -79,7 +80,10 @@ public class ActivitySplash extends Activity {
         Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
         Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
 
-
+        // FOR TEST
+        startActivity(new Intent(this, ItemPlansActivity.class));
+        finish();
+        //END FOR TEST
         FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         firebaseRemoteConfig.setDefaults(R.xml.default_config);
 
