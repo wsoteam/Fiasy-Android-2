@@ -129,7 +129,7 @@ public class EditProfileIntrodaction extends AppCompatActivity {
     private boolean checkInputData() {
         if (rgFemaleOrMale.getCheckedRadioButtonId() != -1) {
             if (!edtAge.getText().toString().equals("")
-                    && Integer.parseInt(edtAge.getText().toString()) >= 18
+                    && Integer.parseInt(edtAge.getText().toString()) >= 9
                     && Integer.parseInt(edtAge.getText().toString()) <= 200) {
                 if (!edtHeight.getText().toString().equals("")
                         && Integer.parseInt(edtHeight.getText().toString()) >= 100

@@ -52,6 +52,9 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.tvoytrener.PortionSize;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -125,6 +128,7 @@ public class ActivitySplash extends Activity {
                     //здесь мы можем запросить информацию о товарах и покупках
                     List<Purchase> purchasesList = queryPurchases(); //запрос о покупках
                     if (purchasesList.size() > 0) {
+                        getTimeAfterPurchase(purchasesList.get(0).getOriginalJson());
                         for (int i = 0; i < purchasesList.size(); i++) {
                             if (purchasesList.get(i).getSku().equals(ONE_MONTH_SKU)) {
                                 setPremStatus(ONE_MONTH_SKU, AmplitudaEvents.ONE_MONTH_PRICE);
@@ -200,6 +204,20 @@ public class ActivitySplash extends Activity {
         }
 
 
+    }
+
+    private void getTimeAfterPurchase(String json) {
+        String nameFieldTime = "purchaseTime";
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            String timeMili = jsonObject.getString(nameFieldTime);
+            long l = Long.decode(timeMili);
+            Calendar timePurchase = Calendar.getInstance();
+            timePurchase.setTimeInMillis(l);
+            Toast.makeText(this, String.valueOf(timePurchase.get(Calendar.DAY_OF_MONTH)), Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setABTestConfig(String responseString) {

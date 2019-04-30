@@ -17,7 +17,7 @@ public class SleepActivity extends AppCompatActivity {
 
     @BindView(R.id.ivLoadingCircle) ImageView ivLoadingCircle;
     private Animation animationRotate;
-    private final int TIME_SLEEP = 3000;
+    private final int TIME_SLEEP = 7000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

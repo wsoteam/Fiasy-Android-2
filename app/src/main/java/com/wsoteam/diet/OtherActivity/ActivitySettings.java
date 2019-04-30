@@ -66,7 +66,6 @@ public class ActivitySettings extends AppCompatActivity {
         cvRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("market://details?id=" + getPackageName()));
                 startActivity(intent);

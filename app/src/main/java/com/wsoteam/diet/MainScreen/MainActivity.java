@@ -19,8 +19,10 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.amplitude.api.Amplitude;
+import com.amplitude.api.Revenue;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
@@ -37,6 +39,8 @@ import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -50,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences freeUser, firstRun;
     private BottomSheetBehavior bottomSheetBehavior;
     private final int NONE_RUN = -1;
+
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -74,18 +79,10 @@ public class MainActivity extends AppCompatActivity {
                     } else if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
-                        if (getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
-                                getString(ABConfig.KEY_FOR_SAVE_STATE, ABConfig.A_VERSION).equals(ABConfig.A_VERSION)) {
-                            transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
-                                    AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
-                                    AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
-                            window.setStatusBarColor(Color.parseColor("#374557"));
-                        } else {
-                            transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
-                                    AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
-                                    AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
-                            window.setStatusBarColor(Color.parseColor("#747d3b"));
-                        }
+                        transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
+                                AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
+                                AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
+                        window.setStatusBarColor(Color.parseColor("#747d3b"));
                     }
                     return true;
                 case R.id.bnv_main_trainer:
@@ -96,18 +93,11 @@ public class MainActivity extends AppCompatActivity {
                     } else if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
-                        if (getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
-                                getString(ABConfig.KEY_FOR_SAVE_STATE, ABConfig.A_VERSION).equals(ABConfig.A_VERSION)) {
-                            transaction.replace(R.id.flFragmentContainer, FragmentSubscription.newInstance(true,
-                                    AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
-                                    AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
-                            window.setStatusBarColor(Color.parseColor("#374557"));
-                        } else {
-                            transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
-                                    AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
-                                    AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
-                            window.setStatusBarColor(Color.parseColor("#747d3b"));
-                        }
+                        transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
+                                AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
+                                AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
+                        window.setStatusBarColor(Color.parseColor("#747d3b"));
+
                     }
                     return true;
                 case R.id.bnv_main_recipes:
@@ -138,8 +128,12 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         checkGrade();
-        Log.e("LOL", "LOLCreate");
 
+        long puchaseTime = 1556630362519l;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(puchaseTime);
+
+        Toast.makeText(this, String.valueOf(calendar.get(Calendar.DAY_OF_YEAR)), Toast.LENGTH_SHORT).show();
     }
 
     private void checkGrade() {
@@ -149,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (countRun < 3) {
             countRun += 1;
             getPreferences(MODE_PRIVATE).edit().putInt(Config.COUNT_RUN, countRun).commit();
-        }else if (countRun == 3){
+        } else if (countRun == 3) {
             RateDialogs.showGradeDialog(this);
             countRun += 1;
             getPreferences(MODE_PRIVATE).edit().putInt(Config.COUNT_RUN, countRun).commit();
