@@ -81,8 +81,8 @@ public class ActivitySplash extends Activity {
         Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
 
         // FOR TEST
-        startActivity(new Intent(this, ItemPlansActivity.class));
-        finish();
+//        startActivity(new Intent(this, ItemPlansActivity.class));
+//        finish();
         //END FOR TEST
         FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         firebaseRemoteConfig.setDefaults(R.xml.default_config);

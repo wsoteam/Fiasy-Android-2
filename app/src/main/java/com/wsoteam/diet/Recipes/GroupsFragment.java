@@ -30,6 +30,9 @@ import com.wsoteam.diet.POJOS.ItemRecipes;
 import com.wsoteam.diet.POJOS.ListOfGroupsRecipes;
 import com.wsoteam.diet.POJOS.ListOfRecipes;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
+import com.wsoteam.diet.Recipes.POJO.Factory;
+import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +68,10 @@ public class GroupsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rvGroupsRecipe);
 
         recyclerView.setLayoutManager(layoutManager);
-        updateUI();
+        List<ListRecipes> listRecipes = new EatingGroupsRecipes(Factory.getlistRecipes()).getGroups();
+        GroupsAdapterNew groupsAdapterNew = new GroupsAdapterNew(listRecipes, groupsFragment);
+        recyclerView.setAdapter(groupsAdapterNew);
+//        updateUI();
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_all_recipes);
         return view;
     }

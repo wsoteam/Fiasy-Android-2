@@ -9,6 +9,9 @@ public class ListRecipes implements Serializable {
 
     public ListRecipes() {
     }
+    public ListRecipes(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;
