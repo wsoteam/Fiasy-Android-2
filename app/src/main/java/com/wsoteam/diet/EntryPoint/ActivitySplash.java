@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -37,12 +35,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
-import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.MainScreen.MainActivity;
@@ -50,7 +46,6 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.wsoteam.diet.tvoytrener.PortionSize;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -108,7 +103,7 @@ public class ActivitySplash extends Activity {
         if (!hasConnection(this)) {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
-        
+
         user = FirebaseAuth.getInstance().getCurrentUser();
 
 
@@ -128,7 +123,7 @@ public class ActivitySplash extends Activity {
                     //здесь мы можем запросить информацию о товарах и покупках
                     List<Purchase> purchasesList = queryPurchases(); //запрос о покупках
                     if (purchasesList.size() > 0) {
-                        getTimeAfterPurchase(purchasesList.get(0).getOriginalJson());
+                        isTrial(purchasesList.get(0).getOriginalJson());
                         for (int i = 0; i < purchasesList.size(); i++) {
                             if (purchasesList.get(i).getSku().equals(ONE_MONTH_SKU)) {
                                 setPremStatus(ONE_MONTH_SKU, AmplitudaEvents.ONE_MONTH_PRICE);
@@ -206,17 +201,23 @@ public class ActivitySplash extends Activity {
 
     }
 
-    private void getTimeAfterPurchase(String json) {
+    private boolean isTrial(String json) {
+        Calendar currentTime = Calendar.getInstance();
+        long longTrialMilisec = 259200000l;
+        long currentMili = currentTime.getTimeInMillis();
+
         String nameFieldTime = "purchaseTime";
         try {
             JSONObject jsonObject = new JSONObject(json);
-            String timeMili = jsonObject.getString(nameFieldTime);
-            long l = Long.decode(timeMili);
-            Calendar timePurchase = Calendar.getInstance();
-            timePurchase.setTimeInMillis(l);
-            Toast.makeText(this, String.valueOf(timePurchase.get(Calendar.DAY_OF_MONTH)), Toast.LENGTH_SHORT).show();
+            long purchaseMilisec = Long.decode(jsonObject.getString(nameFieldTime));
+            if (currentMili - purchaseMilisec >= longTrialMilisec){
+                return false;
+            }else {
+                return true;
+            }
         } catch (JSONException e) {
             e.printStackTrace();
+            return true;
         }
     }
 

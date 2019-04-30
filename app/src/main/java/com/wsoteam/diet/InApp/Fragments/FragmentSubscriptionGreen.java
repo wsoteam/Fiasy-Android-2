@@ -51,6 +51,7 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
     private static final String TAG = "inappbilling";
     private static final int COUNT_OF_PAGES = 4;
     private String currentSKU = "basic_subscription_12m_trial", currentPrice = "99р";
+    private String nameSKUYear = "basic_subscription_12m_trial", nameSKUMonth = "basic_subscription_1m";
 
 
     private SharedPreferences sharedPreferences;
@@ -147,6 +148,7 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
     @Override
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
+            if (currentSKU.equals())
             Identify identify = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy)
                     .set(AmplitudaEvents.LONG_OF_PREM, currentSKU)
                     .set(AmplitudaEvents.PRICE_OF_PREM, currentPrice);

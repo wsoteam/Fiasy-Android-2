@@ -56,6 +56,7 @@ public class AmplitudaEvents {
     public static final String PREM_STATUS = "PREM_STATUS";
     public static final String buy = "buy";
     public static final String not_buy = "not_buy";
+    public static final String trial = "trial";
 
     public static final String LONG_OF_PREM = "LONG_OF_PREM";
     public static final String PRICE_OF_PREM = "PRICE_OF_PREM";

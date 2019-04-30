@@ -128,12 +128,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         checkGrade();
-
-        long puchaseTime = 1556630362519l;
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(puchaseTime);
-
-        Toast.makeText(this, String.valueOf(calendar.get(Calendar.DAY_OF_YEAR)), Toast.LENGTH_SHORT).show();
     }
 
     private void checkGrade() {
