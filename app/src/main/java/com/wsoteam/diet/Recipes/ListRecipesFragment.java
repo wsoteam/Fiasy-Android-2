@@ -27,6 +27,7 @@ import com.wsoteam.diet.POJOS.ItemRecipes;
 import com.wsoteam.diet.POJOS.ListOfGroupsRecipes;
 import com.wsoteam.diet.POJOS.ListOfRecipes;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,8 @@ public class ListRecipesFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_list_recipes, container, false);
         textView = view.findViewById(R.id.tvListRecipes);
-        textView.setText(ObjectHolder.getListOfGroupsRecipes().getListOfGroupsRecipes().get(position).getName());
+//        textView.setText(ObjectHolder.getListOfGroupsRecipes().getListOfGroupsRecipes().get(position).getName());
+
 
         backButton = view.findViewById(R.id.btnback5);
 
@@ -64,7 +66,7 @@ public class ListRecipesFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.rvListRecipes);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        updateUI();
+        updateUINew();
 
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_group_recipes);
         return view;
@@ -89,5 +91,10 @@ public class ListRecipesFragment extends Fragment {
 
             }
         });
+    }
+
+    private void updateUINew() {
+        textView.setText(GroupsHolder.getGroupsRecipes().getGroups().get(position).getName());
+        recyclerView.setAdapter(new ListRecipesAdapterNew(GroupsHolder.getGroupsRecipes().getGroups().get(position).getListrecipes(), getActivity()));
     }
 }

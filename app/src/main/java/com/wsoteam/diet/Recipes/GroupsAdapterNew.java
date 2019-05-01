@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
@@ -29,11 +31,14 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
     FragmentTransaction transaction;
     int containerID;
 
-    public GroupsAdapterNew(List<ListRecipes> groupsRecipes, GroupsFragment groupsFragment){
+    public GroupsAdapterNew(List<ListRecipes> groupsRecipes, GroupsFragment groupsFragment, int containerID){
         this.groupsRecipes = groupsRecipes;
         this.groupsFragment = groupsFragment;
+        this.containerID = containerID;
+        Log.d("GroupsFragment", "GroupsAdapterNew: " + groupsFragment);
         this.transaction = groupsFragment.getActivity().getSupportFragmentManager().beginTransaction();
-        this.containerID =  ((ViewGroup)groupsFragment.getView().getParent()).getId();
+        Log.d("GroupsFragment", "GroupsAdapterNew: " +  containerID);
+
     }
 
     @NonNull
@@ -89,7 +94,7 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
                 public void onClick(View view) {
 
                     Bundle bundle = new Bundle();
-                    bundle.putInt(Config.RECIPES_BUNDLE, getAdapterPosition());
+                    bundle.putInt(Config.RECIPES_BUNDLE, 0);
 
                     ListRecipesFragment fragment = new ListRecipesFragment();
                     fragment.setArguments(bundle);
@@ -124,9 +129,9 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
                 cardViewList.get(i).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        Intent intent = new Intent(groupsFragment.getActivity(), ItemActivity.class);
-//                        intent.putExtra(Config.RECIPE_INTENT, groupsRecipes.get(getAdapterPosition()).getListrecipes().get(y));
-//                        groupsFragment.getActivity().startActivity(intent);
+                        Intent intent = new Intent(groupsFragment.getActivity(), ItemPlansActivity.class);
+                        intent.putExtra(Config.RECIPE_INTENT, groupsRecipes.get(getAdapterPosition()).getListrecipes().get(y));
+                        groupsFragment.getActivity().startActivity(intent);
                     }
                 });
             }
@@ -170,7 +175,7 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
             if (url != null){
                 return url;
             } else {
-                return "https://www.kaspersky.ru/content/ru-ru/images/b2c/icons/icon-kfa.png";
+                return "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
             }
         }
 

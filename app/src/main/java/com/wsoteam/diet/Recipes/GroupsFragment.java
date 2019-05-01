@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,17 +33,23 @@ import com.wsoteam.diet.POJOS.ListOfRecipes;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.Factory;
+import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GroupsFragment extends Fragment {
 
-    GroupsFragment groupsFragment = this;
+    String TAG = "GroupsFragment";
+
+    GroupsFragment groupsFragment;
     Context context = getContext();
 
     Button backButton;
+
+    ViewGroup viewGroup;
 
     RecyclerView recyclerView;
 
@@ -52,6 +59,9 @@ public class GroupsFragment extends Fragment {
         Window window = getActivity().getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.parseColor("#9C5E21"));
+
+        groupsFragment =this;
+        viewGroup = container;
 
         View view = inflater.inflate(R.layout.fragment_groups_recipes, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -68,10 +78,10 @@ public class GroupsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rvGroupsRecipe);
 
         recyclerView.setLayoutManager(layoutManager);
-        List<ListRecipes> listRecipes = new EatingGroupsRecipes(Factory.getlistRecipes()).getGroups();
-        GroupsAdapterNew groupsAdapterNew = new GroupsAdapterNew(listRecipes, groupsFragment);
-        recyclerView.setAdapter(groupsAdapterNew);
-//        updateUI();
+//        List<ListRecipes> listRecipes = new EatingGroupsRecipes(Factory.getlistRecipes()).getGroups();
+//        GroupsAdapterNew groupsAdapterNew = new GroupsAdapterNew(listRecipes, groupsFragment);
+//        recyclerView.setAdapter(groupsAdapterNew);
+        updateUINew();
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_all_recipes);
         return view;
     }
@@ -88,6 +98,12 @@ public class GroupsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ObjectHolder objectHolder = new ObjectHolder();
                 objectHolder.bindObjectWithHolder(dataSnapshot.getValue(ListOfGroupsRecipes.class));
+
+                ListRecipes listRecipes = Factory.getlistRecipes();
+                EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(listRecipes);
+                Log.d(TAG, "updateUINew: " + eatingGroupsRecipes);
+
+                GroupsAdapterNew groupsAdapterNew = new GroupsAdapterNew(eatingGroupsRecipes.getGroups(), groupsFragment, viewGroup.getId());
                 recyclerView.setAdapter(new GroupsAdapter((ArrayList<ListOfRecipes>) ObjectHolder.getListOfGroupsRecipes().getListOfGroupsRecipes(), groupsFragment));
 
             }
@@ -95,9 +111,44 @@ public class GroupsFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+
+
             }
         });
     }
 
+    private void updateUINew() {
+
+        ListRecipes listRecipes = Factory.getlistRecipes();
+        EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(listRecipes);
+        GroupsHolder groupsHolder = new GroupsHolder();
+        groupsHolder.bind(eatingGroupsRecipes);
+
+        Log.d(TAG, "updateUINew: " + eatingGroupsRecipes);
+
+        GroupsAdapterNew groupsAdapterNew = new GroupsAdapterNew(GroupsHolder.getGroupsRecipes().getGroups(), groupsFragment, viewGroup.getId());
+        recyclerView.setAdapter(groupsAdapterNew);
+
+        Log.d(TAG, "updateUINew: idd" + R.id.flFragmentContainer);
+
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("TEST_FOR_PLANS");
+//
+//        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                ListRecipes listRecipes = dataSnapshot.getValue(ListRecipes.class);
+////                RecipeItem recipeItem = dataSnapshot.getValue(RecipeItem.class);
+//                Log.d(TAG, "onDataChange: ");
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.d(TAG, "onCancelled: ERRRRRRRRRR");
+//            }
+//        });
+    }
 
 }

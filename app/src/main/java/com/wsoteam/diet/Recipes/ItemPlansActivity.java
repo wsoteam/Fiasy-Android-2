@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.wsoteam.diet.Config;
+import com.wsoteam.diet.POJOS.ItemRecipes;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.Factory;
@@ -37,7 +39,7 @@ public class ItemPlansActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_plans);
         ButterKnife.bind(this);
 
-        RecipeItem recipeItem = new EatingGroupsRecipes(Factory.getlistRecipes()).getGroups().get(0).getListrecipes().get(0);
+        RecipeItem recipeItem = (RecipeItem) getIntent().getSerializableExtra(Config.RECIPE_INTENT);
 
         tvName.setText(recipeItem.getName());
         tvTime.setText(String.valueOf(recipeItem.getTime()));

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class RecipeItem implements Serializable {
     private String name;
+    private String url;
     private int time;
     private int calories;
     private String description;
@@ -243,4 +244,14 @@ public class RecipeItem implements Serializable {
     public void setDiet(List<String> diet) {
         this.diet = diet;
     }
+
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
 }
