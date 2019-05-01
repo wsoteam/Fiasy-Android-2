@@ -22,6 +22,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOForDB.DiaryData;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.POJO.WeightDiaryObject;
 
@@ -199,6 +200,12 @@ public class WorkWithFirebaseDB {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("diaryDataList").child(key);
+        myRef.setValue(data);
+    }
+
+    public static void saveListRecipes(ListRecipes data){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("TEST_FOR_PLANS");
         myRef.setValue(data);
     }
 }

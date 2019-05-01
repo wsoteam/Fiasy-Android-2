@@ -38,13 +38,14 @@ public class RecipeItem implements Serializable {
     public RecipeItem() {
     }
 
-    public RecipeItem(String name, int time, int calories, String description,
+    public RecipeItem(String url, String name, int time, int calories, String description,
                       double percentCarbohydrates, double percentProteins,
                       double percentFats, double carbohydrates, double proteins,
                       double fats, double cellulose, double sugar, double saturatedFats,
                       double unSaturatedFats, double cholesterol, double sodium, double potassium,
                       int portions, List<String> ingredients, List<String> instruction, List<String> eating,
                       List<String> diet) {
+        this.url = url;
         this.name = name;
         this.time = time;
         this.calories = calories;

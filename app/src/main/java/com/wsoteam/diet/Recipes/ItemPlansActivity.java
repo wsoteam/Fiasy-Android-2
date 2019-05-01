@@ -1,16 +1,15 @@
 package com.wsoteam.diet.Recipes;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.POJOS.ItemRecipes;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
-import com.wsoteam.diet.Recipes.POJO.Factory;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 
 import butterknife.BindView;
@@ -18,20 +17,36 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ItemPlansActivity extends AppCompatActivity {
-    @BindView(R.id.tvName) TextView tvName;
-    @BindView(R.id.tvTime) TextView tvTime;
-    @BindView(R.id.llIngedientsItem) LinearLayout llIngredients;
-    @BindView(R.id.llInstructions) LinearLayout llInstructions;
-    @BindView(R.id.tvCarbohydrates) TextView tvCarbohydrates;
-    @BindView(R.id.tvCellulose) TextView tvCellulose;
-    @BindView(R.id.tvSugar) TextView tvSugar;
-    @BindView(R.id.tvFat) TextView tvFat;
-    @BindView(R.id.tvSaturatedFats) TextView tvSaturatedFats;
-    @BindView(R.id.tvUnSaturatedFats) TextView tvUnSaturatedFats;
-    @BindView(R.id.tvProtein) TextView tvProtein;
-    @BindView(R.id.tvCholesterol) TextView tvCholesterol;
-    @BindView(R.id.tvSodium) TextView tvSodium;
-    @BindView(R.id.tvPotassium) TextView tvPotassium;
+    @BindView(R.id.ivHead)
+    ImageView ivHead;
+    @BindView(R.id.tvName)
+    TextView tvName;
+    @BindView(R.id.tvTime)
+    TextView tvTime;
+    @BindView(R.id.llIngedientsItem)
+    LinearLayout llIngredients;
+    @BindView(R.id.llInstructions)
+    LinearLayout llInstructions;
+    @BindView(R.id.tvCarbohydrates)
+    TextView tvCarbohydrates;
+    @BindView(R.id.tvCellulose)
+    TextView tvCellulose;
+    @BindView(R.id.tvSugar)
+    TextView tvSugar;
+    @BindView(R.id.tvFat)
+    TextView tvFat;
+    @BindView(R.id.tvSaturatedFats)
+    TextView tvSaturatedFats;
+    @BindView(R.id.tvUnSaturatedFats)
+    TextView tvUnSaturatedFats;
+    @BindView(R.id.tvProtein)
+    TextView tvProtein;
+    @BindView(R.id.tvCholesterol)
+    TextView tvCholesterol;
+    @BindView(R.id.tvSodium)
+    TextView tvSodium;
+    @BindView(R.id.tvPotassium)
+    TextView tvPotassium;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +70,7 @@ public class ItemPlansActivity extends AppCompatActivity {
         tvPotassium.setText(String.valueOf(recipeItem.getPortions()));
 
 
-        for (String ingredient:
+        for (String ingredient :
                 recipeItem.getIngredients()) {
             View view = getLayoutInflater().inflate(R.layout.plan_recipes_ingredient, null);
             TextView textView = view.findViewById(R.id.tvIngredient);
@@ -63,14 +78,20 @@ public class ItemPlansActivity extends AppCompatActivity {
             llIngredients.addView(view);
         }
 
-        for (String instruction:
+        for (String instruction :
                 recipeItem.getInstruction()) {
             View view = getLayoutInflater().inflate(R.layout.plan_recipes_instruction, null);
             TextView textView = view.findViewById(R.id.tvInstruction);
             textView.setText(instruction);
             llInstructions.addView(view);
-
         }
+
+        String url = recipeItem.getUrl();
+        if (url == null || url.equals("link")) {
+            url = "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
+        }
+
+        Glide.with(this).load(url).into(ivHead);
 
     }
 

@@ -17,6 +17,7 @@ public class Factory {
         ListRecipes listRecipes = new ListRecipes();
         List<RecipeItem> recipeItemList = new ArrayList<>();
         RecipeItem recipeItem = new RecipeItem(
+                "link",
                 "Авокадо с яйцами",
                 25,
                 524,
@@ -40,6 +41,11 @@ public class Factory {
                 eating,
                 diet);
 
+        recipeItemList.add(recipeItem);
+        recipeItemList.add(recipeItem);
+        recipeItemList.add(recipeItem);
+        recipeItemList.add(recipeItem);
+        recipeItemList.add(recipeItem);
         recipeItemList.add(recipeItem);
         recipeItemList.add(recipeItem);
         recipeItemList.add(recipeItem);

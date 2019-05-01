@@ -25,7 +25,7 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.
     private Context context;
     private Activity activity;
 
-    public ListRecipesAdapter(List<ItemRecipes> listRecipes, Activity activity){
+    public ListRecipesAdapter(List<ItemRecipes> listRecipes, Activity activity) {
         this.listRecipes = listRecipes;
         this.activity = activity;
     }
@@ -56,40 +56,41 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.
         return listRecipes.size();
     }
 
-    class ListRecipeViewHolder extends RecyclerView.ViewHolder{
-    ImageView imageView;
-    TextView textView;
-    CardView cardView;
-    public ListRecipeViewHolder(View itemView) {
-        super(itemView);
+    class ListRecipeViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
+        TextView textView;
+        CardView cardView;
 
-        imageView = itemView.findViewById(R.id.imageRecipe);
-        textView = itemView.findViewById(R.id.tvRecipeDescripion);
-        cardView = itemView.findViewById(R.id.ItemCard);
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(activity, ItemActivity.class);
-                intent.putExtra(Config.RECIPE_INTENT, listRecipes.get(getAdapterPosition()));
-                activity.startActivity(intent);
-            }
-        });
-    }
+        public ListRecipeViewHolder(View itemView) {
+            super(itemView);
 
-    void bind(int position){
-
-        String name = listRecipes.get(position).getName();
-
-        if (name.length() > 25){
-            name = name.substring(0, 25) + "...";
+            imageView = itemView.findViewById(R.id.imageRecipe);
+            textView = itemView.findViewById(R.id.tvRecipeDescripion);
+            cardView = itemView.findViewById(R.id.ItemCard);
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(activity, ItemActivity.class);
+                    intent.putExtra(Config.RECIPE_INTENT, listRecipes.get(getAdapterPosition()));
+                    activity.startActivity(intent);
+                }
+            });
         }
 
+        void bind(int position) {
 
-        textView.setText(name);
-        Glide
-                .with(context)
-                .load(listRecipes.get(position).getUrl())
-                .into(imageView);
+            String name = listRecipes.get(position).getName();
+
+            if (name.length() > 25) {
+                name = name.substring(0, 25) + "...";
+            }
+
+
+            textView.setText(name);
+            Glide
+                    .with(context)
+                    .load(listRecipes.get(position).getUrl())
+                    .into(imageView);
+        }
     }
-}
 }

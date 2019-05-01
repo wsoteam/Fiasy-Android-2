@@ -24,17 +24,17 @@ public class EatingGroupsRecipes implements GroupsRecipes {
             for (String eating:
                  recipeItem.getEating()) {
                 switch (eating){
-                    default:
-                    //case "breakfast":
+//                    default:
+                    case "breakfast":
                         breakfast.add(recipeItem);
-                       // break;
-                   // case "lunch":
+                        break;
+                    case "lunch":
                         lunch.add(recipeItem);
-                       // break;
-                  //  case "dinner":
+                        break;
+                    case "dinner":
                         dinner.add(recipeItem);
-                      //  break;
-                   // case "snack":
+                        break;
+                    case "snack":
                         snack.add(recipeItem);
                         break;
                 }

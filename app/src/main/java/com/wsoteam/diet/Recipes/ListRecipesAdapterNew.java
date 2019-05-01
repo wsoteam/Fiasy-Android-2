@@ -19,13 +19,13 @@ import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 
 import java.util.List;
 
-public class ListRecipesAdapterNew extends RecyclerView.Adapter<ListRecipesAdapterNew.ListRecipeViewHolder>{
+public class ListRecipesAdapterNew extends RecyclerView.Adapter<ListRecipesAdapterNew.ListRecipeViewHolder> {
 
     private List<RecipeItem> listRecipes;
     private Context context;
     private Activity activity;
 
-    public ListRecipesAdapterNew(List<RecipeItem> listRecipes, Activity activity){
+    public ListRecipesAdapterNew(List<RecipeItem> listRecipes, Activity activity) {
         this.listRecipes = listRecipes;
         this.activity = activity;
     }
@@ -56,10 +56,11 @@ public class ListRecipesAdapterNew extends RecyclerView.Adapter<ListRecipesAdapt
         return listRecipes.size();
     }
 
-    class ListRecipeViewHolder extends RecyclerView.ViewHolder{
+    class ListRecipeViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textView;
         CardView cardView;
+
         public ListRecipeViewHolder(View itemView) {
             super(itemView);
 
@@ -76,21 +77,14 @@ public class ListRecipesAdapterNew extends RecyclerView.Adapter<ListRecipesAdapt
             });
         }
 
-        void bind(int position){
+        void bind(int position) {
 
             String name = listRecipes.get(position).getName();
-            String url;
+            String url = listRecipes.get(position).getUrl();
 
-            if (name.length() > 25){
-                name = name.substring(0, 25) + "...";
-            }
-
-            if (listRecipes.get(position).getUrl() != null){
-                url = listRecipes.get(position).getUrl();
-            } else {
+            if (url == null || url.equals("link")) {
                 url = "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
             }
-
 
             textView.setText(name);
             Glide

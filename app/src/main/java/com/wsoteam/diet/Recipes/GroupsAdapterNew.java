@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
@@ -23,7 +22,7 @@ import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.GroupsViewHolder>{
+public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.GroupsViewHolder> {
 
     List<ListRecipes> groupsRecipes;
     Context context;
@@ -31,13 +30,13 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
     FragmentTransaction transaction;
     int containerID;
 
-    public GroupsAdapterNew(List<ListRecipes> groupsRecipes, GroupsFragment groupsFragment, int containerID){
+    public GroupsAdapterNew(List<ListRecipes> groupsRecipes, GroupsFragment groupsFragment, int containerID) {
         this.groupsRecipes = groupsRecipes;
         this.groupsFragment = groupsFragment;
         this.containerID = containerID;
         Log.d("GroupsFragment", "GroupsAdapterNew: " + groupsFragment);
         this.transaction = groupsFragment.getActivity().getSupportFragmentManager().beginTransaction();
-        Log.d("GroupsFragment", "GroupsAdapterNew: " +  containerID);
+        Log.d("GroupsFragment", "GroupsAdapterNew: " + containerID);
 
     }
 
@@ -69,9 +68,7 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
     }
 
 
-
-
-    class GroupsViewHolder extends RecyclerView.ViewHolder{
+    class GroupsViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvTitle;
 
@@ -138,7 +135,7 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
 
         }
 
-        void bind(int listIndex){
+        void bind(int listIndex) {
 
             tvTitle.setText(groupsRecipes.get(listIndex).getName());
 
@@ -147,32 +144,26 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
             if (listSize < 5) {
                 border = listSize;
 
-                for (int i = border; i < 5; i++){
+                for (int i = border; i < 5; i++) {
                     cardViewList.get(i).setVisibility(View.GONE);
                 }
             }
 
-            for (int i = 0; i < border; i++){
+            for (int i = 0; i < border; i++) {
                 String name = groupsRecipes.get(listIndex).getListrecipes().get(i).getName();
-                if (name.length() > 25){
-                    name = name.substring(0, 25) + "...";
-                }
 
                 Glide
                         .with(context)
                         .load(getUrl(listIndex, i))
                         .into(imageViewList.get(i));
                 textViewList.get(i).setText(name);
-
             }
-
-
         }
 
-        private String getUrl(int listIndex, int i){
+        private String getUrl(int listIndex, int i) {
             String url = null;
 
-            if (url != null){
+            if (url != null) {
                 return url;
             } else {
                 return "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
