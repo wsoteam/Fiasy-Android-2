@@ -2,8 +2,8 @@ package com.wsoteam.diet;
 
 public class Config {
 
-//    public static final boolean RELEASE = true;
-    public static final boolean RELEASE = false;
+    public static final boolean RELEASE = true;
+//    public static final boolean RELEASE = false;
 
     public static final String ID_OF_ITEM = "id_of_item";
     public static final String ID_OF_RECIPE = "id_of_recipe";

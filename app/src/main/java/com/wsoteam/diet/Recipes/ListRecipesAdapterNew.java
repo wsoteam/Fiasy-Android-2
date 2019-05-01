@@ -3,6 +3,7 @@ package com.wsoteam.diet.Recipes;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,8 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ListRecipesAdapterNew extends RecyclerView.Adapter<ListRecipesAdapterNew.ListRecipeViewHolder> {
 
@@ -70,7 +73,14 @@ public class ListRecipesAdapterNew extends RecyclerView.Adapter<ListRecipesAdapt
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(activity, ItemPlansActivity.class);
+                    Intent intent;
+                    if (checkSubscribe()) {
+                        intent = new Intent(activity, ItemPlansActivity.class);
+
+                    } else {
+                        intent = new Intent(activity, RecipeWithoutPremActivity.class);
+                    }
+
                     intent.putExtra(Config.RECIPE_INTENT, listRecipes.get(getAdapterPosition()));
                     activity.startActivity(intent);
                 }
@@ -91,6 +101,14 @@ public class ListRecipesAdapterNew extends RecyclerView.Adapter<ListRecipesAdapt
                     .with(context)
                     .load(url)
                     .into(imageView);
+        }
+        private boolean checkSubscribe() {
+            SharedPreferences sharedPreferences = activity.getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+            if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }

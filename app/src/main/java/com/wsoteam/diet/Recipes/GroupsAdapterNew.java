@@ -2,6 +2,7 @@ package com.wsoteam.diet.Recipes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
@@ -21,6 +22,8 @@ import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.GroupsViewHolder> {
 
@@ -127,7 +130,13 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
                 cardViewList.get(i).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(groupsFragment.getActivity(), ItemPlansActivity.class);
+                        Intent intent;
+                        if (checkSubscribe()){
+                            intent = new Intent(groupsFragment.getActivity(), ItemPlansActivity.class);
+                        }else {
+                            intent = new Intent(groupsFragment.getActivity(), RecipeWithoutPremActivity.class);
+                        }
+
                         intent.putExtra(Config.RECIPE_INTENT, groupsRecipes.get(getAdapterPosition()).getListrecipes().get(y));
                         groupsFragment.getActivity().startActivity(intent);
                     }
@@ -165,6 +174,14 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
                         .into(imageViewList.get(i));
 
                 textViewList.get(i).setText(name);
+            }
+        }
+        private boolean checkSubscribe() {
+            SharedPreferences sharedPreferences = groupsFragment.getActivity().getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+            if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
+                return true;
+            } else {
+                return false;
             }
         }
 

@@ -92,7 +92,7 @@ public class ListRecipesFragment extends Fragment {
 
         if (Config.RELEASE){
             updateUI();
-            etSearch.setVisibility(View.INVISIBLE);
+            etSearch.setVisibility(View.GONE);
             textView.setText(ObjectHolder.getListOfGroupsRecipes().getListOfGroupsRecipes().get(position).getName());
         }else {
             updateUINew();

@@ -9,7 +9,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="92dp"
+        android:layout_height="wrap_content"
         android:background="#DD8634"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,14 +33,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
             android:background="#fff"
             android:drawableLeft="@drawable/search_icon"
             android:ems="10"
             android:hint="@string/etSearch"
             android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnback5" />
+            app:layout_constraintTop_toBottomOf="@+id/btnback5"
+            app:layout_constraintVertical_bias="0.65999997" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.v7.widget.RecyclerView

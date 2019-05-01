@@ -99,7 +99,7 @@ public class GroupsFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         if (Config.RELEASE){
             updateUI();
-            etSearch.setVisibility(View.INVISIBLE);
+            etSearch.setVisibility(View.GONE);
         }else {
             updateUINew();
         }
