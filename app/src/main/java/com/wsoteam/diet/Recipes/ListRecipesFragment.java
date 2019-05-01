@@ -6,11 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.amplitude.api.Amplitude;
@@ -26,7 +29,11 @@ import com.wsoteam.diet.POJOS.ItemRecipes;
 import com.wsoteam.diet.POJOS.ListOfGroupsRecipes;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
+import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
+import com.wsoteam.diet.Recipes.POJO.ListRecipes;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListRecipesFragment extends Fragment {
@@ -35,7 +42,10 @@ public class ListRecipesFragment extends Fragment {
     private RecyclerView recyclerView;
     private TextView textView;
     private Button backButton;
+    private EditText etSearch;
     private int position;
+    private RecyclerView.LayoutManager layoutManager;
+    private ListRecipesAdapterNew adapter;
 
     @Nullable
     @Override
@@ -53,6 +63,23 @@ public class ListRecipesFragment extends Fragment {
 
 
         backButton = view.findViewById(R.id.btnback5);
+        etSearch = view.findViewById(R.id.etRecipeItem);
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    searchAndShow(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +89,8 @@ public class ListRecipesFragment extends Fragment {
         });
 
         recyclerView = view.findViewById(R.id.rvListRecipes);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        layoutManager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(layoutManager);
         updateUINew();
 
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_group_recipes);
@@ -92,6 +120,30 @@ public class ListRecipesFragment extends Fragment {
 
     private void updateUINew() {
         textView.setText(GroupsHolder.getGroupsRecipes().getGroups().get(position).getName());
-        recyclerView.setAdapter(new ListRecipesAdapterNew(GroupsHolder.getGroupsRecipes().getGroups().get(position).getListrecipes(), getActivity()));
+        adapter = new ListRecipesAdapterNew(GroupsHolder.getGroupsRecipes().getGroups().get(position).getListrecipes(), getActivity());
+        recyclerView.setAdapter(adapter);
+    }
+
+    public void searchAndShow(CharSequence s){
+        String key = s.toString().toLowerCase();
+        List<RecipeItem> result = new ArrayList<>();
+        GroupsRecipes groupsRecipes = GroupsHolder.getGroupsRecipes();
+
+        if (key.equals("")){
+            recyclerView.setAdapter(adapter);
+        } else {
+            for (int i = 0; i < groupsRecipes.getGroups().size(); i++) {
+
+                for (RecipeItem recipe :
+                        groupsRecipes.getGroups().get(i).getListrecipes()) {
+                    if (recipe.getName().toLowerCase().contains(key)) {
+                        result.add(recipe);
+                    }
+                }
+            }
+            ListRecipesAdapterNew adapterNew = new ListRecipesAdapterNew(result, getActivity());
+            recyclerView.setAdapter(adapterNew);
+        }
+
     }
 }

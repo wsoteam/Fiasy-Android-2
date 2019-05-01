@@ -30,6 +30,7 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
     FragmentTransaction transaction;
     int containerID;
 
+
     public GroupsAdapterNew(List<ListRecipes> groupsRecipes, GroupsFragment groupsFragment, int containerID) {
         this.groupsRecipes = groupsRecipes;
         this.groupsFragment = groupsFragment;
@@ -91,7 +92,7 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
                 public void onClick(View view) {
 
                     Bundle bundle = new Bundle();
-                    bundle.putInt(Config.RECIPES_BUNDLE, 0);
+                    bundle.putInt(Config.RECIPES_BUNDLE, getAdapterPosition());
 
                     ListRecipesFragment fragment = new ListRecipesFragment();
                     fragment.setArguments(bundle);
