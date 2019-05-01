@@ -50,8 +50,7 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
     private static final int COUNT_OF_PAGES = 4;
-    private String currentSKU = "basic_subscription_12m_trial", currentPrice = "99р";
-    private String nameSKUYear = "basic_subscription_12m_trial", nameSKUMonth = "basic_subscription_1m";
+    private String currentSKU = Config.ONE_YEAR_PRICE_TRIAL, currentPrice = "99р";
 
 
     private SharedPreferences sharedPreferences;
@@ -86,7 +85,6 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_subscription_green, container, false);
         unbinder = ButterKnife.bind(this, view);
-        currentPrice = AmplitudaEvents.ONE_YEAR_PRICE;
 
         AmplitudaEvents.logEventViewPremium(getArguments().getString(AMPLITUDE_COME_FROM_TAG), ABConfig.green_P1M);
         Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_COME_FROM_TAG)));
@@ -117,8 +115,8 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
 
     private void getSKU() {
         List<String> skuList = new ArrayList<>();
-        skuList.add("basic_subscription_1m");
-        skuList.add("basic_subscription_12m_trial");
+        skuList.add(Config.ONE_MONTH_PRICE);
+        skuList.add(Config.ONE_YEAR_PRICE_TRIAL);
 
         SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
         params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS);
@@ -148,9 +146,13 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
     @Override
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
-            if (currentSKU.equals())
-            Identify identify = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy)
-                    .set(AmplitudaEvents.LONG_OF_PREM, currentSKU)
+            Identify identify = new Identify();
+            if (currentSKU.equals(Config.ONE_YEAR_PRICE_TRIAL)) {
+                identify.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
+            } else {
+                identify.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
+            }
+            identify.set(AmplitudaEvents.LONG_OF_PREM, currentSKU)
                     .set(AmplitudaEvents.PRICE_OF_PREM, currentPrice);
             Amplitude.getInstance().identify(identify);
             AmplitudaEvents.logEventBuyPremium(getArguments().getString(AMPLITUDE_BUY_FROM_TAG), ABConfig.green_P1M, currentSKU);
@@ -174,13 +176,13 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
 
         if (view.getId() == R.id.cvSub1m) {
             currentPrice = AmplitudaEvents.ONE_MONTH_PRICE;
-            currentSKU = "basic_subscription_1m";
+            currentSKU = Config.ONE_MONTH_PRICE;
             backCV1mOrange.setVisibility(View.VISIBLE);
             backCV12mOrange.setVisibility(View.INVISIBLE);
         }
         if (view.getId() == R.id.cvSub12m) {
             currentPrice = AmplitudaEvents.ONE_YEAR_PRICE;
-            currentSKU = "basic_subscription_12m_trial";
+            currentSKU = Config.ONE_YEAR_PRICE_TRIAL;
             backCV12mOrange.setVisibility(View.VISIBLE);
             backCV1mOrange.setVisibility(View.INVISIBLE);
         }

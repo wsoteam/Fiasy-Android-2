@@ -70,5 +70,9 @@ public class Config {
 
     public static final String COUNT_RUN = "COUNT_RUN";
 
+    //Prices
+    public static final String ONE_YEAR_PRICE_TRIAL = "basic_subscription_12m_trial";
+    public static final String ONE_MONTH_PRICE = "basic_subscription_1m";
+
 
 }

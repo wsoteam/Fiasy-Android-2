@@ -76,25 +76,7 @@ public class ActivitySplash extends Activity {
         ButterKnife.bind(this);
         Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
         Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
-
-
-        FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-        firebaseRemoteConfig.setDefaults(R.xml.default_config);
-
-        firebaseRemoteConfig.fetch(3600).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    firebaseRemoteConfig.activateFetched();
-                    Amplitude.getInstance().logEvent("norm_ab");
-                } else {
-                    Amplitude.getInstance().logEvent("crash_ab");
-                }
-                setABTestConfig(firebaseRemoteConfig.getString(ABConfig.REQUEST_STRING));
-                Amplitude.getInstance().logEvent(firebaseRemoteConfig.getString("premium_version") + "test");
-            }
-        });
-
+        getABVersion();
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
@@ -126,13 +108,13 @@ public class ActivitySplash extends Activity {
                         isTrial(purchasesList.get(0).getOriginalJson());
                         for (int i = 0; i < purchasesList.size(); i++) {
                             if (purchasesList.get(i).getSku().equals(ONE_MONTH_SKU)) {
-                                setPremStatus(ONE_MONTH_SKU, AmplitudaEvents.ONE_MONTH_PRICE);
+                                setPremStatus(ONE_MONTH_SKU, AmplitudaEvents.ONE_MONTH_PRICE, false);
                             } else if (purchasesList.get(i).getSku().equals(THREE_MONTH_SKU)) {
-                                setPremStatus(THREE_MONTH_SKU, AmplitudaEvents.THREE_MONTH_PRICE);
+                                setPremStatus(THREE_MONTH_SKU, AmplitudaEvents.THREE_MONTH_PRICE, false);
                             } else if (purchasesList.get(i).getSku().equals(ONE_YEAR_SKU)) {
-                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE);
+                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE, false);
                             } else if (purchasesList.get(i).getSku().equals(ONE_YEAR_TRIAL_SKU)) {
-                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE);
+                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE, isTrial(purchasesList.get(i).getOriginalJson()));
                             } else {
                                 deletePremStatus();
                             }
@@ -201,6 +183,25 @@ public class ActivitySplash extends Activity {
 
     }
 
+    private void getABVersion() {
+        FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        firebaseRemoteConfig.setDefaults(R.xml.default_config);
+
+        firebaseRemoteConfig.fetch(3600).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    firebaseRemoteConfig.activateFetched();
+                    Amplitude.getInstance().logEvent("norm_ab");
+                } else {
+                    Amplitude.getInstance().logEvent("crash_ab");
+                }
+                setABTestConfig(firebaseRemoteConfig.getString(ABConfig.REQUEST_STRING));
+                Amplitude.getInstance().logEvent(firebaseRemoteConfig.getString("premium_version") + "test");
+            }
+        });
+    }
+
     private boolean isTrial(String json) {
         Calendar currentTime = Calendar.getInstance();
         long longTrialMilisec = 259200000l;
@@ -210,9 +211,9 @@ public class ActivitySplash extends Activity {
         try {
             JSONObject jsonObject = new JSONObject(json);
             long purchaseMilisec = Long.decode(jsonObject.getString(nameFieldTime));
-            if (currentMili - purchaseMilisec >= longTrialMilisec){
+            if (currentMili - purchaseMilisec >= longTrialMilisec) {
                 return false;
-            }else {
+            } else {
                 return true;
             }
         } catch (JSONException e) {
@@ -281,14 +282,18 @@ public class ActivitySplash extends Activity {
         return false;
     }
 
-    private void setPremStatus(String durationPrem, String pricePrem) {
+    private void setPremStatus(String durationPrem, String pricePrem, boolean isTrial) {
         isBuyPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
         SharedPreferences.Editor editor = isBuyPrem.edit();
         editor.putBoolean(Config.STATE_BILLING, true);
         editor.commit();
-        Identify premStatus = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy)
-                .set(AmplitudaEvents.LONG_OF_PREM, durationPrem)
+        Identify premStatus = new Identify().set(AmplitudaEvents.LONG_OF_PREM, durationPrem)
                 .set(AmplitudaEvents.PRICE_OF_PREM, pricePrem);
+        if (isTrial){
+            premStatus.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
+        }else {
+            premStatus.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
+        }
         Amplitude.getInstance().identify(premStatus);
         FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.PREM_STATUS, FirebaseUserProperties.buy);
     }
