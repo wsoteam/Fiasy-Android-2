@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.amplitude.api.Amplitude;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
 import butterknife.BindView;
@@ -31,6 +32,10 @@ public class SleepActivity extends AppCompatActivity {
         animationRotate = AnimationUtils.loadAnimation(this, R.anim.animation_rotate);
         ivLoadingCircle.startAnimation(animationRotate);
 
+        getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).
+                edit().putBoolean(Config.IS_NEED_SHOW_ONBOARD, false).
+                commit();
+
         new CountDownTimer(TIME_SLEEP, 100){
             @Override
             public void onTick(long millisUntilFinished) {
@@ -39,7 +44,8 @@ public class SleepActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                startActivity(new Intent(SleepActivity.this, TotalAmountActivity.class));
+                startActivity(new Intent(SleepActivity.this, TotalAmountActivity.class).
+                        putExtra(Config.INTENT_PROFILE, getIntent().getSerializableExtra(Config.INTENT_PROFILE)));
                 finish();
             }
         }.start();

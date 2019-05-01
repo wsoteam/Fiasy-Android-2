@@ -70,8 +70,8 @@ public class FragmentSubscriptionWhite extends Fragment implements PurchasesUpda
     private boolean isOpenFromIntro = false;
 
     public static FragmentSubscriptionWhite newInstance(boolean isEnterFromMainActivity, String amplitudeComeFrom,
-                                                   String adjustComeFrom, String amplitudeBuyFrom, String adjustBuyFrom,
-                                                   boolean isOpenFromIntro) {
+                                                        String adjustComeFrom, String amplitudeBuyFrom, String adjustBuyFrom,
+                                                        boolean isOpenFromIntro) {
         Bundle bundle = new Bundle();
         bundle.putBoolean(ENTER_FROM_MAINACTIVITY_TAG, isEnterFromMainActivity);
         bundle.putString(AMPLITUDE_COME_FROM_TAG, amplitudeComeFrom);
@@ -216,12 +216,9 @@ public class FragmentSubscriptionWhite extends Fragment implements PurchasesUpda
                 startActivity(new Intent(getActivity(), MainActivity.class));
                 getActivity().finish();
             } else {
-                if (getActivity().getSharedPreferences(Config.FREE_USER, MODE_PRIVATE).getBoolean(Config.FREE_USER, true)) {
-                    getActivity().onBackPressed();
-                } else {
-                    startActivity(new Intent(getActivity(), ActivitySplash.class));
-                    getActivity().finish();
-                }
+                startActivity(new Intent(getActivity(), ActivitySplash.class));
+                getActivity().finish();
+
             }
 
         }

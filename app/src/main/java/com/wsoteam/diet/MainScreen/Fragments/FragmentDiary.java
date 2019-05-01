@@ -93,12 +93,12 @@ public class FragmentDiary extends Fragment {
         broadcastIntent.setAction("com.wsoteam.diet.ACTION_LOGOUT");
         getActivity().sendBroadcast(broadcastIntent);
 
+        WorkWithFirebaseDB.setFirebaseStateListener();
+
         boolean isPremAlert = getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE)
                 .getBoolean(Config.ALERT_BUY_SUBSCRIPTION, false);
 
         if (isPremAlert) {
-            Log.d("prem", "onCreate: ");
-
             View view = getLayoutInflater().inflate(R.layout.alert_dialog_buy_sub_info, null);
             Button button = view.findViewById(R.id.alerd_buy_info_btn);
             button.setOnClickListener(new View.OnClickListener() {
@@ -122,22 +122,10 @@ public class FragmentDiary extends Fragment {
             editor.commit();
         }
 
-
-        //checkFirstRun();
-        //checkFirstRunFru();
         bindViewPager();
-
-        if (!isFreeUser()){
-            WorkWithFirebaseDB.setFirebaseStateListener();
-        }
-
         return mainView;
     }
 
-    private boolean isFreeUser() {
-        freeUser = getActivity().getSharedPreferences(Config.FREE_USER, MODE_PRIVATE);
-        return freeUser.getBoolean(Config.FREE_USER, true);
-    }
 
     private void bindViewPager() {
         vpEatingTimeLine.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {

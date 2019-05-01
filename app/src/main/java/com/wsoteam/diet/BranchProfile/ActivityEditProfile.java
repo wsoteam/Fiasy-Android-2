@@ -49,7 +49,6 @@ public class ActivityEditProfile extends AppCompatActivity {
     private ImageView ivHelpEditProfile;
     private Button nextButton;
 
-    private InterstitialAd interstitialAd;
     AlertDialog alertDialogLevelLoad;
 
     private boolean registration;
@@ -140,10 +139,6 @@ public class ActivityEditProfile extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH) - 1;
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
-
-        YandexMetrica.reportEvent("Открыт экран: Редактировать профиль");
-
-
     }
 
     private void fillViewsIfProfileNotNull() {
@@ -155,8 +150,6 @@ public class ActivityEditProfile extends AppCompatActivity {
         edtAge.setText(String.valueOf(profile.getAge()));
         edtWeight.setText(String.valueOf(profile.getWeight()));
         btnDifLevel.setText(profile.getExerciseStress());
-//        edtSpkName.setText(profile.getFirstName());
-//        edtSpkSecondName.setText(profile.getLastName());
         if (profile.isFemale()) {
             rgFemaleOrMale.check(R.id.rdSpkFemale);
         } else {
@@ -164,8 +157,6 @@ public class ActivityEditProfile extends AppCompatActivity {
         }
         if (!profile.getPhotoUrl().equals(DEFAULT_AVATAR)){
             urlOfPhoto = profile.getPhotoUrl();
-            Uri uri = Uri.parse(urlOfPhoto);
-//            Glide.with(this).load(uri).into(civEditProfile);
         }
 
     }
@@ -337,7 +328,6 @@ public class ActivityEditProfile extends AppCompatActivity {
         if (registration){
             profile.setMaxKcal((int) maxInt);
             Intent intent = new Intent(ActivityEditProfile.this, ActivityAuthMain.class);
-            Log.e("LOL", profile.toString());
             intent.putExtra("createUser", true);
             intent.putExtra(Config.INTENT_PROFILE, profile);
             Amplitude.getInstance().logEvent(AmplitudaEvents.fill_reg_data);

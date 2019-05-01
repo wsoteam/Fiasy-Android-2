@@ -196,12 +196,8 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
                 startActivity(new Intent(getActivity(), MainActivity.class));
                 getActivity().finish();
             } else {
-                if (getActivity().getSharedPreferences(Config.FREE_USER, MODE_PRIVATE).getBoolean(Config.FREE_USER, true)) {
-                    getActivity().onBackPressed();
-                } else {
-                    startActivity(new Intent(getActivity(), ActivitySplash.class));
-                    getActivity().finish();
-                }
+                startActivity(new Intent(getActivity(), ActivitySplash.class));
+                getActivity().finish();
             }
 
         }

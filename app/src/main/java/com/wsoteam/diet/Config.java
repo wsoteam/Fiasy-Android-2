@@ -56,11 +56,10 @@ public class Config {
     public static final String START_FROM = "START_FROM";
     public static final String FROM_ONBOARDING = "FROM_ONBOARDING";
 
-    public static final String FREE_USER = "FREE_USER";
     public static final String IS_NEED_REG = "IS_NEED_REG";
 
     public static final String FIRST_SPAM = "FIRST_SPAM";
-    public static final String SHOWED_FREE_ONBOARD = "SHOWED_FREE_ONBOARD";
+    public static final String IS_LOGOUT = "SHOWED_FREE_ONBOARD";
 
     public static final String SHOWED_INTRODACTION = "SHOWED_INTRODACTION";
 
@@ -69,6 +68,8 @@ public class Config {
 
 
     public static final String COUNT_RUN = "COUNT_RUN";
+
+    public static final String IS_NEED_SHOW_ONBOARD = "IS_NEED_SHOW_ONBOARD";
 
     //Prices
     public static final String ONE_YEAR_PRICE_TRIAL = "basic_subscription_12m_trial";

@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -39,6 +38,7 @@ import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
+import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.MainScreen.MainActivity;
@@ -93,7 +93,6 @@ public class ActivitySplash extends Activity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
-            deleteFreeUser();
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
@@ -121,17 +120,16 @@ public class ActivitySplash extends Activity {
             });
         } else {
             FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
-            createFreeUser();
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
-            if (getSharedPreferences(Config.SHOWED_FREE_ONBOARD, MODE_PRIVATE).getBoolean(Config.SHOWED_FREE_ONBOARD, false)
-                    || getIntent().getBooleanExtra(Config.IS_NEED_REG, false)) {
-                startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
-                finish();
-            } else {
+            if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_ONBOARD, false)) {
                 Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
-                WorkWithFirebaseDB.setStartEmptyObject(this);
-                new FuckingSleep().execute();
+                startActivity(new Intent(this, ActivityEditProfile.class).putExtra("registration", true));
+            } else {
+                startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
             }
+            finish();
+
+
         }
     }
 
@@ -226,20 +224,6 @@ public class ActivitySplash extends Activity {
                 commit();
     }
 
-    private void createFreeUser() {
-        freeUser = getSharedPreferences(Config.FREE_USER, MODE_PRIVATE);
-        SharedPreferences.Editor editor = freeUser.edit();
-        editor.putBoolean(Config.FREE_USER, true);
-        editor.commit();
-    }
-
-    private void deleteFreeUser() {
-        freeUser = getSharedPreferences(Config.FREE_USER, MODE_PRIVATE);
-        SharedPreferences.Editor editor = freeUser.edit();
-        editor.putBoolean(Config.FREE_USER, false);
-        editor.commit();
-    }
-
     private void checkFirstLaunch() {
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
 
@@ -254,6 +238,9 @@ public class ActivitySplash extends Activity {
             Amplitude.getInstance().identify(date);
             Amplitude.getInstance().logEvent(AmplitudaEvents.first_launch);
 
+            getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).
+                    edit().putBoolean(Config.IS_NEED_SHOW_ONBOARD, true).
+                    commit();
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(TAG_FIRST_RUN, true);
@@ -285,9 +272,9 @@ public class ActivitySplash extends Activity {
         editor.commit();
         Identify premStatus = new Identify().set(AmplitudaEvents.LONG_OF_PREM, durationPrem)
                 .set(AmplitudaEvents.PRICE_OF_PREM, pricePrem);
-        if (isTrial){
+        if (isTrial) {
             premStatus.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
-        }else {
+        } else {
             premStatus.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
         }
         Amplitude.getInstance().identify(premStatus);
@@ -311,31 +298,4 @@ public class ActivitySplash extends Activity {
         Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.SUBS);
         return purchasesResult.getPurchasesList();
     }
-
-    private class FuckingSleep extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            if (getSharedPreferences(Config.SHOWED_INTRODACTION, MODE_PRIVATE).getBoolean(Config.SHOWED_INTRODACTION, false)) {
-                startActivity(new Intent(ActivitySplash.this, MainActivity.class));
-                finish();
-            } else {
-                getSharedPreferences(Config.SHOWED_INTRODACTION, MODE_PRIVATE).edit().putBoolean(Config.SHOWED_INTRODACTION, true).commit();
-                startActivity(new Intent(ActivitySplash.this, EditProfileIntrodaction.class));
-                finish();
-            }
-        }
-    }
-
-
 }

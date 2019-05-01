@@ -30,7 +30,8 @@ public class TotalAmountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_total_amount);
         ButterKnife.bind(this);
-        bindValues(UserDataHolder.getUserData().getProfile());
+        Profile profile = (Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE);
+        bindValues(profile);
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_total);
     }
 

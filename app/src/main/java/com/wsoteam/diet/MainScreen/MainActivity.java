@@ -71,11 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     window.setStatusBarColor(Color.parseColor("#AE6A23"));
                     return true;
                 case R.id.bnv_main_articles:
-                    if (isFreeUser()) {
-                        AmplitudaEvents.logEventRegOffer(AmplitudaEvents.open_articles);
-                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                        return false;
-                    } else if (checkSubscribe()) {
+                     if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
                         transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
@@ -85,34 +81,22 @@ public class MainActivity extends AppCompatActivity {
                     }
                     return true;
                 case R.id.bnv_main_trainer:
-                    if (isFreeUser()) {
-                        AmplitudaEvents.logEventRegOffer(AmplitudaEvents.open_trainer);
-                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                        return false;
-                    } else if (checkSubscribe()) {
+                    if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
                         transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
                                 AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
                                 AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
                         window.setStatusBarColor(Color.parseColor("#747d3b"));
-
                     }
                     return true;
                 case R.id.bnv_main_recipes:
                     transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
                     return true;
                 case R.id.bnv_main_profile:
-                    if (!isFreeUser()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
                         window.setStatusBarColor(Color.parseColor("#2E4E4E"));
                         return true;
-                    } else {
-                        AmplitudaEvents.logEventRegOffer(AmplitudaEvents.open_profile);
-                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                        return false;
-                    }
-
             }
             return false;
         }
@@ -143,28 +127,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void deleteSpamPremium() {
-        firstRun = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = firstRun.edit();
-        editor.putBoolean(Config.FIRST_SPAM, false);
-        editor.commit();
-    }
-
-
-    private void setInterceptor() {
-        ivTop.setVisibility(View.VISIBLE);
-        ivTop.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                ivTop.setVisibility(View.GONE);
-                startActivity(new Intent(MainActivity.this, ActivitySubscription.class)
-                        .putExtra(Config.AMPLITUDE_COME_FROM, AmplitudaEvents.view_prem_free_onboard)
-                        .putExtra(Config.AMPLITUDE_BUY_FROM, AmplitudaEvents.buy_prem_free_onboard));
-                return false;
-            }
-        });
-    }
-
     private boolean checkSubscribe() {
         SharedPreferences sharedPreferences = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
         if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
@@ -172,11 +134,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return false;
         }
-    }
-
-    private boolean isFreeUser() {
-        freeUser = getSharedPreferences(Config.FREE_USER, MODE_PRIVATE);
-        return freeUser.getBoolean(Config.FREE_USER, true);
     }
 
     @OnClick({R.id.ibSheetClose, R.id.btnReg})
