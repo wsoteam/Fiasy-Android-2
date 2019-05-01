@@ -78,17 +78,64 @@ public class ActivitySplash extends Activity {
         Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
         getABVersion();
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
-        checkFirstLaunch();
-
         if (!hasConnection(this)) {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
 
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+        checkFirstLaunch();
+        checkBilling();
+        checkRegistrationAndRun();
+    }
+
+    private void checkRegistrationAndRun() {
         user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
+            deleteFreeUser();
+            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                    child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
+            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
 
+                    boolean isPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).getBoolean(Config.STATE_BILLING, false);
+                    Intent intent;
+                    if (isPrem) {
+                        intent = new Intent(ActivitySplash.this, MainActivity.class);
+                    } else {
+                        intent = new Intent(ActivitySplash.this, MainActivity.class);
+                    }
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        } else {
+            FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
+            createFreeUser();
+            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
+            if (getSharedPreferences(Config.SHOWED_FREE_ONBOARD, MODE_PRIVATE).getBoolean(Config.SHOWED_FREE_ONBOARD, false)
+                    || getIntent().getBooleanExtra(Config.IS_NEED_REG, false)) {
+                startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
+                finish();
+            } else {
+                Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
+                WorkWithFirebaseDB.setStartEmptyObject(this);
+                new FuckingSleep().execute();
+            }
+        }
+    }
+
+    private void checkBilling() {
         mBillingClient = BillingClient.newBuilder(this).setListener(new PurchasesUpdatedListener() {
             @Override
             public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
@@ -130,57 +177,6 @@ public class ActivitySplash extends Activity {
                 //сюда мы попадем если что-то пойдет не так
             }
         });
-
-
-        if (user != null) {
-            FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
-            deleteFreeUser();
-            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
-                    child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-
-            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
-
-                    boolean isPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).getBoolean(Config.STATE_BILLING, false);
-                    Intent intent;
-                    if (isPrem) {
-                        intent = new Intent(ActivitySplash.this, MainActivity.class);
-                    } else {
-                        intent = new Intent(ActivitySplash.this, MainActivity.class);
-                    }
-                    startActivity(intent);
-                    finish();
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        } else {
-            FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
-            createFreeUser();
-            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
-            if (getSharedPreferences(Config.SHOWED_FREE_ONBOARD, MODE_PRIVATE).getBoolean(Config.SHOWED_FREE_ONBOARD, false)
-                    || getIntent().getBooleanExtra(Config.IS_NEED_REG, false)) {
-                startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
-                finish();
-            } else {
-                Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
-                WorkWithFirebaseDB.setStartEmptyObject(this);
-                new FuckingSleep().execute();
-
-            }
-
-        }
-
-
     }
 
     private void getABVersion() {
