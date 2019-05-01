@@ -97,7 +97,13 @@ public class GroupsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rvGroupsRecipe);
 
         recyclerView.setLayoutManager(layoutManager);
-        updateUINew();
+        if (Config.RELEASE){
+            updateUI();
+            etSearch.setVisibility(View.INVISIBLE);
+        }else {
+            updateUINew();
+        }
+
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_all_recipes);
         return view;
     }
@@ -146,6 +152,8 @@ public class GroupsFragment extends Fragment {
                     Log.d(TAG, "onDataChange: " + recipe.getName());
                 }
                 Log.d(TAG, "onDataChange: 1");
+
+
 
 
                 EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes);

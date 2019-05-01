@@ -9,13 +9,13 @@ public class EatingGroupsRecipes implements GroupsRecipes {
 
     public EatingGroupsRecipes(ListRecipes listRecipes) {
         listRecipesGroups = new ArrayList<>();
-        ListRecipes listBreakfast = new ListRecipes("breakfast");
+        ListRecipes listBreakfast = new ListRecipes("Завтрак");
         List<RecipeItem> breakfast = new ArrayList<>();
-        ListRecipes listLunch = new ListRecipes("lunch");
+        ListRecipes listLunch = new ListRecipes("Обед");
         List<RecipeItem> lunch = new ArrayList<>();
-        ListRecipes listDinner = new ListRecipes("dinner");
+        ListRecipes listDinner = new ListRecipes("Ужин");
         List<RecipeItem> dinner = new ArrayList<>();
-        ListRecipes listSnack = new ListRecipes("snack");
+        ListRecipes listSnack = new ListRecipes("Перекус");
         List<RecipeItem> snack = new ArrayList<>();
 
         for (RecipeItem recipeItem:

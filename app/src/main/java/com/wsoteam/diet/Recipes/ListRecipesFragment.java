@@ -59,11 +59,9 @@ public class ListRecipesFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_list_recipes, container, false);
         textView = view.findViewById(R.id.tvListRecipes);
-//        textView.setText(ObjectHolder.getListOfGroupsRecipes().getListOfGroupsRecipes().get(position).getName());
-
-
         backButton = view.findViewById(R.id.btnback5);
         etSearch = view.findViewById(R.id.etRecipeItem);
+
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -91,7 +89,15 @@ public class ListRecipesFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rvListRecipes);
         layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        updateUINew();
+
+        if (Config.RELEASE){
+            updateUI();
+            etSearch.setVisibility(View.INVISIBLE);
+            textView.setText(ObjectHolder.getListOfGroupsRecipes().getListOfGroupsRecipes().get(position).getName());
+        }else {
+            updateUINew();
+        }
+
 
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_group_recipes);
         return view;

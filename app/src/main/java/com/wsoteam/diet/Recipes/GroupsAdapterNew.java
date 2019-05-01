@@ -150,24 +150,21 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
                 }
             }
 
+
             for (int i = 0; i < border; i++) {
                 String name = groupsRecipes.get(listIndex).getListrecipes().get(i).getName();
+                String url = groupsRecipes.get(listIndex).getListrecipes().get(i).getUrl();
+
+                if (url == null || url.equals("link")) {
+                    url = "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
+                }
 
                 Glide
                         .with(context)
-                        .load(getUrl(listIndex, i))
+                        .load(url)
                         .into(imageViewList.get(i));
+
                 textViewList.get(i).setText(name);
-            }
-        }
-
-        private String getUrl(int listIndex, int i) {
-            String url = null;
-
-            if (url != null) {
-                return url;
-            } else {
-                return "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
             }
         }
 
