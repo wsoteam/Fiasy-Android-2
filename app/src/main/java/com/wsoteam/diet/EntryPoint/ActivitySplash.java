@@ -14,8 +14,11 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.adjust.sdk.Adjust;
+import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Identify;
+import com.amplitude.api.Revenue;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
@@ -40,6 +43,7 @@ import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
@@ -159,7 +163,8 @@ public class ActivitySplash extends Activity {
                             } else if (purchasesList.get(i).getSku().equals(ONE_YEAR_SKU)) {
                                 setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE, false);
                             } else if (purchasesList.get(i).getSku().equals(ONE_YEAR_TRIAL_SKU)) {
-                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE, isTrial(purchasesList.get(i).getOriginalJson()));
+                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE,
+                                        isTrial(purchasesList.get(i).getOriginalJson()));
                             } else {
                                 deletePremStatus();
                             }
@@ -265,18 +270,32 @@ public class ActivitySplash extends Activity {
         return false;
     }
 
+    private void speakAboutButAfterTrial() {
+        if (getSharedPreferences(Config.IS_SPEAK_ABOUT_BUY, MODE_PRIVATE).getInt(Config.IS_SPEAK_ABOUT_BUY, -1) == 0) {
+            getSharedPreferences(Config.IS_SPEAK_ABOUT_BUY, MODE_PRIVATE).edit().putInt(Config.IS_SPEAK_ABOUT_BUY, 1).commit();
+
+            Revenue revenue = new Revenue().setProductId(getPackageName()).setQuantity(1).setPrice(1119);
+            Amplitude.getInstance().logRevenueV2(revenue);
+            Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_after_trial));
+        }
+    }
+
     private void setPremStatus(String durationPrem, String pricePrem, boolean isTrial) {
         isBuyPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
         SharedPreferences.Editor editor = isBuyPrem.edit();
         editor.putBoolean(Config.STATE_BILLING, true);
         editor.commit();
+
         Identify premStatus = new Identify().set(AmplitudaEvents.LONG_OF_PREM, durationPrem)
                 .set(AmplitudaEvents.PRICE_OF_PREM, pricePrem);
         if (isTrial) {
             premStatus.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
+            getSharedPreferences(Config.IS_SPEAK_ABOUT_BUY, MODE_PRIVATE).edit().putInt(Config.IS_SPEAK_ABOUT_BUY, 0).commit();
         } else {
+            speakAboutButAfterTrial();
             premStatus.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
         }
+
         Amplitude.getInstance().identify(premStatus);
         FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.PREM_STATUS, FirebaseUserProperties.buy);
     }

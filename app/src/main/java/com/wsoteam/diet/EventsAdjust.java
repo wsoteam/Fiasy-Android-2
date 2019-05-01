@@ -15,4 +15,9 @@ public class EventsAdjust {
     public static final String view_prem_training = "u955wk";
     public static final String buy_prem_training = "ecbt0n";
 
+
+    public static final String buy = "j5edkb";
+    public static final String buy_after_trial = "4wzsjo";
+    public static final String buy_trial = "72yd93";
+
 }

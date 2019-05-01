@@ -17,6 +17,7 @@ import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Identify;
+import com.amplitude.api.Revenue;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
@@ -29,6 +30,7 @@ import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
+import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.R;
@@ -149,8 +151,12 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
             Identify identify = new Identify();
             if (currentSKU.equals(Config.ONE_YEAR_PRICE_TRIAL)) {
                 identify.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
+                Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
             } else {
+                Revenue revenue = new Revenue().setProductId(getActivity().getPackageName()).setPrice(299).setQuantity(1);
+                Amplitude.getInstance().logRevenueV2(revenue);
                 identify.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
+                Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy));
             }
             identify.set(AmplitudaEvents.LONG_OF_PREM, currentSKU)
                     .set(AmplitudaEvents.PRICE_OF_PREM, currentPrice);

@@ -75,5 +75,8 @@ public class Config {
     public static final String ONE_YEAR_PRICE_TRIAL = "basic_subscription_12m_trial";
     public static final String ONE_MONTH_PRICE = "basic_subscription_1m";
 
+    // -1 - never buy (default), 0 - buy trial, 1 - go from trial to buy state
+    public static final String IS_SPEAK_ABOUT_BUY= "IS_SPEAK_ABOUT_BUY";
+
 
 }
