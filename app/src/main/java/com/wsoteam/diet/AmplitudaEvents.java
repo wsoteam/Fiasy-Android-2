@@ -48,6 +48,9 @@ public class AmplitudaEvents {
     public static final String view_settings = "view_settings";
     public static final String edit_profile = "edit_profile";
 
+    public static final String view_sleep = "view_sleep";
+    public static final String view_total = "view_total";
+
 
     public static final String REG_STATUS = "REG_STATUS";
     public static final String registered = "registered";

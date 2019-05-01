@@ -8,6 +8,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.amplitude.api.Amplitude;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.R;
 
 import butterknife.BindView;
@@ -24,6 +26,7 @@ public class SleepActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleep);
         ButterKnife.bind(this);
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_sleep);
 
         animationRotate = AnimationUtils.loadAnimation(this, R.anim.animation_rotate);
         ivLoadingCircle.startAnimation(animationRotate);

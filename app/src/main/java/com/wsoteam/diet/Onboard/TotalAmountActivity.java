@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.amplitude.api.Amplitude;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.EditProfileIntrodaction;
@@ -30,6 +31,7 @@ public class TotalAmountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_total_amount);
         ButterKnife.bind(this);
         bindValues(UserDataHolder.getUserData().getProfile());
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_total);
     }
 
     private void bindValues(Profile profile) {
