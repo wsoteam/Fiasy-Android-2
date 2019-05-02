@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,26 +34,24 @@ import com.wsoteam.diet.POJOS.ListOfGroupsRecipes;
 import com.wsoteam.diet.POJOS.ListOfRecipes;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
-import com.wsoteam.diet.Recipes.POJO.Factory;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GroupsFragment extends Fragment {
 
-    String TAG = "GroupsFragment";
-
-    GroupsFragment groupsFragment;
-    Context context = getContext();
-    Button backButton;
-    ViewGroup viewGroup;
-    RecyclerView recyclerView;
-    GroupsAdapterNew adapter;
+    private String TAG = "GroupsFragment";
+    private GroupsFragment groupsFragment;
+    private Context context = getContext();
+    private Button backButton;
+    private ViewGroup viewGroup;
+    private RecyclerView recyclerView;
+    private GroupsAdapterNew adapter;
+    private CardView cardView;
     private RecyclerView.LayoutManager layoutManager;
 
     @Nullable
@@ -68,6 +67,7 @@ public class GroupsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_groups_recipes, container, false);
         layoutManager = new LinearLayoutManager(getContext());
         backButton = view.findViewById(R.id.btnback5);
+        cardView = view.findViewById(R.id.cvGroupsRecipes);
         EditText etSearch = view.findViewById(R.id.etGroupsRecipes);
 
         etSearch.addTextChangedListener(new TextWatcher() {
@@ -78,7 +78,7 @@ public class GroupsFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    searchAndShow(s);
+                searchAndShow(s);
             }
 
             @Override
@@ -97,10 +97,10 @@ public class GroupsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rvGroupsRecipe);
 
         recyclerView.setLayoutManager(layoutManager);
-        if (Config.RELEASE){
+        if (Config.RELEASE) {
             updateUI();
-            etSearch.setVisibility(View.GONE);
-        }else {
+            cardView.setVisibility(View.GONE);
+        } else {
             updateUINew();
         }
 
@@ -134,9 +134,6 @@ public class GroupsFragment extends Fragment {
 
     private void updateUINew() {
 
-         Log.d(TAG, "updateUINew: idd" + R.id.flFragmentContainer);
-//        WorkWithFirebaseDB.saveListRecipes(Factory.getlistRecipes());
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("TEST_FOR_PLANS");
 
@@ -144,23 +141,16 @@ public class GroupsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Log.d(TAG, "onDataChange: 0");
                 ListRecipes groupsRecipes = dataSnapshot.getValue(ListRecipes.class);
 
-                for (RecipeItem recipe:
-                     groupsRecipes.getListrecipes()) {
+                for (RecipeItem recipe :
+                        groupsRecipes.getListrecipes()) {
                     Log.d(TAG, "onDataChange: " + recipe.getName());
                 }
-                Log.d(TAG, "onDataChange: 1");
-
-
-
 
                 EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes);
                 GroupsHolder groupsHolder = new GroupsHolder();
                 groupsHolder.bind(eatingGroupsRecipes);
-
-                Log.d(TAG, "updateUINew: " + eatingGroupsRecipes);
 
                 adapter = new GroupsAdapterNew(GroupsHolder.getGroupsRecipes().getGroups(), groupsFragment, viewGroup.getId());
                 recyclerView.setAdapter(adapter);
@@ -176,13 +166,13 @@ public class GroupsFragment extends Fragment {
 
     }
 
-    public void searchAndShow(CharSequence s){
+    public void searchAndShow(CharSequence s) {
         String key = s.toString().toLowerCase();
         List<RecipeItem> result = new ArrayList<>();
         GroupsRecipes groupsRecipes = GroupsHolder.getGroupsRecipes();
         RecyclerView.LayoutManager gridLayout = new GridLayoutManager(getContext(), 2);
 
-        if (key.equals("")){
+        if (key.equals("")) {
 
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(layoutManager);

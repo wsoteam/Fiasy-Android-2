@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -46,6 +47,7 @@ public class ListRecipesFragment extends Fragment {
     private int position;
     private RecyclerView.LayoutManager layoutManager;
     private ListRecipesAdapterNew adapter;
+    private CardView cardView;
 
     @Nullable
     @Override
@@ -61,6 +63,7 @@ public class ListRecipesFragment extends Fragment {
         textView = view.findViewById(R.id.tvListRecipes);
         backButton = view.findViewById(R.id.btnback5);
         etSearch = view.findViewById(R.id.etRecipeItem);
+        cardView = view.findViewById(R.id.cvRecipeItem);
 
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -92,7 +95,7 @@ public class ListRecipesFragment extends Fragment {
 
         if (Config.RELEASE){
             updateUI();
-            etSearch.setVisibility(View.GONE);
+            cardView.setVisibility(View.GONE);
             textView.setText(ObjectHolder.getListOfGroupsRecipes().getListOfGroupsRecipes().get(position).getName());
         }else {
             updateUINew();
