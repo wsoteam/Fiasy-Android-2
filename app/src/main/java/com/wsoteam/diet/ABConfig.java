@@ -14,5 +14,5 @@ public class ABConfig {
     public static final String PREMIUM_VERSION = "PREMIUM_VERSION";
     public static final String white_P1M = "white_P4T3";
     public static final String black_P1M = "black_P4M3T";
-    public static final String green_P1M = "green_P4M3T";
+    public static final String green_P1M = "green_P5FT3";
 }

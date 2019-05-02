@@ -61,6 +61,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.Onboard.SleepActivity;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
@@ -177,9 +178,11 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         });
 
         if (createUser) {
-            if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_ONBOARD, false)) {
-                intent = new Intent(this, SleepActivity.class).
-                        putExtra(Config.INTENT_PROFILE, getIntent().getSerializableExtra(Config.INTENT_PROFILE))
+            if (getIntent().getBooleanExtra(Config.IS_NEED_SHOW_ONBOARD, false)) {
+                intent = new Intent(this, ActivitySubscription.class)
+                        .putExtra(Config.AMPLITUDE_COME_FROM, AmplitudaEvents.view_prem_free_onboard)
+                        .putExtra(Config.AMPLITUDE_BUY_FROM, AmplitudaEvents.buy_prem_free_onboard)
+                        .putExtra(Config.OPEN_PREM_FROM_INTRODACTION, true)
                         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             } else {
                 intent = new Intent(this, ActivitySplash.class).

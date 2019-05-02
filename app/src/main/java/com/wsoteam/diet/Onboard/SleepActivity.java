@@ -32,10 +32,6 @@ public class SleepActivity extends AppCompatActivity {
         animationRotate = AnimationUtils.loadAnimation(this, R.anim.animation_rotate);
         ivLoadingCircle.startAnimation(animationRotate);
 
-        getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).
-                edit().putBoolean(Config.IS_NEED_SHOW_ONBOARD, false).
-                commit();
-
         new CountDownTimer(TIME_SLEEP, 100){
             @Override
             public void onTick(long millisUntilFinished) {
