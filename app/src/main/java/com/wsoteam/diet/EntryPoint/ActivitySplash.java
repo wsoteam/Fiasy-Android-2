@@ -157,14 +157,19 @@ public class ActivitySplash extends Activity {
                         isTrial(purchasesList.get(0).getOriginalJson());
                         for (int i = 0; i < purchasesList.size(); i++) {
                             if (purchasesList.get(i).getSku().equals(ONE_MONTH_SKU)) {
-                                setPremStatus(ONE_MONTH_SKU, AmplitudaEvents.ONE_MONTH_PRICE, false);
+                                setPremStatus(ONE_MONTH_SKU, AmplitudaEvents.ONE_MONTH_PRICE,
+                                        false, isApproved(purchasesList.get(i).getOriginalJson()));
+
                             } else if (purchasesList.get(i).getSku().equals(THREE_MONTH_SKU)) {
-                                setPremStatus(THREE_MONTH_SKU, AmplitudaEvents.THREE_MONTH_PRICE, false);
+                                setPremStatus(THREE_MONTH_SKU, AmplitudaEvents.THREE_MONTH_PRICE, false, true);
+
                             } else if (purchasesList.get(i).getSku().equals(ONE_YEAR_SKU)) {
-                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE, false);
+                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE, false, true);
+
                             } else if (purchasesList.get(i).getSku().equals(ONE_YEAR_TRIAL_SKU)) {
                                 setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE,
-                                        isTrial(purchasesList.get(i).getOriginalJson()));
+                                        isTrial(purchasesList.get(i).getOriginalJson()), true);
+
                             } else {
                                 deletePremStatus();
                             }
@@ -218,6 +223,26 @@ public class ActivitySplash extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
             return true;
+        }
+    }
+
+    private boolean isApproved(String json) {
+        Calendar currentTime = Calendar.getInstance();
+        long longNotApproved = 1200000l;
+        long currentMili = currentTime.getTimeInMillis();
+
+        String nameFieldTime = "purchaseTime";
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            long purchaseMilisec = Long.decode(jsonObject.getString(nameFieldTime));
+            if (currentMili - purchaseMilisec >= longNotApproved) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -280,7 +305,7 @@ public class ActivitySplash extends Activity {
         }
     }
 
-    private void setPremStatus(String durationPrem, String pricePrem, boolean isTrial) {
+    private void setPremStatus(String durationPrem, String pricePrem, boolean isTrial, boolean isApproved) {
         isBuyPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
         SharedPreferences.Editor editor = isBuyPrem.edit();
         editor.putBoolean(Config.STATE_BILLING, true);
@@ -288,16 +313,36 @@ public class ActivitySplash extends Activity {
 
         Identify premStatus = new Identify().set(AmplitudaEvents.LONG_OF_PREM, durationPrem)
                 .set(AmplitudaEvents.PRICE_OF_PREM, pricePrem);
-        if (isTrial) {
-            premStatus.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
-            getSharedPreferences(Config.IS_SPEAK_ABOUT_BUY, MODE_PRIVATE).edit().putInt(Config.IS_SPEAK_ABOUT_BUY, 0).commit();
-        } else {
-            speakAboutButAfterTrial();
+
+        if (durationPrem.equals(ONE_MONTH_SKU)) {
             premStatus.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
+            if (isApproved) {
+                speakAboutApprovedBuy();
+            } else {
+                getSharedPreferences(Config.IS_SPEAK_ABOUT_APPROVED_BUY, MODE_PRIVATE).
+                        edit().putInt(Config.IS_SPEAK_ABOUT_APPROVED_BUY, 0).
+                        commit();
+            }
+        } else {
+            if (isTrial) {
+                premStatus.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
+                getSharedPreferences(Config.IS_SPEAK_ABOUT_BUY, MODE_PRIVATE).edit().putInt(Config.IS_SPEAK_ABOUT_BUY, 0).commit();
+            } else {
+                speakAboutButAfterTrial();
+                premStatus.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
+            }
         }
 
         Amplitude.getInstance().identify(premStatus);
         FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.PREM_STATUS, FirebaseUserProperties.buy);
+    }
+
+    private void speakAboutApprovedBuy() {
+        if (getSharedPreferences(Config.IS_SPEAK_ABOUT_APPROVED_BUY, MODE_PRIVATE).
+                getInt(Config.IS_SPEAK_ABOUT_APPROVED_BUY, -1) == 0) {
+            Revenue revenue = new Revenue().setProductId(getPackageName()).setPrice(299).setQuantity(1);
+            Amplitude.getInstance().logRevenueV2(revenue);
+        }
     }
 
     private void deletePremStatus() {

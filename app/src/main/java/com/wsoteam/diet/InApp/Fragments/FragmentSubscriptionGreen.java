@@ -153,8 +153,6 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
                 identify.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
             } else {
-                Revenue revenue = new Revenue().setProductId(getActivity().getPackageName()).setPrice(299).setQuantity(1);
-                Amplitude.getInstance().logRevenueV2(revenue);
                 identify.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy));
             }

@@ -78,5 +78,8 @@ public class Config {
     // -1 - never buy (default), 0 - buy trial, 1 - go from trial to buy state
     public static final String IS_SPEAK_ABOUT_BUY= "IS_SPEAK_ABOUT_BUY";
 
+    // -1 - never buy (default), 0 - buy, but not approved, 1- buy and approved
+    public static final String IS_SPEAK_ABOUT_APPROVED_BUY= "IS_SPEAK_ABOUT_APPROVED_BUY";
+
 
 }
