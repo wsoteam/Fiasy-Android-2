@@ -96,6 +96,10 @@ public class AmplitudaEvents {
 
     public static final String  TYPE_PURCHASE = "TYPE_PURCHASE";
 
+    public static final String  view_grade = "view_grade";
+    public static final String  goto_gp = "goto_gp";
+    public static final String  send_message = "send_message";
+
 
 
     public static void logEventRegistration(String from){

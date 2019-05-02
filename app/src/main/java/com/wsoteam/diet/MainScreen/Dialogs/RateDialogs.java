@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.amplitude.api.Amplitude;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
@@ -23,6 +25,7 @@ import java.util.Calendar;
 public class RateDialogs {
 
     public static void showGradeDialog(Context context, boolean isForceCall) {
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_grade);
         if (!isForceCall) {
             context.getSharedPreferences(Config.IS_GRADE_APP, Context.MODE_PRIVATE).
                     edit().putInt(Config.IS_GRADE_APP, Config.NOT_GRADED).
@@ -56,6 +59,7 @@ public class RateDialogs {
         btnGradeSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Amplitude.getInstance().logEvent(AmplitudaEvents.send_message);
                 context.getSharedPreferences(Config.IS_GRADE_APP, Context.MODE_PRIVATE).
                         edit().putInt(Config.IS_GRADE_APP, Config.GRADED).
                         commit();
@@ -74,6 +78,7 @@ public class RateDialogs {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 if (v >= 4) {
+                    Amplitude.getInstance().logEvent(AmplitudaEvents.goto_gp);
                     context.getSharedPreferences(Config.IS_GRADE_APP, Context.MODE_PRIVATE).
                             edit().putInt(Config.IS_GRADE_APP, Config.GRADED).
                             commit();
