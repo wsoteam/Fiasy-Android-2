@@ -56,7 +56,6 @@ public class ActivitySettings extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 LoginManager.getInstance().logOut();
                 UserDataHolder.clearObject();
-                getSharedPreferences(Config.SHOWED_FREE_ONBOARD, MODE_PRIVATE).edit().putBoolean(Config.SHOWED_FREE_ONBOARD, true).commit();
                 finish();
                 startActivity(new Intent(ActivitySettings.this, ActivitySplash.class).
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
@@ -66,7 +65,6 @@ public class ActivitySettings extends AppCompatActivity {
         cvRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("market://details?id=" + getPackageName()));
                 startActivity(intent);

@@ -147,7 +147,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="99р"
+                        android:text="990р"
                         android:textColor="@color/price_green_prem"
                         android:textSize="26sp"
                         app:layout_constraintBottom_toTopOf="@+id/textView78"

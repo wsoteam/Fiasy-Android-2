@@ -4,21 +4,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.adjust.sdk.Adjust;
+import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Identify;
+import com.amplitude.api.Revenue;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
@@ -37,25 +36,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
-import com.wsoteam.diet.BuildConfig;
+import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.ItemPlansActivity;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.wsoteam.diet.tvoytrener.PortionSize;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -80,39 +79,66 @@ public class ActivitySplash extends Activity {
         Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
         Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
 
-        // FOR TEST
-//        startActivity(new Intent(this, ItemPlansActivity.class));
-//        finish();
-        //END FOR TEST
+
         FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         firebaseRemoteConfig.setDefaults(R.xml.default_config);
-
-        firebaseRemoteConfig.fetch(3600).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    firebaseRemoteConfig.activateFetched();
-                    Amplitude.getInstance().logEvent("norm_ab");
-                } else {
-                    Amplitude.getInstance().logEvent("crash_ab");
-                }
-                setABTestConfig(firebaseRemoteConfig.getString(ABConfig.REQUEST_STRING));
-                Amplitude.getInstance().logEvent(firebaseRemoteConfig.getString("premium_version") + "test");
-            }
-        });
-
-
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
-        checkFirstLaunch();
 
         if (!hasConnection(this)) {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
-        
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+        checkFirstLaunch();
+        checkBilling();
+        checkRegistrationAndRun();
+    }
+
+    private void checkRegistrationAndRun() {
         user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
+            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                    child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
+
+                    boolean isPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).getBoolean(Config.STATE_BILLING, false);
+                    Intent intent;
+                    if (isPrem) {
+                        intent = new Intent(ActivitySplash.this, MainActivity.class);
+                    } else {
+                        intent = new Intent(ActivitySplash.this, MainActivity.class);
+                    }
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        } else {
+            FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
+            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
+            if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_ONBOARD, false)) {
+                Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
+                startActivity(new Intent(this, ActivityEditProfile.class).putExtra("registration", true));
+            } else {
+                startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
+            }
+            finish();
 
 
+        }
+    }
+
+    private void checkBilling() {
         mBillingClient = BillingClient.newBuilder(this).setListener(new PurchasesUpdatedListener() {
             @Override
             public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
@@ -129,15 +155,22 @@ public class ActivitySplash extends Activity {
                     //здесь мы можем запросить информацию о товарах и покупках
                     List<Purchase> purchasesList = queryPurchases(); //запрос о покупках
                     if (purchasesList.size() > 0) {
+                        isTrial(purchasesList.get(0).getOriginalJson());
                         for (int i = 0; i < purchasesList.size(); i++) {
                             if (purchasesList.get(i).getSku().equals(ONE_MONTH_SKU)) {
-                                setPremStatus(ONE_MONTH_SKU, AmplitudaEvents.ONE_MONTH_PRICE);
+                                setPremStatus(ONE_MONTH_SKU, AmplitudaEvents.ONE_MONTH_PRICE,
+                                        false, isApproved(purchasesList.get(i).getOriginalJson()));
+
                             } else if (purchasesList.get(i).getSku().equals(THREE_MONTH_SKU)) {
-                                setPremStatus(THREE_MONTH_SKU, AmplitudaEvents.THREE_MONTH_PRICE);
+                                setPremStatus(THREE_MONTH_SKU, AmplitudaEvents.THREE_MONTH_PRICE, false, true);
+
                             } else if (purchasesList.get(i).getSku().equals(ONE_YEAR_SKU)) {
-                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE);
+                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE, false, true);
+
                             } else if (purchasesList.get(i).getSku().equals(ONE_YEAR_TRIAL_SKU)) {
-                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE);
+                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE,
+                                        isTrial(purchasesList.get(i).getOriginalJson()), true);
+
                             } else {
                                 deletePremStatus();
                             }

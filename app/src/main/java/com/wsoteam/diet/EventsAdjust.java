@@ -6,7 +6,6 @@ public class EventsAdjust {
     public static final String view_prem_onboarding = "rwk3t2";
     public static final String buy_prem_onboarding = "taljl0";
 
-
     public static final String view_prem_recipe = "wdmxhd";
     public static final String buy_prem_recipe = "14xf2z";
 
@@ -15,5 +14,10 @@ public class EventsAdjust {
 
     public static final String view_prem_training = "u955wk";
     public static final String buy_prem_training = "ecbt0n";
+
+
+    public static final String buy = "j5edkb";
+    public static final String buy_after_trial = "4wzsjo";
+    public static final String buy_trial = "72yd93";
 
 }

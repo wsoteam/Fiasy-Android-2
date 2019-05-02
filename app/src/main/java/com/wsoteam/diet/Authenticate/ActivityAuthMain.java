@@ -61,6 +61,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.InApp.ActivitySubscription;
+import com.wsoteam.diet.Onboard.SleepActivity;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.POJOProfile.Profile;
@@ -140,8 +142,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         backButton = findViewById(R.id.btnBack);
 
 
-
-
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -154,11 +154,9 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 isAcceptedPrivacyPolicy = b;
                 if (b) checkPPTextView.setTextColor(Color.parseColor("#A63A3A3A"));
-                Log.d(TAG, "onCheckedChanged: PP = " + b);
             }
         });
         ppCheckBox.performClick();
-
 
 
         checkPPTextView.setOnClickListener(this);
@@ -180,9 +178,17 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         });
 
         if (createUser) {
-            intent = new Intent(this, ActivitySplash.class).
-                    putExtra(Config.INTENT_PROFILE,getIntent().getSerializableExtra(Config.INTENT_PROFILE))
-                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            if (getIntent().getBooleanExtra(Config.IS_NEED_SHOW_ONBOARD, false)) {
+                intent = new Intent(this, ActivitySubscription.class)
+                        .putExtra(Config.AMPLITUDE_COME_FROM, AmplitudaEvents.view_prem_free_onboard)
+                        .putExtra(Config.AMPLITUDE_BUY_FROM, AmplitudaEvents.buy_prem_free_onboard)
+                        .putExtra(Config.OPEN_PREM_FROM_INTRODACTION, true)
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            } else {
+                intent = new Intent(this, ActivitySplash.class).
+                        putExtra(Config.INTENT_PROFILE, getIntent().getSerializableExtra(Config.INTENT_PROFILE))
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            }
             statusTextView.setText(R.string.auth_main_reg_tv);
             signIn.setText(R.string.auth_main_btn_create);
             phoneButton.setText(R.string.auth_main_reg_phone);
@@ -190,12 +196,12 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
             facebookCustomButton.setText(R.string.auth_main_reg_facebook);
             emailEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.registration_icon_email, 0, 0, 0);
 
-        }else {
+        } else {
             checkPPTextView.setVisibility(View.INVISIBLE);
             ppCheckBox.setVisibility(View.INVISIBLE);
             isAcceptedPrivacyPolicy = true;
             intent = new Intent(this, ActivitySplash.class).
-                    putExtra(Config.INTENT_PROFILE,getIntent().getSerializableExtra(Config.INTENT_PROFILE));
+                    putExtra(Config.INTENT_PROFILE, getIntent().getSerializableExtra(Config.INTENT_PROFILE));
             resPassTextView.setVisibility(View.VISIBLE);
             resPassTextView.setOnClickListener(this);
         }
@@ -220,9 +226,9 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 //                    startPrem();
 
-                    if (createUser && mAuth.getCurrentUser().getProviders().size() > 0){
+                    if (createUser && mAuth.getCurrentUser().getProviders().size() > 0) {
                         AmplitudaEvents.logEventReg(mAuth.getCurrentUser().getProviders().get(0));
-                    }else {
+                    } else {
                         AmplitudaEvents.logEventReg("unknown");
                     }
 
@@ -231,8 +237,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                     }
 
 
-                   checkUserExist(user.getUid());
-
+                    checkUserExist(user.getUid());
 
 
                 } else {
@@ -331,25 +336,25 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         // [END phone_auth_callbacks]
     }
 
-private ValueEventListener getPostListener(){
-    ValueEventListener postListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            // Get Post object and use the values to update the UI
+    private ValueEventListener getPostListener() {
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
 //            Post post = dataSnapshot.getValue(Post.class);
-            profile = dataSnapshot.getValue(Profile.class);
-            Log.d(TAG, "onDataChange: " + profile.getLastName());
-        }
+                profile = dataSnapshot.getValue(Profile.class);
+                Log.d(TAG, "onDataChange: " + profile.getLastName());
+            }
 
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            // Getting Post failed, log a message
-            Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            // ...
-        }
-    };
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
 
-    return postListener;
+        return postListener;
     }
 
     protected void setGooglePlusButtonText(SignInButton signInButton, String buttonText) {
@@ -367,7 +372,7 @@ private ValueEventListener getPostListener(){
 
     private void signInGoogle() {
 
-        if (!isPP()){
+        if (!isPP()) {
             return;
         }
 
@@ -455,7 +460,7 @@ private ValueEventListener getPostListener(){
         } else if (!Valid.isValidEmail(email)) {
             Toast.makeText(ActivityAuthMain.this, "Проверь введенный email!", Toast.LENGTH_SHORT).show();
             return;
-        }else if (password.matches("")){
+        } else if (password.matches("")) {
 
             Toast.makeText(ActivityAuthMain.this, "Пропущен пароль!", Toast.LENGTH_SHORT).show();
             return;
@@ -482,13 +487,14 @@ private ValueEventListener getPostListener(){
                 });
     }
 
-    private void signOutAll(){
+    private void signOutAll() {
         Log.d(TAG, "signOutAll: ");
         mAuth.signOut();
         LoginManager.getInstance().logOut();
         mGoogleSignInClient.signOut();
 
     }
+
     private void createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
         if (email.matches("")) {
@@ -498,7 +504,7 @@ private ValueEventListener getPostListener(){
         } else if (!Valid.isValidEmail(email)) {
             Toast.makeText(ActivityAuthMain.this, "Проверь введенный email!", Toast.LENGTH_SHORT).show();
             return;
-        }else if (password.matches("")){
+        } else if (password.matches("")) {
 
             Toast.makeText(ActivityAuthMain.this, "Пропущен пароль!", Toast.LENGTH_SHORT).show();
             return;
@@ -542,10 +548,11 @@ private ValueEventListener getPostListener(){
                         }
 
 
-                    }});
+                    }
+                });
     }
 
-    private void checkUserExist(String uid){
+    private void checkUserExist(String uid) {
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -555,7 +562,7 @@ private ValueEventListener getPostListener(){
                 profile = dataSnapshot.getValue(Profile.class);
                 checkProfile(profile);
                 if (profile != null)
-                Log.d(TAG, "onDataChange: " + profile.getLastName());
+                    Log.d(TAG, "onDataChange: " + profile.getLastName());
             }
 
             @Override
@@ -566,30 +573,29 @@ private ValueEventListener getPostListener(){
             }
         };
 
-       mDatabase.child(uid).child("profile").addListenerForSingleValueEvent(postListener);
+        mDatabase.child(uid).child("profile").addListenerForSingleValueEvent(postListener);
 
     }
 
-    private void checkProfile(Profile profile){
+    private void checkProfile(Profile profile) {
 
-        if (alertDialogPhone != null){
+        if (alertDialogPhone != null) {
             alertDialogPhone.dismiss();
         }
 
-        if (profile == null){
+        if (profile == null) {
             new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle(getString(R.string.auth_main_alert_title))
-                .setMessage(getString(R.string.auth_main_alert_body))
-                .setPositiveButton(getString(R.string.auth_main_alert_ok), new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        signOutAll();
-                    }
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(getString(R.string.auth_main_alert_title))
+                    .setMessage(getString(R.string.auth_main_alert_body))
+                    .setPositiveButton(getString(R.string.auth_main_alert_ok), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            signOutAll();
+                        }
 
-                })
-                .show();
+                    })
+                    .show();
 
 //            Toast.makeText(ActivityAuthMain.this, "Зарегай акк!!!", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "checkUserExist: false");
@@ -597,7 +603,7 @@ private ValueEventListener getPostListener(){
         } else {
 //            Toast.makeText(ActivityAuthMain.this, "Приветствую!!!", Toast.LENGTH_SHORT).show();
 
-            if (isPP() && createUser){
+            if (isPP() && createUser) {
                 Log.d(TAG, "logEvent: acept_police");
 
             }
@@ -622,18 +628,17 @@ private ValueEventListener getPostListener(){
         }
     }
 
-    private void phoneAuth(){
+    private void phoneAuth() {
 
         isSendCode = false;
 
-        View view = getLayoutInflater().inflate( R.layout.alert_dialog_phone_auth, null);
+        View view = getLayoutInflater().inflate(R.layout.alert_dialog_phone_auth, null);
 
         TextView infoTextView = view.findViewById(R.id.auth_phone_tv);
         EditText phoneNumberEditText = view.findViewById(R.id.auth_phone_et_number);
         EditText codeEditText = view.findViewById(R.id.auth_phone_et_code);
         Button okButton = view.findViewById(R.id.auth_phone_btn_ok);
         Button cancelButton = view.findViewById(R.id.auth_phone_btn_cancel);
-
 
 
         alertDialogPhone = new AlertDialog.Builder(this)
@@ -643,15 +648,15 @@ private ValueEventListener getPostListener(){
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick:");
-                switch (view.getId()){
+                switch (view.getId()) {
                     case R.id.auth_phone_btn_cancel:
                         alertDialogPhone.dismiss();
                         break;
                     case R.id.auth_phone_btn_ok:
 
-                        if (!isSendCode){
+                        if (!isSendCode) {
                             String phone = phoneNumberEditText.getText().toString();
-                            if (Valid.isValidPhone(phone)){
+                            if (Valid.isValidPhone(phone)) {
                                 startPhoneNumberVerification(phone);
                                 codeEditText.setEnabled(true);
                                 phoneNumberEditText.setEnabled(false);
@@ -664,9 +669,9 @@ private ValueEventListener getPostListener(){
 
                         } else {
                             String code = codeEditText.getText().toString();
-                            if (Valid.isValidCode(code)){
+                            if (Valid.isValidCode(code)) {
                                 verifyPhoneNumberWithCode(mVerificationId, code);
-                            }else {
+                            } else {
                                 Toast.makeText(ActivityAuthMain.this, "Проверьте введенный код!", Toast.LENGTH_SHORT).show();
                             }
 
@@ -749,8 +754,6 @@ private ValueEventListener getPostListener(){
     // [END sign_in_with_phone]
 
 
-
-
     private boolean hasConnection(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -770,10 +773,9 @@ private ValueEventListener getPostListener(){
     }
 
 
+    private boolean isPP() {
 
-    private boolean isPP(){
-
-        if (!isAcceptedPrivacyPolicy){
+        if (!isAcceptedPrivacyPolicy) {
             checkPPTextView.setTextColor(Color.RED);
             return false;
         } else {
@@ -786,33 +788,32 @@ private ValueEventListener getPostListener(){
 
         switch (view.getId()) {
             case R.id.auth_main_btn_signin:
-                if ( createUser) {
+                if (createUser) {
                     if (hasConnection(this) && isPP())
-                    createAccount(emailEditText.getText().toString(),
-                            passEditText.getText().toString());
+                        createAccount(emailEditText.getText().toString(),
+                                passEditText.getText().toString());
                 } else {
                     if (hasConnection(this))
-                    signIn(emailEditText.getText().toString(),
-                            passEditText.getText().toString());
+                        signIn(emailEditText.getText().toString(),
+                                passEditText.getText().toString());
                 }
                 break;
             case R.id.auth_main_btn_google:
                 if (hasConnection(this))
-                signInGoogle();
+                    signInGoogle();
                 break;
             case R.id.auth_main_tv_respasss:
                 startActivity(new Intent(this, ActivityForgotPassword.class));
                 break;
             case R.id.auth_main_btn_phone:
                 if (hasConnection(this) && isPP())
-                phoneAuth();
+                    phoneAuth();
                 break;
             case R.id.textView82:
                 startActivity(new Intent(this, ActivityPrivacyPolicy.class));
                 break;
         }
     }
-
 
 
     public class MyFilter implements InputFilter {

@@ -113,7 +113,7 @@ public class ActivityEditCompletedProfile extends AppCompatActivity {
             if (!edtSecondName.getText().toString().equals("")) {
                 if (rgFemaleOrMale.getCheckedRadioButtonId() != -1) {
                     if (!edtAge.getText().toString().equals("")
-                            && Integer.parseInt(edtAge.getText().toString()) >= 18
+                            && Integer.parseInt(edtAge.getText().toString()) >= 9
                             && Integer.parseInt(edtAge.getText().toString()) <= 200) {
                         if (!edtHeight.getText().toString().equals("")
                                 && Integer.parseInt(edtHeight.getText().toString()) >= 100

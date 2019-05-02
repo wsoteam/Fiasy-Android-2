@@ -39,4 +39,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/fiasy_text_load" />
+
 </android.support.constraint.ConstraintLayout>

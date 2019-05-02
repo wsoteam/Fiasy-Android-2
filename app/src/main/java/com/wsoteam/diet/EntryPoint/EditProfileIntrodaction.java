@@ -27,6 +27,7 @@ import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.BranchProfile.ActivityHelp;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
+import com.wsoteam.diet.Onboard.SleepActivity;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
@@ -128,7 +129,7 @@ public class EditProfileIntrodaction extends AppCompatActivity {
     private boolean checkInputData() {
         if (rgFemaleOrMale.getCheckedRadioButtonId() != -1) {
             if (!edtAge.getText().toString().equals("")
-                    && Integer.parseInt(edtAge.getText().toString()) >= 18
+                    && Integer.parseInt(edtAge.getText().toString()) >= 9
                     && Integer.parseInt(edtAge.getText().toString()) <= 200) {
                 if (!edtHeight.getText().toString().equals("")
                         && Integer.parseInt(edtHeight.getText().toString()) >= 100
@@ -297,10 +298,7 @@ public class EditProfileIntrodaction extends AppCompatActivity {
         userData.setProfile(profile);
         UserDataHolder userDataHolder = new UserDataHolder();
         userDataHolder.bindObjectWithHolder(userData);
-        startActivity(new Intent(EditProfileIntrodaction.this, ActivitySubscription.class)
-                .putExtra(Config.AMPLITUDE_COME_FROM, AmplitudaEvents.view_prem_free_onboard)
-                .putExtra(Config.AMPLITUDE_BUY_FROM, AmplitudaEvents.buy_prem_free_onboard)
-                .putExtra(Config.OPEN_PREM_FROM_INTRODACTION, true));
+        startActivity(new Intent(EditProfileIntrodaction.this, SleepActivity.class));
         finish();
     }
 
