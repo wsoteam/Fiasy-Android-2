@@ -80,7 +80,7 @@ public class ActivitySplash extends Activity {
         ButterKnife.bind(this);
         Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
         Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
-        getABVersion();
+        //getABVersion();
 
         if (!hasConnection(this)) {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
@@ -274,7 +274,7 @@ public class ActivitySplash extends Activity {
         if (getSharedPreferences(Config.IS_SPEAK_ABOUT_BUY, MODE_PRIVATE).getInt(Config.IS_SPEAK_ABOUT_BUY, -1) == 0) {
             getSharedPreferences(Config.IS_SPEAK_ABOUT_BUY, MODE_PRIVATE).edit().putInt(Config.IS_SPEAK_ABOUT_BUY, 1).commit();
 
-            Revenue revenue = new Revenue().setProductId(getPackageName()).setQuantity(1).setPrice(1119);
+            Revenue revenue = new Revenue().setProductId(getPackageName()).setQuantity(1).setPrice(990);
             Amplitude.getInstance().logRevenueV2(revenue);
             Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_after_trial));
         }
