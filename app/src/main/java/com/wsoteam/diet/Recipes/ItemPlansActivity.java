@@ -17,36 +17,21 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ItemPlansActivity extends AppCompatActivity {
-    @BindView(R.id.ivHead)
-    ImageView ivHead;
-    @BindView(R.id.tvName)
-    TextView tvName;
-    @BindView(R.id.tvTime)
-    TextView tvTime;
-    @BindView(R.id.llIngedientsItem)
-    LinearLayout llIngredients;
-    @BindView(R.id.llInstructions)
-    LinearLayout llInstructions;
-    @BindView(R.id.tvCarbohydrates)
-    TextView tvCarbohydrates;
-    @BindView(R.id.tvCellulose)
-    TextView tvCellulose;
-    @BindView(R.id.tvSugar)
-    TextView tvSugar;
-    @BindView(R.id.tvFat)
-    TextView tvFat;
-    @BindView(R.id.tvSaturatedFats)
-    TextView tvSaturatedFats;
-    @BindView(R.id.tvUnSaturatedFats)
-    TextView tvUnSaturatedFats;
-    @BindView(R.id.tvProtein)
-    TextView tvProtein;
-    @BindView(R.id.tvCholesterol)
-    TextView tvCholesterol;
-    @BindView(R.id.tvSodium)
-    TextView tvSodium;
-    @BindView(R.id.tvPotassium)
-    TextView tvPotassium;
+    @BindView(R.id.ivHead) ImageView ivHead;
+    @BindView(R.id.tvName) TextView tvName;
+    @BindView(R.id.tvTime) TextView tvTime;
+    @BindView(R.id.llIngedientsItem) LinearLayout llIngredients;
+    @BindView(R.id.llInstructions) LinearLayout llInstructions;
+    @BindView(R.id.tvCarbohydrates) TextView tvCarbohydrates;
+    @BindView(R.id.tvCellulose) TextView tvCellulose;
+    @BindView(R.id.tvSugar) TextView tvSugar;
+    @BindView(R.id.tvFat) TextView tvFat;
+    @BindView(R.id.tvSaturatedFats) TextView tvSaturatedFats;
+    @BindView(R.id.tvUnSaturatedFats) TextView tvUnSaturatedFats;
+    @BindView(R.id.tvProtein) TextView tvProtein;
+    @BindView(R.id.tvCholesterol) TextView tvCholesterol;
+    @BindView(R.id.tvSodium) TextView tvSodium;
+    @BindView(R.id.tvPotassium) TextView tvPotassium;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
