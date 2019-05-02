@@ -200,6 +200,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         }
         AlertDialog alertDialog = AddFoodDialog.createChoiseEatingAlertDialog(ActivityDetailOfFood.this);
         alertDialog.show();
+        getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).edit().putBoolean(Config.IS_ADDED_FOOD, true).commit();
         new CountDownTimer(800, 100){
             @Override
             public void onTick(long millisUntilFinished) {

@@ -196,14 +196,11 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
         }
         if (view.getId() == R.id.imbtnCancel) {
             Amplitude.getInstance().logEvent(AmplitudaEvents.close_premium);
-            if (isOpenFromIntro) {
-                startActivity(new Intent(getActivity(), MainActivity.class));
-                getActivity().finish();
-            } else {
-                startActivity(new Intent(getActivity(), ActivitySplash.class));
-                getActivity().finish();
-            }
-
+            getActivity().getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE)
+                    .edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, true)
+                    .commit();
+            startActivity(new Intent(getActivity(), ActivitySplash.class));
+            getActivity().finish();
         }
         if (view.getId() == R.id.tvPrivacyPolicy) {
             Intent intent = new Intent(getActivity(), ActivityPrivacyPolicy.class);

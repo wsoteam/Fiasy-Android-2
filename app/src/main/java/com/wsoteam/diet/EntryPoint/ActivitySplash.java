@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -49,14 +48,12 @@ import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -272,10 +269,17 @@ public class ActivitySplash extends Activity {
                     edit().putBoolean(Config.IS_NEED_SHOW_ONBOARD, true).
                     commit();
 
+            getSharedPreferences(Config.STARTING_POINT, MODE_PRIVATE).edit().putLong(Config.STARTING_POINT, getTime()).commit();
+
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(TAG_FIRST_RUN, true);
             editor.commit();
         }
+    }
+
+    private long getTime() {
+        Calendar calendar = Calendar.getInstance();
+        return calendar.getTimeInMillis();
     }
 
     private boolean hasConnection(Context context) {

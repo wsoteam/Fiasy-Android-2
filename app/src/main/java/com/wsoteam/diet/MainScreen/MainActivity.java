@@ -10,34 +10,26 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.amplitude.api.Amplitude;
-import com.amplitude.api.Revenue;
-import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
-import com.wsoteam.diet.InApp.ActivitySubscription;
-import com.wsoteam.diet.InApp.Fragments.FragmentSubscription;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
-import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionWhite;
 import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
+import com.wsoteam.diet.Sync.UserDataHolder;
 
 import java.util.Calendar;
 
@@ -56,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     private final int NONE_RUN = -1;
 
 
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -71,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     window.setStatusBarColor(Color.parseColor("#AE6A23"));
                     return true;
                 case R.id.bnv_main_articles:
-                     if (checkSubscribe()) {
+                    if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
                         transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
@@ -94,13 +85,35 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
                     return true;
                 case R.id.bnv_main_profile:
-                        transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
-                        window.setStatusBarColor(Color.parseColor("#2E4E4E"));
-                        return true;
+                    transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
+                    window.setStatusBarColor(Color.parseColor("#2E4E4E"));
+                    return true;
             }
             return false;
         }
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handlGrade(Calendar.getInstance().getTimeInMillis());
+    }
+
+    private void handlGrade(long currentTime) {
+        long timeStartingPoint = getSharedPreferences(Config.STARTING_POINT, MODE_PRIVATE).getLong(Config.STARTING_POINT, 0);
+        boolean isAddedFoodEarly = getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).getBoolean(Config.IS_ADDED_FOOD, false);
+        int gradeStatus = getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).
+                getInt(Config.IS_ADDED_FOOD, Config.NOT_VIEW_GRADE_DIALOG);
+        if ((currentTime - timeStartingPoint) >= Config.ONE_DAY && gradeStatus != Config.GRADED) {
+            if (isAddedFoodEarly) {
+                if (gradeStatus == Config.NOT_VIEW_GRADE_DIALOG) {
+                    RateDialogs.showGradeDialog(this, false);
+                }
+            } else if ((currentTime - timeStartingPoint) >= Config.ONE_DAY * 2) {
+                RateDialogs.showGradeDialog(this, false);
+            }
+        }
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,20 +123,14 @@ public class MainActivity extends AppCompatActivity {
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        checkGrade();
+        checkForcedGrade();
     }
 
-    private void checkGrade() {
-        int countRun = getPreferences(MODE_PRIVATE).getInt(Config.COUNT_RUN, NONE_RUN);
-        if (countRun == NONE_RUN) {
-            getPreferences(MODE_PRIVATE).edit().putInt(Config.COUNT_RUN, 0).commit();
-        } else if (countRun < 3) {
-            countRun += 1;
-            getPreferences(MODE_PRIVATE).edit().putInt(Config.COUNT_RUN, countRun).commit();
-        } else if (countRun == 3) {
-            RateDialogs.showGradeDialog(this);
-            countRun += 1;
-            getPreferences(MODE_PRIVATE).edit().putInt(Config.COUNT_RUN, countRun).commit();
+    private void checkForcedGrade() {
+        if (getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false)){
+            RateDialogs.showGradeDialog(this, true);
+            getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).
+                    edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false).commit();
         }
     }
 

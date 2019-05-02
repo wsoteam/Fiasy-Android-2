@@ -10,6 +10,7 @@ public class Config {
     public static final String NAME_OF_USER_DATA_LIST_ENTITY = "USER_LIST";
     public static final String ID_OF_SELECT_MENU = "id_of_selected_menu_item";
     public static final String KEY_OF_CLICK_ITEM_DETAIL_NEWS = "KEY_OF_CLICK_ITEM_DETAIL_NEWS";
+    public static final String IS_NEED_SHOW_GRADE_DIALOG = "IS_NEED_SHOW_GRADE_DIALOG";
 
     public static String EXERCISES_NAME_OF_ENTITY_FOR_DB = "WORKOUT";
 
@@ -80,6 +81,18 @@ public class Config {
 
     // -1 - never buy (default), 0 - buy, but not approved, 1- buy and approved
     public static final String IS_SPEAK_ABOUT_APPROVED_BUY= "IS_SPEAK_ABOUT_APPROVED_BUY";
+
+    // -1 - not view grade dialog (default), 0 - not grade, 1 - grade
+    public static final String IS_GRADE_APP= "IS_GRADE_APP";
+    public static final int NOT_VIEW_GRADE_DIALOG= -1;
+    public static final int NOT_GRADED= 0;
+    public static final int GRADED= 1;
+
+
+    public static final String STARTING_POINT = "STARTING_POINT";
+    public static final String IS_ADDED_FOOD = "IS_ADDED_FOOD";
+
+    public static final long ONE_DAY= 86400000l;
 
 
 }
