@@ -79,6 +79,7 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
         List<ImageView> imageViewList;
         List<TextView> textViewList;
         List<CardView> cardViewList;
+        List<TextView> textViewsKK;
 
 
         public GroupsViewHolder(View itemView) {
@@ -88,6 +89,7 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
             imageViewList = new ArrayList<>();
             textViewList = new ArrayList<>();
             cardViewList = new ArrayList<>();
+            textViewsKK = new ArrayList<>();
 
             TextView detailTextView = itemView.findViewById(R.id.tvAllRecipes);
             detailTextView.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +125,12 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
             cardViewList.add(itemView.findViewById(R.id.cvRecipe3));
             cardViewList.add(itemView.findViewById(R.id.cvRecipe4));
             cardViewList.add(itemView.findViewById(R.id.cvRecipe5));
+
+            textViewsKK.add(itemView.findViewById(R.id.tvRecipeKK1));
+            textViewsKK.add(itemView.findViewById(R.id.tvRecipeKK2));
+            textViewsKK.add(itemView.findViewById(R.id.tvRecipeKK3));
+            textViewsKK.add(itemView.findViewById(R.id.tvRecipeKK4));
+            textViewsKK.add(itemView.findViewById(R.id.tvRecipeKK5));
 
 
             for (int i = 0; i < 5; i++) {
@@ -163,6 +171,7 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
             for (int i = 0; i < border; i++) {
                 String name = groupsRecipes.get(listIndex).getListrecipes().get(i).getName();
                 String url = groupsRecipes.get(listIndex).getListrecipes().get(i).getUrl();
+                int kk = groupsRecipes.get(listIndex).getListrecipes().get(i).getCalories();
 
                 if (url == null || url.equals("link")) {
                     url = "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
@@ -174,6 +183,7 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
                         .into(imageViewList.get(i));
 
                 textViewList.get(i).setText(name);
+                textViewsKK.get(i).setText(kk + " кк");
             }
         }
         private boolean checkSubscribe() {
