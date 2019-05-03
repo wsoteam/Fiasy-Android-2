@@ -77,13 +77,14 @@ public class ActivitySplash extends Activity {
         ButterKnife.bind(this);
         Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
         Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
+        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+        if (Geo.getGeo(this))
         //getABVersion();
 
         if (!hasConnection(this)) {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
 
-        Geo.getGeo(this);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         checkFirstLaunch();
