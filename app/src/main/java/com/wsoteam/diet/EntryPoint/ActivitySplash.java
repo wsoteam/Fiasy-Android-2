@@ -83,6 +83,7 @@ public class ActivitySplash extends Activity {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
 
+        Geo.getGeo(this);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         checkFirstLaunch();

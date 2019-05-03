@@ -98,5 +98,8 @@ public class Config {
 
     public static final long ONE_DAY= 86400000l;
 
+    public static final String GEO= "GEO";
+    public static final String UA_GEO= "UA";
+
 
 }
