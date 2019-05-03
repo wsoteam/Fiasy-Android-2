@@ -72,7 +72,7 @@ public class Config {
 
     public static final String IS_NEED_SHOW_ONBOARD = "IS_NEED_SHOW_ONBOARD";
 
-    //Prices
+    //Names of subscriptions
     public static final String ONE_YEAR_PRICE_TRIAL = "basic_subscription_12m_trial";
     public static final String ONE_MONTH_PRICE = "basic_subscription_1m";
 

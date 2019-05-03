@@ -334,7 +334,6 @@ public class ActivityEditProfile extends AppCompatActivity {
     private void saveProfile(boolean registration, Profile profile, double maxInt) {
         if (registration) {
             profile.setMaxKcal((int) maxInt);
-
             intent.putExtra("createUser", true);
             intent.putExtra(Config.INTENT_PROFILE, profile);
             Amplitude.getInstance().logEvent(AmplitudaEvents.fill_reg_data);

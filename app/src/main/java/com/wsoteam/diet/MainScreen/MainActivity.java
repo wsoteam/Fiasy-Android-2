@@ -24,6 +24,7 @@ import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
+import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenOneButton;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenUA;
 import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
@@ -67,17 +68,19 @@ public class MainActivity extends AppCompatActivity {
                     if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
-                        if (getABVersion().equals(ABConfig.C_VERSION)){
+                        if (getABVersion().equals(ABConfig.C_VERSION)) {
                             transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.newInstance(true,
                                     AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
                                     AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
-                        }else {
-                            if (getABVersion().equals(ABConfig.A_VERSION)){
+                        } else {
+                            if (getABVersion().equals(ABConfig.A_VERSION)) {
                                 transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
                                         AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
                                         AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
-                            }else {
-
+                            } else {
+                                transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenOneButton.newInstance(true,
+                                        AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
+                                        AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
                             }
                         }
                         window.setStatusBarColor(Color.parseColor("#747d3b"));
@@ -87,17 +90,19 @@ public class MainActivity extends AppCompatActivity {
                     if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
-                        if (getABVersion().equals(ABConfig.C_VERSION)){
+                        if (getABVersion().equals(ABConfig.C_VERSION)) {
                             transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.newInstance(true,
                                     AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
                                     AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
-                        }else {
-                            if (getABVersion().equals(ABConfig.A_VERSION)){
+                        } else {
+                            if (getABVersion().equals(ABConfig.A_VERSION)) {
                                 transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
                                         AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
                                         AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
-                            }else {
-
+                            } else {
+                                transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenOneButton.newInstance(true,
+                                        AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
+                                        AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
                             }
                         }
                         window.setStatusBarColor(Color.parseColor("#747d3b"));
@@ -153,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkForcedGrade() {
-        if (getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false)){
+        if (getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false)) {
             RateDialogs.showGradeDialog(this, true);
             getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).
                     edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false).commit();

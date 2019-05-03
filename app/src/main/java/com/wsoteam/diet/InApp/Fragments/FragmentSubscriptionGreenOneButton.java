@@ -45,8 +45,6 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class FragmentSubscriptionGreenOneButton extends Fragment implements PurchasesUpdatedListener {
     @BindView(R.id.imbtnCancel) ImageButton imbtnCancel;
-    @BindView(R.id.backCV12mOrange) ImageView backCV12mOrange;
-    @BindView(R.id.backCV1mOrange) ImageView backCV1mOrange;
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
     private static final int COUNT_OF_PAGES = 4;
@@ -62,9 +60,9 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
             OPEN_PREM_FROM_INTRODACTION = "OPEN_PREM_FROM_INTRODACTION";
     private boolean isOpenFromIntro = false;
 
-    public static FragmentSubscriptionGreen newInstance(boolean isEnterFromMainActivity, String amplitudeComeFrom,
-                                                        String adjustComeFrom, String amplitudeBuyFrom, String adjustBuyFrom,
-                                                        boolean isOpenFromIntro) {
+    public static FragmentSubscriptionGreenOneButton newInstance(boolean isEnterFromMainActivity, String amplitudeComeFrom,
+                                                                 String adjustComeFrom, String amplitudeBuyFrom, String adjustBuyFrom,
+                                                                 boolean isOpenFromIntro) {
         Bundle bundle = new Bundle();
         bundle.putBoolean(ENTER_FROM_MAINACTIVITY_TAG, isEnterFromMainActivity);
         bundle.putString(AMPLITUDE_COME_FROM_TAG, amplitudeComeFrom);
@@ -73,20 +71,20 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
         bundle.putString(ADJUST_BUY_FROM_TAG, adjustBuyFrom);
         bundle.putBoolean(OPEN_PREM_FROM_INTRODACTION, isOpenFromIntro);
 
-        FragmentSubscriptionGreen fragmentSubscriptionGreen = new FragmentSubscriptionGreen();
-        fragmentSubscriptionGreen.setArguments(bundle);
+        FragmentSubscriptionGreenOneButton fragmentSubscriptionGreenOneButton = new FragmentSubscriptionGreenOneButton();
+        fragmentSubscriptionGreenOneButton.setArguments(bundle);
 
-        return fragmentSubscriptionGreen;
+        return fragmentSubscriptionGreenOneButton;
     }
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_subscription_green, container, false);
+        View view = inflater.inflate(R.layout.fragment_subscription_green_one_button, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        AmplitudaEvents.logEventViewPremium(getArguments().getString(AMPLITUDE_COME_FROM_TAG), ABConfig.green_P1M);
+        AmplitudaEvents.logEventViewPremium(getArguments().getString(AMPLITUDE_COME_FROM_TAG), ABConfig.green_P1M_one_button);
         Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_COME_FROM_TAG)));
 
         isOpenFromIntro = getArguments().getBoolean(OPEN_PREM_FROM_INTRODACTION, false);
@@ -109,13 +107,11 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
 
             }
         });
-        backCV1mOrange.setVisibility(View.GONE);
         return view;
     }
 
     private void getSKU() {
         List<String> skuList = new ArrayList<>();
-        skuList.add(Config.ONE_MONTH_PRICE);
         skuList.add(Config.ONE_YEAR_PRICE_TRIAL);
 
         SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
@@ -146,20 +142,15 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
     @Override
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
+            Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
             Identify identify = new Identify();
-            if (currentSKU.equals(Config.ONE_YEAR_PRICE_TRIAL)) {
-                identify.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
-                Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
-            } else {
-                identify.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
-                Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy));
-            }
+            identify.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
             identify.set(AmplitudaEvents.LONG_OF_PREM, currentSKU)
                     .set(AmplitudaEvents.PRICE_OF_PREM, currentPrice);
             Amplitude.getInstance().identify(identify);
-            AmplitudaEvents.logEventBuyPremium(getArguments().getString(AMPLITUDE_BUY_FROM_TAG), ABConfig.green_P1M, currentSKU);
+            AmplitudaEvents.logEventBuyPremium(getArguments().getString(AMPLITUDE_BUY_FROM_TAG),
+                    ABConfig.green_P1M_one_button, currentSKU);
             Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_BUY_FROM_TAG)));
-
 
             sharedPreferences = getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -172,22 +163,8 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
 
     }
 
-    @OnClick({R.id.cvSub1m, R.id.cvSub12m, R.id.imbtnCancel, R.id.tvPrivacyPolicy, R.id.btnBuyPrem})
+    @OnClick({R.id.imbtnCancel, R.id.tvPrivacyPolicy, R.id.btnBuyPrem})
     public void onViewClicked(View view) {
-
-
-        if (view.getId() == R.id.cvSub1m) {
-            currentPrice = AmplitudaEvents.ONE_MONTH_PRICE;
-            currentSKU = Config.ONE_MONTH_PRICE;
-            backCV1mOrange.setVisibility(View.VISIBLE);
-            backCV12mOrange.setVisibility(View.INVISIBLE);
-        }
-        if (view.getId() == R.id.cvSub12m) {
-            currentPrice = AmplitudaEvents.ONE_YEAR_PRICE;
-            currentSKU = Config.ONE_YEAR_PRICE_TRIAL;
-            backCV12mOrange.setVisibility(View.VISIBLE);
-            backCV1mOrange.setVisibility(View.INVISIBLE);
-        }
         if (view.getId() == R.id.btnBuyPrem) {
             AmplitudaEvents.logEventClickBuy(currentSKU);
             buy(currentSKU);
@@ -197,8 +174,7 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
             getActivity().getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE)
                     .edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, true)
                     .commit();
-            startActivity(new Intent(getActivity(), ActivitySplash.class));
-            getActivity().finish();
+            getActivity().onBackPressed();
         }
         if (view.getId() == R.id.tvPrivacyPolicy) {
             Intent intent = new Intent(getActivity(), ActivityPrivacyPolicy.class);
