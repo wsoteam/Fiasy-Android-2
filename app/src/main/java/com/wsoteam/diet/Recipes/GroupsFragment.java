@@ -135,22 +135,14 @@ public class GroupsFragment extends Fragment {
     private void updateUINew() {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("TEST_FOR_PLANS");
+        DatabaseReference myRef = database.getReference(Config.PECIPES_PLANS);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 ListRecipes groupsRecipes = dataSnapshot.getValue(ListRecipes.class);
-
-                int i = 0;
-                for (RecipeItem recipe :
-                        groupsRecipes.getListrecipes()) {
-                    Log.d(TAG, "onDataChange: " + recipe.getName());
-                    i++;
-                    if (i == 5) break;
-                }
-
+                
                 EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes);
                 GroupsHolder groupsHolder = new GroupsHolder();
                 groupsHolder.bind(eatingGroupsRecipes);

@@ -102,4 +102,8 @@ public class Config {
     public static final String UA_GEO= "UA";
 
 
+//    firebase realtime database
+    public static final String PECIPES_PLANS = "RECIPES_PLANS";
+
+
 }

@@ -205,7 +205,7 @@ public class WorkWithFirebaseDB {
 
     public static void saveListRecipes(ListRecipes data){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("TEST_FOR_PLANS");
+        DatabaseReference myRef = database.getReference("RECIPES_PLANS");
         myRef.setValue(data);
     }
 }
