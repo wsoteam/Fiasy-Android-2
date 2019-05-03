@@ -51,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:text="TextView"
+                        android:fontFamily="@font/roboto"
                         android:textColor="#000000"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvItemPlanTime"
+                        android:textColor="@android:color/black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
@@ -72,7 +74,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="00"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/textView99"
                         app:layout_constraintStart_toEndOf="@+id/textView99"
                         app:layout_constraintTop_toTopOf="@+id/textView99" />
@@ -82,7 +86,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvItemPlanMinute"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/textView99"
                         app:layout_constraintStart_toEndOf="@+id/tvTime"
                         app:layout_constraintTop_toTopOf="@+id/textView99" />
@@ -97,7 +103,8 @@
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="5dp">
+                    android:layout_margin="5dp"
+                    android:paddingBottom="20dp">
 
                     <TextView
                         android:id="@+id/textView100"
@@ -105,8 +112,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvItemPlanIngredients"
-                        android:textSize="12sp"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -136,7 +145,10 @@
                     android:id="@+id/llInstructions"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"></LinearLayout>
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp">
+
+                </LinearLayout>
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -154,8 +166,10 @@
                         android:layout_height="23dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
+                        android:fontFamily="@font/roboto"
                         android:text="@string/tvNourishment"
                         android:textColor="#000"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -164,7 +178,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvOnePortion"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvNourishment" />
 
@@ -174,7 +191,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="24dp"
+                        android:fontFamily="@font/roboto"
                         android:text="@string/tvCarbohydrates"
+                        android:textColor="@android:color/black"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView106" />
@@ -184,7 +203,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto"
                         android:text="00"
+                        android:textColor="@android:color/black"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/textView105"
                         app:layout_constraintEnd_toStartOf="@+id/textView108"
@@ -195,7 +216,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto"
                         android:text="@string/tvGram"
+                        android:textColor="@android:color/black"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/tvCarbohydrates"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -206,7 +229,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvCellulose"
+                        android:textColor="@android:color/black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView105" />
 
@@ -216,7 +241,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="00"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/textView110"
                         app:layout_constraintEnd_toStartOf="@+id/textView112"
                         app:layout_constraintTop_toBottomOf="@+id/textView105"
@@ -227,7 +254,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvGram"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/tvCellulose"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tvCellulose" />
@@ -237,7 +266,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvSugar"
+                        android:textColor="@android:color/black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView110" />
 
@@ -247,7 +278,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="00"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/textView113"
                         app:layout_constraintEnd_toStartOf="@+id/textView115"
                         app:layout_constraintTop_toTopOf="@+id/textView113" />
@@ -257,7 +290,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvGram"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/tvSugar"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tvSugar" />
@@ -268,7 +303,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
+                        android:fontFamily="@font/roboto"
                         android:text="@string/tvFat"
+                        android:textColor="@android:color/black"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView113" />
@@ -278,7 +315,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto"
                         android:text="00"
+                        android:textColor="@android:color/black"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/textView116"
                         app:layout_constraintEnd_toStartOf="@+id/textView118"
@@ -289,7 +328,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto"
                         android:text="@string/tvGram"
+                        android:textColor="@android:color/black"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/tvFat"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -300,7 +341,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvSaturatedFats"
+                        android:textColor="@android:color/black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView116" />
 
@@ -309,7 +352,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="00"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/textView119"
                         app:layout_constraintEnd_toStartOf="@+id/textView121"
                         app:layout_constraintTop_toTopOf="@+id/textView119" />
@@ -319,7 +364,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvGram"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/tvSaturatedFats"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tvSaturatedFats" />
@@ -329,7 +376,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvUnSaturatedFats"
+                        android:textColor="@android:color/black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView119" />
 
@@ -338,7 +387,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="00"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/textView122"
                         app:layout_constraintEnd_toStartOf="@+id/textView124"
                         app:layout_constraintTop_toTopOf="@+id/textView122" />
@@ -348,7 +399,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvGram"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/tvUnSaturatedFats"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tvUnSaturatedFats" />
@@ -359,7 +412,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
+                        android:fontFamily="@font/roboto"
                         android:text="@string/tvProtein"
+                        android:textColor="@android:color/black"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView122" />
@@ -369,7 +424,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto"
                         android:text="00"
+                        android:textColor="@android:color/black"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/textView125"
                         app:layout_constraintEnd_toStartOf="@+id/textView127"
@@ -381,7 +438,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto"
                         android:text="@string/tvGram"
+                        android:textColor="@android:color/black"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/tvProtein"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -392,7 +451,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvCholesterol"
+                        android:textColor="@android:color/black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView125" />
 
@@ -401,7 +462,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="00"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/textView128"
                         app:layout_constraintEnd_toStartOf="@+id/textView130"
                         app:layout_constraintTop_toTopOf="@+id/textView128" />
@@ -411,7 +474,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvGram"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/textView128"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView128" />
@@ -421,7 +486,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvSodium"
+                        android:textColor="@android:color/black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView128" />
 
@@ -430,7 +497,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="00"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/textView131"
                         app:layout_constraintEnd_toStartOf="@+id/textView133"
                         app:layout_constraintTop_toTopOf="@+id/textView131" />
@@ -440,7 +509,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvGram"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/textView131"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView131" />
@@ -450,7 +521,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvPotassium"
+                        android:textColor="@android:color/black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView131" />
 
@@ -459,7 +532,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="00"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/textView134"
                         app:layout_constraintEnd_toStartOf="@+id/textView136"
                         app:layout_constraintTop_toTopOf="@+id/textView134" />
@@ -469,7 +544,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_light"
                         android:text="@string/tvGram"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/textView134"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView134" />
