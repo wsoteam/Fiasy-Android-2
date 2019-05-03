@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
@@ -66,9 +67,19 @@ public class MainActivity extends AppCompatActivity {
                     if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
-                        transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
-                                AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
-                                AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
+                        if (getABVersion().equals(ABConfig.C_VERSION)){
+                            transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.newInstance(true,
+                                    AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
+                                    AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
+                        }else {
+                            if (getABVersion().equals(ABConfig.A_VERSION)){
+                                transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
+                                        AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
+                                        AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
+                            }else {
+
+                            }
+                        }
                         window.setStatusBarColor(Color.parseColor("#747d3b"));
                     }
                     return true;
@@ -76,9 +87,19 @@ public class MainActivity extends AppCompatActivity {
                     if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
-                        transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.newInstance(true,
-                                AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
-                                AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
+                        if (getABVersion().equals(ABConfig.C_VERSION)){
+                            transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.newInstance(true,
+                                    AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
+                                    AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
+                        }else {
+                            if (getABVersion().equals(ABConfig.A_VERSION)){
+                                transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.newInstance(true,
+                                        AmplitudaEvents.view_prem_content, EventsAdjust.view_prem_content,
+                                        AmplitudaEvents.buy_prem_content, EventsAdjust.buy_prem_content, false)).commit();
+                            }else {
+
+                            }
+                        }
                         window.setStatusBarColor(Color.parseColor("#747d3b"));
                     }
                     return true;
@@ -93,6 +114,10 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    private String getABVersion() {
+        return getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).getString(ABConfig.KEY_FOR_SAVE_STATE, "default");
+    }
 
     @Override
     protected void onResume() {

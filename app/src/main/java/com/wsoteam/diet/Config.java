@@ -96,6 +96,7 @@ public class Config {
 
     public static final String GEO= "GEO";
     public static final String UA_GEO= "UA";
+    public static final String DEF_GEO= "DEF_GEO";
 
 
 }
