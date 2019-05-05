@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.POJOS.ItemRecipes;
@@ -64,6 +65,11 @@ public class ItemActivity extends AppCompatActivity {
             nameTextView.setText(Html.fromHtml(itemRecipes.getName()));
             arrowBackButton.setOnClickListener(listener);
         } else {
+            Box box = new Box();
+            box.setBuyFrom(AmplitudaEvents.buy_prem_recipe);
+            box.setComeFrom(AmplitudaEvents.view_prem_recipe);
+            box.setOpenFromIntrodaction(false);
+            box.setOpenFromPremPart(true);
             //subscription not purchased
             arrowBackButton.setVisibility(View.INVISIBLE);
             nameTextView.setVisibility(View.INVISIBLE);
@@ -71,7 +77,8 @@ public class ItemActivity extends AppCompatActivity {
             premButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(ItemActivity.this, ActivitySubscription.class));
+                    startActivity(new Intent(ItemActivity.this, ActivitySubscription.class).
+                            putExtra(Config.TAG_BOX, box));
                     finish();
                 }
             });
