@@ -99,4 +99,7 @@ public class Config {
     public static final String DEF_GEO= "DEF_GEO";
 
 
+    public static final String TAG_BOX= "TAG_BOX";
+
+
 }

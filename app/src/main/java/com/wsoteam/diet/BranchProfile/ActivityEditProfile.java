@@ -26,8 +26,10 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.ActivityAuthMain;
+import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -51,8 +53,6 @@ public class ActivityEditProfile extends AppCompatActivity {
 
     AlertDialog alertDialogLevelLoad;
 
-    private boolean registration;
-
     private final String DEFAULT_AVATAR = "default";
     private final int WATER_ON_KG_FEMALE = 30;
     private final int WATER_ON_KG_MALE = 40;
@@ -62,6 +62,7 @@ public class ActivityEditProfile extends AppCompatActivity {
     private boolean isFemale = true;
     private double SPK = 0, upLineSPK = 0, downLineSPK = 0;
     private Intent intent;
+    private boolean isNeedShowOnboard = false;
 
 
     @Override
@@ -71,22 +72,11 @@ public class ActivityEditProfile extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_edit_profile);
 
-        intent = new Intent(ActivityEditProfile.this, ActivityAuthMain.class);
+
         if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_ONBOARD, false)) {
+            isNeedShowOnboard = true;
             intent.putExtra(Config.IS_NEED_SHOW_ONBOARD, true);
             getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).edit().putBoolean(Config.IS_NEED_SHOW_ONBOARD, false).commit();
-        }
-
-
-        if (UserDataHolder.getUserData() != null &&
-                UserDataHolder.getUserData().getProfile() != null
-                && UserDataHolder.getUserData().getProfile().getFirstName().equals(Config.NAME_USER_FOR_INTRODACTION)
-                && UserDataHolder.getUserData().getProfile().getFirstName().equals(Config.NAME_USER_FOR_INTRODACTION)) {
-            Profile profile = UserDataHolder.getUserData().getProfile();
-            profile.setFirstName("default");
-            profile.setLastName("default");
-            saveProfile(true, profile, profile.getMaxKcal());
-            finish();
         }
 
 
@@ -110,13 +100,6 @@ public class ActivityEditProfile extends AppCompatActivity {
                 selectDifLevel();
             }
         });
-
-        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
-            fillViewsIfProfileNotNull();
-        }
-
-        registration = getIntent().getBooleanExtra("registration", false);
-
 
         ivHelpEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,26 +130,6 @@ public class ActivityEditProfile extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH) - 1;
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
-    }
-
-    private void fillViewsIfProfileNotNull() {
-
-
-        Profile profile = UserDataHolder.getUserData().getProfile();
-
-        edtHeight.setText(String.valueOf(profile.getHeight()));
-        edtAge.setText(String.valueOf(profile.getAge()));
-        edtWeight.setText(String.valueOf(profile.getWeight()));
-        btnDifLevel.setText(profile.getExerciseStress());
-        if (profile.isFemale()) {
-            rgFemaleOrMale.check(R.id.rdSpkFemale);
-        } else {
-            rgFemaleOrMale.check(R.id.rdSpkMale);
-        }
-        if (!profile.getPhotoUrl().equals(DEFAULT_AVATAR)) {
-            urlOfPhoto = profile.getPhotoUrl();
-        }
-
     }
 
     private boolean checkInputData() {
@@ -316,33 +279,38 @@ public class ActivityEditProfile extends AppCompatActivity {
 
 
         if (dif_level.equals(getString(R.string.dif_level_easy))) {
-            saveProfile(registration, profile, SPK);
+            saveProfile(profile, SPK);
             Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
 
         } else if (dif_level.equals(getString(R.string.dif_level_normal))) {
-            saveProfile(registration, profile, upLineSPK);
+            saveProfile(profile, upLineSPK);
             Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
 
         } else if (dif_level.equals(getString(R.string.dif_level_hard))) {
-            saveProfile(registration, profile, downLineSPK);
+            saveProfile(profile, downLineSPK);
             Toast.makeText(ActivityEditProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
         }
 
-
     }
 
-    private void saveProfile(boolean registration, Profile profile, double maxInt) {
-        if (registration) {
-            profile.setMaxKcal((int) maxInt);
+    private void saveProfile(Profile profile, double maxInt) {
+        profile.setMaxKcal((int) maxInt);
+        Amplitude.getInstance().logEvent(AmplitudaEvents.fill_reg_data);
+        if (isNeedShowOnboard){
+            intent = new Intent(ActivityEditProfile.this, ActivitySubscription.class);
+            Box box = new Box();
+            box.setBuyFrom(AmplitudaEvents.buy_prem_onboarding);
+            box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);
+            box.setOpenFromIntrodaction(true);
+            box.setOpenFromPremPart(false);
+            box.setProfile(profile);
+            intent.putExtra(Config.TAG_BOX, box);
+        }else {
+            intent = new Intent(ActivityEditProfile.this, ActivityAuthMain.class);
             intent.putExtra("createUser", true);
             intent.putExtra(Config.INTENT_PROFILE, profile);
-            Amplitude.getInstance().logEvent(AmplitudaEvents.fill_reg_data);
-            startActivity(intent);
-        } else {
-            profile.setMaxKcal((int) maxInt);
-            WorkWithFirebaseDB.putProfileValue(profile);
-            finish();
         }
+        startActivity(intent);
     }
 
     private void createAlertDialogLevelLoad() {

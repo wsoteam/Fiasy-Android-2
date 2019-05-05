@@ -183,7 +183,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
             intent = new Intent(this, ActivitySplash.class).
                     putExtra(Config.INTENT_PROFILE, getIntent().getSerializableExtra(Config.INTENT_PROFILE))
                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
             statusTextView.setText(R.string.auth_main_reg_tv);
             signIn.setText(R.string.auth_main_btn_create);
             phoneButton.setText(R.string.auth_main_reg_phone);

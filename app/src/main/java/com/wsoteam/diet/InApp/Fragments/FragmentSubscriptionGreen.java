@@ -28,6 +28,8 @@ import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Authenticate.ActivityAuthMain;
+import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.EventsAdjust;
@@ -51,33 +53,20 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
     @BindView(R.id.backCV1mOrange) ImageView backCV1mOrange;
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
-    private static final int COUNT_OF_PAGES = 4;
     private String currentSKU = Config.ONE_YEAR_PRICE_TRIAL, currentPrice = "99р";
 
 
     private SharedPreferences sharedPreferences;
 
     Unbinder unbinder;
-    private static final String AMPLITUDE_COME_FROM_TAG = "AMPLITUDE_COME_FROM_TAG",
-            ADJUST_COME_FROM_TAG = "ADJUST_COME_FROM_TAG", ENTER_FROM_MAINACTIVITY_TAG = "ENTER_FROM_MAINACTIVITY_TAG",
-            AMPLITUDE_BUY_FROM_TAG = "AMPLITUDE_BUY_FROM_TAG", ADJUST_BUY_FROM_TAG = "ADJUST_BUY_FROM_TAG",
-            OPEN_PREM_FROM_INTRODACTION = "OPEN_PREM_FROM_INTRODACTION";
-    private boolean isOpenFromIntro = false;
+    private static final String TAG_BOX = "TAG_BOX";
+    private Box box;
 
-    public static FragmentSubscriptionGreen newInstance(boolean isEnterFromMainActivity, String amplitudeComeFrom,
-                                                        String adjustComeFrom, String amplitudeBuyFrom, String adjustBuyFrom,
-                                                        boolean isOpenFromIntro) {
+    public static FragmentSubscriptionGreen newInstance(Box box) {
         Bundle bundle = new Bundle();
-        bundle.putBoolean(ENTER_FROM_MAINACTIVITY_TAG, isEnterFromMainActivity);
-        bundle.putString(AMPLITUDE_COME_FROM_TAG, amplitudeComeFrom);
-        bundle.putString(ADJUST_COME_FROM_TAG, adjustComeFrom);
-        bundle.putString(AMPLITUDE_BUY_FROM_TAG, amplitudeBuyFrom);
-        bundle.putString(ADJUST_BUY_FROM_TAG, adjustBuyFrom);
-        bundle.putBoolean(OPEN_PREM_FROM_INTRODACTION, isOpenFromIntro);
-
+        bundle.putSerializable(TAG_BOX, box);
         FragmentSubscriptionGreen fragmentSubscriptionGreen = new FragmentSubscriptionGreen();
         fragmentSubscriptionGreen.setArguments(bundle);
-
         return fragmentSubscriptionGreen;
     }
 
@@ -87,13 +76,11 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_subscription_green, container, false);
         unbinder = ButterKnife.bind(this, view);
+        box = (Box) getArguments().getSerializable(TAG_BOX);
 
-        AmplitudaEvents.logEventViewPremium(getArguments().getString(AMPLITUDE_COME_FROM_TAG), ABConfig.green_P1M);
-        Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_COME_FROM_TAG)));
+        AmplitudaEvents.logEventViewPremium(box.getComeFrom(), ABConfig.green_P1M);
 
-        isOpenFromIntro = getArguments().getBoolean(OPEN_PREM_FROM_INTRODACTION, false);
-
-        if (getArguments().getBoolean(ENTER_FROM_MAINACTIVITY_TAG)) {
+        if (!box.isOpenFromIntrodaction() && !box.isOpenFromPremPart()) {
             imbtnCancel.setVisibility(View.GONE);
         }
 
@@ -159,17 +146,23 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
             identify.set(AmplitudaEvents.LONG_OF_PREM, currentSKU)
                     .set(AmplitudaEvents.PRICE_OF_PREM, currentPrice);
             Amplitude.getInstance().identify(identify);
-            AmplitudaEvents.logEventBuyPremium(getArguments().getString(AMPLITUDE_BUY_FROM_TAG), ABConfig.green_P1M, currentSKU);
-            Adjust.trackEvent(new AdjustEvent(getArguments().getString(ADJUST_BUY_FROM_TAG)));
-
+            AmplitudaEvents.logEventBuyPremium(box.getBuyFrom(), ABConfig.green_P1M, currentSKU);
 
             sharedPreferences = getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(Config.ALERT_BUY_SUBSCRIPTION, true);
             editor.commit();
 
-            startActivity(new Intent(getActivity(), ActivitySplash.class));
-            getActivity().finish();
+            if (box.isOpenFromPremPart()) {
+                startActivity(new Intent(getActivity(), ActivitySplash.class));
+                getActivity().finish();
+            } else if (box.isOpenFromIntrodaction()) {
+                box.setSubscribe(true);
+                startActivity(new Intent(getActivity(), ActivityAuthMain.class).
+                        putExtra("createUser", true).
+                        putExtra(Config.INTENT_PROFILE, box.getProfile()));
+                getActivity().finish();
+            }
         }
 
     }
@@ -196,11 +189,17 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
         }
         if (view.getId() == R.id.imbtnCancel) {
             Amplitude.getInstance().logEvent(AmplitudaEvents.close_premium);
-            getActivity().getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE)
-                    .edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, true)
-                    .commit();
-            startActivity(new Intent(getActivity(), ActivitySplash.class));
-            getActivity().finish();
+            if (box.isOpenFromIntrodaction()) {
+                getActivity().getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE)
+                        .edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, true)
+                        .commit();
+                startActivity(new Intent(getActivity(), ActivityAuthMain.class).
+                        putExtra("createUser", true).
+                        putExtra(Config.INTENT_PROFILE, box.getProfile()));
+                getActivity().finish();
+            }else {
+                getActivity().onBackPressed();
+            }
         }
         if (view.getId() == R.id.tvPrivacyPolicy) {
             Intent intent = new Intent(getActivity(), ActivityPrivacyPolicy.class);
