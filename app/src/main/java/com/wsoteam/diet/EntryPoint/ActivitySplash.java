@@ -80,11 +80,6 @@ public class ActivitySplash extends Activity {
         Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
         Toast.makeText(this, getSharedPreferences(Config.GEO, MODE_PRIVATE).getString(Config.GEO, Config.DEF_GEO), Toast.LENGTH_SHORT)
                 .show();
-        if (getSharedPreferences(Config.GEO, MODE_PRIVATE).getString(Config.GEO, Config.DEF_GEO).equals(Config.UA_GEO)){
-            setABTestConfig(ABConfig.C_VERSION);
-        }else {
-            getABVersion();
-        }
 
         if (!hasConnection(this)) {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
@@ -205,7 +200,6 @@ public class ActivitySplash extends Activity {
                     Amplitude.getInstance().logEvent("crash_ab");
                 }
                 setABTestConfig(firebaseRemoteConfig.getString(ABConfig.REQUEST_STRING));
-                Amplitude.getInstance().logEvent(firebaseRemoteConfig.getString("premium_version") + "test");
             }
         });
     }

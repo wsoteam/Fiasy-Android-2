@@ -47,9 +47,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
     @BindView(R.id.ivTop) ImageView ivTop;
     private FragmentTransaction transaction;
-    private SharedPreferences freeUser, firstRun;
     private BottomSheetBehavior bottomSheetBehavior;
-    private final int NONE_RUN = -1;
+
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -60,51 +59,52 @@ public class MainActivity extends AppCompatActivity {
             transaction = getSupportFragmentManager().beginTransaction();
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            Box box = new Box();
+            box.setSubscribe(false);
+            box.setOpenFromPremPart(true);
+            box.setOpenFromIntrodaction(false);
             switch (item.getItemId()) {
                 case R.id.bnv_main_diary:
                     transaction.replace(R.id.flFragmentContainer, new FragmentDiary()).commit();
                     window.setStatusBarColor(Color.parseColor("#AE6A23"));
                     return true;
                 case R.id.bnv_main_articles:
-                    Box box = new Box()
+                    box.setComeFrom(AmplitudaEvents.view_prem_content);
+                    box.setBuyFrom(AmplitudaEvents.buy_prem_content);
                     if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
                         if (getABVersion().equals(ABConfig.C_VERSION)) {
                             transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.
-                                    newInstance(AmplitudaEvents.view_prem_content,
-                                            AmplitudaEvents.buy_prem_content, false, new Box())).commit();
+                                    newInstance(box)).commit();
                         } else {
                             if (getABVersion().equals(ABConfig.A_VERSION)) {
                                 transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.
-                                        newInstance(AmplitudaEvents.view_prem_content,
-                                                AmplitudaEvents.buy_prem_content, false)).commit();
+                                        newInstance(box)).commit();
                             } else {
                                 transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenOneButton.
-                                        newInstance(AmplitudaEvents.view_prem_content,
-                                                AmplitudaEvents.buy_prem_content, false)).commit();
+                                        newInstance(box)).commit();
                             }
                         }
                         window.setStatusBarColor(Color.parseColor("#747d3b"));
                     }
                     return true;
                 case R.id.bnv_main_trainer:
+                    box.setComeFrom(AmplitudaEvents.view_prem_training);
+                    box.setBuyFrom(AmplitudaEvents.buy_prem_training);
                     if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
                         if (getABVersion().equals(ABConfig.C_VERSION)) {
                             transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.
-                                    newInstance(AmplitudaEvents.view_prem_training,
-                                            AmplitudaEvents.buy_prem_training, false)).commit();
+                                    newInstance(box)).commit();
                         } else {
                             if (getABVersion().equals(ABConfig.A_VERSION)) {
                                 transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.
-                                        newInstance(AmplitudaEvents.view_prem_training,
-                                                AmplitudaEvents.buy_prem_training, false)).commit();
+                                        newInstance(box)).commit();
                             } else {
                                 transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenOneButton.
-                                        newInstance(AmplitudaEvents.view_prem_training,
-                                                AmplitudaEvents.buy_prem_training, false)).commit();
+                                        newInstance(box)).commit();
                             }
                         }
                         window.setStatusBarColor(Color.parseColor("#747d3b"));

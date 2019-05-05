@@ -69,6 +69,7 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_subscription_green_one_button, container, false);
         unbinder = ButterKnife.bind(this, view);
+        box = (Box) getArguments().getSerializable(TAG_BOX);
 
         AmplitudaEvents.logEventViewPremium(box.getComeFrom(), ABConfig.green_P1M_one_button);
 

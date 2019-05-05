@@ -75,7 +75,6 @@ public class ActivityEditProfile extends AppCompatActivity {
 
         if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_ONBOARD, false)) {
             isNeedShowOnboard = true;
-            intent.putExtra(Config.IS_NEED_SHOW_ONBOARD, true);
             getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).edit().putBoolean(Config.IS_NEED_SHOW_ONBOARD, false).commit();
         }
 
@@ -308,7 +307,7 @@ public class ActivityEditProfile extends AppCompatActivity {
         }else {
             intent = new Intent(ActivityEditProfile.this, ActivityAuthMain.class);
             intent.putExtra("createUser", true);
-            intent.putExtra(Config.INTENT_PROFILE, profile);
+            //intent.putExtra(Config.INTENT_PROFILE, profile);
         }
         startActivity(intent);
     }
