@@ -26,6 +26,8 @@ import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
+import com.facebook.appevents.AppEventsConstants;
+import com.facebook.appevents.AppEventsLogger;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.ActivityAuthMain;
@@ -139,6 +141,7 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
             if (currentSKU.equals(Config.ONE_YEAR_PRICE_TRIAL)) {
                 identify.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
+                logTrial();
             } else {
                 identify.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
                 Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy));
@@ -212,5 +215,12 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    private void logTrial(){
+        AppEventsLogger appEventsLogger = AppEventsLogger.newLogger(getActivity());
+        Bundle params = new Bundle();
+        params.putString(AppEventsConstants.EVENT_PARAM_CURRENCY, "RUB");
+        appEventsLogger.logEvent(AppEventsConstants.EVENT_NAME_START_TRIAL, 990, params);
     }
 }

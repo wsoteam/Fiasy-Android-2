@@ -78,9 +78,6 @@ public class ActivitySplash extends Activity {
         ButterKnife.bind(this);
         Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
         Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
-        Toast.makeText(this, getSharedPreferences(Config.GEO, MODE_PRIVATE).getString(Config.GEO, Config.DEF_GEO), Toast.LENGTH_SHORT)
-                .show();
-
         if (!hasConnection(this)) {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }

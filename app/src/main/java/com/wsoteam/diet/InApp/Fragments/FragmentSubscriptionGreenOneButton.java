@@ -25,6 +25,8 @@ import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
+import com.facebook.appevents.AppEventsConstants;
+import com.facebook.appevents.AppEventsLogger;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.ActivityAuthMain;
@@ -133,6 +135,7 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
                     .set(AmplitudaEvents.PRICE_OF_PREM, currentPrice);
             Amplitude.getInstance().identify(identify);
             AmplitudaEvents.logEventBuyPremium(box.getBuyFrom(), ABConfig.green_P1M_one_button, currentSKU);
+            logTrial();
 
             sharedPreferences = getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -184,6 +187,13 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    private void logTrial(){
+        AppEventsLogger appEventsLogger = AppEventsLogger.newLogger(getActivity());
+        Bundle params = new Bundle();
+        params.putString(AppEventsConstants.EVENT_PARAM_CURRENCY, "RUB");
+        appEventsLogger.logEvent(AppEventsConstants.EVENT_NAME_START_TRIAL, 990, params);
     }
 
 }
