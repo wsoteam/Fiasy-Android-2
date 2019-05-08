@@ -73,7 +73,6 @@ public class ActivitySplash extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        Geo.getGeo(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
         Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
