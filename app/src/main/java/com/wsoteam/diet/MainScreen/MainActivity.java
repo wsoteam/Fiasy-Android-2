@@ -135,8 +135,8 @@ public class MainActivity extends AppCompatActivity {
     private void handlGrade(long currentTime) {
         long timeStartingPoint = getSharedPreferences(Config.STARTING_POINT, MODE_PRIVATE).getLong(Config.STARTING_POINT, 0);
         boolean isAddedFoodEarly = getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).getBoolean(Config.IS_ADDED_FOOD, false);
-        int gradeStatus = getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).
-                getInt(Config.IS_ADDED_FOOD, Config.NOT_VIEW_GRADE_DIALOG);
+        int gradeStatus = getSharedPreferences(Config.IS_GRADE_APP, MODE_PRIVATE).
+                getInt(Config.IS_GRADE_APP, Config.NOT_VIEW_GRADE_DIALOG);
         if ((currentTime - timeStartingPoint) >= Config.ONE_DAY && gradeStatus != Config.GRADED) {
             if (isAddedFoodEarly) {
                 if (gradeStatus == Config.NOT_VIEW_GRADE_DIALOG) {
