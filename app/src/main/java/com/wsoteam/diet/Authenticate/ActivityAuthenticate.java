@@ -35,19 +35,6 @@ public class ActivityAuthenticate extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authenticate);
 
-        /**snip **/
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.wsoteam.diet.ACTION_LOGOUT");
-        registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Log.d("onReceive","Logout in progress");
-                //At this point you should start the login activity and finish this one
-                finish();
-            }
-        }, intentFilter);
-        //** snip **//
-
         fm = getSupportFragmentManager();
         fragment = fm.findFragmentById(R.id.auth_frame_layout);
         if (fragment == null) {

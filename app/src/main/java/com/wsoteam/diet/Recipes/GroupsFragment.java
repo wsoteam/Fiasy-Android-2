@@ -142,7 +142,7 @@ public class GroupsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 ListRecipes groupsRecipes = dataSnapshot.getValue(ListRecipes.class);
-                
+
                 EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes);
                 GroupsHolder groupsHolder = new GroupsHolder();
                 groupsHolder.bind(eatingGroupsRecipes);

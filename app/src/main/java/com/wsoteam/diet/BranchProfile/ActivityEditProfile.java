@@ -307,7 +307,7 @@ public class ActivityEditProfile extends AppCompatActivity {
         }else {
             intent = new Intent(ActivityEditProfile.this, ActivityAuthMain.class);
             intent.putExtra("createUser", true);
-            //intent.putExtra(Config.INTENT_PROFILE, profile);
+            intent.putExtra(Config.INTENT_PROFILE, profile);
         }
         startActivity(intent);
     }

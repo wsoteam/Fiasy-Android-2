@@ -230,8 +230,11 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                         WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
                     }
 
-
-                    checkUserExist(user.getUid());
+                    if(createUser){
+                        startActivity(intent);
+                    } else {
+                        checkUserExist(user.getUid());
+                    }
 
 
                 } else {
@@ -591,11 +594,9 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                     })
                     .show();
 
-//            Toast.makeText(ActivityAuthMain.this, "Зарегай акк!!!", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "checkUserExist: false");
 
         } else {
-//            Toast.makeText(ActivityAuthMain.this, "Приветствую!!!", Toast.LENGTH_SHORT).show();
 
             if (isPP() && createUser) {
                 Log.d(TAG, "logEvent: acept_police");
@@ -806,23 +807,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
             case R.id.textView82:
                 startActivity(new Intent(this, ActivityPrivacyPolicy.class));
                 break;
-        }
-    }
-
-
-    public class MyFilter implements InputFilter {
-        Pattern mPattern;
-
-        public MyFilter(String idFormatRegex) {
-            mPattern = Pattern.compile(idFormatRegex);
-        }
-
-        @Override
-        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-            Matcher matcher = mPattern.matcher(dest);
-            if (!matcher.matches())
-                return "";
-            return null;
         }
     }
 
