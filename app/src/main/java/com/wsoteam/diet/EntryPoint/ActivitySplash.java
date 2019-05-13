@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -149,6 +150,7 @@ public class ActivitySplash extends Activity {
                     //здесь мы можем запросить информацию о товарах и покупках
                     List<Purchase> purchasesList = queryPurchases(); //запрос о покупках
                     if (purchasesList.size() > 0) {
+                        Log.e("LOL", purchasesList.get(0).getOriginalJson());
                         isTrial(purchasesList.get(0).getOriginalJson());
                         for (int i = 0; i < purchasesList.size(); i++) {
                             if (purchasesList.get(i).getSku().equals(ONE_MONTH_SKU)) {

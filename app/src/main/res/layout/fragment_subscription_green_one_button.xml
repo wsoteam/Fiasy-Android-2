@@ -275,7 +275,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="4dp"
                     android:fontFamily="@font/roboto"
-                    android:text="на 7 дней"
+                    android:text="на 3 дня"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
