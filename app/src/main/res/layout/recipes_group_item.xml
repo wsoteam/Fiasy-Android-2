@@ -11,8 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto"
         android:text="TextView"
-        android:textStyle="bold"
+        android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,6 +24,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:drawableRight="@drawable/recipes_arrow"
+        android:fontFamily="@font/roboto"
         android:text="Посмотреть все рецепты  "
         android:textColor="#EF7D02"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,151 +48,291 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cvRecipe1"
-                android:layout_width="160dp"
-                android:layout_height="190dp"
-                app:cardElevation="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
                 app:cardUseCompatPadding="true">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="150dp"
+                    android:layout_height="180dp">
 
                     <ImageView
                         android:id="@+id/imageRecipe1"
-                        android:layout_width="match_parent"
-                        android:layout_height="128dp"
-                        android:scaleType="center" />
+                        android:layout_width="0dp"
+                        android:layout_height="130dp"
+                        android:scaleType="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:srcCompat="@tools:sample/avatars[2]" />
 
                     <TextView
                         android:id="@+id/textRecipe1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/roboto"
+                        android:lines="2"
+                        android:singleLine="false"
+                        android:textAlignment="textStart"
                         android:textColor="#000"
-                        android:textAlignment="textStart" />
-                </LinearLayout>
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageRecipe1" />
+
+                    <TextView
+                        android:id="@+id/tvRecipeKK1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="0 кк"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textRecipe1"
+                        app:layout_constraintVertical_bias="0.0" />
+                </android.support.constraint.ConstraintLayout>
 
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cvRecipe2"
-                android:layout_width="160dp"
-                android:layout_height="190dp"
-                app:cardElevation="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
                 app:cardUseCompatPadding="true">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="150dp"
+                    android:layout_height="180dp">
 
                     <ImageView
                         android:id="@+id/imageRecipe2"
-                        android:layout_width="match_parent"
-                        android:layout_height="128dp"
-                        android:scaleType="center" />
+                        android:layout_width="0dp"
+                        android:layout_height="130dp"
+                        android:scaleType="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:srcCompat="@tools:sample/avatars[2]" />
 
                     <TextView
                         android:id="@+id/textRecipe2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/roboto"
+                        android:lines="2"
+                        android:singleLine="false"
+                        android:textAlignment="textStart"
                         android:textColor="#000"
-                        android:textAlignment="textStart" />
-                </LinearLayout>
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageRecipe2" />
+
+                    <TextView
+                        android:id="@+id/tvRecipeKK2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="0 кк"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textRecipe2"
+                        app:layout_constraintVertical_bias="0.0" />
+                </android.support.constraint.ConstraintLayout>
 
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cvRecipe3"
-                android:layout_width="160dp"
-                android:layout_height="190dp"
-                app:cardElevation="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
                 app:cardUseCompatPadding="true">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="150dp"
+                    android:layout_height="180dp">
 
                     <ImageView
                         android:id="@+id/imageRecipe3"
-                        android:layout_width="match_parent"
-                        android:layout_height="128dp"
-                        android:scaleType="center" />
+                        android:layout_width="0dp"
+                        android:layout_height="130dp"
+                        android:scaleType="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:srcCompat="@tools:sample/avatars[2]" />
 
                     <TextView
                         android:id="@+id/textRecipe3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/roboto"
+                        android:lines="2"
+                        android:singleLine="false"
+                        android:textAlignment="textStart"
                         android:textColor="#000"
-                        android:textAlignment="textStart" />
-                </LinearLayout>
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageRecipe3" />
+
+                    <TextView
+                        android:id="@+id/tvRecipeKK3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="0 кк"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textRecipe3"
+                        app:layout_constraintVertical_bias="0.0" />
+                </android.support.constraint.ConstraintLayout>
 
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cvRecipe4"
-                android:layout_width="160dp"
-                android:layout_height="190dp"
-                app:cardElevation="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
                 app:cardUseCompatPadding="true">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="150dp"
+                    android:layout_height="180dp">
 
                     <ImageView
                         android:id="@+id/imageRecipe4"
-                        android:layout_width="match_parent"
-                        android:layout_height="128dp"
-                        android:scaleType="center" />
+                        android:layout_width="0dp"
+                        android:layout_height="130dp"
+                        android:scaleType="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:srcCompat="@tools:sample/avatars[2]" />
 
                     <TextView
                         android:id="@+id/textRecipe4"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/roboto"
+                        android:lines="2"
+                        android:singleLine="false"
+                        android:textAlignment="textStart"
                         android:textColor="#000"
-                        android:textAlignment="textStart" />
-                </LinearLayout>
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageRecipe4" />
+
+                    <TextView
+                        android:id="@+id/tvRecipeKK4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="0 кк"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textRecipe4"
+                        app:layout_constraintVertical_bias="0.0" />
+                </android.support.constraint.ConstraintLayout>
 
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cvRecipe5"
-                android:layout_width="160dp"
-                android:layout_height="190dp"
-                app:cardElevation="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
                 app:cardUseCompatPadding="true">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="150dp"
+                    android:layout_height="180dp">
 
                     <ImageView
                         android:id="@+id/imageRecipe5"
-                        android:layout_width="match_parent"
-                        android:layout_height="128dp"
-                        android:scaleType="center" />
+                        android:layout_width="0dp"
+                        android:layout_height="130dp"
+                        android:scaleType="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:srcCompat="@tools:sample/avatars[2]" />
 
                     <TextView
                         android:id="@+id/textRecipe5"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/roboto"
+                        android:lines="2"
+                        android:singleLine="false"
+                        android:textAlignment="textStart"
                         android:textColor="#000"
-                        android:textAlignment="textStart" />
-                </LinearLayout>
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageRecipe5" />
+
+                    <TextView
+                        android:id="@+id/tvRecipeKK5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="0 кк"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textRecipe5"
+                        app:layout_constraintVertical_bias="0.0" />
+                </android.support.constraint.ConstraintLayout>
 
             </android.support.v7.widget.CardView>
         </LinearLayout>

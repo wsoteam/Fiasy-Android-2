@@ -3,6 +3,7 @@ package com.wsoteam.diet.Recipes;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -14,18 +15,20 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.POJOS.ItemRecipes;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 
 import java.util.List;
 
-public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.ListRecipeViewHolder> {
+import static android.content.Context.MODE_PRIVATE;
 
-    private List<ItemRecipes> listRecipes;
+public class ListRecipesAdapterNew extends RecyclerView.Adapter<ListRecipesAdapterNew.ListRecipeViewHolder> {
+
+    private List<RecipeItem> listRecipes;
     private Context context;
     private Activity activity;
 
-    public ListRecipesAdapter(List<ItemRecipes> listRecipes, Activity activity) {
+    public ListRecipesAdapterNew(List<RecipeItem> listRecipes, Activity activity) {
         this.listRecipes = listRecipes;
         this.activity = activity;
     }
@@ -60,6 +63,7 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.
         ImageView imageView;
         TextView textView;
         CardView cardView;
+        TextView textViewKK;
 
         public ListRecipeViewHolder(View itemView) {
             super(itemView);
@@ -67,10 +71,18 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.
             imageView = itemView.findViewById(R.id.imageRecipe);
             textView = itemView.findViewById(R.id.tvRecipeDescripion);
             cardView = itemView.findViewById(R.id.ItemCard);
+            textViewKK = itemView.findViewById(R.id.tvRecipeKK);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(activity, ItemActivity.class);
+                    Intent intent;
+                    if (checkSubscribe()) {
+                        intent = new Intent(activity, ItemPlansActivity.class);
+
+                    } else {
+                        intent = new Intent(activity, RecipeWithoutPremActivity.class);
+                    }
+
                     intent.putExtra(Config.RECIPE_INTENT, listRecipes.get(getAdapterPosition()));
                     activity.startActivity(intent);
                 }
@@ -80,17 +92,27 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.
         void bind(int position) {
 
             String name = listRecipes.get(position).getName();
+            String url = listRecipes.get(position).getUrl();
+            int kk = listRecipes.get(position).getCalories();
 
-            if (name.length() > 25) {
-                name = name.substring(0, 25) + "...";
+            if (url == null || url.equals("link")) {
+                url = "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
             }
 
-
             textView.setText(name);
+            textViewKK.setText(kk + " кк");
             Glide
                     .with(context)
-                    .load(listRecipes.get(position).getUrl())
+                    .load(url)
                     .into(imageView);
+        }
+        private boolean checkSubscribe() {
+            SharedPreferences sharedPreferences = activity.getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+            if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }

@@ -2,11 +2,9 @@ package com.wsoteam.diet.Recipes;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -54,9 +52,9 @@ public class ItemActivity extends AppCompatActivity {
         premButton = findViewById(R.id.goPrem);
         premTextView = findViewById(R.id.tvPremRecipe);
 
-        itemRecipes = (ItemRecipes)getIntent().getSerializableExtra(Config.RECIPE_INTENT);
+        itemRecipes = (ItemRecipes) getIntent().getSerializableExtra(Config.RECIPE_INTENT);
 
-        if (checkSubscribe()){
+        if (checkSubscribe()) {
             //subscription purchased
             xBackButton.setVisibility(View.INVISIBLE);
             premButton.setVisibility(View.INVISIBLE);
