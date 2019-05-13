@@ -132,6 +132,11 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
             textViewsKK.add(itemView.findViewById(R.id.tvRecipeKK4));
             textViewsKK.add(itemView.findViewById(R.id.tvRecipeKK5));
 
+            for (TextView tv:
+                 textViewsKK) {
+                tv.setVisibility(View.VISIBLE);
+            }
+
 
             for (int i = 0; i < 5; i++) {
                 int y = i;

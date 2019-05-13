@@ -72,6 +72,7 @@ public class ListRecipesAdapterNew extends RecyclerView.Adapter<ListRecipesAdapt
             textView = itemView.findViewById(R.id.tvRecipeDescripion);
             cardView = itemView.findViewById(R.id.ItemCard);
             textViewKK = itemView.findViewById(R.id.tvRecipeKK);
+            textViewKK.setVisibility(View.VISIBLE);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
