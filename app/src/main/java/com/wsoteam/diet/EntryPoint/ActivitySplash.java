@@ -40,6 +40,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
+import com.wsoteam.diet.Articles.ItemArticleActivity;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.Config;
@@ -82,11 +83,12 @@ public class ActivitySplash extends Activity {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
-        checkFirstLaunch();
-        checkBilling();
-        checkRegistrationAndRun();
+        startActivity(new Intent(this, ItemArticleActivity.class));
+//        FacebookSdk.sdkInitialize(getApplicationContext());
+//        AppEventsLogger.activateApp(this);
+//        checkFirstLaunch();
+//        checkBilling();
+//        checkRegistrationAndRun();
     }
 
     private void checkRegistrationAndRun() {
