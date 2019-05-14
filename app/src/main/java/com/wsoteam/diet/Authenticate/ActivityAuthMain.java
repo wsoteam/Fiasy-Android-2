@@ -59,6 +59,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.ActivitySubscription;
@@ -180,9 +181,17 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         });
 
         if (createUser) {
-            intent = new Intent(this, ActivitySplash.class).
-                    putExtra(Config.INTENT_PROFILE, getIntent().getSerializableExtra(Config.INTENT_PROFILE))
-                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            //first enter and need show onboard
+            if (!getIntent().getSerializableExtra(Config.TAG_BOX).equals(null)) {
+                Box box = (Box) getIntent().getSerializableExtra(Config.TAG_BOX);
+                box.setProfile((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
+                intent = new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box)
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            }else {
+                intent = new Intent(this, ActivitySplash.class).
+                        putExtra(Config.INTENT_PROFILE, getIntent().getSerializableExtra(Config.INTENT_PROFILE))
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            }
             statusTextView.setText(R.string.auth_main_reg_tv);
             signIn.setText(R.string.auth_main_btn_create);
             phoneButton.setText(R.string.auth_main_reg_phone);

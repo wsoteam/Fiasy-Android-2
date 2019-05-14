@@ -295,16 +295,17 @@ public class ActivityEditProfile extends AppCompatActivity {
     private void saveProfile(Profile profile, double maxInt) {
         profile.setMaxKcal((int) maxInt);
         Amplitude.getInstance().logEvent(AmplitudaEvents.fill_reg_data);
-        if (isNeedShowOnboard){
-            intent = new Intent(ActivityEditProfile.this, ActivitySubscription.class);
+        if (isNeedShowOnboard) {
+            intent = new Intent(ActivityEditProfile.this, ActivityAuthMain.class);
             Box box = new Box();
             box.setBuyFrom(AmplitudaEvents.buy_prem_onboarding);
             box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);
             box.setOpenFromIntrodaction(true);
             box.setOpenFromPremPart(false);
-            box.setProfile(profile);
-            intent.putExtra(Config.TAG_BOX, box);
-        }else {
+            intent.putExtra(Config.TAG_BOX, box).
+                    putExtra("createUser", true).
+                    putExtra(Config.INTENT_PROFILE, profile);
+        } else {
             intent = new Intent(ActivityEditProfile.this, ActivityAuthMain.class);
             intent.putExtra("createUser", true);
             intent.putExtra(Config.INTENT_PROFILE, profile);
