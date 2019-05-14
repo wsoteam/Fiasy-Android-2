@@ -147,8 +147,7 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
                 getActivity().finish();
             } else if (box.isOpenFromIntrodaction()) {
                 box.setSubscribe(true);
-                startActivity(new Intent(getActivity(), ActivitySplash.class).
-                        putExtra(Config.INTENT_PROFILE, box.getProfile()));
+                startActivity(new Intent(getActivity(), ActivitySplash.class));
                 getActivity().finish();
             }
         }
@@ -167,8 +166,7 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
                 getActivity().getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE)
                         .edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, true)
                         .commit();
-                startActivity(new Intent(getActivity(), ActivitySplash.class).
-                        putExtra(Config.INTENT_PROFILE, box.getProfile()));
+                startActivity(new Intent(getActivity(), ActivitySplash.class));
                 getActivity().finish();
             }else {
                 getActivity().onBackPressed();
