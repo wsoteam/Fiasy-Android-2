@@ -45,10 +45,13 @@ import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.FirebaseUserProperties;
+import com.wsoteam.diet.InApp.IDs;
 import com.wsoteam.diet.MainScreen.MainActivity;
+import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,10 +68,8 @@ public class ActivitySplash extends Activity {
     private FirebaseUser user;
 
     private BillingClient mBillingClient;
-    private SharedPreferences isBuyPrem, freeUser;
-    private final String TAG_FIRST_RUN = "TAG_FIRST_RUN",
-            ONE_MONTH_SKU = "basic_subscription_1m", THREE_MONTH_SKU = "basic_subscription_3m",
-            ONE_YEAR_SKU = "basic_subscription_12m", ONE_YEAR_TRIAL_SKU = "basic_subscription_12m_trial";
+    private SharedPreferences isBuyPrem;
+    private final String TAG_FIRST_RUN = "TAG_FIRST_RUN";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,7 +86,6 @@ public class ActivitySplash extends Activity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         checkFirstLaunch();
-        checkBilling();
         checkRegistrationAndRun();
     }
 
@@ -102,15 +102,8 @@ public class ActivitySplash extends Activity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
-
-                    boolean isPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).getBoolean(Config.STATE_BILLING, false);
-                    Intent intent;
-                    if (isPrem) {
-                        intent = new Intent(ActivitySplash.this, MainActivity.class);
-                    } else {
-                        intent = new Intent(ActivitySplash.this, MainActivity.class);
-                    }
-                    startActivity(intent);
+                    checkBilling();
+                    startActivity(new Intent(ActivitySplash.this, MainActivity.class));
                     finish();
                 }
 
@@ -128,12 +121,55 @@ public class ActivitySplash extends Activity {
                 startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
             }
             finish();
-
-
         }
     }
 
     private void checkBilling() {
+        //no enter early, no have info about premium
+        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getSubInfo() == null) {
+            setSubInfoWithGooglePlayInfo();
+            //have sub, check time
+        } else if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getSubInfo() != null
+                && !UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
+            SubInfo subInfo = UserDataHolder.getUserData().getSubInfo();
+            compareTime(subInfo);
+        }
+
+    }
+
+    private void compareTime(SubInfo subInfo) {
+        long currentTime = Calendar.getInstance().getTimeInMillis();
+        long diff = currentTime - (subInfo.getPurchaseTime() + IDs.BUFFER_TWO_DAYS);
+        boolean isEndPremium = false;
+
+        switch (subInfo.getProductId()) {
+            case IDs.ID_MONTH_SUB:
+                if (diff > IDs.MONTH_TIME) {
+                    isEndPremium = true;
+                }
+                break;
+            case IDs.ID_THREE_MONTH_SUB:
+                if (diff > IDs.THREE_MONTH_TIME) {
+                    isEndPremium = true;
+                }
+                break;
+            case IDs.ID_YEAR_SUB:
+                if (diff > IDs.YEAR_TIME) {
+                    isEndPremium = true;
+                }
+                break;
+            case IDs.ID_TRACK_YEAR_SUB:
+                if (diff > IDs.YEAR_TIME) {
+                    isEndPremium = true;
+                }
+                break;
+        }
+        if (isEndPremium){
+            setSubInfoWithGooglePlayInfo();
+        }
+    }
+
+    private void setSubInfoWithGooglePlayInfo() {
         mBillingClient = BillingClient.newBuilder(this).setListener(new PurchasesUpdatedListener() {
             @Override
             public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
@@ -149,28 +185,9 @@ public class ActivitySplash extends Activity {
                 if (billingResponseCode == BillingClient.BillingResponse.OK) {
                     List<Purchase> purchasesList = queryPurchases();
                     if (purchasesList.size() > 0) {
-                        isTrial(purchasesList.get(0).getOriginalJson());
-                        for (int i = 0; i < purchasesList.size(); i++) {
-                            if (purchasesList.get(i).getSku().equals(ONE_MONTH_SKU)) {
-                                setPremStatus(ONE_MONTH_SKU, AmplitudaEvents.ONE_MONTH_PRICE,
-                                        false, isApproved(purchasesList.get(i).getOriginalJson()));
-
-                            } else if (purchasesList.get(i).getSku().equals(THREE_MONTH_SKU)) {
-                                setPremStatus(THREE_MONTH_SKU, AmplitudaEvents.THREE_MONTH_PRICE, false, true);
-
-                            } else if (purchasesList.get(i).getSku().equals(ONE_YEAR_SKU)) {
-                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE, false, true);
-
-                            } else if (purchasesList.get(i).getSku().equals(ONE_YEAR_TRIAL_SKU)) {
-                                setPremStatus(ONE_YEAR_SKU, AmplitudaEvents.ONE_YEAR_PRICE,
-                                        isTrial(purchasesList.get(i).getOriginalJson()), true);
-
-                            } else {
-                                deletePremStatus();
-                            }
-                        }
+                        setSubInfo(purchasesList.get(0));
                     } else {
-                        deletePremStatus();
+                        setEmptySubInfo();
                     }
                 }
             }
@@ -180,6 +197,30 @@ public class ActivitySplash extends Activity {
                 //сюда мы попадем если что-то пойдет не так
             }
         });
+    }
+
+    private void setEmptySubInfo() {
+        SubInfo subInfo = new SubInfo();
+        subInfo.setOrderId(IDs.EMPTY_SUB);
+        subInfo.setPackageName(IDs.EMPTY_SUB);
+        subInfo.setProductId(IDs.EMPTY_SUB);
+        subInfo.setPurchaseTime(IDs.EMPTY_SUB_TIME);
+        subInfo.setAutoRenewing(false);
+        subInfo.setPurchaseToken(IDs.EMPTY_SUB);
+
+        WorkWithFirebaseDB.setSubInfo(subInfo);
+    }
+
+    private void setSubInfo(Purchase purchase) {
+        SubInfo subInfo = new SubInfo();
+        subInfo.setOrderId(purchase.getOrderId());
+        subInfo.setPackageName(purchase.getPackageName());
+        subInfo.setProductId(purchase.getSku());
+        subInfo.setPurchaseTime(purchase.getPurchaseTime());
+        subInfo.setAutoRenewing(purchase.isAutoRenewing());
+        subInfo.setPurchaseToken(purchase.getPurchaseToken());
+        Log.e("LOl", "set sub info");
+        WorkWithFirebaseDB.setSubInfo(subInfo);
     }
 
     private void getABVersion() {
@@ -200,45 +241,9 @@ public class ActivitySplash extends Activity {
         });
     }
 
-    private boolean isTrial(String json) {
-        Calendar currentTime = Calendar.getInstance();
-        long longTrialMilisec = 259200000l;
-        long currentMili = currentTime.getTimeInMillis();
 
-        String nameFieldTime = "purchaseTime";
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            long purchaseMilisec = Long.decode(jsonObject.getString(nameFieldTime));
-            if (currentMili - purchaseMilisec >= longTrialMilisec) {
-                return false;
-            } else {
-                return true;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return true;
-        }
-    }
 
-    private boolean isApproved(String json) {
-        Calendar currentTime = Calendar.getInstance();
-        long longNotApproved = 1200000l;
-        long currentMili = currentTime.getTimeInMillis();
 
-        String nameFieldTime = "purchaseTime";
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            long purchaseMilisec = Long.decode(jsonObject.getString(nameFieldTime));
-            if (currentMili - purchaseMilisec >= longNotApproved) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 
     private void setABTestConfig(String responseString) {
         Identify abStatus = new Identify().set(ABConfig.AB_VERSION, responseString);
@@ -294,68 +299,6 @@ public class ActivitySplash extends Activity {
             return true;
         }
         return false;
-    }
-
-    private void speakAboutButAfterTrial() {
-        if (getSharedPreferences(Config.IS_SPEAK_ABOUT_BUY, MODE_PRIVATE).getInt(Config.IS_SPEAK_ABOUT_BUY, -1) == 0) {
-            getSharedPreferences(Config.IS_SPEAK_ABOUT_BUY, MODE_PRIVATE).edit().putInt(Config.IS_SPEAK_ABOUT_BUY, 1).commit();
-
-            Revenue revenue = new Revenue().setProductId(getPackageName()).setQuantity(1).setPrice(990);
-            Amplitude.getInstance().logRevenueV2(revenue);
-            Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_after_trial));
-        }
-    }
-
-    private void setPremStatus(String durationPrem, String pricePrem, boolean isTrial, boolean isApproved) {
-        isBuyPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-        SharedPreferences.Editor editor = isBuyPrem.edit();
-        editor.putBoolean(Config.STATE_BILLING, true);
-        editor.commit();
-
-        Identify premStatus = new Identify().set(AmplitudaEvents.LONG_OF_PREM, durationPrem)
-                .set(AmplitudaEvents.PRICE_OF_PREM, pricePrem);
-
-        if (durationPrem.equals(ONE_MONTH_SKU)) {
-            premStatus.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
-            if (isApproved) {
-                speakAboutApprovedBuy();
-            } else {
-                getSharedPreferences(Config.IS_SPEAK_ABOUT_APPROVED_BUY, MODE_PRIVATE).
-                        edit().putInt(Config.IS_SPEAK_ABOUT_APPROVED_BUY, 0).
-                        commit();
-            }
-        } else {
-            if (isTrial) {
-                premStatus.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
-                getSharedPreferences(Config.IS_SPEAK_ABOUT_BUY, MODE_PRIVATE).edit().putInt(Config.IS_SPEAK_ABOUT_BUY, 0).commit();
-            } else {
-                speakAboutButAfterTrial();
-                premStatus.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
-            }
-        }
-
-        Amplitude.getInstance().identify(premStatus);
-        FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.PREM_STATUS, FirebaseUserProperties.buy);
-    }
-
-    private void speakAboutApprovedBuy() {
-        if (getSharedPreferences(Config.IS_SPEAK_ABOUT_APPROVED_BUY, MODE_PRIVATE).
-                getInt(Config.IS_SPEAK_ABOUT_APPROVED_BUY, -1) == 0) {
-            Revenue revenue = new Revenue().setProductId(getPackageName()).setPrice(299).setQuantity(1);
-            Amplitude.getInstance().logRevenueV2(revenue);
-        }
-    }
-
-    private void deletePremStatus() {
-        isBuyPrem = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-        SharedPreferences.Editor editor = isBuyPrem.edit();
-        editor.putBoolean(Config.STATE_BILLING, false);
-        editor.commit();
-        Identify deletePremStatus = new Identify().set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.not_buy)
-                .unset(AmplitudaEvents.LONG_OF_PREM)
-                .unset(AmplitudaEvents.PRICE_OF_PREM);
-        Amplitude.getInstance().identify(deletePremStatus);
-        FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.PREM_STATUS, FirebaseUserProperties.un_buy);
     }
 
 

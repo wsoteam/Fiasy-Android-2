@@ -6,6 +6,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.POJOForDB.DiaryData;
 import com.wsoteam.diet.POJOProfile.Profile;
+import com.wsoteam.diet.POJOProfile.SubInfo;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import java.util.List;
 public class UserData implements Serializable {
     private String name;
     private Profile profile;
+    private SubInfo subInfo;
 
     private HashMap<String, Breakfast> breakfasts;
     private HashMap<String, Lunch> lunches;
@@ -24,14 +26,23 @@ public class UserData implements Serializable {
     public UserData() {
     }
 
-    public UserData(String name, Profile profile, HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners, HashMap<String, Snack> snacks, HashMap<String, WeightDiaryObject> diaryDataList) {
+    public UserData(String name, Profile profile, SubInfo subInfo, HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners, HashMap<String, Snack> snacks, HashMap<String, WeightDiaryObject> diaryDataList) {
         this.name = name;
         this.profile = profile;
+        this.subInfo = subInfo;
         this.breakfasts = breakfasts;
         this.lunches = lunches;
         this.dinners = dinners;
         this.snacks = snacks;
         this.diaryDataList = diaryDataList;
+    }
+
+    public SubInfo getSubInfo() {
+        return subInfo;
+    }
+
+    public void setSubInfo(SubInfo subInfo) {
+        this.subInfo = subInfo;
     }
 
     public String getName() {
