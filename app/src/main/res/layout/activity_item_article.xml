@@ -19,19 +19,35 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView126"
+            <ImageView
+                android:id="@+id/imgArticle"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="TextView"
-                tools:layout_editor_absoluteX="175dp"
-                tools:layout_editor_absoluteY="299dp" />
+                android:layout_height="309dp"
+                android:scaleType="center"
+                app:srcCompat="@android:color/holo_blue_bright" />
 
-            <org.sufficientlysecure.htmltextview.HtmlTextView
-                android:id="@+id/html_text"
+            <TextView
+                android:id="@+id/tvTitleArticle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="@android:style/TextAppearance.Small" />
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="12dp"
+                tools:text="Title" />
+
+            <TextView
+                android:id="@+id/tvIntroArticle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                tools:text="Intro" />
+
+            <TextView
+                android:id="@+id/tvMainArticle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                tools:text="Main" />
+
         </LinearLayout>
     </ScrollView>
 
