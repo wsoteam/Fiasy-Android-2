@@ -28,6 +28,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
 }
 
 repositories {
@@ -86,8 +89,7 @@ dependencies {
 /*
     implementation 'com.bugsee:bugsee-android:+'
 */
-
-    implementation 'com.github.ome450901:SimpleRatingBar:1.4.3'
+    compile 'com.google.apis:google-api-services-androidpublisher:v2-rev159-1.25.0'
 
 }
 
