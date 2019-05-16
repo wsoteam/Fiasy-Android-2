@@ -34,6 +34,7 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.InApp.properties.SetPurchase;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.R;
 
@@ -128,6 +129,9 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
     @Override
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
+            //send data about purchase into firebase (and save into profile subInfo)
+            new SetPurchase().execute(purchases.get(0).getSku(), purchases.get(0).getPurchaseToken(), purchases.get(0).getPackageName());
+
             Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
             Identify identify = new Identify();
             identify.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
@@ -136,6 +140,11 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
             Amplitude.getInstance().identify(identify);
             AmplitudaEvents.logEventBuyPremium(box.getBuyFrom(), ABConfig.green_P1M_one_button, currentSKU);
             logTrial();
+
+            getActivity().getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).
+                    edit().
+                    putBoolean(Config.STATE_BILLING, true).
+                    commit();
 
             sharedPreferences = getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -168,7 +177,7 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
                         .commit();
                 startActivity(new Intent(getActivity(), ActivitySplash.class));
                 getActivity().finish();
-            }else {
+            } else {
                 getActivity().onBackPressed();
             }
         }
@@ -185,7 +194,7 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
         unbinder.unbind();
     }
 
-    private void logTrial(){
+    private void logTrial() {
         AppEventsLogger appEventsLogger = AppEventsLogger.newLogger(getActivity());
         Bundle params = new Bundle();
         params.putString(AppEventsConstants.EVENT_PARAM_CURRENCY, "RUB");

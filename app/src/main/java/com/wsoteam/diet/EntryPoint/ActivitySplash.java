@@ -127,47 +127,34 @@ public class ActivitySplash extends Activity {
     }
 
     private void checkBilling() {
-        //no enter early, no have info about premium
+
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getSubInfo() == null) {
+            //unknown status premium
             setSubInfoWithGooglePlayInfo();
-            //have sub, check time
         } else if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getSubInfo() != null
                 && !UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
+            //user have premium status, check time of premium
             SubInfo subInfo = UserDataHolder.getUserData().getSubInfo();
-            compareTime(subInfo);
+            if (subInfo.getPaymentState() == 0 && subInfo.getPackageName() != null){
+                changePremStatus(false);
+                setSubInfoWithGooglePlayInfo();
+            }else {
+                compareTime(subInfo);
+            }
+        } else if (UserDataHolder.getUserData() != null
+                && UserDataHolder.getUserData().getSubInfo() != null
+                && UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
+            changePremStatus(false);
         }
 
     }
 
     private void compareTime(SubInfo subInfo) {
         long currentTime = Calendar.getInstance().getTimeInMillis();
-        long diff = currentTime - (subInfo.getPurchaseTime() + IDs.BUFFER_TWO_DAYS);
-        boolean isEndPremium = false;
-
-        switch (subInfo.getProductId()) {
-            case IDs.ID_MONTH_SUB:
-                if (diff > IDs.MONTH_TIME) {
-                    isEndPremium = true;
-                }
-                break;
-            case IDs.ID_THREE_MONTH_SUB:
-                if (diff > IDs.THREE_MONTH_TIME) {
-                    isEndPremium = true;
-                }
-                break;
-            case IDs.ID_YEAR_SUB:
-                if (diff > IDs.YEAR_TIME) {
-                    isEndPremium = true;
-                }
-                break;
-            case IDs.ID_TRACK_YEAR_SUB:
-                if (diff > IDs.YEAR_TIME) {
-                    isEndPremium = true;
-                }
-                break;
-        }
-        if (isEndPremium) {
+        if (currentTime > subInfo.getExpiryTimeMillis()) {
             setSubInfoWithGooglePlayInfo();
+        } else {
+            changePremStatus(true);
         }
     }
 
@@ -191,6 +178,7 @@ public class ActivitySplash extends Activity {
                         setSubInfo(purchasesList.get(0));
                     } else {
                         setEmptySubInfo();
+                        changePremStatus(false);
                     }
                 }
             }
@@ -210,12 +198,11 @@ public class ActivitySplash extends Activity {
         subInfo.setPurchaseTime(IDs.EMPTY_SUB_TIME);
         subInfo.setAutoRenewing(false);
         subInfo.setPurchaseToken(IDs.EMPTY_SUB);
-
         WorkWithFirebaseDB.setSubInfo(subInfo);
     }
 
     private void setSubInfo(Purchase purchase) {
-        new SetPurchase().execute(purchase);
+        new SetPurchase().execute(purchase.getSku(), purchase.getPurchaseToken(), purchase.getPackageName());
     }
 
     private void getABVersion() {
