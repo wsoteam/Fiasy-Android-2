@@ -50,6 +50,7 @@ import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.tvoytrener.ForTestFragmentActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,7 +84,7 @@ public class ActivitySplash extends Activity {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
 
-        startActivity(new Intent(this, ItemArticleActivity.class));
+        startActivity(new Intent(this, ForTestFragmentActivity.class));
 //        FacebookSdk.sdkInitialize(getApplicationContext());
 //        AppEventsLogger.activateApp(this);
 //        checkFirstLaunch();
