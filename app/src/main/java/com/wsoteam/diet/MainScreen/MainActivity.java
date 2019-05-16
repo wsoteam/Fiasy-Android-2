@@ -10,7 +10,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -24,17 +23,16 @@ import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenOneButton;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenUA;
+import com.wsoteam.diet.InApp.properties.SetPurchase;
 import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
-import com.wsoteam.diet.Sync.UserDataHolder;
 
 import java.util.Calendar;
 

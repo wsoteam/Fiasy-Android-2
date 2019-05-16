@@ -46,6 +46,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.InApp.IDs;
+import com.wsoteam.diet.InApp.properties.SetPurchase;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.R;
@@ -92,6 +93,7 @@ public class ActivitySplash extends Activity {
     private void checkRegistrationAndRun() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
+            //Log.e("LOL", user.getUid());
             FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -164,7 +166,7 @@ public class ActivitySplash extends Activity {
                 }
                 break;
         }
-        if (isEndPremium){
+        if (isEndPremium) {
             setSubInfoWithGooglePlayInfo();
         }
     }
@@ -185,6 +187,7 @@ public class ActivitySplash extends Activity {
                 if (billingResponseCode == BillingClient.BillingResponse.OK) {
                     List<Purchase> purchasesList = queryPurchases();
                     if (purchasesList.size() > 0) {
+                        changePremStatus(true);
                         setSubInfo(purchasesList.get(0));
                     } else {
                         setEmptySubInfo();
@@ -212,15 +215,7 @@ public class ActivitySplash extends Activity {
     }
 
     private void setSubInfo(Purchase purchase) {
-        SubInfo subInfo = new SubInfo();
-        subInfo.setOrderId(purchase.getOrderId());
-        subInfo.setPackageName(purchase.getPackageName());
-        subInfo.setProductId(purchase.getSku());
-        subInfo.setPurchaseTime(purchase.getPurchaseTime());
-        subInfo.setAutoRenewing(purchase.isAutoRenewing());
-        subInfo.setPurchaseToken(purchase.getPurchaseToken());
-        Log.e("LOl", "set sub info");
-        WorkWithFirebaseDB.setSubInfo(subInfo);
+        new SetPurchase().execute(purchase);
     }
 
     private void getABVersion() {
@@ -240,9 +235,6 @@ public class ActivitySplash extends Activity {
             }
         });
     }
-
-
-
 
 
     private void setABTestConfig(String responseString) {
@@ -305,5 +297,9 @@ public class ActivitySplash extends Activity {
     private List<Purchase> queryPurchases() {
         Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.SUBS);
         return purchasesResult.getPurchasesList();
+    }
+
+    private void changePremStatus(boolean isPremUser) {
+        getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).edit().putBoolean(Config.STATE_BILLING, isPremUser).commit();
     }
 }
