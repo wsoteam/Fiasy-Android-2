@@ -93,7 +93,7 @@ public class ActivitySplash extends Activity {
     private void checkRegistrationAndRun() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            //Log.e("LOL", user.getUid());
+            Log.e("LOL", user.getUid());
             FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -135,10 +135,10 @@ public class ActivitySplash extends Activity {
                 && !UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
             //user have premium status, check time of premium
             SubInfo subInfo = UserDataHolder.getUserData().getSubInfo();
-            if (subInfo.getPaymentState() == 0 && subInfo.getPackageName() != null){
+            if (subInfo.getPaymentState() == 0 && subInfo.getPackageName() != null) {
                 changePremStatus(false);
                 setSubInfoWithGooglePlayInfo();
-            }else {
+            } else if (subInfo.getPaymentState() != 0) {
                 compareTime(subInfo);
             }
         } else if (UserDataHolder.getUserData() != null
