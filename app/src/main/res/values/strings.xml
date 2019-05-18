@@ -1,5 +1,7 @@
 <resources>
 
+    <string name="tvArticlePremText">Получите доступ к сотням полезных статей при подписке на premium.</string>
+
     <!--Item Plan Recipe-->
     <string name="tvItemPlanTime">Время готовки:</string>
     <string name="tvItemPlanIngredients">Ингридиенты на одну порцию:</string>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.wsoteam.diet.Articles.ItemArticleActivity">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgArticleWP"
+                android:layout_width="match_parent"
+                android:layout_height="309dp"
+                android:scaleType="center"
+                app:srcCompat="@android:color/holo_blue_bright" />
+
+            <TextView
+                android:id="@+id/tvTitleArticleWP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="12dp"
+                tools:text="Title" />
+
+            <TextView
+                android:id="@+id/tvIntroArticleWP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                tools:text="Intro" />
+
+            <TextView
+                android:id="@+id/tvArticlePremText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tvArticlePremText"
+                android:textAlignment="center"
+                android:textAllCaps="false" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_gravity="center_horizontal"
+                app:cardCornerRadius="25dp"
+                app:cardBackgroundColor="#EFA61C"
+                app:layout_constraintBottom_toBottomOf="@+id/ivRecipe"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivRecipe">
+
+                <Button
+                    android:id="@+id/goPremArticle"
+                    android:layout_width="238dp"
+                    android:layout_height="match_parent"
+                    android:padding="2dp"
+                    android:background="#00FFFFFF"
+                    android:text="@string/btnRecipePrem"
+                    android:textColor="@android:color/white" />
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/tvMainArticleWP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                tools:text="Main" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

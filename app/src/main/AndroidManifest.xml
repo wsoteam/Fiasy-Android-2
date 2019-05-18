@@ -21,14 +21,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Articles.ItemArticleActivity"
+        <activity
+            android:name=".Articles.ItemArticleWithoutPremActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu"
+            android:hardwareAccelerated="false">
+        </activity>
+        <activity
+            android:name=".Articles.ItemArticleActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu">
+
         </activity>
         <activity
             android:name=".Recipes.RecipeWithoutPremActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu"></activity>
+            android:theme="@style/Menu" />
         <activity
             android:name=".Onboard.TotalAmountActivity"
             android:theme="@style/TotalAmount" />

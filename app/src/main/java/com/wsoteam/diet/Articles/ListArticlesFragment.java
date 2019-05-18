@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.Articles.POJO.Article;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
-import com.wsoteam.diet.Articles.POJO.Factory;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.R;
 
@@ -117,8 +115,6 @@ public class ListArticlesFragment extends Fragment {
                     ListArticlesAdapter newAdapter = new ListArticlesAdapter(result, getActivity());
                     recyclerView.setAdapter(newAdapter);
                 }
-
-
 
             }
 

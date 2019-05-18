@@ -3,7 +3,10 @@ package com.wsoteam.diet.Articles;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -18,6 +21,8 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ListArticlesAdapter extends RecyclerView.Adapter<ListArticlesAdapter.ArticlesViewHolder>{
 
@@ -60,6 +65,7 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<ListArticlesAdapte
         TextView premium;
         TextView title;
         TextView intro;
+        CardView cvBorder;
 
         public ArticlesViewHolder(View view){
             super(view);
@@ -68,11 +74,20 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<ListArticlesAdapte
             premium = view.findViewById(R.id.tvArticlePremium);
             title = view.findViewById(R.id.tvArticleTitle);
             intro = view.findViewById(R.id.tvArticleIntro);
+            cvBorder = view.findViewById(R.id.cvArticleBorder);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(activity, ItemArticleActivity.class);
+                    Intent intent;
+                    boolean isPremArticle = listItem.get(getAdapterPosition()).isPremium();
+
+                    if (!checkSubscribe() && isPremArticle) {
+                        intent = new Intent(activity, ItemArticleWithoutPremActivity.class);
+                    } else {
+                        intent = new Intent(activity, ItemArticleActivity.class);
+                    }
+
                     intent.putExtra(Config.ARTICLE_INTENT, getAdapterPosition());
                     activity.startActivity(intent);
                 }
@@ -81,12 +96,26 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<ListArticlesAdapte
 
         void bind(int position){
 
+            boolean isPrem = listItem.get(position).isPremium();
             String url = listItem.get(position).getImgUrl();
 
             Glide.with(context).load(url).into(imageView);
             title.setText(Html.fromHtml(listItem.get(position).getTitle()));
             intro.setText(Html.fromHtml(listItem.get(position).getIntroPart()));
+
+            if (isPrem){
+                cvBorder.setCardBackgroundColor(Color.parseColor("#FF5722"));
+                premium.setVisibility(View.VISIBLE);
+            }
         }
 
+        private boolean checkSubscribe() {
+            SharedPreferences sharedPreferences = activity.getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+            if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }
