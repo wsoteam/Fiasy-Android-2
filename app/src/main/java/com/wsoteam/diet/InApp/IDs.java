@@ -13,6 +13,7 @@ public class IDs {
     public static final String ID_MONTH_SUB = "basic_subscription_1m";
     public static final String ID_THREE_MONTH_SUB = "basic_subscription_3m";
     public static final String ID_TRACK_YEAR_SUB = "sub_year_trial ";
+    public static final String ID_ONE_WEEK = "one_week";
 
 
     public static final int PAYMENT_STATE_WAIT = 0;

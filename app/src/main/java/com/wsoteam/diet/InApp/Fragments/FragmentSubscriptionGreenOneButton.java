@@ -34,6 +34,7 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.InApp.IDs;
 import com.wsoteam.diet.InApp.properties.SetPurchase;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.R;
@@ -52,7 +53,7 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
     @BindView(R.id.imbtnCancel) ImageButton imbtnCancel;
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
-    private String currentSKU = Config.ONE_YEAR_PRICE_TRIAL, currentPrice = "99р";
+    private String currentSKU = IDs.ID_ONE_WEEK, currentPrice = "99р";
     private SharedPreferences sharedPreferences;
     Unbinder unbinder;
     private static final String TAG_BOX = "TAG_BOX";
@@ -135,8 +136,7 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
             Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
             Identify identify = new Identify();
             identify.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
-            identify.set(AmplitudaEvents.LONG_OF_PREM, currentSKU)
-                    .set(AmplitudaEvents.PRICE_OF_PREM, currentPrice);
+            identify.set(AmplitudaEvents.LONG_OF_PREM, currentSKU);
             Amplitude.getInstance().identify(identify);
             AmplitudaEvents.logEventBuyPremium(box.getBuyFrom(), ABConfig.green_P1M_one_button, currentSKU);
             logTrial();
