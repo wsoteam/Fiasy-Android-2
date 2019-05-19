@@ -6,8 +6,8 @@ android {
         applicationId "com.wild.diet"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 53
-        versionName "2.6.0"
+        versionCode 54
+        versionName "2.6.0-test"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -86,9 +86,9 @@ dependencies {
     implementation 'me.relex:circleindicator:1.2.2'
     implementation 'com.adjust.sdk:adjust-android:4.17.0'
     implementation 'com.android.installreferrer:installreferrer:1.0'
-/*
+
     implementation 'com.bugsee:bugsee-android:+'
-*/
+
     compile 'com.google.apis:google-api-services-androidpublisher:v2-rev159-1.25.0'
 
 }
