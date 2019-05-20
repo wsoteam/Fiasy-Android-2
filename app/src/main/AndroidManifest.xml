@@ -24,13 +24,13 @@
         <activity
             android:name=".Articles.ItemArticleWithoutPremActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu"
+            android:theme="@style/TransparentStatusBar"
             android:hardwareAccelerated="false">
         </activity>
         <activity
             android:name=".Articles.ItemArticleActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu">
+            android:theme="@style/TransparentStatusBar">
 
         </activity>
         <activity
