@@ -10,6 +10,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -26,13 +27,13 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenOneButton;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenUA;
-import com.wsoteam.diet.InApp.properties.SetPurchase;
 import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import java.util.Calendar;
 
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.flFragmentContainer) FrameLayout flFragmentContainer;
     @BindView(R.id.bnv_main) BottomNavigationView bnvMain;
     @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
-    @BindView(R.id.ivTop) ImageView ivTop;
     private FragmentTransaction transaction;
     private BottomSheetBehavior bottomSheetBehavior;
 
@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         handlGrade(Calendar.getInstance().getTimeInMillis());
+        Log.e("LOL", "LOLwqe");
     }
 
     private void handlGrade(long currentTime) {
@@ -156,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         checkForcedGrade();
+        WorkWithFirebaseDB.check();
     }
 
     private void checkForcedGrade() {

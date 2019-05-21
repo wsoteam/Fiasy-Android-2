@@ -6,8 +6,8 @@ android {
         applicationId "com.wild.diet"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 54
-        versionName "2.6.0-test"
+        versionCode 61
+        versionName "2.6.22"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -30,6 +30,7 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/proguard/androidx-annotations.pro'
     }
 }
 
@@ -90,6 +91,7 @@ dependencies {
     implementation 'com.bugsee:bugsee-android:+'
 
     compile 'com.google.apis:google-api-services-androidpublisher:v2-rev159-1.25.0'
+    implementation 'com.revenuecat.purchases:purchases:2.2.2'
 
 }
 

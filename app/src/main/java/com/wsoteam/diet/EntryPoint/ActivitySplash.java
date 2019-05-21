@@ -9,16 +9,12 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Identify;
-import com.amplitude.api.Revenue;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
@@ -43,19 +39,15 @@ import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.InApp.IDs;
-import com.wsoteam.diet.InApp.properties.SetPurchase;
+import com.wsoteam.diet.InApp.properties.EmptySubInfo;
+import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.List;
@@ -176,7 +168,7 @@ public class ActivitySplash extends Activity {
                         changePremStatus(true);
                         setSubInfo(purchasesList.get(0));
                     } else {
-                        setEmptySubInfo();
+                        EmptySubInfo.setEmptySubInfo();
                         changePremStatus(false);
                     }
                 }
@@ -189,19 +181,8 @@ public class ActivitySplash extends Activity {
         });
     }
 
-    private void setEmptySubInfo() {
-        SubInfo subInfo = new SubInfo();
-        subInfo.setOrderId(IDs.EMPTY_SUB);
-        subInfo.setPackageName(IDs.EMPTY_SUB);
-        subInfo.setProductId(IDs.EMPTY_SUB);
-        subInfo.setPurchaseTime(IDs.EMPTY_SUB_TIME);
-        subInfo.setAutoRenewing(false);
-        subInfo.setPurchaseToken(IDs.EMPTY_SUB);
-        WorkWithFirebaseDB.setSubInfo(subInfo);
-    }
-
     private void setSubInfo(Purchase purchase) {
-        new SetPurchase().execute(purchase.getSku(), purchase.getPurchaseToken(), purchase.getPackageName());
+        new CheckAndSetPurchase().execute(purchase.getSku(), purchase.getPurchaseToken(), purchase.getPackageName());
     }
 
     private void getABVersion() {

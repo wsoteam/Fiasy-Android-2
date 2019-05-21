@@ -65,9 +65,14 @@ public class ActivitySettings extends AppCompatActivity {
         cvRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("market://details?id=" + getPackageName()));
-                startActivity(intent);
+                final String appPackageName = getPackageName();
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException exp) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
             }
         });
 

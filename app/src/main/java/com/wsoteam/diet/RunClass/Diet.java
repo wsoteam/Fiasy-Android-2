@@ -9,8 +9,10 @@ import com.adjust.sdk.AdjustConfig;
 import com.amplitude.api.Amplitude;
 import com.bugsee.library.Bugsee;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orm.SugarContext;
+import com.revenuecat.purchases.Purchases;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.yandex.metrica.YandexMetrica;
@@ -21,6 +23,9 @@ public class Diet extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Purchases.setDebugLogsEnabled(true);
+        Purchases.configure(this, "SMoEoVfrXlUdjqmquUweDcrGuheoWjmv", "sdfsdf");
         SugarContext.init(this);
         YandexMetricaConfig.Builder configBuilder = YandexMetricaConfig.newConfigBuilder(Config.YANDEX_API_KEY);
         YandexMetrica.activate(getApplicationContext(), configBuilder.build());

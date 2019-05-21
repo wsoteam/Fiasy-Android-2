@@ -82,9 +82,14 @@ public class RateDialogs {
                     context.getSharedPreferences(Config.IS_GRADE_APP, Context.MODE_PRIVATE).
                             edit().putInt(Config.IS_GRADE_APP, Config.GRADED).
                             commit();
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse("market://details?id=" + context.getPackageName()));
-                    context.startActivity(intent);
+                    final String appPackageName = context.getPackageName();
+                    try {
+                        context.startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=" + appPackageName)));
+                    } catch (android.content.ActivityNotFoundException exp) {
+                        context.startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                    }
                     alertDialog.cancel();
                 } else {
                     if (edtReport.getVisibility() == View.GONE) {

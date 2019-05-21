@@ -6,6 +6,10 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.adjust.sdk.Adjust;
+import com.adjust.sdk.AdjustAttribution;
+import com.adjust.sdk.AdjustEvent;
+import com.amplitude.api.Amplitude;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class WorkWithFirebaseDB {
 
@@ -132,6 +137,24 @@ public class WorkWithFirebaseDB {
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("subInfo");
         myRef.setValue(subInfo);
+    }
+
+    public static void check(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY);
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashMap<String, UserData> stringUserDataHashMap = (HashMap<String, UserData>) dataSnapshot.getValue();
+                Log.e("LOL", String.valueOf(stringUserDataHashMap.size()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }
