@@ -125,7 +125,6 @@ public class ActivitySplash extends Activity {
     }
 
     private void setTrackInfoInDatabase(AdjustAttribution aa) {
-        Log.e("LOL", Adjust.getAttribution().toString());
         TrackInfo trackInfo = new TrackInfo();
         trackInfo.setTt(aa.trackerToken);
         trackInfo.setTn(aa.trackerName);

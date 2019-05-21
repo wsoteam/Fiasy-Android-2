@@ -33,6 +33,7 @@ public class Diet extends Application {
         Amplitude.getInstance().trackSessionEvents(true);
         Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
                 .enableForegroundTracking(this);
+        SetUserProperties.setUserProperties(Adjust.getAttribution());
     }
 
     @Override
