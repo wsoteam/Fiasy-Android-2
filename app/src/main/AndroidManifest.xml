@@ -24,8 +24,7 @@
         <activity
             android:name=".Articles.ItemArticleWithoutPremActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TransparentStatusBar"
-            android:hardwareAccelerated="false">
+            android:theme="@style/TransparentStatusBar">
         </activity>
         <activity
             android:name=".Articles.ItemArticleActivity"

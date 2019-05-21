@@ -38,6 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.wsoteam.diet.ABConfig;
+import com.wsoteam.diet.Activism.POJO.Factory;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Articles.ItemArticleActivity;
@@ -50,6 +51,7 @@ import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.tvoytrener.ForTestFragmentActivity;
 
 import org.json.JSONException;
@@ -84,6 +86,7 @@ public class ActivitySplash extends Activity {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
 
+       
 //        startActivity(new Intent(this, ForTestFragmentActivity.class));
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);

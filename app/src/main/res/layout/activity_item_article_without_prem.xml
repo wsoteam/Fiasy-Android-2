@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/testID"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -51,33 +52,45 @@
                 android:id="@+id/divider20"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:paddingBottom="30dp"
-                android:background="?android:attr/listDivider" />
+                android:background="?android:attr/listDivider"
+                android:paddingBottom="30dp" />
+
+            <eightbitlab.com.blurview.BlurView
+                android:id="@+id/blurView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:blurOverlayColor="#fff">
+
+                <!--Any child View here, TabLayout for example-->
+
+
 
             <TextView
                 android:id="@+id/tvArticlePremText"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:fontFamily="@font/roboto_bold"
+                android:paddingTop="20dp"
+                android:paddingBottom="30dp"
                 android:text="@string/tvArticlePremText"
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="#7993B2"
-                android:textSize="18sp"
-                android:layout_gravity="center_horizontal"
-                android:paddingBottom="30dp"
-                android:paddingTop="20dp"/>
+                android:textSize="18sp" />
+
+            </eightbitlab.com.blurview.BlurView>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cardView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_gravity="center_horizontal"
-                app:cardCornerRadius="25dp"
                 app:cardBackgroundColor="#EFA61C"
+                app:cardCornerRadius="25dp"
                 app:layout_constraintBottom_toBottomOf="@+id/ivRecipe"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,19 +100,26 @@
                     android:id="@+id/goPremArticle"
                     android:layout_width="238dp"
                     android:layout_height="match_parent"
-                    android:padding="2dp"
                     android:background="#00FFFFFF"
+                    android:padding="2dp"
                     android:text="@string/btnRecipePrem"
                     android:textColor="@android:color/white" />
             </android.support.v7.widget.CardView>
 
-            <TextView
-                android:id="@+id/tvMainArticleWP"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                tools:text="Main"
-                android:paddingTop="30dp"/>
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tvMainArticleWP"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Main" />
+            </android.support.constraint.ConstraintLayout>
 
         </LinearLayout>
     </ScrollView>
