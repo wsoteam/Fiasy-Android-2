@@ -26,6 +26,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOForDB.DiaryData;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
+import com.wsoteam.diet.POJOProfile.TrackInfo;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Sync.POJO.UserData;
@@ -137,6 +138,13 @@ public class WorkWithFirebaseDB {
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("subInfo");
         myRef.setValue(subInfo);
+    }
+
+    public static void setTrackInfo(TrackInfo trackInfo){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("trackInfo");
+        myRef.setValue(trackInfo);
     }
 
     public static void check(){

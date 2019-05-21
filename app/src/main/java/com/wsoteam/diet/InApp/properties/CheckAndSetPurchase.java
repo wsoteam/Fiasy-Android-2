@@ -35,6 +35,8 @@ public class CheckAndSetPurchase extends AsyncTask<String, Void, Void> {
         subInfo.setPurchaseToken(token);
         subInfo.setExpiryTimeMillis(subscription.getExpiryTimeMillis());
         subInfo.setPaymentState(subscription.getPaymentState());
+        subInfo.setCurrency(subscription.getPriceCurrencyCode());
+        subInfo.setPrice(subscription.getPriceAmountMicros());
         return subInfo;
     }
 }

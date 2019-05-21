@@ -15,10 +15,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Adapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.adjust.sdk.Adjust;
+import com.adjust.sdk.AdjustAttribution;
+import com.adjust.sdk.AdjustConfig;
+import com.adjust.sdk.AdjustFactory;
+import com.amplitude.api.Amplitude;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
@@ -129,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         handlGrade(Calendar.getInstance().getTimeInMillis());
-        Log.e("LOL", "LOLwqe");
     }
 
     private void handlGrade(long currentTime) {
@@ -157,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         checkForcedGrade();
-        WorkWithFirebaseDB.check();
     }
 
     private void checkForcedGrade() {

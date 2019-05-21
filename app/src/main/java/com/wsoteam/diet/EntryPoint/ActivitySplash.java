@@ -9,10 +9,13 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.adjust.sdk.Adjust;
+import com.adjust.sdk.AdjustAttribution;
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
@@ -45,9 +48,11 @@ import com.wsoteam.diet.InApp.properties.EmptySubInfo;
 import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.POJOProfile.SubInfo;
+import com.wsoteam.diet.POJOProfile.TrackInfo;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import java.util.Calendar;
 import java.util.List;
@@ -85,8 +90,10 @@ public class ActivitySplash extends Activity {
     private void checkRegistrationAndRun() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
+            Log.e("LOL", user.getUid());
             FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
+            setTrackInfoInDatabase(Adjust.getAttribution());
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                     child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -115,6 +122,20 @@ public class ActivitySplash extends Activity {
             }
             finish();
         }
+    }
+
+    private void setTrackInfoInDatabase(AdjustAttribution aa) {
+        Log.e("LOL", Adjust.getAttribution().toString());
+        TrackInfo trackInfo = new TrackInfo();
+        trackInfo.setTt(aa.trackerToken);
+        trackInfo.setTn(aa.trackerName);
+        trackInfo.setNet(aa.network);
+        trackInfo.setCam(aa.campaign);
+        trackInfo.setCre(aa.creative);
+        trackInfo.setCl(aa.clickLabel);
+        trackInfo.setAdid(aa.adid);
+        trackInfo.setAdg(aa.adgroup);
+        WorkWithFirebaseDB.setTrackInfo(trackInfo);
     }
 
     private void checkBilling() {

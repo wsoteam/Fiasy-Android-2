@@ -11,9 +11,11 @@ public class SubInfo implements Serializable {
     private String purchaseToken;
     private long expiryTimeMillis;
     private int paymentState;
+    private String currency;
+    private long price;
 
 
-    public SubInfo(String orderId, String packageName, String productId, long purchaseTime, boolean autoRenewing, String purchaseToken, long expiryTimeMillis, int paymentState) {
+    public SubInfo(String orderId, String packageName, String productId, long purchaseTime, boolean autoRenewing, String purchaseToken, long expiryTimeMillis, int paymentState, String currency, long price) {
         this.orderId = orderId;
         this.packageName = packageName;
         this.productId = productId;
@@ -22,6 +24,8 @@ public class SubInfo implements Serializable {
         this.purchaseToken = purchaseToken;
         this.expiryTimeMillis = expiryTimeMillis;
         this.paymentState = paymentState;
+        this.currency = currency;
+        this.price = price;
     }
 
     public SubInfo() {
@@ -89,5 +93,21 @@ public class SubInfo implements Serializable {
 
     public void setPaymentState(int paymentState) {
         this.paymentState = paymentState;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
     }
 }
