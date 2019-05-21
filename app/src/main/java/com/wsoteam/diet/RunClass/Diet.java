@@ -3,6 +3,7 @@ package com.wsoteam.diet.RunClass;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
@@ -33,7 +34,8 @@ public class Diet extends Application {
         Amplitude.getInstance().trackSessionEvents(true);
         Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
                 .enableForegroundTracking(this);
-        SetUserProperties.setUserProperties(Adjust.getAttribution());
+
+        //SetUserProperties.setUserProperties(Adjust.getAttribution());
     }
 
     @Override

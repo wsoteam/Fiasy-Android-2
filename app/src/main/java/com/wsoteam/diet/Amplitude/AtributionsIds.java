@@ -1,4 +1,4 @@
-package com.wsoteam.diet.RunClass;
+package com.wsoteam.diet.Amplitude;
 
 public class AtributionsIds {
     public static String tt = "tt";
