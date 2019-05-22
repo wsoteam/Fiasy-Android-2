@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -21,6 +22,8 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.revHarvester.Harvester;
+import com.wsoteam.diet.revHarvester.Refresher;
 import com.yandex.metrica.YandexMetrica;
 
 public class ActivitySettings extends AppCompatActivity {
@@ -28,6 +31,7 @@ public class ActivitySettings extends AppCompatActivity {
     private Switch switchRewrite;
     private SharedPreferences isRewriteProfileData;
     private ImageView ivBack;
+    private Button btnRefresh, btnHarvest;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +43,8 @@ public class ActivitySettings extends AppCompatActivity {
         cvLogout = findViewById(R.id.cvLogOut);
         switchRewrite = findViewById(R.id.switchRewrite);
         ivBack = findViewById(R.id.ivBack);
+        btnHarvest = findViewById(R.id.harvest);
+        btnRefresh = findViewById(R.id.refresh);
         handleSwitch();
 
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_settings);
@@ -98,7 +104,19 @@ public class ActivitySettings extends AppCompatActivity {
             }
         });
 
-        YandexMetrica.reportEvent("Открыт фрагмент: Настройки");
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Refresher.runRefresh();
+            }
+        });
+
+        btnHarvest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Harvester.runHarvester();
+            }
+        });
 
     }
 

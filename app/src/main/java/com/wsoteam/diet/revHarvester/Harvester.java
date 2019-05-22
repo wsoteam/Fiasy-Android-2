@@ -8,27 +8,31 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wsoteam.diet.Amplitude.SetStrangesProperties;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.POJOProfile.CheckInfo.Check;
+import com.wsoteam.diet.POJOProfile.CheckInfo.CheckHistory;
+import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.Sync.POJO.UserData;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class Harvester {
     private static final String TAG = "HARVESTER";
 
-    public static void runRefresh() {
-        Log.e(TAG, "start refresh");
+    public static void runHarvester() {
+        Log.e(TAG, "start harvest");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY);
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 HashMap<String, UserData> allUserData = (HashMap<String, UserData>) dataSnapshot.getValue();
-                Log.i(TAG, String.valueOf(allUserData.size()));
                 getPremiumProfileList(allUserData);
             }
 
@@ -52,16 +56,23 @@ public class Harvester {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).child(id);
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
                     UserData userData = dataSnapshot.getValue(UserData.class);
                     if (userData.getSubInfo() != null && userData.getSubInfo().getExpiryTimeMillis() != 0) {
-                        Log.e(TAG, id + " -- prem");
-                        if (isEndOfStage(userData.getSubInfo().getExpiryTimeMillis())) {
-                            new GetPurchaseInfoAndSet().execute(userData.getSubInfo().getProductId(),
-                                    userData.getSubInfo().getPurchaseToken(), userData.getSubInfo().getPackageName(), id);
+                        Log.e(TAG, "find prem -- " + id);
+                        if (userData.getSubInfo().getPaymentState() == 1) {
+                            if (userData.getCheckHistory() != null) {
+                                if (!isSpeakAboutCurrentPurchase(userData)) {
+                                    speakAboutPurchase(userData);
+                                    WorkWithDB.setNewCheckHistory(createNewCheckHistory(userData), id);
+                                }
+                            } else {
+                                speakAboutPurchase(userData);
+                                WorkWithDB.setNewCheckHistory(createNewCheckHistory(userData), id);
+                            }
                         }
                     }
                 } catch (Exception e) {
@@ -76,12 +87,36 @@ public class Harvester {
         });
     }
 
-    private static boolean isEndOfStage(long expiryTimeMillis) {
-        long currentTime = Calendar.getInstance().getTimeInMillis();
-        if (currentTime > expiryTimeMillis) {
-            return true;
-        } else {
-            return false;
+    private static void speakAboutPurchase(UserData userData) {
+        if (userData.getTrackInfo() != null) {
+            SetStrangesProperties.setStrangerUserProperties(userData.getTrackInfo());
         }
+        Log.e(TAG, "speak");
+    }
+
+    private static CheckHistory createNewCheckHistory(UserData userData) {
+        Check newCheck = new Check();
+        newCheck.setExpiryTimeMillis(userData.getSubInfo().getExpiryTimeMillis());
+        newCheck.setPriceAmountMicros(userData.getSubInfo().getPrice());
+        newCheck.setPriceCurrencyCode(userData.getSubInfo().getCurrency());
+
+        List<Check> oldCheckList = new ArrayList<>();
+        if (userData.getCheckHistory() != null && userData.getCheckHistory().getCheckHistoryList() != null) {
+            oldCheckList = userData.getCheckHistory().getCheckHistoryList();
+        }
+        oldCheckList.add(newCheck);
+        CheckHistory checkHistory = new CheckHistory("name", oldCheckList);
+        return checkHistory;
+    }
+
+    private static boolean isSpeakAboutCurrentPurchase(UserData userData) {
+        boolean isSpeakAboutCurrentPurchase = false;
+        CheckHistory checkHistory = userData.getCheckHistory();
+        for (int i = 0; i < checkHistory.getCheckHistoryList().size(); i++) {
+            if (checkHistory.getCheckHistoryList().get(i).getExpiryTimeMillis() == userData.getSubInfo().getExpiryTimeMillis()) {
+                isSpeakAboutCurrentPurchase = true;
+            }
+        }
+        return isSpeakAboutCurrentPurchase;
     }
 }

@@ -31,7 +31,7 @@ import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
-import com.wsoteam.diet.revHarvester.Harvester;
+import com.wsoteam.diet.revHarvester.Refresher;
 
 import java.util.Calendar;
 
@@ -154,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         checkForcedGrade();
-        Harvester.runRefresh();
     }
 
     private void checkForcedGrade() {

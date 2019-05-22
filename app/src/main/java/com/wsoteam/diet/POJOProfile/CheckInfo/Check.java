@@ -6,16 +6,15 @@ public class Check implements Serializable {
     private long expiryTimeMillis;
     private long priceAmountMicros;
     private String priceCurrencyCode;
-    private boolean isVisible;
+
 
     public Check() {
     }
 
-    public Check(long expiryTimeMillis, long priceAmountMicros, String priceCurrencyCode, boolean isVisible) {
+    public Check(long expiryTimeMillis, long priceAmountMicros, String priceCurrencyCode) {
         this.expiryTimeMillis = expiryTimeMillis;
         this.priceAmountMicros = priceAmountMicros;
         this.priceCurrencyCode = priceCurrencyCode;
-        this.isVisible = isVisible;
     }
 
     public long getExpiryTimeMillis() {
@@ -40,13 +39,5 @@ public class Check implements Serializable {
 
     public void setPriceCurrencyCode(String priceCurrencyCode) {
         this.priceCurrencyCode = priceCurrencyCode;
-    }
-
-    public boolean isVisible() {
-        return isVisible;
-    }
-
-    public void setVisible(boolean visible) {
-        isVisible = visible;
     }
 }
