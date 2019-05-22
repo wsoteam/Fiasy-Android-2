@@ -106,6 +106,9 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<ListArticlesAdapte
             if (isPrem){
                 cvBorder.setCardBackgroundColor(Color.parseColor("#FF5722"));
                 premium.setVisibility(View.VISIBLE);
+            } else {
+                cvBorder.setCardBackgroundColor(Color.parseColor("#00FF5722"));
+                premium.setVisibility(View.GONE);
             }
         }
 

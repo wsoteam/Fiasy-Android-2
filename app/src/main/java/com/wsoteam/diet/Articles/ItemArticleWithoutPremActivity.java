@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.github.mmin18.widget.RealtimeBlurView;
 import com.wsoteam.diet.Articles.POJO.Article;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
 import com.wsoteam.diet.Articles.Util.HtmlTagHandler;
