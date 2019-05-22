@@ -7,6 +7,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.POJOForDB.DiaryData;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
+import com.wsoteam.diet.POJOProfile.TrackInfo;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ public class UserData implements Serializable {
     private String name;
     private Profile profile;
     private SubInfo subInfo;
+    private TrackInfo trackInfo;
 
     private HashMap<String, Breakfast> breakfasts;
     private HashMap<String, Lunch> lunches;
@@ -26,10 +28,11 @@ public class UserData implements Serializable {
     public UserData() {
     }
 
-    public UserData(String name, Profile profile, SubInfo subInfo, HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners, HashMap<String, Snack> snacks, HashMap<String, WeightDiaryObject> diaryDataList) {
+    public UserData(String name, Profile profile, SubInfo subInfo, TrackInfo trackInfo, HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners, HashMap<String, Snack> snacks, HashMap<String, WeightDiaryObject> diaryDataList) {
         this.name = name;
         this.profile = profile;
         this.subInfo = subInfo;
+        this.trackInfo = trackInfo;
         this.breakfasts = breakfasts;
         this.lunches = lunches;
         this.dinners = dinners;
@@ -99,5 +102,13 @@ public class UserData implements Serializable {
 
     public void setDiaryDataList(HashMap<String, WeightDiaryObject> diaryDataList) {
         this.diaryDataList = diaryDataList;
+    }
+
+    public TrackInfo getTrackInfo() {
+        return trackInfo;
+    }
+
+    public void setTrackInfo(TrackInfo trackInfo) {
+        this.trackInfo = trackInfo;
     }
 }

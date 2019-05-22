@@ -140,7 +140,6 @@ public class ActivitySplash extends Activity {
     }
 
     private void checkBilling() {
-
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getSubInfo() == null) {
             //unknown status premium
             setSubInfoWithGooglePlayInfo();
