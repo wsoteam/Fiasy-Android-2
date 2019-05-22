@@ -3,6 +3,8 @@ package com.wsoteam.diet.revHarvester;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.amplitude.api.Amplitude;
+import com.amplitude.api.Revenue;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -88,10 +90,16 @@ public class Harvester {
     }
 
     private static void speakAboutPurchase(UserData userData) {
+        double price = ((double) userData.getSubInfo().getPrice()) / 1000000;
         if (userData.getTrackInfo() != null) {
             SetStrangesProperties.setStrangerUserProperties(userData.getTrackInfo());
         }
-        Log.e(TAG, "speak");
+        Revenue revenue = new Revenue();
+        revenue.setProductId(userData.getSubInfo().getProductId());
+        revenue.setPrice(price);
+        revenue.setQuantity(1);
+        revenue.setRevenueType(userData.getSubInfo().getCurrency());
+        Amplitude.getInstance().logRevenueV2(revenue);
     }
 
     private static CheckHistory createNewCheckHistory(UserData userData) {
