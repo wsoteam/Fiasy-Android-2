@@ -2,6 +2,7 @@ package com.wsoteam.diet.Recipes.POJO;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 public class RecipeItem implements Serializable {
     private String name;
@@ -32,8 +33,12 @@ public class RecipeItem implements Serializable {
 
     private List<String> ingredients;
     private List<String> instruction;
-    private List<String> eating;
-    private List<String> diet;
+
+    private List<String> breakfast;
+    private List<String> lunch;
+    private List<String> dinner;
+    private List<String> snack;
+
 
     public RecipeItem() {
     }
@@ -43,8 +48,7 @@ public class RecipeItem implements Serializable {
                       double percentFats, double carbohydrates, double proteins,
                       double fats, double cellulose, double sugar, double saturatedFats,
                       double unSaturatedFats, double cholesterol, double sodium, double potassium,
-                      int portions, List<String> ingredients, List<String> instruction, List<String> eating,
-                      List<String> diet) {
+                      int portions, List<String> ingredients, List<String> instruction) {
         this.url = url;
         this.name = name;
         this.time = time;
@@ -66,8 +70,7 @@ public class RecipeItem implements Serializable {
         this.portions = portions;
         this.ingredients = ingredients;
         this.instruction = instruction;
-        this.eating = eating;
-        this.diet = diet;
+
     }
 
     public String getName() {
@@ -230,23 +233,6 @@ public class RecipeItem implements Serializable {
         this.instruction = instruction;
     }
 
-    public List<String> getEating() {
-        return eating;
-    }
-
-    public void setEating(List<String> eating) {
-        this.eating = eating;
-    }
-
-    public List<String> getDiet() {
-        return diet;
-    }
-
-    public void setDiet(List<String> diet) {
-        this.diet = diet;
-    }
-
-
     public String getUrl() {
         return url;
     }
@@ -255,4 +241,35 @@ public class RecipeItem implements Serializable {
         this.url = url;
     }
 
+    public List<String> getBreakfast() {
+        return breakfast;
+    }
+
+    public void setBreakfast(List<String> breakfast) {
+        this.breakfast = breakfast;
+    }
+
+    public List<String> getLunch() {
+        return lunch;
+    }
+
+    public void setLunch(List<String> lunch) {
+        this.lunch = lunch;
+    }
+
+    public List<String> getDinner() {
+        return dinner;
+    }
+
+    public void setDinner(List<String> dinner) {
+        this.dinner = dinner;
+    }
+
+    public List<String> getSnack() {
+        return snack;
+    }
+
+    public void setSnack(List<String> snack) {
+        this.snack = snack;
+    }
 }

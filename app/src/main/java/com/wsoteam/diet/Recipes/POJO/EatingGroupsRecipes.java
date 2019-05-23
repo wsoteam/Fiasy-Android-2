@@ -18,28 +18,28 @@ public class EatingGroupsRecipes implements GroupsRecipes {
         ListRecipes listSnack = new ListRecipes("Перекус");
         List<RecipeItem> snack = new ArrayList<>();
 
-        for (RecipeItem recipeItem:
-             listRecipes.getListrecipes()) {
-
-            for (String eating:
-                 recipeItem.getEating()) {
-                switch (eating){
-//                    default:
-                    case "breakfast":
-                        breakfast.add(recipeItem);
-                        break;
-                    case "lunch":
-                        lunch.add(recipeItem);
-                        break;
-                    case "dinner":
-                        dinner.add(recipeItem);
-                        break;
-                    case "snack":
-                        snack.add(recipeItem);
-                        break;
-                }
-            }
-        }
+//        for (RecipeItem recipeItem:
+//             listRecipes.getListrecipes()) {
+//
+//            for (String eating:
+//                 recipeItem.getEating()) {
+//                switch (eating){
+////                    default:
+//                    case "breakfast":
+//                        breakfast.add(recipeItem);
+//                        break;
+//                    case "lunch":
+//                        lunch.add(recipeItem);
+//                        break;
+//                    case "dinner":
+//                        dinner.add(recipeItem);
+//                        break;
+//                    case "snack":
+//                        snack.add(recipeItem);
+//                        break;
+//                }
+//            }
+//        }
 
         listBreakfast.setListrecipes(breakfast);
         listLunch.setListrecipes(lunch);

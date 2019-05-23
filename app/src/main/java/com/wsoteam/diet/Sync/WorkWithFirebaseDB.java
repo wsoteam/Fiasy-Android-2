@@ -210,6 +210,11 @@ public class WorkWithFirebaseDB {
         DatabaseReference myRef = database.getReference("RECIPES_PLANS");
         myRef.setValue(data);
     }
+    public static void saveListRecipesNew(ListRecipes data){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("RECIPES_PLANS_NEW");
+        myRef.setValue(data);
+    }
 
     public static void saveListArticles(ListArticles data) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();

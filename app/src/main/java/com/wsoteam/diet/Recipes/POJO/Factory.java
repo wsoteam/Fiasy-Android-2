@@ -1,5 +1,7 @@
 package com.wsoteam.diet.Recipes.POJO;
 
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,9 +39,7 @@ public class Factory {
                 1103,
                 2,
                 ingredients,
-                instruction,
-                eating,
-                diet);
+                instruction);
 
         recipeItemList.add(recipeItem);
         recipeItemList.add(recipeItem);
@@ -57,4 +57,5 @@ public class Factory {
 
         return listRecipes;
     }
+
 }
