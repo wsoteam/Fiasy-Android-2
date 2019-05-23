@@ -37,6 +37,7 @@ import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.IDs;
 
 import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
+import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.R;
 
@@ -132,6 +133,7 @@ public class FragmentSubscriptionGreenOneButton extends Fragment implements Purc
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
             //send data about purchase into firebase (and save into profile subInfo)
+            SingletonMakePurchase.getInstance().setMakePurchaseNow(true);
             new CheckAndSetPurchase().execute(purchases.get(0).getSku(), purchases.get(0).getPurchaseToken(), purchases.get(0).getPackageName());
 
             Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));

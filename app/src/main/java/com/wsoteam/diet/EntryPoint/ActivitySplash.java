@@ -47,6 +47,7 @@ import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.InApp.IDs;
 import com.wsoteam.diet.InApp.properties.EmptySubInfo;
 import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
+import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
@@ -74,7 +75,6 @@ public class ActivitySplash extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        SetUserProperties.setUserProperties(Adjust.getAttribution());
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
         Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
@@ -92,7 +92,7 @@ public class ActivitySplash extends Activity {
     private void checkRegistrationAndRun() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            Log.e("LOL", user.getUid());
+            SetUserProperties.setUserProperties(Adjust.getAttribution());
             FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
             setTrackInfoInDatabase(Adjust.getAttribution());
@@ -140,7 +140,9 @@ public class ActivitySplash extends Activity {
     }
 
     private void checkBilling() {
-        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getSubInfo() == null) {
+        if (SingletonMakePurchase.getInstance().isMakePurchaseNow()) {
+            changePremStatus(true);
+        } else if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getSubInfo() == null) {
             //unknown status premium
             setSubInfoWithGooglePlayInfo();
         } else if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getSubInfo() != null
@@ -164,7 +166,7 @@ public class ActivitySplash extends Activity {
     private void compareTime(SubInfo subInfo) {
         long currentTime = Calendar.getInstance().getTimeInMillis();
         if (currentTime > subInfo.getExpiryTimeMillis()) {
-            setSubInfoWithGooglePlayInfo();
+            new CheckAndSetPurchase().execute(subInfo.getProductId(), subInfo.getPurchaseToken(), subInfo.getPackageName());
         } else {
             changePremStatus(true);
         }

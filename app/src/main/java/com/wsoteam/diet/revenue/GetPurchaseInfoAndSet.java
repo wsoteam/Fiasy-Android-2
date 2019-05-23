@@ -1,14 +1,12 @@
-package com.wsoteam.diet.revHarvester;
+package com.wsoteam.diet.revenue;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.api.services.androidpublisher.model.SubscriptionPurchase;
 import com.wsoteam.diet.InApp.IDs;
-import com.wsoteam.diet.InApp.properties.EmptySubInfo;
 import com.wsoteam.diet.InApp.properties.PlayService;
 import com.wsoteam.diet.POJOProfile.SubInfo;
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 public class GetPurchaseInfoAndSet extends AsyncTask<String, Void, Void> {
     private static final String TAG = "HARVESTER";

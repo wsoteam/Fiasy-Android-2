@@ -1,4 +1,4 @@
-package com.wsoteam.diet.revHarvester;
+package com.wsoteam.diet.revenue;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -14,7 +14,6 @@ import com.wsoteam.diet.Amplitude.SetStrangesProperties;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.CheckInfo.Check;
 import com.wsoteam.diet.POJOProfile.CheckInfo.CheckHistory;
-import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.Sync.POJO.UserData;
 
 import java.util.ArrayList;

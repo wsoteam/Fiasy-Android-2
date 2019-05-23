@@ -22,9 +22,8 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.revHarvester.Harvester;
-import com.wsoteam.diet.revHarvester.Refresher;
-import com.yandex.metrica.YandexMetrica;
+import com.wsoteam.diet.revenue.Harvester;
+import com.wsoteam.diet.revenue.Refresher;
 
 public class ActivitySettings extends AppCompatActivity {
     private CardView cvRate, cvPrivacy, cvShare, cvLogout;
