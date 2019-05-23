@@ -142,22 +142,25 @@ public class ActivitySplash extends Activity {
     private void checkBilling() {
         if (SingletonMakePurchase.getInstance().isMakePurchaseNow()) {
             changePremStatus(true);
+            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
         } else if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getSubInfo() == null) {
-            //unknown status premium
+            //unknown status premium or new user
             setSubInfoWithGooglePlayInfo();
         } else if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getSubInfo() != null
                 && !UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
             //user have premium status, check time of premium
             SubInfo subInfo = UserDataHolder.getUserData().getSubInfo();
-            if (subInfo.getPaymentState() == 0 && subInfo.getPackageName() != null) {
+            if (subInfo.getPaymentState() == 0) {
                 changePremStatus(false);
-                setSubInfoWithGooglePlayInfo();
+                AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.preferential);
+                new CheckAndSetPurchase().execute(subInfo.getProductId(), subInfo.getPurchaseToken(), subInfo.getPackageName());
             } else if (subInfo.getPaymentState() != 0) {
                 compareTime(subInfo);
             }
         } else if (UserDataHolder.getUserData() != null
                 && UserDataHolder.getUserData().getSubInfo() != null
                 && UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
+            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.not_buy);
             changePremStatus(false);
         }
 
@@ -168,6 +171,11 @@ public class ActivitySplash extends Activity {
         if (currentTime > subInfo.getExpiryTimeMillis()) {
             new CheckAndSetPurchase().execute(subInfo.getProductId(), subInfo.getPurchaseToken(), subInfo.getPackageName());
         } else {
+            if (subInfo.getPaymentState() == 1) {
+                AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
+            }else if (subInfo.getPaymentState() == 2){
+                AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
+            }
             changePremStatus(true);
         }
     }
@@ -191,6 +199,7 @@ public class ActivitySplash extends Activity {
                         changePremStatus(true);
                         setSubInfo(purchasesList.get(0));
                     } else {
+                        AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.not_buy);
                         EmptySubInfo.setEmptySubInfo();
                         changePremStatus(false);
                     }
