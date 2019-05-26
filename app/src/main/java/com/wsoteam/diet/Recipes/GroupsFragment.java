@@ -151,7 +151,6 @@ public class GroupsFragment extends Fragment {
                 adapter = new GroupsAdapterNew(GroupsHolder.getGroupsRecipes().getGroups(), groupsFragment, viewGroup.getId());
                 recyclerView.setAdapter(adapter);
 
-                WorkWithFirebaseDB.saveListRecipesNew(worker(groupsRecipes));
 
             }
 
