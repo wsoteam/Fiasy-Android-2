@@ -99,6 +99,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3;
     private CFood foodItem;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,7 +150,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     }
 
-    /*private void savePortion(int idOfEating) {
+    private void savePortion(int idOfEating) {
 
         String wholeDate = getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE);
         String[] arrayOfNumbersForDate = wholeDate.split("\\.");
@@ -167,7 +168,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
 
         String name = foodItem.getName();
-        String urlOfImage = foodItem.getUrlOfImages();
+        String urlOfImage = "empty_url";
 
         Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
         switch (idOfEating) {
@@ -191,7 +192,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         AlertDialog alertDialog = AddFoodDialog.createChoiseEatingAlertDialog(ActivityDetailOfFood.this);
         alertDialog.show();
         getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).edit().putBoolean(Config.IS_ADDED_FOOD, true).commit();
-        new CountDownTimer(800, 100){
+        new CountDownTimer(800, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -199,11 +200,11 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-            alertDialog.dismiss();
-            onBackPressed();
+                alertDialog.dismiss();
+                onBackPressed();
             }
         }.start();
-    }*/
+    }
 
 
     private void calculateMainParameters(CharSequence stringPortion) {
@@ -251,7 +252,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                 if (edtWeight.getText().toString().equals("") || edtWeight.getText().toString().equals(" ")) {
                     Toast.makeText(ActivityDetailOfFood.this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
                 } else {
-                    //savePortion(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
+                    savePortion(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
                 }
                 break;
             case R.id.ivBack:
