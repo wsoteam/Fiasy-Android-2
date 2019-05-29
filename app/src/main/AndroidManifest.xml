@@ -98,9 +98,10 @@
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
             android:value="true" />
+
         <meta-data
             android:name="DATABASE"
-            android:value="diet_database_diary_items2.db" />
+            android:value="foodBase.db" />
         <meta-data
             android:name="VERSION"
             android:value="3" />
@@ -110,6 +111,7 @@
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.wsoteam.diet" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
