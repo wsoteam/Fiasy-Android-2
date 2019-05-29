@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.amplitude.api.Amplitude;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
@@ -27,6 +28,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.CFood;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
@@ -98,12 +100,9 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_of_food);
         ButterKnife.bind(this);
-
+        ButterKnife.apply(viewList, (view, value, index) -> view.setVisibility(value), View.GONE);
         foodItem = (CFood) getIntent().getSerializableExtra(Config.INTENT_DETAIL_FOOD);
-
         bindMicroElements();
-
-
         calculateNumbersForProgressBars();
 
         edtWeight.addTextChangedListener(new TextWatcher() {
@@ -150,7 +149,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             tvLabelSugar.setVisibility(View.VISIBLE);
             tvSugar.setVisibility(View.VISIBLE);
             tvSugar.setText(String.valueOf(Math.round(foodItem.getSugar() * 100)));
-            if (!isPremiumUser()){
+            if (!isPremiumUser()) {
                 btnPremSugar.setVisibility(View.VISIBLE);
             }
         }
@@ -158,7 +157,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             tvLabelSaturated.setVisibility(View.VISIBLE);
             tvSaturated.setVisibility(View.VISIBLE);
             tvSaturated.setText(String.valueOf(Math.round(foodItem.getSaturatedFats() * 100)));
-            if (!isPremiumUser()){
+            if (!isPremiumUser()) {
                 btnPremSaturated.setVisibility(View.VISIBLE);
             }
         }
@@ -166,7 +165,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             tvLabelMonoUnSaturated.setVisibility(View.VISIBLE);
             tvMonoUnSaturated.setVisibility(View.VISIBLE);
             tvMonoUnSaturated.setText(String.valueOf(Math.round(foodItem.getMonoUnSaturatedFats() * 100)));
-            if (!isPremiumUser()){
+            if (!isPremiumUser()) {
                 btnPremMonoUnSaturated.setVisibility(View.VISIBLE);
             }
         }
@@ -174,7 +173,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             tvLabelPolyUnSaturated.setVisibility(View.VISIBLE);
             tvPolyUnSaturated.setVisibility(View.VISIBLE);
             tvPolyUnSaturated.setText(String.valueOf(Math.round(foodItem.getPolyUnSaturatedFats() * 100)));
-            if (!isPremiumUser()){
+            if (!isPremiumUser()) {
                 btnPremPolyUnSaturated.setVisibility(View.VISIBLE);
             }
         }
@@ -182,7 +181,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             tvLabelСholesterol.setVisibility(View.VISIBLE);
             tvСholesterol.setVisibility(View.VISIBLE);
             tvСholesterol.setText(String.valueOf(Math.round(foodItem.getCholesterol() * 100)));
-            if (!isPremiumUser()){
+            if (!isPremiumUser()) {
                 btnPremCholy.setVisibility(View.VISIBLE);
             }
         }
@@ -190,7 +189,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             tvLabelCellulose.setVisibility(View.VISIBLE);
             tvCellulose.setVisibility(View.VISIBLE);
             tvCellulose.setText(String.valueOf(Math.round(foodItem.getCellulose() * 100)));
-            if (!isPremiumUser()){
+            if (!isPremiumUser()) {
                 btnPremCell.setVisibility(View.VISIBLE);
             }
         }
@@ -198,7 +197,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             tvLabelSodium.setVisibility(View.VISIBLE);
             tvSodium.setVisibility(View.VISIBLE);
             tvSodium.setText(String.valueOf(Math.round(foodItem.getSodium() * 100)));
-            if (!isPremiumUser()){
+            if (!isPremiumUser()) {
                 btnPremSod.setVisibility(View.VISIBLE);
             }
         }
@@ -206,7 +205,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             tvLabelPotassium.setVisibility(View.VISIBLE);
             tvPotassium.setVisibility(View.VISIBLE);
             tvPotassium.setText(String.valueOf(Math.round(foodItem.getPottassium() * 100)));
-            if (!isPremiumUser()){
+            if (!isPremiumUser()) {
                 btnPremPot.setVisibility(View.VISIBLE);
             }
         }
@@ -317,7 +316,9 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     }
 
-    @OnClick({R.id.btnSaveEating, R.id.ivBack, R.id.ibSheetClose, R.id.btnReg})
+    @OnClick({R.id.btnSaveEating, R.id.ivBack, R.id.ibSheetClose, R.id.btnReg, R.id.btnPremCell, R.id.btnPremCholy,
+            R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremPot, R.id.btnPremSaturated, R.id.btnPremSod,
+            R.id.btnPremSugar})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSaveEating:
@@ -340,6 +341,38 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
 
                 break;
+            case R.id.btnPremCell:
+                showPremiumScreen();
+                break;
+            case R.id.btnPremCholy:
+                showPremiumScreen();
+                break;
+            case R.id.btnPremMonoUnSaturated:
+                showPremiumScreen();
+                break;
+            case R.id.btnPremPolyUnSaturated:
+                showPremiumScreen();
+                break;
+            case R.id.btnPremPot:
+                showPremiumScreen();
+                break;
+            case R.id.btnPremSaturated:
+                showPremiumScreen();
+                break;
+            case R.id.btnPremSod:
+                showPremiumScreen();
+                break;
+            case R.id.btnPremSugar:
+                showPremiumScreen();
+                break;
         }
+    }
+
+    private void showPremiumScreen() {
+        Intent intent = new Intent(ActivityDetailOfFood.this, ActivitySubscription.class);
+        Box box = new Box(AmplitudaEvents.view_prem_elements, AmplitudaEvents.buy_prem_elements, false,
+                true, null, false);
+        intent.putExtra(Config.TAG_BOX, box);
+        startActivity(intent);
     }
 }
