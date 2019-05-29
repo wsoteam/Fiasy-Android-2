@@ -26,6 +26,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.CFood;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
@@ -97,29 +98,20 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     List<View> viewList;
 
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3;
-    private FoodItem foodItem;
-    private final String TAG_OWN_PRODUCT = "OWN";
+    private CFood foodItem;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_of_food);
         ButterKnife.bind(this);
-
         ButterKnife.apply(viewList, (view, value, index) -> view.setVisibility(value), View.GONE);
 
-        foodItem = (FoodItem) getIntent().getSerializableExtra("ActivityDetailOfFood");
-
-        if (foodItem.getNameOfGroup().equals(TAG_OWN_PRODUCT)) {
-            foodItem.setDescription("");
-            foodItem.setComposition("");
-            foodItem.setProperties("");
-        }
+        foodItem = (CFood) getIntent().getSerializableExtra(Config.INTENT_DETAIL_FOOD);
 
         tvTitle.setText(foodItem.getName());
-
-        tvFats.setText(foodItem.getFat() + " г");
-        tvCarbohydrates.setText(foodItem.getCarbohydrates() + " г");
-        tvProteins.setText(foodItem.getProtein() + " г");
+        tvFats.setText("0 г");
+        tvCarbohydrates.setText("0 г");
+        tvProteins.setText("0 г");
 
         calculateNumbersForProgressBars();
 
@@ -136,7 +128,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                     edtWeight.setText("0");
                 } else {
                     if (!edtWeight.getText().toString().equals("")) {
-                        calculateMainParameters();
+                        calculateMainParameters(charSequence);
                     } else {
                         tvCalculateProtein.setText("0 " + getString(R.string.gramm));
                         tvCalculateKcal.setText("0 " + getString(R.string.kcal));
@@ -153,13 +145,11 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         });
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-
-        YandexMetrica.reportEvent("Открыт экран: Детализация продукта группы - " + foodItem.getNameOfGroup());
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_detail_food);
 
     }
 
-    private void savePortion(int idOfEating) {
+    /*private void savePortion(int idOfEating) {
 
         String wholeDate = getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE);
         String[] arrayOfNumbersForDate = wholeDate.split("\\.");
@@ -213,36 +203,16 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             onBackPressed();
             }
         }.start();
-    }
-
-    private String getCurrentDate() {
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int month = calendar.get(Calendar.MONTH);
-        int year = calendar.get(Calendar.YEAR);
-        return String.valueOf(day) + String.valueOf(month) + String.valueOf(year);
-    }
+    }*/
 
 
-    private void calculateMainParameters() {
-        Double fat, carbohydrates, protein, kcal, partOfStartWeight;
+    private void calculateMainParameters(CharSequence stringPortion) {
+        double portion = Double.parseDouble(stringPortion.toString());
 
-        fat = Double.parseDouble(foodItem.getFat());
-        carbohydrates = Double.parseDouble(foodItem.getCarbohydrates());
-        protein = Double.parseDouble(foodItem.getProtein());
-        kcal = Double.parseDouble(foodItem.getCalories());
-
-        partOfStartWeight = Double.parseDouble(edtWeight.getText().toString()) / 100;
-
-        fat = fat * partOfStartWeight;
-        carbohydrates = carbohydrates * partOfStartWeight;
-        protein = protein * partOfStartWeight;
-        kcal = kcal * partOfStartWeight;
-
-        tvCalculateProtein.setText(String.valueOf(protein.intValue()) + " " + getString(R.string.gramm));
-        tvCalculateKcal.setText(String.valueOf(kcal.intValue()) + " " + getString(R.string.kcal));
-        tvCalculateCarbohydrates.setText(String.valueOf(carbohydrates.intValue()) + " " + getString(R.string.gramm));
-        tvCalculateFat.setText(String.valueOf(fat.intValue()) + " " + getString(R.string.gramm));
+        tvCalculateProtein.setText(String.valueOf(Math.round(portion * foodItem.getProteins())) + " " + getString(R.string.gramm));
+        tvCalculateKcal.setText(String.valueOf(Math.round(portion * foodItem.getCalories())) + " " + getString(R.string.kcal));
+        tvCalculateCarbohydrates.setText(String.valueOf(Math.round(portion * foodItem.getCarbohydrates())) + " " + getString(R.string.gramm));
+        tvCalculateFat.setText(String.valueOf(Math.round(portion * foodItem.getFats())) + " " + getString(R.string.gramm));
 
     }
 
@@ -251,9 +221,10 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         String maxPercent = "100";
         int maxCountForProgressBar = 100;
 
-        fat = Double.parseDouble(foodItem.getFat());
-        carbohydrates = Double.parseDouble(foodItem.getCarbohydrates());
-        protein = Double.parseDouble(foodItem.getProtein());
+        fat = Double.valueOf(foodItem.getPercentFats());
+        carbohydrates = Double.valueOf(foodItem.getPercentCarbohydrates());
+        protein = Double.valueOf(foodItem.getPercentProteins());
+
 
         if (fat > maxCountForProgressBar) {
             pbFat.setDonut_progress(maxPercent);
@@ -280,7 +251,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                 if (edtWeight.getText().toString().equals("") || edtWeight.getText().toString().equals(" ")) {
                     Toast.makeText(ActivityDetailOfFood.this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
                 } else {
-                    savePortion(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
+                    //savePortion(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
                 }
                 break;
             case R.id.ivBack:

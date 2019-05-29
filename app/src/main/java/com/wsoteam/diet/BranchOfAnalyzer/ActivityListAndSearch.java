@@ -28,9 +28,12 @@ import android.widget.Toast;
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
+import com.orm.query.Condition;
+import com.orm.query.Select;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.CFood;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.POJOFoodItem.DbAnalyzer;
@@ -55,33 +58,17 @@ public class ActivityListAndSearch extends AppCompatActivity {
     @BindView(R.id.rvListOfSearchResponse) RecyclerView rvListOfSearchResponse;
     @BindView(R.id.ivActivityListAndSearchEmptyImage) ImageView ivEmptyImage;
     @BindView(R.id.tvActivityListAndSearchEmptyText) TextView tvEmptyText;
-    @BindView(R.id.fabSearchAddNewProduct) FloatingActionButton fabSearchAddNewProduct;
 
-
-    private ArrayList<FoodItem> listOfGroupsFoods = new ArrayList<>();
-    private ArrayList<FoodItem> tempListOfGroupsFoods = new ArrayList<>();
-    private final int HARD_KCAL = 500;
-    private DbAnalyzer dbAnalyzerGlobal = new DbAnalyzer();
-    private final String EMPTY = "";
-    private final String TAG_OWN_PRODUCT = "OWN";
+    private List<CFood> recievedListFood = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_and_search);
         ButterKnife.bind(this);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,
-                R.layout.item_spinner_food_search, getResources().getStringArray(R.array.eatingList));
-        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search);
-        spinner.setAdapter(adapter);
-        spinner.setSelection(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
-
-        fabSearchAddNewProduct.setVisibility(View.GONE);
+        bindSpinnerChoiceEating();
 
         rvListOfSearchResponse.setLayoutManager(new LinearLayoutManager(ActivityListAndSearch.this));
-        AsyncLoadFoodList asyncLoadFoodList = new AsyncLoadFoodList();
-        asyncLoadFoodList.execute();
 
         edtSearchField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -97,7 +84,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
                     tvEmptyText.setVisibility(View.GONE);
                 }
                 searchAndShowList(charSequence);
-
             }
 
             @Override
@@ -106,47 +92,24 @@ public class ActivityListAndSearch extends AppCompatActivity {
             }
         });
 
-
-        YandexMetrica.reportEvent("Открыт экран: Анализатор");
         Amplitude.getInstance().logEvent(AmplitudaEvents.attempt_add_food);
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_search_food);
 
     }
 
-    private void searchAndShowList(CharSequence text) {
-        tempListOfGroupsFoods = new ArrayList<>();
-        for (int j = 0; j < listOfGroupsFoods.size(); j++) {
-            if (listOfGroupsFoods.get(j).getName().contains(text)
-                    || (listOfGroupsFoods.get(j).getName()).contains(text.toString().substring(0, 1).toUpperCase()
-                    + text.toString().substring(1))) {
-                tempListOfGroupsFoods.add(listOfGroupsFoods.get(j));
-            }
-        }
-        rvListOfSearchResponse.setAdapter(new ItemAdapter(tempListOfGroupsFoods));
+    private void bindSpinnerChoiceEating() {
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,
+                R.layout.item_spinner_food_search, getResources().getStringArray(R.array.eatingList));
+        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
     }
 
-
-    private ArrayList<FoodItem> fillItemsList(List<ListOfGroupsOfFood> listOfGroups) {
-        ArrayList<FoodItem> items = new ArrayList<>();
-        for (int i = 0; i < listOfGroups.size(); i++) {
-            FoodItem itemOfGlobalBaseForWriting;
-            for (int j = 0; j < listOfGroups.get(i).getListOfFoodItems().size(); j++) {
-                itemOfGlobalBaseForWriting = new FoodItem(listOfGroups.get(i).getListOfFoodItems().get(j).getCalories()
-                        , listOfGroups.get(i).getListOfFoodItems().get(j).getCarbohydrates()
-                        , listOfGroups.get(i).getListOfFoodItems().get(j).getComposition()
-                        , listOfGroups.get(i).getListOfFoodItems().get(j).getDescription()
-                        , listOfGroups.get(i).getListOfFoodItems().get(j).getFat()
-                        , listOfGroups.get(i).getListOfFoodItems().get(j).getName()
-                        , listOfGroups.get(i).getListOfFoodItems().get(j).getProperties()
-                        , listOfGroups.get(i).getListOfFoodItems().get(j).getProtein()
-                        , listOfGroups.get(i).getListOfFoodItems().get(j).getUrlOfImages()
-                        , listOfGroups.get(i).getName()
-                        , listOfGroups.get(i).getListOfFoodItems().size());
-                items.add(itemOfGlobalBaseForWriting);
-            }
-
-        }
-        return items;
+    private void searchAndShowList(CharSequence text) {
+        String searchString = text.toString();
+        recievedListFood = Select.from(CFood.class).where(Condition.prop("name").eq(searchString)).list();
+        rvListOfSearchResponse.setAdapter(new ItemAdapter(recievedListFood));
+        Log.e("LOL", String.valueOf(recievedListFood.size()));
     }
 
     @OnClick({R.id.ibActivityListAndSearchCollapsingCancelButton, R.id.ivBack})
@@ -179,27 +142,32 @@ public class ActivityListAndSearch extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(ActivityListAndSearch.this, ActivityDetailOfFood.class);
-            intent.putExtra("ActivityDetailOfFood", tempListOfGroupsFoods.get(getAdapterPosition()));
+            intent.putExtra(Config.INTENT_DETAIL_FOOD, recievedListFood.get(getAdapterPosition()));
             intent.putExtra(Config.TAG_CHOISE_EATING, spinner.getSelectedItemPosition());
             intent.putExtra(Config.INTENT_DATE_FOR_SAVE, getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
             startActivity(intent);
         }
 
-        public void bind(FoodItem itemOfGlobalBase, boolean isItemForSeparator) {
-            tvNameOfFood.setText(itemOfGlobalBase.getName());
-            tvCalories.setText(itemOfGlobalBase.getCalories() + " Ккал");
-            tvWeight.setText("Вес: 100г");
-            tvProt.setText("Б. " + itemOfGlobalBase.getProtein());
-            tvFats.setText("Ж. " + itemOfGlobalBase.getFat());
-            tvCarbo.setText("У. " + itemOfGlobalBase.getCarbohydrates());
+        public void bind(CFood cFood, boolean isItemForSeparator) {
+            tvNameOfFood.setText(cFood.getName());
+            tvCalories.setText(String.valueOf(cFood.getCalories() * 100) + " Ккал");
+            if (cFood.isLiquid()){
+                tvWeight.setText("Вес: 100мл");
+            }else {
+                tvWeight.setText("Вес: 100г");
+            }
+
+            tvProt.setText("Б. " + String.valueOf(Math.round(cFood.getProteins() * 100)));
+            tvFats.setText("Ж. " + String.valueOf(Math.round(cFood.getFats() * 100)));
+            tvCarbo.setText("У. " + String.valueOf(Math.round(cFood.getCarbohydrates() * 100)));
         }
     }
 
     public class ItemAdapter extends RecyclerView.Adapter<ItemHolder> {
-        ArrayList<FoodItem> itemsOfGlobalBases;
+        List<CFood> foods;
 
-        public ItemAdapter(ArrayList<FoodItem> itemsOfGlobalBases) {
-            this.itemsOfGlobalBases = itemsOfGlobalBases;
+        public ItemAdapter(List<CFood> foods) {
+            this.foods = foods;
         }
 
         @NonNull
@@ -211,164 +179,14 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
-            if (itemsOfGlobalBases.get(position).getUrlOfImages().equals("0")) {
-                holder.bind(itemsOfGlobalBases.get(position), true);
-            } else {
-                holder.bind(itemsOfGlobalBases.get(position), false);
-            }
-
+            holder.bind(foods.get(position), false);
         }
 
         @Override
         public int getItemCount() {
-            return itemsOfGlobalBases.size();
+            return foods.size();
         }
     }
 
-    private class AsyncLoadFoodList extends AsyncTask<Void, Void, DbAnalyzer> {
-        @Override
-        protected void onPostExecute(DbAnalyzer dbAnalyzer) {
-            dbAnalyzerGlobal = dbAnalyzer;
-            listOfGroupsFoods = fillItemsList(dbAnalyzer.getListOfGroupsOfFood());
-        }
-
-        @Override
-        protected DbAnalyzer doInBackground(Void... voids) {
-            String json;
-            Moshi moshi = new Moshi.Builder().build();
-            JsonAdapter<FoodConnect> jsonAdapter = moshi.adapter(FoodConnect.class);
-            try {
-                InputStream inputStream = getAssets().open("food_list.json");
-                int size = inputStream.available();
-                byte[] buffer = new byte[size];
-                Log.e("LOL", String.valueOf(size));
-                inputStream.read(buffer);
-                inputStream.close();
-                json = new String(buffer, "UTF-8");
-
-                FoodConnect foodConnect = jsonAdapter.fromJson(json);
-
-                DbAnalyzer dbAnalyzer = foodConnect.getDbAnalyzer();
-
-                //load own products
-                if (ListOfFoodItem.count(ListOfFoodItem.class) > 0) {
-                    ArrayList<ListOfFoodItem> listOfFoodItem = (ArrayList) ListOfFoodItem.listAll(ListOfFoodItem.class);
-                    ListOfGroupsOfFood savedGroupFood = new ListOfGroupsOfFood(listOfFoodItem, TAG_OWN_PRODUCT, TAG_OWN_PRODUCT);
-                    dbAnalyzer.getListOfGroupsOfFood().add(0, savedGroupFood);
-                }
-
-                //bk, kfc, mcDonalds and child food move to last position
-                return shuffleWithNewPriority(dbAnalyzer);
-            } catch (Exception e) {
-
-            }
-            return null;
-        }
-
-        private DbAnalyzer shuffleWithNewPriority(DbAnalyzer dbAnalyzer) {
-            int BK = 0, KFC = 1, MCDonalds = 2, childEat = 4;
-
-            dbAnalyzer.getListOfGroupsOfFood().add(dbAnalyzer.getListOfGroupsOfFood().get(BK));
-            dbAnalyzer.getListOfGroupsOfFood().add(dbAnalyzer.getListOfGroupsOfFood().get(KFC));
-            dbAnalyzer.getListOfGroupsOfFood().add(dbAnalyzer.getListOfGroupsOfFood().get(MCDonalds));
-            dbAnalyzer.getListOfGroupsOfFood().add(dbAnalyzer.getListOfGroupsOfFood().get(childEat));
-
-            dbAnalyzer.getListOfGroupsOfFood().remove(childEat);
-            dbAnalyzer.getListOfGroupsOfFood().remove(MCDonalds);
-            dbAnalyzer.getListOfGroupsOfFood().remove(KFC);
-            dbAnalyzer.getListOfGroupsOfFood().remove(BK);
-
-            return dbAnalyzer;
-        }
-    }
-
-    private void createADAboutAddNewProduct() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final AlertDialog alertDialog = builder.create();
-        View view = View.inflate(this, R.layout.alert_dialog_add_new_product, null);
-
-        EditText edtADAddNewProductName = view.findViewById(R.id.edtADAddNewProductName);
-
-        EditText edtADAddNewProductWeight = view.findViewById(R.id.edtADAddNewProductWeight);
-        EditText edtADAddNewProductKcal = view.findViewById(R.id.edtADAddNewProductKcal);
-
-        EditText edtADAddNewProductProt = view.findViewById(R.id.edtADAddNewProductProt);
-        EditText edtADAddNewProductCarbo = view.findViewById(R.id.edtADAddNewProductCarbo);
-        EditText edtADAddNewProductFat = view.findViewById(R.id.edtADAddNewProductFat);
-
-
-        Button btnADAddNewProductCancel = view.findViewById(R.id.btnADAddNewProductCancel);
-        Button btnADAddNewProductSave = view.findViewById(R.id.btnADAddNewProductSave);
-
-
-        btnADAddNewProductCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.cancel();
-            }
-        });
-
-        btnADAddNewProductSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!edtADAddNewProductName.getText().toString().equals("")
-                        && !edtADAddNewProductWeight.getText().toString().equals("")
-                        && !edtADAddNewProductKcal.getText().toString().equals("")) {
-
-                    saveNewProduct(edtADAddNewProductName.getText().toString(),
-                            edtADAddNewProductWeight.getText().toString(), edtADAddNewProductKcal.getText().toString(),
-                            edtADAddNewProductProt.getText().toString(), edtADAddNewProductCarbo.getText().toString(),
-                            edtADAddNewProductFat.getText().toString());
-
-                    alertDialog.cancel();
-
-                } else {
-                    Toast.makeText(ActivityListAndSearch.this, "Для сохранение заполните три обязательных первых поля", Toast.LENGTH_LONG).show();
-                }
-            }
-
-        });
-
-        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        alertDialog.setView(view);
-        alertDialog.show();
-    }
-
-    private void saveNewProduct(String name, String weight, String kcal, String prot, String carbo, String fat) {
-        double protInPortion = 0, carboInPortion = 0, fatInPortion = 0;
-
-        double coefficient = (Integer.parseInt(weight) / 100);
-        double kcalInPortion = Integer.parseInt(kcal) / coefficient;
-        if (!prot.equals("")) {
-            protInPortion = Integer.parseInt(prot) / coefficient;
-        }
-        if (!carbo.equals("")) {
-            carboInPortion = Integer.parseInt(carbo) / coefficient;
-        }
-        if (!fat.equals("")) {
-            fatInPortion = Integer.parseInt(fat) / coefficient;
-        }
-
-        ListOfFoodItem item = new ListOfFoodItem();
-        item.setName(name);
-        item.setCalories(String.valueOf((int) kcalInPortion));
-        item.setUrlOfImages(TAG_OWN_PRODUCT);
-
-        item.setProtein(String.valueOf((int) protInPortion));
-        item.setCarbohydrates(String.valueOf((int) carboInPortion));
-        item.setFat(String.valueOf((int) fatInPortion));
-
-        listOfGroupsFoods.add(0, new FoodItem(String.valueOf((int) kcalInPortion),
-                String.valueOf((int) carboInPortion), EMPTY, EMPTY, String.valueOf((int) fatInPortion),
-                name, EMPTY, String.valueOf((int) protInPortion), EMPTY, TAG_OWN_PRODUCT, 0));
-
-        item.save();
-
-        Intent intent = new Intent(ActivityListAndSearch.this, ActivityDetailOfFood.class);
-        intent.putExtra("ActivityDetailOfFood", listOfGroupsFoods.get(0));
-        intent.putExtra(Config.TAG_CHOISE_EATING, getIntent().getStringExtra(Config.TAG_CHOISE_EATING));
-        startActivity(intent);
-
-    }
 }
 

@@ -77,4 +77,7 @@ public class Config {
     public static final String PECIPES_PLANS = "RECIPES_PLANS";
 
 
+    public static final String INTENT_DETAIL_FOOD = "INTENT_DETAIL_FOOD";
+
+
 }
