@@ -16,8 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.wsoteam.diet.AmplitudaEvents;
@@ -28,16 +26,11 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.CFood;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
-import com.wsoteam.diet.POJOFoodItem.FoodItem;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.yandex.metrica.YandexMetrica;
 
-import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -80,9 +73,9 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     @BindView(R.id.btnPremCell) TextView btnPremCell;
     @BindView(R.id.btnPremSugar) TextView btnPremSugar;
-    @BindView(R.id.btnPremUnSaturated) TextView btnPremUnSaturated;
+    @BindView(R.id.btnPremSaturated) TextView btnPremSaturated;
     @BindView(R.id.btnPremMonoUnSaturated) TextView btnPremMonoUnSaturated;
-    @BindView(R.id.btnPremPolyUnSaturated) TextView btnPremPolyUnSaturated2;
+    @BindView(R.id.btnPremPolyUnSaturated) TextView btnPremPolyUnSaturated;
     @BindView(R.id.btnPremCholy) TextView btnPremCholy;
     @BindView(R.id.btnPremSod) TextView btnPremSod;
     @BindView(R.id.btnPremPot) TextView btnPremPot;
@@ -93,11 +86,11 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     @BindViews({R.id.tvCellulose, R.id.tvSugar, R.id.tvSaturated, R.id.tvСholesterol, R.id.tvSodium,
             R.id.tvPotassium, R.id.tvMonoUnSaturated, R.id.tvPolyUnSaturated,
             R.id.tvLabelCellulose, R.id.tvLabelSugar, R.id.tvLabelSaturated, R.id.tvLabelMonoUnSaturated, R.id.tvLabelPolyUnSaturated,
-            R.id.tvLabelСholesterol, R.id.tvLabelSodium, R.id.tvLabelPotassium, R.id.btnPremCell, R.id.btnPremSugar, R.id.btnPremUnSaturated,
+            R.id.tvLabelСholesterol, R.id.tvLabelSodium, R.id.tvLabelPotassium, R.id.btnPremCell, R.id.btnPremSugar, R.id.btnPremSaturated,
             R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremCholy, R.id.btnPremSod, R.id.btnPremPot})
     List<View> viewList;
 
-    private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3;
+    private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
     private CFood foodItem;
 
     @Override
@@ -105,14 +98,11 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_of_food);
         ButterKnife.bind(this);
-        ButterKnife.apply(viewList, (view, value, index) -> view.setVisibility(value), View.GONE);
 
         foodItem = (CFood) getIntent().getSerializableExtra(Config.INTENT_DETAIL_FOOD);
 
-        tvTitle.setText(foodItem.getName());
-        tvFats.setText("0 г");
-        tvCarbohydrates.setText("0 г");
-        tvProteins.setText("0 г");
+        bindMicroElements();
+
 
         calculateNumbersForProgressBars();
 
@@ -148,6 +138,88 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_detail_food);
 
+    }
+
+    private void bindMicroElements() {
+        tvTitle.setText(foodItem.getName());
+        tvFats.setText(String.valueOf(foodItem.getFats() * 100) + " г");
+        tvCarbohydrates.setText(String.valueOf(foodItem.getCarbohydrates() * 100) + " г");
+        tvProteins.setText(String.valueOf(foodItem.getProteins() * 100) + " г");
+
+        if (foodItem.getSugar() != EMPTY_FIELD) {
+            tvLabelSugar.setVisibility(View.VISIBLE);
+            tvSugar.setVisibility(View.VISIBLE);
+            tvSugar.setText(String.valueOf(Math.round(foodItem.getSugar() * 100)));
+            if (!isPremiumUser()){
+                btnPremSugar.setVisibility(View.VISIBLE);
+            }
+        }
+        if (foodItem.getSaturatedFats() != EMPTY_FIELD) {
+            tvLabelSaturated.setVisibility(View.VISIBLE);
+            tvSaturated.setVisibility(View.VISIBLE);
+            tvSaturated.setText(String.valueOf(Math.round(foodItem.getSaturatedFats() * 100)));
+            if (!isPremiumUser()){
+                btnPremSaturated.setVisibility(View.VISIBLE);
+            }
+        }
+        if (foodItem.getMonoUnSaturatedFats() != EMPTY_FIELD) {
+            tvLabelMonoUnSaturated.setVisibility(View.VISIBLE);
+            tvMonoUnSaturated.setVisibility(View.VISIBLE);
+            tvMonoUnSaturated.setText(String.valueOf(Math.round(foodItem.getMonoUnSaturatedFats() * 100)));
+            if (!isPremiumUser()){
+                btnPremMonoUnSaturated.setVisibility(View.VISIBLE);
+            }
+        }
+        if (foodItem.getPolyUnSaturatedFats() != EMPTY_FIELD) {
+            tvLabelPolyUnSaturated.setVisibility(View.VISIBLE);
+            tvPolyUnSaturated.setVisibility(View.VISIBLE);
+            tvPolyUnSaturated.setText(String.valueOf(Math.round(foodItem.getPolyUnSaturatedFats() * 100)));
+            if (!isPremiumUser()){
+                btnPremPolyUnSaturated.setVisibility(View.VISIBLE);
+            }
+        }
+        if (foodItem.getCholesterol() != EMPTY_FIELD) {
+            tvLabelСholesterol.setVisibility(View.VISIBLE);
+            tvСholesterol.setVisibility(View.VISIBLE);
+            tvСholesterol.setText(String.valueOf(Math.round(foodItem.getCholesterol() * 100)));
+            if (!isPremiumUser()){
+                btnPremCholy.setVisibility(View.VISIBLE);
+            }
+        }
+        if (foodItem.getCellulose() != EMPTY_FIELD) {
+            tvLabelCellulose.setVisibility(View.VISIBLE);
+            tvCellulose.setVisibility(View.VISIBLE);
+            tvCellulose.setText(String.valueOf(Math.round(foodItem.getCellulose() * 100)));
+            if (!isPremiumUser()){
+                btnPremCell.setVisibility(View.VISIBLE);
+            }
+        }
+        if (foodItem.getSodium() != EMPTY_FIELD) {
+            tvLabelSodium.setVisibility(View.VISIBLE);
+            tvSodium.setVisibility(View.VISIBLE);
+            tvSodium.setText(String.valueOf(Math.round(foodItem.getSodium() * 100)));
+            if (!isPremiumUser()){
+                btnPremSod.setVisibility(View.VISIBLE);
+            }
+        }
+        if (foodItem.getPottassium() != EMPTY_FIELD) {
+            tvLabelPotassium.setVisibility(View.VISIBLE);
+            tvPotassium.setVisibility(View.VISIBLE);
+            tvPotassium.setText(String.valueOf(Math.round(foodItem.getPottassium() * 100)));
+            if (!isPremiumUser()){
+                btnPremPot.setVisibility(View.VISIBLE);
+            }
+        }
+
+    }
+
+    private boolean isPremiumUser() {
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+        if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void savePortion(int idOfEating) {
