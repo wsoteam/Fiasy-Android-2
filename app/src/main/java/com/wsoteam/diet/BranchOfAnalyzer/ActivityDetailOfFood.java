@@ -141,14 +141,14 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     private void bindMicroElements() {
         tvTitle.setText(foodItem.getName());
-        tvFats.setText(String.valueOf(foodItem.getFats() * 100) + " г");
-        tvCarbohydrates.setText(String.valueOf(foodItem.getCarbohydrates() * 100) + " г");
-        tvProteins.setText(String.valueOf(foodItem.getProteins() * 100) + " г");
+        tvFats.setText(String.valueOf(Math.round(foodItem.getFats() * 100)) + " г");
+        tvCarbohydrates.setText(String.valueOf(Math.round(foodItem.getCarbohydrates() * 100)) + " г");
+        tvProteins.setText(String.valueOf(Math.round(foodItem.getProteins() * 100)) + " г");
 
         if (foodItem.getSugar() != EMPTY_FIELD) {
             tvLabelSugar.setVisibility(View.VISIBLE);
             tvSugar.setVisibility(View.VISIBLE);
-            tvSugar.setText(String.valueOf(Math.round(foodItem.getSugar() * 100)));
+            tvSugar.setText(String.valueOf(Math.round(foodItem.getSugar() * 100)) + " г");
             if (!isPremiumUser()) {
                 btnPremSugar.setVisibility(View.VISIBLE);
             }
@@ -156,7 +156,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         if (foodItem.getSaturatedFats() != EMPTY_FIELD) {
             tvLabelSaturated.setVisibility(View.VISIBLE);
             tvSaturated.setVisibility(View.VISIBLE);
-            tvSaturated.setText(String.valueOf(Math.round(foodItem.getSaturatedFats() * 100)));
+            tvSaturated.setText(String.valueOf(Math.round(foodItem.getSaturatedFats() * 100))+ " г");
             if (!isPremiumUser()) {
                 btnPremSaturated.setVisibility(View.VISIBLE);
             }
@@ -164,7 +164,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         if (foodItem.getMonoUnSaturatedFats() != EMPTY_FIELD) {
             tvLabelMonoUnSaturated.setVisibility(View.VISIBLE);
             tvMonoUnSaturated.setVisibility(View.VISIBLE);
-            tvMonoUnSaturated.setText(String.valueOf(Math.round(foodItem.getMonoUnSaturatedFats() * 100)));
+            tvMonoUnSaturated.setText(String.valueOf(Math.round(foodItem.getMonoUnSaturatedFats() * 100))+ " г");
             if (!isPremiumUser()) {
                 btnPremMonoUnSaturated.setVisibility(View.VISIBLE);
             }
@@ -172,7 +172,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         if (foodItem.getPolyUnSaturatedFats() != EMPTY_FIELD) {
             tvLabelPolyUnSaturated.setVisibility(View.VISIBLE);
             tvPolyUnSaturated.setVisibility(View.VISIBLE);
-            tvPolyUnSaturated.setText(String.valueOf(Math.round(foodItem.getPolyUnSaturatedFats() * 100)));
+            tvPolyUnSaturated.setText(String.valueOf(Math.round(foodItem.getPolyUnSaturatedFats() * 100))+ " г");
             if (!isPremiumUser()) {
                 btnPremPolyUnSaturated.setVisibility(View.VISIBLE);
             }
@@ -180,7 +180,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         if (foodItem.getCholesterol() != EMPTY_FIELD) {
             tvLabelСholesterol.setVisibility(View.VISIBLE);
             tvСholesterol.setVisibility(View.VISIBLE);
-            tvСholesterol.setText(String.valueOf(Math.round(foodItem.getCholesterol() * 100)));
+            tvСholesterol.setText(String.valueOf(Math.round(foodItem.getCholesterol() * 100))+ " мг");
             if (!isPremiumUser()) {
                 btnPremCholy.setVisibility(View.VISIBLE);
             }
@@ -188,7 +188,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         if (foodItem.getCellulose() != EMPTY_FIELD) {
             tvLabelCellulose.setVisibility(View.VISIBLE);
             tvCellulose.setVisibility(View.VISIBLE);
-            tvCellulose.setText(String.valueOf(Math.round(foodItem.getCellulose() * 100)));
+            tvCellulose.setText(String.valueOf(Math.round(foodItem.getCellulose() * 100))+ " г");
             if (!isPremiumUser()) {
                 btnPremCell.setVisibility(View.VISIBLE);
             }
@@ -196,7 +196,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         if (foodItem.getSodium() != EMPTY_FIELD) {
             tvLabelSodium.setVisibility(View.VISIBLE);
             tvSodium.setVisibility(View.VISIBLE);
-            tvSodium.setText(String.valueOf(Math.round(foodItem.getSodium() * 100)));
+            tvSodium.setText(String.valueOf(Math.round(foodItem.getSodium() * 100))+ " мг");
             if (!isPremiumUser()) {
                 btnPremSod.setVisibility(View.VISIBLE);
             }
@@ -204,7 +204,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         if (foodItem.getPottassium() != EMPTY_FIELD) {
             tvLabelPotassium.setVisibility(View.VISIBLE);
             tvPotassium.setVisibility(View.VISIBLE);
-            tvPotassium.setText(String.valueOf(Math.round(foodItem.getPottassium() * 100)));
+            tvPotassium.setText(String.valueOf(Math.round(foodItem.getPottassium() * 100))+ " мг");
             if (!isPremiumUser()) {
                 btnPremPot.setVisibility(View.VISIBLE);
             }

@@ -150,7 +150,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
         public void bind(CFood cFood, boolean isItemForSeparator) {
             tvNameOfFood.setText(cFood.getName());
-            tvCalories.setText(String.valueOf(cFood.getCalories() * 100) + " Ккал");
+            tvCalories.setText(String.valueOf(Math.round(cFood.getCalories() * 100)) + " Ккал");
             if (cFood.isLiquid()){
                 tvWeight.setText("Вес: 100мл");
             }else {
