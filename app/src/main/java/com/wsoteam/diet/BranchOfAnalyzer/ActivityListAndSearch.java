@@ -180,9 +180,25 @@ public class ActivityListAndSearch extends AppCompatActivity {
         @Override
         protected List<CFood> doInBackground(CharSequence... charSequences) {
             String searchString = charSequences[0].toString();
-            String finishedString = "%" + searchString + "%";
-            //return recievedListFood = Select.from(CFood.class).where(Condition.prop("name").like(searchString)).list();
-            return recievedListFood = CFood.findWithQuery(CFood.class, "Select * from C_Food where name like ?", finishedString);
+            String searchQuery = "Select * from C_Food where";
+            String firstQuery = " name like '%";
+            String firstPartQuery = " and name like '%";
+            String secondPartQuery = "%'";
+            if (searchString.contains(" ") && searchString.split(" ").length > 1){
+                String[] arrayWords = searchString.split(" ");
+                for (int i = 0; i < arrayWords.length; i++) {
+                    if (i == 0){
+                        searchQuery = searchQuery + firstQuery + arrayWords[i] + secondPartQuery;
+                    }else {
+                        searchQuery = searchQuery + firstPartQuery + arrayWords[i] + secondPartQuery;
+                    }
+                }
+                return recievedListFood = CFood.findWithQuery(CFood.class, searchQuery);
+            } else {
+                String finishedString = "%" + searchString + "%";
+                return recievedListFood = CFood.findWithQuery(CFood.class,
+                        "Select * from C_Food where name like ?", finishedString);
+            }
         }
 
         @Override
