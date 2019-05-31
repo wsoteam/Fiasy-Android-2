@@ -10,6 +10,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.CFood;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
@@ -34,6 +36,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
 
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
     private FragmentTransaction transaction;
     private BottomSheetBehavior bottomSheetBehavior;
-
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -156,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
         checkForcedGrade();
         new AsyncWriteFoodaDB().execute(this);
     }
+
 
     private void checkForcedGrade() {
         if (getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false)) {

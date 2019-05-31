@@ -1,13 +1,10 @@
 package com.wsoteam.diet.BranchOfAnalyzer;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,33 +15,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
-import com.orm.query.Condition;
-import com.orm.query.Select;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.CFood;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EventsAdjust;
-import com.wsoteam.diet.POJOFoodItem.DbAnalyzer;
-import com.wsoteam.diet.POJOFoodItem.FoodConnect;
-import com.wsoteam.diet.POJOFoodItem.FoodItem;
-import com.wsoteam.diet.POJOFoodItem.ListOfFoodItem;
-import com.wsoteam.diet.POJOFoodItem.ListOfGroupsOfFood;
 import com.wsoteam.diet.R;
-import com.yandex.metrica.YandexMetrica;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +39,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
     @BindView(R.id.rvListOfSearchResponse) RecyclerView rvListOfSearchResponse;
     @BindView(R.id.ivActivityListAndSearchEmptyImage) ImageView ivEmptyImage;
     @BindView(R.id.tvActivityListAndSearchEmptyText) TextView tvEmptyText;
+    @BindView(R.id.tvIndex) TextView tvIndex;
 
     private List<CFood> recievedListFood = new ArrayList<>();
     private AsyncSearchFood asyncSearchFood = new AsyncSearchFood();
@@ -134,6 +116,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         @BindView(R.id.tvProt) TextView tvProt;
         @BindView(R.id.tvFats) TextView tvFats;
         @BindView(R.id.tvCarbo) TextView tvCarbo;
+        @BindView(R.id.tvBrand) TextView tvBrand;
 
         public ItemHolder(LayoutInflater layoutInflater, ViewGroup viewGroup) {
             super(layoutInflater.inflate(R.layout.item_rv_list_of_search_response, viewGroup, false));
@@ -162,6 +145,9 @@ public class ActivityListAndSearch extends AppCompatActivity {
             tvProt.setText("Б. " + String.valueOf(Math.round(cFood.getProteins() * 100)));
             tvFats.setText("Ж. " + String.valueOf(Math.round(cFood.getFats() * 100)));
             tvCarbo.setText("У. " + String.valueOf(Math.round(cFood.getCarbohydrates() * 100)));
+            if (cFood.getBrend() != null) {
+                tvBrand.setText(cFood.getBrend());
+            }
         }
     }
 
@@ -203,6 +189,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         protected void onPostExecute(List<CFood> cFoods) {
             super.onPostExecute(cFoods);
             rvListOfSearchResponse.setAdapter(new ItemAdapter(recievedListFood));
+            tvIndex.setText(String.valueOf(recievedListFood.size()));
             Log.e("LOL", String.valueOf(recievedListFood.size()));
         }
     }
