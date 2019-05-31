@@ -60,6 +60,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
     @BindView(R.id.tvActivityListAndSearchEmptyText) TextView tvEmptyText;
 
     private List<CFood> recievedListFood = new ArrayList<>();
+    private AsyncSearchFood asyncSearchFood = new AsyncSearchFood();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,7 +84,14 @@ public class ActivityListAndSearch extends AppCompatActivity {
                     ivEmptyImage.setVisibility(View.GONE);
                     tvEmptyText.setVisibility(View.GONE);
                 }
-                searchAndShowList(charSequence);
+                if (charSequence.length() > 2) {
+                    if (!asyncSearchFood.isCancelled()) {
+                        asyncSearchFood.cancel(true);
+                    }
+                    asyncSearchFood = new AsyncSearchFood();
+                    asyncSearchFood.execute(charSequence);
+                }
+
             }
 
             @Override
@@ -105,12 +113,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
         spinner.setSelection(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
     }
 
-    private void searchAndShowList(CharSequence text) {
-        String searchString = text.toString();
-        recievedListFood = Select.from(CFood.class).where(Condition.prop("name").eq(searchString)).list();
-        rvListOfSearchResponse.setAdapter(new ItemAdapter(recievedListFood));
-        Log.e("LOL", String.valueOf(recievedListFood.size()));
-    }
 
     @OnClick({R.id.ibActivityListAndSearchCollapsingCancelButton, R.id.ivBack})
     public void onViewClicked(View view) {
@@ -151,9 +153,9 @@ public class ActivityListAndSearch extends AppCompatActivity {
         public void bind(CFood cFood, boolean isItemForSeparator) {
             tvNameOfFood.setText(cFood.getName());
             tvCalories.setText(String.valueOf(Math.round(cFood.getCalories() * 100)) + " Ккал");
-            if (cFood.isLiquid()){
+            if (cFood.isLiquid()) {
                 tvWeight.setText("Вес: 100мл");
-            }else {
+            } else {
                 tvWeight.setText("Вес: 100г");
             }
 
@@ -185,6 +187,23 @@ public class ActivityListAndSearch extends AppCompatActivity {
         @Override
         public int getItemCount() {
             return foods.size();
+        }
+    }
+
+    private class AsyncSearchFood extends AsyncTask<CharSequence, Void, List<CFood>> {
+        @Override
+        protected List<CFood> doInBackground(CharSequence... charSequences) {
+            String searchString = charSequences[0].toString();
+            String finishedString = "%" + searchString + "%";
+            //return recievedListFood = Select.from(CFood.class).where(Condition.prop("name").like(searchString)).list();
+            return recievedListFood = CFood.findWithQuery(CFood.class, "Select * from C_Food where name like ?", finishedString);
+        }
+
+        @Override
+        protected void onPostExecute(List<CFood> cFoods) {
+            super.onPostExecute(cFoods);
+            rvListOfSearchResponse.setAdapter(new ItemAdapter(recievedListFood));
+            Log.e("LOL", String.valueOf(recievedListFood.size()));
         }
     }
 
