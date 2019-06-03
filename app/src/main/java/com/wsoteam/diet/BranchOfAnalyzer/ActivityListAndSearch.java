@@ -42,7 +42,10 @@ public class ActivityListAndSearch extends AppCompatActivity {
     @BindView(R.id.tvIndex) TextView tvIndex;
 
     private List<CFood> recievedListFood = new ArrayList<>();
-    private AsyncSearchFood asyncSearchFood = new AsyncSearchFood();
+    private FirstSearch firstSearch = new FirstSearch();
+    private SecondSearch secondSearch = new SecondSearch();
+    private int RESPONSE_LIMIT = 100;
+    private ItemAdapter itemAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,11 +70,14 @@ public class ActivityListAndSearch extends AppCompatActivity {
                     tvEmptyText.setVisibility(View.GONE);
                 }
                 if (charSequence.length() > 2) {
-                    if (!asyncSearchFood.isCancelled()) {
-                        asyncSearchFood.cancel(true);
+                    if (!firstSearch.isCancelled()) {
+                        firstSearch.cancel(true);
                     }
-                    asyncSearchFood = new AsyncSearchFood();
-                    asyncSearchFood.execute(charSequence);
+                    if (!secondSearch.isCancelled()) {
+                        secondSearch.cancel(true);
+                    }
+                    firstSearch = new FirstSearch();
+                    firstSearch.execute(charSequence);
                 }
 
             }
@@ -145,9 +151,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
             tvProt.setText("Б. " + String.valueOf(Math.round(cFood.getProteins() * 100)));
             tvFats.setText("Ж. " + String.valueOf(Math.round(cFood.getFats() * 100)));
             tvCarbo.setText("У. " + String.valueOf(Math.round(cFood.getCarbohydrates() * 100)));
-            if (cFood.getBrend() != null) {
-                tvBrand.setText(cFood.getBrend());
-            }
+            tvBrand.setText(String.valueOf(getAdapterPosition()));
         }
     }
 
@@ -156,6 +160,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
         public ItemAdapter(List<CFood> foods) {
             this.foods = foods;
+            tvIndex.setText(String.valueOf(foods.size()));
         }
 
         @NonNull
@@ -174,9 +179,16 @@ public class ActivityListAndSearch extends AppCompatActivity {
         public int getItemCount() {
             return foods.size();
         }
+
+        public void setSecondPortion(List<CFood> subList) {
+            synchronized (subList) {
+                foods.addAll(subList);
+                notifyDataSetChanged();
+            }
+        }
     }
 
-    private class AsyncSearchFood extends AsyncTask<CharSequence, Void, List<CFood>> {
+    private class FirstSearch extends AsyncTask<CharSequence, Void, List<CFood>> {
         @Override
         protected List<CFood> doInBackground(CharSequence... charSequences) {
             String searchString = charSequences[0].toString();
@@ -184,12 +196,59 @@ public class ActivityListAndSearch extends AppCompatActivity {
             String firstQuery = " name like '%";
             String firstPartQuery = " and name like '%";
             String secondPartQuery = "%'";
-            if (searchString.contains(" ") && searchString.split(" ").length > 1){
+            String responseLimit = " limit 100";
+            if (searchString.contains(" ") && searchString.split(" ").length > 1) {
                 String[] arrayWords = searchString.split(" ");
                 for (int i = 0; i < arrayWords.length; i++) {
-                    if (i == 0){
+                    if (i == 0) {
                         searchQuery = searchQuery + firstQuery + arrayWords[i] + secondPartQuery;
-                    }else {
+                    } else {
+                        searchQuery = searchQuery + firstPartQuery + arrayWords[i] + secondPartQuery;
+                    }
+                }
+                recievedListFood = CFood.findWithQuery(CFood.class, searchQuery + responseLimit);
+                if (recievedListFood.size() > 100) {
+                    secondSearch = new SecondSearch();
+                    secondSearch.execute(charSequences[0]);
+                }
+                return recievedListFood;
+            } else {
+                String finishedString = "%" + searchString + "%";
+                secondSearch = new SecondSearch();
+                secondSearch.execute(charSequences[0]);
+                recievedListFood = CFood.findWithQuery(CFood.class,
+                        "Select * from C_Food where name like ? limit 100", finishedString);
+                if (recievedListFood.size() > 100) {
+                    secondSearch = new SecondSearch();
+                    secondSearch.execute(charSequences[0]);
+                }
+                return recievedListFood;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(List<CFood> cFoods) {
+            super.onPostExecute(cFoods);
+            itemAdapter = new ItemAdapter(recievedListFood);
+            rvListOfSearchResponse.setAdapter(itemAdapter);
+            Log.e("LOL", String.valueOf(recievedListFood.size()) + "first");
+        }
+    }
+
+    private class SecondSearch extends AsyncTask<CharSequence, Void, List<CFood>> {
+        @Override
+        protected List<CFood> doInBackground(CharSequence... charSequences) {
+            String searchString = charSequences[0].toString();
+            String searchQuery = "Select * from C_Food where";
+            String firstQuery = " name like '%";
+            String firstPartQuery = " and name like '%";
+            String secondPartQuery = "%'";
+            if (searchString.contains(" ") && searchString.split(" ").length > 1) {
+                String[] arrayWords = searchString.split(" ");
+                for (int i = 0; i < arrayWords.length; i++) {
+                    if (i == 0) {
+                        searchQuery = searchQuery + firstQuery + arrayWords[i] + secondPartQuery;
+                    } else {
                         searchQuery = searchQuery + firstPartQuery + arrayWords[i] + secondPartQuery;
                     }
                 }
@@ -204,9 +263,10 @@ public class ActivityListAndSearch extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<CFood> cFoods) {
             super.onPostExecute(cFoods);
-            rvListOfSearchResponse.setAdapter(new ItemAdapter(recievedListFood));
-            tvIndex.setText(String.valueOf(recievedListFood.size()));
-            Log.e("LOL", String.valueOf(recievedListFood.size()));
+            if (cFoods.size() > RESPONSE_LIMIT) {
+                itemAdapter.setSecondPortion(recievedListFood.subList(100, recievedListFood.size() - 1));
+            }
+            Log.e("LOL", String.valueOf(recievedListFood.size()) + "second");
         }
     }
 
