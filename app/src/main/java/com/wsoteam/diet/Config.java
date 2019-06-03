@@ -2,7 +2,7 @@ package com.wsoteam.diet;
 
 public class Config {
 
-    public static final boolean RELEASE = true;
+    public static final boolean RELEASE = false;
 //    public static final boolean RELEASE = false;
 
     public static final String ID_OF_RECIPE_GROUPS = "id_of_recipe_groups";
