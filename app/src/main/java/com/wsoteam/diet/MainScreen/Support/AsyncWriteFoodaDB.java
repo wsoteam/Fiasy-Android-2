@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.orm.SugarContext;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.CFood;
 
 import java.io.FileOutputStream;
@@ -18,8 +19,8 @@ public class AsyncWriteFoodaDB extends AsyncTask<Context, Void, Void> {
     @Override
     protected Void doInBackground(Context... contexts) {
         if (isEmptyDB()) {
-            Toast.makeText(contexts[0], "Start rewrite", Toast.LENGTH_SHORT).show();
             rewriteDB(contexts[0]);
+            Log.e("LOL", "start rewrite db");
         }
         return null;
     }
@@ -38,23 +39,17 @@ public class AsyncWriteFoodaDB extends AsyncTask<Context, Void, Void> {
             outputStream.flush();
             outputStream.close();
             myInput.close();
-            Toast.makeText(context, "DB rewrited", Toast.LENGTH_SHORT).show();
-
+            SugarContext.init(context);
         } catch (IOException e) {
-            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+            Log.e("LOL", e.toString());
         }
     }
 
     private boolean isEmptyDB() {
         boolean isEmpty = true;
-        try {
-            CFood cFood = CFood.first(CFood.class);
-            if (cFood.getName() != null) {
-                isEmpty = false;
-            }
-        } catch (Exception e) {
-            isEmpty = true;
+        CFood cFood = CFood.first(CFood.class);
+        if (cFood != null){
+            isEmpty = false;
         }
         return isEmpty;
     }
