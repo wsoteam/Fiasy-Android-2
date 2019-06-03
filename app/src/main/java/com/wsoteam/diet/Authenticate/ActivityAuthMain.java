@@ -4,13 +4,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.content.res.AppCompatResources;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.util.Log;
@@ -69,6 +72,7 @@ import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
+import java.text.Bidi;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -113,7 +117,12 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
     private Intent intent;
 
-    
+    public int dpToPx(int dp) {
+        float density = ((Context)this).getResources()
+                .getDisplayMetrics()
+                .density;
+        return Math.round((float) dp * density);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +134,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.auth_main_btn_signin).setOnClickListener(this);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("USER_LIST");
-
 
         resPassTextView = findViewById(R.id.auth_main_tv_respasss);
         emailEditText = findViewById(R.id.auth_main_email);
@@ -142,6 +150,11 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         checkPPTextView = findViewById(R.id.textView82);
         ppCheckBox = findViewById(R.id.auth_main_check_pp);
         backButton = findViewById(R.id.btnBack);
+
+
+        Drawable show = AppCompatResources.getDrawable(this, R.drawable.icon_google);
+        show.setBounds(0, 0, dpToPx(40), dpToPx(40));
+        googleCustomButton.setCompoundDrawables(show, null, null, null);
 
 
         backButton.setOnClickListener(new View.OnClickListener() {
