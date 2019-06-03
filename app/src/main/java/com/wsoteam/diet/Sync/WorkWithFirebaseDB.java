@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wsoteam.diet.Activism.POJO.ActivismFirebaseObject;
+import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
@@ -133,6 +135,7 @@ public class WorkWithFirebaseDB {
         myRef.setValue(data);
     }
 
+
     public static void setSubInfo(SubInfo subInfo){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
@@ -163,6 +166,25 @@ public class WorkWithFirebaseDB {
 
             }
         });
+    }
+
+
+    public static void saveListRecipesNew(ListRecipes data){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("RECIPES_PLANS_NEW");
+        myRef.setValue(data);
+    }
+
+    public static void saveListArticles(ListArticles data) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("ARTICLES");
+        myRef.setValue(data);
+    }
+
+    public static void saveActivism(ActivismFirebaseObject data) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("ACTIVISM");
+        myRef.setValue(data);
     }
 
 }

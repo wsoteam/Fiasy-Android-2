@@ -38,6 +38,7 @@ import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,7 +136,7 @@ public class GroupsFragment extends Fragment {
     private void updateUINew() {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(Config.PECIPES_PLANS);
+        DatabaseReference myRef = database.getReference("RECIPES_PLANS_NEW");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -150,6 +151,7 @@ public class GroupsFragment extends Fragment {
                 adapter = new GroupsAdapterNew(GroupsHolder.getGroupsRecipes().getGroups(), groupsFragment, viewGroup.getId());
                 recyclerView.setAdapter(adapter);
 
+
             }
 
             @Override
@@ -159,6 +161,40 @@ public class GroupsFragment extends Fragment {
             }
         });
 
+    }
+
+    private ListRecipes worker(ListRecipes recipes){
+
+        int i = 0;
+
+        List<String> list = new ArrayList<>();
+        list.add("");
+
+        for (RecipeItem item:
+             recipes.getListrecipes()) {
+
+
+            Log.d("worker", "worker: " + i++);
+
+            if (item.getLunch() == null){
+                item.setLunch(list);
+            }
+
+            if (item.getBreakfast() == null){
+                item.setBreakfast(list);
+            }
+
+            if (item.getDinner() == null){
+                item.setDinner(list);
+            }
+
+            if (item.getSnack() == null){
+                item.setSnack(list);
+            }
+        }
+
+        Log.d("worker", "return: ");
+        return recipes;
     }
 
     public void searchAndShow(CharSequence s) {

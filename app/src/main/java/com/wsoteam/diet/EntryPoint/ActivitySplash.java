@@ -37,9 +37,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.wsoteam.diet.ABConfig;
+import com.wsoteam.diet.Activism.POJO.Factory;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Amplitude.SetUserProperties;
+import com.wsoteam.diet.Articles.ItemArticleActivity;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
 import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.Config;
@@ -55,7 +57,9 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-
+import com.wsoteam.diet.tvoytrener.ForTestFragmentActivity;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.List;
 
@@ -83,6 +87,8 @@ public class ActivitySplash extends Activity {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
 
+
+//        startActivity(new Intent(this, ForTestFragmentActivity.class));
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         checkFirstLaunch();

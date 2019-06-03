@@ -3,7 +3,7 @@ package com.wsoteam.diet;
 public class Config {
 
     public static final boolean RELEASE = true;
-    //public static final boolean RELEASE = false;
+//    public static final boolean RELEASE = false;
 
     public static final String ID_OF_RECIPE_GROUPS = "id_of_recipe_groups";
     public static final String YANDEX_API_KEY = "8e2511af-4c77-48f5-bb85-5079916b7416";
@@ -17,6 +17,8 @@ public class Config {
     //Recipes
     public static final String RECIPES_BUNDLE = "RECIPES_BUNDLE";
     public static final String RECIPE_INTENT = "RECIPE_INTENT";
+
+    public static final String ARTICLE_INTENT = "ARTICLE_INTENT";
 
     //Diary rewrite
     public static final String TAG_OF_REWRITE = "TAG_OF_REWRITE";

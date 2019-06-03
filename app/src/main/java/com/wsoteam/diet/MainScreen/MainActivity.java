@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Articles.ListArticlesFragment;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.CFood;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
@@ -70,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.bnv_main_articles:
                     box.setComeFrom(AmplitudaEvents.view_prem_content);
                     box.setBuyFrom(AmplitudaEvents.buy_prem_content);
+
+                    if(Config.RELEASE){
                     if (checkSubscribe()) {
                         transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
@@ -86,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         window.setStatusBarColor(Color.parseColor("#747d3b"));
+                    }} else {
+                        transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();
                     }
                     return true;
                 case R.id.bnv_main_trainer:

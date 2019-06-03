@@ -6,8 +6,8 @@ android {
         applicationId "com.wild.diet"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 61
-        versionName "2.6.22"
+        versionCode 72
+        versionName "2.6.30"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -37,6 +37,7 @@ android {
 repositories {
     jcenter()
     mavenCentral()
+    maven { url 'https://github.com/500px/500px-android-blur/raw/master/releases/' }
 }
 ext {
     supportLibrary = "28.0.0"
@@ -91,6 +92,9 @@ dependencies {
     /*implementation 'com.bugsee:bugsee-android:+'*/
 
     compile 'com.google.apis:google-api-services-androidpublisher:v2-rev159-1.25.0'
+
+    implementation 'org.sufficientlysecure:html-textview:3.6'
+
 
 }
 
