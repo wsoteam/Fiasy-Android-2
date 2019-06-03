@@ -162,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         checkForcedGrade();
         new AsyncWriteFoodaDB().execute(this);
-        Log.e("LOL", String.valueOf("sdfsdfsf а".split(" ").length));
     }
 
 
