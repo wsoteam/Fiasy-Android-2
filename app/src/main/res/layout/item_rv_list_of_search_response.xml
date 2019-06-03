@@ -47,7 +47,7 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBrand" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNameOfFood" />
 
     <TextView
         android:id="@+id/tvProt"
@@ -108,16 +108,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvWeight" />
 
-    <TextView
-        android:id="@+id/tvBrand"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/roboto_light"
-        android:text="TextView"
-        android:textColor="@color/black"
-        android:textSize="11sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNameOfFood" />
 </android.support.constraint.ConstraintLayout>

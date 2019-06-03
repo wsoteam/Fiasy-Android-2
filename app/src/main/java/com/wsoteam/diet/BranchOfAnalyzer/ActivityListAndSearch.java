@@ -122,7 +122,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
         @BindView(R.id.tvProt) TextView tvProt;
         @BindView(R.id.tvFats) TextView tvFats;
         @BindView(R.id.tvCarbo) TextView tvCarbo;
-        @BindView(R.id.tvBrand) TextView tvBrand;
 
         public ItemHolder(LayoutInflater layoutInflater, ViewGroup viewGroup) {
             super(layoutInflater.inflate(R.layout.item_rv_list_of_search_response, viewGroup, false));
@@ -139,19 +138,17 @@ public class ActivityListAndSearch extends AppCompatActivity {
             startActivity(intent);
         }
 
-        public void bind(CFood cFood, boolean isItemForSeparator) {
-            tvNameOfFood.setText(cFood.getName());
+        public void bind(CFood cFood) {
+            tvNameOfFood.setText(cFood.getName().replace("()", ""));
             tvCalories.setText(String.valueOf(Math.round(cFood.getCalories() * 100)) + " Ккал");
             if (cFood.isLiquid()) {
                 tvWeight.setText("Вес: 100мл");
             } else {
                 tvWeight.setText("Вес: 100г");
             }
-
             tvProt.setText("Б. " + String.valueOf(Math.round(cFood.getProteins() * 100)));
             tvFats.setText("Ж. " + String.valueOf(Math.round(cFood.getFats() * 100)));
             tvCarbo.setText("У. " + String.valueOf(Math.round(cFood.getCarbohydrates() * 100)));
-            tvBrand.setText(String.valueOf(getAdapterPosition()));
         }
     }
 
@@ -172,7 +169,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
-            holder.bind(foods.get(position), false);
+            holder.bind(foods.get(position));
         }
 
         @Override
@@ -231,7 +228,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
             super.onPostExecute(cFoods);
             itemAdapter = new ItemAdapter(recievedListFood);
             rvListOfSearchResponse.setAdapter(itemAdapter);
-            Log.e("LOL", String.valueOf(recievedListFood.size()) + "first");
         }
     }
 
@@ -266,7 +262,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
             if (cFoods.size() > RESPONSE_LIMIT) {
                 itemAdapter.setSecondPortion(recievedListFood.subList(100, recievedListFood.size() - 1));
             }
-            Log.e("LOL", String.valueOf(recievedListFood.size()) + "second");
         }
     }
 
