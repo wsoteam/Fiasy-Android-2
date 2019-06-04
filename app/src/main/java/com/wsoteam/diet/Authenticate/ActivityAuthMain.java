@@ -7,15 +7,12 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.content.res.AppCompatResources;
-import android.text.InputFilter;
-import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,9 +22,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
-import com.amplitude.api.Amplitude;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -64,19 +58,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EventsAdjust;
-import com.wsoteam.diet.InApp.ActivitySubscription;
-import com.wsoteam.diet.Onboard.SleepActivity;
-import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
+import com.wsoteam.diet.InApp.ActivitySubscription;
+import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
-import java.text.Bidi;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ActivityAuthMain extends AppCompatActivity implements View.OnClickListener {
 
@@ -391,7 +380,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     }
 
     private void signInGoogle() {
-
         try {
             if (!isPP()) {
                 return;
@@ -407,15 +395,12 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         } catch (Exception e){
             toast(e);
         }
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         try {
-
 
             // Pass the activity result back to the Facebook SDK
             callbackManager.onActivityResult(requestCode, resultCode, data);

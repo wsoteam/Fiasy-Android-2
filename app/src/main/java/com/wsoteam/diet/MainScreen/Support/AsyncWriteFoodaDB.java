@@ -3,9 +3,7 @@ package com.wsoteam.diet.MainScreen.Support;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.orm.SugarContext;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.CFood;
 
 import java.io.FileOutputStream;
@@ -14,13 +12,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class AsyncWriteFoodaDB extends AsyncTask<Context, Void, Void> {
+    private static final String TAG = "AsyncWriteFoodaDB";
     private String packageName = "com.wild.diet";
 
     @Override
     protected Void doInBackground(Context... contexts) {
         if (isEmptyDB()) {
+            Log.d(TAG, "Start rewrite");
             rewriteDB(contexts[0]);
-            Log.e("LOL", "start rewrite db");
         }
         return null;
     }
@@ -39,9 +38,11 @@ public class AsyncWriteFoodaDB extends AsyncTask<Context, Void, Void> {
             outputStream.flush();
             outputStream.close();
             myInput.close();
-            SugarContext.init(context);
+            Log.d(TAG, "DB rewrited");
+
         } catch (IOException e) {
-            Log.e("LOL", e.toString());
+            Log.d(TAG, e.toString());
+            e.printStackTrace();
         }
     }
 

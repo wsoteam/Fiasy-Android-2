@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+    buildToolsVersion '27.0.3'
+
     defaultConfig {
         applicationId "com.wild.diet"
         minSdkVersion 21
@@ -16,13 +18,19 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            signingConfig signingConfigs.debug
+        }
     }
-    buildToolsVersion '27.0.3'
+
+    signingConfigs {
+        debug {
+            storeFile file("debug.keystore")
+        }
+    }
 
     lintOptions {
-
         checkReleaseBuilds false
-
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -91,7 +99,7 @@ dependencies {
 
     /*implementation 'com.bugsee:bugsee-android:+'*/
 
-    compile 'com.google.apis:google-api-services-androidpublisher:v2-rev159-1.25.0'
+    implementation 'com.google.apis:google-api-services-androidpublisher:v2-rev159-1.25.0'
 
     implementation 'org.sufficientlysecure:html-textview:3.6'
 
