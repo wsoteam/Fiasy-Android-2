@@ -36,6 +36,7 @@ import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodaDB;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -162,8 +163,18 @@ public class MainActivity extends AppCompatActivity {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         checkForcedGrade();
         new AsyncWriteFoodaDB().execute(this);
+        //shuffle();
     }
 
+    private void shuffle() {
+        ArrayList<String> strings = new ArrayList<>();
+        strings.add("second");
+        strings.add("first");
+        strings.add(0, "third");
+        for (int i = 0; i < strings.size(); i++) {
+            Log.e("LOL", strings.get(i));
+        }
+    }
 
     private void checkForcedGrade() {
         if (getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false)) {
