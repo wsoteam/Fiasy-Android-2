@@ -36,6 +36,7 @@ import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodaDB;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -72,24 +73,25 @@ public class MainActivity extends AppCompatActivity {
                     box.setComeFrom(AmplitudaEvents.view_prem_content);
                     box.setBuyFrom(AmplitudaEvents.buy_prem_content);
 
-                    if(Config.RELEASE){
-                    if (checkSubscribe()) {
-                        transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
-                    } else {
-                        if (getABVersion().equals(ABConfig.C_VERSION)) {
-                            transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.
-                                    newInstance(box)).commit();
+                    if (Config.RELEASE) {
+                        if (checkSubscribe()) {
+                            transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                         } else {
-                            if (getABVersion().equals(ABConfig.A_VERSION)) {
-                                transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.
+                            if (getABVersion().equals(ABConfig.C_VERSION)) {
+                                transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.
                                         newInstance(box)).commit();
                             } else {
-                                transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenOneButton.
-                                        newInstance(box)).commit();
+                                if (getABVersion().equals(ABConfig.A_VERSION)) {
+                                    transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.
+                                            newInstance(box)).commit();
+                                } else {
+                                    transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenOneButton.
+                                            newInstance(box)).commit();
+                                }
                             }
+                            window.setStatusBarColor(Color.parseColor("#747d3b"));
                         }
-                        window.setStatusBarColor(Color.parseColor("#747d3b"));
-                    }} else {
+                    } else {
                         transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();
                     }
                     return true;
@@ -162,8 +164,23 @@ public class MainActivity extends AppCompatActivity {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         checkForcedGrade();
         new AsyncWriteFoodaDB().execute(this);
+        //shuffle();
     }
 
+    private void shuffle() {
+        Log.e("LOL", "START");
+        List<CFood> cFoods = CFood.listAll(CFood.class);
+        Log.e("LOL", String.valueOf(cFoods.size()));
+        int count = 0;
+        for (int i = 0; i < cFoods.size(); i++) {
+            String info = cFoods.get(i).getName() + " (" + cFoods.get(i).getBrend() + ")";
+            cFoods.get(i).setUrl(info);
+            cFoods.get(i).save();
+            count += 1;
+            Log.e("LOL", String.valueOf(count));
+        }
+        Log.e("LOL", "FIN");
+    }
 
     private void checkForcedGrade() {
         if (getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false)) {

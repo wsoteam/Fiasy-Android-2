@@ -232,7 +232,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 //                    startPrem();
 
-
                     if (createUser && mAuth.getCurrentUser().getProviders().size() > 0) {
                         AmplitudaEvents.logEventReg(mAuth.getCurrentUser().getProviders().get(0));
                     } else {
@@ -382,7 +381,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     }
 
     private void signInGoogle() {
-
         try {
             if (!isPP()) {
                 return;
@@ -393,7 +391,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
             Log.d(TAG, "signInGoogle: 2");
             Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-//            signInIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivityForResult(signInIntent, RC_SIGN_IN);
             Log.d(TAG, "signInGoogle: 3");
         } catch (Exception e){
@@ -408,7 +405,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         Log.d(TAG, "onActivityResult: 1");
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: 2");
-        
+
             // Pass the activity result back to the Facebook SDK
             callbackManager.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: 3");

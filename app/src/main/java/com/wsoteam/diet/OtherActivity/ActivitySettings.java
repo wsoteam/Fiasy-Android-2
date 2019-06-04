@@ -44,6 +44,8 @@ public class ActivitySettings extends AppCompatActivity {
         ivBack = findViewById(R.id.ivBack);
         btnHarvest = findViewById(R.id.harvest);
         btnRefresh = findViewById(R.id.refresh);
+        btnHarvest.setVisibility(View.GONE);
+        btnRefresh.setVisibility(View.GONE);
         handleSwitch();
 
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_settings);
