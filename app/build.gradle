@@ -91,10 +91,9 @@ dependencies {
 
     /*implementation 'com.bugsee:bugsee-android:+'*/
 
-    compile 'com.google.apis:google-api-services-androidpublisher:v2-rev159-1.25.0'
+    implementation 'com.google.apis:google-api-services-androidpublisher:v2-rev159-1.25.0'
 
     implementation 'org.sufficientlysecure:html-textview:3.6'
-
 
 }
 

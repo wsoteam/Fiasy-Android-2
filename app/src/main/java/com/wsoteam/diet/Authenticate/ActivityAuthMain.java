@@ -7,15 +7,12 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.content.res.AppCompatResources;
-import android.text.InputFilter;
-import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,9 +22,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
-import com.amplitude.api.Amplitude;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -41,6 +35,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -64,19 +59,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EventsAdjust;
-import com.wsoteam.diet.InApp.ActivitySubscription;
-import com.wsoteam.diet.Onboard.SleepActivity;
-import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
+import com.wsoteam.diet.InApp.ActivitySubscription;
+import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
-import java.text.Bidi;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ActivityAuthMain extends AppCompatActivity implements View.OnClickListener {
 
@@ -242,6 +232,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 //                    startPrem();
 
+
                     if (createUser && mAuth.getCurrentUser().getProviders().size() > 0) {
                         AmplitudaEvents.logEventReg(mAuth.getCurrentUser().getProviders().get(0));
                     } else {
@@ -402,6 +393,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
             Log.d(TAG, "signInGoogle: 2");
             Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+//            signInIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivityForResult(signInIntent, RC_SIGN_IN);
             Log.d(TAG, "signInGoogle: 3");
         } catch (Exception e){
@@ -412,36 +404,39 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.d(TAG, "onActivityResult: 1");
         super.onActivityResult(requestCode, resultCode, data);
-
-        try {
-
-
+        Log.d(TAG, "onActivityResult: 2");
+        
             // Pass the activity result back to the Facebook SDK
             callbackManager.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: 3");
 
             // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
             if (requestCode == RC_SIGN_IN) {
+                Log.d(TAG, "onActivityResult: 4");
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                Log.d(TAG, "onActivityResult: 5");
                 try {
                     // Google Sign In was successful, authenticate with Firebase
+                    Log.d(TAG, "onActivityResult: 6");
                     GoogleSignInAccount account = task.getResult(ApiException.class);
+                    Log.d(TAG, "onActivityResult: 6.1");
                     firebaseAuthWithGoogle(account);
+                    Log.d(TAG, "onActivityResult: 6.2");
                 } catch (ApiException e) {
                     // Google Sign In failed, update UI appropriately
                     Log.d(TAG, "Google sign in failed", e);
                     // ...
                 }
             }
-        } catch (Exception e){
-            toast(e);
-        }
+        Log.d(TAG, "onActivityResult: finish");
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
-        try {
             AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
             mAuth.signInWithCredential(credential)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -459,15 +454,12 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                             // ...
                         }
                     });
-        }catch (Exception  e) {
-            toast(e);
-        }
+
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
-        try {
             AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
             mAuth.signInWithCredential(credential)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -485,13 +477,9 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
                         }
                     });
-        }catch (Exception e){
-            toast(e);
-        }
     }
 
     private void signIn(String email, String password) {
-        try {
             Log.d(TAG, "signIn:" + email);
             if (email.matches("")) {
                 Toast.makeText(ActivityAuthMain.this, "Пропущен email!", Toast.LENGTH_SHORT).show();
@@ -525,26 +513,19 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                             }
                         }
                     });
-        }catch (Exception e){
-            toast(e);
-        }
+
     }
 
     private void signOutAll() {
-        try {
             Log.d(TAG, "signOutAll: ");
             mAuth.signOut();
             LoginManager.getInstance().logOut();
             mGoogleSignInClient.signOut();
 
-        } catch (Exception e){
-            toast(e);
-        }
     }
 
     private void createAccount(String email, String password) {
 
-        try {
             Log.d(TAG, "createAccount:" + email);
             if (email.matches("")) {
                 Toast.makeText(ActivityAuthMain.this, "Пропущен email!", Toast.LENGTH_SHORT).show();
@@ -599,14 +580,10 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
                         }
                     });
-        }catch (Exception e) {
-            toast(e);
-        }
+
     }
 
     private void checkUserExist(String uid) {
-
-        try {
 
             ValueEventListener postListener = new ValueEventListener() {
                 @Override
@@ -629,15 +606,10 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
             mDatabase.child(uid).child("profile").addListenerForSingleValueEvent(postListener);
 
-        } catch (Exception e) {
-            toast(e);
-        }
-
     }
 
     private void checkProfile(Profile profile) {
 
-        try {
             if (alertDialogPhone != null) {
                 alertDialogPhone.dismiss();
             }
@@ -668,10 +640,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                 startActivity(intent);
                 finish();
             }
-        } catch (Exception e){
-            toast(e);
-        }
-
     }
 
     @Override
@@ -690,7 +658,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
     private void phoneAuth() {
 
-        try {
             isSendCode = false;
 
             View view = getLayoutInflater().inflate(R.layout.alert_dialog_phone_auth, null);
@@ -745,15 +712,11 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
             cancelButton.setOnClickListener(listener);
             okButton.setOnClickListener(listener);
-        }catch (Exception e){
-            toast(e);
-        }
 
     }
 
     private void startPhoneNumberVerification(String phoneNumber) {
 
-        try {
             // [START start_phone_auth]
             Log.d(TAG, "startPhoneNumberVerification: " + phoneNumber);
             PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -763,21 +726,14 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                     this,               // Activity (for callback binding)
                     mCallbacks);        // OnVerificationStateChangedCallbacks
             // [END start_phone_auth]
-        }catch (Exception e) {
-            toast(e);
-        }
     }
 
     private void verifyPhoneNumberWithCode(String verificationId, String code) {
 
-        try{
         // [START verify_with_code]
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
         // [END verify_with_code]
         signInWithPhoneAuthCredential(credential);
-    }catch (Exception e){
-            toast(e);
-        }
     }
 
     // [START resend_verification]
@@ -796,7 +752,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     // [START sign_in_with_phone]
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
 
-        try {
             mAuth.signInWithCredential(credential)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -825,9 +780,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                             }
                         }
                     });
-        }catch (Exception e) {
-            toast(e);
-        }
     }
     // [END sign_in_with_phone]
 
