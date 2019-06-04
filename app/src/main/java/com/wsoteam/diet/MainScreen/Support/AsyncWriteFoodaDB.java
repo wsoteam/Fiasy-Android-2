@@ -3,7 +3,6 @@ package com.wsoteam.diet.MainScreen.Support;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.CFood;
 
@@ -13,12 +12,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class AsyncWriteFoodaDB extends AsyncTask<Context, Void, Void> {
+    private static final String TAG = "AsyncWriteFoodaDB";
     private String packageName = "com.wild.diet";
 
     @Override
     protected Void doInBackground(Context... contexts) {
         if (isEmptyDB()) {
-            Toast.makeText(contexts[0], "Start rewrite", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Start rewrite");
             rewriteDB(contexts[0]);
         }
         return null;
@@ -38,10 +38,10 @@ public class AsyncWriteFoodaDB extends AsyncTask<Context, Void, Void> {
             outputStream.flush();
             outputStream.close();
             myInput.close();
-            Toast.makeText(context, "DB rewrited", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "DB rewrited");
 
         } catch (IOException e) {
-            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
+            Log.d(TAG, e.toString());
             e.printStackTrace();
         }
     }
