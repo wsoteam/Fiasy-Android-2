@@ -15,6 +15,8 @@ import com.wsoteam.diet.EventsAdjust;
 import com.yandex.metrica.YandexMetrica;
 import com.yandex.metrica.YandexMetricaConfig;
 
+import io.intercom.android.sdk.Intercom;
+
 public class Diet extends Application {
 
     @Override
@@ -32,6 +34,7 @@ public class Diet extends Application {
         Amplitude.getInstance().trackSessionEvents(true);
         Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
                 .enableForegroundTracking(this);
+        Intercom.initialize(this, "android_sdk-bceadc40bc17510359f5ad43a72281735676eea2", "dr8zfmz4");
 
         //SetUserProperties.setUserProperties(Adjust.getAttribution());
     }
