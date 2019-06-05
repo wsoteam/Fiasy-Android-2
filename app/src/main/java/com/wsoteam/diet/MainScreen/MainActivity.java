@@ -10,7 +10,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -18,11 +17,12 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Articles.ListArticlesFragment;
 import com.wsoteam.diet.Authenticate.POJO.Box;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.CFood;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
@@ -35,14 +35,16 @@ import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodaDB;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
+import com.wsoteam.diet.Sync.UserDataHolder;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.intercom.android.sdk.Intercom;
+import io.intercom.android.sdk.UserAttributes;
+import io.intercom.android.sdk.identity.Registration;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.flFragmentContainer) FrameLayout flFragmentContainer;
@@ -164,22 +166,16 @@ public class MainActivity extends AppCompatActivity {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         checkForcedGrade();
         new AsyncWriteFoodaDB().execute(this);
-        //shuffle();
+        intercom();
     }
 
-    private void shuffle() {
-        Log.e("LOL", "START");
-        List<CFood> cFoods = CFood.listAll(CFood.class);
-        Log.e("LOL", String.valueOf(cFoods.size()));
-        int count = 0;
-        for (int i = 0; i < cFoods.size(); i++) {
-            String info = cFoods.get(i).getName() + " (" + cFoods.get(i).getBrend() + ")";
-            cFoods.get(i).setUrl(info);
-            cFoods.get(i).save();
-            count += 1;
-            Log.e("LOL", String.valueOf(count));
-        }
-        Log.e("LOL", "FIN");
+    private void intercom() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        UserAttributes userAttributes = new UserAttributes.Builder()
+                .withName(UserDataHolder.getUserData().getProfile().getFirstName())
+                .withEmail(currentUser.getEmail())
+                .build();
+        Intercom.client().updateUser(userAttributes);
     }
 
     private void checkForcedGrade() {
