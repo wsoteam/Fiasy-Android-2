@@ -204,9 +204,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
                 Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
 //                    startPrem();
 
-                Log.d("MyLogs", "DATA size - " + mAuth.getCurrentUser().getProviderData().size());
                 if (createUser && mAuth.getCurrentUser().getProviderData().size() > 0) {
-                    Log.d("MyLogs", "DATA - " + mAuth.getCurrentUser().getProviderData().get(0).toString());
                     AmplitudaEvents.logEventReg(mAuth.getCurrentUser().getProviderData().get(0).toString());
                 } else {
                     AmplitudaEvents.logEventReg("unknown");

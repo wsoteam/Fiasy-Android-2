@@ -27,7 +27,7 @@ public class AsyncWriteFoodaDB extends AsyncTask<Context, Void, Void> {
     private void rewriteDB(Context context) {
         try {
             InputStream myInput = context.getAssets().open("FoodDB.db");
-            String outFileName = "/data/data/" + packageName + "/databases/" + "foodBase.db";
+            String outFileName = context.getFilesDir().getParent() + "/databases/" + "foodBase.db";
             OutputStream outputStream = new FileOutputStream(outFileName);
 
             byte[] buffer = new byte[1024];
@@ -49,7 +49,7 @@ public class AsyncWriteFoodaDB extends AsyncTask<Context, Void, Void> {
     private boolean isEmptyDB() {
         boolean isEmpty = true;
         CFood cFood = CFood.first(CFood.class);
-        if (cFood != null){
+        if (cFood != null) {
             isEmpty = false;
         }
         return isEmpty;
