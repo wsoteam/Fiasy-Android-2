@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/main.appbar"
@@ -38,7 +37,7 @@
                     android:text="Поиск"
                     android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="@+id/cardView3"
-                    app:layout_constraintTop_toBottomOf="@+id/ivBack" />
+                    app:layout_constraintTop_toBottomOf="@+id/ivBack"/>
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cardView3"
@@ -58,8 +57,8 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:focusableInTouchMode="true"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:focusableInTouchMode="true">
 
                         <EditText
                             android:id="@+id/edtActivityListAndSearchCollapsingSearchField"
@@ -74,8 +73,10 @@
                             android:background="@color/transparent"
                             android:drawableLeft="@drawable/ic_search"
                             android:drawablePadding="4dp"
+                            android:maxLines="1"
+                            android:singleLine="true"
                             android:textColor="@color/black"
-                            android:textColorHint="@color/light_gray" />
+                            android:textColorHint="@color/light_gray"/>
 
                         <ImageView
                             android:id="@+id/ibActivityListAndSearchCollapsingCancelButton"
@@ -88,7 +89,7 @@
                             android:src="@drawable/ic_cancel"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"/>
                     </FrameLayout>
                 </android.support.v7.widget.CardView>
 
@@ -100,19 +101,19 @@
                     android:layout_marginTop="4dp"
                     android:spinnerMode="dropdown"
                     app:layout_constraintStart_toEndOf="@+id/ivBack"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <ImageView
                     android:id="@+id/ivBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="8dp"
                     android:paddingLeft="16dp"
-                    android:paddingBottom="16dp"
+                    android:paddingTop="8dp"
                     android:paddingRight="16dp"
+                    android:paddingBottom="16dp"
                     android:src="@drawable/food_search_back"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     android:id="@+id/tvIndex"
@@ -122,7 +123,7 @@
                     android:textColor="@color/white"
                     android:textSize="8sp"
                     app:layout_constraintBottom_toTopOf="@+id/textView58"
-                    app:layout_constraintStart_toEndOf="@+id/textView58" />
+                    app:layout_constraintStart_toEndOf="@+id/textView58"/>
             </android.support.constraint.ConstraintLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -135,10 +136,10 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/rvListOfSearchResponse"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                                                android:id="@+id/rvListOfSearchResponse"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         <ImageView
             android:id="@+id/ivActivityListAndSearchEmptyImage"
@@ -153,7 +154,7 @@
             android:src="@drawable/ic_search_empty_screen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/rvListOfSearchResponse" />
+            app:layout_constraintTop_toTopOf="@+id/rvListOfSearchResponse"/>
 
         <TextView
             android:id="@+id/tvActivityListAndSearchEmptyText"
@@ -168,7 +169,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/ivActivityListAndSearchEmptyImage"
             app:layout_constraintStart_toStartOf="@+id/ivActivityListAndSearchEmptyImage"
-            app:layout_constraintTop_toBottomOf="@+id/ivActivityListAndSearchEmptyImage" />
+            app:layout_constraintTop_toBottomOf="@+id/ivActivityListAndSearchEmptyImage"/>
 
 
     </android.support.constraint.ConstraintLayout>

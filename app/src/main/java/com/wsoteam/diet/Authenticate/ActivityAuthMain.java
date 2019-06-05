@@ -1,14 +1,12 @@
 package com.wsoteam.diet.Authenticate;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +15,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,13 +32,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -73,13 +67,10 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
     private static final String TAG = "Authenticate";
     private static final int RC_SIGN_IN = 9001;
-    private boolean isAcceptedPrivacyPolicy = false;
-
-    private boolean createUser;
     AlertDialog alertDialogPhone;
-
     boolean isSendCode = false;
-
+    private boolean isAcceptedPrivacyPolicy = false;
+    private boolean createUser;
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -109,7 +100,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     private Intent intent;
 
     public int dpToPx(int dp) {
-        float density = ((Context)this).getResources()
+        float density = ((Context) this).getResources()
                 .getDisplayMetrics()
                 .density;
         return Math.round((float) dp * density);
@@ -120,7 +111,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth_main);
 
-        createUser = (boolean) getIntent().getBooleanExtra("createUser", false);
+        createUser = getIntent().getBooleanExtra("createUser", false);
 
         findViewById(R.id.auth_main_btn_signin).setOnClickListener(this);
 
@@ -148,49 +139,32 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         googleCustomButton.setCompoundDrawables(show, null, null, null);
 
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        backButton.setOnClickListener(view -> onBackPressed());
 
-        ppCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                isAcceptedPrivacyPolicy = b;
-                if (b) checkPPTextView.setTextColor(Color.parseColor("#A63A3A3A"));
-            }
+        ppCheckBox.setOnCheckedChangeListener((compoundButton, b) -> {
+            isAcceptedPrivacyPolicy = b;
+            if (b) checkPPTextView.setTextColor(Color.parseColor("#A63A3A3A"));
         });
         ppCheckBox.performClick();
 
-
         checkPPTextView.setOnClickListener(this);
 
-        googleCustomButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signInGoogle();
-            }
-        });
+        googleCustomButton.setOnClickListener(view -> signInGoogle());
 
-        facebookCustomButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isPP()) {
-                    facebookLoginButton.performClick();
-                }
+        facebookCustomButton.setOnClickListener(view -> {
+            if (isPP()) {
+                facebookLoginButton.performClick();
             }
         });
 
         if (createUser) {
             //first enter and need show onboard
-            if (!getIntent().getSerializableExtra(Config.TAG_BOX).equals(null)) {
+            if (getIntent().getSerializableExtra(Config.TAG_BOX) != null) {
                 Box box = (Box) getIntent().getSerializableExtra(Config.TAG_BOX);
                 box.setProfile((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
                 intent = new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box)
                         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            }else {
+            } else {
                 intent = new Intent(this, ActivitySplash.class).
                         putExtra(Config.INTENT_PROFILE, getIntent().getSerializableExtra(Config.INTENT_PROFILE))
                         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -223,36 +197,35 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         callbackManager = CallbackManager.Factory.create();
         mAuth = FirebaseAuth.getInstance();
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+        mAuthListener = firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user != null) {
+                // User is signed in
+                Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
 //                    startPrem();
 
-                    if (createUser && mAuth.getCurrentUser().getProviders().size() > 0) {
-                        AmplitudaEvents.logEventReg(mAuth.getCurrentUser().getProviders().get(0));
-                    } else {
-                        AmplitudaEvents.logEventReg("unknown");
-                    }
-
-                    if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
-                        WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
-                    }
-
-                    if(createUser){
-                        startActivity(intent);
-                    } else {
-                        checkUserExist(user.getUid());
-                    }
-
-
+                Log.d("MyLogs", "DATA size - " + mAuth.getCurrentUser().getProviderData().size());
+                if (createUser && mAuth.getCurrentUser().getProviderData().size() > 0) {
+                    Log.d("MyLogs", "DATA - " + mAuth.getCurrentUser().getProviderData().get(0).toString());
+                    AmplitudaEvents.logEventReg(mAuth.getCurrentUser().getProviderData().get(0).toString());
                 } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    AmplitudaEvents.logEventReg("unknown");
                 }
+
+                Log.d("MyLogs", "PROFILE - " + getIntent().getSerializableExtra(Config.INTENT_PROFILE));
+                if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
+                    WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
+                }
+
+                if (createUser) {
+                    startActivity(intent);
+                } else {
+                    checkUserExist(user.getUid());
+                }
+
+            } else {
+                // User is signed out
+                Log.d(TAG, "onAuthStateChanged:signed_out");
             }
         };
 
@@ -393,7 +366,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
             Intent signInIntent = mGoogleSignInClient.getSignInIntent();
             startActivityForResult(signInIntent, RC_SIGN_IN);
             Log.d(TAG, "signInGoogle: 3");
-        } catch (Exception e){
+        } catch (Exception e) {
             toast(e);
         }
 
@@ -401,242 +374,212 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         Log.d(TAG, "onActivityResult: 1");
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: 2");
 
-            // Pass the activity result back to the Facebook SDK
-            callbackManager.onActivityResult(requestCode, resultCode, data);
+        // Pass the activity result back to the Facebook SDK
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: 3");
 
-            // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-            if (requestCode == RC_SIGN_IN) {
-                Log.d(TAG, "onActivityResult: 4");
-                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                Log.d(TAG, "onActivityResult: 5");
-                try {
-                    // Google Sign In was successful, authenticate with Firebase
-                    Log.d(TAG, "onActivityResult: 6");
-                    GoogleSignInAccount account = task.getResult(ApiException.class);
-                    Log.d(TAG, "onActivityResult: 6.1");
-                    firebaseAuthWithGoogle(account);
-                    Log.d(TAG, "onActivityResult: 6.2");
-                } catch (ApiException e) {
-                    // Google Sign In failed, update UI appropriately
-                    Log.d(TAG, "Google sign in failed", e);
-                    // ...
-                }
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            Log.d(TAG, "onActivityResult: 4");
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            Log.d(TAG, "onActivityResult: 5");
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                Log.d(TAG, "onActivityResult: 6");
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                Log.d(TAG, "onActivityResult: 6.1");
+                firebaseAuthWithGoogle(account);
+                Log.d(TAG, "onActivityResult: 6.2");
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+                Log.d(TAG, "Google sign in failed", e);
+                // ...
             }
+        }
         Log.d(TAG, "onActivityResult: finish");
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
-            AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-            mAuth.signInWithCredential(credential)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "signInWithCredential:success");
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithCredential:success");
 
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            }
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                    }
 
-                            // ...
-                        }
-                    });
+                    // ...
+                });
 
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
-            AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-            mAuth.signInWithCredential(credential)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "signInWithCredential:success");
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithCredential:success");
 
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "signInWithCredential:failure", task.getException());
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
 
-                            }
+                    }
 
-                        }
-                    });
+                });
     }
 
     private void signIn(String email, String password) {
-            Log.d(TAG, "signIn:" + email);
-            if (email.matches("")) {
-                Toast.makeText(ActivityAuthMain.this, "Пропущен email!", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "signIn: fail valid");
-                return;
-            } else if (!Valid.isValidEmail(email)) {
-                Toast.makeText(ActivityAuthMain.this, "Проверь введенный email!", Toast.LENGTH_SHORT).show();
-                return;
-            } else if (password.matches("")) {
+        Log.d(TAG, "signIn:" + email);
+        if (email.matches("")) {
+            Toast.makeText(ActivityAuthMain.this, "Пропущен email!", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "signIn: fail valid");
+            return;
+        } else if (!Valid.isValidEmail(email)) {
+            Toast.makeText(ActivityAuthMain.this, "Проверь введенный email!", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (password.matches("")) {
 
-                Toast.makeText(ActivityAuthMain.this, "Пропущен пароль!", Toast.LENGTH_SHORT).show();
-                return;
-            }
+            Toast.makeText(ActivityAuthMain.this, "Пропущен пароль!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                Log.d(TAG, "signInWithEmail:success " + user.getEmail());
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        Log.d(TAG, "signInWithEmail:success " + user.getEmail());
 
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "signInWithEmail:failure ", task.getException());
-                            }
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithEmail:failure ", task.getException());
+                    }
 
-                            if (!task.isSuccessful()) {
-                                Log.d(TAG, "auth_failed ");
-                            }
-                        }
-                    });
+                    if (!task.isSuccessful()) {
+                        Log.d(TAG, "auth_failed ");
+                    }
+                });
 
     }
 
     private void signOutAll() {
-            Log.d(TAG, "signOutAll: ");
-            mAuth.signOut();
-            LoginManager.getInstance().logOut();
-            mGoogleSignInClient.signOut();
+        Log.d(TAG, "signOutAll: ");
+        mAuth.signOut();
+        LoginManager.getInstance().logOut();
+        mGoogleSignInClient.signOut();
 
     }
 
     private void createAccount(String email, String password) {
+        Log.d(TAG, "createAccount:" + email);
+        if (email.matches("")) {
+            Toast.makeText(ActivityAuthMain.this, "Пропущен email!", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "createAccount: fail valid");
+            return;
+        } else if (!Valid.isValidEmail(email)) {
+            Toast.makeText(ActivityAuthMain.this, "Проверь введенный email!", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (password.matches("")) {
 
-            Log.d(TAG, "createAccount:" + email);
-            if (email.matches("")) {
-                Toast.makeText(ActivityAuthMain.this, "Пропущен email!", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "createAccount: fail valid");
-                return;
-            } else if (!Valid.isValidEmail(email)) {
-                Toast.makeText(ActivityAuthMain.this, "Проверь введенный email!", Toast.LENGTH_SHORT).show();
-                return;
-            } else if (password.matches("")) {
+            Toast.makeText(ActivityAuthMain.this, "Пропущен пароль!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-                Toast.makeText(ActivityAuthMain.this, "Пропущен пароль!", Toast.LENGTH_SHORT).show();
-                return;
-            }
+        // [START create_user_with_email]
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "createUserWithEmail:success");
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
 
-            // [START create_user_with_email]
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "createUserWithEmail:success");
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
-
-                            }
-                            if (!task.isSuccessful()) {
-                                try {
-                                    throw task.getException();
-                                }
-                                // if user enters wrong email.
-                                catch (FirebaseAuthWeakPasswordException weakPassword) {
-                                    Log.d(TAG, "onComplete: weak_password");
-                                    Toast.makeText(ActivityAuthMain.this, "Слишком простой пароль!", Toast.LENGTH_SHORT).show();
-                                    // TODO: take your actions!
-                                }
-                                // if user enters wrong password.
-                                catch (FirebaseAuthInvalidCredentialsException malformedEmail) {
-                                    Log.d(TAG, "onComplete: malformed_email");
-
-                                    // TODO: Take your action
-                                } catch (FirebaseAuthUserCollisionException existEmail) {
-                                    Log.d(TAG, "onComplete: exist_email");
-                                    Toast.makeText(ActivityAuthMain.this, "email уже используется!", Toast.LENGTH_SHORT).show();
-                                    // TODO: Take your action
-                                } catch (Exception e) {
-                                    Log.d(TAG, "onComplete: " + e.getMessage());
-                                }
-                            }
-
-
+                    }
+                    if (!task.isSuccessful()) {
+                        try {
+                            throw task.getException();
                         }
-                    });
+                        // if user enters wrong email.
+                        catch (FirebaseAuthWeakPasswordException weakPassword) {
+                            Log.d(TAG, "onComplete: weak_password");
+                            Toast.makeText(ActivityAuthMain.this, "Слишком простой пароль!", Toast.LENGTH_SHORT).show();
+                            // TODO: take your actions!
+                        }
+                        // if user enters wrong password.
+                        catch (FirebaseAuthInvalidCredentialsException malformedEmail) {
+                            Log.d(TAG, "onComplete: malformed_email");
 
+                            // TODO: Take your action
+                        } catch (FirebaseAuthUserCollisionException existEmail) {
+                            Log.d(TAG, "onComplete: exist_email");
+                            Toast.makeText(ActivityAuthMain.this, "email уже используется!", Toast.LENGTH_SHORT).show();
+                            // TODO: Take your action
+                        } catch (Exception e) {
+                            Log.d(TAG, "onComplete: " + e.getMessage());
+                        }
+                    }
+                });
     }
 
     private void checkUserExist(String uid) {
+        Log.d(TAG, "User uid: " + uid);
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("MyLogs", "Data1 - " + dataSnapshot.toString());
+                profile = dataSnapshot.getValue(Profile.class);
+                checkProfile(profile);
+                if (profile != null)
+                    Log.d(TAG, "onDataChange: " + profile.getLastName());
+            }
 
-            ValueEventListener postListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    // Get Post object and use the values to update the UI
-//            Post post = dataSnapshot.getValue(Post.class);
-                    profile = dataSnapshot.getValue(Profile.class);
-                    checkProfile(profile);
-                    if (profile != null)
-                        Log.d(TAG, "onDataChange: " + profile.getLastName());
-                }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        };
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // Getting Post failed, log a message
-                    Log.d(TAG, "loadPost:onCancelled", databaseError.toException());
-                    // ...
-                }
-            };
-
-            mDatabase.child(uid).child("profile").addListenerForSingleValueEvent(postListener);
-
+        mDatabase.child(uid).child("profile").addListenerForSingleValueEvent(postListener);
     }
 
     private void checkProfile(Profile profile) {
+        if (alertDialogPhone != null) {
+            alertDialogPhone.dismiss();
+        }
 
-            if (alertDialogPhone != null) {
-                alertDialogPhone.dismiss();
+        if (profile == null) {
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(getString(R.string.auth_main_alert_title))
+                    .setMessage(getString(R.string.auth_main_alert_body))
+                    .setPositiveButton(getString(R.string.auth_main_alert_ok), (dialog, which) -> signOutAll())
+                    .show();
+
+            Log.d(TAG, "checkUserExist: false");
+        } else {
+            if (isPP() && createUser) {
+                Log.d(TAG, "logEvent: acept_police");
+
             }
-
-            if (profile == null) {
-                new AlertDialog.Builder(this)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle(getString(R.string.auth_main_alert_title))
-                        .setMessage(getString(R.string.auth_main_alert_body))
-                        .setPositiveButton(getString(R.string.auth_main_alert_ok), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                signOutAll();
-                            }
-
-                        })
-                        .show();
-
-                Log.d(TAG, "checkUserExist: false");
-
-            } else {
-
-                if (isPP() && createUser) {
-                    Log.d(TAG, "logEvent: acept_police");
-
-                }
-                Log.d(TAG, "checkUserExist: true");
-                startActivity(intent);
-                finish();
-            }
+            Log.d(TAG, "checkUserExist: true");
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override
@@ -654,79 +597,69 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     }
 
     private void phoneAuth() {
+        isSendCode = false;
 
-            isSendCode = false;
+        View view = getLayoutInflater().inflate(R.layout.alert_dialog_phone_auth, null);
 
-            View view = getLayoutInflater().inflate(R.layout.alert_dialog_phone_auth, null);
-
-            TextView infoTextView = view.findViewById(R.id.auth_phone_tv);
-            EditText phoneNumberEditText = view.findViewById(R.id.auth_phone_et_number);
-            EditText codeEditText = view.findViewById(R.id.auth_phone_et_code);
-            Button okButton = view.findViewById(R.id.auth_phone_btn_ok);
-            Button cancelButton = view.findViewById(R.id.auth_phone_btn_cancel);
+        TextView infoTextView = view.findViewById(R.id.auth_phone_tv);
+        EditText phoneNumberEditText = view.findViewById(R.id.auth_phone_et_number);
+        EditText codeEditText = view.findViewById(R.id.auth_phone_et_code);
+        Button okButton = view.findViewById(R.id.auth_phone_btn_ok);
+        Button cancelButton = view.findViewById(R.id.auth_phone_btn_cancel);
 
 
-            alertDialogPhone = new AlertDialog.Builder(this)
-                    .setView(view).show();
+        alertDialogPhone = new AlertDialog.Builder(this)
+                .setView(view).show();
 
-            View.OnClickListener listener = new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d(TAG, "onClick:");
-                    switch (view.getId()) {
-                        case R.id.auth_phone_btn_cancel:
-                            alertDialogPhone.dismiss();
-                            break;
-                        case R.id.auth_phone_btn_ok:
+        View.OnClickListener listener = view1 -> {
+            Log.d(TAG, "onClick:");
+            switch (view1.getId()) {
+                case R.id.auth_phone_btn_cancel:
+                    alertDialogPhone.dismiss();
+                    break;
+                case R.id.auth_phone_btn_ok:
+                    if (!isSendCode) {
+                        String phone = phoneNumberEditText.getText().toString();
+                        if (Valid.isValidPhone(phone)) {
+                            startPhoneNumberVerification(phone);
+                            codeEditText.setEnabled(true);
+                            phoneNumberEditText.setEnabled(false);
+                            infoTextView.setText(R.string.auth_main_phone_text_set_code);
+                            okButton.setText(R.string.auth_main_phone_btn_sign_in);
+                            isSendCode = true;
+                        } else {
+                            Toast.makeText(ActivityAuthMain.this, "Проверьте введенный номер!", Toast.LENGTH_SHORT).show();
+                        }
 
-                            if (!isSendCode) {
-                                String phone = phoneNumberEditText.getText().toString();
-                                if (Valid.isValidPhone(phone)) {
-                                    startPhoneNumberVerification(phone);
-                                    codeEditText.setEnabled(true);
-                                    phoneNumberEditText.setEnabled(false);
-                                    infoTextView.setText(R.string.auth_main_phone_text_set_code);
-                                    okButton.setText(R.string.auth_main_phone_btn_sign_in);
-                                    isSendCode = true;
-                                } else {
-                                    Toast.makeText(ActivityAuthMain.this, "Проверьте введенный номер!", Toast.LENGTH_SHORT).show();
-                                }
-
-                            } else {
-                                String code = codeEditText.getText().toString();
-                                if (Valid.isValidCode(code)) {
-                                    verifyPhoneNumberWithCode(mVerificationId, code);
-                                } else {
-                                    Toast.makeText(ActivityAuthMain.this, "Проверьте введенный код!", Toast.LENGTH_SHORT).show();
-                                }
-
-                            }
-                            break;
+                    } else {
+                        String code = codeEditText.getText().toString();
+                        if (Valid.isValidCode(code)) {
+                            verifyPhoneNumberWithCode(mVerificationId, code);
+                        } else {
+                            Toast.makeText(ActivityAuthMain.this, "Проверьте введенный код!", Toast.LENGTH_SHORT).show();
+                        }
                     }
+                    break;
+            }
+        };
 
-                }
-            };
-
-            cancelButton.setOnClickListener(listener);
-            okButton.setOnClickListener(listener);
-
+        cancelButton.setOnClickListener(listener);
+        okButton.setOnClickListener(listener);
     }
 
     private void startPhoneNumberVerification(String phoneNumber) {
-
-            // [START start_phone_auth]
-            Log.d(TAG, "startPhoneNumberVerification: " + phoneNumber);
-            PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                    phoneNumber,        // Phone number to verify
-                    60,                 // Timeout duration
-                    TimeUnit.SECONDS,   // Unit of timeout
-                    this,               // Activity (for callback binding)
-                    mCallbacks);        // OnVerificationStateChangedCallbacks
-            // [END start_phone_auth]
+        // [START start_phone_auth]
+        Log.d(TAG, "startPhoneNumberVerification: " + phoneNumber);
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phoneNumber,        // Phone number to verify
+                60,                 // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
+                this,               // Activity (for callback binding)
+                mCallbacks);        // OnVerificationStateChangedCallbacks
+        // [END start_phone_auth]
     }
 
     private void verifyPhoneNumberWithCode(String verificationId, String code) {
-
         // [START verify_with_code]
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
         // [END verify_with_code]
@@ -748,35 +681,31 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
     // [START sign_in_with_phone]
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithCredential:success");
 
-            mAuth.signInWithCredential(credential)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "signInWithCredential:success");
+                        FirebaseUser user = task.getResult().getUser();
+                        // [START_EXCLUDE]
 
-                                FirebaseUser user = task.getResult().getUser();
-                                // [START_EXCLUDE]
-
-                                // [END_EXCLUDE]
-                            } else {
-                                // Sign in failed, display a message and update the UI
-                                Log.w(TAG, "signInWithCredential:failure", task.getException());
-                                if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                    // The verification code entered was invalid
-                                    // [START_EXCLUDE silent]
-                                    Log.d(TAG, "onComplete: Invalid code.");
-                                    // [END_EXCLUDE]
-                                }
-                                // [START_EXCLUDE silent]
-                                // Update UI
-                                Log.d(TAG, "onComplete: STATE_SIGNIN_FAILED");
-                                // [END_EXCLUDE]
-                            }
+                        // [END_EXCLUDE]
+                    } else {
+                        // Sign in failed, display a message and update the UI
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                            // The verification code entered was invalid
+                            // [START_EXCLUDE silent]
+                            Log.d(TAG, "onComplete: Invalid code.");
+                            // [END_EXCLUDE]
                         }
-                    });
+                        // [START_EXCLUDE silent]
+                        // Update UI
+                        Log.d(TAG, "onComplete: STATE_SIGNIN_FAILED");
+                        // [END_EXCLUDE]
+                    }
+                });
     }
     // [END sign_in_with_phone]
 
@@ -801,7 +730,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
 
 
     private boolean isPP() {
-
         if (!isAcceptedPrivacyPolicy) {
             checkPPTextView.setTextColor(Color.RED);
             return false;
@@ -843,12 +771,8 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    public void toast(Exception e){
-
-        Toast toast = Toast.makeText(getApplicationContext(),
-                e.getMessage(), Toast.LENGTH_LONG);
-        toast.show();
-
+    public void toast(Exception e) {
+        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
     }
 
 }

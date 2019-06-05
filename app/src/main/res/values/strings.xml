@@ -154,7 +154,7 @@
     <string name="auth_main_title_respass">Сброс пароля</string>
     <string name="auth_main_body_respass">Мы отправим вам письмо для восстановления доступа.</string>
 
-    <string name="auth_main_alert_title">Упс...</string>
+    <string name="auth_main_alert_title">Упс…</string>
     <string name="auth_main_alert_body">Пользователь не найден. Зарегистрируйтесь!</string>
     <string name="auth_main_alert_ok">Ок</string>
 
