@@ -43,6 +43,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.flFragmentContainer) FrameLayout flFragmentContainer;
@@ -168,18 +169,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void shuffle() {
-        Log.e("LOL", "START");
-        List<CFood> cFoods = CFood.listAll(CFood.class);
-        Log.e("LOL", String.valueOf(cFoods.size()));
-        int count = 0;
-        for (int i = 0; i < cFoods.size(); i++) {
-            String info = cFoods.get(i).getName() + " (" + cFoods.get(i).getBrend() + ")";
-            cFoods.get(i).setUrl(info);
-            cFoods.get(i).save();
-            count += 1;
-            Log.e("LOL", String.valueOf(count));
-        }
-        Log.e("LOL", "FIN");
+
     }
 
     private void checkForcedGrade() {
