@@ -33,6 +33,7 @@ import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodaDB;
+import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -166,17 +167,9 @@ public class MainActivity extends AppCompatActivity {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         checkForcedGrade();
         new AsyncWriteFoodaDB().execute(this);
-        intercom();
+        IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
-    private void intercom() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        UserAttributes userAttributes = new UserAttributes.Builder()
-                .withName(UserDataHolder.getUserData().getProfile().getFirstName())
-                .withEmail(currentUser.getEmail())
-                .build();
-        Intercom.client().updateUser(userAttributes);
-    }
 
     private void checkForcedGrade() {
         if (getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false)) {

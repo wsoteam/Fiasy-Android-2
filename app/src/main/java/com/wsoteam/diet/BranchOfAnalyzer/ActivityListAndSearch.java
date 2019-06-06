@@ -98,7 +98,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         })
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(t -> itemAdapter.setNewItem()), Throwable::printStackTrace);
+                .subscribe(t -> Log.e("LOL", String.valueOf(t.size())), Throwable::printStackTrace);
     }
 
 
