@@ -1,4 +1,4 @@
-package com.wsoteam.diet.RunClass;
+package com.wsoteam.diet;
 
 import android.app.Activity;
 import android.app.Application;
@@ -10,14 +10,21 @@ import com.amplitude.api.Amplitude;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orm.SugarContext;
-import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.di.DaggerAppComponent;
 import com.yandex.metrica.YandexMetrica;
 import com.yandex.metrica.YandexMetricaConfig;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
 import io.intercom.android.sdk.Intercom;
 
-public class Diet extends Application {
+public class App extends Application implements HasActivityInjector {
+
+    @Inject
+    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 
     @Override
     public void onCreate() {
@@ -37,6 +44,18 @@ public class Diet extends Application {
         Intercom.initialize(this, "android_sdk-bceadc40bc17510359f5ad43a72281735676eea2", "dr8zfmz4");
 
         //SetUserProperties.setUserProperties(Adjust.getAttribution());
+
+        DaggerAppComponent
+                .builder()
+                .application(this)
+                .build()
+                .inject(this);
+    }
+
+    //
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return dispatchingAndroidInjector;
     }
 
     @Override

@@ -75,6 +75,9 @@
     <string name="onboarding_item_description4">Подберите для себя тренировку исходя из ваших целей и уровня подготовки</string>
     <string name="onboarding_item_description5">Вы можете следить не только за калориями, белками, жирами и углеводами, но и отслеживать поступающие вместе с пищей в организм витамины и микроэлементы</string>
 
+    <!--dialog-->
+    <string name="dialog_load_title">Загрузка</string>
+    <string name="dialog_load_content">Пожалуйста подождите</string>
 
     <string name="desc_firebase_lockup">Firebase logo and name</string>
     <string name="phone_title_text">Phone Number</string>

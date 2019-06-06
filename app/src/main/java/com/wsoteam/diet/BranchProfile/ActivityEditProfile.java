@@ -2,13 +2,11 @@ package com.wsoteam.diet.BranchProfile;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,22 +17,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.ActivityAuthMain;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EventsAdjust;
-import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.yandex.metrica.YandexMetrica;
 
 import java.util.Calendar;
 
@@ -203,13 +192,15 @@ public class ActivityEditProfile extends AppCompatActivity {
     }
 
 
-    /*Минимальные нагрузки (сидячая работа) - К=1.2
+    /*
+    Минимальные нагрузки (сидячая работа) - К=1.2
     Немного дневной активности и легкие упражнения 1-3 раза в неделю - К=1.375
     Тренировки 4-5 раз в неделю (или работа средней тяжести) - К= 1.4625
     Интенсивные тренировки 4-5 раз в неделю - К=1.550
     Ежедневные тренировки - К=1.6375
     Ежедневные интенсивные тренировки или тренировки 2 раза в день - К=1.725
-    Тяжелая физическая работа или интенсивные тренировки 2 раза в день - К=1.9*/
+    Тяжелая физическая работа или интенсивные тренировки 2 раза в день - К=1.9
+    */
 
     private void calculate() {
 

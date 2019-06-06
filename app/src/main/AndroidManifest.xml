@@ -14,7 +14,7 @@
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
-        android:name=".RunClass.Diet"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -76,7 +76,7 @@
             android:theme="@style/PremiumActivity" />
         <activity
             android:name=".Authenticate.ActivityAuthMain"
-            android:parentActivityName=".Authenticate.ActivityAuthenticate"
+            android:parentActivityName=".presentation.intro.IntroActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityAuthMain" />
 
@@ -101,7 +101,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Authenticate.ActivityAuthenticate"
+            android:name=".presentation.intro.IntroActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 

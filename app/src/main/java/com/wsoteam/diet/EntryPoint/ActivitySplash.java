@@ -9,7 +9,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -37,12 +36,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.wsoteam.diet.ABConfig;
-import com.wsoteam.diet.Activism.POJO.Factory;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Amplitude.SetUserProperties;
-import com.wsoteam.diet.Articles.ItemArticleActivity;
-import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
+import com.wsoteam.diet.presentation.intro.IntroActivity;
 import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.FirebaseUserProperties;
@@ -57,9 +54,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.wsoteam.diet.tvoytrener.ForTestFragmentActivity;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -126,7 +121,7 @@ public class ActivitySplash extends Activity {
                 Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
                 startActivity(new Intent(this, ActivityEditProfile.class).putExtra("registration", true));
             } else {
-                startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
+                startActivity(new Intent(ActivitySplash.this, IntroActivity.class));
             }
             finish();
         }
