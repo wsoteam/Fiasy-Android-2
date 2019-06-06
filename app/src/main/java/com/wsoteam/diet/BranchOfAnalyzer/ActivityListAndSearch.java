@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amplitude.api.Amplitude;
 import com.wsoteam.diet.AmplitudaEvents;
@@ -92,12 +93,12 @@ public class ActivityListAndSearch extends AppCompatActivity {
     private void cr(CharSequence charSequence) {
 //        Observable<List<CFood>> listObservable = Observable.fromArray(recievedListFood);
         Single.fromCallable(() -> {
-            firstContainsSearch(charSequence);
-            return null;
+            List<CFood> cFoods = firstContainsSearch(charSequence);
+            return cFoods;
         })
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(t -> System.out.print(t), Throwable::printStackTrace);
+                .subscribe(t -> itemAdapter.setNewItem()), Throwable::printStackTrace);
     }
 
 
@@ -207,12 +208,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         equalsSecondPortion.start();
     }
 
-    private void firstContainsSearch(CharSequence charSequence) {
-        Log.e("LOL", "FC search");
-        Log.d("MyLogs", "FIRST element - " + CFood.first(CFood.class));
-//        containsFirstPortion = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
+    private List<CFood> firstContainsSearch(CharSequence charSequence) {
         List<CFood> cFoods;
         String searchString = charSequence.toString();
         String searchQuery = "Select * from C_Food where";
@@ -239,13 +235,8 @@ public class ActivityListAndSearch extends AppCompatActivity {
             Log.d("MyLogs", "Size1 - " + cFoods.size());
             recievedListFood.addAll(cFoods);
             Log.d("MyLogs", "Size2 - " + recievedListFood.size());
-            if (recievedListFood.size() >= RESPONSE_LIMIT) {
-//                secondContainsSearch(charSequence);
-            }
         }
-//            }
-//        });
-//        containsFirstPortion.start();
+        return recievedListFood;
     }
 
     private void secondContainsSearch(CharSequence charSequence) {
