@@ -25,7 +25,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.CFood;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.InApp.ActivitySubscription;
@@ -93,7 +93,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     List<View> viewList;
 
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
-    private CFood foodItem;
+    private Food foodItem;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,7 +101,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         setContentView(R.layout.activity_detail_of_food);
         ButterKnife.bind(this);
         ButterKnife.apply(viewList, (view, value, index) -> view.setVisibility(value), View.GONE);
-        foodItem = (CFood) getIntent().getSerializableExtra(Config.INTENT_DETAIL_FOOD);
+        foodItem = (Food) getIntent().getSerializableExtra(Config.INTENT_DETAIL_FOOD);
         bindFields();
         calculateNumbersForProgressBars();
 
@@ -140,10 +140,10 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     }
 
     private void bindFields() {
-        if (foodItem.getBrend() == null) {
+        if (foodItem.getBrand() == null) {
             tvTitle.setText(foodItem.getName().replace("()", ""));
         } else {
-            String cutString = "(" + foodItem.getBrend() + ")";
+            String cutString = "(" + foodItem.getBrand() + ")";
             tvTitle.setText(foodItem.getName().replace(cutString, ""));
         }
 

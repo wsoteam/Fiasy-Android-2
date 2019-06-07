@@ -3,6 +3,7 @@ package com.wsoteam.diet.MainScreen;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -18,11 +20,14 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Articles.ListArticlesFragment;
 import com.wsoteam.diet.Authenticate.POJO.Box;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.CFood;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
@@ -36,16 +41,14 @@ import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodaDB;
 import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
-import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.RunClass.Diet;
 
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.intercom.android.sdk.Intercom;
-import io.intercom.android.sdk.UserAttributes;
-import io.intercom.android.sdk.identity.Registration;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.flFragmentContainer) FrameLayout flFragmentContainer;
@@ -165,8 +168,8 @@ public class MainActivity extends AppCompatActivity {
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        checkForcedGrade();
-        new AsyncWriteFoodaDB().execute(this);
+        //checkForcedGrade();
+        //new AsyncWriteFoodaDB().execute(this);
         IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
@@ -200,6 +203,50 @@ public class MainActivity extends AppCompatActivity {
                         .putExtra(Config.IS_NEED_REG, true)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 break;
+        }
+    }
+
+    private class AsyncRewrite extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            FoodDatabase foodDatabase = Diet.getInstance().getFoodDatabase();
+            FoodDAO foodDAO = foodDatabase.foodDAO();
+            Log.e("LOL", "start read");
+            List<CFood> cFoods = CFood.listAll(CFood.class);
+            Log.e("LOL", "fin read");
+            int count = 0;
+
+            for (int i = 0; i < cFoods.size(); i++) {
+                count += 1;
+                Food food = new Food();
+                food.setName(cFoods.get(i).getName());
+                food.setId(cFoods.get(i).getId());
+                food.setBrand(cFoods.get(i).getBrend());
+                food.setFullInfo(cFoods.get(i).getUrl());
+                food.setPortion(cFoods.get(i).getPortion());
+                food.setLiquid(cFoods.get(i).isLiquid());
+                food.setKilojoules(cFoods.get(i).getKilojoules());
+                food.setCalories(cFoods.get(i).getCalories());
+                food.setProteins(cFoods.get(i).getProteins());
+                food.setCarbohydrates(cFoods.get(i).getCarbohydrates());
+                food.setFats(cFoods.get(i).getFats());
+                food.setPercentCarbohydrates(cFoods.get(i).getPercentCarbohydrates());
+                food.setPercentFats(cFoods.get(i).getPercentFats());
+                food.setPercentProteins(cFoods.get(i).getPercentProteins());
+                food.setSugar(cFoods.get(i).getSugar());
+                food.setSaturatedFats(cFoods.get(i).getSaturatedFats());
+                food.setMonoUnSaturatedFats(cFoods.get(i).getMonoUnSaturatedFats());
+                food.setPolyUnSaturatedFats(cFoods.get(i).getPolyUnSaturatedFats());
+                food.setCholesterol(cFoods.get(i).getCholesterol());
+                food.setCellulose(cFoods.get(i).getCellulose());
+                food.setSodium(cFoods.get(i).getSodium());
+                food.setPottassium(cFoods.get(i).getPottassium());
+                food.setPortion(cFoods.get(i).getPortion());
+                foodDAO.insert(food);
+                Log.e("LOL", String.valueOf(count));
+            }
+            Log.e("LOL", "Fin rewrite");
+            return null;
         }
     }
 

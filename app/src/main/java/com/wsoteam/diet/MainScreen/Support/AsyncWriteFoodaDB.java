@@ -4,8 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.CFood;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,10 +15,10 @@ public class AsyncWriteFoodaDB extends AsyncTask<Context, Void, Void> {
 
     @Override
     protected Void doInBackground(Context... contexts) {
-        if (isEmptyDB()) {
+        /*if (isEmptyDB()) {
             Log.d(TAG, "Start rewrite");
             rewriteDB(contexts[0]);
-        }
+        }*/
         return null;
     }
 
@@ -46,12 +44,12 @@ public class AsyncWriteFoodaDB extends AsyncTask<Context, Void, Void> {
         }
     }
 
-    private boolean isEmptyDB() {
+    /*private boolean isEmptyDB() {
         boolean isEmpty = true;
-        CFood cFood = CFood.first(CFood.class);
+        Food cFood = Food.first(Food.class);
         if (cFood != null) {
             isEmpty = false;
         }
         return isEmpty;
-    }
+    }*/
 }

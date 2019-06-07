@@ -42,6 +42,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.intercom.android.sdk.Intercom;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -148,26 +149,6 @@ public class FragmentDiary extends Fragment {
         unbinder.unbind();
     }
 
-    private void showThankToast() {
-        if (isFiveStarSend) {
-            isFiveStarSend = false;
-            TextView tvToastCompleteGift;
-            ImageView ivToastCompleteGift;
-            LayoutInflater toastInflater = getLayoutInflater();
-            View toastLayout = toastInflater.inflate(R.layout.toast_complete_gift, null, false);
-            tvToastCompleteGift = toastLayout.findViewById(R.id.tvToastCompleteGift);
-            ivToastCompleteGift = toastLayout.findViewById(R.id.ivToastCompleteGift);
-            tvToastCompleteGift.setText("Спасибо за отзыв!");
-
-            Glide.with(getActivity()).load(R.drawable.icon_toast_thank_for_grade).into(ivToastCompleteGift);
-
-            Toast toast = new Toast(getActivity());
-            toast.setDuration(Toast.LENGTH_LONG);
-            toast.setView(toastLayout);
-            toast.show();
-        }
-    }
-
     private void setMaxParamsInProgressBars(Profile profile) {
         apCollapsingKcal.setMax(profile.getMaxKcal());
         apCollapsingProt.setMax(profile.getMaxProt());
@@ -193,8 +174,9 @@ public class FragmentDiary extends Fragment {
                 vpEatingTimeLine.setCurrentItem(vpEatingTimeLine.getCurrentItem() + 1);
                 break;
             case R.id.fabAddEating:
-                AlertDialogChoiseEating.createChoiseEatingAlertDialog(getActivity(),
-                        tvDateForMainScreen.getText().toString()).show();
+                /*AlertDialogChoiseEating.createChoiseEatingAlertDialog(getActivity(),
+                        tvDateForMainScreen.getText().toString()).show();*/
+                Intercom.client().displayMessenger();
                 break;
         }
     }

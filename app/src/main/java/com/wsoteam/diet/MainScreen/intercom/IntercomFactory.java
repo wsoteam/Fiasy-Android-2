@@ -13,6 +13,7 @@ public class IntercomFactory {
     public static void login(String uId){
         Registration registration = Registration.create().withUserId(uId);
         Intercom.client().registerIdentifiedUser(registration);
+        setUsetAttributes();
     }
 
     public static void logOut(String uId){
@@ -20,12 +21,16 @@ public class IntercomFactory {
     }
 
     public static void setUsetAttributes(){
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        UserAttributes userAttributes = new UserAttributes.Builder()
-                .withName(UserDataHolder.getUserData().getProfile().getFirstName())
-                .withEmail(currentUser.getEmail())
-                .build();
-        Intercom.client().updateUser(userAttributes);
+        try {
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            UserAttributes userAttributes = new UserAttributes.Builder()
+                    .withName(UserDataHolder.getUserData().getProfile().getFirstName())
+                    .withEmail(currentUser.getEmail())
+                    .build();
+            Intercom.client().updateUser(userAttributes);
+        }catch (Exception e){
+
+        }
     }
 
     public static void showChat(){

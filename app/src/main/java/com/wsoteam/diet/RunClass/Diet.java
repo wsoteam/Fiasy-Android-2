@@ -2,6 +2,7 @@ package com.wsoteam.diet.RunClass;
 
 import android.app.Activity;
 import android.app.Application;
+import android.arch.persistence.room.Room;
 import android.os.Bundle;
 
 import com.adjust.sdk.Adjust;
@@ -10,6 +11,7 @@ import com.amplitude.api.Amplitude;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orm.SugarContext;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EventsAdjust;
 import com.yandex.metrica.YandexMetrica;
@@ -18,7 +20,8 @@ import com.yandex.metrica.YandexMetricaConfig;
 import io.intercom.android.sdk.Intercom;
 
 public class Diet extends Application {
-
+    public static Diet instance;
+    private FoodDatabase foodDatabase;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -35,8 +38,18 @@ public class Diet extends Application {
         Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
                 .enableForegroundTracking(this);
         Intercom.initialize(this, "android_sdk-bceadc40bc17510359f5ad43a72281735676eea2", "dr8zfmz4");
+        instance = this;
+        foodDatabase = Room.databaseBuilder(this, FoodDatabase.class, "foodDB.db").build();
 
         //SetUserProperties.setUserProperties(Adjust.getAttribution());
+    }
+
+    public static Diet getInstance(){
+        return instance;
+    }
+
+    public FoodDatabase getFoodDatabase(){
+        return foodDatabase;
     }
 
     @Override

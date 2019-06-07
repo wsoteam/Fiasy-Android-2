@@ -1,13 +1,14 @@
 package com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL;
 
-import com.orm.SugarRecord;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
-import java.io.Serializable;
-
-public class CFood extends SugarRecord implements Serializable {
+@Entity
+public class Food {
+    @PrimaryKey private long id;
     private String name;
-    private String brend;
-    private String url;
+    private String brand;
+    private String fullInfo;
     private double portion;
 
     private boolean isLiquid;
@@ -31,32 +32,10 @@ public class CFood extends SugarRecord implements Serializable {
     private int percentFats;
     private int percentProteins;
 
-    public CFood() {
+    public Food() {
     }
 
-    public CFood(String name, String brend, String url, double portion, boolean isLiquid, double kilojoules, double calories, double proteins, double carbohydrates, double sugar, double fats, double saturatedFats, double monoUnSaturatedFats, double polyUnSaturatedFats, double cholesterol, double cellulose, double sodium, double pottassium, int percentCarbohydrates, int percentFats, int percentProteins) {
-        this.name = name;
-        this.brend = brend;
-        this.url = url;
-        this.portion = portion;
-        this.isLiquid = isLiquid;
-        this.kilojoules = kilojoules;
-        this.calories = calories;
-        this.proteins = proteins;
-        this.carbohydrates = carbohydrates;
-        this.sugar = sugar;
-        this.fats = fats;
-        this.saturatedFats = saturatedFats;
-        this.monoUnSaturatedFats = monoUnSaturatedFats;
-        this.polyUnSaturatedFats = polyUnSaturatedFats;
-        this.cholesterol = cholesterol;
-        this.cellulose = cellulose;
-        this.sodium = sodium;
-        this.pottassium = pottassium;
-        this.percentCarbohydrates = percentCarbohydrates;
-        this.percentFats = percentFats;
-        this.percentProteins = percentProteins;
-    }
+
 
     public String getName() {
         return name;
@@ -66,20 +45,20 @@ public class CFood extends SugarRecord implements Serializable {
         this.name = name;
     }
 
-    public String getBrend() {
-        return brend;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setBrend(String brend) {
-        this.brend = brend;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public String getUrl() {
-        return url;
+    public String getFullInfo() {
+        return fullInfo;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setFullInfo(String fullInfo) {
+        this.fullInfo = fullInfo;
     }
 
     public double getPortion() {
@@ -224,5 +203,40 @@ public class CFood extends SugarRecord implements Serializable {
 
     public void setPercentProteins(int percentProteins) {
         this.percentProteins = percentProteins;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "name='" + name + '\'' +
+                ", brand='" + brand + '\'' +
+                ", fullInfo='" + fullInfo + '\'' +
+                ", portion=" + portion +
+                ", isLiquid=" + isLiquid +
+                ", kilojoules=" + kilojoules +
+                ", calories=" + calories +
+                ", proteins=" + proteins +
+                ", carbohydrates=" + carbohydrates +
+                ", sugar=" + sugar +
+                ", fats=" + fats +
+                ", saturatedFats=" + saturatedFats +
+                ", monoUnSaturatedFats=" + monoUnSaturatedFats +
+                ", polyUnSaturatedFats=" + polyUnSaturatedFats +
+                ", cholesterol=" + cholesterol +
+                ", cellulose=" + cellulose +
+                ", sodium=" + sodium +
+                ", pottassium=" + pottassium +
+                ", percentCarbohydrates=" + percentCarbohydrates +
+                ", percentFats=" + percentFats +
+                ", percentProteins=" + percentProteins +
+                '}';
     }
 }
