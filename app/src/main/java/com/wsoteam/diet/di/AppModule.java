@@ -1,21 +1,15 @@
 package com.wsoteam.diet.di;
 
+import android.app.Application;
 import android.content.Context;
 
-import com.wsoteam.diet.App;
-
-import javax.inject.Singleton;
-
+import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 
 @Module
-public class AppModule {
+abstract class AppModule {
 
-    @Provides
-    @Singleton
-    public static Context context(App app) {
-        return app.getApplicationContext();
-    }
+    @Binds
+    abstract Context bindContext(Application application);
 
 }

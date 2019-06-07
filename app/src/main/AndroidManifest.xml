@@ -227,7 +227,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/DetailFood" />
         <activity
-            android:name=".BranchProfile.ActivityEditProfile"
+            android:name=".presentation.profile.edit.EditProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/EditProfile" />
         <activity

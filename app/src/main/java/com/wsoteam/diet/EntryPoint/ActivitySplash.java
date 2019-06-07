@@ -40,7 +40,7 @@ import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Amplitude.SetUserProperties;
 import com.wsoteam.diet.presentation.intro.IntroActivity;
-import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
+import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.InApp.IDs;
@@ -119,7 +119,7 @@ public class ActivitySplash extends Activity {
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
             if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_ONBOARD, false)) {
                 Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
-                startActivity(new Intent(this, ActivityEditProfile.class).putExtra("registration", true));
+                startActivity(new Intent(this, EditProfileActivity.class).putExtra("registration", true));
             } else {
                 startActivity(new Intent(ActivitySplash.this, IntroActivity.class));
             }

@@ -162,7 +162,7 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
             } else if (box.isOpenFromIntrodaction()) {
                 box.setSubscribe(true);
                 startActivity(new Intent(getActivity(), ActivityAuthMain.class).
-                        putExtra("createUser", true).
+                        putExtra(Config.CREATE_PROFILE, true).
                         putExtra(Config.INTENT_PROFILE, box.getProfile()));
                 getActivity().finish();
             }
@@ -197,7 +197,7 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
                         .edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, true)
                         .commit();
                 startActivity(new Intent(getActivity(), ActivityAuthMain.class).
-                        putExtra("createUser", true).
+                        putExtra(Config.CREATE_PROFILE, true).
                         putExtra(Config.INTENT_PROFILE, box.getProfile()));
                 getActivity().finish();
             }else {

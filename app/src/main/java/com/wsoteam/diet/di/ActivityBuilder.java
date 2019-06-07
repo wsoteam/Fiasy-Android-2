@@ -1,7 +1,7 @@
 package com.wsoteam.diet.di;
 
-import com.wsoteam.diet.di.intro.IntroModule;
 import com.wsoteam.diet.presentation.intro.IntroActivity;
+import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -10,7 +10,11 @@ import dagger.android.ContributesAndroidInjector;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class ActivityBuilder {
 
-    @ContributesAndroidInjector(modules = IntroModule.class)
+    @ContributesAndroidInjector
     abstract IntroActivity bindIntroActivity();
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract EditProfileActivity bindEditProfileActivity();
 
 }

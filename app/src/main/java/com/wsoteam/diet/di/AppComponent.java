@@ -15,6 +15,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
         AppModule.class,
         CiceroneModule.class,
         ActivityBuilder.class,
+        PresentersModule.class,
         AndroidSupportInjectionModule.class})
 @Singleton
 public interface AppComponent extends AndroidInjector<App> {
@@ -27,4 +28,7 @@ public interface AppComponent extends AndroidInjector<App> {
 
         AppComponent build();
     }
+
+    @Override
+    void inject(App app);
 }

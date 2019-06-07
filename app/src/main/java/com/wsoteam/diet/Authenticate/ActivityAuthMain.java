@@ -111,7 +111,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth_main);
 
-        createUser = getIntent().getBooleanExtra("createUser", false);
+        createUser = getIntent().getBooleanExtra(Config.CREATE_PROFILE, false);
 
         findViewById(R.id.auth_main_btn_signin).setOnClickListener(this);
 
