@@ -169,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         //checkForcedGrade();
-        //new AsyncWriteFoodaDB().execute(this);
         IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
@@ -206,49 +205,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class AsyncRewrite extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... voids) {
-            FoodDatabase foodDatabase = Diet.getInstance().getFoodDatabase();
-            FoodDAO foodDAO = foodDatabase.foodDAO();
-            Log.e("LOL", "start read");
-            List<CFood> cFoods = CFood.listAll(CFood.class);
-            Log.e("LOL", "fin read");
-            int count = 0;
 
-            for (int i = 0; i < cFoods.size(); i++) {
-                count += 1;
-                Food food = new Food();
-                food.setName(cFoods.get(i).getName());
-                food.setId(cFoods.get(i).getId());
-                food.setBrand(cFoods.get(i).getBrend());
-                food.setFullInfo(cFoods.get(i).getUrl());
-                food.setPortion(cFoods.get(i).getPortion());
-                food.setLiquid(cFoods.get(i).isLiquid());
-                food.setKilojoules(cFoods.get(i).getKilojoules());
-                food.setCalories(cFoods.get(i).getCalories());
-                food.setProteins(cFoods.get(i).getProteins());
-                food.setCarbohydrates(cFoods.get(i).getCarbohydrates());
-                food.setFats(cFoods.get(i).getFats());
-                food.setPercentCarbohydrates(cFoods.get(i).getPercentCarbohydrates());
-                food.setPercentFats(cFoods.get(i).getPercentFats());
-                food.setPercentProteins(cFoods.get(i).getPercentProteins());
-                food.setSugar(cFoods.get(i).getSugar());
-                food.setSaturatedFats(cFoods.get(i).getSaturatedFats());
-                food.setMonoUnSaturatedFats(cFoods.get(i).getMonoUnSaturatedFats());
-                food.setPolyUnSaturatedFats(cFoods.get(i).getPolyUnSaturatedFats());
-                food.setCholesterol(cFoods.get(i).getCholesterol());
-                food.setCellulose(cFoods.get(i).getCellulose());
-                food.setSodium(cFoods.get(i).getSodium());
-                food.setPottassium(cFoods.get(i).getPottassium());
-                food.setPortion(cFoods.get(i).getPortion());
-                foodDAO.insert(food);
-                Log.e("LOL", String.valueOf(count));
-            }
-            Log.e("LOL", "Fin rewrite");
-            return null;
-        }
-    }
 
 
 }
