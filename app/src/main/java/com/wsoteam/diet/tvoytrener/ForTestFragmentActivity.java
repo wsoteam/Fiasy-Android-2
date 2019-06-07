@@ -6,10 +6,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.wsoteam.diet.Articles.ListArticlesFragment;
+
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Recipes.GroupsFragment;
-import com.wsoteam.diet.Recipes.ListRecipesFragment;
+import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 
 public class ForTestFragmentActivity extends AppCompatActivity {
 
@@ -19,7 +18,7 @@ public class ForTestFragmentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_for_test_fragment);
 
 
-            Fragment fragment = new ListArticlesFragment();
+            Fragment fragment = new GroupsFragment();
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 

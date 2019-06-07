@@ -16,4 +16,7 @@
     <dimen name="field_width_standard">160dp</dimen>
 
     <dimen name="icon_size">20dp</dimen>
+
+    <!-- Action Bar -->
+    <dimen name="ab_padding_top">15dp</dimen>
 </resources>

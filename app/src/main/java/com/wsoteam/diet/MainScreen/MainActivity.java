@@ -34,7 +34,7 @@ import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodaDB;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Recipes.GroupsFragment;
+import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.Sync.UserDataHolder;
 
 import java.util.Calendar;

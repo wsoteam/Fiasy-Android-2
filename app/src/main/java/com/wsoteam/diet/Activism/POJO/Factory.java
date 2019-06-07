@@ -1,7 +1,5 @@
 package com.wsoteam.diet.Activism.POJO;
 
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-
 import java.util.ArrayList;
 import java.util.List;
 

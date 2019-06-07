@@ -153,6 +153,6 @@
     <color name="half_transparent_green">#40009C99</color>
     <color name="light_gray_one_button">#9D9D9D</color>
 
-
+    <color name="black_trans80">#32000000</color>
 
 </resources>

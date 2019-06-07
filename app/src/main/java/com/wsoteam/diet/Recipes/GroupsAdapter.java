@@ -29,11 +29,11 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
 
     ArrayList<ListOfRecipes> listOfRecipesGroup;
     Context context;
-    GroupsFragment groupsFragment;
+    Fragment groupsFragment;
     FragmentTransaction transaction;
     int containerID;
 
-    public GroupsAdapter(ArrayList<ListOfRecipes> listOfRecipesGroup, GroupsFragment groupsFragment){
+    public GroupsAdapter(ArrayList<ListOfRecipes> listOfRecipesGroup, Fragment groupsFragment){
         this.listOfRecipesGroup = listOfRecipesGroup;
         this.groupsFragment = groupsFragment;
         this.transaction = groupsFragment.getActivity().getSupportFragmentManager().beginTransaction();

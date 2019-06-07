@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
+import com.wsoteam.diet.Recipes.v2.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +31,12 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
 
     List<ListRecipes> groupsRecipes;
     Context context;
-    GroupsFragment groupsFragment;
+    Fragment groupsFragment;
     FragmentTransaction transaction;
     int containerID;
 
 
-    public GroupsAdapterNew(List<ListRecipes> groupsRecipes, GroupsFragment groupsFragment, int containerID) {
+    public GroupsAdapterNew(List<ListRecipes> groupsRecipes, Fragment groupsFragment, int containerID) {
         this.groupsRecipes = groupsRecipes;
         this.groupsFragment = groupsFragment;
         this.containerID = containerID;
@@ -99,7 +101,7 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
                     Bundle bundle = new Bundle();
                     bundle.putInt(Config.RECIPES_BUNDLE, getAdapterPosition());
 
-                    ListRecipesFragment fragment = new ListRecipesFragment();
+                    com.wsoteam.diet.Recipes.v2.ListRecipesFragment fragment = new com.wsoteam.diet.Recipes.v2.ListRecipesFragment();
                     fragment.setArguments(bundle);
 
                     transaction.replace(containerID, fragment);
