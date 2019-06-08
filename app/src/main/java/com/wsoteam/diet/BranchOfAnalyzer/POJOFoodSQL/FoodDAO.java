@@ -15,25 +15,26 @@ public interface FoodDAO {
     @Insert
     void insert(Food food);
 
-    @Query("select * from Food where name like :search")
-    List<Food> getFoods(String search);
+    @Query("select * from Food where name like :search limit :end offset :start")
+    List<Food> searchFullMatchWord(String search, int end, int start);
 
-    @Query("select * from Food where name like :search limit :count offset :start")
+    @Query("select * from Food where fullInfo like :search limit :count offset :start")
     List<Food> searchOneWord(String search, int count, int start);
 
-    @Query("select * from Food where name like :firstWord and name like :secondWord limit :count offset :start")
+    @Query("select * from Food where fullInfo like :firstWord and fullInfo like :secondWord limit :count offset :start")
     List<Food> searchTwoWord(String firstWord, String secondWord, int count, int start);
 
-    @Query("select * from Food where name like :firstWord and name like :secondWord and name like :thirdWord limit :count offset :start")
+    @Query("select * from Food where fullInfo like :firstWord and fullInfo like :secondWord and fullInfo " +
+            "like :thirdWord limit :count offset :start")
     List<Food> searchThreeWord(String firstWord, String secondWord, String thirdWord, int count, int start);
 
-    @Query("select * from Food where name like :firstWord and name like :secondWord " +
-            "and name like :thirdWord and name like :fourthWord limit :count offset :start")
+    @Query("select * from Food where fullInfo like :firstWord and fullInfo like :secondWord " +
+            "and fullInfo like :thirdWord and fullInfo like :fourthWord limit :count offset :start")
     List<Food> searchFourWord(String firstWord, String secondWord, String thirdWord, String fourthWord, int count, int start);
 
-    @Query("select * from Food where name like :firstWord and name like :secondWord " +
-            "and name like :thirdWord and name like :fourthWord and name like :fifthWord limit :count offset :start")
-    List<Food> searchFourWord(String firstWord, String secondWord, String thirdWord, String fourthWord, String fifthWord, int count, int start);
+    @Query("select * from Food where fullInfo like :firstWord and fullInfo like :secondWord " +
+            "and fullInfo like :thirdWord and fullInfo like :fourthWord and fullInfo like :fifthWord limit :count offset :start")
+    List<Food> searchFiveWord(String firstWord, String secondWord, String thirdWord, String fourthWord, String fifthWord, int count, int start);
 
     @Query("select * from Food where id = :id")
     Food getById(long id);

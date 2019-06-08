@@ -49,6 +49,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
     private ItemAdapter itemAdapter;
     private boolean isEqualsNext = true;
     private FoodDAO foodDAO = Diet.getInstance().getFoodDatabase().foodDAO();
+    private final int ONE_WORD = 1, TWO_WORDS = 2, THREE_WORDS = 3, FOUR_WORDS = 4, FIVE_WORDS = 5;
 
 
     @Override
@@ -71,8 +72,8 @@ public class ActivityListAndSearch extends AppCompatActivity {
                     ivEmptyImage.setVisibility(View.GONE);
                     tvEmptyText.setVisibility(View.GONE);
                 }
-                    isEqualsNext = true;
-                    search(charSequence);
+                isEqualsNext = true;
+                search(charSequence);
             }
 
             @Override
@@ -109,12 +110,42 @@ public class ActivityListAndSearch extends AppCompatActivity {
     }
 
     private List<Food> getFirstList(CharSequence charSequence) {
-        List<Food> foods = foodDAO.searchWithOneWord(charSequence.toString(), RESPONSE_LIMIT, 0);
+        List<Food> foods = foodDAO.searchFullMatchWord(charSequence.toString(), RESPONSE_LIMIT, 0);
         if (foods.size() < RESPONSE_LIMIT) {
             isEqualsNext = false;
-            foods.addAll(foodDAO.searchWithOneWord("%" + charSequence.toString() + "%", RESPONSE_LIMIT, foods.size()));
+            if (charSequence.toString().contains(" ") && charSequence.toString().split(" ").length > 1) {
+                foods.addAll(searchMultiWords(charSequence.toString()));
+            } else {
+                foods.addAll(foodDAO.searchOneWord("%" + charSequence.toString() + "%", RESPONSE_LIMIT, foods.size()));
+            }
         }
         Log.e("LOL", "First" + String.valueOf(foods.size()));
+        return foods;
+    }
+
+    private List<Food> searchMultiWords(String searchPhrase) {
+        List<Food> foods = new ArrayList<>();
+        if (searchPhrase.split(" ").length == TWO_WORDS) {
+            foods = foodDAO.searchTwoWord("%" + searchPhrase.split(" ")[0] + "%",
+                    "%" + searchPhrase.split(" ")[1] + "%", RESPONSE_LIMIT, RESPONSE_LIMIT);
+        } else if (searchPhrase.split(" ").length == THREE_WORDS) {
+            foods = foodDAO.searchThreeWord("%" + searchPhrase.split(" ")[0] + "%",
+                    "%" + searchPhrase.split(" ")[1] + "%",
+                    "%" + searchPhrase.split(" ")[2] + "%",
+                    RESPONSE_LIMIT, RESPONSE_LIMIT);
+        } else if (searchPhrase.split(" ").length == FOUR_WORDS) {
+            foods = foodDAO.searchFourWord("%" + searchPhrase.split(" ")[0] + "%",
+                    "%" + searchPhrase.split(" ")[1] + "%",
+                    "%" + searchPhrase.split(" ")[2] + "%",
+                    "%" + searchPhrase.split(" ")[3] + "%", RESPONSE_LIMIT, RESPONSE_LIMIT);
+        } else if (searchPhrase.split(" ").length == FIVE_WORDS) {
+            foods = foodDAO.searchFiveWord("%" + searchPhrase.split(" ")[0] + "%",
+                    "%" + searchPhrase.split(" ")[1] + "%",
+                    "%" + searchPhrase.split(" ")[2] + "%",
+                    "%" + searchPhrase.split(" ")[3] + "%",
+                    "%" + searchPhrase.split(" ")[4] + "%",
+                    RESPONSE_LIMIT, RESPONSE_LIMIT);
+        }
         return foods;
     }
 
@@ -216,7 +247,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
             holder.bind(foods.get(position));
-            if (position > counter && position % RESPONSE_LIMIT == 0){
+            if (position > counter && position % RESPONSE_LIMIT == 0) {
                 counter = position;
                 getNextPortion(position);
             }
@@ -240,16 +271,24 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
         private List<Food> getSearchResult(int offset) {
             List<Food> foods = new ArrayList<>();
-            if (isEqualsNext){
-                foods = foodDAO.searchWithOneWord(edtSearchField.getText().toString(), RESPONSE_LIMIT, offset);
-                if (foods.size() < RESPONSE_LIMIT){
+            if (isEqualsNext) {
+                foods = foodDAO.searchFullMatchWord(edtSearchField.getText().toString(), RESPONSE_LIMIT, offset);
+                if (foods.size() < RESPONSE_LIMIT) {
                     isEqualsNext = false;
-                    foods.addAll(foodDAO.searchWithOneWord("%" + edtSearchField.getText().toString() + "%",
+                    if (edtSearchField.getText().toString().contains(" ")  && edtSearchField.getText().toString().split(" ").length > 1){
+                        foods.addAll(searchMultiWords(edtSearchField.getText().toString()));
+                    }else {
+                        foods.addAll(foodDAO.searchOneWord("%" + edtSearchField.getText().toString() + "%",
+                                RESPONSE_LIMIT, offset + foods.size()));
+                    }
+                }
+            } else {
+                if (edtSearchField.getText().toString().contains(" ")  && edtSearchField.getText().toString().split(" ").length > 1){
+                    foods.addAll(searchMultiWords(edtSearchField.getText().toString()));
+                }else {
+                    foods.addAll(foodDAO.searchOneWord("%" + edtSearchField.getText().toString() + "%",
                             RESPONSE_LIMIT, offset + foods.size()));
                 }
-            }else {
-                foods.addAll(foodDAO.searchWithOneWord("%" + edtSearchField.getText().toString() + "%",
-                        RESPONSE_LIMIT, offset));
             }
             return foods;
         }
