@@ -19,7 +19,21 @@ public interface FoodDAO {
     List<Food> getFoods(String search);
 
     @Query("select * from Food where name like :search limit :count offset :start")
-    List<Food> getLimitFoods(String search, int count, int start);
+    List<Food> searchOneWord(String search, int count, int start);
+
+    @Query("select * from Food where name like :firstWord and name like :secondWord limit :count offset :start")
+    List<Food> searchTwoWord(String firstWord, String secondWord, int count, int start);
+
+    @Query("select * from Food where name like :firstWord and name like :secondWord and name like :thirdWord limit :count offset :start")
+    List<Food> searchThreeWord(String firstWord, String secondWord, String thirdWord, int count, int start);
+
+    @Query("select * from Food where name like :firstWord and name like :secondWord " +
+            "and name like :thirdWord and name like :fourthWord limit :count offset :start")
+    List<Food> searchFourWord(String firstWord, String secondWord, String thirdWord, String fourthWord, int count, int start);
+
+    @Query("select * from Food where name like :firstWord and name like :secondWord " +
+            "and name like :thirdWord and name like :fourthWord and name like :fifthWord limit :count offset :start")
+    List<Food> searchFourWord(String firstWord, String secondWord, String thirdWord, String fourthWord, String fifthWord, int count, int start);
 
     @Query("select * from Food where id = :id")
     Food getById(long id);

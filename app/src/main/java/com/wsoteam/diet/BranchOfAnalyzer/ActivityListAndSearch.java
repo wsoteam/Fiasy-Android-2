@@ -45,10 +45,8 @@ public class ActivityListAndSearch extends AppCompatActivity {
     @BindView(R.id.tvActivityListAndSearchEmptyText) TextView tvEmptyText;
     @BindView(R.id.tvIndex) TextView tvIndex;
 
-    private List<Food> recievedListFood;
     private int RESPONSE_LIMIT = 50;
     private ItemAdapter itemAdapter;
-    private Thread equalsFirstPortion, equalsSecondPortion, containsFirstPortion, containsSecondPortion, thread;
     private boolean isEqualsNext = true;
     private FoodDAO foodDAO = Diet.getInstance().getFoodDatabase().foodDAO();
 
@@ -111,37 +109,15 @@ public class ActivityListAndSearch extends AppCompatActivity {
     }
 
     private List<Food> getFirstList(CharSequence charSequence) {
-        List<Food> foods = foodDAO.getLimitFoods(charSequence.toString(), RESPONSE_LIMIT, 0);
+        List<Food> foods = foodDAO.searchWithOneWord(charSequence.toString(), RESPONSE_LIMIT, 0);
         if (foods.size() < RESPONSE_LIMIT) {
             isEqualsNext = false;
-            foods.addAll(foodDAO.getLimitFoods("%" + charSequence.toString() + "%", RESPONSE_LIMIT, foods.size()));
+            foods.addAll(foodDAO.searchWithOneWord("%" + charSequence.toString() + "%", RESPONSE_LIMIT, foods.size()));
         }
         Log.e("LOL", "First" + String.valueOf(foods.size()));
         return foods;
     }
 
-    private void turnOffSearch() {
-        if (equalsFirstPortion != null) {
-            Thread dummy = equalsFirstPortion;
-            equalsFirstPortion = null;
-            dummy.interrupt();
-        }
-        if (equalsSecondPortion != null) {
-            Thread dummy = equalsSecondPortion;
-            equalsSecondPortion = null;
-            dummy.interrupt();
-        }
-        if (containsFirstPortion != null) {
-            Thread dummy = containsFirstPortion;
-            containsFirstPortion = null;
-            dummy.interrupt();
-        }
-        if (containsSecondPortion != null) {
-            Thread dummy = containsSecondPortion;
-            containsSecondPortion = null;
-            dummy.interrupt();
-        }
-    }
 
     private void bindSpinnerChoiceEating() {
         ArrayAdapter<String> adapter = new ArrayAdapter(this,
@@ -164,12 +140,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        turnOffSearch();
-    }
-
     private List<Food> shuffleList(CharSequence charSequence, List<Food> recievedListFood) {
         List<Food> cFOODS = recievedListFood;
         for (int i = 0; i < recievedListFood.size(); i++) {
@@ -188,35 +158,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
         }
         return cFOODS;
     }
-
-    private List<Food> firstContainsSearch(CharSequence charSequence) {
-        List<Food> cFOODS = new ArrayList<>();
-        String searchString = charSequence.toString();
-        String searchQuery = "Select * from C_Food where";
-        String firstQuery = " url like '%";
-        String firstPartQuery = " and url like '%";
-        String secondPartQuery = "%'";
-        String responseLimit = " limit 100";
-        if (searchString.contains(" ") && searchString.split(" ").length > 1) {
-            String[] arrayWords = searchString.split(" ");
-            for (int i = 0; i < arrayWords.length; i++) {
-                if (i == 0) {
-                    searchQuery = searchQuery + firstQuery + arrayWords[i] + secondPartQuery;
-                } else {
-                    searchQuery = searchQuery + firstPartQuery + arrayWords[i] + secondPartQuery;
-                }
-            }
-            //recievedListFood = Food.findWithQuery(Food.class, searchQuery + responseLimit);
-            if (recievedListFood.size() >= RESPONSE_LIMIT) {
-
-            }
-        } else {
-            String finishedString = "'%" + searchString + "%'";
-            //cFOODS = Food.findWithQuery(Food.class, "SELECT * FROM C_Food WHERE url LIKE " + finishedString + " LIMIT 100");
-        }
-        return cFOODS;
-    }
-
 
     public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.tvNameOfFood) TextView tvNameOfFood;
@@ -300,14 +241,14 @@ public class ActivityListAndSearch extends AppCompatActivity {
         private List<Food> getSearchResult(int offset) {
             List<Food> foods = new ArrayList<>();
             if (isEqualsNext){
-                foods = foodDAO.getLimitFoods(edtSearchField.getText().toString(), RESPONSE_LIMIT, offset);
+                foods = foodDAO.searchWithOneWord(edtSearchField.getText().toString(), RESPONSE_LIMIT, offset);
                 if (foods.size() < RESPONSE_LIMIT){
                     isEqualsNext = false;
-                    foods.addAll(foodDAO.getLimitFoods("%" + edtSearchField.getText().toString() + "%",
+                    foods.addAll(foodDAO.searchWithOneWord("%" + edtSearchField.getText().toString() + "%",
                             RESPONSE_LIMIT, offset + foods.size()));
                 }
             }else {
-                foods.addAll(foodDAO.getLimitFoods("%" + edtSearchField.getText().toString() + "%",
+                foods.addAll(foodDAO.searchWithOneWord("%" + edtSearchField.getText().toString() + "%",
                         RESPONSE_LIMIT, offset));
             }
             return foods;
