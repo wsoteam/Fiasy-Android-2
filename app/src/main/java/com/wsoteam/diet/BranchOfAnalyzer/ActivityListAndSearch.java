@@ -23,7 +23,6 @@ import com.amplitude.api.Amplitude;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.RunClass.Diet;
@@ -47,9 +46,11 @@ public class ActivityListAndSearch extends AppCompatActivity {
     @BindView(R.id.tvIndex) TextView tvIndex;
 
     private List<Food> recievedListFood;
-    private int RESPONSE_LIMIT = 100;
+    private int RESPONSE_LIMIT = 50;
     private ItemAdapter itemAdapter;
     private Thread equalsFirstPortion, equalsSecondPortion, containsFirstPortion, containsSecondPortion, thread;
+    private boolean isEqualsNext = true;
+    private FoodDAO foodDAO = Diet.getInstance().getFoodDatabase().foodDAO();
 
 
     @Override
@@ -72,10 +73,8 @@ public class ActivityListAndSearch extends AppCompatActivity {
                     ivEmptyImage.setVisibility(View.GONE);
                     tvEmptyText.setVisibility(View.GONE);
                 }
-                if (charSequence.length() > 2) {
-                    recievedListFood = new ArrayList<>();
-                    cr(charSequence);
-                }
+                    isEqualsNext = true;
+                    search(charSequence);
             }
 
             @Override
@@ -90,26 +89,35 @@ public class ActivityListAndSearch extends AppCompatActivity {
     }
 
     private void updateUI() {
-        itemAdapter = new ItemAdapter(new ArrayList<>());
+        List<Food> foods = new ArrayList<>();
+        itemAdapter = new ItemAdapter(foods);
         rvListOfSearchResponse.setLayoutManager(new LinearLayoutManager(ActivityListAndSearch.this));
         rvListOfSearchResponse.setAdapter(itemAdapter);
     }
 
-    private void cr(CharSequence charSequence) {
+    private void search(CharSequence charSequence) {
         Single.fromCallable(() -> {
-            List<Food> cFOODS = getList();
+            List<Food> cFOODS = getFirstList(charSequence);
             return cFOODS;
         })
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(t -> Log.e("LOL", String.valueOf(t.size())), Throwable::printStackTrace);
+                .subscribe(t -> refreshAdapter(t), Throwable::printStackTrace);
     }
 
-    private List<Food> getList(){
-        FoodDatabase foodDatabase = Diet.getInstance().getFoodDatabase();
-        FoodDAO foodDAO = foodDatabase.foodDAO();
-        List<Food> cFOODS = foodDAO.getFoods("сыр");
-        return cFOODS;
+    private void refreshAdapter(List<Food> t) {
+        itemAdapter = new ItemAdapter(t);
+        rvListOfSearchResponse.setAdapter(itemAdapter);
+    }
+
+    private List<Food> getFirstList(CharSequence charSequence) {
+        List<Food> foods = foodDAO.getLimitFoods(charSequence.toString(), RESPONSE_LIMIT, 0);
+        if (foods.size() < RESPONSE_LIMIT) {
+            isEqualsNext = false;
+            foods.addAll(foodDAO.getLimitFoods("%" + charSequence.toString() + "%", RESPONSE_LIMIT, foods.size()));
+        }
+        Log.e("LOL", "First" + String.valueOf(foods.size()));
+        return foods;
     }
 
     private void turnOffSearch() {
@@ -210,7 +218,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
     }
 
 
-
     public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.tvNameOfFood) TextView tvNameOfFood;
         @BindView(R.id.tvCalories) TextView tvCalories;
@@ -249,11 +256,13 @@ public class ActivityListAndSearch extends AppCompatActivity {
     }
 
     public class ItemAdapter extends RecyclerView.Adapter<ItemHolder> {
-        List<Food> foods;
+        private List<Food> foods;
+        private int counter;
 
         public ItemAdapter(List<Food> foods) {
             this.foods = foods;
             tvIndex.setText(String.valueOf(foods.size()));
+            counter = -1;
         }
 
         @NonNull
@@ -266,6 +275,42 @@ public class ActivityListAndSearch extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
             holder.bind(foods.get(position));
+            if (position > counter && position % RESPONSE_LIMIT == 0){
+                counter = position;
+                getNextPortion(position);
+            }
+        }
+
+        private void getNextPortion(int offset) {
+            Single.fromCallable(() -> {
+                List<Food> cFOODS = getSearchResult(offset);
+                return cFOODS;
+            })
+                    .subscribeOn(Schedulers.computation())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(t -> updateAdapter(t), Throwable::printStackTrace);
+        }
+
+        private void updateAdapter(List<Food> nextPortion) {
+            foods.addAll(nextPortion);
+            notifyDataSetChanged();
+            Log.e("LOL", "add" + String.valueOf(foods.size()));
+        }
+
+        private List<Food> getSearchResult(int offset) {
+            List<Food> foods = new ArrayList<>();
+            if (isEqualsNext){
+                foods = foodDAO.getLimitFoods(edtSearchField.getText().toString(), RESPONSE_LIMIT, offset);
+                if (foods.size() < RESPONSE_LIMIT){
+                    isEqualsNext = false;
+                    foods.addAll(foodDAO.getLimitFoods("%" + edtSearchField.getText().toString() + "%",
+                            RESPONSE_LIMIT, offset + foods.size()));
+                }
+            }else {
+                foods.addAll(foodDAO.getLimitFoods("%" + edtSearchField.getText().toString() + "%",
+                        RESPONSE_LIMIT, offset));
+            }
+            return foods;
         }
 
         @Override
@@ -273,11 +318,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
             return foods.size();
         }
 
-        public void addList(List<Food> foods) {
-            foods.addAll(foods);
-            notifyDataSetChanged();
-            tvIndex.setText(String.valueOf(foods.size()));
-        }
     }
 
 

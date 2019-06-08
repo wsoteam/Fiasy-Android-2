@@ -15,7 +15,16 @@ public interface FoodDAO {
     @Insert
     void insert(Food food);
 
-    @Query("select * from Food where name like :color")
-    List<Food> getFoods(String color);
+    @Query("select * from Food where name like :search")
+    List<Food> getFoods(String search);
+
+    @Query("select * from Food where name like :search limit :count offset :start")
+    List<Food> getLimitFoods(String search, int count, int start);
+
+    @Query("select * from Food where id = :id")
+    Food getById(long id);
+
+    @Query("select * from Food")
+    List<Food> getAll();
 
 }

@@ -24,10 +24,8 @@ import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Articles.ListArticlesFragment;
 import com.wsoteam.diet.Authenticate.POJO.Box;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.CFood;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
@@ -37,7 +35,6 @@ import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
-import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodaDB;
 import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
@@ -170,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         //checkForcedGrade();
         IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        //new AsyncLoad().execute();
     }
 
 
@@ -202,6 +200,16 @@ public class MainActivity extends AppCompatActivity {
                         .putExtra(Config.IS_NEED_REG, true)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 break;
+        }
+    }
+
+    private class AsyncLoad extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            FoodDAO foodDAO = Diet.getInstance().getFoodDatabase().foodDAO();
+            List<Food> foods = foodDAO.getAll();
+            Log.e("LOL", String.valueOf(foods.size()));
+            return null;
         }
     }
 
