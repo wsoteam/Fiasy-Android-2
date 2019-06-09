@@ -46,6 +46,11 @@
             android:name=".Recipes.ItemActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
+
+        <activity
+            android:name=".Recipes.v2.RecipeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" />
         <activity
             android:name=".Recipes.ItemPlansActivity"
             android:screenOrientation="portrait"

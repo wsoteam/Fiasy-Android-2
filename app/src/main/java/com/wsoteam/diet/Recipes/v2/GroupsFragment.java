@@ -77,9 +77,10 @@ public class GroupsFragment extends Fragment {
         window.setStatusBarColor(Color.parseColor("#32000000"));
     }
 
+
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onDestroy() {
+        super.onDestroy();
         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
     }
 
@@ -98,6 +99,7 @@ public class GroupsFragment extends Fragment {
         cardView = view.findViewById(R.id.cvGroupsRecipes);
 
         Toolbar mToolbar = view.findViewById(R.id.toolbar);
+//        mToolbar.setTitleTextAppearance(getContext(), R.style.RobotoBoldTextAppearance);
         mToolbar.setTitle("Рецепты");
         mToolbar.inflateMenu(R.menu.toolbar_menu);
         mToolbar.setTitleTextColor(0xFFFFFFFF);

@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.Recipes.v2.RecipeActivity;
 
 import java.util.List;
 
@@ -81,7 +82,7 @@ public class ListRecipesAdapterNew extends RecyclerView.Adapter<ListRecipesAdapt
                         intent = new Intent(activity, ItemPlansActivity.class);
 
                     } else {
-                        intent = new Intent(activity, RecipeWithoutPremActivity.class);
+                        intent = new Intent(activity, RecipeActivity.class);
                     }
 
                     intent.putExtra(Config.RECIPE_INTENT, listRecipes.get(getAdapterPosition()));

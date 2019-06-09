@@ -23,14 +23,14 @@
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bnv_main"
-            android:theme="@style/Widget.BottomNavigationView"
-            app:labelVisibilityMode="labeled"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:background="?android:attr/windowBackground"
             android:backgroundTint="@color/darkWithoutAlfa"
+            android:theme="@style/Widget.BottomNavigationView"
             app:itemIconTint="@drawable/bnv_main_selector"
             app:itemTextColor="@color/black"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

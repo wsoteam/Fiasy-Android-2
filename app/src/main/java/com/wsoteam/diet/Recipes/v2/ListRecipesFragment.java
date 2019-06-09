@@ -67,10 +67,11 @@ public class ListRecipesFragment extends Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onDestroy() {
+        super.onDestroy();
         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
     }
+
 
     @Nullable
     @Override
@@ -84,7 +85,6 @@ public class ListRecipesFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_list_recipes_v2, container, false);
         cardView = view.findViewById(R.id.cvRecipeItem);
-
 
         window = getActivity().getWindow();
         mToolbar = view.findViewById(R.id.toolbar);
