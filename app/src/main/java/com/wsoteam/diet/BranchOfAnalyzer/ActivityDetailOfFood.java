@@ -140,13 +140,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     }
 
     private void bindFields() {
-        if (foodItem.getBrand() == null) {
-            tvTitle.setText(foodItem.getName().replace("()", ""));
-        } else {
-            String cutString = "(" + foodItem.getBrand() + ")";
-            tvTitle.setText(foodItem.getName().replace(cutString, ""));
-        }
-
+        tvTitle.setText(foodItem.getName());
         tvFats.setText(String.valueOf(Math.round(foodItem.getFats() * 100)) + " г");
         tvCarbohydrates.setText(String.valueOf(Math.round(foodItem.getCarbohydrates() * 100)) + " г");
         tvProteins.setText(String.valueOf(Math.round(foodItem.getProteins() * 100)) + " г");

@@ -3,8 +3,10 @@ package com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class Food {
+public class Food implements Serializable {
     @PrimaryKey private long id;
     private String name;
     private String brand;

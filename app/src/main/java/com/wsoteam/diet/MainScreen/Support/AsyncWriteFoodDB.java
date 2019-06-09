@@ -21,7 +21,6 @@ public class AsyncWriteFoodDB extends AsyncTask<Context, Void, Void> {
     @Override
     protected Void doInBackground(Context... contexts) {
         FoodDAO foodDAO = Diet.getInstance().getFoodDatabase().foodDAO();
-        Log.d(TAG, foodDAO.getById(117000).getFullInfo());
         if (isEmptyDB(foodDAO)) {
             Log.d(TAG, "Start rewrite");
             rewriteDB(contexts[0]);

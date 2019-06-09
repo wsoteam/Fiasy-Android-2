@@ -208,7 +208,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(ActivityListAndSearch.this, ActivityDetailOfFood.class);
-            //intent.putExtra(Config.INTENT_DETAIL_FOOD, recievedListFood.get(getAdapterPosition()));
+            intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
             intent.putExtra(Config.TAG_CHOISE_EATING, spinner.getSelectedItemPosition());
             intent.putExtra(Config.INTENT_DATE_FOR_SAVE, getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
             startActivity(intent);
@@ -236,6 +236,10 @@ public class ActivityListAndSearch extends AppCompatActivity {
             this.foods = foods;
             tvIndex.setText(String.valueOf(foods.size()));
             counter = -1;
+        }
+
+        public List<Food> getFoods() {
+            return foods;
         }
 
         @NonNull
