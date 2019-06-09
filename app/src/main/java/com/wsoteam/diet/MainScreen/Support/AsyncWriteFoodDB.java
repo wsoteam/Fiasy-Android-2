@@ -16,11 +16,12 @@ public class AsyncWriteFoodDB extends AsyncTask<Context, Void, Void> {
     private static final String TAG = "AsyncWriteFoodDB";
     private String packageName = "com.wild.diet";
     private String DATABASE_NAME = "foodDB.db";
+    private String FILE_NAME = "rewrite";
 
     @Override
     protected Void doInBackground(Context... contexts) {
         FoodDAO foodDAO = Diet.getInstance().getFoodDatabase().foodDAO();
-        //Log.d(TAG, foodDAO.getById(0).getFullInfo());
+        Log.d(TAG, foodDAO.getById(117000).getFullInfo());
         if (isEmptyDB(foodDAO)) {
             Log.d(TAG, "Start rewrite");
             rewriteDB(contexts[0]);
@@ -30,7 +31,7 @@ public class AsyncWriteFoodDB extends AsyncTask<Context, Void, Void> {
 
     private void rewriteDB(Context context) {
         try {
-            InputStream myInput = context.getAssets().open("buble.mp3");
+            InputStream myInput = context.getAssets().open(FILE_NAME);
             String outFileName = context.getFilesDir().getParent() + "/databases/" + DATABASE_NAME;
             OutputStream outputStream = new FileOutputStream(outFileName);
 
