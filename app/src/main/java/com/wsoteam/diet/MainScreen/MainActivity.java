@@ -35,6 +35,7 @@ import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
+import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodDB;
 import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
@@ -167,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         //checkForcedGrade();
         IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        //new AsyncLoad().execute();
+        new AsyncWriteFoodDB().execute(MainActivity.this);
     }
 
 
@@ -202,18 +203,4 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
-    private class AsyncLoad extends AsyncTask<Void, Void, Void>{
-        @Override
-        protected Void doInBackground(Void... voids) {
-            FoodDAO foodDAO = Diet.getInstance().getFoodDatabase().foodDAO();
-            List<Food> foods = foodDAO.getAll();
-            Log.e("LOL", String.valueOf(foods.size()));
-            return null;
-        }
-    }
-
-
-
-
 }
