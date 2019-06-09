@@ -2,6 +2,7 @@ package com.wsoteam.diet.BranchOfAnalyzer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amplitude.api.Amplitude;
 import com.wsoteam.diet.AmplitudaEvents;
@@ -59,6 +61,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         ButterKnife.bind(this);
         bindSpinnerChoiceEating();
         updateUI();
+        //speak();
 
         edtSearchField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -85,6 +88,22 @@ public class ActivityListAndSearch extends AppCompatActivity {
         Amplitude.getInstance().logEvent(AmplitudaEvents.attempt_add_food);
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_search_food);
 
+    }
+
+    private void speak() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH); // намерение для вызова формы обработки речи (ОР)
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM); // сюда он слушает и запоминает
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "What can you tell me?");
+        startActivityForResult(intent, 1234); // вызываем активность ОР
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 1234 && resultCode == RESULT_OK) {
+            ArrayList<String> commandList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            edtSearchField.setText(commandList.get(0));
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void updateUI() {

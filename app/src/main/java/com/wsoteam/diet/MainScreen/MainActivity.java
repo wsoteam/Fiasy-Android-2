@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -18,6 +19,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.wsoteam.diet.ABConfig;
@@ -41,6 +43,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
 import com.wsoteam.diet.RunClass.Diet;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -170,6 +173,8 @@ public class MainActivity extends AppCompatActivity {
         IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
         new AsyncWriteFoodDB().execute(MainActivity.this);
     }
+
+
 
 
     private void checkForcedGrade() {
