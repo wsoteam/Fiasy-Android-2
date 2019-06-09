@@ -110,11 +110,12 @@ public class ActivityListAndSearch extends AppCompatActivity {
     }
 
     private List<Food> getFirstList(CharSequence charSequence) {
-        List<Food> foods = foodDAO.searchFullMatchWord(charSequence.toString(), RESPONSE_LIMIT, 0);
+        List<Food> foods = new ArrayList<>();
+        foods.addAll(foodDAO.searchFullMatchWord(charSequence.toString(), RESPONSE_LIMIT, 0));
         if (foods.size() < RESPONSE_LIMIT) {
             isEqualsNext = false;
             if (charSequence.toString().contains(" ") && charSequence.toString().split(" ").length > 1) {
-                foods.addAll(searchMultiWords(charSequence.toString()));
+                foods.addAll(searchMultiWords(charSequence.toString(), foods.size()));
             } else {
                 foods.addAll(foodDAO.searchOneWord("%" + charSequence.toString() + "%", RESPONSE_LIMIT, foods.size()));
             }
@@ -123,28 +124,28 @@ public class ActivityListAndSearch extends AppCompatActivity {
         return foods;
     }
 
-    private List<Food> searchMultiWords(String searchPhrase) {
+    private List<Food> searchMultiWords(String searchPhrase, int offset) {
         List<Food> foods = new ArrayList<>();
         if (searchPhrase.split(" ").length == TWO_WORDS) {
             foods = foodDAO.searchTwoWord("%" + searchPhrase.split(" ")[0] + "%",
-                    "%" + searchPhrase.split(" ")[1] + "%", RESPONSE_LIMIT, RESPONSE_LIMIT);
+                    "%" + searchPhrase.split(" ")[1] + "%", RESPONSE_LIMIT, offset);
         } else if (searchPhrase.split(" ").length == THREE_WORDS) {
             foods = foodDAO.searchThreeWord("%" + searchPhrase.split(" ")[0] + "%",
                     "%" + searchPhrase.split(" ")[1] + "%",
                     "%" + searchPhrase.split(" ")[2] + "%",
-                    RESPONSE_LIMIT, RESPONSE_LIMIT);
+                    RESPONSE_LIMIT, offset);
         } else if (searchPhrase.split(" ").length == FOUR_WORDS) {
             foods = foodDAO.searchFourWord("%" + searchPhrase.split(" ")[0] + "%",
                     "%" + searchPhrase.split(" ")[1] + "%",
                     "%" + searchPhrase.split(" ")[2] + "%",
-                    "%" + searchPhrase.split(" ")[3] + "%", RESPONSE_LIMIT, RESPONSE_LIMIT);
+                    "%" + searchPhrase.split(" ")[3] + "%", RESPONSE_LIMIT, offset);
         } else if (searchPhrase.split(" ").length == FIVE_WORDS) {
             foods = foodDAO.searchFiveWord("%" + searchPhrase.split(" ")[0] + "%",
                     "%" + searchPhrase.split(" ")[1] + "%",
                     "%" + searchPhrase.split(" ")[2] + "%",
                     "%" + searchPhrase.split(" ")[3] + "%",
                     "%" + searchPhrase.split(" ")[4] + "%",
-                    RESPONSE_LIMIT, RESPONSE_LIMIT);
+                    RESPONSE_LIMIT, offset);
         }
         return foods;
     }
@@ -213,17 +214,17 @@ public class ActivityListAndSearch extends AppCompatActivity {
             startActivity(intent);
         }
 
-        public void bind(Food cFOOD) {
-            tvNameOfFood.setText(cFOOD.getName().replace("()", ""));
-            tvCalories.setText(String.valueOf(Math.round(cFOOD.getCalories() * 100)) + " Ккал");
-            if (cFOOD.isLiquid()) {
+        public void bind(Food food) {
+            tvNameOfFood.setText(food.getFullInfo().replace("()", ""));
+            tvCalories.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
+            if (food.isLiquid()) {
                 tvWeight.setText("Вес: 100мл");
             } else {
                 tvWeight.setText("Вес: 100г");
             }
-            tvProt.setText("Б. " + String.valueOf(Math.round(cFOOD.getProteins() * 100)));
-            tvFats.setText("Ж. " + String.valueOf(Math.round(cFOOD.getFats() * 100)));
-            tvCarbo.setText("У. " + String.valueOf(Math.round(cFOOD.getCarbohydrates() * 100)));
+            tvProt.setText("Б. " + String.valueOf(Math.round(food.getProteins() * 100)));
+            tvFats.setText("Ж. " + String.valueOf(Math.round(food.getFats() * 100)));
+            tvCarbo.setText("У. " + String.valueOf(Math.round(food.getCarbohydrates() * 100)));
         }
     }
 
@@ -249,7 +250,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
             holder.bind(foods.get(position));
             if (position > counter && position % RESPONSE_LIMIT == 0) {
                 counter = position;
-                getNextPortion(position);
+                getNextPortion(position + RESPONSE_LIMIT);
             }
         }
 
@@ -266,7 +267,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
         private void updateAdapter(List<Food> nextPortion) {
             foods.addAll(nextPortion);
             notifyDataSetChanged();
-            Log.e("LOL", "add" + String.valueOf(foods.size()));
         }
 
         private List<Food> getSearchResult(int offset) {
@@ -275,19 +275,19 @@ public class ActivityListAndSearch extends AppCompatActivity {
                 foods = foodDAO.searchFullMatchWord(edtSearchField.getText().toString(), RESPONSE_LIMIT, offset);
                 if (foods.size() < RESPONSE_LIMIT) {
                     isEqualsNext = false;
-                    if (edtSearchField.getText().toString().contains(" ")  && edtSearchField.getText().toString().split(" ").length > 1){
-                        foods.addAll(searchMultiWords(edtSearchField.getText().toString()));
-                    }else {
+                    if (edtSearchField.getText().toString().contains(" ") && edtSearchField.getText().toString().split(" ").length > 1) {
+                        foods.addAll(searchMultiWords(edtSearchField.getText().toString(), foods.size() + offset));
+                    } else {
                         foods.addAll(foodDAO.searchOneWord("%" + edtSearchField.getText().toString() + "%",
                                 RESPONSE_LIMIT, offset + foods.size()));
                     }
                 }
             } else {
-                if (edtSearchField.getText().toString().contains(" ")  && edtSearchField.getText().toString().split(" ").length > 1){
-                    foods.addAll(searchMultiWords(edtSearchField.getText().toString()));
-                }else {
+                if (edtSearchField.getText().toString().contains(" ") && edtSearchField.getText().toString().split(" ").length > 1) {
+                    foods.addAll(searchMultiWords(edtSearchField.getText().toString(), offset));
+                } else {
                     foods.addAll(foodDAO.searchOneWord("%" + edtSearchField.getText().toString() + "%",
-                            RESPONSE_LIMIT, offset + foods.size()));
+                            RESPONSE_LIMIT, offset));
                 }
             }
             return foods;
