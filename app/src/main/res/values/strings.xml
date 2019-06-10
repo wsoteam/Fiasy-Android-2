@@ -102,6 +102,10 @@
     <string name="auth_phone_wrong_number">Проверьте введенный номер!</string>
     <string name="auth_phone_wrong_code">Проверьте введенный код!</string>
 
+    <string name="forgot_pass_wrong_email">Ошибка в e-mail!</string>
+    <string name="forgot_pass_check_email">Проверьте вашу почту!</string>
+    <string name="forgot_pass_wrong_user">Пользователь не найден</string>
+
     <integer-array name="img_id_arr">
         <item>@drawable/background_item_profile_carbo</item>
         <item>@drawable/background_item_profile_prot</item>

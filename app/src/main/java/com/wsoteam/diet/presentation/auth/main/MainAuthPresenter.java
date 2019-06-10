@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.wsoteam.diet.Authenticate.Valid;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.global.BasePresenter;
+import com.wsoteam.diet.presentation.global.Screens;
 
 import java.util.concurrent.TimeUnit;
 
@@ -253,4 +254,13 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
                     }
                 });
     }
+
+    void onForgotPassClicked() {
+        router.navigateTo(new Screens.ForgotPassScreen());
+    }
+
+    void onPrivacyPolicyClicked() {
+        router.navigateTo(new Screens.PrivacyPolicyScreen());
+    }
+
 }

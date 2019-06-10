@@ -32,12 +32,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.Authenticate.ActivityForgotPassword;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.InApp.ActivitySubscription;
-import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
@@ -201,14 +199,14 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Phon
                 }
                 break;
             case R.id.auth_main_tv_respasss:
-                startActivity(new Intent(this, ActivityForgotPassword.class));
+                presenter.onForgotPassClicked();
                 break;
             case R.id.auth_main_btn_phone:
                 if (hasConnection(this) && isPP())
                     phoneAuth();
                 break;
             case R.id.textView82:
-                startActivity(new Intent(this, ActivityPrivacyPolicy.class));
+                presenter.onPrivacyPolicyClicked();
                 break;
             case R.id.auth_main_btn_google_custom:
                 signInGoogle();
