@@ -252,5 +252,6 @@
         android:src="@drawable/fab_main_act_add"
         app:backgroundTint="@color/fab_main_activity"
         app:borderWidth="0dp"
+        android:visibility="gone"
         app:elevation="8dp" />
 </android.support.design.widget.CoordinatorLayout>

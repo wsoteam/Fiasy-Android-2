@@ -10,17 +10,17 @@ import io.intercom.android.sdk.identity.Registration;
 
 public class IntercomFactory {
 
-    public static void login(String uId){
+    public static void login(String uId) {
         Registration registration = Registration.create().withUserId(uId);
         Intercom.client().registerIdentifiedUser(registration);
         setUsetAttributes();
     }
 
-    public static void logOut(String uId){
+    public static void logOut(String uId) {
         Intercom.client().logout();
     }
 
-    public static void setUsetAttributes(){
+    public static void setUsetAttributes() {
         try {
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
             UserAttributes userAttributes = new UserAttributes.Builder()
@@ -28,12 +28,21 @@ public class IntercomFactory {
                     .withEmail(currentUser.getEmail())
                     .build();
             Intercom.client().updateUser(userAttributes);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
-    public static void showChat(){
+    public static void showChat() {
         Intercom.client().setLauncherVisibility(Intercom.Visibility.VISIBLE);
+    }
+
+    public static void show() {
+        Intercom.client().setLauncherVisibility(Intercom.Visibility.VISIBLE);
+        Intercom.client().setBottomPadding(150);
+    }
+
+    public static void hide() {
+        Intercom.client().setLauncherVisibility(Intercom.Visibility.GONE);
     }
 }

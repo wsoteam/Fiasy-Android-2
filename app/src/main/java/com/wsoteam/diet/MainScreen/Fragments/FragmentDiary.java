@@ -33,6 +33,7 @@ import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.MainScreen.Support.AlertDialogChoiseEating;
+import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -76,6 +77,7 @@ public class FragmentDiary extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        IntercomFactory.show();
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
             profile = UserDataHolder.getUserData().getProfile();
             setMaxParamsInProgressBars(profile);
@@ -147,6 +149,12 @@ public class FragmentDiary extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        IntercomFactory.hide();
     }
 
     private void setMaxParamsInProgressBars(Profile profile) {
