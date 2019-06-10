@@ -24,6 +24,7 @@
 
     <!--Menu-->
     <string name="etSearch">Поиск</string>
+    <string name="btnRecipeDiary">Добавить в дневник</string>
     <string name="btnRecipePrem">Обновление до Premium</string>
     <string name="tvRecipePrem">Оформите подписку Premium - и вы \n
                                 будете получать рецепты, \n

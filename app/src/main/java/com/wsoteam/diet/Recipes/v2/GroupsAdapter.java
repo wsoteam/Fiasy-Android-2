@@ -1,4 +1,4 @@
-package com.wsoteam.diet.Recipes;
+package com.wsoteam.diet.Recipes.v2;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,14 +20,13 @@ import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
-import com.wsoteam.diet.Recipes.v2.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.GroupsViewHolder> {
+public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder> {
 
     List<ListRecipes> groupsRecipes;
     Context context;
@@ -36,7 +35,7 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
     int containerID;
 
 
-    public GroupsAdapterNew(List<ListRecipes> groupsRecipes, Fragment groupsFragment, int containerID) {
+    public GroupsAdapter(List<ListRecipes> groupsRecipes, Fragment groupsFragment, int containerID) {
         this.groupsRecipes = groupsRecipes;
         this.groupsFragment = groupsFragment;
         this.containerID = containerID;
@@ -48,7 +47,7 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
 
     @NonNull
     @Override
-    public GroupsAdapterNew.GroupsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GroupsAdapter.GroupsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
 
         if (this.context == null) this.context = context;
@@ -58,13 +57,13 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
         View view = inflater.inflate(R.layout.recipes_group_item, parent, false);
 
 
-        GroupsAdapterNew.GroupsViewHolder viewHolder = new GroupsAdapterNew.GroupsViewHolder(view);
+        GroupsAdapter.GroupsViewHolder viewHolder = new GroupsAdapter.GroupsViewHolder(view);
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GroupsAdapterNew.GroupsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GroupsAdapter.GroupsViewHolder holder, int position) {
         holder.bind(position);
     }
 
@@ -101,7 +100,7 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
                     Bundle bundle = new Bundle();
                     bundle.putInt(Config.RECIPES_BUNDLE, getAdapterPosition());
 
-                    com.wsoteam.diet.Recipes.v2.ListRecipesFragment fragment = new com.wsoteam.diet.Recipes.v2.ListRecipesFragment();
+                    ListRecipesFragment fragment = new ListRecipesFragment();
                     fragment.setArguments(bundle);
 
                     transaction.replace(containerID, fragment);
@@ -134,11 +133,6 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
             textViewsKK.add(itemView.findViewById(R.id.tvRecipeKK4));
             textViewsKK.add(itemView.findViewById(R.id.tvRecipeKK5));
 
-            for (TextView tv:
-                 textViewsKK) {
-                tv.setVisibility(View.VISIBLE);
-            }
-
 
             for (int i = 0; i < 5; i++) {
                 int y = i;
@@ -146,13 +140,14 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
                     @Override
                     public void onClick(View view) {
                         Intent intent;
+                        int bais = getAdapterPosition() * 5;
                         if (checkSubscribe()){
-                            intent = new Intent(groupsFragment.getActivity(), ItemPlansActivity.class);
+                            intent = new Intent(groupsFragment.getActivity(), RecipeActivity.class);
                         }else {
-                            intent = new Intent(groupsFragment.getActivity(), RecipeWithoutPremActivity.class);
+                            intent = new Intent(groupsFragment.getActivity(), RecipeActivity.class);
                         }
 
-                        intent.putExtra(Config.RECIPE_INTENT, groupsRecipes.get(getAdapterPosition()).getListrecipes().get(y));
+                        intent.putExtra(Config.RECIPE_INTENT, groupsRecipes.get(getAdapterPosition()).getListrecipes().get(y + bais));
                         groupsFragment.getActivity().startActivity(intent);
                     }
                 });
@@ -163,6 +158,7 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
         void bind(int listIndex) {
 
             tvTitle.setText(groupsRecipes.get(listIndex).getName());
+            int bais = getAdapterPosition() * 5;
 
             int border = 5;
             int listSize = groupsRecipes.get(listIndex).getListrecipes().size();
@@ -176,9 +172,9 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
 
 
             for (int i = 0; i < border; i++) {
-                String name = groupsRecipes.get(listIndex).getListrecipes().get(i).getName();
-                String url = groupsRecipes.get(listIndex).getListrecipes().get(i).getUrl();
-                int kk = groupsRecipes.get(listIndex).getListrecipes().get(i).getCalories();
+                String name = groupsRecipes.get(listIndex).getListrecipes().get(i + bais).getName();
+                String url = groupsRecipes.get(listIndex).getListrecipes().get(i + bais).getUrl();
+                int kk = groupsRecipes.get(listIndex).getListrecipes().get(i + bais).getCalories();
 
                 if (url == null || url.equals("link")) {
                     url = "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
@@ -204,3 +200,4 @@ public class GroupsAdapterNew extends RecyclerView.Adapter<GroupsAdapterNew.Grou
 
     }
 }
+

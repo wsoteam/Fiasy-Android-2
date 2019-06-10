@@ -1,4 +1,4 @@
-package com.wsoteam.diet.Recipes;
+package com.wsoteam.diet.Recipes.v2;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,40 +17,39 @@ import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
-import com.wsoteam.diet.Recipes.v2.RecipeActivity;
 
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class ListRecipesAdapterNew extends RecyclerView.Adapter<ListRecipesAdapterNew.ListRecipeViewHolder> {
+public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.ListRecipeViewHolder> {
 
     private List<RecipeItem> listRecipes;
     private Context context;
     private Activity activity;
 
-    public ListRecipesAdapterNew(List<RecipeItem> listRecipes, Activity activity) {
+    public ListRecipesAdapter(List<RecipeItem> listRecipes, Activity activity) {
         this.listRecipes = listRecipes;
         this.activity = activity;
     }
 
     @NonNull
     @Override
-    public ListRecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ListRecipesAdapter.ListRecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         this.context = parent.getContext();
 
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View view = inflater.inflate(R.layout.recipe_item, parent, false);
 
-        ListRecipeViewHolder viewHolder = new ListRecipeViewHolder(view);
+        ListRecipesAdapter.ListRecipeViewHolder viewHolder = new ListRecipesAdapter.ListRecipeViewHolder(view);
 
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListRecipeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ListRecipesAdapter.ListRecipeViewHolder holder, int position) {
         holder.bind(position);
 
     }
@@ -79,10 +78,10 @@ public class ListRecipesAdapterNew extends RecyclerView.Adapter<ListRecipesAdapt
                 public void onClick(View view) {
                     Intent intent;
                     if (checkSubscribe()) {
-                        intent = new Intent(activity, ItemPlansActivity.class);
+                        intent = new Intent(activity, RecipeActivity.class);
 
                     } else {
-                        intent = new Intent(activity, RecipeActivity.class);
+                        intent = new Intent(activity, BlockedRecipeActivity.class);
                     }
 
                     intent.putExtra(Config.RECIPE_INTENT, listRecipes.get(getAdapterPosition()));
@@ -118,3 +117,4 @@ public class ListRecipesAdapterNew extends RecyclerView.Adapter<ListRecipesAdapt
         }
     }
 }
+

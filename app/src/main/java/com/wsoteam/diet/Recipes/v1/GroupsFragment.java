@@ -1,11 +1,14 @@
-package com.wsoteam.diet.Recipes;
+package com.wsoteam.diet.Recipes.v1;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,9 +16,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.amplitude.api.Amplitude;
 import com.google.firebase.database.DataSnapshot;
@@ -26,9 +30,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.ObjectHolder;
-import com.wsoteam.diet.POJOS.ItemRecipes;
 import com.wsoteam.diet.POJOS.ListOfGroupsRecipes;
+import com.wsoteam.diet.POJOS.ListOfRecipes;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
@@ -37,33 +42,33 @@ import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListRecipesFragment extends Fragment {
+public class GroupsFragment extends Fragment {
 
-
-    private RecyclerView recyclerView;
-    private TextView textView;
+    private String TAG = "GroupsFragment";
+    private GroupsFragment groupsFragment;
+    private Context context = getContext();
     private Button backButton;
-    private EditText etSearch;
-    private int position;
-    private RecyclerView.LayoutManager layoutManager;
-    private ListRecipesAdapterNew adapter;
+    private ViewGroup viewGroup;
+    private RecyclerView recyclerView;
+    private GroupsAdapterNew adapter;
     private CardView cardView;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Window window = getActivity().getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(Color.parseColor("#9C5E21"));
 
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            position = bundle.getInt(Config.RECIPES_BUNDLE);
-            Log.d("testrt", "onCreateView: position " + position);
-        }
+        groupsFragment = this;
+        viewGroup = container;
 
-        View view = inflater.inflate(R.layout.fragment_list_recipes, container, false);
-        textView = view.findViewById(R.id.tvListRecipes);
+        View view = inflater.inflate(R.layout.fragment_groups_recipes, container, false);
+        layoutManager = new LinearLayoutManager(getContext());
         backButton = view.findViewById(R.id.btnback5);
-        etSearch = view.findViewById(R.id.etRecipeItem);
-        cardView = view.findViewById(R.id.cvRecipeItem);
+        cardView = view.findViewById(R.id.cvGroupsRecipes);
+        EditText etSearch = view.findViewById(R.id.etGroupsRecipes);
 
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -73,7 +78,7 @@ public class ListRecipesFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    searchAndShow(s);
+                searchAndShow(s);
             }
 
             @Override
@@ -89,22 +94,20 @@ public class ListRecipesFragment extends Fragment {
             }
         });
 
-        recyclerView = view.findViewById(R.id.rvListRecipes);
-        layoutManager = new GridLayoutManager(getContext(), 2);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView = view.findViewById(R.id.rvGroupsRecipe);
 
-        if (Config.RELEASE){
+        recyclerView.setLayoutManager(layoutManager);
+        if (Config.RELEASE) {
             updateUI();
             cardView.setVisibility(View.GONE);
-            textView.setText(ObjectHolder.getListOfGroupsRecipes().getListOfGroupsRecipes().get(position).getName());
-        }else {
+        } else {
             updateUINew();
         }
 
-
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_group_recipes);
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_all_recipes);
         return view;
     }
+
 
     private void updateUI() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -116,30 +119,93 @@ public class ListRecipesFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ObjectHolder objectHolder = new ObjectHolder();
                 objectHolder.bindObjectWithHolder(dataSnapshot.getValue(ListOfGroupsRecipes.class));
-                recyclerView.setAdapter(new ListRecipesAdapter((List<ItemRecipes>) ObjectHolder.getListOfGroupsRecipes().getListOfGroupsRecipes().get(position).getListRecipes(), getActivity()));
+
+                recyclerView.setAdapter(new GroupsAdapter((ArrayList<ListOfRecipes>) ObjectHolder.getListOfGroupsRecipes().getListOfGroupsRecipes(), groupsFragment));
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+
             }
         });
     }
 
     private void updateUINew() {
-        textView.setText(GroupsHolder.getGroupsRecipes().getGroups().get(position).getName());
-        adapter = new ListRecipesAdapterNew(GroupsHolder.getGroupsRecipes().getGroups().get(position).getListrecipes(), getActivity());
-        recyclerView.setAdapter(adapter);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("RECIPES_PLANS_NEW");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                ListRecipes groupsRecipes = dataSnapshot.getValue(ListRecipes.class);
+
+                EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes);
+                GroupsHolder groupsHolder = new GroupsHolder();
+                groupsHolder.bind(eatingGroupsRecipes);
+
+                adapter = new GroupsAdapterNew(GroupsHolder.getGroupsRecipes().getGroups(), groupsFragment, viewGroup.getId());
+                recyclerView.setAdapter(adapter);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+
+            }
+        });
+
     }
 
-    public void searchAndShow(CharSequence s){
+    private ListRecipes worker(ListRecipes recipes){
+
+        int i = 0;
+
+        List<String> list = new ArrayList<>();
+        list.add("");
+
+        for (RecipeItem item:
+             recipes.getListrecipes()) {
+
+
+            Log.d("worker", "worker: " + i++);
+
+            if (item.getLunch() == null){
+                item.setLunch(list);
+            }
+
+            if (item.getBreakfast() == null){
+                item.setBreakfast(list);
+            }
+
+            if (item.getDinner() == null){
+                item.setDinner(list);
+            }
+
+            if (item.getSnack() == null){
+                item.setSnack(list);
+            }
+        }
+
+        Log.d("worker", "return: ");
+        return recipes;
+    }
+
+    public void searchAndShow(CharSequence s) {
         String key = s.toString().toLowerCase();
         List<RecipeItem> result = new ArrayList<>();
         GroupsRecipes groupsRecipes = GroupsHolder.getGroupsRecipes();
+        RecyclerView.LayoutManager gridLayout = new GridLayoutManager(getContext(), 2);
 
-        if (key.equals("")){
+        if (key.equals("")) {
+
             recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(layoutManager);
         } else {
             for (int i = 0; i < groupsRecipes.getGroups().size(); i++) {
 
@@ -151,8 +217,11 @@ public class ListRecipesFragment extends Fragment {
                 }
             }
             ListRecipesAdapterNew adapterNew = new ListRecipesAdapterNew(result, getActivity());
+            recyclerView.setLayoutManager(gridLayout);
             recyclerView.setAdapter(adapterNew);
+
         }
 
     }
+
 }

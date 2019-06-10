@@ -1,7 +1,10 @@
 package com.wsoteam.diet.Recipes.v2;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,10 +14,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
+import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +50,9 @@ public class RecipeActivity extends AppCompatActivity {
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.tvRecipeKK) TextView tvKkal;
 
+    private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
+    RecipeItem recipeItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +64,7 @@ public class RecipeActivity extends AppCompatActivity {
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         window.setStatusBarColor(Color.parseColor("#32000000"));
-        RecipeItem recipeItem = (RecipeItem) getIntent().getSerializableExtra(Config.RECIPE_INTENT);
+        recipeItem = (RecipeItem) getIntent().getSerializableExtra(Config.RECIPE_INTENT);
 
         tvKkal.setText(recipeItem.getCalories() + " ккал на порцию");
         tvName.setText(recipeItem.getName());
@@ -104,6 +118,68 @@ public class RecipeActivity extends AppCompatActivity {
 
         Glide.with(this).load(url).into(ivHead);
 
+    }
+
+    @OnClick(R.id.addDiary)
+    public void onViewClicked(View view) {
+
+        savePortion(DINNER_POSITION, recipeItem);
+    }
+
+    private void savePortion(int idOfEating, RecipeItem recipe) {
+
+//        String wholeDate = getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE);
+//        String[] arrayOfNumbersForDate = wholeDate.split("\\.");
+
+        int day = 10;
+        int month = 06;
+        int year = 2019;
+
+        int kcal = recipe.getCalories();
+        int carbo = (int) recipe.getCarbohydrates();
+        int prot = recipe.getPortions();
+        int fat = (int) recipe.getFats();
+
+        int weight = -1;
+
+
+        String name = recipe.getName();
+        String urlOfImage = recipe.getUrl();
+
+        Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
+        switch (idOfEating) {
+            case BREAKFAST_POSITION:
+                WorkWithFirebaseDB.
+                        addBreakfast(new Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                break;
+            case LUNCH_POSITION:
+                WorkWithFirebaseDB.
+                        addLunch(new Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                break;
+            case DINNER_POSITION:
+                WorkWithFirebaseDB.
+                        addDinner(new Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                break;
+            case SNACK_POSITION:
+                WorkWithFirebaseDB.
+                        addSnack(new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                break;
+        }
+        AlertDialog alertDialog = AddFoodDialog.createChoiseEatingAlertDialog(this);
+        alertDialog.show();
+        getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).edit().putBoolean(Config.IS_ADDED_FOOD, true).commit();
+        new CountDownTimer(800, 100) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                alertDialog.dismiss();
+                onBackPressed();
+            }
+        }.start();
     }
 
 }

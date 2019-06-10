@@ -3,7 +3,7 @@ package com.wsoteam.diet;
 public class Config {
 
     public static final boolean RELEASE = false;
-//    public static final boolean RELEASE = false;
+//    public static final boolean RELEASE = true;
 
     public static final String ID_OF_RECIPE_GROUPS = "id_of_recipe_groups";
     public static final String YANDEX_API_KEY = "8e2511af-4c77-48f5-bb85-5079916b7416";

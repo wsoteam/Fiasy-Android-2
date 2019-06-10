@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wsoteam.diet.Recipes.ItemPlansActivity">
+    tools:context="com.wsoteam.diet.Recipes.v1.ItemPlansActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -171,18 +171,41 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp">
 
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cardView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        app:cardCornerRadius="25dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/ivRecipe"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ivRecipe">
+
+                        <Button
+                            android:id="@+id/addDiary"
+                            android:layout_width="238dp"
+                            android:layout_height="match_parent"
+                            android:background="#34847C"
+                            android:padding="2dp"
+                            android:text="@string/btnRecipeDiary"
+                            android:textColor="@android:color/white" />
+                    </android.support.v7.widget.CardView>
+
                     <TextView
                         android:id="@+id/tvNourishment"
                         android:layout_width="wrap_content"
                         android:layout_height="23dp"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:fontFamily="@font/roboto"
                         android:text="@string/tvNourishment"
                         android:textColor="#000"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/cardView8" />
 
                     <TextView
                         android:id="@+id/textView106"

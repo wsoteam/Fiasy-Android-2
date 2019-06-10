@@ -352,7 +352,7 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
     }
 
     private void signInGoogle() {
-        try {
+
             if (!isPP()) {
                 return;
             }
@@ -364,9 +364,6 @@ public class ActivityAuthMain extends AppCompatActivity implements View.OnClickL
             Intent signInIntent = mGoogleSignInClient.getSignInIntent();
             startActivityForResult(signInIntent, RC_SIGN_IN);
             Log.d(TAG, "signInGoogle: 3");
-        } catch (Exception e) {
-            toast(e);
-        }
 
     }
 

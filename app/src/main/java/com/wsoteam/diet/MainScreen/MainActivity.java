@@ -19,6 +19,11 @@ import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Articles.ListArticlesFragment;
@@ -34,6 +39,10 @@ import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodaDB;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
+import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
+import com.wsoteam.diet.Recipes.POJO.ListRecipes;
+import com.wsoteam.diet.Recipes.v2.GroupsAdapter;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.Sync.UserDataHolder;
 
@@ -119,7 +128,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                     return true;
                 case R.id.bnv_main_recipes:
-                    transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
+                    if(Config.RELEASE){
+                        transaction.replace(R.id.flFragmentContainer, new com.wsoteam.diet.Recipes.v1.GroupsFragment()).commit();
+                    } else {
+                        transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
+                    }
                     return true;
                 case R.id.bnv_main_profile:
                     transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
@@ -167,6 +180,9 @@ public class MainActivity extends AppCompatActivity {
         checkForcedGrade();
         new AsyncWriteFoodaDB().execute(this);
         intercom();
+        if (GroupsHolder.getGroupsRecipes() == null) {
+            loadRecipes();
+        }
     }
 
     private void intercom() {
@@ -209,6 +225,32 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    private void loadRecipes() {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("RECIPES_PLANS_NEW");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                ListRecipes groupsRecipes = dataSnapshot.getValue(ListRecipes.class);
+
+                EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes);
+                GroupsHolder groupsHolder = new GroupsHolder();
+                groupsHolder.bind(eatingGroupsRecipes);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 
 
 }

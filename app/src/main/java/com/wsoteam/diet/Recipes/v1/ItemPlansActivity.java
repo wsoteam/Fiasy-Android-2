@@ -1,4 +1,4 @@
-package com.wsoteam.diet.Recipes;
+package com.wsoteam.diet.Recipes.v1;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

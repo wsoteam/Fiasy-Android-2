@@ -5,13 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,31 +16,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.amplitude.api.Amplitude;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.MainScreen.MainActivity;
-import com.wsoteam.diet.ObjectHolder;
-import com.wsoteam.diet.POJOS.ItemRecipes;
-import com.wsoteam.diet.POJOS.ListOfGroupsRecipes;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Recipes.ListRecipesAdapter;
-import com.wsoteam.diet.Recipes.ListRecipesAdapterNew;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.Set;
 
 public class ListRecipesFragment extends Fragment {
 
@@ -51,8 +35,7 @@ public class ListRecipesFragment extends Fragment {
     private RecyclerView recyclerView;
     private int position;
     private RecyclerView.LayoutManager layoutManager;
-    private ListRecipesAdapterNew adapter;
-    private CardView cardView;
+    private ListRecipesAdapter adapter;
     private Toolbar mToolbar;
     private Window window;
 
@@ -84,7 +67,6 @@ public class ListRecipesFragment extends Fragment {
         }
 
         View view = inflater.inflate(R.layout.fragment_list_recipes_v2, container, false);
-        cardView = view.findViewById(R.id.cvRecipeItem);
 
         window = getActivity().getWindow();
         mToolbar = view.findViewById(R.id.toolbar);
@@ -119,48 +101,24 @@ public class ListRecipesFragment extends Fragment {
         layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
-        if (Config.RELEASE){
-            updateUI();
-            cardView.setVisibility(View.GONE);
-        }else {
-            updateUINew();
-        }
+
+        updateUI();
 
 
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_group_recipes);
         return view;
     }
 
+
     private void updateUI() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(Config.NAME_OF_ENTITY_FOR_DB).
-                child("listOfGroupsRecipes");
-
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ObjectHolder objectHolder = new ObjectHolder();
-                objectHolder.bindObjectWithHolder(dataSnapshot.getValue(ListOfGroupsRecipes.class));
-                recyclerView.setAdapter(new ListRecipesAdapter((List<ItemRecipes>) ObjectHolder.getListOfGroupsRecipes().getListOfGroupsRecipes().get(position).getListRecipes(), getActivity()));
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void updateUINew() {
         mToolbar.setTitle(GroupsHolder.getGroupsRecipes().getGroups().get(position).getName());
-        adapter = new ListRecipesAdapterNew(GroupsHolder.getGroupsRecipes().getGroups().get(position).getListrecipes(), getActivity());
+        adapter = new ListRecipesAdapter(GroupsHolder.getGroupsRecipes().getGroups().get(position).getListrecipes(), getActivity());
         recyclerView.setAdapter(adapter);
     }
 
     public void searchAndShow(CharSequence s){
         String key = s.toString().toLowerCase();
-        List<RecipeItem> result = new ArrayList<>();
+        Set<RecipeItem> result = new LinkedHashSet<>();
         GroupsRecipes groupsRecipes = GroupsHolder.getGroupsRecipes();
 
         if (key.equals("")){
@@ -175,7 +133,7 @@ public class ListRecipesFragment extends Fragment {
                     }
                 }
             }
-            ListRecipesAdapterNew adapterNew = new ListRecipesAdapterNew(result, getActivity());
+            ListRecipesAdapter adapterNew = new ListRecipesAdapter(new LinkedList<>(result), getActivity());
             recyclerView.setAdapter(adapterNew);
         }
 
