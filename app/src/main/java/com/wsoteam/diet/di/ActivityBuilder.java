@@ -1,5 +1,6 @@
 package com.wsoteam.diet.di;
 
+import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.presentation.intro.IntroActivity;
 import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
 
@@ -16,5 +17,8 @@ public abstract class ActivityBuilder {
     @PerActivity
     @ContributesAndroidInjector
     abstract EditProfileActivity bindEditProfileActivity();
+
+    @ContributesAndroidInjector
+    abstract MainAuthActivity bindMainAuthActivity();
 
 }

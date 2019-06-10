@@ -93,6 +93,15 @@
     <string name="status_sign_in_failed">Sign-in failed</string>
     <string name="instant_validation">(instant validation)</string>
 
+    <string name="auth_empty_email">Пропущен email!</string>
+    <string name="auth_wrong_email">Проверьте введенный email!</string>
+    <string name="auth_in_use_email">email уже используется!</string>
+    <string name="auth_empty_pass">Пропущен пароль!</string>
+    <string name="auth_easy_pass">Слишком простой пароль!</string>
+
+    <string name="auth_phone_wrong_number">Проверьте введенный номер!</string>
+    <string name="auth_phone_wrong_code">Проверьте введенный код!</string>
+
     <integer-array name="img_id_arr">
         <item>@drawable/background_item_profile_carbo</item>
         <item>@drawable/background_item_profile_prot</item>

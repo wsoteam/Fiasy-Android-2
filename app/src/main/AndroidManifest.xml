@@ -75,7 +75,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/PremiumActivity" />
         <activity
-            android:name=".Authenticate.ActivityAuthMain"
+            android:name=".presentation.auth.main.MainAuthActivity"
             android:parentActivityName=".presentation.intro.IntroActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityAuthMain" />
@@ -255,7 +255,7 @@
         </receiver>
 
         <activity
-            android:name=".Authenticate.ActivityAuthPhone"
+            android:name=".presentation.auth.ActivityAuthPhone"
             android:screenOrientation="portrait" />
         <activity
             android:name=".BranchProfile.ActivityEditCompletedProfile"

@@ -3,7 +3,7 @@ package com.wsoteam.diet.presentation.global;
 import android.content.Context;
 import android.content.Intent;
 
-import com.wsoteam.diet.Authenticate.ActivityAuthMain;
+import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchProfile.ActivityHelp;
 import com.wsoteam.diet.Config;
@@ -39,7 +39,7 @@ public class Screens {
     public static final class SignInScreen extends SupportAppScreen {
         @Override
         public Intent getActivityIntent(Context context) {
-            return new Intent(context, ActivityAuthMain.class);
+            return new Intent(context, MainAuthActivity.class);
         }
     }
 
@@ -52,7 +52,7 @@ public class Screens {
 
     public static final class AuthScreen extends SupportAppScreen {
         private Box box = null;
-        private Profile profile = null;
+        private Profile profile;
 
         public AuthScreen(Profile profile) {
             this.profile = profile;
@@ -65,7 +65,7 @@ public class Screens {
 
         @Override
         public Intent getActivityIntent(Context context) {
-            Intent intent = new Intent(context, ActivityAuthMain.class)
+            Intent intent = new Intent(context, MainAuthActivity.class)
                     .putExtra(Config.CREATE_PROFILE, true)
                     .putExtra(Config.INTENT_PROFILE, profile);
             if (box != null)
