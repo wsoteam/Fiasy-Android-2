@@ -3,7 +3,7 @@ package com.wsoteam.diet.presentation.global;
 import android.content.Context;
 import android.content.Intent;
 
-import com.wsoteam.diet.Authenticate.ActivityForgotPassword;
+import com.wsoteam.diet.presentation.auth.restore.ActivityForgotPassword;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchProfile.ActivityHelp;
 import com.wsoteam.diet.Config;

@@ -1,4 +1,4 @@
-package com.wsoteam.diet.Authenticate;
+package com.wsoteam.diet.presentation.auth.restore;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.wsoteam.diet.Authenticate.Valid;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 

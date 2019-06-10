@@ -255,6 +255,19 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
                 });
     }
 
+    public void firebaseAuthWithInstagram(String auth_token) {
+        mAuth.signInWithCustomToken(auth_token)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithCustomToken:success");
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithCustomToken:failure", task.getException());
+                    }
+                });
+    }
+
     void onForgotPassClicked() {
         router.navigateTo(new Screens.ForgotPassScreen());
     }

@@ -39,6 +39,7 @@ import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.presentation.auth.dialogs.InstaAuthDialogFragment;
 import com.wsoteam.diet.presentation.auth.dialogs.PhoneAuthDialogFragment;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 
@@ -49,7 +50,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dagger.android.AndroidInjection;
 
-public class MainAuthActivity extends BaseActivity implements MainAuthView, PhoneAuthDialogFragment.OnPhoneAuthClickListener {
+public class MainAuthActivity extends BaseActivity implements MainAuthView, PhoneAuthDialogFragment.OnPhoneAuthClickListener, InstaAuthDialogFragment.InstaAuthListener {
 
     private static final String TAG = "Authenticate";
     private static final int RC_SIGN_IN = 9001;
@@ -66,6 +67,7 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Phon
     @BindView(R.id.auth_main_btn_phone) Button phoneButton;
     @BindView(R.id.auth_main_btn_google_custom) Button googleCustomButton;
     @BindView(R.id.auth_main_btn_facebook_custom) Button facebookCustomButton;
+    @BindView(R.id.auth_main_btn_insta_custom) Button instagramCustomButton;
     @BindView(R.id.auth_main_btn_facebook) LoginButton facebookLoginButton;
     @BindView(R.id.auth_main_check_pp) CheckBox ppCheckBox;
 
@@ -121,6 +123,7 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Phon
             phoneButton.setText(R.string.auth_main_reg_phone);
             googleCustomButton.setText(R.string.auth_main_reg_google);
             facebookCustomButton.setText(R.string.auth_main_reg_facebook);
+            instagramCustomButton.setText(R.string.auth_main_reg_insta);
             emailEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.registration_icon_email, 0, 0, 0);
 
         } else {
@@ -179,7 +182,7 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Phon
     }
 
     @OnClick({R.id.auth_main_btn_signin, R.id.auth_main_btn_google, R.id.auth_main_tv_respasss, R.id.auth_main_btn_phone, R.id.textView82, R.id.auth_main_btn_google_custom,
-            R.id.auth_main_btn_facebook_custom})
+            R.id.auth_main_btn_facebook_custom, R.id.auth_main_btn_insta_custom})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.auth_main_btn_signin:
@@ -215,6 +218,9 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Phon
                 if (isPP()) {
                     facebookLoginButton.performClick();
                 }
+                break;
+            case R.id.auth_main_btn_insta_custom:
+                instaAuth();
                 break;
             case R.id.btnBack:
                 onBackPressed();
@@ -345,6 +351,11 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Phon
         }
     }
 
+    private void instaAuth() {
+        DialogFragment newFragment = InstaAuthDialogFragment.newInstance();
+        newFragment.show(getSupportFragmentManager(), "dialog");
+    }
+
     private void phoneAuth() {
         DialogFragment newFragment = PhoneAuthDialogFragment.newInstance();
         newFragment.show(getSupportFragmentManager(), "dialog");
@@ -390,4 +401,9 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Phon
         this.mVerificationId = verificationId;
     }
 
+    @Override
+    public void onInstaTokenReceived(String auth_token) {
+        Log.d("MyLogs", "ACCESS TOKEN - " + auth_token);
+        presenter.firebaseAuthWithInstagram(auth_token);
+    }
 }

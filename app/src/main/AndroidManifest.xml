@@ -59,7 +59,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Measurements" />
         <activity
-            android:name=".Authenticate.ActivityForgotPassword"
+            android:name=".presentation.auth.restore.ActivityForgotPassword"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
