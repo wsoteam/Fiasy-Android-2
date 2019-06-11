@@ -33,14 +33,11 @@ public class EditProfilePresenter extends BasePresenter<EditProfileView> {
     }
 
     void calculate(int rgFemaleOrMale, String edtAge, String edtHeight, String edtWeight, String sportActivity, String dif_level) {
-        int age = Integer.parseInt(edtAge);
-        int height = Integer.parseInt(edtHeight);
-        double weight = Double.parseDouble(edtWeight);
         if (rgFemaleOrMale != -1) {
-            if (!TextUtils.isEmpty(edtAge) && age >= MIN_AGE && age <= MAX_AGE) {
-                if (!TextUtils.isEmpty(edtHeight) && height >= MIN_HEIGHT && height <= MAX_HEIGHT) {
-                    if (!TextUtils.isEmpty(edtWeight) && weight >= MIN_WEIGHT && weight <= MAX_WEIGHT) {
-                        calculate(rgFemaleOrMale, age, height, weight, sportActivity, dif_level);
+            if (!TextUtils.isEmpty(edtAge) && Integer.parseInt(edtAge) >= MIN_AGE && Integer.parseInt(edtAge) <= MAX_AGE) {
+                if (!TextUtils.isEmpty(edtHeight) && Integer.parseInt(edtHeight) >= MIN_HEIGHT && Integer.parseInt(edtHeight) <= MAX_HEIGHT) {
+                    if (!TextUtils.isEmpty(edtWeight) && Double.parseDouble(edtWeight) >= MIN_WEIGHT && Double.parseDouble(edtWeight) <= MAX_WEIGHT) {
+                        calculate(rgFemaleOrMale, Integer.parseInt(edtAge), Integer.parseInt(edtHeight), Double.parseDouble(edtWeight), sportActivity, dif_level);
                     } else {
                         getViewState().showMessage(context.getString(R.string.spk_check_weight));
                     }
