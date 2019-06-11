@@ -2,12 +2,14 @@ package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -30,7 +32,9 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvSumProt) TextView tvSumProt;
     @BindView(R.id.tvSumFats) TextView tvSumFats;
     @BindView(R.id.tvSumCarbo) TextView tvSumCarbo;
+    @BindView(R.id.ivEatingIcon) ImageView ivEatingIcon;
     private boolean isButtonPressed = false;
+    private final int BREAKFAST = 0, LUNCH = 1, DINNER = 2, SNACK = 3;
 
     private Context context;
     private String data;
@@ -45,6 +49,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(List<Eating> eatingGroup, Context context, String nameOfEatingGroup) {
         setCPFC(eatingGroup);
+        setIcon();
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
         rvListOfFoodEatingCard.setLayoutManager(new LinearLayoutManager(context));
         rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, false));
@@ -62,6 +67,23 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
+    private void setIcon() {
+        switch (getAdapterPosition()) {
+            case BREAKFAST:
+                Glide.with(context).load(R.drawable.breakfast_icon).into(ivEatingIcon);
+                break;
+            case LUNCH:
+                Glide.with(context).load(R.drawable.lunch_icon).into(ivEatingIcon);
+                break;
+            case DINNER:
+                Glide.with(context).load(R.drawable.dinner_icon).into(ivEatingIcon);
+                break;
+            case SNACK:
+                Glide.with(context).load(R.drawable.snack_icon).into(ivEatingIcon);
+                break;
+        }
+    }
+
     private void setCPFC(List<Eating> eatingGroup) {
         int sumKcal = 0, sumProt = 0, sumFats = 0, sumCarbo = 0;
         for (int i = 0; i < eatingGroup.size(); i++) {
@@ -70,11 +92,11 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
             sumFats += eatingGroup.get(i).getFat();
             sumCarbo += eatingGroup.get(i).getCarbohydrates();
         }
-        tvSumOfKcal.setText(String.valueOf(sumKcal) + "Ккал");
+        tvSumOfKcal.setText(String.valueOf(sumKcal));
 
-        tvSumProt.setText("Б. " + String.valueOf(sumProt));
-        tvSumFats.setText("Ж. " + String.valueOf(sumFats));
-        tvSumCarbo.setText("У. " + String.valueOf(sumCarbo));
+        tvSumProt.setText(String.valueOf(sumProt) + " г");
+        tvSumFats.setText(String.valueOf(sumFats) + " г");
+        tvSumCarbo.setText(String.valueOf(sumCarbo) + " г");
 
     }
 
