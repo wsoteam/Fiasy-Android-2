@@ -2,7 +2,6 @@ package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,6 +32,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvSumFats) TextView tvSumFats;
     @BindView(R.id.tvSumCarbo) TextView tvSumCarbo;
     @BindView(R.id.ivEatingIcon) ImageView ivEatingIcon;
+    @BindView(R.id.tvRecommendation) TextView tvRecommendation;
     private boolean isButtonPressed = false;
     private final int BREAKFAST = 0, LUNCH = 1, DINNER = 2, SNACK = 3;
 
