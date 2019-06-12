@@ -76,7 +76,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
                     tvEmptyText.setVisibility(View.GONE);
                 }
                 isEqualsNext = true;
-                search(charSequence);
+                search(charSequence.toString().replaceAll("\\s+", " "));
             }
 
             @Override
@@ -113,9 +113,9 @@ public class ActivityListAndSearch extends AppCompatActivity {
         rvListOfSearchResponse.setAdapter(itemAdapter);
     }
 
-    private void search(CharSequence charSequence) {
+    private void search(String searchString) {
         Single.fromCallable(() -> {
-            List<Food> cFOODS = getFirstList(charSequence);
+            List<Food> cFOODS = getFirstList(searchString);
             return cFOODS;
         })
                 .subscribeOn(Schedulers.computation())
@@ -128,18 +128,17 @@ public class ActivityListAndSearch extends AppCompatActivity {
         rvListOfSearchResponse.setAdapter(itemAdapter);
     }
 
-    private List<Food> getFirstList(CharSequence charSequence) {
+    private List<Food> getFirstList(String searchString) {
         List<Food> foods = new ArrayList<>();
-        foods.addAll(foodDAO.searchFullMatchWord(charSequence.toString(), RESPONSE_LIMIT, 0));
+        foods.addAll(foodDAO.searchFullMatchWord(searchString, RESPONSE_LIMIT, 0));
         if (foods.size() < RESPONSE_LIMIT) {
             isEqualsNext = false;
-            if (charSequence.toString().contains(" ") && charSequence.toString().split(" ").length > 1) {
-                foods.addAll(searchMultiWords(charSequence.toString(), foods.size()));
+            if (searchString.contains(" ") && searchString.split(" ").length > 1) {
+                foods.addAll(searchMultiWords(searchString, foods.size()));
             } else {
-                foods.addAll(foodDAO.searchOneWord("%" + charSequence.toString() + "%", RESPONSE_LIMIT, foods.size()));
+                foods.addAll(foodDAO.searchOneWord("%" + searchString + "%", RESPONSE_LIMIT, foods.size()));
             }
         }
-        Log.e("LOL", "First" + String.valueOf(foods.size()));
         return foods;
     }
 
