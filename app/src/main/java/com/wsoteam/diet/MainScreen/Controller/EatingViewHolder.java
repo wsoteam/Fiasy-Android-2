@@ -33,6 +33,11 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvSumCarbo) TextView tvSumCarbo;
     @BindView(R.id.ivEatingIcon) ImageView ivEatingIcon;
     @BindView(R.id.tvRecommendation) TextView tvRecommendation;
+    @BindView(R.id.tvEatingLabelProt) TextView tvEatingLabelProt;
+    @BindView(R.id.tvEatingLabelFats) TextView tvEatingLabelFats;
+    @BindView(R.id.tvEatingLabelCarbo) TextView tvEatingLabelCarbo;
+    @BindView(R.id.tvEatingLabelKcal) TextView tvEatingLabelKcal;
+    @BindView(R.id.tvCount) TextView tvCount;
     private boolean isButtonPressed = false;
     private final int BREAKFAST = 0, LUNCH = 1, DINNER = 2, SNACK = 3;
 
@@ -86,17 +91,34 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
 
     private void setCPFC(List<Eating> eatingGroup) {
         int sumKcal = 0, sumProt = 0, sumFats = 0, sumCarbo = 0;
-        for (int i = 0; i < eatingGroup.size(); i++) {
-            sumKcal += eatingGroup.get(i).getCalories();
-            sumProt += eatingGroup.get(i).getProtein();
-            sumFats += eatingGroup.get(i).getFat();
-            sumCarbo += eatingGroup.get(i).getCarbohydrates();
-        }
-        tvSumOfKcal.setText(String.valueOf(sumKcal));
 
-        tvSumProt.setText(String.valueOf(sumProt) + " г");
-        tvSumFats.setText(String.valueOf(sumFats) + " г");
-        tvSumCarbo.setText(String.valueOf(sumCarbo) + " г");
+        tvCount.setText(String.valueOf(eatingGroup.size()) + " шт.");
+
+        if (eatingGroup.size() > 0) {
+            for (int i = 0; i < eatingGroup.size(); i++) {
+                sumKcal += eatingGroup.get(i).getCalories();
+                sumProt += eatingGroup.get(i).getProtein();
+                sumFats += eatingGroup.get(i).getFat();
+                sumCarbo += eatingGroup.get(i).getCarbohydrates();
+            }
+            tvSumOfKcal.setText(String.valueOf(sumKcal));
+
+            tvSumProt.setText(String.valueOf(sumProt) + " г");
+            tvSumFats.setText(String.valueOf(sumFats) + " г");
+            tvSumCarbo.setText(String.valueOf(sumCarbo) + " г");
+        } else {
+            tvRecommendation.setVisibility(View.VISIBLE);
+            tvSumOfKcal.setVisibility(View.GONE);
+            tvSumProt.setVisibility(View.GONE);
+            tvSumFats.setVisibility(View.GONE);
+            tvSumCarbo.setVisibility(View.GONE);
+
+            tvEatingLabelProt.setVisibility(View.GONE);
+            tvEatingLabelFats.setVisibility(View.GONE);
+            tvEatingLabelCarbo.setVisibility(View.GONE);
+            tvEatingLabelKcal.setVisibility(View.GONE);
+
+        }
 
     }
 

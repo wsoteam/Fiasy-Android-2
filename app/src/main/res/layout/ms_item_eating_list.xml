@@ -15,6 +15,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -46,23 +48,92 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <ImageButton
-                android:id="@+id/imbAddFood"
+            <TextView
+                android:id="@+id/tvCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="2 шт."
+                android:textColor="@color/count_color"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTitleOfEatingCard"
+                app:layout_constraintStart_toEndOf="@+id/tvTitleOfEatingCard" />
+
+            <ImageButton
+                android:id="@+id/ibtnOpenList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:backgroundTint="@color/white"
-                android:src="@drawable/add_new_food_main_activity"
+                android:src="@drawable/open_eating_list"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvCount"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/ibtnOpenMenu"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/ic_open_menu"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/back_eating">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/imbAddFood"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/ic_eating_fab"
+                app:backgroundTint="@color/fab_eating"
+                app:borderWidth="1dp"
+                app:fabCustomSize="36dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:maxImageSize="14dp" />
+
+            <TextView
+                android:id="@+id/textView132"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Добавить"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imbAddFood"
+                app:layout_constraintStart_toEndOf="@+id/imbAddFood"
+                app:layout_constraintTop_toTopOf="@+id/imbAddFood" />
 
         </android.support.constraint.ConstraintLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvListOfFoodEatingCard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content" >
+
+        </android.support.v7.widget.RecyclerView>
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -195,13 +266,6 @@
                 app:layout_constraintTop_toTopOf="@+id/tvEatingLabelCarbo" />
 
         </android.support.constraint.ConstraintLayout>
-
-        <ImageButton
-            android:id="@+id/ibtnOpenList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/open_eating_list" />
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

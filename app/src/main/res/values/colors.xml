@@ -153,6 +153,9 @@
     <color name="half_transparent_green">#40009C99</color>
     <color name="light_gray_one_button">#9D9D9D</color>
     <color name="recommendation">#555555</color>
+    <color name="back_eating">#1AF3DD72</color>
+    <color name="fab_eating">#EF7D02</color>
+    <color name="count_color">#57000000</color>
 
 
 

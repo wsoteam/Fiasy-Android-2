@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="lunch_icon" />
-                            <entry key="sourceFile" value="C:\Users\37525\Desktop\apple.svg" />
+                            <entry key="outputName" value="ic_speak" />
+                            <entry key="sourceFile" value="C:\Users\37525\Desktop\Icon.svg" />
                           </map>
                         </option>
                       </PersistentState>
