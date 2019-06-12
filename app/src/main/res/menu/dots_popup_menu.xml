@@ -5,8 +5,8 @@
         <item
             android:id="@+id/add_food_dots"
             android:title="Добавить еду" />
-        <item
+        <!--<item
             android:id="@+id/user_note_dots"
-            android:title="Пользовательская запись" />
+            android:title="Пользовательская запись" />-->
     </group>
 </menu>
