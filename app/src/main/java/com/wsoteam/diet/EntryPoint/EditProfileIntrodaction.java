@@ -1,14 +1,11 @@
 package com.wsoteam.diet.EntryPoint;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,29 +16,27 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.amplitude.api.Amplitude;
 import com.google.android.gms.ads.InterstitialAd;
-import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.Authenticate.ActivityAuthMain;
-import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.BranchProfile.ActivityHelp;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.Onboard.SleepActivity;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.presentation.profile.dialogs.DifLevelDialogFragment;
 import com.yandex.metrica.YandexMetrica;
 
 import java.util.Calendar;
 
-public class EditProfileIntrodaction extends AppCompatActivity {
+public class EditProfileIntrodaction extends AppCompatActivity implements DifLevelDialogFragment.OnDifLevelClickListener {
 
 
+    private final String DEFAULT_AVATAR = "default";
+    private final int WATER_ON_KG_FEMALE = 30;
+    private final int WATER_ON_KG_MALE = 40;
+    AlertDialog alertDialogLevelLoad;
     private String dif_level;
-
     private EditText edtHeight, edtAge, edtWeight;
     private String SpkName = "default";
     private String SpkSecondName = "default";
@@ -50,14 +45,7 @@ public class EditProfileIntrodaction extends AppCompatActivity {
     private RadioGroup rgFemaleOrMale;
     private ImageView ivHelpEditProfile;
     private Button nextButton;
-
     private InterstitialAd interstitialAd;
-    AlertDialog alertDialogLevelLoad;
-
-
-    private final String DEFAULT_AVATAR = "default";
-    private final int WATER_ON_KG_FEMALE = 30;
-    private final int WATER_ON_KG_MALE = 40;
     private String urlOfPhoto = "default";
     private int day, month, year;
 
@@ -158,43 +146,26 @@ public class EditProfileIntrodaction extends AppCompatActivity {
     }
 
     private void selectDifLevel() {
+        DialogFragment newFragment = DifLevelDialogFragment.newInstance();
+        newFragment.show(getSupportFragmentManager(), "dialog");
+    }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final AlertDialog alertDialog = builder.create();
-        View view = View.inflate(this, R.layout.alert_dialog_choise_difficulty_level, null);
-        CardView cvADChoiseDiffLevelHard = view.findViewById(R.id.cvADChoiseDiffLevelHard);
-        CardView cvADChoiseDiffLevelNormal = view.findViewById(R.id.cvADChoiseDiffLevelNormal);
-        CardView cvADChoiseDiffLevelEasy = view.findViewById(R.id.cvADChoiseDiffLevelEasy);
+    @Override
+    public void onEasyClicked() {
+        dif_level = getString(R.string.dif_level_easy);
+        btnDifLevel.setText(R.string.dif_level_easy);
+    }
 
-        cvADChoiseDiffLevelEasy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dif_level = getString(R.string.dif_level_easy);
-                btnDifLevel.setText(R.string.dif_level_easy);
-                alertDialog.cancel();
-            }
-        });
-        cvADChoiseDiffLevelNormal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dif_level = getString(R.string.dif_level_normal);
-                btnDifLevel.setText(R.string.dif_level_normal);
-                alertDialog.cancel();
-            }
-        });
-        cvADChoiseDiffLevelHard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dif_level = getString(R.string.dif_level_hard);
-                btnDifLevel.setText(R.string.dif_level_hard);
-                alertDialog.cancel();
-            }
-        });
-        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        alertDialog.setView(view);
-        alertDialog.show();
+    @Override
+    public void onNormalClicked() {
+        dif_level = getString(R.string.dif_level_normal);
+        btnDifLevel.setText(R.string.dif_level_normal);
+    }
 
-
+    @Override
+    public void onHardClicked() {
+        dif_level = getString(R.string.dif_level_hard);
+        btnDifLevel.setText(R.string.dif_level_hard);
     }
 
 

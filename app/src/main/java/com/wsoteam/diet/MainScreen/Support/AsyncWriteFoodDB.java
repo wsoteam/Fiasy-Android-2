@@ -4,8 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
-import com.wsoteam.diet.RunClass.Diet;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class AsyncWriteFoodDB extends AsyncTask<Context, Void, Void> {
 
     @Override
     protected Void doInBackground(Context... contexts) {
-        FoodDAO foodDAO = Diet.getInstance().getFoodDatabase().foodDAO();
+        FoodDAO foodDAO = App.getInstance().getFoodDatabase().foodDAO();
         if (isEmptyDB(foodDAO)) {
             Log.d(TAG, "Start rewrite");
             rewriteDB(contexts[0]);
@@ -51,7 +51,7 @@ public class AsyncWriteFoodDB extends AsyncTask<Context, Void, Void> {
 
     private boolean isEmptyDB(FoodDAO foodDAO) {
         boolean isEmpty = true;
-        if (foodDAO.getById(1) != null){
+        if (foodDAO.getById(1) != null) {
             isEmpty = false;
         }
         return isEmpty;

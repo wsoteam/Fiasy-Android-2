@@ -239,7 +239,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/rectangle_8"
+        android:id="@+id/btnNext"
         android:layout_width="229dp"
         android:layout_height="38dp"
         android:layout_alignParentLeft="true"

@@ -9,6 +9,14 @@
 
     </style>
 
+    <style name="Theme.AppCompat.Translucent" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -20,9 +28,9 @@
         <item name="colorPrimaryDark">#CC9702</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="ActivityAuthMain" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#E68D3C</item>
@@ -165,13 +173,13 @@
     </style>
 
     <style name="Widget.BottomNavigationView"
-        parent="Widget.Design.BottomNavigationView">
+           parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/roboto_light</item>
         <item name="android:textSize">9sp</item>
     </style>
 
     <style name="ImageRatingBar" parent="@android:style/Widget.RatingBar">
-       <item name="android:progressDrawable">@drawable/orange_ratingbar</item>
+        <item name="android:progressDrawable">@drawable/orange_ratingbar</item>
     </style>
 
     <style name="SleepActivity" parent="Theme.AppCompat.Light.NoActionBar">
@@ -189,7 +197,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    
-    
+
 
 </resources>
