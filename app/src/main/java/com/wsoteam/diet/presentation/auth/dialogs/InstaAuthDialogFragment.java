@@ -34,6 +34,7 @@ public class InstaAuthDialogFragment extends DialogFragment {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
             if (url.startsWith(redirect_url)) {
                 dismiss();
                 return true;

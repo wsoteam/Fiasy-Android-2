@@ -98,6 +98,8 @@
     <string name="auth_in_use_email">email уже используется!</string>
     <string name="auth_empty_pass">Пропущен пароль!</string>
     <string name="auth_easy_pass">Слишком простой пароль!</string>
+    <string name="auth_pass_with_space">Пароль не должен содержать пробелы</string>
+    <string name="auth_wrong_credentials">Проверьте введённые данные</string>
 
     <string name="auth_phone_wrong_number">Проверьте введенный номер!</string>
     <string name="auth_phone_wrong_code">Проверьте введенный код!</string>

@@ -41,7 +41,7 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
 
     public void showProgressDialog(boolean show) {
         if (progressDialog == null)
-            return;
+            progressDialog = initMaterialDialog();
 
         if (show) progressDialog.show();
         else progressDialog.dismiss();

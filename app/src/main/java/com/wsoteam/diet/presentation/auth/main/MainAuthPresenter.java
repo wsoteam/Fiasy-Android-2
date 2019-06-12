@@ -100,9 +100,12 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
     }
 
     void signIn(String email, String password) {
-        if (checkCredentials(email, password))
+        email = email.trim();
+        if (checkCredentials(email, password)) {
+            getViewState().showProgress(true);
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
+                        getViewState().showProgress(false);
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
@@ -110,27 +113,30 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure ", task.getException());
+                            getViewState().showMessage(context.getString(R.string.auth_wrong_credentials));
                         }
 
                         if (!task.isSuccessful()) {
                             Log.d(TAG, "auth_failed ");
                         }
                     });
-
+        }
     }
 
-
     void createAccount(String email, String password) {
-        if (checkCredentials(email, password))
+        email = email.trim();
+        if (checkCredentials(email, password)) {
+            getViewState().showProgress(true);
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
+                        getViewState().showProgress(false);
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-
+                            getViewState().showMessage(context.getString(R.string.auth_wrong_credentials));
                         }
                         if (!task.isSuccessful()) {
                             try {
@@ -152,9 +158,10 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
                             }
                         }
                     });
+        }
     }
 
-    boolean checkCredentials(String email, String password) {
+    private boolean checkCredentials(String email, String password) {
         Log.d(TAG, "signIn:" + email);
         if (email.matches("")) {
             getViewState().showMessage(context.getString(R.string.auth_empty_email));
@@ -165,6 +172,9 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
             return false;
         } else if (password.matches("")) {
             getViewState().showMessage(context.getString(R.string.auth_empty_pass));
+            return false;
+        } else if (password.contains(" ")) {
+            getViewState().showMessage(context.getString(R.string.auth_pass_with_space));
             return false;
         }
         return true;
