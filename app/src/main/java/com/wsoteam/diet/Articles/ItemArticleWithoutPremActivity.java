@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Articles.POJO.Article;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
 import com.wsoteam.diet.Articles.Util.HtmlTagHandler;
+import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
@@ -75,7 +76,9 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
 
     @OnClick(R.id.goPremArticle)
     public void startPrem(){
-        startActivity(new Intent(this, ActivitySubscription.class));
+        Box box = new Box();
+        Intent intent = new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box);
+        startActivity(intent);
     }
 
 }

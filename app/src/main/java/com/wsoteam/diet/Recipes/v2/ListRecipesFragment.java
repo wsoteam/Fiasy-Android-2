@@ -40,22 +40,6 @@ public class ListRecipesFragment extends Fragment {
     private Window window;
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        window.getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        window.setStatusBarColor(Color.parseColor("#32000000"));
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-    }
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,6 +53,7 @@ public class ListRecipesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list_recipes_v2, container, false);
 
         window = getActivity().getWindow();
+        window.setStatusBarColor(Color.parseColor("#BB6001"));
         mToolbar = view.findViewById(R.id.toolbar);
         mToolbar.inflateMenu(R.menu.toolbar_menu);
         mToolbar.setTitleTextColor(0xFFFFFFFF);
@@ -100,15 +85,10 @@ public class ListRecipesFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rvListRecipes);
         layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
-
-
         updateUI();
-
-
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_group_recipes);
         return view;
     }
-
 
     private void updateUI() {
         mToolbar.setTitle(GroupsHolder.getGroupsRecipes().getGroups().get(position).getName());

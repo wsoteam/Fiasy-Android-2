@@ -104,7 +104,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
                     fragment.setArguments(bundle);
 
                     transaction.replace(containerID, fragment);
-                    transaction.addToBackStack(null);
+                    transaction.addToBackStack(Config.RECIPE_BACK_STACK);
                     transaction.commit();
                 }
             });
@@ -144,7 +144,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
                         if (checkSubscribe()){
                             intent = new Intent(groupsFragment.getActivity(), RecipeActivity.class);
                         }else {
-                            intent = new Intent(groupsFragment.getActivity(), RecipeActivity.class);
+                            intent = new Intent(groupsFragment.getActivity(), BlockedRecipeActivity.class);
                         }
 
                         intent.putExtra(Config.RECIPE_INTENT, groupsRecipes.get(getAdapterPosition()).getListrecipes().get(y + bais));

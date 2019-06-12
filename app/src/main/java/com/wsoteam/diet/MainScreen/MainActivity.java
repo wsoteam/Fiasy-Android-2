@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -42,7 +43,6 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
-import com.wsoteam.diet.Recipes.v2.GroupsAdapter;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.Sync.UserDataHolder;
 
@@ -53,7 +53,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.intercom.android.sdk.Intercom;
 import io.intercom.android.sdk.UserAttributes;
-import io.intercom.android.sdk.identity.Registration;
+
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.flFragmentContainer) FrameLayout flFragmentContainer;
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
     private FragmentTransaction transaction;
     private BottomSheetBehavior bottomSheetBehavior;
+    private  Window window;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -69,12 +70,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             transaction = getSupportFragmentManager().beginTransaction();
-            Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             Box box = new Box();
             box.setSubscribe(false);
             box.setOpenFromPremPart(true);
             box.setOpenFromIntrodaction(false);
+
+            getSupportFragmentManager().popBackStack(Config.RECIPE_BACK_STACK, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
             switch (item.getItemId()) {
                 case R.id.bnv_main_diary:
                     transaction.replace(R.id.flFragmentContainer, new FragmentDiary()).commit();
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                             if (getABVersion().equals(ABConfig.C_VERSION)) {
                                 transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.
                                         newInstance(box)).commit();
+
                             } else {
                                 if (getABVersion().equals(ABConfig.A_VERSION)) {
                                     transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.
@@ -104,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     } else {
                         transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();
+
                     }
                     return true;
                 case R.id.bnv_main_trainer:
@@ -115,13 +120,16 @@ public class MainActivity extends AppCompatActivity {
                         if (getABVersion().equals(ABConfig.C_VERSION)) {
                             transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.
                                     newInstance(box)).commit();
+
                         } else {
                             if (getABVersion().equals(ABConfig.A_VERSION)) {
                                 transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.
                                         newInstance(box)).commit();
+
                             } else {
                                 transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenOneButton.
                                         newInstance(box)).commit();
+
                             }
                         }
                         window.setStatusBarColor(Color.parseColor("#747d3b"));
@@ -135,7 +143,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     return true;
                 case R.id.bnv_main_profile:
-                    transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
+                    transaction.replace(R.id.flFragmentContainer, new FragmentProfile());
+                    transaction.commit();
                     window.setStatusBarColor(Color.parseColor("#2E4E4E"));
                     return true;
             }
@@ -174,6 +183,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
         ButterKnife.bind(this);
+        window = getWindow();
+        window.setStatusBarColor(Color.parseColor("#AE6A23"));
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);

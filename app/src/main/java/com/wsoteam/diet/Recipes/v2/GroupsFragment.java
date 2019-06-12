@@ -62,29 +62,13 @@ public class GroupsFragment extends Fragment implements Observer {
         GroupsHolder.unsubscribe(this);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        window.getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        window.setStatusBarColor(Color.parseColor("#32000000"));
-    }
-
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
         window = getActivity().getWindow();
+        window.setStatusBarColor(Color.parseColor("#BB6001"));
         groupsFragment = this;
         viewGroup = container;
 

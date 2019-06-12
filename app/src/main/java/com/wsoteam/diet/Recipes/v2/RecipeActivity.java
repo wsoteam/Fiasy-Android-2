@@ -1,15 +1,22 @@
 package com.wsoteam.diet.Recipes.v2;
 
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,11 +34,14 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RecipeActivity extends AppCompatActivity {
+public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener{
+    private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
     @BindView(R.id.ivHead) ImageView ivHead;
     @BindView(R.id.tvName) TextView tvName;
     @BindView(R.id.tvTime) TextView tvTime;
@@ -46,24 +56,23 @@ public class RecipeActivity extends AppCompatActivity {
     @BindView(R.id.tvProtein) TextView tvProtein;
     @BindView(R.id.tvCholesterol) TextView tvCholesterol;
     @BindView(R.id.tvSodium) TextView tvSodium;
-    @BindView(R.id.tvPotassium) TextView tvPotassium;Window window;
+    @BindView(R.id.tvPotassium) TextView tvPotassium;
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.tvRecipeKK) TextView tvKkal;
-
-    private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
     RecipeItem recipeItem;
+    Window window;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_plans_v2);
+        setContentView(R.layout.activity_recipe);
         ButterKnife.bind(this);
 
-        window =getWindow();
+        window = getWindow();
         window.getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        window.setStatusBarColor(Color.parseColor("#32000000"));
+        window.setStatusBarColor(Color.parseColor("#66000000"));
         recipeItem = (RecipeItem) getIntent().getSerializableExtra(Config.RECIPE_INTENT);
 
         tvKkal.setText(recipeItem.getCalories() + " ккал на порцию");
@@ -80,12 +89,13 @@ public class RecipeActivity extends AppCompatActivity {
         tvSodium.setText(String.valueOf(recipeItem.getSodium()));
         tvPotassium.setText(String.valueOf(recipeItem.getPortions()));
 
-
-//        mToolbar.inflateMenu(R.menu.toolbar_menu);
         mToolbar.setTitleTextColor(0xFFFFFFFF);
-        mToolbar.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+        mToolbar.setPadding(0, dpToPx(24), 0, 0);
+        mToolbar.setBackgroundColor(Color.parseColor("#32000000"));
         Menu menu = mToolbar.getMenu();
 
+        mToolbar.inflateMenu(R.menu.recipe_menu);
+        mToolbar.setOnMenuItemClickListener(this);
         mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,20 +105,32 @@ public class RecipeActivity extends AppCompatActivity {
         });
 
 
+        int indexIngredients = 0;
+        int borderIngredients = recipeItem.getIngredients().size();
         for (String ingredient :
                 recipeItem.getIngredients()) {
+            indexIngredients++;
             View view = getLayoutInflater().inflate(R.layout.plan_recipes_ingredient, null);
+            View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
+            line.setPadding(0, 0, 0, 0);
             TextView textView = view.findViewById(R.id.tvIngredient);
             textView.setText(ingredient);
             llIngredients.addView(view);
+            if (indexIngredients < borderIngredients){ llIngredients.addView(line);}
         }
 
+        int indexInstruction = 0;
+        int borderInstruction = recipeItem.getInstruction().size();
         for (String instruction :
                 recipeItem.getInstruction()) {
+            indexInstruction++;
             View view = getLayoutInflater().inflate(R.layout.plan_recipes_instruction, null);
+            View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
+            line.setPadding(dpToPx(70), 0, 0, 0);
             TextView textView = view.findViewById(R.id.tvInstruction);
             textView.setText(instruction);
             llInstructions.addView(view);
+            if (indexInstruction < borderInstruction){ llInstructions.addView(line);}
         }
 
         String url = recipeItem.getUrl();
@@ -120,28 +142,133 @@ public class RecipeActivity extends AppCompatActivity {
 
     }
 
+    public int dpToPx(int dp) {
+        float density = getResources()
+                .getDisplayMetrics()
+                .density;
+        return Math.round((float) dp * density);
+    }
+
+    private int statusBarHeight(android.content.res.Resources res) {
+        return (int) (24 * res.getDisplayMetrics().density);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.mShare:
+                Intent  i = new Intent(
+                        android.content.Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(android.content.Intent.EXTRA_TEXT, recipeToString(recipeItem));
+                startActivity(Intent.createChooser(i, getResources().getString(R.string.titleShareDialogRecipe)));
+                return true;
+            case R.id.mFavorites:
+
+                return true;
+        }
+        return false;
+
+    }
+
+    private String recipeToString(RecipeItem recipe){
+
+        String result = recipe.getName() + "\n" +
+                        "Время готовки: " + recipe.getTime() + " минут" + "\n";
+        for (String step:
+             recipe.getInstruction()) {
+            result += step + "\n";
+        }
+
+        return result + "https://play.google.com/store/apps/details?id=com.wild.diet";
+    }
+
+
     @OnClick(R.id.addDiary)
     public void onViewClicked(View view) {
 
-        savePortion(DINNER_POSITION, recipeItem);
+        new AlertDialogChoiseEating().createChoiseEatingAlertDialog(this).show();
+
     }
 
-    private void savePortion(int idOfEating, RecipeItem recipe) {
 
-//        String wholeDate = getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE);
-//        String[] arrayOfNumbersForDate = wholeDate.split("\\.");
+    public class AlertDialogChoiseEating {
 
-        int day = 10;
-        int month = 06;
-        int year = 2019;
+        public AlertDialog createChoiseEatingAlertDialog(Context context) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            AlertDialog alertDialog = builder.create();
+            View view = LayoutInflater.from(context).inflate(R.layout.alert_dialog_choise_eating_type, null);
+
+            ImageButton ibChoiseEatingBreakFast = view.findViewById(R.id.ibChoiseEatingBreakFast);
+            ImageButton ibChoiseEatingLunch = view.findViewById(R.id.ibChoiseEatingLunch);
+            ImageButton ibChoiseEatingDinner = view.findViewById(R.id.ibChoiseEatingDinner);
+            ImageButton ibChoiseEatingSnack = view.findViewById(R.id.ibChoiseEatingSnack);
+
+            ibChoiseEatingBreakFast.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    datePicker(BREAKFAST_POSITION);
+                    alertDialog.cancel();
+                }
+            });
+            ibChoiseEatingLunch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    datePicker(LUNCH_POSITION);
+                    alertDialog.cancel();
+                }
+            });
+            ibChoiseEatingDinner.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    datePicker(DINNER_POSITION);
+                    alertDialog.cancel();
+                }
+            });
+            ibChoiseEatingSnack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    datePicker(SNACK_POSITION);
+                    alertDialog.cancel();
+                }
+            });
+
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            alertDialog.setView(view);
+            return alertDialog;
+        }
+    }
+
+    private void datePicker(int idOfEating) {
+        Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datepicker, int year, int month, int day) {
+                        //this condition is necessary to work properly on all android versions
+//                        if(view.isShown()){
+                        savePortion(idOfEating, recipeItem, year, month, day);
+//                        }
+                    }
+                }, mYear, mMonth, mDay);
+
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        datePickerDialog.show();
+    }
+
+
+    private void savePortion(int idOfEating, RecipeItem recipe, int year, int month, int day) {
 
         int kcal = recipe.getCalories();
         int carbo = (int) recipe.getCarbohydrates();
         int prot = recipe.getPortions();
         int fat = (int) recipe.getFats();
-
         int weight = -1;
-
 
         String name = recipe.getName();
         String urlOfImage = recipe.getUrl();

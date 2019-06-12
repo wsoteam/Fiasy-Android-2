@@ -155,4 +155,6 @@
 
     <color name="black_trans80">#32000000</color>
 
+    <color name="fff">#BB6001</color>
+
 </resources>

@@ -4,8 +4,10 @@
     <string name="tvTitleArticleFragment">Полезные статьи</string>
 
     <!--Item Plan Recipe-->
+    <string name="titleShareDialogRecipe">Поделится рецептом</string>
     <string name="tvItemPlanTime">Время готовки:</string>
-    <string name="tvItemPlanIngredients">Ингридиенты на одну порцию:</string>
+    <string name="tvItemPlanIngredients">Ингридиенты:</string>
+    <string name="tvRecipeInrgidientCount">на 1 порцию</string>
     <string name="tvItemPlanMinute">минут</string>
     <string name="tvNourishment">Питательные вещества</string>
     <string name="tvOnePortion">на 1 порцию</string>
@@ -20,6 +22,7 @@
     <string name="tvSodium">Натрий</string>
     <string name="tvPotassium">Калий</string>
     <string name="tvGram">г</string>
+    <string name="tvMG">мг</string>
 
 
     <!--Menu-->
