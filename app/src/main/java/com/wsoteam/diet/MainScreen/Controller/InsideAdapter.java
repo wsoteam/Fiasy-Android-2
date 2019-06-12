@@ -30,12 +30,12 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideViewHolder> {
     @Override
     public InsideViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        return new InsideViewHolder(layoutInflater, parent);
+        return new InsideViewHolder(layoutInflater, parent, context);
     }
 
     @Override
     public void onBindViewHolder(@NonNull InsideViewHolder holder, int position) {
-        holder.bind(oneGroupOfEating.get(position), context);
+        holder.bind(oneGroupOfEating.get(position));
     }
 
     @Override

@@ -3,8 +3,10 @@ package com.wsoteam.diet.MainScreen.Controller;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -38,6 +40,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvEatingLabelCarbo) TextView tvEatingLabelCarbo;
     @BindView(R.id.tvEatingLabelKcal) TextView tvEatingLabelKcal;
     @BindView(R.id.tvCount) TextView tvCount;
+    @BindView(R.id.ibtnOpenMenu) ImageButton ibtnOpenMenu;
     private boolean isButtonPressed = false;
     private final int BREAKFAST = 0, LUNCH = 1, DINNER = 2, SNACK = 3;
 
@@ -62,10 +65,11 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
 
     }
 
+
     private void setExpandableView(List<Eating> eatingGroup) {
         if (eatingGroup.size() < 1) {
             ibtnOpenList.setVisibility(View.GONE);
-        }else {
+        } else {
             ibtnOpenList.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -131,12 +135,39 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
 
     }
 
+    @OnClick({R.id.ibtnOpenMenu, R.id.imbAddFood})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ibtnOpenMenu:
+                createPopupMenu(context, ibtnOpenMenu);
+                break;
+            case R.id.imbAddFood:
+                openSearch();
+                break;
+        }
+    }
 
-    @OnClick(R.id.imbAddFood)
-    public void onViewClicked() {
+    private void openSearch() {
         Intent intent = new Intent(context, ActivityListAndSearch.class);
         intent.putExtra(Config.INTENT_DATE_FOR_SAVE, data);
         intent.putExtra(Config.TAG_CHOISE_EATING, getAdapterPosition());
         context.startActivity(intent);
+    }
+
+    private void createPopupMenu(Context context, ImageButton ibtnOpenMenu) {
+        PopupMenu popupMenu = new PopupMenu(context, ibtnOpenMenu);
+        popupMenu.inflate(R.menu.dots_popup_menu);
+        popupMenu.show();
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.add_food_dots:
+                        openSearch();
+                        break;
+                }
+                return false;
+            }
+        });
     }
 }
