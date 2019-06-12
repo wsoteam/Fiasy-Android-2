@@ -18,7 +18,7 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideViewHolder> {
     public InsideAdapter(List<Eating> oneGroupOfEating, Context context, boolean isFull) {
          if (oneGroupOfEating.size() != 0 && !isFull) {
             this.oneGroupOfEating = new ArrayList<>();
-            this.oneGroupOfEating.add(oneGroupOfEating.get(0));
+            //this.oneGroupOfEating.add(oneGroupOfEating.get(0));
             this.context = context;
         }else{
              this.oneGroupOfEating = oneGroupOfEating;

@@ -58,18 +58,27 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
         rvListOfFoodEatingCard.setLayoutManager(new LinearLayoutManager(context));
         rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, false));
-        ibtnOpenList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isButtonPressed) {
-                    Glide.with(context).load(R.drawable.close_eating_list).into(ibtnOpenList);
-                } else {
-                    Glide.with(context).load(R.drawable.open_eating_list).into(ibtnOpenList);
+        setExpandableView(eatingGroup);
+
+    }
+
+    private void setExpandableView(List<Eating> eatingGroup) {
+        if (eatingGroup.size() < 1) {
+            ibtnOpenList.setVisibility(View.GONE);
+        }else {
+            ibtnOpenList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!isButtonPressed) {
+                        Glide.with(context).load(R.drawable.close_eating_list).into(ibtnOpenList);
+                    } else {
+                        Glide.with(context).load(R.drawable.open_eating_list).into(ibtnOpenList);
+                    }
+                    rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, !isButtonPressed));
+                    isButtonPressed = !isButtonPressed;
                 }
-                rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, !isButtonPressed));
-                isButtonPressed = !isButtonPressed;
-            }
-        });
+            });
+        }
     }
 
     private void setIcon() {
