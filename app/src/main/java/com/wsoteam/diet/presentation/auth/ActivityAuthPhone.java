@@ -1,4 +1,4 @@
-package com.wsoteam.diet.Authenticate;
+package com.wsoteam.diet.presentation.auth;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

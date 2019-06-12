@@ -17,7 +17,6 @@ import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Identify;
-import com.amplitude.api.Revenue;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
@@ -30,12 +29,11 @@ import com.facebook.appevents.AppEventsConstants;
 import com.facebook.appevents.AppEventsLogger;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.Authenticate.ActivityAuthMain;
+import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.EventsAdjust;
-import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.R;
 
@@ -161,8 +159,8 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
                 getActivity().finish();
             } else if (box.isOpenFromIntrodaction()) {
                 box.setSubscribe(true);
-                startActivity(new Intent(getActivity(), ActivityAuthMain.class).
-                        putExtra("createUser", true).
+                startActivity(new Intent(getActivity(), MainAuthActivity.class).
+                        putExtra(Config.CREATE_PROFILE, true).
                         putExtra(Config.INTENT_PROFILE, box.getProfile()));
                 getActivity().finish();
             }
@@ -196,8 +194,8 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
                 getActivity().getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE)
                         .edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, true)
                         .commit();
-                startActivity(new Intent(getActivity(), ActivityAuthMain.class).
-                        putExtra("createUser", true).
+                startActivity(new Intent(getActivity(), MainAuthActivity.class).
+                        putExtra(Config.CREATE_PROFILE, true).
                         putExtra(Config.INTENT_PROFILE, box.getProfile()));
                 getActivity().finish();
             }else {

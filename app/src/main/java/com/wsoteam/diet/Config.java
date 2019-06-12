@@ -35,6 +35,7 @@ public class Config {
 
     //Intents tags for send first profile
     public static final String INTENT_PROFILE = "INTENT_PROFILE";
+    public static final String CREATE_PROFILE = "CREATE_PROFILE";
 
     //Key of billing state
     public static final String STATE_BILLING = "STATE_BILLING";

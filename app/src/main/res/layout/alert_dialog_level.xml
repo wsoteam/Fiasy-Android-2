@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:layout_marginStart="15dp"
+                                             android:layout_marginEnd="15dp">
 
     <TextView
         android:id="@+id/textView19"
@@ -20,7 +22,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -34,9 +36,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
             android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:layout_marginLeft="8dp">
+            android:paddingBottom="10dp">
 
             <RadioGroup
                 android:id="@+id/rgLevelLoad"
@@ -50,7 +52,7 @@
                     android:id="@+id/rbLevelLoadNone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/level_none" />
+                    android:text="@string/level_none"/>
 
                 <TextView
                     android:id="@+id/tv_level_none"
@@ -58,14 +60,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="33dp"
-                    android:text="@string/tv_level_none" />
+                    android:text="@string/tv_level_none"/>
 
                 <RadioButton
                     android:id="@+id/rbLevelLoadEasy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@string/level_easy" />
+                    android:text="@string/level_easy"/>
 
                 <TextView
                     android:id="@+id/tv_level_easy"
@@ -73,14 +75,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="33dp"
-                    android:text="@string/tv_level_easy" />
+                    android:text="@string/tv_level_easy"/>
 
                 <RadioButton
                     android:id="@+id/rbLevelLoadMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@string/level_medium" />
+                    android:text="@string/level_medium"/>
 
                 <TextView
                     android:id="@+id/tv_level_medium"
@@ -88,14 +90,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="33dp"
-                    android:text="@string/tv_level_medium" />
+                    android:text="@string/tv_level_medium"/>
 
                 <RadioButton
                     android:id="@+id/rbLevelLoadHard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@string/level_hard" />
+                    android:text="@string/level_hard"/>
 
                 <TextView
                     android:id="@+id/tv_level_hard"
@@ -103,14 +105,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="33dp"
-                    android:text="@string/tv_level_hard" />
+                    android:text="@string/tv_level_hard"/>
 
                 <RadioButton
                     android:id="@+id/rbLevelLoadUpHard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@string/level_up_hard" />
+                    android:text="@string/level_up_hard"/>
 
                 <TextView
                     android:id="@+id/tv_level_up_hard"
@@ -118,14 +120,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="33dp"
-                    android:text="@string/tv_level_up_hard" />
+                    android:text="@string/tv_level_up_hard"/>
 
                 <RadioButton
                     android:id="@+id/rbLevelLoadSuper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@string/level_super" />
+                    android:text="@string/level_super"/>
 
                 <TextView
                     android:id="@+id/tv_level_super"
@@ -133,14 +135,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="33dp"
-                    android:text="@string/tv_level_super" />
+                    android:text="@string/tv_level_super"/>
 
                 <RadioButton
                     android:id="@+id/rbLevelLoadUpSuper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@string/level_up_super" />
+                    android:text="@string/level_up_super"/>
 
                 <TextView
                     android:id="@+id/tv_level_up_super"
@@ -148,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="33dp"
-                    android:text="@string/tv_level_up_super" />
+                    android:text="@string/tv_level_up_super"/>
 
 
             </RadioGroup>

@@ -1,15 +1,10 @@
 package com.wsoteam.diet.EntryPoint;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,12 +16,9 @@ import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.bumptech.glide.Glide;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,18 +29,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.wsoteam.diet.ABConfig;
-import com.wsoteam.diet.Activism.POJO.Factory;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Amplitude.SetUserProperties;
-import com.wsoteam.diet.Articles.ItemArticleActivity;
-import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
-import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.InApp.IDs;
-import com.wsoteam.diet.InApp.properties.EmptySubInfo;
 import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
+import com.wsoteam.diet.InApp.properties.EmptySubInfo;
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.POJOProfile.SubInfo;
@@ -57,16 +45,18 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.wsoteam.diet.tvoytrener.ForTestFragmentActivity;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.wsoteam.diet.presentation.global.BaseActivity;
+import com.wsoteam.diet.presentation.intro.IntroActivity;
+import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
+
 import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.AndroidInjection;
 
-public class ActivitySplash extends Activity {
+public class ActivitySplash extends BaseActivity {
     @BindView(R.id.auth_first_iv_image) ImageView authFirstIvImage;
     @BindView(R.id.tvSplashText) ImageView tvSplashText;
     private FirebaseUser user;
@@ -77,6 +67,7 @@ public class ActivitySplash extends Activity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -124,9 +115,9 @@ public class ActivitySplash extends Activity {
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
             if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_ONBOARD, false)) {
                 Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
-                startActivity(new Intent(this, ActivityEditProfile.class).putExtra("registration", true));
+                startActivity(new Intent(this, EditProfileActivity.class).putExtra("registration", true));
             } else {
-                startActivity(new Intent(ActivitySplash.this, ActivityAuthenticate.class));
+                startActivity(new Intent(ActivitySplash.this, IntroActivity.class));
             }
             finish();
         }
@@ -187,13 +178,10 @@ public class ActivitySplash extends Activity {
     }
 
     private void setSubInfoWithGooglePlayInfo() {
-        mBillingClient = BillingClient.newBuilder(this).setListener(new PurchasesUpdatedListener() {
-            @Override
-            public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
-                if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
-                    //сюда мы попадем когда будет осуществлена покупка
+        mBillingClient = BillingClient.newBuilder(this).setListener((responseCode, purchases) -> {
+            if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
+                //сюда мы попадем когда будет осуществлена покупка
 
-                }
             }
         }).build();
         mBillingClient.startConnection(new BillingClientStateListener() {
@@ -227,17 +215,14 @@ public class ActivitySplash extends Activity {
         FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         firebaseRemoteConfig.setDefaults(R.xml.default_config);
 
-        firebaseRemoteConfig.fetch(3600).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    firebaseRemoteConfig.activateFetched();
-                    Amplitude.getInstance().logEvent("norm_ab");
-                } else {
-                    Amplitude.getInstance().logEvent("crash_ab");
-                }
-                setABTestConfig(firebaseRemoteConfig.getString(ABConfig.REQUEST_STRING));
+        firebaseRemoteConfig.fetch(3600).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                firebaseRemoteConfig.activateFetched();
+                Amplitude.getInstance().logEvent("norm_ab");
+            } else {
+                Amplitude.getInstance().logEvent("crash_ab");
             }
+            setABTestConfig(firebaseRemoteConfig.getString(ABConfig.REQUEST_STRING));
         });
     }
 
@@ -247,7 +232,7 @@ public class ActivitySplash extends Activity {
         Amplitude.getInstance().identify(abStatus);
         getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
                 edit().putString(ABConfig.KEY_FOR_SAVE_STATE, responseString).
-                commit();
+                apply();
     }
 
     private void checkFirstLaunch() {
@@ -266,13 +251,13 @@ public class ActivitySplash extends Activity {
 
             getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).
                     edit().putBoolean(Config.IS_NEED_SHOW_ONBOARD, true).
-                    commit();
+                    apply();
 
-            getSharedPreferences(Config.STARTING_POINT, MODE_PRIVATE).edit().putLong(Config.STARTING_POINT, getTime()).commit();
+            getSharedPreferences(Config.STARTING_POINT, MODE_PRIVATE).edit().putLong(Config.STARTING_POINT, getTime()).apply();
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(TAG_FIRST_RUN, true);
-            editor.commit();
+            editor.apply();
         }
     }
 
@@ -281,30 +266,12 @@ public class ActivitySplash extends Activity {
         return calendar.getTimeInMillis();
     }
 
-    private boolean hasConnection(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if (wifiInfo != null && wifiInfo.isConnected()) {
-            return true;
-        }
-        wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        if (wifiInfo != null && wifiInfo.isConnected()) {
-            return true;
-        }
-        wifiInfo = cm.getActiveNetworkInfo();
-        if (wifiInfo != null && wifiInfo.isConnected()) {
-            return true;
-        }
-        return false;
-    }
-
-
     private List<Purchase> queryPurchases() {
         Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.SUBS);
         return purchasesResult.getPurchasesList();
     }
 
     private void changePremStatus(boolean isPremUser) {
-        getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).edit().putBoolean(Config.STATE_BILLING, isPremUser).commit();
+        getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).edit().putBoolean(Config.STATE_BILLING, isPremUser).apply();
     }
 }

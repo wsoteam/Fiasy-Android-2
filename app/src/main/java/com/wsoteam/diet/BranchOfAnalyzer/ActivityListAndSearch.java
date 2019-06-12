@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,15 +18,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amplitude.api.Amplitude;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.RunClass.Diet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +48,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
     private int RESPONSE_LIMIT = 50;
     private ItemAdapter itemAdapter;
     private boolean isEqualsNext = true;
-    private FoodDAO foodDAO = Diet.getInstance().getFoodDatabase().foodDAO();
+    private FoodDAO foodDAO = App.getInstance().getFoodDatabase().foodDAO();
     private final int ONE_WORD = 1, TWO_WORDS = 2, THREE_WORDS = 3, FOUR_WORDS = 4, FIVE_WORDS = 5;
 
 

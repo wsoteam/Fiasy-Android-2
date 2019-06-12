@@ -1,4 +1,4 @@
-package com.wsoteam.diet.RunClass;
+package com.wsoteam.diet;
 
 import android.app.Activity;
 import android.app.Application;
@@ -12,16 +12,23 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orm.SugarContext;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
-import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.di.DaggerAppComponent;
 import com.yandex.metrica.YandexMetrica;
 import com.yandex.metrica.YandexMetricaConfig;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
 import io.intercom.android.sdk.Intercom;
 
-public class Diet extends Application {
-    public static Diet instance;
+public class App extends Application implements HasActivityInjector {
+    public static App instance;
     private FoodDatabase foodDatabase;
+    @Inject
+    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -42,9 +49,21 @@ public class Diet extends Application {
         foodDatabase = Room.databaseBuilder(this, FoodDatabase.class, "foodDB.db").build();
 
         //SetUserProperties.setUserProperties(Adjust.getAttribution());
+
+        DaggerAppComponent
+                .builder()
+                .application(this)
+                .build()
+                .inject(this);
     }
 
-    public static Diet getInstance(){
+    //
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return dispatchingAndroidInjector;
+    }
+
+    public static App getInstance(){
         return instance;
     }
 
@@ -96,5 +115,3 @@ public class Diet extends Application {
     }
 
 }
-
-
