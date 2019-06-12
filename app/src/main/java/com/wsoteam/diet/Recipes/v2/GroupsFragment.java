@@ -1,6 +1,9 @@
 package com.wsoteam.diet.Recipes.v2;
 
+import android.app.SearchManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -83,9 +86,13 @@ public class GroupsFragment extends Fragment implements Observer {
         mToolbar.setTitleTextColor(0xFFFFFFFF);
 
         Menu menu = mToolbar.getMenu();
+//        SearchManager searchManager = (SearchManager) getActivity()
+//                .getSystemService(Context.SEARCH_SERVICE);
+//        ComponentName componentName = new ComponentName(getContext(), )
 
         MenuItem mSearch = menu.findItem(R.id.action_search);
         SearchView mSearchView = (SearchView) mSearch.getActionView();
+//        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -150,5 +157,18 @@ public class GroupsFragment extends Fragment implements Observer {
         recyclerView.setAdapter(adapter);
         GroupsHolder.unsubscribe(this);
 
+    }
+
+    private void handleIntent(Intent intent){
+        if(Intent.ACTION_SEARCH.equals(intent.getAction())){
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            searchAndShow(query);
+        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        handleIntent(getActivity().getIntent());
     }
 }

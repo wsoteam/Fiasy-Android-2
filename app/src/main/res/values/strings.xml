@@ -1,5 +1,11 @@
 <resources>
 
+    <!--adding recipe-->
+    <string name="recipeToolBarTitle">Создать рецепт</string>
+    <string name="btnBack">Назад</string>
+    <string name="btnNext">Далее</string>
+
+
     <string name="tvArticlePremText">Получите доступ к сотням полезных статей при подписке на premium.</string>
     <string name="tvTitleArticleFragment">Полезные статьи</string>
 

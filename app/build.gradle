@@ -107,6 +107,8 @@ dependencies {
     implementation 'io.intercom.android:intercom-sdk-base:5.+'
     implementation 'io.intercom.android:intercom-sdk-fcm:5.+'
 
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:3.0.3'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

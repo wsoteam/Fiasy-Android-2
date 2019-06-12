@@ -54,6 +54,7 @@ import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
@@ -88,11 +89,11 @@ public class ActivitySplash extends Activity {
         }
 
 
-//        startActivity(new Intent(this, ForTestFragmentActivity.class));
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
-        checkFirstLaunch();
-        checkRegistrationAndRun();
+        startActivity(new Intent(this, AddingRecipeActivity.class));
+//        FacebookSdk.sdkInitialize(getApplicationContext());
+//        AppEventsLogger.activateApp(this);
+//        checkFirstLaunch();
+//        checkRegistrationAndRun();
     }
 
     private void checkRegistrationAndRun() {

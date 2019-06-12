@@ -21,18 +21,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Recipes.v2.BlockedRecipeActivity"
+        <activity android:name=".Recipes.adding.AddingRecipeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu"/>
+            android:theme="@style/Menu">
 
+        </activity>
+        <activity
+            android:name=".Recipes.v2.BlockedRecipeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" />
         <activity
             android:name=".Articles.ItemArticleWithoutPremActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TransparentStatusBar"/>
+            android:theme="@style/TransparentStatusBar" />
         <activity
             android:name=".Articles.ItemArticleActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TransparentStatusBar"/>
+            android:theme="@style/TransparentStatusBar" />
         <activity
             android:name=".Recipes.v1.RecipeWithoutPremActivity"
             android:screenOrientation="portrait"
@@ -152,8 +157,17 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainScreen.MainActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2" />
+            android:theme="@style/AppTheme2">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
         <activity
             android:name=".BranchOfCalculating.ActivityCalculatorBrok"
             android:screenOrientation="portrait"
