@@ -8,20 +8,27 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
+
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 import com.wsoteam.diet.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class AddingRecipeActivity extends AppCompatActivity {
 
-
+    @BindView(R.id.btnLeft) Button btnBack;
+    @BindView(R.id.btnRight) Button btnNext;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.worm_dots_indicator) WormDotsIndicator wormDotsIndicator;
+    @BindView(R.id.vpContainer) ViewPager vpPager;
     FragmentPagerAdapter adapterViewPager;
-    WormDotsIndicator wormDotsIndicator;
+
 
     Window window;
 
@@ -29,12 +36,12 @@ public class AddingRecipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_recipe);
+        ButterKnife.bind(this);
 
-        ViewPager vpPager = (ViewPager) findViewById(R.id.vpContainer);
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
         vpPager.setAdapter(adapterViewPager);
 
-        wormDotsIndicator = (WormDotsIndicator) findViewById(R.id.worm_dots_indicator);
+
         wormDotsIndicator.setViewPager(vpPager);
 
         window = getWindow();
@@ -43,7 +50,6 @@ public class AddingRecipeActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         window.setStatusBarColor(Color.parseColor("#32000000"));
 
-        Toolbar mToolbar = findViewById(R.id.toolbar);
         mToolbar.setTitle(R.string.recipeToolBarTitle);
         mToolbar.inflateMenu(R.menu.adding_recipe_menu);
         mToolbar.setTitleTextColor(0xFFFFFFFF);
