@@ -62,7 +62,6 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         rvListOfFoodEatingCard.setLayoutManager(new LinearLayoutManager(context));
         rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, false));
         setExpandableView(eatingGroup);
-
     }
 
 

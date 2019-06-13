@@ -3,6 +3,7 @@ package com.wsoteam.diet.MainScreen.Controller;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -35,11 +36,20 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull InsideViewHolder holder, int position) {
-        holder.bind(oneGroupOfEating.get(position));
+        holder.bind(oneGroupOfEating.get(position), new ViewHolderCallback(){
+            @Override
+            public void itemWasClicked(int position) {
+                Log.e("LOL", String.valueOf(position));
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return oneGroupOfEating.size();
     }
+
+
 }
+
+
