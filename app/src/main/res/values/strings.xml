@@ -29,6 +29,8 @@
     <string name="tvPotassium">Калий</string>
     <string name="tvGram">г</string>
     <string name="tvMG">мг</string>
+    <string name="tvKkal">Ккал</string>
+    <string name="tvKkal0">0 Ккал</string>
 
 
     <!--Menu-->

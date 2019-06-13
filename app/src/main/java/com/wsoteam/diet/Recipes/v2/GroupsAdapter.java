@@ -186,7 +186,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
                         .into(imageViewList.get(i));
 
                 textViewList.get(i).setText(name);
-                textViewsKK.get(i).setText(kk + " кк");
+                textViewsKK.get(i).setText(kk + " " + context.getResources().getString(R.string.tvKkal));
             }
         }
         private boolean checkSubscribe() {
