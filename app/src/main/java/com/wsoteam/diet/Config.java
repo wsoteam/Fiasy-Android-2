@@ -18,6 +18,7 @@ public class Config {
     public static final String RECIPES_BUNDLE = "RECIPES_BUNDLE";
     public static final String RECIPE_INTENT = "RECIPE_INTENT";
     public static final String RECIPE_BACK_STACK = "RECIPE_BACK_STACK";
+    public static final int RECIPE_EMPTY_WEIGHT = -1;
 
     public static final String ARTICLE_INTENT = "ARTICLE_INTENT";
 
