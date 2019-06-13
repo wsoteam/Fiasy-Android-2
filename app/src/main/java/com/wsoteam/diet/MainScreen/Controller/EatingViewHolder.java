@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +47,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
 
     private Context context;
     private String data;
+    private List<Eating> eatingGroup;
 
 
     public EatingViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, Context context, String data) {
@@ -56,16 +58,23 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(List<Eating> eatingGroup, Context context, String nameOfEatingGroup) {
-        setCPFC(eatingGroup);
+        this.eatingGroup = eatingGroup;
+        setCPFC();
         setIcon();
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
         rvListOfFoodEatingCard.setLayoutManager(new LinearLayoutManager(context));
-        rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, false, getAdapterPosition()));
-        setExpandableView(eatingGroup);
+        rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup,
+                context, false, getAdapterPosition(), new EatingHolderCallback() {
+            @Override
+            public void itemWasRemoved(int position) {
+                refreshUI(position);
+            }
+        }));
+        setExpandableView();
     }
 
 
-    private void setExpandableView(List<Eating> eatingGroup) {
+    private void setExpandableView() {
         if (eatingGroup.size() < 1) {
             ibtnOpenList.setVisibility(View.GONE);
         } else {
@@ -77,7 +86,13 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
                     } else {
                         Glide.with(context).load(R.drawable.open_eating_list).into(ibtnOpenList);
                     }
-                    rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, !isButtonPressed, getAdapterPosition()));
+                    rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup,
+                            context, !isButtonPressed, getAdapterPosition(), new EatingHolderCallback() {
+                        @Override
+                        public void itemWasRemoved(int position) {
+                            refreshUI(position);
+                        }
+                    }));
                     isButtonPressed = !isButtonPressed;
                 }
             });
@@ -101,7 +116,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    private void setCPFC(List<Eating> eatingGroup) {
+    private void setCPFC() {
         int sumKcal = 0, sumProt = 0, sumFats = 0, sumCarbo = 0;
 
         tvCount.setText(String.valueOf(eatingGroup.size()) + " шт.");
@@ -168,5 +183,12 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
                 return false;
             }
         });
+    }
+
+    private void refreshUI(int position) {
+        setCPFC();
+        if (eatingGroup.size() < 1){
+            ibtnOpenList.setVisibility(View.GONE);
+        }
     }
 }

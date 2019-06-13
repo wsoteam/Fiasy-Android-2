@@ -3,8 +3,6 @@ package com.wsoteam.diet.MainScreen.Controller;
 import android.content.Context;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +23,7 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
     @BindView(R.id.tvFats) TextView tvFats;
     @BindView(R.id.tvCarbo) TextView tvCarbo;
     Context context;
-    ViewHolderCallback viewHolderCallback;
+    InsideHolderCallback insideHolderCallback;
 
     public InsideViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, Context context) {
         super(layoutInflater.inflate(R.layout.ms_item_inside_list, viewGroup, false));
@@ -48,7 +46,7 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.delete_food:
-                        viewHolderCallback.itemWasClicked(getAdapterPosition());
+                        insideHolderCallback.itemWasClicked(getAdapterPosition());
                         break;
                 }
                 return false;
@@ -56,13 +54,13 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
         });
     }
 
-    public void bind(Eating eating, ViewHolderCallback viewHolderCallback) {
+    public void bind(Eating eating, InsideHolderCallback insideHolderCallback) {
         tvNameOfFood.setText(eating.getName());
         tvCalories.setText(eating.getCalories() + " Ккал");
         tvWeight.setText("Вес: " + eating.getWeight() + "г");
         tvProt.setText("Б. " + eating.getProtein());
         tvFats.setText("Ж. " + eating.getFat());
         tvCarbo.setText("У. " + eating.getCarbohydrates());
-        this.viewHolderCallback = viewHolderCallback;
+        this.insideHolderCallback = insideHolderCallback;
     }
 }

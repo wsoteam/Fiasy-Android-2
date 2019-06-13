@@ -3,7 +3,6 @@ package com.wsoteam.diet.MainScreen.Controller;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -18,10 +17,12 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideViewHolder> {
     private Context context;
     private int choiseEating;
     private final int BREAKFAST = 0, LUNCH = 1, DINNER = 2, SNACK = 3;
+    private EatingHolderCallback callback;
 
 
-    public InsideAdapter(List<Eating> oneGroupOfEating, Context context, boolean isFull, int choiseEating) {
+    public InsideAdapter(List<Eating> oneGroupOfEating, Context context, boolean isFull, int choiseEating, EatingHolderCallback callback) {
         this.choiseEating = choiseEating;
+        this.callback = callback;
         if (oneGroupOfEating.size() != 0 && !isFull) {
             this.oneGroupOfEating = new ArrayList<>();
             //this.oneGroupOfEating.add(oneGroupOfEating.get(0));
@@ -41,7 +42,7 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull InsideViewHolder holder, int position) {
-        holder.bind(oneGroupOfEating.get(position), new ViewHolderCallback() {
+        holder.bind(oneGroupOfEating.get(position), new InsideHolderCallback() {
             @Override
             public void itemWasClicked(int position) {
                 removeItem(position);
@@ -71,6 +72,7 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideViewHolder> {
         }
         oneGroupOfEating.remove(position);
         notifyItemRemoved(position);
+        callback.itemWasRemoved(position);
     }
 
 
