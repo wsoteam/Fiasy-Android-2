@@ -1,7 +1,5 @@
 package com.wsoteam.diet.BranchOfAnalyzer;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -17,25 +15,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amplitude.api.Amplitude;
-import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EntryPoint.ActivitySplash;
-import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
-import java.util.List;
-
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -54,18 +45,17 @@ public class ActivityDetailSavedFood extends AppCompatActivity {
     @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
     private BottomSheetBehavior bottomSheetBehavior;
 
-    List<View> viewList;
-
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
-    private Food foodItem;
+    private Eating foodItem;
+    private double calories = 0, proteins = 0, carbo = 0, fats = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_saved_food);
         ButterKnife.bind(this);
-        ButterKnife.apply(viewList, (view, value, index) -> view.setVisibility(value), View.GONE);
-        foodItem = (Food) getIntent().getSerializableExtra(Config.INTENT_DETAIL_FOOD);
+        foodItem = (Eating) getIntent().getSerializableExtra(Config.INTENT_DETAIL_FOOD);
+        reCalculate();
         bindFields();
 
         edtWeight.addTextChangedListener(new TextWatcher() {
@@ -102,30 +92,26 @@ public class ActivityDetailSavedFood extends AppCompatActivity {
 
     }
 
-    private void bindFields() {
-        tvTitle.setText(foodItem.getName());
-        tvFats.setText(String.valueOf(Math.round(foodItem.getFats() * 100)) + " г");
-        tvCarbohydrates.setText(String.valueOf(Math.round(foodItem.getCarbohydrates() * 100)) + " г");
-        tvProteins.setText(String.valueOf(Math.round(foodItem.getProteins() * 100)) + " г");
+    private void reCalculate() {
+        double weight = foodItem.getWeight();
+        calories = ((double) foodItem.getCalories()) / weight;
+        carbo = ((double) foodItem.getCarbohydrates()) / weight;
+        fats = ((double) foodItem.getFat()) / weight;
+        proteins = ((double) foodItem.getProtein()) / weight;
     }
 
-    private boolean isPremiumUser() {
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-        if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
-            return true;
-        } else {
-            return false;
-        }
+    private void bindFields() {
+        tvTitle.setText(foodItem.getName());
+        tvFats.setText(String.valueOf(Math.round(fats * 100)) + " г");
+        tvCarbohydrates.setText(String.valueOf(Math.round(carbo * 100)) + " г");
+        tvProteins.setText(String.valueOf(Math.round(proteins * 100)) + " г");
     }
 
     private void savePortion(int idOfEating) {
 
-        String wholeDate = getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE);
-        String[] arrayOfNumbersForDate = wholeDate.split("\\.");
-
-        int day = Integer.parseInt(arrayOfNumbersForDate[0]);
-        int month = Integer.parseInt(arrayOfNumbersForDate[1]) - 1;
-        int year = Integer.parseInt(arrayOfNumbersForDate[2]);
+        int day = foodItem.getDay();
+        int month = foodItem.getMonth();
+        int year = foodItem.getYear();
 
         int kcal = Integer.parseInt(tvCalculateKcal.getText().toString().split(" ")[0]);
         int carbo = Integer.parseInt(tvCalculateCarbohydrates.getText().toString().split(" ")[0]);
@@ -134,27 +120,29 @@ public class ActivityDetailSavedFood extends AppCompatActivity {
 
         int weight = Integer.parseInt(edtWeight.getText().toString());
 
-
         String name = foodItem.getName();
         String urlOfImage = "empty_url";
 
-        Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
         switch (idOfEating) {
             case BREAKFAST_POSITION:
                 WorkWithFirebaseDB.
-                        addBreakfast(new Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                        editBreakfast(new Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year),
+                                foodItem.getUrlOfImages());
                 break;
             case LUNCH_POSITION:
                 WorkWithFirebaseDB.
-                        addLunch(new Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                        editLunch(new Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year),
+                                foodItem.getUrlOfImages());
                 break;
             case DINNER_POSITION:
                 WorkWithFirebaseDB.
-                        addDinner(new Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                        editDinner(new Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year),
+                                foodItem.getUrlOfImages());
                 break;
             case SNACK_POSITION:
                 WorkWithFirebaseDB.
-                        addSnack(new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                        editSnack(new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year),
+                                foodItem.getUrlOfImages());
                 break;
         }
         AlertDialog alertDialog = AddFoodDialog.createChoiseEatingAlertDialog(ActivityDetailSavedFood.this);
@@ -178,17 +166,15 @@ public class ActivityDetailSavedFood extends AppCompatActivity {
     private void calculateMainParameters(CharSequence stringPortion) {
         double portion = Double.parseDouble(stringPortion.toString());
 
-        tvCalculateProtein.setText(String.valueOf(Math.round(portion * foodItem.getProteins())) + " " + getString(R.string.gramm));
-        tvCalculateKcal.setText(String.valueOf(Math.round(portion * foodItem.getCalories())) + " " + getString(R.string.kcal));
-        tvCalculateCarbohydrates.setText(String.valueOf(Math.round(portion * foodItem.getCarbohydrates())) + " " + getString(R.string.gramm));
-        tvCalculateFat.setText(String.valueOf(Math.round(portion * foodItem.getFats())) + " " + getString(R.string.gramm));
+        tvCalculateProtein.setText(String.valueOf(Math.round(portion * proteins)) + " " + getString(R.string.gramm));
+        tvCalculateKcal.setText(String.valueOf(Math.round(portion * calories)) + " " + getString(R.string.kcal));
+        tvCalculateCarbohydrates.setText(String.valueOf(Math.round(portion * carbo)) + " " + getString(R.string.gramm));
+        tvCalculateFat.setText(String.valueOf(Math.round(portion * fats)) + " " + getString(R.string.gramm));
 
     }
 
 
-    @OnClick({R.id.btnSaveEating, R.id.ivBack, R.id.ibSheetClose, R.id.btnReg, R.id.btnPremCell, R.id.btnPremCholy,
-            R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremPot, R.id.btnPremSaturated, R.id.btnPremSod,
-            R.id.btnPremSugar})
+    @OnClick({R.id.btnSaveEating, R.id.ivBack, R.id.ibSheetClose})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSaveEating:

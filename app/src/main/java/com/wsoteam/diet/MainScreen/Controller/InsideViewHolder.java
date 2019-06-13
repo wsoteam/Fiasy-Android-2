@@ -1,6 +1,7 @@
 package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailSavedFood;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
+import com.wsoteam.diet.Config;
+import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 
 import butterknife.BindView;
@@ -24,6 +28,8 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
     @BindView(R.id.tvCarbo) TextView tvCarbo;
     Context context;
     InsideHolderCallback insideHolderCallback;
+    Eating eating;
+    int choiseEating;
 
     public InsideViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, Context context) {
         super(layoutInflater.inflate(R.layout.ms_item_inside_list, viewGroup, false));
@@ -48,13 +54,25 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
                     case R.id.delete_food:
                         insideHolderCallback.itemWasClicked(getAdapterPosition());
                         break;
+                    case R.id.edit_food:
+                        openDetailFood(eating);
+                        break;
                 }
                 return false;
             }
         });
     }
 
-    public void bind(Eating eating, InsideHolderCallback insideHolderCallback) {
+    private void openDetailFood(Eating eating) {
+        Intent intent = new Intent(context, ActivityDetailSavedFood.class);
+        intent.putExtra(Config.TAG_CHOISE_EATING, choiseEating);
+        intent.putExtra(Config.INTENT_DETAIL_FOOD, eating);
+        context.startActivity(intent);
+    }
+
+    public void bind(Eating eating, int choiseEating, InsideHolderCallback insideHolderCallback) {
+        this.eating = eating;
+        this.choiseEating = choiseEating;
         tvNameOfFood.setText(eating.getName());
         tvCalories.setText(eating.getCalories() + " Ккал");
         tvWeight.setText("Вес: " + eating.getWeight() + "г");

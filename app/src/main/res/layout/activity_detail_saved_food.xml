@@ -215,7 +215,7 @@
                         android:fontFamily="@font/roboto_medium"
                         android:paddingLeft="24dp"
                         android:paddingRight="24dp"
-                        android:text="добавить"
+                        android:text="сохранить"
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"

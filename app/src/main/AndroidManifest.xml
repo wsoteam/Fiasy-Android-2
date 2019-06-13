@@ -265,6 +265,10 @@
             android:name=".EntryPoint.EditProfileIntrodaction"
             android:screenOrientation="portrait"
             android:theme="@style/EditProfile" />
+        <activity
+            android:name=".BranchOfAnalyzer.ActivityDetailSavedFood"
+            android:screenOrientation="portrait"
+            android:theme="@style/DetailFood" />
     </application>
 
 </manifest>
