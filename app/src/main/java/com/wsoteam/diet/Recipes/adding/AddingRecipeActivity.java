@@ -37,7 +37,6 @@ public class AddingRecipeActivity extends AppCompatActivity {
 
     List<Fragment> fragmentList;
 
-
     Window window;
 
     @Override

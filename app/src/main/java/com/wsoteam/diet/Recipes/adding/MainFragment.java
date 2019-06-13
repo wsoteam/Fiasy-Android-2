@@ -10,13 +10,16 @@ import android.view.ViewGroup;
 
 import com.wsoteam.diet.R;
 
+import butterknife.ButterKnife;
+
 public class MainFragment extends Fragment {
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_adding_recipe_main,
-                container, false);
+        View view = inflater.inflate(R.layout.fragment_adding_recipe_main, container, false);
+        ButterKnife.bind(this, view);
         return view;
     }
 }
