@@ -2,10 +2,12 @@ package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +22,10 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,12 +47,15 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvEatingLabelKcal) TextView tvEatingLabelKcal;
     @BindView(R.id.tvCount) TextView tvCount;
     @BindView(R.id.ibtnOpenMenu) ImageButton ibtnOpenMenu;
+    @BindView(R.id.clReminderBack) ConstraintLayout clReminderBack;
     private boolean isButtonPressed = false;
     private final int BREAKFAST = 0, LUNCH = 1, DINNER = 2, SNACK = 3;
+    private final int BREAKFAST_TIME = 10, LUNCH_TIME = 14, DINNER_TIME = 19, SNACK_TIME = 24;
 
     private Context context;
     private String data;
     private List<Eating> eatingGroup;
+    private int endTime;
 
 
     public EatingViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, Context context, String data) {
@@ -60,7 +68,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     public void bind(List<Eating> eatingGroup, Context context, String nameOfEatingGroup) {
         this.eatingGroup = eatingGroup;
         setCPFC();
-        setIcon();
+        setIconAndTime();
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
         rvListOfFoodEatingCard.setLayoutManager(new LinearLayoutManager(context));
         rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup,
@@ -71,6 +79,35 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
             }
         }));
         setExpandableView();
+        if (isNeedRemind()) remind(nameOfEatingGroup);
+    }
+
+    private void remind(String eatingGroup) {
+        ArrayList<String> phrases = new ArrayList<>();
+        phrases.add("Вы сегодня " + eatingGroup.toLowerCase() + "али?\n Добавьте продукты, которые вы ели");
+        phrases.add("Занесите " + eatingGroup.toLowerCase() + " сейчас\n и достигните своей цели быстрее");
+        Random random = new Random();
+        tvRecommendation.setText(phrases.get(random.nextInt(2)));
+        tvRecommendation.setVisibility(View.VISIBLE);
+        tvRecommendation.setGravity(Gravity.CENTER);
+        clReminderBack.setBackgroundColor(context.getColor(R.color.reminder_back_color));
+    }
+
+    private boolean isNeedRemind() {
+        int day = Integer.parseInt(data.split("\\.")[0]);
+        int month = Integer.parseInt(data.split("\\.")[1]) - 1;
+        int year = Integer.parseInt(data.split("\\.")[2]);
+
+        if (day == Calendar.getInstance().get(Calendar.DAY_OF_MONTH) &&
+                month == Calendar.getInstance().get(Calendar.MONTH) &&
+                year == Calendar.getInstance().get(Calendar.YEAR) &&
+                Calendar.getInstance().get(Calendar.HOUR_OF_DAY) > endTime &&
+                eatingGroup.size() < 1) {
+            Log.e("LOL", "KEK");
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -99,19 +136,23 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    private void setIcon() {
+    private void setIconAndTime() {
         switch (getAdapterPosition()) {
             case BREAKFAST:
                 Glide.with(context).load(R.drawable.breakfast_icon).into(ivEatingIcon);
+                endTime = BREAKFAST_TIME;
                 break;
             case LUNCH:
                 Glide.with(context).load(R.drawable.lunch_icon).into(ivEatingIcon);
+                endTime = LUNCH_TIME;
                 break;
             case DINNER:
                 Glide.with(context).load(R.drawable.dinner_icon).into(ivEatingIcon);
+                endTime = DINNER_TIME;
                 break;
             case SNACK:
                 Glide.with(context).load(R.drawable.snack_icon).into(ivEatingIcon);
+                endTime = SNACK_TIME;
                 break;
         }
     }
@@ -134,7 +175,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
             tvSumFats.setText(String.valueOf(sumFats) + " г");
             tvSumCarbo.setText(String.valueOf(sumCarbo) + " г");
         } else {
-            tvRecommendation.setVisibility(View.VISIBLE);
+            //tvRecommendation.setVisibility(View.VISIBLE);
             tvSumOfKcal.setVisibility(View.GONE);
             tvSumProt.setVisibility(View.GONE);
             tvSumFats.setVisibility(View.GONE);
@@ -187,7 +228,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
 
     private void refreshUI(int position) {
         setCPFC();
-        if (eatingGroup.size() < 1){
+        if (eatingGroup.size() < 1) {
             ibtnOpenList.setVisibility(View.GONE);
         }
     }

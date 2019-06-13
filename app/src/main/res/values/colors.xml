@@ -156,6 +156,8 @@
     <color name="back_eating">#1AF3DD72</color>
     <color name="fab_eating">#EF7D02</color>
     <color name="count_color">#57000000</color>
+    <color name="reminder_color">#555555</color>
+    <color name="reminder_back_color">#70FF947A</color>
 
 
 
