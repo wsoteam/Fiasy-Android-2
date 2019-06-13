@@ -29,6 +29,15 @@
                                 подобранные специально для Вас \n
                                 нашими диетологами.</string>
 
+    <!-- Опросник -->
+    <string name="profile_name">Напишите ваше имя и фамилию</string>
+    <string name="profile_age">Сколько Вам лет?</string>
+    <string name="profile_sex">Ваш пол</string>
+    <string name="profile_height">Ваш рост</string>
+    <string name="profile_diff">Выберите уровень сложности</string>
+    <string name="profile_activity">Выберите у Вас уровень активности?</string>
+    <string name="profile_weight">Ваш вес</string>
+
     <!--Add Measurements Activity-->
     <string name="tv_select_date_measur">Выберите дату</string>
     <string name="tvTitleWeight">Вес</string>

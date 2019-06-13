@@ -1,7 +1,9 @@
 package com.wsoteam.diet.presentation.profile.edit;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatCheckedTextView;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.amplitude.api.Amplitude;
 import com.arellomobile.mvp.InjectViewState;
@@ -12,6 +14,8 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.presentation.global.BasePresenter;
 import com.wsoteam.diet.presentation.global.Screens;
+
+import java.util.Calendar;
 
 import ru.terrakok.cicerone.Router;
 
@@ -32,41 +36,32 @@ public class EditProfilePresenter extends BasePresenter<EditProfileView> {
         this.context = context;
     }
 
-    void calculate(int rgFemaleOrMale, String edtAge, String edtHeight, String edtWeight, String sportActivity, String dif_level) {
-        if (rgFemaleOrMale != -1) {
-            if (!TextUtils.isEmpty(edtAge) && Integer.parseInt(edtAge) >= MIN_AGE && Integer.parseInt(edtAge) <= MAX_AGE) {
-                if (!TextUtils.isEmpty(edtHeight) && Integer.parseInt(edtHeight) >= MIN_HEIGHT && Integer.parseInt(edtHeight) <= MAX_HEIGHT) {
-                    if (!TextUtils.isEmpty(edtWeight) && Double.parseDouble(edtWeight) >= MIN_WEIGHT && Double.parseDouble(edtWeight) <= MAX_WEIGHT) {
-                        calculate(rgFemaleOrMale, Integer.parseInt(edtAge), Integer.parseInt(edtHeight), Double.parseDouble(edtWeight), sportActivity, dif_level);
-                    } else {
-                        getViewState().showMessage(context.getString(R.string.spk_check_weight));
-                    }
+    void calculate(String name, String age, boolean isFemale, String height, String diff, String activity, String weight) {
+        if (!TextUtils.isEmpty(age) && Integer.parseInt(age) >= MIN_AGE && Integer.parseInt(age) <= MAX_AGE) {
+            if (!TextUtils.isEmpty(height) && Integer.parseInt(height) >= MIN_HEIGHT && Integer.parseInt(height) <= MAX_HEIGHT) {
+                if (!TextUtils.isEmpty(weight) && Double.parseDouble(weight) >= MIN_WEIGHT && Double.parseDouble(weight) <= MAX_WEIGHT) {
+                    Calendar calendar = Calendar.getInstance();
+                    int day = calendar.get(Calendar.DAY_OF_MONTH) - 1;
+                    int month = calendar.get(Calendar.MONTH);
+                    int year = calendar.get(Calendar.YEAR);
+
+                    Profile profile = new Profile(name, "", isFemale, Integer.parseInt(age), Integer.parseInt(height),
+                            Double.parseDouble(weight), 0,
+                            activity, "", 0, 0, 0,
+                            0, 0, diff, day, month, year);
+
+                    Profile profileFinal = BodyCalculates.calculate(context, profile);
+                    getViewState().saveProfile(profileFinal);
+                    getViewState().showMessage(context.getString(R.string.profile_saved));
                 } else {
-                    getViewState().showMessage(context.getString(R.string.spk_check_your_height));
+                    getViewState().showMessage(context.getString(R.string.spk_check_weight));
                 }
             } else {
-                getViewState().showMessage(context.getString(R.string.spk_check_your_age));
+                getViewState().showMessage(context.getString(R.string.spk_check_your_height));
             }
         } else {
-            getViewState().showMessage(context.getString(R.string.spk_choise_your_gender));
+            getViewState().showMessage(context.getString(R.string.spk_check_your_age));
         }
-    }
-
-    private void calculate(int rgFemaleOrMaleId, int age, int height, double weight, String sportActivity, String dif_level) {
-        boolean isFemale = false;
-
-        switch (rgFemaleOrMaleId) {
-            case R.id.rdSpkFemale:
-                isFemale = true;
-                break;
-            case R.id.rdSpkMale:
-                isFemale = false;
-                break;
-        }
-
-        Profile profile = BodyCalculates.calculate(context, weight, height, age, isFemale, sportActivity, dif_level);
-        getViewState().saveProfile(profile);
-        getViewState().showMessage(context.getString(R.string.profile_saved));
     }
 
     void saveProfile(boolean isNeedShowOnboard, Profile profile) {
@@ -81,6 +76,23 @@ public class EditProfilePresenter extends BasePresenter<EditProfileView> {
         } else {
             router.navigateTo(new Screens.AuthScreen(profile));
         }
+    }
+
+    void changeState(boolean isCheck, AppCompatCheckedTextView textView, AppCompatCheckedTextView dot, View line) {
+        if (textView != null)
+            textView.setChecked(isCheck);
+        if (dot != null)
+            dot.setChecked(isCheck);
+        if (line != null)
+            changeLineColor(line, isCheck);
+        getViewState().changeNextState();
+    }
+
+    private void changeLineColor(View line, boolean selected) {
+        if (selected)
+            line.setBackgroundColor(context.getResources().getColor(R.color.orange_light));
+        else
+            line.setBackgroundColor(context.getResources().getColor(R.color.gray_light2));
     }
 
     void onHelpClicked() {

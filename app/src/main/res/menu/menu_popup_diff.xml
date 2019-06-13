@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/diff_easy"
+        android:title="@string/dif_level_easy"/>
+
+    <item
+        android:id="@+id/diff_normal"
+        android:title="@string/dif_level_normal"/>
+
+    <item
+        android:id="@+id/diff_hard"
+        android:title="@string/dif_level_hard"/>
+</menu>
