@@ -8,23 +8,28 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class InsideAdapter extends RecyclerView.Adapter<InsideViewHolder> {
-    List<Eating> oneGroupOfEating;
-    Context context;
+    private List<Eating> oneGroupOfEating;
+    private Context context;
+    private int choiseEating;
+    private final int BREAKFAST = 0, LUNCH = 1, DINNER = 2, SNACK = 3;
 
-    public InsideAdapter(List<Eating> oneGroupOfEating, Context context, boolean isFull) {
-         if (oneGroupOfEating.size() != 0 && !isFull) {
+
+    public InsideAdapter(List<Eating> oneGroupOfEating, Context context, boolean isFull, int choiseEating) {
+        this.choiseEating = choiseEating;
+        if (oneGroupOfEating.size() != 0 && !isFull) {
             this.oneGroupOfEating = new ArrayList<>();
             //this.oneGroupOfEating.add(oneGroupOfEating.get(0));
             this.context = context;
-        }else{
-             this.oneGroupOfEating = oneGroupOfEating;
-             this.context = context;
-         }
+        } else {
+            this.oneGroupOfEating = oneGroupOfEating;
+            this.context = context;
+        }
     }
 
     @NonNull
@@ -36,10 +41,10 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull InsideViewHolder holder, int position) {
-        holder.bind(oneGroupOfEating.get(position), new ViewHolderCallback(){
+        holder.bind(oneGroupOfEating.get(position), new ViewHolderCallback() {
             @Override
             public void itemWasClicked(int position) {
-                Log.e("LOL", String.valueOf(position));
+                removeItem(position);
             }
         });
     }
@@ -47,6 +52,25 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideViewHolder> {
     @Override
     public int getItemCount() {
         return oneGroupOfEating.size();
+    }
+
+    private void removeItem(int position) {
+        switch (choiseEating) {
+            case BREAKFAST:
+                WorkWithFirebaseDB.removeBreakfast(oneGroupOfEating.get(position).getUrlOfImages());
+                break;
+            case LUNCH:
+                WorkWithFirebaseDB.removeLunch(oneGroupOfEating.get(position).getUrlOfImages());
+                break;
+            case DINNER:
+                WorkWithFirebaseDB.removeDinner(oneGroupOfEating.get(position).getUrlOfImages());
+                break;
+            case SNACK:
+                WorkWithFirebaseDB.removeSnack(oneGroupOfEating.get(position).getUrlOfImages());
+                break;
+        }
+        oneGroupOfEating.remove(position);
+        notifyItemRemoved(position);
     }
 
 

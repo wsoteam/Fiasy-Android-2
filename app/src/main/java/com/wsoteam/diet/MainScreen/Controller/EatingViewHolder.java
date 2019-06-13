@@ -60,7 +60,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         setIcon();
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
         rvListOfFoodEatingCard.setLayoutManager(new LinearLayoutManager(context));
-        rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, false));
+        rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, false, getAdapterPosition()));
         setExpandableView(eatingGroup);
     }
 
@@ -77,7 +77,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
                     } else {
                         Glide.with(context).load(R.drawable.open_eating_list).into(ibtnOpenList);
                     }
-                    rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, !isButtonPressed));
+                    rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, !isButtonPressed, getAdapterPosition()));
                     isButtonPressed = !isButtonPressed;
                 }
             });
