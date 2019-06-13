@@ -13,11 +13,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
+import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 import com.wsoteam.diet.R;
 
 public class AddingRecipeActivity extends AppCompatActivity {
 
-    static final int NUM_ITEMS = 10;
+
+    FragmentPagerAdapter adapterViewPager;
+    WormDotsIndicator wormDotsIndicator;
 
     Window window;
 
@@ -25,6 +29,13 @@ public class AddingRecipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_recipe);
+
+        ViewPager vpPager = (ViewPager) findViewById(R.id.vpContainer);
+        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
+        vpPager.setAdapter(adapterViewPager);
+
+        wormDotsIndicator = (WormDotsIndicator) findViewById(R.id.worm_dots_indicator);
+        wormDotsIndicator.setViewPager(vpPager);
 
         window = getWindow();
         window.getDecorView().setSystemUiVisibility(
@@ -54,6 +65,40 @@ public class AddingRecipeActivity extends AppCompatActivity {
                 .getDisplayMetrics()
                 .density;
         return Math.round((float) dp * density);
+    }
+
+    public static class MyPagerAdapter extends FragmentPagerAdapter {
+        private static int NUM_ITEMS = 2;
+
+        public MyPagerAdapter(FragmentManager fragmentManager) {
+            super(fragmentManager);
+        }
+
+        // Returns total number of pages
+        @Override
+        public int getCount() {
+            return NUM_ITEMS;
+        }
+
+        // Returns the fragment to display for that page
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0: // Fragment # 0 - This will show FirstFragment
+                    return new MainFragment();
+                case 1: // Fragment # 0 - This will show FirstFragment different title
+                    return new IngredientsFragment();
+                default:
+                    return null;
+            }
+        }
+
+        // Returns the page title for the top indicator
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return "Page " + position;
+        }
+
     }
 
 }
