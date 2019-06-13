@@ -131,6 +131,9 @@ dependencies {
 
     // Material Dialogs
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+
+    // Blur
+    implementation 'jp.wasabeef:blurry:3.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

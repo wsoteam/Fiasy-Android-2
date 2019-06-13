@@ -20,8 +20,10 @@
     <color name="white_red">#f14a4a</color>
     <color name="blue">#4a5bf1</color>
     <color name="orange">#fb651a</color>
+    <color name="orange_light">#FF9500</color>
     <color name="purple">#961afb</color>
     <color name="gray">#3C3C3C</color>
+    <color name="gray_light">#AEAEAE</color>
     <color name="light_gray">#8f8f8f</color>
     <color name="yellow">#f9e72a</color>
     <color name="images_filter">#e17d218f</color>

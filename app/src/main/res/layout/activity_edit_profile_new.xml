@@ -10,7 +10,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imageView24"
+            android:id="@+id/ivMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -28,17 +28,290 @@
             android:textStyle="bold"/>
 
         <android.support.constraint.ConstraintLayout
-            android:layout_marginTop="110dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="110dp">
 
             <TextView
+                android:id="@+id/tvTitleName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:text="Напишите ваше имя и фамилию"
                 android:textColor="@color/black"
-                android:text="Напишите ваше имя и фамилию"/>
+                app:layout_constraintStart_toEndOf="@id/dot1"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/dot1"
+                style="@style/DotStyle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="1"
+                app:layout_constraintBottom_toTopOf="@id/divider1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <EditText
+                android:id="@+id/edName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvTitleName"
+                app:layout_constraintTop_toBottomOf="@id/tvTitleName"/>
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_light"
+                app:layout_constraintTop_toBottomOf="@id/edName"/>
+
+            <TextView
+                android:id="@+id/tvAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:text="Сколько Вам лет?"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@id/dot2"
+                app:layout_constraintTop_toBottomOf="@id/divider1"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/dot2"
+                style="@style/DotStyle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="2"
+                app:layout_constraintBottom_toTopOf="@id/divider2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider1"/>
+
+            <EditText
+                android:id="@+id/edAge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvAge"
+                app:layout_constraintTop_toBottomOf="@id/tvAge"/>
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_light"
+                app:layout_constraintTop_toBottomOf="@id/edAge"/>
+
+            <TextView
+                android:id="@+id/tvSex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:text="Ваш пол"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@id/dot3"
+                app:layout_constraintTop_toBottomOf="@id/divider2"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/dot3"
+                style="@style/DotStyle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="3"
+                app:layout_constraintBottom_toTopOf="@id/divider3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider2"/>
+
+            <EditText
+                android:id="@+id/edSex"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvSex"
+                app:layout_constraintTop_toBottomOf="@id/tvSex"/>
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_light"
+                app:layout_constraintTop_toBottomOf="@id/edSex"/>
+
+            <TextView
+                android:id="@+id/tvHeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:text="Ваш рост"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@id/dot4"
+                app:layout_constraintTop_toBottomOf="@id/divider3"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/dot4"
+                style="@style/DotStyle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="4"
+                app:layout_constraintBottom_toTopOf="@id/divider4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider3"/>
+
+            <EditText
+                android:id="@+id/edHeight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvHeight"
+                app:layout_constraintTop_toBottomOf="@id/tvHeight"/>
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_light"
+                app:layout_constraintTop_toBottomOf="@id/edHeight"/>
+
+            <TextView
+                android:id="@+id/tvDiff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:text="Выберите уровень сложности"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@id/dot5"
+                app:layout_constraintTop_toBottomOf="@id/divider4"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/dot5"
+                style="@style/DotStyle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="5"
+                app:layout_constraintBottom_toTopOf="@id/divider5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider4"/>
+
+            <EditText
+                android:id="@+id/edDiff"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvDiff"
+                app:layout_constraintTop_toBottomOf="@id/tvDiff"/>
+
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_light"
+                app:layout_constraintTop_toBottomOf="@id/edDiff"/>
+
+            <TextView
+                android:id="@+id/tvActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:text="Выберите у Вас уровень активности?"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@id/dot6"
+                app:layout_constraintTop_toBottomOf="@id/divider5"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/dot6"
+                style="@style/DotStyle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="6"
+                app:layout_constraintBottom_toTopOf="@id/divider6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider5"/>
+
+            <EditText
+                android:id="@+id/edActivity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvActivity"
+                app:layout_constraintTop_toBottomOf="@id/tvActivity"/>
+
+            <View
+                android:id="@+id/divider6"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_light"
+                app:layout_constraintTop_toBottomOf="@id/edActivity"/>
+
+            <TextView
+                android:id="@+id/tvWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:text="Выберите у Вас уровень активности?"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@id/dot7"
+                app:layout_constraintTop_toBottomOf="@id/divider6"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/dot7"
+                style="@style/DotStyle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="7"
+                app:layout_constraintBottom_toTopOf="@id/divider7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider6"/>
+
+            <EditText
+                android:id="@+id/edWeight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvWeight"
+                app:layout_constraintTop_toBottomOf="@id/tvWeight"/>
+
+            <View
+                android:id="@+id/divider7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_light"
+                app:layout_constraintTop_toBottomOf="@id/edWeight"/>
 
         </android.support.constraint.ConstraintLayout>
-
     </FrameLayout>
 </ScrollView>
