@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -17,8 +19,12 @@ import android.widget.Button;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 import com.wsoteam.diet.R;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class AddingRecipeActivity extends AppCompatActivity {
 
@@ -29,6 +35,8 @@ public class AddingRecipeActivity extends AppCompatActivity {
     @BindView(R.id.vpContainer) ViewPager vpPager;
     FragmentPagerAdapter adapterViewPager;
 
+    List<Fragment> fragmentList;
+
 
     Window window;
 
@@ -38,8 +46,48 @@ public class AddingRecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_adding_recipe);
         ButterKnife.bind(this);
 
-        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
+        fragmentList = new LinkedList<>();
+        fragmentList.add(new MainFragment());
+        fragmentList.add(new IngredientsFragment());
+        fragmentList.add(new MainFragment());
+        fragmentList.add(new IngredientsFragment());
+        fragmentList.add(new MainFragment());
+        fragmentList.add(new IngredientsFragment());
+
+        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(), fragmentList);
         vpPager.setAdapter(adapterViewPager);
+
+        vpPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+                if (fragmentList.size() == 1){
+                    btnBack.setVisibility(View.INVISIBLE);
+                    btnNext.setVisibility(View.INVISIBLE);
+                } else if (i == 0) {
+                    btnBack.setVisibility(View.INVISIBLE);
+                    btnNext.setVisibility(View.VISIBLE);
+                } else if (i == fragmentList.size() - 1){
+                    btnNext.setVisibility(View.INVISIBLE);
+                    btnBack.setVisibility(View.VISIBLE);
+                } else {
+                    btnBack.setVisibility(View.VISIBLE);
+                    btnNext.setVisibility(View.VISIBLE);
+                }
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
 
 
         wormDotsIndicator.setViewPager(vpPager);
@@ -54,55 +102,51 @@ public class AddingRecipeActivity extends AppCompatActivity {
         mToolbar.inflateMenu(R.menu.adding_recipe_menu);
         mToolbar.setTitleTextColor(0xFFFFFFFF);
 
-//        Menu menu = mToolbar.getMenu();
-//        MenuItem btnClose = menu.findItem(R.id.action_search);
-//        btnClose.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                onBackPressed();
-//                return true;
-//            }
-//        });
+        Menu menu = mToolbar.getMenu();
+        MenuItem btnClose = menu.findItem(R.id.close);
+        btnClose.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                onBackPressed();
+                return false;
+            }
+        });
 
     }
 
-    public int dpToPx(int dp) {
-        float density = getResources()
-                .getDisplayMetrics()
-                .density;
-        return Math.round((float) dp * density);
+    @OnClick({R.id.btnLeft, R.id.btnRight})
+    public void onViewClicked(View view) {
+        switch (view.getId()){
+            case R.id.btnLeft:
+                vpPager.setCurrentItem(vpPager.getCurrentItem() - 1);
+                break;
+            case R.id.btnRight:
+                vpPager.setCurrentItem(vpPager.getCurrentItem() + 1);
+                break;
+        }
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
-        private static int NUM_ITEMS = 2;
+        List<Fragment> fragmentList;
 
-        public MyPagerAdapter(FragmentManager fragmentManager) {
+        public MyPagerAdapter(FragmentManager fragmentManager, List<Fragment> fragmentList) {
             super(fragmentManager);
+            this.fragmentList =fragmentList;
         }
 
-        // Returns total number of pages
         @Override
         public int getCount() {
-            return NUM_ITEMS;
+            return fragmentList.size();
         }
 
-        // Returns the fragment to display for that page
         @Override
         public Fragment getItem(int position) {
-            switch (position) {
-                case 0: // Fragment # 0 - This will show FirstFragment
-                    return new MainFragment();
-                case 1: // Fragment # 0 - This will show FirstFragment different title
-                    return new IngredientsFragment();
-                default:
-                    return null;
-            }
+            return fragmentList.get(position);
         }
 
-        // Returns the page title for the top indicator
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Page " + position;
+            return "";
         }
 
     }
