@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import android.widget.Button;
 
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -33,11 +35,13 @@ public class AddingRecipeActivity extends AppCompatActivity {
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.worm_dots_indicator) WormDotsIndicator wormDotsIndicator;
     @BindView(R.id.vpContainer) ViewPager vpPager;
-    FragmentPagerAdapter adapterViewPager;
+    private FragmentPagerAdapter adapterViewPager;
 
-    List<Fragment> fragmentList;
+    private List<Fragment> fragmentList;
 
-    Window window;
+    private RecipeItem recipeItem;
+
+    private Window window;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +49,36 @@ public class AddingRecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_adding_recipe);
         ButterKnife.bind(this);
 
+        recipeItem = new RecipeItem();
+
         fragmentList = new LinkedList<>();
         fragmentList.add(new MainFragment());
         fragmentList.add(new IngredientsFragment());
-        fragmentList.add(new MainFragment());
-        fragmentList.add(new IngredientsFragment());
-        fragmentList.add(new MainFragment());
-        fragmentList.add(new IngredientsFragment());
+
 
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(), fragmentList);
         vpPager.setAdapter(adapterViewPager);
 
+        vpPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+
+
         vpPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
+
+                switch (i){
+                    case 0:
+                        if(recipeItem.getName().trim().length() == 0){
+                            vpPager.setCurrentItem(0);
+                        }
+                        break;
+                }
+
 
                 if (fragmentList.size() == 1){
                     btnBack.setVisibility(View.INVISIBLE);
@@ -73,6 +93,8 @@ public class AddingRecipeActivity extends AppCompatActivity {
                     btnBack.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.VISIBLE);
                 }
+
+
 
             }
 
@@ -89,6 +111,7 @@ public class AddingRecipeActivity extends AppCompatActivity {
         });
 
 
+        wormDotsIndicator.setDotsClickable(false);
         wormDotsIndicator.setViewPager(vpPager);
 
         window = getWindow();
@@ -111,6 +134,10 @@ public class AddingRecipeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public RecipeItem getRecipeItem(){
+        return recipeItem;
     }
 
     @OnClick({R.id.btnLeft, R.id.btnRight})

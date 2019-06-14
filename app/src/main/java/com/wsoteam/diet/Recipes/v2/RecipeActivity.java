@@ -87,7 +87,7 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
         tvProtein.setText(String.valueOf(recipeItem.getPortions()));
         tvCholesterol.setText(String.valueOf(recipeItem.getCholesterol()));
         tvSodium.setText(String.valueOf(recipeItem.getSodium()));
-        tvPotassium.setText(String.valueOf(recipeItem.getPortions()));
+        tvPotassium.setText(String.valueOf(recipeItem.getPotassium()));
 
         mToolbar.setTitleTextColor(0xFFFFFFFF);
         mToolbar.setPadding(0, dpToPx(24), 0, 0);

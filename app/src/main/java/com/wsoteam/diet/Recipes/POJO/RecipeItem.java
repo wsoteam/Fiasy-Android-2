@@ -10,6 +10,7 @@ public class RecipeItem implements Serializable {
     private int time;
     private int calories;
     private String description;
+    private String complexity;
 
     private double percentCarbohydrates;
     private double percentProteins;
@@ -271,5 +272,13 @@ public class RecipeItem implements Serializable {
 
     public void setSnack(List<String> snack) {
         this.snack = snack;
+    }
+
+    public String getComplexity() {
+        return complexity;
+    }
+
+    public void setComplexity(String complexity) {
+        this.complexity = complexity;
     }
 }
