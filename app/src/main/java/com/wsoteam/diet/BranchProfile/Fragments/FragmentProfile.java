@@ -15,16 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
 import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchProfile.ActivityEditCompletedProfile;
-import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
-import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
@@ -127,7 +122,7 @@ public class FragmentProfile extends Fragment {
         }
         if (profile.isFemale()) {
             Glide.with(this).load(R.drawable.female_avatar).into(civProfile);
-        }else {
+        } else {
             Glide.with(this).load(R.drawable.male_avatar).into(civProfile);
         }
     }
@@ -231,7 +226,6 @@ public class FragmentProfile extends Fragment {
             fillViewsIfProfileNotNull(profile);
 
 
-
         } else if (hardLevel.equals(getString(R.string.dif_level_normal))) {
             profile.setMaxKcal((int) upLineSPK);
             WorkWithFirebaseDB.putProfileValue(profile);
@@ -256,28 +250,19 @@ public class FragmentProfile extends Fragment {
         CardView cvADChoiseDiffLevelNormal = view.findViewById(R.id.cvADChoiseDiffLevelNormal);
         CardView cvADChoiseDiffLevelEasy = view.findViewById(R.id.cvADChoiseDiffLevelEasy);
 
-        cvADChoiseDiffLevelEasy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                calculate(getActivity().getResources().getString(R.string.dif_level_easy));
-                alertDialog.cancel();
+        cvADChoiseDiffLevelEasy.setOnClickListener(view1 -> {
+            calculate(getActivity().getResources().getString(R.string.dif_level_easy));
+            alertDialog.cancel();
 
-            }
         });
-        cvADChoiseDiffLevelNormal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                calculate(getActivity().getResources().getString(R.string.dif_level_normal));
+        cvADChoiseDiffLevelNormal.setOnClickListener(view12 -> {
+            calculate(getActivity().getResources().getString(R.string.dif_level_normal));
 
-                alertDialog.cancel();
-            }
+            alertDialog.cancel();
         });
-        cvADChoiseDiffLevelHard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                calculate(getActivity().getResources().getString(R.string.dif_level_hard));
-                alertDialog.cancel();
-            }
+        cvADChoiseDiffLevelHard.setOnClickListener(view13 -> {
+            calculate(getActivity().getResources().getString(R.string.dif_level_hard));
+            alertDialog.cancel();
         });
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         alertDialog.setView(view);

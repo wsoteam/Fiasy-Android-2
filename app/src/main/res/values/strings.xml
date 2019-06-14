@@ -88,6 +88,9 @@
     <string name="onboarding_item_description4">Подберите для себя тренировку исходя из ваших целей и уровня подготовки</string>
     <string name="onboarding_item_description5">Вы можете следить не только за калориями, белками, жирами и углеводами, но и отслеживать поступающие вместе с пищей в организм витамины и микроэлементы</string>
 
+    <!--dialog-->
+    <string name="dialog_load_title">Загрузка</string>
+    <string name="dialog_load_content">Пожалуйста подождите</string>
 
     <string name="desc_firebase_lockup">Firebase logo and name</string>
     <string name="phone_title_text">Phone Number</string>
@@ -102,6 +105,21 @@
     <string name="status_verification_succeeded">Verification succeeded</string>
     <string name="status_sign_in_failed">Sign-in failed</string>
     <string name="instant_validation">(instant validation)</string>
+
+    <string name="auth_empty_email">Пропущен email!</string>
+    <string name="auth_wrong_email">Проверьте введенный email!</string>
+    <string name="auth_in_use_email">email уже используется!</string>
+    <string name="auth_empty_pass">Пропущен пароль!</string>
+    <string name="auth_easy_pass">Слишком простой пароль!</string>
+    <string name="auth_pass_with_space">Пароль не должен содержать пробелы</string>
+    <string name="auth_wrong_credentials">Проверьте введённые данные</string>
+
+    <string name="auth_phone_wrong_number">Проверьте введенный номер!</string>
+    <string name="auth_phone_wrong_code">Проверьте введенный код!</string>
+
+    <string name="forgot_pass_wrong_email">Ошибка в e-mail!</string>
+    <string name="forgot_pass_check_email">Проверьте вашу почту!</string>
+    <string name="forgot_pass_wrong_user">Пользователь не найден</string>
 
     <integer-array name="img_id_arr">
         <item>@drawable/background_item_profile_carbo</item>
@@ -157,6 +175,7 @@
     <string name="auth_main_et_hint_pass">Password</string>
     <string name="auth_main_btn_signin">Вход по Email</string>
     <string name="auth_main_btn_create">Регистрация</string>
+    <string name="auth_main_signin_insta">   Вход через аккаунт Instagram</string>
     <string name="auth_main_signin_google">   Вход через аккаунт Google</string>
     <string name="auth_main_signin_facebook">   Вход через аккаунт Facebook</string>
     <string name="auth_main_signin_phone">   Вход по номеру телефона</string>
@@ -179,6 +198,7 @@
     <string name="auth_main_phone_btn_send">Отправить</string>
     <string name="auth_main_phone_btn_sign_in">Войти</string>
 
+    <string name="auth_main_reg_insta">Регистрация через аккаунт Instagram</string>
     <string name="auth_main_reg_google">Регистрация через аккаунт Google</string>
     <string name="auth_main_reg_facebook">Регистрация через аккаунт Facebook</string>
     <string name="auth_main_reg_phone">Вход по номеру телефона</string>
@@ -598,6 +618,10 @@
     <string name="currentSnackEat">Кофе мокаччино</string>
     <string name="yesterdaySnackEat">Драже изюм в шоколаде</string>
     <string name="beforeYesterdaySnackEat">Пудинг Чудо Шоколадный</string>
+
+    <string name="instagram_client_id" translatable="false">f9ecb6690966457d88a02b0ea758bc58</string>
+    <string name="instagram_callback_url" translatable="false">http://fiasy.com/</string>
+    <string name="base_url" translatable="false">https://api.instagram.com/</string>
 
 
 </resources>

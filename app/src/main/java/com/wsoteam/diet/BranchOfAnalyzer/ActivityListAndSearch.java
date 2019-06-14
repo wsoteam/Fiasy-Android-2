@@ -2,6 +2,7 @@ package com.wsoteam.diet.BranchOfAnalyzer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +21,9 @@ import android.widget.TextView;
 
 import com.amplitude.api.Amplitude;
 import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.CFood;
+import com.wsoteam.diet.App;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
@@ -43,10 +45,11 @@ public class ActivityListAndSearch extends AppCompatActivity {
     @BindView(R.id.tvActivityListAndSearchEmptyText) TextView tvEmptyText;
     @BindView(R.id.tvIndex) TextView tvIndex;
 
-    private List<CFood> recievedListFood;
-    private int RESPONSE_LIMIT = 100;
+    private int RESPONSE_LIMIT = 50;
     private ItemAdapter itemAdapter;
-    private Thread equalsFirstPortion, equalsSecondPortion, containsFirstPortion, containsSecondPortion, thread;
+    private boolean isEqualsNext = true;
+    private FoodDAO foodDAO = App.getInstance().getFoodDatabase().foodDAO();
+    private final int ONE_WORD = 1, TWO_WORDS = 2, THREE_WORDS = 3, FOUR_WORDS = 4, FIVE_WORDS = 5;
 
 
     @Override
@@ -55,8 +58,9 @@ public class ActivityListAndSearch extends AppCompatActivity {
         setContentView(R.layout.activity_list_and_search);
         ButterKnife.bind(this);
         bindSpinnerChoiceEating();
-        rvListOfSearchResponse.setLayoutManager(new LinearLayoutManager(ActivityListAndSearch.this));
-        //rvListOfSearchResponse.setAdapter(new ItemAdapter(recievedListFood));
+        updateUI();
+        //speak();
+
         edtSearchField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -69,13 +73,8 @@ public class ActivityListAndSearch extends AppCompatActivity {
                     ivEmptyImage.setVisibility(View.GONE);
                     tvEmptyText.setVisibility(View.GONE);
                 }
-                if (charSequence.length() > 2) {
-                    recievedListFood = new ArrayList<>();
-                    cr(charSequence);
-//                    turnOffSearch();
-                    //firstEqualsSearch(charSequence);
-//                    firstContainsSearch(charSequence);
-                }
+                isEqualsNext = true;
+                search(charSequence.toString().replaceAll("\\s+", " "));
             }
 
             @Override
@@ -89,40 +88,84 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
     }
 
-    private void cr(CharSequence charSequence) {
-//        Observable<List<CFood>> listObservable = Observable.fromArray(recievedListFood);
+    private void speak() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH); // намерение для вызова формы обработки речи (ОР)
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM); // сюда он слушает и запоминает
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "What can you tell me?");
+        startActivityForResult(intent, 1234); // вызываем активность ОР
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 1234 && resultCode == RESULT_OK) {
+            ArrayList<String> commandList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            edtSearchField.setText(commandList.get(0));
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void updateUI() {
+        List<Food> foods = new ArrayList<>();
+        itemAdapter = new ItemAdapter(foods);
+        rvListOfSearchResponse.setLayoutManager(new LinearLayoutManager(ActivityListAndSearch.this));
+        rvListOfSearchResponse.setAdapter(itemAdapter);
+    }
+
+    private void search(String searchString) {
         Single.fromCallable(() -> {
-            firstContainsSearch(charSequence);
-            return null;
+            List<Food> cFOODS = getFirstList(searchString);
+            return cFOODS;
         })
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(t -> System.out.print(t), Throwable::printStackTrace);
+                .subscribe(t -> refreshAdapter(t), Throwable::printStackTrace);
     }
 
-
-    private void turnOffSearch() {
-        if (equalsFirstPortion != null) {
-            Thread dummy = equalsFirstPortion;
-            equalsFirstPortion = null;
-            dummy.interrupt();
-        }
-        if (equalsSecondPortion != null) {
-            Thread dummy = equalsSecondPortion;
-            equalsSecondPortion = null;
-            dummy.interrupt();
-        }
-        if (containsFirstPortion != null) {
-            Thread dummy = containsFirstPortion;
-            containsFirstPortion = null;
-            dummy.interrupt();
-        }
-        if (containsSecondPortion != null) {
-            Thread dummy = containsSecondPortion;
-            containsSecondPortion = null;
-            dummy.interrupt();
-        }
+    private void refreshAdapter(List<Food> t) {
+        itemAdapter = new ItemAdapter(t);
+        rvListOfSearchResponse.setAdapter(itemAdapter);
     }
+
+    private List<Food> getFirstList(String searchString) {
+        List<Food> foods = new ArrayList<>();
+        foods.addAll(foodDAO.searchFullMatchWord(searchString, RESPONSE_LIMIT, 0));
+        if (foods.size() < RESPONSE_LIMIT) {
+            isEqualsNext = false;
+            if (searchString.contains(" ") && searchString.split(" ").length > 1) {
+                foods.addAll(searchMultiWords(searchString, foods.size()));
+            } else {
+                foods.addAll(foodDAO.searchOneWord("%" + searchString + "%", RESPONSE_LIMIT, foods.size()));
+            }
+        }
+        return foods;
+    }
+
+    private List<Food> searchMultiWords(String searchPhrase, int offset) {
+        List<Food> foods = new ArrayList<>();
+        if (searchPhrase.split(" ").length == TWO_WORDS) {
+            foods = foodDAO.searchTwoWord("%" + searchPhrase.split(" ")[0] + "%",
+                    "%" + searchPhrase.split(" ")[1] + "%", RESPONSE_LIMIT, offset);
+        } else if (searchPhrase.split(" ").length == THREE_WORDS) {
+            foods = foodDAO.searchThreeWord("%" + searchPhrase.split(" ")[0] + "%",
+                    "%" + searchPhrase.split(" ")[1] + "%",
+                    "%" + searchPhrase.split(" ")[2] + "%",
+                    RESPONSE_LIMIT, offset);
+        } else if (searchPhrase.split(" ").length == FOUR_WORDS) {
+            foods = foodDAO.searchFourWord("%" + searchPhrase.split(" ")[0] + "%",
+                    "%" + searchPhrase.split(" ")[1] + "%",
+                    "%" + searchPhrase.split(" ")[2] + "%",
+                    "%" + searchPhrase.split(" ")[3] + "%", RESPONSE_LIMIT, offset);
+        } else if (searchPhrase.split(" ").length == FIVE_WORDS) {
+            foods = foodDAO.searchFiveWord("%" + searchPhrase.split(" ")[0] + "%",
+                    "%" + searchPhrase.split(" ")[1] + "%",
+                    "%" + searchPhrase.split(" ")[2] + "%",
+                    "%" + searchPhrase.split(" ")[3] + "%",
+                    "%" + searchPhrase.split(" ")[4] + "%",
+                    RESPONSE_LIMIT, offset);
+        }
+        return foods;
+    }
+
 
     private void bindSpinnerChoiceEating() {
         ArrayAdapter<String> adapter = new ArrayAdapter(this,
@@ -145,145 +188,23 @@ public class ActivityListAndSearch extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        turnOffSearch();
-    }
-
-    private List<CFood> shuffleList(CharSequence charSequence, List<CFood> recievedListFood) {
-        List<CFood> cFoods = recievedListFood;
+    private List<Food> shuffleList(CharSequence charSequence, List<Food> recievedListFood) {
+        List<Food> cFOODS = recievedListFood;
         for (int i = 0; i < recievedListFood.size(); i++) {
-            if (cFoods.get(i).getBrend() != null
-                    && cFoods.get(i).getName().replace(" (" + cFoods.get(i).getBrend() + ")", "").
+            if (cFOODS.get(i).getBrand() != null
+                    && cFOODS.get(i).getName().replace(" (" + cFOODS.get(i).getBrand() + ")", "").
                     equalsIgnoreCase(charSequence.toString() + " ")) {
-                CFood bubble = cFoods.get(i);
-                cFoods.remove(i);
-                cFoods.add(0, bubble);
+                Food bubble = cFOODS.get(i);
+                cFOODS.remove(i);
+                cFOODS.add(0, bubble);
             }
-            if (cFoods.get(i).getBrend() == null && cFoods.get(i).getName().equalsIgnoreCase(charSequence.toString() + " ")) {
-                CFood bubble = cFoods.get(i);
-                cFoods.remove(i);
-                cFoods.add(0, bubble);
-            }
-        }
-        return cFoods;
-    }
-
-    private void firstEqualsSearch(CharSequence charSequence) {
-        Log.e("LOL", "FE search");
-        equalsFirstPortion = new Thread(() -> {
-            List<CFood> cFoods;
-            String searchString = charSequence.toString();
-            cFoods = CFood.findWithQuery(CFood.class,
-                    "Select * from C_Food where name like ? limit 100", searchString);
-            Log.e("LOL", String.valueOf(recievedListFood.size()));
-            if (recievedListFood.size() > 0) {
-                for (int i = 0; i < cFoods.size(); i++) {
-                    recievedListFood.add(cFoods.get(i));
-                }
-            }
-            if (recievedListFood.size() >= RESPONSE_LIMIT) {
-                secondEqualsSearch(charSequence);
-            } else {
-                firstContainsSearch(charSequence);
-            }
-        });
-        equalsFirstPortion.start();
-    }
-
-    private void secondEqualsSearch(CharSequence charSequence) {
-        Log.e("LOL", "SE search");
-        equalsSecondPortion = new Thread(() -> {
-            String searchString = charSequence.toString();
-            recievedListFood = CFood.findWithQuery(CFood.class,
-                    "Select * from C_Food where name like ?", searchString);
-            if (recievedListFood.size() > RESPONSE_LIMIT) {
-                //handler.sendEmptyMessage(0);
-            }
-            Log.e("LOL", String.valueOf(recievedListFood.size()));
-            firstContainsSearch(charSequence);
-        });
-        equalsSecondPortion.start();
-    }
-
-    private void firstContainsSearch(CharSequence charSequence) {
-        Log.e("LOL", "FC search");
-        Log.d("MyLogs", "FIRST element - " + CFood.first(CFood.class));
-//        containsFirstPortion = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-        List<CFood> cFoods;
-        String searchString = charSequence.toString();
-        String searchQuery = "Select * from C_Food where";
-        String firstQuery = " name like '%";
-        String firstPartQuery = " and name like '%";
-        String secondPartQuery = "%'";
-        String responseLimit = " limit 100";
-        if (searchString.contains(" ") && searchString.split(" ").length > 1) {
-            String[] arrayWords = searchString.split(" ");
-            for (int i = 0; i < arrayWords.length; i++) {
-                if (i == 0) {
-                    searchQuery = searchQuery + firstQuery + arrayWords[i] + secondPartQuery;
-                } else {
-                    searchQuery = searchQuery + firstPartQuery + arrayWords[i] + secondPartQuery;
-                }
-            }
-            recievedListFood = CFood.findWithQuery(CFood.class, searchQuery + responseLimit);
-            if (recievedListFood.size() >= RESPONSE_LIMIT) {
-                secondContainsSearch(charSequence);
-            }
-        } else {
-            String finishedString = "'%" + searchString + "%'";
-            cFoods = CFood.findWithQuery(CFood.class, "SELECT * FROM C_Food WHERE name LIKE " + finishedString + " LIMIT 100");
-            Log.d("MyLogs", "Size1 - " + cFoods.size());
-            recievedListFood.addAll(cFoods);
-            Log.d("MyLogs", "Size2 - " + recievedListFood.size());
-            if (recievedListFood.size() >= RESPONSE_LIMIT) {
-//                secondContainsSearch(charSequence);
+            if (cFOODS.get(i).getBrand() == null && cFOODS.get(i).getName().equalsIgnoreCase(charSequence.toString() + " ")) {
+                Food bubble = cFOODS.get(i);
+                cFOODS.remove(i);
+                cFOODS.add(0, bubble);
             }
         }
-//            }
-//        });
-//        containsFirstPortion.start();
-    }
-
-    private void secondContainsSearch(CharSequence charSequence) {
-        Log.e("LOL", "SC search second");
-//        containsSecondPortion = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-        String searchString = charSequence.toString();
-        String searchQuery = "Select * from C_Food where";
-        String firstQuery = " name like '%";
-        String firstPartQuery = " and name like '%";
-        String secondPartQuery = "%'";
-        if (searchString.contains(" ") && searchString.split(" ").length > 1) {
-            String[] arrayWords = searchString.split(" ");
-            for (int i = 0; i < arrayWords.length; i++) {
-                if (i == 0) {
-                    searchQuery = searchQuery + firstQuery + arrayWords[i] + secondPartQuery;
-                } else {
-                    searchQuery = searchQuery + firstPartQuery + arrayWords[i] + secondPartQuery;
-                }
-            }
-            recievedListFood = CFood.findWithQuery(CFood.class, searchQuery);
-            Log.e("LOL", String.valueOf(recievedListFood.size()));
-            if (recievedListFood.size() >= RESPONSE_LIMIT) {
-                //handler.sendEmptyMessage(0);
-            }
-        } else {
-            String finishedString = "%" + searchString + "%";
-            recievedListFood = CFood.findWithQuery(CFood.class,
-                    "Select * from C_Food where name like ?", finishedString);
-            Log.e("LOL", String.valueOf(recievedListFood.size()));
-            if (recievedListFood.size() >= RESPONSE_LIMIT) {
-                //handler.sendEmptyMessage(0);
-            }
-        }
-//            }
-//        });
-//        containsSecondPortion.start();
+        return cFOODS;
     }
 
     public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -303,32 +224,38 @@ public class ActivityListAndSearch extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(ActivityListAndSearch.this, ActivityDetailOfFood.class);
-            intent.putExtra(Config.INTENT_DETAIL_FOOD, recievedListFood.get(getAdapterPosition()));
+            intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
             intent.putExtra(Config.TAG_CHOISE_EATING, spinner.getSelectedItemPosition());
             intent.putExtra(Config.INTENT_DATE_FOR_SAVE, getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
             startActivity(intent);
         }
 
-        public void bind(CFood cFood) {
-            tvNameOfFood.setText(cFood.getName().replace("()", ""));
-            tvCalories.setText(String.valueOf(Math.round(cFood.getCalories() * 100)) + " Ккал");
-            if (cFood.isLiquid()) {
+        public void bind(Food food) {
+            tvNameOfFood.setText(food.getFullInfo().replace("()", ""));
+            tvCalories.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
+            if (food.isLiquid()) {
                 tvWeight.setText("Вес: 100мл");
             } else {
                 tvWeight.setText("Вес: 100г");
             }
-            tvProt.setText("Б. " + String.valueOf(Math.round(cFood.getProteins() * 100)));
-            tvFats.setText("Ж. " + String.valueOf(Math.round(cFood.getFats() * 100)));
-            tvCarbo.setText("У. " + String.valueOf(Math.round(cFood.getCarbohydrates() * 100)));
+            tvProt.setText("Б. " + String.valueOf(Math.round(food.getProteins() * 100)));
+            tvFats.setText("Ж. " + String.valueOf(Math.round(food.getFats() * 100)));
+            tvCarbo.setText("У. " + String.valueOf(Math.round(food.getCarbohydrates() * 100)));
         }
     }
 
     public class ItemAdapter extends RecyclerView.Adapter<ItemHolder> {
-        List<CFood> foods;
+        private List<Food> foods;
+        private int counter;
 
-        public ItemAdapter(List<CFood> foods) {
+        public ItemAdapter(List<Food> foods) {
             this.foods = foods;
             tvIndex.setText(String.valueOf(foods.size()));
+            counter = -1;
+        }
+
+        public List<Food> getFoods() {
+            return foods;
         }
 
         @NonNull
@@ -341,6 +268,49 @@ public class ActivityListAndSearch extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
             holder.bind(foods.get(position));
+            if (position > counter && position % RESPONSE_LIMIT == 0) {
+                counter = position;
+                getNextPortion(position + RESPONSE_LIMIT);
+            }
+        }
+
+        private void getNextPortion(int offset) {
+            Single.fromCallable(() -> {
+                List<Food> cFOODS = getSearchResult(offset);
+                return cFOODS;
+            })
+                    .subscribeOn(Schedulers.computation())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(t -> updateAdapter(t), Throwable::printStackTrace);
+        }
+
+        private void updateAdapter(List<Food> nextPortion) {
+            foods.addAll(nextPortion);
+            notifyDataSetChanged();
+        }
+
+        private List<Food> getSearchResult(int offset) {
+            List<Food> foods = new ArrayList<>();
+            if (isEqualsNext) {
+                foods = foodDAO.searchFullMatchWord(edtSearchField.getText().toString(), RESPONSE_LIMIT, offset);
+                if (foods.size() < RESPONSE_LIMIT) {
+                    isEqualsNext = false;
+                    if (edtSearchField.getText().toString().contains(" ") && edtSearchField.getText().toString().split(" ").length > 1) {
+                        foods.addAll(searchMultiWords(edtSearchField.getText().toString(), foods.size() + offset));
+                    } else {
+                        foods.addAll(foodDAO.searchOneWord("%" + edtSearchField.getText().toString() + "%",
+                                RESPONSE_LIMIT, offset + foods.size()));
+                    }
+                }
+            } else {
+                if (edtSearchField.getText().toString().contains(" ") && edtSearchField.getText().toString().split(" ").length > 1) {
+                    foods.addAll(searchMultiWords(edtSearchField.getText().toString(), offset));
+                } else {
+                    foods.addAll(foodDAO.searchOneWord("%" + edtSearchField.getText().toString() + "%",
+                            RESPONSE_LIMIT, offset));
+                }
+            }
+            return foods;
         }
 
         @Override
@@ -348,11 +318,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
             return foods.size();
         }
 
-        public void setNewItem(CFood newItem) {
-            foods.add(newItem);
-            notifyDataSetChanged();
-            tvIndex.setText(String.valueOf(foods.size()));
-        }
     }
 
 

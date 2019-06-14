@@ -11,6 +11,8 @@ import com.wsoteam.diet.InApp.IDs;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
+import io.intercom.android.sdk.Intercom;
+
 
 public class CheckAndSetPurchase extends AsyncTask<String, Void, Void> {
     @Override
@@ -53,12 +55,15 @@ public class CheckAndSetPurchase extends AsyncTask<String, Void, Void> {
         switch (paymentState) {
             case 0:
                 AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.preferential);
+                Intercom.client().logEvent(AmplitudaEvents.preferential);
                 break;
             case 1:
                 AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.paid);
+                Intercom.client().logEvent(AmplitudaEvents.paid);
                 break;
             case 2:
                 AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
+                Intercom.client().logEvent(AmplitudaEvents.trial);
                 break;
         }
     }
