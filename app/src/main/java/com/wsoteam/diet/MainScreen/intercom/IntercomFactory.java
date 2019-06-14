@@ -10,8 +10,7 @@ import io.intercom.android.sdk.identity.Registration;
 
 public class IntercomFactory {
     private static final String TRIAL = "TRIAL";
-    private static final String BUY_AFTER_TRIAL = "BUY_AFTER_TRIAL";
-    private static final String NOT_BUY_AFTER_TRIAL = "NOT_BUY_AFTER_TRIAL";
+    private static final String BUY = "BUY";
 
     public static void login(String uId) {
         Registration registration = Registration.create().withUserId(uId);
@@ -49,7 +48,4 @@ public class IntercomFactory {
         Intercom.client().setLauncherVisibility(Intercom.Visibility.GONE);
     }
 
-    public static void logTrial(){
-        Intercom.client().logEvent("");
-    }
 }
