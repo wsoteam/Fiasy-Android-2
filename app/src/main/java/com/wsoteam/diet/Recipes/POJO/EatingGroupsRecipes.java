@@ -3,6 +3,7 @@ package com.wsoteam.diet.Recipes.POJO;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class EatingGroupsRecipes implements GroupsRecipes {
@@ -47,6 +48,11 @@ public class EatingGroupsRecipes implements GroupsRecipes {
         Log.d("recipeG", "lunch: " + lunch.size());
         Log.d("recipeG", "dinner: " + dinner.size());
         Log.d("recipeG", "snack: " + snack.size());
+
+        Collections.shuffle(breakfast);
+        Collections.shuffle(lunch);
+        Collections.shuffle(dinner);
+        Collections.shuffle(snack);
 
         listBreakfast.setListrecipes(breakfast);
         listLunch.setListrecipes(lunch);
