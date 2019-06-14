@@ -137,7 +137,6 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginBottom="15dp"
-        android:visibility="gone"
         android:background="#1CFFFFFF"
         android:drawableStart="@drawable/icon_google"
         android:drawablePadding="10dp"
@@ -145,6 +144,7 @@
         android:text="@string/auth_main_signin_insta"
         android:textAlignment="textStart"
         android:textAllCaps="false"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/auth_main_btn_google_custom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>

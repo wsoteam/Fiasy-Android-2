@@ -12,6 +12,10 @@
 
     <color name="test">#1cae17</color>
 
+    <color name="orange1">#EF7D02</color>
+    <color name="orange2">#FFB800</color>
+    <color name="orange3">#FFF4BB</color>
+
     <color name="green">#1cae17</color>
     <color name="пку">#1cae17</color>
     <color name="white">#FFFFFF</color>
@@ -32,8 +36,13 @@
     <color name="yellow">#f9e72a</color>
     <color name="images_filter">#e17d218f</color>
     <color name="images_filter_edit_profile">#be252525</color>
+    <color name="black_gray">#3A3A3A</color>
+    <color name="black_gray_alpha">#A63A3A3A</color>
 
-
+    <color name="text_enabled">#585757</color>
+    <color name="text_disabled">#46868383</color>
+    <color name="text_color_auth">#323131</color>
+    <color name="auth_hint_color">#32323131</color>
 
     <color name="finished_circle_detail_food">#9ACEDC</color>
 

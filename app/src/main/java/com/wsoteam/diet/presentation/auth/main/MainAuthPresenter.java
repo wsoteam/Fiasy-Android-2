@@ -1,6 +1,5 @@
 package com.wsoteam.diet.presentation.auth.main;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -11,26 +10,21 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.firebase.FirebaseException;
-import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.wsoteam.diet.Authenticate.Valid;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.global.BasePresenter;
 import com.wsoteam.diet.presentation.global.Screens;
-
-import java.util.concurrent.TimeUnit;
 
 import ru.terrakok.cicerone.Router;
 
@@ -41,41 +35,12 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
     DatabaseReference mDatabase;
     GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth mAuth;
-    PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-        @Override
-        public void onVerificationCompleted(PhoneAuthCredential credential) {
-            Log.d(TAG, "onVerificationCompleted:" + credential);
-            signInWithPhoneAuthCredential(credential);
-        }
-
-        @Override
-        public void onVerificationFailed(FirebaseException e) {
-            Log.w(TAG, "onVerificationFailed", e);
-            getViewState().showMessage(e.getMessage());
-            if (e instanceof FirebaseAuthInvalidCredentialsException) {
-            } else if (e instanceof FirebaseTooManyRequestsException) {
-                getViewState().showSnackBar("Quota exceeded");
-            }
-        }
-
-        @Override
-        public void onCodeSent(String verificationId,
-                               PhoneAuthProvider.ForceResendingToken token) {
-            Log.d(TAG, "onCodeSent:" + verificationId);
-            getViewState().authPhoneVerificationId(verificationId);
-        }
-    };
     private Context context;
     private Router router;
 
     public MainAuthPresenter(Context context, Router router) {
         this.router = router;
         this.context = context;
-    }
-
-    void verifyPhoneNumberWithCode(String verificationId, String code) {
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-        signInWithPhoneAuthCredential(credential);
     }
 
     @Override
@@ -90,13 +55,6 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
         mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
 
         mAuth = FirebaseAuth.getInstance();
-    }
-
-    int dpToPx(int dp) {
-        float density = context.getResources()
-                .getDisplayMetrics()
-                .density;
-        return Math.round((float) dp * density);
     }
 
     void signIn(String email, String password) {
@@ -161,6 +119,26 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
         }
     }
 
+    void resetPassword(String email) {
+        getViewState().showProgress(true);
+        mAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(task -> {
+                    getViewState().showProgress(false);
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "Email sent." + email);
+                        getViewState().showMessage(context.getString(R.string.forgot_pass_check_email));
+                        getViewState().goBackToSignIn();
+                    } else {
+                        Log.d(TAG, "Error");
+                    }
+                }).addOnFailureListener(e -> {
+            if (e instanceof FirebaseAuthInvalidUserException) {
+                getViewState().showMessage(context.getString(R.string.forgot_pass_wrong_user));
+            }
+            Log.d(TAG, String.valueOf(e.getClass()));
+        });
+    }
+
     private boolean checkCredentials(String email, String password) {
         Log.d(TAG, "signIn:" + email);
         if (email.matches("")) {
@@ -179,50 +157,6 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
         }
         return true;
     }
-
-    void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithCredential:success");
-
-                        FirebaseUser user = task.getResult().getUser();
-                    } else {
-                        // Sign in failed, display a message and update the UI
-                        Log.w(TAG, "signInWithCredential:failure", task.getException());
-                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                            // The verification code entered was invalid
-                            Log.d(TAG, "onComplete: Invalid code.");
-                        }
-                        // Update UI
-                        Log.d(TAG, "onComplete: STATE_SIGNIN_FAILED");
-                    }
-                });
-    }
-
-    void startPhoneNumberVerification(Activity activity, String phoneNumber) {
-        Log.d(TAG, "startPhoneNumberVerification: " + phoneNumber);
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phoneNumber,        // Phone number to verify
-                60,                 // Timeout duration
-                TimeUnit.SECONDS,   // Unit of timeout
-                activity,               // Activity (for callback binding)
-                mCallbacks);        // OnVerificationStateChangedCallbacks
-    }
-
-
-    void resendVerificationCode(Activity activity, String phoneNumber,
-                                PhoneAuthProvider.ForceResendingToken token) {
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phoneNumber,        // Phone number to verify
-                60,                 // Timeout duration
-                TimeUnit.SECONDS,   // Unit of timeout
-                activity,               // Activity (for callback binding)
-                mCallbacks,         // OnVerificationStateChangedCallbacks
-                token);             // ForceResendingToken from callbacks
-    }
-
 
     void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
@@ -265,7 +199,7 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
                 });
     }
 
-    public void firebaseAuthWithInstagram(String auth_token) {
+     void firebaseAuthWithInstagram(String auth_token) {
         mAuth.signInWithCustomToken(auth_token)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -276,10 +210,6 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
                         Log.w(TAG, "signInWithCustomToken:failure", task.getException());
                     }
                 });
-    }
-
-    void onForgotPassClicked() {
-        router.navigateTo(new Screens.ForgotPassScreen());
     }
 
     void onPrivacyPolicyClicked() {

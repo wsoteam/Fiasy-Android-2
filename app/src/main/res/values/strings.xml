@@ -167,10 +167,14 @@
     <!--auth_main-->
     <string name="auth_main_tv">Вход</string>
     <string name="auth_main_et_hint_name">Имя</string>
-    <string name="auth_main_et_hint_email">Email</string>
-    <string name="auth_main_et_hint_pass">Password</string>
-    <string name="auth_main_btn_signin">Вход по Email</string>
-    <string name="auth_main_btn_create">Регистрация</string>
+    <string name="auth_main_et_hint_email">Введите email</string>
+    <string name="auth_main_et_hint_pass">Введите пароль</string>
+    <string name="auth_main_et_hint_pass_dub">Повторите пароль</string>
+    <string name="auth_main_btn_signin">Войти</string>
+    <string name="auth_main_create">Регистрация</string>
+    <string name="auth_main_pass_not_match">Пароли не совпадают</string>
+    <string name="auth_main_btn_create">Зарегистрироваться</string>
+    <string name="auth_main_btn_send_pass">Отправить пароль</string>
     <string name="auth_main_signin_insta">   Вход через аккаунт Instagram</string>
     <string name="auth_main_signin_google">   Вход через аккаунт Google</string>
     <string name="auth_main_signin_facebook">   Вход через аккаунт Facebook</string>
@@ -199,7 +203,7 @@
     <string name="auth_main_reg_facebook">Регистрация через аккаунт Facebook</string>
     <string name="auth_main_reg_phone">Вход по номеру телефона</string>
     <string name="auth_main_reg_tv">Создать аккаунт</string>
-    <string name="auth_main_check_box_pp">Я согласен с условиями <u>политики конфиденциальности</u></string>
+    <string name="auth_main_check_box_pp">Я согласен с условиями \n<u>политики конфиденциальности</u></string>
 
     <string name="auth_main_log_email">e</string>
 
