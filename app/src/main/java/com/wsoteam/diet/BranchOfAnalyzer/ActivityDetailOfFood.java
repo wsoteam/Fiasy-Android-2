@@ -21,6 +21,7 @@ import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
+import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.ClaimForm;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOClaim.Claim;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
@@ -33,6 +34,7 @@ import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -319,7 +321,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     @OnClick({R.id.btnSaveEating, R.id.ivBack, R.id.ibSheetClose, R.id.btnReg, R.id.btnPremCell, R.id.btnPremCholy,
             R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremPot, R.id.btnPremSaturated, R.id.btnPremSod,
-            R.id.btnPremSugar})
+            R.id.btnPremSugar, R.id.tvSendClaim})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSaveEating:
@@ -366,6 +368,9 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             case R.id.btnPremSugar:
                 showPremiumScreen();
                 break;
+            case R.id.tvSendClaim:
+                ClaimForm.createChoiseEatingAlertDialog(this, foodItem);
+                break;
         }
     }
 
@@ -377,8 +382,4 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void sendClaim(){
-        Claim claim = new Claim();
-
-    }
 }

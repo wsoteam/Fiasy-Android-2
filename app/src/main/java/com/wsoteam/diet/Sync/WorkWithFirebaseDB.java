@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.Activism.POJO.ActivismFirebaseObject;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
+import com.wsoteam.diet.BranchOfAnalyzer.Const;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOClaim.Claim;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
@@ -185,6 +187,12 @@ public class WorkWithFirebaseDB {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("ACTIVISM");
         myRef.setValue(data);
+    }
+
+    public static void sendClaim(Claim claim) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Const.CLAIM_PATH);
+        myRef.push().setValue(claim);
     }
 
 }
