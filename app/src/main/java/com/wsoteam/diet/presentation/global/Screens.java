@@ -3,26 +3,18 @@ package com.wsoteam.diet.presentation.global;
 import android.content.Context;
 import android.content.Intent;
 
-import com.wsoteam.diet.presentation.auth.restore.ActivityForgotPassword;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchProfile.ActivityHelp;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
-import com.wsoteam.diet.presentation.intro.IntroActivity;
+import com.wsoteam.diet.presentation.auth.restore.ActivityForgotPassword;
 import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 
 public class Screens {
-
-    public static final class IntroScreen extends SupportAppScreen {
-        @Override
-        public Intent getActivityIntent(Context context) {
-            return new Intent(context, IntroActivity.class);
-        }
-    }
 
     public static final class EditProfileScreen extends SupportAppScreen {
         private final boolean isReg;

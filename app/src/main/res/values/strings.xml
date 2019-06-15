@@ -293,6 +293,23 @@
     <string name="title_calculating">Расчет идеального веса</string>
     <string name="subtitle_list_calculating">Список калькуляторов</string>
 
+    <!--Privacy Policy-->
+    <string name="policy_action_title">Политика конфиденциальности</string>
+    <string name="policy_title">Privacy Policy &amp; Terms of Service</string>
+    <string name="policy_text">Fiasy Privacy Policy\n\nBy installing our mobile application or in any way using or accessing our Services,
+        you accept the terms and conditions of this Privacy Policy and the processing of your personal data.
+        \n\nPersonal data controller
+        \n\nResponsible for the processing of your personal data is:
+        \n\nCOMPANY NAME
+        \n\nIP Salamov Alexander
+        \n\nCORPORATE IDENTITY NO:
+        \n\n319500700005522
+        \n\nADDRESS
+        \n\n141551, Russia, Moscow obl., Solnechnogorskii, Andreevka, Staroandreevskaka street 43-231
+        \n\nE-MAIL
+        \n\ncontact@Fiasy.com
+        \n\nInformation about personal data we collect Fiasy.com</string>
+
     <!--Types of body-->
     <string name="astentic">Список калькуляторов</string>
     <string name="normostentic">Список калькуляторов</string>

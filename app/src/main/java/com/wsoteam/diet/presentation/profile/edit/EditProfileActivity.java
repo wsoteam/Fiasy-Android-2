@@ -74,7 +74,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
     @BindView(R.id.dot7) AppCompatCheckedTextView dot7;
     @BindView(R.id.edWeight) EditText edWeight;
     Disposable dName, dAge, dHeight, dWeight;
-    boolean isFemale = false;
+    boolean isFemale = false, createUser;
     private boolean isNeedShowOnboard = false;
 
     @ProvidePresenter
@@ -93,6 +93,8 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
             isNeedShowOnboard = true;
             getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).edit().putBoolean(Config.IS_NEED_SHOW_ONBOARD, false).apply();
         }
+
+        createUser = getIntent().getBooleanExtra(Config.CREATE_PROFILE, false);
 
         dName = RxTextView.textChanges(edName).subscribe(charSequence -> {
             boolean isCheck = !TextUtils.isEmpty(charSequence);
@@ -253,7 +255,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
 
     @Override
     public void saveProfile(Profile profile) {
-        presenter.saveProfile(isNeedShowOnboard, profile);
+        presenter.saveProfile(isNeedShowOnboard, profile, createUser);
     }
 
     @Override

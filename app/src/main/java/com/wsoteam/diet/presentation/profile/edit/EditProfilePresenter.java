@@ -11,6 +11,7 @@ import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.presentation.global.BasePresenter;
 import com.wsoteam.diet.presentation.global.Screens;
@@ -64,17 +65,23 @@ public class EditProfilePresenter extends BasePresenter<EditProfileView> {
         }
     }
 
-    void saveProfile(boolean isNeedShowOnboard, Profile profile) {
+    void saveProfile(boolean isNeedShowOnboard, Profile profile, boolean createProfile) {
         Amplitude.getInstance().logEvent(AmplitudaEvents.fill_reg_data);
-        if (isNeedShowOnboard) {
-            Box box = new Box();
-            box.setBuyFrom(AmplitudaEvents.buy_prem_onboarding);
-            box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);
-            box.setOpenFromIntrodaction(true);
-            box.setOpenFromPremPart(false);
-            router.navigateTo(new Screens.AuthScreen(profile, box));
+        if (createProfile) {
+            if (isNeedShowOnboard) {
+                Box box = new Box();
+                box.setBuyFrom(AmplitudaEvents.buy_prem_onboarding);
+                box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);
+                box.setOpenFromIntrodaction(true);
+                box.setOpenFromPremPart(false);
+                router.navigateTo(new Screens.AuthScreen(profile, box));
+            } else {
+                router.navigateTo(new Screens.AuthScreen(profile));
+            }
         } else {
-            router.navigateTo(new Screens.AuthScreen(profile));
+            if (profile != null) {
+                WorkWithFirebaseDB.putProfileValue(profile);
+            }
         }
     }
 
@@ -93,10 +100,6 @@ public class EditProfilePresenter extends BasePresenter<EditProfileView> {
             line.setBackgroundColor(context.getResources().getColor(R.color.orange_light));
         else
             line.setBackgroundColor(context.getResources().getColor(R.color.gray_light2));
-    }
-
-    void onHelpClicked() {
-        router.navigateTo(new Screens.HelpScreen());
     }
 
 }

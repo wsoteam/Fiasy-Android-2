@@ -20,6 +20,7 @@
     <color name="пку">#1cae17</color>
     <color name="white">#FFFFFF</color>
     <color name="white_half">#64FFFFFF</color>
+    <color name="white_half_transparent">#A6FFFFFF</color>
     <color name="red">#e12a2a</color>
     <color name="light_red">#cf3838</color>
     <color name="white_red">#f14a4a</color>

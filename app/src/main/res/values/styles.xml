@@ -41,7 +41,7 @@
         <item name="colorControlActivated">@color/orange_light</item>
     </style>
 
-    <style name="TextAppearence.App.TextInputLayout"  parent="@android:style/TextAppearance">
+    <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
         <item name="android:textColor">#B3B0A8</item>
     </style>
 
@@ -118,8 +118,21 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <style name="AppThemePolicy" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemePolicy" parent="Theme.AppCompat.Light">
         <item name="colorPrimaryDark">@color/colorPrimaryDarkPolicy</item>
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="actionBarStyle">@style/MyActionBar</item>
+    </style>
+
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/gradient_main</item>
+        <item name="background">@drawable/gradient_main</item>
+        <item name="android:titleTextStyle">@style/MyTheme.ActionBar.Text</item>
+        <item name="titleTextStyle">@style/MyTheme.ActionBar.Text</item>
+    </style>
+
+    <style name="MyTheme.ActionBar.Text" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="DetailFood" parent="Theme.AppCompat.Light.NoActionBar">

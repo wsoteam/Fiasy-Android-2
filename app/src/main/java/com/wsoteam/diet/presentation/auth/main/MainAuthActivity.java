@@ -118,17 +118,18 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
                 Box box = (Box) getIntent().getSerializableExtra(Config.TAG_BOX);
                 box.setProfile((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
                 intent = new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box)
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             } else {
                 intent = new Intent(this, ActivitySplash.class).
                         putExtra(Config.INTENT_PROFILE, getIntent().getSerializableExtra(Config.INTENT_PROFILE))
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             }
             rbReg.setChecked(true);
         } else {
             isAcceptedPrivacyPolicy = true;
             intent = new Intent(this, ActivitySplash.class).
-                    putExtra(Config.INTENT_PROFILE, getIntent().getSerializableExtra(Config.INTENT_PROFILE));
+                    putExtra(Config.INTENT_PROFILE, getIntent().getSerializableExtra(Config.INTENT_PROFILE))
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             rbSignIn.setChecked(true);
         }
 
@@ -148,11 +149,12 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
                     WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
                 }
 
-                if (createUser) {
-                    startActivity(intent);
-                } else {
-                    checkUserExist(user.getUid());
-                }
+                startActivity(intent);
+//                if (createUser) {
+//                    startActivity(intent);
+//                } else {
+////                    checkUserExist(user.getUid());
+//                }
             } else {
                 Log.d(TAG, "onAuthStateChanged:signed_out");
             }
