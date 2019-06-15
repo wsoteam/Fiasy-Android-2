@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ivCircle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_circle" />
+
+    <TextView
+        android:id="@+id/tvPosition"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:textColor="#EF7D02"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivCircle"
+        app:layout_constraintEnd_toEndOf="@+id/ivCircle"
+        app:layout_constraintStart_toStartOf="@+id/ivCircle"
+        app:layout_constraintTop_toTopOf="@+id/ivCircle"
+        tools:text="0" />
+
+    <EditText
+        android:id="@+id/etInstruction"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#1E000000"
+        android:drawableRight="@color/transparent"
+        android:drawablePadding="45dp"
+        android:ems="10"
+        android:fontFamily="@font/roboto"
+        android:inputType="textPersonName"
+        android:textColor="#9A000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tvPosition"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="Name" />
+
+    <ImageButton
+        android:id="@+id/btnDel"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/etInstruction"
+        app:layout_constraintEnd_toEndOf="@+id/etInstruction"
+        app:layout_constraintTop_toTopOf="@+id/etInstruction"
+        app:layout_constraintVertical_bias="0.6"
+        app:srcCompat="@drawable/ic_delete_instruction_recipe" />
+
+</android.support.constraint.ConstraintLayout>

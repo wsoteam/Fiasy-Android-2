@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,14 +39,27 @@ public class MainFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         recipeItem = ((AddingRecipeActivity)getActivity()).getRecipeItem();
-        recipeItem.setName("Жаба в кляре");
+        String[] spinnerVlaue = getResources().getStringArray(R.array.recipeComplexity);
 
-        if (recipeItem.getName() != null && !recipeItem.getName().equals("")){
+        if (recipeItem.getName() != null ){
             nameEditText.setText(recipeItem.getName());
         }
 
-        portionsEditText.setText(String.valueOf(recipeItem.getPortions()));
-        timeEditText.setText(String.valueOf(recipeItem.getTime()));
+        if (recipeItem.getTime() != 0){
+            timeEditText.setText(String.valueOf(recipeItem.getTime()));
+        }
+
+        if (recipeItem.getPortions() != 0){
+            portionsEditText.setText(String.valueOf(recipeItem.getPortions()));
+        }
+
+        if (recipeItem.getComplexity() != null) {
+            for (int i = 0; i < spinnerVlaue.length; i++) {
+                if (recipeItem.getComplexity().equals(spinnerVlaue[i])) {
+                    complexitySpinner.setSelection(i);
+                }
+            }
+        }
 
         nameEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -67,7 +81,7 @@ public class MainFragment extends Fragment {
         complexitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                recipeItem.setComplexity(complexitySpinner.getSelectedItem().toString());
             }
 
             @Override

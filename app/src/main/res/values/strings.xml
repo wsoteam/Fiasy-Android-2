@@ -1,6 +1,7 @@
 <resources>
 
     <!--adding recipe-->
+    <string name="addingRecipeAddInstruction">Добавить шаг</string>
     <string name="recipeToolBarTitle">Создать рецепт</string>
     <string name="btnBack">Назад</string>
     <string name="btnNext">Далее</string>

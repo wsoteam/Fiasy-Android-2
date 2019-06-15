@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import com.wsoteam.diet.R;
 
+import butterknife.OnClick;
+
 public class IngredientsFragment extends Fragment {
 
     @Nullable
@@ -21,4 +23,6 @@ public class IngredientsFragment extends Fragment {
 
         return view;
     }
+
+
 }

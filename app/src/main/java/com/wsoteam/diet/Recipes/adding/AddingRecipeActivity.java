@@ -53,6 +53,7 @@ public class AddingRecipeActivity extends AppCompatActivity {
 
         fragmentList = new LinkedList<>();
         fragmentList.add(new MainFragment());
+        fragmentList.add(new InstructionsFragment());
         fragmentList.add(new IngredientsFragment());
 
 
@@ -73,7 +74,7 @@ public class AddingRecipeActivity extends AppCompatActivity {
 
                 switch (i){
                     case 0:
-                        if(recipeItem.getName().trim().length() == 0){
+                        if(recipeItem.getName() != null && recipeItem.getName().trim().length() == 0){
                             vpPager.setCurrentItem(0);
                         }
                         break;
