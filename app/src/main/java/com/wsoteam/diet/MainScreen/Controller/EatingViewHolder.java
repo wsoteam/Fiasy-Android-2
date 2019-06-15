@@ -50,7 +50,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.clReminderBack) ConstraintLayout clReminderBack;
     private boolean isButtonPressed = false;
     private final int BREAKFAST = 0, LUNCH = 1, DINNER = 2, SNACK = 3;
-    private final int BREAKFAST_TIME = 10, LUNCH_TIME = 14, DINNER_TIME = 19, SNACK_TIME = 24;
+    private final int BREAKFAST_TIME = 9, LUNCH_TIME = 13, DINNER_TIME = 18, SNACK_TIME = 24;
 
     private Context context;
     private String data;
