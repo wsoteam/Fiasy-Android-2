@@ -10,6 +10,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -165,6 +166,11 @@ public class MainActivity extends AppCompatActivity {
         //checkForcedGrade();
         IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
         new AsyncWriteFoodDB().execute(MainActivity.this);
+        Log.e("LOL", String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) +
+                String.valueOf(Calendar.getInstance().get(Calendar.MINUTE))
+                + String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) +1 )
+                + String.valueOf(Calendar.getInstance().get(Calendar.MONTH))
+                + String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
     }
 
     private void checkForcedGrade() {

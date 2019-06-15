@@ -21,6 +21,7 @@ import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOClaim.Claim;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
@@ -374,5 +375,10 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                 true, null, false);
         intent.putExtra(Config.TAG_BOX, box);
         startActivity(intent);
+    }
+
+    private void sendClaim(){
+        Claim claim = new Claim();
+
     }
 }
