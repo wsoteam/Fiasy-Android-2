@@ -23,7 +23,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Recipes.adding.AddingRecipeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu">
+            android:theme="@style/Menu"
+            android:windowSoftInputMode="adjustPan">
 
         </activity>
         <activity

@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.wsoteam.diet.R;
@@ -24,6 +26,7 @@ import butterknife.OnClick;
 public class InstructionsFragment extends Fragment {
 
     @BindView(R.id.svContainerInstructions) LinearLayout parentLinearLayout;
+    @BindView(R.id.svInstructions) ScrollView scrollView;
 
     List<View> listView;
 
@@ -60,6 +63,7 @@ public class InstructionsFragment extends Fragment {
             }
         });
         parentLinearLayout.addView(rowView);
+        scrollView.fullScroll(View.FOCUS_DOWN);
     }
 
     private void updatePositions(List<View> views){

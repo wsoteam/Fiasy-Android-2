@@ -55,6 +55,7 @@ public class AddingRecipeActivity extends AppCompatActivity {
         fragmentList.add(new MainFragment());
         fragmentList.add(new InstructionsFragment());
         fragmentList.add(new IngredientsFragment());
+        fragmentList.add(new ResultFragment());
 
 
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(), fragmentList);
@@ -77,6 +78,10 @@ public class AddingRecipeActivity extends AppCompatActivity {
                         if(recipeItem.getName() != null && recipeItem.getName().trim().length() == 0){
                             vpPager.setCurrentItem(0);
                         }
+                        mToolbar.setTitle("123");
+                        break;
+                    case 1:
+                        mToolbar.setTitle("456");
                         break;
                 }
 
@@ -90,6 +95,7 @@ public class AddingRecipeActivity extends AppCompatActivity {
                 } else if (i == fragmentList.size() - 1){
                     btnNext.setVisibility(View.INVISIBLE);
                     btnBack.setVisibility(View.VISIBLE);
+
                 } else {
                     btnBack.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.VISIBLE);
