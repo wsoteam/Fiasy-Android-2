@@ -77,7 +77,7 @@ public class InstaAuthDialogFragment extends DialogFragment {
                 "oauth/authorize/?client_id=" +
                 getResources().getString(R.string.instagram_client_id) +
                 "&redirect_uri=" + redirect_url +
-                "&response_type=token&display=touch&scope=public_content";
+                "&response_type=token&display=touch&scope=basic";
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(request_url);

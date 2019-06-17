@@ -45,8 +45,13 @@ public class EditProfilePresenter extends BasePresenter<EditProfileView> {
                     int day = calendar.get(Calendar.DAY_OF_MONTH) - 1;
                     int month = calendar.get(Calendar.MONTH);
                     int year = calendar.get(Calendar.YEAR);
-
-                    Profile profile = new Profile(name, "", isFemale, Integer.parseInt(age), Integer.parseInt(height),
+                    String[] fullName = name.split(" ");
+                    String lastName = "";
+                    if (fullName.length > 0)
+                        name = fullName[0];
+                    if (fullName.length > 1)
+                        lastName = fullName[1];
+                    Profile profile = new Profile(name, lastName, isFemale, Integer.parseInt(age), Integer.parseInt(height),
                             Double.parseDouble(weight), 0,
                             activity, "", 0, 0, 0,
                             0, 0, diff, day, month, year);
