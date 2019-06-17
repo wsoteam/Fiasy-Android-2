@@ -3,28 +3,24 @@
 
     <item
         android:id="@+id/bnv_main_diary"
-        android:title="@string/bnv_main_diary"
-        android:icon="@drawable/bnv_main_diary"/>
+        android:icon="@drawable/bnv_main_diary"
+        android:title="@string/bnv_main_diary" />
 
     <item
         android:id="@+id/bnv_main_articles"
-        android:title="@string/bnv_main_articles"
-        android:icon="@drawable/bnv_main_articles" />
+        android:icon="@drawable/bnv_main_articles"
+        android:title="@string/bnv_main_articles" />
 
-    <item
-        android:id="@+id/bnv_main_trainer"
-        android:title="@string/bnv_main_trainer"
-        android:icon="@drawable/bnv_main_trainer"/>
 
     <item
         android:id="@+id/bnv_main_recipes"
-        android:title="@string/bnv_main_recipes"
-        android:icon="@drawable/bnv_main_recipes"/>
+        android:icon="@drawable/bnv_main_recipes"
+        android:title="@string/bnv_main_recipes" />
 
     <item
         android:id="@+id/bnv_main_profile"
-        android:title="@string/bnv_main_profile"
-        android:icon="@drawable/bnv_main_profile"/>
+        android:icon="@drawable/bnv_main_profile"
+        android:title="@string/bnv_main_profile" />
 
 
 </menu>

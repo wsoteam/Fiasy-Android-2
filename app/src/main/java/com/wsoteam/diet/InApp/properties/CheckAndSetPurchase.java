@@ -52,6 +52,7 @@ public class CheckAndSetPurchase extends AsyncTask<String, Void, Void> {
     }
 
     private void choiseUserPremState(Integer paymentState) {
+        Log.e("LOL", String.valueOf(paymentState));
         switch (paymentState) {
             case 0:
                 AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.preferential);

@@ -107,27 +107,6 @@ public class MainActivity extends AppCompatActivity {
                         transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();
                     }
                     return true;
-                case R.id.bnv_main_trainer:
-                    box.setComeFrom(AmplitudaEvents.view_prem_training);
-                    box.setBuyFrom(AmplitudaEvents.buy_prem_training);
-                    if (checkSubscribe()) {
-                        transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
-                    } else {
-                        if (getABVersion().equals(ABConfig.C_VERSION)) {
-                            transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.
-                                    newInstance(box)).commit();
-                        } else {
-                            if (getABVersion().equals(ABConfig.A_VERSION)) {
-                                transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.
-                                        newInstance(box)).commit();
-                            } else {
-                                transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenOneButton.
-                                        newInstance(box)).commit();
-                            }
-                        }
-                        window.setStatusBarColor(Color.parseColor("#747d3b"));
-                    }
-                    return true;
                 case R.id.bnv_main_recipes:
                     if(Config.RELEASE){
                         transaction.replace(R.id.flFragmentContainer, new com.wsoteam.diet.Recipes.v1.GroupsFragment()).commit();
