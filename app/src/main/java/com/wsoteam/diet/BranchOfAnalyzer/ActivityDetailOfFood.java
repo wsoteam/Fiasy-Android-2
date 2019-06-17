@@ -11,8 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +45,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ActivityDetailOfFood extends AppCompatActivity {
+    @BindView(R.id.spnEatingList) Spinner spinner;
     @BindView(R.id.tvActivityDetailOfFoodCollapsingTitle) TextView tvTitle;
     @BindView(R.id.pbActivityDetailOfFoodCarbo) DonutProgress pbCarbohydrates;
     @BindView(R.id.pbActivityDetailOfFoodFat) DonutProgress pbFat;
@@ -85,8 +88,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     @BindView(R.id.btnPremSod) TextView btnPremSod;
     @BindView(R.id.btnPremPot) TextView btnPremPot;
 
-    @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
-    private BottomSheetBehavior bottomSheetBehavior;
 
     @BindViews({R.id.tvCellulose, R.id.tvSugar, R.id.tvSaturated, R.id.tvСholesterol, R.id.tvSodium,
             R.id.tvPotassium, R.id.tvMonoUnSaturated, R.id.tvPolyUnSaturated,
@@ -107,6 +108,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         foodItem = (Food) getIntent().getSerializableExtra(Config.INTENT_DETAIL_FOOD);
         bindFields();
         calculateNumbersForProgressBars();
+        bindSpinnerChoiceEating();
 
         edtWeight.addTextChangedListener(new TextWatcher() {
             @Override
@@ -137,9 +139,16 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             }
         });
 
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_detail_food);
 
+    }
+
+    private void bindSpinnerChoiceEating() {
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,
+                R.layout.item_spinner_food_search, getResources().getStringArray(R.array.eatingList));
+        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
     }
 
     private void bindFields() {
@@ -319,7 +328,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     }
 
-    @OnClick({R.id.btnSaveEating, R.id.ivBack, R.id.ibSheetClose, R.id.btnReg, R.id.btnPremCell, R.id.btnPremCholy,
+    @OnClick({R.id.btnSaveEating, R.id.ivBack, R.id.btnPremCell, R.id.btnPremCholy,
             R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremPot, R.id.btnPremSaturated, R.id.btnPremSod,
             R.id.btnPremSugar, R.id.tvSendClaim})
     public void onViewClicked(View view) {
@@ -333,16 +342,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                 break;
             case R.id.ivBack:
                 onBackPressed();
-                break;
-            case R.id.ibSheetClose:
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                break;
-            case R.id.btnReg:
-                AmplitudaEvents.logEventRegistration(AmplitudaEvents.reg_from_add_food);
-                startActivity(new Intent(ActivityDetailOfFood.this, ActivitySplash.class)
-                        .putExtra(Config.IS_NEED_REG, true)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-
                 break;
             case R.id.btnPremCell:
                 showPremiumScreen();
