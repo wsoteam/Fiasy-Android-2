@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.auth.main;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
@@ -120,6 +121,14 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
     }
 
     void resetPassword(String email) {
+        if (TextUtils.isEmpty(email)) {
+            getViewState().showMessage(context.getString(R.string.auth_empty_email));
+            return;
+        }
+        if (!Valid.isValidEmail(email)) {
+            getViewState().showMessage(context.getString(R.string.auth_wrong_email));
+            return;
+        }
         getViewState().showProgress(true);
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(task -> {
@@ -141,14 +150,14 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
 
     private boolean checkCredentials(String email, String password) {
         Log.d(TAG, "signIn:" + email);
-        if (email.matches("")) {
+        if (TextUtils.isEmpty(email)) {
             getViewState().showMessage(context.getString(R.string.auth_empty_email));
             Log.d(TAG, "signIn: fail valid");
             return false;
         } else if (!Valid.isValidEmail(email)) {
             getViewState().showMessage(context.getString(R.string.auth_wrong_email));
             return false;
-        } else if (password.matches("")) {
+        } else if (TextUtils.isEmpty(password)) {
             getViewState().showMessage(context.getString(R.string.auth_empty_pass));
             return false;
         } else if (password.contains(" ")) {
@@ -199,7 +208,7 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
                 });
     }
 
-     void firebaseAuthWithInstagram(String auth_token) {
+    void firebaseAuthWithInstagram(String auth_token) {
         mAuth.signInWithCustomToken(auth_token)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

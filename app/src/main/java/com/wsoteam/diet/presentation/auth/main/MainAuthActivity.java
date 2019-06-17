@@ -186,20 +186,12 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
         resPassTextView.setVisibility(View.VISIBLE);
         passwordLayout.setVisibility(View.VISIBLE);
         passwordDubLayout.setVisibility(View.GONE);
+        ppCheckBox.setVisibility(View.INVISIBLE);
+        checkPPTextView.setVisibility(View.INVISIBLE);
         signIn.setText(R.string.auth_main_btn_signin);
         rbSignIn.setChecked(true);
         forgotPass = false;
         createUser = false;
-    }
-
-    private void prepareViewsForSignUp() {
-        resPassTextView.setVisibility(View.GONE);
-        passwordLayout.setVisibility(View.VISIBLE);
-        passwordDubLayout.setVisibility(View.VISIBLE);
-        signIn.setText(R.string.auth_main_btn_create);
-        rbReg.setChecked(true);
-        forgotPass = false;
-        createUser = true;
     }
 
     private void prepareViewsForForgotPass() {
@@ -207,9 +199,23 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
         passwordLayout.setVisibility(View.GONE);
         passwordDubLayout.setVisibility(View.GONE);
         passwordLayout.setVisibility(View.GONE);
+        ppCheckBox.setVisibility(View.INVISIBLE);
+        checkPPTextView.setVisibility(View.INVISIBLE);
         signIn.setText(R.string.auth_main_btn_send_pass);
         forgotPass = true;
         createUser = false;
+    }
+
+    private void prepareViewsForSignUp() {
+        resPassTextView.setVisibility(View.GONE);
+        passwordLayout.setVisibility(View.VISIBLE);
+        passwordDubLayout.setVisibility(View.VISIBLE);
+        ppCheckBox.setVisibility(View.VISIBLE);
+        checkPPTextView.setVisibility(View.VISIBLE);
+        signIn.setText(R.string.auth_main_btn_create);
+        rbReg.setChecked(true);
+        forgotPass = false;
+        createUser = true;
     }
 
     @OnClick({R.id.auth_main_btn_signin, R.id.auth_main_btn_google, R.id.auth_main_tv_respasss, R.id.textView82, R.id.auth_main_btn_google_custom,
