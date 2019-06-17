@@ -2,18 +2,19 @@ package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailSavedFood;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 
 import butterknife.BindView;
@@ -52,7 +53,7 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.delete_food:
-                        insideHolderCallback.itemWasClicked(getAdapterPosition());
+                        showConfirmDialog();
                         break;
                     case R.id.edit_food:
                         openDetailFood(eating);
@@ -80,5 +81,33 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
         tvFats.setText("Ж. " + eating.getFat());
         tvCarbo.setText("У. " + eating.getCarbohydrates());
         this.insideHolderCallback = insideHolderCallback;
+    }
+
+    private void showConfirmDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog alertDialog = builder.create();
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.alert_dialog_confirm, null);
+        Button delete = view.findViewById(R.id.btnDeleteConfirm);
+        Button cancel = view.findViewById(R.id.btnCancelConfirm);
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insideHolderCallback.itemWasClicked(getAdapterPosition());
+                alertDialog.cancel();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.cancel();
+            }
+        });
+
+
+        alertDialog.setView(view);
+        alertDialog.show();
     }
 }

@@ -158,6 +158,8 @@
     <color name="count_color">#57000000</color>
     <color name="reminder_color">#555555</color>
     <color name="reminder_back_color">#70FF947A</color>
+    <color name="confirm_text">#8A000000</color>
+    <color name="confirm_button">#205651</color>
 
 
 
