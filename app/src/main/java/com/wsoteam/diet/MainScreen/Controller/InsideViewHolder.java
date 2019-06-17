@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
 import butterknife.BindView;
@@ -28,9 +29,14 @@ public class InsideViewHolder extends RecyclerView.ViewHolder {
     public void bind(Eating eating, Context context) {
         tvNameOfFood.setText(eating.getName());
         tvCalories.setText(eating.getCalories() + " Ккал");
-        tvWeight.setText("Вес: " + eating.getWeight() + "г");
         tvProt.setText("Б. " + eating.getProtein());
         tvFats.setText("Ж. " + eating.getFat());
         tvCarbo.setText("У. " + eating.getCarbohydrates());
+
+        if(eating.getWeight() == Config.RECIPE_EMPTY_WEIGHT) {
+            tvWeight.setText("1 порция");
+        }else {
+            tvWeight.setText("Вес: " + eating.getWeight() + "г");
+        }
     }
 }

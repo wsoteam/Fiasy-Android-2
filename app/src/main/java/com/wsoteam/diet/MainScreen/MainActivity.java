@@ -19,7 +19,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,21 +37,20 @@ import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
-import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodaDB;
+import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodDB;
+import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
-import com.wsoteam.diet.Sync.UserDataHolder;
 
 import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.intercom.android.sdk.Intercom;
-import io.intercom.android.sdk.UserAttributes;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -61,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
     private FragmentTransaction transaction;
     private BottomSheetBehavior bottomSheetBehavior;
-    private  Window window;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -70,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             transaction = getSupportFragmentManager().beginTransaction();
+            Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             Box box = new Box();
             box.setSubscribe(false);
@@ -94,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
                             if (getABVersion().equals(ABConfig.C_VERSION)) {
                                 transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.
                                         newInstance(box)).commit();
-
                             } else {
                                 if (getABVersion().equals(ABConfig.A_VERSION)) {
                                     transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.
@@ -108,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     } else {
                         transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();
-
                     }
                     return true;
                 case R.id.bnv_main_trainer:
@@ -120,16 +116,13 @@ public class MainActivity extends AppCompatActivity {
                         if (getABVersion().equals(ABConfig.C_VERSION)) {
                             transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.
                                     newInstance(box)).commit();
-
                         } else {
                             if (getABVersion().equals(ABConfig.A_VERSION)) {
                                 transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.
                                         newInstance(box)).commit();
-
                             } else {
                                 transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenOneButton.
                                         newInstance(box)).commit();
-
                             }
                         }
                         window.setStatusBarColor(Color.parseColor("#747d3b"));
@@ -143,8 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     return true;
                 case R.id.bnv_main_profile:
-                    transaction.replace(R.id.flFragmentContainer, new FragmentProfile());
-                    transaction.commit();
+                    transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
                     window.setStatusBarColor(Color.parseColor("#2E4E4E"));
                     return true;
             }
@@ -183,26 +175,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
         ButterKnife.bind(this);
-        window = getWindow();
-        window.setStatusBarColor(Color.parseColor("#AE6A23"));
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        checkForcedGrade();
-        new AsyncWriteFoodaDB().execute(this);
-        intercom();
+        //checkForcedGrade();
+        IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        new AsyncWriteFoodDB().execute(MainActivity.this);
         if (GroupsHolder.getGroupsRecipes() == null) {
             loadRecipes();
         }
-    }
-
-    private void intercom() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        UserAttributes userAttributes = new UserAttributes.Builder()
-                .withName(UserDataHolder.getUserData().getProfile().getFirstName())
-                .withEmail(currentUser.getEmail())
-                .build();
-        Intercom.client().updateUser(userAttributes);
     }
 
     private void checkForcedGrade() {

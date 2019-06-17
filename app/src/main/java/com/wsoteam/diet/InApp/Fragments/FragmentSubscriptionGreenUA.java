@@ -29,7 +29,7 @@ import com.facebook.appevents.AppEventsConstants;
 import com.facebook.appevents.AppEventsLogger;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.Authenticate.ActivityAuthMain;
+import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
@@ -156,8 +156,8 @@ public class FragmentSubscriptionGreenUA extends Fragment implements PurchasesUp
                 getActivity().finish();
             } else if (box.isOpenFromIntrodaction()) {
                 box.setSubscribe(true);
-                startActivity(new Intent(getActivity(), ActivityAuthMain.class).
-                        putExtra("createUser", true).
+                startActivity(new Intent(getActivity(), MainAuthActivity.class).
+                        putExtra(Config.CREATE_PROFILE, true).
                         putExtra(Config.INTENT_PROFILE, box.getProfile()));
                 getActivity().finish();
             }
@@ -191,8 +191,8 @@ public class FragmentSubscriptionGreenUA extends Fragment implements PurchasesUp
                 getActivity().getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE)
                         .edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, true)
                         .commit();
-                startActivity(new Intent(getActivity(), ActivityAuthMain.class).
-                        putExtra("createUser", true).
+                startActivity(new Intent(getActivity(), MainAuthActivity.class).
+                        putExtra(Config.CREATE_PROFILE, true).
                         putExtra(Config.INTENT_PROFILE, box.getProfile()));
                 getActivity().finish();
             }else {

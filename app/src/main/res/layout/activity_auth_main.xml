@@ -2,11 +2,10 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/registration_background" />
+    <include layout="@layout/registration_background"/>
 
     <TextView
         android:id="@+id/auth_main_tv"
@@ -17,7 +16,7 @@
         android:text="@string/auth_main_tv"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
         android:id="@+id/btnBack"
@@ -28,16 +27,12 @@
         android:background="#00FFFFFF"
         android:drawableLeft="@drawable/back_arrow_icon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="47dp"
-        tools:layout_editor_absoluteY="0dp">
-
-
+        android:layout_height="match_parent">
     </FrameLayout>
 
     <com.google.android.gms.common.SignInButton
@@ -49,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
     </com.google.android.gms.common.SignInButton>
 
@@ -57,13 +52,13 @@
         android:id="@+id/auth_main_btn_facebook"
         android:layout_width="150dp"
         android:layout_height="20dp"
-        android:visibility="gone"
         android:layout_marginTop="20dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/auth_main_btn_google" />
+        app:layout_constraintTop_toBottomOf="@+id/auth_main_btn_google"/>
 
     <EditText
         android:id="@+id/auth_main_email"
@@ -78,7 +73,7 @@
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/auth_main_pass"
@@ -93,7 +88,7 @@
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/auth_main_email" />
+        app:layout_constraintTop_toBottomOf="@+id/auth_main_email"/>
 
     <Button
         android:id="@+id/auth_main_btn_signin"
@@ -107,7 +102,7 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/auth_main_pass" />
+        app:layout_constraintTop_toBottomOf="@+id/auth_main_pass"/>
 
     <EditText
         android:id="@+id/auth_main_name"
@@ -122,7 +117,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/auth_main_email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/auth_main_tv_respasss"
@@ -135,7 +130,24 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/auth_main_btn_signin" />
+        app:layout_constraintTop_toBottomOf="@+id/auth_main_btn_signin"/>
+
+    <Button
+        android:id="@+id/auth_main_btn_insta_custom"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="15dp"
+        android:visibility="gone"
+        android:background="#1CFFFFFF"
+        android:drawableStart="@drawable/icon_google"
+        android:drawablePadding="10dp"
+        android:paddingLeft="30dp"
+        android:text="@string/auth_main_signin_insta"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/auth_main_btn_google_custom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/auth_main_btn_google_custom"
@@ -144,14 +156,14 @@
         android:layout_marginBottom="15dp"
         android:background="#1CFFFFFF"
         android:drawableStart="@drawable/icon_google"
-        android:paddingLeft="30dp"
         android:drawablePadding="10dp"
+        android:paddingLeft="30dp"
         android:text="@string/auth_main_signin_google"
         android:textAlignment="textStart"
         android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/auth_main_btn_facebook_custom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/auth_main_btn_facebook_custom"
@@ -160,14 +172,14 @@
         android:layout_marginBottom="15dp"
         android:background="#1CFFFFFF"
         android:drawableStart="@drawable/icon_facebook"
-        android:paddingLeft="30dp"
         android:drawablePadding="10dp"
+        android:paddingLeft="30dp"
         android:text="@string/auth_main_signin_facebook"
         android:textAlignment="textStart"
         android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/auth_main_btn_phone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/auth_main_btn_phone"
@@ -176,15 +188,16 @@
         android:layout_marginBottom="20dp"
         android:background="#1CFFFFFF"
         android:drawableStart="@drawable/icon_phone"
-        android:paddingLeft="30dp"
         android:drawablePadding="10dp"
+        android:paddingLeft="30dp"
         android:text="@string/auth_main_signin_phone"
         android:textAlignment="textStart"
         android:textAllCaps="false"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <CheckBox
         android:id="@+id/auth_main_check_pp"
@@ -192,7 +205,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/auth_main_pass"
-        app:layout_constraintTop_toBottomOf="@+id/auth_main_pass" />
+        app:layout_constraintTop_toBottomOf="@+id/auth_main_pass"/>
 
     <TextView
         android:id="@+id/textView82"
@@ -201,9 +214,10 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:text="@string/auth_main_check_box_pp"
+        android:textColor="#A63A3A3A"
         app:layout_constraintEnd_toEndOf="@+id/auth_main_pass"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/auth_main_check_pp"
-        app:layout_constraintTop_toBottomOf="@+id/auth_main_pass" />
+        app:layout_constraintTop_toBottomOf="@+id/auth_main_pass"/>
 
 </android.support.constraint.ConstraintLayout>

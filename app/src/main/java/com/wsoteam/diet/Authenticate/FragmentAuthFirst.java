@@ -17,7 +17,7 @@ public class FragmentAuthFirst extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.auth_fragment_ferst, null);
+        final View view = inflater.inflate(R.layout.intro_activity, null);
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 //        Button

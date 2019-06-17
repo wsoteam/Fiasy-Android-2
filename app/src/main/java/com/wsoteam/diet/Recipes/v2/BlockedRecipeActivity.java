@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
@@ -115,9 +116,13 @@ public class BlockedRecipeActivity extends AppCompatActivity  implements Toolbar
     @OnClick(R.id.goPrem)
     public void onViewClicked(View view) {
         Box box = new Box();
+        box.setSubscribe(false);
+        box.setOpenFromPremPart(true);
+        box.setOpenFromIntrodaction(false);
+        box.setComeFrom(AmplitudaEvents.view_prem_recipe);
+        box.setComeFrom(AmplitudaEvents.buy_prem_recipe);
         Intent intent = new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box);
         startActivity(intent);
-
     }
 
     public int dpToPx(int dp) {

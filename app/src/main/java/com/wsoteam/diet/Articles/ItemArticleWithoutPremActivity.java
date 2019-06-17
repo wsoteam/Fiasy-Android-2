@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Articles.POJO.Article;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
 import com.wsoteam.diet.Articles.Util.HtmlTagHandler;
@@ -77,6 +78,11 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
     @OnClick(R.id.goPremArticle)
     public void startPrem(){
         Box box = new Box();
+        box.setSubscribe(false);
+        box.setOpenFromPremPart(true);
+        box.setOpenFromIntrodaction(false);
+        box.setComeFrom(AmplitudaEvents.view_prem_content);
+        box.setComeFrom(AmplitudaEvents.buy_prem_content);
         Intent intent = new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box);
         startActivity(intent);
     }

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_auth_first">
+
+    <ImageView
+        android:id="@+id/imageView20"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mask_group" />
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="164dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView20"
+        app:srcCompat="@drawable/logo_registrtion" />
+
+    <TextView
+        android:id="@+id/textView46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="@string/auth_first_description"
+        android:textColor="@color/first_auth_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView19" />
+
+    <Button
+        android:id="@+id/auth_first_btn_registration"
+        android:layout_width="150dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/round_shape_btn"
+        android:text="@string/reg_btn_reg"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/auth_first_tv_ask"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/auth_first_tv_ask"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginEnd="132dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/reg_et_have_account"
+        android:textColor="@color/is_exist_profile"
+        app:layout_constraintBottom_toTopOf="@+id/auth_first_btn_signin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/auth_first_btn_signin"
+        style="@android:style/Widget.Material.Button"
+        android:layout_width="110dp"
+        android:layout_height="34dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/round_shape_btn"
+        android:text="@string/reg_btn_login"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>
