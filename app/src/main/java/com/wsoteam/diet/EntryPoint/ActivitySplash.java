@@ -43,6 +43,7 @@ import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Amplitude.SetUserProperties;
 import com.wsoteam.diet.Articles.ItemArticleActivity;
 import com.wsoteam.diet.Authenticate.ActivityAuthenticate;
+import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchProfile.ActivityEditProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.FirebaseUserProperties;
@@ -55,6 +56,7 @@ import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
+import com.wsoteam.diet.Recipes.adding.ProductSearchActivity;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
@@ -89,11 +91,11 @@ public class ActivitySplash extends Activity {
         }
 
 
-        startActivity(new Intent(this, AddingRecipeActivity.class));
-//        FacebookSdk.sdkInitialize(getApplicationContext());
-//        AppEventsLogger.activateApp(this);
-//        checkFirstLaunch();
-//        checkRegistrationAndRun();
+//        startActivity(new Intent(this, ActivityListAndSearch.class));
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+        checkFirstLaunch();
+        checkRegistrationAndRun();
     }
 
     private void checkRegistrationAndRun() {

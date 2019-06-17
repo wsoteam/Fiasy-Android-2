@@ -28,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddingRecipeActivity extends AppCompatActivity {
+public class AddingRecipeActivity extends AppCompatActivity implements View.OnClickListener {
 
     @BindView(R.id.btnLeft) Button btnBack;
     @BindView(R.id.btnRight) Button btnNext;
@@ -130,6 +130,7 @@ public class AddingRecipeActivity extends AppCompatActivity {
         mToolbar.setTitle(R.string.recipeToolBarTitle);
         mToolbar.inflateMenu(R.menu.adding_recipe_menu);
         mToolbar.setTitleTextColor(0xFFFFFFFF);
+        setSupportActionBar(mToolbar);
 
         Menu menu = mToolbar.getMenu();
         MenuItem btnClose = menu.findItem(R.id.close);
@@ -159,6 +160,21 @@ public class AddingRecipeActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.mainLayout:
+                vpPager.setCurrentItem(0);
+                break;
+            case R.id.ingredientsLayout:
+                vpPager.setCurrentItem(1);
+                break;
+            case R.id.instructionsLayout:
+                vpPager.setCurrentItem(2);
+                break;
+        }
+    }
+
     public static class MyPagerAdapter extends FragmentPagerAdapter {
         List<Fragment> fragmentList;
 
@@ -183,5 +199,7 @@ public class AddingRecipeActivity extends AppCompatActivity {
         }
 
     }
+
+
 
 }
