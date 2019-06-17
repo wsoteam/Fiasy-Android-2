@@ -1,8 +1,11 @@
 package com.wsoteam.diet.InApp;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.Window;
 
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.Authenticate.POJO.Box;
