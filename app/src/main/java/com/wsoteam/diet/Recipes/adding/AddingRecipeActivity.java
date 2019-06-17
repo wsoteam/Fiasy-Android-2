@@ -1,6 +1,8 @@
 package com.wsoteam.diet.Recipes.adding;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -9,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -18,6 +21,7 @@ import android.widget.Button;
 
 
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 
@@ -199,7 +203,5 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         }
 
     }
-
-
 
 }
