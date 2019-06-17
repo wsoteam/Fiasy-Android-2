@@ -1,6 +1,7 @@
 <resources>
 
     <!--adding recipe-->
+    <string name="addingRecipePortionV">Вес:</string>
     <string name="addingRecipeAddInstruction">Добавить шаг</string>
     <string name="addingRecipeAddIngredient">Добавить ингридиент</string>
     <string name="recipeToolBarTitle">Создать рецепт</string>

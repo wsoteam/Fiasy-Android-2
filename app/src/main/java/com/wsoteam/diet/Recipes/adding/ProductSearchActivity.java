@@ -48,6 +48,7 @@ public class ProductSearchActivity extends AppCompatActivity {
     @BindView(R.id.ivActivityListAndSearchEmptyImage) ImageView ivEmptyImage;
     @BindView(R.id.tvActivityListAndSearchEmptyText) TextView tvEmptyText;
     @BindView(R.id.tvIndex) TextView tvIndex;
+    private AlertDialog dialog;
 
     private int RESPONSE_LIMIT = 50;
     private ItemAdapter itemAdapter;
@@ -223,11 +224,6 @@ public class ProductSearchActivity extends AppCompatActivity {
 
             startAlertDialog(itemAdapter.foods.get(getAdapterPosition()));
 
-//            Intent intent = new Intent(ProductSearchActivity.this, ActivityDetailOfFood.class);
-//            intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
-//            intent.putExtra(Config.TAG_CHOISE_EATING, spinner.getSelectedItemPosition());
-//            intent.putExtra(Config.INTENT_DATE_FOR_SAVE, getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
-//            startActivity(intent);
         }
 
         public void bind(Food food) {
@@ -341,7 +337,7 @@ public class ProductSearchActivity extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setView(alertLayout);
 //        alert.setCancelable(false);
-        AlertDialog dialog = alert.create();
+        dialog = alert.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
@@ -429,6 +425,7 @@ public class ProductSearchActivity extends AppCompatActivity {
                     intent.putExtra(Config.RECIPE_FOOD_INTENT, food);
 
                     setResult(RESULT_OK, intent);
+                    dialog.dismiss();
                     finish();
 
                 }
