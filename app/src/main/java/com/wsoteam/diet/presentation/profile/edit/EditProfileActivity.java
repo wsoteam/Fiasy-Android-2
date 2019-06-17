@@ -124,7 +124,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
             case R.id.btnNext:
                 presenter.calculate(edName.getText().toString(), edAge.getText().toString(), isFemale,
                         edHeight.getText().toString(), edDiff.getText().toString(), edActivity.getText().toString(),
-                        edHeight.getText().toString());
+                        edWeight.getText().toString());
                 break;
             case R.id.chHeight:
                 attachDimensionPopup((AppCompatCheckedTextView) view);
