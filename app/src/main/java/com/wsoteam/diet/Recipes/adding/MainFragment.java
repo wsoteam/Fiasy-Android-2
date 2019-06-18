@@ -92,4 +92,11 @@ public class MainFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        recipeItem.setTime(Integer.parseInt(timeEditText.getText().toString()));
+    }
 }

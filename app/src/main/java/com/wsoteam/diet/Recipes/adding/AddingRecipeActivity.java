@@ -20,11 +20,16 @@ import android.view.Window;
 import android.widget.Button;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,6 +41,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
 
     @BindView(R.id.btnLeft) Button btnBack;
     @BindView(R.id.btnRight) Button btnNext;
+    @BindView(R.id.btnOk) Button btnOk;
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.worm_dots_indicator) WormDotsIndicator wormDotsIndicator;
     @BindView(R.id.vpContainer) ViewPager vpPager;
@@ -44,6 +50,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
     private List<Fragment> fragmentList;
 
     private RecipeItem recipeItem;
+    private List<Food> foods;
 
     private Window window;
 
@@ -54,11 +61,12 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         ButterKnife.bind(this);
 
         recipeItem = new RecipeItem();
+        foods = new ArrayList<>();
 
         fragmentList = new LinkedList<>();
         fragmentList.add(new MainFragment());
-        fragmentList.add(new InstructionsFragment());
         fragmentList.add(new IngredientsFragment());
+        fragmentList.add(new InstructionsFragment());
         fragmentList.add(new ResultFragment());
 
 
@@ -79,33 +87,42 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
 
                 switch (i){
                     case 0:
-                        if(recipeItem.getName() != null && recipeItem.getName().trim().length() == 0){
-                            vpPager.setCurrentItem(0);
-                        }
-                        mToolbar.setTitle("123");
+                        btnBack.setVisibility(View.INVISIBLE);
+                        btnNext.setVisibility(View.VISIBLE);
+                        btnOk.setVisibility(View.GONE);
+                        mToolbar.setTitle("Создать рецепт");
                         break;
                     case 1:
-                        mToolbar.setTitle("456");
+                        btnBack.setVisibility(View.VISIBLE);
+                        btnNext.setVisibility(View.VISIBLE);
+                        btnOk.setVisibility(View.GONE);
+                        mToolbar.setTitle("Ингридиенты для 1 порции");
+                        break;
+                    case 2:
+                        btnBack.setVisibility(View.VISIBLE);
+                        btnNext.setVisibility(View.VISIBLE);
+                        btnOk.setVisibility(View.GONE);
+                        mToolbar.setTitle("Инструкция по приготовлению");
+                        break;
+                    case 3:
+                        btnBack.setVisibility(View.VISIBLE);
+                        btnNext.setVisibility(View.INVISIBLE);
+                        btnOk.setVisibility(View.VISIBLE);
+                        mToolbar.setTitle("Сохранить рецепт");
                         break;
                 }
-
-
-                if (fragmentList.size() == 1){
-                    btnBack.setVisibility(View.INVISIBLE);
-                    btnNext.setVisibility(View.INVISIBLE);
-                } else if (i == 0) {
-                    btnBack.setVisibility(View.INVISIBLE);
-                    btnNext.setVisibility(View.VISIBLE);
-                } else if (i == fragmentList.size() - 1){
-                    btnNext.setVisibility(View.INVISIBLE);
-                    btnBack.setVisibility(View.VISIBLE);
-
-                } else {
-                    btnBack.setVisibility(View.VISIBLE);
-                    btnNext.setVisibility(View.VISIBLE);
-                }
-
-
+//                if (fragmentList.size() == 1){
+//                    btnBack.setVisibility(View.INVISIBLE);
+//                    btnNext.setVisibility(View.INVISIBLE);
+//                } else if (i == 0) {
+//
+//                } else if (i == fragmentList.size() - 1){
+//                    btnNext.setVisibility(View.INVISIBLE);
+//                    btnBack.setVisibility(View.VISIBLE);
+//
+//                } else {
+//
+//                }
 
             }
 
@@ -152,7 +169,11 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         return recipeItem;
     }
 
-    @OnClick({R.id.btnLeft, R.id.btnRight})
+    public List<Food> getFoods(){
+        return foods;
+    }
+
+    @OnClick({R.id.btnLeft, R.id.btnRight, R.id.btnOk})
     public void onViewClicked(View view) {
         switch (view.getId()){
             case R.id.btnLeft:
@@ -160,6 +181,9 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.btnRight:
                 vpPager.setCurrentItem(vpPager.getCurrentItem() + 1);
+                break;
+            case R.id.btnOk:
+                saveRecipe(recipeItem);
                 break;
         }
     }
@@ -202,6 +226,13 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
             return "";
         }
 
+    }
+
+    public void saveRecipe(RecipeItem recipeItem){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("recipes");
+        myRef.push().setValue(recipeItem);
     }
 
 }

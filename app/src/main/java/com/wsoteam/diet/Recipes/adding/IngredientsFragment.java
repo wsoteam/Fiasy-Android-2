@@ -17,6 +17,8 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -25,6 +27,7 @@ public class IngredientsFragment extends Fragment {
 
     @BindView(R.id.svContainerInstructions)
     LinearLayout container;
+    List<Food> foodList;
 
     @Nullable
     @Override
@@ -33,6 +36,14 @@ public class IngredientsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_adding_recipe_ingredients,
                 container, false);
         ButterKnife.bind(this, view);
+        foodList = ((AddingRecipeActivity) getActivity()).getFoods();
+        if (foodList.size() > 0){
+            for (Food food:
+                 foodList) {
+                onAddField(food);
+            }
+        }
+        Log.d("testresult", "IngredientsFragment");
 
         return view;
     }
@@ -55,6 +66,7 @@ public class IngredientsFragment extends Fragment {
                        Food food = (Food) bundle.get(Config.RECIPE_FOOD_INTENT);
                        Log.d("testresult", "onActivityResult: " + food.getName());
                        onAddField(food);
+                       foodList.add(food);
                    }
 
 
@@ -76,5 +88,6 @@ public class IngredientsFragment extends Fragment {
         caloriesTextView.setText(String.valueOf((int)food.getCalories()) + " Ккал");
 
         container.addView(rowView);
+
     }
 }

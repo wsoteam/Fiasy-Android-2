@@ -80,11 +80,11 @@ public class ActivitySplash extends BaseActivity {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
 
-        startActivity(new Intent(this, AddingRecipeActivity.class));
-//        FacebookSdk.sdkInitialize(getApplicationContext());
-//        AppEventsLogger.activateApp(this);
-//        checkFirstLaunch();
-//        checkRegistrationAndRun();
+//        startActivity(new Intent(this, AddingRecipeActivity.class));
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+        checkFirstLaunch();
+        checkRegistrationAndRun();
     }
 
     private void checkRegistrationAndRun() {

@@ -47,12 +47,25 @@
         android:layout_height="30dp"
         android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
+        android:drawableRight="@drawable/ic_navigation_next"
         android:text="@string/btnNext"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="next"
-        android:drawableRight="@drawable/ic_navigation_next"/>
+        tools:text="next" />
+
+    <Button
+        android:id="@+id/btnOk"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/transparent"
+        android:text="OK"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnRight"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

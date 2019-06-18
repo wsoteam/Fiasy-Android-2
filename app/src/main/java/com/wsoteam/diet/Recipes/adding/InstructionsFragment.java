@@ -6,16 +6,20 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,6 +33,7 @@ public class InstructionsFragment extends Fragment {
     @BindView(R.id.svInstructions) ScrollView scrollView;
 
     List<View> listView;
+    RecipeItem recipeItem;
 
     @Nullable
     @Override
@@ -38,7 +43,24 @@ public class InstructionsFragment extends Fragment {
                 container, false);
         ButterKnife.bind(this, view);
 
+        recipeItem = ((AddingRecipeActivity)getActivity()).getRecipeItem();
+
+        List<String> instructions = recipeItem.getInstruction();
         listView = new LinkedList<>();
+
+        if (instructions != null ){
+            for (String str:
+                 instructions) {
+               onAddField();
+            }
+
+           for(int i = 0; i < listView.size(); i++){
+               Log.d("testresult"," " + i);
+               initRow(listView.get(i), instructions.get(i));
+               Log.d("testresult", instructions.get(i));
+           }
+        }
+
 
         return view;
     }
@@ -50,9 +72,10 @@ public class InstructionsFragment extends Fragment {
 
     private void onAddField(){
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View rowView = inflater.inflate(R.layout.adding_recipe_instruction_step, null);
+        View rowView = inflater.inflate(R.layout.adding_recipe_instruction_step, null);
         ImageButton delButton = rowView.findViewById(R.id.btnDel);
         TextView positionTextView = rowView.findViewById(R.id.tvPosition);
+
 
         listView.add(rowView);
         positionTextView.setText(String.valueOf(listView.indexOf(rowView) + 1));
@@ -65,6 +88,8 @@ public class InstructionsFragment extends Fragment {
         parentLinearLayout.addView(rowView);
         scrollView.fullScroll(View.FOCUS_DOWN);
     }
+
+
 
     private void updatePositions(List<View> views){
 
@@ -81,4 +106,25 @@ public class InstructionsFragment extends Fragment {
         updatePositions(listView);
     }
 
+    private void initRow(View v, String str){
+        EditText editText = v.findViewById(R.id.etInstruction);
+        editText.setText(str);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        List<String>  list = new ArrayList<>();
+        for (View view:
+             listView) {
+            EditText editText = view.findViewById(R.id.etInstruction);
+            String text = editText.getText().toString();
+            if (text.length() > 0) {
+                list.add(text);
+                Log.d("testresult", text);
+            }
+        }
+        recipeItem.setInstruction(list);
+    }
 }

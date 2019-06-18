@@ -10,8 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +29,11 @@ public class ResultFragment extends Fragment {
     @BindView(R.id.mainLayout) LinearLayout mainLayout;
     @BindView(R.id.ingredientsLayout) LinearLayout ingredientsLayout;
     @BindView(R.id.instructionsLayout) LinearLayout instructionsLayout;
+    @BindView(R.id.tvNameRecipe) TextView nameTextView;
+    @BindView(R.id.tvTimeRecipe) TextView timeTextView;
+    @BindView(R.id.tvComplexity) TextView complexityTextView;
+
+    RecipeItem recipeItem;
 
     @Nullable
     @Override
@@ -30,7 +42,11 @@ public class ResultFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_adding_recipe_result, container, false);
         ButterKnife.bind(this, view);
 
-        getActivity().setTitle("gggggggggggggggggg");
+        recipeItem = ((AddingRecipeActivity)getActivity()).getRecipeItem();
+
+        nameTextView.setText(recipeItem.getName());
+        timeTextView.setText(String.valueOf(recipeItem.getTime()));
+        complexityTextView.setText(String.valueOf(recipeItem.getComplexity()));
 
         mainLayout.setOnClickListener((View.OnClickListener) getActivity());
         ingredientsLayout.setOnClickListener((View.OnClickListener) getActivity());
@@ -38,4 +54,6 @@ public class ResultFragment extends Fragment {
 
         return view;
     }
+
+
 }
