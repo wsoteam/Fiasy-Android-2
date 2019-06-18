@@ -31,6 +31,7 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
     InsideHolderCallback insideHolderCallback;
     Eating eating;
     int choiseEating;
+    boolean isRecipe = false;
 
     public InsideViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, Context context) {
         super(layoutInflater.inflate(R.layout.ms_item_inside_list, viewGroup, false));
@@ -47,6 +48,9 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
     public void onCreatePopupMenu(View view) {
         PopupMenu popupMenu = new PopupMenu(context, view);
         popupMenu.inflate(R.menu.food_popup_menu);
+        if (isRecipe) {
+            popupMenu.getMenu().findItem(R.id.edit_food).setVisible(false);
+        }
         popupMenu.show();
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -81,8 +85,10 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
         tvCarbo.setText("У. " + eating.getCarbohydrates());
         if(eating.getWeight() == Config.RECIPE_EMPTY_WEIGHT) {
             tvWeight.setText("1 порция");
+            isRecipe = true;
         }else {
             tvWeight.setText("Вес: " + eating.getWeight() + "г");
+            isRecipe = false;
         }
         this.insideHolderCallback = insideHolderCallback;
     }
