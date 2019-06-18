@@ -354,13 +354,19 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     }
 
     private void shareFood(Food foodItem) {
-        String forSend = foodItem.getName() + " (" + foodItem.getBrand() + ") - " + String.valueOf(foodItem.getCalories() * 100)
+        String forSend;
+        if (foodItem.getBrand() == null){
+            forSend = foodItem.getName()
+                    + String.valueOf(foodItem.getCalories() * 100) + " Ккал. Узнайте % микроэлементов в продукте" +
+                    " в дневнике питания Fiasy \n" + "https://play.google.com/store/apps/details?id=" + getPackageName();
+        }else {
+            forSend = foodItem.getName() + " (" + foodItem.getBrand() + ") - "
+                    + String.valueOf(foodItem.getCalories() * 100) + " Ккал. Узнайте % микроэлементов в продукте" +
+                    " в дневнике питания Fiasy \n" + "https://play.google.com/store/apps/details?id=" + getPackageName();
+        }
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.accompanying_text)
-                + "\n"
-                + "https://play.google.com/store/apps/details?id="
-                + getPackageName());
+        intent.putExtra(Intent.EXTRA_TEXT, forSend);
         startActivity(intent);
     }
 
