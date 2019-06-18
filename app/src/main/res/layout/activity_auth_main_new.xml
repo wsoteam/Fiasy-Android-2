@@ -90,6 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/auth_main_btn_google_custom"
             app:layout_constraintStart_toEndOf="@+id/auth_main_btn_facebook_custom"
             app:layout_constraintTop_toTopOf="@+id/auth_main_btn_facebook_custom"
