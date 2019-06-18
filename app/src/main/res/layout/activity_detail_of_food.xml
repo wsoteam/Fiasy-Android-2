@@ -37,13 +37,26 @@
             android:id="@+id/ibShareFood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:background="@drawable/filter_state"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivBack"
+            app:layout_constraintEnd_toStartOf="@+id/ibSendClaim"
+            app:layout_constraintTop_toTopOf="@+id/ivBack"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_share_food" />
+
+        <ImageButton
+            android:id="@+id/ibSendClaim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="36dp"
             android:background="@drawable/filter_state"
             android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/ivBack"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/ivBack"
-            app:srcCompat="@drawable/ic_share_food" />
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_claim" />
 
         <TextView
             android:id="@+id/tvActivityDetailOfFoodCollapsingTitle"
@@ -758,7 +771,8 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/tvDj"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvDj" />
 
                 <TextView
                     android:id="@+id/tvDj4"
@@ -771,8 +785,7 @@
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/tvKcal"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tvKcal"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintTop_toTopOf="@+id/tvKcal" />
 
                 <TextView
                     android:id="@+id/textView32"

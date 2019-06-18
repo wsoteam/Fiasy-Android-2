@@ -78,6 +78,8 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     @BindView(R.id.tvСholesterol) TextView tvСholesterol;
     @BindView(R.id.tvSodium) TextView tvSodium;
     @BindView(R.id.tvPotassium) TextView tvPotassium;
+    @BindView(R.id.tvDj) TextView tvDj;
+    @BindView(R.id.tvKcal) TextView tvKcal;
 
     @BindView(R.id.btnPremCell) TextView btnPremCell;
     @BindView(R.id.btnPremSugar) TextView btnPremSugar;
@@ -157,6 +159,8 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         tvFats.setText(String.valueOf(Math.round(foodItem.getFats() * 100)) + " г");
         tvCarbohydrates.setText(String.valueOf(Math.round(foodItem.getCarbohydrates() * 100)) + " г");
         tvProteins.setText(String.valueOf(Math.round(foodItem.getProteins() * 100)) + " г");
+        tvKcal.setText(String.valueOf(Math.round(foodItem.getCalories() * 100)));
+        tvDj.setText(String.valueOf(Math.round(foodItem.getKilojoules() * 100)));
 
         if (foodItem.getBrand() != null) {
             tvBrand.setText("(" + foodItem.getBrand() + ")");
@@ -307,7 +311,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     @OnClick({R.id.btnSaveEating, R.id.ivBack, R.id.btnPremCell, R.id.btnPremCholy,
             R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremPot, R.id.btnPremSaturated, R.id.btnPremSod,
-            R.id.btnPremSugar, R.id.tvSendClaim, R.id.ibShareFood})
+            R.id.btnPremSugar, R.id.tvSendClaim, R.id.ibShareFood, R.id.ibSendClaim})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSaveEating:
@@ -350,16 +354,19 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             case R.id.ibShareFood:
                 shareFood(foodItem);
                 break;
+            case R.id.ibSendClaim:
+                ClaimForm.createChoiseEatingAlertDialog(this, foodItem);
+                break;
         }
     }
 
     private void shareFood(Food foodItem) {
         String forSend;
-        if (foodItem.getBrand() == null){
+        if (foodItem.getBrand() == null) {
             forSend = foodItem.getName()
                     + String.valueOf(foodItem.getCalories() * 100) + " Ккал. Узнайте % микроэлементов в продукте" +
                     " в дневнике питания Fiasy \n" + "https://play.google.com/store/apps/details?id=" + getPackageName();
-        }else {
+        } else {
             forSend = foodItem.getName() + " (" + foodItem.getBrand() + ") - "
                     + String.valueOf(foodItem.getCalories() * 100) + " Ккал. Узнайте % микроэлементов в продукте" +
                     " в дневнике питания Fiasy \n" + "https://play.google.com/store/apps/details?id=" + getPackageName();
