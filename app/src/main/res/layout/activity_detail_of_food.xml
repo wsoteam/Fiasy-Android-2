@@ -33,6 +33,18 @@
             app:layout_constraintStart_toEndOf="@+id/ivBack"
             app:layout_constraintTop_toTopOf="@+id/ivBack" />
 
+        <ImageButton
+            android:id="@+id/ibShareFood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/filter_state"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivBack"
+            app:srcCompat="@drawable/ic_share_food" />
+
         <TextView
             android:id="@+id/tvActivityDetailOfFoodCollapsingTitle"
             android:layout_width="match_parent"

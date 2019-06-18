@@ -158,7 +158,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         tvCarbohydrates.setText(String.valueOf(Math.round(foodItem.getCarbohydrates() * 100)) + " г");
         tvProteins.setText(String.valueOf(Math.round(foodItem.getProteins() * 100)) + " г");
 
-        if (foodItem.getBrand() != null){
+        if (foodItem.getBrand() != null) {
             tvBrand.setText("(" + foodItem.getBrand() + ")");
         }
 
@@ -259,7 +259,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         String urlOfImage = "empty_url";
 
         Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
-        switch (idOfEating) {
+        switch (spnFood.getSelectedItemPosition()) {
             case BREAKFAST_POSITION:
                 WorkWithFirebaseDB.
                         addBreakfast(new Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
@@ -307,7 +307,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     @OnClick({R.id.btnSaveEating, R.id.ivBack, R.id.btnPremCell, R.id.btnPremCholy,
             R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremPot, R.id.btnPremSaturated, R.id.btnPremSod,
-            R.id.btnPremSugar, R.id.tvSendClaim})
+            R.id.btnPremSugar, R.id.tvSendClaim, R.id.ibShareFood})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSaveEating:
@@ -347,7 +347,21 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             case R.id.tvSendClaim:
                 ClaimForm.createChoiseEatingAlertDialog(this, foodItem);
                 break;
+            case R.id.ibShareFood:
+                shareFood(foodItem);
+                break;
         }
+    }
+
+    private void shareFood(Food foodItem) {
+        String forSend = foodItem.getName() + " (" + foodItem.getBrand() + ") - " + String.valueOf(foodItem.getCalories() * 100)
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.accompanying_text)
+                + "\n"
+                + "https://play.google.com/store/apps/details?id="
+                + getPackageName());
+        startActivity(intent);
     }
 
     private void showPremiumScreen() {
