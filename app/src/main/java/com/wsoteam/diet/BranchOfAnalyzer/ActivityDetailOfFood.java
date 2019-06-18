@@ -2,6 +2,7 @@ package com.wsoteam.diet.BranchOfAnalyzer;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -46,7 +47,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ActivityDetailOfFood extends AppCompatActivity {
-    @BindView(R.id.spnEatingList) Spinner spinner;
+    @BindView(R.id.spnFood) Spinner spnFood;
     @BindView(R.id.tvActivityDetailOfFoodCollapsingTitle) TextView tvTitle;
     @BindView(R.id.tvActivityDetailOfFoodCalculateKcal) TextView tvCalculateKcal;
     @BindView(R.id.tvActivityDetailOfFoodCalculateFat) TextView tvCalculateFat;
@@ -147,8 +148,8 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter(this,
                 R.layout.item_spinner_food_search, getResources().getStringArray(R.array.eatingList));
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search);
-        spinner.setAdapter(adapter);
-        spinner.setSelection(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
+        spnFood.setAdapter(adapter);
+        spnFood.setSelection(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
     }
 
     private void bindFields() {
