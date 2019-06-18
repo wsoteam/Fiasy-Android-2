@@ -9,8 +9,8 @@ import java.util.Calendar;
 
 public class BodyCalculates {
 
-    private static final String FIRST_NAME = "John";
-    private static final String LAST_NAME = "Doe";
+    private static final String FIRST_NAME = "default";
+    private static final String LAST_NAME = "default";
     private static final int WATER_ON_KG_FEMALE = 30;
     private static final int WATER_ON_KG_MALE = 40;
     private static final double RATE_NONE = 1.2;

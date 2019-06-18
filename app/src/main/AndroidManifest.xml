@@ -271,10 +271,6 @@
                 <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
         </receiver>
-
-        <activity
-            android:name=".presentation.auth.ActivityAuthPhone"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".BranchProfile.ActivityEditCompletedProfile"
             android:screenOrientation="portrait"

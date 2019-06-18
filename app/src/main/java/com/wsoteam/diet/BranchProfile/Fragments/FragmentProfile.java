@@ -237,12 +237,9 @@ public class FragmentProfile extends Fragment {
             fillViewsIfProfileNotNull(profile);
 
         }
-
-
     }
 
     private void selectHardLevel() {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final AlertDialog alertDialog = builder.create();
         View view = View.inflate(getActivity(), R.layout.alert_dialog_choise_difficulty_level, null);

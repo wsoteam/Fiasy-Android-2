@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/sex_female"
+        android:title="@string/sex_female"/>
+
+    <item
+        android:id="@+id/sex_male"
+        android:title="@string/sex_male"/>
+</menu>
