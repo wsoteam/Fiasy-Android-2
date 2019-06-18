@@ -72,13 +72,14 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
 
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(), fragmentList);
         vpPager.setAdapter(adapterViewPager);
+        vpPager.setOffscreenPageLimit(4);
 
-        vpPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
+//        vpPager.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                return true;
+//            }
+//        });
 
 
         vpPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -109,20 +110,9 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
                         btnNext.setVisibility(View.INVISIBLE);
                         btnOk.setVisibility(View.VISIBLE);
                         mToolbar.setTitle("Сохранить рецепт");
+                        ((ResultFragment)fragmentList.get(3)).updateUI();
                         break;
                 }
-//                if (fragmentList.size() == 1){
-//                    btnBack.setVisibility(View.INVISIBLE);
-//                    btnNext.setVisibility(View.INVISIBLE);
-//                } else if (i == 0) {
-//
-//                } else if (i == fragmentList.size() - 1){
-//                    btnNext.setVisibility(View.INVISIBLE);
-//                    btnBack.setVisibility(View.VISIBLE);
-//
-//                } else {
-//
-//                }
 
             }
 
@@ -208,7 +198,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
 
         public MyPagerAdapter(FragmentManager fragmentManager, List<Fragment> fragmentList) {
             super(fragmentManager);
-            this.fragmentList =fragmentList;
+            this.fragmentList = fragmentList;
         }
 
         @Override
@@ -230,8 +220,9 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
 
     public void saveRecipe(RecipeItem recipeItem){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
-                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("recipes");
+                child(UID).child("recipes");
         myRef.push().setValue(recipeItem);
     }
 

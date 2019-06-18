@@ -15,73 +15,104 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <LinearLayout
                 android:id="@+id/mainLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="15dp">
 
 
                 <TextView
                     android:id="@+id/textView141"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_bold"
-                    android:padding="5dp"
+                    android:fontFamily="@font/roboto"
+                    android:paddingTop="10dp"
                     android:text="Описание рецепта"
                     android:textColor="@color/active_color_bnv_main"
+                    android:textSize="18sp"
                     tools:text="Описание рецепта" />
 
                 <TextView
                     android:id="@+id/textView142"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:fontFamily="@font/roboto"
+                    android:paddingTop="10dp"
                     android:text="Название рецепта"
+                    android:textSize="18sp"
                     tools:text="Название рецепта" />
 
                 <TextView
                     android:id="@+id/tvNameRecipe"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:paddingTop="10dp"
                     android:text="TextView"
-                    android:textColor="@color/black"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
                     tools:text="Омлет" />
+
+                <View
+                    android:id="@+id/divider22"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
 
                 <TextView
                     android:id="@+id/textView144"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:paddingTop="10dp"
                     android:text="Время приготовления (мин.)"
+                    android:textSize="18sp"
                     tools:text="Время приготовления (мин.)" />
 
                 <TextView
                     android:id="@+id/tvTimeRecipe"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:paddingTop="10dp"
                     android:text="TextView"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
                     tools:text="15" />
+
+                <View
+                    android:id="@+id/divider23"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
 
                 <TextView
                     android:id="@+id/textView146"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:paddingTop="10dp"
                     android:text="Сложность"
+                    android:textSize="18sp"
                     tools:text="Сложность" />
 
                 <TextView
                     android:id="@+id/tvComplexity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:paddingTop="10dp"
                     android:text="TextView"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
                     tools:text="Средняя" />
+
+                <View
+                    android:id="@+id/divider24"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
             </LinearLayout>
 
             <LinearLayout

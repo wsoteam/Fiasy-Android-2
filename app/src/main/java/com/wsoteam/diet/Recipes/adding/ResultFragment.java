@@ -44,15 +44,21 @@ public class ResultFragment extends Fragment {
 
         recipeItem = ((AddingRecipeActivity)getActivity()).getRecipeItem();
 
-        nameTextView.setText(recipeItem.getName());
-        timeTextView.setText(String.valueOf(recipeItem.getTime()));
-        complexityTextView.setText(String.valueOf(recipeItem.getComplexity()));
 
         mainLayout.setOnClickListener((View.OnClickListener) getActivity());
         ingredientsLayout.setOnClickListener((View.OnClickListener) getActivity());
         instructionsLayout.setOnClickListener((View.OnClickListener) getActivity());
 
         return view;
+    }
+
+
+    public void updateUI() {
+        super.onResume();
+        nameTextView.setText(recipeItem.getName());
+        timeTextView.setText(String.valueOf(recipeItem.getTime()));
+        complexityTextView.setText(String.valueOf(recipeItem.getComplexity()));
+
     }
 
 

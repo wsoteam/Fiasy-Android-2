@@ -37,12 +37,7 @@ public class IngredientsFragment extends Fragment {
                 container, false);
         ButterKnife.bind(this, view);
         foodList = ((AddingRecipeActivity) getActivity()).getFoods();
-        if (foodList.size() > 0){
-            for (Food food:
-                 foodList) {
-                onAddField(food);
-            }
-        }
+
         Log.d("testresult", "IngredientsFragment");
 
         return view;
@@ -90,4 +85,6 @@ public class IngredientsFragment extends Fragment {
         container.addView(rowView);
 
     }
+
+
 }

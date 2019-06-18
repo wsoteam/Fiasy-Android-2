@@ -72,7 +72,7 @@ public class InstructionsFragment extends Fragment {
 
     private void onAddField(){
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.adding_recipe_instruction_step, null);
+        final View rowView = inflater.inflate(R.layout.adding_recipe_instruction_step, null);
         ImageButton delButton = rowView.findViewById(R.id.btnDel);
         TextView positionTextView = rowView.findViewById(R.id.tvPosition);
 
@@ -114,7 +114,7 @@ public class InstructionsFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-
+        Log.d("testresult", "412345");
         List<String>  list = new ArrayList<>();
         for (View view:
              listView) {
