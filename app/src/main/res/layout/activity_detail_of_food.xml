@@ -208,6 +208,7 @@
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/roboto_light"
                     android:hint=""
+                    android:backgroundTint="@color/edit_text_food"
                     android:inputType="numberSigned"
                     android:maxLength="5"
                     android:textColor="@color/black"
@@ -220,7 +221,7 @@
                 <Button
                     android:id="@+id/btnSaveEating"
                     android:layout_width="wrap_content"
-                    android:layout_height="4dp"
+                    android:layout_height="44dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/btn_add_food"
@@ -276,7 +277,7 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/textView55"
@@ -296,13 +297,13 @@
                     android:id="@+id/textView60"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="28dp"
                     android:fontFamily="@font/roboto"
                     android:text="Углеводы"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@+id/textView55"
-                    app:layout_constraintTop_toBottomOf="@+id/textView30" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
                 <TextView
                     android:id="@+id/tvLabelCellulose"
@@ -328,29 +329,17 @@
                     app:layout_constraintStart_toStartOf="@+id/tvLabelCellulose"
                     app:layout_constraintTop_toBottomOf="@+id/tvLabelCellulose" />
 
-                <View
-                    android:id="@+id/divider18"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="?android:attr/listDivider"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvLabelSugar" />
-
                 <TextView
                     android:id="@+id/tvLabelFats"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="24dp"
                     android:fontFamily="@font/roboto"
                     android:text="Жиры"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@+id/textView60"
-                    app:layout_constraintTop_toBottomOf="@+id/divider18" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvLabelSugar" />
 
                 <TextView
                     android:id="@+id/tvLabelSaturated"
@@ -388,32 +377,20 @@
                     app:layout_constraintStart_toStartOf="@+id/tvLabelFats"
                     app:layout_constraintTop_toBottomOf="@+id/tvLabelMonoUnSaturated" />
 
-                <View
-                    android:id="@+id/divider19"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="?android:attr/listDivider"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvLabelPolyUnSaturated" />
-
                 <TextView
                     android:id="@+id/tvLabelProteins"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="24dp"
                     android:layout_marginBottom="32dp"
                     android:fontFamily="@font/roboto"
                     android:text="Белки"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvLabelFats"
-                    app:layout_constraintTop_toBottomOf="@+id/divider19"
-                    app:layout_constraintVertical_bias="0.06999999" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvLabelPolyUnSaturated"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:id="@+id/tvLabelСholesterol"
@@ -444,14 +421,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginBottom="32dp"
                     android:fontFamily="@font/roboto_light"
                     android:text="Калий"
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvLabelSodium"
-                    app:layout_constraintTop_toBottomOf="@+id/tvLabelSodium" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvLabelSodium"
+                    app:layout_constraintVertical_bias="0.00999999" />
 
                 <TextView
                     android:id="@+id/tvCarbohydrates"
@@ -716,9 +694,84 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_light"
                     android:text="на 100 г "
+                    android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/textView55"
                     app:layout_constraintTop_toBottomOf="@+id/textView55" />
+
+                <TextView
+                    android:id="@+id/textView31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Килоджоули"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/textView30"
+                    app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+                <TextView
+                    android:id="@+id/tvDj"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="1234"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView31"
+                    app:layout_constraintEnd_toStartOf="@+id/tvDj2"
+                    app:layout_constraintTop_toTopOf="@+id/textView31" />
+
+                <TextView
+                    android:id="@+id/tvKcal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="354"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView32"
+                    app:layout_constraintEnd_toStartOf="@+id/tvDj4"
+                    app:layout_constraintTop_toTopOf="@+id/textView32" />
+
+                <TextView
+                    android:id="@+id/tvDj2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="кДж"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvDj"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvDj4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Ккал"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvKcal"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Калории"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/textView31"
+                    app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
 
             </android.support.constraint.ConstraintLayout>
@@ -740,10 +793,11 @@
             android:id="@+id/tvSendClaim"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="32dp"
+            android:fontFamily="@font/roboto_light_italic"
             android:text="Сообщить об ошибке"
-            android:textColor="@color/red"
+            android:textColor="@color/text_claim"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -761,6 +815,15 @@
             app:layout_constraintEnd_toEndOf="@+id/tvActivityDetailOfFoodCollapsingTitle"
             app:layout_constraintStart_toStartOf="@+id/tvActivityDetailOfFoodCollapsingTitle"
             app:layout_constraintTop_toBottomOf="@+id/tvActivityDetailOfFoodCollapsingTitle" />
+
+        <View
+            android:id="@+id/divider18"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="@+id/tvSendClaim"
+            app:layout_constraintStart_toStartOf="@+id/tvSendClaim"
+            app:layout_constraintTop_toBottomOf="@+id/tvSendClaim" />
 
 
     </android.support.constraint.ConstraintLayout>
