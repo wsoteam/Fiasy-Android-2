@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -66,6 +67,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     @BindView(R.id.tvLabelСholesterol) TextView tvLabelСholesterol;
     @BindView(R.id.tvLabelSodium) TextView tvLabelSodium;
     @BindView(R.id.tvLabelPotassium) TextView tvLabelPotassium;
+    @BindView(R.id.tvBrand) TextView tvBrand;
 
     @BindView(R.id.tvCarbohydrates) TextView tvCarbohydrates;
     @BindView(R.id.tvCellulose) TextView tvCellulose;
@@ -87,6 +89,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     @BindView(R.id.btnPremCholy) TextView btnPremCholy;
     @BindView(R.id.btnPremSod) TextView btnPremSod;
     @BindView(R.id.btnPremPot) TextView btnPremPot;
+    @BindView(R.id.cardView6) CardView cardView6;
 
 
     @BindViews({R.id.tvCellulose, R.id.tvSugar, R.id.tvSaturated, R.id.tvСholesterol, R.id.tvSodium,
@@ -109,6 +112,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         bindFields();
         calculateNumbersForProgressBars();
         bindSpinnerChoiceEating();
+        cardView6.setBackgroundResource(R.drawable.shape_calculate);
 
         edtWeight.addTextChangedListener(new TextWatcher() {
             @Override
@@ -152,10 +156,14 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     }
 
     private void bindFields() {
-        tvTitle.setText(foodItem.getName());
+        tvTitle.setText(foodItem.getName().toUpperCase());
         tvFats.setText(String.valueOf(Math.round(foodItem.getFats() * 100)) + " г");
         tvCarbohydrates.setText(String.valueOf(Math.round(foodItem.getCarbohydrates() * 100)) + " г");
         tvProteins.setText(String.valueOf(Math.round(foodItem.getProteins() * 100)) + " г");
+
+        if (foodItem.getBrand() != null){
+            tvBrand.setText("(" + foodItem.getBrand() + ")");
+        }
 
         if (foodItem.getSugar() != EMPTY_FIELD) {
             tvLabelSugar.setVisibility(View.VISIBLE);
