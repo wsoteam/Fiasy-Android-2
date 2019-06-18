@@ -48,9 +48,6 @@ import butterknife.OnClick;
 public class ActivityDetailOfFood extends AppCompatActivity {
     @BindView(R.id.spnEatingList) Spinner spinner;
     @BindView(R.id.tvActivityDetailOfFoodCollapsingTitle) TextView tvTitle;
-    @BindView(R.id.pbActivityDetailOfFoodCarbo) DonutProgress pbCarbohydrates;
-    @BindView(R.id.pbActivityDetailOfFoodFat) DonutProgress pbFat;
-    @BindView(R.id.pbActivityDetailOfFoodProtein) DonutProgress pbProtein;
     @BindView(R.id.tvActivityDetailOfFoodCalculateKcal) TextView tvCalculateKcal;
     @BindView(R.id.tvActivityDetailOfFoodCalculateFat) TextView tvCalculateFat;
     @BindView(R.id.tvActivityDetailOfFoodCalculateCarbo) TextView tvCalculateCarbohydrates;
@@ -110,7 +107,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         ButterKnife.apply(viewList, (view, value, index) -> view.setVisibility(value), View.GONE);
         foodItem = (Food) getIntent().getSerializableExtra(Config.INTENT_DETAIL_FOOD);
         bindFields();
-        calculateNumbersForProgressBars();
         bindSpinnerChoiceEating();
         cardView6.setBackgroundResource(R.drawable.shape_calculate);
 
@@ -305,34 +301,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         tvCalculateKcal.setText(String.valueOf(Math.round(portion * foodItem.getCalories())) + " " + getString(R.string.kcal));
         tvCalculateCarbohydrates.setText(String.valueOf(Math.round(portion * foodItem.getCarbohydrates())) + " " + getString(R.string.gramm));
         tvCalculateFat.setText(String.valueOf(Math.round(portion * foodItem.getFats())) + " " + getString(R.string.gramm));
-
-    }
-
-    private void calculateNumbersForProgressBars() {
-        Double fat, carbohydrates, protein;
-        String maxPercent = "100";
-        int maxCountForProgressBar = 100;
-
-        fat = Double.valueOf(foodItem.getPercentFats());
-        carbohydrates = Double.valueOf(foodItem.getPercentCarbohydrates());
-        protein = Double.valueOf(foodItem.getPercentProteins());
-
-
-        if (fat > maxCountForProgressBar) {
-            pbFat.setDonut_progress(maxPercent);
-        } else {
-            pbFat.setDonut_progress(String.valueOf(Math.round(fat)));
-        }
-        if (carbohydrates > maxCountForProgressBar) {
-            pbProtein.setDonut_progress(maxPercent);
-        } else {
-            pbProtein.setDonut_progress(String.valueOf(Math.round(protein)));
-        }
-        if (protein > maxCountForProgressBar) {
-            pbCarbohydrates.setDonut_progress(maxPercent);
-        } else {
-            pbCarbohydrates.setDonut_progress(String.valueOf(Math.round(carbohydrates)));
-        }
 
     }
 
