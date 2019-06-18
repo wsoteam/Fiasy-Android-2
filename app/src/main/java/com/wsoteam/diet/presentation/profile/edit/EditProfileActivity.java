@@ -107,12 +107,14 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
         });
 
         dHeight = RxTextView.textChanges(edHeight).subscribe(charSequence -> {
-            boolean isCheck = !TextUtils.isEmpty(charSequence) && chHeight.isChecked();
+            boolean isCheck = !TextUtils.isEmpty(charSequence);
+            chHeight.setChecked(isCheck);
             presenter.changeState(isCheck, tvHeight, dot4, line4);
         });
 
         dWeight = RxTextView.textChanges(edWeight).subscribe(charSequence -> {
-            boolean isCheck = !TextUtils.isEmpty(charSequence) && chWeight.isChecked();
+            boolean isCheck = !TextUtils.isEmpty(charSequence);
+            chWeight.setChecked(isCheck);
             presenter.changeState(isCheck, tvWeight, dot7, null);
         });
 
@@ -126,12 +128,12 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
                         edHeight.getText().toString(), edDiff.getText().toString(), edActivity.getText().toString(),
                         edWeight.getText().toString());
                 break;
-            case R.id.chHeight:
-                attachDimensionPopup((AppCompatCheckedTextView) view);
-                break;
-            case R.id.chWeight:
-                attachWeightPopup((AppCompatCheckedTextView) view);
-                break;
+//            case R.id.chHeight:
+//                attachDimensionPopup((AppCompatCheckedTextView) view);
+//                break;
+//            case R.id.chWeight:
+//                attachWeightPopup((AppCompatCheckedTextView) view);
+//                break;
             case R.id.edSex:
                 attachSexPopup((AppCompatCheckedTextView) view);
                 break;
