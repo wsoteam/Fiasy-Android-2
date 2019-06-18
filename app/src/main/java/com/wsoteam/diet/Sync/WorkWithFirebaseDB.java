@@ -187,4 +187,60 @@ public class WorkWithFirebaseDB {
         myRef.setValue(data);
     }
 
+    public static void removeBreakfast(String key) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("breakfasts").child(key);
+        myRef.removeValue();
+    }
+
+    public static void removeLunch(String key) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("lunches").child(key);
+        myRef.removeValue();
+    }
+
+    public static void removeDinner(String key) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("dinners").child(key);
+        myRef.removeValue();
+    }
+
+    public static void removeSnack(String key) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("snacks").child(key);
+        myRef.removeValue();
+    }
+
+    public static void editBreakfast(Breakfast breakfast, String key) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("breakfasts").child(key);
+        myRef.setValue(breakfast);
+    }
+
+    public static void editLunch(Lunch lunch, String key) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("lunches").child(key);
+        myRef.setValue(lunch);
+    }
+
+    public static void editDinner(Dinner dinner, String key) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("dinners").child(key);
+        myRef.setValue(dinner);
+    }
+
+    public static void editSnack(Snack snack, String key) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("snacks").child(key);
+        myRef.setValue(snack);
+    }
+
 }

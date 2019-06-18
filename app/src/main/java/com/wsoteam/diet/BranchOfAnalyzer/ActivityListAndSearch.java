@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.amplitude.api.Amplitude;
+import com.bumptech.glide.Glide;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
@@ -44,12 +45,14 @@ public class ActivityListAndSearch extends AppCompatActivity {
     @BindView(R.id.ivActivityListAndSearchEmptyImage) ImageView ivEmptyImage;
     @BindView(R.id.tvActivityListAndSearchEmptyText) TextView tvEmptyText;
     @BindView(R.id.tvIndex) TextView tvIndex;
+    @BindView(R.id.ibActivityListAndSearchCollapsingCancelButton) ImageView ibCancelSearch;
 
     private int RESPONSE_LIMIT = 50;
     private ItemAdapter itemAdapter;
     private boolean isEqualsNext = true;
     private FoodDAO foodDAO = App.getInstance().getFoodDatabase().foodDAO();
     private final int ONE_WORD = 1, TWO_WORDS = 2, THREE_WORDS = 3, FOUR_WORDS = 4, FIVE_WORDS = 5;
+    private boolean isEmptySearch = true;
 
 
     @Override
@@ -75,6 +78,17 @@ public class ActivityListAndSearch extends AppCompatActivity {
                 }
                 isEqualsNext = true;
                 search(charSequence.toString().replaceAll("\\s+", " "));
+                if (charSequence.length() > 0) {
+                    if (isEmptySearch){
+                        Glide.with(ActivityListAndSearch.this).load(R.drawable.ic_cancel).into(ibCancelSearch);
+                        isEmptySearch = false;
+                    }
+                } else {
+                    if (!isEmptySearch){
+                        Glide.with(ActivityListAndSearch.this).load(R.drawable.ic_speak).into(ibCancelSearch);
+                        isEmptySearch = true;
+                    }
+                }
             }
 
             @Override
@@ -180,7 +194,11 @@ public class ActivityListAndSearch extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibActivityListAndSearchCollapsingCancelButton:
-                edtSearchField.setText("");
+                if (isEmptySearch){
+                    speak();
+                }else {
+                    edtSearchField.setText("");
+                }
                 break;
             case R.id.ivBack:
                 onBackPressed();

@@ -2,12 +2,18 @@ package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -16,7 +22,10 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,10 +39,23 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvSumProt) TextView tvSumProt;
     @BindView(R.id.tvSumFats) TextView tvSumFats;
     @BindView(R.id.tvSumCarbo) TextView tvSumCarbo;
+    @BindView(R.id.ivEatingIcon) ImageView ivEatingIcon;
+    @BindView(R.id.tvRecommendation) TextView tvRecommendation;
+    @BindView(R.id.tvEatingLabelProt) TextView tvEatingLabelProt;
+    @BindView(R.id.tvEatingLabelFats) TextView tvEatingLabelFats;
+    @BindView(R.id.tvEatingLabelCarbo) TextView tvEatingLabelCarbo;
+    @BindView(R.id.tvEatingLabelKcal) TextView tvEatingLabelKcal;
+    @BindView(R.id.tvCount) TextView tvCount;
+    @BindView(R.id.ibtnOpenMenu) ImageButton ibtnOpenMenu;
+    @BindView(R.id.clReminderBack) ConstraintLayout clReminderBack;
     private boolean isButtonPressed = false;
+    private final int BREAKFAST = 0, LUNCH = 1, DINNER = 2, SNACK = 3;
+    private final int BREAKFAST_TIME = 9, LUNCH_TIME = 13, DINNER_TIME = 18, SNACK_TIME = 24;
 
     private Context context;
     private String data;
+    private List<Eating> eatingGroup;
+    private int endTime;
 
 
     public EatingViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, Context context, String data) {
@@ -44,46 +66,170 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(List<Eating> eatingGroup, Context context, String nameOfEatingGroup) {
-        setCPFC(eatingGroup);
+        this.eatingGroup = eatingGroup;
+        setCPFC();
+        setIconAndTime();
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
         rvListOfFoodEatingCard.setLayoutManager(new LinearLayoutManager(context));
-        rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, false));
-        ibtnOpenList.setOnClickListener(new View.OnClickListener() {
+        rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup,
+                context, false, getAdapterPosition(), new EatingHolderCallback() {
             @Override
-            public void onClick(View view) {
-                if (!isButtonPressed) {
-                    Glide.with(context).load(R.drawable.close_eating_list).into(ibtnOpenList);
-                } else {
-                    Glide.with(context).load(R.drawable.open_eating_list).into(ibtnOpenList);
-                }
-                rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup, context, !isButtonPressed));
-                isButtonPressed = !isButtonPressed;
+            public void itemWasRemoved(int position) {
+                refreshUI(position);
             }
-        });
+        }));
+        setExpandableView();
+        if (isNeedRemind()) remind(nameOfEatingGroup);
     }
 
-    private void setCPFC(List<Eating> eatingGroup) {
-        int sumKcal = 0, sumProt = 0, sumFats = 0, sumCarbo = 0;
-        for (int i = 0; i < eatingGroup.size(); i++) {
-            sumKcal += eatingGroup.get(i).getCalories();
-            sumProt += eatingGroup.get(i).getProtein();
-            sumFats += eatingGroup.get(i).getFat();
-            sumCarbo += eatingGroup.get(i).getCarbohydrates();
+    private void remind(String eatingGroup) {
+        ArrayList<String> phrases = new ArrayList<>();
+        phrases.add("Вы сегодня " + eatingGroup.toLowerCase() + "али?\n Добавьте продукты, которые вы ели");
+        phrases.add("Занесите " + eatingGroup.toLowerCase() + " сейчас\n и достигните своей цели быстрее");
+        Random random = new Random();
+        tvRecommendation.setText(phrases.get(random.nextInt(2)));
+        tvRecommendation.setVisibility(View.VISIBLE);
+        tvRecommendation.setGravity(Gravity.CENTER);
+        clReminderBack.setBackgroundColor(context.getColor(R.color.reminder_back_color));
+    }
+
+    private boolean isNeedRemind() {
+        int day = Integer.parseInt(data.split("\\.")[0]);
+        int month = Integer.parseInt(data.split("\\.")[1]) - 1;
+        int year = Integer.parseInt(data.split("\\.")[2]);
+
+        if (day == Calendar.getInstance().get(Calendar.DAY_OF_MONTH) &&
+                month == Calendar.getInstance().get(Calendar.MONTH) &&
+                year == Calendar.getInstance().get(Calendar.YEAR) &&
+                Calendar.getInstance().get(Calendar.HOUR_OF_DAY) > endTime &&
+                eatingGroup.size() < 1) {
+            Log.e("LOL", "KEK");
+            return true;
+        } else {
+            return false;
         }
-        tvSumOfKcal.setText(String.valueOf(sumKcal) + "Ккал");
-
-        tvSumProt.setText("Б. " + String.valueOf(sumProt));
-        tvSumFats.setText("Ж. " + String.valueOf(sumFats));
-        tvSumCarbo.setText("У. " + String.valueOf(sumCarbo));
-
     }
 
 
-    @OnClick(R.id.imbAddFood)
-    public void onViewClicked() {
+    private void setExpandableView() {
+        if (eatingGroup.size() < 1) {
+            ibtnOpenList.setVisibility(View.GONE);
+        } else {
+            ibtnOpenList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!isButtonPressed) {
+                        Glide.with(context).load(R.drawable.close_eating_list).into(ibtnOpenList);
+                    } else {
+                        Glide.with(context).load(R.drawable.open_eating_list).into(ibtnOpenList);
+                    }
+                    rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup,
+                            context, !isButtonPressed, getAdapterPosition(), new EatingHolderCallback() {
+                        @Override
+                        public void itemWasRemoved(int position) {
+                            refreshUI(position);
+                        }
+                    }));
+                    isButtonPressed = !isButtonPressed;
+                }
+            });
+        }
+    }
+
+    private void setIconAndTime() {
+        switch (getAdapterPosition()) {
+            case BREAKFAST:
+                Glide.with(context).load(R.drawable.breakfast_icon).into(ivEatingIcon);
+                endTime = BREAKFAST_TIME;
+                break;
+            case LUNCH:
+                Glide.with(context).load(R.drawable.lunch_icon).into(ivEatingIcon);
+                endTime = LUNCH_TIME;
+                break;
+            case DINNER:
+                Glide.with(context).load(R.drawable.dinner_icon).into(ivEatingIcon);
+                endTime = DINNER_TIME;
+                break;
+            case SNACK:
+                Glide.with(context).load(R.drawable.snack_icon).into(ivEatingIcon);
+                endTime = SNACK_TIME;
+                break;
+        }
+    }
+
+    private void setCPFC() {
+        int sumKcal = 0, sumProt = 0, sumFats = 0, sumCarbo = 0;
+
+        tvCount.setText(String.valueOf(eatingGroup.size()) + " шт.");
+
+        if (eatingGroup.size() > 0) {
+            for (int i = 0; i < eatingGroup.size(); i++) {
+                sumKcal += eatingGroup.get(i).getCalories();
+                sumProt += eatingGroup.get(i).getProtein();
+                sumFats += eatingGroup.get(i).getFat();
+                sumCarbo += eatingGroup.get(i).getCarbohydrates();
+            }
+            tvSumOfKcal.setText(String.valueOf(sumKcal));
+
+            tvSumProt.setText(String.valueOf(sumProt) + " г");
+            tvSumFats.setText(String.valueOf(sumFats) + " г");
+            tvSumCarbo.setText(String.valueOf(sumCarbo) + " г");
+        } else {
+            //tvRecommendation.setVisibility(View.VISIBLE);
+            tvSumOfKcal.setVisibility(View.GONE);
+            tvSumProt.setVisibility(View.GONE);
+            tvSumFats.setVisibility(View.GONE);
+            tvSumCarbo.setVisibility(View.GONE);
+
+            tvEatingLabelProt.setVisibility(View.GONE);
+            tvEatingLabelFats.setVisibility(View.GONE);
+            tvEatingLabelCarbo.setVisibility(View.GONE);
+            tvEatingLabelKcal.setVisibility(View.GONE);
+
+        }
+
+    }
+
+    @OnClick({R.id.ibtnOpenMenu, R.id.imbAddFood})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ibtnOpenMenu:
+                createPopupMenu(context, ibtnOpenMenu);
+                break;
+            case R.id.imbAddFood:
+                openSearch();
+                break;
+        }
+    }
+
+    private void openSearch() {
         Intent intent = new Intent(context, ActivityListAndSearch.class);
         intent.putExtra(Config.INTENT_DATE_FOR_SAVE, data);
         intent.putExtra(Config.TAG_CHOISE_EATING, getAdapterPosition());
         context.startActivity(intent);
+    }
+
+    private void createPopupMenu(Context context, ImageButton ibtnOpenMenu) {
+        PopupMenu popupMenu = new PopupMenu(context, ibtnOpenMenu);
+        popupMenu.inflate(R.menu.dots_popup_menu);
+        popupMenu.show();
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.add_food_dots:
+                        openSearch();
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void refreshUI(int position) {
+        setCPFC();
+        if (eatingGroup.size() < 1) {
+            ibtnOpenList.setVisibility(View.GONE);
+        }
     }
 }

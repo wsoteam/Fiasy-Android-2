@@ -28,6 +28,7 @@ public class EatingAdapter extends RecyclerView.Adapter<EatingViewHolder> {
         return new EatingViewHolder(layoutInflater, parent, context, data);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull EatingViewHolder holder, int position) {
         String nameOfGroup = new String();

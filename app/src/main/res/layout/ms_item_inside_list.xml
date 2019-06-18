@@ -4,22 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginBottom="8dp"
     android:background="@color/back_food_item_diary">
 
     <TextView
         android:id="@+id/tvNameOfFood"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/roboto"
         android:text="Name"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toStartOf="@+id/tvCalories"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,27 +24,25 @@
         android:id="@+id/tvCalories"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto"
         android:text="Kcal"
         android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCarbo"
+        app:layout_constraintEnd_toEndOf="@+id/tvNameOfFood"
+        app:layout_constraintTop_toTopOf="@+id/tvCarbo" />
 
     <TextView
         android:id="@+id/tvWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/roboto_light"
         android:text="Вес"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvNameOfFood"
         app:layout_constraintTop_toBottomOf="@+id/tvNameOfFood" />
 
     <TextView
@@ -58,7 +53,7 @@
         android:fontFamily="@font/roboto_light"
         android:text="B"
         android:textColor="@color/b_color"
-        android:textSize="12sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvWeight"
         app:layout_constraintEnd_toStartOf="@+id/tvFats"
         app:layout_constraintHorizontal_bias="0.5"
@@ -72,7 +67,7 @@
         android:fontFamily="@font/roboto_light"
         android:text="G"
         android:textColor="@color/g_color"
-        android:textSize="12sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvWeight"
         app:layout_constraintEnd_toStartOf="@+id/tvCarbo"
         app:layout_constraintHorizontal_bias="0.5"
@@ -87,11 +82,20 @@
         android:fontFamily="@font/roboto_light"
         android:text="U"
         android:textColor="@color/u_color"
-        android:textSize="12sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvWeight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvCalories"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvFats"
         app:layout_constraintTop_toTopOf="@+id/tvWeight" />
+
+    <View
+        android:id="@+id/divider21"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
