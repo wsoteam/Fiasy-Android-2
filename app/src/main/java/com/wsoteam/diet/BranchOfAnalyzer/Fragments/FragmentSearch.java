@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,13 +41,21 @@ public class FragmentSearch extends Fragment {
 
     @BindView(R.id.rvListOfSearchResponse) RecyclerView rvListOfSearchResponse;
     Unbinder unbinder;
+    private String searchString = "";
+
+
+    public void sendString(String searchString) {
+        isEqualsNext = true;
+        this.searchString = searchString;
+        search(searchString);
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-        updateUI();
         unbinder = ButterKnife.bind(this, view);
+        updateUI();
         return view;
     }
 
@@ -96,7 +105,7 @@ public class FragmentSearch extends Fragment {
         public void onClick(View view) {
             Intent intent = new Intent(getActivity(), ActivityDetailOfFood.class);
             intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
-            intent.putExtra(Config.TAG_CHOISE_EATING, spinner.getSelectedItemPosition());
+            //intent.putExtra(Config.TAG_CHOISE_EATING, spinner.getSelectedItemPosition());
             intent.putExtra(Config.INTENT_DATE_FOR_SAVE, getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
             startActivity(intent);
         }
@@ -162,21 +171,21 @@ public class FragmentSearch extends Fragment {
         private List<Food> getSearchResult(int offset) {
             List<Food> foods = new ArrayList<>();
             if (isEqualsNext) {
-                foods = foodDAO.searchFullMatchWord(edtSearchField.getText().toString(), RESPONSE_LIMIT, offset);
+                foods = foodDAO.searchFullMatchWord(searchString, RESPONSE_LIMIT, offset);
                 if (foods.size() < RESPONSE_LIMIT) {
                     isEqualsNext = false;
-                    if (edtSearchField.getText().toString().contains(" ") && edtSearchField.getText().toString().split(" ").length > 1) {
-                        foods.addAll(searchMultiWords(edtSearchField.getText().toString(), foods.size() + offset));
+                    if (searchString.contains(" ") && searchString.split(" ").length > 1) {
+                        foods.addAll(searchMultiWords(searchString, foods.size() + offset));
                     } else {
-                        foods.addAll(foodDAO.searchOneWord("%" + edtSearchField.getText().toString() + "%",
+                        foods.addAll(foodDAO.searchOneWord("%" + searchString + "%",
                                 RESPONSE_LIMIT, offset + foods.size()));
                     }
                 }
             } else {
-                if (edtSearchField.getText().toString().contains(" ") && edtSearchField.getText().toString().split(" ").length > 1) {
-                    foods.addAll(searchMultiWords(edtSearchField.getText().toString(), offset));
+                if (searchString.contains(" ") && searchString.split(" ").length > 1) {
+                    foods.addAll(searchMultiWords(searchString, offset));
                 } else {
-                    foods.addAll(foodDAO.searchOneWord("%" + edtSearchField.getText().toString() + "%",
+                    foods.addAll(foodDAO.searchOneWord("%" + searchString + "%",
                             RESPONSE_LIMIT, offset));
                 }
             }

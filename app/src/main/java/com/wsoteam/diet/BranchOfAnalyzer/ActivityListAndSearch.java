@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.amplitude.api.Amplitude;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.App;
+import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.Config;
@@ -43,7 +44,6 @@ import io.reactivex.schedulers.Schedulers;
 public class ActivityListAndSearch extends AppCompatActivity {
     @BindView(R.id.spnEatingList) Spinner spinner;
     @BindView(R.id.edtActivityListAndSearchCollapsingSearchField) EditText edtSearchField;
-    @BindView(R.id.rvListOfSearchResponse) RecyclerView rvListOfSearchResponse;
     @BindView(R.id.ibStartAction) ImageButton ibStartAction;
 
 
@@ -53,7 +53,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         setContentView(R.layout.activity_list_and_search);
         ButterKnife.bind(this);
         bindSpinnerChoiceEating();
-
+        getSupportFragmentManager().beginTransaction().add(R.id.searchFragmentContainer, new FragmentSearch()).commit();
         edtSearchField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -66,8 +66,10 @@ public class ActivityListAndSearch extends AppCompatActivity {
                     ivEmptyImage.setVisibility(View.GONE);
                     tvEmptyText.setVisibility(View.GONE);
                 }*/
-                isEqualsNext = true;
-                search(charSequence.toString().replaceAll("\\s+", " "));
+                //isEqualsNext = true;
+                //search(charSequence.toString().replaceAll("\\s+", " "));
+                ((FragmentSearch) getSupportFragmentManager().findFragmentById(R.id.searchFragmentContainer)).
+                        sendString(charSequence.toString().replaceAll("\\s+", " "));
             }
 
             @Override
