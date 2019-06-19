@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.MainScreen.Controller.EatingAdapter;
 import com.wsoteam.diet.R;
@@ -45,10 +44,10 @@ public class FragmentEatingScroll extends Fragment {
     private EatingAdapter eatingAdapter;
     private List<List<Eating>> allEat;
     private TextView parentTitleWithDate, tvCircleProgressCarbo, tvCircleProgressFat, tvCircleProgressProt;
-    private ArcProgress apCollapsingKcal;
-    private ArcProgress apCollapsingProt;
-    private ArcProgress apCollapsingCarbo;
-    private ArcProgress apCollapsingFat;
+//    private ArcProgress apCollapsingKcal;
+//    private ArcProgress apCollapsingProt;
+//    private ArcProgress apCollapsingCarbo;
+//    private ArcProgress apCollapsingFat;
 
     public static FragmentEatingScroll newInstance(int position) {
         Bundle bundle = new Bundle();
@@ -91,13 +90,13 @@ public class FragmentEatingScroll extends Fragment {
         rvMainScreen.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         parentTitleWithDate = getActivity().findViewById(R.id.tvDateForMainScreen);
-        apCollapsingKcal = getActivity().findViewById(R.id.apCollapsingKcal);
-        apCollapsingProt = getActivity().findViewById(R.id.apCollapsingProt);
-        apCollapsingCarbo = getActivity().findViewById(R.id.apCollapsingCarbo);
-        apCollapsingFat = getActivity().findViewById(R.id.apCollapsingFat);
-        tvCircleProgressCarbo = getActivity().findViewById(R.id.tvCircleProgressCarbo);
-        tvCircleProgressFat = getActivity().findViewById(R.id.tvCircleProgressFat);
-        tvCircleProgressProt = getActivity().findViewById(R.id.tvCircleProgressProt);
+//        apCollapsingKcal = getActivity().findViewById(R.id.apCollapsingKcal);
+//        apCollapsingProt = getActivity().findViewById(R.id.apCollapsingProt);
+//        apCollapsingCarbo = getActivity().findViewById(R.id.apCollapsingCarbo);
+//        apCollapsingFat = getActivity().findViewById(R.id.apCollapsingFat);
+//        tvCircleProgressCarbo = getActivity().findViewById(R.id.tvCircleProgressCarbo);
+//        tvCircleProgressFat = getActivity().findViewById(R.id.tvCircleProgressFat);
+//        tvCircleProgressProt = getActivity().findViewById(R.id.tvCircleProgressProt);
 
         return view;
     }
@@ -157,6 +156,7 @@ public class FragmentEatingScroll extends Fragment {
                 carbo += lists.get(i).get(j).getCarbohydrates();
             }
         }
+        /*
         apCollapsingKcal.setProgress(kcal);
         apCollapsingProt.setProgress(prot);
         apCollapsingCarbo.setProgress(carbo);
@@ -190,6 +190,7 @@ public class FragmentEatingScroll extends Fragment {
             apCollapsingProt.setFinishedStrokeColor(getResources().getColor(R.color.white));
             tvCircleProgressProt.setText("осталось " + String.valueOf(apCollapsingProt.getMax() - prot) + " г");
         }
+        */
 
     }
 

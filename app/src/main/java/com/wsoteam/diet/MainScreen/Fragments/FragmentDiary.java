@@ -42,14 +42,14 @@ public class FragmentDiary extends Fragment {
     @BindView(R.id.ibOpenYesterday) ImageButton ibOpenYesterday;
     @BindView(R.id.ibOpenTomorrow) ImageButton ibOpenTomorrow;
     private Unbinder unbinder;
-    @BindView(R.id.tvCircleProgressProt) TextView tvCircleProgressProt;
-    @BindView(R.id.apCollapsingKcal) ArcProgress apCollapsingKcal;
-    @BindView(R.id.apCollapsingProt) ArcProgress apCollapsingProt;
-    @BindView(R.id.apCollapsingCarbo) ArcProgress apCollapsingCarbo;
-    @BindView(R.id.apCollapsingFat) ArcProgress apCollapsingFat;
-    @BindView(R.id.ivCollapsingMainCompleteWater) ImageView ivCollapsingMainCompleteWater;
-    @BindView(R.id.tvCircleProgressCarbo) TextView tvCircleProgressCarbo;
-    @BindView(R.id.tvCircleProgressFat) TextView tvCircleProgressFat;
+//    @BindView(R.id.tvCircleProgressProt) TextView tvCircleProgressProt;
+//    @BindView(R.id.apCollapsingKcal) ArcProgress apCollapsingKcal;
+//    @BindView(R.id.apCollapsingProt) ArcProgress apCollapsingProt;
+//    @BindView(R.id.apCollapsingCarbo) ArcProgress apCollapsingCarbo;
+//    @BindView(R.id.apCollapsingFat) ArcProgress apCollapsingFat;
+//    @BindView(R.id.ivCollapsingMainCompleteWater) ImageView ivCollapsingMainCompleteWater;
+//    @BindView(R.id.tvCircleProgressCarbo) TextView tvCircleProgressCarbo;
+//    @BindView(R.id.tvCircleProgressFat) TextView tvCircleProgressFat;
     @BindView(R.id.mainappbar) AppBarLayout mainappbar;
     @BindView(R.id.collapsingToolbarLayout) CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.vpEatingTimeLine) ViewPager vpEatingTimeLine;
@@ -78,7 +78,7 @@ public class FragmentDiary extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View mainView = inflater.inflate(R.layout.activity_main, container, false);
+        View mainView = inflater.inflate(R.layout.activity_main_new, container, false);
         unbinder = ButterKnife.bind(this, mainView);
         getActivity().setTitle("");
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_diary);
@@ -146,10 +146,10 @@ public class FragmentDiary extends Fragment {
     }
 
     private void setMaxParamsInProgressBars(Profile profile) {
-        apCollapsingKcal.setMax(profile.getMaxKcal());
-        apCollapsingProt.setMax(profile.getMaxProt());
-        apCollapsingCarbo.setMax(profile.getMaxCarbo());
-        apCollapsingFat.setMax(profile.getMaxFat());
+//        apCollapsingKcal.setMax(profile.getMaxKcal());
+//        apCollapsingProt.setMax(profile.getMaxProt());
+//        apCollapsingCarbo.setMax(profile.getMaxCarbo());
+//        apCollapsingFat.setMax(profile.getMaxFat());
     }
 
     private void additionOneToSharedPreference() {

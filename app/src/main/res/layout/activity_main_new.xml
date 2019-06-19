@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gradient_main"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="@string/auth_main_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/darkWithoutAlfa">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/mainappbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="10dp">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginEnd="5dp"
+                app:expandedTitleMarginStart="5dp"
+                android:layout_marginBottom="10dp"
+                app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Subhead"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:contentPaddingBottom="15dp"
+                    app:cardElevation="10dp">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="20dp">
+
+                        <TextView
+                            android:id="@+id/tvCaloriesTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="30dp"
+                            android:text="Калории"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="@+id/pbProt"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+                        <ProgressBar
+                            android:id="@+id/progressBar3"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="50dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="50dp"
+                            android:max="100"
+                            android:progress="50"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvCaloriesTitle"/>
+
+                        <TextView
+                            android:id="@+id/tvCaloriesDone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="930\nсъедено"
+                            android:textColor="@color/black"
+                            app:layout_constraintStart_toStartOf="@+id/progressBar3"
+                            app:layout_constraintTop_toBottomOf="@id/progressBar3"/>
+
+                        <TextView
+                            android:id="@+id/tvCaloriesBurn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="260\nсожжено"
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toEndOf="@id/progressBar3"
+                            app:layout_constraintStart_toStartOf="@+id/progressBar3"
+                            app:layout_constraintTop_toBottomOf="@id/progressBar3"/>
+
+                        <TextView
+                            android:id="@+id/tvCaloriesNeed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="1730\nцель"
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toEndOf="@id/progressBar3"
+                            app:layout_constraintTop_toBottomOf="@id/progressBar3"/>
+
+                        <ProgressBar
+                            android:id="@+id/pbProt"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="45dp"
+                            android:max="100"
+                            android:progress="50"
+                            app:layout_constraintEnd_toStartOf="@+id/pbFat"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_chainStyle="spread_inside"
+                            app:layout_constraintStart_toStartOf="@+id/progressBar3"
+                            app:layout_constraintTop_toBottomOf="@id/tvCaloriesDone"/>
+
+                        <ProgressBar
+                            android:id="@+id/pbFat"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:max="100"
+                            android:progress="50"
+                            app:layout_constraintEnd_toStartOf="@+id/pbCarbo"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/pbProt"
+                            app:layout_constraintTop_toTopOf="@id/pbProt"/>
+
+                        <ProgressBar
+                            android:id="@+id/pbCarbo"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:max="100"
+                            android:progress="50"
+                            app:layout_constraintEnd_toEndOf="@+id/progressBar3"
+                            app:layout_constraintStart_toEndOf="@+id/pbFat"
+                            app:layout_constraintTop_toTopOf="@id/pbProt"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="Белки"
+                            android:textColor="@color/black"
+                            app:layout_constraintBottom_toTopOf="@+id/pbProt"
+                            app:layout_constraintEnd_toEndOf="@+id/pbProt"
+                            app:layout_constraintStart_toStartOf="@+id/pbProt"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="Жиры"
+                            android:textColor="@color/black"
+                            app:layout_constraintBottom_toTopOf="@+id/pbFat"
+                            app:layout_constraintEnd_toEndOf="@+id/pbFat"
+                            app:layout_constraintStart_toStartOf="@+id/pbFat"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="Углеводы"
+                            android:textColor="@color/black"
+                            app:layout_constraintBottom_toTopOf="@+id/pbCarbo"
+                            app:layout_constraintEnd_toEndOf="@+id/pbCarbo"
+                            app:layout_constraintStart_toStartOf="@+id/pbCarbo"/>
+
+
+                    </android.support.constraint.ConstraintLayout>
+                </android.support.v7.widget.CardView>
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <FrameLayout
+                android:id="@+id/llHead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <ImageButton
+                    android:id="@+id/ibOpenYesterday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
+                    android:backgroundTint="@color/white"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="8dp"
+                    android:src="@drawable/left_arrow"/>
+
+                <TextView
+                    android:id="@+id/tvDateForMainScreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <ImageButton
+                    android:id="@+id/ibOpenTomorrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:backgroundTint="@color/white"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="8dp"
+                    android:src="@drawable/right_arrow"/>
+
+            </FrameLayout>
+
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vpEatingTimeLine"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAddEating"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="center"
+            android:src="@drawable/fab_main_act_add"
+            android:visibility="gone"
+            app:backgroundTint="@color/fab_main_activity"
+            app:borderWidth="0dp"
+            app:elevation="8dp"
+            app:maxImageSize="14dp"/>
+    </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
