@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <group android:id="@+id/popupSearch">
+        <item
+            android:id="@+id/userNote"
+            android:title="Пользовательская запись" />
+        <item
+            android:id="@+id/createFood"
+            android:title="Создать продукт" />
+        <item
+            android:id="@+id/createEating"
+            android:title="Создать прием пищи" />
+        <item
+            android:id="@+id/createTemplate"
+            android:title="Создать шаблон" />
+        <item
+            android:id="@+id/createRecipe"
+            android:title="Создать рецепт" />
+    </group>
 </menu>

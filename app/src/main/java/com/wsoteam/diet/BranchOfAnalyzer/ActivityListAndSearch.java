@@ -7,14 +7,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -43,6 +46,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
     @BindView(R.id.rvListOfSearchResponse) RecyclerView rvListOfSearchResponse;
     @BindView(R.id.ivActivityListAndSearchEmptyImage) ImageView ivEmptyImage;
     @BindView(R.id.tvActivityListAndSearchEmptyText) TextView tvEmptyText;
+    @BindView(R.id.ibAddFavorite) ImageButton ibAddFavorite;
 
     private int RESPONSE_LIMIT = 50;
     private ItemAdapter itemAdapter;
@@ -175,7 +179,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.ibActivityListAndSearchCollapsingCancelButton, R.id.ivBack})
+    @OnClick({R.id.ibActivityListAndSearchCollapsingCancelButton, R.id.ivBack, R.id.ibAddFavorite})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibActivityListAndSearchCollapsingCancelButton:
@@ -184,7 +188,34 @@ public class ActivityListAndSearch extends AppCompatActivity {
             case R.id.ivBack:
                 onBackPressed();
                 break;
+            case R.id.ibAddFavorite:
+                createPopUp();
+                break;
         }
+    }
+
+    private void createPopUp() {
+        PopupMenu popupMenu = new PopupMenu(this, ibAddFavorite);
+        popupMenu.inflate(R.menu.popup_search_food);
+        popupMenu.show();
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.userNote:
+                        break;
+                    case R.id.createFood:
+                        break;
+                    case R.id.createEating:
+                        break;
+                    case R.id.createTemplate:
+                        break;
+                    case R.id.createRecipe:
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     private List<Food> shuffleList(CharSequence charSequence, List<Food> recievedListFood) {
@@ -205,6 +236,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         }
         return cFOODS;
     }
+
 
     public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.tvNameOfFood) TextView tvNameOfFood;
