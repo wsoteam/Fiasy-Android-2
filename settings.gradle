@@ -1,1 +1,1 @@
-include ':app', ':HtmlSpanner-master', ':horizontalcalendarview', ':horizontalcalendarviewlibrary'
+include ':app', ':HtmlSpanner-master', ':horizontalcalendarview'
