@@ -527,6 +527,12 @@
     <string name="evaluateButtonAlert">Оценить</string>
 
     <!--Main screen-->
+    <string name="main_screen_topbar_calendar_days">Дней подряд:</string>
+    <string name="main_screen_topbar_string">%d из %d г</string>
+    <string name="main_screen_topbar_kcal_target">%d\nцель</string>
+    <string name="main_screen_topbar_kcal_left">%d\nосталось</string>
+    <string name="main_screen_topbar_kcal_done">%d\nсъедено</string>
+
     <string name="main_screen_breakfast">Завтрак</string>
     <string name="main_screen_lunch">Обед</string>
     <string name="main_screen_dinner">Ужин</string>
@@ -662,5 +668,19 @@
     <string name="instagram_callback_url" translatable="false">http://fiasy.com/</string>
     <string name="base_url" translatable="false">https://api.instagram.com/</string>
 
+    <string-array name="monthList">
+        <item>Январь</item>
+        <item>Февраль</item>
+        <item>Март</item>
+        <item>Апрель</item>
+        <item>Май</item>
+        <item>Июнь</item>
+        <item>Июль</item>
+        <item>Август</item>
+        <item>Сентябрь</item>
+        <item>Октябрь</item>
+        <item>Ноябрь</item>
+        <item>Декабрь</item>
+    </string-array>
 
 </resources>

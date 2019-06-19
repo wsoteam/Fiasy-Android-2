@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         if (getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false)) {
             RateDialogs.showGradeDialog(this, true);
             getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).
-                    edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false).commit();
+                    edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false).apply();
         }
     }
 

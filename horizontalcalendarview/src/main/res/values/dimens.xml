@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Calendar view-->
+    <dimen name="calendar_half_height">23dp</dimen>
+    <dimen name="calendar_full_height">46dp</dimen>
+</resources>

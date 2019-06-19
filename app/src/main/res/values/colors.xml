@@ -31,6 +31,9 @@
     <color name="purple">#961afb</color>
     <color name="gray">#3C3C3C</color>
     <color name="gray2">#71726c</color>
+    <color name="gray3">#747474</color>
+    <color name="gray4">#aaaaaa</color>
+    <color name="gray5">#575757</color>
     <color name="gray_light">#757575</color>
     <color name="gray_light2">#aeaeae</color>
     <color name="light_gray">#8f8f8f</color>

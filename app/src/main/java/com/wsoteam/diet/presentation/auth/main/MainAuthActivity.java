@@ -420,7 +420,6 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
 
     @Override
     public void onInstaTokenReceived(String auth_token) {
-        Log.d("MyLogs", "ACCESS TOKEN - " + auth_token);
         presenter.firebaseAuthWithInstagram(auth_token);
     }
 

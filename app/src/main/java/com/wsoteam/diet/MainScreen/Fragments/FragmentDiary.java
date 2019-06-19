@@ -12,16 +12,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.amplitude.api.Amplitude;
-import com.github.lzyzsd.circleprogress.ArcProgress;
+import com.view.calender.horizontal.umar.horizontalcalendarview.DayDateMonthYearModel;
+import com.view.calender.horizontal.umar.horizontalcalendarview.HorizontalCalendarListener;
+import com.view.calender.horizontal.umar.horizontalcalendarview.HorizontalCalendarView;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
@@ -38,27 +41,27 @@ import io.intercom.android.sdk.Intercom;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class FragmentDiary extends Fragment {
+public class FragmentDiary extends Fragment implements HorizontalCalendarListener {
+    private final String TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG = "COUNT_OF_RUN";
     @BindView(R.id.ibOpenYesterday) ImageButton ibOpenYesterday;
     @BindView(R.id.ibOpenTomorrow) ImageButton ibOpenTomorrow;
-    private Unbinder unbinder;
-//    @BindView(R.id.tvCircleProgressProt) TextView tvCircleProgressProt;
-//    @BindView(R.id.apCollapsingKcal) ArcProgress apCollapsingKcal;
-//    @BindView(R.id.apCollapsingProt) ArcProgress apCollapsingProt;
-//    @BindView(R.id.apCollapsingCarbo) ArcProgress apCollapsingCarbo;
-//    @BindView(R.id.apCollapsingFat) ArcProgress apCollapsingFat;
-//    @BindView(R.id.ivCollapsingMainCompleteWater) ImageView ivCollapsingMainCompleteWater;
-//    @BindView(R.id.tvCircleProgressCarbo) TextView tvCircleProgressCarbo;
-//    @BindView(R.id.tvCircleProgressFat) TextView tvCircleProgressFat;
+    @BindView(R.id.tvCalendarMonth) TextView tvCalendarMonth;
+    @BindView(R.id.pbProt) ProgressBar pbProgressProt;
+    @BindView(R.id.pbCarbo) ProgressBar pbProgressCarbo;
+    @BindView(R.id.pbFat) ProgressBar pbProgressFat;
+    @BindView(R.id.pbCalories) ProgressBar pbProgressCalories;
+    @BindView(R.id.tvCarbo) TextView tvCarbo;
+    @BindView(R.id.tvFat) TextView tvFat;
+    @BindView(R.id.tvProt) TextView tvProt;
     @BindView(R.id.mainappbar) AppBarLayout mainappbar;
+    @BindView(R.id.cvParams) CardView cvParams;
     @BindView(R.id.collapsingToolbarLayout) CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.vpEatingTimeLine) ViewPager vpEatingTimeLine;
     @BindView(R.id.tvDateForMainScreen) TextView tvDateForMainScreen;
-
+    @BindView(R.id.horizontalcalendarview) HorizontalCalendarView horizontalcalendarview;
+    private Unbinder unbinder;
     private Profile profile;
-
     private int COUNT_OF_RUN = 0;
-    private final String TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG = "COUNT_OF_RUN";
     private SharedPreferences countOfRun;
     private boolean isFiveStarSend = false;
 
@@ -89,6 +92,8 @@ public class FragmentDiary extends Fragment {
 
         WorkWithFirebaseDB.setFirebaseStateListener();
 
+        horizontalcalendarview.setContext(this);
+
         boolean isPremAlert = getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE)
                 .getBoolean(Config.ALERT_BUY_SUBSCRIPTION, false);
 
@@ -113,6 +118,8 @@ public class FragmentDiary extends Fragment {
             editor.apply();
         }
 
+        cvParams.setBackgroundResource(R.drawable.main_card_params);
+
         bindViewPager();
         return mainView;
     }
@@ -133,6 +140,17 @@ public class FragmentDiary extends Fragment {
         vpEatingTimeLine.setCurrentItem(Config.COUNT_PAGE);
     }
 
+
+    @Override
+    public void updateMonthOnScroll(DayDateMonthYearModel selectedDate) {
+        tvCalendarMonth.setText(getResources().getStringArray(R.array.monthList)[Integer.parseInt(selectedDate.monthNumeric) - 1]);
+    }
+
+    @Override
+    public void newDateSelected(DayDateMonthYearModel selectedDate) {
+
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -146,10 +164,10 @@ public class FragmentDiary extends Fragment {
     }
 
     private void setMaxParamsInProgressBars(Profile profile) {
-//        apCollapsingKcal.setMax(profile.getMaxKcal());
-//        apCollapsingProt.setMax(profile.getMaxProt());
-//        apCollapsingCarbo.setMax(profile.getMaxCarbo());
-//        apCollapsingFat.setMax(profile.getMaxFat());
+        pbProgressCalories.setMax(profile.getMaxKcal());
+        pbProgressProt.setMax(profile.getMaxProt());
+        pbProgressCarbo.setMax(profile.getMaxCarbo());
+        pbProgressFat.setMax(profile.getMaxFat());
     }
 
     private void additionOneToSharedPreference() {

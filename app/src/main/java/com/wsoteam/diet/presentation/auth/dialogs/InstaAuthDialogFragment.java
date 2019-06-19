@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +44,6 @@ public class InstaAuthDialogFragment extends DialogFragment {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            Log.d("MyLogs", "URL - " + url);
             if (url.contains("access_token=")) {
                 Uri uri = Uri.EMPTY.parse(url);
                 String access_token = uri.getEncodedFragment();
