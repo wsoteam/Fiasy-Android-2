@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +40,7 @@ import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.helpers.AsteriskPasswordTransformationMethod;
+import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.presentation.auth.dialogs.InstaAuthDialogFragment;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 
@@ -73,7 +73,6 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
     @BindView(R.id.rbReg) RadioButton rbReg;
     @BindView(R.id.rbSignIn) RadioButton rbSignIn;
 
-    AlertDialog alertDialogPhone;
     private boolean isAcceptedPrivacyPolicy = false;
     private boolean createUser, forgotPass;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -145,16 +144,13 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
                     AmplitudaEvents.logEventReg("unknown");
                 }
 
-                if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
+                if (createUser && getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
                     WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
+                } else if (createUser && getIntent().getSerializableExtra(Config.INTENT_PROFILE) == null) {
+                    checkUserExist(user.getUid());
+                } else {
+                    startActivity(intent);
                 }
-
-                startActivity(intent);
-//                if (createUser) {
-//                    startActivity(intent);
-//                } else {
-////                    checkUserExist(user.getUid());
-//                }
             } else {
                 Log.d(TAG, "onAuthStateChanged:signed_out");
             }
@@ -356,25 +352,21 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
     }
 
     private void checkProfile(Profile profile) {
-        if (alertDialogPhone != null) {
-            alertDialogPhone.dismiss();
-        }
-
         if (profile == null) {
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle(getString(R.string.auth_main_alert_title))
-                    .setMessage(getString(R.string.auth_main_alert_body))
-                    .setPositiveButton(getString(R.string.auth_main_alert_ok), (dialog, which) -> presenter.signOutAll())
-                    .show();
+//            new AlertDialog.Builder(this)
+//                    .setIcon(android.R.drawable.ic_dialog_alert)
+//                    .setTitle(getString(R.string.auth_main_alert_title))
+//                    .setMessage(getString(R.string.auth_main_alert_body))
+//                    .setPositiveButton(getString(R.string.auth_main_alert_ok), (dialog, which) -> presenter.signOutAll())
+//                    .show();
+            WorkWithFirebaseDB.putProfileValue(BodyCalculates.generateProfile(this));
 
-            Log.d(TAG, "checkUserExist: false");
-        } else {
-            if (isPP() && createUser) Log.d(TAG, "logEvent: accept_police");
-            Log.d(TAG, "checkUserExist: true");
-            startActivity(intent);
-            finish();
+            Log.d(TAG, "checkUserExist: false. Created New");
         }
+        if (isPP() && createUser) Log.d(TAG, "logEvent: accept_police");
+        Log.d(TAG, "checkUserExist: true");
+        startActivity(intent);
+        finish();
     }
 
     @Override
