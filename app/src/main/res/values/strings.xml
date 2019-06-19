@@ -526,6 +526,15 @@
     <string name="neverButtonAlert">Никогда</string>
     <string name="evaluateButtonAlert">Оценить</string>
 
+    <!--Main screen-->
+    <string name="main_screen_breakfast">Завтрак</string>
+    <string name="main_screen_lunch">Обед</string>
+    <string name="main_screen_dinner">Ужин</string>
+    <string name="main_screen_snack">Перекус</string>
+    <string name="main_screen_water">Вода</string>
+
+    <string name="main_screen_menu_water">Настройки для воды</string>
+
 
     <string name="search_of_food">Поиск продукта питания</string>
     <string name="for_100_g_of_product"> Ккал на 100 г продукта</string>

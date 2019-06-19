@@ -3,7 +3,6 @@ package com.wsoteam.diet.MainScreen.Fragments;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,26 +12,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amplitude.api.Amplitude;
-import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.MainScreen.Support.AlertDialogChoiseEating;
 import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
@@ -104,12 +95,9 @@ public class FragmentDiary extends Fragment {
         if (isPremAlert) {
             View view = getLayoutInflater().inflate(R.layout.alert_dialog_buy_sub_info, null);
             Button button = view.findViewById(R.id.alerd_buy_info_btn);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (alertDialogBuyInfo != null) {
-                        alertDialogBuyInfo.dismiss();
-                    }
+            button.setOnClickListener(view1 -> {
+                if (alertDialogBuyInfo != null) {
+                    alertDialogBuyInfo.dismiss();
                 }
             });
 
@@ -122,7 +110,7 @@ public class FragmentDiary extends Fragment {
             sharedPreferences = getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(Config.ALERT_BUY_SUBSCRIPTION, false);
-            editor.commit();
+            editor.apply();
         }
 
         bindViewPager();
@@ -168,7 +156,7 @@ public class FragmentDiary extends Fragment {
         countOfRun = getActivity().getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = countOfRun.edit();
         editor.putInt(TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG, countOfRun.getInt(TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG, COUNT_OF_RUN) + 1);
-        editor.commit();
+        editor.apply();
 
     }
 

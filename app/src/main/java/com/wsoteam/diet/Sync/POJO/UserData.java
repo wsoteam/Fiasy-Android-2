@@ -1,18 +1,17 @@
 package com.wsoteam.diet.Sync.POJO;
 
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
-import com.wsoteam.diet.POJOForDB.DiaryData;
 import com.wsoteam.diet.POJOProfile.CheckInfo.CheckHistory;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
+import com.wsoteam.diet.model.Breakfast;
+import com.wsoteam.diet.model.Dinner;
+import com.wsoteam.diet.model.Lunch;
+import com.wsoteam.diet.model.Snack;
+import com.wsoteam.diet.model.Water;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 
 public class UserData implements Serializable {
     private String name;
@@ -25,6 +24,7 @@ public class UserData implements Serializable {
     private HashMap<String, Lunch> lunches;
     private HashMap<String, Dinner> dinners;
     private HashMap<String, Snack> snacks;
+    private HashMap<String, Water> water;
     private HashMap<String, WeightDiaryObject> diaryDataList;
 
     public UserData() {
@@ -97,6 +97,14 @@ public class UserData implements Serializable {
 
     public void setSnacks(HashMap<String, Snack> snacks) {
         this.snacks = snacks;
+    }
+
+    public HashMap<String, Water> getWater() {
+        return water;
+    }
+
+    public void setWater(HashMap<String, Water> water) {
+        this.water = water;
     }
 
     public HashMap<String, WeightDiaryObject> getDiaryDataList() {

@@ -1,6 +1,4 @@
-package com.wsoteam.diet.BranchOfAnalyzer.POJOEating;
-
-import com.orm.SugarRecord;
+package com.wsoteam.diet.model;
 
 import java.io.Serializable;
 

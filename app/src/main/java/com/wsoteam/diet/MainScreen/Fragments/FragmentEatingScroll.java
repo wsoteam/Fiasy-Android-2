@@ -2,8 +2,6 @@ package com.wsoteam.diet.MainScreen.Fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,23 +14,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.lzyzsd.circleprogress.ArcProgress;
-import com.google.firebase.auth.FirebaseAuth;
-import com.orm.query.Condition;
-import com.orm.query.Select;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.MainScreen.Controller.EatingAdapter;
-import com.wsoteam.diet.POJOsCircleProgress.Water;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.model.Breakfast;
+import com.wsoteam.diet.model.Dinner;
+import com.wsoteam.diet.model.Eating;
+import com.wsoteam.diet.model.Lunch;
+import com.wsoteam.diet.model.Snack;
+import com.wsoteam.diet.model.Water;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -41,16 +35,15 @@ import java.util.concurrent.ExecutionException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import me.itangqi.waveloadingview.WaveLoadingView;
 
 public class FragmentEatingScroll extends Fragment {
     private static final String TAG_OF_BUNDLE = "FragmentEatingScroll";
-    private int enterPosition = 0;
-    private EatingAdapter eatingAdapter;
     @BindView(R.id.rvMainScreen) RecyclerView rvMainScreen;
     Unbinder unbinder;
-    private List<List<Eating>> allEat;
     int day, month, year;
+    private int enterPosition = 0;
+    private EatingAdapter eatingAdapter;
+    private List<List<Eating>> allEat;
     private TextView parentTitleWithDate, tvCircleProgressCarbo, tvCircleProgressFat, tvCircleProgressProt;
     private ArcProgress apCollapsingKcal;
     private ArcProgress apCollapsingProt;
@@ -73,7 +66,6 @@ public class FragmentEatingScroll extends Fragment {
             setMainParamsInBars(allEat);
         }
     }
-
 
     @Override
     public void onResume() {
@@ -209,7 +201,7 @@ public class FragmentEatingScroll extends Fragment {
             day = ints[0];
             month = ints[1];
             year = ints[2];
-
+            Log.d("MyLogs", "doInBackground");
             List allEatingForThisDay = new ArrayList<>();
 
             List<Breakfast> breakfasts = new ArrayList<>();
@@ -264,10 +256,24 @@ public class FragmentEatingScroll extends Fragment {
                 }
             }
 
+            List<Water> waterList = new ArrayList<>();
+            if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getWater() != null) {
+                Iterator iterator = UserDataHolder.getUserData().getWater().entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry pair = (Map.Entry) iterator.next();
+                    Water water = (Water) pair.getValue();
+                    if (water.getDay() == day && water.getMonth() == month && water.getYear() == year) {
+                        water.setUrlOfImages(pair.getKey().toString());
+                        waterList.add(water);
+                    }
+                }
+            }
+
             allEatingForThisDay.add(breakfasts);
             allEatingForThisDay.add(lunches);
             allEatingForThisDay.add(dinners);
             allEatingForThisDay.add(snacks);
+            allEatingForThisDay.add(waterList);
 
             allEat = allEatingForThisDay;
 
