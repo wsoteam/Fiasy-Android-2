@@ -36,6 +36,7 @@ import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodDB;
 import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.GroupsFragment;
+import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.authHarvester.IntercomHarvester;
 
 import java.util.Calendar;
