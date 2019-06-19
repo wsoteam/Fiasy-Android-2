@@ -38,25 +38,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/filter_state"
-            android:padding="16dp"
+            android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/ivBack"
-            app:layout_constraintEnd_toStartOf="@+id/ibSendClaim"
+            app:layout_constraintEnd_toStartOf="@+id/ibAddFavorite"
             app:layout_constraintTop_toTopOf="@+id/ivBack"
-            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_share_food" />
 
         <ImageButton
             android:id="@+id/ibSendClaim"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="36dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/filter_state"
-            android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/ivBack"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ibAddFavorite"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/ivBack"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintTop_toTopOf="@+id/ibAddFavorite"
             app:srcCompat="@drawable/ic_claim" />
+
+        <ImageButton
+            android:id="@+id/ibAddFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/filter_state"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ibShareFood"
+            app:layout_constraintEnd_toStartOf="@+id/ibSendClaim"
+            app:layout_constraintTop_toTopOf="@+id/ibShareFood"
+            app:srcCompat="@drawable/ic_empty_favorite" />
 
         <TextView
             android:id="@+id/tvActivityDetailOfFoodCollapsingTitle"
@@ -81,12 +90,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
-            app:cardElevation="2dp"
             android:src="@drawable/shape_calculate"
+            app:cardElevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvActivityDetailOfFoodCollapsingTitle">
+            app:layout_constraintTop_toBottomOf="@+id/tvBrand">
 
 
             <android.support.constraint.ConstraintLayout
@@ -228,11 +237,11 @@
                     android:id="@+id/edtActivityDetailOfFoodPortion"
                     android:layout_width="70dp"
                     android:layout_height="46dp"
-                    android:layout_marginStart="32dp"
                     android:layout_marginTop="24dp"
+                    android:layout_marginEnd="32dp"
+                    android:backgroundTint="@color/edit_text_food"
                     android:fontFamily="@font/roboto_light"
                     android:hint=""
-                    android:backgroundTint="@color/edit_text_food"
                     android:inputType="numberSigned"
                     android:maxLength="5"
                     android:textColor="@color/black"

@@ -15,6 +15,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.InApp.ActivitySubscription;
+import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
@@ -54,6 +56,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     @BindView(R.id.tvActivityDetailOfFoodCalculateCarbo) TextView tvCalculateCarbohydrates;
     @BindView(R.id.tvActivityDetailOfFoodCalculateProtein) TextView tvCalculateProtein;
     @BindView(R.id.edtActivityDetailOfFoodPortion) EditText edtWeight;
+    @BindView(R.id.ibAddFavorite) ImageButton ibAddFavorite;
 
 
     @BindView(R.id.tvLabelCellulose) TextView tvLabelCellulose;
@@ -101,6 +104,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
     private Food foodItem;
+    private boolean isFavorite;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -311,7 +315,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     @OnClick({R.id.btnSaveEating, R.id.ivBack, R.id.btnPremCell, R.id.btnPremCholy,
             R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremPot, R.id.btnPremSaturated, R.id.btnPremSod,
-            R.id.btnPremSugar, R.id.tvSendClaim, R.id.ibShareFood, R.id.ibSendClaim})
+            R.id.btnPremSugar, R.id.tvSendClaim, R.id.ibShareFood, R.id.ibSendClaim, R.id.ibAddFavorite})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSaveEating:
@@ -357,6 +361,9 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             case R.id.ibSendClaim:
                 ClaimForm.createChoiseEatingAlertDialog(this, foodItem);
                 break;
+            case R.id.ibAddFavorite:
+                addFavorite();
+                break;
         }
     }
 
@@ -383,6 +390,11 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                 true, null, false);
         intent.putExtra(Config.TAG_BOX, box);
         startActivity(intent);
+    }
+
+    private void addFavorite() {
+        FavoriteFood favoriteFood = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo());
+        WorkWithFirebaseDB.addFoodFavorite(favoriteFood);
     }
 
 }

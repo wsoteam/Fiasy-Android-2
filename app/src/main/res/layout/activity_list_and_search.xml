@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:fitsSystemWindows="true">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/main.appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/head_analyzer_search"
+        android:background="@drawable/gradient_search"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -28,31 +28,69 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/textView58"
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabs"
+                    android:layout_width="0dp"
+                    app:tabIndicatorColor="@color/white"
+                    android:layout_height="30dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ivBack"
+                    app:tabContentStart="32dp"
+                    app:tabMode="scrollable">
+
+                    <android.support.design.widget.TabItem
+                        android:id="@+id/tiSearch"
+                        android:layout="@layout/tab_lat_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <android.support.design.widget.TabItem
+                        android:id="@+id/tiFavorite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout="@layout/tab_lat_favorites" />
+
+                    <android.support.design.widget.TabItem
+                        android:id="@+id/tiTemplates"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout="@layout/tab_lat_templates" />
+
+                    <android.support.design.widget.TabItem
+                        android:id="@+id/tiRecipes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout="@layout/tab_lat_recipes"/>
+
+
+                </android.support.design.widget.TabLayout>
+
+                <ImageButton
+                    android:id="@+id/ibAddFavorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="Поиск"
-                    android:textColor="@color/white"
-                    app:layout_constraintStart_toStartOf="@+id/cardView3"
-                    app:layout_constraintTop_toBottomOf="@+id/ivBack"/>
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/filter_state"
+                    android:padding="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivBack"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ivBack"
+                    app:srcCompat="@drawable/ic_start_action" />
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cardView3"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
                     app:cardCornerRadius="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView58"
-                    app:layout_constraintVertical_bias="0.0">
+                    app:layout_constraintTop_toBottomOf="@+id/tabs">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -76,7 +114,7 @@
                             android:maxLines="1"
                             android:singleLine="true"
                             android:textColor="@color/black"
-                            android:textColorHint="@color/light_gray"/>
+                            android:textColorHint="@color/light_gray" />
 
                         <ImageView
                             android:id="@+id/ibActivityListAndSearchCollapsingCancelButton"
@@ -89,7 +127,7 @@
                             android:src="@drawable/ic_cancel"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
+                            app:layout_constraintTop_toTopOf="parent" />
                     </FrameLayout>
                 </android.support.v7.widget.CardView>
 
@@ -98,32 +136,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="28dp"
                     android:spinnerMode="dropdown"
                     app:layout_constraintStart_toEndOf="@+id/ivBack"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/ivBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:paddingLeft="16dp"
                     android:paddingTop="8dp"
                     android:paddingRight="16dp"
                     android:paddingBottom="16dp"
                     android:src="@drawable/food_search_back"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tvIndex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
-                    android:textColor="@color/white"
-                    android:textSize="8sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView58"
-                    app:layout_constraintStart_toEndOf="@+id/textView58"/>
             </android.support.constraint.ConstraintLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -136,10 +166,10 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-                                                android:id="@+id/rvListOfSearchResponse"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="match_parent"
-                                                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            android:id="@+id/rvListOfSearchResponse"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <ImageView
             android:id="@+id/ivActivityListAndSearchEmptyImage"
@@ -154,7 +184,7 @@
             android:src="@drawable/ic_search_empty_screen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/rvListOfSearchResponse"/>
+            app:layout_constraintTop_toTopOf="@+id/rvListOfSearchResponse" />
 
         <TextView
             android:id="@+id/tvActivityListAndSearchEmptyText"
@@ -169,7 +199,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/ivActivityListAndSearchEmptyImage"
             app:layout_constraintStart_toStartOf="@+id/ivActivityListAndSearchEmptyImage"
-            app:layout_constraintTop_toBottomOf="@+id/ivActivityListAndSearchEmptyImage"/>
+            app:layout_constraintTop_toBottomOf="@+id/ivActivityListAndSearchEmptyImage" />
 
 
     </android.support.constraint.ConstraintLayout>
