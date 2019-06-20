@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.animation.AnimationUtils;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -17,7 +18,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -41,7 +44,7 @@ import io.intercom.android.sdk.Intercom;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class FragmentDiary extends Fragment implements HorizontalCalendarListener {
+public class FragmentDiary extends Fragment implements HorizontalCalendarListener  {
     private final String TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG = "COUNT_OF_RUN";
     @BindView(R.id.ibOpenYesterday) ImageButton ibOpenYesterday;
     @BindView(R.id.ibOpenTomorrow) ImageButton ibOpenTomorrow;
@@ -59,6 +62,8 @@ public class FragmentDiary extends Fragment implements HorizontalCalendarListene
     @BindView(R.id.vpEatingTimeLine) ViewPager vpEatingTimeLine;
     @BindView(R.id.tvDateForMainScreen) TextView tvDateForMainScreen;
     @BindView(R.id.horizontalcalendarview) HorizontalCalendarView horizontalcalendarview;
+    @BindView(R.id.llSum) LinearLayout llSum;
+    @BindView(R.id.llHead) FrameLayout llHead;
     private Unbinder unbinder;
     private Profile profile;
     private int COUNT_OF_RUN = 0;
@@ -67,6 +72,7 @@ public class FragmentDiary extends Fragment implements HorizontalCalendarListene
 
     private AlertDialog alertDialogBuyInfo;
     private SharedPreferences sharedPreferences, freeUser;
+    AnimationUtils fromTop;
 
     @Override
     public void onResume() {
@@ -89,7 +95,23 @@ public class FragmentDiary extends Fragment implements HorizontalCalendarListene
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("com.wsoteam.diet.ACTION_LOGOUT");
         getActivity().sendBroadcast(broadcastIntent);
+        fromTop = A
 
+        mainappbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+
+                if (Math.abs(verticalOffset)-appBarLayout.getTotalScrollRange() == 0)
+                {
+                    llHead.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    llHead.setVisibility(View.GONE);
+
+                }
+            }
+        });
         WorkWithFirebaseDB.setFirebaseStateListener();
 
         horizontalcalendarview.setContext(this);
