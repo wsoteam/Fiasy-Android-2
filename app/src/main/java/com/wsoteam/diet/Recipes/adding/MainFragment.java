@@ -39,6 +39,8 @@ public class MainFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         recipeItem = ((AddingRecipeActivity)getActivity()).getRecipeItem();
+
+
         String[] spinnerVlaue = getResources().getStringArray(R.array.recipeComplexity);
 
         if (recipeItem.getName() != null ){

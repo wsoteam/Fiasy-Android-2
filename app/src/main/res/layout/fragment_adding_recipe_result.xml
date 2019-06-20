@@ -119,14 +119,18 @@
                 android:id="@+id/ingredientsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textView148"
                     android:layout_width="match_parent"
-                    android:layout_height="169dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:paddingTop="10dp"
                     android:text="Ингридиенты"
                     android:textColor="@color/b_color"
+                    android:textSize="18sp"
                     tools:text="Ингридиенты" />
             </LinearLayout>
 

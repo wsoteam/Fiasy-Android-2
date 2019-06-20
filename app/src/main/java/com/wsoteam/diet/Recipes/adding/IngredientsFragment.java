@@ -13,9 +13,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+
 
 import java.util.List;
 
@@ -62,6 +64,7 @@ public class IngredientsFragment extends Fragment {
                        Log.d("testresult", "onActivityResult: " + food.getName());
                        onAddField(food);
                        foodList.add(food);
+
                    }
 
 
@@ -72,8 +75,9 @@ public class IngredientsFragment extends Fragment {
     }
 
     private void onAddField(Food food){
+
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View rowView = inflater.inflate(R.layout.adding_recipe_instruction_item, null);
+        final View rowView = inflater.inflate(R.layout.adding_recipe_ingredients_item, null);
         TextView nameTextView = rowView.findViewById(R.id.tvName);
         TextView portionTextView = rowView.findViewById(R.id.tvPortion);
         TextView caloriesTextView = rowView.findViewById(R.id.tvCalories);

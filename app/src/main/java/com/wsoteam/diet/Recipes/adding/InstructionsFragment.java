@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ public class InstructionsFragment extends Fragment {
 
     List<View> listView;
     RecipeItem recipeItem;
+    List<String> listInstructions;
 
     @Nullable
     @Override
@@ -44,6 +46,8 @@ public class InstructionsFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         recipeItem = ((AddingRecipeActivity)getActivity()).getRecipeItem();
+        listInstructions = new ArrayList<>();
+        recipeItem.setInstruction(listInstructions);
 
         List<String> instructions = recipeItem.getInstruction();
         listView = new LinkedList<>();
@@ -75,14 +79,37 @@ public class InstructionsFragment extends Fragment {
         final View rowView = inflater.inflate(R.layout.adding_recipe_instruction_step, null);
         ImageButton delButton = rowView.findViewById(R.id.btnDel);
         TextView positionTextView = rowView.findViewById(R.id.tvPosition);
+        EditText editText = rowView.findViewById(R.id.etInstruction);
+
 
 
         listView.add(rowView);
+        int index = listView.indexOf(rowView);
+        listInstructions.add("");
+
+
         positionTextView.setText(String.valueOf(listView.indexOf(rowView) + 1));
         delButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onDelete(v);
+            }
+        });
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                listInstructions.set(index, charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
         parentLinearLayout.addView(rowView);
@@ -101,8 +128,10 @@ public class InstructionsFragment extends Fragment {
     }
 
     private void onDelete(View v) {
+        int index = listView.indexOf(v.getParent());
         parentLinearLayout.removeView((View) v.getParent());
         listView.remove(v.getParent());
+        listInstructions.remove(index);
         updatePositions(listView);
     }
 
