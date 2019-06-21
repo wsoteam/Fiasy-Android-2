@@ -667,20 +667,4 @@
     <string name="instagram_client_id" translatable="false">f9ecb6690966457d88a02b0ea758bc58</string>
     <string name="instagram_callback_url" translatable="false">http://fiasy.com/</string>
     <string name="base_url" translatable="false">https://api.instagram.com/</string>
-
-    <string-array name="monthList">
-        <item>Январь</item>
-        <item>Февраль</item>
-        <item>Март</item>
-        <item>Апрель</item>
-        <item>Май</item>
-        <item>Июнь</item>
-        <item>Июль</item>
-        <item>Август</item>
-        <item>Сентябрь</item>
-        <item>Октябрь</item>
-        <item>Ноябрь</item>
-        <item>Декабрь</item>
-    </string-array>
-
 </resources>

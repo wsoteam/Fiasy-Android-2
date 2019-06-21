@@ -2,6 +2,7 @@ package com.wsoteam.diet.MainScreen.Fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,16 +26,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.amplitude.api.Amplitude;
-import com.view.calender.horizontal.umar.horizontalcalendarview.DayDateMonthYearModel;
-import com.view.calender.horizontal.umar.horizontalcalendarview.HorizontalCalendarListener;
-import com.view.calender.horizontal.umar.horizontalcalendarview.HorizontalCalendarView;
+import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
+import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.MainScreen.Dialogs.SublimePickerDialogFragment;
 import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+
+import org.joda.time.DateTime;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,7 +49,7 @@ import io.intercom.android.sdk.Intercom;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class FragmentDiary extends Fragment implements HorizontalCalendarListener  {
+public class FragmentDiary extends Fragment implements SublimePickerDialogFragment.OnDateChoosedListener, DatePickerListener {
     private final String TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG = "COUNT_OF_RUN";
     @BindView(R.id.ibOpenYesterday) ImageButton ibOpenYesterday;
     @BindView(R.id.ibOpenTomorrow) ImageButton ibOpenTomorrow;
@@ -61,18 +66,17 @@ public class FragmentDiary extends Fragment implements HorizontalCalendarListene
     @BindView(R.id.collapsingToolbarLayout) CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.vpEatingTimeLine) ViewPager vpEatingTimeLine;
     @BindView(R.id.tvDateForMainScreen) TextView tvDateForMainScreen;
-    @BindView(R.id.horizontalcalendarview) HorizontalCalendarView horizontalcalendarview;
     @BindView(R.id.llSum) LinearLayout llSum;
     @BindView(R.id.llHead) FrameLayout llHead;
+    @BindView(R.id.datePicker) HorizontalPicker datePicker;
+    AnimationUtils fromTop;
     private Unbinder unbinder;
     private Profile profile;
     private int COUNT_OF_RUN = 0;
     private SharedPreferences countOfRun;
     private boolean isFiveStarSend = false;
-
     private AlertDialog alertDialogBuyInfo;
     private SharedPreferences sharedPreferences, freeUser;
-    AnimationUtils fromTop;
 
     @Override
     public void onResume() {
@@ -95,26 +99,17 @@ public class FragmentDiary extends Fragment implements HorizontalCalendarListene
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("com.wsoteam.diet.ACTION_LOGOUT");
         getActivity().sendBroadcast(broadcastIntent);
-        fromTop = A
+//        fromTop = A
 
-        mainappbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-
-                if (Math.abs(verticalOffset)-appBarLayout.getTotalScrollRange() == 0)
-                {
-                    llHead.setVisibility(View.VISIBLE);
-                }
-                else
-                {
-                    llHead.setVisibility(View.GONE);
-
-                }
+        mainappbar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+            if (Math.abs(verticalOffset) - appBarLayout.getTotalScrollRange() == 0) {
+                llHead.setVisibility(View.VISIBLE);
+            } else {
+                llHead.setVisibility(View.GONE);
             }
         });
-        WorkWithFirebaseDB.setFirebaseStateListener();
 
-        horizontalcalendarview.setContext(this);
+        WorkWithFirebaseDB.setFirebaseStateListener();
 
         boolean isPremAlert = getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE)
                 .getBoolean(Config.ALERT_BUY_SUBSCRIPTION, false);
@@ -143,6 +138,15 @@ public class FragmentDiary extends Fragment implements HorizontalCalendarListene
         cvParams.setBackgroundResource(R.drawable.main_card_params);
 
         bindViewPager();
+
+        datePicker
+                .setListener(this)
+                .init();
+
+        // or on the View directly after init was completed
+        datePicker.setBackgroundColor(Color.TRANSPARENT);
+        datePicker.setDate(new DateTime());
+
         return mainView;
     }
 
@@ -164,12 +168,13 @@ public class FragmentDiary extends Fragment implements HorizontalCalendarListene
 
 
     @Override
-    public void updateMonthOnScroll(DayDateMonthYearModel selectedDate) {
-        tvCalendarMonth.setText(getResources().getStringArray(R.array.monthList)[Integer.parseInt(selectedDate.monthNumeric) - 1]);
+    public void dateChoosed(Calendar calendar, int dayOfMonth, int month, int year) {
+        datePicker.setDate(new DateTime(calendar.getTime()));
     }
 
+
     @Override
-    public void newDateSelected(DayDateMonthYearModel selectedDate) {
+    public void onDateSelected(DateTime dateSelected) {
 
     }
 
@@ -200,7 +205,7 @@ public class FragmentDiary extends Fragment implements HorizontalCalendarListene
 
     }
 
-    @OnClick({R.id.ibOpenYesterday, R.id.ibOpenTomorrow, R.id.fabAddEating})
+    @OnClick({R.id.ibOpenYesterday, R.id.ibOpenTomorrow, R.id.fabAddEating, R.id.ivCalendar})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibOpenYesterday:
@@ -213,6 +218,15 @@ public class FragmentDiary extends Fragment implements HorizontalCalendarListene
                 /*AlertDialogChoiseEating.createChoiseEatingAlertDialog(getActivity(),
                         tvDateForMainScreen.getText().toString()).show();*/
                 Intercom.client().displayMessenger();
+                break;
+            case R.id.ivCalendar:
+                SublimePickerDialogFragment sublimePickerDialogFragment = new SublimePickerDialogFragment();
+                Bundle bundle = new Bundle();
+// put arguments into bundle
+                sublimePickerDialogFragment.setArguments(bundle);
+                sublimePickerDialogFragment.setCancelable(true);
+                sublimePickerDialogFragment.setTargetFragment(this, 0);
+                sublimePickerDialogFragment.show(getFragmentManager(), null);
                 break;
         }
     }

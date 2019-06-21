@@ -148,9 +148,9 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
                     WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
                 } else if (createUser && getIntent().getSerializableExtra(Config.INTENT_PROFILE) == null) {
                     checkUserExist(user.getUid());
-                } else {
-                    startActivity(intent);
+                    return;
                 }
+                startActivity(intent);
             } else {
                 Log.d(TAG, "onAuthStateChanged:signed_out");
             }
