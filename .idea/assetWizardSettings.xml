@@ -11,26 +11,14 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
-                        <option name="children">
-                          <map>
-                            <entry key="clipartAsset">
-                              <value>
-                                <PersistentState>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_add_black_24dp.xml" />
-                                    </map>
-                                  </option>
-                                </PersistentState>
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_start_action" />
-                            <entry key="sourceFile" value="C:\Users\37525\Desktop\ok_icon.svg" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="height" value="96" />
+                            <entry key="outputName" value="main_image_favorites" />
+                            <entry key="overrideSize" value="true" />
+                            <entry key="sourceFile" value="C:\Users\37525\Desktop\Group 23.svg" />
+                            <entry key="width" value="96" />
                           </map>
                         </option>
                       </PersistentState>

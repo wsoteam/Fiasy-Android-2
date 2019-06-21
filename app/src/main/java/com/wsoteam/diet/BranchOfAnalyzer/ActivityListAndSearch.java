@@ -3,31 +3,26 @@ package com.wsoteam.diet.BranchOfAnalyzer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.amplitude.api.Amplitude;
 import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.App;
+import com.wsoteam.diet.BranchOfAnalyzer.Controller.TabsAdapter;
+import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentFavorites;
 import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentSearch;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
@@ -37,15 +32,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class ActivityListAndSearch extends AppCompatActivity {
     @BindView(R.id.spnEatingList) Spinner spinner;
     @BindView(R.id.edtActivityListAndSearchCollapsingSearchField) EditText edtSearchField;
     @BindView(R.id.ibStartAction) ImageButton ibStartAction;
-
+    @BindView(R.id.searchFragmentContainer) ViewPager viewPager;
+    @BindView(R.id.tabs) TabLayout tabs;
+    private TabsAdapter tabsAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +47,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         setContentView(R.layout.activity_list_and_search);
         ButterKnife.bind(this);
         bindSpinnerChoiceEating();
+        updateUI();
         getSupportFragmentManager().beginTransaction().add(R.id.searchFragmentContainer, new FragmentSearch()).commit();
         edtSearchField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -62,14 +57,10 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                /*if (ivEmptyImage.getVisibility() == View.VISIBLE) {
-                    ivEmptyImage.setVisibility(View.GONE);
-                    tvEmptyText.setVisibility(View.GONE);
-                }*/
-                //isEqualsNext = true;
-                //search(charSequence.toString().replaceAll("\\s+", " "));
-                ((FragmentSearch) getSupportFragmentManager().findFragmentById(R.id.searchFragmentContainer)).
-                        sendString(charSequence.toString().replaceAll("\\s+", " "));
+                if (charSequence.length() > 2) {
+                    ((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
+                            sendString(charSequence.toString().replaceAll("\\s+", " "));
+                }
             }
 
             @Override
@@ -77,10 +68,42 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
             }
         });
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                if (edtSearchField.getText().toString().length() != 0) {
+                    edtSearchField.setText("");
+                }
+                tabs.getTabAt(i).select();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+        tabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
         Amplitude.getInstance().logEvent(AmplitudaEvents.attempt_add_food);
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_search_food);
 
+    }
+
+    private void updateUI() {
+        tabsAdapter = new TabsAdapter(getSupportFragmentManager(), createFragmentsList());
+        viewPager.setAdapter(tabsAdapter);
+    }
+
+    private List<Fragment> createFragmentsList() {
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new FragmentSearch());
+        fragments.add(new FragmentFavorites());
+        return fragments;
     }
 
     private void speak() {

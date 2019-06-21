@@ -18,6 +18,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
+import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
@@ -31,7 +32,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class FragmentSearch extends Fragment {
+public class FragmentSearch extends Fragment implements TabsFragment {
 
     private int RESPONSE_LIMIT = 50;
     private ItemAdapter itemAdapter;
@@ -44,10 +45,15 @@ public class FragmentSearch extends Fragment {
     private String searchString = "";
 
 
+    @Override
     public void sendString(String searchString) {
         isEqualsNext = true;
         this.searchString = searchString;
         search(searchString);
+        /*if (ivEmptyImage.getVisibility() == View.VISIBLE) {
+                    ivEmptyImage.setVisibility(View.GONE);
+                    tvEmptyText.setVisibility(View.GONE);
+                }*/
     }
 
     @Nullable

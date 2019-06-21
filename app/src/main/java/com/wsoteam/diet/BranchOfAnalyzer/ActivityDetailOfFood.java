@@ -393,7 +393,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     }
 
     private void addFavorite() {
-        FavoriteFood favoriteFood = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo());
+        FavoriteFood favoriteFood = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), "empty");
         WorkWithFirebaseDB.addFoodFavorite(favoriteFood);
     }
 
