@@ -200,7 +200,9 @@ public class WorkWithFirebaseDB {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodFavorites");
-        myRef.push().setValue(food);
+        String key = myRef.push().getKey();
+        myRef.child(key).setValue(food);
+        Log.e("LOL", key);
     }
 
 }
