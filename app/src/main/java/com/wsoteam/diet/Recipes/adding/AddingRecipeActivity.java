@@ -1,6 +1,7 @@
 package com.wsoteam.diet.Recipes.adding;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import android.widget.Button;
 
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
@@ -236,6 +238,10 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         recipeItem.setCarbohydrates(carbo);
         recipeItem.setPortions((int) portion);
         WorkWithFirebaseDB.addUserRecipe(recipeItem);
+
+        Intent intent = new Intent();
+        intent.putExtra(Config.RECIPE_ITEM_INTENT, recipeItem);
+        setResult(RESULT_OK, intent);
 
         AlertDialog alertDialog = AddRecipeAlertDialog.createChoiseEatingAlertDialog(this);
         alertDialog.show();
