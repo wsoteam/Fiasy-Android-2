@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,9 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
     public void onResume() {
         super.onResume();
         findFavoritesInDb();
+        if (UserDataHolder.getUserData().getFoodFavorites() != null) {
+            Log.e("LOL", String.valueOf(UserDataHolder.getUserData().getFoodFavorites().size()));
+        }
     }
 
     @Nullable
@@ -97,12 +101,22 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
 
     private void updateUI(List<Food> foods) {
         if (foods.size() == 0) {
+            this.foods = foods;
+            itemAdapter = new ItemAdapter(foods);
+            rvFavorites.setAdapter(itemAdapter);
             showStartScreen();
         } else {
+            hideStartScreen();
             this.foods = foods;
             itemAdapter = new ItemAdapter(foods);
             rvFavorites.setAdapter(itemAdapter);
         }
+    }
+
+    private void hideStartScreen() {
+        tvTextAddFavorite.setVisibility(View.GONE);
+        tvTitleFavoriteAdd.setVisibility(View.GONE);
+        ivAddFavorite.setVisibility(View.GONE);
     }
 
     private void showStartScreen() {
@@ -158,7 +172,7 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
         public void onClick(View view) {
             Intent intent = new Intent(getActivity(), ActivityDetailOfFood.class);
             intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
-            intent.putExtra(Config.TAG_CHOISE_EATING, ((ActivityListAndSearch)getActivity()).spinnerId);
+            intent.putExtra(Config.TAG_CHOISE_EATING, ((ActivityListAndSearch) getActivity()).spinnerId);
             intent.putExtra(Config.INTENT_DATE_FOR_SAVE, getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
             startActivity(intent);
         }
