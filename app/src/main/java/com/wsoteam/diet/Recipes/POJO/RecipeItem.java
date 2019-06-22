@@ -30,6 +30,7 @@ public class RecipeItem implements Serializable {
     private double potassium;
 
     private int portions;
+    private String key;
 
 
     private List<String> ingredients;
@@ -44,12 +45,13 @@ public class RecipeItem implements Serializable {
     public RecipeItem() {
     }
 
+
     public RecipeItem(String url, String name, int time, int calories, String description,
                       double percentCarbohydrates, double percentProteins,
                       double percentFats, double carbohydrates, double proteins,
                       double fats, double cellulose, double sugar, double saturatedFats,
                       double unSaturatedFats, double cholesterol, double sodium, double potassium,
-                      int portions, List<String> ingredients, List<String> instruction) {
+                      int portions, String key, List<String> ingredients, List<String> instruction) {
         this.url = url;
         this.name = name;
         this.time = time;
@@ -69,6 +71,7 @@ public class RecipeItem implements Serializable {
         this.sodium = sodium;
         this.potassium = potassium;
         this.portions = portions;
+        this.key = key;
         this.ingredients = ingredients;
         this.instruction = instruction;
 
@@ -281,4 +284,13 @@ public class RecipeItem implements Serializable {
     public void setComplexity(String complexity) {
         this.complexity = complexity;
     }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
 }

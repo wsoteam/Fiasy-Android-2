@@ -32,7 +32,9 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,15 +51,7 @@ public class ListAddedRecipeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getRecipes() != null){
-            recipesHashMap = UserDataHolder.getUserData().getRecipes();
-            list = new ArrayList<>(recipesHashMap.values());
-            updateUI(list);
-        } else {
-            updateUI(null);
-        }
-
+        initial();
     }
 
     @Nullable
@@ -87,6 +81,32 @@ public class ListAddedRecipeFragment extends Fragment {
             Log.d("fr", "onCreateView: OK");
             layout.setVisibility(View.INVISIBLE);
             recyclerView.setAdapter(new AddedRecipeAdapter(recipeItems, getActivity(), getContext()));
+        }
+    }
+
+    private void initial(){
+        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getRecipes() != null){
+            recipesHashMap = UserDataHolder.getUserData().getRecipes();
+            list = new ArrayList<>(recipesHashMap.values());
+            updateUI(list);
+        } else {
+            updateUI(null);
+        }
+    }
+
+    private void search(String str){
+        String key = str.toLowerCase();
+        List<RecipeItem> result = new ArrayList<>();
+
+        if (key.equals("") || list == null){
+           initial();
+        } else {
+                for (RecipeItem recipe : list) {
+                    if (recipe.getName().toLowerCase().contains(key)) {
+                        result.add(recipe);
+                    }
+                    recyclerView.setAdapter(new AddedRecipeAdapter(result, getActivity(), getContext()));
+            }
         }
     }
 }

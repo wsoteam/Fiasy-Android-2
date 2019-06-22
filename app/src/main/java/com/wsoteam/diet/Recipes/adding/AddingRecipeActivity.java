@@ -221,9 +221,9 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         }
 
         recipeItem.setIngredients(ingredients);
-        recipeItem.setProteins(prot);
-        recipeItem.setFats(fats);
-        recipeItem.setCarbohydrates(carbo);
+        recipeItem.setProteins((int) prot);
+        recipeItem.setFats((int) fats);
+        recipeItem.setCarbohydrates((int) carbo);
         recipeItem.setCalories((int) cal);
         recipeItem.setPortions((int) portion);
         WorkWithFirebaseDB.addUserRecipe(recipeItem);

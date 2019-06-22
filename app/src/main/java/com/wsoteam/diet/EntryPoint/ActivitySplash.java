@@ -105,8 +105,8 @@ public class ActivitySplash extends BaseActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
                     checkBilling();
-                    startActivity(new Intent(ActivitySplash.this, ForTestFragmentActivity.class));
-//                    startActivity(new Intent(ActivitySplash.this, MainActivity.class));
+//                    startActivity(new Intent(ActivitySplash.this, ForTestFragmentActivity.class));
+                    startActivity(new Intent(ActivitySplash.this, MainActivity.class));
                     finish();
                 }
 
