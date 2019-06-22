@@ -16,6 +16,7 @@ import com.appeaser.sublimepickerlibrary.helpers.SublimeOptions;
 import com.appeaser.sublimepickerlibrary.recurrencepicker.SublimeRecurrencePicker;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class SublimePickerDialogFragment extends DialogFragment {
 
@@ -42,6 +43,7 @@ public class SublimePickerDialogFragment extends DialogFragment {
         SublimePicker sublimePicker = new SublimePicker(getActivity());
         SublimeOptions sublimeOptions = new SublimeOptions();
         sublimeOptions.setCanPickDateRange(false);
+        sublimeOptions.setDateParams(Calendar.getInstance(new Locale("ru")));
         sublimeOptions.setPickerToShow(SublimeOptions.Picker.DATE_PICKER);
         sublimeOptions.setDisplayOptions(SublimeOptions.ACTIVATE_DATE_PICKER);
         sublimePicker.initializePicker(sublimeOptions, listener);

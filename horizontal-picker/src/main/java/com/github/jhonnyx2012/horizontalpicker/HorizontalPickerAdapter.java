@@ -32,11 +32,13 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
     private final OnItemClickedListener listener;
     private int itemWidth, selectedPosition = -1;
     private ArrayList<Day> items;
+    private int finalOffset;
 
     public HorizontalPickerAdapter(int itemWidth, OnItemClickedListener listener, Context context, int daysToCreate, int offset, int mBackgroundColor, int mDateSelectedColor, int mDateSelectedTextColor, int mTodayDateTextColor, int mTodayDateBackgroundColor, int mDayOfWeekTextColor, int mUnselectedDayTextColor) {
         items = new ArrayList<>();
         this.itemWidth = itemWidth;
         this.listener = listener;
+        this.finalOffset = offset;
         generateDays(daysToCreate, new DateTime().minusDays(offset).getMillis(), false);
         this.mBackgroundColor = mBackgroundColor;
         this.mDateSelectedTextColor = mDateSelectedTextColor;
@@ -99,6 +101,8 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
     }
 
     public Day getItem(int position) {
+        if (position < 0)
+            return null;
         return items.get(position);
     }
 

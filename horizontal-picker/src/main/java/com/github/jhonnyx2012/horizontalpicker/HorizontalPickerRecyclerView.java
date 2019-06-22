@@ -25,6 +25,7 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
     private HorizontalPickerListener listener;
     private int offset;
     private boolean forceScroll = false;
+    private int newPosition = -1;
     private OnScrollListener onScrollListener = new OnScrollListener() {
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -32,7 +33,8 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
             switch (newState) {
                 case RecyclerView.SCROLL_STATE_IDLE:
                     listener.onStopDraggingPicker();
-                    int position = (int) ((computeHorizontalScrollOffset() / itemWidth) + 3.5);
+                    selectMonth((int) ((computeHorizontalScrollOffset() / itemWidth) + 3.5));
+                    int position = newPosition;
                     if (forceScroll && position != -1 && position != lastPosition) {
                         selectItem(true, position);
                         lastPosition = position;
@@ -84,6 +86,10 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
         });
     }
 
+    private void selectMonth(int position) {
+        listener.onDateSelected(adapter.getItem(position));
+    }
+
     private void selectItem(boolean isSelected, int position) {
         adapter.setSelectedPosition(position);
         adapter.notifyDataSetChanged();
@@ -100,7 +106,6 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
     public void onClickView(View v, int adapterPosition) {
         if (adapterPosition != lastPosition) {
             selectItem(true, adapterPosition);
-//            selectItem(false, lastPosition);
             lastPosition = adapterPosition;
         }
     }
@@ -112,6 +117,7 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
 
     @Override
     public void smoothScrollToPosition(int position) {
+        newPosition = position;
         final RecyclerView.SmoothScroller smoothScroller = new CenterSmoothScroller(getContext());
         smoothScroller.setTargetPosition(position);
         post(new Runnable() {
@@ -126,7 +132,9 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
     public void setDate(DateTime date) {
         DateTime today = new DateTime().withTime(0, 0, 0, 0);
         int difference = Days.daysBetween(date, today).getDays() * (date.getYear() < today.getMillis() ? -1 : 1);
-        smoothScrollToPosition(offset + difference);
+        int positionsToScroll = offset + difference;
+        if (positionsToScroll >= 0)
+            smoothScrollToPosition(positionsToScroll);
     }
 
     private static class CenterSmoothScroller extends LinearSmoothScroller {

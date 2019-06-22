@@ -53,7 +53,6 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
     private final String TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG = "COUNT_OF_RUN";
     @BindView(R.id.ibOpenYesterday) ImageButton ibOpenYesterday;
     @BindView(R.id.ibOpenTomorrow) ImageButton ibOpenTomorrow;
-    @BindView(R.id.tvCalendarMonth) TextView tvCalendarMonth;
     @BindView(R.id.pbProt) ProgressBar pbProgressProt;
     @BindView(R.id.pbCarbo) ProgressBar pbProgressCarbo;
     @BindView(R.id.pbFat) ProgressBar pbProgressFat;
@@ -222,7 +221,6 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
             case R.id.ivCalendar:
                 SublimePickerDialogFragment sublimePickerDialogFragment = new SublimePickerDialogFragment();
                 Bundle bundle = new Bundle();
-// put arguments into bundle
                 sublimePickerDialogFragment.setArguments(bundle);
                 sublimePickerDialogFragment.setCancelable(true);
                 sublimePickerDialogFragment.setTargetFragment(this, 0);

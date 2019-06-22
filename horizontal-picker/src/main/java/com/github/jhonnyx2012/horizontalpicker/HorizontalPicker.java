@@ -79,9 +79,9 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
     public void init() {
         inflate(getContext(), R.layout.horizontal_picker, this);
         rvDays = findViewById(R.id.rvDays);
-        int DEFAULT_DAYS_TO_PLUS = 120;
+        int DEFAULT_DAYS_TO_PLUS = 360;
         int finalDays = days == NO_SETTED ? DEFAULT_DAYS_TO_PLUS : days;
-        int DEFAULT_INITIAL_OFFSET = 7;
+        int DEFAULT_INITIAL_OFFSET = 120;
         int finalOffset = offset == NO_SETTED ? DEFAULT_INITIAL_OFFSET : offset;
 
         tvMonth = findViewById(R.id.tvMonth);
@@ -137,6 +137,9 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
 
     @Override
     public void onDateSelected(Day item) {
+        if (item == null)
+            return;
+
         int month = Integer.parseInt(item.getNumericMonth());
         tvMonth.setText(getResources().getStringArray(R.array.monthList)[month - 1]);
         if (listener != null) {
