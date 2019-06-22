@@ -21,13 +21,13 @@ import com.wsoteam.diet.Recipes.v2.RecipeActivity;
 
 import java.util.List;
 
-public class AddedRecipeAdapter extends RecyclerView.Adapter<AddedRecipeAdapter.AddedRecipeViewHolder>{
+public class AddedRecipeAdapter extends RecyclerView.Adapter<AddedRecipeAdapter.AddedRecipeViewHolder> {
 
     List<RecipeItem> listRecipes;
     Context context;
     Activity activity;
 
-    public AddedRecipeAdapter(List<RecipeItem> recipeItems, Activity activity, Context context){
+    public AddedRecipeAdapter(List<RecipeItem> recipeItems, Activity activity, Context context) {
         this.listRecipes = recipeItems;
         this.activity = activity;
         this.context = context;

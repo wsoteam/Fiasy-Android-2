@@ -13,28 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
-import com.wsoteam.diet.Config;
-import com.wsoteam.diet.ObjectHolder;
-import com.wsoteam.diet.POJOS.ItemRecipes;
-import com.wsoteam.diet.POJOS.ListOfGroupsRecipes;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
-import com.wsoteam.diet.Recipes.v1.ListRecipesAdapter;
 import com.wsoteam.diet.Sync.UserDataHolder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,8 +56,8 @@ public class ListAddedRecipeFragment extends Fragment {
     }
 
 
-    private void updateUI(List<RecipeItem> recipeItems){
-        if (recipeItems == null || recipeItems.size() ==0){
+    private void updateUI(List<RecipeItem> recipeItems) {
+        if (recipeItems == null || recipeItems.size() == 0) {
             recyclerView.setAdapter(null);
             list = new ArrayList<>();
             layout.setVisibility(View.VISIBLE);
@@ -84,8 +69,8 @@ public class ListAddedRecipeFragment extends Fragment {
         }
     }
 
-    private void initial(){
-        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getRecipes() != null){
+    private void initial() {
+        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getRecipes() != null) {
             recipesHashMap = UserDataHolder.getUserData().getRecipes();
             list = new ArrayList<>(recipesHashMap.values());
             updateUI(list);
@@ -94,19 +79,19 @@ public class ListAddedRecipeFragment extends Fragment {
         }
     }
 
-    private void search(String str){
+    private void search(String str) {
         String key = str.toLowerCase();
         List<RecipeItem> result = new ArrayList<>();
 
-        if (key.equals("") || list == null){
-           initial();
+        if (key.equals("") || list == null) {
+            initial();
         } else {
-                for (RecipeItem recipe : list) {
-                    if (recipe.getName().toLowerCase().contains(key)) {
-                        result.add(recipe);
-                    }
-                    recyclerView.setAdapter(new AddedRecipeAdapter(result, getActivity(), getContext()));
+            for (RecipeItem recipe : list) {
+                if (recipe.getName().toLowerCase().contains(key)) {
+                    result.add(recipe);
+                }
             }
+            recyclerView.setAdapter(new AddedRecipeAdapter(result, getActivity(), getContext()));
         }
     }
 }

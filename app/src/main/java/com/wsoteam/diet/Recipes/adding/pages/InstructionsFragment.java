@@ -1,4 +1,4 @@
-package com.wsoteam.diet.Recipes.adding;
+package com.wsoteam.diet.Recipes.adding.pages;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,9 +19,9 @@ import android.widget.TextView;
 
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,23 +47,7 @@ public class InstructionsFragment extends Fragment {
 
         recipeItem = ((AddingRecipeActivity)getActivity()).getRecipeItem();
         listInstructions = recipeItem.getInstruction();
-
-        List<String> instructions = recipeItem.getInstruction();
-        listView = new LinkedList<>();
-
-        if (instructions != null ){
-            for (String str:
-                 instructions) {
-               onAddField();
-            }
-
-           for(int i = 0; i < listView.size(); i++){
-               Log.d("testresult"," " + i);
-               initRow(listView.get(i), instructions.get(i));
-               Log.d("testresult", instructions.get(i));
-           }
-        }
-
+        listView = new ArrayList<>();
 
         return view;
     }
@@ -80,12 +64,9 @@ public class InstructionsFragment extends Fragment {
         TextView positionTextView = rowView.findViewById(R.id.tvPosition);
         EditText editText = rowView.findViewById(R.id.etInstruction);
 
-
-
         listView.add(rowView);
         int index = listView.indexOf(rowView);
         listInstructions.add("");
-
 
         positionTextView.setText(String.valueOf(listView.indexOf(rowView) + 1));
         delButton.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +85,7 @@ public class InstructionsFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 listInstructions.set(index, charSequence.toString());
+                ((AddingRecipeActivity) getActivity()).updateUI();
             }
 
             @Override
@@ -123,7 +105,6 @@ public class InstructionsFragment extends Fragment {
             TextView textView = views.get(i).findViewById(R.id.tvPosition);
             textView.setText(String.valueOf(i + 1));
         }
-
     }
 
     private void onDelete(View v) {
@@ -132,27 +113,6 @@ public class InstructionsFragment extends Fragment {
         listView.remove(v.getParent());
         listInstructions.remove(index);
         updatePositions(listView);
-    }
-
-    private void initRow(View v, String str){
-        EditText editText = v.findViewById(R.id.etInstruction);
-        editText.setText(str);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("testresult", "412345");
-        List<String>  list = new ArrayList<>();
-        for (View view:
-             listView) {
-            EditText editText = view.findViewById(R.id.etInstruction);
-            String text = editText.getText().toString();
-            if (text.length() > 0) {
-                list.add(text);
-                Log.d("testresult", text);
-            }
-        }
-        recipeItem.setInstruction(list);
+        ((AddingRecipeActivity) getActivity()).updateUI();
     }
 }

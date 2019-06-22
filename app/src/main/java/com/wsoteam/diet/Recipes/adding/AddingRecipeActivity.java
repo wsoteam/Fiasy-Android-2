@@ -1,7 +1,6 @@
 package com.wsoteam.diet.Recipes.adding;
 
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -21,9 +20,12 @@ import android.widget.Button;
 
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
-import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.Recipes.adding.pages.IngredientsFragment;
+import com.wsoteam.diet.Recipes.adding.pages.InstructionsFragment;
+import com.wsoteam.diet.Recipes.adding.pages.MainFragment;
+import com.wsoteam.diet.Recipes.adding.pages.ResultFragment;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import java.util.ArrayList;
@@ -103,7 +105,6 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
                         btnNext.setVisibility(View.INVISIBLE);
                         btnOk.setVisibility(View.VISIBLE);
                         mToolbar.setTitle("Сохранить рецепт");
-                        ((ResultFragment)fragmentList.get(3)).updateUI();
                         break;
                 }
 
@@ -130,7 +131,6 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         mToolbar.setTitle(R.string.recipeToolBarTitle);
         mToolbar.inflateMenu(R.menu.adding_recipe_menu);
         mToolbar.setTitleTextColor(0xFFFFFFFF);
-        setSupportActionBar(mToolbar);
 
         Menu menu = mToolbar.getMenu();
         MenuItem btnClose = menu.findItem(R.id.close);
@@ -175,7 +175,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
             case R.id.ingredientsLayoutIn:
                 vpPager.setCurrentItem(1);
                 break;
-            case R.id.instructionsLayout:
+            case R.id.instructionsLayoutIn:
                 vpPager.setCurrentItem(2);
                 break;
         }
@@ -228,7 +228,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         recipeItem.setPortions((int) portion);
         WorkWithFirebaseDB.addUserRecipe(recipeItem);
 
-        AlertDialog alertDialog = AddRecipeAlertDialog.createChoiseEatingAlertDialog(this);
+        AlertDialog alertDialog = AddRecipeAlertDialog.createChoiceEatingAlertDialog(this);
         alertDialog.show();
         new CountDownTimer(800, 100) {
             @Override
@@ -240,5 +240,9 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
                 onBackPressed();
             }
         }.start();
+    }
+
+    public void updateUI(){
+        ((ResultFragment)fragmentList.get(3)).updateUI();
     }
 }

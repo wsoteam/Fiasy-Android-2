@@ -1,4 +1,4 @@
-package com.wsoteam.diet.Recipes.adding;
+package com.wsoteam.diet.Recipes.adding.pages;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import android.widget.Switch;
 
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,6 +72,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 recipeItem.setName(s.toString());
+                ((AddingRecipeActivity) getActivity()).updateUI();
             }
 
             @Override
@@ -89,6 +90,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 recipeItem.setPortions(Integer.parseInt(s.toString()));
+                ((AddingRecipeActivity) getActivity()).updateUI();
             }
 
             @Override
@@ -106,6 +108,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 recipeItem.setTime(Integer.parseInt(s.toString()));
+                ((AddingRecipeActivity) getActivity()).updateUI();
             }
 
             @Override
@@ -118,6 +121,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 recipeItem.setComplexity(complexitySpinner.getSelectedItem().toString());
+                ((AddingRecipeActivity) getActivity()).updateUI();
             }
 
             @Override

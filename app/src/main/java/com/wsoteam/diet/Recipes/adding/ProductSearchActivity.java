@@ -89,17 +89,8 @@ public class ProductSearchActivity extends AppCompatActivity {
             }
         });
 
-
-//        Amplitude.getInstance().logEvent(AmplitudaEvents.view_search_food);
-
     }
 
-    private void speak() {
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH); // намерение для вызова формы обработки речи (ОР)
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM); // сюда он слушает и запоминает
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "What can you tell me?");
-        startActivityForResult(intent, 1234); // вызываем активность ОР
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -185,25 +176,6 @@ public class ProductSearchActivity extends AppCompatActivity {
         }
     }
 
-    private List<Food> shuffleList(CharSequence charSequence, List<Food> recievedListFood) {
-        List<Food> cFOODS = recievedListFood;
-        for (int i = 0; i < recievedListFood.size(); i++) {
-            if (cFOODS.get(i).getBrand() != null
-                    && cFOODS.get(i).getName().replace(" (" + cFOODS.get(i).getBrand() + ")", "").
-                    equalsIgnoreCase(charSequence.toString() + " ")) {
-                Food bubble = cFOODS.get(i);
-                cFOODS.remove(i);
-                cFOODS.add(0, bubble);
-            }
-            if (cFOODS.get(i).getBrand() == null && cFOODS.get(i).getName().equalsIgnoreCase(charSequence.toString() + " ")) {
-                Food bubble = cFOODS.get(i);
-                cFOODS.remove(i);
-                cFOODS.add(0, bubble);
-            }
-        }
-        return cFOODS;
-    }
-
     public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.tvNameOfFood) TextView tvNameOfFood;
         @BindView(R.id.tvCalories) TextView tvCalories;
@@ -249,9 +221,6 @@ public class ProductSearchActivity extends AppCompatActivity {
             counter = -1;
         }
 
-        public List<Food> getFoods() {
-            return foods;
-        }
 
         @NonNull
         @Override
@@ -431,6 +400,4 @@ public class ProductSearchActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

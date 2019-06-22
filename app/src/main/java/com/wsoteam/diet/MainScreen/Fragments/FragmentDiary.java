@@ -182,7 +182,7 @@ public class FragmentDiary extends Fragment {
                 vpEatingTimeLine.setCurrentItem(vpEatingTimeLine.getCurrentItem() + 1);
                 break;
             case R.id.fabAddEating:
-                /*AlertDialogChoiseEating.createChoiseEatingAlertDialog(getActivity(),
+                /*AlertDialogChoiseEating.createChoiceEatingAlertDialog(getActivity(),
                         tvDateForMainScreen.getText().toString()).show();*/
                 Intercom.client().displayMessenger();
                 break;
