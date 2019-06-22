@@ -74,13 +74,6 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         vpPager.setAdapter(adapterViewPager);
         vpPager.setOffscreenPageLimit(4);
 
-//        vpPager.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                return true;
-//            }
-//        });
-
 
         vpPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -118,16 +111,12 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
 
             @Override
             public void onPageSelected(int i) {
-
-
             }
 
             @Override
             public void onPageScrollStateChanged(int i) {
-
             }
         });
-
 
         wormDotsIndicator.setDotsClickable(false);
         wormDotsIndicator.setViewPager(vpPager);
@@ -152,7 +141,6 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
                 return false;
             }
         });
-
     }
 
     public RecipeItem getRecipeItem(){
@@ -220,8 +208,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
 
     public void saveRecipe(RecipeItem recipeItem, List<Food> foods){
 
-
-        double prot = 0.0, fats = 0.0, carbo = 0.0, portion = 0.0;
+        double prot = 0.0, fats = 0.0, carbo = 0.0, cal = 0.0, portion = 0.0;
         List<String> ingredients = new ArrayList<>();
         for (Food food:
              foods) {
@@ -229,6 +216,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
             prot = prot + food.getProteins();
             fats = fats + food.getFats();
             carbo = carbo + food.getCarbohydrates();
+            cal = cal + food.getCalories();
             portion = portion + food.getPortion();
         }
 
@@ -236,20 +224,15 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         recipeItem.setProteins(prot);
         recipeItem.setFats(fats);
         recipeItem.setCarbohydrates(carbo);
+        recipeItem.setCalories((int) cal);
         recipeItem.setPortions((int) portion);
         WorkWithFirebaseDB.addUserRecipe(recipeItem);
-
-        Intent intent = new Intent();
-        intent.putExtra(Config.RECIPE_ITEM_INTENT, recipeItem);
-        setResult(RESULT_OK, intent);
 
         AlertDialog alertDialog = AddRecipeAlertDialog.createChoiseEatingAlertDialog(this);
         alertDialog.show();
         new CountDownTimer(800, 100) {
             @Override
-            public void onTick(long millisUntilFinished) {
-
-            }
+            public void onTick(long millisUntilFinished) { }
 
             @Override
             public void onFinish() {
@@ -257,7 +240,5 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
                 onBackPressed();
             }
         }.start();
-
     }
-
 }

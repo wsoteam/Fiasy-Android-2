@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Recipes.v2.RecipeActivity;
@@ -71,12 +73,13 @@ public class AddedRecipeAdapter extends RecyclerView.Adapter<AddedRecipeAdapter.
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    Intent intent;
-//
-//                    intent = new Intent(activity, RecipeActivity.class);
-//
-//                    intent.putExtra(Config.RECIPE_INTENT, listRecipes.get(getAdapterPosition()));
-//                    activity.startActivity(intent);
+                    Intent intent;
+
+                    intent = new Intent(activity, RecipeActivity.class);
+
+                    Log.d("fr", "onClick: " + listRecipes.size() + getAdapterPosition());
+                    intent.putExtra(Config.RECIPE_INTENT, listRecipes.get(getAdapterPosition()));
+                    activity.startActivity(intent);
                 }
             });
         }

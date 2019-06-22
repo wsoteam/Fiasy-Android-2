@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -47,6 +48,8 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
     @BindView(R.id.tvTime) TextView tvTime;
     @BindView(R.id.llIngedientsItem) LinearLayout llIngredients;
     @BindView(R.id.llInstructions) LinearLayout llInstructions;
+    @BindView(R.id.cvIngedients) CardView cvIngredients;
+    @BindView(R.id.cvInstructions) CardView cvInstructions;
     @BindView(R.id.tvCarbohydrates) TextView tvCarbohydrates;
     @BindView(R.id.tvCellulose) TextView tvCellulose;
     @BindView(R.id.tvSugar) TextView tvSugar;
@@ -105,33 +108,41 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
         });
 
 
-        int indexIngredients = 0;
-        int borderIngredients = recipeItem.getIngredients().size();
-        for (String ingredient :
-                recipeItem.getIngredients()) {
-            indexIngredients++;
-            View view = getLayoutInflater().inflate(R.layout.plan_recipes_ingredient, null);
-            View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
-            line.setPadding(0, 0, 0, 0);
-            TextView textView = view.findViewById(R.id.tvIngredient);
-            textView.setText(ingredient);
-            llIngredients.addView(view);
-            if (indexIngredients < borderIngredients){ llIngredients.addView(line);}
-        }
+        if (recipeItem.getIngredients() != null) {
+            int indexIngredients = 0;
+            int borderIngredients = recipeItem.getIngredients().size();
+            for (String ingredient :
+                    recipeItem.getIngredients()) {
+                indexIngredients++;
+                View view = getLayoutInflater().inflate(R.layout.plan_recipes_ingredient, null);
+                View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
+                line.setPadding(0, 0, 0, 0);
+                TextView textView = view.findViewById(R.id.tvIngredient);
+                textView.setText(ingredient);
+                llIngredients.addView(view);
+                if (indexIngredients < borderIngredients) {
+                    llIngredients.addView(line);
+                }
+            }
+        } else {cvIngredients.setVisibility(View.GONE);}
 
-        int indexInstruction = 0;
-        int borderInstruction = recipeItem.getInstruction().size();
-        for (String instruction :
-                recipeItem.getInstruction()) {
-            indexInstruction++;
-            View view = getLayoutInflater().inflate(R.layout.plan_recipes_instruction, null);
-            View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
-            line.setPadding(dpToPx(70), 0, 0, 0);
-            TextView textView = view.findViewById(R.id.tvInstruction);
-            textView.setText(instruction);
-            llInstructions.addView(view);
-            if (indexInstruction < borderInstruction){ llInstructions.addView(line);}
-        }
+        if (recipeItem.getInstruction() != null) {
+            int indexInstruction = 0;
+            int borderInstruction = recipeItem.getInstruction().size();
+            for (String instruction :
+                    recipeItem.getInstruction()) {
+                indexInstruction++;
+                View view = getLayoutInflater().inflate(R.layout.plan_recipes_instruction, null);
+                View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
+                line.setPadding(dpToPx(70), 0, 0, 0);
+                TextView textView = view.findViewById(R.id.tvInstruction);
+                textView.setText(instruction);
+                llInstructions.addView(view);
+                if (indexInstruction < borderInstruction) {
+                    llInstructions.addView(line);
+                }
+            }
+        } else {cvInstructions.setVisibility(View.GONE);}
 
         String url = recipeItem.getUrl();
         if (url == null || url.equals("link")) {

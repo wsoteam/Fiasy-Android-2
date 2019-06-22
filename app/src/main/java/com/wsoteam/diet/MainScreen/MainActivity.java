@@ -43,6 +43,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
+import com.wsoteam.diet.Recipes.adding.ListAddedRecipeFragment;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 
 import java.util.Calendar;
@@ -110,8 +111,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.bnv_main_trainer:
                     box.setComeFrom(AmplitudaEvents.view_prem_training);
                     box.setBuyFrom(AmplitudaEvents.buy_prem_training);
-                    if (checkSubscribe()) {
-                        transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
+                    if (true) {
+                            transaction.replace(R.id.flFragmentContainer, new ListAddedRecipeFragment()).commit();
+//                        transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
                         if (getABVersion().equals(ABConfig.C_VERSION)) {
                             transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.

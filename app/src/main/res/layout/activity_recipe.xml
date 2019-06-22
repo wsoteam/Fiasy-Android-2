@@ -111,6 +111,7 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/cvIngedients"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:cardUseCompatPadding="true">
@@ -166,6 +167,7 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/cvInstructions"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:cardUseCompatPadding="true">
@@ -175,8 +177,8 @@
                     android:id="@+id/llInstructions"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:layout_marginTop="20dp"
+                    android:orientation="vertical"
                     android:paddingBottom="20dp">
 
                 </LinearLayout>

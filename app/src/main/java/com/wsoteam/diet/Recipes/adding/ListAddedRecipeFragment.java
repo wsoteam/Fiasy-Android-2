@@ -44,6 +44,21 @@ public class ListAddedRecipeFragment extends Fragment {
     @BindView(R.id.rvRecipes) RecyclerView recyclerView;
 
     List<RecipeItem> list;
+    HashMap<String, RecipeItem> recipesHashMap;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getRecipes() != null){
+            recipesHashMap = UserDataHolder.getUserData().getRecipes();
+            list = new ArrayList<>(recipesHashMap.values());
+            updateUI(list);
+        } else {
+            updateUI(null);
+        }
+
+    }
 
     @Nullable
     @Override
@@ -51,51 +66,27 @@ public class ListAddedRecipeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list_added_recipe,
                 container, false);
         ButterKnife.bind(this, view);
-
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerView.setAdapter(null);
-
-        HashMap<String, RecipeItem> recipes = UserDataHolder.getUserData().getRecipes();
-
-       if (recipes == null){
-           recyclerView.setAdapter(null);
-           Log.d("fr", "onCreateView: NULL");
-       } else {
-
-           Log.d("fr", "onCreateView: OK");
-           list = new ArrayList<>(recipes.values());
-           updateUI(list);
-       }
         return view;
     }
 
     @OnClick({R.id.btnAddRecipe})
     public void onViewClicked(View view) {
         Intent intent = new Intent(getActivity(), AddingRecipeActivity.class);
-        startActivityForResult(intent, Config.ADD_NEW_RECIPE_RESULT_CODE);
+        startActivity(intent);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case Config.ADD_NEW_RECIPE_RESULT_CODE:
-                if (resultCode == getActivity().RESULT_OK) {
-                    Bundle bundle = data.getExtras();
-                    if (bundle != null){
-                        RecipeItem recipeItem = (RecipeItem) bundle.get(Config.RECIPE_ITEM_INTENT);
-                        Log.d("fr", "onActivityResult: " + recipeItem.getName());
-                        if (list != null){
-                            list.add(0, recipeItem);
-                            updateUI(list);
-                        }
-                    }
-                }
-                break;
-        }
-    }
 
     private void updateUI(List<RecipeItem> recipeItems){
-        recyclerView.setAdapter(new AddedRecipeAdapter(recipeItems, getActivity(), getContext()));
+        if (recipeItems == null || recipeItems.size() ==0){
+            recyclerView.setAdapter(null);
+            list = new ArrayList<>();
+            layout.setVisibility(View.VISIBLE);
+            Log.d("fr", "onCreateView: NULL");
+        } else {
+            Log.d("fr", "onCreateView: OK");
+            layout.setVisibility(View.INVISIBLE);
+            recyclerView.setAdapter(new AddedRecipeAdapter(recipeItems, getActivity(), getContext()));
+        }
     }
-
 }
