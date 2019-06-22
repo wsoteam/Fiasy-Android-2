@@ -14,7 +14,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -325,7 +324,7 @@ public class ProductSearchActivity extends AppCompatActivity {
         TextView carboTextView = alertLayout.findViewById(R.id.tvActivityDetailOfFoodCalculateCarbo);
         TextView fatTextView = alertLayout.findViewById(R.id.tvActivityDetailOfFoodCalculateFat);
         TextView proteinTextView = alertLayout.findViewById(R.id.tvActivityDetailOfFoodCalculateProtein);
-        Button saveButton = alertLayout.findViewById(R.id.btnSaveEating);
+        Button saveButton = alertLayout.findViewById(R.id.btnAddRecipe);
         ImageButton closeButton = alertLayout.findViewById(R.id.btnClose);
 
         portionEditText.setText("100");

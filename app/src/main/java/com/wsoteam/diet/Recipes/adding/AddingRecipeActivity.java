@@ -1,33 +1,28 @@
 package com.wsoteam.diet.Recipes.adding;
 
-import android.content.Intent;
+
 import android.graphics.Color;
-import android.support.annotation.Nullable;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
-import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -60,7 +55,10 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_adding_recipe);
         ButterKnife.bind(this);
 
+        List<String> instruction = new ArrayList<>();
+
         recipeItem = new RecipeItem();
+        recipeItem.setInstruction(instruction);
         foods = new ArrayList<>();
 
         fragmentList = new LinkedList<>();
@@ -173,7 +171,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
                 vpPager.setCurrentItem(vpPager.getCurrentItem() + 1);
                 break;
             case R.id.btnOk:
-                saveRecipe(recipeItem);
+                saveRecipe(recipeItem, foods);
                 break;
         }
     }
@@ -184,7 +182,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
             case R.id.mainLayout:
                 vpPager.setCurrentItem(0);
                 break;
-            case R.id.ingredientsLayout:
+            case R.id.ingredientsLayoutIn:
                 vpPager.setCurrentItem(1);
                 break;
             case R.id.instructionsLayout:
@@ -218,12 +216,42 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-    public void saveRecipe(RecipeItem recipeItem){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
-                child(UID).child("recipes");
-        myRef.push().setValue(recipeItem);
+    public void saveRecipe(RecipeItem recipeItem, List<Food> foods){
+
+
+        double prot = 0.0, fats = 0.0, carbo = 0.0, portion = 0.0;
+        List<String> ingredients = new ArrayList<>();
+        for (Food food:
+             foods) {
+            ingredients.add(food.getName());
+            prot = prot + food.getProteins();
+            fats = fats + food.getFats();
+            carbo = carbo + food.getCarbohydrates();
+            portion = portion + food.getPortion();
+        }
+
+        recipeItem.setIngredients(ingredients);
+        recipeItem.setProteins(prot);
+        recipeItem.setFats(fats);
+        recipeItem.setCarbohydrates(carbo);
+        recipeItem.setPortions((int) portion);
+        WorkWithFirebaseDB.addUserRecipe(recipeItem);
+
+        AlertDialog alertDialog = AddRecipeAlertDialog.createChoiseEatingAlertDialog(this);
+        alertDialog.show();
+        new CountDownTimer(800, 100) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                alertDialog.dismiss();
+                onBackPressed();
+            }
+        }.start();
+
     }
 
 }

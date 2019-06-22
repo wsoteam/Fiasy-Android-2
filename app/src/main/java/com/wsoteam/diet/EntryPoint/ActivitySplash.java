@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -50,6 +51,7 @@ import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.presentation.intro.IntroActivity;
 import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
+import com.wsoteam.diet.tvoytrener.ForTestFragmentActivity;
 
 import java.util.Calendar;
 import java.util.List;
@@ -80,11 +82,11 @@ public class ActivitySplash extends BaseActivity {
             Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
         }
 
-        startActivity(new Intent(this, AddingRecipeActivity.class));
-//        FacebookSdk.sdkInitialize(getApplicationContext());
-//        AppEventsLogger.activateApp(this);
-//        checkFirstLaunch();
-//        checkRegistrationAndRun();
+//        startActivity(new Intent(this, ForTestFragmentActivity.class));
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+        checkFirstLaunch();
+        checkRegistrationAndRun();
     }
 
     private void checkRegistrationAndRun() {
@@ -97,13 +99,14 @@ public class ActivitySplash extends BaseActivity {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                     child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
+            Log.d("fr", "checkRegistrationAndRun: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
             myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
                     checkBilling();
-                    startActivity(new Intent(ActivitySplash.this, MainActivity.class));
+                    startActivity(new Intent(ActivitySplash.this, ForTestFragmentActivity.class));
+//                    startActivity(new Intent(ActivitySplash.this, MainActivity.class));
                     finish();
                 }
 

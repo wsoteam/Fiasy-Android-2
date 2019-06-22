@@ -1,6 +1,12 @@
 <resources>
 
     <!--adding recipe-->
+    <string name="addRecipe">Добавить рецепт</string>
+    <string name="recipes">Рецепты</string>
+    <string name="addingRecipeTxt">Здесь вы можете создать и сохранить набор продуктов, который употребляете ежедневно в определенный прием пищи</string>
+    <string name="alertDialogSuccess">Рецепт сохранен</string>
+    <string name="instructions">Инструкции</string>
+    <string name="ingredients">Ингридиенты</string>
     <string name="addingRecipePortionV">Вес:</string>
     <string name="addingRecipeAddInstruction">Добавить шаг</string>
     <string name="addingRecipeAddIngredient">Добавить ингридиент</string>

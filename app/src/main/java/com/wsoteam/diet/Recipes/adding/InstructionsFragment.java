@@ -46,8 +46,7 @@ public class InstructionsFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         recipeItem = ((AddingRecipeActivity)getActivity()).getRecipeItem();
-        listInstructions = new ArrayList<>();
-        recipeItem.setInstruction(listInstructions);
+        listInstructions = recipeItem.getInstruction();
 
         List<String> instructions = recipeItem.getInstruction();
         listView = new LinkedList<>();

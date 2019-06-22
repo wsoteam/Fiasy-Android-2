@@ -26,8 +26,8 @@ public class ResultFragment extends Fragment {
 
 
     @BindView(R.id.mainLayout) LinearLayout mainLayout;
-    @BindView(R.id.ingredientsLayout) LinearLayout ingredientsLayout;
-    @BindView(R.id.instructionsLayout) LinearLayout instructionsLayout;
+    @BindView(R.id.ingredientsLayoutIn) LinearLayout ingredientsLayout;
+    @BindView(R.id.instructionsLayoutIn) LinearLayout instructionsLayout;
     @BindView(R.id.tvNameRecipe) TextView nameTextView;
     @BindView(R.id.tvTimeRecipe) TextView timeTextView;
     @BindView(R.id.tvComplexity) TextView complexityTextView;
@@ -72,30 +72,38 @@ public class ResultFragment extends Fragment {
         complexityTextView.setText(String.valueOf(recipeItem.getComplexity()));
 
         ingredientsLayout.removeAllViews();
-        for (Food food:
-             foodList) {
-            onAddField(food);
+        instructionsLayout.removeAllViews();
+
+        for (String str:
+             recipeItem.getInstruction()) {
+            onAddFieldInstruction(str);
+            Log.d("testresult", "updateUI: " + str);
         }
 
-        for (String string: recipeItem.getInstruction()){
-            Log.d("testresult", "updateUI: " + string);
+        for (Food food:
+             foodList) {
+            onAddFieldIngredient(food);
         }
 
     }
 
-    private void onAddField(Food food){
+    private void onAddFieldIngredient(Food food){
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View rowView = inflater.inflate(R.layout.adding_recipe_ingredients_item, null);
-        TextView nameTextView = rowView.findViewById(R.id.tvName);
-        TextView portionTextView = rowView.findViewById(R.id.tvPortion);
-        TextView caloriesTextView = rowView.findViewById(R.id.tvCalories);
+        final View rowView = inflater.inflate(R.layout.adding_recipe_ingredients_result, null);
+        TextView nameTextView = rowView.findViewById(R.id.tvIngredintName);
+        TextView portionTextView = rowView.findViewById(R.id.tvIngredientPortion);
 
         nameTextView.setText(food.getName());
         portionTextView.setText(String.valueOf((int)food.getPortion()) + " г");
-        caloriesTextView.setText(String.valueOf((int)food.getCalories()) + " Ккал");
-
         ingredientsLayout.addView(rowView);
+    }
 
+    private void onAddFieldInstruction(String  str){
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View rowView = inflater.inflate(R.layout.adding_recipe_instructions_result, null);
+        TextView textView = rowView.findViewById(R.id.tvInstruction);
+        textView.setText(str);
+       instructionsLayout.addView(rowView);
     }
 
 

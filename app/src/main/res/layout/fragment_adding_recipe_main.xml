@@ -30,8 +30,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
+        android:inputType="number"
         android:hint="@string/addingRecipePortion"
-        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNameRecipe"
@@ -46,7 +46,7 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/addingRecipeTime"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPortionsRecipe"
@@ -99,4 +99,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView135" />
+
 </android.support.constraint.ConstraintLayout>

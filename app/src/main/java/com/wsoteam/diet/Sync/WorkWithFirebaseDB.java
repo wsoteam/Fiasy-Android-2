@@ -31,6 +31,7 @@ import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.POJO.WeightDiaryObject;
 
@@ -166,6 +167,13 @@ public class WorkWithFirebaseDB {
 
             }
         });
+    }
+
+    public static void addUserRecipe(RecipeItem recipeItem) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("recipes");
+        myRef.push().setValue(recipeItem);
     }
 
 

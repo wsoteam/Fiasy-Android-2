@@ -316,12 +316,12 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     }
 
-    @OnClick({R.id.btnSaveEating, R.id.ivBack, R.id.ibSheetClose, R.id.btnReg, R.id.btnPremCell, R.id.btnPremCholy,
+    @OnClick({R.id.btnAddRecipe, R.id.ivBack, R.id.ibSheetClose, R.id.btnReg, R.id.btnPremCell, R.id.btnPremCholy,
             R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremPot, R.id.btnPremSaturated, R.id.btnPremSod,
             R.id.btnPremSugar})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnSaveEating:
+            case R.id.btnAddRecipe:
                 if (edtWeight.getText().toString().equals("") || edtWeight.getText().toString().equals(" ")) {
                     Toast.makeText(ProductDetailActivity.this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
                 } else {

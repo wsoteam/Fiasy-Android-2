@@ -118,7 +118,7 @@
             <LinearLayout
                 android:id="@+id/ingredientsLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:orientation="vertical">
 
@@ -128,25 +128,41 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
                     android:paddingTop="10dp"
-                    android:text="Ингридиенты"
+                    android:text="@string/ingredients"
                     android:textColor="@color/b_color"
                     android:textSize="18sp"
                     tools:text="Ингридиенты" />
+
+                <LinearLayout
+                    android:id="@+id/ingredientsLayoutIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"></LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/instructionsLayout"
                 android:layout_width="match_parent"
-                android:layout_height="274dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textView149"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="TextView"
+                    android:text="@string/instructions"
+                    android:textSize="18sp"
+                    android:paddingTop="10dp"
                     android:textColor="@color/b_color"
                     tools:text="Инструкция" />
+
+                <LinearLayout
+                    android:id="@+id/instructionsLayoutIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp"></LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

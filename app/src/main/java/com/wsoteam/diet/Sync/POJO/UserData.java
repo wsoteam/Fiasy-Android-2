@@ -9,6 +9,7 @@ import com.wsoteam.diet.POJOProfile.CheckInfo.CheckHistory;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -26,11 +27,12 @@ public class UserData implements Serializable {
     private HashMap<String, Dinner> dinners;
     private HashMap<String, Snack> snacks;
     private HashMap<String, WeightDiaryObject> diaryDataList;
+    private HashMap<String, RecipeItem> recipes;
 
     public UserData() {
     }
 
-    public UserData(String name, Profile profile, SubInfo subInfo, TrackInfo trackInfo, CheckHistory checkHistory, HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners, HashMap<String, Snack> snacks, HashMap<String, WeightDiaryObject> diaryDataList) {
+    public UserData(String name, Profile profile, SubInfo subInfo, TrackInfo trackInfo, CheckHistory checkHistory, HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners, HashMap<String, Snack> snacks, HashMap<String, WeightDiaryObject> diaryDataList, HashMap<String, RecipeItem> recipes) {
         this.name = name;
         this.profile = profile;
         this.subInfo = subInfo;
@@ -41,6 +43,7 @@ public class UserData implements Serializable {
         this.dinners = dinners;
         this.snacks = snacks;
         this.diaryDataList = diaryDataList;
+        this.recipes = recipes;
     }
 
     public SubInfo getSubInfo() {
@@ -121,5 +124,13 @@ public class UserData implements Serializable {
 
     public void setCheckHistory(CheckHistory checkHistory) {
         this.checkHistory = checkHistory;
+    }
+
+    public HashMap<String, RecipeItem> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(HashMap<String, RecipeItem> recipes) {
+        this.recipes = recipes;
     }
 }
