@@ -192,7 +192,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         tvKcal.setText(String.valueOf(Math.round(foodItem.getCalories() * 100)));
         tvDj.setText(String.valueOf(Math.round(foodItem.getKilojoules() * 100)));
 
-        if (foodItem.getBrand() != null) {
+        if (foodItem.getBrand() != null && !foodItem.getBrand().equals("")) {
             tvBrand.setText("(" + foodItem.getBrand() + ")");
         }
 
@@ -388,16 +388,15 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                 ClaimForm.createChoiseEatingAlertDialog(this, foodItem);
                 break;
             case R.id.ibAddFavorite:
-                /*if (isFavorite) {
+                if (isFavorite) {
                     isFavorite = false;
                     Glide.with(this).load(R.drawable.ic_empty_favorite).into(ibAddFavorite);
-                    //delete
+                    WorkWithFirebaseDB.deleteFavorite(currentFavorite.getKey());
                 } else {
-                    isFavorite = true;*/
-
-                    addFavorite();
-                //}
-
+                    isFavorite = true;
+                    Glide.with(this).load(R.drawable.ic_fill_favorite).into(ibAddFavorite);
+                    currentFavorite = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), addFavorite());
+                }
                 break;
         }
     }
@@ -427,9 +426,10 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void addFavorite() {
+    private String addFavorite() {
         FavoriteFood favoriteFood = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), "empty");
-        WorkWithFirebaseDB.addFoodFavorite(favoriteFood);
+        String key = WorkWithFirebaseDB.addFoodFavorite(favoriteFood);
+        return key;
     }
 
 }
