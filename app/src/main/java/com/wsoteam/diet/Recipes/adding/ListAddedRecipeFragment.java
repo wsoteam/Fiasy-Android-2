@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -25,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ListAddedRecipeFragment extends Fragment {
+public class ListAddedRecipeFragment extends Fragment implements TabsFragment {
 
     @BindView(R.id.layoutWithButton) ConstraintLayout layout;
     @BindView(R.id.rvRecipes) RecyclerView recyclerView;
@@ -55,6 +56,13 @@ public class ListAddedRecipeFragment extends Fragment {
         startActivity(intent);
     }
 
+    @Override
+    public void sendString(String searchString) {
+        Log.d("fr", "sendString: ");
+        search(searchString);
+
+    }
+
 
     private void updateUI(List<RecipeItem> recipeItems) {
         if (recipeItems == null || recipeItems.size() == 0) {
@@ -80,14 +88,20 @@ public class ListAddedRecipeFragment extends Fragment {
     }
 
     private void search(String str) {
-        String key = str.toLowerCase();
+        String key;
+        if (str != null){
+            key = str.toLowerCase();
+        } else {
+            key = null;
+        }
+
         List<RecipeItem> result = new ArrayList<>();
 
-        if (key.equals("") || list == null) {
+        if (key == null || key.equals("") || list == null) {
             initial();
         } else {
             for (RecipeItem recipe : list) {
-                if (recipe.getName().toLowerCase().contains(key)) {
+                if (recipe.getName() != null && recipe.getName().toLowerCase().contains(key)) {
                     result.add(recipe);
                 }
             }

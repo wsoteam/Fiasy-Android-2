@@ -55,7 +55,7 @@ public class InstructionsFragment extends Fragment {
 
     @OnClick({R.id.btnAddStep})
     public void onViewClicked(View view) {
-        if (listView.size() < 98) {
+        if (listView.size() < 99) {
             onAddField();
         } else {
             Toast.makeText(getContext(),

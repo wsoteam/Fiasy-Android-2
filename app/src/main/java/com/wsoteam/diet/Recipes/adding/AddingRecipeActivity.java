@@ -112,9 +112,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
                         mToolbar.setTitle("Сохранить рецепт");
                         break;
                 }
-
             }
-
             @Override
             public void onPageSelected(int i) {
             }
@@ -217,28 +215,25 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void saveRecipe(RecipeItem recipeItem, List<Food> foods){
-        if (recipeItem.getName() == null || recipeItem.getName().length() < 1){
-            Toast.makeText(getApplicationContext(),
-                    "Введите название рецепта!", Toast.LENGTH_SHORT).show();
-            vpPager.setCurrentItem(0);
+
+        if (!check()){
             return;
         }
 
-        if (foods == null || foods.size() < 1 ){
-            Toast.makeText(getApplicationContext(),
-                    "Введите ингридиенты", Toast.LENGTH_SHORT).show();
-            vpPager.setCurrentItem(1);
-            return;
-        }
+        double prot = 0.0,
+                fats = 0.0,
+                carbo = 0.0,
+                cal = 0.0,
+                portion = 0.0,
 
-        if (recipeItem.getInstruction() == null || recipeItem.getInstruction().size() < 1 ){
-            Toast.makeText(getApplicationContext(),
-                    "Введите шаги приготовления", Toast.LENGTH_SHORT).show();
-            vpPager.setCurrentItem(2);
-            return;
-        }
+                cellulose =0.0,
+                sugar = 0.0,
+                saturFats = 0.0,
+                unsaturFats = 0.0,
+                cholesterol = 0.0,
+                sodium = 0.0,
+                potassium = 0.0;
 
-        double prot = 0.0, fats = 0.0, carbo = 0.0, cal = 0.0, portion = 0.0;
         List<String> ingredients = new ArrayList<>();
         for (Food food:
              foods) {
@@ -248,6 +243,14 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
             carbo = carbo + food.getCarbohydrates();
             cal = cal + food.getCalories();
             portion = portion + food.getPortion();
+
+            cellulose = cellulose + food.getCellulose();
+            sugar = sugar + food.getSugar();
+            saturFats = saturFats + food.getSaturatedFats();
+            unsaturFats = unsaturFats + food.getMonoUnSaturatedFats();
+            cholesterol = cholesterol + food.getCholesterol();
+            sodium = sodium + food.getSodium();
+            potassium = potassium + food.getPottassium();
         }
 
         recipeItem.setIngredients(ingredients);
@@ -256,6 +259,15 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         recipeItem.setCarbohydrates((int) carbo);
         recipeItem.setCalories((int) cal);
         recipeItem.setPortions((int) portion);
+
+        recipeItem.setCellulose((int) cellulose);
+        recipeItem.setSugar((int) sugar);
+        recipeItem.setSaturatedFats((int) saturFats);
+        recipeItem.setUnSaturatedFats((int) unsaturFats);
+        recipeItem.setCholesterol((int) cholesterol);
+        recipeItem.setSodium((int) sodium);
+        recipeItem.setPotassium((int) potassium);
+
         WorkWithFirebaseDB.addUserRecipe(recipeItem);
         if (isShare) {
             WorkWithFirebaseDB.addUsersSharedRecipe(recipeItem);
@@ -275,6 +287,26 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         }.start();
     }
 
+    private boolean check(){
+        if (recipeItem.getName() == null || recipeItem.getName().length() < 1){
+            Toast.makeText(getApplicationContext(),
+                    "Введите название рецепта!", Toast.LENGTH_SHORT).show();
+            vpPager.setCurrentItem(0);
+            return false;
+        } else if (foods == null || foods.size() < 1 ){
+            Toast.makeText(getApplicationContext(),
+                    "Введите ингридиенты", Toast.LENGTH_SHORT).show();
+            vpPager.setCurrentItem(1);
+            return false;
+        } else if (recipeItem.getInstruction() == null || recipeItem.getInstruction().size() < 1 ){
+            Toast.makeText(getApplicationContext(),
+                    "Введите шаги приготовления", Toast.LENGTH_SHORT).show();
+            vpPager.setCurrentItem(2);
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     public void updateUI(){
         ((ResultFragment)fragmentList.get(3)).updateUI();
