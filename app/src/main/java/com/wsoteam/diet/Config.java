@@ -21,8 +21,8 @@ public class Config {
     public static final int RECIPE_EMPTY_WEIGHT = -1;
     public static final String RECIPE_FOOD_INTENT = "RECIPE_FOOD_INTENT";
     public static final int RECIPE_FOOD_FOR_RESULT_CODE = 4987;
-    public static final int ADD_NEW_RECIPE_RESULT_CODE = 4988;
-    public static final String RECIPE_ITEM_INTENT = "RECIPE_ITEM_INTENT";
+   public static final String USERS_RECIPES = "USERS_RECIPES";
+
 
     public static final String ARTICLE_INTENT = "ARTICLE_INTENT";
 

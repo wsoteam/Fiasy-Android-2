@@ -179,6 +179,13 @@ public class WorkWithFirebaseDB {
         myRef.push().setValue(recipeItem);
     }
 
+    public static void addUsersSharedRecipe(RecipeItem recipeItem){
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.USERS_RECIPES);
+        myRef.push().setValue(recipeItem);
+    }
+
 
     public static void saveListRecipesNew(ListRecipes data){
         FirebaseDatabase database = FirebaseDatabase.getInstance();

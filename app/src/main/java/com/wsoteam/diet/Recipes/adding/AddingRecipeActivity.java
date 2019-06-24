@@ -12,11 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
@@ -36,7 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddingRecipeActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddingRecipeActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     @BindView(R.id.btnLeft) Button btnBack;
     @BindView(R.id.btnRight) Button btnNext;
@@ -50,6 +53,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
 
     private RecipeItem recipeItem;
     private List<Food> foods;
+    private boolean isShare;
 
     private Window window;
 
@@ -71,6 +75,8 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         fragmentList.add(new InstructionsFragment());
         fragmentList.add(new ResultFragment());
 
+//        vpPager.onInterceptTouchEvent(null);
+//        vpPager.onTouchEvent(null);
 
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(), fragmentList);
         vpPager.setAdapter(adapterViewPager);
@@ -180,6 +186,11 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        isShare = isChecked;
+    }
+
     public static class MyPagerAdapter extends FragmentPagerAdapter {
         List<Fragment> fragmentList;
 
@@ -206,6 +217,26 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void saveRecipe(RecipeItem recipeItem, List<Food> foods){
+        if (recipeItem.getName() == null || recipeItem.getName().length() < 1){
+            Toast.makeText(getApplicationContext(),
+                    "Введите название рецепта!", Toast.LENGTH_SHORT).show();
+            vpPager.setCurrentItem(0);
+            return;
+        }
+
+        if (foods == null || foods.size() < 1 ){
+            Toast.makeText(getApplicationContext(),
+                    "Введите ингридиенты", Toast.LENGTH_SHORT).show();
+            vpPager.setCurrentItem(1);
+            return;
+        }
+
+        if (recipeItem.getInstruction() == null || recipeItem.getInstruction().size() < 1 ){
+            Toast.makeText(getApplicationContext(),
+                    "Введите шаги приготовления", Toast.LENGTH_SHORT).show();
+            vpPager.setCurrentItem(2);
+            return;
+        }
 
         double prot = 0.0, fats = 0.0, carbo = 0.0, cal = 0.0, portion = 0.0;
         List<String> ingredients = new ArrayList<>();
@@ -226,6 +257,9 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         recipeItem.setCalories((int) cal);
         recipeItem.setPortions((int) portion);
         WorkWithFirebaseDB.addUserRecipe(recipeItem);
+        if (isShare) {
+            WorkWithFirebaseDB.addUsersSharedRecipe(recipeItem);
+        }
 
         AlertDialog alertDialog = AddRecipeAlertDialog.createChoiceEatingAlertDialog(this);
         alertDialog.show();
@@ -240,6 +274,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
             }
         }.start();
     }
+
 
     public void updateUI(){
         ((ResultFragment)fragmentList.get(3)).updateUI();

@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
@@ -54,7 +55,13 @@ public class InstructionsFragment extends Fragment {
 
     @OnClick({R.id.btnAddStep})
     public void onViewClicked(View view) {
-        onAddField();
+        if (listView.size() < 98) {
+            onAddField();
+        } else {
+            Toast.makeText(getContext(),
+                    "Добавленно максимальное коичество!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void onAddField(){
