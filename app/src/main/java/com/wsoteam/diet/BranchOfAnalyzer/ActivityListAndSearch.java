@@ -59,10 +59,9 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() > 2) {
-                    ((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
-                            sendString(charSequence.toString().replaceAll("\\s+", " "));
-                }
+                ((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
+                        sendString(charSequence.toString().replaceAll("\\s+", " "));
+
             }
 
             @Override

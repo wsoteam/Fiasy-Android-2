@@ -50,9 +50,11 @@ public class FragmentSearch extends Fragment implements TabsFragment {
 
     @Override
     public void sendString(String searchString) {
-        isEqualsNext = true;
-        this.searchString = searchString;
-        search(searchString);
+        if (searchString.length() > 2) {
+            isEqualsNext = true;
+            this.searchString = searchString;
+            search(searchString);
+        }
     }
 
     @Nullable
@@ -106,9 +108,9 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     private void refreshAdapter(List<Food> t) {
         itemAdapter = new ItemAdapter(t);
         rvListOfSearchResponse.setAdapter(itemAdapter);
-        if (t.size() > 0){
+        if (t.size() > 0) {
             hideMessageUI();
-        }else {
+        } else {
             showNoFind();
         }
     }

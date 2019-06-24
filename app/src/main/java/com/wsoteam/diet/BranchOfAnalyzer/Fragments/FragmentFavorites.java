@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
@@ -51,10 +52,45 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
     @BindView(R.id.btnAddFavorite) Button btnAddFavorite;
     private FoodDAO foodDAO = App.getInstance().getFoodDatabase().foodDAO();
     private ItemAdapter itemAdapter;
+    private String searchString = "";
 
     @Override
     public void sendString(String searchString) {
+        this.searchString = searchString;
+        search(searchString);
+    }
 
+    private void search(String searchString) {
+        if (foods.size() != 0) {
+            List<Food> correctFoods = new ArrayList<>();
+            for (int i = 0; i < foods.size(); i++) {
+                if (foods.get(i).getFullInfo().toLowerCase().contains(searchString.toLowerCase())) {
+                    correctFoods.add(foods.get(i));
+                }
+            }
+            showResult(correctFoods);
+        }
+    }
+
+    private void showResult(List<Food> correctFoods) {
+        if (correctFoods.size() > 0) {
+            hideMessageUI();
+            itemAdapter = new ItemAdapter(correctFoods);
+            rvFavorites.setAdapter(itemAdapter);
+        } else {
+            showNoFind();
+            itemAdapter = new ItemAdapter(correctFoods);
+            rvFavorites.setAdapter(itemAdapter);
+        }
+    }
+
+    private void showNoFind() {
+        Glide.with(getActivity()).load(R.drawable.ic_no_find).into(ivAddFavorite);
+        tvTitleFavoriteAdd.setText(getActivity().getResources().getString(R.string.title_no_find_food));
+        tvTextAddFavorite.setText(getActivity().getResources().getString(R.string.text_no_find_food));
+        ivAddFavorite.setVisibility(View.VISIBLE);
+        tvTextAddFavorite.setVisibility(View.VISIBLE);
+        tvTitleFavoriteAdd.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -106,14 +142,14 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
             rvFavorites.setAdapter(itemAdapter);
             showStartScreen();
         } else {
-            hideStartScreen();
+            hideMessageUI();
             this.foods = foods;
             itemAdapter = new ItemAdapter(foods);
             rvFavorites.setAdapter(itemAdapter);
         }
     }
 
-    private void hideStartScreen() {
+    private void hideMessageUI() {
         tvTextAddFavorite.setVisibility(View.GONE);
         tvTitleFavoriteAdd.setVisibility(View.GONE);
         ivAddFavorite.setVisibility(View.GONE);
