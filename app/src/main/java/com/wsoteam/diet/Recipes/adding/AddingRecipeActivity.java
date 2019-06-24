@@ -76,7 +76,6 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         vpPager.setAdapter(adapterViewPager);
         vpPager.setOffscreenPageLimit(4);
 
-
         vpPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
