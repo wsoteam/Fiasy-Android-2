@@ -239,18 +239,18 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
              foods) {
             ingredients.add(food.getName());
             prot = prot + food.getProteins();
-            fats = fats + food.getFats();
-            carbo = carbo + food.getCarbohydrates();
-            cal = cal + food.getCalories();
-            portion = portion + food.getPortion();
+            fats = fats + checkValue(food.getFats());
+            carbo = carbo + checkValue(food.getCarbohydrates());
+            cal = cal + checkValue(food.getCalories());
+            portion = portion + checkValue(food.getPortion());
 
-            cellulose = cellulose + food.getCellulose();
-            sugar = sugar + food.getSugar();
-            saturFats = saturFats + food.getSaturatedFats();
-            unsaturFats = unsaturFats + food.getMonoUnSaturatedFats();
-            cholesterol = cholesterol + food.getCholesterol();
-            sodium = sodium + food.getSodium();
-            potassium = potassium + food.getPottassium();
+            cellulose = cellulose + checkValue(food.getCellulose());
+            sugar = sugar + checkValue(food.getSugar());
+            saturFats = saturFats + checkValue(food.getSaturatedFats());
+            unsaturFats = unsaturFats + checkValue(food.getMonoUnSaturatedFats());
+            cholesterol = cholesterol + checkValue(food.getCholesterol());
+            sodium = sodium + checkValue(food.getSodium());
+            potassium = potassium + checkValue(food.getPottassium());
         }
 
         recipeItem.setIngredients(ingredients);
@@ -285,6 +285,14 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
                 onBackPressed();
             }
         }.start();
+    }
+
+    private double checkValue(Double value){
+        if (value > 0){
+            return value;
+        } else{
+            return 0.0;
+        }
     }
 
     private boolean check(){
