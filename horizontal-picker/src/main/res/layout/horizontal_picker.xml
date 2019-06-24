@@ -11,8 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start|center_vertical"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="5dp"
         android:textColor="@android:color/white"
         android:textSize="12sp"
         android:textStyle="bold"/>
@@ -20,7 +20,6 @@
     <com.github.jhonnyx2012.horizontalpicker.HorizontalPickerRecyclerView
         android:id="@+id/rvDays"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_main_calendar"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

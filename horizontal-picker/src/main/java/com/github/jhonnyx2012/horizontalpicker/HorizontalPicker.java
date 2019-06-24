@@ -99,7 +99,7 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         int mBackgroundColor = getBackgroundColor();
         setBackgroundColor(mBackgroundColor != Color.TRANSPARENT ? mBackgroundColor : Color.WHITE);
         mDateSelectedColor = mDateSelectedColor == -1 ? Color.GRAY : mDateSelectedColor;
-        mDateSelectedTextColor = mDateSelectedTextColor == -1 ? Color.WHITE : mDateSelectedTextColor;
+        mDateSelectedTextColor = mDateSelectedTextColor == -1 ? Color.parseColor("#ef7d02") : mDateSelectedTextColor;
         mTodayDateTextColor = mTodayDateTextColor == -1 ? Color.WHITE : mTodayDateTextColor;
         mDayOfWeekTextColor = mDayOfWeekTextColor == -1 ? Color.WHITE : mDayOfWeekTextColor;
         mUnselectedDayTextColor = mUnselectedDayTextColor == -1 ? Color.WHITE : mUnselectedDayTextColor;

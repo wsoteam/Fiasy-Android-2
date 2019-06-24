@@ -1,0 +1,37 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml:1:1-2:74
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml:1:1-2:74
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml:1:1-2:74
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml:1:1-2:74
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml:1:1-2:74
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml:1:1-2:74
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml:1:1-2:74
+	package
+		ADDED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml:2:5-71
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml
+		ADDED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml:1:1-2:74
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml
+		ADDED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml:1:1-2:74
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml:1:11-69
+uses-sdk
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml
+		ADDED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml
+		ADDED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontalcalendarview/src/main/AndroidManifest.xml
