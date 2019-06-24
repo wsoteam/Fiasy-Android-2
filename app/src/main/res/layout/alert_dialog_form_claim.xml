@@ -7,53 +7,72 @@
 
     <EditText
         android:id="@+id/edtTextClaim"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:hint="Что не так?"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginTop="24dp"
+        android:hint="Мин. 140 символов"
+        app:layout_constraintEnd_toEndOf="@+id/ivHeadClaim"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFoodTitle" />
-
-    <TextView
-        android:id="@+id/tvFoodTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
     <Button
         android:id="@+id/btnSendClaim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="Send"
-        app:layout_constraintBottom_toBottomOf="@+id/btnCancelClaim"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/transparent"
+        android:clickable="false"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Отправить"
+        android:textColor="@color/button_claim_inactive"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnCancelClaim"
-        app:layout_constraintTop_toTopOf="@+id/btnCancelClaim" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTextClaim"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnCancelClaim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="32dp"
+        android:background="@color/transparent"
+        android:fontFamily="@font/roboto_medium"
+        android:visibility="gone"
         android:text="Cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSendClaim"
         app:layout_constraintEnd_toStartOf="@+id/btnSendClaim"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toTopOf="@+id/btnSendClaim" />
+
+    <ImageView
+        android:id="@+id/ivHeadClaim"
+        android:layout_width="0dp"
+        android:layout_height="131dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextClaim"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/claim_head" />
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Опишите проблему"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/ivHeadClaim"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivHeadClaim" />
 
 </android.support.constraint.ConstraintLayout>
