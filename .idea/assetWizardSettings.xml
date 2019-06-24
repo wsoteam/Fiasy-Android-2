@@ -28,9 +28,13 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_fill_favorite" />
-                            <entry key="sourceFile" value="C:\Users\37525" />
+                            <entry key="height" value="96" />
+                            <entry key="outputName" value="ic_no_find" />
+                            <entry key="overrideSize" value="true" />
+                            <entry key="sourceFile" value="C:\Users\37525\Desktop\Group 29.svg" />
+                            <entry key="width" value="96" />
                           </map>
                         </option>
                       </PersistentState>
