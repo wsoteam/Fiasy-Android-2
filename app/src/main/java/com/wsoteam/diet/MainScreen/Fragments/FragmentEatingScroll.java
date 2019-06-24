@@ -1,5 +1,6 @@
 package com.wsoteam.diet.MainScreen.Fragments;
 
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,7 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +48,9 @@ public class FragmentEatingScroll extends Fragment {
     private int enterPosition = 0;
     private EatingAdapter eatingAdapter;
     private List<List<Eating>> allEat;
-    private TextView parentTitleWithDate;
     private TextView tvCarbo, tvFat, tvProt;
     private TextView tvCaloriesLeft, tvCaloriesDone, tvCaloriesNeed;
+    private TextView tvCollapsCaloriesNeed, tvCollapsCalories, tvCollapsProt, tvCollapsFat, tvCollapsCarbo;
     private ProgressBar apCollapsingKcal;
     private ProgressBar apCollapsingProt;
     private ProgressBar apCollapsingCarbo;
@@ -64,7 +68,7 @@ public class FragmentEatingScroll extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isResumed()) {
-            parentTitleWithDate.setText(setDateTitle(day, month, year));
+//            parentTitleWithDate.setText(setDateTitle(day, month, year));
             setMainParamsInBars(allEat);
         }
     }
@@ -92,7 +96,7 @@ public class FragmentEatingScroll extends Fragment {
         enterPosition = getArguments().getInt(TAG_OF_BUNDLE);
         rvMainScreen.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        parentTitleWithDate = getActivity().findViewById(R.id.tvDateForMainScreen);
+//        parentTitleWithDate = getActivity().findViewById(R.id.tvDateForMainScreen);
         apCollapsingKcal = getActivity().findViewById(R.id.pbCalories);
         apCollapsingProt = getActivity().findViewById(R.id.pbProt);
         apCollapsingCarbo = getActivity().findViewById(R.id.pbCarbo);
@@ -100,6 +104,13 @@ public class FragmentEatingScroll extends Fragment {
         tvCarbo = getActivity().findViewById(R.id.tvCarbo);
         tvFat = getActivity().findViewById(R.id.tvFat);
         tvProt = getActivity().findViewById(R.id.tvProt);
+
+        tvCollapsCaloriesNeed = getActivity().findViewById(R.id.tvLeft);
+        tvCollapsCalories = getActivity().findViewById(R.id.tvCaloriesCollapsed);
+        tvCollapsProt = getActivity().findViewById(R.id.tvProtCollapsed);
+        tvCollapsFat = getActivity().findViewById(R.id.tvFatCollapsed);
+        tvCollapsCarbo = getActivity().findViewById(R.id.tvCarboCollapsed);
+
         tvCaloriesLeft = getActivity().findViewById(R.id.tvCaloriesLeft);
         tvCaloriesDone = getActivity().findViewById(R.id.tvCaloriesDone);
         tvCaloriesNeed = getActivity().findViewById(R.id.tvCaloriesNeed);
@@ -170,14 +181,31 @@ public class FragmentEatingScroll extends Fragment {
         apCollapsingCarbo.setProgress(carbo);
         apCollapsingFat.setProgress(fat);
 
+        tvCollapsCaloriesNeed.setText(String.format(getString(R.string.main_screen_topbar_left), apCollapsingKcal.getMax()));
+        tvCollapsCalories.setText(String.valueOf(kcal));
+        tvCollapsProt.setText(String.valueOf(prot));
+        tvCollapsFat.setText(String.valueOf(fat));
+        tvCollapsCarbo.setText(String.valueOf(carbo));
+
         String pattern = getString(R.string.main_screen_topbar_string);
         tvProt.setText(String.format(pattern, prot, apCollapsingProt.getMax()));
         tvCarbo.setText(String.format(pattern, carbo, apCollapsingCarbo.getMax()));
         tvFat.setText(String.format(pattern, fat, apCollapsingFat.getMax()));
 
-        tvCaloriesLeft.setText(String.format(getString(R.string.main_screen_topbar_kcal_left), leftKCal));
-        tvCaloriesDone.setText(String.format(getString(R.string.main_screen_topbar_kcal_done), kcal));
-        tvCaloriesNeed.setText(String.format(getString(R.string.main_screen_topbar_kcal_target), apCollapsingKcal.getMax()));
+        SpannableString sDone = new SpannableString(String.format(getString(R.string.main_screen_topbar_kcal_done), kcal));
+        sDone.setSpan(new StyleSpan(Typeface.BOLD), 0, String.valueOf(kcal).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sDone.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.main_calories_done)), 0, String.valueOf(kcal).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tvCaloriesDone.setText(sDone);
+
+        SpannableString sLeft = new SpannableString(String.format(getString(R.string.main_screen_topbar_kcal_left), leftKCal));
+        sLeft.setSpan(new StyleSpan(Typeface.BOLD), 0, String.valueOf(leftKCal).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sLeft.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.main_calories_left)), 0, String.valueOf(leftKCal).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tvCaloriesLeft.setText(sLeft);
+
+        SpannableString sNeed = new SpannableString(String.format(getString(R.string.main_screen_topbar_kcal_target), apCollapsingKcal.getMax()));
+        sNeed.setSpan(new StyleSpan(Typeface.BOLD), 0, String.valueOf(apCollapsingKcal.getMax()).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sNeed.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.main_calories_done)), 0, String.valueOf(apCollapsingKcal.getMax()).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tvCaloriesNeed.setText(sNeed);
 
     }
 

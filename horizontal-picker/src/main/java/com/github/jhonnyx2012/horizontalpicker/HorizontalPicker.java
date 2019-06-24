@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
@@ -21,16 +20,12 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
     private static final int NO_SETTED = -1;
     private TextView tvMonth;
     private DatePickerListener listener;
-    private OnTouchListener monthListener;
     private HorizontalPickerRecyclerView rvDays;
     private int days;
     private int offset;
     private int mDateSelectedColor = -1;
     private int mDateSelectedTextColor = -1;
     private int mMonthAndYearTextColor = -1;
-    private int mTodayButtonTextColor = -1;
-    private boolean showTodayButton = true;
-    private String mMonthPattern = "";
     private int mTodayDateTextColor = -1;
     private int mTodayDateBackgroundColor = -1;
     private int mDayOfWeekTextColor = -1;
@@ -62,16 +57,29 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         return this;
     }
 
-    public HorizontalPicker setMonthListener(OnTouchListener listener) {
-        this.monthListener = listener;
-        return this;
-    }
-
     public void setDate(final DateTime date) {
         rvDays.post(new Runnable() {
             @Override
             public void run() {
                 rvDays.setDate(date);
+            }
+        });
+    }
+
+    public void plusDay() {
+        rvDays.post(new Runnable() {
+            @Override
+            public void run() {
+                rvDays.plusDay();
+            }
+        });
+    }
+
+    public void minusDay() {
+        rvDays.post(new Runnable() {
+            @Override
+            public void run() {
+                rvDays.minusDay();
             }
         });
     }
@@ -106,10 +114,6 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
                 mTodayDateBackgroundColor,
                 mDayOfWeekTextColor,
                 mUnselectedDayTextColor);
-    }
-
-    private int getColor(int colorId) {
-        return getResources().getColor(colorId);
     }
 
     public int getBackgroundColor() {
@@ -165,53 +169,4 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         return this;
     }
 
-    public HorizontalPicker setDateSelectedColor(@ColorInt int color) {
-        mDateSelectedColor = color;
-        return this;
-    }
-
-    public HorizontalPicker setDateSelectedTextColor(@ColorInt int color) {
-        mDateSelectedTextColor = color;
-        return this;
-    }
-
-    public HorizontalPicker setMonthAndYearTextColor(@ColorInt int color) {
-        mMonthAndYearTextColor = color;
-        return this;
-    }
-
-    public HorizontalPicker setTodayButtonTextColor(@ColorInt int color) {
-        mTodayButtonTextColor = color;
-        return this;
-    }
-
-    public HorizontalPicker showTodayButton(boolean show) {
-        showTodayButton = show;
-        return this;
-    }
-
-    public HorizontalPicker setTodayDateTextColor(int color) {
-        mTodayDateTextColor = color;
-        return this;
-    }
-
-    public HorizontalPicker setTodayDateBackgroundColor(@ColorInt int color) {
-        mTodayDateBackgroundColor = color;
-        return this;
-    }
-
-    public HorizontalPicker setDayOfWeekTextColor(@ColorInt int color) {
-        mDayOfWeekTextColor = color;
-        return this;
-    }
-
-    public HorizontalPicker setUnselectedDayTextColor(@ColorInt int color) {
-        mUnselectedDayTextColor = color;
-        return this;
-    }
-
-    public HorizontalPicker setMonthPattern(String pattern) {
-        mMonthPattern = pattern;
-        return this;
-    }
 }

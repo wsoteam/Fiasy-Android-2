@@ -16,6 +16,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.model.Eating;
+import com.wsoteam.diet.presentation.main.water.WaterActivity;
 
 import java.util.List;
 
@@ -72,7 +73,7 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
         popupMenu.setOnMenuItemClickListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.water_settings:
-//                    openSearch();
+                    context.startActivity(new Intent(context, WaterActivity.class));
                     break;
             }
             return false;

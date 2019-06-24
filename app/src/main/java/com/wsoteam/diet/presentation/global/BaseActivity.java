@@ -70,6 +70,12 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         navigatorHolder.setNavigator(navigator);

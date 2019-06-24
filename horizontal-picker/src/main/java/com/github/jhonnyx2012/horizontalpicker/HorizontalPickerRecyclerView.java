@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import org.joda.time.DateTime;
@@ -135,6 +136,16 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
         int positionsToScroll = offset + difference;
         if (positionsToScroll >= 0)
             smoothScrollToPosition(positionsToScroll);
+    }
+
+    public void plusDay() {
+        Log.d("MyLogs", "plusDay");
+        smoothScrollToPosition(newPosition + 1);
+    }
+
+    public void minusDay() {
+        Log.d("MyLogs", "minusDay");
+        smoothScrollToPosition(newPosition - 1);
     }
 
     private static class CenterSmoothScroller extends LinearSmoothScroller {

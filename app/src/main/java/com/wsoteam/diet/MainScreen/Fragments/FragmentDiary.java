@@ -7,7 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.animation.AnimationUtils;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -15,12 +15,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -38,6 +38,7 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 
 import java.util.Calendar;
 
@@ -51,8 +52,6 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class FragmentDiary extends Fragment implements SublimePickerDialogFragment.OnDateChoosedListener, DatePickerListener {
     private final String TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG = "COUNT_OF_RUN";
-    @BindView(R.id.ibOpenYesterday) ImageButton ibOpenYesterday;
-    @BindView(R.id.ibOpenTomorrow) ImageButton ibOpenTomorrow;
     @BindView(R.id.pbProt) ProgressBar pbProgressProt;
     @BindView(R.id.pbCarbo) ProgressBar pbProgressCarbo;
     @BindView(R.id.pbFat) ProgressBar pbProgressFat;
@@ -64,18 +63,37 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
     @BindView(R.id.cvParams) CardView cvParams;
     @BindView(R.id.collapsingToolbarLayout) CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.vpEatingTimeLine) ViewPager vpEatingTimeLine;
-    @BindView(R.id.tvDateForMainScreen) TextView tvDateForMainScreen;
     @BindView(R.id.llSum) LinearLayout llSum;
-    @BindView(R.id.llHead) FrameLayout llHead;
+    @BindView(R.id.llHead) ConstraintLayout llHead;
     @BindView(R.id.datePicker) HorizontalPicker datePicker;
-    AnimationUtils fromTop;
     private Unbinder unbinder;
     private Profile profile;
     private int COUNT_OF_RUN = 0;
+    private int dayPosition = Config.COUNT_PAGE;
     private SharedPreferences countOfRun;
     private boolean isFiveStarSend = false;
     private AlertDialog alertDialogBuyInfo;
     private SharedPreferences sharedPreferences, freeUser;
+    private LinearLayout.LayoutParams layoutParams;
+    private ViewPager.OnPageChangeListener viewPagerListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int i, float v, int i1) {
+        }
+
+        @Override
+        public void onPageSelected(int i) {
+            if (dayPosition < i)
+                datePicker.plusDay();
+            else if (dayPosition > i)
+                datePicker.minusDay();
+
+            dayPosition = i;
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int i) {
+        }
+    };
 
     @Override
     public void onResume() {
@@ -98,14 +116,15 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("com.wsoteam.diet.ACTION_LOGOUT");
         getActivity().sendBroadcast(broadcastIntent);
-//        fromTop = A
+
+        layoutParams = (LinearLayout.LayoutParams) llHead.getLayoutParams();
 
         mainappbar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
-            if (Math.abs(verticalOffset) - appBarLayout.getTotalScrollRange() == 0) {
-                llHead.setVisibility(View.VISIBLE);
-            } else {
-                llHead.setVisibility(View.GONE);
-            }
+            float diff = (float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange();
+            llHead.setAlpha(diff);
+            float offset = (diff * 81) - 81;
+            layoutParams.topMargin = convertDpToPx((int) offset);
+            llHead.setLayoutParams(layoutParams);
         });
 
         WorkWithFirebaseDB.setFirebaseStateListener();
@@ -138,19 +157,21 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
 
         bindViewPager();
 
-        datePicker
-                .setListener(this)
-                .init();
-
-        // or on the View directly after init was completed
+        datePicker.setListener(this).init();
         datePicker.setBackgroundColor(Color.TRANSPARENT);
         datePicker.setDate(new DateTime());
 
         return mainView;
     }
 
+    private int convertDpToPx(int dp) {
+        float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, llHead.getResources().getDisplayMetrics());
+        return Math.round(pixels);
+    }
 
+    // TODO ЭТО СОЗДАНО 3651 ФРАГМЕНТОВ??)
     private void bindViewPager() {
+        vpEatingTimeLine.addOnPageChangeListener(viewPagerListener);
         vpEatingTimeLine.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -165,16 +186,21 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         vpEatingTimeLine.setCurrentItem(Config.COUNT_PAGE);
     }
 
-
     @Override
     public void dateChoosed(Calendar calendar, int dayOfMonth, int month, int year) {
         datePicker.setDate(new DateTime(calendar.getTime()));
     }
 
-
     @Override
     public void onDateSelected(DateTime dateSelected) {
-
+        DateTime today = new DateTime().withTime(0, 0, 0, 0);
+        int difference = Days.daysBetween(dateSelected, today).getDays() * (dateSelected.getYear() < today.getMillis() ? -1 : 1);
+        Log.d("MyLogs", "difference - " + difference);
+        if (difference < 0) {
+//            vpEatingTimeLine.clearOnPageChangeListeners();
+            vpEatingTimeLine.setCurrentItem(Config.COUNT_PAGE + difference);
+//            vpEatingTimeLine.addOnPageChangeListener(viewPagerListener);
+        }
     }
 
     @Override
@@ -204,15 +230,15 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
 
     }
 
-    @OnClick({R.id.ibOpenYesterday, R.id.ibOpenTomorrow, R.id.fabAddEating, R.id.ivCalendar})
+    @OnClick({R.id.fabAddEating, R.id.ivCalendar})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ibOpenYesterday:
-                vpEatingTimeLine.setCurrentItem(vpEatingTimeLine.getCurrentItem() - 1);
-                break;
-            case R.id.ibOpenTomorrow:
-                vpEatingTimeLine.setCurrentItem(vpEatingTimeLine.getCurrentItem() + 1);
-                break;
+//            case R.id.ibOpenYesterday:
+//                vpEatingTimeLine.setCurrentItem(vpEatingTimeLine.getCurrentItem() - 1);
+//                break;
+//            case R.id.ibOpenTomorrow:
+//                vpEatingTimeLine.setCurrentItem(vpEatingTimeLine.getCurrentItem() + 1);
+//                break;
             case R.id.fabAddEating:
                 /*AlertDialogChoiseEating.createChoiseEatingAlertDialog(getActivity(),
                         tvDateForMainScreen.getText().toString()).show();*/
