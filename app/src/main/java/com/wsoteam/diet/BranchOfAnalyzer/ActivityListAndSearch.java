@@ -105,7 +105,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new FragmentSearch());
         fragments.add(new FragmentFavorites());
-        fragments.add(new FragmentFavorites());
         fragments.add(new ListAddedRecipeFragment());
         return fragments;
     }
@@ -170,14 +169,14 @@ public class ActivityListAndSearch extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.userNote:
+                    /*case R.id.userNote:
                         break;
                     case R.id.createFood:
                         break;
                     case R.id.createEating:
                         break;
                     case R.id.createTemplate:
-                        break;
+                        break;*/
                     case R.id.createRecipe:
                         startActivity(new Intent(ActivityListAndSearch.this, AddingRecipeActivity.class));
                         break;
