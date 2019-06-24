@@ -11,6 +11,7 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -40,6 +41,9 @@ import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodDB;
 import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.R;
+
+import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.authHarvester.IntercomHarvester;
 import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
@@ -51,7 +55,7 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+import io.intercom.android.sdk.Intercom;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -111,9 +115,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.bnv_main_trainer:
                     box.setComeFrom(AmplitudaEvents.view_prem_training);
                     box.setBuyFrom(AmplitudaEvents.buy_prem_training);
-                    if (true) {
-                            transaction.replace(R.id.flFragmentContainer, new ListAddedRecipeFragment()).commit();
-//                        transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
+                    if (checkSubscribe()) {
+                        transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
                     } else {
                         if (getABVersion().equals(ABConfig.C_VERSION)) {
                             transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.
@@ -131,11 +134,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     return true;
                 case R.id.bnv_main_recipes:
-                    if(Config.RELEASE){
-                        transaction.replace(R.id.flFragmentContainer, new com.wsoteam.diet.Recipes.v1.GroupsFragment()).commit();
-                    } else {
-                        transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
-                    }
+                    transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
                     return true;
                 case R.id.bnv_main_profile:
                     transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();

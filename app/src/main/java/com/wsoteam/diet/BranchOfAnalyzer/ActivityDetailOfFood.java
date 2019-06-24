@@ -2,17 +2,22 @@ package com.wsoteam.diet.BranchOfAnalyzer;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +26,8 @@ import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
+import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.ClaimForm;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOClaim.Claim;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
@@ -29,9 +36,11 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.InApp.ActivitySubscription;
+import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,15 +49,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ActivityDetailOfFood extends AppCompatActivity {
+    @BindView(R.id.spnFood) Spinner spnFood;
     @BindView(R.id.tvActivityDetailOfFoodCollapsingTitle) TextView tvTitle;
-    @BindView(R.id.pbActivityDetailOfFoodCarbo) DonutProgress pbCarbohydrates;
-    @BindView(R.id.pbActivityDetailOfFoodFat) DonutProgress pbFat;
-    @BindView(R.id.pbActivityDetailOfFoodProtein) DonutProgress pbProtein;
     @BindView(R.id.tvActivityDetailOfFoodCalculateKcal) TextView tvCalculateKcal;
     @BindView(R.id.tvActivityDetailOfFoodCalculateFat) TextView tvCalculateFat;
     @BindView(R.id.tvActivityDetailOfFoodCalculateCarbo) TextView tvCalculateCarbohydrates;
     @BindView(R.id.tvActivityDetailOfFoodCalculateProtein) TextView tvCalculateProtein;
     @BindView(R.id.edtActivityDetailOfFoodPortion) EditText edtWeight;
+    @BindView(R.id.ibAddFavorite) ImageButton ibAddFavorite;
 
 
     @BindView(R.id.tvLabelCellulose) TextView tvLabelCellulose;
@@ -60,6 +68,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     @BindView(R.id.tvLabelСholesterol) TextView tvLabelСholesterol;
     @BindView(R.id.tvLabelSodium) TextView tvLabelSodium;
     @BindView(R.id.tvLabelPotassium) TextView tvLabelPotassium;
+    @BindView(R.id.tvBrand) TextView tvBrand;
 
     @BindView(R.id.tvCarbohydrates) TextView tvCarbohydrates;
     @BindView(R.id.tvCellulose) TextView tvCellulose;
@@ -72,6 +81,8 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     @BindView(R.id.tvСholesterol) TextView tvСholesterol;
     @BindView(R.id.tvSodium) TextView tvSodium;
     @BindView(R.id.tvPotassium) TextView tvPotassium;
+    @BindView(R.id.tvDj) TextView tvDj;
+    @BindView(R.id.tvKcal) TextView tvKcal;
 
     @BindView(R.id.btnPremCell) TextView btnPremCell;
     @BindView(R.id.btnPremSugar) TextView btnPremSugar;
@@ -81,9 +92,8 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     @BindView(R.id.btnPremCholy) TextView btnPremCholy;
     @BindView(R.id.btnPremSod) TextView btnPremSod;
     @BindView(R.id.btnPremPot) TextView btnPremPot;
+    @BindView(R.id.cardView6) CardView cardView6;
 
-    @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
-    private BottomSheetBehavior bottomSheetBehavior;
 
     @BindViews({R.id.tvCellulose, R.id.tvSugar, R.id.tvSaturated, R.id.tvСholesterol, R.id.tvSodium,
             R.id.tvPotassium, R.id.tvMonoUnSaturated, R.id.tvPolyUnSaturated,
@@ -94,6 +104,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
     private Food foodItem;
+    private boolean isFavorite;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,7 +114,8 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         ButterKnife.apply(viewList, (view, value, index) -> view.setVisibility(value), View.GONE);
         foodItem = (Food) getIntent().getSerializableExtra(Config.INTENT_DETAIL_FOOD);
         bindFields();
-        calculateNumbersForProgressBars();
+        bindSpinnerChoiceEating();
+        cardView6.setBackgroundResource(R.drawable.shape_calculate);
 
         edtWeight.addTextChangedListener(new TextWatcher() {
             @Override
@@ -134,16 +146,29 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             }
         });
 
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_detail_food);
 
     }
 
+    private void bindSpinnerChoiceEating() {
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,
+                R.layout.item_spinner_food_search, getResources().getStringArray(R.array.eatingList));
+        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search);
+        spnFood.setAdapter(adapter);
+        spnFood.setSelection(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
+    }
+
     private void bindFields() {
-        tvTitle.setText(foodItem.getName());
+        tvTitle.setText(foodItem.getName().toUpperCase());
         tvFats.setText(String.valueOf(Math.round(foodItem.getFats() * 100)) + " г");
         tvCarbohydrates.setText(String.valueOf(Math.round(foodItem.getCarbohydrates() * 100)) + " г");
         tvProteins.setText(String.valueOf(Math.round(foodItem.getProteins() * 100)) + " г");
+        tvKcal.setText(String.valueOf(Math.round(foodItem.getCalories() * 100)));
+        tvDj.setText(String.valueOf(Math.round(foodItem.getKilojoules() * 100)));
+
+        if (foodItem.getBrand() != null) {
+            tvBrand.setText("(" + foodItem.getBrand() + ")");
+        }
 
         if (foodItem.getSugar() != EMPTY_FIELD) {
             tvLabelSugar.setVisibility(View.VISIBLE);
@@ -242,7 +267,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         String urlOfImage = "empty_url";
 
         Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
-        switch (idOfEating) {
+        switch (spnFood.getSelectedItemPosition()) {
             case BREAKFAST_POSITION:
                 WorkWithFirebaseDB.
                         addBreakfast(new Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
@@ -288,40 +313,12 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     }
 
-    private void calculateNumbersForProgressBars() {
-        Double fat, carbohydrates, protein;
-        String maxPercent = "100";
-        int maxCountForProgressBar = 100;
-
-        fat = Double.valueOf(foodItem.getPercentFats());
-        carbohydrates = Double.valueOf(foodItem.getPercentCarbohydrates());
-        protein = Double.valueOf(foodItem.getPercentProteins());
-
-
-        if (fat > maxCountForProgressBar) {
-            pbFat.setDonut_progress(maxPercent);
-        } else {
-            pbFat.setDonut_progress(String.valueOf(Math.round(fat)));
-        }
-        if (carbohydrates > maxCountForProgressBar) {
-            pbProtein.setDonut_progress(maxPercent);
-        } else {
-            pbProtein.setDonut_progress(String.valueOf(Math.round(protein)));
-        }
-        if (protein > maxCountForProgressBar) {
-            pbCarbohydrates.setDonut_progress(maxPercent);
-        } else {
-            pbCarbohydrates.setDonut_progress(String.valueOf(Math.round(carbohydrates)));
-        }
-
-    }
-
-    @OnClick({R.id.btnAddRecipe, R.id.ivBack, R.id.ibSheetClose, R.id.btnReg, R.id.btnPremCell, R.id.btnPremCholy,
+    @OnClick({R.id.btnSaveEating, R.id.ivBack, R.id.btnPremCell, R.id.btnPremCholy,
             R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremPot, R.id.btnPremSaturated, R.id.btnPremSod,
-            R.id.btnPremSugar})
+            R.id.btnPremSugar, R.id.tvSendClaim, R.id.ibShareFood, R.id.ibSendClaim, R.id.ibAddFavorite})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnAddRecipe:
+            case R.id.btnSaveEating:
                 if (edtWeight.getText().toString().equals("") || edtWeight.getText().toString().equals(" ")) {
                     Toast.makeText(ActivityDetailOfFood.this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
                 } else {
@@ -330,16 +327,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                 break;
             case R.id.ivBack:
                 onBackPressed();
-                break;
-            case R.id.ibSheetClose:
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                break;
-            case R.id.btnReg:
-                AmplitudaEvents.logEventRegistration(AmplitudaEvents.reg_from_add_food);
-                startActivity(new Intent(ActivityDetailOfFood.this, ActivitySplash.class)
-                        .putExtra(Config.IS_NEED_REG, true)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-
                 break;
             case R.id.btnPremCell:
                 showPremiumScreen();
@@ -365,7 +352,36 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             case R.id.btnPremSugar:
                 showPremiumScreen();
                 break;
+            case R.id.tvSendClaim:
+                ClaimForm.createChoiseEatingAlertDialog(this, foodItem);
+                break;
+            case R.id.ibShareFood:
+                shareFood(foodItem);
+                break;
+            case R.id.ibSendClaim:
+                ClaimForm.createChoiseEatingAlertDialog(this, foodItem);
+                break;
+            case R.id.ibAddFavorite:
+                addFavorite();
+                break;
         }
+    }
+
+    private void shareFood(Food foodItem) {
+        String forSend;
+        if (foodItem.getBrand() == null) {
+            forSend = foodItem.getName()
+                    + String.valueOf(foodItem.getCalories() * 100) + " Ккал. Узнайте % микроэлементов в продукте" +
+                    " в дневнике питания Fiasy \n" + "https://play.google.com/store/apps/details?id=" + getPackageName();
+        } else {
+            forSend = foodItem.getName() + " (" + foodItem.getBrand() + ") - "
+                    + String.valueOf(foodItem.getCalories() * 100) + " Ккал. Узнайте % микроэлементов в продукте" +
+                    " в дневнике питания Fiasy \n" + "https://play.google.com/store/apps/details?id=" + getPackageName();
+        }
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, forSend);
+        startActivity(intent);
     }
 
     private void showPremiumScreen() {
@@ -375,4 +391,10 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         intent.putExtra(Config.TAG_BOX, box);
         startActivity(intent);
     }
+
+    private void addFavorite() {
+        FavoriteFood favoriteFood = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), "empty");
+        WorkWithFirebaseDB.addFoodFavorite(favoriteFood);
+    }
+
 }

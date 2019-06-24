@@ -6,6 +6,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.POJOForDB.DiaryData;
 import com.wsoteam.diet.POJOProfile.CheckInfo.CheckHistory;
+import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
@@ -28,11 +29,12 @@ public class UserData implements Serializable {
     private HashMap<String, Snack> snacks;
     private HashMap<String, WeightDiaryObject> diaryDataList;
     private HashMap<String, RecipeItem> recipes;
+    private HashMap<String, FavoriteFood> foodFavorites;
 
     public UserData() {
     }
 
-    public UserData(String name, Profile profile, SubInfo subInfo, TrackInfo trackInfo, CheckHistory checkHistory, HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners, HashMap<String, Snack> snacks, HashMap<String, WeightDiaryObject> diaryDataList, HashMap<String, RecipeItem> recipes) {
+    public UserData(String name, Profile profile, SubInfo subInfo, TrackInfo trackInfo, CheckHistory checkHistory, HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners, HashMap<String, Snack> snacks, HashMap<String, WeightDiaryObject> diaryDataList, HashMap<String, RecipeItem> recipes, HashMap<String, FavoriteFood> foodFavorites) {
         this.name = name;
         this.profile = profile;
         this.subInfo = subInfo;
@@ -44,6 +46,7 @@ public class UserData implements Serializable {
         this.snacks = snacks;
         this.diaryDataList = diaryDataList;
         this.recipes = recipes;
+        this.foodFavorites = foodFavorites;
     }
 
     public SubInfo getSubInfo() {
@@ -132,5 +135,13 @@ public class UserData implements Serializable {
 
     public void setRecipes(HashMap<String, RecipeItem> recipes) {
         this.recipes = recipes;
+    }
+
+    public HashMap<String, FavoriteFood> getFoodFavorites() {
+        return foodFavorites;
+    }
+
+    public void setFoodFavorites(HashMap<String, FavoriteFood> foodFavorites) {
+        this.foodFavorites = foodFavorites;
     }
 }

@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.Activism.POJO.ActivismFirebaseObject;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
+import com.wsoteam.diet.BranchOfAnalyzer.Const;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOClaim.Claim;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
@@ -26,6 +28,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOForDB.DiaryData;
+import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
@@ -193,6 +196,19 @@ public class WorkWithFirebaseDB {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("ACTIVISM");
         myRef.setValue(data);
+    }
+
+    public static void sendClaim(Claim claim) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Const.CLAIM_PATH);
+        myRef.push().setValue(claim);
+    }
+
+    public static void addFoodFavorite(FavoriteFood food) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodFavorites");
+        myRef.push().setValue(food);
     }
 
 }

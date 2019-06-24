@@ -74,7 +74,7 @@
     <color name="level_hard">#b41c1c</color>
 
 
-    <color name="add_food_green">#009688</color>
+    <color name="add_food_green">#34847C</color>
     <color name="add_food_red">#f44336</color>
 
 
@@ -152,6 +152,8 @@
     <color name="left_cloud">#96333232</color>
     <color name="half_transparent_green">#40009C99</color>
     <color name="light_gray_one_button">#9D9D9D</color>
+    <color name="edit_text_food">#DC8535</color>
+    <color name="text_claim">#A6000000</color>
 
     <color name="black_trans80">#32000000</color>
 
