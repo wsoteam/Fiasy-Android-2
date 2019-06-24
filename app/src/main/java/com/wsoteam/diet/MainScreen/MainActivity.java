@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         handlGrade(Calendar.getInstance().getTimeInMillis());
+        Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
     private void handlGrade(long currentTime) {

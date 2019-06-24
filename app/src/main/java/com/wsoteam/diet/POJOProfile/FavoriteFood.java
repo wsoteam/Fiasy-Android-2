@@ -40,4 +40,13 @@ public class FavoriteFood implements Serializable {
     public void setKey(String key) {
         this.key = key;
     }
+
+    @Override
+    public String toString() {
+        return "FavoriteFood{" +
+                "id=" + id +
+                ", fullInfo='" + fullInfo + '\'' +
+                ", key='" + key + '\'' +
+                '}';
+    }
 }

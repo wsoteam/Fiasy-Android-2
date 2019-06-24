@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amplitude.api.Amplitude;
+import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
@@ -38,10 +40,15 @@ import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.POJO.UserData;
+import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -104,7 +111,8 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
     private Food foodItem;
-    private boolean isFavorite;
+    private boolean isFavorite = false;
+    private FavoriteFood currentFavorite;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -116,6 +124,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         bindFields();
         bindSpinnerChoiceEating();
         cardView6.setBackgroundResource(R.drawable.shape_calculate);
+        getFavoriteFood();
 
         edtWeight.addTextChangedListener(new TextWatcher() {
             @Override
@@ -150,6 +159,23 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     }
 
+    private void getFavoriteFood() {
+        if (UserDataHolder.getUserData() != null
+                && UserDataHolder.getUserData().getFoodFavorites() != null
+                && UserDataHolder.getUserData().getFoodFavorites().size() != 0) {
+            Iterator iterator = UserDataHolder.getUserData().getFoodFavorites().entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry pair = (Map.Entry) iterator.next();
+                if (((FavoriteFood) pair.getValue()).getFullInfo().equals(foodItem.getFullInfo())) {
+                    currentFavorite = (FavoriteFood) pair.getValue();
+                    isFavorite = true;
+                    Glide.with(this).load(R.drawable.ic_fill_favorite).into(ibAddFavorite);
+                }
+            }
+
+        }
+    }
+
     private void bindSpinnerChoiceEating() {
         ArrayAdapter<String> adapter = new ArrayAdapter(this,
                 R.layout.item_spinner_food_search, getResources().getStringArray(R.array.eatingList));
@@ -166,7 +192,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         tvKcal.setText(String.valueOf(Math.round(foodItem.getCalories() * 100)));
         tvDj.setText(String.valueOf(Math.round(foodItem.getKilojoules() * 100)));
 
-        if (foodItem.getBrand() != null) {
+        if (foodItem.getBrand() != null && !foodItem.getBrand().equals("")) {
             tvBrand.setText("(" + foodItem.getBrand() + ")");
         }
 
@@ -362,7 +388,15 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                 ClaimForm.createChoiseEatingAlertDialog(this, foodItem);
                 break;
             case R.id.ibAddFavorite:
-                addFavorite();
+                if (isFavorite) {
+                    isFavorite = false;
+                    Glide.with(this).load(R.drawable.ic_empty_favorite).into(ibAddFavorite);
+                    WorkWithFirebaseDB.deleteFavorite(currentFavorite.getKey());
+                } else {
+                    isFavorite = true;
+                    Glide.with(this).load(R.drawable.ic_fill_favorite).into(ibAddFavorite);
+                    currentFavorite = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), addFavorite());
+                }
                 break;
         }
     }
@@ -392,9 +426,10 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void addFavorite() {
+    private String addFavorite() {
         FavoriteFood favoriteFood = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), "empty");
-        WorkWithFirebaseDB.addFoodFavorite(favoriteFood);
+        String key = WorkWithFirebaseDB.addFoodFavorite(favoriteFood);
+        return key;
     }
 
 }

@@ -7,15 +7,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
-import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
@@ -34,6 +34,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class FragmentSearch extends Fragment implements TabsFragment {
 
+    @BindView(R.id.ivSearchImage) ImageView ivSearchImage;
+    @BindView(R.id.tvTitleFavoriteAdd) TextView tvTitleFavoriteAdd;
+    @BindView(R.id.tvTextAddFavorite) TextView tvTextAddFavorite;
     private int RESPONSE_LIMIT = 50;
     private ItemAdapter itemAdapter;
     private boolean isEqualsNext = true;
@@ -47,13 +50,11 @@ public class FragmentSearch extends Fragment implements TabsFragment {
 
     @Override
     public void sendString(String searchString) {
-        isEqualsNext = true;
-        this.searchString = searchString;
-        search(searchString);
-        /*if (ivEmptyImage.getVisibility() == View.VISIBLE) {
-                    ivEmptyImage.setVisibility(View.GONE);
-                    tvEmptyText.setVisibility(View.GONE);
-                }*/
+        if (searchString.length() > 2) {
+            isEqualsNext = true;
+            this.searchString = searchString;
+            search(searchString);
+        }
     }
 
     @Nullable
@@ -62,7 +63,30 @@ public class FragmentSearch extends Fragment implements TabsFragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this, view);
         updateUI();
+        showStartUI();
         return view;
+    }
+
+    private void hideMessageUI() {
+        ivSearchImage.setVisibility(View.GONE);
+        tvTextAddFavorite.setVisibility(View.GONE);
+        tvTitleFavoriteAdd.setVisibility(View.GONE);
+    }
+
+    private void showNoFind() {
+        Glide.with(getActivity()).load(R.drawable.ic_no_find).into(ivSearchImage);
+        tvTitleFavoriteAdd.setText(getActivity().getResources().getString(R.string.title_no_find_food));
+        tvTextAddFavorite.setText(getActivity().getResources().getString(R.string.text_no_find_food));
+        ivSearchImage.setVisibility(View.VISIBLE);
+        tvTextAddFavorite.setVisibility(View.VISIBLE);
+        tvTitleFavoriteAdd.setVisibility(View.VISIBLE);
+    }
+
+    private void showStartUI() {
+        Glide.with(getActivity()).load(R.drawable.ic_start_search).into(ivSearchImage);
+        tvTextAddFavorite.setText(getActivity().getResources().getString(R.string.text_start_search));
+        ivSearchImage.setVisibility(View.VISIBLE);
+        tvTextAddFavorite.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -84,6 +108,11 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     private void refreshAdapter(List<Food> t) {
         itemAdapter = new ItemAdapter(t);
         rvListOfSearchResponse.setAdapter(itemAdapter);
+        if (t.size() > 0) {
+            hideMessageUI();
+        } else {
+            showNoFind();
+        }
     }
 
     private void updateUI() {

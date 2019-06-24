@@ -211,11 +211,20 @@ public class WorkWithFirebaseDB {
         myRef.push().setValue(claim);
     }
 
-    public static void addFoodFavorite(FavoriteFood food) {
+    public static String addFoodFavorite(FavoriteFood food) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodFavorites");
-        myRef.push().setValue(food);
+        String key = myRef.push().getKey();
+        myRef.child(key).setValue(food);
+        return key;
+    }
+
+    public static void deleteFavorite(String key) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodFavorites").child(key);
+        myRef.removeValue();
     }
 
 }

@@ -642,4 +642,10 @@
     <string name="base_url" translatable="false">https://api.instagram.com/</string>
 
 
+    //Search
+    <string name="text_start_search">Начните вводить в строку поиска \nназвание продукта</string>
+    <string name="title_no_find_food">Результаты не найдены</string>
+    <string name="text_no_find_food">Попробуйте еще раз или создайте свой \nпродукт</string>
+
+
 </resources>
