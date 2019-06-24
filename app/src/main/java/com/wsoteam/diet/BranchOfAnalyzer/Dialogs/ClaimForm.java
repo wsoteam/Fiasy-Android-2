@@ -2,6 +2,8 @@ package com.wsoteam.diet.BranchOfAnalyzer.Dialogs;
 
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,14 +23,37 @@ import butterknife.BindView;
 
 public class ClaimForm {
     public static AlertDialog createChoiseEatingAlertDialog(Context context, Food food) {
+        int MIN = 139;
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         AlertDialog alertDialog = builder.create();
         View view = LayoutInflater.from(context).inflate(R.layout.alert_dialog_form_claim, null);
-        TextView tvTitle = view.findViewById(R.id.tvFoodTitle);
         EditText edtClaim = view.findViewById(R.id.edtTextClaim);
         Button cancel = view.findViewById(R.id.btnCancelClaim);
         Button send = view.findViewById(R.id.btnSendClaim);
-        tvTitle.setText(food.getFullInfo());
+
+        edtClaim.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > MIN && !send.isClickable()){
+                    send.setClickable(true);
+                    send.setTextColor(context.getResources().getColor(R.color.button_claim_active));
+                }else if (s.length() < MIN && send.isClickable()){
+                    send.setClickable(false);
+                    send.setTextColor(context.getResources().getColor(R.color.button_claim_inactive));
+                }
+            }
+
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,9 +67,9 @@ public class ClaimForm {
             public void onClick(View v) {
                 if (!edtClaim.getText().toString().equals("")
                         || !edtClaim.getText().toString().equals(" ")
-                        || edtClaim.getText().toString().length() > 3){
+                        || edtClaim.getText().toString().length() > 3) {
                     WorkWithFirebaseDB.sendClaim(fillClaim(food, edtClaim.getText().toString()));
-                }else {
+                } else {
                     Toast.makeText(context, "Проверьте введенные данные", Toast.LENGTH_SHORT).show();
                 }
                 alertDialog.cancel();

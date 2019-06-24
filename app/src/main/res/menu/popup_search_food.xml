@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:id="@+id/popupSearch">
-        <item
+        <!--<item
             android:id="@+id/userNote"
             android:title="Пользовательская запись" />
         <item
@@ -13,7 +13,7 @@
             android:title="Создать прием пищи" />
         <item
             android:id="@+id/createTemplate"
-            android:title="Создать шаблон" />
+            android:title="Создать шаблон" />-->
         <item
             android:id="@+id/createRecipe"
             android:title="Создать рецепт" />

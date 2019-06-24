@@ -13,6 +13,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -42,6 +43,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
     @BindView(R.id.searchFragmentContainer) ViewPager viewPager;
     @BindView(R.id.tabs) TabLayout tabs;
     private TabsAdapter tabsAdapter;
+    public int spinnerId = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,10 +61,8 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                    ((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
-                            sendString(charSequence.toString().replaceAll("\\s+", " "));
-
+                ((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
+                        sendString(charSequence.toString().replaceAll("\\s+", " "));
             }
 
             @Override
@@ -105,7 +105,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new FragmentSearch());
         fragments.add(new FragmentFavorites());
-        fragments.add(new FragmentFavorites());
         fragments.add(new ListAddedRecipeFragment());
         return fragments;
     }
@@ -132,6 +131,18 @@ public class ActivityListAndSearch extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search);
         spinner.setAdapter(adapter);
         spinner.setSelection(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
+        //spinnerId = spinner.getSelectedItemPosition();
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinnerId = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
 
@@ -158,14 +169,14 @@ public class ActivityListAndSearch extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.userNote:
+                    /*case R.id.userNote:
                         break;
                     case R.id.createFood:
                         break;
                     case R.id.createEating:
                         break;
                     case R.id.createTemplate:
-                        break;
+                        break;*/
                     case R.id.createRecipe:
                         startActivity(new Intent(ActivityListAndSearch.this, AddingRecipeActivity.class));
                         break;

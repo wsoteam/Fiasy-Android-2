@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
+import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
@@ -48,16 +51,55 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
     @BindView(R.id.tvTextAddFavorite) TextView tvTextAddFavorite;
     @BindView(R.id.btnAddFavorite) Button btnAddFavorite;
     private FoodDAO foodDAO = App.getInstance().getFoodDatabase().foodDAO();
+    private ItemAdapter itemAdapter;
+    private String searchString = "";
 
     @Override
     public void sendString(String searchString) {
+        this.searchString = searchString;
+        search(searchString);
+    }
 
+    private void search(String searchString) {
+        if (foods.size() != 0) {
+            List<Food> correctFoods = new ArrayList<>();
+            for (int i = 0; i < foods.size(); i++) {
+                if (foods.get(i).getFullInfo().toLowerCase().contains(searchString.toLowerCase())) {
+                    correctFoods.add(foods.get(i));
+                }
+            }
+            showResult(correctFoods);
+        }
+    }
+
+    private void showResult(List<Food> correctFoods) {
+        if (correctFoods.size() > 0) {
+            hideMessageUI();
+            itemAdapter = new ItemAdapter(correctFoods);
+            rvFavorites.setAdapter(itemAdapter);
+        } else {
+            showNoFind();
+            itemAdapter = new ItemAdapter(correctFoods);
+            rvFavorites.setAdapter(itemAdapter);
+        }
+    }
+
+    private void showNoFind() {
+        Glide.with(getActivity()).load(R.drawable.ic_no_find).into(ivAddFavorite);
+        tvTitleFavoriteAdd.setText(getActivity().getResources().getString(R.string.title_no_find_food));
+        tvTextAddFavorite.setText(getActivity().getResources().getString(R.string.text_no_find_food));
+        ivAddFavorite.setVisibility(View.VISIBLE);
+        tvTextAddFavorite.setVisibility(View.VISIBLE);
+        tvTitleFavoriteAdd.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         findFavoritesInDb();
+        if (UserDataHolder.getUserData().getFoodFavorites() != null) {
+            Log.e("LOL", String.valueOf(UserDataHolder.getUserData().getFoodFavorites().size()));
+        }
     }
 
     @Nullable
@@ -95,11 +137,22 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
 
     private void updateUI(List<Food> foods) {
         if (foods.size() == 0) {
+            this.foods = foods;
+            itemAdapter = new ItemAdapter(foods);
+            rvFavorites.setAdapter(itemAdapter);
             showStartScreen();
         } else {
+            hideMessageUI();
             this.foods = foods;
-            rvFavorites.setAdapter(new ItemAdapter(foods));
+            itemAdapter = new ItemAdapter(foods);
+            rvFavorites.setAdapter(itemAdapter);
         }
+    }
+
+    private void hideMessageUI() {
+        tvTextAddFavorite.setVisibility(View.GONE);
+        tvTitleFavoriteAdd.setVisibility(View.GONE);
+        ivAddFavorite.setVisibility(View.GONE);
     }
 
     private void showStartScreen() {
@@ -154,8 +207,8 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(getActivity(), ActivityDetailOfFood.class);
-            //intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
-            //intent.putExtra(Config.TAG_CHOISE_EATING, spinner.getSelectedItemPosition());
+            intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
+            intent.putExtra(Config.TAG_CHOISE_EATING, ((ActivityListAndSearch) getActivity()).spinnerId);
             intent.putExtra(Config.INTENT_DATE_FOR_SAVE, getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
             startActivity(intent);
         }
