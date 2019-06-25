@@ -268,6 +268,8 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         recipeItem.setSodium((int) sodium);
         recipeItem.setPotassium((int) potassium);
 
+        recipeItem.setUrl("https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/default_recipe.png?alt=media&token=1fcf855f-fa9d-4831-9ff2-af204a612707");
+
         WorkWithFirebaseDB.addUserRecipe(recipeItem);
         if (isShare) {
             WorkWithFirebaseDB.addUsersSharedRecipe(recipeItem);
