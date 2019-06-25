@@ -19,4 +19,7 @@
 
     <!-- Action Bar -->
     <dimen name="ab_padding_top">15dp</dimen>
+
+    <dimen name="water_thumb_size">22dp</dimen>
+    <dimen name="water_thumb_text_size">16sp</dimen>
 </resources>

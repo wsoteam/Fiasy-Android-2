@@ -554,12 +554,14 @@
     <string name="water_screen_fact2">Поставляет полезные вещества клеткам, не допуская тем самым их голодание и гибель.</string>
     <string name="water_screen_fact3">Способствует похудению путём улучшения процессов обмена веществ.</string>
     <string name="water_screen_water_need_title">Задать норму на каждый день</string>
-    <string name="water_screen_water_1_5">1.5 л</string>
+    <string name="water_screen_water_1_0">1.0 л</string>
     <string name="water_screen_water_2_5">2.5 л</string>
     <string name="water_screen_water_3_5">3.5 л</string>
     <string name="water_screen_water_add_title">Объем для добавления воды</string>
     <string name="water_screen_water_notification">Напоминать о приеме воды</string>
     <string name="water_screen_water_btn_default">По умолчанию</string>
+    <string name="water_screen_glass">Стакан 250 мл</string>
+    <string name="water_screen_bottle">Бутылка 1 л</string>
 
     <string name="search_of_food">Поиск продукта питания</string>
     <string name="for_100_g_of_product"> Ккал на 100 г продукта</string>
