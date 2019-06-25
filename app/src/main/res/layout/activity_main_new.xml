@@ -4,8 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/gradient_main">
+    android:layout_height="wrap_content">
+
+    <View
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/gradient_main"/>
 
     <com.github.jhonnyx2012.horizontalpicker.HorizontalPicker
         android:id="@+id/datePicker"
@@ -29,7 +34,7 @@
     <TextView
         android:id="@+id/textView138"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
         android:layout_marginEnd="28dp"
         android:background="@drawable/bg_main_topbar_days"
@@ -49,8 +54,8 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/textView138">
+        android:layout_marginTop="125dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/mainappbar"
@@ -96,17 +101,17 @@
                                     android:id="@+id/tvCaloriesNeed"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="21dp"
+                                    android:layout_marginTop="14dp"
                                     android:fontFamily="sans-serif-medium"
                                     android:gravity="center"
                                     android:letterSpacing="0.04"
                                     android:lineSpacingExtra="0.6sp"
-                                    android:text="800\nосталось"
+                                    android:text="@string/main_screen_topbar_left"
                                     android:textColor="@color/gray6"
                                     android:textSize="16sp"
-                                    app:layout_constraintBottom_toTopOf="@+id/pbCalories"
                                     app:layout_constraintEnd_toEndOf="@+id/pbCalories"
                                     app:layout_constraintStart_toStartOf="@+id/pbCalories"
+                                    app:layout_constraintTop_toTopOf="parent"
                                     tools:text="@string/main_screen_topbar_left"/>
 
                                 <ProgressBar
@@ -115,11 +120,13 @@
                                     android:layout_width="0dp"
                                     android:layout_height="13dp"
                                     android:layout_marginStart="50dp"
+                                    android:layout_marginTop="21dp"
                                     android:layout_marginEnd="50dp"
                                     android:indeterminate="false"
                                     android:progressDrawable="@drawable/progress_bar_gradient"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvCaloriesNeed"
                                     tools:layout_editor_absoluteY="66dp"
                                     tools:max="100"
                                     tools:progress="99"/>
@@ -425,7 +432,7 @@
                 android:id="@+id/vpEatingTimeLine"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="90dp"/>
+                android:layout_marginBottom="125dp"/>
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton

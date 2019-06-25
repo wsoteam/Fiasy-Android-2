@@ -202,9 +202,9 @@ public class FragmentEatingScroll extends Fragment {
         sLeft.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.main_calories_left)), 0, String.valueOf(leftKCal).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tvCaloriesLeft.setText(sLeft);
 
-        SpannableString sNeed = new SpannableString(String.format(getString(R.string.main_screen_topbar_kcal_target), apCollapsingKcal.getMax()));
-        sNeed.setSpan(new StyleSpan(Typeface.BOLD), 0, String.valueOf(apCollapsingKcal.getMax()).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        sNeed.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.main_calories_done)), 0, String.valueOf(apCollapsingKcal.getMax()).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        SpannableString sNeed = new SpannableString(String.format(getString(R.string.main_screen_topbar_left), apCollapsingKcal.getMax()));
+//        sNeed.setSpan(new StyleSpan(Typeface.BOLD), 0, String.valueOf(apCollapsingKcal.getMax()).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        sNeed.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.main_calories_done)), 0, String.valueOf(apCollapsingKcal.getMax()).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tvCaloriesNeed.setText(sNeed);
 
     }

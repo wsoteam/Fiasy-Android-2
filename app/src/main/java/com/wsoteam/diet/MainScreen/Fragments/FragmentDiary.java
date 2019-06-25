@@ -198,7 +198,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         Log.d("MyLogs", "difference - " + difference);
         if (difference < 0) {
 //            vpEatingTimeLine.clearOnPageChangeListeners();
-            vpEatingTimeLine.setCurrentItem(Config.COUNT_PAGE + difference);
+//            vpEatingTimeLine.setCurrentItem(Config.COUNT_PAGE + difference);
 //            vpEatingTimeLine.addOnPageChangeListener(viewPagerListener);
         }
     }
