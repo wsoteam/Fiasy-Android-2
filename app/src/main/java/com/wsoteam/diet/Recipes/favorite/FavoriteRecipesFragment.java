@@ -9,8 +9,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.Sync.UserDataHolder;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class FavoriteRecipesFragment extends Fragment {
+
+    private HashMap<String, RecipeItem> favoriteRecipes;
+
+    @Override
+    public void onResume() {
+        if (UserDataHolder.getUserData() != null) {
+            this.favoriteRecipes = UserDataHolder.getUserData().getFavoriteRecipes();
+        }
+        super.onResume();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -32,9 +32,13 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.Recipes.helper.SuccessfulAlertDialog;
+import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,6 +65,10 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
     @BindView(R.id.tvRecipeKK) TextView tvKkal;
     RecipeItem recipeItem;
     Window window;
+    MenuItem favoriteMenuItem;
+
+    private String key;
+    HashMap<String, RecipeItem> favoriteRecipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,9 +100,11 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
         mToolbar.setTitleTextColor(0xFFFFFFFF);
         mToolbar.setPadding(0, dpToPx(24), 0, 0);
         mToolbar.setBackgroundColor(Color.parseColor("#32000000"));
-        Menu menu = mToolbar.getMenu();
-
         mToolbar.inflateMenu(R.menu.recipe_menu);
+        Menu menu = mToolbar.getMenu();
+        favoriteMenuItem = menu.findItem(R.id.mFavorites);
+
+
         mToolbar.setOnMenuItemClickListener(this);
         mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -140,6 +150,23 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
 
         Glide.with(this).load(url).into(ivHead);
 
+
+        checkFavorite();
+    }
+
+    private void checkFavorite(){
+        if (UserDataHolder.getUserData() != null &&
+                UserDataHolder.getUserData().getFavoriteRecipes() != null){
+            favoriteRecipes = UserDataHolder.getUserData().getFavoriteRecipes();
+
+            for (Map.Entry<String, RecipeItem> e : favoriteRecipes.entrySet()) {
+                if (recipeItem.getName().equals(e.getValue().getName())){
+                    this.key = e.getKey();
+                    favoriteMenuItem.setIcon(R.drawable.icon_favorites_delete);
+                    return;
+                }
+            }
+        }
     }
 
     public int dpToPx(int dp) {
@@ -164,6 +191,17 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
                 startActivity(Intent.createChooser(i, getResources().getString(R.string.titleShareDialogRecipe)));
                 return true;
             case R.id.mFavorites:
+                if (key == null) {
+                    key = WorkWithFirebaseDB.addFavoriteRecipe(recipeItem);
+                    favoriteMenuItem.setIcon(R.drawable.icon_favorites_delete);
+//                    SuccessfulAlertDialog.start(this, "Рецепт добавлен в избранное!");
+
+                } else {
+                    WorkWithFirebaseDB.deleteFavoriteRecipe(key);
+                    favoriteMenuItem.setIcon(R.drawable.icon_favorites);
+//                    SuccessfulAlertDialog.start(this, "Рецепт удален из избранного!");
+                    key = null;
+                }
 
                 return true;
         }

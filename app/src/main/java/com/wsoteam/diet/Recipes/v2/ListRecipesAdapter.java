@@ -81,7 +81,7 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.
                         intent = new Intent(activity, RecipeActivity.class);
 
                     } else {
-                        intent = new Intent(activity, BlockedRecipeActivity.class);
+                        intent = new Intent(activity, RecipeActivity.class);
                     }
 
                     intent.putExtra(Config.RECIPE_INTENT, listRecipes.get(getAdapterPosition()));

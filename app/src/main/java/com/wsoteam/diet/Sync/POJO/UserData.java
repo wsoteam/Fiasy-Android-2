@@ -27,7 +27,7 @@ public class UserData implements Serializable {
     private HashMap<String, Dinner> dinners;
     private HashMap<String, Snack> snacks;
     private HashMap<String, WeightDiaryObject> diaryDataList;
-    private HashMap<String, RecipeItem> recipeFavorites;
+    private HashMap<String, RecipeItem> favoriteRecipes;
 
     public UserData() {
     }
@@ -36,7 +36,7 @@ public class UserData implements Serializable {
                     CheckHistory checkHistory, HashMap<String, Breakfast> breakfasts,
                     HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners,
                     HashMap<String, Snack> snacks, HashMap<String, WeightDiaryObject> diaryDataList,
-                    HashMap<String, RecipeItem> recipeFavorites) {
+                    HashMap<String, RecipeItem> favoriteRecipes) {
         this.name = name;
         this.profile = profile;
         this.subInfo = subInfo;
@@ -47,7 +47,7 @@ public class UserData implements Serializable {
         this.dinners = dinners;
         this.snacks = snacks;
         this.diaryDataList = diaryDataList;
-        this.recipeFavorites = recipeFavorites;
+        this.favoriteRecipes = favoriteRecipes;
     }
 
     public SubInfo getSubInfo() {
@@ -130,11 +130,11 @@ public class UserData implements Serializable {
         this.checkHistory = checkHistory;
     }
 
-    public HashMap<String, RecipeItem> getRecipeFavorites() {
-        return recipeFavorites;
+    public HashMap<String, RecipeItem> getFavoriteRecipes() {
+        return favoriteRecipes;
     }
 
-    public void setRecipeFavorites(HashMap<String, RecipeItem> recipeFavorites) {
-        this.recipeFavorites = recipeFavorites;
+    public void setFavoriteRecipes(HashMap<String, RecipeItem> favoriteRecipes) {
+        this.favoriteRecipes = favoriteRecipes;
     }
 }

@@ -31,6 +31,7 @@ import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.POJO.WeightDiaryObject;
 
@@ -242,5 +243,23 @@ public class WorkWithFirebaseDB {
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("snacks").child(key);
         myRef.setValue(snack);
     }
+
+
+    public static String addFavoriteRecipe(RecipeItem recipe) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("favoriteRecipes");
+        String key = myRef.push().getKey();
+        myRef.child(key).setValue(recipe);
+        return key;
+    }
+
+    public static void deleteFavoriteRecipe(String key) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("favoriteRecipes").child(key);
+        myRef.removeValue();
+    }
+
 
 }
