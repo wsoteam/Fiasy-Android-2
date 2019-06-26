@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import org.joda.time.DateTime;
@@ -35,8 +34,8 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
                 case RecyclerView.SCROLL_STATE_IDLE:
                     listener.onStopDraggingPicker();
                     selectMonth((int) ((computeHorizontalScrollOffset() / itemWidth) + 3.5));
-                    int position = newPosition;
-                    if (forceScroll && position != -1 && position != lastPosition) {
+                    if (forceScroll && newPosition != -1 && newPosition != lastPosition) {
+                        int position = newPosition;
                         selectItem(true, position);
                         lastPosition = position;
                         forceScroll = false;
@@ -88,7 +87,7 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
     }
 
     private void selectMonth(int position) {
-        listener.onDateSelected(adapter.getItem(position));
+        listener.onMonthSelected(adapter.getItem(position));
     }
 
     private void selectItem(boolean isSelected, int position) {
@@ -139,12 +138,10 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
     }
 
     public void plusDay() {
-        Log.d("MyLogs", "plusDay");
         smoothScrollToPosition(newPosition + 1);
     }
 
     public void minusDay() {
-        Log.d("MyLogs", "minusDay");
         smoothScrollToPosition(newPosition - 1);
     }
 

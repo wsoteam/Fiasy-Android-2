@@ -141,14 +141,18 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
 
     @Override
     public void onDateSelected(Day item) {
-        if (item == null)
+        if (item == null || listener == null)
             return;
 
+        listener.onDateSelected(item.getDate());
+    }
+
+    @Override
+    public void onMonthSelected(Day item) {
+        if (item == null)
+            return;
         int month = Integer.parseInt(item.getNumericMonth());
         tvMonth.setText(getResources().getStringArray(R.array.monthList)[month - 1]);
-        if (listener != null) {
-            listener.onDateSelected(item.getDate());
-        }
     }
 
     public int getDays() {

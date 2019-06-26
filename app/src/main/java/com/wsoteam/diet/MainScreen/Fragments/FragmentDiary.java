@@ -177,7 +177,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
                 return Config.COUNT_PAGE + 1;
             }
         });
-        vpEatingTimeLine.setCurrentItem(Config.COUNT_PAGE);
+//        vpEatingTimeLine.setCurrentItem(Config.COUNT_PAGE);
     }
 
     @Override
@@ -189,11 +189,11 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
     public void onDateSelected(DateTime dateSelected) {
         DateTime today = new DateTime().withTime(0, 0, 0, 0);
         int difference = Days.daysBetween(dateSelected, today).getDays() * (dateSelected.getYear() < today.getMillis() ? -1 : 1);
-        Log.d("MyLogs", "difference - " + difference);
-        if (difference < 0) {
-//            vpEatingTimeLine.clearOnPageChangeListeners();
-//            vpEatingTimeLine.setCurrentItem(Config.COUNT_PAGE + difference);
-//            vpEatingTimeLine.addOnPageChangeListener(viewPagerListener);
+        int page = Config.COUNT_PAGE + difference;
+        if (difference <= 0 && vpEatingTimeLine.getCurrentItem() != page) {
+            vpEatingTimeLine.clearOnPageChangeListeners();
+            vpEatingTimeLine.setCurrentItem(page);
+            vpEatingTimeLine.addOnPageChangeListener(viewPagerListener);
         }
     }
 
@@ -220,18 +220,11 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         SharedPreferences.Editor editor = countOfRun.edit();
         editor.putInt(TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG, countOfRun.getInt(TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG, COUNT_OF_RUN) + 1);
         editor.apply();
-
     }
 
     @OnClick({R.id.fabAddEating, R.id.ivCalendar, R.id.btnNotification})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-//            case R.id.ibOpenYesterday:
-//                vpEatingTimeLine.setCurrentItem(vpEatingTimeLine.getCurrentItem() - 1);
-//                break;
-//            case R.id.ibOpenTomorrow:
-//                vpEatingTimeLine.setCurrentItem(vpEatingTimeLine.getCurrentItem() + 1);
-//                break;
             case R.id.fabAddEating:
                 /*AlertDialogChoiseEating.createChoiseEatingAlertDialog(getActivity(),
                         tvDateForMainScreen.getText().toString()).show();*/
