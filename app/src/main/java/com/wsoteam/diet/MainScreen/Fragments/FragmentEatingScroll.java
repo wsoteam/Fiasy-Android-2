@@ -15,6 +15,7 @@ import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -55,6 +56,7 @@ public class FragmentEatingScroll extends Fragment {
     private ProgressBar apCollapsingProt;
     private ProgressBar apCollapsingCarbo;
     private ProgressBar apCollapsingFat;
+    private ImageView btnNotification;
 
     public static FragmentEatingScroll newInstance(int position) {
         Bundle bundle = new Bundle();
@@ -114,6 +116,8 @@ public class FragmentEatingScroll extends Fragment {
         tvCaloriesLeft = getActivity().findViewById(R.id.tvCaloriesLeft);
         tvCaloriesDone = getActivity().findViewById(R.id.tvCaloriesDone);
         tvCaloriesNeed = getActivity().findViewById(R.id.tvCaloriesNeed);
+
+        btnNotification = getActivity().findViewById(R.id.btnNotification);
 
         return view;
     }
@@ -181,32 +185,77 @@ public class FragmentEatingScroll extends Fragment {
         apCollapsingCarbo.setProgress(carbo);
         apCollapsingFat.setProgress(fat);
 
-        tvCollapsCaloriesNeed.setText(String.format(getString(R.string.main_screen_topbar_left), apCollapsingKcal.getMax()));
         tvCollapsCalories.setText(String.valueOf(kcal));
         tvCollapsProt.setText(String.valueOf(prot));
         tvCollapsFat.setText(String.valueOf(fat));
         tvCollapsCarbo.setText(String.valueOf(carbo));
 
-        String pattern = getString(R.string.main_screen_topbar_string);
-        tvProt.setText(String.format(pattern, prot, apCollapsingProt.getMax()));
-        tvCarbo.setText(String.format(pattern, carbo, apCollapsingCarbo.getMax()));
-        tvFat.setText(String.format(pattern, fat, apCollapsingFat.getMax()));
+        final String pattern = getString(R.string.main_screen_topbar_string);
 
-        SpannableString sDone = new SpannableString(String.format(getString(R.string.main_screen_topbar_kcal_done), kcal));
-        sDone.setSpan(new StyleSpan(Typeface.BOLD), 0, String.valueOf(kcal).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        sDone.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.main_calories_done)), 0, String.valueOf(kcal).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tvCaloriesDone.setText(sDone);
+        if (apCollapsingKcal.getMax() >= kcal) {
+            apCollapsingKcal.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories));
+            tvCaloriesDone.setText(spanText(R.string.main_screen_topbar_kcal_done, String.valueOf(kcal), R.color.main_calories_done));
+            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_left, String.valueOf(leftKCal), R.color.main_calories_left));
+            tvCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done));
+            tvCollapsCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done));
+            tvCollapsCalories.setTextColor(getResources().getColor(R.color.total_title));
+            btnNotification.setVisibility(View.GONE);
+        } else {
+            apCollapsingKcal.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
+            tvCaloriesDone.setText(spanText(R.string.main_screen_topbar_kcal_done, String.valueOf(kcal), R.color.main_calories_done_over));
+            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_over, String.valueOf(leftKCal), R.color.main_calories_left_over));
+            tvCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done_over));
+            tvCollapsCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done_over));
+            tvCollapsCalories.setTextColor(getResources().getColor(R.color.main_calories_done_over));
+            btnNotification.setVisibility(View.VISIBLE);
+        }
 
-        SpannableString sLeft = new SpannableString(String.format(getString(R.string.main_screen_topbar_kcal_left), leftKCal));
-        sLeft.setSpan(new StyleSpan(Typeface.BOLD), 0, String.valueOf(leftKCal).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        sLeft.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.main_calories_left)), 0, String.valueOf(leftKCal).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tvCaloriesLeft.setText(sLeft);
+        final String carboText = String.format(pattern, carbo, apCollapsingCarbo.getMax());
+        if (apCollapsingCarbo.getMax() >= carbo) {
+            apCollapsingCarbo.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_carbo));
+            tvCarbo.setText(spanText(carboText, String.valueOf(carbo), R.color.gray4));
+            tvCollapsCarbo.setTextColor(getResources().getColor(R.color.total_title));
+        } else {
+            apCollapsingCarbo.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
+            tvCarbo.setText(spanText(carboText, String.valueOf(carbo), R.color.main_value_over));
+            tvCollapsCarbo.setTextColor(getResources().getColor(R.color.main_value_over));
+        }
 
-        SpannableString sNeed = new SpannableString(String.format(getString(R.string.main_screen_topbar_left), apCollapsingKcal.getMax()));
-//        sNeed.setSpan(new StyleSpan(Typeface.BOLD), 0, String.valueOf(apCollapsingKcal.getMax()).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//        sNeed.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.main_calories_done)), 0, String.valueOf(apCollapsingKcal.getMax()).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tvCaloriesNeed.setText(sNeed);
+        final String fatText = String.format(pattern, fat, apCollapsingFat.getMax());
+        if (apCollapsingFat.getMax() >= fat) {
+            apCollapsingFat.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_fat));
+            tvFat.setText(spanText(fatText, String.valueOf(fat), R.color.gray4));
+            tvCollapsFat.setTextColor(getResources().getColor(R.color.total_title));
+        } else {
+            apCollapsingFat.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
+            tvFat.setText(spanText(fatText, String.valueOf(fat), R.color.main_value_over));
+            tvCollapsFat.setTextColor(getResources().getColor(R.color.main_value_over));
+        }
 
+        final String protText = String.format(pattern, prot, apCollapsingProt.getMax());
+        if (apCollapsingProt.getMax() >= prot) {
+            apCollapsingProt.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_proteins));
+            tvProt.setText(spanText(protText, String.valueOf(prot), R.color.gray4));
+            tvCollapsProt.setTextColor(getResources().getColor(R.color.total_title));
+        } else {
+            apCollapsingProt.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
+            tvProt.setText(spanText(protText, String.valueOf(prot), R.color.main_value_over));
+            tvCollapsProt.setTextColor(getResources().getColor(R.color.main_value_over));
+        }
+    }
+
+    private SpannableString spanText(int resId, String value, int resColor) {
+        final String pattern = String.format(getString(resId), value);
+        return spanText(pattern, value, resColor);
+    }
+
+    private SpannableString spanText(String pattern, String value, int resColor) {
+        final int start = pattern.indexOf(value);
+        final int end = start + value.length();
+        final SpannableString text = new SpannableString(pattern);
+        text.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        text.setSpan(new ForegroundColorSpan(getResources().getColor(resColor)), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return text;
     }
 
     public class LoadEatingForThisDay extends AsyncTask<Integer, Void, List<List<Eating>>> {

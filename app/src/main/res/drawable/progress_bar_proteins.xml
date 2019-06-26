@@ -4,17 +4,8 @@
     <item android:id="@android:id/background">
         <shape>
             <corners android:radius="5dp"/>
-            <solid android:color="#205651"/>
+            <solid android:color="@android:color/white"/>
         </shape>
-    </item>
-
-    <item android:id="@android:id/secondaryProgress">
-        <clip>
-            <shape>
-                <corners android:radius="5dp"/>
-                <solid android:color="@color/blue"/>
-            </shape>
-        </clip>
     </item>
 
     <item android:id="@android:id/progress">
@@ -22,10 +13,7 @@
             <shape>
                 <corners
                     android:radius="5dp"/>
-                <gradient
-                    android:angle="0"
-                    android:endColor="#F68103"
-                    android:startColor="#FFDE67"/>
+                <solid android:color="@color/main_screen_progress_bar_protein"/>
             </shape>
         </clip>
     </item>

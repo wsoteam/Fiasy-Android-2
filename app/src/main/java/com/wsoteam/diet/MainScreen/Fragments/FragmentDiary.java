@@ -17,11 +17,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -59,6 +62,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
     @BindView(R.id.tvCarbo) TextView tvCarbo;
     @BindView(R.id.tvFat) TextView tvFat;
     @BindView(R.id.tvProt) TextView tvProt;
+    @BindView(R.id.tvCaloriesNeed) TextView tvCaloriesNeed;
     @BindView(R.id.mainappbar) AppBarLayout mainappbar;
     @BindView(R.id.cvParams) CardView cvParams;
     @BindView(R.id.collapsingToolbarLayout) CollapsingToolbarLayout collapsingToolbarLayout;
@@ -66,6 +70,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
     @BindView(R.id.llSum) LinearLayout llSum;
     @BindView(R.id.llHead) ConstraintLayout llHead;
     @BindView(R.id.datePicker) HorizontalPicker datePicker;
+    @BindView(R.id.btnNotification) ImageView btnNotification;
     private Unbinder unbinder;
     private Profile profile;
     private int COUNT_OF_RUN = 0;
@@ -94,16 +99,6 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         public void onPageScrollStateChanged(int i) {
         }
     };
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        IntercomFactory.show();
-        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
-            profile = UserDataHolder.getUserData().getProfile();
-            setMaxParamsInProgressBars(profile);
-        }
-    }
 
     @Nullable
     @Override
@@ -169,7 +164,6 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         return Math.round(pixels);
     }
 
-    // TODO ЭТО СОЗДАНО 3651 ФРАГМЕНТОВ??)
     private void bindViewPager() {
         vpEatingTimeLine.addOnPageChangeListener(viewPagerListener);
         vpEatingTimeLine.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
@@ -203,16 +197,15 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        IntercomFactory.hide();
+    private void attachCaloriesPopup() {
+        View popupView = getLayoutInflater().inflate(R.layout.layout_notification_calories_over, null);
+        final PopupWindow popupWindow = new PopupWindow(popupView,
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setTouchable(true);
+        popupWindow.setFocusable(true);
+        popupWindow.setContentView(popupView);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupWindow.showAsDropDown(tvCaloriesNeed, tvCaloriesNeed.getWidth() / 2, 0, Gravity.BOTTOM);
     }
 
     private void setMaxParamsInProgressBars(Profile profile) {
@@ -230,7 +223,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
 
     }
 
-    @OnClick({R.id.fabAddEating, R.id.ivCalendar})
+    @OnClick({R.id.fabAddEating, R.id.ivCalendar, R.id.btnNotification})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 //            case R.id.ibOpenYesterday:
@@ -244,6 +237,9 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
                         tvDateForMainScreen.getText().toString()).show();*/
                 Intercom.client().displayMessenger();
                 break;
+            case R.id.btnNotification:
+                attachCaloriesPopup();
+                break;
             case R.id.ivCalendar:
                 SublimePickerDialogFragment sublimePickerDialogFragment = new SublimePickerDialogFragment();
                 Bundle bundle = new Bundle();
@@ -252,6 +248,28 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
                 sublimePickerDialogFragment.setTargetFragment(this, 0);
                 sublimePickerDialogFragment.show(getFragmentManager(), null);
                 break;
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        IntercomFactory.hide();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        IntercomFactory.show();
+        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
+            profile = UserDataHolder.getUserData().getProfile();
+            setMaxParamsInProgressBars(profile);
         }
     }
 }

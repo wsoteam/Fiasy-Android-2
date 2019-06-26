@@ -529,11 +529,14 @@
     <!--Main screen-->
     <string name="main_screen_topbar_calendar_days">Дней подряд:</string>
     <string name="main_screen_topbar_string">%d из %d г</string>
-    <string name="main_screen_topbar_kcal_target">%d\nцель</string>
-    <string name="main_screen_topbar_kcal_left">%d\nосталось</string>
-    <string name="main_screen_topbar_kcal_done">%d\nсъедено</string>
+    <string name="main_screen_topbar_kcal_target">%s\nцель</string>
+    <string name="main_screen_topbar_kcal_left">%s\nосталось</string>
+    <string name="main_screen_topbar_kcal_done">%s\nсъедено</string>
+    <string name="main_screen_topbar_kcal_over">%s\nсверх нормы</string>
 
-    <string name="main_screen_topbar_left">Ежедневная норма = %d ккал</string>
+    <string name="main_screen_topbar_kcal_over_notification">Хотим вас\nпредупредить, что\nпревышение калорий\nможет привести к\nнулевому результату</string>
+
+    <string name="main_screen_topbar_left">Ежедневная норма = %s ккал</string>
     <string name="main_screen_topbar_calories">Съедено</string>
     <string name="main_screen_topbar_prot">Белки</string>
     <string name="main_screen_topbar_fat">Жиры</string>

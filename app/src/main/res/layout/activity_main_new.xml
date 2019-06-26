@@ -7,10 +7,10 @@
     android:layout_height="wrap_content">
 
     <View
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@drawable/gradient_main"/>
+        android:background="@drawable/gradient_main"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <com.github.jhonnyx2012.horizontalpicker.HorizontalPicker
         android:id="@+id/datePicker"
@@ -114,6 +114,16 @@
                                     app:layout_constraintTop_toTopOf="parent"
                                     tools:text="@string/main_screen_topbar_left"/>
 
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:id="@+id/btnNotification"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="3dp"
+                                    android:visibility="gone"
+                                    app:layout_constraintStart_toEndOf="@id/tvCaloriesNeed"
+                                    app:layout_constraintTop_toTopOf="@id/tvCaloriesNeed"
+                                    app:srcCompat="@drawable/ic_error"/>
+
                                 <ProgressBar
                                     android:id="@+id/pbCalories"
                                     style="?android:attr/progressBarStyleHorizontal"
@@ -122,14 +132,16 @@
                                     android:layout_marginStart="50dp"
                                     android:layout_marginTop="21dp"
                                     android:layout_marginEnd="50dp"
+                                    android:background="@drawable/progress_bar_calories"
+                                    android:elevation="7dp"
                                     android:indeterminate="false"
-                                    android:progressDrawable="@drawable/progress_bar_gradient"
+                                    android:progressDrawable="@drawable/progress_bar_calories"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@id/tvCaloriesNeed"
                                     tools:layout_editor_absoluteY="66dp"
                                     tools:max="100"
-                                    tools:progress="99"/>
+                                    tools:progress="50"/>
 
                                 <TextView
                                     android:id="@+id/tvCaloriesDone"
@@ -138,11 +150,11 @@
                                     android:layout_marginTop="2dp"
                                     android:fontFamily="@font/roboto_light"
                                     android:gravity="center"
-                                    android:text="930\nсъедено"
                                     android:textColor="@color/gray3"
                                     android:textSize="12sp"
                                     app:layout_constraintStart_toStartOf="@+id/pbCalories"
-                                    app:layout_constraintTop_toBottomOf="@id/pbCalories"/>
+                                    app:layout_constraintTop_toBottomOf="@id/pbCalories"
+                                    tools:text="930\nсъедено"/>
 
                                 <TextView
                                     android:id="@+id/tvCaloriesBurn"
@@ -166,11 +178,11 @@
                                     android:layout_marginTop="2dp"
                                     android:fontFamily="@font/roboto_light"
                                     android:gravity="center"
-                                    android:text="800\nосталось"
                                     android:textColor="@color/gray3"
                                     android:textSize="12sp"
                                     app:layout_constraintEnd_toEndOf="@id/pbCalories"
-                                    app:layout_constraintTop_toBottomOf="@id/pbCalories"/>
+                                    app:layout_constraintTop_toBottomOf="@id/pbCalories"
+                                    tools:text="800\nосталось"/>
                             </android.support.constraint.ConstraintLayout>
 
                             <android.support.constraint.ConstraintLayout
@@ -185,7 +197,9 @@
                                     android:layout_height="10dp"
                                     android:layout_marginStart="50dp"
                                     android:layout_marginTop="45dp"
-                                    android:progressDrawable="@drawable/progress_bar_gradient"
+                                    android:background="@drawable/progress_bar_proteins"
+                                    android:elevation="7dp"
+                                    android:progressDrawable="@drawable/progress_bar_proteins"
                                     app:layout_constraintEnd_toStartOf="@+id/pbFat"
                                     app:layout_constraintHorizontal_bias="0.5"
                                     app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -199,7 +213,9 @@
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:layout_width="60dp"
                                     android:layout_height="10dp"
-                                    android:progressDrawable="@drawable/progress_bar_gradient"
+                                    android:background="@drawable/progress_bar_fat"
+                                    android:elevation="7dp"
+                                    android:progressDrawable="@drawable/progress_bar_fat"
                                     app:layout_constraintEnd_toStartOf="@+id/pbCarbo"
                                     app:layout_constraintHorizontal_bias="0.5"
                                     app:layout_constraintStart_toEndOf="@+id/pbProt"
@@ -213,7 +229,9 @@
                                     android:layout_width="60dp"
                                     android:layout_height="10dp"
                                     android:layout_marginEnd="50dp"
-                                    android:progressDrawable="@drawable/progress_bar_gradient"
+                                    android:background="@drawable/progress_bar_carbo"
+                                    android:elevation="7dp"
+                                    android:progressDrawable="@drawable/progress_bar_carbo"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toEndOf="@+id/pbFat"
                                     app:layout_constraintTop_toTopOf="@id/pbProt"
@@ -258,36 +276,36 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="2dp"
-                                    android:text="0 из 345 г"
                                     android:textColor="@color/gray4"
                                     android:textSize="11sp"
                                     app:layout_constraintEnd_toEndOf="@+id/pbProt"
                                     app:layout_constraintStart_toStartOf="@+id/pbProt"
-                                    app:layout_constraintTop_toBottomOf="@+id/pbProt"/>
+                                    app:layout_constraintTop_toBottomOf="@+id/pbProt"
+                                    tools:text="0 из 345 г"/>
 
                                 <TextView
                                     android:id="@+id/tvFat"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="2dp"
-                                    android:text="5 из 250 г"
                                     android:textColor="@color/gray4"
                                     android:textSize="11sp"
                                     app:layout_constraintEnd_toEndOf="@+id/pbFat"
                                     app:layout_constraintStart_toStartOf="@+id/pbFat"
-                                    app:layout_constraintTop_toBottomOf="@+id/pbFat"/>
+                                    app:layout_constraintTop_toBottomOf="@+id/pbFat"
+                                    tools:text="5 из 250 г"/>
 
                                 <TextView
                                     android:id="@+id/tvCarbo"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="2dp"
-                                    android:text="124 из 667 г"
                                     android:textColor="@color/gray4"
                                     android:textSize="11sp"
                                     app:layout_constraintEnd_toEndOf="@+id/pbCarbo"
                                     app:layout_constraintStart_toStartOf="@+id/pbCarbo"
-                                    app:layout_constraintTop_toBottomOf="@+id/pbCarbo"/>
+                                    app:layout_constraintTop_toBottomOf="@+id/pbCarbo"
+                                    tools:text="124 из 667 г"/>
 
                             </android.support.constraint.ConstraintLayout>
                         </LinearLayout>
