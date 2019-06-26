@@ -1,6 +1,10 @@
 <resources>
 
     <!--adding recipe-->
+    <string name="addingRecipeText">В этом разделе будут храниться созданные вами рецепты</string>
+    <string name="favoriteRecipeText">В этом разделе будут храниться понравившиеся вам рецепты </string>
+    <string name="myRecipe">Свои рецепты</string>
+    <string name="favoriteRecipe">Понравившиеся</string>
     <string name="addRecipe">Добавить рецепт</string>
     <string name="recipes">Рецепты</string>
     <string name="addingRecipeTxt">Здесь вы можете создать и сохранить набор продуктов, который употребляете ежедневно в определенный прием пищи</string>
@@ -10,7 +14,7 @@
     <string name="addingRecipePortionV">Вес:</string>
     <string name="addingRecipeAddInstruction">Добавить шаг</string>
     <string name="addingRecipeAddIngredient">Добавить ингридиент</string>
-    <string name="recipeToolBarTitle">Создать рецепт</string>
+    <string name="createRecipe">Создать рецепт</string>
     <string name="btnBack">Назад</string>
     <string name="btnNext">Далее</string>
     <string name="addingRecipeName">Название блюда</string>

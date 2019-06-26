@@ -42,14 +42,9 @@ import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodDB;
 import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.R;
 
-import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.authHarvester.IntercomHarvester;
 import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
-import com.wsoteam.diet.Recipes.favorite.FavoriteRecipesFragment;
-import com.wsoteam.diet.Recipes.helper.FragmentContainer;
-import com.wsoteam.diet.Recipes.adding.ListAddedRecipeFragment;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 
 import java.util.Calendar;
@@ -57,7 +52,6 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.intercom.android.sdk.Intercom;
 
 
 public class MainActivity extends AppCompatActivity {

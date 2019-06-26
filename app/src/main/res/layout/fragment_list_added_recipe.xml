@@ -5,17 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvRecipes"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvRecipes"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layoutWithButton"
@@ -48,7 +59,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/roboto"
-            android:text="Избранное"
+            android:text="@string/recipes"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,14 +68,14 @@
 
         <TextView
             android:id="@+id/textView38"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto_light"
             android:gravity="center"
-            android:text="В этом разделе будут храниться \nпонравившиеся или сохраненные вами \nрецепты и продукты"
+            android:text="@string/addingRecipeText"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,16 +83,16 @@
 
         <Button
             android:id="@+id/btnAddRecipe"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="44dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="248dp"
+            android:layout_marginTop="210dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/btn_recipe_shape"
             android:fontFamily="@font/roboto_bold"
             android:paddingLeft="46dp"
             android:paddingRight="46dp"
-            android:text="@string/addRecipe"
+            android:text="@string/createRecipe"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"

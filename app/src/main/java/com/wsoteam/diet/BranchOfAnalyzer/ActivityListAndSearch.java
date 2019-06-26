@@ -27,7 +27,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentSearch;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
-import com.wsoteam.diet.Recipes.adding.ListAddedRecipeFragment;
+import com.wsoteam.diet.Recipes.helper.FragmentRecipeContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +105,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new FragmentSearch());
         fragments.add(new FragmentFavorites());
-        fragments.add(new ListAddedRecipeFragment());
+        fragments.add(new FragmentRecipeContainer());
         return fragments;
     }
 
