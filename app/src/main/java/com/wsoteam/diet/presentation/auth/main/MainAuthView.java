@@ -5,6 +5,6 @@ import com.wsoteam.diet.presentation.global.BaseView;
 public interface MainAuthView extends BaseView {
 
     void showSnackBar(String message);
+    void goBackToSignIn();
 
-    void authPhoneVerificationId(String verificationId);
 }

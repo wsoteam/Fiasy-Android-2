@@ -20,6 +20,11 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,8 +49,12 @@ public class BlockedRecipeActivity extends AppCompatActivity  implements Toolbar
     @BindView(R.id.tvCholesterol) TextView tvCholesterol;
     @BindView(R.id.tvSodium) TextView tvSodium;
     @BindView(R.id.tvPotassium) TextView tvPotassium;
-    RecipeItem recipeItem;
-    Window window;
+    private RecipeItem recipeItem;
+    private Window window;
+    private MenuItem favoriteMenuItem;
+
+    private String key;
+    private HashMap<String, RecipeItem> favoriteRecipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +71,11 @@ public class BlockedRecipeActivity extends AppCompatActivity  implements Toolbar
         mToolbar.setTitleTextColor(0xFFFFFFFF);
         mToolbar.setPadding(0, dpToPx(24), 0, 0);
         mToolbar.setBackgroundColor(Color.parseColor("#32000000"));
-        Menu menu = mToolbar.getMenu();
+        mToolbar.inflateMenu(R.menu.recipe_menu);
 
-//        mToolbar.inflateMenu(R.menu.recipe_menu);
+        Menu menu = mToolbar.getMenu();
+        favoriteMenuItem = menu.findItem(R.id.mFavorites);
+
         mToolbar.setOnMenuItemClickListener(this);
         mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -111,6 +122,7 @@ public class BlockedRecipeActivity extends AppCompatActivity  implements Toolbar
             if (indexInstruction < borderInstruction){ llInstructions.addView(line);}
         }
 
+        checkFavorite();
     }
 
     @OnClick(R.id.goPrem)
@@ -132,6 +144,22 @@ public class BlockedRecipeActivity extends AppCompatActivity  implements Toolbar
         return Math.round((float) dp * density);
     }
 
+    private void checkFavorite(){
+        if (UserDataHolder.getUserData() != null &&
+                UserDataHolder.getUserData().getFavoriteRecipes() != null){
+            favoriteRecipes = UserDataHolder.getUserData().getFavoriteRecipes();
+
+            for (Map.Entry<String, RecipeItem> e : favoriteRecipes.entrySet()) {
+                if (recipeItem.getName().equals(e.getValue().getName())){
+                    this.key = e.getKey();
+                    favoriteMenuItem.setIcon(R.drawable.icon_favorites_delete);
+                    return;
+                }
+            }
+        }
+    }
+
+
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
@@ -139,7 +167,15 @@ public class BlockedRecipeActivity extends AppCompatActivity  implements Toolbar
 
                 return true;
             case R.id.mFavorites:
+                if (key == null) {
+                    key = WorkWithFirebaseDB.addFavoriteRecipe(recipeItem);
+                    favoriteMenuItem.setIcon(R.drawable.icon_favorites_delete);
 
+                } else {
+                    WorkWithFirebaseDB.deleteFavoriteRecipe(key);
+                    favoriteMenuItem.setIcon(R.drawable.icon_favorites);
+                    key = null;
+                }
                 return true;
         }
         return false;

@@ -60,6 +60,15 @@
                                 подобранные специально для Вас \n
                                 нашими диетологами.</string>
 
+    <!-- Опросник -->
+    <string name="profile_name">Напишите ваше имя и фамилию</string>
+    <string name="profile_age">Сколько Вам лет?</string>
+    <string name="profile_sex">Ваш пол</string>
+    <string name="profile_height">Ваш рост</string>
+    <string name="profile_diff">Выберите уровень сложности</string>
+    <string name="profile_activity">Выберите у Вас уровень активности?</string>
+    <string name="profile_weight">Ваш вес</string>
+
     <!--Add Measurements Activity-->
     <string name="tv_select_date_measur">Выберите дату</string>
     <string name="tvTitleWeight">Вес</string>
@@ -189,10 +198,14 @@
     <!--auth_main-->
     <string name="auth_main_tv">Вход</string>
     <string name="auth_main_et_hint_name">Имя</string>
-    <string name="auth_main_et_hint_email">Email</string>
-    <string name="auth_main_et_hint_pass">Password</string>
-    <string name="auth_main_btn_signin">Вход по Email</string>
-    <string name="auth_main_btn_create">Регистрация</string>
+    <string name="auth_main_et_hint_email">Введите email</string>
+    <string name="auth_main_et_hint_pass">Введите пароль</string>
+    <string name="auth_main_et_hint_pass_dub">Повторите пароль</string>
+    <string name="auth_main_btn_signin">Войти</string>
+    <string name="auth_main_create">Регистрация</string>
+    <string name="auth_main_pass_not_match">Пароли не совпадают</string>
+    <string name="auth_main_btn_create">Зарегистрироваться</string>
+    <string name="auth_main_btn_send_pass">Отправить пароль</string>
     <string name="auth_main_signin_insta">   Вход через аккаунт Instagram</string>
     <string name="auth_main_signin_google">   Вход через аккаунт Google</string>
     <string name="auth_main_signin_facebook">   Вход через аккаунт Facebook</string>
@@ -221,7 +234,7 @@
     <string name="auth_main_reg_facebook">Регистрация через аккаунт Facebook</string>
     <string name="auth_main_reg_phone">Вход по номеру телефона</string>
     <string name="auth_main_reg_tv">Создать аккаунт</string>
-    <string name="auth_main_check_box_pp">Я согласен с условиями <u>политики конфиденциальности</u></string>
+    <string name="auth_main_check_box_pp">Я согласен с условиями \n<u>политики конфиденциальности</u></string>
 
     <string name="auth_main_log_email">e</string>
 
@@ -310,6 +323,23 @@
     <string name="calculating">Расчеты</string>
     <string name="title_calculating">Расчет идеального веса</string>
     <string name="subtitle_list_calculating">Список калькуляторов</string>
+
+    <!--Privacy Policy-->
+    <string name="policy_action_title">Политика конфиденциальности</string>
+    <string name="policy_title">Privacy Policy &amp; Terms of Service</string>
+    <string name="policy_text">Fiasy Privacy Policy\n\nBy installing our mobile application or in any way using or accessing our Services,
+        you accept the terms and conditions of this Privacy Policy and the processing of your personal data.
+        \n\nPersonal data controller
+        \n\nResponsible for the processing of your personal data is:
+        \n\nCOMPANY NAME
+        \n\nIP Salamov Alexander
+        \n\nCORPORATE IDENTITY NO:
+        \n\n319500700005522
+        \n\nADDRESS
+        \n\n141551, Russia, Moscow obl., Solnechnogorskii, Andreevka, Staroandreevskaka street 43-231
+        \n\nE-MAIL
+        \n\ncontact@Fiasy.com
+        \n\nInformation about personal data we collect Fiasy.com</string>
 
     <!--Types of body-->
     <string name="astentic">Список калькуляторов</string>

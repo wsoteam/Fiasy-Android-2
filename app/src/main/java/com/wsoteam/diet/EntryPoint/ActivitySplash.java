@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustAttribution;
@@ -48,8 +47,8 @@ import com.wsoteam.diet.Recipes.adding.ProductSearchActivity;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.presentation.global.BaseActivity;
-import com.wsoteam.diet.presentation.intro.IntroActivity;
 import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
 import com.wsoteam.diet.tvoytrener.ForTestFragmentActivity;
 
@@ -61,13 +60,12 @@ import butterknife.ButterKnife;
 import dagger.android.AndroidInjection;
 
 public class ActivitySplash extends BaseActivity {
+    private final String TAG_FIRST_RUN = "TAG_FIRST_RUN";
     @BindView(R.id.auth_first_iv_image) ImageView authFirstIvImage;
     @BindView(R.id.tvSplashText) ImageView tvSplashText;
     private FirebaseUser user;
-
     private BillingClient mBillingClient;
     private SharedPreferences isBuyPrem;
-    private final String TAG_FIRST_RUN = "TAG_FIRST_RUN";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,9 +76,6 @@ public class ActivitySplash extends BaseActivity {
         ButterKnife.bind(this);
         Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
         Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
-        if (!hasConnection(this)) {
-            Toast.makeText(this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
-        }
 
 //        startActivity(new Intent(this, ForTestFragmentActivity.class));
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -119,9 +114,9 @@ public class ActivitySplash extends BaseActivity {
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
             if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_ONBOARD, false)) {
                 Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
-                startActivity(new Intent(this, EditProfileActivity.class).putExtra("registration", true));
+                startActivity(new Intent(this, EditProfileActivity.class).putExtra(Config.CREATE_PROFILE, true));
             } else {
-                startActivity(new Intent(ActivitySplash.this, IntroActivity.class));
+                startActivity(new Intent(ActivitySplash.this, MainAuthActivity.class).putExtra(Config.CREATE_PROFILE, true));
             }
             finish();
         }
@@ -174,7 +169,7 @@ public class ActivitySplash extends BaseActivity {
         } else {
             if (subInfo.getPaymentState() == 1) {
                 AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
-            }else if (subInfo.getPaymentState() == 2){
+            } else if (subInfo.getPaymentState() == 2) {
                 AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
             }
             changePremStatus(true);

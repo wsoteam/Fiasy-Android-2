@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:blurkit="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_fruits"/>
+
+    <io.alterac.blurkit.BlurLayout
+        android:id="@+id/blurLayout"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="#80ffffff"
+        app:layout_constraintTop_toTopOf="@id/ivMain"
+        blurkit:blk_blurRadius="5"
+        blurkit:blk_downscaleFactor="0.12"
+        blurkit:blk_fps="0"/>
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp"
+        android:text="@string/textViewProfileTitle"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toTopOf="@id/btnNext"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#99ffffff">
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/tvTitleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/profile_name"
+                android:textColor="@drawable/selector_text_black_gray"
+                app:layout_constraintStart_toEndOf="@id/dot1"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/dot1"
+                style="@style/DotStyle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="1"
+                app:layout_constraintBottom_toTopOf="@id/divider1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <EditText
+                android:id="@+id/edName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:inputType="textPersonName"
+                android:textColor="@color/gray2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvTitleName"
+                app:layout_constraintTop_toBottomOf="@id/tvTitleName"/>
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey_300"
+                app:layout_constraintTop_toBottomOf="@id/edName"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/tvAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/profile_age"
+                android:textColor="@drawable/selector_text_black_gray"
+                app:layout_constraintStart_toEndOf="@id/dot2"
+                app:layout_constraintTop_toBottomOf="@id/divider1"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/dot2"
+                style="@style/DotStyle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="2"
+                app:layout_constraintBottom_toTopOf="@id/divider2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider1"/>
+
+            <EditText
+                android:id="@+id/edAge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:inputType="number"
+                android:textColor="@color/gray2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvAge"
+                app:layout_constraintTop_toBottomOf="@id/tvAge"/>
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey_300"
+                app:layout_constraintTop_toBottomOf="@id/edAge"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/tvSex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/profile_sex"
+                android:textColor="@drawable/selector_text_black_gray"
+                app:layout_constraintStart_toEndOf="@id/dot3"
+                app:layout_constraintTop_toBottomOf="@id/divider2"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/dot3"
+                style="@style/DotStyle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="3"
+                app:layout_constraintBottom_toTopOf="@id/divider3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider2"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/edSex"
+                style="@style/AnketaButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/sex_male"
+                app:layout_constraintStart_toStartOf="@id/tvSex"
+                app:layout_constraintTop_toBottomOf="@id/tvSex"/>
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="3dp"
+                android:background="@color/grey_300"
+                app:layout_constraintTop_toBottomOf="@id/edSex"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/tvHeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/profile_height"
+                android:textColor="@drawable/selector_text_black_gray"
+                app:layout_constraintStart_toEndOf="@id/dot4"
+                app:layout_constraintTop_toBottomOf="@id/divider3"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/dot4"
+                style="@style/DotStyle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="4"
+                app:layout_constraintBottom_toTopOf="@id/divider4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider3"/>
+
+            <EditText
+                android:id="@+id/edHeight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:inputType="number"
+                android:textColor="@color/gray2"
+                app:layout_constraintEnd_toStartOf="@id/chHeight"
+                app:layout_constraintStart_toStartOf="@id/tvHeight"
+                app:layout_constraintTop_toBottomOf="@id/tvHeight"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/chHeight"
+                style="@style/AnketaChooserStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/cm"
+                android:checked="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvHeight"/>
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey_300"
+                app:layout_constraintTop_toBottomOf="@id/edHeight"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/tvDiff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/profile_diff"
+                android:textColor="@drawable/selector_text_black_gray"
+                app:layout_constraintStart_toEndOf="@id/dot5"
+                app:layout_constraintTop_toBottomOf="@id/divider4"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/dot5"
+                style="@style/DotStyle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="5"
+                app:layout_constraintBottom_toTopOf="@id/divider5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider4"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/edDiff"
+                style="@style/AnketaButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/dif_level_easy"
+                app:layout_constraintStart_toStartOf="@id/tvDiff"
+                app:layout_constraintTop_toBottomOf="@id/tvDiff"/>
+
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="3dp"
+                android:background="@color/grey_300"
+                app:layout_constraintTop_toBottomOf="@id/edDiff"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/tvActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/profile_activity"
+                android:textColor="@drawable/selector_text_black_gray"
+                app:layout_constraintStart_toEndOf="@id/dot6"
+                app:layout_constraintTop_toBottomOf="@id/divider5"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/dot6"
+                style="@style/DotStyle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="6"
+                app:layout_constraintBottom_toTopOf="@id/divider6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider5"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/edActivity"
+                style="@style/AnketaButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/level_none"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/tvActivity"
+                app:layout_constraintTop_toBottomOf="@id/tvActivity"
+                tools:text="Ежедневные интенсивные тренировки"/>
+
+            <View
+                android:id="@+id/divider6"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="3dp"
+                android:background="@color/grey_300"
+                app:layout_constraintTop_toBottomOf="@id/edActivity"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/tvWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/profile_weight"
+                android:textColor="@drawable/selector_text_black_gray"
+                app:layout_constraintStart_toEndOf="@id/dot7"
+                app:layout_constraintTop_toBottomOf="@id/divider6"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/dot7"
+                style="@style/DotStyle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="7"
+                app:layout_constraintBottom_toTopOf="@id/divider7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider6"/>
+
+            <EditText
+                android:id="@+id/edWeight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:inputType="number"
+                android:textColor="@color/gray2"
+                app:layout_constraintEnd_toStartOf="@id/chWeight"
+                app:layout_constraintStart_toStartOf="@id/tvWeight"
+                app:layout_constraintTop_toBottomOf="@id/tvWeight"/>
+
+            <android.support.v7.widget.AppCompatCheckedTextView
+                android:id="@+id/chWeight"
+                style="@style/AnketaChooserStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/kg"
+                android:checked="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvWeight"/>
+
+            <View
+                android:id="@+id/divider7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey_300"
+                app:layout_constraintTop_toBottomOf="@id/edWeight"/>
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@drawable/selector_vertical_line"
+                app:layout_constraintBottom_toTopOf="@id/dot2"
+                app:layout_constraintEnd_toEndOf="@id/dot2"
+                app:layout_constraintStart_toStartOf="@id/dot1"
+                app:layout_constraintTop_toBottomOf="@id/dot1"/>
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@drawable/selector_vertical_line"
+                app:layout_constraintBottom_toTopOf="@id/dot3"
+                app:layout_constraintEnd_toEndOf="@id/dot3"
+                app:layout_constraintStart_toStartOf="@id/dot2"
+                app:layout_constraintTop_toBottomOf="@id/dot2"/>
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@drawable/selector_vertical_line"
+                app:layout_constraintBottom_toTopOf="@id/dot4"
+                app:layout_constraintEnd_toEndOf="@id/dot4"
+                app:layout_constraintStart_toStartOf="@id/dot3"
+                app:layout_constraintTop_toBottomOf="@id/dot3"/>
+
+            <View
+                android:id="@+id/line4"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@drawable/selector_vertical_line"
+                app:layout_constraintBottom_toTopOf="@id/dot5"
+                app:layout_constraintEnd_toEndOf="@id/dot5"
+                app:layout_constraintStart_toStartOf="@id/dot4"
+                app:layout_constraintTop_toBottomOf="@id/dot4"/>
+
+            <View
+                android:id="@+id/line5"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@drawable/selector_vertical_line"
+                app:layout_constraintBottom_toTopOf="@id/dot6"
+                app:layout_constraintEnd_toEndOf="@id/dot6"
+                app:layout_constraintStart_toStartOf="@id/dot5"
+                app:layout_constraintTop_toBottomOf="@id/dot5"/>
+
+            <View
+                android:id="@+id/line6"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@drawable/selector_vertical_line"
+                app:layout_constraintBottom_toTopOf="@id/dot7"
+                app:layout_constraintEnd_toEndOf="@id/dot7"
+                app:layout_constraintStart_toStartOf="@id/dot6"
+                app:layout_constraintTop_toBottomOf="@id/dot6"/>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/btnNext"
+        layout="@layout/btn_next_bottom_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</android.support.constraint.ConstraintLayout>

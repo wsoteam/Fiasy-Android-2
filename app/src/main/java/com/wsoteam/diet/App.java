@@ -26,9 +26,13 @@ import io.intercom.android.sdk.Intercom;
 
 public class App extends Application implements HasActivityInjector {
     public static App instance;
-    private FoodDatabase foodDatabase;
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
+    private FoodDatabase foodDatabase;
+
+    public static App getInstance() {
+        return instance;
+    }
 
     @Override
     public void onCreate() {
@@ -39,7 +43,7 @@ public class App extends Application implements HasActivityInjector {
         YandexMetrica.enableActivityAutoTracking(this);
         FirebaseApp.initializeApp(getApplicationContext());
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
+//        Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
         Adjust.onCreate(new AdjustConfig(this, EventsAdjust.app_token, AdjustConfig.ENVIRONMENT_PRODUCTION));
         registerActivityLifecycleCallbacks(new AdjustLifecycleCallbacks());
         Amplitude.getInstance().trackSessionEvents(true);
@@ -64,11 +68,7 @@ public class App extends Application implements HasActivityInjector {
         return dispatchingAndroidInjector;
     }
 
-    public static App getInstance(){
-        return instance;
-    }
-
-    public FoodDatabase getFoodDatabase(){
+    public FoodDatabase getFoodDatabase() {
         return foodDatabase;
     }
 

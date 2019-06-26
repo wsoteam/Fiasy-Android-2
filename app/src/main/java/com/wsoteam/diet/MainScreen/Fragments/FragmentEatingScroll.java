@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.lzyzsd.circleprogress.ArcProgress;
+import com.google.firebase.auth.FirebaseAuth;
 import com.orm.query.Condition;
 import com.orm.query.Select;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
@@ -218,6 +219,7 @@ public class FragmentEatingScroll extends Fragment {
                     Map.Entry pair = (Map.Entry) iterator.next();
                     Breakfast breakfast = (Breakfast) pair.getValue();
                     if (breakfast.getDay() == day && breakfast.getMonth() == month && breakfast.getYear() == year) {
+                        breakfast.setUrlOfImages(pair.getKey().toString());
                         breakfasts.add(breakfast);
                     }
                 }
@@ -230,6 +232,7 @@ public class FragmentEatingScroll extends Fragment {
                     Map.Entry pair = (Map.Entry) iterator.next();
                     Lunch lunch = (Lunch) pair.getValue();
                     if (lunch.getDay() == day && lunch.getMonth() == month && lunch.getYear() == year) {
+                        lunch.setUrlOfImages(pair.getKey().toString());
                         lunches.add(lunch);
                     }
                 }
@@ -242,6 +245,7 @@ public class FragmentEatingScroll extends Fragment {
                     Map.Entry pair = (Map.Entry) iterator.next();
                     Dinner dinner = (Dinner) pair.getValue();
                     if (dinner.getDay() == day && dinner.getMonth() == month && dinner.getYear() == year) {
+                        dinner.setUrlOfImages(pair.getKey().toString());
                         dinners.add(dinner);
                     }
                 }
@@ -254,6 +258,7 @@ public class FragmentEatingScroll extends Fragment {
                     Map.Entry pair = (Map.Entry) iterator.next();
                     Snack snack = (Snack) pair.getValue();
                     if (snack.getDay() == day && snack.getMonth() == month && snack.getYear() == year) {
+                        snack.setUrlOfImages(pair.getKey().toString());
                         snacks.add(snack);
                     }
                 }

@@ -2,17 +2,17 @@ package com.wsoteam.diet.presentation.auth.main;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.content.res.AppCompatResources;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -39,8 +39,9 @@ import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.helpers.AsteriskPasswordTransformationMethod;
+import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.presentation.auth.dialogs.InstaAuthDialogFragment;
-import com.wsoteam.diet.presentation.auth.dialogs.PhoneAuthDialogFragment;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 
 import javax.inject.Inject;
@@ -50,7 +51,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dagger.android.AndroidInjection;
 
-public class MainAuthActivity extends BaseActivity implements MainAuthView, PhoneAuthDialogFragment.OnPhoneAuthClickListener, InstaAuthDialogFragment.InstaAuthListener {
+public class MainAuthActivity extends BaseActivity implements MainAuthView, InstaAuthDialogFragment.InstaAuthListener {
 
     private static final String TAG = "Authenticate";
     private static final int RC_SIGN_IN = 9001;
@@ -59,23 +60,22 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Phon
     MainAuthPresenter presenter;
 
     @BindView(R.id.auth_main_tv_respasss) TextView resPassTextView;
-    @BindView(R.id.auth_main_tv) TextView statusTextView;
     @BindView(R.id.textView82) TextView checkPPTextView;
     @BindView(R.id.auth_main_email) EditText emailEditText;
     @BindView(R.id.auth_main_pass) EditText passEditText;
+    @BindView(R.id.auth_main_pass_dub) EditText passDubEditText;
+    @BindView(R.id.password_input_layout) TextInputLayout passwordLayout;
+    @BindView(R.id.password_dub_input_layout) TextInputLayout passwordDubLayout;
     @BindView(R.id.auth_main_btn_signin) Button signIn;
-    @BindView(R.id.auth_main_btn_phone) Button phoneButton;
-    @BindView(R.id.auth_main_btn_google_custom) Button googleCustomButton;
-    @BindView(R.id.auth_main_btn_facebook_custom) Button facebookCustomButton;
-    @BindView(R.id.auth_main_btn_insta_custom) Button instagramCustomButton;
     @BindView(R.id.auth_main_btn_facebook) LoginButton facebookLoginButton;
     @BindView(R.id.auth_main_check_pp) CheckBox ppCheckBox;
+    @BindView(R.id.rgAuth) RadioGroup rgAuth;
+    @BindView(R.id.rbReg) RadioButton rbReg;
+    @BindView(R.id.rbSignIn) RadioButton rbSignIn;
 
-    AlertDialog alertDialogPhone;
     private boolean isAcceptedPrivacyPolicy = false;
-    private boolean createUser;
+    private boolean createUser, forgotPass;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private String mVerificationId;
     private Profile profile;
     private Intent intent;
     private CallbackManager callbackManager;
@@ -89,16 +89,10 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Phon
     protected void onCreate(Bundle savedInstanceState) {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_auth_main);
+        setContentView(R.layout.activity_auth_main_new);
         ButterKnife.bind(this);
 
         createUser = getIntent().getBooleanExtra(Config.CREATE_PROFILE, false);
-
-        int bounds = presenter.dpToPx(40);
-        Drawable show = AppCompatResources.getDrawable(this, R.drawable.icon_google);
-        show.setBounds(0, 0, bounds, bounds);
-        googleCustomButton.setCompoundDrawables(show, null, null, null);
-
 
         ppCheckBox.setOnCheckedChangeListener((compoundButton, b) -> {
             isAcceptedPrivacyPolicy = b;
@@ -106,35 +100,37 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Phon
         });
         ppCheckBox.performClick();
 
+        rgAuth.setOnCheckedChangeListener((radioGroup, checkedId) -> {
+            switch (checkedId) {
+                case R.id.rbReg:
+                    prepareViewsForSignUp();
+                    break;
+                case R.id.rbSignIn:
+                    prepareViewsForSignIn();
+                    break;
+            }
+        });
+
         if (createUser) {
             //first enter and need show onboard
             if (getIntent().getSerializableExtra(Config.TAG_BOX) != null) {
                 Box box = (Box) getIntent().getSerializableExtra(Config.TAG_BOX);
                 box.setProfile((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
                 intent = new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box)
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             } else {
                 intent = new Intent(this, ActivitySplash.class).
                         putExtra(Config.INTENT_PROFILE, getIntent().getSerializableExtra(Config.INTENT_PROFILE))
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             }
-            statusTextView.setText(R.string.auth_main_reg_tv);
-            signIn.setText(R.string.auth_main_btn_create);
-            phoneButton.setText(R.string.auth_main_reg_phone);
-            googleCustomButton.setText(R.string.auth_main_reg_google);
-            facebookCustomButton.setText(R.string.auth_main_reg_facebook);
-            instagramCustomButton.setText(R.string.auth_main_reg_insta);
-            emailEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.registration_icon_email, 0, 0, 0);
-
+            rbReg.setChecked(true);
         } else {
-            checkPPTextView.setVisibility(View.INVISIBLE);
-            ppCheckBox.setVisibility(View.INVISIBLE);
             isAcceptedPrivacyPolicy = true;
             intent = new Intent(this, ActivitySplash.class).
-                    putExtra(Config.INTENT_PROFILE, getIntent().getSerializableExtra(Config.INTENT_PROFILE));
-            resPassTextView.setVisibility(View.VISIBLE);
+                    putExtra(Config.INTENT_PROFILE, getIntent().getSerializableExtra(Config.INTENT_PROFILE))
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            rbSignIn.setChecked(true);
         }
-
 
         mAuthListener = firebaseAuth -> {
             FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -148,15 +144,13 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Phon
                     AmplitudaEvents.logEventReg("unknown");
                 }
 
-                if (getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
+                if (createUser && getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
                     WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
-                }
-
-                if (createUser) {
-                    startActivity(intent);
-                } else {
+                } else if (createUser && getIntent().getSerializableExtra(Config.INTENT_PROFILE) == null) {
                     checkUserExist(user.getUid());
+                    return;
                 }
+                startActivity(intent);
             } else {
                 Log.d(TAG, "onAuthStateChanged:signed_out");
             }
@@ -179,17 +173,63 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Phon
                 hasConnection(MainAuthActivity.this);
             }
         });
+
+        passEditText.setTransformationMethod(new AsteriskPasswordTransformationMethod());
+        passDubEditText.setTransformationMethod(new AsteriskPasswordTransformationMethod());
     }
 
-    @OnClick({R.id.auth_main_btn_signin, R.id.auth_main_btn_google, R.id.auth_main_tv_respasss, R.id.auth_main_btn_phone, R.id.textView82, R.id.auth_main_btn_google_custom,
+    private void prepareViewsForSignIn() {
+        resPassTextView.setVisibility(View.VISIBLE);
+        passwordLayout.setVisibility(View.VISIBLE);
+        passwordDubLayout.setVisibility(View.GONE);
+        ppCheckBox.setVisibility(View.INVISIBLE);
+        checkPPTextView.setVisibility(View.INVISIBLE);
+        signIn.setText(R.string.auth_main_btn_signin);
+        rbSignIn.setChecked(true);
+        forgotPass = false;
+        createUser = false;
+    }
+
+    private void prepareViewsForForgotPass() {
+        resPassTextView.setVisibility(View.GONE);
+        passwordLayout.setVisibility(View.GONE);
+        passwordDubLayout.setVisibility(View.GONE);
+        passwordLayout.setVisibility(View.GONE);
+        ppCheckBox.setVisibility(View.INVISIBLE);
+        checkPPTextView.setVisibility(View.INVISIBLE);
+        signIn.setText(R.string.auth_main_btn_send_pass);
+        forgotPass = true;
+        createUser = false;
+    }
+
+    private void prepareViewsForSignUp() {
+        resPassTextView.setVisibility(View.GONE);
+        passwordLayout.setVisibility(View.VISIBLE);
+        passwordDubLayout.setVisibility(View.VISIBLE);
+        ppCheckBox.setVisibility(View.VISIBLE);
+        checkPPTextView.setVisibility(View.VISIBLE);
+        signIn.setText(R.string.auth_main_btn_create);
+        rbReg.setChecked(true);
+        forgotPass = false;
+        createUser = true;
+    }
+
+    @OnClick({R.id.auth_main_btn_signin, R.id.auth_main_btn_google, R.id.auth_main_tv_respasss, R.id.textView82, R.id.auth_main_btn_google_custom,
             R.id.auth_main_btn_facebook_custom, R.id.auth_main_btn_insta_custom})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.auth_main_btn_signin:
                 if (createUser) {
-                    if (hasConnection(this) && isPP())
-                        presenter.createAccount(emailEditText.getText().toString(),
-                                passEditText.getText().toString());
+                    if (hasConnection(this) && isPP()) {
+                        if (passEditText.getText().toString().equals(passDubEditText.getText().toString()))
+                            presenter.createAccount(emailEditText.getText().toString(),
+                                    passEditText.getText().toString());
+                        else
+                            showMessage(getString(R.string.auth_main_pass_not_match));
+                    }
+                } else if (forgotPass) {
+                    if (hasConnection(this))
+                        presenter.resetPassword(emailEditText.getText().toString());
                 } else {
                     if (hasConnection(this))
                         presenter.signIn(emailEditText.getText().toString(),
@@ -202,11 +242,7 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Phon
                 }
                 break;
             case R.id.auth_main_tv_respasss:
-                presenter.onForgotPassClicked();
-                break;
-            case R.id.auth_main_btn_phone:
-                if (hasConnection(this) && isPP())
-                    phoneAuth();
+                prepareViewsForForgotPass();
                 break;
             case R.id.textView82:
                 presenter.onPrivacyPolicyClicked();
@@ -316,25 +352,21 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Phon
     }
 
     private void checkProfile(Profile profile) {
-        if (alertDialogPhone != null) {
-            alertDialogPhone.dismiss();
-        }
-
         if (profile == null) {
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle(getString(R.string.auth_main_alert_title))
-                    .setMessage(getString(R.string.auth_main_alert_body))
-                    .setPositiveButton(getString(R.string.auth_main_alert_ok), (dialog, which) -> presenter.signOutAll())
-                    .show();
+//            new AlertDialog.Builder(this)
+//                    .setIcon(android.R.drawable.ic_dialog_alert)
+//                    .setTitle(getString(R.string.auth_main_alert_title))
+//                    .setMessage(getString(R.string.auth_main_alert_body))
+//                    .setPositiveButton(getString(R.string.auth_main_alert_ok), (dialog, which) -> presenter.signOutAll())
+//                    .show();
+            WorkWithFirebaseDB.putProfileValue(BodyCalculates.generateProfile(this));
 
-            Log.d(TAG, "checkUserExist: false");
-        } else {
-            if (isPP() && createUser) Log.d(TAG, "logEvent: accept_police");
-            Log.d(TAG, "checkUserExist: true");
-            startActivity(intent);
-            finish();
+            Log.d(TAG, "checkUserExist: false. Created New");
         }
+        if (isPP() && createUser) Log.d(TAG, "logEvent: accept_police");
+        Log.d(TAG, "checkUserExist: true");
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -354,21 +386,6 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Phon
     private void instaAuth() {
         DialogFragment newFragment = InstaAuthDialogFragment.newInstance();
         newFragment.show(getSupportFragmentManager(), "dialog");
-    }
-
-    private void phoneAuth() {
-        DialogFragment newFragment = PhoneAuthDialogFragment.newInstance();
-        newFragment.show(getSupportFragmentManager(), "dialog");
-    }
-
-    @Override
-    public void onPhoneNumberVerification(String phoneNumber) {
-        presenter.startPhoneNumberVerification(this, phoneNumber);
-    }
-
-    @Override
-    public void onVerifyPhoneNumberCode(String code) {
-        presenter.verifyPhoneNumberWithCode(mVerificationId, code);
     }
 
     private boolean isPP() {
@@ -397,13 +414,22 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Phon
     }
 
     @Override
-    public void authPhoneVerificationId(String verificationId) {
-        this.mVerificationId = verificationId;
+    public void goBackToSignIn() {
+        rbSignIn.setChecked(true);
     }
 
     @Override
     public void onInstaTokenReceived(String auth_token) {
         Log.d("MyLogs", "ACCESS TOKEN - " + auth_token);
         presenter.firebaseAuthWithInstagram(auth_token);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (forgotPass) {
+            rbSignIn.setChecked(true);
+        } else
+            super.onBackPressed();
+
     }
 }

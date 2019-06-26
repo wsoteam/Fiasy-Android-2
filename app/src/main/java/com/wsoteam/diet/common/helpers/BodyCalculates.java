@@ -9,8 +9,12 @@ import java.util.Calendar;
 
 public class BodyCalculates {
 
-    private static final String FIRST_NAME = "John";
-    private static final String LAST_NAME = "Doe";
+    private static final String DEFAULT_FIRST_NAME = "default";
+    private static final String DEFAULT_LAST_NAME = "default";
+    private static final double DEFAULT_WEIGHT = 90;
+    private static final int DEFAULT_HEIGHT = 180;
+    private static final int DEFAULT_AGE = 27;
+
     private static final int WATER_ON_KG_FEMALE = 30;
     private static final int WATER_ON_KG_MALE = 40;
     private static final double RATE_NONE = 1.2;
@@ -23,13 +27,17 @@ public class BodyCalculates {
     private static final double COUNT_UP_LINE = 300;
     private static final double COUNT_DOWN_LINE = 500;
 
+    public static Profile generateProfile(Context context) {
+        return calculate(context, DEFAULT_WEIGHT, DEFAULT_HEIGHT, DEFAULT_AGE, false, context.getString(R.string.level_medium), context.getString(R.string.dif_level_normal));
+    }
+
     public static Profile calculate(Context context, double weight, int height, int age, boolean isFemale, String sportActivity, String dif_level) {
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_MONTH) - 1;
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
 
-        Profile profile = new Profile(FIRST_NAME, LAST_NAME, isFemale, age, height, weight, 0,
+        Profile profile = new Profile(DEFAULT_FIRST_NAME, DEFAULT_LAST_NAME, isFemale, age, height, weight, 0,
                 sportActivity, "", 0, 0, 0,
                 0, 0, dif_level, day, month, year);
 

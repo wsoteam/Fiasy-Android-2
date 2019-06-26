@@ -11,6 +11,5 @@
         android:id="@+id/mFavorites"
         android:title="Share"
         android:icon="@drawable/icon_favorites"
-        app:showAsAction="always"
-        android:visible="false"/>
+        app:showAsAction="always" />
 </menu>

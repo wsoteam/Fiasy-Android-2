@@ -5,4 +5,5 @@ import com.wsoteam.diet.presentation.global.BaseView;
 
 public interface EditProfileView extends BaseView {
     void saveProfile(Profile profile);
+    void changeNextState();
 }
