@@ -565,6 +565,7 @@
     <string name="water_screen_water_btn_default">По умолчанию</string>
     <string name="water_screen_glass">Стакан 250 мл</string>
     <string name="water_screen_bottle">Бутылка 1 л</string>
+    <string name="water_screen_settings_saved">Настройки сохранены</string>
 
     <string name="search_of_food">Поиск продукта питания</string>
     <string name="for_100_g_of_product"> Ккал на 100 г продукта</string>

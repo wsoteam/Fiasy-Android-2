@@ -2,26 +2,47 @@ package com.wsoteam.diet.presentation.main.water;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.global.BaseActivity;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dagger.android.AndroidInjection;
 
-public class WaterActivity extends BaseActivity {
+public class WaterActivity extends BaseActivity implements WaterView {
 
+    private static final float PROGRESS_MAX_GLASS = 0.25f;
+    private static final float PROGRESS_MAX_BOTTLE = 1;
+    private static final float PROGRESS_MIN = 1;
+    private static final float PROGRESS_MAX = 4;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.pbWater) SeekBar pbWater;
     @BindView(R.id.tvWater) TextView tvWater;
     @BindView(R.id.rbGlass) RadioButton rbGlass;
     @BindView(R.id.rbBottle) RadioButton rbBottle;
+    @BindView(R.id.swWaterReminder) Switch swWaterReminder;
+
+    @Inject
+    @InjectPresenter
+    WaterPresenter presenter;
+
+    @ProvidePresenter
+    WaterPresenter providePresenter() {
+        return presenter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +59,8 @@ public class WaterActivity extends BaseActivity {
         pbWater.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                tvWater.setText(((float) progress / 10 + 1) + " л");
-                double percent = progress / (double) seekBar.getMax();
-                int offset = seekBar.getThumbOffset();
-                int val = (int) Math.round(percent * (seekBar.getWidth() - 2 * offset));
-                tvWater.setX(offset + seekBar.getX() + val - Math.round(percent * offset) - Math.round(percent * tvWater.getWidth() / 3));
+                tvWater.setText(((float) progress * (rbGlass.isChecked() ? PROGRESS_MAX_GLASS : PROGRESS_MAX_BOTTLE) + 1) + " л");
+                tvWater.setX(presenter.calcXPosition(pbWater, progress, tvWater));
             }
 
             @Override
@@ -53,18 +71,26 @@ public class WaterActivity extends BaseActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-        pbWater.setMax(30);
-        pbWater.setProgress(1);
-        pbWater.setProgress(0);
+        setDefaultProgress();
+    }
+
+    // TODO Пофиксить положение текста при открытии
+    private void setDefaultProgress() {
+        rbGlass.setChecked(presenter.getWaterPackParameter());
+        rbBottle.setChecked(!presenter.getWaterPackParameter());
+
+        swWaterReminder.setChecked(presenter.getWaterNotificationParameter());
+
+        changePack(presenter.getWaterProgressStepParameter());
     }
 
     @OnClick({R.id.btnDefault, R.id.rbGlass, R.id.rbBottle})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnDefault:
-                pbWater.setMax(30);
-                pbWater.setProgress(1);
-                pbWater.setProgress(0);
+                rbGlass.setChecked(true);
+                rbBottle.setChecked(false);
+                swWaterReminder.setChecked(true);
                 break;
             case R.id.rbGlass:
                 rbBottle.setChecked(false);
@@ -73,6 +99,45 @@ public class WaterActivity extends BaseActivity {
                 rbGlass.setChecked(false);
                 break;
         }
+        changePack(0);
+    }
+
+    private void changePack(int waterProgress) {
+        int steps = (int) ((PROGRESS_MAX - PROGRESS_MIN) / (rbGlass.isChecked() ? PROGRESS_MAX_GLASS : PROGRESS_MAX_BOTTLE));
+        pbWater.setMax(steps);
+        pbWater.setProgress(1);
+        pbWater.setProgress(waterProgress);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu_water, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_save:
+                presenter.saveWaterParameters(rbGlass.isChecked(), pbWater.getProgress(), swWaterReminder.isChecked());
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void settingSaved() {
+        finish();
+    }
+
+    @Override
+    public void showProgress(boolean show) {
+        showProgressDialog(show);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        showToastMessage(message);
     }
 
 }
