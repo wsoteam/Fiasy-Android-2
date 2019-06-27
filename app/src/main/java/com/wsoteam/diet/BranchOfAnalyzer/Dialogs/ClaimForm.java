@@ -42,10 +42,10 @@ public class ClaimForm {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Log.e("LOL", "LOL");
-                if (s.length() > MIN && !send.isClickable()){
+                if (s.length() > MIN && !send.isClickable() && s.toString().replaceAll("\\s+", " ").length() > MIN) {
                     send.setClickable(true);
                     send.setTextColor(context.getResources().getColor(R.color.button_claim_active));
-                }else if (s.length() < MIN && send.isClickable()){
+                } else if (s.length() < MIN && send.isClickable()) {
                     send.setClickable(false);
                     send.setTextColor(context.getResources().getColor(R.color.button_claim_inactive));
                 }
@@ -70,7 +70,8 @@ public class ClaimForm {
             public void onClick(View v) {
                 if (!edtClaim.getText().toString().equals("")
                         && !edtClaim.getText().toString().equals(" ")
-                        && edtClaim.getText().toString().length() > MIN) {
+                        && edtClaim.getText().toString().length() > MIN
+                        && edtClaim.getText().toString().replaceAll("\\s+", " ").length() > MIN) {
                     WorkWithFirebaseDB.sendClaim(fillClaim(food, edtClaim.getText().toString()));
                     Toast.makeText(context, "Жалоба отправлена. Спасибо!", Toast.LENGTH_SHORT).show();
                     alertDialog.cancel();
