@@ -670,6 +670,13 @@
         <item quantity="other">%d лет</item>
     </plurals>
 
+    <plurals name="daysAtRow">
+        <item quantity="one">%d день подряд ведется запись</item>
+        <item quantity="few">%d дня подряд ведется запись</item>
+        <item quantity="many">%d дней подряд ведется запись</item>
+        <item quantity="other">%d дней подряд ведется запись</item>
+    </plurals>
+
     <string name="currentBreakfastDrink">Чай зеленый сухой</string>
     <string name="yesterdayBreakfastDrink">Чай ромашковый</string>
     <string name="beforeYesterdayBreakfastDrink">Чай зеленый сухой</string>

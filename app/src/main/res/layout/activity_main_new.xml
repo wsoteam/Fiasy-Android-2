@@ -25,8 +25,8 @@
         android:id="@+id/ivCalendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView138"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView138"
         app:layout_constraintTop_toTopOf="@+id/textView138"
         app:srcCompat="@drawable/ic_calendar_small"/>
@@ -45,7 +45,7 @@
         android:paddingTop="4dp"
         android:paddingEnd="15dp"
         android:paddingBottom="4dp"
-        android:text="21 день подряд ведется запись"
+        tools:text="21 день подряд ведется запись"
         android:textColor="@color/b_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="130dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.design.widget.AppBarLayout
@@ -450,7 +450,7 @@
                 android:id="@+id/vpEatingTimeLine"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="125dp"/>
+                android:layout_marginBottom="130dp"/>
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton

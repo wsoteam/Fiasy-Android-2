@@ -22,7 +22,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class WaterViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvTitleOfEatingCard) TextView tvTitleOfEatingCard;
@@ -47,7 +46,7 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
     }
 
-    @OnClick({R.id.ibtnOpenMenu, R.id.imbAddFood})
+//    @OnClick({R.id.ibtnOpenMenu, R.id.imbAddFood})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibtnOpenMenu:

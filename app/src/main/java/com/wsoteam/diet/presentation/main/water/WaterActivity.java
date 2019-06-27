@@ -27,7 +27,7 @@ public class WaterActivity extends BaseActivity implements WaterView {
     private static final float PROGRESS_MAX_GLASS = 0.25f;
     private static final float PROGRESS_MAX_BOTTLE = 1;
     private static final float PROGRESS_MIN = 1;
-    private static final float PROGRESS_MAX = 4;
+    private static final float PROGRESS_MAX = 5;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.pbWater) SeekBar pbWater;
     @BindView(R.id.tvWater) TextView tvWater;
