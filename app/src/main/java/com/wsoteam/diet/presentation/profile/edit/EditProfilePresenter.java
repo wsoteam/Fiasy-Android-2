@@ -55,7 +55,6 @@ public class EditProfilePresenter extends BasePresenter<EditProfileView> {
                             Double.parseDouble(weight), 0,
                             activity, "", 0, 0, 0,
                             0, 0, diff, day, month, year);
-
                     Profile profileFinal = BodyCalculates.calculate(context, profile);
                     getViewState().saveProfile(profileFinal);
                     getViewState().showMessage(context.getString(R.string.profile_saved));

@@ -9,8 +9,8 @@ import java.util.Calendar;
 
 public class BodyCalculates {
 
-    private static final String DEFAULT_FIRST_NAME = "default";
-    private static final String DEFAULT_LAST_NAME = "default";
+    public static final String DEFAULT_FIRST_NAME = "default";
+    public static final String DEFAULT_LAST_NAME = "default";
     private static final double DEFAULT_WEIGHT = 90;
     private static final int DEFAULT_HEIGHT = 180;
     private static final int DEFAULT_AGE = 27;
@@ -68,19 +68,19 @@ public class BodyCalculates {
             maxWater = WATER_ON_KG_MALE * (int) profile.getWeight();
         }
 
-        if (stressLevel.equals(context.getString(R.string.level_none))) {
+        if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_none))) {
             SPK = BOO * RATE_NONE;
-        } else if (stressLevel.equals(context.getString(R.string.level_easy))) {
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_easy))) {
             SPK = BOO * RATE_EASY;
-        } else if (stressLevel.equals(context.getString(R.string.level_medium))) {
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_medium))) {
             SPK = BOO * RATE_MEDIUM;
-        } else if (stressLevel.equals(context.getString(R.string.level_hard))) {
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_hard))) {
             SPK = BOO * RATE_HARD;
-        } else if (stressLevel.equals(context.getString(R.string.level_up_hard))) {
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_hard))) {
             SPK = BOO * RATE_UP_HARD;
-        } else if (stressLevel.equals(context.getString(R.string.level_super))) {
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_super))) {
             SPK = BOO * RATE_SUPER;
-        } else if (stressLevel.equals(context.getString(R.string.level_up_super))) {
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_super))) {
             SPK = BOO * RATE_UP_SUPER;
         }
 
@@ -91,11 +91,11 @@ public class BodyCalculates {
         protein = upLineSPK * 0.3 / 4;
         carbohydrate = upLineSPK * 0.5 / 3.75;
 
-        if (difficultyLevel.equals(context.getString(R.string.dif_level_easy))) {
+        if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_easy))) {
             profile.setMaxKcal((int) SPK);
-        } else if (difficultyLevel.equals(context.getString(R.string.dif_level_normal))) {
+        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_normal))) {
             profile.setMaxKcal((int) upLineSPK);
-        } else if (difficultyLevel.equals(context.getString(R.string.dif_level_hard))) {
+        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard))) {
             profile.setMaxKcal((int) downLineSPK);
         }
 
@@ -103,7 +103,6 @@ public class BodyCalculates {
         profile.setMaxFat((int) fat);
         profile.setMaxProt((int) protein);
         profile.setMaxCarbo((int) carbohydrate);
-
         return profile;
     }
 }

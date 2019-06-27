@@ -169,7 +169,6 @@ public class FragmentDiary extends Fragment {
         SharedPreferences.Editor editor = countOfRun.edit();
         editor.putInt(TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG, countOfRun.getInt(TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG, COUNT_OF_RUN) + 1);
         editor.commit();
-
     }
 
     @OnClick({R.id.ibOpenYesterday, R.id.ibOpenTomorrow, R.id.fabAddEating})
