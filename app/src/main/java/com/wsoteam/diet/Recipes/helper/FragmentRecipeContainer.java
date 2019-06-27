@@ -31,8 +31,6 @@ public class FragmentRecipeContainer extends Fragment implements TabsFragment {
 
         View view = inflater.inflate(R.layout.fragment_container, container, false);
         ButterKnife.bind(this, view);
-        firstFragment = new FavoriteRecipesFragment();
-        secondFragment = new FragmentProfile();
         return view;
     }
 
