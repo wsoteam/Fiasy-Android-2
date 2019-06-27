@@ -296,11 +296,11 @@ public class ProductSearchActivity extends AppCompatActivity {
         Button saveButton = alertLayout.findViewById(R.id.btnAddRecipe);
         ImageButton closeButton = alertLayout.findViewById(R.id.btnClose);
 
-        portionEditText.setText("100");
-        kcalTextView.setText(String.valueOf((int)(food.getCalories() * 100)) + " Ккал");
-        carboTextView.setText(String.valueOf((int)(food.getCarbohydrates() * 100)) + " г");
-        fatTextView.setText(String.valueOf((int)(food.getFats() * 100)) + " г");
-        proteinTextView.setText(String.valueOf((int)(food.getProteins() * 100)) + " г");
+//        portionEditText.setText("100");
+        kcalTextView.setText(String.valueOf((int)(food.getCalories())) + " Ккал");
+        carboTextView.setText(String.valueOf((int)(food.getCarbohydrates())) + " г");
+        fatTextView.setText(String.valueOf((int)(food.getFats())) + " г");
+        proteinTextView.setText(String.valueOf((int)(food.getProteins())) + " г");
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setView(alertLayout);
