@@ -90,7 +90,11 @@ public class MainFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                recipeItem.setPortions(Integer.parseInt(s.toString()));
+                if (s.length()>0) {
+                    recipeItem.setPortions(Integer.parseInt(s.toString()));
+                } else {
+                    recipeItem.setPortions(0);
+                }
                 ((AddingRecipeActivity) getActivity()).updateUI();
             }
 
@@ -108,7 +112,11 @@ public class MainFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                recipeItem.setTime(Integer.parseInt(s.toString()));
+                if (s.length() > 0) {
+                    recipeItem.setTime(Integer.parseInt(s.toString()));
+                } else {
+                    recipeItem.setTime(0);
+                }
                 ((AddingRecipeActivity) getActivity()).updateUI();
             }
 
