@@ -280,7 +280,7 @@
         <activity
             android:name=".BranchProfile.ActivityEditCompletedProfile"
             android:screenOrientation="portrait"
-            android:theme="@style/EditProfile" />
+            android:theme="@style/ActivityEditProfile" />
         <activity
             android:name=".EntryPoint.EditProfileIntrodaction"
             android:screenOrientation="portrait"

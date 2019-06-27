@@ -80,6 +80,15 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="ActivityEditProfile" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">#2E4E4E</item>
+        <item name="colorAccent">#FFC107</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 
     <style name="PremiumActivity" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
