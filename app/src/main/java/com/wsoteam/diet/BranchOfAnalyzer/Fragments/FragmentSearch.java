@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
+import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
@@ -140,7 +141,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
         public void onClick(View view) {
             Intent intent = new Intent(getActivity(), ActivityDetailOfFood.class);
             intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
-            //intent.putExtra(Config.TAG_CHOISE_EATING, spinner.getSelectedItemPosition());
+            intent.putExtra(Config.TAG_CHOISE_EATING, ((ActivityListAndSearch) getActivity()).spinnerId);
             intent.putExtra(Config.INTENT_DATE_FOR_SAVE, getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
             startActivity(intent);
         }
