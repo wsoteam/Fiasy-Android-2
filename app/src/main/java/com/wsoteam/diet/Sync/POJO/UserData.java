@@ -9,6 +9,7 @@ import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.model.Water;
+import com.wsoteam.diet.model.main.Day;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -19,6 +20,8 @@ public class UserData implements Serializable {
     private SubInfo subInfo;
     private TrackInfo trackInfo;
     private CheckHistory checkHistory;
+
+    private HashMap<String, Day> dayList;
 
     private HashMap<String, Breakfast> breakfasts;
     private HashMap<String, Lunch> lunches;
@@ -65,6 +68,14 @@ public class UserData implements Serializable {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    public HashMap<String, Day> getDayList() {
+        return dayList;
+    }
+
+    public void setDayList(HashMap<String, Day> dayList) {
+        this.dayList = dayList;
     }
 
     public HashMap<String, Breakfast> getBreakfasts() {
