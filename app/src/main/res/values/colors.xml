@@ -104,7 +104,6 @@
     <color name="select_card_premium">#F8B408</color>
 
 
-
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_300">#E0E0E0</color>
     <color name="grey_500">#9E9E9E</color>
@@ -184,5 +183,6 @@
     <color name="black_trans80">#32000000</color>
 
     <color name="fff">#BB6001</color>
+    <color name="bottom_create_food">#F19027</color>
 
 </resources>

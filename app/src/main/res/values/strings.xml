@@ -680,6 +680,8 @@
     <string name="text_start_search">Начните вводить в строку поиска \nназвание продукта</string>
     <string name="title_no_find_food">Результаты не найдены</string>
     <string name="text_no_find_food">Попробуйте еще раз или создайте свой \nпродукт</string>
-
-
+    //CustomFood
+    <string name="add_custom_food_toolbar">Добавить продукт</string>
+    <string name="back">назад</string>
+    <string name="forward">далее</string>
 </resources>
