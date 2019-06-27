@@ -22,6 +22,7 @@
     <string name="addingRecipeTime">Время приготовления (мин.)</string>
     <string name="addingRecipeShare">Могут видеть все пользователи</string>
     <string name="addingRecipeInfo">Созданные вами и введенные в базу рецепты или продукты могут быть доступны для других пользователей. Пожалуйста, постарайтесь заполнить приведенную выше форму максимально точно и полно.</string>
+   <string name="complexityRecipe">Сложность:</string>
     <string-array name="recipeComplexity">
         <item>Легкий</item>
         <item>Средний</item>

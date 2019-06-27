@@ -66,6 +66,10 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
     @BindView(R.id.tvPotassium) TextView tvPotassium;
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.tvRecipeKK) TextView tvKkal;
+
+    @BindView(R.id.tvComplexityField) TextView tvComplexityField;
+    @BindView(R.id.tvComplexity) TextView tvComplexity;
+
     RecipeItem recipeItem;
     Window window;
     MenuItem favoriteMenuItem;
@@ -99,6 +103,12 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
         tvCholesterol.setText(String.valueOf(recipeItem.getCholesterol()));
         tvSodium.setText(String.valueOf(recipeItem.getSodium()));
         tvPotassium.setText(String.valueOf(recipeItem.getPotassium()));
+
+        if (recipeItem.getComplexity() != null || !recipeItem.getComplexity().equals("")){
+            tvComplexityField.setVisibility(View.VISIBLE);
+            tvComplexity.setVisibility(View.VISIBLE);
+            tvComplexity.setText(recipeItem.getComplexity());
+        }
 
         mToolbar.setTitleTextColor(0xFFFFFFFF);
         mToolbar.setPadding(0, dpToPx(24), 0, 0);
