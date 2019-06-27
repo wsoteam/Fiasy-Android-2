@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -23,13 +24,14 @@ import butterknife.BindView;
 
 public class ClaimForm {
     public static AlertDialog createChoiseEatingAlertDialog(Context context, Food food) {
-        int MIN = 139;
+        int MIN = 9;
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         AlertDialog alertDialog = builder.create();
         View view = LayoutInflater.from(context).inflate(R.layout.alert_dialog_form_claim, null);
         EditText edtClaim = view.findViewById(R.id.edtTextClaim);
         Button cancel = view.findViewById(R.id.btnCancelClaim);
         Button send = view.findViewById(R.id.btnSendClaim);
+        send.setClickable(false);
 
         edtClaim.addTextChangedListener(new TextWatcher() {
             @Override
@@ -39,6 +41,7 @@ public class ClaimForm {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.e("LOL", "LOL");
                 if (s.length() > MIN && !send.isClickable()){
                     send.setClickable(true);
                     send.setTextColor(context.getResources().getColor(R.color.button_claim_active));
@@ -66,13 +69,12 @@ public class ClaimForm {
             @Override
             public void onClick(View v) {
                 if (!edtClaim.getText().toString().equals("")
-                        || !edtClaim.getText().toString().equals(" ")
-                        || edtClaim.getText().toString().length() > 3) {
+                        && !edtClaim.getText().toString().equals(" ")
+                        && edtClaim.getText().toString().length() > MIN) {
                     WorkWithFirebaseDB.sendClaim(fillClaim(food, edtClaim.getText().toString()));
-                } else {
-                    Toast.makeText(context, "Проверьте введенные данные", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Жалоба отправлена. Спасибо!", Toast.LENGTH_SHORT).show();
+                    alertDialog.cancel();
                 }
-                alertDialog.cancel();
             }
         });
         alertDialog.setView(view);
