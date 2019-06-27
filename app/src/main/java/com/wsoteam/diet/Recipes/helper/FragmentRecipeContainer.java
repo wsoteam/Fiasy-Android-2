@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
-import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.adding.ListAddedRecipeFragment;
 import com.wsoteam.diet.Recipes.favorite.FavoriteRecipesFragment;
@@ -21,9 +20,10 @@ import butterknife.OnClick;
 
 public class FragmentRecipeContainer extends Fragment implements TabsFragment {
 
-    Fragment firstFragment;
-    Fragment secondFragment;
-    TabsFragment tabsFragment;
+    private Fragment favoriteRecipes;
+    private Fragment addedRecipes;
+    private TabsFragment tabsFragment;
+    private String searchKey = "";
 
     @Nullable
     @Override
@@ -36,21 +36,20 @@ public class FragmentRecipeContainer extends Fragment implements TabsFragment {
 
     @OnClick({R.id.radio0, R.id.radio1})
     public void onRadioButtonClicked(RadioButton radioButton) {
-        // Is the button now checked?
         boolean checked = radioButton.isChecked();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        // Check which radio button was clicked
+
         switch (radioButton.getId()) {
             case R.id.radio0:
                 if (checked) {
-                    transaction.replace(R.id.childContainer, firstFragment).commit();
-                    tabsFragment = (TabsFragment)firstFragment;
+                    transaction.replace(R.id.childContainer, favoriteRecipes).commit();
+                    tabsFragment = (TabsFragment) favoriteRecipes;
                 }
                 break;
             case R.id.radio1:
                 if (checked) {
-                    transaction.replace(R.id.childContainer, secondFragment).commit();
-                    tabsFragment = (TabsFragment)secondFragment;
+                    transaction.replace(R.id.childContainer, addedRecipes).commit();
+                    tabsFragment = (TabsFragment) addedRecipes;
                 }
                 break;
         }
@@ -58,15 +57,20 @@ public class FragmentRecipeContainer extends Fragment implements TabsFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        firstFragment = new FavoriteRecipesFragment();
-        secondFragment = new ListAddedRecipeFragment();
-        tabsFragment = (TabsFragment)firstFragment;
+        favoriteRecipes = new FavoriteRecipesFragment();
+        addedRecipes = new ListAddedRecipeFragment();
+        tabsFragment = (TabsFragment) favoriteRecipes;
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.childContainer, firstFragment).commit();
+        transaction.replace(R.id.childContainer, favoriteRecipes).commit();
     }
 
     @Override
     public void sendString(String searchString) {
-        tabsFragment.sendString(searchString);
+        this.searchKey = searchString;
+        tabsFragment.sendString(searchKey);
+    }
+
+    public String getSearchKey() {
+        return searchKey;
     }
 }

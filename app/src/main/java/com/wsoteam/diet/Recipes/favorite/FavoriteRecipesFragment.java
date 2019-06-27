@@ -16,6 +16,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Recipes.adding.AddedRecipeAdapter;
+import com.wsoteam.diet.Recipes.helper.FragmentRecipeContainer;
 import com.wsoteam.diet.Recipes.v2.ListRecipesAdapter;
 import com.wsoteam.diet.Sync.UserDataHolder;
 
@@ -31,13 +32,17 @@ public class FavoriteRecipesFragment extends Fragment implements TabsFragment {
     @BindView(R.id.rvRecipes) RecyclerView recyclerView;
     @BindView(R.id.layoutWithButton) ConstraintLayout layout;
 
-    private HashMap<String, RecipeItem> favoriteRecipes;
+    private List<RecipeItem> list;
     private ListRecipesAdapter adapter;
 
     @Override
     public void onResume() {
-
         initial();
+        updateUI(list);
+        String str = ((FragmentRecipeContainer)getParentFragment()).getSearchKey();
+        if (str != null && !str.equals("")) {
+            search(str);
+        }
         super.onResume();
     }
 
@@ -58,17 +63,29 @@ public class FavoriteRecipesFragment extends Fragment implements TabsFragment {
 
     private void initial() {
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getFavoriteRecipes() != null) {
+            HashMap<String, RecipeItem> favoriteRecipes = UserDataHolder.getUserData().getFavoriteRecipes();
+            list = new ArrayList<>(favoriteRecipes.values());
             layout.setVisibility(View.INVISIBLE);
-            this.favoriteRecipes = UserDataHolder.getUserData().getFavoriteRecipes();
-            adapter = new ListRecipesAdapter(new ArrayList<RecipeItem>(favoriteRecipes.values()), getActivity());
-            recyclerView.setAdapter(adapter);
         } else {
             layout.setVisibility(View.VISIBLE);
-            recyclerView.setAdapter(null);
+            list = null;
         }
     }
 
+    private void updateUI(List<RecipeItem> recipeItemList){
+        if (recipeItemList == null || recipeItemList.size() == 0) {
+            recyclerView.setAdapter(null);
+        } else {
+            adapter = new ListRecipesAdapter(recipeItemList, getActivity());
+            recyclerView.setAdapter(adapter);
+        }
+
+    }
+
     private void search(String str) {
+        List<RecipeItem> result = new ArrayList<>();
+        initial();
+
         String key;
         if (str != null){
             key = str.toLowerCase();
@@ -76,25 +93,15 @@ public class FavoriteRecipesFragment extends Fragment implements TabsFragment {
             key = null;
         }
 
-        List<RecipeItem> result = new ArrayList<>();
-        List<RecipeItem> list;
-
-        if (favoriteRecipes != null) {
-            list = new ArrayList<RecipeItem>(favoriteRecipes.values());
-        } else {
-            list = null;
-        }
-
         if (key == null || key.equals("") || list == null) {
-            initial();
+            updateUI(list);
         } else {
             for (RecipeItem recipe : list) {
                 if (recipe.getName() != null && recipe.getName().toLowerCase().contains(key)) {
                     result.add(recipe);
                 }
             }
-            adapter = new ListRecipesAdapter(result, getActivity());
-            recyclerView.setAdapter(adapter);
+            updateUI(result);
         }
     }
 }
