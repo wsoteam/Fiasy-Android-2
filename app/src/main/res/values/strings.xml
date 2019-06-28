@@ -700,4 +700,6 @@
     <string name="edtSaturatedFats">Насыщенные жиры (г)</string>
     <string name="edtSugar">Сахар (г)</string>
     <string name="edtCell">Клетчатка (г)</string>
+    <string name="info">Информация о продукте</string>
+    <string name="product_info">Пищевая ценность на 100 г</string>
 </resources>
