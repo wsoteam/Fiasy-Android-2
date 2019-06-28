@@ -684,4 +684,20 @@
     <string name="add_custom_food_toolbar">Добавить продукт</string>
     <string name="back">назад</string>
     <string name="forward">далее</string>
+    <string name="brand">Марка/производитель</string>
+    <string name="food_name">Название продукта</string>
+    <string name="barcode">Штрих-код</string>
+    <string name="all_users">Могут видеть все пользователи</string>
+    <string name="check_box_text">Созданные вами и введенные в базу рецепты или продукты могут быть  доступны для других пользователей. Пожалуйста, постарайтесь  заполнить приведенную выше форму максимально точно и полно.</string>
+    <string name="calories">Калорийность (ккал)</string>
+    <string name="create_food_fats">Жиры (г)</string>
+    <string name="carbo">Углеводы (г)</string>
+    <string name="edtPottassium">Калий (мг)</string>
+    <string name="edtSodium">Натрий (мг)</string>
+    <string name="edtCholesterol">Холестерин (мг)</string>
+    <string name="edtPolyUnSaturatedFats">Полиненасыщенные жиры (г)</string>
+    <string name="edtMonoUnSaturatedFats">Мононенасыщенные жиры (г)</string>
+    <string name="edtSaturatedFats">Насыщенные жиры (г)</string>
+    <string name="edtSugar">Сахар (г)</string>
+    <string name="edtCell">Клетчатка (г)</string>
 </resources>

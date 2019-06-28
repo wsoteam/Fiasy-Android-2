@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.Fragments.FragmentMainInfo;
+import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.Fragments.FragmentOutlay;
 import com.wsoteam.diet.R;
 
 import butterknife.BindView;
@@ -21,6 +23,7 @@ public class ActivityCreateFood extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_food);
         ButterKnife.bind(this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.flFragmentContainer, new FragmentOutlay()).commit();
     }
 
     @OnClick({R.id.ibClose, R.id.btnBack, R.id.btnForward})
