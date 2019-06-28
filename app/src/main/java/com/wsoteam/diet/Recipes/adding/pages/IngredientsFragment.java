@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,17 +52,28 @@ public class IngredientsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case Config.RECIPE_FOOD_FOR_RESULT_CODE:
+                Log.d("kkk", "onActivityResult: fragment FOOD_FOR_RESULT_CODE");
                 if (resultCode == getActivity().RESULT_OK) {
 
                     Bundle bundle = data.getExtras();
                     if (bundle != null) {
-                        Food food = (Food) bundle.get(Config.RECIPE_FOOD_INTENT);
-                        onAddField(food);
-                        foodList.add(food);
+                        List<Food> foods = (List<Food>) bundle.get(Config.RECIPE_FOOD_INTENT);
+                        for (Food f:
+                             foods) {
+                            Log.d("kkk", "onActivityResult: " + f.getName());
+                            onAddField(f);
+                            foodList.add(f);
+                        }
                         ((AddingRecipeActivity) getActivity()).updateUI();
                     }
                 }
                 break;
+            case 45:
+                if (resultCode == getActivity().RESULT_OK) {
+                    Log.d("kkk", "onActivityResult: fragment 45");
+                }
+                break;
+
         }
     }
 
