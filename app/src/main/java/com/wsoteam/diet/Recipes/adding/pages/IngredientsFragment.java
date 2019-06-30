@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
+import com.wsoteam.diet.Recipes.adding.IngredientAdapter;
 import com.wsoteam.diet.Recipes.adding.ProductSearchActivity;
 
 import java.util.List;
@@ -27,8 +30,9 @@ import butterknife.OnClick;
 
 public class IngredientsFragment extends Fragment {
 
-    @BindView(R.id.svContainerInstructions) LinearLayout container;
-    List<Food> foodList;
+    @BindView(R.id.rvIngredients) RecyclerView recyclerView;
+    private List<Food> foodList;
+    private IngredientAdapter adapter;
 
     @Nullable
     @Override
@@ -38,6 +42,9 @@ public class IngredientsFragment extends Fragment {
                 container, false);
         ButterKnife.bind(this, view);
         foodList = ((AddingRecipeActivity) getActivity()).getFoods();
+        adapter = new IngredientAdapter(getContext(), foodList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
 
         return view;
     }
@@ -61,34 +68,14 @@ public class IngredientsFragment extends Fragment {
                         for (Food f:
                              foods) {
                             Log.d("kkk", "onActivityResult: " + f.getName());
-                            onAddField(f);
                             foodList.add(f);
                         }
+                        adapter.notifyDataSetChanged();
                         ((AddingRecipeActivity) getActivity()).updateUI();
                     }
                 }
                 break;
-            case 45:
-                if (resultCode == getActivity().RESULT_OK) {
-                    Log.d("kkk", "onActivityResult: fragment 45");
-                }
-                break;
 
         }
-    }
-
-    private void onAddField(Food food) {
-
-        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View rowView = inflater.inflate(R.layout.adding_recipe_ingredients_item, null);
-        TextView nameTextView = rowView.findViewById(R.id.tvName);
-        TextView portionTextView = rowView.findViewById(R.id.tvPortion);
-        TextView caloriesTextView = rowView.findViewById(R.id.tvCalories);
-
-        nameTextView.setText(food.getName());
-        portionTextView.setText(String.valueOf((int) food.getPortion()) + " г");
-        caloriesTextView.setText(String.valueOf((int) food.getCalories()) + " Ккал");
-
-        container.addView(rowView);
     }
 }
