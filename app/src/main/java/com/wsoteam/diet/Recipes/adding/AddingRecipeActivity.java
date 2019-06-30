@@ -257,7 +257,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         recipeItem.setFats((int) fats);
         recipeItem.setCarbohydrates((int) carbo);
         recipeItem.setCalories((int) cal);
-        recipeItem.setPortions((int) portion);
+//        recipeItem.setPortions((int) portion);
 
         recipeItem.setCellulose((int) cellulose);
         recipeItem.setSugar((int) sugar);
