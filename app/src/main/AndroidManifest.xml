@@ -21,10 +21,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Recipes.adding.ActivityDetailFood"
+        <activity android:name=".Recipes.adding.UsersRecipesActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/DetailFood" >
+            android:theme="@style/Menu" >
+
         </activity>
+        <activity
+            android:name=".Recipes.adding.ActivityDetailFood"
+            android:screenOrientation="portrait"
+            android:theme="@style/DetailFood"></activity>
         <activity
             android:name=".Recipes.adding.ProductSearchActivity"
             android:screenOrientation="portrait"
