@@ -45,11 +45,12 @@
         android:paddingTop="4dp"
         android:paddingEnd="15dp"
         android:paddingBottom="4dp"
-        tools:text="21 день подряд ведется запись"
         android:textColor="@color/b_color"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datePicker"/>
+        app:layout_constraintTop_toBottomOf="@+id/datePicker"
+        tools:text="21 день подряд ведется запись"/>
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"

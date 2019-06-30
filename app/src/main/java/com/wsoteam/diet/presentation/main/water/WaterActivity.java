@@ -5,6 +5,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
@@ -24,8 +25,8 @@ import dagger.android.AndroidInjection;
 
 public class WaterActivity extends BaseActivity implements WaterView {
 
-    private static final float PROGRESS_MAX_GLASS = 0.25f;
-    private static final float PROGRESS_MAX_BOTTLE = 1;
+    public static final float PROGRESS_MAX_GLASS = 0.25f;
+    public static final float PROGRESS_MAX_BOTTLE = 1;
     private static final float PROGRESS_MIN = 1;
     private static final float PROGRESS_MAX = 5;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -59,8 +60,7 @@ public class WaterActivity extends BaseActivity implements WaterView {
         pbWater.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                tvWater.setText(((float) progress * (rbGlass.isChecked() ? PROGRESS_MAX_GLASS : PROGRESS_MAX_BOTTLE) + 1) + " л");
-                tvWater.setX(presenter.calcXPosition(pbWater, progress, tvWater));
+                calculateWaterX();
             }
 
             @Override
@@ -72,9 +72,21 @@ public class WaterActivity extends BaseActivity implements WaterView {
             }
         });
         setDefaultProgress();
+
+        pbWater.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                pbWater.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                calculateWaterX();
+            }
+        });
     }
 
-    // TODO Пофиксить положение текста при открытии
+    private void calculateWaterX() {
+        tvWater.setText(((float) pbWater.getProgress() * (rbGlass.isChecked() ? PROGRESS_MAX_GLASS : PROGRESS_MAX_BOTTLE) + 1) + " л");
+        tvWater.setX(presenter.calcXPosition(pbWater, pbWater.getProgress(), tvWater));
+    }
+
     private void setDefaultProgress() {
         rbGlass.setChecked(presenter.getWaterPackParameter());
         rbBottle.setChecked(!presenter.getWaterPackParameter());
@@ -139,5 +151,4 @@ public class WaterActivity extends BaseActivity implements WaterView {
     public void showMessage(String message) {
         showToastMessage(message);
     }
-
 }
