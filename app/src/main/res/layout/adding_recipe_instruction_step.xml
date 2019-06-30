@@ -29,20 +29,19 @@
         app:layout_constraintTop_toTopOf="@+id/ivCircle"
         tools:text="0" />
 
-    <EditText
-        android:id="@+id/etInstruction"
+    <TextView
+        android:id="@+id/tvInstruction"
         android:layout_width="0dp"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="19dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="#1E000000"
         android:drawableRight="@color/transparent"
         android:drawablePadding="45dp"
-        android:ems="10"
         android:fontFamily="@font/roboto"
-        android:inputType="textPersonName"
-        android:textColor="#9A000000"
+        android:textColor="#99000000"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -56,10 +55,19 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/etInstruction"
-        app:layout_constraintEnd_toEndOf="@+id/etInstruction"
-        app:layout_constraintTop_toTopOf="@+id/etInstruction"
+        app:layout_constraintBottom_toBottomOf="@+id/tvInstruction"
+        app:layout_constraintEnd_toEndOf="@+id/tvInstruction"
+        app:layout_constraintTop_toTopOf="@+id/tvInstruction"
         app:layout_constraintVertical_bias="0.6"
         app:srcCompat="@drawable/ic_delete_instruction_recipe" />
+
+    <View
+        android:id="@+id/divider27"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvInstruction"
+        app:layout_constraintTop_toBottomOf="@+id/tvPosition" />
 
 </android.support.constraint.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.wsoteam.diet.Recipes.adding;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,8 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.Recipes.v2.RecipeActivity;
 
 import java.util.List;
 
@@ -64,6 +67,15 @@ public class AddedRecipeAdapter extends RecyclerView.Adapter<AddedRecipeAdapter.
             imageView = itemView.findViewById(R.id.imageView);
             nameTextView = itemView.findViewById(R.id.tvName);
             portionTextView = itemView.findViewById(R.id.tvPortion);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent  intent = new Intent(activity, RecipeActivity.class);
+                    intent.putExtra(Config.RECIPE_INTENT, listRecipes.get(getAdapterPosition()));
+                    activity.startActivity(intent);
+                }
+            });
         }
 
         void bind(int position) {

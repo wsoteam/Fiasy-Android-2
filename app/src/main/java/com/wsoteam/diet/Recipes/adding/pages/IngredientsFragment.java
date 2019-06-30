@@ -1,6 +1,6 @@
 package com.wsoteam.diet.Recipes.adding.pages;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,8 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
 
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.Config;
@@ -32,7 +31,7 @@ public class IngredientsFragment extends Fragment {
 
     @BindView(R.id.rvIngredients) RecyclerView recyclerView;
     private List<Food> foodList;
-    private IngredientAdapter adapter;
+    private RecyclerView.Adapter adapter;
 
     @Nullable
     @Override

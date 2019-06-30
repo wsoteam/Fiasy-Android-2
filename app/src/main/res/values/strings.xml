@@ -1,6 +1,8 @@
 <resources>
 
     <!--adding recipe-->
+    <string name="add">Добавить</string>
+    <string name="cancel">Отменить</string>
     <string name="addingRecipeText">В этом разделе будут храниться созданные вами рецепты</string>
     <string name="favoriteRecipeText">В этом разделе будут храниться понравившиеся вам рецепты </string>
     <string name="myRecipe">Свои рецепты</string>
