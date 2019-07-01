@@ -705,6 +705,8 @@
     <string name="error_toast">Проверьте введенные данные</string>
     <string name="ok_forward">ок</string>
     <string name="forward_btn">далее</string>
+    <string name="prot">Белки (г)</string>
+    <string name="empty_field_food">-1.0</string>
     <string-array name="fragment_names">
         <item>Добавить продукт</item>
         <item>Пищевая ценность на 100 г</item>

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -109,6 +110,7 @@ public class ActivityCreateFood extends AppCompatActivity {
             case R.id.btnForward:
                 if (isCanMoveForward() && vpFragmentContainer.getCurrentItem() < vpAdapter.getCount() - 1) {
                     vpFragmentContainer.setCurrentItem(vpFragmentContainer.getCurrentItem() + 1);
+                    Log.e("LOL", customFood.toString());
                 } else if (vpFragmentContainer.getCurrentItem() == vpAdapter.getCount() - 1) {
                     Toast.makeText(this, "Complete", Toast.LENGTH_SHORT).show();
                 }
