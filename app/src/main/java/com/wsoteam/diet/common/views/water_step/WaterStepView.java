@@ -57,7 +57,7 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
-        listener.onWaterClick(count + 1);
+        listener.onWaterClick((int) view.getTag());
     }
 
     public void setStepNum(int count, boolean addMore) {
@@ -75,13 +75,18 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
                 for (int i = 0; i < Math.min(lineCount, count); i++) {
                     ImageView imageView = (ImageView) firstLineatLayout.getChildAt(i);
                     imageView.setImageDrawable(mSelectedIcon);
-                    imageView.setOnClickListener(null);
+                    imageView.setOnClickListener(this);
                     waterWidth = imageView.getWidth();
                 }
                 if (count < lineCount) {
                     ImageView imageView = (ImageView) firstLineatLayout.getChildAt(count);
                     imageView.setOnClickListener(this);
                     imageView.setImageDrawable(mAddWaterIcon);
+                    for (int i = count + 1; i < lineCount; i++) {
+                        ImageView childImageView = (ImageView) firstLineatLayout.getChildAt(i);
+                        childImageView.setImageDrawable(mUnSelectedIcon);
+                        childImageView.setOnClickListener(null);
+                    }
                 }
             } else {
                 LinearLayout ll = new LinearLayout(getContext());
@@ -90,7 +95,7 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
                     ImageView imageView = new ImageView(getContext());
                     imageView.setImageDrawable(mSelectedIcon);
                     imageView.setMinimumWidth(waterWidth);
-                    imageView.setOnClickListener(null);
+                    imageView.setOnClickListener(this);
                     imageView.setTag((row * lineCount) + i + 1);
                     ll.addView(imageView);
                 }

@@ -33,7 +33,7 @@ public class UserData implements Serializable {
     public UserData() {
     }
 
-    public UserData(String name, Profile profile, SubInfo subInfo, TrackInfo trackInfo, CheckHistory checkHistory, HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners, HashMap<String, Snack> snacks, HashMap<String, WeightDiaryObject> diaryDataList) {
+    public UserData(String name, Profile profile, SubInfo subInfo, TrackInfo trackInfo, CheckHistory checkHistory, HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners, HashMap<String, Snack> snacks, HashMap<String, Water> water, HashMap<String, WeightDiaryObject> diaryDataList) {
         this.name = name;
         this.profile = profile;
         this.subInfo = subInfo;
@@ -43,6 +43,7 @@ public class UserData implements Serializable {
         this.lunches = lunches;
         this.dinners = dinners;
         this.snacks = snacks;
+        this.water = water;
         this.diaryDataList = diaryDataList;
     }
 

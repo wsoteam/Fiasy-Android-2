@@ -36,7 +36,6 @@ import com.wsoteam.diet.MainScreen.Dialogs.SublimePickerDialogFragment;
 import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
@@ -50,10 +49,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.intercom.android.sdk.Intercom;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -251,23 +246,6 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
                 sublimePickerDialogFragment.show(getFragmentManager(), null);
                 break;
         }
-    }
-
-    private void getDaysAtRow1() {
-        if (UserDataHolder.getUserData() == null)
-            return;
-
-        Observable.just(UserDataHolder.getUserData())
-                .concatMapIterable(new Function<UserData, Iterable<?>>() {
-                    @Override
-                    public Iterable<?> apply(UserData userData) throws Exception {
-                        return null;
-                    }
-                })
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(t -> {}, Throwable::printStackTrace);
-
     }
 
     @Override

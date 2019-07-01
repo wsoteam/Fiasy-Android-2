@@ -22,6 +22,7 @@ import com.wsoteam.diet.POJOProfile.TrackInfo;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.POJO.WeightDiaryObject;
+import com.wsoteam.diet.model.Water;
 
 import java.util.HashMap;
 
@@ -91,6 +92,13 @@ public class WorkWithFirebaseDB {
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("snacks");
         myRef.push().setValue(snack);
+    }
+
+    public static void addWater(Water water) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("water");
+        myRef.push().setValue(water);
     }
 
     public static void putProfileValue(Profile profile) {

@@ -15,8 +15,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.views.water_step.WaterStepView;
 import com.wsoteam.diet.model.Eating;
+import com.wsoteam.diet.model.Water;
 import com.wsoteam.diet.presentation.main.water.WaterActivity;
 
 import java.util.List;
@@ -58,7 +60,9 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
         waterStepView.setOnWaterClickListener(progress -> {
             float waterProgress = getWaterPackParameter() ? progress * WaterActivity.PROGRESS_MAX_GLASS : progress * WaterActivity.PROGRESS_MAX_BOTTLE;
             tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), waterProgress, waterCount));
-            waterStepView.setStepNum(progress, waterProgress < 10f);
+            waterStepView.setStepNum(progress, waterProgress < WaterActivity.PROGRESS_MAX);
+            WorkWithFirebaseDB.
+                    addWater(new Water(progress, getWaterProgressStepParameter(), getWaterPackParameter()));
         });
     }
 

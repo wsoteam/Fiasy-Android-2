@@ -6,10 +6,12 @@ public class Water extends Eating implements Serializable {
 
     private int count;
     private int maxCount;
+    private boolean waterPack;
 
-    public Water(int count, int maxCount) {
+    public Water(int count, int maxCount, boolean waterPack) {
         this.count = count;
         this.maxCount = maxCount;
+        this.waterPack = waterPack;
     }
 
     public Water(String name, String urlOfImages, int calories, int carbohydrates, int protein, int fat, int weight, int day, int month, int year) {
@@ -30,5 +32,13 @@ public class Water extends Eating implements Serializable {
 
     public void setMaxCount(int maxCount) {
         this.maxCount = maxCount;
+    }
+
+    public boolean isWaterPack() {
+        return waterPack;
+    }
+
+    public void setWaterPack(boolean waterPack) {
+        this.waterPack = waterPack;
     }
 }
