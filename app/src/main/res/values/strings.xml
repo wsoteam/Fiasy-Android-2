@@ -702,4 +702,12 @@
     <string name="edtCell">Клетчатка (г)</string>
     <string name="info">Информация о продукте</string>
     <string name="product_info">Пищевая ценность на 100 г</string>
+    <string name="error_toast">Проверьте введенные данные</string>
+    <string name="ok_forward">ок</string>
+    <string name="forward_btn">далее</string>
+    <string-array name="fragment_names">
+        <item>Добавить продукт</item>
+        <item>Пищевая ценность на 100 г</item>
+        <item>Добавить продукт</item>
+    </string-array>
 </resources>
