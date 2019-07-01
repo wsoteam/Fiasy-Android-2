@@ -58,16 +58,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/tvInstruction"
         app:layout_constraintEnd_toEndOf="@+id/tvInstruction"
         app:layout_constraintTop_toTopOf="@+id/tvInstruction"
-        app:layout_constraintVertical_bias="0.6"
         app:srcCompat="@drawable/ic_delete_instruction_recipe" />
 
     <View
         android:id="@+id/divider27"
         android:layout_width="0dp"
         android:layout_height="1dp"
+        android:layout_marginTop="8dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvInstruction"
-        app:layout_constraintTop_toBottomOf="@+id/tvPosition" />
+        app:layout_constraintTop_toBottomOf="@+id/tvInstruction" />
 
 </android.support.constraint.ConstraintLayout>

@@ -101,7 +101,7 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.
             }
 
             textView.setText(name);
-            textViewKK.setText(kk + " " + context.getResources().getString(R.string.tvKkal));
+            textViewKK.setText(String.valueOf(kk));
             Glide
                     .with(context)
                     .load(url)
