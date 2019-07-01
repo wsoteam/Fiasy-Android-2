@@ -236,7 +236,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         List<String> ingredients = new ArrayList<>();
         for (Food food:
              foods) {
-            ingredients.add(food.getName());
+            ingredients.add(food.getName() + " (" + (int)food.getPortion() + "г)");
             prot = prot + food.getProteins();
             fats = fats + checkValue(food.getFats());
             carbo = carbo + checkValue(food.getCarbohydrates());
