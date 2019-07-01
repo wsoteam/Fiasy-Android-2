@@ -256,8 +256,12 @@ public class ActivityDetailFood extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.btnAddFood:
 
-                if (edtWeight.getText().toString().equals("") || edtWeight.getText().toString().equals(" ")) {
+                if (edtWeight.getText().toString().equals("")
+                        || edtWeight.getText().toString().equals(" ")
+                        || edtWeight.getText().toString().equals("0")) {
+
                     Toast.makeText(this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
+
                 } else {
                     Double portion = Double.parseDouble(edtWeight.getText().toString());
                     foodItem.setPortion(portion);

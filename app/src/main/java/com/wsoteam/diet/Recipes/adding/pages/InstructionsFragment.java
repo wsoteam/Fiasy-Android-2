@@ -51,10 +51,7 @@ public class InstructionsFragment extends Fragment {
     public void onViewClicked(View view) {
 
         if (instructions.size() < 99) {
-            AddInstructionAlertDialog.init(getContext(), instructions);
-            adapter.notifyDataSetChanged();
-        } else {
-
+            AddInstructionAlertDialog.init(adapter, getContext(), instructions);
         }
     }
 }

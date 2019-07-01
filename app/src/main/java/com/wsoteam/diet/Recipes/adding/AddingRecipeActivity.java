@@ -304,7 +304,13 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
                     "Введите название рецепта!", Toast.LENGTH_SHORT).show();
             vpPager.setCurrentItem(0);
             return false;
-        } else if (foods == null || foods.size() < 1 ){
+        } else if (recipeItem.getTime() < 1 ){
+            Toast.makeText(getApplicationContext(),
+                    "Введите время нужное для готовки!", Toast.LENGTH_SHORT).show();
+            vpPager.setCurrentItem(0);
+            return false;
+
+        }else if (foods == null || foods.size() < 1 ){
             Toast.makeText(getApplicationContext(),
                     "Введите ингридиенты", Toast.LENGTH_SHORT).show();
             vpPager.setCurrentItem(1);

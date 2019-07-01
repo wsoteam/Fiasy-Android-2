@@ -17,7 +17,7 @@ import java.util.List;
 
 public class AddInstructionAlertDialog {
 
-    public static AlertDialog init(Context context, List<String> instruction) {
+    public static AlertDialog init(RecyclerView.Adapter adapter, Context context, List<String> instruction) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         AlertDialog alertDialog = builder.create();
         View view = LayoutInflater.from(context).inflate(R.layout.alert_dialog_add_instruction, null);
@@ -38,8 +38,9 @@ public class AddInstructionAlertDialog {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                instruction.add(editText.getText().toString());
+                instruction.add(editText.getText().toString().trim());
                 alertDialog.dismiss();
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -51,7 +52,7 @@ public class AddInstructionAlertDialog {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 3){
+                if (s.length() > 3 && s.toString().trim().length() > 3){
                     addButton.setEnabled(true);
                     addButton.setTextColor(Color.parseColor("#ef7d02"));
                 } else {
@@ -91,7 +92,7 @@ public class AddInstructionAlertDialog {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                instruction.set(position, editText.getText().toString());
+                instruction.set(position, editText.getText().toString().trim());
                 alertDialog.dismiss();
                 adapter.notifyDataSetChanged();
             }
@@ -105,7 +106,7 @@ public class AddInstructionAlertDialog {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 3){
+                if (s.length() > 3 && s.toString().trim().length() > 3){
                     addButton.setEnabled(true);
                     addButton.setTextColor(Color.parseColor("#ef7d02"));
                 } else {
