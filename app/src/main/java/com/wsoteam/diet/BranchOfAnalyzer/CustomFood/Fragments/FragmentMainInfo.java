@@ -1,9 +1,14 @@
 package com.wsoteam.diet.BranchOfAnalyzer.CustomFood.Fragments;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +16,11 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.wsoteam.diet.BarcodeScanner.BaseScanner;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.ActivityCreateFood;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.CustomFood;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.SayForward;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
 import butterknife.BindView;
@@ -68,5 +75,18 @@ public class FragmentMainInfo extends Fragment implements SayForward {
 
     @OnClick(R.id.ibBarcode)
     public void onViewClicked() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.CAMERA}, 1);
+        } else {
+            startActivityForResult(new Intent(getActivity(), BaseScanner.class), 1);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null) {return;}
+        edtBarcode.setText(data.getStringExtra(Config.BARCODE_STRING_NAME));
     }
 }

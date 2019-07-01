@@ -135,14 +135,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         handlGrade(Calendar.getInstance().getTimeInMillis());
         Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
-        /*if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CAMERA}, 1);
-        } else {
-            Intent intent = new Intent(this, BaseScanner.class);
-            startActivity(intent);
-        }*/
     }
 
     private void handlGrade(long currentTime) {

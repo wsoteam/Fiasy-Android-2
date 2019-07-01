@@ -1,10 +1,12 @@
 package com.wsoteam.diet.BarcodeScanner;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.google.zxing.Result;
+import com.wsoteam.diet.Config;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -33,12 +35,9 @@ public class BaseScanner extends Activity implements ZXingScannerView.ResultHand
 
     @Override
     public void handleResult(Result rawResult) {
-        // Do something with the result here
-        Log.e("LOL", "find");
-        Log.e("LOL", rawResult.getText()); // Prints scan results
-        Log.e("LOL", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
-
-        // If you would like to resume scanning, call this method below:
-        //mScannerView.resumeCameraPreview(this);
+        Intent intent = new Intent();
+        intent.putExtra(Config.BARCODE_STRING_NAME, rawResult.getText());
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

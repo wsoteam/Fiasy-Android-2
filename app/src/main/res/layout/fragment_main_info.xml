@@ -87,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        style="@style/OrangeCheckBox"
+        android:theme="@style/OrangeCheckBox"
         app:layout_constraintBottom_toBottomOf="@+id/textView143"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView143" />
