@@ -551,6 +551,47 @@
     <string name="neverButtonAlert">Никогда</string>
     <string name="evaluateButtonAlert">Оценить</string>
 
+    <!--Main screen-->
+    <string name="main_screen_topbar_calendar_days">Дней подряд:</string>
+    <string name="main_screen_topbar_string">%d из %d г</string>
+    <string name="main_screen_topbar_kcal_target">%s\nцель</string>
+    <string name="main_screen_topbar_kcal_left">%s\nосталось</string>
+    <string name="main_screen_topbar_kcal_done">%s\nсъедено</string>
+    <string name="main_screen_topbar_kcal_over">%s\nсверх нормы</string>
+
+    <string name="main_screen_topbar_kcal_over_notification">Хотим вас\nпредупредить, что\nпревышение калорий\nможет привести к\nнулевому результату</string>
+
+    <string name="main_screen_topbar_left">Ежедневная норма = %s ккал</string>
+    <string name="main_screen_topbar_calories">Съедено</string>
+    <string name="main_screen_topbar_prot">Белки</string>
+    <string name="main_screen_topbar_fat">Жиры</string>
+    <string name="main_screen_topbar_carbo">Углеводы</string>
+
+    <string name="main_screen_breakfast">Завтрак</string>
+    <string name="main_screen_lunch">Обед</string>
+    <string name="main_screen_dinner">Ужин</string>
+    <string name="main_screen_snack">Перекус</string>
+    <string name="main_screen_water">Вода</string>
+
+    <string name="main_screen_menu_water">Настройки для воды</string>
+    <string name="main_screen_menu_water_count">%.2f л из %.2f л</string>
+
+    <!--Water Screen-->
+    <string name="water_screen_toolbar_title">Вода</string>
+    <string name="water_screen_title">Польза воды</string>
+    <string name="water_screen_fact1">Снабжает кожу влагой и делает её упругой и эластичной.</string>
+    <string name="water_screen_fact2">Поставляет полезные вещества клеткам, не допуская тем самым их голодание и гибель.</string>
+    <string name="water_screen_fact3">Способствует похудению путём улучшения процессов обмена веществ.</string>
+    <string name="water_screen_water_need_title">Задать норму на каждый день</string>
+    <string name="water_screen_water_1_0">1.0 л</string>
+    <string name="water_screen_water_2_5">2.5 л</string>
+    <string name="water_screen_water_3_5">3.5 л</string>
+    <string name="water_screen_water_add_title">Объем для добавления воды</string>
+    <string name="water_screen_water_notification">Напоминать о приеме воды</string>
+    <string name="water_screen_water_btn_default">По умолчанию</string>
+    <string name="water_screen_glass">Стакан 250 мл</string>
+    <string name="water_screen_bottle">Бутылка 1 л</string>
+    <string name="water_screen_settings_saved">Настройки сохранены</string>
 
     <string name="search_of_food">Поиск продукта питания</string>
     <string name="for_100_g_of_product"> Ккал на 100 г продукта</string>
@@ -653,6 +694,13 @@
         <item quantity="few">%d года</item>
         <item quantity="many">%d лет</item>
         <item quantity="other">%d лет</item>
+    </plurals>
+
+    <plurals name="daysAtRow">
+        <item quantity="one">%d день подряд ведется запись</item>
+        <item quantity="few">%d дня подряд ведется запись</item>
+        <item quantity="many">%d дней подряд ведется запись</item>
+        <item quantity="other">%d дней подряд ведется запись</item>
     </plurals>
 
     <string name="currentBreakfastDrink">Чай зеленый сухой</string>

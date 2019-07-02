@@ -1,0 +1,14 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="40dp"/>
+            <solid android:color="#FFFFFF"/>
+            <size
+                android:width="80dp"
+                android:height="80dp"/>
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/ic_bottle_unselected"
+        android:gravity="center"/>
+</layer-list>

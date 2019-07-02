@@ -1,38 +1,37 @@
 package com.wsoteam.diet.MainScreen.Fragments;
 
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.github.lzyzsd.circleprogress.ArcProgress;
-import com.google.firebase.auth.FirebaseAuth;
-import com.orm.query.Condition;
-import com.orm.query.Select;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.MainScreen.Controller.EatingAdapter;
-import com.wsoteam.diet.POJOsCircleProgress.Water;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.model.Breakfast;
+import com.wsoteam.diet.model.Dinner;
+import com.wsoteam.diet.model.Eating;
+import com.wsoteam.diet.model.Lunch;
+import com.wsoteam.diet.model.Snack;
+import com.wsoteam.diet.model.Water;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -41,21 +40,23 @@ import java.util.concurrent.ExecutionException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import me.itangqi.waveloadingview.WaveLoadingView;
 
 public class FragmentEatingScroll extends Fragment {
     private static final String TAG_OF_BUNDLE = "FragmentEatingScroll";
-    private int enterPosition = 0;
-    private EatingAdapter eatingAdapter;
     @BindView(R.id.rvMainScreen) RecyclerView rvMainScreen;
     Unbinder unbinder;
-    private List<List<Eating>> allEat;
     int day, month, year;
-    private TextView parentTitleWithDate, tvCircleProgressCarbo, tvCircleProgressFat, tvCircleProgressProt;
-    private ArcProgress apCollapsingKcal;
-    private ArcProgress apCollapsingProt;
-    private ArcProgress apCollapsingCarbo;
-    private ArcProgress apCollapsingFat;
+    private int enterPosition = 0;
+    private EatingAdapter eatingAdapter;
+    private List<List<Eating>> allEat;
+    private TextView tvCarbo, tvFat, tvProt;
+    private TextView tvCaloriesLeft, tvCaloriesDone, tvCaloriesNeed;
+    private TextView tvCollapsCaloriesNeed, tvCollapsCalories, tvCollapsProt, tvCollapsFat, tvCollapsCarbo;
+    private ProgressBar apCollapsingKcal;
+    private ProgressBar apCollapsingProt;
+    private ProgressBar apCollapsingCarbo;
+    private ProgressBar apCollapsingFat;
+    private ImageView btnNotification;
 
     public static FragmentEatingScroll newInstance(int position) {
         Bundle bundle = new Bundle();
@@ -69,11 +70,10 @@ public class FragmentEatingScroll extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isResumed()) {
-            parentTitleWithDate.setText(setDateTitle(day, month, year));
+//            parentTitleWithDate.setText(setDateTitle(day, month, year));
             setMainParamsInBars(allEat);
         }
     }
-
 
     @Override
     public void onResume() {
@@ -98,14 +98,26 @@ public class FragmentEatingScroll extends Fragment {
         enterPosition = getArguments().getInt(TAG_OF_BUNDLE);
         rvMainScreen.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        parentTitleWithDate = getActivity().findViewById(R.id.tvDateForMainScreen);
-        apCollapsingKcal = getActivity().findViewById(R.id.apCollapsingKcal);
-        apCollapsingProt = getActivity().findViewById(R.id.apCollapsingProt);
-        apCollapsingCarbo = getActivity().findViewById(R.id.apCollapsingCarbo);
-        apCollapsingFat = getActivity().findViewById(R.id.apCollapsingFat);
-        tvCircleProgressCarbo = getActivity().findViewById(R.id.tvCircleProgressCarbo);
-        tvCircleProgressFat = getActivity().findViewById(R.id.tvCircleProgressFat);
-        tvCircleProgressProt = getActivity().findViewById(R.id.tvCircleProgressProt);
+//        parentTitleWithDate = getActivity().findViewById(R.id.tvDateForMainScreen);
+        apCollapsingKcal = getActivity().findViewById(R.id.pbCalories);
+        apCollapsingProt = getActivity().findViewById(R.id.pbProt);
+        apCollapsingCarbo = getActivity().findViewById(R.id.pbCarbo);
+        apCollapsingFat = getActivity().findViewById(R.id.pbFat);
+        tvCarbo = getActivity().findViewById(R.id.tvCarbo);
+        tvFat = getActivity().findViewById(R.id.tvFat);
+        tvProt = getActivity().findViewById(R.id.tvProt);
+
+        tvCollapsCaloriesNeed = getActivity().findViewById(R.id.tvLeft);
+        tvCollapsCalories = getActivity().findViewById(R.id.tvCaloriesCollapsed);
+        tvCollapsProt = getActivity().findViewById(R.id.tvProtCollapsed);
+        tvCollapsFat = getActivity().findViewById(R.id.tvFatCollapsed);
+        tvCollapsCarbo = getActivity().findViewById(R.id.tvCarboCollapsed);
+
+        tvCaloriesLeft = getActivity().findViewById(R.id.tvCaloriesLeft);
+        tvCaloriesDone = getActivity().findViewById(R.id.tvCaloriesDone);
+        tvCaloriesNeed = getActivity().findViewById(R.id.tvCaloriesNeed);
+
+        btnNotification = getActivity().findViewById(R.id.btnNotification);
 
         return view;
     }
@@ -155,7 +167,7 @@ public class FragmentEatingScroll extends Fragment {
     }
 
     private void setMainParamsInBars(List<List<Eating>> lists) {
-        int kcal = 0, fat = 0, prot = 0, carbo = 0;
+        int kcal = 0, fat = 0, prot = 0, carbo = 0, leftKCal = 0;
 
         for (int i = 0; i < lists.size(); i++) {
             for (int j = 0; j < lists.get(i).size(); j++) {
@@ -165,40 +177,85 @@ public class FragmentEatingScroll extends Fragment {
                 carbo += lists.get(i).get(j).getCarbohydrates();
             }
         }
+
+        leftKCal = apCollapsingKcal.getMax() - kcal;
+
         apCollapsingKcal.setProgress(kcal);
         apCollapsingProt.setProgress(prot);
         apCollapsingCarbo.setProgress(carbo);
         apCollapsingFat.setProgress(fat);
 
-        if (apCollapsingKcal.getMax() < kcal) {
-            apCollapsingKcal.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
-            apCollapsingKcal.setSuffixText("-" + String.valueOf(kcal - apCollapsingKcal.getMax()));
+        tvCollapsCalories.setText(String.valueOf(kcal));
+        tvCollapsProt.setText(String.valueOf(prot));
+        tvCollapsFat.setText(String.valueOf(fat));
+        tvCollapsCarbo.setText(String.valueOf(carbo));
+
+        final String pattern = getString(R.string.main_screen_topbar_string);
+
+        if (apCollapsingKcal.getMax() >= kcal) {
+            apCollapsingKcal.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories));
+            tvCaloriesDone.setText(spanText(R.string.main_screen_topbar_kcal_done, String.valueOf(kcal), R.color.main_calories_done));
+            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_left, String.valueOf(leftKCal), R.color.main_calories_left));
+            tvCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done));
+            tvCollapsCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done));
+            tvCollapsCalories.setTextColor(getResources().getColor(R.color.total_title));
+            btnNotification.setVisibility(View.GONE);
         } else {
-            apCollapsingKcal.setFinishedStrokeColor(getResources().getColor(R.color.white));
-            apCollapsingKcal.setSuffixText("+" + String.valueOf(apCollapsingKcal.getMax() - kcal));
-        }
-        if (apCollapsingCarbo.getMax() < carbo) {
-            apCollapsingCarbo.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
-            tvCircleProgressCarbo.setText("избыток  " + String.valueOf(carbo - apCollapsingCarbo.getMax()) + " г");
-        } else {
-            apCollapsingCarbo.setFinishedStrokeColor(getResources().getColor(R.color.white));
-            tvCircleProgressCarbo.setText("осталось  " + String.valueOf(apCollapsingCarbo.getMax() - carbo) + " г");
-        }
-        if (apCollapsingFat.getMax() < fat) {
-            apCollapsingFat.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
-            tvCircleProgressFat.setText("избыток  " + String.valueOf(fat - apCollapsingFat.getMax()) + " г");
-        } else {
-            apCollapsingFat.setFinishedStrokeColor(getResources().getColor(R.color.white));
-            tvCircleProgressFat.setText("осталось  " + String.valueOf(apCollapsingFat.getMax() - fat) + " г");
-        }
-        if (apCollapsingProt.getMax() < prot) {
-            apCollapsingProt.setFinishedStrokeColor(getResources().getColor(R.color.over_eat_color));
-            tvCircleProgressProt.setText("избыток " + String.valueOf(prot - apCollapsingProt.getMax()) + " г");
-        } else {
-            apCollapsingProt.setFinishedStrokeColor(getResources().getColor(R.color.white));
-            tvCircleProgressProt.setText("осталось " + String.valueOf(apCollapsingProt.getMax() - prot) + " г");
+            apCollapsingKcal.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
+            tvCaloriesDone.setText(spanText(R.string.main_screen_topbar_kcal_done, String.valueOf(kcal), R.color.main_calories_done_over));
+            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_over, String.valueOf(leftKCal), R.color.main_calories_left_over));
+            tvCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done_over));
+            tvCollapsCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done_over));
+            tvCollapsCalories.setTextColor(getResources().getColor(R.color.main_calories_done_over));
+            btnNotification.setVisibility(View.VISIBLE);
         }
 
+        final String carboText = String.format(pattern, carbo, apCollapsingCarbo.getMax());
+        if (apCollapsingCarbo.getMax() >= carbo) {
+            apCollapsingCarbo.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_carbo));
+            tvCarbo.setText(spanText(carboText, String.valueOf(carbo), R.color.gray4));
+            tvCollapsCarbo.setTextColor(getResources().getColor(R.color.total_title));
+        } else {
+            apCollapsingCarbo.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
+            tvCarbo.setText(spanText(carboText, String.valueOf(carbo), R.color.main_value_over));
+            tvCollapsCarbo.setTextColor(getResources().getColor(R.color.main_value_over));
+        }
+
+        final String fatText = String.format(pattern, fat, apCollapsingFat.getMax());
+        if (apCollapsingFat.getMax() >= fat) {
+            apCollapsingFat.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_fat));
+            tvFat.setText(spanText(fatText, String.valueOf(fat), R.color.gray4));
+            tvCollapsFat.setTextColor(getResources().getColor(R.color.total_title));
+        } else {
+            apCollapsingFat.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
+            tvFat.setText(spanText(fatText, String.valueOf(fat), R.color.main_value_over));
+            tvCollapsFat.setTextColor(getResources().getColor(R.color.main_value_over));
+        }
+
+        final String protText = String.format(pattern, prot, apCollapsingProt.getMax());
+        if (apCollapsingProt.getMax() >= prot) {
+            apCollapsingProt.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_proteins));
+            tvProt.setText(spanText(protText, String.valueOf(prot), R.color.gray4));
+            tvCollapsProt.setTextColor(getResources().getColor(R.color.total_title));
+        } else {
+            apCollapsingProt.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
+            tvProt.setText(spanText(protText, String.valueOf(prot), R.color.main_value_over));
+            tvCollapsProt.setTextColor(getResources().getColor(R.color.main_value_over));
+        }
+    }
+
+    private SpannableString spanText(int resId, String value, int resColor) {
+        final String pattern = String.format(getString(resId), value);
+        return spanText(pattern, value, resColor);
+    }
+
+    private SpannableString spanText(String pattern, String value, int resColor) {
+        final int start = pattern.indexOf(value);
+        final int end = start + value.length();
+        final SpannableString text = new SpannableString(pattern);
+        text.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        text.setSpan(new ForegroundColorSpan(getResources().getColor(resColor)), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return text;
     }
 
     public class LoadEatingForThisDay extends AsyncTask<Integer, Void, List<List<Eating>>> {
@@ -209,7 +266,6 @@ public class FragmentEatingScroll extends Fragment {
             day = ints[0];
             month = ints[1];
             year = ints[2];
-
             List allEatingForThisDay = new ArrayList<>();
 
             List<Breakfast> breakfasts = new ArrayList<>();
@@ -264,10 +320,24 @@ public class FragmentEatingScroll extends Fragment {
                 }
             }
 
+            List<Water> waterList = new ArrayList<>();
+            if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getWater() != null) {
+                Iterator iterator = UserDataHolder.getUserData().getWater().entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry pair = (Map.Entry) iterator.next();
+                    Water water = (Water) pair.getValue();
+                    if (water.getDay() == day && water.getMonth() == month && water.getYear() == year) {
+                        water.setUrlOfImages(pair.getKey().toString());
+                        waterList.add(water);
+                    }
+                }
+            }
+
             allEatingForThisDay.add(breakfasts);
             allEatingForThisDay.add(lunches);
             allEatingForThisDay.add(dinners);
             allEatingForThisDay.add(snacks);
+//            allEatingForThisDay.add(waterList);
 
             allEat = allEatingForThisDay;
 

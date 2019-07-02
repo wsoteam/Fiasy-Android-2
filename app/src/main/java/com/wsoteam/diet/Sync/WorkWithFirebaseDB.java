@@ -1,17 +1,9 @@
 package com.wsoteam.diet.Sync;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustAttribution;
-import com.adjust.sdk.AdjustEvent;
-import com.amplitude.api.Amplitude;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,6 +11,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.Activism.POJO.ActivismFirebaseObject;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
+import com.wsoteam.diet.model.Breakfast;
+import com.wsoteam.diet.model.Dinner;
+import com.wsoteam.diet.model.Lunch;
+import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.BranchOfAnalyzer.Const;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOClaim.Claim;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
@@ -32,17 +28,13 @@ import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
-import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.POJO.WeightDiaryObject;
+import com.wsoteam.diet.model.Water;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class WorkWithFirebaseDB {
 
@@ -110,6 +102,13 @@ public class WorkWithFirebaseDB {
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("snacks");
         myRef.push().setValue(snack);
+    }
+
+    public static void addWater(Water water) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("water");
+        myRef.push().setValue(water);
     }
 
     public static void putProfileValue(Profile profile) {

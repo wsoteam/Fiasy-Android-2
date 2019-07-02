@@ -257,7 +257,8 @@
         <item name="android:paddingBottom">8dp</item>
         <item name="android:gravity">center</item>
     </style>
-    <style name="Toolbar" parent="Theme.AppCompat.Light.NoActionBar">
+
+    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item>
         <item name="actionMenuTextColor">@android:color/white</item>
@@ -265,13 +266,21 @@
         <item name="colorPrimaryDark">#d6d6d6</item>
         <item name="colorAccent">@color/head_detail_food</item>
         <item name="windowActionBar">false</item>
-        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
 
     <style name="AddingRecipe" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="AddWaterStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#FF9800</item>
+        <item name="colorPrimaryDark">#9C5E21</item>
+        <item name="colorAccent">#FEC152</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
 </resources>

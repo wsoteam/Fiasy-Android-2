@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wsoteam.diet"
-    android:installLocation="internalOnly">
+          package="com.wsoteam.diet"
+          android:installLocation="internalOnly">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
-    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.QUICKBOOT_POWERON"/>
+    <uses-permission android:name="com.android.vending.BILLING"/>
 
     <application
         android:name=".App"
@@ -21,10 +21,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".presentation.main.water.WaterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AddWaterStyle"/>
+        <activity
+            android:name=".Recipes.adding.AddingRecipeActivity"
         <activity android:name=".Recipes.adding.UsersRecipesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu" >
-
         </activity>
         <activity
             android:name=".Recipes.adding.ActivityDetailFood"
@@ -42,113 +47,113 @@
         <activity
             android:name=".Recipes.v2.BlockedRecipeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu" />
+            android:theme="@style/Menu"/>
         <activity
             android:name=".Articles.ItemArticleWithoutPremActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TransparentStatusBar" />
+            android:theme="@style/TransparentStatusBar"/>
         <activity
             android:name=".Articles.ItemArticleActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TransparentStatusBar" />
+            android:theme="@style/TransparentStatusBar"/>
         <activity
             android:name=".Recipes.v1.RecipeWithoutPremActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu" />
+            android:theme="@style/Menu"/>
         <activity
             android:name=".Onboard.TotalAmountActivity"
-            android:theme="@style/TotalAmount" />
+            android:theme="@style/TotalAmount"/>
         <activity
             android:name=".Onboard.SleepActivity"
-            android:theme="@style/SleepActivity" />
+            android:theme="@style/SleepActivity"/>
         <activity
             android:name=".Recipes.v1.ItemActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu" />
+            android:theme="@style/Menu"/>
         <activity
             android:name=".Recipes.v2.RecipeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu" />
+            android:theme="@style/Menu"/>
         <activity
             android:name=".Recipes.v1.ItemPlansActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu" />
+            android:theme="@style/Menu"/>
         <activity
             android:name=".tvoytrener.ForTestFragmentActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu" />
+            android:theme="@style/Menu"/>
         <activity
             android:name=".AddMeasurementsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Measurements" />
+            android:theme="@style/Measurements"/>
         <activity
             android:name=".presentation.auth.restore.ActivityForgotPassword"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".Onboarding.OnboardingActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".OtherActivity.ActivityPrivacyPolicy"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemePolicy" />
+            android:theme="@style/AppThemePolicy"/>
         <activity
             android:name=".InApp.ActivitySubscription"
             android:screenOrientation="portrait"
-            android:theme="@style/PremiumActivity" />
+            android:theme="@style/PremiumActivity"/>
         <activity
             android:name=".presentation.auth.main.MainAuthActivity"
             android:parentActivityName=".presentation.intro.IntroActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ActivityAuthMain" />
+            android:theme="@style/ActivityAuthMain"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
+            android:value="@string/facebook_app_id"/>
 
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"/>
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
 
-                <data android:scheme="@string/fb_login_protocol_scheme" />
+                <data android:scheme="@string/fb_login_protocol_scheme"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".presentation.intro.IntroActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
-            android:value="true" />
+            android:value="true"/>
         <meta-data
             android:name="DATABASE"
-            android:value="foodBase.db" />
+            android:value="foodBase.db"/>
         <meta-data
             android:name="VERSION"
-            android:value="4" />
+            android:value="4"/>
         <meta-data
             android:name="QUERY_LOG"
-            android:value="true" />
+            android:value="true"/>
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
-            android:value="com.wsoteam.diet" />
+            android:value="com.wsoteam.diet"/>
         <meta-data
             android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+            android:resource="@array/preloaded_fonts"/>
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:value="@integer/google_play_services_version"/>
 
         <activity
             android:name=".EntryPoint.ActivitySplash"
@@ -157,124 +162,124 @@
 
             <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar"> -->
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".OtherActivity.ActivitySettings"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBarSettings" />
+            android:theme="@style/AppTheme.NoActionBarSettings"/>
         <activity
             android:name=".BranchOfCalculating.ActivityListOfCalculating"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".MainScreen.MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2">
             <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
+                <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
 
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
+                android:resource="@xml/searchable"/>
         </activity>
         <activity
             android:name=".BranchOfCalculating.ActivityCalculatorBrok"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".BranchOfCalculating.ActivityCalculatorLorenc"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".OtherActivity.ActivityEmpty"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".BranchOfCalculating.ActivityCalculatorIMT"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".BranchOfRecipes.ActivityRecipes"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".BranchOfRecipes.ActivityGroupsOfRecipes"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".BranchOfDiary.ActivityAddData"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".BranchOfDiary.ActivityListOfDiary"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2" />
+            android:theme="@style/AppTheme2"/>
         <activity
             android:name=".OtherActivity.ActivityAboutSetingsNotifications"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".BranchOfCalculating.ActivityCalculatorSPK"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".BranchOfExercises.Activities.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityListOfExGroups"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityListOfEx"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityExDetail"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".BranchOfExercises.ActivitiesProgramm.ActivityListOfTraining"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".BranchOfExercises.ActivitiesProgramm.ActivityWithTiles"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".BranchOfExercises.ActivitiesArticles.ActivityDetailAcrticles"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".BranchOfAnalyzer.ActivityListAndSearch"
             android:screenOrientation="portrait"
-            android:theme="@style/AnalyzerTheme" />
+            android:theme="@style/AnalyzerTheme"/>
         <activity
             android:name=".BranchOfAnalyzer.ActivityDetailOfFood"
             android:screenOrientation="portrait"
-            android:theme="@style/DetailFood" />
+            android:theme="@style/DetailFood"/>
         <activity
             android:name=".presentation.profile.edit.EditProfileActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/EditProfile" />
+            android:theme="@style/EditProfile"/>
         <activity
             android:name=".BranchProfile.ActivityHelp"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <receiver
             android:name=".Services.AlarmManagerBR"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"/>
         <receiver android:name=".Services.RestartReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
             </intent-filter>
         </receiver>
         <receiver
@@ -282,22 +287,22 @@
             android:exported="true"
             android:permission="android.permission.INSTALL_PACKAGES">
             <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
+                <action android:name="com.android.vending.INSTALL_REFERRER"/>
             </intent-filter>
         </receiver>
 
         <activity
             android:name=".BranchProfile.ActivityEditCompletedProfile"
             android:screenOrientation="portrait"
-            android:theme="@style/ActivityEditProfile" />
+            android:theme="@style/EditProfile"/>
         <activity
             android:name=".EntryPoint.EditProfileIntrodaction"
             android:screenOrientation="portrait"
-            android:theme="@style/EditProfile" />
+            android:theme="@style/EditProfile"/>
         <activity
             android:name=".BranchOfAnalyzer.ActivityDetailSavedFood"
             android:screenOrientation="portrait"
-            android:theme="@style/DetailFood" />
+            android:theme="@style/DetailFood"/>
     </application>
 
 </manifest>

@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -18,7 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
+import com.wsoteam.diet.model.Eating;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
@@ -72,12 +71,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
         rvListOfFoodEatingCard.setLayoutManager(new LinearLayoutManager(context));
         rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup,
-                context, false, getAdapterPosition(), new EatingHolderCallback() {
-            @Override
-            public void itemWasRemoved(int position) {
-                refreshUI(position);
-            }
-        }));
+                context, false, getAdapterPosition(), this::refreshUI));
         setExpandableView();
         if (isNeedRemind()) remind(nameOfEatingGroup);
     }
@@ -90,7 +84,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         tvRecommendation.setText(phrases.get(random.nextInt(2)));
         tvRecommendation.setVisibility(View.VISIBLE);
         tvRecommendation.setGravity(Gravity.CENTER);
-        clReminderBack.setBackgroundColor(context.getColor(R.color.reminder_back_color));
+        clReminderBack.setBackgroundColor(context.getResources().getColor(R.color.reminder_back_color));
     }
 
     private boolean isNeedRemind() {
@@ -115,23 +109,15 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         if (eatingGroup.size() < 1) {
             ibtnOpenList.setVisibility(View.GONE);
         } else {
-            ibtnOpenList.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (!isButtonPressed) {
-                        Glide.with(context).load(R.drawable.close_eating_list).into(ibtnOpenList);
-                    } else {
-                        Glide.with(context).load(R.drawable.open_eating_list).into(ibtnOpenList);
-                    }
-                    rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup,
-                            context, !isButtonPressed, getAdapterPosition(), new EatingHolderCallback() {
-                        @Override
-                        public void itemWasRemoved(int position) {
-                            refreshUI(position);
-                        }
-                    }));
-                    isButtonPressed = !isButtonPressed;
+            ibtnOpenList.setOnClickListener(view -> {
+                if (!isButtonPressed) {
+                    Glide.with(context).load(R.drawable.close_eating_list).into(ibtnOpenList);
+                } else {
+                    Glide.with(context).load(R.drawable.open_eating_list).into(ibtnOpenList);
                 }
+                rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup,
+                        context, !isButtonPressed, getAdapterPosition(), this::refreshUI));
+                isButtonPressed = !isButtonPressed;
             });
         }
     }
@@ -185,9 +171,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
             tvEatingLabelFats.setVisibility(View.GONE);
             tvEatingLabelCarbo.setVisibility(View.GONE);
             tvEatingLabelKcal.setVisibility(View.GONE);
-
         }
-
     }
 
     @OnClick({R.id.ibtnOpenMenu, R.id.imbAddFood})
@@ -213,16 +197,13 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         PopupMenu popupMenu = new PopupMenu(context, ibtnOpenMenu);
         popupMenu.inflate(R.menu.dots_popup_menu);
         popupMenu.show();
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.add_food_dots:
-                        openSearch();
-                        break;
-                }
-                return false;
+        popupMenu.setOnMenuItemClickListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.add_food_dots:
+                    openSearch();
+                    break;
             }
+            return false;
         });
     }
 

@@ -58,6 +58,11 @@ public class Config {
 
     public static final String IS_NEED_SHOW_ONBOARD = "IS_NEED_SHOW_ONBOARD";
 
+    public static final String WATER_SETTINGS = "WATER_SETTINGS";
+    public static final String MAX_WATER_COUNT_STEP = "MAX_WATER_COUNT_STEP";
+    public static final String WATER_PACK = "WATER_PACK";
+    public static final String WATER_REMINDER = "WATER_REMINDER";
+
     //Names of subscriptions
     public static final String ONE_YEAR_PRICE_TRIAL = "basic_subscription_12m_trial";
     public static final String ONE_MONTH_PRICE = "basic_subscription_1m";

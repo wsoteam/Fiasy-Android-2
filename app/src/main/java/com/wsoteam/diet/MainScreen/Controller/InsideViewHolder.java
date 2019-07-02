@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailSavedFood;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
+import com.wsoteam.diet.model.Eating;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
