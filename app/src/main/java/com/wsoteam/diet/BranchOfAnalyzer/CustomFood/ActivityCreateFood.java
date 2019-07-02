@@ -106,11 +106,7 @@ public class ActivityCreateFood extends AppCompatActivity {
                 finish();
                 break;
             case R.id.btnBack:
-                if (vpFragmentContainer.getCurrentItem() > 0) {
-                    vpFragmentContainer.setCurrentItem(vpFragmentContainer.getCurrentItem() - 1);
-                } else {
-                    finish();
-                }
+                back();
                 break;
             case R.id.btnForward:
                 if (isCanMoveForward() && vpFragmentContainer.getCurrentItem() < vpAdapter.getCount() - 1) {
@@ -122,6 +118,19 @@ public class ActivityCreateFood extends AppCompatActivity {
                     finish();
                 }
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        back();
+    }
+
+    private void back() {
+        if (vpFragmentContainer.getCurrentItem() > 0) {
+            vpFragmentContainer.setCurrentItem(vpFragmentContainer.getCurrentItem() - 1);
+        } else {
+            finish();
         }
     }
 
