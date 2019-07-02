@@ -6,10 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +37,7 @@ public class ListAddedRecipeFragment extends Fragment implements TabsFragment {
     public void onResume() {
         initial();
 
-        String str = ((FragmentRecipeContainer)getParentFragment()).getSearchKey();
+        String str = ((FragmentRecipeContainer) getParentFragment()).getSearchKey();
         if (str != null && !str.equals("")) {
             search(str);
         }
@@ -93,7 +91,7 @@ public class ListAddedRecipeFragment extends Fragment implements TabsFragment {
         List<RecipeItem> result = new ArrayList<>();
         String key;
 
-        if (str != null){
+        if (str != null) {
             key = str.toLowerCase();
         } else {
             key = null;

@@ -147,8 +147,6 @@ public class MainFragment extends Fragment {
 
         if (nameEditText != null && nameEditText.getText().length() == 0) {
             nameEditText.requestFocus();
-        } else if (portionsEditText != null && portionsEditText.getText().length() == 0) {
-            portionsEditText.requestFocus();
         } else if (timeEditText != null && timeEditText.getText().length() == 0) {
             timeEditText.requestFocus();
         }

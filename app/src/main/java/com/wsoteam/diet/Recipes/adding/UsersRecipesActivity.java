@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -33,19 +32,15 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
-import com.wsoteam.diet.Recipes.helper.SuccessfulAlertDialog;
-import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class UsersRecipesActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener{
+public class UsersRecipesActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
     @BindView(R.id.ivHead) ImageView ivHead;
     @BindView(R.id.tvName) TextView tvName;
@@ -72,10 +67,6 @@ public class UsersRecipesActivity extends AppCompatActivity implements Toolbar.O
 
     RecipeItem recipeItem;
     Window window;
-//    MenuItem favoriteMenuItem;
-
-    private String key;
-    HashMap<String, RecipeItem> favoriteRecipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +95,7 @@ public class UsersRecipesActivity extends AppCompatActivity implements Toolbar.O
         tvSodium.setText(String.valueOf(recipeItem.getSodium()));
         tvPotassium.setText(String.valueOf(recipeItem.getPotassium()));
 
-        if (recipeItem.getComplexity() != null || !recipeItem.getComplexity().equals("")){
+        if (recipeItem.getComplexity() != null || !recipeItem.getComplexity().equals("")) {
             tvComplexityField.setVisibility(View.VISIBLE);
             tvComplexity.setVisibility(View.VISIBLE);
             tvComplexity.setText(recipeItem.getComplexity());
@@ -113,10 +104,6 @@ public class UsersRecipesActivity extends AppCompatActivity implements Toolbar.O
         mToolbar.setTitleTextColor(0xFFFFFFFF);
         mToolbar.setPadding(0, dpToPx(24), 0, 0);
         mToolbar.setBackgroundColor(Color.parseColor("#32000000"));
-//        mToolbar.inflateMenu(R.menu.recipe_menu);
-//        Menu menu = mToolbar.getMenu();
-//        favoriteMenuItem = menu.findItem(R.id.mFavorites);
-
 
         mToolbar.setOnMenuItemClickListener(this);
         mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
@@ -144,7 +131,9 @@ public class UsersRecipesActivity extends AppCompatActivity implements Toolbar.O
                     llIngredients.addView(line);
                 }
             }
-        } else {cvIngredients.setVisibility(View.GONE);}
+        } else {
+            cvIngredients.setVisibility(View.GONE);
+        }
 
         if (recipeItem.getInstruction() != null) {
             int indexInstruction = 0;
@@ -162,7 +151,9 @@ public class UsersRecipesActivity extends AppCompatActivity implements Toolbar.O
                     llInstructions.addView(line);
                 }
             }
-        } else {cvInstructions.setVisibility(View.GONE);}
+        } else {
+            cvInstructions.setVisibility(View.GONE);
+        }
 
         String url = recipeItem.getUrl();
         if (url == null || url.equals("link")) {
@@ -171,24 +162,7 @@ public class UsersRecipesActivity extends AppCompatActivity implements Toolbar.O
 
         Glide.with(this).load(url).into(ivHead);
 
-
-//        checkFavorite();
     }
-
-//    private void checkFavorite(){
-//        if (UserDataHolder.getUserData() != null &&
-//                UserDataHolder.getUserData().getFavoriteRecipes() != null){
-//            favoriteRecipes = UserDataHolder.getUserData().getFavoriteRecipes();
-//
-//            for (Map.Entry<String, RecipeItem> e : favoriteRecipes.entrySet()) {
-//                if (recipeItem.getName().equals(e.getValue().getName())){
-//                    this.key = e.getKey();
-//                    favoriteMenuItem.setIcon(R.drawable.icon_favorites_delete);
-//                    return;
-//                }
-//            }
-//        }
-//    }
 
     public int dpToPx(int dp) {
         float density = getResources()
@@ -205,36 +179,22 @@ public class UsersRecipesActivity extends AppCompatActivity implements Toolbar.O
     public boolean onMenuItemClick(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.mShare:
-                Intent  i = new Intent(
+                Intent i = new Intent(
                         android.content.Intent.ACTION_SEND);
                 i.setType("text/plain");
                 i.putExtra(android.content.Intent.EXTRA_TEXT, recipeToString(recipeItem));
                 startActivity(Intent.createChooser(i, getResources().getString(R.string.titleShareDialogRecipe)));
                 return true;
-//            case R.id.mFavorites:
-//                if (key == null) {
-//                    key = WorkWithFirebaseDB.addFavoriteRecipe(recipeItem);
-//                    favoriteMenuItem.setIcon(R.drawable.icon_favorites_delete);
-////                    SuccessfulAlertDialog.start(this, "Рецепт добавлен в избранное!");
-//
-//                } else {
-//                    WorkWithFirebaseDB.deleteFavoriteRecipe(key);
-//                    favoriteMenuItem.setIcon(R.drawable.icon_favorites);
-////                    SuccessfulAlertDialog.start(this, "Рецепт удален из избранного!");
-//                    key = null;
-//                }
-//
-//                return true;
         }
         return false;
 
     }
 
-    private String recipeToString(RecipeItem recipe){
+    private String recipeToString(RecipeItem recipe) {
 
         String result = recipe.getName() + "\n" +
                 "Время готовки: " + recipe.getTime() + " минут" + "\n";
-        for (String step:
+        for (String step :
                 recipe.getInstruction()) {
             result += step + "\n";
         }
@@ -250,6 +210,71 @@ public class UsersRecipesActivity extends AppCompatActivity implements Toolbar.O
 
     }
 
+    private void datePicker(int idOfEating) {
+        Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datepicker, int year, int month, int day) {
+                        savePortion(idOfEating, recipeItem, year, month, day);
+
+                    }
+                }, mYear, mMonth, mDay);
+
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        datePickerDialog.show();
+    }
+
+    private void savePortion(int idOfEating, RecipeItem recipe, int year, int month, int day) {
+
+        int kcal = recipe.getCalories();
+        int carbo = (int) recipe.getCarbohydrates();
+        int prot = recipe.getPortions();
+        int fat = (int) recipe.getFats();
+        int weight = -1;
+
+        String name = recipe.getName();
+        String urlOfImage = recipe.getUrl();
+
+        Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
+        switch (idOfEating) {
+            case BREAKFAST_POSITION:
+                WorkWithFirebaseDB.
+                        addBreakfast(new Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                break;
+            case LUNCH_POSITION:
+                WorkWithFirebaseDB.
+                        addLunch(new Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                break;
+            case DINNER_POSITION:
+                WorkWithFirebaseDB.
+                        addDinner(new Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                break;
+            case SNACK_POSITION:
+                WorkWithFirebaseDB.
+                        addSnack(new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                break;
+        }
+        AlertDialog alertDialog = AddFoodDialog.createChoiseEatingAlertDialog(this);
+        alertDialog.show();
+        getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).edit().putBoolean(Config.IS_ADDED_FOOD, true).commit();
+        new CountDownTimer(800, 100) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                alertDialog.dismiss();
+                onBackPressed();
+            }
+        }.start();
+    }
 
     public class AlertDialogChoiseEating {
 
@@ -297,75 +322,6 @@ public class UsersRecipesActivity extends AppCompatActivity implements Toolbar.O
             alertDialog.setView(view);
             return alertDialog;
         }
-    }
-
-    private void datePicker(int idOfEating) {
-        Calendar c = Calendar.getInstance();
-        int mYear = c.get(Calendar.YEAR);
-        int mMonth = c.get(Calendar.MONTH);
-        int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datepicker, int year, int month, int day) {
-                        //this condition is necessary to work properly on all android versions
-//                        if(view.isShown()){
-                        savePortion(idOfEating, recipeItem, year, month, day);
-//                        }
-                    }
-                }, mYear, mMonth, mDay);
-
-        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
-        datePickerDialog.show();
-    }
-
-
-    private void savePortion(int idOfEating, RecipeItem recipe, int year, int month, int day) {
-
-        int kcal = recipe.getCalories();
-        int carbo = (int) recipe.getCarbohydrates();
-        int prot = recipe.getPortions();
-        int fat = (int) recipe.getFats();
-        int weight = -1;
-
-        String name = recipe.getName();
-        String urlOfImage = recipe.getUrl();
-
-        Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
-        switch (idOfEating) {
-            case BREAKFAST_POSITION:
-                WorkWithFirebaseDB.
-                        addBreakfast(new Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
-                break;
-            case LUNCH_POSITION:
-                WorkWithFirebaseDB.
-                        addLunch(new Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
-                break;
-            case DINNER_POSITION:
-                WorkWithFirebaseDB.
-                        addDinner(new Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
-                break;
-            case SNACK_POSITION:
-                WorkWithFirebaseDB.
-                        addSnack(new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
-                break;
-        }
-        AlertDialog alertDialog = AddFoodDialog.createChoiseEatingAlertDialog(this);
-        alertDialog.show();
-        getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).edit().putBoolean(Config.IS_ADDED_FOOD, true).commit();
-        new CountDownTimer(800, 100) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-
-            }
-
-            @Override
-            public void onFinish() {
-                alertDialog.dismiss();
-                onBackPressed();
-            }
-        }.start();
     }
 
 }

@@ -8,11 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.Config;
@@ -58,15 +56,14 @@ public class IngredientsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case Config.RECIPE_FOOD_FOR_RESULT_CODE:
-                Log.d("kkk", "onActivityResult: fragment FOOD_FOR_RESULT_CODE");
+
                 if (resultCode == getActivity().RESULT_OK) {
 
                     Bundle bundle = data.getExtras();
                     if (bundle != null) {
                         List<Food> foods = (List<Food>) bundle.get(Config.RECIPE_FOOD_INTENT);
-                        for (Food f:
-                             foods) {
-                            Log.d("kkk", "onActivityResult: " + f.getName());
+                        for (Food f :
+                                foods) {
                             foodList.add(f);
                         }
                         adapter.notifyDataSetChanged();
