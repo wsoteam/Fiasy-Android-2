@@ -42,15 +42,12 @@ import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
-import com.wsoteam.diet.Recipes.adding.ProductSearchActivity;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
-import com.wsoteam.diet.tvoytrener.ForTestFragmentActivity;
 
 import java.util.Calendar;
 import java.util.List;
