@@ -337,7 +337,7 @@ public class FragmentEatingScroll extends Fragment {
             allEatingForThisDay.add(lunches);
             allEatingForThisDay.add(dinners);
             allEatingForThisDay.add(snacks);
-            allEatingForThisDay.add(waterList);
+//            allEatingForThisDay.add(waterList);
 
             allEat = allEatingForThisDay;
 
