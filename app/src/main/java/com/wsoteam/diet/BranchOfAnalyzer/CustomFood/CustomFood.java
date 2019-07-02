@@ -19,10 +19,12 @@ public class CustomFood implements Serializable {
     private double pottassium;
     private String barcode;
 
+    private String key;
+
     public CustomFood() {
     }
 
-    public CustomFood(String name, String brand, double calories, double proteins, double carbohydrates, double sugar, double fats, double saturatedFats, double monoUnSaturatedFats, double polyUnSaturatedFats, double cholesterol, double cellulose, double sodium, double pottassium, String barcode) {
+    public CustomFood(String name, String brand, double calories, double proteins, double carbohydrates, double sugar, double fats, double saturatedFats, double monoUnSaturatedFats, double polyUnSaturatedFats, double cholesterol, double cellulose, double sodium, double pottassium, String barcode, String key) {
         this.name = name;
         this.brand = brand;
         this.calories = calories;
@@ -38,6 +40,7 @@ public class CustomFood implements Serializable {
         this.sodium = sodium;
         this.pottassium = pottassium;
         this.barcode = barcode;
+        this.key = key;
     }
 
     public String getName() {
@@ -158,6 +161,14 @@ public class CustomFood implements Serializable {
 
     public void setBarcode(String barcode) {
         this.barcode = barcode;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     @Override

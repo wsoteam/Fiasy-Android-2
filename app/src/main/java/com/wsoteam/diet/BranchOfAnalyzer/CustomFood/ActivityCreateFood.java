@@ -19,6 +19,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.Fragments.FragmentMainInfo;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.Fragments.FragmentOutlay;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.Fragments.FragmentResult;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,8 @@ public class ActivityCreateFood extends AppCompatActivity {
     @BindView(R.id.btnForward) Button btnForward;
     private CustomFoodViewPagerAdapter vpAdapter;
     private final int FRAGMENT_RESULT = 2, FRAGMENT_OUTLAY = 1;
+    private final int COUNT_GRAMM = 100;
+    private final double EMPTY_PARAM = -1.0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,9 +117,57 @@ public class ActivityCreateFood extends AppCompatActivity {
                     vpFragmentContainer.setCurrentItem(vpFragmentContainer.getCurrentItem() + 1);
                     Log.e("LOL", customFood.toString());
                 } else if (vpFragmentContainer.getCurrentItem() == vpAdapter.getCount() - 1) {
-                    Toast.makeText(this, "Complete", Toast.LENGTH_SHORT).show();
+                    saveFood();
+                    Toast.makeText(this, getString(R.string.food_saved), Toast.LENGTH_SHORT).show();
+                    finish();
                 }
                 break;
+        }
+    }
+
+    private void saveFood() {
+        customFood.setCalories(customFood.getCalories() / COUNT_GRAMM);
+        customFood.setFats(customFood.getFats() / COUNT_GRAMM);
+        customFood.setCarbohydrates(customFood.getCarbohydrates() / COUNT_GRAMM);
+        customFood.setProteins(customFood.getProteins() / COUNT_GRAMM);
+        Log.e("LOL", String.valueOf(customFood.getSugar()));
+
+        if (customFood.getCellulose() != EMPTY_PARAM){
+            customFood.setCellulose(customFood.getCellulose() / COUNT_GRAMM);
+        }
+
+        if (customFood.getSugar() != EMPTY_PARAM){
+            customFood.setSugar(customFood.getSugar() / COUNT_GRAMM);
+        }
+
+        if (customFood.getCholesterol() != EMPTY_PARAM){
+            customFood.setCholesterol(customFood.getCholesterol() / COUNT_GRAMM);
+        }
+
+        if (customFood.getSodium() != EMPTY_PARAM){
+            customFood.setSodium(customFood.getSodium() / COUNT_GRAMM);
+        }
+
+        if (customFood.getPottassium() != EMPTY_PARAM){
+            customFood.setPottassium(customFood.getPottassium() / COUNT_GRAMM);
+        }
+
+        if (customFood.getSaturatedFats() != EMPTY_PARAM){
+            customFood.setSaturatedFats(customFood.getSaturatedFats() / COUNT_GRAMM);
+        }
+
+        if (customFood.getMonoUnSaturatedFats() != EMPTY_PARAM){
+            customFood.setMonoUnSaturatedFats(customFood.getMonoUnSaturatedFats() / COUNT_GRAMM);
+        }
+
+        if (customFood.getPolyUnSaturatedFats() != EMPTY_PARAM){
+            customFood.setPolyUnSaturatedFats(customFood.getPolyUnSaturatedFats() / COUNT_GRAMM);
+        }
+
+        WorkWithFirebaseDB.addCustomFood(customFood);
+
+        if (isPublicFood){
+            WorkWithFirebaseDB.shareCustomFood(customFood);
         }
     }
 }

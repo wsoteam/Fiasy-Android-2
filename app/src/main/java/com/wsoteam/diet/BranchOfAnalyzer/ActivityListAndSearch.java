@@ -22,6 +22,8 @@ import android.widget.Spinner;
 import com.amplitude.api.Amplitude;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.Controller.TabsAdapter;
+import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.ActivityCreateFood;
+import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentFavoriteContainer;
 import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentFavorites;
 import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentSearch;
 import com.wsoteam.diet.Config;
@@ -104,7 +106,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
     private List<Fragment> createFragmentsList() {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new FragmentSearch());
-        fragments.add(new FragmentFavorites());
+        fragments.add(new FragmentFavoriteContainer());
         fragments.add(new FragmentRecipeContainer());
         return fragments;
     }
@@ -170,16 +172,17 @@ public class ActivityListAndSearch extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     /*case R.id.userNote:
-                        break;
+                        break;*/
                     case R.id.createFood:
+                        startActivity(new Intent(ActivityListAndSearch.this, ActivityCreateFood.class));
                         break;
-                    case R.id.createEating:
+                    /*case R.id.createEating:
                         break;
                     case R.id.createTemplate:
                         break;*/
-                    case R.id.createRecipe:
+                   /* case R.id.createRecipe:
                         startActivity(new Intent(ActivityListAndSearch.this, AddingRecipeActivity.class));
-                        break;
+                        break;*/
                 }
                 return false;
             }

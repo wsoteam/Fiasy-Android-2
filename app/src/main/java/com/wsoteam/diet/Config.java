@@ -88,6 +88,7 @@ public class Config {
 
     public static final String INTENT_DETAIL_FOOD = "INTENT_DETAIL_FOOD";
     public static final String BARCODE_STRING_NAME = "BARCODE_STRING_NAME";
+    public static final String LIST_CUSTOM_FOOD = "LIST_CUSTOM_FOOD";
 
 
 }

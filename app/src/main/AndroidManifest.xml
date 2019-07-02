@@ -22,7 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Recipes.adding.ProductDetailActivity"></activity>
-        <activity android:name=".BarcodeScanner.BaseScanner"></activity>
+        <activity android:name=".BarcodeScanner.BaseScanner"
+            android:screenOrientation="portrait"
+            android:theme="@style/CreateFood"/>
         <activity
             android:name=".BranchOfAnalyzer.CustomFood.ActivityCreateFood"
             android:screenOrientation="portrait"

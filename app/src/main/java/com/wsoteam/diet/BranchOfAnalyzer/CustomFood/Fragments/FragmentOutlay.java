@@ -34,6 +34,7 @@ public class FragmentOutlay extends Fragment implements SayForward {
     @BindView(R.id.edtPottassium) EditText edtPottassium;
     Unbinder unbinder;
     @BindView(R.id.edtProt) EditText edtProt;
+    private final double EMPTY_PARAM = -1.0;
 
     @Override
     public boolean forward() {
@@ -56,49 +57,49 @@ public class FragmentOutlay extends Fragment implements SayForward {
         if (!edtCell.getText().toString().equals("") && !edtCell.getText().toString().equals(".")){
             customFood.setCellulose(Double.parseDouble(edtCell.getText().toString()));
         }else {
-            customFood.setCellulose(Double.parseDouble(getString(R.string.empty_field_food)));
+            customFood.setCellulose(EMPTY_PARAM);
         }
 
         if (!edtSugar.getText().toString().equals("") && !edtSugar.getText().toString().equals(".")){
             customFood.setSugar(Double.parseDouble(edtSugar.getText().toString()));
         }else {
-            customFood.setSugar(Double.parseDouble(getString(R.string.empty_field_food)));
+            customFood.setSugar(EMPTY_PARAM);
         }
 
         if (!edtSaturatedFats.getText().toString().equals("") && !edtSaturatedFats.getText().toString().equals(".")){
             customFood.setSaturatedFats(Double.parseDouble(edtSaturatedFats.getText().toString()));
         }else {
-            customFood.setSaturatedFats(Double.parseDouble(getString(R.string.empty_field_food)));
+            customFood.setSaturatedFats(EMPTY_PARAM);
         }
 
         if (!edtMonoUnSaturatedFats.getText().toString().equals("") && !edtMonoUnSaturatedFats.getText().toString().equals(".")){
             customFood.setMonoUnSaturatedFats(Double.parseDouble(edtMonoUnSaturatedFats.getText().toString()));
         }else {
-            customFood.setMonoUnSaturatedFats(Double.parseDouble(getString(R.string.empty_field_food)));
+            customFood.setMonoUnSaturatedFats(EMPTY_PARAM);
         }
 
         if (!edtPolyUnSaturatedFats.getText().toString().equals("") && !edtPolyUnSaturatedFats.getText().toString().equals(".")){
             customFood.setPolyUnSaturatedFats(Double.parseDouble(edtPolyUnSaturatedFats.getText().toString()));
         }else {
-            customFood.setPolyUnSaturatedFats(Double.parseDouble(getString(R.string.empty_field_food)));
+            customFood.setPolyUnSaturatedFats(EMPTY_PARAM);
         }
 
         if (!edtCholesterol.getText().toString().equals("") && !edtCholesterol.getText().toString().equals(".")){
             customFood.setCholesterol(Double.parseDouble(edtCholesterol.getText().toString()));
         }else {
-            customFood.setCholesterol(Double.parseDouble(getString(R.string.empty_field_food)));
+            customFood.setCholesterol(EMPTY_PARAM);
         }
 
         if (!edtSodium.getText().toString().equals("") && !edtSodium.getText().toString().equals(".")){
             customFood.setSodium(Double.parseDouble(edtSodium.getText().toString()));
         }else {
-            customFood.setSodium(Double.parseDouble(getString(R.string.empty_field_food)));
+            customFood.setSodium(EMPTY_PARAM);
         }
 
         if (!edtPottassium.getText().toString().equals("") && !edtPottassium.getText().toString().equals(".")){
             customFood.setPottassium(Double.parseDouble(edtPottassium.getText().toString()));
         }else {
-            customFood.setPottassium(Double.parseDouble(getString(R.string.empty_field_food)));
+            customFood.setPottassium(EMPTY_PARAM);
         }
     }
 

@@ -37,6 +37,7 @@ import com.wsoteam.diet.BarcodeScanner.BaseScanner;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.ActivityCreateFood;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.DietPlans.POJO.ForUploadModel;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenOneButton;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenUA;
@@ -167,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
         if (GroupsHolder.getGroupsRecipes() == null) {
             loadRecipes();
         }
-        startActivity(new Intent(this, ActivityCreateFood.class));
     }
 
     private void checkForcedGrade() {

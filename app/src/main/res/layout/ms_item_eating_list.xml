@@ -113,7 +113,7 @@
                 app:maxImageSize="14dp" />
 
             <TextView
-                android:id="@+id/textView132"
+                android:id="@+id/tvAddFood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
