@@ -20,6 +20,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.ActivityCreateFood;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.CustomFood;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
@@ -48,6 +49,7 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
     private List<CustomFood> customFoods = new ArrayList<>();
     private ItemAdapter itemAdapter;
     private String searchString = "";
+    private double coefficientConvert = 4.1868;
 
     @Override
     public void sendString(String searchString) {
@@ -110,6 +112,7 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
             rvFavorites.setAdapter(itemAdapter);
             showStartScreen();
         } else {
+            imbAddFood.setVisibility(View.VISIBLE);
             hideMessageUI();
             itemAdapter = new ItemAdapter(customFoods);
             rvFavorites.setAdapter(itemAdapter);
@@ -182,10 +185,33 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(getActivity(), ActivityDetailOfFood.class);
-            //intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
+            intent.putExtra(Config.INTENT_DETAIL_FOOD, convert(itemAdapter.customFoods.get(getAdapterPosition())));
             intent.putExtra(Config.TAG_CHOISE_EATING, ((ActivityListAndSearch) getActivity()).spinnerId);
+            intent.putExtra(Config.TAG_OWN_FOOD, true);
             intent.putExtra(Config.INTENT_DATE_FOR_SAVE, getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
             startActivity(intent);
+        }
+
+        private Food convert(CustomFood customFood) {
+            Food food = new Food();
+            food.setName(customFood.getName());
+            food.setBrand(customFood.getBrand());
+            food.setPortion(1);
+            food.setLiquid(false);
+            food.setKilojoules(customFood.getCalories() * coefficientConvert);
+            food.setCalories(customFood.getCalories());
+            food.setProteins(customFood.getProteins());
+            food.setCarbohydrates(customFood.getCarbohydrates());
+            food.setFats(customFood.getFats());
+            food.setSaturatedFats(customFood.getSaturatedFats());
+            food.setSugar(customFood.getSugar());
+            food.setMonoUnSaturatedFats(customFood.getMonoUnSaturatedFats());
+            food.setPolyUnSaturatedFats(customFood.getPolyUnSaturatedFats());
+            food.setCholesterol(customFood.getCholesterol());
+            food.setCellulose(customFood.getCellulose());
+            food.setSodium(customFood.getSodium());
+            food.setPottassium(customFood.getPottassium());
+            return food;
         }
 
         public void bind(CustomFood customFood) {

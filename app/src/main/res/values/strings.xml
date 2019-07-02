@@ -710,7 +710,7 @@
     <string name="food_saved">Продукт сохранен</string>
     <string name="own_food">свои продукты</string>
     <string name="add_food">Добавить продукт</string>
-    <string name="own_food">свои продукты</string>
+    <string name="create_user_food">Создать продукт</string>
     <string-array name="fragment_names">
         <item>Добавить продукт</item>
         <item>Пищевая ценность на 100 г</item>

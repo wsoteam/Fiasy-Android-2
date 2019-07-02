@@ -34,6 +34,7 @@ public class Config {
 
     //Tags for choise where need save food
     public static final String TAG_CHOISE_EATING = "TAG_CHOISE_EATING";
+    public static final String TAG_OWN_FOOD = "TAG_OWN_FOOD";
 
     //MainActivity
     public static final int COUNT_PAGE = 3650;
