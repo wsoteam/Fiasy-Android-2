@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.wsoteam.diet.R;
 
-public class CreateFoodTempateActivity extends AppCompatActivity {
+public class CreateFoodTemplateActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_food_tempate);
+        setContentView(R.layout.activity_create_food_template);
     }
 }
