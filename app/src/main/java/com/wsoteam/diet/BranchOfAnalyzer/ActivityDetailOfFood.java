@@ -2,54 +2,40 @@ package com.wsoteam.diet.BranchOfAnalyzer;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
-import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
+import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.ClaimForm;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
+import com.wsoteam.diet.Config;
+import com.wsoteam.diet.InApp.ActivitySubscription;
+import com.wsoteam.diet.POJOProfile.FavoriteFood;
+import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
-import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.ClaimForm;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOClaim.Claim;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
-import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EntryPoint.ActivitySplash;
-import com.wsoteam.diet.InApp.ActivitySubscription;
-import com.wsoteam.diet.POJOProfile.FavoriteFood;
-import com.wsoteam.diet.R;
-import com.wsoteam.diet.Sync.POJO.UserData;
-import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +46,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ActivityDetailOfFood extends AppCompatActivity {
+    private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
     @BindView(R.id.spnFood) Spinner spnFood;
     @BindView(R.id.tvActivityDetailOfFoodCollapsingTitle) TextView tvTitle;
     @BindView(R.id.tvActivityDetailOfFoodCalculateKcal) TextView tvCalculateKcal;
@@ -68,8 +55,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     @BindView(R.id.tvActivityDetailOfFoodCalculateProtein) TextView tvCalculateProtein;
     @BindView(R.id.edtActivityDetailOfFoodPortion) EditText edtWeight;
     @BindView(R.id.ibAddFavorite) ImageButton ibAddFavorite;
-
-
     @BindView(R.id.tvLabelCellulose) TextView tvLabelCellulose;
     @BindView(R.id.tvLabelSugar) TextView tvLabelSugar;
     @BindView(R.id.tvLabelFats) TextView tvLabelFats;
@@ -80,7 +65,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     @BindView(R.id.tvLabelSodium) TextView tvLabelSodium;
     @BindView(R.id.tvLabelPotassium) TextView tvLabelPotassium;
     @BindView(R.id.tvBrand) TextView tvBrand;
-
     @BindView(R.id.tvCarbohydrates) TextView tvCarbohydrates;
     @BindView(R.id.tvCellulose) TextView tvCellulose;
     @BindView(R.id.tvSugar) TextView tvSugar;
@@ -94,7 +78,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     @BindView(R.id.tvPotassium) TextView tvPotassium;
     @BindView(R.id.tvDj) TextView tvDj;
     @BindView(R.id.tvKcal) TextView tvKcal;
-
     @BindView(R.id.btnPremCell) TextView btnPremCell;
     @BindView(R.id.btnPremSugar) TextView btnPremSugar;
     @BindView(R.id.btnPremSaturated) TextView btnPremSaturated;
@@ -104,16 +87,12 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     @BindView(R.id.btnPremSod) TextView btnPremSod;
     @BindView(R.id.btnPremPot) TextView btnPremPot;
     @BindView(R.id.cardView6) CardView cardView6;
-
-
     @BindViews({R.id.tvCellulose, R.id.tvSugar, R.id.tvSaturated, R.id.tvСholesterol, R.id.tvSodium,
             R.id.tvPotassium, R.id.tvMonoUnSaturated, R.id.tvPolyUnSaturated,
             R.id.tvLabelCellulose, R.id.tvLabelSugar, R.id.tvLabelSaturated, R.id.tvLabelMonoUnSaturated, R.id.tvLabelPolyUnSaturated,
             R.id.tvLabelСholesterol, R.id.tvLabelSodium, R.id.tvLabelPotassium, R.id.btnPremCell, R.id.btnPremSugar, R.id.btnPremSaturated,
             R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremCholy, R.id.btnPremSod, R.id.btnPremPot})
     List<View> viewList;
-
-    private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
     private Food foodItem;
     private boolean isFavorite = false;
     private FavoriteFood currentFavorite;

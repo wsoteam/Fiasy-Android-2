@@ -25,14 +25,14 @@ import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.model.Breakfast;
+import com.wsoteam.diet.model.Dinner;
+import com.wsoteam.diet.model.Lunch;
+import com.wsoteam.diet.model.Snack;
 
 import java.util.Calendar;
 

@@ -11,19 +11,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.Activism.POJO.ActivismFirebaseObject;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
-import com.wsoteam.diet.model.Breakfast;
-import com.wsoteam.diet.model.Dinner;
-import com.wsoteam.diet.model.Lunch;
-import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.BranchOfAnalyzer.Const;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOClaim.Claim;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Eating;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.POJOForDB.DiaryData;
 import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
@@ -32,6 +22,10 @@ import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.POJO.WeightDiaryObject;
+import com.wsoteam.diet.model.Breakfast;
+import com.wsoteam.diet.model.Dinner;
+import com.wsoteam.diet.model.Lunch;
+import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.model.Water;
 
 import java.util.HashMap;
@@ -132,28 +126,28 @@ public class WorkWithFirebaseDB {
         myRef.setValue(data);
     }
 
-    public static void saveListRecipes(ListRecipes data){
+    public static void saveListRecipes(ListRecipes data) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("RECIPES_PLANS");
         myRef.setValue(data);
     }
 
 
-    public static void setSubInfo(SubInfo subInfo){
+    public static void setSubInfo(SubInfo subInfo) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("subInfo");
         myRef.setValue(subInfo);
     }
 
-    public static void setTrackInfo(TrackInfo trackInfo){
+    public static void setTrackInfo(TrackInfo trackInfo) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("trackInfo");
         myRef.setValue(trackInfo);
     }
 
-    public static void check(){
+    public static void check() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY);
 
@@ -178,7 +172,7 @@ public class WorkWithFirebaseDB {
         myRef.push().setValue(recipeItem);
     }
 
-    public static void addUsersSharedRecipe(RecipeItem recipeItem){
+    public static void addUsersSharedRecipe(RecipeItem recipeItem) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.USERS_RECIPES);
@@ -186,7 +180,7 @@ public class WorkWithFirebaseDB {
     }
 
 
-    public static void saveListRecipesNew(ListRecipes data){
+    public static void saveListRecipesNew(ListRecipes data) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("RECIPES_PLANS_NEW");
         myRef.setValue(data);
