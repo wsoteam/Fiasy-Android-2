@@ -21,16 +21,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Recipes.adding.ProductDetailActivity"></activity>
+        <activity android:name=".Recipes.adding.UsersRecipesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" >
+
+        </activity>
+        <activity
+            android:name=".Recipes.adding.ActivityDetailFood"
+            android:screenOrientation="portrait"
+            android:theme="@style/DetailFood"></activity>
         <activity
             android:name=".Recipes.adding.ProductSearchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu"></activity>
+            android:theme="@style/Menu" />
         <activity
             android:name=".Recipes.adding.AddingRecipeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Recipes.v2.BlockedRecipeActivity"
             android:screenOrientation="portrait"
@@ -277,6 +285,7 @@
                 <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
         </receiver>
+
         <activity
             android:name=".BranchProfile.ActivityEditCompletedProfile"
             android:screenOrientation="portrait"

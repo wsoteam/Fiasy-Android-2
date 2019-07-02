@@ -14,9 +14,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,9 +29,11 @@ import android.widget.TextView;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
+import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,12 +52,15 @@ public class ProductSearchActivity extends AppCompatActivity {
     @BindView(R.id.tvActivityListAndSearchEmptyText) TextView tvEmptyText;
     @BindView(R.id.tvIndex) TextView tvIndex;
     private AlertDialog dialog;
+    private Window window;
 
     private int RESPONSE_LIMIT = 50;
     private ItemAdapter itemAdapter;
     private boolean isEqualsNext = true;
     private FoodDAO foodDAO = App.getInstance().getFoodDatabase().foodDAO();
     private final int ONE_WORD = 1, TWO_WORDS = 2, THREE_WORDS = 3, FOUR_WORDS = 4, FIVE_WORDS = 5;
+
+    private List<Food> foodList;
 
 
     @Override
@@ -62,9 +69,14 @@ public class ProductSearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_search);
         ButterKnife.bind(this);
 
-        getWindow().setStatusBarColor(Color.parseColor("#016F64"));
+        window = getWindow();
+        window.getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        window.setStatusBarColor(Color.parseColor("#32000000"));
 
         updateUI();
+        foodList = new ArrayList<>();
 
 
         edtSearchField.addTextChangedListener(new TextWatcher() {
@@ -97,6 +109,15 @@ public class ProductSearchActivity extends AppCompatActivity {
         if (requestCode == 1234 && resultCode == RESULT_OK) {
             ArrayList<String> commandList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             edtSearchField.setText(commandList.get(0));
+        }
+        if (requestCode == 45 && resultCode == RESULT_OK){
+
+            Bundle bundle = data.getExtras();
+            if (bundle != null) {
+                Food food = (Food) bundle.get(Config.RECIPE_FOOD_INTENT);
+                foodList.add(food);
+                Log.d("kkk", "onActivityResult: search");
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -193,7 +214,11 @@ public class ProductSearchActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            startAlertDialog(itemAdapter.foods.get(getAdapterPosition()));
+
+            Intent intent = new Intent(ProductSearchActivity.this, ActivityDetailFood.class);
+            intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
+
+           startActivityForResult(intent,45);
 
         }
 
@@ -296,11 +321,11 @@ public class ProductSearchActivity extends AppCompatActivity {
         Button saveButton = alertLayout.findViewById(R.id.btnAddRecipe);
         ImageButton closeButton = alertLayout.findViewById(R.id.btnClose);
 
-        portionEditText.setText("100");
-        kcalTextView.setText(String.valueOf((int)(food.getCalories() * 100)) + " Ккал");
-        carboTextView.setText(String.valueOf((int)(food.getCarbohydrates() * 100)) + " г");
-        fatTextView.setText(String.valueOf((int)(food.getFats() * 100)) + " г");
-        proteinTextView.setText(String.valueOf((int)(food.getProteins() * 100)) + " г");
+//        portionEditText.setText("100");
+        kcalTextView.setText(String.valueOf((int)(food.getCalories())) + " Ккал");
+        carboTextView.setText(String.valueOf((int)(food.getCarbohydrates())) + " г");
+        fatTextView.setText(String.valueOf((int)(food.getFats())) + " г");
+        proteinTextView.setText(String.valueOf((int)(food.getProteins())) + " г");
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setView(alertLayout);
@@ -399,5 +424,13 @@ public class ProductSearchActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra(Config.RECIPE_FOOD_INTENT,(Serializable) foodList);
+        setResult(RESULT_OK,intent);
+        finish();
     }
 }

@@ -236,7 +236,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         List<String> ingredients = new ArrayList<>();
         for (Food food:
              foods) {
-            ingredients.add(food.getName());
+            ingredients.add(food.getName() + " (" + (int)food.getPortion() + "г)");
             prot = prot + food.getProteins();
             fats = fats + checkValue(food.getFats());
             carbo = carbo + checkValue(food.getCarbohydrates());
@@ -257,7 +257,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         recipeItem.setFats((int) fats);
         recipeItem.setCarbohydrates((int) carbo);
         recipeItem.setCalories((int) cal);
-        recipeItem.setPortions((int) portion);
+//        recipeItem.setPortions((int) portion);
 
         recipeItem.setCellulose((int) cellulose);
         recipeItem.setSugar((int) sugar);
@@ -266,6 +266,8 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         recipeItem.setCholesterol((int) cholesterol);
         recipeItem.setSodium((int) sodium);
         recipeItem.setPotassium((int) potassium);
+
+        recipeItem.setName(recipeItem.getName().trim());
 
         recipeItem.setUrl("https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/default_recipe.png?alt=media&token=1fcf855f-fa9d-4831-9ff2-af204a612707");
 
@@ -297,12 +299,18 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
     }
 
     private boolean check(){
-        if (recipeItem.getName() == null || recipeItem.getName().length() < 1){
+        if (recipeItem.getName() == null || recipeItem.getName().trim().length() < 1){
             Toast.makeText(getApplicationContext(),
                     "Введите название рецепта!", Toast.LENGTH_SHORT).show();
             vpPager.setCurrentItem(0);
             return false;
-        } else if (foods == null || foods.size() < 1 ){
+        } else if (recipeItem.getTime() < 1 ){
+            Toast.makeText(getApplicationContext(),
+                    "Введите время нужное для готовки!", Toast.LENGTH_SHORT).show();
+            vpPager.setCurrentItem(0);
+            return false;
+
+        }else if (foods == null || foods.size() < 1 ){
             Toast.makeText(getApplicationContext(),
                     "Введите ингридиенты", Toast.LENGTH_SHORT).show();
             vpPager.setCurrentItem(1);

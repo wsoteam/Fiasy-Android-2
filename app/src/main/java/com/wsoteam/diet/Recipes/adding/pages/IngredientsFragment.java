@@ -1,21 +1,22 @@
 package com.wsoteam.diet.Recipes.adding.pages;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
+import com.wsoteam.diet.Recipes.adding.IngredientAdapter;
 import com.wsoteam.diet.Recipes.adding.ProductSearchActivity;
 
 import java.util.List;
@@ -26,8 +27,9 @@ import butterknife.OnClick;
 
 public class IngredientsFragment extends Fragment {
 
-    @BindView(R.id.svContainerInstructions) LinearLayout container;
-    List<Food> foodList;
+    @BindView(R.id.rvIngredients) RecyclerView recyclerView;
+    private List<Food> foodList;
+    private RecyclerView.Adapter adapter;
 
     @Nullable
     @Override
@@ -37,6 +39,9 @@ public class IngredientsFragment extends Fragment {
                 container, false);
         ButterKnife.bind(this, view);
         foodList = ((AddingRecipeActivity) getActivity()).getFoods();
+        adapter = new IngredientAdapter(getContext(), foodList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
 
         return view;
     }
@@ -51,32 +56,22 @@ public class IngredientsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case Config.RECIPE_FOOD_FOR_RESULT_CODE:
+
                 if (resultCode == getActivity().RESULT_OK) {
 
                     Bundle bundle = data.getExtras();
                     if (bundle != null) {
-                        Food food = (Food) bundle.get(Config.RECIPE_FOOD_INTENT);
-                        onAddField(food);
-                        foodList.add(food);
+                        List<Food> foods = (List<Food>) bundle.get(Config.RECIPE_FOOD_INTENT);
+                        for (Food f :
+                                foods) {
+                            foodList.add(f);
+                        }
+                        adapter.notifyDataSetChanged();
                         ((AddingRecipeActivity) getActivity()).updateUI();
                     }
                 }
                 break;
+
         }
-    }
-
-    private void onAddField(Food food) {
-
-        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View rowView = inflater.inflate(R.layout.adding_recipe_ingredients_item, null);
-        TextView nameTextView = rowView.findViewById(R.id.tvName);
-        TextView portionTextView = rowView.findViewById(R.id.tvPortion);
-        TextView caloriesTextView = rowView.findViewById(R.id.tvCalories);
-
-        nameTextView.setText(food.getName());
-        portionTextView.setText(String.valueOf((int) food.getPortion()) + " г");
-        caloriesTextView.setText(String.valueOf((int) food.getCalories()) + " Ккал");
-
-        container.addView(rowView);
     }
 }
