@@ -28,13 +28,15 @@ import com.wsoteam.diet.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class ListArticlesFragment extends Fragment {
+public class ListArticlesFragment extends Fragment implements Observer {
 
     @BindView(R.id.rvArticle) RecyclerView recyclerView;
     @BindView(R.id.etArticleItem) EditText searchEditText;
@@ -53,7 +55,18 @@ public class ListArticlesFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        updateUI();
+        if (ArticlesHolder.getListArticles() != null) {
+
+            adapter = new ListArticlesAdapter(ArticlesHolder.getListArticles().getListArticles(), getActivity());
+            recyclerView.setAdapter(adapter);
+            activateSearch();
+
+        } else {
+
+            ArticlesHolder.subscribe(this);
+            recyclerView.setAdapter(null);
+        }
+
         return view;
     }
 
@@ -63,41 +76,17 @@ public class ListArticlesFragment extends Fragment {
         unbinder.unbind();
     }
 
-    private void updateUI() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("ARTICLES");
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                ListArticles listArticles = dataSnapshot.getValue(ListArticles.class);
-                ArticlesHolder articlesHolder = new ArticlesHolder();
-                articlesHolder.bind(listArticles);
-
-                adapter = new ListArticlesAdapter(ArticlesHolder.getListArticles().getListArticles(), getActivity());
-                recyclerView.setAdapter(adapter);
-
-                activateSearch();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     @OnClick(R.id.ArticleBackButton)
     public void onViewClicked(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.ArticleBackButton:
                 getActivity().onBackPressed();
                 break;
         }
     }
 
-    private void activateSearch(){
+    private void activateSearch() {
 
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -113,8 +102,8 @@ public class ListArticlesFragment extends Fragment {
                 if (key.equals("")) {
                     recyclerView.setAdapter(adapter);
                 } else {
-                    for (Article article:
-                         articles) {
+                    for (Article article :
+                            articles) {
                         if (article.getTitle().toLowerCase().contains(key)) {
                             result.add(article);
                         }
@@ -132,4 +121,17 @@ public class ListArticlesFragment extends Fragment {
 
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        adapter = new ListArticlesAdapter(ArticlesHolder.getListArticles().getListArticles(), getActivity());
+        recyclerView.setAdapter(adapter);
+        activateSearch();
+        ArticlesHolder.unsubscribe(this);
+    }
+
+    @Override
+    public void onPause() {
+        ArticlesHolder.unsubscribe(this);
+        super.onPause();
+    }
 }

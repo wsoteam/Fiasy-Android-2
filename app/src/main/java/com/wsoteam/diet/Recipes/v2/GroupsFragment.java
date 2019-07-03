@@ -1,7 +1,6 @@
 package com.wsoteam.diet.Recipes.v2;
 
 import android.app.SearchManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -38,7 +37,6 @@ import java.util.Set;
 
 public class GroupsFragment extends Fragment implements Observer {
 
-    private String TAG = "GroupsFragment";
     private GroupsFragment groupsFragment;
     private Context context = getContext();
     private ViewGroup viewGroup;

@@ -27,7 +27,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Articles.ListArticlesAdapter;
 import com.wsoteam.diet.Articles.ListArticlesFragment;
+import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
+import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
@@ -160,6 +163,9 @@ public class MainActivity extends AppCompatActivity {
         if (GroupsHolder.getGroupsRecipes() == null) {
             loadRecipes();
         }
+        if (ArticlesHolder.getListArticles() == null){
+            loadArticles();
+        }
     }
 
     private void checkForcedGrade() {
@@ -218,5 +224,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void loadArticles(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("ARTICLES");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                ListArticles listArticles = dataSnapshot.getValue(ListArticles.class);
+                ArticlesHolder articlesHolder = new ArticlesHolder();
+                articlesHolder.bind(listArticles);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 }

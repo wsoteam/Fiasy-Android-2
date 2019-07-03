@@ -11,36 +11,33 @@ public class GroupsHolder {
     private static GroupsRecipes groupsRecipes;
     private static Set<Observer> observersList = new LinkedHashSet<>();
 
-    Observable observable;
-
-
-    public GroupsHolder(){
+    public GroupsHolder() {
 
     }
 
     public static void subscribe(Observer observer) {
-       observersList.add(observer);
+        observersList.add(observer);
     }
 
     public static void unsubscribe(Observer observer) {
         observersList.remove(observer);
     }
 
+    public static GroupsRecipes getGroupsRecipes() {
+        return groupsRecipes;
+    }
+
     private void update() {
 
-        for (Observer observer:
-             observersList) {
+        for (Observer observer :
+                observersList) {
             observer.update(new Observable(), null);
         }
     }
 
-    public void bind(GroupsRecipes groupsRecipes){
+    public void bind(GroupsRecipes groupsRecipes) {
         this.groupsRecipes = groupsRecipes;
         update();
 
-    }
-
-    public static GroupsRecipes getGroupsRecipes(){
-        return groupsRecipes;
     }
 }
