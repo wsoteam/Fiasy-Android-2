@@ -143,7 +143,7 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
     public void onDateSelected(Day item) {
         if (item == null || listener == null)
             return;
-
+        onMonthSelected(item);
         listener.onDateSelected(item.getDate());
     }
 

@@ -203,7 +203,7 @@ public class FragmentEatingScroll extends Fragment {
         } else {
             apCollapsingKcal.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
             tvCaloriesDone.setText(spanText(R.string.main_screen_topbar_kcal_done, String.valueOf(kcal), R.color.main_calories_done_over));
-            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_over, String.valueOf(leftKCal), R.color.main_calories_left_over));
+            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_over, "+" + Math.abs(leftKCal), R.color.main_calories_left_over));
             tvCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done_over));
             tvCollapsCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done_over));
             tvCollapsCalories.setTextColor(getResources().getColor(R.color.main_calories_done_over));
