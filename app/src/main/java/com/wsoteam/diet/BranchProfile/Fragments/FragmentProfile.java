@@ -111,10 +111,10 @@ public class FragmentProfile extends Fragment {
         } else {
             tvUserName.setText(profile.getFirstName() + " " + profile.getLastName());
         }
-        if (profile.getDifficultyLevel().equals(getString(R.string.dif_level_easy))) {
+        if (profile.getDifficultyLevel().equalsIgnoreCase(getString(R.string.dif_level_easy))) {
             tvProfileLevel.setTextColor(getResources().getColor(R.color.level_easy));
         } else {
-            if (profile.getDifficultyLevel().equals(getString(R.string.dif_level_normal))) {
+            if (profile.getDifficultyLevel().equalsIgnoreCase(getString(R.string.dif_level_normal))) {
                 tvProfileLevel.setTextColor(getResources().getColor(R.color.level_normal));
             } else {
                 tvProfileLevel.setTextColor(getResources().getColor(R.color.level_hard));

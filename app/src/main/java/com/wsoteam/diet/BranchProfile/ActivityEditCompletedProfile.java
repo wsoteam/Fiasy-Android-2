@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.amplitude.api.Amplitude;
+import com.google.firebase.auth.FirebaseAuth;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
@@ -184,25 +185,25 @@ public class ActivityEditCompletedProfile extends AppCompatActivity {
         }
 
         /*Check level load*/
-        if (btnChoiseLevel.getText().toString().equals(getString(R.string.level_none))) {
+        if (btnChoiseLevel.getText().toString().equalsIgnoreCase(getString(R.string.level_none))) {
             SPK = BOO * rateNone;
         }
-        if (btnChoiseLevel.getText().toString().equals(getString(R.string.level_easy))) {
+        if (btnChoiseLevel.getText().toString().equalsIgnoreCase(getString(R.string.level_easy))) {
             SPK = BOO * rateEasy;
         }
-        if (btnChoiseLevel.getText().toString().equals(getString(R.string.level_medium))) {
+        if (btnChoiseLevel.getText().toString().equalsIgnoreCase(getString(R.string.level_medium))) {
             SPK = BOO * rateMedium;
         }
-        if (btnChoiseLevel.getText().toString().equals(getString(R.string.level_hard))) {
+        if (btnChoiseLevel.getText().toString().equalsIgnoreCase(getString(R.string.level_hard))) {
             SPK = BOO * rateHard;
         }
-        if (btnChoiseLevel.getText().toString().equals(getString(R.string.level_up_hard))) {
+        if (btnChoiseLevel.getText().toString().equalsIgnoreCase(getString(R.string.level_up_hard))) {
             SPK = BOO * rateUpHard;
         }
-        if (btnChoiseLevel.getText().toString().equals(getString(R.string.level_super))) {
+        if (btnChoiseLevel.getText().toString().equalsIgnoreCase(getString(R.string.level_super))) {
             SPK = BOO * rateSuper;
         }
-        if (btnChoiseLevel.getText().toString().equals(getString(R.string.level_up_super))) {
+        if (btnChoiseLevel.getText().toString().equalsIgnoreCase(getString(R.string.level_up_super))) {
             SPK = BOO * rateUpSuper;
         }
 
@@ -225,18 +226,19 @@ public class ActivityEditCompletedProfile extends AppCompatActivity {
                 btnChoiseLevel.getText().toString(), urlOfPhoto, maxWater, 0, (int) protein,
                 (int) fat, (int) carbohydrate, UserDataHolder.getUserData().getProfile().getDifficultyLevel(), day, month, year);
 
-        Log.e("LOL", profile.getExerciseStress());
+        Log.e("LOL", profile.toString());
+        Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
 
-        if (profile.getDifficultyLevel().equals(getString(R.string.dif_level_easy))) {
+        if (profile.getDifficultyLevel().equalsIgnoreCase(getString(R.string.dif_level_easy))) {
             saveProfile(profile, SPK);
             Toast.makeText(ActivityEditCompletedProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
 
-        } else if (profile.getDifficultyLevel().equals(getString(R.string.dif_level_normal))) {
+        } else if (profile.getDifficultyLevel().equalsIgnoreCase(getString(R.string.dif_level_normal))) {
             saveProfile(profile, upLineSPK);
             Toast.makeText(ActivityEditCompletedProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
 
-        } else if (profile.getDifficultyLevel().equals(getString(R.string.dif_level_hard))) {
+        } else if (profile.getDifficultyLevel().equalsIgnoreCase(getString(R.string.dif_level_hard))) {
             saveProfile(profile, downLineSPK);
             Toast.makeText(ActivityEditCompletedProfile.this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
         }
