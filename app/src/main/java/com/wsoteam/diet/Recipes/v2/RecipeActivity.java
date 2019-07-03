@@ -104,7 +104,7 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
         tvSodium.setText(String.valueOf(recipeItem.getSodium()));
         tvPotassium.setText(String.valueOf(recipeItem.getPotassium()));
 
-        if (recipeItem.getComplexity() != null || !recipeItem.getComplexity().equals("")){
+        if (recipeItem.getComplexity() != null && !"".equals(recipeItem.getComplexity())){
             tvComplexityField.setVisibility(View.VISIBLE);
             tvComplexity.setVisibility(View.VISIBLE);
             tvComplexity.setText(recipeItem.getComplexity());
