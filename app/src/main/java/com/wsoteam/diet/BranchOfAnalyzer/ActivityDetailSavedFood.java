@@ -178,7 +178,9 @@ public class ActivityDetailSavedFood extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSaveEating:
-                if (edtWeight.getText().toString().equals("") || edtWeight.getText().toString().equals(" ")) {
+                if (edtWeight.getText().toString().equals("")
+                        || edtWeight.getText().toString().equals(" ")
+                        || Integer.parseInt(edtWeight.getText().toString()) == 0) {
                     Toast.makeText(ActivityDetailSavedFood.this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
                 } else {
                     savePortion(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
