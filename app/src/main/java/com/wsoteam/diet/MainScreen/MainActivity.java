@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
     private FragmentTransaction transaction;
     private BottomSheetBehavior bottomSheetBehavior;
+    private boolean isMainFragment = true;
+    private Window window;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             transaction = getSupportFragmentManager().beginTransaction();
-            Window window = getWindow();
+            window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             Box box = new Box();
             box.setSubscribe(false);
@@ -81,12 +83,14 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.bnv_main_diary:
+                    isMainFragment = true;
                     transaction.replace(R.id.flFragmentContainer, new FragmentDiary()).commit();
                     window.setStatusBarColor(Color.parseColor("#AE6A23"));
                     return true;
                 case R.id.bnv_main_articles:
                     box.setComeFrom(AmplitudaEvents.view_prem_content);
                     box.setBuyFrom(AmplitudaEvents.buy_prem_content);
+                    isMainFragment = false;
 
                     if (Config.RELEASE) {
                         if (checkSubscribe()) {
@@ -111,9 +115,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                     return true;
                 case R.id.bnv_main_recipes:
+                    isMainFragment = false;
                     transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
                     return true;
                 case R.id.bnv_main_profile:
+                    isMainFragment = false;
                     transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
                     window.setStatusBarColor(Color.parseColor("#2E4E4E"));
                     return true;
@@ -163,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         if (GroupsHolder.getGroupsRecipes() == null) {
             loadRecipes();
         }
-        if (ArticlesHolder.getListArticles() == null){
+        if (ArticlesHolder.getListArticles() == null) {
             loadArticles();
         }
     }
@@ -224,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void loadArticles(){
+    private void loadArticles() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("ARTICLES");
 
@@ -245,4 +251,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        if (isMainFragment) {
+            super.onBackPressed();
+        }else {
+            isMainFragment = true;
+            getSupportFragmentManager().beginTransaction().replace(R.id.flFragmentContainer, new FragmentDiary()).commit();
+            window.setStatusBarColor(Color.parseColor("#AE6A23"));
+            bnvMain.setSelectedItemId(R.id.bnv_main_diary);
+        }
+
+    }
 }
