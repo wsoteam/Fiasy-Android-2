@@ -17,9 +17,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.amplitude.api.Amplitude;
+import com.bumptech.glide.Glide;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.Controller.TabsAdapter;
 import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentFavorites;
@@ -42,8 +44,10 @@ public class ActivityListAndSearch extends AppCompatActivity {
     @BindView(R.id.ibStartAction) ImageButton ibStartAction;
     @BindView(R.id.searchFragmentContainer) ViewPager viewPager;
     @BindView(R.id.tabs) TabLayout tabs;
+    @BindView(R.id.ibActivityListAndSearchCollapsingCancelButton) ImageView ibSpeakAndClear;
     private TabsAdapter tabsAdapter;
     public int spinnerId = 0;
+    private boolean isCanSpeak = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,6 +67,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 ((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
                         sendString(charSequence.toString().replaceAll("\\s+", " "));
+                changeSpeakButton(charSequence);
             }
 
             @Override
@@ -96,6 +101,16 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
     }
 
+    private void changeSpeakButton(CharSequence charSequence) {
+        if (charSequence.length() > 0 && isCanSpeak) {
+            isCanSpeak = false;
+            Glide.with(this).load(R.drawable.ic_cancel).into(ibSpeakAndClear);
+        }else if (charSequence.length() == 0 && !isCanSpeak){
+            isCanSpeak = true;
+            Glide.with(this).load(R.drawable.ic_speak).into(ibSpeakAndClear);
+        }
+    }
+
     private void updateUI() {
         tabsAdapter = new TabsAdapter(getSupportFragmentManager(), createFragmentsList());
         viewPager.setAdapter(tabsAdapter);
@@ -112,7 +127,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
     private void speak() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH); // намерение для вызова формы обработки речи (ОР)
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM); // сюда он слушает и запоминает
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "What can you tell me?");
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Говорите!");
         startActivityForResult(intent, 1234); // вызываем активность ОР
     }
 
@@ -150,7 +165,11 @@ public class ActivityListAndSearch extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibActivityListAndSearchCollapsingCancelButton:
-                edtSearchField.setText("");
+                if (isCanSpeak) {
+                    speak();
+                } else {
+                    edtSearchField.setText("");
+                }
                 break;
             case R.id.ivBack:
                 onBackPressed();
