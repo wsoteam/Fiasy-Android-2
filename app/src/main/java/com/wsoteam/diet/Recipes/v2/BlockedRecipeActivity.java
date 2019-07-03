@@ -75,6 +75,8 @@ public class BlockedRecipeActivity extends AppCompatActivity  implements Toolbar
 
         Menu menu = mToolbar.getMenu();
         favoriteMenuItem = menu.findItem(R.id.mFavorites);
+        MenuItem share = menu.findItem(R.id.mShare);
+        share.setVisible(false);
 
         mToolbar.setOnMenuItemClickListener(this);
         mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
@@ -163,9 +165,6 @@ public class BlockedRecipeActivity extends AppCompatActivity  implements Toolbar
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
-            case R.id.mShare:
-
-                return true;
             case R.id.mFavorites:
                 if (key == null) {
                     key = WorkWithFirebaseDB.addFavoriteRecipe(recipeItem);
