@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.text.HtmlCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
@@ -38,7 +39,7 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
     @BindView(R.id.tvIntroArticleWP) TextView tvIntro;
     @BindView(R.id.tvMainArticleWP) TextView tvMain;
     @BindView(R.id.testID) LinearLayout layout;
-
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
 
     @Override
@@ -58,6 +59,15 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
         float radius = tvMain.getTextSize() / 3;
         BlurMaskFilter filter = new BlurMaskFilter(radius, BlurMaskFilter.Blur.NORMAL);
         tvMain.getPaint().setMaskFilter(filter);
+
+        toolbar.setPadding(0, dpToPx(24), 0, 0);
+        toolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 //        tvMain.getPaint().setMaskFilter(new BlurMaskFilter(10, BlurMaskFilter.Blur.NORMAL));
     }
@@ -85,6 +95,13 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
         box.setComeFrom(AmplitudaEvents.buy_prem_content);
         Intent intent = new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box);
         startActivity(intent);
+    }
+
+    public int dpToPx(int dp) {
+        float density = getResources()
+                .getDisplayMetrics()
+                .density;
+        return Math.round((float) dp * density);
     }
 
 }
