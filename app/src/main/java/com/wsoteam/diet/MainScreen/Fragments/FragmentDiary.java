@@ -54,46 +54,30 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class FragmentDiary extends Fragment implements SublimePickerDialogFragment.OnDateChoosedListener, DatePickerListener {
     private final String TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG = "COUNT_OF_RUN";
-    @BindView(R.id.pbProt)
-    ProgressBar pbProgressProt;
-    @BindView(R.id.pbCarbo)
-    ProgressBar pbProgressCarbo;
-    @BindView(R.id.pbFat)
-    ProgressBar pbProgressFat;
-    @BindView(R.id.pbCalories)
-    ProgressBar pbProgressCalories;
-    @BindView(R.id.tvCarbo)
-    TextView tvCarbo;
-    @BindView(R.id.tvFat)
-    TextView tvFat;
-    @BindView(R.id.tvProt)
-    TextView tvProt;
-    @BindView(R.id.tvCaloriesNeed)
-    TextView tvCaloriesNeed;
-    @BindView(R.id.textView138)
-    TextView tvDaysAtRow;
-    @BindView(R.id.mainappbar)
-    AppBarLayout mainappbar;
-    @BindView(R.id.cvParams)
-    CardView cvParams;
-    @BindView(R.id.collapsingToolbarLayout)
-    CollapsingToolbarLayout collapsingToolbarLayout;
-    @BindView(R.id.vpEatingTimeLine)
-    ViewPager vpEatingTimeLine;
-    @BindView(R.id.llSum)
-    LinearLayout llSum;
-    @BindView(R.id.llHead)
-    ConstraintLayout llHead;
-    @BindView(R.id.datePicker)
-    HorizontalPicker datePicker;
-    @BindView(R.id.btnNotification)
-    ImageView btnNotification;
+    @BindView(R.id.pbProt) ProgressBar pbProgressProt;
+    @BindView(R.id.pbCarbo) ProgressBar pbProgressCarbo;
+    @BindView(R.id.pbFat) ProgressBar pbProgressFat;
+    @BindView(R.id.pbCalories) ProgressBar pbProgressCalories;
+    @BindView(R.id.tvCarbo) TextView tvCarbo;
+    @BindView(R.id.tvFat) TextView tvFat;
+    @BindView(R.id.tvProt) TextView tvProt;
+    @BindView(R.id.tvCaloriesNeed) TextView tvCaloriesNeed;
+    @BindView(R.id.textView138) TextView tvDaysAtRow;
+    @BindView(R.id.mainappbar) AppBarLayout mainappbar;
+    @BindView(R.id.cvParams) CardView cvParams;
+    @BindView(R.id.collapsingToolbarLayout) CollapsingToolbarLayout collapsingToolbarLayout;
+    @BindView(R.id.vpEatingTimeLine) ViewPager vpEatingTimeLine;
+    @BindView(R.id.llSum) LinearLayout llSum;
+    @BindView(R.id.llHead) ConstraintLayout llHead;
+    @BindView(R.id.datePicker) HorizontalPicker datePicker;
+    @BindView(R.id.btnNotification) ImageView btnNotification;
     private Unbinder unbinder;
     private Profile profile;
     private int COUNT_OF_RUN = 0;
     private int dayPosition = Config.COUNT_PAGE;
     private SharedPreferences countOfRun;
     private boolean isFiveStarSend = false;
+    private boolean isScrollManually = false;
     private AlertDialog alertDialogBuyInfo;
     private SharedPreferences sharedPreferences, freeUser;
     private LinearLayout.LayoutParams layoutParams;
@@ -110,6 +94,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
                 datePicker.minusDay();
 
             dayPosition = i;
+            isScrollManually = true;
         }
 
         @Override
@@ -171,7 +156,6 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
 
         datePicker.setListener(this).init();
         datePicker.setBackgroundColor(Color.TRANSPARENT);
-        datePicker.setDate(new DateTime());
 
         return mainView;
     }
@@ -203,6 +187,10 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
 
     @Override
     public void onDateSelected(DateTime dateSelected) {
+        if (isScrollManually) {
+            isScrollManually = false;
+            return;
+        }
         DateTime today = new DateTime().withTime(0, 0, 0, 0);
         int difference = Days.daysBetween(dateSelected, today).getDays() * (dateSelected.getYear() < today.getMillis() ? -1 : 1);
         int page = Config.COUNT_PAGE + difference;
@@ -212,6 +200,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
             vpEatingTimeLine.clearOnPageChangeListeners();
             vpEatingTimeLine.setCurrentItem(page);
             vpEatingTimeLine.addOnPageChangeListener(viewPagerListener);
+            dayPosition = vpEatingTimeLine.getCurrentItem();
         }
     }
 
@@ -288,5 +277,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
             setMaxParamsInProgressBars(profile);
             tvDaysAtRow.setText(getActivity().getResources().getQuantityString(R.plurals.daysAtRow, getDaysAtRow(), getDaysAtRow()));
         }
+        if (datePicker != null)
+            datePicker.setDate(new DateTime());
     }
 }
