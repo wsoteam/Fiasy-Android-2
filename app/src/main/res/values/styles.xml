@@ -264,7 +264,7 @@
         <item name="actionMenuTextColor">@android:color/white</item>
         <item name="colorPrimary">#d6d6d6</item>
         <item name="colorPrimaryDark">#d6d6d6</item>
-        <item name="colorAccent">@color/head_detail_food</item>
+        <item name="colorAccent">@android:color/white</item>
         <item name="windowActionBar">false</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
