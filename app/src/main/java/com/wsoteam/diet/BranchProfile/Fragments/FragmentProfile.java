@@ -177,25 +177,25 @@ public class FragmentProfile extends Fragment {
         }
 
         /*Check level load*/
-        if (currentProfile.getExerciseStress().equals(getString(R.string.level_none))) {
+        if (currentProfile.getExerciseStress().equalsIgnoreCase(getString(R.string.level_none))) {
             SPK = BOO * rateNone;
         }
-        if (currentProfile.getExerciseStress().equals(getString(R.string.level_easy))) {
+        if (currentProfile.getExerciseStress().equalsIgnoreCase(getString(R.string.level_easy))) {
             SPK = BOO * rateEasy;
         }
-        if (currentProfile.getExerciseStress().equals(getString(R.string.level_medium))) {
+        if (currentProfile.getExerciseStress().equalsIgnoreCase(getString(R.string.level_medium))) {
             SPK = BOO * rateMedium;
         }
-        if (currentProfile.getExerciseStress().equals(getString(R.string.level_hard))) {
+        if (currentProfile.getExerciseStress().equalsIgnoreCase(getString(R.string.level_hard))) {
             SPK = BOO * rateHard;
         }
-        if (currentProfile.getExerciseStress().equals(getString(R.string.level_up_hard))) {
+        if (currentProfile.getExerciseStress().equalsIgnoreCase(getString(R.string.level_up_hard))) {
             SPK = BOO * rateUpHard;
         }
-        if (currentProfile.getExerciseStress().equals(getString(R.string.level_super))) {
+        if (currentProfile.getExerciseStress().equalsIgnoreCase(getString(R.string.level_super))) {
             SPK = BOO * rateSuper;
         }
-        if (currentProfile.getExerciseStress().equals(getString(R.string.level_up_super))) {
+        if (currentProfile.getExerciseStress().equalsIgnoreCase(getString(R.string.level_up_super))) {
             SPK = BOO * rateUpSuper;
         }
 
@@ -220,18 +220,18 @@ public class FragmentProfile extends Fragment {
 
         Log.e("LOL", profile.toString());
 
-        if (hardLevel.equals(getString(R.string.dif_level_easy))) {
+        if (hardLevel.equalsIgnoreCase(getString(R.string.dif_level_easy))) {
             profile.setMaxKcal((int) SPK);
             WorkWithFirebaseDB.putProfileValue(profile);
             fillViewsIfProfileNotNull(profile);
 
 
-        } else if (hardLevel.equals(getString(R.string.dif_level_normal))) {
+        } else if (hardLevel.equalsIgnoreCase(getString(R.string.dif_level_normal))) {
             profile.setMaxKcal((int) upLineSPK);
             WorkWithFirebaseDB.putProfileValue(profile);
             fillViewsIfProfileNotNull(profile);
 
-        } else if (hardLevel.equals(getString(R.string.dif_level_hard))) {
+        } else if (hardLevel.equalsIgnoreCase(getString(R.string.dif_level_hard))) {
             profile.setMaxKcal((int) downLineSPK);
             WorkWithFirebaseDB.putProfileValue(profile);
             fillViewsIfProfileNotNull(profile);
