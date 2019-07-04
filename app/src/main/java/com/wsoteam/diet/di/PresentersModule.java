@@ -3,6 +3,7 @@ package com.wsoteam.diet.di;
 import android.content.Context;
 
 import com.wsoteam.diet.presentation.auth.main.MainAuthPresenter;
+import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplatePresenter;
 import com.wsoteam.diet.presentation.intro.IntroPresenter;
 import com.wsoteam.diet.presentation.profile.edit.EditProfilePresenter;
 
@@ -26,5 +27,10 @@ public class PresentersModule {
     @Provides
     MainAuthPresenter provideMainAuthPresenter(Context context, Router router) {
         return new MainAuthPresenter(context, router);
+    }
+
+    @Provides
+    CreateFoodTemplatePresenter provideCreateFoodTemplatePresenter(Context context, Router router){
+        return new CreateFoodTemplatePresenter(context, router);
     }
 }

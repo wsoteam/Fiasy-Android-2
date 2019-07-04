@@ -21,7 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BranchOfAnalyzer.templates.CreateFoodTemplateActivity"
+        <activity android:name=".presentation.food.template.create.CreateFoodTemplateActivity"
                     android:screenOrientation="portrait"
                     android:theme="@style/Menu">
 
