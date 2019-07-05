@@ -90,7 +90,11 @@ public class UsersRecipesActivity extends AppCompatActivity implements Toolbar.O
         tvFat.setText(String.valueOf(recipeItem.getFats()));
         tvSaturatedFats.setText(String.valueOf(recipeItem.getSaturatedFats()));
         tvUnSaturatedFats.setText(String.valueOf(recipeItem.getUnSaturatedFats()));
-        tvProtein.setText(String.valueOf(recipeItem.getPortions()));
+        if (recipeItem.getPortions() < 1) {
+            tvProtein.setText("1");
+        } else {
+            tvProtein.setText(String.valueOf(recipeItem.getPortions()));
+        }
         tvCholesterol.setText(String.valueOf(recipeItem.getCholesterol()));
         tvSodium.setText(String.valueOf(recipeItem.getSodium()));
         tvPotassium.setText(String.valueOf(recipeItem.getPotassium()));

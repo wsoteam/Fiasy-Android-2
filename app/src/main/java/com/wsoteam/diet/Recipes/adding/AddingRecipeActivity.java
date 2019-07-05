@@ -215,6 +215,14 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
 
     public void saveRecipe(RecipeItem recipeItem, List<Food> foods){
 
+        int portion = recipeItem.getPortions();
+
+        if (portion < 1){
+            recipeItem.setPortions(1);
+            portion = 1;
+        }
+
+
         if (!check()){
             return;
         }
@@ -223,7 +231,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
                 fats = 0.0,
                 carbo = 0.0,
                 cal = 0.0,
-                portion = 0.0,
+                weight = 0.0,
 
                 cellulose =0.0,
                 sugar = 0.0,
@@ -233,15 +241,16 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
                 sodium = 0.0,
                 potassium = 0.0;
 
+
         List<String> ingredients = new ArrayList<>();
         for (Food food:
              foods) {
-            ingredients.add(food.getName() + " (" + (int)food.getPortion() + "г)");
+            ingredients.add(food.getName() + " (" + ((int)food.getPortion() / portion) + "г)");
             prot = prot + food.getProteins();
             fats = fats + checkValue(food.getFats());
             carbo = carbo + checkValue(food.getCarbohydrates());
             cal = cal + checkValue(food.getCalories());
-            portion = portion + checkValue(food.getPortion());
+            weight = weight + checkValue(food.getPortion());
 
             cellulose = cellulose + checkValue(food.getCellulose());
             sugar = sugar + checkValue(food.getSugar());
@@ -257,7 +266,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         recipeItem.setFats((int) fats);
         recipeItem.setCarbohydrates((int) carbo);
         recipeItem.setCalories((int) cal);
-//        recipeItem.setPortions((int) portion);
+
 
         recipeItem.setCellulose((int) cellulose);
         recipeItem.setSugar((int) sugar);
