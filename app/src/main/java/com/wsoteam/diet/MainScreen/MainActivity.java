@@ -1,5 +1,6 @@
 package com.wsoteam.diet.MainScreen;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -46,6 +47,7 @@ import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
+import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
 
 import java.util.Calendar;
 
@@ -161,6 +163,8 @@ public class MainActivity extends AppCompatActivity {
         if (GroupsHolder.getGroupsRecipes() == null) {
             loadRecipes();
         }
+
+        startActivity(new Intent(MainActivity.this, CreateFoodTemplateActivity.class));
     }
 
     private void checkForcedGrade() {
@@ -178,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return false;
         }
+
     }
 
     @OnClick({R.id.ibSheetClose, R.id.btnReg})

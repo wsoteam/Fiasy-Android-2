@@ -14,7 +14,9 @@ import com.wsoteam.diet.presentation.global.BaseActivity;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dagger.android.AndroidInjection;
 
 public class CreateFoodTemplateActivity extends BaseActivity implements CreateFoodTemplateView {
 
@@ -26,7 +28,7 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
 
     @BindView(R.id.etNameTemplate) EditText etNameTemplate;
     @BindView(R.id.sEating) Spinner eatingSpinner;
-    @BindView(R.id.vpContainer) RecyclerView recyclerView;
+    @BindView(R.id.rvContainer) RecyclerView recyclerView;
 
     @ProvidePresenter
     CreateFoodTemplatePresenter providePresenter() {
@@ -35,8 +37,10 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_food_template);
+        ButterKnife.bind(this);
     }
 
     @Override

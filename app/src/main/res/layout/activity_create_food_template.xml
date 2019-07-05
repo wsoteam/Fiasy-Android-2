@@ -82,14 +82,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sEating" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vpContainer"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/divider29"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider28" />
+        app:layout_constraintTop_toBottomOf="@+id/divider28">
+
+    </android.support.v7.widget.RecyclerView>
 
     <View
         android:id="@+id/divider29"
