@@ -83,8 +83,8 @@ public class FragmentProfile extends Fragment {
         tvProfileOld.setText(getActivity().getResources().getQuantityString(R.plurals.years, profile.getAge(), profile.getAge()));
         tvProfileLevel.setText(profile.getDifficultyLevel());
 
-        if (profile.getNumberOfDay() < 10) {
-            day = "0" + String.valueOf(profile.getNumberOfDay());
+        if (profile.getNumberOfDay() + 1 < 10) {
+            day = "0" + String.valueOf(profile.getNumberOfDay() + 1);
         } else {
             day = String.valueOf(profile.getNumberOfDay());
         }
