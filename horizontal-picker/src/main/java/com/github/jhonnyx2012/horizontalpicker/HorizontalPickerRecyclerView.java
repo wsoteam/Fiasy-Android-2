@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import org.joda.time.DateTime;
@@ -70,20 +69,17 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
         this.offset = initialOffset;
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         setLayoutManager(layoutManager);
-        post(new Runnable() {
-            @Override
-            public void run() {
-                itemWidth = getMeasuredWidth() / 7;
-                adapter = new HorizontalPickerAdapter((int) itemWidth, HorizontalPickerRecyclerView.this, getContext(), daysToPlus, initialOffset, mBackgroundColor, mDateSelectedColor, mDateSelectedTextColor, mTodayDateTextColor,
-                        mTodayDateBackgroundColor,
-                        mDayOfWeekTextColor,
-                        mUnselectedDayTextColor);
-                setAdapter(adapter);
-                LinearSnapHelper snapHelper = new LinearSnapHelper();
-                snapHelper.attachToRecyclerView(HorizontalPickerRecyclerView.this);
-                removeOnScrollListener(onScrollListener);
-                addOnScrollListener(onScrollListener);
-            }
+        post(() -> {
+            itemWidth = getMeasuredWidth() / 7;
+            adapter = new HorizontalPickerAdapter((int) itemWidth, HorizontalPickerRecyclerView.this, getContext(), daysToPlus, initialOffset, mBackgroundColor, mDateSelectedColor, mDateSelectedTextColor, mTodayDateTextColor,
+                    mTodayDateBackgroundColor,
+                    mDayOfWeekTextColor,
+                    mUnselectedDayTextColor);
+            setAdapter(adapter);
+            LinearSnapHelper snapHelper = new LinearSnapHelper();
+            snapHelper.attachToRecyclerView(HorizontalPickerRecyclerView.this);
+            removeOnScrollListener(onScrollListener);
+            addOnScrollListener(onScrollListener);
         });
     }
 
@@ -122,12 +118,9 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
         newPosition = position;
         final RecyclerView.SmoothScroller smoothScroller = new CenterSmoothScroller(getContext());
         smoothScroller.setTargetPosition(newPosition);
-        post(new Runnable() {
-            @Override
-            public void run() {
-                forceScroll = true;
-                layoutManager.startSmoothScroll(smoothScroller);
-            }
+        post(() -> {
+            forceScroll = true;
+            layoutManager.startSmoothScroll(smoothScroller);
         });
     }
 

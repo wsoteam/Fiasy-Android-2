@@ -58,30 +58,15 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
     }
 
     public void setDate(final DateTime date) {
-        rvDays.post(new Runnable() {
-            @Override
-            public void run() {
-                rvDays.setDate(date);
-            }
-        });
+        rvDays.post(() -> rvDays.setDate(date));
     }
 
     public void plusDay() {
-        rvDays.post(new Runnable() {
-            @Override
-            public void run() {
-                rvDays.plusDay();
-            }
-        });
+        rvDays.post(() -> rvDays.plusDay());
     }
 
     public void minusDay() {
-        rvDays.post(new Runnable() {
-            @Override
-            public void run() {
-                rvDays.minusDay();
-            }
-        });
+        rvDays.post(() -> rvDays.minusDay());
     }
 
     public void init() {
