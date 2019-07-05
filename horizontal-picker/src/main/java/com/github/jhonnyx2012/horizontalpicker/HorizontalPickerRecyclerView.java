@@ -102,10 +102,7 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
 
     @Override
     public void onClickView(View v, int adapterPosition) {
-        if (adapterPosition != lastPosition) {
-            selectItem(true, adapterPosition);
-            lastPosition = adapterPosition;
-        }
+        smoothScrollToPosition(adapterPosition);
     }
 
     @Override
@@ -118,6 +115,13 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
         newPosition = position;
         final RecyclerView.SmoothScroller smoothScroller = new CenterSmoothScroller(getContext());
         smoothScroller.setTargetPosition(newPosition);
+        ((CenterSmoothScroller) smoothScroller).setCalculatedDtToFitListener((smoothScroller1, dt) -> {
+            if (dt == 0) {
+                selectMonth((int) ((computeHorizontalScrollOffset() / itemWidth) + 3.5));
+                selectItem(true, smoothScroller1.getTargetPosition());
+                lastPosition = smoothScroller1.getTargetPosition();
+            }
+        });
         post(() -> {
             forceScroll = true;
             layoutManager.startSmoothScroll(smoothScroller);
@@ -143,13 +147,25 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
 
     private static class CenterSmoothScroller extends LinearSmoothScroller {
 
+        private SmoothScrollListener listener;
+
         CenterSmoothScroller(Context context) {
             super(context);
         }
 
         @Override
         public int calculateDtToFit(int viewStart, int viewEnd, int boxStart, int boxEnd, int snapPreference) {
-            return (boxStart + (boxEnd - boxStart) / 2) - (viewStart + (viewEnd - viewStart) / 2);
+            int padding = (boxStart + (boxEnd - boxStart) / 2) - (viewStart + (viewEnd - viewStart) / 2);
+            listener.calculatedDtToFit(this, padding);
+            return padding;
+        }
+
+        void setCalculatedDtToFitListener(SmoothScrollListener listener) {
+            this.listener = listener;
+        }
+
+        interface SmoothScrollListener {
+            void calculatedDtToFit(CenterSmoothScroller smoothScroller, int dt);
         }
     }
 }
