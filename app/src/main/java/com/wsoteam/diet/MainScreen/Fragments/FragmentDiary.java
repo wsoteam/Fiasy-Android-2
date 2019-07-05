@@ -54,23 +54,40 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class FragmentDiary extends Fragment implements SublimePickerDialogFragment.OnDateChoosedListener, DatePickerListener {
     private final String TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG = "COUNT_OF_RUN";
-    @BindView(R.id.pbProt) ProgressBar pbProgressProt;
-    @BindView(R.id.pbCarbo) ProgressBar pbProgressCarbo;
-    @BindView(R.id.pbFat) ProgressBar pbProgressFat;
-    @BindView(R.id.pbCalories) ProgressBar pbProgressCalories;
-    @BindView(R.id.tvCarbo) TextView tvCarbo;
-    @BindView(R.id.tvFat) TextView tvFat;
-    @BindView(R.id.tvProt) TextView tvProt;
-    @BindView(R.id.tvCaloriesNeed) TextView tvCaloriesNeed;
-    @BindView(R.id.textView138) TextView tvDaysAtRow;
-    @BindView(R.id.mainappbar) AppBarLayout mainappbar;
-    @BindView(R.id.cvParams) CardView cvParams;
-    @BindView(R.id.collapsingToolbarLayout) CollapsingToolbarLayout collapsingToolbarLayout;
-    @BindView(R.id.vpEatingTimeLine) ViewPager vpEatingTimeLine;
-    @BindView(R.id.llSum) LinearLayout llSum;
-    @BindView(R.id.llHead) ConstraintLayout llHead;
-    @BindView(R.id.datePicker) HorizontalPicker datePicker;
-    @BindView(R.id.btnNotification) ImageView btnNotification;
+    @BindView(R.id.pbProt)
+    ProgressBar pbProgressProt;
+    @BindView(R.id.pbCarbo)
+    ProgressBar pbProgressCarbo;
+    @BindView(R.id.pbFat)
+    ProgressBar pbProgressFat;
+    @BindView(R.id.pbCalories)
+    ProgressBar pbProgressCalories;
+    @BindView(R.id.tvCarbo)
+    TextView tvCarbo;
+    @BindView(R.id.tvFat)
+    TextView tvFat;
+    @BindView(R.id.tvProt)
+    TextView tvProt;
+    @BindView(R.id.tvCaloriesNeed)
+    TextView tvCaloriesNeed;
+    @BindView(R.id.textView138)
+    TextView tvDaysAtRow;
+    @BindView(R.id.mainappbar)
+    AppBarLayout mainappbar;
+    @BindView(R.id.cvParams)
+    CardView cvParams;
+    @BindView(R.id.collapsingToolbarLayout)
+    CollapsingToolbarLayout collapsingToolbarLayout;
+    @BindView(R.id.vpEatingTimeLine)
+    ViewPager vpEatingTimeLine;
+    @BindView(R.id.llSum)
+    LinearLayout llSum;
+    @BindView(R.id.llHead)
+    ConstraintLayout llHead;
+    @BindView(R.id.datePicker)
+    HorizontalPicker datePicker;
+    @BindView(R.id.btnNotification)
+    ImageView btnNotification;
     private Unbinder unbinder;
     private Profile profile;
     private int COUNT_OF_RUN = 0;
@@ -193,7 +210,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         }
         DateTime today = new DateTime().withTime(0, 0, 0, 0);
         int difference = Days.daysBetween(dateSelected, today).getDays() * (dateSelected.getYear() < today.getMillis() ? -1 : 1);
-        int page = Config.COUNT_PAGE + difference;
+        int page = Config.COUNT_PAGE / 2 + difference;
         if (difference > 0)
             page = Config.COUNT_PAGE;
         if (vpEatingTimeLine != null && vpEatingTimeLine.getCurrentItem() != page) {

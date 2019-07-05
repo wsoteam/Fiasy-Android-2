@@ -43,7 +43,8 @@ import butterknife.Unbinder;
 
 public class FragmentEatingScroll extends Fragment {
     private static final String TAG_OF_BUNDLE = "FragmentEatingScroll";
-    @BindView(R.id.rvMainScreen) RecyclerView rvMainScreen;
+    @BindView(R.id.rvMainScreen)
+    RecyclerView rvMainScreen;
     Unbinder unbinder;
     int day, month, year;
     private int enterPosition = 0;
@@ -150,7 +151,7 @@ public class FragmentEatingScroll extends Fragment {
     }
 
     private Integer[] getChooseDate(int position) {
-        int dateIndex = position - Config.COUNT_PAGE;
+        int dateIndex = position - Config.COUNT_PAGE / 2;
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, dateIndex);
 
