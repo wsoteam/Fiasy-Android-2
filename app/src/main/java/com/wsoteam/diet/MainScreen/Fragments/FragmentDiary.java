@@ -94,7 +94,6 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
     private int dayPosition = Config.COUNT_PAGE;
     private SharedPreferences countOfRun;
     private boolean isFiveStarSend = false;
-    private boolean isScrollManually = false;
     private AlertDialog alertDialogBuyInfo;
     private SharedPreferences sharedPreferences, freeUser;
     private LinearLayout.LayoutParams layoutParams;
@@ -111,7 +110,6 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
                 datePicker.minusDay();
 
             dayPosition = i;
-            isScrollManually = true;
         }
 
         @Override
@@ -204,15 +202,9 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
 
     @Override
     public void onDateSelected(DateTime dateSelected) {
-        if (isScrollManually) {
-            isScrollManually = false;
-            return;
-        }
         DateTime today = new DateTime().withTime(0, 0, 0, 0);
         int difference = Days.daysBetween(dateSelected, today).getDays() * (dateSelected.getYear() < today.getMillis() ? -1 : 1);
         int page = Config.COUNT_PAGE / 2 + difference;
-        if (difference > 0)
-            page = Config.COUNT_PAGE;
         if (vpEatingTimeLine != null && vpEatingTimeLine.getCurrentItem() != page) {
             vpEatingTimeLine.clearOnPageChangeListeners();
             vpEatingTimeLine.setCurrentItem(page);
