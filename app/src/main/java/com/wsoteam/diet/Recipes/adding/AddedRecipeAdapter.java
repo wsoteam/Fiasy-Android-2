@@ -83,13 +83,12 @@ public class AddedRecipeAdapter extends RecyclerView.Adapter<AddedRecipeAdapter.
             String name = listRecipes.get(position).getName();
             String url = listRecipes.get(position).getUrl();
             String portion;
-            if (listRecipes.get(position).getPortions() == 1){
-                portion = String.valueOf(listRecipes.get(position).getPortions()) + " порция";
+            if (listRecipes.get(position).getPortions() < 1){
+                portion = String.valueOf("1 порция");
             }else {
                 portion = String.valueOf(listRecipes.get(position).getPortions()) + " порций";
             }
 
-            int kk = listRecipes.get(position).getCalories();
 
             if (url == null || url.equals("link")) {
                 url = "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
