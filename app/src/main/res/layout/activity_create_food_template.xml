@@ -13,6 +13,8 @@
         android:background="@drawable/gradient_search"
         android:minHeight="?android:attr/actionBarSize"
         android:paddingTop="24dp"
+        app:title="@string/addTemplate"
+        app:titleTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +42,7 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:hint="@string/hintEating"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +70,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:entries="@array/recipeComplexity"
+        android:entries="@array/eatingList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView147" />
@@ -120,7 +122,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/fh"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="48dp"
         android:background="#F19027"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

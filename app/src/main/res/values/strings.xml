@@ -1,5 +1,11 @@
 <resources>
 
+    <!--food_template-->
+    <string name="addTemplate">Добавить шаблон</string>
+    <string name="hintEating">Прием пищи</string>
+    <!--end_food_template-->
+
+
     <!--adding recipe-->
     <string name="add">Добавить</string>
     <string name="cancel">Отменить</string>

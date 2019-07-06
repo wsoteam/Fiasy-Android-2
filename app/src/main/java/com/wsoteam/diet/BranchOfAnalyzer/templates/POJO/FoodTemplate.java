@@ -5,16 +5,20 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import java.io.Serializable;
 import java.util.List;
 
-public class FoodTemplete implements Serializable {
+public class FoodTemplate implements Serializable {
 
     private String name;
+    private String eating;
+
+
     private List<Food> foodList;
 
-    public FoodTemplete() {
+    public FoodTemplate() {
     }
 
-    public FoodTemplete(String name, List<Food> foodList) {
+    public FoodTemplate(String name, String eating, List<Food> foodList) {
         this.name = name;
+        this.eating = eating;
         this.foodList = foodList;
     }
 
@@ -24,6 +28,14 @@ public class FoodTemplete implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEating() {
+        return eating;
+    }
+
+    public void setEating(String eating) {
+        this.eating = eating;
     }
 
     public List<Food> getFoodList() {
