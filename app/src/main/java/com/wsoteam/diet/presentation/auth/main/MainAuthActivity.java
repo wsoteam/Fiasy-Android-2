@@ -415,7 +415,7 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
 
     @Override
     public void goBackToSignIn() {
-        rbSignIn.setChecked(true);
+        prepareViewsForSignIn();
     }
 
     @Override
