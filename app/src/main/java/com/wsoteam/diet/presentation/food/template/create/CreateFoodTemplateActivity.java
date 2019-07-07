@@ -65,6 +65,7 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
 
         etNameTemplate.addTextChangedListener(this);
         eatingSpinner.setOnItemSelectedListener(this);
+        presenter.onEatingChanged(eatingSpinner.getSelectedItem().toString());
     }
 
     @Override
@@ -116,7 +117,7 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
         adapter.notifyDataSetChanged();
     }
 
-//    TextWatcher
+//    TextWatcher start
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -126,9 +127,9 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
     public void onTextChanged(CharSequence s, int start, int before, int count) {
             presenter.onNameChanged(s.toString());
     }
+//    TextWatcher end
 
-
-//    AdapterView.OnItemSelectedListener
+//    AdapterView.OnItemSelectedListener start
     @Override
     public void afterTextChanged(Editable s) {
 
@@ -143,4 +144,5 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+//    AdapterView.OnItemSelectedListener end
 }

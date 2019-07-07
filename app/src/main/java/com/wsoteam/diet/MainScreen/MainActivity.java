@@ -47,6 +47,7 @@ import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
+import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplateFragment;
 import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
 
 import java.util.Calendar;
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
                     return true;
                 case R.id.bnv_main_profile:
-                    transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
+                    transaction.replace(R.id.flFragmentContainer, new BrowseFoodTemplateFragment()).commit();
                     window.setStatusBarColor(Color.parseColor("#2E4E4E"));
                     return true;
             }
@@ -164,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
             loadRecipes();
         }
 
-        startActivity(new Intent(MainActivity.this, CreateFoodTemplateActivity.class));
+//        startActivity(new Intent(MainActivity.this, CreateFoodTemplateActivity.class));
     }
 
     private void checkForcedGrade() {
