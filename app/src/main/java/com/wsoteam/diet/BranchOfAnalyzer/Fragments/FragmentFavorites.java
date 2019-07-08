@@ -93,13 +93,11 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
         tvTitleFavoriteAdd.setVisibility(View.VISIBLE);
     }
 
+
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         findFavoritesInDb();
-        if (UserDataHolder.getUserData().getFoodFavorites() != null) {
-            Log.e("LOL", String.valueOf(UserDataHolder.getUserData().getFoodFavorites().size()));
-        }
     }
 
     @Nullable
