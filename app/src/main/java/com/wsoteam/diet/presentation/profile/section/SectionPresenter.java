@@ -1,9 +1,22 @@
 package com.wsoteam.diet.presentation.profile.section;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.arellomobile.mvp.InjectViewState;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.model.Eating;
+import com.wsoteam.diet.presentation.global.BasePresenter;
+import com.wsoteam.diet.presentation.intro.IntroView;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -14,11 +27,17 @@ import java.util.TreeMap;
 
 import static java.util.Map.Entry.comparingByKey;
 
+
 public class SectionPresenter {
+    private Context context;
+
+    public SectionPresenter(Context context) {
+        this.context = context;
+    }
 
     public void dateSort() {
         HashMap<Long, Integer> calories = new HashMap<>();
-        Iterator caloriesIterator = calories.entrySet().iterator();
+        Iterator caloriesIterator;
 
         HashMap<String, Eating> eatings = getAllEatingLists();
         Iterator eatingIterator = eatings.entrySet().iterator();
@@ -33,10 +52,8 @@ public class SectionPresenter {
                 calories.put(timeInMillis, eating.getCalories());
                 isNeedCreateNewDate = false;
             } else {
-                Log.e("LOL", "Entry");
                 caloriesIterator = calories.entrySet().iterator();
                 while (caloriesIterator.hasNext()) {
-                    Log.e("LOL", "Entry1");
                     Map.Entry entry = (Map.Entry) caloriesIterator.next();
                     Long key = (Long) entry.getKey();
                     Integer sumCalories = (Integer) entry.getValue();
@@ -105,5 +122,30 @@ public class SectionPresenter {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month + 1, day);
         return calendar.getTimeInMillis();
+    }
+
+    private void getImage(){
+        if (context.checkSelfPermission(Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA},
+                    MY_CAMERA_PERMISSION_CODE);
+        } else {
+            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cameraIntent, CAMERA_REQUEST);
+        }
+    }
+
+    private String uploadPhoto() {
+        String avatarName = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference().child(Config.AVATAR_PATH + avatarName + Config.AVATAR_EXTENSION);
+        /*UploadTask uploadTask = storageRef.putBytes();
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+            }
+        });*/
+        return null;
     }
 }

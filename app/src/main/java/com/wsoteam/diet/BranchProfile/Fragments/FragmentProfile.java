@@ -17,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.amplitude.api.Amplitude;
+import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchProfile.ActivityEditCompletedProfile;
@@ -25,11 +27,17 @@ import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.presentation.global.BaseView;
+import com.wsoteam.diet.presentation.intro.IntroPresenter;
+import com.wsoteam.diet.presentation.profile.section.SectionPresenter;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import dagger.android.AndroidInjection;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
@@ -63,10 +71,7 @@ public class FragmentProfile extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_profile, container, false);
-
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_profile);
-
-
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
