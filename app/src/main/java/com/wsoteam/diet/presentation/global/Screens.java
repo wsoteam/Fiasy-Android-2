@@ -11,11 +11,19 @@ import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.presentation.auth.restore.ActivityForgotPassword;
 import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
+import com.wsoteam.diet.presentation.food.template.create.search.SearchFoodActivity;
 import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 
 public class Screens {
+
+    public static final class CreateSearchFoodActivity extends SupportAppScreen{
+        @Override
+        public Intent getActivityIntent(Context context) {
+            return new Intent(context, SearchFoodActivity.class);
+        }
+    }
 
     public static final class CreateFodTemplateScreen extends SupportAppScreen{
         @Override

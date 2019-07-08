@@ -76,16 +76,17 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
         }
 
         public void bind(Food food) {
+            double portion = food.getPortion();
             tvNameOfFood.setText(food.getFullInfo().replace("()", ""));
-            tvCalories.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
+            tvCalories.setText((int)(food.getCalories()) + " Ккал");
             if (food.isLiquid()) {
-                tvWeight.setText("Вес: 100мл");
+                tvWeight.setText("Вес: " + (int)portion + " мл");
             } else {
-                tvWeight.setText("Вес: 100г");
+                tvWeight.setText("Вес: " + (int)portion + " г");
             }
-            tvProt.setText("Б. " + String.valueOf(Math.round(food.getProteins() * 100)));
-            tvFats.setText("Ж. " + String.valueOf(Math.round(food.getFats() * 100)));
-            tvCarbo.setText("У. " + String.valueOf(Math.round(food.getCarbohydrates() * 100)));
+            tvProt.setText("Б. " + String.valueOf(Math.round(food.getProteins())));
+            tvFats.setText("Ж. " + String.valueOf(Math.round(food.getFats())));
+            tvCarbo.setText("У. " + String.valueOf(Math.round(food.getCarbohydrates())));
         }
 
     }

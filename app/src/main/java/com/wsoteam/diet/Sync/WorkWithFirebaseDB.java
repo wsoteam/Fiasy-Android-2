@@ -289,7 +289,7 @@ public class WorkWithFirebaseDB {
     public static String addFoodTemplate(FoodTemplate foodTemplate) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
-                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodTemplate");
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodTemplates");
         String key = myRef.push().getKey();
         myRef.child(key).setValue(foodTemplate);
         return key;
@@ -298,7 +298,7 @@ public class WorkWithFirebaseDB {
     public static void deleteFoodTemplate(String key) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
-                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodTemplate").child(key);
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodTemplates").child(key);
         myRef.removeValue();
     }
 

@@ -3,6 +3,9 @@
     <!--food_template-->
     <string name="addTemplate">Добавить шаблон</string>
     <string name="hintEating">Прием пищи</string>
+    <string name="templates">Шаблоны</string>
+    <string name="templateDescription">Здесь вы можете создать и сохранить набор продуктов, который употребляете ежедневно в определенный прием пищи</string>
+    <string name="btnAddTemplate">Создать шаблон</string>
     <!--end_food_template-->
 
 

@@ -4,12 +4,15 @@ package com.wsoteam.diet.presentation.food.template.create;
 import com.arellomobile.mvp.InjectViewState;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
+import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplateHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.global.BasePresenter;
+import com.wsoteam.diet.presentation.global.Screens;
 
 import java.util.List;
 
 import ru.terrakok.cicerone.Router;
+
 
 @InjectViewState
 public class CreateFoodTemplatePresenter extends BasePresenter<CreateFoodTemplateView> {
@@ -24,11 +27,7 @@ public class CreateFoodTemplatePresenter extends BasePresenter<CreateFoodTemplat
         this.foodTemplate = foodTemplate;
 
         foods = foodTemplate.getFoodList();
-        foods.add(foodFactory());
-        foods.add(foodFactory());
-        foods.add(foodFactory());
-        foodTemplate.setName("");
-        foodTemplate.setEating("Ужин");
+        FoodTemplateHolder.bind(foods);
 
         getViewState().setData(foodTemplate);
 
@@ -57,6 +56,7 @@ public class CreateFoodTemplatePresenter extends BasePresenter<CreateFoodTemplat
         } else {
             WorkWithFirebaseDB.addFoodTemplate(foodTemplate);
             getViewState().showMessage("Шаблон сохранен");
+            FoodTemplateHolder.bind(null);
             router.exit();
 
         }
@@ -64,7 +64,7 @@ public class CreateFoodTemplatePresenter extends BasePresenter<CreateFoodTemplat
     }
 
     void onAddFoodClicked(){
-
+        router.navigateTo(new Screens.CreateSearchFoodActivity());
     }
 
     void onNameChanged(String str){

@@ -29,6 +29,7 @@ import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
 import com.wsoteam.diet.Recipes.helper.FragmentRecipeContainer;
+import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplateFragment;
 import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
 
 import java.util.ArrayList;
@@ -107,6 +108,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new FragmentSearch());
         fragments.add(new FragmentFavorites());
+        fragments.add(new BrowseFoodTemplateFragment());
         fragments.add(new FragmentRecipeContainer());
         return fragments;
     }

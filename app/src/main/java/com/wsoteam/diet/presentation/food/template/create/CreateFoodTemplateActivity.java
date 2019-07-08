@@ -145,4 +145,11 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
 
     }
 //    AdapterView.OnItemSelectedListener end
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
 }

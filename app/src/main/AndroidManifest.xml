@@ -21,15 +21,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.food.template.create.CreateFoodTemplateActivity"
-                    android:screenOrientation="portrait"
-                    android:theme="@style/Menu">
+        <activity android:name=".presentation.food.template.create.search.SearchFoodActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" >
 
         </activity>
         <activity
-            android:name=".Recipes.adding.UsersRecipesActivity"
+            android:name=".presentation.food.template.create.CreateFoodTemplateActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu"></activity>
+        <activity
+            android:name=".Recipes.adding.UsersRecipesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" />
         <activity
             android:name=".Recipes.adding.ActivityDetailFood"
             android:screenOrientation="portrait"
