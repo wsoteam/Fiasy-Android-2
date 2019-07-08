@@ -1,5 +1,7 @@
 package com.wsoteam.diet.presentation.profile.section;
 
+import android.util.Log;
+
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Eating;
@@ -29,9 +31,12 @@ public class SectionPresenter {
                 calories.put(date, eating.getCalories());
                 isNeedCreateNewDate = false;
             } else {
+
                 while (caloriesIterator.hasNext()) {
+                    Log.e("LOL", "Entry");
                     Map.Entry entry = (Map.Entry) eatingIterator.next();
                     String key = (String) entry.getKey();
+                    Log.e("LOL", "Key" + key);
                     Integer sumCalories = (Integer) entry.getValue();
                     if (key.equals(date)) {
                         entry.setValue(sumCalories + eating.getCalories());
@@ -39,13 +44,21 @@ public class SectionPresenter {
                     }
                 }
             }
-            
+
             if (isNeedCreateNewDate){
                 calories.put(date, eating.getCalories());
             }
         }
 
+        logCalories(calories);
+    }
 
+    private void logCalories(HashMap<String, Integer> calories) {
+        Iterator iterator = calories.entrySet().iterator();
+        while (iterator.hasNext()){
+            Map.Entry entry = (Map.Entry) iterator.next();
+            Log.e("LOL", "Date -- " + String.valueOf(entry.getKey()) + ", Value -- " + String.valueOf(entry.getValue()));
+        }
     }
 
     private HashMap<String, Eating> getAllEatingLists() {

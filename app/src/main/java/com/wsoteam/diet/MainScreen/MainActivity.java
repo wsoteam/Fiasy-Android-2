@@ -48,6 +48,7 @@ import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
+import com.wsoteam.diet.presentation.profile.section.SectionPresenter;
 
 import java.util.Calendar;
 
@@ -137,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         handlGrade(Calendar.getInstance().getTimeInMillis());
         Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        new SectionPresenter().dateSort();
     }
 
     private void handlGrade(long currentTime) {
