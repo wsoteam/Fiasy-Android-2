@@ -29,16 +29,18 @@ public class SectionPresenter {
             Long timeInMillis = formDate(eating.getDay(), eating.getMonth(), eating.getYear());
             boolean isNeedCreateNewDate = true;
 
-            if (calories.size() < 0) {
+            if (calories.size() == 0) {
                 calories.put(timeInMillis, eating.getCalories());
                 isNeedCreateNewDate = false;
             } else {
+                Log.e("LOL", "Entry");
                 caloriesIterator = calories.entrySet().iterator();
                 while (caloriesIterator.hasNext()) {
+                    Log.e("LOL", "Entry1");
                     Map.Entry entry = (Map.Entry) caloriesIterator.next();
                     Long key = (Long) entry.getKey();
                     Integer sumCalories = (Integer) entry.getValue();
-                    if (key == timeInMillis) {
+                    if (key.equals(timeInMillis)) {
                         entry.setValue(sumCalories + eating.getCalories());
                         isNeedCreateNewDate = false;
                     }
@@ -101,7 +103,7 @@ public class SectionPresenter {
 
     private Long formDate(int day, int month, int year) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
+        calendar.set(year, month + 1, day);
         return calendar.getTimeInMillis();
     }
 }
