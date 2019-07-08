@@ -3,19 +3,21 @@ package com.wsoteam.diet.presentation.profile.section;
 import android.util.Log;
 
 import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Eating;
 
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
+import static java.util.Map.Entry.comparingByKey;
 
 public class SectionPresenter {
 
     public void dateSort() {
-        HashMap<String, Integer> calories = new HashMap<>();
+        HashMap<Long, Integer> calories = new HashMap<>();
         Iterator caloriesIterator = calories.entrySet().iterator();
 
         HashMap<String, Eating> eatings = getAllEatingLists();
@@ -24,38 +26,56 @@ public class SectionPresenter {
         while (eatingIterator.hasNext()) {
             Map.Entry pair = (Map.Entry) eatingIterator.next();
             Eating eating = (Eating) pair.getValue();
-            String date = formDate(eating.getDay(), eating.getMonth(), eating.getYear());
+            Long timeInMillis = formDate(eating.getDay(), eating.getMonth(), eating.getYear());
             boolean isNeedCreateNewDate = true;
 
             if (calories.size() < 0) {
-                calories.put(date, eating.getCalories());
+                calories.put(timeInMillis, eating.getCalories());
                 isNeedCreateNewDate = false;
             } else {
-
+                caloriesIterator = calories.entrySet().iterator();
                 while (caloriesIterator.hasNext()) {
-                    Log.e("LOL", "Entry");
-                    Map.Entry entry = (Map.Entry) eatingIterator.next();
-                    String key = (String) entry.getKey();
-                    Log.e("LOL", "Key" + key);
+                    Map.Entry entry = (Map.Entry) caloriesIterator.next();
+                    Long key = (Long) entry.getKey();
                     Integer sumCalories = (Integer) entry.getValue();
-                    if (key.equals(date)) {
+                    if (key == timeInMillis) {
                         entry.setValue(sumCalories + eating.getCalories());
                         isNeedCreateNewDate = false;
                     }
                 }
             }
 
-            if (isNeedCreateNewDate){
-                calories.put(date, eating.getCalories());
+            if (isNeedCreateNewDate) {
+                calories.put(timeInMillis, eating.getCalories());
             }
         }
+        logSorted(sort(calories));
+    }
 
-        logCalories(calories);
+
+    private SortedMap<Long, Integer> sort(HashMap<Long, Integer> calories) {
+        SortedMap<Long, Integer> sortedMap = new TreeMap<>();
+        Iterator iterator = calories.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            Long date = (Long) entry.getKey();
+            Integer kcal = (Integer) entry.getValue();
+            sortedMap.put(date, kcal);
+        }
+        return sortedMap;
+    }
+
+    private void logSorted(SortedMap<Long, Integer> calories) {
+        Iterator iterator = calories.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            Log.e("LOL", "Date -- " + String.valueOf(entry.getKey()) + ", Value -- " + String.valueOf(entry.getValue()));
+        }
     }
 
     private void logCalories(HashMap<String, Integer> calories) {
         Iterator iterator = calories.entrySet().iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Map.Entry entry = (Map.Entry) iterator.next();
             Log.e("LOL", "Date -- " + String.valueOf(entry.getKey()) + ", Value -- " + String.valueOf(entry.getValue()));
         }
@@ -79,23 +99,9 @@ public class SectionPresenter {
     }
 
 
-    private String formDate(int day, int month, int year) {
-        String dayInString, monthInString, yearInString;
-
-        if (day < 10) {
-            dayInString = "0" + String.valueOf(day);
-        } else {
-            dayInString = String.valueOf(day);
-        }
-
-        if (month < 10) {
-            monthInString = "0" + String.valueOf(month + 1);
-        } else {
-            monthInString = String.valueOf(month);
-        }
-
-        yearInString = String.valueOf(year);
-
-        return dayInString + "." + monthInString + "." + yearInString;
+    private Long formDate(int day, int month, int year) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+        return calendar.getTimeInMillis();
     }
 }
