@@ -33,10 +33,6 @@ import static java.util.Map.Entry.comparingByKey;
 
 
 public class SectionPresenter {
-
-
-
-
     public void dateSort() {
         HashMap<Long, Integer> calories = new HashMap<>();
         Iterator caloriesIterator;
@@ -136,10 +132,7 @@ public class SectionPresenter {
                 storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        String url = uri.toString();
-                        Upload upload = new Upload(et_localization, url);
-                        String uploadId = mDataBaseRef.push().getKey();
-                        mDataBaseRef.child(uploadId).setValue(upload);
+                        Log.e("LOL", uri.toString());
                     }
                 });
             }
