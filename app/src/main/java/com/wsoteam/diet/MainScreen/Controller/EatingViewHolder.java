@@ -47,7 +47,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvCount) TextView tvCount;
     @BindView(R.id.ibtnOpenMenu) ImageButton ibtnOpenMenu;
     @BindView(R.id.clReminderBack) ConstraintLayout clReminderBack;
-    private boolean isButtonPressed = false;
+    private boolean isButtonPressed = true;
     private final int BREAKFAST = 0, LUNCH = 1, DINNER = 2, SNACK = 3;
     private final int BREAKFAST_TIME = 9, LUNCH_TIME = 13, DINNER_TIME = 18, SNACK_TIME = 24;
 
@@ -71,7 +71,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
         rvListOfFoodEatingCard.setLayoutManager(new LinearLayoutManager(context));
         rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup,
-                context, false, getAdapterPosition(), this::refreshUI));
+                context, true, getAdapterPosition(), this::refreshUI));
         setExpandableView();
         if (isNeedRemind()) remind(nameOfEatingGroup);
     }

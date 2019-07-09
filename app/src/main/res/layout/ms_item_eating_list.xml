@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="8dp"
-                                    app:cardCornerRadius="5dp"
-                                    app:cardElevation="6dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="6dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:backgroundTint="@color/white"
-                android:src="@drawable/open_eating_list"
+                android:src="@drawable/close_eating_list"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvCount"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -82,10 +82,10 @@
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/clReminderBack"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="@color/back_eating"
-            android:id="@+id/clReminderBack">
+            android:background="@color/back_eating">
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/imbAddFood"
@@ -125,7 +125,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvListOfFoodEatingCard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
         </android.support.v7.widget.RecyclerView>
 
@@ -135,7 +135,6 @@
 
             <TextView
                 android:id="@+id/tvRecommendation"
-                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -145,6 +144,7 @@
                 android:fontFamily="@font/roboto_light"
                 android:text="Рекомендуется 475 - 855 ккал"
                 android:textColor="@color/recommendation"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
