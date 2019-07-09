@@ -119,6 +119,7 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
             showStartScreen();
         } else {
             imbAddFood.setVisibility(View.VISIBLE);
+            tvAddFood.setVisibility(View.VISIBLE);
             hideMessageUI();
             itemAdapter = new ItemAdapter(customFoods);
             rvFavorites.setAdapter(itemAdapter);
