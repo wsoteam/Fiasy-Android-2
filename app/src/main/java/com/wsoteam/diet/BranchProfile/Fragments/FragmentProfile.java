@@ -1,12 +1,18 @@
 package com.wsoteam.diet.BranchProfile.Fragments;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -20,6 +26,9 @@ import com.amplitude.api.Amplitude;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchProfile.ActivityEditCompletedProfile;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
@@ -29,7 +38,10 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.global.BaseView;
 import com.wsoteam.diet.presentation.intro.IntroPresenter;
+import com.wsoteam.diet.presentation.profile.section.Config;
 import com.wsoteam.diet.presentation.profile.section.SectionPresenter;
+
+import java.io.ByteArrayOutputStream;
 
 import javax.inject.Inject;
 
@@ -55,6 +67,7 @@ public class FragmentProfile extends Fragment {
     @BindView(R.id.tvCarboCount) TextView tvCarboCount;
     @BindView(R.id.tvFatCount) TextView tvFatCount;
     @BindView(R.id.tvProtCount) TextView tvProtCount;
+    private static final int CAMERA_REQUEST = 1888;
 
 
     @Override
@@ -64,6 +77,10 @@ public class FragmentProfile extends Fragment {
             Profile profile = UserDataHolder.getUserData().getProfile();
             fillViewsIfProfileNotNull(profile);
         }
+        String avatarName = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference().child(Config.AVATAR_PATH + avatarName + Config.AVATAR_EXTENSION);
+        Log.e("LOL", storageRef.getPath());
     }
 
 
@@ -140,9 +157,14 @@ public class FragmentProfile extends Fragment {
                 startActivity(new Intent(getActivity(), ActivitySettings.class));
                 break;
             case R.id.civProfile:
-                /*Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, 1);*/
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.CAMERA}, 1);
+                } else {
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                }
                 break;
             case R.id.tvUserName:
                 startActivity(new Intent(getActivity(), ActivityEditCompletedProfile.class));
@@ -276,12 +298,11 @@ public class FragmentProfile extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            Uri urlOfImage = data.getData();
-            Glide.with(this).load(urlOfImage).into(civProfile);
-            Profile profile = UserDataHolder.getUserData().getProfile();
-            profile.setPhotoUrl(String.valueOf(urlOfImage));
-            WorkWithFirebaseDB.putProfileValue(profile);
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            photo.compress(Bitmap.CompressFormat.PNG, 0, bos);
+            new SectionPresenter().uploadPhoto(bos.toByteArray());
         }
     }
 }

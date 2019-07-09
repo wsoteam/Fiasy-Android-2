@@ -1,9 +1,12 @@
 package com.wsoteam.diet.presentation.profile.section;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
@@ -29,11 +32,9 @@ import static java.util.Map.Entry.comparingByKey;
 
 
 public class SectionPresenter {
-    private Context context;
 
-    public SectionPresenter(Context context) {
-        this.context = context;
-    }
+
+
 
     public void dateSort() {
         HashMap<Long, Integer> calories = new HashMap<>();
@@ -124,28 +125,17 @@ public class SectionPresenter {
         return calendar.getTimeInMillis();
     }
 
-    private void getImage(){
-        if (context.checkSelfPermission(Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA},
-                    MY_CAMERA_PERMISSION_CODE);
-        } else {
-            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(cameraIntent, CAMERA_REQUEST);
-        }
-    }
-
-    private String uploadPhoto() {
+    public String uploadPhoto(byte[] array) {
         String avatarName = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference().child(Config.AVATAR_PATH + avatarName + Config.AVATAR_EXTENSION);
-        /*UploadTask uploadTask = storageRef.putBytes();
+        UploadTask uploadTask = storageRef.putBytes(array);
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
+                Log.e("LOL", "uploaded");
             }
-        });*/
+        });
         return null;
     }
 }
