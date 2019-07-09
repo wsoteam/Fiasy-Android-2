@@ -51,19 +51,27 @@
       },
       "oauth_client": [
         {
-          "client_id": "588344798889-vkrheuiu8p5gqi04q0e0o3om5k04ha1n.apps.googleusercontent.com",
+          "client_id": "588344798889-fu6t3n3qjvba4ac1sg5r76uf9khs3392.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.wild.diet",
-            "certificate_hash": "795c1bcbff986e08bd6643d13e8b221dc595c140"
+            "certificate_hash": "0cd161d3d77082dbf70f682b2bfbb945cbe4619b"
           }
         },
         {
-          "client_id": "588344798889-pkni1gigt333vofgdleb49scbbl3fq04.apps.googleusercontent.com",
+          "client_id": "588344798889-qicp5phttdt3itcvh9t1roe9fijfvvmr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.wild.diet",
-            "certificate_hash": "4bc011909dc2d72cedd03ce985928daba7bf1c85"
+            "certificate_hash": "1cd20dcd2a7a2f19deb7c290e39d398d4082afc5"
+          }
+        },
+        {
+          "client_id": "588344798889-3k3vjm7v0simuqsbquaiom4rp0tk5kpn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wild.diet",
+            "certificate_hash": "f803cb03f6a0bbaf3b1d325b45b5e050cc19593e"
           }
         },
         {
@@ -75,11 +83,19 @@
           }
         },
         {
-          "client_id": "588344798889-3k3vjm7v0simuqsbquaiom4rp0tk5kpn.apps.googleusercontent.com",
+          "client_id": "588344798889-pkni1gigt333vofgdleb49scbbl3fq04.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.wild.diet",
-            "certificate_hash": "f803cb03f6a0bbaf3b1d325b45b5e050cc19593e"
+            "certificate_hash": "4bc011909dc2d72cedd03ce985928daba7bf1c85"
+          }
+        },
+        {
+          "client_id": "588344798889-vkrheuiu8p5gqi04q0e0o3om5k04ha1n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wild.diet",
+            "certificate_hash": "795c1bcbff986e08bd6643d13e8b221dc595c140"
           }
         },
         {
