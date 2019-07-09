@@ -6,6 +6,7 @@ import com.wsoteam.diet.presentation.global.BaseView;
 public interface CreateFoodTemplateView  extends BaseView {
 
     void setData(FoodTemplate foodTemplate);
+    void setName(String str);
     void updateRecyclerView();
 
 }

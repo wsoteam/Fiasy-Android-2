@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.food.adapter.FoodAdapter;
 import com.wsoteam.diet.presentation.global.BaseActivity;
@@ -66,6 +68,9 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
         etNameTemplate.addTextChangedListener(this);
         eatingSpinner.setOnItemSelectedListener(this);
         presenter.onEatingChanged(eatingSpinner.getSelectedItem().toString());
+
+        presenter.checkIntent(getIntent());
+
     }
 
     @Override
@@ -100,6 +105,11 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
         updateRecyclerView();
         etNameTemplate.setText(foodTemplate.getName());
         eatingSpinner.setSelection(getIndex(eatingSpinner, foodTemplate.getEating()));
+    }
+
+    @Override
+    public void setName(String str) {
+        etNameTemplate.setText(str);
     }
 
     private int getIndex(Spinner spinner, String myString){

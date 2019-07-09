@@ -1,10 +1,15 @@
 package com.wsoteam.diet.presentation.food.template.create;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplateHolder;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.global.BasePresenter;
 import com.wsoteam.diet.presentation.global.Screens;
@@ -22,26 +27,32 @@ public class CreateFoodTemplatePresenter extends BasePresenter<CreateFoodTemplat
     private FoodTemplate foodTemplate;
     List<Food> foods;
 
+    boolean isEdit;
+
     public CreateFoodTemplatePresenter(Router router, FoodTemplate foodTemplate) {
         this.router = router;
-        this.foodTemplate = foodTemplate;
-
-        foods = foodTemplate.getFoodList();
-        FoodTemplateHolder.bind(foods);
-
-        getViewState().setData(foodTemplate);
-
+        init(foodTemplate);
     }
 
-    Food foodFactory(){
-        Food food = new Food();
-        food.setFullInfo("23132123132 231321321");
-        food.setCalories(321.0);
-        food.setProteins(23.0);
-        food.setFats(23.0);
-        food.setCarbohydrates(2.0);
-        return food;
+    void init(FoodTemplate template){
+        if (template != null) {
+            this.foodTemplate = template;
+            foods = template.getFoodList();
+            FoodTemplateHolder.bind(foods);
+            getViewState().setData(foodTemplate);
+            getViewState().setName(foodTemplate.getName());
+        }
     }
+
+    void checkIntent(Intent intent){
+        FoodTemplate template = (FoodTemplate)intent.getSerializableExtra(Config.FOOD_TEMPLATE_INTENT);
+
+        if (template != null) {
+            init(template);
+            isEdit = true;
+        }
+    }
+
 
     void onCancelClicked(){
         router.exit();
@@ -54,13 +65,17 @@ public class CreateFoodTemplatePresenter extends BasePresenter<CreateFoodTemplat
         } else if (foodTemplate.getFoodList().size() < 1){
             getViewState().showMessage("Нет продуктов в списке");
         } else {
-            WorkWithFirebaseDB.addFoodTemplate(foodTemplate);
+            if (isEdit){
+                WorkWithFirebaseDB.editFoodTemplate(foodTemplate.getKey(), foodTemplate);
+
+            }else {
+                WorkWithFirebaseDB.addFoodTemplate(foodTemplate);
+            }
             getViewState().showMessage("Шаблон сохранен");
             FoodTemplateHolder.bind(null);
             router.exit();
 
         }
-
     }
 
     void onAddFoodClicked(){

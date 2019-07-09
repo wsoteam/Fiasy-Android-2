@@ -21,7 +21,7 @@ public class AdaptersModules {
 
     @Provides
     FoodTemplate provideFoodTemplate(){
-        return new FoodTemplate("", "", new ArrayList<>());
+        return new FoodTemplate("", "", "", new ArrayList<>());
     }
 
     @Provides

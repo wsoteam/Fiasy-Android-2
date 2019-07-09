@@ -3,7 +3,9 @@ package com.wsoteam.diet.presentation.food.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -16,8 +18,8 @@ import android.widget.ToggleButton;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplatePresenter;
-import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplateView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +37,7 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
 
     public FoodTemplateAdapter(Context context, BrowseFoodTemplatePresenter presenter) {
         this.context = context;
-        this.presenter =presenter;
+        this.presenter = presenter;
     }
 
     public void setListContent(List<FoodTemplate> templateList){
@@ -63,7 +65,8 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
         return templateList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements CompoundButton.OnCheckedChangeListener{
+    class ViewHolder extends RecyclerView.ViewHolder implements CompoundButton.OnCheckedChangeListener,
+            View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
 
         @BindView(R.id.ivTemplate) ImageView imageView;
         @BindView(R.id.tvName) TextView tvName;
@@ -77,11 +80,37 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
             super(itemView);
             ButterKnife.bind(this, itemView);
             tbShowFoods.setOnCheckedChangeListener(this);
+            itemView.setOnCreateContextMenuListener(this);
         }
 
         @OnClick({R.id.ivAddTemplate})
         public void onViewClicked(View view) {
                 presenter.addToDiary(templateList.get(getAdapterPosition()));
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+//            menu.setHeaderTitle("Select The Action");
+            menu.add(0,22, 0, R.string.contextMenuEdit)
+                    .setOnMenuItemClickListener(this);//groupId, itemId, order, title
+            menu.add(0, 33, 0, R.string.contextMenuDelete)
+                    .setOnMenuItemClickListener(this);
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()){
+                case 22:
+                    presenter.editTemplate(templateList.get(getAdapterPosition()));
+                    return true;
+                case 33:
+                    WorkWithFirebaseDB.deleteFoodTemplate(templateList.get(getAdapterPosition()).getKey());
+                    templateList.remove(templateList.get(getAdapterPosition()));
+                    notifyDataSetChanged();
+                    return true;
+
+                default: return false;
+            }
         }
 
         @Override
@@ -108,7 +137,7 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
                 TextView foodName = view.findViewById(R.id.tvNameTemplate);
                 TextView foodCalories = view.findViewById(R.id.tvCalories);
                 foodName.setText(food.getName());
-                foodCalories.setText(Double.toString(food.getCalories()));
+                foodCalories.setText(String.valueOf((int)food.getCalories()));
 
                 linearLayout.addView(view);
             }

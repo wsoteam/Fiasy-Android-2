@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import com.amplitude.api.Amplitude;
 import com.arellomobile.mvp.InjectViewState;
@@ -46,7 +47,14 @@ public class BrowseFoodTemplatePresenter extends BasePresenter<BrowseFoodTemplat
             getViewState().hideBtn();
         } else {
             getViewState().showBtn();
+            getViewState().setData(null);
         }
+    }
+
+    public void editTemplate(FoodTemplate template){
+        Intent intent = new Intent(activity, CreateFoodTemplateActivity.class);
+        intent.putExtra(Config.FOOD_TEMPLATE_INTENT, template);
+        activity.startActivity(intent);
     }
 
     public  void addToDiary(FoodTemplate template){
@@ -116,14 +124,6 @@ public class BrowseFoodTemplatePresenter extends BasePresenter<BrowseFoodTemplat
         int fat = (int)food.getFats();
 
         int weight = (int)food.getPortion();
-
-//        int kcal = 1;
-//        int carbo = 2;
-//        int prot = 3;
-//        int fat = 4;
-//
-//        int weight = 44;
-
 
         String name = food.getName();
         String urlOfImage = "empty_url";

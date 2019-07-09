@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.food.template.create.search;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -120,7 +121,7 @@ public class SearchFoodActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-        Log.d("kkk", "onActivityResult: ");
+
         if (requestCode == 1234 && resultCode == RESULT_OK) {
             ArrayList<String> commandList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             edtSearchField.setText(commandList.get(0));
@@ -130,12 +131,27 @@ public class SearchFoodActivity extends AppCompatActivity {
             Bundle bundle = data.getExtras();
             if (bundle != null) {
                 Food food = (Food) bundle.get(Config.RECIPE_FOOD_INTENT);
-                Log.d("kkk", "onActivityResult: " + foodList.contains(food));
-                foodList.add(food);
 
+               int position = getPosition(food);
+
+               if (position < 0){
+                   foodList.add(food);
+               } else {
+                   foodList.set(position, food);
+               }
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    int getPosition(Food food){
+        for (Food f:
+                foodList) {
+            if (f.getName().equals(food.getName())){
+                return  foodList.indexOf(f);
+            }
+        }
+        return -1;
     }
 
     private void updateUI() {
@@ -231,13 +247,43 @@ public class SearchFoodActivity extends AppCompatActivity {
         public void onClick(View view) {
 
             if (checkFood(itemAdapter.foods.get(getAdapterPosition()))){
-                return;
+                alert();
             } else {
                 Intent intent = new Intent(SearchFoodActivity.this, ActivityDetailFood.class);
                 intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
                 startActivityForResult(intent,45);
             }
 
+        }
+
+        void alert(){
+            AlertDialog.Builder builder = new AlertDialog.Builder(SearchFoodActivity.this);
+            AlertDialog alertDialog = builder.create();
+            View.OnClickListener listener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    switch (v.getId()){
+                            case R.id.btnCancel:
+                            alertDialog.dismiss();
+                            break;
+                            case R.id.btnChange:
+                                Intent intent = new Intent(SearchFoodActivity.this, ActivityDetailFood.class);
+                                intent.putExtra(Config.DETAIL_FOOD_BTN_NAME, "Изменить");
+                                intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
+                                startActivityForResult(intent,45);
+                                alertDialog.dismiss();
+                            break;
+                    }
+                }
+            };
+
+            View view = LayoutInflater.from(SearchFoodActivity.this).inflate(R.layout.alert_dialog_change_food_in_template, null);
+            Button cancel = view.findViewById(R.id.btnCancel);
+            Button edit = view.findViewById(R.id.btnChange);
+            cancel.setOnClickListener(listener);
+            edit.setOnClickListener(listener);
+            alertDialog.setView(view);
+            alertDialog.show();
         }
 
         public void bind(Food food) {

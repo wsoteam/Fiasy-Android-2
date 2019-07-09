@@ -96,6 +96,8 @@ public class BrowseFoodTemplateFragment  extends MvpAppCompatFragment
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isResumed()) {
             presenter.initAdapter();
+            Log.d("kkk", "setUserVisibleHint: ");
         }
     }
+
 }

@@ -291,6 +291,7 @@ public class WorkWithFirebaseDB {
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodTemplates");
         String key = myRef.push().getKey();
+        foodTemplate.setKey(key);
         myRef.child(key).setValue(foodTemplate);
         return key;
     }
@@ -300,6 +301,12 @@ public class WorkWithFirebaseDB {
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodTemplates").child(key);
         myRef.removeValue();
+    }
+    public static void editFoodTemplate(String key,FoodTemplate foodTemplate){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodTemplates").child(key);
+        myRef.setValue(foodTemplate);
     }
 
 }
