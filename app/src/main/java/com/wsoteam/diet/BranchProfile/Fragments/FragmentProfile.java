@@ -142,10 +142,20 @@ public class FragmentProfile extends Fragment {
                 tvProfileLevel.setTextColor(getResources().getColor(R.color.level_hard));
             }
         }
-        if (profile.isFemale()) {
-            Glide.with(this).load(R.drawable.female_avatar).into(civProfile);
+
+        setPhoto(profile);
+
+    }
+
+    private void setPhoto(Profile profile) {
+        if (profile.getPhotoUrl() != null && !profile.getPhotoUrl().equals("default")) {
+            Glide.with(this).load(profile.getPhotoUrl()).into(civProfile);
         } else {
-            Glide.with(this).load(R.drawable.male_avatar).into(civProfile);
+            if (profile.isFemale()) {
+                Glide.with(this).load(R.drawable.female_avatar).into(civProfile);
+            } else {
+                Glide.with(this).load(R.drawable.male_avatar).into(civProfile);
+            }
         }
     }
 

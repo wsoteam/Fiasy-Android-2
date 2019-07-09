@@ -294,4 +294,11 @@ public class WorkWithFirebaseDB {
     }
 
 
+    public static void setPhotoURL(String url) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("profile").child("photoUrl");
+        myRef.setValue(url);
+    }
+
 }
