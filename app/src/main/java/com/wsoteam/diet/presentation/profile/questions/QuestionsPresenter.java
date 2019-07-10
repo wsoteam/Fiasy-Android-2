@@ -1,4 +1,4 @@
-package com.wsoteam.diet.presentation.profile.edit;
+package com.wsoteam.diet.presentation.profile.questions;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatCheckedTextView;
@@ -20,9 +20,8 @@ import java.util.Calendar;
 
 import ru.terrakok.cicerone.Router;
 
-@Deprecated
 @InjectViewState
-public class EditProfilePresenter extends BasePresenter<EditProfileView> {
+public class QuestionsPresenter extends BasePresenter<QuestionsView> {
 
     private static final int MIN_AGE = 9;
     private static final int MAX_AGE = 200;
@@ -33,7 +32,7 @@ public class EditProfilePresenter extends BasePresenter<EditProfileView> {
     private Context context;
     private Router router;
 
-    public EditProfilePresenter(Context context, Router router) {
+    public QuestionsPresenter(Context context, Router router) {
         this.router = router;
         this.context = context;
     }

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingTop="6dp">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/onboard_purpose_title"
+        android:textColor="#de2b2b2b"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <RadioButton
+        android:id="@+id/cbNormal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_purpose_normal_selector"
+        android:button="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/cbLooseWeight"
+        app:layout_constraintEnd_toStartOf="@+id/cbLooseWeight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cbLooseWeight"/>
+
+    <TextView
+        android:id="@+id/tvNormal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/onboard_purpose_normal_text"
+        android:textColor="@color/confirm_text"
+        app:layout_constraintEnd_toEndOf="@+id/cbNormal"
+        app:layout_constraintStart_toStartOf="@+id/cbNormal"
+        app:layout_constraintTop_toTopOf="@+id/tvLooseWeight"/>
+
+    <RadioButton
+        android:id="@+id/cbLooseWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_purpose_loose_weight_selector"
+        android:button="@null"
+        app:layout_constraintBottom_toTopOf="@+id/cbSave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cbNormal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <TextView
+        android:id="@+id/tvLooseWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/onboard_purpose_loose_weight_text"
+        android:textColor="@color/confirm_text"
+        app:layout_constraintEnd_toEndOf="@+id/cbLooseWeight"
+        app:layout_constraintStart_toStartOf="@+id/cbLooseWeight"
+        app:layout_constraintTop_toBottomOf="@+id/cbLooseWeight"/>
+
+    <RadioButton
+        android:id="@+id/cbMuscle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/ic_purpose_muscle_selector"
+        android:button="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/cbSave"
+        app:layout_constraintEnd_toStartOf="@+id/cbSave"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cbSave"/>
+
+    <TextView
+        android:id="@+id/tvMuscle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/onboard_purpose_muscle_text"
+        android:textColor="@color/confirm_text"
+        app:layout_constraintEnd_toEndOf="@+id/cbMuscle"
+        app:layout_constraintStart_toStartOf="@+id/cbMuscle"
+        app:layout_constraintTop_toTopOf="@+id/tvSave"/>
+
+    <RadioButton
+        android:id="@+id/cbSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:background="@drawable/ic_purpose_save_selector"
+        android:button="@null"
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cbMuscle"
+        app:layout_constraintTop_toBottomOf="@+id/cbLooseWeight"/>
+
+    <TextView
+        android:id="@+id/tvSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/onboard_purpose_save_text"
+        android:textColor="@color/confirm_text"
+        app:layout_constraintEnd_toEndOf="@+id/cbSave"
+        app:layout_constraintStart_toStartOf="@+id/cbSave"
+        app:layout_constraintTop_toBottomOf="@+id/cbSave"/>
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="10dp"
+        android:text="@string/auth_data_btn_next"
+        android:textAllCaps="true"
+        android:textColor="@color/orange1"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

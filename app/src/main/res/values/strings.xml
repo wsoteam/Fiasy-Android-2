@@ -76,6 +76,13 @@
     <string name="profile_activity">Выберите у Вас уровень активности?</string>
     <string name="profile_weight">Ваш вес</string>
 
+    <string name="onboard_sex_title">Кто вы?</string>
+    <string name="onboard_purpose_title">Выберите свою цель</string>
+    <string name="onboard_purpose_normal_text">Поддержания тела в\nформе</string>
+    <string name="onboard_purpose_loose_weight_text">Похудение</string>
+    <string name="onboard_purpose_muscle_text">Набор мышечной\nмассы</string>
+    <string name="onboard_purpose_save_text">Сохранение мышц и\nсжигание жира</string>
+
     <!--Add Measurements Activity-->
     <string name="tv_select_date_measur">Выберите дату</string>
     <string name="tvTitleWeight">Вес</string>

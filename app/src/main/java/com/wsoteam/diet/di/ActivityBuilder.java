@@ -6,6 +6,7 @@ import com.wsoteam.diet.presentation.auth.restore.ActivityForgotPassword;
 import com.wsoteam.diet.presentation.intro.IntroActivity;
 import com.wsoteam.diet.presentation.main.water.WaterActivity;
 import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
+import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -32,4 +33,7 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
     abstract WaterActivity bindWaterActivity();
+
+    @ContributesAndroidInjector
+    abstract QuestionsActivity bindQuestionsActivity();
 }

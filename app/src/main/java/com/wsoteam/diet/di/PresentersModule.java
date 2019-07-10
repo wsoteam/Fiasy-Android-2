@@ -6,6 +6,7 @@ import com.wsoteam.diet.presentation.auth.main.MainAuthPresenter;
 import com.wsoteam.diet.presentation.intro.IntroPresenter;
 import com.wsoteam.diet.presentation.main.water.WaterPresenter;
 import com.wsoteam.diet.presentation.profile.edit.EditProfilePresenter;
+import com.wsoteam.diet.presentation.profile.questions.QuestionsPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -32,5 +33,10 @@ public class PresentersModule {
     @Provides
     WaterPresenter provideWaterPresenter(Context context, Router router) {
         return new WaterPresenter(context, router);
+    }
+
+    @Provides
+    QuestionsPresenter provideQuestionsPresenter(Context context, Router router) {
+        return new QuestionsPresenter(context, router);
     }
 }

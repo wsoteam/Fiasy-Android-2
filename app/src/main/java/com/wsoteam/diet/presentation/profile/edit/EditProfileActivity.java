@@ -27,6 +27,7 @@ import dagger.android.AndroidInjection;
 import io.alterac.blurkit.BlurLayout;
 import io.reactivex.disposables.Disposable;
 
+@Deprecated
 public class EditProfileActivity extends BaseActivity implements EditProfileView {
 
     private static final String TAG = "EditProfile";

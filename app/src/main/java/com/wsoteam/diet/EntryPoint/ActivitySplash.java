@@ -42,15 +42,11 @@ import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
-import com.wsoteam.diet.Recipes.adding.ProductSearchActivity;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.presentation.global.BaseActivity;
-import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
-import com.wsoteam.diet.tvoytrener.ForTestFragmentActivity;
+import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 
 import java.util.Calendar;
 import java.util.List;
@@ -112,12 +108,17 @@ public class ActivitySplash extends BaseActivity {
         } else {
             FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
-            if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_ONBOARD, false)) {
+            startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+            /*
+            if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_ONBOARD, true)) {
+                Log.d("MyLogs", "2");
                 Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
-                startActivity(new Intent(this, EditProfileActivity.class).putExtra(Config.CREATE_PROFILE, true));
+                startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
             } else {
+                Log.d("MyLogs", "3");
                 startActivity(new Intent(ActivitySplash.this, MainAuthActivity.class).putExtra(Config.CREATE_PROFILE, true));
             }
+            */
             finish();
         }
     }
