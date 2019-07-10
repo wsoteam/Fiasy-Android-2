@@ -107,7 +107,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new FragmentSearch());
         fragments.add(new FragmentFavoriteContainer());
-        fragments.add(new FragmentRecipeContainer());
+        //fragments.add(new FragmentRecipeContainer());
         return fragments;
     }
 

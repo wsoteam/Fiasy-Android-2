@@ -47,6 +47,12 @@ public class ActivityCreateFood extends AppCompatActivity {
         ButterKnife.bind(this);
         customFood = new CustomFood();
         updateUI();
+        vpFragmentContainer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
     }
 
     private void updateUI() {

@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,11 +52,14 @@ public class FragmentMainInfo extends Fragment implements SayForward {
     }
 
     private void setInfo() {
+        String brand = edtBrand.getText().toString().replaceAll("\\s+", " ").trim();
+        String name = edtName.getText().toString().replaceAll("\\s+", " ").trim();
         CustomFood customFood = ((ActivityCreateFood) getActivity()).customFood;
-        customFood.setBrand(edtBrand.getText().toString());
-        customFood.setName(edtName.getText().toString());
+        customFood.setBrand(brand);
+        customFood.setName(name);
         customFood.setBarcode(edtBarcode.getText().toString());
         (((ActivityCreateFood) getActivity()).isPublicFood) = swtShare.isChecked();
+        Log.e("LOL", customFood.toString());
     }
 
     @Nullable

@@ -23,6 +23,7 @@
             android:layout_height="48dp"
             android:textColor="@color/black"
             android:fontFamily="@font/roboto"
+            android:maxLength="200"
             android:hint="@string/brand" />
     </android.support.design.widget.TextInputLayout>
 
@@ -43,6 +44,7 @@
             android:layout_height="48dp"
             android:textColor="@color/black"
             android:fontFamily="@font/roboto"
+            android:maxLength="200"
             android:hint="@string/food_name" />
     </android.support.design.widget.TextInputLayout>
 
@@ -64,6 +66,7 @@
             android:textColor="@color/black"
             android:inputType="numberDecimal"
             android:fontFamily="@font/roboto"
+            android:maxLength="44"
             android:hint="@string/barcode" />
     </android.support.design.widget.TextInputLayout>
 

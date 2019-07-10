@@ -29,6 +29,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="@string/calories"
                 android:inputType="numberDecimal"
+                android:maxLength="5"
                 android:textColor="@color/black" />
         </android.support.design.widget.TextInputLayout>
 
@@ -51,6 +52,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="@string/create_food_fats"
                 android:inputType="numberDecimal"
+                android:maxLength="5"
                 android:textColor="@color/black" />
         </android.support.design.widget.TextInputLayout>
 
@@ -72,6 +74,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="@string/carbo"
                 android:inputType="numberDecimal"
+                android:maxLength="5"
                 android:textColor="@color/black" />
         </android.support.design.widget.TextInputLayout>
 
@@ -93,6 +96,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="@string/prot"
                 android:inputType="numberDecimal"
+                android:maxLength="5"
                 android:textColor="@color/black" />
         </android.support.design.widget.TextInputLayout>
 
@@ -115,6 +119,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="@string/edtCell"
                 android:inputType="numberDecimal"
+                android:maxLength="5"
                 android:textColor="@color/black" />
         </android.support.design.widget.TextInputLayout>
 
@@ -136,6 +141,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="@string/edtSugar"
                 android:inputType="numberDecimal"
+                android:maxLength="5"
                 android:textColor="@color/black" />
         </android.support.design.widget.TextInputLayout>
 
@@ -157,6 +163,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="@string/edtSaturatedFats"
                 android:inputType="numberDecimal"
+                android:maxLength="5"
                 android:textColor="@color/black" />
         </android.support.design.widget.TextInputLayout>
 
@@ -178,6 +185,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="@string/edtMonoUnSaturatedFats"
                 android:inputType="numberDecimal"
+                android:maxLength="5"
                 android:textColor="@color/black" />
         </android.support.design.widget.TextInputLayout>
 
@@ -199,6 +207,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="@string/edtPolyUnSaturatedFats"
                 android:inputType="numberDecimal"
+                android:maxLength="5"
                 android:textColor="@color/black" />
         </android.support.design.widget.TextInputLayout>
 
@@ -220,6 +229,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="@string/edtCholesterol"
                 android:inputType="numberDecimal"
+                android:maxLength="5"
                 android:textColor="@color/black" />
         </android.support.design.widget.TextInputLayout>
 
@@ -241,6 +251,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="@string/edtSodium"
                 android:inputType="numberDecimal"
+                android:maxLength="5"
                 android:textColor="@color/black" />
         </android.support.design.widget.TextInputLayout>
 
@@ -262,6 +273,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="@string/edtPottassium"
                 android:inputType="numberDecimal"
+                android:maxLength="5"
                 android:textColor="@color/black" />
         </android.support.design.widget.TextInputLayout>
 
