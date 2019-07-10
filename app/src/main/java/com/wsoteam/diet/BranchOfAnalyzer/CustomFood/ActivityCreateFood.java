@@ -6,13 +6,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wsoteam.diet.BranchOfAnalyzer.Controller.CustomFoodViewPagerAdapter;
+import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.Fragments.FragmentBonusOutlay;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.Fragments.FragmentMainInfo;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.Fragments.FragmentOutlay;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.Fragments.FragmentResult;
@@ -34,6 +34,7 @@ public class ActivityCreateFood extends AppCompatActivity {
     @BindView(R.id.tvTitle) TextView tvTitle;
     @BindView(R.id.btnForward) Button btnForward;
     @BindView(R.id.btnBack) Button btnBack;
+    @BindView(R.id.tvSubtitle) TextView tvSubtitle;
     private CustomFoodViewPagerAdapter vpAdapter;
     private final int FRAGMENT_RESULT = 2, FRAGMENT_OUTLAY = 1, FRAGMENT_MAIN = 0;
     private final int COUNT_GRAMM = 100;
@@ -73,6 +74,7 @@ public class ActivityCreateFood extends AppCompatActivity {
 
     private void updateUIAfterScrolled(int i) {
         tvTitle.setText(getResources().getStringArray(R.array.fragment_names)[i]);
+        tvSubtitle.setText(getResources().getStringArray(R.array.fragment_subtitles)[i]);
         if (i == FRAGMENT_RESULT) {
             btnForward.setText(getString(R.string.ok_forward));
         }
@@ -91,6 +93,7 @@ public class ActivityCreateFood extends AppCompatActivity {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new FragmentMainInfo());
         fragments.add(new FragmentOutlay());
+        fragments.add(new FragmentBonusOutlay());
         fragments.add(new FragmentResult());
         return fragments;
     }

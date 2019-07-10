@@ -711,9 +711,17 @@
     <string name="own_food">свои продукты</string>
     <string name="add_food">Добавить продукт</string>
     <string name="create_user_food">Создать продукт</string>
+    <string name="error_name">Введите название продукта</string>
     <string-array name="fragment_names">
         <item>Добавить продукт</item>
         <item>Пищевая ценность на 100 г</item>
+        <item>Пищевая ценность на 100 г</item>
         <item>Добавить продукт</item>
+    </string-array>
+    <string-array name="fragment_subtitles">
+        <item>Основная информация</item>
+        <item>Обязательная информация</item>
+        <item>Необязательная информация</item>
+        <item>Завершение</item>
     </string-array>
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -85,6 +86,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="28dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout23">
@@ -99,184 +102,5 @@
                 android:maxLength="5"
                 android:textColor="@color/black" />
         </android.support.design.widget.TextInputLayout>
-
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout24">
-
-            <EditText
-                android:id="@+id/edtCell"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:fontFamily="@font/roboto"
-                android:hint="@string/edtCell"
-                android:inputType="numberDecimal"
-                android:maxLength="5"
-                android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
-
-            <EditText
-                android:id="@+id/edtSugar"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:fontFamily="@font/roboto"
-                android:hint="@string/edtSugar"
-                android:inputType="numberDecimal"
-                android:maxLength="5"
-                android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
-
-            <EditText
-                android:id="@+id/edtSaturatedFats"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:fontFamily="@font/roboto"
-                android:hint="@string/edtSaturatedFats"
-                android:inputType="numberDecimal"
-                android:maxLength="5"
-                android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
-
-            <EditText
-                android:id="@+id/edtMonoUnSaturatedFats"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:fontFamily="@font/roboto"
-                android:hint="@string/edtMonoUnSaturatedFats"
-                android:inputType="numberDecimal"
-                android:maxLength="5"
-                android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout7">
-
-            <EditText
-                android:id="@+id/edtPolyUnSaturatedFats"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:fontFamily="@font/roboto"
-                android:hint="@string/edtPolyUnSaturatedFats"
-                android:inputType="numberDecimal"
-                android:maxLength="5"
-                android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout8">
-
-            <EditText
-                android:id="@+id/edtCholesterol"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:fontFamily="@font/roboto"
-                android:hint="@string/edtCholesterol"
-                android:inputType="numberDecimal"
-                android:maxLength="5"
-                android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout9">
-
-            <EditText
-                android:id="@+id/edtSodium"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:fontFamily="@font/roboto"
-                android:hint="@string/edtSodium"
-                android:inputType="numberDecimal"
-                android:maxLength="5"
-                android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout11"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout10">
-
-            <EditText
-                android:id="@+id/edtPottassium"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:fontFamily="@font/roboto"
-                android:hint="@string/edtPottassium"
-                android:inputType="numberDecimal"
-                android:maxLength="5"
-                android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
-
-
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

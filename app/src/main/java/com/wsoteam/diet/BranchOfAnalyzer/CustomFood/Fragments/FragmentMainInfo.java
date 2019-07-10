@@ -46,7 +46,7 @@ public class FragmentMainInfo extends Fragment implements SayForward {
             setInfo();
             return true;
         } else {
-            Toast.makeText(getActivity(), getString(R.string.error_toast), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.error_name), Toast.LENGTH_SHORT).show();
             return false;
         }
     }
