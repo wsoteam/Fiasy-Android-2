@@ -30,7 +30,7 @@ public class ActivityCreateFood extends AppCompatActivity {
 
     public CustomFood customFood;
     public boolean isPublicFood;
-    @BindView(R.id.vpFragmentContainer) ViewPager vpFragmentContainer;
+    @BindView(R.id.vpFragmentContainer) CustomViewPager vpFragmentContainer;
     @BindView(R.id.tvTitle) TextView tvTitle;
     @BindView(R.id.btnForward) Button btnForward;
     @BindView(R.id.btnBack) Button btnBack;
@@ -46,24 +46,13 @@ public class ActivityCreateFood extends AppCompatActivity {
         ButterKnife.bind(this);
         customFood = new CustomFood();
         btnBack.setVisibility(View.GONE);
+        vpFragmentContainer.disableScroll(true);
         updateUI();
-        vpFragmentContainer.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
     }
 
     private void updateUI() {
         vpAdapter = new CustomFoodViewPagerAdapter(getSupportFragmentManager(), createFragmentList());
         vpFragmentContainer.setAdapter(vpAdapter);
-        vpFragmentContainer.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
         vpFragmentContainer.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
