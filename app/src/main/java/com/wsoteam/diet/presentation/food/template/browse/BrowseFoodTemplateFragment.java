@@ -99,5 +99,4 @@ public class BrowseFoodTemplateFragment  extends MvpAppCompatFragment
             Log.d("kkk", "setUserVisibleHint: ");
         }
     }
-
 }

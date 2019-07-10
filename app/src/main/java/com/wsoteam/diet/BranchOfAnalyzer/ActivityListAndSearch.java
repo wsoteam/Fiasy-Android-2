@@ -48,6 +48,8 @@ public class ActivityListAndSearch extends AppCompatActivity {
     private TabsAdapter tabsAdapter;
     public int spinnerId = 0;
 
+    List<Fragment> fragments;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,13 +101,23 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if (fragments.get( viewPager.getCurrentItem()) instanceof BrowseFoodTemplateFragment){
+            ((BrowseFoodTemplateFragment)fragments.get( viewPager.getCurrentItem()))
+                    .setUserVisibleHint(true);
+        }
+
+    }
+
     private void updateUI() {
         tabsAdapter = new TabsAdapter(getSupportFragmentManager(), createFragmentsList());
         viewPager.setAdapter(tabsAdapter);
     }
 
     private List<Fragment> createFragmentsList() {
-        List<Fragment> fragments = new ArrayList<>();
+        fragments = new ArrayList<>();
         fragments.add(new FragmentSearch());
         fragments.add(new FragmentFavorites());
         fragments.add(new BrowseFoodTemplateFragment());
