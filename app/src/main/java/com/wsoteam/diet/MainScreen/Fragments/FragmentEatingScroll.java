@@ -213,7 +213,7 @@ public class FragmentEatingScroll extends Fragment {
 
         final String carboText = String.format(pattern, carbo, apCollapsingCarbo.getMax());
         if (apCollapsingCarbo.getMax() >= carbo) {
-            apCollapsingCarbo.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_carbo));
+            apCollapsingCarbo.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_main));
             tvCarbo.setText(spanText(carboText, String.valueOf(carbo), R.color.gray4));
             tvCollapsCarbo.setTextColor(getResources().getColor(R.color.total_title));
         } else {
@@ -224,7 +224,7 @@ public class FragmentEatingScroll extends Fragment {
 
         final String fatText = String.format(pattern, fat, apCollapsingFat.getMax());
         if (apCollapsingFat.getMax() >= fat) {
-            apCollapsingFat.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_fat));
+            apCollapsingFat.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_main));
             tvFat.setText(spanText(fatText, String.valueOf(fat), R.color.gray4));
             tvCollapsFat.setTextColor(getResources().getColor(R.color.total_title));
         } else {
@@ -235,7 +235,7 @@ public class FragmentEatingScroll extends Fragment {
 
         final String protText = String.format(pattern, prot, apCollapsingProt.getMax());
         if (apCollapsingProt.getMax() >= prot) {
-            apCollapsingProt.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_proteins));
+            apCollapsingProt.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_main));
             tvProt.setText(spanText(protText, String.valueOf(prot), R.color.gray4));
             tvCollapsProt.setTextColor(getResources().getColor(R.color.total_title));
         } else {

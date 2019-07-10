@@ -165,7 +165,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
             editor.apply();
         }
 
-        cvParams.setBackgroundResource(R.drawable.main_card_params);
+//        cvParams.setBackgroundResource(R.drawable.main_card_params);
 
         bindViewPager();
 
@@ -213,6 +213,16 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         }
     }
 
+    @Override
+    public void onCalendarClicked() {
+        SublimePickerDialogFragment sublimePickerDialogFragment = new SublimePickerDialogFragment();
+        Bundle bundle = new Bundle();
+        sublimePickerDialogFragment.setArguments(bundle);
+        sublimePickerDialogFragment.setCancelable(true);
+        sublimePickerDialogFragment.setTargetFragment(this, 0);
+        sublimePickerDialogFragment.show(getFragmentManager(), null);
+    }
+
     private void attachCaloriesPopup() {
         View popupView = getLayoutInflater().inflate(R.layout.layout_notification_calories_over, null);
         final PopupWindow popupWindow = new PopupWindow(popupView,
@@ -243,7 +253,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         return countOfRun.getInt(TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG, 0);
     }
 
-    @OnClick({R.id.fabAddEating, R.id.ivCalendar, R.id.btnNotification})
+    @OnClick({R.id.fabAddEating, R.id.btnNotification})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fabAddEating:
@@ -253,14 +263,6 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
                 break;
             case R.id.btnNotification:
                 attachCaloriesPopup();
-                break;
-            case R.id.ivCalendar:
-                SublimePickerDialogFragment sublimePickerDialogFragment = new SublimePickerDialogFragment();
-                Bundle bundle = new Bundle();
-                sublimePickerDialogFragment.setArguments(bundle);
-                sublimePickerDialogFragment.setCancelable(true);
-                sublimePickerDialogFragment.setTargetFragment(this, 0);
-                sublimePickerDialogFragment.show(getFragmentManager(), null);
                 break;
         }
     }
