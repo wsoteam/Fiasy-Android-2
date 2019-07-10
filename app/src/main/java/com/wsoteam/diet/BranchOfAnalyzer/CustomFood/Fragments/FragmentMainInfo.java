@@ -59,7 +59,6 @@ public class FragmentMainInfo extends Fragment implements SayForward {
         customFood.setName(name);
         customFood.setBarcode(edtBarcode.getText().toString());
         (((ActivityCreateFood) getActivity()).isPublicFood) = swtShare.isChecked();
-        Log.e("LOL", customFood.toString());
     }
 
     @Nullable
