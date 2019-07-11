@@ -50,7 +50,7 @@
             app:srcCompat="@drawable/settings_profile" />
 
         <ImageButton
-            android:id="@+id/ibSettings2"
+            android:id="@+id/ibExpandable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="50dp"
@@ -61,7 +61,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/tvUserName"
             app:layout_constraintTop_toTopOf="@+id/tvUserName"
-            app:srcCompat="@drawable/ic_close_detail_profile" />
+            app:srcCompat="@drawable/ic_open_detail_profile" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civProfile"
@@ -100,6 +100,7 @@
             android:text="235 г"
             android:textColor="#d9424242"
             android:textSize="16sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/tvFatCount"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tvProtCount"
@@ -113,6 +114,7 @@
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/roboto_medium"
             android:text="60 г"
+            android:visibility="gone"
             android:textColor="#d9424242"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -130,6 +132,7 @@
             android:layout_marginBottom="32dp"
             android:fontFamily="@font/roboto_medium"
             android:text="60 г"
+            android:visibility="gone"
             android:textColor="#d9424242"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -208,6 +211,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
             android:text="белка"
+            android:visibility="gone"
             android:textColor="#80424242"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/tvProtCount"
@@ -220,6 +224,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
             android:text="углеводов"
+            android:visibility="gone"
             android:textColor="#80424242"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/tvCarboCount"
@@ -232,6 +237,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
             android:text="жиров"
+            android:visibility="gone"
             android:textColor="#80424242"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/tvFatCount"

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -26,6 +27,7 @@ import com.wsoteam.diet.model.Eating;
 import com.wsoteam.diet.presentation.global.BasePresenter;
 import com.wsoteam.diet.presentation.intro.IntroView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -44,6 +46,7 @@ public class ProfilePresenter extends  BasePresenter<ProfileView>{
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_profile);
+        bindFields();
     }
 
     public void dateSort() {
@@ -83,14 +86,11 @@ public class ProfilePresenter extends  BasePresenter<ProfileView>{
     }
 
     void bindFields(){
-        if (UserDataHolder.getUserData().getProfile() != null) {
+        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
             Profile profile = UserDataHolder.getUserData().getProfile();
             getViewState().fillViewsIfProfileNotNull(profile);
         }
     }
-
-
-
 
     private SortedMap<Long, Integer> sort(HashMap<Long, Integer> calories) {
         SortedMap<Long, Integer> sortedMap = new TreeMap<>();
@@ -144,11 +144,13 @@ public class ProfilePresenter extends  BasePresenter<ProfileView>{
         return calendar.getTimeInMillis();
     }
 
-    public String uploadPhoto(byte[] array) {
+    public void uploadPhoto(Bitmap bitmap) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
         String avatarName = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference().child(Config.AVATAR_PATH + avatarName + Config.AVATAR_EXTENSION);
-        storageRef.putBytes(array).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        storageRef.putBytes(bos.toByteArray()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -159,6 +161,5 @@ public class ProfilePresenter extends  BasePresenter<ProfileView>{
                 });
             }
         });
-        return null;
     }
 }

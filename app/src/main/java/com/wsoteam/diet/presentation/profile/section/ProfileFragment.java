@@ -1,41 +1,31 @@
 package com.wsoteam.diet.presentation.profile.section;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
-import com.wsoteam.diet.BranchProfile.ActivityEditCompletedProfile;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
-import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -54,6 +44,10 @@ public class ProfileFragment extends Fragment implements ProfileView {
     @Inject
     @InjectPresenter
     ProfilePresenter profilePresenter;
+    @BindViews({R.id.tvCarboCount, R.id.tvFatCount, R.id.tvProtCount, R.id.tvLabelProt, R.id.tvLabelCarbo, R.id.tvLabelFats})
+    List<View> viewListExpandable;
+    @BindView(R.id.ibExpandable) ImageButton ibExpandable;
+    private boolean isOpen = false;
 
     @Override
     public void fillViewsIfProfileNotNull(Profile profile) {
@@ -73,13 +67,6 @@ public class ProfileFragment extends Fragment implements ProfileView {
     ProfilePresenter providePresenter() {
         return profilePresenter;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        profilePresenter.bindFields();
-    }
-
 
     @Nullable
     @Override
@@ -108,12 +95,14 @@ public class ProfileFragment extends Fragment implements ProfileView {
     }
 
 
-    @OnClick({R.id.ibSettings})
+    @OnClick({R.id.ibSettings, R.id.ibExpandable})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibSettings:
-                profilePresenter.
                 startActivity(new Intent(getActivity(), ActivitySettings.class));
+                break;
+            case R.id.ibExpandable:
+                openParams();
                 break;
            /* case R.id.civProfile:
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
@@ -131,126 +120,24 @@ public class ProfileFragment extends Fragment implements ProfileView {
         }
     }
 
-    private void calculate(String hardLevel) {
-        Profile currentProfile = UserDataHolder.getUserData().getProfile();
-
-        double SPK = 0, upLineSPK = 0, downLineSPK = 0;
-        final int WATER_ON_KG_FEMALE = 30;
-        final int WATER_ON_KG_MALE = 40;
-
-        String levelNone = getString(R.string.level_none);
-        double BOO = 0, SDD = 0.1;
-        double rateNone = 1.2, rateEasy = 1.375, rateMedium = 1.4625, rateHard = 1.55,
-                rateUpHard = 1.6375, rateSuper = 1.725, rateUpSuper = 1.9;
-        int maxWater;
-        double forCountUpLine = 300, forCountDownLine = 500;
-        double fat, protein, carbohydrate;
-
-
-        if (currentProfile.isFemale()) {
-            BOO = (9.99 * currentProfile.getWeight() + 6.25 * ((double) currentProfile.getHeight()) - 4.92 * currentProfile.getAge() - 161) * 1.1;
+    private void openParams() {
+        if (isOpen) {
+            ButterKnife.apply(viewListExpandable, (view, value, index) -> view.setVisibility(value), View.GONE);
+            isOpen = false;
+            Glide.with(getActivity()).load(R.drawable.ic_open_detail_profile).into(ibExpandable);
         } else {
-            BOO = (9.99 * currentProfile.getWeight() + 6.25 * ((double) currentProfile.getHeight()) - 4.92 * currentProfile.getAge() + 5) * 1.1;
-        }
-
-        /*Check level load*/
-        if (currentProfile.getExerciseStress().equalsIgnoreCase(getString(R.string.level_none))) {
-            SPK = BOO * rateNone;
-        }
-        if (currentProfile.getExerciseStress().equalsIgnoreCase(getString(R.string.level_easy))) {
-            SPK = BOO * rateEasy;
-        }
-        if (currentProfile.getExerciseStress().equalsIgnoreCase(getString(R.string.level_medium))) {
-            SPK = BOO * rateMedium;
-        }
-        if (currentProfile.getExerciseStress().equalsIgnoreCase(getString(R.string.level_hard))) {
-            SPK = BOO * rateHard;
-        }
-        if (currentProfile.getExerciseStress().equalsIgnoreCase(getString(R.string.level_up_hard))) {
-            SPK = BOO * rateUpHard;
-        }
-        if (currentProfile.getExerciseStress().equalsIgnoreCase(getString(R.string.level_super))) {
-            SPK = BOO * rateSuper;
-        }
-        if (currentProfile.getExerciseStress().equalsIgnoreCase(getString(R.string.level_up_super))) {
-            SPK = BOO * rateUpSuper;
-        }
-
-        upLineSPK = SPK - forCountUpLine;
-        downLineSPK = SPK - forCountDownLine;
-
-        fat = upLineSPK * 0.2 / 9;
-        protein = upLineSPK * 0.3 / 4;
-        carbohydrate = upLineSPK * 0.5 / 3.75;
-
-        if (currentProfile.isFemale()) {
-            maxWater = WATER_ON_KG_FEMALE * (int) currentProfile.getWeight();
-        } else {
-            maxWater = WATER_ON_KG_MALE * (int) currentProfile.getWeight();
-        }
-
-
-        Profile profile = new Profile(currentProfile.getFirstName(), currentProfile.getLastName(),
-                currentProfile.isFemale(), currentProfile.getAge(), currentProfile.getHeight(), currentProfile.getWeight(), 0,
-                currentProfile.getExerciseStress(), currentProfile.getPhotoUrl(), maxWater, 0, (int) protein,
-                (int) fat, (int) carbohydrate, hardLevel, currentProfile.getNumberOfDay(), currentProfile.getMonth(), currentProfile.getYear());
-
-        if (hardLevel.equalsIgnoreCase(getString(R.string.dif_level_easy))) {
-            profile.setMaxKcal((int) SPK);
-            WorkWithFirebaseDB.putProfileValue(profile);
-            fillViewsIfProfileNotNull(profile);
-
-
-        } else if (hardLevel.equalsIgnoreCase(getString(R.string.dif_level_normal))) {
-            profile.setMaxKcal((int) upLineSPK);
-            WorkWithFirebaseDB.putProfileValue(profile);
-            fillViewsIfProfileNotNull(profile);
-
-        } else if (hardLevel.equalsIgnoreCase(getString(R.string.dif_level_hard))) {
-            profile.setMaxKcal((int) downLineSPK);
-            WorkWithFirebaseDB.putProfileValue(profile);
-            fillViewsIfProfileNotNull(profile);
-
+            ButterKnife.apply(viewListExpandable, (view, value, index) -> view.setVisibility(value), View.VISIBLE);
+            isOpen = true;
+            Glide.with(getActivity()).load(R.drawable.ic_close_detail_profile).into(ibExpandable);
         }
     }
 
-    private void selectHardLevel() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        final AlertDialog alertDialog = builder.create();
-        View view = View.inflate(getActivity(), R.layout.alert_dialog_choise_difficulty_level, null);
-        CardView cvADChoiseDiffLevelHard = view.findViewById(R.id.cvADChoiseDiffLevelHard);
-        CardView cvADChoiseDiffLevelNormal = view.findViewById(R.id.cvADChoiseDiffLevelNormal);
-        CardView cvADChoiseDiffLevelEasy = view.findViewById(R.id.cvADChoiseDiffLevelEasy);
-
-        cvADChoiseDiffLevelEasy.setOnClickListener(view1 -> {
-            calculate(getActivity().getResources().getString(R.string.dif_level_easy));
-            alertDialog.cancel();
-
-        });
-        cvADChoiseDiffLevelNormal.setOnClickListener(view12 -> {
-            calculate(getActivity().getResources().getString(R.string.dif_level_normal));
-
-            alertDialog.cancel();
-        });
-        cvADChoiseDiffLevelHard.setOnClickListener(view13 -> {
-            calculate(getActivity().getResources().getString(R.string.dif_level_hard));
-            alertDialog.cancel();
-        });
-        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        alertDialog.setView(view);
-        alertDialog.show();
-
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            photo.compress(Bitmap.CompressFormat.PNG, 0, bos);
-            //new ProfilePresenter().uploadPhoto(bos.toByteArray());
+            profilePresenter.uploadPhoto((Bitmap) data.getExtras().get("data"));
         }
     }
 }
