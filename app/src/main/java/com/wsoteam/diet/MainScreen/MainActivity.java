@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
                     return true;
                 case R.id.bnv_main_profile:
-                    transaction.replace(R.id.flFragmentContainer, new BrowseFoodTemplateFragment()).commit();
+                    transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
                     window.setStatusBarColor(Color.parseColor("#2E4E4E"));
                     return true;
             }

@@ -19,6 +19,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.presentation.food.helper.NounsDeclension;
 import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplatePresenter;
 
 import java.util.ArrayList;
@@ -129,7 +130,9 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
             imageView.setImageResource(getImgID(templateList.get(position).getEating()));
             tvName.setText(templateList.get(position).getName());
             linearLayout.removeAllViews();
-            tvCountFoods.setText(templateList.get(position).getFoodList().size() + " продуктов");
+            int numbers = templateList.get(position).getFoodList().size();
+            tvCountFoods.setText(numbers
+            + NounsDeclension.check(numbers, " продукт", " продукта", " продуктов"));
 
             for (Food food:
                     templateList.get(position).getFoodList()) {
