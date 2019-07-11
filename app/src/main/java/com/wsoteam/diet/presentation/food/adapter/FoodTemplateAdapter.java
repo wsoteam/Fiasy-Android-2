@@ -76,6 +76,9 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
         @BindView(R.id.llFoodsContainer) LinearLayout linearLayout;
         @BindView(R.id.ivTogle) ImageView ivTogle;
 
+        final int menuEditID = 66;
+        final int menuDeleteID = 321;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,19 +95,19 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 //            menu.setHeaderTitle("Select The Action");
-            menu.add(0,22, 0, R.string.contextMenuEdit)
+            menu.add(0, menuEditID, 0, R.string.contextMenuEdit)
                     .setOnMenuItemClickListener(this);//groupId, itemId, order, title
-            menu.add(0, 33, 0, R.string.contextMenuDelete)
+            menu.add(0, menuDeleteID, 0, R.string.contextMenuDelete)
                     .setOnMenuItemClickListener(this);
         }
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()){
-                case 22:
+                case menuEditID:
                     presenter.editTemplate(templateList.get(getAdapterPosition()));
                     return true;
-                case 33:
+                case menuDeleteID:
                     WorkWithFirebaseDB.deleteFoodTemplate(templateList.get(getAdapterPosition()).getKey());
                     templateList.remove(templateList.get(getAdapterPosition()));
                     notifyDataSetChanged();

@@ -102,8 +102,8 @@ public class ActivityListAndSearch extends AppCompatActivity {
     }
 
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    protected void onResume() {
+        super.onResume();
         if (fragments.get( viewPager.getCurrentItem()) instanceof BrowseFoodTemplateFragment){
             ((BrowseFoodTemplateFragment)fragments.get( viewPager.getCurrentItem()))
                     .setUserVisibleHint(true);

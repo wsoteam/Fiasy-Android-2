@@ -36,6 +36,7 @@ public class BrowseFoodTemplateFragment  extends MvpAppCompatFragment
     @BindView(R.id.layoutWithButton) ConstraintLayout layoutWithBtn;
 
     FoodTemplateAdapter adapter;
+    boolean isCreated;
 
     @ProvidePresenter
     BrowseFoodTemplatePresenter providePresenter() {
@@ -51,7 +52,7 @@ public class BrowseFoodTemplateFragment  extends MvpAppCompatFragment
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new FoodTemplateAdapter(getContext(), presenter);
         recyclerView.setAdapter(adapter);
-
+        isCreated = true;
         return view;
     }
 
@@ -94,7 +95,8 @@ public class BrowseFoodTemplateFragment  extends MvpAppCompatFragment
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && isResumed()) {
+        Log.d("kkk", "setUserVisibleHint: 0");
+        if (isVisibleToUser && isCreated) {
             presenter.initAdapter();
             Log.d("kkk", "setUserVisibleHint: ");
         }

@@ -88,6 +88,8 @@ public class BrowseFoodTemplatePresenter extends BasePresenter<BrowseFoodTemplat
 
     void search(String str){
 
+        initAdapter();
+
         if (foodTemplates == null || foodTemplates.size() == 0){
             return;
         }
