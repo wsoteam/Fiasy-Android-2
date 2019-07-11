@@ -30,10 +30,19 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import ru.terrakok.cicerone.Router;
+
 import static java.util.Map.Entry.comparingByKey;
 
+@InjectViewState
+public class ProfilePresenter extends  BasePresenter<ProfileView>{
 
-public class SectionPresenter {
+    private Router router;
+
+    public ProfilePresenter(Router router) {
+        this.router = router;
+    }
+
     public void dateSort() {
         HashMap<Long, Integer> calories = new HashMap<>();
         Iterator caloriesIterator;

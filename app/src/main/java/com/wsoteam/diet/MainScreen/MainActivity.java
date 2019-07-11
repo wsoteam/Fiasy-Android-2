@@ -27,12 +27,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.Articles.ListArticlesAdapter;
 import com.wsoteam.diet.Articles.ListArticlesFragment;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.Authenticate.POJO.Box;
-import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
+import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
@@ -48,7 +47,6 @@ import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
-import com.wsoteam.diet.presentation.profile.section.SectionPresenter;
 
 import java.util.Calendar;
 
@@ -121,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.bnv_main_profile:
                     isMainFragment = false;
-                    transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
-                    window.setStatusBarColor(Color.parseColor("#2E4E4E"));
+                    transaction.replace(R.id.flFragmentContainer, new ProfileFragment()).commit();
+                    window.setStatusBarColor(Color.parseColor("#d1a160"));
                     return true;
             }
             return false;

@@ -1,4 +1,4 @@
-package com.wsoteam.diet.BranchProfile.Fragments;
+package com.wsoteam.diet.presentation.profile.section;
 
 import android.Manifest;
 import android.app.Activity;
@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,12 +22,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.amplitude.api.Amplitude;
+import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchProfile.ActivityEditCompletedProfile;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
@@ -36,10 +33,7 @@ import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.wsoteam.diet.presentation.global.BaseView;
 import com.wsoteam.diet.presentation.intro.IntroPresenter;
-import com.wsoteam.diet.presentation.profile.section.Config;
-import com.wsoteam.diet.presentation.profile.section.SectionPresenter;
 
 import java.io.ByteArrayOutputStream;
 
@@ -52,9 +46,7 @@ import butterknife.Unbinder;
 import dagger.android.AndroidInjection;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static android.app.Activity.RESULT_OK;
-
-public class FragmentProfile extends Fragment {
+public class ProfileFragment extends MvpAppCompatFragment implements ProfileView {
     @BindView(R.id.ibSettings) ImageButton ibProfileEdit;
     @BindView(R.id.civProfile) CircleImageView civProfile;
     Unbinder unbinder;
@@ -64,6 +56,22 @@ public class FragmentProfile extends Fragment {
     @BindView(R.id.tvFatCount) TextView tvFatCount;
     @BindView(R.id.tvProtCount) TextView tvProtCount;
     private static final int CAMERA_REQUEST = 1888;
+    @Inject
+    @InjectPresenter
+    ProfilePresenter profilePresenter;
+
+    @ProvidePresenter
+    ProfilePresenter providePresenter() {
+        return profilePresenter;
+    }
+
+    @Override
+    public void showProgress(boolean show) {
+    }
+
+    @Override
+    public void showMessage(String message) {
+    }
 
 
     @Override
@@ -73,10 +81,6 @@ public class FragmentProfile extends Fragment {
             Profile profile = UserDataHolder.getUserData().getProfile();
             fillViewsIfProfileNotNull(profile);
         }
-        String avatarName = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference().child(Config.AVATAR_PATH + avatarName + Config.AVATAR_EXTENSION);
-        Log.e("LOL", storageRef.getPath());
     }
 
 
@@ -265,7 +269,7 @@ public class FragmentProfile extends Fragment {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             photo.compress(Bitmap.CompressFormat.PNG, 0, bos);
-            new SectionPresenter().uploadPhoto(bos.toByteArray());
+            //new ProfilePresenter().uploadPhoto(bos.toByteArray());
         }
     }
 }
