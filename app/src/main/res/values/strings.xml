@@ -563,6 +563,7 @@
 
     <string name="main_screen_topbar_left">Ежедневная норма = %s ккал</string>
     <string name="main_screen_topbar_calories">Съедено</string>
+    <string name="main_screen_topbar_calories_left">Осталось</string>
     <string name="main_screen_topbar_prot">Белки</string>
     <string name="main_screen_topbar_fat">Жиры</string>
     <string name="main_screen_topbar_carbo">Углеводы</string>

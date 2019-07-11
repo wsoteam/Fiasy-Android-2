@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/debug/shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/debug/shaders"/></dataSet></merger>
