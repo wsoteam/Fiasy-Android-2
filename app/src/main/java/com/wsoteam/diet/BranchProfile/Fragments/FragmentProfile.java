@@ -56,14 +56,10 @@ import static android.app.Activity.RESULT_OK;
 
 public class FragmentProfile extends Fragment {
     @BindView(R.id.ibSettings) ImageButton ibProfileEdit;
-    @BindView(R.id.tvProfileOld) TextView tvProfileOld;
-    @BindView(R.id.tvProfileLevel) TextView tvProfileLevel;
     @BindView(R.id.civProfile) CircleImageView civProfile;
     Unbinder unbinder;
     @BindView(R.id.tvUserName) TextView tvUserName;
-    @BindView(R.id.tvDateRegistration) TextView tvDateRegistration;
     @BindView(R.id.tvKcalMax) TextView tvKcalMax;
-    @BindView(R.id.tvWaterMax) TextView tvWaterMax;
     @BindView(R.id.tvCarboCount) TextView tvCarboCount;
     @BindView(R.id.tvFatCount) TextView tvFatCount;
     @BindView(R.id.tvProtCount) TextView tvProtCount;
@@ -100,30 +96,7 @@ public class FragmentProfile extends Fragment {
     }
 
     private void fillViewsIfProfileNotNull(Profile profile) {
-        String day = "0", month = "0";
-
-        tvProfileOld.setText(getActivity().getResources().getQuantityString(R.plurals.years, profile.getAge(), profile.getAge()));
-        tvProfileLevel.setText(profile.getDifficultyLevel());
-
-        if (profile.getNumberOfDay() + 1 < 10) {
-            day = "0" + String.valueOf(profile.getNumberOfDay() + 1);
-        } else {
-            day = String.valueOf(profile.getNumberOfDay());
-        }
-        if ((profile.getMonth() + 1) < 10) {
-            month = "0" + String.valueOf(profile.getMonth() + 1);
-        } else {
-            month = String.valueOf(profile.getMonth() + 1);
-        }
-
-        if (profile.isFemale()) {
-            tvDateRegistration.setText("Зарегистрирована с " + day + "." + month + "." + String.valueOf(profile.getYear()));
-        } else {
-            tvDateRegistration.setText("Зарегистрирован с " + day + "." + month + "." + String.valueOf(profile.getYear()));
-
-        }
         tvKcalMax.setText(String.valueOf(profile.getMaxKcal()));
-        tvWaterMax.setText(String.valueOf(profile.getWaterCount()) + " мл");
         tvCarboCount.setText(String.valueOf(profile.getMaxCarbo()) + " г");
         tvFatCount.setText(String.valueOf(profile.getMaxFat()) + " г");
         tvProtCount.setText(String.valueOf(profile.getMaxProt()) + " г");
@@ -133,18 +106,7 @@ public class FragmentProfile extends Fragment {
         } else {
             tvUserName.setText(profile.getFirstName() + " " + profile.getLastName());
         }
-        if (profile.getDifficultyLevel().equalsIgnoreCase(getString(R.string.dif_level_easy))) {
-            tvProfileLevel.setTextColor(getResources().getColor(R.color.level_easy));
-        } else {
-            if (profile.getDifficultyLevel().equalsIgnoreCase(getString(R.string.dif_level_normal))) {
-                tvProfileLevel.setTextColor(getResources().getColor(R.color.level_normal));
-            } else {
-                tvProfileLevel.setTextColor(getResources().getColor(R.color.level_hard));
-            }
-        }
-
         setPhoto(profile);
-
     }
 
     private void setPhoto(Profile profile) {
@@ -160,7 +122,7 @@ public class FragmentProfile extends Fragment {
     }
 
 
-    @OnClick({R.id.ibSettings, R.id.civProfile, R.id.tvUserName, R.id.ibEditName, R.id.tvEditParams, R.id.cvDifficulty})
+    @OnClick({R.id.ibSettings, R.id.civProfile, R.id.tvUserName})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibSettings:
@@ -178,15 +140,6 @@ public class FragmentProfile extends Fragment {
                 break;
             case R.id.tvUserName:
                 startActivity(new Intent(getActivity(), ActivityEditCompletedProfile.class));
-                break;
-            case R.id.ibEditName:
-                startActivity(new Intent(getActivity(), ActivityEditCompletedProfile.class));
-                break;
-            case R.id.tvEditParams:
-                startActivity(new Intent(getActivity(), ActivityEditCompletedProfile.class));
-                break;
-            case R.id.cvDifficulty:
-                selectHardLevel();
                 break;
         }
     }

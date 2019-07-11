@@ -48,6 +48,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/settings_profile" />
 
+        <ImageButton
+            android:id="@+id/ibSettings2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/filter_state"
+            android:padding="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/tvUserName"
+            app:layout_constraintTop_toTopOf="@+id/tvUserName"
+            app:srcCompat="@drawable/ic_close_detail_profile" />
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civProfile"
             android:layout_width="100dp"
@@ -64,13 +78,16 @@
 
         <TextView
             android:id="@+id/tvUserName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="96dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="Василиса Иванова"
+            android:text="Иван Иванов"
             android:textColor="#424242"
             android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/donutProgress"
             app:layout_constraintTop_toTopOf="@+id/civProfile" />
 
@@ -78,34 +95,48 @@
             android:id="@+id/tvCarboCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="235 г"
             android:fontFamily="@font/roboto_medium"
+            android:text="235 г"
             android:textColor="#d9424242"
             android:textSize="16sp"
-            tools:layout_editor_absoluteX="272dp"
-            tools:layout_editor_absoluteY="201dp" />
+            app:layout_constraintEnd_toStartOf="@+id/tvFatCount"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvProtCount"
+            app:layout_constraintTop_toTopOf="@+id/tvProtCount" />
 
         <TextView
             android:id="@+id/tvFatCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/roboto_medium"
             android:text="60 г"
             android:textColor="#d9424242"
             android:textSize="16sp"
-            tools:layout_editor_absoluteX="153dp"
-            tools:layout_editor_absoluteY="244dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvCarboCount"
+            app:layout_constraintTop_toTopOf="@+id/tvCarboCount" />
 
         <TextView
             android:id="@+id/tvProtCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
             android:fontFamily="@font/roboto_medium"
             android:text="60 г"
             android:textColor="#d9424242"
             android:textSize="16sp"
-            tools:layout_editor_absoluteX="344dp"
-            tools:layout_editor_absoluteY="201dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvCarboCount"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/donutProgress"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/textView54"
@@ -171,37 +202,40 @@
             app:layout_constraintTop_toTopOf="@+id/textView87" />
 
         <TextView
-            android:id="@+id/textView61"
+            android:id="@+id/tvLabelProt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
             android:text="белка"
             android:textColor="#80424242"
             android:textSize="16sp"
-            tools:layout_editor_absoluteX="238dp"
-            tools:layout_editor_absoluteY="228dp" />
+            app:layout_constraintEnd_toEndOf="@+id/tvProtCount"
+            app:layout_constraintStart_toStartOf="@+id/tvProtCount"
+            app:layout_constraintTop_toBottomOf="@+id/tvProtCount" />
 
         <TextView
-            android:id="@+id/textView62"
+            android:id="@+id/tvLabelCarbo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
             android:text="углеводов"
             android:textColor="#80424242"
             android:textSize="16sp"
-            tools:layout_editor_absoluteX="153dp"
-            tools:layout_editor_absoluteY="205dp" />
+            app:layout_constraintEnd_toEndOf="@+id/tvCarboCount"
+            app:layout_constraintStart_toStartOf="@+id/tvCarboCount"
+            app:layout_constraintTop_toBottomOf="@+id/tvCarboCount" />
 
         <TextView
-            android:id="@+id/textView63"
+            android:id="@+id/tvLabelFats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
             android:text="жиров"
             android:textColor="#80424242"
             android:textSize="16sp"
-            tools:layout_editor_absoluteX="60dp"
-            tools:layout_editor_absoluteY="222dp" />
+            app:layout_constraintEnd_toEndOf="@+id/tvFatCount"
+            app:layout_constraintStart_toStartOf="@+id/tvFatCount"
+            app:layout_constraintTop_toBottomOf="@+id/tvFatCount" />
 
 
     </android.support.constraint.ConstraintLayout>
