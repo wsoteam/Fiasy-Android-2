@@ -285,6 +285,9 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
             WorkWithFirebaseDB.addUsersSharedRecipe(recipeItem);
         }
 
+        Toast.makeText(getApplicationContext(),
+                "Рецепт сохранен в разделе Рецепты/Свои рецепты", Toast.LENGTH_SHORT).show();
+
         AlertDialog alertDialog = AddRecipeAlertDialog.createChoiceEatingAlertDialog(this);
         alertDialog.show();
         new CountDownTimer(800, 100) {
