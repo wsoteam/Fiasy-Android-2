@@ -82,6 +82,8 @@
     <string name="onboard_purpose_loose_weight_text">Похудение</string>
     <string name="onboard_purpose_muscle_text">Набор мышечной\nмассы</string>
     <string name="onboard_purpose_save_text">Сохранение мышц и\nсжигание жира</string>
+    <string name="onboard_birthday_title">Когда ваш день рождения?</string>
+    <string name="onboard_birthday_text">Выберите дату\nвашего рождения</string>
 
     <!--Add Measurements Activity-->
     <string name="tv_select_date_measur">Выберите дату</string>
@@ -685,6 +687,21 @@
         <item>Вы целенаправленно идете к своей цели - идеальное тело. Ваш постоянный спутник - каждодневные тренировки, без права прогула. Правда и не всегда интенсивные...</item>
         <item>Почти на пределе!! Каждый день вы находите в себе силы на интенсивные тренировки. Когда они не отличаются высокой интенсивностью, вы, о боги, тренируетесь два раза в день (такое бывает?)</item>
         <item>Возможно вы бог... Иначе я не могу объяснить откуда у вас такая сила воли, которая позволяет проводить интенсивные тренировки 2 раза (!!) в день. Однако вы подходите под этот критерий и когда у вас просто тяжелая физическая работа...</item>
+    </string-array>
+
+    <string-array name="monthList">
+        <item>Январь</item>
+        <item>Февраль</item>
+        <item>Март</item>
+        <item>Апрель</item>
+        <item>Май</item>
+        <item>Июнь</item>
+        <item>Июль</item>
+        <item>Август</item>
+        <item>Сентябрь</item>
+        <item>Октябрь</item>
+        <item>Ноябрь</item>
+        <item>Декабрь</item>
     </string-array>
 
     <string-array name="eatingList">

@@ -119,6 +119,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:elevation="10dp"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:text="@string/auth_data_btn_next"
         android:textAllCaps="true"
         android:textColor="@color/orange1"

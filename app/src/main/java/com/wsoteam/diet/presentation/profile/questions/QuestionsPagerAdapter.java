@@ -4,11 +4,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.wsoteam.diet.presentation.profile.questions.fragments.QuestionBirthdayFragments;
 import com.wsoteam.diet.presentation.profile.questions.fragments.QuestionPurposeFragments;
 import com.wsoteam.diet.presentation.profile.questions.fragments.QuestionSexFragments;
 
 public class QuestionsPagerAdapter extends FragmentPagerAdapter {
-    private static int NUM_ITEMS = 2;
+    private static int NUM_ITEMS = 3;
 
     public QuestionsPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -28,6 +29,8 @@ public class QuestionsPagerAdapter extends FragmentPagerAdapter {
                 return QuestionSexFragments.newInstance(0, "Page # 1");
             case 1:
                 return QuestionPurposeFragments.newInstance(0, "Page # 1");
+            case 2:
+                return QuestionBirthdayFragments.newInstance(0, "Page # 1");
             default:
                 return null;
         }
