@@ -71,7 +71,7 @@ public class CreateFoodTemplatePresenter extends BasePresenter<CreateFoodTemplat
             }else {
                 WorkWithFirebaseDB.addFoodTemplate(foodTemplate);
             }
-            getViewState().showMessage("Шаблон сохранен");
+            getViewState().showMessage("Сохранено в раздел Шаблоны");
             FoodTemplateHolder.bind(null);
             router.exit();
 
