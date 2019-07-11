@@ -1,41 +1,41 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
-INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
-INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
-INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
-INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
-INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
-INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
+ADDED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
 	package
-		ADDED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:2:5-54
-		INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
-		INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
+		ADDED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:2:5-54
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
 	android:versionName
-		INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
-		ADDED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
-		INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
+		ADDED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
 	android:versionCode
-		INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
-		ADDED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
-		INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
+		ADDED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:1-7:12
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:11-69
+		ADDED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:1:11-69
 application
-ADDED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:4:5-5:19
+ADDED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:4:5-5:19
 	android:label
-		ADDED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:4:18-50
+		ADDED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml:4:18-50
 uses-sdk
-INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
-INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
-INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
-INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
+INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
-		ADDED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
-		INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
+		ADDED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
-		ADDED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
-		INJECTED from /Users/Maksim/AndroidProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
+		ADDED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml
+		INJECTED from /Users/Maksim/AndroidStudioProjects/8Petals/horizontal-picker/src/main/AndroidManifest.xml

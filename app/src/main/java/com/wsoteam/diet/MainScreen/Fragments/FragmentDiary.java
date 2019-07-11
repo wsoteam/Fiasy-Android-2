@@ -165,8 +165,6 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
             editor.apply();
         }
 
-//        cvParams.setBackgroundResource(R.drawable.main_card_params);
-
         bindViewPager();
 
         datePicker.setListener(this).init();
