@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+import com.amplitude.api.Amplitude;
 import com.arellomobile.mvp.InjectViewState;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +18,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.model.Eating;
@@ -37,10 +40,10 @@ import static java.util.Map.Entry.comparingByKey;
 @InjectViewState
 public class ProfilePresenter extends  BasePresenter<ProfileView>{
 
-    private Router router;
-
-    public ProfilePresenter(Router router) {
-        this.router = router;
+    @Override
+    protected void onFirstViewAttach() {
+        super.onFirstViewAttach();
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_profile);
     }
 
     public void dateSort() {
@@ -78,6 +81,15 @@ public class ProfilePresenter extends  BasePresenter<ProfileView>{
         }
         logSorted(sort(calories));
     }
+
+    void bindFields(){
+        if (UserDataHolder.getUserData().getProfile() != null) {
+            Profile profile = UserDataHolder.getUserData().getProfile();
+            getViewState().fillViewsIfProfileNotNull(profile);
+        }
+    }
+
+
 
 
     private SortedMap<Long, Integer> sort(HashMap<Long, Integer> calories) {

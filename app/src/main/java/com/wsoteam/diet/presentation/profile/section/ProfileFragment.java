@@ -14,26 +14,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.amplitude.api.Amplitude;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
-import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchProfile.ActivityEditCompletedProfile;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.wsoteam.diet.presentation.intro.IntroPresenter;
 
 import java.io.ByteArrayOutputStream;
 
@@ -43,22 +39,35 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import dagger.android.AndroidInjection;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileFragment extends MvpAppCompatFragment implements ProfileView {
+public class ProfileFragment extends Fragment implements ProfileView {
     @BindView(R.id.ibSettings) ImageButton ibProfileEdit;
     @BindView(R.id.civProfile) CircleImageView civProfile;
-    Unbinder unbinder;
     @BindView(R.id.tvUserName) TextView tvUserName;
     @BindView(R.id.tvKcalMax) TextView tvKcalMax;
     @BindView(R.id.tvCarboCount) TextView tvCarboCount;
     @BindView(R.id.tvFatCount) TextView tvFatCount;
     @BindView(R.id.tvProtCount) TextView tvProtCount;
     private static final int CAMERA_REQUEST = 1888;
+    Unbinder unbinder;
     @Inject
     @InjectPresenter
     ProfilePresenter profilePresenter;
+
+    @Override
+    public void fillViewsIfProfileNotNull(Profile profile) {
+        tvKcalMax.setText(String.valueOf(profile.getMaxKcal()));
+        tvCarboCount.setText(String.valueOf(profile.getMaxCarbo()) + " г");
+        tvFatCount.setText(String.valueOf(profile.getMaxFat()) + " г");
+        tvProtCount.setText(String.valueOf(profile.getMaxProt()) + " г");
+        if (profile.getFirstName().equals("default")) {
+            tvUserName.setText("Введите Ваше имя");
+        } else {
+            tvUserName.setText(profile.getFirstName() + " " + profile.getLastName());
+        }
+        setPhoto(profile);
+    }
 
     @ProvidePresenter
     ProfilePresenter providePresenter() {
@@ -66,21 +75,9 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     }
 
     @Override
-    public void showProgress(boolean show) {
-    }
-
-    @Override
-    public void showMessage(String message) {
-    }
-
-
-    @Override
     public void onResume() {
         super.onResume();
-        if (UserDataHolder.getUserData().getProfile() != null) {
-            Profile profile = UserDataHolder.getUserData().getProfile();
-            fillViewsIfProfileNotNull(profile);
-        }
+        profilePresenter.bindFields();
     }
 
 
@@ -88,7 +85,6 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_profile, container, false);
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_profile);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -97,20 +93,6 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    private void fillViewsIfProfileNotNull(Profile profile) {
-        tvKcalMax.setText(String.valueOf(profile.getMaxKcal()));
-        tvCarboCount.setText(String.valueOf(profile.getMaxCarbo()) + " г");
-        tvFatCount.setText(String.valueOf(profile.getMaxFat()) + " г");
-        tvProtCount.setText(String.valueOf(profile.getMaxProt()) + " г");
-
-        if (profile.getFirstName().equals("default")) {
-            tvUserName.setText("Введите Ваше имя");
-        } else {
-            tvUserName.setText(profile.getFirstName() + " " + profile.getLastName());
-        }
-        setPhoto(profile);
     }
 
     private void setPhoto(Profile profile) {
@@ -126,13 +108,14 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     }
 
 
-    @OnClick({R.id.ibSettings, R.id.civProfile, R.id.tvUserName})
+    @OnClick({R.id.ibSettings})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibSettings:
+                profilePresenter.
                 startActivity(new Intent(getActivity(), ActivitySettings.class));
                 break;
-            case R.id.civProfile:
+           /* case R.id.civProfile:
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
                         != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(getActivity(),
@@ -144,7 +127,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
                 break;
             case R.id.tvUserName:
                 startActivity(new Intent(getActivity(), ActivityEditCompletedProfile.class));
-                break;
+                break;*/
         }
     }
 
@@ -211,8 +194,6 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
                 currentProfile.isFemale(), currentProfile.getAge(), currentProfile.getHeight(), currentProfile.getWeight(), 0,
                 currentProfile.getExerciseStress(), currentProfile.getPhotoUrl(), maxWater, 0, (int) protein,
                 (int) fat, (int) carbohydrate, hardLevel, currentProfile.getNumberOfDay(), currentProfile.getMonth(), currentProfile.getYear());
-
-        Log.e("LOL", profile.toString());
 
         if (hardLevel.equalsIgnoreCase(getString(R.string.dif_level_easy))) {
             profile.setMaxKcal((int) SPK);
