@@ -87,6 +87,11 @@ public class BrowseFoodTemplatePresenter extends BasePresenter<BrowseFoodTemplat
     }
 
     void search(String str){
+
+        if (foodTemplates == null || foodTemplates.size() == 0){
+            return;
+        }
+
         List<FoodTemplate> result = new ArrayList<>();
         String key;
 
@@ -96,8 +101,8 @@ public class BrowseFoodTemplatePresenter extends BasePresenter<BrowseFoodTemplat
             key = null;
         }
 
-        if (key == null || key.equals("") || foodTemplates == null) {
-            getViewState().setData(new ArrayList<>(foodTemplates.values()));;
+        if (key == null || key.equals("")) {
+            getViewState().setData(new ArrayList<>(foodTemplates.values()));
         } else {
             for( FoodTemplate template : new ArrayList<>(foodTemplates.values())) {
                 if (template.getName() != null && template.getName().toLowerCase().contains(key)) {
