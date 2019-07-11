@@ -117,7 +117,7 @@ public class ActivityCreateFood extends AppCompatActivity {
                     Log.e("LOL", customFood.toString());
                 } else if (vpFragmentContainer.getCurrentItem() == vpAdapter.getCount() - 1) {
                     saveFood();
-                    Toast.makeText(this, getString(R.string.food_saved), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.food_saved), Toast.LENGTH_LONG).show();
                     finish();
                 }
                 break;
