@@ -2,8 +2,10 @@ package com.wsoteam.diet;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Fragment;
 import android.arch.persistence.room.Room;
 import android.os.Bundle;
+import android.support.multidex.MultiDexApplication;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
@@ -12,6 +14,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orm.SugarContext;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
+import com.wsoteam.diet.di.AppComponent;
 import com.wsoteam.diet.di.DaggerAppComponent;
 import com.yandex.metrica.YandexMetrica;
 import com.yandex.metrica.YandexMetricaConfig;
@@ -21,13 +24,18 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import dagger.android.HasFragmentInjector;
 import io.intercom.android.sdk.Intercom;
 
-public class App extends Application implements HasActivityInjector {
+public class App extends MultiDexApplication
+        implements HasActivityInjector, HasFragmentInjector {
     public static App instance;
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentInjector;
     private FoodDatabase foodDatabase;
+    private AppComponent mComponent;
 
     public static App getInstance() {
         return instance;
@@ -54,13 +62,14 @@ public class App extends Application implements HasActivityInjector {
 
         //SetUserProperties.setUserProperties(Adjust.getAttribution());
 
-        DaggerAppComponent
-                .builder()
-                .application(this)
-                .build()
-                .inject(this);
+        mComponent = DaggerAppComponent.builder().application(this).build();
+        mComponent.inject(this);
     }
 
+    @Override
+    public DispatchingAndroidInjector<Fragment> fragmentInjector() {
+        return fragmentInjector;
+    }
 
     //
     @Override

@@ -1,21 +1,13 @@
 package com.wsoteam.diet.presentation.profile.section;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.amplitude.api.Amplitude;
 import com.arellomobile.mvp.InjectViewState;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -25,7 +17,6 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.model.Eating;
 import com.wsoteam.diet.presentation.global.BasePresenter;
-import com.wsoteam.diet.presentation.intro.IntroView;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
@@ -35,21 +26,73 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import ru.terrakok.cicerone.Router;
 
 import static java.util.Map.Entry.comparingByKey;
 
 @InjectViewState
-public class ProfilePresenter extends  BasePresenter<ProfileView>{
+public class ProfilePresenter extends BasePresenter<ProfileView> {
 
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_profile);
         bindFields();
+        Single.fromCallable(() -> {
+            Log.e("LOL", "LOL");
+            SortedMap<Long, Integer> calories = dateSort();
+            return calories;
+        })
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(t -> updateUI(t), Throwable::printStackTrace);
     }
 
-    public void dateSort() {
+    private Router router;
+
+    public ProfilePresenter(Router router) {
+        this.router = router;
+    }
+
+    @Override
+    public void attachView(ProfileView view) {
+        super.attachView(view);
+        Amplitude.getInstance().logEvent(AmplitudaEvents.view_profile);
+        bindFields();
+        Single.fromCallable(() -> {
+            Log.e("LOL", "LOL");
+            SortedMap<Long, Integer> calories = dateSort();
+            return calories;
+        })
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(t -> updateUI(t), Throwable::printStackTrace);
+    }
+
+    private void updateUI(SortedMap<Long, Integer> calories) {
+        bindCircleProgreesBar(calories);
+    }
+
+    void test(){
+        Log.e("LOL", "LOLdsf");
+    }
+
+    private void bindCircleProgreesBar(SortedMap<Long, Integer> calories) {
+        Integer currentCalories = calories.get(getCurrentDate());
+        Log.e("LOL", String.valueOf(currentCalories));
+    }
+
+    private long getCurrentDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        return calendar.getTimeInMillis();
+    }
+
+
+    public SortedMap<Long, Integer> dateSort() {
         HashMap<Long, Integer> calories = new HashMap<>();
         Iterator caloriesIterator;
 
@@ -82,17 +125,17 @@ public class ProfilePresenter extends  BasePresenter<ProfileView>{
                 calories.put(timeInMillis, eating.getCalories());
             }
         }
-        logSorted(sort(calories));
+        return increaseSort(calories);
     }
 
-    void bindFields(){
+    void bindFields() {
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
             Profile profile = UserDataHolder.getUserData().getProfile();
             getViewState().fillViewsIfProfileNotNull(profile);
         }
     }
 
-    private SortedMap<Long, Integer> sort(HashMap<Long, Integer> calories) {
+    private SortedMap<Long, Integer> increaseSort(HashMap<Long, Integer> calories) {
         SortedMap<Long, Integer> sortedMap = new TreeMap<>();
         Iterator iterator = calories.entrySet().iterator();
         while (iterator.hasNext()) {

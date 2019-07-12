@@ -29,6 +29,8 @@ import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import dagger.android.AndroidInjection;
+import dagger.android.support.DaggerFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment implements ProfileView {
@@ -73,6 +75,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_profile, container, false);
         unbinder = ButterKnife.bind(this, view);
+        profilePresenter.test();
         return view;
     }
 

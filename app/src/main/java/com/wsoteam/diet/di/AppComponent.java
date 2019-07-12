@@ -3,6 +3,7 @@ package com.wsoteam.diet.di;
 import android.app.Application;
 
 import com.wsoteam.diet.App;
+import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 
 import javax.inject.Singleton;
 
@@ -16,7 +17,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
         CiceroneModule.class,
         ActivityBuilder.class,
         PresentersModule.class,
-        AndroidSupportInjectionModule.class})
+        AndroidSupportInjectionModule.class,
+        FragmentBuilder.class})
 @Singleton
 public interface AppComponent extends AndroidInjector<App> {
 
