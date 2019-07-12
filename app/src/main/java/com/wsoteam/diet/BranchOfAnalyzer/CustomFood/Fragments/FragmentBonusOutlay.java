@@ -51,7 +51,7 @@ public class FragmentBonusOutlay extends Fragment implements SayForward {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bonus_outlay, container, false);
         unbinder = ButterKnife.bind(this, view);
-        if (getArguments().getSerializable(TAG) != null) {
+        if (((ActivityCreateFood) getActivity()).isEdit) {
             bindFields((CustomFood) getArguments().getSerializable(TAG));
         }
         return view;

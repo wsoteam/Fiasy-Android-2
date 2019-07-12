@@ -9,12 +9,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wsoteam.diet.BarcodeScanner.BaseScanner;
@@ -37,6 +37,8 @@ public class FragmentMainInfo extends Fragment implements SayForward {
     Unbinder unbinder;
     @BindView(R.id.swtShare) Switch swtShare;
     private final static String TAG = "FragmentMainInfo";
+    @BindView(R.id.tvTitleShare) TextView tvTitleShare;
+    @BindView(R.id.tvDescriptionShare) TextView tvDescriptionShare;
 
     public static FragmentMainInfo newInstance(CustomFood customFood) {
         Bundle bundle = new Bundle();
@@ -75,7 +77,7 @@ public class FragmentMainInfo extends Fragment implements SayForward {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_info, container, false);
         unbinder = ButterKnife.bind(this, view);
-        if (getArguments().getSerializable(TAG) != null){
+        if (((ActivityCreateFood) getActivity()).isEdit) {
             bindFields((CustomFood) getArguments().getSerializable(TAG));
         }
         return view;
@@ -86,6 +88,8 @@ public class FragmentMainInfo extends Fragment implements SayForward {
         edtBrand.setText(customFood.getBrand());
         edtBarcode.setText(customFood.getBarcode());
         swtShare.setVisibility(View.GONE);
+        tvTitleShare.setVisibility(View.GONE);
+        tvDescriptionShare.setVisibility(View.GONE);
     }
 
 

@@ -66,14 +66,14 @@
             android:textColor="@color/black"
             android:inputType="numberDecimal"
             android:fontFamily="@font/roboto"
-            android:maxLength="44"
+            android:maxLength="13"
             android:hint="@string/barcode" />
     </android.support.design.widget.TextInputLayout>
 
 
 
     <TextView
-        android:id="@+id/textView143"
+        android:id="@+id/tvTitleShare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -91,27 +91,28 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:theme="@style/OrangeCheckBox"
-        app:layout_constraintBottom_toBottomOf="@+id/textView143"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTitleShare"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView143" />
+        app:layout_constraintTop_toTopOf="@+id/tvTitleShare" />
 
     <TextView
+        android:id="@+id/tvDescriptionShare"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
+        android:elevation="8dp"
         android:fontFamily="sans-serif-light"
         android:letterSpacing="-0.03"
         android:lineSpacingExtra="5sp"
+        android:text="@string/check_box_text"
         android:textColor="#99000000"
-        android:elevation="8dp"
         android:textSize="10sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView143"
-        android:text="@string/check_box_text" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleShare" />
 
     <ImageButton
         android:id="@+id/ibBarcode"

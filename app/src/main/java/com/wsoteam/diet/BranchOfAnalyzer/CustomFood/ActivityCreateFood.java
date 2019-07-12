@@ -40,7 +40,7 @@ public class ActivityCreateFood extends AppCompatActivity {
     private final int FRAGMENT_RESULT = 2, FRAGMENT_OUTLAY = 1, FRAGMENT_MAIN = 0;
     private final int COUNT_GRAMM = 100;
     private final double EMPTY_PARAM = -1.0;
-    private boolean isEdit = false;
+    public boolean isEdit = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

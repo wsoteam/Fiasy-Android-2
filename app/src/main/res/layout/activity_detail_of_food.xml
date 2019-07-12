@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/imageView5"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="450dp"
             android:scaleType="fitXY"
             android:src="@drawable/gradient_for_detail_food"
             app:layout_constraintEnd_toEndOf="parent"
