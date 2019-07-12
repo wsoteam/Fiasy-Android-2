@@ -1,14 +1,18 @@
 package com.wsoteam.diet.BranchOfAnalyzer.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -26,6 +30,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -36,6 +41,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static com.wsoteam.diet.Recipes.POJO.Factory.eating;
 
 public class FragmentCustomFoods extends Fragment implements TabsFragment {
 
@@ -175,18 +182,74 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
     }
 
 
-    public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         @BindView(R.id.tvNameOfFood) TextView tvNameOfFood;
         @BindView(R.id.tvCalories) TextView tvCalories;
         @BindView(R.id.tvWeight) TextView tvWeight;
         @BindView(R.id.tvProt) TextView tvProt;
         @BindView(R.id.tvFats) TextView tvFats;
         @BindView(R.id.tvCarbo) TextView tvCarbo;
+        private String key = "";
 
         public ItemHolder(LayoutInflater layoutInflater, ViewGroup viewGroup) {
             super(layoutInflater.inflate(R.layout.item_rv_list_of_search_response, viewGroup, false));
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            onCreatePopupMenu(v);
+            return false;
+        }
+
+        public void onCreatePopupMenu(View view) {
+            PopupMenu popupMenu = new PopupMenu(getActivity(), view);
+            popupMenu.inflate(R.menu.food_popup_menu);
+            popupMenu.show();
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    switch (menuItem.getItemId()) {
+                        case R.id.delete_food:
+                            showConfirmDialog();
+                            break;
+                        case R.id.edit_food:
+                            //openDetailFood(eating);
+                            break;
+                    }
+                    return false;
+                }
+            });
+        }
+
+        private void showConfirmDialog() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            AlertDialog alertDialog = builder.create();
+            LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = layoutInflater.inflate(R.layout.alert_dialog_confirm, null);
+            Button delete = view.findViewById(R.id.btnDeleteConfirm);
+            Button cancel = view.findViewById(R.id.btnCancelConfirm);
+
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemAdapter.removeItem(getAdapterPosition());
+                    alertDialog.cancel();
+                }
+            });
+
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.cancel();
+                }
+            });
+
+
+            alertDialog.setView(view);
+            alertDialog.show();
         }
 
         @Override
@@ -228,6 +291,7 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
             tvProt.setText("Б. " + String.valueOf(Math.round(customFood.getProteins() * 100)));
             tvFats.setText("Ж. " + String.valueOf(Math.round(customFood.getFats() * 100)));
             tvCarbo.setText("У. " + String.valueOf(Math.round(customFood.getCarbohydrates() * 100)));
+            this.key = customFood.getKey();
         }
     }
 
@@ -255,5 +319,15 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
         public int getItemCount() {
             return customFoods.size();
         }
+
+        private void removeItem(int position) {
+            WorkWithFirebaseDB.deleteCustomFood(customFoods.get(position).getKey());
+            customFoods.remove(position);
+            notifyItemRemoved(position);
+        }
     }
+
+
+
+
 }

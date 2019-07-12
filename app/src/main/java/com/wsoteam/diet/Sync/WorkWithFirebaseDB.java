@@ -298,5 +298,12 @@ public class WorkWithFirebaseDB {
         myRef.push().setValue(customFood);
     }
 
+    public static void deleteCustomFood(String key) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("customFoods").child(key);
+        myRef.removeValue();
+    }
+
 
 }
