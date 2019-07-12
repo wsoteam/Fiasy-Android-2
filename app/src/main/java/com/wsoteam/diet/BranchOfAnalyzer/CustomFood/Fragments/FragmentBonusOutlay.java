@@ -30,6 +30,15 @@ public class FragmentBonusOutlay extends Fragment implements SayForward {
     @BindView(R.id.edtPottassium) EditText edtPottassium;
     Unbinder unbinder;
     private final double EMPTY_PARAM = -1.0;
+    private final static String TAG = "FragmentBonusOutlay";
+
+    public static FragmentBonusOutlay newInstance(CustomFood customFood) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(TAG, customFood);
+        FragmentBonusOutlay fragmentBonusOutlay = new FragmentBonusOutlay();
+        fragmentBonusOutlay.setArguments(bundle);
+        return fragmentBonusOutlay;
+    }
 
     @Override
     public boolean forward() {
@@ -41,9 +50,38 @@ public class FragmentBonusOutlay extends Fragment implements SayForward {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bonus_outlay, container, false);
-
         unbinder = ButterKnife.bind(this, view);
+        if (getArguments().getSerializable(TAG) != null) {
+            bindFields((CustomFood) getArguments().getSerializable(TAG));
+        }
         return view;
+    }
+
+    private void bindFields(CustomFood customFood) {
+        if (customFood.getCellulose() != EMPTY_PARAM) {
+            edtCell.setText(String.valueOf(customFood.getCellulose() * 100));
+        }
+        if (customFood.getSugar() != EMPTY_PARAM) {
+            edtSugar.setText(String.valueOf(customFood.getSugar() * 100));
+        }
+        if (customFood.getSaturatedFats() != EMPTY_PARAM) {
+            edtSaturatedFats.setText(String.valueOf(customFood.getSaturatedFats() * 100));
+        }
+        if (customFood.getMonoUnSaturatedFats() != EMPTY_PARAM) {
+            edtMonoUnSaturatedFats.setText(String.valueOf(customFood.getMonoUnSaturatedFats() * 100));
+        }
+        if (customFood.getPolyUnSaturatedFats() != EMPTY_PARAM) {
+            edtPolyUnSaturatedFats.setText(String.valueOf(customFood.getPolyUnSaturatedFats() * 100));
+        }
+        if (customFood.getCholesterol() != EMPTY_PARAM) {
+            edtCholesterol.setText(String.valueOf(customFood.getCholesterol() * 100));
+        }
+        if (customFood.getSodium() != EMPTY_PARAM) {
+            edtSodium.setText(String.valueOf(customFood.getSodium() * 100));
+        }
+        if (customFood.getPottassium() != EMPTY_PARAM) {
+            edtPottassium.setText(String.valueOf(customFood.getPottassium() * 100));
+        }
     }
 
     private void setInfo() {

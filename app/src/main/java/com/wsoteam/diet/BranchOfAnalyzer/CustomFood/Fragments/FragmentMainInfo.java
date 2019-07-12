@@ -36,6 +36,15 @@ public class FragmentMainInfo extends Fragment implements SayForward {
     @BindView(R.id.edtBarcode) EditText edtBarcode;
     Unbinder unbinder;
     @BindView(R.id.swtShare) Switch swtShare;
+    private final static String TAG = "FragmentMainInfo";
+
+    public static FragmentMainInfo newInstance(CustomFood customFood) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(TAG, customFood);
+        FragmentMainInfo fragmentMainInfo = new FragmentMainInfo();
+        fragmentMainInfo.setArguments(bundle);
+        return fragmentMainInfo;
+    }
 
 
     @Override
@@ -66,7 +75,17 @@ public class FragmentMainInfo extends Fragment implements SayForward {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_info, container, false);
         unbinder = ButterKnife.bind(this, view);
+        if (getArguments().getSerializable(TAG) != null){
+            bindFields((CustomFood) getArguments().getSerializable(TAG));
+        }
         return view;
+    }
+
+    private void bindFields(CustomFood customFood) {
+        edtName.setText(customFood.getName());
+        edtBrand.setText(customFood.getBrand());
+        edtBarcode.setText(customFood.getBarcode());
+        swtShare.setVisibility(View.GONE);
     }
 
 
@@ -89,7 +108,9 @@ public class FragmentMainInfo extends Fragment implements SayForward {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data == null) {return;}
+        if (data == null) {
+            return;
+        }
         edtBarcode.setText(data.getStringExtra(Config.BARCODE_STRING_NAME));
     }
 }

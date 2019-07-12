@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wsoteam.diet.BranchOfAnalyzer.Const;
 import com.wsoteam.diet.BranchOfAnalyzer.Controller.CustomFoodViewPagerAdapter;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.Fragments.FragmentBonusOutlay;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.Fragments.FragmentMainInfo;
@@ -29,7 +30,7 @@ import butterknife.OnClick;
 public class ActivityCreateFood extends AppCompatActivity {
 
     public CustomFood customFood;
-    public boolean isPublicFood;
+    public boolean isPublicFood = false;
     @BindView(R.id.vpFragmentContainer) CustomViewPager vpFragmentContainer;
     @BindView(R.id.tvTitle) TextView tvTitle;
     @BindView(R.id.btnForward) Button btnForward;
@@ -39,13 +40,19 @@ public class ActivityCreateFood extends AppCompatActivity {
     private final int FRAGMENT_RESULT = 2, FRAGMENT_OUTLAY = 1, FRAGMENT_MAIN = 0;
     private final int COUNT_GRAMM = 100;
     private final double EMPTY_PARAM = -1.0;
+    private boolean isEdit = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_food);
         ButterKnife.bind(this);
-        customFood = new CustomFood();
+        if (getIntent().getSerializableExtra(Const.EDIT_CUSTOM_FOOD) != null) {
+            customFood = (CustomFood) getIntent().getSerializableExtra(Const.EDIT_CUSTOM_FOOD);
+            isEdit = true;
+        } else {
+            customFood = new CustomFood();
+        }
         btnBack.setVisibility(View.GONE);
         vpFragmentContainer.disableScroll(true);
         updateUI();
@@ -73,7 +80,11 @@ public class ActivityCreateFood extends AppCompatActivity {
     }
 
     private void updateUIAfterScrolled(int i) {
-        tvTitle.setText(getResources().getStringArray(R.array.fragment_names)[i]);
+        if (isEdit) {
+            tvTitle.setText(getResources().getStringArray(R.array.fragment_names)[i]);
+        }else {
+
+        }
         tvSubtitle.setText(getResources().getStringArray(R.array.fragment_subtitles)[i]);
         if (i == FRAGMENT_RESULT) {
             btnForward.setText(getString(R.string.ok_forward));
@@ -91,10 +102,17 @@ public class ActivityCreateFood extends AppCompatActivity {
 
     private List<Fragment> createFragmentList() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new FragmentMainInfo());
-        fragments.add(new FragmentOutlay());
-        fragments.add(new FragmentBonusOutlay());
-        fragments.add(new FragmentResult());
+        if (isEdit){
+            fragments.add(FragmentMainInfo.newInstance(customFood));
+            fragments.add(FragmentOutlay.newInstance(customFood));
+            fragments.add(FragmentBonusOutlay.newInstance(customFood));
+            fragments.add(new FragmentResult());
+        }else {
+            fragments.add(new FragmentMainInfo());
+            fragments.add(new FragmentOutlay());
+            fragments.add(new FragmentBonusOutlay());
+            fragments.add(new FragmentResult());
+        }
         return fragments;
     }
 
@@ -117,7 +135,11 @@ public class ActivityCreateFood extends AppCompatActivity {
                     Log.e("LOL", customFood.toString());
                 } else if (vpFragmentContainer.getCurrentItem() == vpAdapter.getCount() - 1) {
                     saveFood();
-                    Toast.makeText(this, getString(R.string.food_saved), Toast.LENGTH_LONG).show();
+                    if (isEdit) {
+                        Toast.makeText(this, getString(R.string.edit_food_completed), Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(this, getString(R.string.food_saved), Toast.LENGTH_LONG).show();
+                    }
                     finish();
                 }
                 break;
@@ -174,9 +196,11 @@ public class ActivityCreateFood extends AppCompatActivity {
         if (customFood.getPolyUnSaturatedFats() != EMPTY_PARAM) {
             customFood.setPolyUnSaturatedFats(customFood.getPolyUnSaturatedFats() / COUNT_GRAMM);
         }
-
-        WorkWithFirebaseDB.addCustomFood(customFood);
-
+        if (isEdit) {
+            WorkWithFirebaseDB.rewriteCustomFood(customFood);
+        }else {
+            WorkWithFirebaseDB.addCustomFood(customFood);
+        }
         if (isPublicFood) {
             WorkWithFirebaseDB.shareCustomFood(customFood);
         }

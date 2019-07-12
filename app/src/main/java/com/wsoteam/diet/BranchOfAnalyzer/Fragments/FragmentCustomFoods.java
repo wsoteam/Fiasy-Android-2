@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
+import com.wsoteam.diet.BranchOfAnalyzer.Const;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.ActivityCreateFood;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.CustomFood;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
@@ -216,7 +217,7 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
                             showConfirmDialog();
                             break;
                         case R.id.edit_food:
-                            //openDetailFood(eating);
+                            itemAdapter.editFood(getAdapterPosition());
                             break;
                     }
                     return false;
@@ -324,6 +325,12 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
             WorkWithFirebaseDB.deleteCustomFood(customFoods.get(position).getKey());
             customFoods.remove(position);
             notifyItemRemoved(position);
+        }
+
+        public void editFood(int position) {
+            Intent intent = new Intent(getActivity(), ActivityCreateFood.class);
+            intent.putExtra(Const.EDIT_CUSTOM_FOOD, customFoods.get(position));
+            startActivity(intent);
         }
     }
 

@@ -305,5 +305,12 @@ public class WorkWithFirebaseDB {
         myRef.removeValue();
     }
 
+    public static void rewriteCustomFood(CustomFood customFood) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("customFoods").child(customFood.getKey());
+        myRef.setValue(customFood);
+    }
+
 
 }

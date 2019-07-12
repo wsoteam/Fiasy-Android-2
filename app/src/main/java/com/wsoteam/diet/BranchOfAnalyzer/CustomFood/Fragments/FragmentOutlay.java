@@ -29,6 +29,16 @@ public class FragmentOutlay extends Fragment implements SayForward {
     Unbinder unbinder;
     private final double EMPTY_PARAM = -1.0;
 
+    private final static String TAG = "FragmentOutlay";
+
+    public static FragmentOutlay newInstance(CustomFood customFood) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(TAG, customFood);
+        FragmentOutlay fragmentOutlay = new FragmentOutlay();
+        fragmentOutlay.setArguments(bundle);
+        return fragmentOutlay;
+    }
+
     @Override
     public boolean forward() {
         if (isCanForward()){
@@ -68,7 +78,17 @@ public class FragmentOutlay extends Fragment implements SayForward {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_outlay, container, false);
         unbinder = ButterKnife.bind(this, view);
+        if (getArguments().getSerializable(TAG) != null) {
+            bindFields((CustomFood) getArguments().getSerializable(TAG));
+        }
         return view;
+    }
+
+    private void bindFields(CustomFood customFood) {
+        edtKcal.setText(String.valueOf(customFood.getCalories() * 100));
+        edtFats.setText(String.valueOf(customFood.getFats() * 100));
+        edtCarbo.setText(String.valueOf(customFood.getCarbohydrates() * 100));
+        edtProt.setText(String.valueOf(customFood.getProteins() * 100));
     }
 
     @Override
