@@ -2,10 +2,10 @@ package com.wsoteam.diet;
 
 import android.app.Activity;
 import android.app.Application;
-import android.app.Fragment;
 import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.multidex.MultiDexApplication;
+import android.support.v4.app.Fragment;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
@@ -25,10 +25,11 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import dagger.android.HasFragmentInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 import io.intercom.android.sdk.Intercom;
 
-public class App extends MultiDexApplication
-        implements HasActivityInjector, HasFragmentInjector {
+public class App extends Application
+        implements HasActivityInjector, HasSupportFragmentInjector {
     public static App instance;
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
@@ -67,7 +68,7 @@ public class App extends MultiDexApplication
     }
 
     @Override
-    public DispatchingAndroidInjector<Fragment> fragmentInjector() {
+    public AndroidInjector<android.support.v4.app.Fragment> supportFragmentInjector() {
         return fragmentInjector;
     }
 

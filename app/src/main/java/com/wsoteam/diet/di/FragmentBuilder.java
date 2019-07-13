@@ -6,8 +6,9 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module
+@SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
-    abstract ProfileFragment bindContactsFragment();
+    abstract ProfileFragment bindProfileFragment();
 }

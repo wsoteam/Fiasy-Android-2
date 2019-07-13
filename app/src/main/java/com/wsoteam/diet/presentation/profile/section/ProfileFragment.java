@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.profile.section;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -13,12 +14,14 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.di.AppComponent;
 
 import java.util.List;
 
@@ -30,8 +33,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import dagger.android.AndroidInjection;
+import dagger.android.support.AndroidSupportInjection;
 import dagger.android.support.DaggerFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
+import ru.terrakok.cicerone.Navigator;
+import ru.terrakok.cicerone.NavigatorHolder;
+import ru.terrakok.cicerone.android.support.SupportAppNavigator;
 
 public class ProfileFragment extends Fragment implements ProfileView {
     @BindView(R.id.ibSettings) ImageButton ibProfileEdit;
@@ -63,6 +70,12 @@ public class ProfileFragment extends Fragment implements ProfileView {
             tvUserName.setText(profile.getFirstName() + " " + profile.getLastName());
         }
         setPhoto(profile);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        AndroidSupportInjection.inject(this);
+        super.onAttach(context);
     }
 
     @ProvidePresenter
