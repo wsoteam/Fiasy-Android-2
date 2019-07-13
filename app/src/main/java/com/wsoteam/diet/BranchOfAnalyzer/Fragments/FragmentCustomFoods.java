@@ -325,6 +325,9 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
             WorkWithFirebaseDB.deleteCustomFood(customFoods.get(position).getKey());
             customFoods.remove(position);
             notifyItemRemoved(position);
+            if (customFoods.size() == 0){
+                showStartScreen();
+            }
         }
 
         public void editFood(int position) {
