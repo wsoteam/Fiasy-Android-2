@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.arellomobile.mvp.GenerateViewState;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
@@ -40,7 +42,7 @@ import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.android.support.SupportAppNavigator;
 
-public class ProfileFragment extends Fragment implements ProfileView {
+public class ProfileFragment extends MvpAppCompatFragment implements ProfileView {
     @BindView(R.id.ibSettings) ImageButton ibProfileEdit;
     @BindView(R.id.civProfile) CircleImageView civProfile;
     @BindView(R.id.tvUserName) TextView tvUserName;
@@ -58,8 +60,10 @@ public class ProfileFragment extends Fragment implements ProfileView {
     @BindView(R.id.ibExpandable) ImageButton ibExpandable;
     private boolean isOpen = false;
 
+
     @Override
     public void fillViewsIfProfileNotNull(Profile profile) {
+        Log.e("LOL", "fill");
         tvKcalMax.setText(String.valueOf(profile.getMaxKcal()));
         tvCarboCount.setText(String.valueOf(profile.getMaxCarbo()) + " г");
         tvFatCount.setText(String.valueOf(profile.getMaxFat()) + " г");
@@ -88,7 +92,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_profile, container, false);
         unbinder = ButterKnife.bind(this, view);
-        profilePresenter.test();
+        profilePresenter.attachPresenter();
         return view;
     }
 

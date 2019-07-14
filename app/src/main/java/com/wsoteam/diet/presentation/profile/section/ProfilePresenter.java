@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.amplitude.api.Amplitude;
 import com.arellomobile.mvp.InjectViewState;
+import com.arellomobile.mvp.MvpPresenter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
@@ -36,36 +37,15 @@ import ru.terrakok.cicerone.Router;
 import static java.util.Map.Entry.comparingByKey;
 
 @InjectViewState
-public class ProfilePresenter extends BasePresenter<ProfileView> {
+public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
-    @Override
-    protected void onFirstViewAttach() {
-        super.onFirstViewAttach();
+    public ProfilePresenter() {
+    }
+
+    public void attachPresenter() {
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_profile);
         bindFields();
         Single.fromCallable(() -> {
-            Log.e("LOL", "LOL");
-            SortedMap<Long, Integer> calories = dateSort();
-            return calories;
-        })
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(t -> updateUI(t), Throwable::printStackTrace);
-    }
-
-    private Router router;
-
-    public ProfilePresenter(Router router) {
-        this.router = router;
-    }
-
-    @Override
-    public void attachView(ProfileView view) {
-        super.attachView(view);
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_profile);
-        bindFields();
-        Single.fromCallable(() -> {
-            Log.e("LOL", "LOL");
             SortedMap<Long, Integer> calories = dateSort();
             return calories;
         })
@@ -78,9 +58,6 @@ public class ProfilePresenter extends BasePresenter<ProfileView> {
         bindCircleProgreesBar(calories);
     }
 
-    void test(){
-        Log.e("LOL", "LOLdsf");
-    }
 
     private void bindCircleProgreesBar(SortedMap<Long, Integer> calories) {
         Integer currentCalories = calories.get(getCurrentDate());
@@ -131,7 +108,9 @@ public class ProfilePresenter extends BasePresenter<ProfileView> {
     }
 
     void bindFields() {
+        Log.e("LOL", "LOL");
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
+            Log.e("LOL", "LOL");
             Profile profile = UserDataHolder.getUserData().getProfile();
             getViewState().fillViewsIfProfileNotNull(profile);
         }

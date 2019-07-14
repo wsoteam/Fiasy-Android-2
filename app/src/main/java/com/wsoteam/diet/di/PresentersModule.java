@@ -36,7 +36,7 @@ public class PresentersModule {
     }
 
     @Provides
-    ProfilePresenter provideProfilePresenter(Context context, Router router) {
-        return new ProfilePresenter(router);
+    ProfilePresenter provideProfilePresenter() {
+        return new ProfilePresenter();
     }
 }
