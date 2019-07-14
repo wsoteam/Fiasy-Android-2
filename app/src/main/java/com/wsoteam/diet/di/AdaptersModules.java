@@ -10,13 +10,14 @@ import java.util.ArrayList;
 
 import dagger.Module;
 import dagger.Provides;
+import ru.terrakok.cicerone.Router;
 
 @Module
 public class AdaptersModules {
 
     @Provides
-    FoodAdapter provideFoodListAdapter(Context context){
-        return new FoodAdapter(context);
+    FoodAdapter provideFoodListAdapter(Context context, Router router){
+        return new FoodAdapter(context, router);
     }
 
     @Provides

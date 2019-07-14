@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.wsoteam.diet.Authenticate.POJO.Box;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchProfile.ActivityHelp;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
@@ -11,12 +12,27 @@ import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.presentation.auth.restore.ActivityForgotPassword;
 import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
+import com.wsoteam.diet.presentation.food.template.create.detail.DetailFoodActivity;
 import com.wsoteam.diet.presentation.food.template.create.search.SearchFoodActivity;
 import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 
 public class Screens {
+
+    public static final class EditFoodActivity extends SupportAppScreen{
+        int position;
+        public EditFoodActivity(int position) {
+            this.position = position;
+        }
+
+        @Override
+        public Intent getActivityIntent(Context context) {
+            Intent intent = new Intent(context, DetailFoodActivity.class);
+            intent.putExtra(Config.INTENT_DETAIL_FOOD, position);
+            return intent;
+        }
+    }
 
     public static final class CreateSearchFoodActivity extends SupportAppScreen{
         @Override

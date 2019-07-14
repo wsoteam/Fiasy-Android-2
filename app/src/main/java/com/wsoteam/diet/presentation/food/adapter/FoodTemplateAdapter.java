@@ -143,7 +143,7 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
                 TextView foodName = view.findViewById(R.id.tvNameTemplate);
                 TextView foodCalories = view.findViewById(R.id.tvCalories);
                 foodName.setText(food.getName());
-                foodCalories.setText(String.valueOf((int)food.getCalories()));
+                foodCalories.setText(String.valueOf((int)(food.getCalories() * food.getPortion())));
 
                 linearLayout.addView(view);
             }

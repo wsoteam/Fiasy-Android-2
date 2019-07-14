@@ -32,6 +32,7 @@ public class CreateFoodTemplatePresenter extends BasePresenter<CreateFoodTemplat
     public CreateFoodTemplatePresenter(Router router, FoodTemplate foodTemplate) {
         this.router = router;
         init(foodTemplate);
+
     }
 
     void init(FoodTemplate template){

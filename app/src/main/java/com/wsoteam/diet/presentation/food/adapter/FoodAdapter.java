@@ -1,8 +1,10 @@
 package com.wsoteam.diet.presentation.food.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.global.Screens;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +20,17 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ru.terrakok.cicerone.Router;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
 
-
+    Router router;
     Context context;
     List<Food> foodList = new ArrayList<>();
 
-    public FoodAdapter(Context context) {
+    public FoodAdapter(Context context, Router router) {
         this.context = context;
+        this.router = router;
     }
 
     public void setListContent(List<Food> foodList){
@@ -70,23 +75,28 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
 
         @Override
         public boolean onLongClick(View v) {
-            foodList.remove(getAdapterPosition());
-            notifyDataSetChanged();
+//            Intent intent = new Intent(SearchFoodActivity.this, DetailFoodActivity.class);
+//            intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
+//            startActivityForResult(intent,45);
+//            foodList.remove(getAdapterPosition());
+//            notifyDataSetChanged();
+            Log.d("kkk", "onLongClick: " + foodList.get(getAdapterPosition()).getPortion());
+            router.navigateTo(new Screens.EditFoodActivity(getAdapterPosition()));
             return true;
         }
 
         public void bind(Food food) {
             double portion = food.getPortion();
             tvNameOfFood.setText(food.getFullInfo().replace("()", ""));
-            tvCalories.setText((int)(food.getCalories()) + " Ккал");
+            tvCalories.setText((int)(food.getCalories() * portion) + " Ккал");
             if (food.isLiquid()) {
                 tvWeight.setText("Вес: " + (int)portion + " мл");
             } else {
                 tvWeight.setText("Вес: " + (int)portion + " г");
             }
-            tvProt.setText("Б. " + String.valueOf(Math.round(food.getProteins())));
-            tvFats.setText("Ж. " + String.valueOf(Math.round(food.getFats())));
-            tvCarbo.setText("У. " + String.valueOf(Math.round(food.getCarbohydrates())));
+            tvProt.setText("Б. " + String.valueOf(Math.round(food.getProteins() * portion)));
+            tvFats.setText("Ж. " + String.valueOf(Math.round(food.getFats() * portion)));
+            tvCarbo.setText("У. " + String.valueOf(Math.round(food.getCarbohydrates() * portion)));
         }
 
     }

@@ -1,6 +1,6 @@
 package com.wsoteam.diet.presentation.food.template.create.search;
 
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -14,7 +14,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplateHolder;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.adding.ActivityDetailFood;
-import com.wsoteam.diet.Recipes.adding.ProductSearchActivity;
+import com.wsoteam.diet.presentation.food.template.create.detail.DetailFoodActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -249,8 +248,9 @@ public class SearchFoodActivity extends AppCompatActivity {
             if (checkFood(itemAdapter.foods.get(getAdapterPosition()))){
                 alert();
             } else {
-                Intent intent = new Intent(SearchFoodActivity.this, ActivityDetailFood.class);
+                Intent intent = new Intent(SearchFoodActivity.this, DetailFoodActivity.class);
                 intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
+                intent.putExtra(Config.SEND_RESULT_TO_BACK, true);
                 startActivityForResult(intent,45);
             }
 
