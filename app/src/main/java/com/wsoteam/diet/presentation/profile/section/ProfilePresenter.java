@@ -34,6 +34,8 @@ import static java.util.Map.Entry.comparingByKey;
 
 @InjectViewState
 public class ProfilePresenter extends MvpPresenter<ProfileView> {
+    private Calendar calendar = Calendar.getInstance();
+    private Profile profile;
 
     public ProfilePresenter() {
     }
@@ -43,7 +45,6 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
         bindFields();
         Single.fromCallable(() -> {
             SortedMap<Long, Integer> calories = dateSort();
-            logSorted(calories);
             return calories;
         })
                 .subscribeOn(Schedulers.computation())
@@ -58,13 +59,14 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
     private void bindCircleProgressBar(SortedMap<Long, Integer> calories) {
         Integer currentCalories = calories.get(getCurrentDate());
-        Log.e("LOL", String.valueOf(currentCalories));
+        if (profile != null){
+            double percentLoading = ((double) currentCalories / profile.getMaxKcal());
+            getViewState().bindCircleProgressBar((float) percentLoading * 100);
+        }
     }
 
     private long getCurrentDate() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH) + 1, Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-        Log.e("LOL", String.valueOf(calendar.getTimeInMillis()));
+        calendar.set(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
         return calendar.getTimeInMillis();
     }
 
@@ -107,7 +109,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
     void bindFields() {
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
-            Profile profile = UserDataHolder.getUserData().getProfile();
+            profile = UserDataHolder.getUserData().getProfile();
             getViewState().fillViewsIfProfileNotNull(profile);
         }
     }
@@ -159,8 +161,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
 
     private Long formDate(int day, int month, int year) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month + 1, day);
+        calendar.set(year, month, day);
         return calendar.getTimeInMillis();
     }
 

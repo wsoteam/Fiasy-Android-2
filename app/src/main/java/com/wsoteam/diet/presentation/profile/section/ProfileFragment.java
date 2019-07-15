@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +14,14 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.arellomobile.mvp.GenerateViewState;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
+import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.di.AppComponent;
 
 import java.util.List;
 
@@ -34,13 +32,8 @@ import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;
-import dagger.android.support.DaggerFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
-import ru.terrakok.cicerone.Navigator;
-import ru.terrakok.cicerone.NavigatorHolder;
-import ru.terrakok.cicerone.android.support.SupportAppNavigator;
 
 public class ProfileFragment extends MvpAppCompatFragment implements ProfileView {
     @BindView(R.id.ibSettings) ImageButton ibProfileEdit;
@@ -58,12 +51,21 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     @BindViews({R.id.tvCarboCount, R.id.tvFatCount, R.id.tvProtCount, R.id.tvLabelProt, R.id.tvLabelCarbo, R.id.tvLabelFats})
     List<View> viewListExpandable;
     @BindView(R.id.ibExpandable) ImageButton ibExpandable;
+    @BindView(R.id.donutProgress) DonutProgress donutProgress;
     private boolean isOpen = false;
+    private float MAX_PROGRESS = 100;
 
+    @Override
+    public void bindCircleProgressBar(float progress) {
+        if (progress <= 100) {
+            donutProgress.setProgress(progress);
+        }else {
+            donutProgress.setProgress(MAX_PROGRESS);
+        }
+    }
 
     @Override
     public void fillViewsIfProfileNotNull(Profile profile) {
-        Log.e("LOL", "fill");
         tvKcalMax.setText(String.valueOf(profile.getMaxKcal()));
         tvCarboCount.setText(String.valueOf(profile.getMaxCarbo()) + " г");
         tvFatCount.setText(String.valueOf(profile.getMaxFat()) + " г");

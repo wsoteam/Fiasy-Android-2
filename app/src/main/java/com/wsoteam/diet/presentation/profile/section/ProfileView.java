@@ -10,4 +10,5 @@ import com.wsoteam.diet.presentation.global.BaseView;
 
 public interface ProfileView extends MvpView {
     void fillViewsIfProfileNotNull(Profile profile);
+    void bindCircleProgressBar(float progress);
 }
