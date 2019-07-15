@@ -44,6 +44,7 @@
         android:inputType="textPersonName"
         android:hint="@string/hintEating"
         android:textSize="14sp"
+        android:maxLength="300"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView145" />
