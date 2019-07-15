@@ -84,7 +84,7 @@ public class CreateFoodTemplatePresenter extends BasePresenter<CreateFoodTemplat
     }
 
     void onNameChanged(String str){
-        foodTemplate.setName(str);
+        foodTemplate.setName(str.trim());
     }
 
     void onEatingChanged(String str){
