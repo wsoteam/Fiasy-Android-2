@@ -206,5 +206,8 @@
 
     <color name="uncompleted_color">#A3E0D9</color>
     <color name="uncompleted_text_color">#F8F8F8</color>
+    <color name="prem_settings">#f2994a</color>
+    <color name="unprem_settings">#d9424242</color>
+    <color name="logout_settings">#eb5757</color>
 
 </resources>

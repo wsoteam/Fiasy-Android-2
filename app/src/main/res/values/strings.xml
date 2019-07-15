@@ -733,4 +733,44 @@
     <string name="text_no_find_food">Попробуйте еще раз или создайте свой \nпродукт</string>
 
 
+    //ProfileSettings
+    <string-array name="settings_items">
+        <item>Premium аккаунт</item>
+        <item>Еда и аллергия</item>
+        <item>Личные данные</item>
+        <item>Уведомления</item>
+        <item>Цель</item>
+        <item>Помощь</item>
+        <item>Выход</item>
+    </string-array>
+
+    <string-array name="settings_items_prem">
+        <item>Еда и аллергия</item>
+        <item>Личные данные</item>
+        <item>Уведомления</item>
+        <item>Цель</item>
+        <item>Помощь</item>
+        <item>Выход</item>
+    </string-array>
+
+    <integer-array name="left_drawables">
+        <item>@drawable/ic_left_settings_diamond</item>
+        <item>@drawable/ic_left_settings_item_fork</item>
+        <item>@drawable/ic_left_settings_item_man</item>
+        <item>@drawable/ic_left_settings_item_bell</item>
+        <item>@drawable/ic_left_settings_item_run</item>
+        <item>@drawable/ic_left_settings_item_help</item>
+        <item>@drawable/ic_left_settings_item_exit</item>
+    </integer-array>
+
+    <integer-array name="left_drawables_prem">
+        <item>@drawable/ic_left_settings_item_fork</item>
+        <item>@drawable/ic_left_settings_item_man</item>
+        <item>@drawable/ic_left_settings_item_bell</item>
+        <item>@drawable/ic_left_settings_item_run</item>
+        <item>@drawable/ic_left_settings_item_help</item>
+        <item>@drawable/ic_left_settings_item_exit</item>
+    </integer-array>
+
+
 </resources>
