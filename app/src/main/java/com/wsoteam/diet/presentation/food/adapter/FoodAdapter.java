@@ -1,11 +1,11 @@
 package com.wsoteam.diet.presentation.food.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -16,7 +16,6 @@ import com.wsoteam.diet.presentation.global.Screens;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,7 +58,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
         return foodList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder implements
+            View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
         @BindView(R.id.tvNameOfFood) TextView tvNameOfFood;
         @BindView(R.id.tvCalories) TextView tvCalories;
         @BindView(R.id.tvWeight) TextView tvWeight;
@@ -67,22 +67,37 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
         @BindView(R.id.tvFats) TextView tvFats;
         @BindView(R.id.tvCarbo) TextView tvCarbo;
 
+        final int menuEditID = 521;
+        final int menuDeleteID = 497;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnLongClickListener(this);
+            itemView.setOnCreateContextMenuListener(this);
         }
 
         @Override
-        public boolean onLongClick(View v) {
-//            Intent intent = new Intent(SearchFoodActivity.this, DetailFoodActivity.class);
-//            intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
-//            startActivityForResult(intent,45);
-//            foodList.remove(getAdapterPosition());
-//            notifyDataSetChanged();
-            Log.d("kkk", "onLongClick: " + foodList.get(getAdapterPosition()).getPortion());
-            router.navigateTo(new Screens.EditFoodActivity(getAdapterPosition()));
-            return true;
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()) {
+                case menuEditID:
+                    router.navigateTo(new Screens.EditFoodActivity(getAdapterPosition()));
+                    return true;
+                case menuDeleteID:
+                    foodList.remove(getAdapterPosition());
+                    notifyDataSetChanged();
+                    return true;
+
+                default:
+                    return false;
+            }
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            menu.add(0, menuEditID, 0, R.string.contextMenuEdit)
+                    .setOnMenuItemClickListener(this);//groupId, itemId, order, title
+            menu.add(0, menuDeleteID, 0, R.string.contextMenuDelete)
+                    .setOnMenuItemClickListener(this);
         }
 
         public void bind(Food food) {
@@ -98,6 +113,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
             tvFats.setText("Ж. " + String.valueOf(Math.round(food.getFats() * portion)));
             tvCarbo.setText("У. " + String.valueOf(Math.round(food.getCarbohydrates() * portion)));
         }
+
 
     }
 }
