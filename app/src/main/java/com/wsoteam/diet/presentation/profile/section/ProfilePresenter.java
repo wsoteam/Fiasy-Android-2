@@ -17,7 +17,6 @@ import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.model.Eating;
-import com.wsoteam.diet.presentation.global.BasePresenter;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
@@ -27,12 +26,9 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import javax.inject.Inject;
-
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import ru.terrakok.cicerone.Router;
 
 import static java.util.Map.Entry.comparingByKey;
 
@@ -47,6 +43,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
         bindFields();
         Single.fromCallable(() -> {
             SortedMap<Long, Integer> calories = dateSort();
+            logSorted(calories);
             return calories;
         })
                 .subscribeOn(Schedulers.computation())
@@ -55,18 +52,19 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     private void updateUI(SortedMap<Long, Integer> calories) {
-        bindCircleProgreesBar(calories);
+        bindCircleProgressBar(calories);
     }
 
 
-    private void bindCircleProgreesBar(SortedMap<Long, Integer> calories) {
+    private void bindCircleProgressBar(SortedMap<Long, Integer> calories) {
         Integer currentCalories = calories.get(getCurrentDate());
         Log.e("LOL", String.valueOf(currentCalories));
     }
 
     private long getCurrentDate() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        calendar.set(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH) + 1, Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        Log.e("LOL", String.valueOf(calendar.getTimeInMillis()));
         return calendar.getTimeInMillis();
     }
 
@@ -108,9 +106,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     void bindFields() {
-        Log.e("LOL", "LOL");
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
-            Log.e("LOL", "LOL");
             Profile profile = UserDataHolder.getUserData().getProfile();
             getViewState().fillViewsIfProfileNotNull(profile);
         }
