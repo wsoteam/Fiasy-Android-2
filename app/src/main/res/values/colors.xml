@@ -192,6 +192,7 @@
     <color name="black_trans80">#32000000</color>
 
     <color name="fff">#BB6001</color>
+    <color name="bottom_create_food">#F19027</color>
 
     <color name="main_calories_done">#def6a300</color>
     <color name="main_calories_done_over">#dec87d2d</color>
