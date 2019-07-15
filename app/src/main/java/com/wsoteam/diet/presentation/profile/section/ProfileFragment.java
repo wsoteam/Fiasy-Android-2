@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +18,9 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
-import com.wsoteam.diet.OtherActivity.ActivitySettings;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.profile.settings.ProfileSettingsActivity;
 
 import java.util.List;
 
@@ -121,7 +120,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibSettings:
-                startActivity(new Intent(getActivity(), ActivitySettings.class));
+                startActivity(new Intent(getActivity(), ProfileSettingsActivity.class));
                 break;
             case R.id.ibExpandable:
                 openParams();
