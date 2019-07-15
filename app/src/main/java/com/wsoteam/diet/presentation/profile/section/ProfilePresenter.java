@@ -53,7 +53,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     private void updateUI(SortedMap<Long, Integer> calories) {
-        bindCircleProgressBar(calories);
+        //bindCircleProgressBar(calories);
     }
 
 

@@ -87,7 +87,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
             box.setOpenFromIntrodaction(false);
             intent.putExtra(Config.TAG_BOX, box);
             break;
-            case FOOD:
+            /*case FOOD:
                 break;
             case PERSONAL:
                 break;
@@ -96,7 +96,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
             case TARGET:
                 break;
             case HELP:
-                break;
+                break;*/
             case LOGOUT:
                 FirebaseAuth.getInstance().signOut();
                 LoginManager.getInstance().logOut();
