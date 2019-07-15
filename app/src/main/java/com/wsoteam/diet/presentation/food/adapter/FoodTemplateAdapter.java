@@ -111,6 +111,9 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
                     WorkWithFirebaseDB.deleteFoodTemplate(templateList.get(getAdapterPosition()).getKey());
                     templateList.remove(templateList.get(getAdapterPosition()));
                     notifyDataSetChanged();
+                    if (templateList.size() == 0){
+                        presenter.getViewState().showBtn();
+                    }
                     return true;
 
                 default: return false;
@@ -119,6 +122,11 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+            if (templateList.get(getAdapterPosition()).isShowFoods() != isChecked) {
+                WorkWithFirebaseDB.setVisibilityFoodTemplate(templateList.get(getAdapterPosition()).getKey(), isChecked);
+                templateList.get(getAdapterPosition()).setShowFoods(isChecked);
+            }
 
             if (isChecked){
                 linearLayout.setVisibility(View.VISIBLE);
@@ -148,6 +156,7 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
                 linearLayout.addView(view);
             }
 
+                tbShowFoods.setChecked(templateList.get(position).isShowFoods());
         }
 
         int getImgID(String str){

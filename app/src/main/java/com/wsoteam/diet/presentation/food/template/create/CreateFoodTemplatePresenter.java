@@ -91,5 +91,4 @@ public class CreateFoodTemplatePresenter extends BasePresenter<CreateFoodTemplat
         foodTemplate.setEating(str);
     }
 
-
 }

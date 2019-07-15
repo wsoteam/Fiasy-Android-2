@@ -10,6 +10,7 @@ public class FoodTemplate implements Serializable {
     private String name;
     private String eating;
     private String key;
+    private boolean isShowFoods;
 
 
     private List<Food> foodList;
@@ -17,10 +18,11 @@ public class FoodTemplate implements Serializable {
     public FoodTemplate() {
     }
 
-    public FoodTemplate(String name, String eating, String key, List<Food> foodList) {
+    public FoodTemplate(String name, String eating, String key, boolean isShowFoods, List<Food> foodList) {
         this.name = name;
         this.eating = eating;
         this.key = key;
+        this.isShowFoods = isShowFoods;
         this.foodList = foodList;
     }
 
@@ -46,6 +48,14 @@ public class FoodTemplate implements Serializable {
 
     public void setFoodList(List<Food> foodList) {
         this.foodList = foodList;
+    }
+
+    public boolean isShowFoods() {
+        return isShowFoods;
+    }
+
+    public void setShowFoods(boolean showFoods) {
+        isShowFoods = showFoods;
     }
 
     public String getKey() {

@@ -309,4 +309,11 @@ public class WorkWithFirebaseDB {
         myRef.setValue(foodTemplate);
     }
 
+    public static void setVisibilityFoodTemplate(String key, boolean visibility){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodTemplates")
+                .child(key).child("showFoods");
+        myRef.setValue(visibility);
+    }
 }

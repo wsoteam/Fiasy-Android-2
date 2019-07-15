@@ -165,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
             loadRecipes();
         }
 
-//        startActivity(new Intent(MainActivity.this, CreateFoodTemplateActivity.class));
     }
 
     private void checkForcedGrade() {
