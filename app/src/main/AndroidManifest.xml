@@ -29,7 +29,8 @@
         <activity
             android:name=".presentation.food.template.create.CreateFoodTemplateActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu"></activity>
+            android:theme="@style/Menu"
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity
             android:name=".Recipes.adding.UsersRecipesActivity"
             android:screenOrientation="portrait"

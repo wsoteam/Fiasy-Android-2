@@ -5,11 +5,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -17,7 +21,6 @@ import android.widget.Toast;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
-import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.food.adapter.FoodAdapter;
 import com.wsoteam.diet.presentation.global.BaseActivity;
@@ -43,6 +46,8 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
     @BindView(R.id.etNameTemplate) EditText etNameTemplate;
     @BindView(R.id.sEating) Spinner eatingSpinner;
     @BindView(R.id.rvContainer) RecyclerView recyclerView;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.btnSave) Button saveButton;
 
     @ProvidePresenter
     CreateFoodTemplatePresenter providePresenter() {
@@ -60,6 +65,17 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.parseColor("#32000000"));
+
+        mToolbar.inflateMenu(R.menu.create_template_menu);
+        Menu menu = mToolbar.getMenu();
+        MenuItem btnClose = menu.findItem(R.id.close);
+        btnClose.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                presenter.onCancelClicked();
+                return false;
+            }
+        });
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -83,14 +99,11 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
-    @OnClick({R.id.btnAddFoods, R.id.btnLeft, R.id.btnSave})
+    @OnClick({R.id.btnAddFoods, R.id.btnSave})
     public void onViewClicked(View view) {
        switch (view.getId()){
            case R.id.btnAddFoods:
                presenter.onAddFoodClicked();
-               break;
-           case R.id.btnLeft:
-               presenter.onCancelClicked();
                break;
            case R.id.btnSave:
                presenter.onSaveClicked();
@@ -127,7 +140,16 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
         adapter.notifyDataSetChanged();
     }
 
-//    TextWatcher start
+    @Override
+    public void setColorSaveButton(int i) {
+        if (i < 1){
+            saveButton.setBackgroundColor(Color.parseColor("#acacac"));
+        } else {
+            saveButton.setBackgroundColor(Color.parseColor("#34847C"));
+        }
+    }
+
+    //    TextWatcher start
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 

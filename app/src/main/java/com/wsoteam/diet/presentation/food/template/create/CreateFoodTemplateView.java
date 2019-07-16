@@ -8,5 +8,6 @@ public interface CreateFoodTemplateView  extends BaseView {
     void setData(FoodTemplate foodTemplate);
     void setName(String str);
     void updateRecyclerView();
+    void setColorSaveButton(int i);
 
 }

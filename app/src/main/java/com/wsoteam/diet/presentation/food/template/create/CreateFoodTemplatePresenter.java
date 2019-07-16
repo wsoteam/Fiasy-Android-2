@@ -54,12 +54,13 @@ public class CreateFoodTemplatePresenter extends BasePresenter<CreateFoodTemplat
         }
     }
 
-
     void onCancelClicked(){
         router.exit();
     }
 
     void onSaveClicked(){
+
+        getViewState().setColorSaveButton(foods.size());
 
         if ("".equals(foodTemplate.getName().trim())){
             getViewState().showMessage("Ввведите название");
