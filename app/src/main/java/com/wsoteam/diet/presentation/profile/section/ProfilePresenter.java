@@ -53,13 +53,13 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     private void updateUI(SortedMap<Long, Integer> calories) {
-        //bindCircleProgressBar(calories);
+        bindCircleProgressBar(calories);
     }
 
 
     private void bindCircleProgressBar(SortedMap<Long, Integer> calories) {
         Integer currentCalories = calories.get(getCurrentDate());
-        if (profile != null){
+        if (profile != null && currentCalories != null){
             double percentLoading = ((double) currentCalories / profile.getMaxKcal());
             getViewState().bindCircleProgressBar((float) percentLoading * 100);
         }
