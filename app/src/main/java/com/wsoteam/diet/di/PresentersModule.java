@@ -54,7 +54,7 @@ public class PresentersModule {
     }
 
     @Provides
-    HelpPresenter provideHelpPresenter() {
-        return new HelpPresenter();
+    HelpPresenter provideHelpPresenter(Context context) {
+        return new HelpPresenter(context);
     }
 }

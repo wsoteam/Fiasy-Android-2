@@ -772,5 +772,19 @@
         <item>@drawable/ic_left_settings_item_exit</item>
     </integer-array>
 
+    <string-array name="names_items_help">
+        <item>Еда и аллергия</item>
+        <item>Личные данные</item>
+        <item>Уведомления</item>
+        <item>Цель</item>
+    </string-array>
+
+    <string-array name="texts_items_help">
+        <item>gggggggggggggggggggggggggggggggggggggggggggggggggggggg</item>
+        <item>Личные данные</item>
+        <item>Уведомления</item>
+        <item>Цель</item>
+    </string-array>
+
 
 </resources>
