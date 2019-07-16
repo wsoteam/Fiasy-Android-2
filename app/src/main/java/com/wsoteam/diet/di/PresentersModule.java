@@ -49,8 +49,8 @@ public class PresentersModule {
     }
 
     @Provides
-    AboutPresenter provideAboutPresenter() {
-        return new AboutPresenter();
+    AboutPresenter provideAboutPresenter(Context context) {
+        return new AboutPresenter(context);
     }
 
     @Provides
