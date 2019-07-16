@@ -1,6 +1,7 @@
 <resources>
 
     <!--food_template-->
+    <string name="eatingTemplate">Категория:</string>
     <string name="contextMenuDelete">Удалить</string>
     <string name="contextMenuEdit">Редактировать</string>
     <string name="addTemplate">Добавить шаблон</string>

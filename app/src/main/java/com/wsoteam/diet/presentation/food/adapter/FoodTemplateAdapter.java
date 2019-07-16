@@ -75,6 +75,7 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
         @BindView(R.id.colapseFoods) ToggleButton tbShowFoods;
         @BindView(R.id.llFoodsContainer) LinearLayout linearLayout;
         @BindView(R.id.ivTogle) ImageView ivTogle;
+        @BindView(R.id.tvPlansEating) TextView tvEating;
 
         final int menuEditID = 66;
         final int menuDeleteID = 321;
@@ -140,6 +141,7 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
         void bind(int position){
             imageView.setImageResource(getImgID(templateList.get(position).getEating()));
             tvName.setText(templateList.get(position).getName());
+            tvEating.setText(templateList.get(position).getEating().toLowerCase());
             linearLayout.removeAllViews();
             int numbers = templateList.get(position).getFoodList().size();
             tvCountFoods.setText(numbers
