@@ -5,6 +5,7 @@ import android.content.Context;
 import com.wsoteam.diet.presentation.auth.main.MainAuthPresenter;
 import com.wsoteam.diet.presentation.intro.IntroPresenter;
 import com.wsoteam.diet.presentation.main.water.WaterPresenter;
+import com.wsoteam.diet.presentation.profile.about.AboutPresenter;
 import com.wsoteam.diet.presentation.profile.settings.ProfileSettingsPresenter;
 import com.wsoteam.diet.presentation.profile.edit.EditProfilePresenter;
 import com.wsoteam.diet.presentation.profile.section.ProfilePresenter;
@@ -44,5 +45,10 @@ public class PresentersModule {
     @Provides
     ProfileSettingsPresenter provideProfileSettingsPresenter() {
         return new ProfileSettingsPresenter();
+    }
+
+    @Provides
+    AboutPresenter provideAboutPresenter() {
+        return new AboutPresenter();
     }
 }

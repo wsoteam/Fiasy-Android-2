@@ -5,6 +5,7 @@ import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.presentation.auth.restore.ActivityForgotPassword;
 import com.wsoteam.diet.presentation.intro.IntroActivity;
 import com.wsoteam.diet.presentation.main.water.WaterActivity;
+import com.wsoteam.diet.presentation.profile.about.AboutActivity;
 import com.wsoteam.diet.presentation.profile.settings.ProfileSettingsActivity;
 import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
 
@@ -36,4 +37,7 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
     abstract ProfileSettingsActivity bindProfileSettingsActivity();
+
+    @ContributesAndroidInjector
+    abstract AboutActivity bindAboutActivity();
 }

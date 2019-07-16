@@ -18,6 +18,7 @@ import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.presentation.profile.about.AboutActivity;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
 
@@ -88,10 +89,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
             intent.putExtra(Config.TAG_BOX, box);
             break;
             /*case FOOD:
-                break;
+                break;*/
             case PERSONAL:
+                intent = new Intent(context, AboutActivity.class);
                 break;
-            case NOTIFICATIONS:
+           /* case NOTIFICATIONS:
                 break;
             case TARGET:
                 break;
