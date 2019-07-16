@@ -316,6 +316,11 @@
             android:name=".presentation.profile.about.AboutActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DetailFood" />
+
+        <activity
+            android:name=".presentation.profile.help.HelpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DetailFood" />
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ import com.wsoteam.diet.OtherActivity.ActivitySettings;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.presentation.profile.about.AboutActivity;
+import com.wsoteam.diet.presentation.profile.help.HelpActivity;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
 
@@ -93,12 +94,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
             case PERSONAL:
                 intent = new Intent(context, AboutActivity.class);
                 break;
-           /* case NOTIFICATIONS:
+            /*case NOTIFICATIONS:
                 break;
             case TARGET:
-                break;
-            case HELP:
                 break;*/
+            case HELP:
+                intent = new Intent(context, HelpActivity.class);
+                break;
             case LOGOUT:
                 FirebaseAuth.getInstance().signOut();
                 LoginManager.getInstance().logOut();
