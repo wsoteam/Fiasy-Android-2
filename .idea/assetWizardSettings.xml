@@ -14,11 +14,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="19" />
-                            <entry key="outputName" value="ic_help_arrow" />
+                            <entry key="height" value="22" />
+                            <entry key="outputName" value="ic_avatar_open" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\37525\Desktop\group.svg" />
-                            <entry key="width" value="9" />
+                            <entry key="sourceFile" value="C:\Users\37525\Desktop\group (1).svg" />
+                            <entry key="width" value="28" />
                           </map>
                         </option>
                       </PersistentState>

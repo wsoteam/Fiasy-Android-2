@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
+import com.wsoteam.diet.R;
 
 import javax.inject.Inject;
 
@@ -28,5 +29,6 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
     protected void onCreate(Bundle savedInstanceState) {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.about_activity);
     }
 }

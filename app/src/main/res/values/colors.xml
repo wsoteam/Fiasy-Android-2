@@ -209,5 +209,6 @@
     <color name="prem_settings">#f2994a</color>
     <color name="unprem_settings">#d9424242</color>
     <color name="logout_settings">#eb5757</color>
+    <color name="filter_edit_avatar">#59000000</color>
 
 </resources>
