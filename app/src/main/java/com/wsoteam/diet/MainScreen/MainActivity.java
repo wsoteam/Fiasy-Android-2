@@ -40,6 +40,8 @@ import com.wsoteam.diet.BarcodeScanner.BaseScanner;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.ActivityCreateFood;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.DietPlans.POJO.DietModule;
+import com.wsoteam.diet.DietPlans.POJO.DietPlansHolder;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.DietPlans.POJO.ForUploadModel;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
@@ -174,11 +176,16 @@ public class MainActivity extends AppCompatActivity {
         //checkForcedGrade();
         IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
         new AsyncWriteFoodDB().execute(MainActivity.this);
+
         if (GroupsHolder.getGroupsRecipes() == null) {
             loadRecipes();
         }
         if (ArticlesHolder.getListArticles() == null) {
             loadArticles();
+        }
+        if (DietPlansHolder.get() == null){
+            loadDietPlans();
+            Log.d("kkk", "onCreate: loadDietPlans();");
         }
     }
 
@@ -255,6 +262,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    private void loadDietPlans(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("PLANS");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                DietModule dietModule = dataSnapshot.getValue(DietModule.class);
+                DietPlansHolder.bind(dietModule);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }
