@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -79,7 +80,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
 
     private void goToItemSettings(int position) {
         if (!isNotPrem) position += 1;
-        Intent intent = new Intent();
+        Intent intent;
         switch (position) {
             case PREMIUM: intent = new Intent(context, ActivitySubscription.class);
             Box box = new Box();
@@ -88,18 +89,22 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
             box.setOpenFromPremPart(true);
             box.setOpenFromIntrodaction(false);
             intent.putExtra(Config.TAG_BOX, box);
+                context.startActivity(intent);
             break;
-            /*case FOOD:
-                break;*/
-            case PERSONAL:
-                intent = new Intent(context, AboutActivity.class);
+            case FOOD:
+                Toast.makeText(context, "Раздел в разработке :(", Toast.LENGTH_SHORT).show();
                 break;
-            /*case NOTIFICATIONS:
+            case PERSONAL:
+                context.startActivity(new Intent(context, AboutActivity.class));
+                break;
+            case NOTIFICATIONS:
+                Toast.makeText(context, "Раздел в разработке :(", Toast.LENGTH_SHORT).show();
                 break;
             case TARGET:
-                break;*/
+                Toast.makeText(context, "Раздел в разработке :(", Toast.LENGTH_SHORT).show();
+                break;
             case HELP:
-                intent = new Intent(context, HelpActivity.class);
+                context.startActivity(new Intent(context, HelpActivity.class));
                 break;
             case LOGOUT:
                 FirebaseAuth.getInstance().signOut();
@@ -107,9 +112,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
                 UserDataHolder.clearObject();
                 intent = new Intent(context, ActivitySplash.class).
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                context.startActivity(intent);
                 break;
         }
-        context.startActivity(intent);
+
     }
 
 
