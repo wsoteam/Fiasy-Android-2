@@ -87,7 +87,11 @@ public class ActivitySplash extends BaseActivity {
     private void checkRegistrationAndRun() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            SetUserProperties.setUserProperties(Adjust.getAttribution());
+            try {
+                SetUserProperties.setUserProperties(Adjust.getAttribution());
+            }catch (Exception e){
+
+            }
             FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
             AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
             setTrackInfoInDatabase(Adjust.getAttribution());

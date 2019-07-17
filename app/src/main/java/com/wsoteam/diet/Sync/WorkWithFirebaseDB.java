@@ -12,6 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.Activism.POJO.ActivismFirebaseObject;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.BranchOfAnalyzer.Const;
+import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.CustomFood;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOClaim.Claim;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.FavoriteFood;
@@ -172,8 +173,8 @@ public class WorkWithFirebaseDB {
         myRef.push().setValue(recipeItem);
     }
 
-    public static void addUsersSharedRecipe(RecipeItem recipeItem) {
 
+    public static void addUsersSharedRecipe(RecipeItem recipeItem){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.USERS_RECIPES);
         myRef.push().setValue(recipeItem);
@@ -291,6 +292,33 @@ public class WorkWithFirebaseDB {
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("favoriteRecipes").child(key);
         myRef.removeValue();
+    }
+
+    public static void addCustomFood(CustomFood customFood) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("customFoods");
+        myRef.push().setValue(customFood);
+    }
+
+    public static void shareCustomFood(CustomFood customFood) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.LIST_CUSTOM_FOOD);
+        myRef.push().setValue(customFood);
+    }
+
+    public static void deleteCustomFood(String key) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("customFoods").child(key);
+        myRef.removeValue();
+    }
+
+    public static void rewriteCustomFood(CustomFood customFood) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("customFoods").child(customFood.getKey());
+        myRef.setValue(customFood);
     }
 
 

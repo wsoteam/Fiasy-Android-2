@@ -94,7 +94,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremCholy, R.id.btnPremSod, R.id.btnPremPot})
     List<View> viewList;
     private Food foodItem;
-    private boolean isFavorite = false;
+    private boolean isFavorite = false, isOwnFood = false;
     private FavoriteFood currentFavorite;
 
     @Override
@@ -104,6 +104,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         ButterKnife.bind(this);
         ButterKnife.apply(viewList, (view, value, index) -> view.setVisibility(value), View.GONE);
         foodItem = (Food) getIntent().getSerializableExtra(Config.INTENT_DETAIL_FOOD);
+        isOwnFood = getIntent().getBooleanExtra(Config.TAG_OWN_FOOD, false);
         bindFields();
         bindSpinnerChoiceEating();
         cardView6.setBackgroundResource(R.drawable.shape_calculate);
@@ -244,11 +245,15 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             }
         }
 
+        if (isOwnFood){
+            ibAddFavorite.setVisibility(View.GONE);
+        }
+
     }
 
     private boolean isPremiumUser() {
         SharedPreferences sharedPreferences = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-        if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
+        if (sharedPreferences.getBoolean(Config.STATE_BILLING, false) || isOwnFood) {
             return true;
         } else {
             return false;

@@ -191,20 +191,23 @@ public class FragmentEatingScroll extends Fragment {
         tvCollapsFat.setText(String.valueOf(fat));
         tvCollapsCarbo.setText(String.valueOf(carbo));
 
+        tvCaloriesDone.setText(String.valueOf(kcal));
+        tvCaloriesLeft.setText(String.valueOf(leftKCal));
+
         final String pattern = getString(R.string.main_screen_topbar_string);
 
         if (apCollapsingKcal.getMax() >= kcal) {
             apCollapsingKcal.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories));
-            tvCaloriesDone.setText(spanText(R.string.main_screen_topbar_kcal_done, String.valueOf(kcal), R.color.main_calories_done));
-            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_left, String.valueOf(leftKCal), R.color.main_calories_left));
+//            tvCaloriesDone.setText(spanText(R.string.main_screen_topbar_kcal_done, String.valueOf(kcal), R.color.main_calories_done));
+//            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_left, String.valueOf(leftKCal), R.color.main_calories_left));
             tvCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done));
             tvCollapsCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done));
             tvCollapsCalories.setTextColor(getResources().getColor(R.color.total_title));
             btnNotification.setVisibility(View.GONE);
         } else {
             apCollapsingKcal.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
-            tvCaloriesDone.setText(spanText(R.string.main_screen_topbar_kcal_done, String.valueOf(kcal), R.color.main_calories_done_over));
-            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_over, "+" + Math.abs(leftKCal), R.color.main_calories_left_over));
+//            tvCaloriesDone.setText(spanText(R.string.main_screen_topbar_kcal_done, String.valueOf(kcal), R.color.main_calories_done_over));
+//            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_over, "+" + Math.abs(leftKCal), R.color.main_calories_left_over));
             tvCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done_over));
             tvCollapsCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done_over));
             tvCollapsCalories.setTextColor(getResources().getColor(R.color.main_calories_done_over));
@@ -213,7 +216,7 @@ public class FragmentEatingScroll extends Fragment {
 
         final String carboText = String.format(pattern, carbo, apCollapsingCarbo.getMax());
         if (apCollapsingCarbo.getMax() >= carbo) {
-            apCollapsingCarbo.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_carbo));
+            apCollapsingCarbo.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_main));
             tvCarbo.setText(spanText(carboText, String.valueOf(carbo), R.color.gray4));
             tvCollapsCarbo.setTextColor(getResources().getColor(R.color.total_title));
         } else {
@@ -224,7 +227,7 @@ public class FragmentEatingScroll extends Fragment {
 
         final String fatText = String.format(pattern, fat, apCollapsingFat.getMax());
         if (apCollapsingFat.getMax() >= fat) {
-            apCollapsingFat.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_fat));
+            apCollapsingFat.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_main));
             tvFat.setText(spanText(fatText, String.valueOf(fat), R.color.gray4));
             tvCollapsFat.setTextColor(getResources().getColor(R.color.total_title));
         } else {
@@ -235,7 +238,7 @@ public class FragmentEatingScroll extends Fragment {
 
         final String protText = String.format(pattern, prot, apCollapsingProt.getMax());
         if (apCollapsingProt.getMax() >= prot) {
-            apCollapsingProt.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_proteins));
+            apCollapsingProt.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_main));
             tvProt.setText(spanText(protText, String.valueOf(prot), R.color.gray4));
             tvCollapsProt.setTextColor(getResources().getColor(R.color.total_title));
         } else {

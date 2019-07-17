@@ -22,6 +22,7 @@
         android:layout_marginTop="68dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/main_image_favorites" />
@@ -35,6 +36,7 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto"
         android:text="Избранное"
+        android:visibility="gone"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,6 +52,7 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto_light"
         android:gravity="center"
+        android:visibility="gone"
         android:text="В этом разделе будут храниться \nпонравившиеся или сохраненные вами \nрецепты и продукты"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
