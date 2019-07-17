@@ -8,6 +8,8 @@ import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplatePres
 import com.wsoteam.diet.presentation.intro.IntroPresenter;
 import com.wsoteam.diet.presentation.profile.edit.EditProfilePresenter;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import ru.terrakok.cicerone.Router;

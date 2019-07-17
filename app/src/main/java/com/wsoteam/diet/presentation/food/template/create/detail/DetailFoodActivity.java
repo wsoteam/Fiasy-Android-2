@@ -104,11 +104,10 @@ public class DetailFoodActivity extends AppCompatActivity {
         isSendResult = getIntent().getBooleanExtra(Config.SEND_RESULT_TO_BACK, false);
         int position = getIntent().getIntExtra(Config.INTENT_DETAIL_FOOD, 0);
 
-        Log.d("kkk", "onCreate: " + isSendResult);
+
         if (isSendResult) {
             foodItem = (Food) getIntent().getSerializableExtra(Config.INTENT_DETAIL_FOOD);
         } else {
-            Log.d("kkk", "onCreate: " + FoodTemplateHolder.get().size());
             foodItem = FoodTemplateHolder.get().get(position);
         }
 

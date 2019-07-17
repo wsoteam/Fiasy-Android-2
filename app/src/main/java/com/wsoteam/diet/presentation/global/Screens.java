@@ -30,6 +30,7 @@ public class Screens {
         public Intent getActivityIntent(Context context) {
             Intent intent = new Intent(context, DetailFoodActivity.class);
             intent.putExtra(Config.INTENT_DETAIL_FOOD, position);
+            intent.putExtra(Config.DETAIL_FOOD_BTN_NAME, "Изменить");
             return intent;
         }
     }

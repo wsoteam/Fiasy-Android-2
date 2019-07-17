@@ -192,7 +192,8 @@ public class ActivityListAndSearch extends AppCompatActivity {
                     case R.id.createEating:
                         break;*/
                     case R.id.createTemplate:
-                        startActivity(new Intent(ActivityListAndSearch.this, CreateFoodTemplateActivity.class));
+                        startActivity(new Intent(ActivityListAndSearch.this, CreateFoodTemplateActivity.class)
+                                .putExtra(Config.EATING_SPINNER_POSITION, (int) spinner.getSelectedItemId()));
                         break;
                     case R.id.createRecipe:
                         startActivity(new Intent(ActivityListAndSearch.this, AddingRecipeActivity.class));

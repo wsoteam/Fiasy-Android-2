@@ -83,7 +83,8 @@ public class BrowseFoodTemplatePresenter extends BasePresenter<BrowseFoodTemplat
     }
 
     void addTemplate(){
-        activity.startActivity(new Intent(activity, CreateFoodTemplateActivity.class));
+        activity.startActivity(new Intent(activity, CreateFoodTemplateActivity.class)
+                .putExtra(Config.EATING_SPINNER_POSITION, ((ActivityListAndSearch) activity).spinnerId));
     }
 
     void search(String str){

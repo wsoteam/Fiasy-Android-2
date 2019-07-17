@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context="com.wsoteam.diet.Recipes.adding.AddingRecipeActivity">
 
     <android.support.v7.widget.Toolbar
@@ -13,18 +14,18 @@
         android:background="@drawable/gradient_search"
         android:minHeight="?android:attr/actionBarSize"
         android:paddingTop="24dp"
-        app:title="@string/addTemplate"
-        app:titleTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/addTemplate"
+        app:titleTextColor="@color/white" />
 
     <EditText
         android:id="@+id/etNameTemplate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/nameTemplate"
@@ -64,8 +65,10 @@
 
     <View
         android:id="@+id/divider28"
-        android:layout_width="395dp"
+        android:layout_width="0dp"
         android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,35 +88,13 @@
             android:id="@+id/rvContainer"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/divider29"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnSave"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
         </android.support.v7.widget.RecyclerView>
-
-        <View
-            android:id="@+id/divider29"
-            android:layout_width="395dp"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintBottom_toTopOf="@+id/btnAddFoods"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/btnAddFoods"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/transparent"
-            android:drawableLeft="@drawable/ic_add"
-            android:drawablePadding="20dp"
-            android:text="Добавить продукт"
-            app:layout_constraintBottom_toTopOf="@+id/btnSave"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/btnSave"
@@ -121,7 +102,7 @@
             android:layout_height="36dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/btn_recipe_shape"
             android:fontFamily="@font/roboto_bold"
             android:paddingLeft="46dp"

@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.food.template.create;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.food.adapter.FoodAdapter;
 import com.wsoteam.diet.presentation.global.BaseActivity;
@@ -77,6 +79,9 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
             }
         });
 
+        int spinnerPosition = getIntent().getIntExtra(Config.EATING_SPINNER_POSITION, 0);
+        eatingSpinner.setSelection(spinnerPosition);
+
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -86,6 +91,7 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
         presenter.onEatingChanged(eatingSpinner.getSelectedItem().toString());
 
         presenter.checkIntent(getIntent());
+        adapter.setPresenter(presenter);
 
     }
 
@@ -99,16 +105,9 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
-    @OnClick({R.id.btnAddFoods, R.id.btnSave})
+    @OnClick({R.id.btnSave})
     public void onViewClicked(View view) {
-       switch (view.getId()){
-           case R.id.btnAddFoods:
-               presenter.onAddFoodClicked();
-               break;
-           case R.id.btnSave:
-               presenter.onSaveClicked();
-               break;
-       }
+        presenter.onSaveClicked();
     }
 
 
@@ -143,9 +142,9 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
     @Override
     public void setColorSaveButton(int i) {
         if (i < 1){
-            saveButton.setBackgroundColor(Color.parseColor("#acacac"));
+            saveButton.setBackgroundResource(R.drawable.btn_shape_grey);
         } else {
-            saveButton.setBackgroundColor(Color.parseColor("#34847C"));
+            saveButton.setBackgroundResource(R.drawable.btn_recipe_shape);
         }
     }
 
@@ -183,5 +182,6 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
     protected void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
+        presenter.checkListFoodsSize();
     }
 }

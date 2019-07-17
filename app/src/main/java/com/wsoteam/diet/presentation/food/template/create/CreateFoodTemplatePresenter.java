@@ -1,9 +1,7 @@
 package com.wsoteam.diet.presentation.food.template.create;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
@@ -78,6 +76,10 @@ public class CreateFoodTemplatePresenter extends BasePresenter<CreateFoodTemplat
             router.exit();
 
         }
+    }
+
+    public void checkListFoodsSize(){
+        getViewState().setColorSaveButton(foods.size());
     }
 
     void onAddFoodClicked(){
