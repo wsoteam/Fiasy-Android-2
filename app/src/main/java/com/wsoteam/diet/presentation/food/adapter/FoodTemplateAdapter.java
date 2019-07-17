@@ -44,8 +44,10 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
     public void setListContent(List<FoodTemplate> templateList){
         if (templateList != null){
         this.templateList = templateList;
-        notifyDataSetChanged();
+        } else {
+            this.templateList = new ArrayList<>();
         }
+        notifyDataSetChanged();
     }
 
     @NonNull
