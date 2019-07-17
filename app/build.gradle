@@ -152,6 +152,10 @@ dependencies {
 //    implementation 'com.wdullaer:materialdatetimepicker:3.6.4'
 //    implementation 'org.greenrobot:eventbus:3.0.0'
 
+        //Graph
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'
