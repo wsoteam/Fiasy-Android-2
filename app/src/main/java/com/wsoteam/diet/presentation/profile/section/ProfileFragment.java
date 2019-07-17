@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.profile.settings.ProfileSettingsActivity;
@@ -33,6 +36,9 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class ProfileFragment extends MvpAppCompatFragment implements ProfileView {
     @BindView(R.id.ibSettings) ImageButton ibProfileEdit;
@@ -53,14 +59,45 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     @BindView(R.id.donutProgress) DonutProgress donutProgress;
     private boolean isOpen = false;
     private float MAX_PROGRESS = 100;
+    private long time = 500, periodTick = 5, countTick = 100;
+    private CountDownTimer countDownTimer;
 
     @Override
     public void bindCircleProgressBar(float progress) {
         if (progress <= 100) {
-            donutProgress.setProgress(progress);
-        }else {
-            donutProgress.setProgress(MAX_PROGRESS);
+            animFillProgressBar(progress, false);
+        } else {
+            animFillProgressBar(MAX_PROGRESS, true);
         }
+    }
+
+    private void animFillProgressBar(float progress, boolean isMax) {
+        countDownTimer =  new CountDownTimer(time, periodTick) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                int stepNumber = (int) ((time - millisUntilFinished) / periodTick);
+                double stepValue = ((double) progress) / ((double) countTick);
+                donutProgress.setProgress(((float) stepValue * stepNumber));
+
+            }
+
+            @Override
+            public void onFinish() {
+                if (isMax) {
+                    donutProgress.setProgress(MAX_PROGRESS);
+                    donutProgress.setFinishedStrokeColor(getResources().getColor(R.color.main_calories_left_over));
+                }
+            }
+        }.start();
+
+    }
+
+    @Override
+    public void onPause() {
+        if (countDownTimer != null){
+            countDownTimer.cancel();
+        }
+        super.onPause();
     }
 
     @Override
