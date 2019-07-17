@@ -731,6 +731,9 @@
     <string name="text_start_search">Начните вводить в строку поиска \nназвание продукта</string>
     <string name="title_no_find_food">Результаты не найдены</string>
     <string name="text_no_find_food">Попробуйте еще раз или создайте свой \nпродукт</string>
+    <string name="spk_check_your_second_name">Введите Вашу фамилию</string>
+    <string name="check_your_name">Введите Ваше имя</string>
+    <string name="check_your_email">Неправильный формат</string>
 
 
     //ProfileSettings
