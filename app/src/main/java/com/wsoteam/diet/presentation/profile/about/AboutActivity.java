@@ -140,7 +140,11 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
                 break;
             case R.id.tvSave:
                 if (checkInputData()) {
-
+                    if (aboutPresenter.calculateAndSave(edtName.getText().toString(), edtSecondName.getText().toString(),
+                            edtHeight.getText().toString(), edtWeight.getText().toString(), edtAge.getText().toString(), edtEmail.getText().toString())){
+                        Toast.makeText(this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
                 }
                 break;
         }

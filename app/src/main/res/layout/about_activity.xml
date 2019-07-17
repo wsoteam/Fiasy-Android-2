@@ -122,8 +122,8 @@
                 android:layout_height="48dp"
                 android:fontFamily="@font/roboto"
                 android:hint="Имя"
-                android:inputType="textPersonName"
-                android:maxLength="10"
+                android:inputType="textCapSentences"
+                android:maxLength="50"
                 android:textColor="#d9424242" />
         </android.support.design.widget.TextInputLayout>
 
@@ -146,8 +146,8 @@
                 android:layout_height="48dp"
                 android:fontFamily="@font/roboto"
                 android:hint="Фамилия"
-                android:inputType="textPersonName"
-                android:maxLength="10"
+                android:inputType="textCapSentences"
+                android:maxLength="50"
                 android:textColor="#d9424242" />
         </android.support.design.widget.TextInputLayout>
 
@@ -170,7 +170,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="Почта"
                 android:inputType="textEmailAddress"
-                android:maxLength="10"
+                android:maxLength="50"
                 android:textColor="#d9424242" />
         </android.support.design.widget.TextInputLayout>
 
@@ -193,7 +193,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="Возраст"
                 android:inputType="numberDecimal"
-                android:maxLength="10"
+                android:maxLength="3"
                 android:textColor="#d9424242" />
         </android.support.design.widget.TextInputLayout>
 
@@ -216,7 +216,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="Вес"
                 android:inputType="numberDecimal"
-                android:maxLength="10"
+                android:maxLength="5"
                 android:textColor="#d9424242" />
         </android.support.design.widget.TextInputLayout>
 
@@ -242,7 +242,7 @@
                 android:fontFamily="@font/roboto"
                 android:hint="Рост"
                 android:inputType="numberDecimal"
-                android:maxLength="10"
+                android:maxLength="3"
                 android:textColor="#d9424242" />
         </android.support.design.widget.TextInputLayout>
     </android.support.constraint.ConstraintLayout>
