@@ -7,6 +7,7 @@ import android.util.Log;
 import com.amplitude.api.Amplitude;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.github.mikephil.charting.data.BarEntry;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
@@ -19,9 +20,14 @@ import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.model.Eating;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -54,6 +60,25 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
     private void updateUI(SortedMap<Long, Integer> calories) {
         bindCircleProgressBar(calories);
+        prepareGraphsData(calories);
+    }
+
+    private void prepareGraphsData(SortedMap<Long, Integer> calories) {
+        Iterator iterator = calories.entrySet().iterator();
+        List<BarEntry> pairs = new ArrayList<>();
+        String[] dates = new String[pairs.size()];
+        int count = 0;
+        while (iterator.hasNext()){
+            Map.Entry pair = (Map.Entry) iterator.next();
+            Long time = (Long) pair.getKey();
+            Date date = new Date(time);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd", Locale.ENGLISH);
+            dates[count] = simpleDateFormat.format(date);
+            Integer kcal = (Integer) pair.getValue();
+            pairs.add(new BarEntry(calendar.get(Calendar.DAY_OF_MONTH), kcal));
+            count ++;
+        }
+        getViewState().drawGraphs(pairs, dates);
     }
 
 

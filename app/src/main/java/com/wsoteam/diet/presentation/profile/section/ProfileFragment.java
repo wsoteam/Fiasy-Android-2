@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +19,21 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.profile.settings.ProfileSettingsActivity;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
 
 import javax.inject.Inject;
 
@@ -36,9 +44,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class ProfileFragment extends MvpAppCompatFragment implements ProfileView {
     @BindView(R.id.ibSettings) ImageButton ibProfileEdit;
@@ -57,6 +62,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     List<View> viewListExpandable;
     @BindView(R.id.ibExpandable) ImageButton ibExpandable;
     @BindView(R.id.donutProgress) DonutProgress donutProgress;
+    @BindView(R.id.gv) BarChart gv;
     private boolean isOpen = false;
     private float MAX_PROGRESS = 100;
     private long time = 500, periodTick = 5, countTick = 100;
@@ -72,7 +78,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     }
 
     private void animFillProgressBar(float progress, boolean isMax) {
-        countDownTimer =  new CountDownTimer(time, periodTick) {
+        countDownTimer = new CountDownTimer(time, periodTick) {
             @Override
             public void onTick(long millisUntilFinished) {
                 int stepNumber = (int) ((time - millisUntilFinished) / periodTick);
@@ -93,8 +99,16 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     }
 
     @Override
+    public void drawGraphs(List<BarEntry> pairs, String[] dates) {
+        BarDataSet barDataSet = new BarDataSet(pairs, "kekesi");
+        BarData barData = new BarData(barDataSet);
+        IndexAxisValueFormatter formatter = new IndexAxisValueFormatter(dates);
+        gv.setData(barData);
+    }
+
+    @Override
     public void onPause() {
-        if (countDownTimer != null){
+        if (countDownTimer != null) {
             countDownTimer.cancel();
         }
         super.onPause();
