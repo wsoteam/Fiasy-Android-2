@@ -14,7 +14,7 @@ import com.wsoteam.diet.R;
 
 import butterknife.ButterKnife;
 
-public class BrowsePlansFragment extends MvpAppCompatFragment {
+public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowsePlansView {
 
 
     @InjectPresenter
@@ -32,5 +32,15 @@ public class BrowsePlansFragment extends MvpAppCompatFragment {
                 container, false);
         ButterKnife.bind(this, view);
         return view;
+    }
+
+    @Override
+    public void showProgress(boolean show) {
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+
     }
 }

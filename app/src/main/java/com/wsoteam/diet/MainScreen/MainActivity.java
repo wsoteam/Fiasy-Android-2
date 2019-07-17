@@ -55,6 +55,7 @@ import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
+import com.wsoteam.diet.presentation.plans.BrowsePlansFragment;
 
 import java.util.Calendar;
 
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.bnv_main_profile:
                     isMainFragment = false;
-                    transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
+                    transaction.replace(R.id.flFragmentContainer, new BrowsePlansFragment()).commit();
                     window.setStatusBarColor(Color.parseColor("#2E4E4E"));
                     return true;
             }
