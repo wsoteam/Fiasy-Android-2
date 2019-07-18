@@ -34,7 +34,6 @@ public class BarRender extends BarChartRenderer {
                 right = buffer.buffer[j + 2];
                 top = buffer.buffer[j + 1];
                 bottom = buffer.buffer[j + 3];
-                //c.drawOval(left, top - 10, right, top + 15, myPaint);
                 c.drawArc(left, top - 10, right, top + 15, 180, 180, true, myPaint);
             }
         }

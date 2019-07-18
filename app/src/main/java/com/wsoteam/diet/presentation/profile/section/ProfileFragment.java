@@ -112,13 +112,21 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         BarData barData = new BarData(barDataSet);
         gv.setRenderer(new BarRender(gv, gv.getAnimator(), gv.getViewPortHandler(), myColors));
         gv.setDrawValueAboveBar(true);
-        gv.getDescription().setEnabled(false);
+
         XAxis xAxis = gv.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setAvoidFirstLastClipping(false);
-        YAxis yAxis = gv.getAxisRight();
-        yAxis.setEnabled(false);
+
+        YAxis yAxisRight = gv.getAxisRight();
+        yAxisRight.setEnabled(false);
+        yAxisRight.setAxisMinimum(0f);
+
+        YAxis yAxisLeft = gv.getAxisLeft();
+        yAxisLeft.setAxisMinimum(0f);
+
+        gv.setDrawBarShadow(false);
+        gv.getDescription().setEnabled(false);
+        gv.setDrawGridBackground(false);
         gv.setData(barData);
     }
 
