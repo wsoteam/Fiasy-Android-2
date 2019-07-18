@@ -21,6 +21,8 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -105,10 +107,18 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         ArrayList<Integer> myColors = new ArrayList<>();
         myColors.add(getResources().getColor(R.color.color_bar));
         BarDataSet barDataSet = new BarDataSet(pairs, "kekesi");
+        
         barDataSet.setColor(getResources().getColor(R.color.color_bar));
         BarData barData = new BarData(barDataSet);
         gv.setRenderer(new BarRender(gv, gv.getAnimator(), gv.getViewPortHandler(), myColors));
         gv.setDrawValueAboveBar(true);
+        gv.getDescription().setEnabled(false);
+        XAxis xAxis = gv.getXAxis();
+        xAxis.setDrawGridLines(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setAvoidFirstLastClipping(false);
+        YAxis yAxis = gv.getAxisRight();
+        yAxis.setEnabled(false);
         gv.setData(barData);
     }
 
