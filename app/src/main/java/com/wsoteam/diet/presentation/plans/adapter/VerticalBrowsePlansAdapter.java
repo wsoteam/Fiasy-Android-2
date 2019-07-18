@@ -8,12 +8,16 @@ import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.DietPlans.POJO.DietsList;
 import com.wsoteam.diet.R;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class VerticalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
@@ -28,14 +32,17 @@ public class VerticalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerVie
         viewPool = new RecyclerView.RecycledViewPool();
     }
 
-    private class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder{
 
         private RecyclerView mRecyclerView;
         private HorizontalBrowsePlansAdapter adapter;
         private LinearLayoutManager layoutManager;
 
+        @BindView(R.id.tvName) TextView tvtitle;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
 
             mRecyclerView = itemView.findViewById(R.id.recyclerView);
             mRecyclerView.setRecycledViewPool(viewPool);
@@ -50,8 +57,9 @@ public class VerticalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerVie
             mRecyclerView.setAdapter(adapter);
         }
 
-        public void setData(List<DietPlan> dietPlans){
-            adapter.updateList(dietPlans);
+        public void setData(DietsList dietsList){
+            tvtitle.setText(dietsList.getName());
+            adapter.updateList(dietsList.getDietPlans());
         }
     }
 
@@ -74,7 +82,7 @@ public class VerticalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerVie
             default: {
                 ViewHolder holder = (ViewHolder) viewHolder;
 
-                holder.setData(listGroups.get(position).getDietPlans());
+                holder.setData(listGroups.get(position));
 
                 int lastSeenFirstPosition = listPosition.get(position, 0);
                 if (lastSeenFirstPosition >= 0) {
