@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -29,6 +30,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.views.bar.BarRender;
 import com.wsoteam.diet.presentation.profile.settings.ProfileSettingsActivity;
 
 import java.util.ArrayList;
@@ -99,10 +101,14 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     }
 
     @Override
-    public void drawGraphs(List<BarEntry> pairs, String[] dates) {
+    public void drawGraphs(List<BarEntry> pairs) {
+        ArrayList<Integer> myColors = new ArrayList<>();
+        myColors.add(getResources().getColor(R.color.color_bar));
         BarDataSet barDataSet = new BarDataSet(pairs, "kekesi");
+        barDataSet.setColor(getResources().getColor(R.color.color_bar));
         BarData barData = new BarData(barDataSet);
-        IndexAxisValueFormatter formatter = new IndexAxisValueFormatter(dates);
+        gv.setRenderer(new BarRender(gv, gv.getAnimator(), gv.getViewPortHandler(), myColors));
+        gv.setDrawValueAboveBar(true);
         gv.setData(barData);
     }
 

@@ -66,19 +66,14 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     private void prepareGraphsData(SortedMap<Long, Integer> calories) {
         Iterator iterator = calories.entrySet().iterator();
         List<BarEntry> pairs = new ArrayList<>();
-        String[] dates = new String[pairs.size()];
-        int count = 0;
         while (iterator.hasNext()){
             Map.Entry pair = (Map.Entry) iterator.next();
             Long time = (Long) pair.getKey();
-            Date date = new Date(time);
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd", Locale.ENGLISH);
-            dates[count] = simpleDateFormat.format(date);
             Integer kcal = (Integer) pair.getValue();
+            calendar.setTimeInMillis(time);
             pairs.add(new BarEntry(calendar.get(Calendar.DAY_OF_MONTH), kcal));
-            count ++;
         }
-        getViewState().drawGraphs(pairs, dates);
+        getViewState().drawGraphs(pairs);
     }
 
 
