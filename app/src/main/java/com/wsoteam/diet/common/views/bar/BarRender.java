@@ -14,28 +14,33 @@ import java.util.ArrayList;
 public class BarRender extends BarChartRenderer {
 
     private Paint myPaint;
-    private ArrayList<Integer> myColors;
+    private int[] myColors;
+    private int currentNumber;
 
-    public BarRender(BarDataProvider chart, ChartAnimator animator, ViewPortHandler viewPortHandler, ArrayList<Integer> myColors) {
+    public BarRender(BarDataProvider chart, ChartAnimator animator, ViewPortHandler viewPortHandler, int[] myColors, int currentNumber) {
         super(chart, animator, viewPortHandler);
         this.myPaint = new Paint();
         this.myColors = myColors;
+        this.currentNumber = currentNumber;
     }
 
     @Override
     public void drawValues(Canvas c) {
         super.drawValues(c);
+        int colorIndex = 0;
         for (int i = 0; i < mChart.getBarData().getDataSetCount(); i++) {
             BarBuffer buffer = mBarBuffers[i];
             float left, right, top, bottom;
             for (int j = 0; j < buffer.buffer.length * mAnimator.getPhaseX(); j += 4) {
-                myPaint.setColor(myColors.get(0));
+                myPaint.setColor(myColors[colorIndex++]);
                 left = buffer.buffer[j];
                 right = buffer.buffer[j + 2];
                 top = buffer.buffer[j + 1];
                 bottom = buffer.buffer[j + 3];
-                c.drawArc(left, top - 10, right, top + 15, 180, 180, true, myPaint);
+                c.drawArc(left, top - 20, right, top + 23, 180, 180, true, myPaint);
             }
         }
     }
+
+
 }

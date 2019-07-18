@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.profile.section;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.POJOProfile.Profile;
+import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.model.Eating;
@@ -42,8 +44,10 @@ import static java.util.Map.Entry.comparingByKey;
 public class ProfilePresenter extends MvpPresenter<ProfileView> {
     private Calendar calendar = Calendar.getInstance();
     private Profile profile;
+    private Context context;
 
-    public ProfilePresenter() {
+    public ProfilePresenter(Context context) {
+        this.context = context;
     }
 
     public void attachPresenter() {
@@ -64,18 +68,32 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     private void prepareGraphsData(SortedMap<Long, Integer> calories) {
+        Calendar insideCalendar = Calendar.getInstance();
         Iterator iterator = calories.entrySet().iterator();
+        int[] colors = new int[calories.size()];
         List<BarEntry> pairs = new ArrayList<>();
         int count = 0;
         while (iterator.hasNext() && count < 7){
             Map.Entry pair = (Map.Entry) iterator.next();
             Long time = (Long) pair.getKey();
             Integer kcal = (Integer) pair.getValue();
-            calendar.setTimeInMillis(time);
-            pairs.add(new BarEntry(calendar.get(Calendar.DAY_OF_MONTH), kcal));
+            insideCalendar.setTimeInMillis(time);
+            pairs.add(new BarEntry(insideCalendar.get(Calendar.DAY_OF_MONTH), kcal));
+            colors[count]= getColor(time);
             count ++;
         }
-        getViewState().drawGraphs(pairs);
+        getViewState().drawGraphs(pairs, colors);
+    }
+
+    private int getColor(Long time) {
+
+        if (time == calendar.getTimeInMillis()){
+            return context.getResources().getColor(R.color.color_bar);
+        }else if (time < calendar.getTimeInMillis()){
+            return context.getResources().getColor(R.color.color_bar_past);
+        }else {
+            return context.getResources().getColor(R.color.color_bar_future);
+        }
     }
 
 

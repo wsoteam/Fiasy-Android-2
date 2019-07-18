@@ -103,14 +103,13 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     }
 
     @Override
-    public void drawGraphs(List<BarEntry> pairs) {
-        ArrayList<Integer> myColors = new ArrayList<>();
-        myColors.add(getResources().getColor(R.color.color_bar));
+    public void drawGraphs(List<BarEntry> pairs, int[] colors) {
         BarDataSet barDataSet = new BarDataSet(pairs, "kekesi");
-        
-        barDataSet.setColor(getResources().getColor(R.color.color_bar));
+        barDataSet.setColors(colors);
+        barDataSet.setDrawValues(false);
+
         BarData barData = new BarData(barDataSet);
-        gv.setRenderer(new BarRender(gv, gv.getAnimator(), gv.getViewPortHandler(), myColors));
+        gv.setRenderer(new BarRender(gv, gv.getAnimator(), gv.getViewPortHandler(), colors, 18));
         gv.setDrawValueAboveBar(true);
 
         XAxis xAxis = gv.getXAxis();
@@ -127,6 +126,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         gv.setDrawBarShadow(false);
         gv.getDescription().setEnabled(false);
         gv.setDrawGridBackground(false);
+        gv.getLegend().setEnabled(false);
         gv.setData(barData);
     }
 
