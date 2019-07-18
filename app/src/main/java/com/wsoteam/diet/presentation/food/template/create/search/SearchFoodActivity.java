@@ -50,7 +50,7 @@ public class SearchFoodActivity extends AppCompatActivity {
     @BindView(R.id.rvListOfSearchResponse) RecyclerView rvListOfSearchResponse;
     @BindView(R.id.ivActivityListAndSearchEmptyImage) ImageView ivEmptyImage;
     @BindView(R.id.tvActivityListAndSearchEmptyText) TextView tvEmptyText;
-    @BindView(R.id.tvIndex) TextView tvIndex;
+
     private AlertDialog dialog;
     private Window window;
 
@@ -306,7 +306,7 @@ public class SearchFoodActivity extends AppCompatActivity {
 
         public ItemAdapter(List<Food> foods) {
             this.foods = foods;
-            tvIndex.setText(String.valueOf(foods.size()));
+//            tvIndex.setText(String.valueOf(foods.size()));
             counter = -1;
         }
 

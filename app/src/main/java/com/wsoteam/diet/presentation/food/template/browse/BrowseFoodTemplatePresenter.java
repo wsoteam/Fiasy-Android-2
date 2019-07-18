@@ -126,10 +126,10 @@ public class BrowseFoodTemplatePresenter extends BasePresenter<BrowseFoodTemplat
         int month = Integer.parseInt(arrayOfNumbersForDate[1]) - 1;
         int year = Integer.parseInt(arrayOfNumbersForDate[2]);
 
-        int kcal = (int)food.getCalories();
-        int carbo = (int)food.getCarbohydrates();
-        int prot = (int)food.getProteins();
-        int fat = (int)food.getFats();
+        int kcal = (int)(food.getCalories() * food.getPortion());
+        int carbo = (int)(food.getCarbohydrates() * food.getPortion());
+        int prot = (int)(food.getProteins() * food.getPortion());
+        int fat = (int)(food.getFats() * food.getPortion());
 
         int weight = (int)food.getPortion();
 

@@ -1,15 +1,17 @@
 package com.wsoteam.diet.presentation.food.template.create;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +53,8 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.btnSave) Button saveButton;
 
+    AlertDialog alert;
+
     @ProvidePresenter
     CreateFoodTemplatePresenter providePresenter() {
         return presenter;
@@ -74,10 +78,13 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
         btnClose.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                presenter.onCancelClicked();
+               initAlert();
+//                presenter.onCancelClicked();
                 return false;
             }
         });
+
+
 
         int spinnerPosition = getIntent().getIntExtra(Config.EATING_SPINNER_POSITION, 0);
         eatingSpinner.setSelection(spinnerPosition);
@@ -183,5 +190,36 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
         super.onResume();
         adapter.notifyDataSetChanged();
         presenter.checkListFoodsSize();
+    }
+
+    void initAlert(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Выход");
+        builder.setMessage("Выйти без сохранения?");
+        builder.setPositiveButton("Выйти", myClickListener);
+        builder.setNegativeButton("Отмена", myClickListener);
+        alert = builder.create();
+        alert.show();
+
+    }
+
+    OnClickListener myClickListener = new OnClickListener() {
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                case Dialog.BUTTON_POSITIVE:
+                    CreateFoodTemplateActivity.super.onBackPressed();
+                    break;
+                case Dialog.BUTTON_NEGATIVE:
+                    alert.dismiss();
+                    break;
+
+            }
+        }
+    };
+
+    @Override
+    public void onBackPressed() {
+        initAlert();
     }
 }
