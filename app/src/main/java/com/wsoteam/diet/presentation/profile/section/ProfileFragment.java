@@ -118,7 +118,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         YAxis yAxisLeft = gv.getAxisLeft();
         yAxisLeft.setAxisMinimum(0f);
         gv.setMarker(new MarkerView(getActivity(), R.layout.marker_calories));
-        BarMarker barMarker = new BarMarker(getActivity(), R.layout.marker_calories, colors);
+        BarMarker barMarker = new BarMarker(getActivity(), R.layout.marker_calories, colors, pairs);
 
 
         gv.setDrawBarShadow(false);

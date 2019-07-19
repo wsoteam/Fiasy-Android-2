@@ -13,25 +13,25 @@ import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 import com.wsoteam.diet.R;
 
+import java.util.List;
+
 public class BarMarker extends MarkerView {
     private TextView tvTitle;
     private int[] colors;
+    private List<BarEntry> pairs;
 
-    public BarMarker(Context context, int layoutResource, int[] colors) {
+    public BarMarker(Context context, int layoutResource, int[] colors, List<BarEntry> pairs) {
         super(context, layoutResource);
         tvTitle = findViewById(R.id.tvContent);
         this.colors = colors;
+        this.pairs = pairs;
     }
 
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        tvTitle.setTextColor(colors[highlight.getDataSetIndex()]);
-        Log.e("LOL", String.valueOf(highlight.getStackIndex()));
-        Log.e("LOL", String.valueOf(highlight.getDataSetIndex()));
-        Log.e("LOL", String.valueOf(e.getData()));
+        tvTitle.setTextColor(colors[getIndex(e.getX())]);
         if (e instanceof CandleEntry) {
             CandleEntry ce = (CandleEntry) e;
-            BarEntry barEntry = (BarEntry) e;
             tvTitle.setText("" + Utils.formatNumber(ce.getHigh(), 0, true) + " " + getContext().getString(R.string.marker_kcal));
 
         } else {
@@ -40,6 +40,14 @@ public class BarMarker extends MarkerView {
         super.refreshContent(e, highlight);
     }
 
+    private int getIndex(float x) {
+        for (int i = 0; i < pairs.size(); i++) {
+            if (pairs.get(i).getX() == x){
+                return i;
+            }
+        }
+        return -1;
+    }
 
 
     @Override
