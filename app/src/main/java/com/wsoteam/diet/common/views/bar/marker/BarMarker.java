@@ -23,15 +23,15 @@ public class BarMarker extends MarkerView {
     public void refreshContent(Entry e, Highlight highlight) {
         if (e instanceof CandleEntry) {
             CandleEntry ce = (CandleEntry) e;
-            tvTitle.setText("" + Utils.formatNumber(ce.getHigh(), 0, true));
+            tvTitle.setText("" + Utils.formatNumber(ce.getHigh(), 0, true) + getContext().getString(R.string.marker_kcal));
         } else {
-            tvTitle.setText("" + Utils.formatNumber(e.getY(), 0, true));
+            tvTitle.setText("" + Utils.formatNumber(e.getY(), 0, true) + getContext().getString(R.string.marker_kcal));
         }
         super.refreshContent(e, highlight);
     }
 
     @Override
     public MPPointF getOffset() {
-        return new MPPointF(-(getWidth() / 2), (getHeight()));
+        return new MPPointF(-(getWidth() / 2), -getHeight());
     }
 }
