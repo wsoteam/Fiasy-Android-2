@@ -45,6 +45,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     private Calendar calendar = Calendar.getInstance();
     private Profile profile;
     private Context context;
+    private long oneWeek = 604800000;
 
     public ProfilePresenter(Context context) {
         this.context = context;
@@ -65,6 +66,17 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     private void updateUI(SortedMap<Long, Integer> calories) {
         bindCircleProgressBar(calories);
         prepareGraphsData(calories);
+        timeWeek();
+    }
+
+    private void timeWeek() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.clear(Calendar.MINUTE);
+        calendar.clear(Calendar.SECOND);
+        calendar.clear(Calendar.MILLISECOND);
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+        Log.e("LOL", String.valueOf(calendar.getTimeInMillis() + oneWeek));
     }
 
     private void prepareGraphsData(SortedMap<Long, Integer> calories) {
