@@ -6,4 +6,27 @@
     android:layout_height="match_parent"
     tools:context="com.wsoteam.diet.presentation.plans.detail.blocked.BlockedDetailPlansActivity">
 
+    <ImageView
+        android:id="@+id/imageView43"
+        android:layout_width="0dp"
+        android:layout_height="385dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:color/holo_blue_light" />
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/transparent"
+        android:minHeight="?android:attr/actionBarSize"
+        android:paddingTop="24dp"
+        app:navigationIcon="@drawable/back_arrow_icon_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

@@ -22,15 +22,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.plans.detail.blocked.BlockedDetailPlansActivity"></activity>
+        <activity android:name=".presentation.plans.detail.blocked.BlockedDetailPlansActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu"/>
+
         <activity
             android:name=".presentation.plans.detail.DetailPlansActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu"></activity>
+            android:theme="@style/Menu"/>
+
         <activity
             android:name=".Recipes.v2.ListRecipesActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu"></activity>
+            android:theme="@style/Menu"/>
+
         <activity
             android:name=".BarcodeScanner.BaseScanner"
             android:screenOrientation="portrait"
