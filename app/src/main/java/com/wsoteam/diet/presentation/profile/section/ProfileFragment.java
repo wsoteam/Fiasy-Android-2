@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -21,23 +20,19 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.views.bar.BarRender;
+import com.wsoteam.diet.common.views.bar.marker.BarMarker;
 import com.wsoteam.diet.presentation.profile.settings.ProfileSettingsActivity;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedMap;
 
 import javax.inject.Inject;
 
@@ -122,6 +117,9 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
         YAxis yAxisLeft = gv.getAxisLeft();
         yAxisLeft.setAxisMinimum(0f);
+        gv.setMarker(new MarkerView(getActivity(), R.layout.marker_calories));
+        BarMarker barMarker = new BarMarker(getActivity(), R.layout.marker_calories);
+        gv.setMarker(barMarker);
 
         gv.setDrawBarShadow(false);
         gv.getDescription().setEnabled(false);
