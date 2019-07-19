@@ -1,5 +1,6 @@
-package com.wsoteam.diet.presentation.plans;
+package com.wsoteam.diet.presentation.plans.browse;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,9 +13,12 @@ import android.view.ViewGroup;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
+import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.DietPlans.POJO.DietPlansHolder;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.plans.adapter.HorizontalBrowsePlansAdapter;
 import com.wsoteam.diet.presentation.plans.adapter.VerticalBrowsePlansAdapter;
+import com.wsoteam.diet.presentation.plans.detail.DetailPlansActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,12 +44,26 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
         ButterKnife.bind(this, view);
 
         adapter = new VerticalBrowsePlansAdapter(DietPlansHolder.get().getListGroups());
+        adapter.SetOnItemClickListener(onItemClickListener);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
         return view;
     }
+
+    HorizontalBrowsePlansAdapter.OnItemClickListener onItemClickListener = new HorizontalBrowsePlansAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position, DietPlan dietPlan) {
+            Intent intent = new Intent(getContext(), DetailPlansActivity.class);
+            startActivity(intent);
+        }
+
+        @Override
+        public void onItemLongClick(View view, int position) {
+
+        }
+    };
 
     @Override
     public void showProgress(boolean show) {

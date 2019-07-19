@@ -58,7 +58,7 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
         @Override
         public void onClick(View v) {
             if (mItemClickListener != null) {
-                mItemClickListener.onItemClick(v, getLayoutPosition());
+                mItemClickListener.onItemClick(v, getLayoutPosition(), dietPlans.get(getLayoutPosition()));
             }
         }
 
@@ -108,7 +108,7 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
 
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(View view, int position, DietPlan dietPlan);
 
         void onItemLongClick(View view, int position);
     }

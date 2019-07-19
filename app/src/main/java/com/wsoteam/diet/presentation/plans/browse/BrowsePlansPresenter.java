@@ -1,4 +1,4 @@
-package com.wsoteam.diet.presentation.plans;
+package com.wsoteam.diet.presentation.plans.browse;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.wsoteam.diet.presentation.global.BasePresenter;
