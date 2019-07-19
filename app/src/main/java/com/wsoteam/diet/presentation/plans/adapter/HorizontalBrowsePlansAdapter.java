@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.helper.NounsDeclension;
 
 import java.util.List;
 
@@ -47,7 +48,8 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
         }
         public void bind(DietPlan dietPlan){
             tvName.setText(dietPlan.getName());
-            tvTime.setText(dietPlan.getCountDays() + " день");
+            tvTime.setText(dietPlan.getCountDays() +
+                    NounsDeclension.check(dietPlan.getCountDays(), " день", " дня", " дней"));
             Glide.with(context)
                     .load(dietPlan.getUrlImage())
                     .into(imageView);
