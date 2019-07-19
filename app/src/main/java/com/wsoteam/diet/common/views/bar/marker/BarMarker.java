@@ -33,7 +33,6 @@ public class BarMarker extends MarkerView {
         if (e instanceof CandleEntry) {
             CandleEntry ce = (CandleEntry) e;
             tvTitle.setText("" + Utils.formatNumber(ce.getHigh(), 0, true) + " " + getContext().getString(R.string.marker_kcal));
-
         } else {
             tvTitle.setText("" + Utils.formatNumber(e.getY(), 0, true) + " " + getContext().getString(R.string.marker_kcal));
         }

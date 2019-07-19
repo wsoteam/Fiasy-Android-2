@@ -29,6 +29,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.views.bar.BarRender;
+import com.wsoteam.diet.common.views.bar.formater.XFormatter;
 import com.wsoteam.diet.common.views.bar.marker.BarMarker;
 import com.wsoteam.diet.presentation.profile.settings.ProfileSettingsActivity;
 
@@ -119,7 +120,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         yAxisLeft.setAxisMinimum(0f);
         gv.setMarker(new MarkerView(getActivity(), R.layout.marker_calories));
         BarMarker barMarker = new BarMarker(getActivity(), R.layout.marker_calories, colors, pairs);
-
+        XFormatter xFormatter = new XFormatter();
 
         gv.setDrawBarShadow(false);
         gv.getDescription().setEnabled(false);
