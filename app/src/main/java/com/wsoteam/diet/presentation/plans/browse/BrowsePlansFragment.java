@@ -19,6 +19,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.plans.adapter.HorizontalBrowsePlansAdapter;
 import com.wsoteam.diet.presentation.plans.adapter.VerticalBrowsePlansAdapter;
 import com.wsoteam.diet.presentation.plans.detail.DetailPlansActivity;
+import com.wsoteam.diet.presentation.plans.detail.blocked.BlockedDetailPlansActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,7 +62,8 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
 
         @Override
         public void onItemLongClick(View view, int position) {
-
+            Intent intent = new Intent(getContext(), BlockedDetailPlansActivity.class);
+            startActivity(intent);
         }
     };
 
