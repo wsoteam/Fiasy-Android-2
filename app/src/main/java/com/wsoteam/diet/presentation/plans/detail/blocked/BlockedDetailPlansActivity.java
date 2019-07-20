@@ -1,23 +1,37 @@
 package com.wsoteam.diet.presentation.plans.detail.blocked;
 
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
+import com.bumptech.glide.Glide;
+import com.wsoteam.diet.Config;
+import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class BlockedDetailPlansActivity extends MvpAppCompatActivity implements BlockedDetailPlansView {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.ivBlockedPlans) ImageView ivPlans;
+    @BindView(R.id.tvPlansName) TextView tvName;
+    @BindView(R.id.tvTime) TextView tvTime;
+    @BindView(R.id.tvRecipes) TextView tvRecipes;
+    @BindView(R.id.tvUsers) TextView tvUsers;
 
     @InjectPresenter
     BlockedDetailPlansPresenter presenter;
@@ -65,6 +79,11 @@ public class BlockedDetailPlansActivity extends MvpAppCompatActivity implements 
         }
     };
 
+    @OnClick({R.id.btnGetSubscription})
+    void onClicked(View view){
+        Log.d("kkk", "onClicked: ");
+    }
+
     @Override
     public void showProgress(boolean show) {
 
@@ -73,5 +92,29 @@ public class BlockedDetailPlansActivity extends MvpAppCompatActivity implements 
     @Override
     public void showMessage(String message) {
 
+    }
+
+    @Override
+    public void getDietPlan() {
+        DietPlan dietPlan = (DietPlan)getIntent().getSerializableExtra(Config.DIETS_PLAN_INTENT);
+        presenter.setDietPlan(dietPlan);
+    }
+
+    @Override
+    public void showData(DietPlan dietPlan){
+        tvName.setText(dietPlan.getName());
+        tvTime.setText(dietPlan.getCountDays() + "");
+        tvRecipes.setText("55");
+        tvUsers.setText("475");
+
+        Glide.with(this)
+                .load(dietPlan.getUrlImage())
+                .into(ivPlans);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getDietPlan();
     }
 }

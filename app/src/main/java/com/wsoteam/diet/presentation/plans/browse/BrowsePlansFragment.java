@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.DietPlans.POJO.DietPlansHolder;
 import com.wsoteam.diet.R;
@@ -61,8 +62,9 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
         }
 
         @Override
-        public void onItemLongClick(View view, int position) {
+        public void onItemLongClick(View view, int position, DietPlan dietPlan) {
             Intent intent = new Intent(getContext(), BlockedDetailPlansActivity.class);
+            intent.putExtra(Config.DIETS_PLAN_INTENT, dietPlan);
             startActivity(intent);
         }
     };

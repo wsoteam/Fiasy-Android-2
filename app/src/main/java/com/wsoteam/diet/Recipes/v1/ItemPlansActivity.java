@@ -19,7 +19,7 @@ import butterknife.OnClick;
 public class ItemPlansActivity extends AppCompatActivity {
     @BindView(R.id.ivHead) ImageView ivHead;
     @BindView(R.id.tvName) TextView tvName;
-    @BindView(R.id.tvTime) TextView tvTime;
+    @BindView(R.id.tvUsers) TextView tvTime;
     @BindView(R.id.llIngedientsItem) LinearLayout llIngredients;
     @BindView(R.id.llInstructions) LinearLayout llInstructions;
     @BindView(R.id.tvCarbohydrates) TextView tvCarbohydrates;

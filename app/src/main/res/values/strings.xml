@@ -1,5 +1,9 @@
 <resources>
 
+    <!--diets lan-->
+    <string name="days">дней</string>
+
+
     <!--adding recipe-->
     <string name="add">Добавить</string>
     <string name="cancel">Отменить</string>

@@ -2,6 +2,9 @@ package com.wsoteam.diet;
 
 public class Config {
 
+    // diets plan
+    public static final String DIETS_PLAN_INTENT = "DIETS_PLAN_INTENT";
+
     public static final boolean RELEASE = false;
 //    public static final boolean RELEASE = true;
 
