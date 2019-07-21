@@ -58,6 +58,7 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
         @Override
         public void onItemClick(View view, int position, DietPlan dietPlan) {
             Intent intent = new Intent(getContext(), DetailPlansActivity.class);
+            intent.putExtra(Config.DIETS_PLAN_INTENT, dietPlan);
             startActivity(intent);
         }
 

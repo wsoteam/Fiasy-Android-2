@@ -43,7 +43,7 @@ public class PresentersModule {
 
     @Provides
     DetailPlansPresenter provideDetailPlansPresenter(Router router){
-        return new DetailPlansPresenter();
+        return new DetailPlansPresenter(router);
     }
 
 }

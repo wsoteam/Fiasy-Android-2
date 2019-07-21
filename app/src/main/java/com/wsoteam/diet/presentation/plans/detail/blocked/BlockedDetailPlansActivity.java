@@ -71,7 +71,7 @@ public class BlockedDetailPlansActivity extends BaseActivity implements BlockedD
     View.OnClickListener navigationListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            onBackPressed();
+            presenter.clickedClose();
         }
     };
 

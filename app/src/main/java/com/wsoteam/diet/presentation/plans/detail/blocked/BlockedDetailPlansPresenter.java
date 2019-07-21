@@ -27,8 +27,10 @@ public class BlockedDetailPlansPresenter extends BasePresenter<BlockedDetailPlan
     }
 
     void clickedPremButton(){
-        Log.d("kkk", "clickedPremButton: ");
-//        router.navigateTo(new Screens.SignInScreen());
        router.navigateTo(new Screens.SubscriptionScreen());
+    }
+
+    void clickedClose(){
+        router.exit();
     }
 }
