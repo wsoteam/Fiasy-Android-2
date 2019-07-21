@@ -62,8 +62,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
     private void updateUI(SortedMap<Long, Integer> calories) {
         bindCircleProgressBar(calories);
-        prepareGraphsData(calories);
-        getYearInterval(-2);
+        prepareGraphsData(calories, getWeekInterval(0));
     }
 
     private long[] getWeekInterval(int position) {
@@ -115,20 +114,22 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
         return yearInterval;
     }
 
-    private void prepareGraphsData(SortedMap<Long, Integer> calories) {
+    private void prepareGraphsData(SortedMap<Long, Integer> calories, long [] interval) {
         Calendar insideCalendar = Calendar.getInstance();
         Iterator iterator = calories.entrySet().iterator();
         int[] colors = new int[calories.size()];
         List<BarEntry> pairs = new ArrayList<>();
         int count = 0;
-        while (iterator.hasNext() && count < 7){
+        while (iterator.hasNext()){
             Map.Entry pair = (Map.Entry) iterator.next();
             Long time = (Long) pair.getKey();
             Integer kcal = (Integer) pair.getValue();
             insideCalendar.setTimeInMillis(time);
-            pairs.add(new BarEntry(insideCalendar.get(Calendar.DAY_OF_MONTH), kcal));
-            colors[count]= getColor(time);
-            count ++;
+            if (time >= interval[0] && time <= interval[1]) {
+                pairs.add(new BarEntry(insideCalendar.get(Calendar.DAY_OF_MONTH), kcal));
+                colors[count] = getColor(time);
+                count++;
+            }
         }
         getViewState().drawGraphs(pairs, colors);
     }
