@@ -5,6 +5,8 @@ import android.content.Context;
 import com.wsoteam.diet.presentation.auth.main.MainAuthPresenter;
 import com.wsoteam.diet.presentation.intro.IntroPresenter;
 import com.wsoteam.diet.presentation.main.water.WaterPresenter;
+import com.wsoteam.diet.presentation.plans.detail.DetailPlansPresenter;
+import com.wsoteam.diet.presentation.plans.detail.blocked.BlockedDetailPlansPresenter;
 import com.wsoteam.diet.presentation.profile.edit.EditProfilePresenter;
 
 import dagger.Module;
@@ -33,4 +35,15 @@ public class PresentersModule {
     WaterPresenter provideWaterPresenter(Context context, Router router) {
         return new WaterPresenter(context, router);
     }
+
+    @Provides
+    BlockedDetailPlansPresenter provideBlockedDetailPlansPresenter(Router router){
+        return new BlockedDetailPlansPresenter(router);
+    }
+
+    @Provides
+    DetailPlansPresenter provideDetailPlansPresenter(Router router){
+        return new DetailPlansPresenter();
+    }
+
 }

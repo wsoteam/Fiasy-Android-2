@@ -3,9 +3,11 @@ package com.wsoteam.diet.presentation.global;
 import android.content.Context;
 import android.content.Intent;
 
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchProfile.ActivityHelp;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
@@ -79,6 +81,19 @@ public class Screens {
         @Override
         public Intent getActivityIntent(Context context) {
             return new Intent(context, ActivityPrivacyPolicy.class);
+        }
+    }
+
+    public static final class SubscriptionScreen extends SupportAppScreen{
+        @Override
+        public Intent getActivityIntent(Context context) {
+            Box box = new Box();
+            box.setSubscribe(false);
+            box.setOpenFromPremPart(true);
+            box.setOpenFromIntrodaction(false);
+            Intent intent = new Intent(context, ActivitySubscription.class)
+                    .putExtra(Config.TAG_BOX, box);
+            return intent;
         }
     }
 }

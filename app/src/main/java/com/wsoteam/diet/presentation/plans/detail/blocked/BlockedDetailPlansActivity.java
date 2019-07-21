@@ -4,11 +4,9 @@ package com.wsoteam.diet.presentation.plans.detail.blocked;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,12 +17,16 @@ import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.global.BaseActivity;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dagger.android.AndroidInjection;
 
-public class BlockedDetailPlansActivity extends MvpAppCompatActivity implements BlockedDetailPlansView {
+public class BlockedDetailPlansActivity extends BaseActivity implements BlockedDetailPlansView {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.ivBlockedPlans) ImageView ivPlans;
@@ -33,16 +35,18 @@ public class BlockedDetailPlansActivity extends MvpAppCompatActivity implements 
     @BindView(R.id.tvRecipes) TextView tvRecipes;
     @BindView(R.id.tvUsers) TextView tvUsers;
 
+    @Inject
     @InjectPresenter
     BlockedDetailPlansPresenter presenter;
 
     @ProvidePresenter
     BlockedDetailPlansPresenter providePresenter(){
-        return new BlockedDetailPlansPresenter();
+        return presenter;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blocked_detail_plans);
         ButterKnife.bind(this);
@@ -81,7 +85,7 @@ public class BlockedDetailPlansActivity extends MvpAppCompatActivity implements 
 
     @OnClick({R.id.btnGetSubscription})
     void onClicked(View view){
-        Log.d("kkk", "onClicked: ");
+        presenter.clickedPremButton();
     }
 
     @Override
