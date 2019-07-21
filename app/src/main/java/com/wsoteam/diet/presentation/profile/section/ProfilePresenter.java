@@ -62,7 +62,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
     private void updateUI(SortedMap<Long, Integer> calories) {
         bindCircleProgressBar(calories);
-        prepareGraphsData(calories, getWeekInterval(0));
+        prepareGraphsData(calories, getYearInterval(0));
     }
 
     private long[] getWeekInterval(int position) {
