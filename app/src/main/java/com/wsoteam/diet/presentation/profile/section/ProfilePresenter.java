@@ -63,11 +63,12 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     private void updateUI(SortedMap<Long, Integer> calories) {
         bindCircleProgressBar(calories);
         prepareGraphsData(calories);
-        getWeekInterval(-1);
+        getMonthInterval(-2);
     }
 
     private long[] getWeekInterval(int position) {
         Calendar calendar = Calendar.getInstance();
+        long[] weekInterval = new long[2];
         int week = calendar.get(Calendar.WEEK_OF_YEAR);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.clear(Calendar.MINUTE);
@@ -75,19 +76,25 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
         calendar.clear(Calendar.MILLISECOND);
         calendar.set(Calendar.WEEK_OF_YEAR, week + position);
         calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
-        Log.e("LOL", String.valueOf(calendar.getTimeInMillis() + oneWeek));
-        Log.e("LOL", String.valueOf(calendar.getTimeInMillis()));
-        return null;
+        weekInterval[0] = calendar.getTimeInMillis();
+        weekInterval[1] = calendar.getTimeInMillis() + oneWeek;
+        return weekInterval;
     }
 
-    private void getMonthInterval() {
+    private long[] getMonthInterval(int position) {
         Calendar calendar = Calendar.getInstance();
+        int month = calendar.get(Calendar.MONTH);
+        long[] monthInterval = new long[2];
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.clear(Calendar.MINUTE);
         calendar.clear(Calendar.SECOND);
         calendar.clear(Calendar.MILLISECOND);
-        //calendar.set(Calendar.DAY_OF_MONTH, calendar.getFi);
-        Log.e("LOL", String.valueOf(calendar.getTimeInMillis() + oneWeek));
+        calendar.set(Calendar.MONTH, month + position);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        monthInterval[0] = calendar.getTimeInMillis();
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        monthInterval[1] = calendar.getTimeInMillis();
+        return monthInterval;
     }
 
     private void prepareGraphsData(SortedMap<Long, Integer> calories) {
