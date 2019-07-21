@@ -63,7 +63,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     private void updateUI(SortedMap<Long, Integer> calories) {
         bindCircleProgressBar(calories);
         prepareGraphsData(calories);
-        getMonthInterval(-2);
+        getYearInterval(-2);
     }
 
     private long[] getWeekInterval(int position) {
@@ -95,6 +95,24 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
         monthInterval[1] = calendar.getTimeInMillis();
         return monthInterval;
+    }
+
+    private long[] getYearInterval(int position) {
+        Calendar calendar = Calendar.getInstance();
+        long[] yearInterval = new long[2];
+        int year = calendar.get(Calendar.YEAR);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.clear(Calendar.MINUTE);
+        calendar.clear(Calendar.SECOND);
+        calendar.clear(Calendar.MILLISECOND);
+        calendar.set(Calendar.YEAR, year + position);
+        calendar.set(Calendar.DAY_OF_YEAR, calendar.getActualMinimum(Calendar.DAY_OF_YEAR));
+        yearInterval[0] = calendar.getTimeInMillis();
+        calendar.set(Calendar.DAY_OF_YEAR, calendar.getActualMaximum(Calendar.DAY_OF_YEAR));
+        yearInterval[1] = calendar.getTimeInMillis();
+        Log.e("LOL", String.valueOf(yearInterval[0]));
+        Log.e("LOL", String.valueOf(yearInterval[1]));
+        return yearInterval;
     }
 
     private void prepareGraphsData(SortedMap<Long, Integer> calories) {
