@@ -22,14 +22,11 @@ import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.model.Eating;
 
 import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -66,16 +63,30 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     private void updateUI(SortedMap<Long, Integer> calories) {
         bindCircleProgressBar(calories);
         prepareGraphsData(calories);
-        timeWeek();
+        getWeekInterval(-1);
     }
 
-    private void timeWeek() {
+    private long[] getWeekInterval(int position) {
+        Calendar calendar = Calendar.getInstance();
+        int week = calendar.get(Calendar.WEEK_OF_YEAR);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.clear(Calendar.MINUTE);
+        calendar.clear(Calendar.SECOND);
+        calendar.clear(Calendar.MILLISECOND);
+        calendar.set(Calendar.WEEK_OF_YEAR, week + position);
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+        Log.e("LOL", String.valueOf(calendar.getTimeInMillis() + oneWeek));
+        Log.e("LOL", String.valueOf(calendar.getTimeInMillis()));
+        return null;
+    }
+
+    private void getMonthInterval() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.clear(Calendar.MINUTE);
         calendar.clear(Calendar.SECOND);
         calendar.clear(Calendar.MILLISECOND);
-        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+        //calendar.set(Calendar.DAY_OF_MONTH, calendar.getFi);
         Log.e("LOL", String.valueOf(calendar.getTimeInMillis() + oneWeek));
     }
 
