@@ -68,6 +68,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     private float MAX_PROGRESS = 100;
     private long time = 500, periodTick = 5, countTick = 100;
     private CountDownTimer countDownTimer;
+    private int counterMove = 0;
 
     @Override
     public void bindCircleProgressBar(float progress) {
@@ -130,6 +131,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         gv.getLegend().setEnabled(false);
         gv.setData(barData);
         gv.setMarker(barMarker);
+        gv.notifyDataSetChanged();
+        gv.invalidate();
         Log.e("LOL", String.valueOf(max));
         Log.e("LOL", String.valueOf(min));
     }
@@ -195,7 +198,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     }
 
 
-    @OnClick({R.id.ibSettings, R.id.ibExpandable})
+    @OnClick({R.id.ibSettings, R.id.ibExpandable, R.id.ibLeft, R.id.ibRight})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibSettings:
@@ -203,6 +206,12 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
                 break;
             case R.id.ibExpandable:
                 openParams();
+                break;
+            case R.id.ibLeft:
+                profilePresenter.getWeekGraph(--counterMove);
+                break;
+            case R.id.ibRight:
+                profilePresenter.getWeekGraph(++counterMove);
                 break;
            /* case R.id.civProfile:
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)

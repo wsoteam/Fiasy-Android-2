@@ -43,6 +43,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     private Profile profile;
     private Context context;
     private long oneWeek = 604799999;
+    private SortedMap<Long, Integer> calories;
 
     public ProfilePresenter(Context context) {
         this.context = context;
@@ -61,8 +62,13 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     private void updateUI(SortedMap<Long, Integer> calories) {
+        this.calories = calories;
         bindCircleProgressBar(calories);
-        prepareGraphsData(calories, getMonthInterval(0));
+        prepareGraphsData(calories, getWeekInterval(0));
+    }
+
+    public void getWeekGraph(int position) {
+        prepareGraphsData(calories, getWeekInterval(position));
     }
 
     private long[] getWeekInterval(int position) {
@@ -118,13 +124,13 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
         return yearInterval;
     }
 
-    private void prepareGraphsData(SortedMap<Long, Integer> calories, long [] interval) {
+    private void prepareGraphsData(SortedMap<Long, Integer> calories, long[] interval) {
         Calendar insideCalendar = Calendar.getInstance();
         Iterator iterator = calories.entrySet().iterator();
         int[] colors = new int[calories.size()];
         List<BarEntry> pairs = new ArrayList<>();
         int count = 0;
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Map.Entry pair = (Map.Entry) iterator.next();
             Long time = (Long) pair.getKey();
             Integer kcal = (Integer) pair.getValue();
@@ -144,11 +150,11 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
     private int getColor(Long time) {
 
-        if (time == calendar.getTimeInMillis()){
+        if (time == calendar.getTimeInMillis()) {
             return context.getResources().getColor(R.color.color_bar);
-        }else if (time < calendar.getTimeInMillis()){
+        } else if (time < calendar.getTimeInMillis()) {
             return context.getResources().getColor(R.color.color_bar_past);
-        }else {
+        } else {
             return context.getResources().getColor(R.color.color_bar_future);
         }
     }
@@ -156,9 +162,9 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
     private void bindCircleProgressBar(SortedMap<Long, Integer> calories) {
         Integer currentCalories = calories.get(getCurrentDate());
-        if (currentCalories == null){
+        if (currentCalories == null) {
             getViewState().bindCircleProgressBar(0);
-        }else if (profile != null && currentCalories != null){
+        } else if (profile != null && currentCalories != null) {
             double percentLoading = ((double) currentCalories / profile.getMaxKcal());
             getViewState().bindCircleProgressBar((float) percentLoading * 100);
         }

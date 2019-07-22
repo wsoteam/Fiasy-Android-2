@@ -409,7 +409,7 @@
             android:layout_marginStart="24dp"
             android:src="#f2994a"
             app:civ_border_color="@color/white"
-            android:elevation=""
+            android:elevation="3dp"
             app:civ_border_width="2dp"
             app:civ_circle_background_color="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/textView145"
