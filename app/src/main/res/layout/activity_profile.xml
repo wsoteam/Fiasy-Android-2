@@ -50,6 +50,36 @@
             app:srcCompat="@drawable/settings_profile" />
 
         <ImageButton
+            android:id="@+id/ibRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/filter_state"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView93"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView93"
+            app:layout_constraintTop_toTopOf="@+id/textView93"
+            app:srcCompat="@drawable/right_arrow_graph" />
+
+        <ImageButton
+            android:id="@+id/ibLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/filter_state"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView93"
+            app:layout_constraintEnd_toStartOf="@+id/textView93"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView93"
+            app:srcCompat="@drawable/left_arrow_graph" />
+
+        <ImageButton
             android:id="@+id/ibExpandable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -113,9 +143,9 @@
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/roboto_medium"
             android:text="60 г"
-            android:visibility="gone"
             android:textColor="#d9424242"
             android:textSize="16sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tvCarboCount"
@@ -131,9 +161,9 @@
             android:layout_marginBottom="32dp"
             android:fontFamily="@font/roboto_medium"
             android:text="60 г"
-            android:visibility="gone"
             android:textColor="#d9424242"
             android:textSize="16sp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tvCarboCount"
             app:layout_constraintHorizontal_bias="0.5"
@@ -210,9 +240,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
             android:text="белка"
-            android:visibility="gone"
             android:textColor="#80424242"
             android:textSize="16sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/tvProtCount"
             app:layout_constraintStart_toStartOf="@+id/tvProtCount"
             app:layout_constraintTop_toBottomOf="@+id/tvProtCount" />
@@ -223,9 +253,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
             android:text="углеводов"
-            android:visibility="gone"
             android:textColor="#80424242"
             android:textSize="16sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/tvCarboCount"
             app:layout_constraintStart_toStartOf="@+id/tvCarboCount"
             app:layout_constraintTop_toBottomOf="@+id/tvCarboCount" />
@@ -236,9 +266,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
             android:text="жиров"
-            android:visibility="gone"
             android:textColor="#80424242"
             android:textSize="16sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/tvFatCount"
             app:layout_constraintStart_toStartOf="@+id/tvFatCount"
             app:layout_constraintTop_toBottomOf="@+id/tvFatCount" />
@@ -248,12 +278,179 @@
             android:layout_width="0dp"
             android:layout_height="300dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/donutProgress"></com.github.mikephil.charting.charts.BarChart>
+            app:layout_constraintTop_toBottomOf="@+id/textView93"
+            app:layout_constraintVertical_bias="1.0"></com.github.mikephil.charting.charts.BarChart>
+
+        <TextView
+            android:id="@+id/textView91"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="41dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Отчеты"
+            android:textColor="#d9424242"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLabelProt" />
+
+        <RadioGroup
+            android:id="@+id/rgrpInterval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView91">
+
+
+            <RadioButton
+                android:id="@+id/rbtnWeek"
+                android:layout_width="96dp"
+                android:layout_height="35dp"
+                android:background="@drawable/radio_graph_intervals"
+                android:button="@android:color/transparent"
+                android:checked="true"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="Неделя"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/radio_flat_text_selector"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/rbtnMonth"
+                android:layout_width="96dp"
+                android:layout_height="35dp"
+                android:background="@drawable/radio_graph_intervals"
+                android:button="@android:color/transparent"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="Месяц"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/radio_flat_text_selector"
+                android:textSize="13sp"
+                android:textStyle="normal" />
+
+            <RadioButton
+                android:id="@+id/rbtnYear"
+                android:layout_width="96dp"
+                android:layout_height="35dp"
+                android:background="@drawable/radio_graph_intervals"
+                android:button="@android:color/transparent"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="Год"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/radio_flat_text_selector"
+                android:textSize="13sp"
+                android:textStyle="normal" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tvTopDateSwitcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="2019"
+            android:textColor="#80424242"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@+id/rgrpInterval"
+            app:layout_constraintStart_toStartOf="@+id/rgrpInterval"
+            app:layout_constraintTop_toBottomOf="@+id/rgrpInterval" />
+
+        <TextView
+            android:id="@+id/textView93"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="10.06 - 17.06"
+            android:textColor="#d9424242"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvTopDateSwitcher"
+            app:layout_constraintStart_toStartOf="@+id/tvTopDateSwitcher"
+            app:layout_constraintTop_toBottomOf="@+id/tvTopDateSwitcher" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civGray"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="128dp"
+            android:layout_marginTop="20dp"
+            android:elevation="3dp"
+            android:src="#aeb3c0"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="2dp"
+            app:civ_circle_background_color="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/textView145"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gv" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civYellow"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="24dp"
+            android:src="#f2994a"
+            app:civ_border_color="@color/white"
+            android:elevation=""
+            app:civ_border_width="2dp"
+            app:civ_circle_background_color="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/textView145"
+            app:layout_constraintEnd_toStartOf="@+id/textView146"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView145"
+            app:layout_constraintTop_toTopOf="@+id/textView145" />
+
+        <TextView
+            android:id="@+id/textView145"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Дневная норма"
+            android:textColor="#d9424242"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/civGray"
+            app:layout_constraintEnd_toStartOf="@+id/civYellow"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/civGray"
+            app:layout_constraintTop_toTopOf="@+id/civGray"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView146"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="128dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Ваше значение"
+            android:textColor="#d9424242"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/civYellow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/civYellow"
+            app:layout_constraintTop_toTopOf="@+id/civYellow"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </android.support.constraint.ConstraintLayout>
