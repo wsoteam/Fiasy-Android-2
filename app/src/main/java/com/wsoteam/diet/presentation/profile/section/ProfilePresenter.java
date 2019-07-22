@@ -42,7 +42,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     private Calendar calendar = Calendar.getInstance();
     private Profile profile;
     private Context context;
-    private long oneWeek = 604800000;
+    private long oneWeek = 604799999;
 
     public ProfilePresenter(Context context) {
         this.context = context;
@@ -62,7 +62,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
     private void updateUI(SortedMap<Long, Integer> calories) {
         bindCircleProgressBar(calories);
-        prepareGraphsData(calories, getYearInterval(0));
+        prepareGraphsData(calories, getMonthInterval(0));
     }
 
     private long[] getWeekInterval(int position) {
@@ -92,7 +92,11 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         monthInterval[0] = calendar.getTimeInMillis();
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        calendar.set(Calendar.HOUR_OF_DAY, calendar.getActualMaximum(Calendar.HOUR_OF_DAY));
+        calendar.set(Calendar.MINUTE, calendar.getActualMaximum(Calendar.MINUTE));
+        calendar.set(Calendar.SECOND, calendar.getActualMaximum(Calendar.SECOND));
         monthInterval[1] = calendar.getTimeInMillis();
+        Log.e("LOL", String.valueOf(calendar.getTimeInMillis()));
         return monthInterval;
     }
 
@@ -131,7 +135,11 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
                 count++;
             }
         }
-        getViewState().drawGraphs(pairs, colors);
+        insideCalendar.setTimeInMillis(interval[0]);
+        int firstDay = insideCalendar.get(Calendar.DAY_OF_MONTH);
+        insideCalendar.setTimeInMillis(interval[1]);
+        int lastDay = insideCalendar.get(Calendar.DAY_OF_MONTH);
+        getViewState().drawGraphs(pairs, colors, firstDay, lastDay);
     }
 
     private int getColor(Long time) {

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,7 +100,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     }
 
     @Override
-    public void drawGraphs(List<BarEntry> pairs, int[] colors) {
+    public void drawGraphs(List<BarEntry> pairs, int[] colors, float min, float max) {
         BarDataSet barDataSet = new BarDataSet(pairs, "kekesi");
         barDataSet.setColors(colors);
         barDataSet.setDrawValues(false);
@@ -111,6 +112,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         XAxis xAxis = gv.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setAxisMinimum(min);
+        xAxis.setAxisMaximum(max + 1);
 
         YAxis yAxisRight = gv.getAxisRight();
         yAxisRight.setEnabled(false);
@@ -127,6 +130,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         gv.getLegend().setEnabled(false);
         gv.setData(barData);
         gv.setMarker(barMarker);
+        Log.e("LOL", String.valueOf(max));
+        Log.e("LOL", String.valueOf(min));
     }
 
     @Override
