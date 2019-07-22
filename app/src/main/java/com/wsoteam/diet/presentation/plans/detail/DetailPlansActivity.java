@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.helper.NounsDeclension;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 
 import javax.inject.Inject;
@@ -29,6 +30,8 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.ivDietsPlan) ImageView imageView;
     @BindView(R.id.tvPlansName) TextView tvName;
+    @BindView(R.id.tvPlansRecipes) TextView tvRecipes;
+    @BindView(R.id.tvTime) TextView tvTime;
 
     @Inject
     @InjectPresenter
@@ -100,6 +103,12 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
 //        tvTime.setText(dietPlan.getCountDays() + "");
 //        tvRecipes.setText("55");
 //        tvUsers.setText("475");
+
+        tvRecipes.setText(presenter.getRecipes().size() +
+                NounsDeclension.check(presenter.getRecipes().size(), " рецепт", " рецепта", " рецептов"));
+
+        tvTime.setText(dietPlan.getCountDays() +
+                NounsDeclension.check(dietPlan.getCountDays(), " день"," дня", " дней"));
 
         Glide.with(this)
                 .load(dietPlan.getUrlImage())

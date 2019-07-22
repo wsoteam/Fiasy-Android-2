@@ -6,6 +6,8 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
+import com.wsoteam.diet.Recipes.POJO.PlansGroupsRecipe;
+import com.wsoteam.diet.Recipes.POJO.RecipesHolder;
 import com.wsoteam.diet.presentation.global.BasePresenter;
 import com.wsoteam.diet.presentation.global.Screens;
 
@@ -16,6 +18,7 @@ public class BlockedDetailPlansPresenter extends BasePresenter<BlockedDetailPlan
 
     private DietPlan dietPlan;
     private Router router;
+    PlansGroupsRecipe plansRecipe;
 
     public BlockedDetailPlansPresenter(Router router) {
         this.router = router;
@@ -23,6 +26,7 @@ public class BlockedDetailPlansPresenter extends BasePresenter<BlockedDetailPlan
 
     void setDietPlan(DietPlan diet){
         this.dietPlan = diet;
+        plansRecipe = new PlansGroupsRecipe(RecipesHolder.get(), dietPlan.getFlag());
         getViewState().showData(dietPlan);
     }
 
@@ -32,5 +36,9 @@ public class BlockedDetailPlansPresenter extends BasePresenter<BlockedDetailPlan
 
     void clickedClose(){
         router.exit();
+    }
+
+    PlansGroupsRecipe getRecipes(){
+        return plansRecipe;
     }
 }

@@ -49,7 +49,7 @@
                 tools:text="Худеем за 28 дней" />
 
             <TextView
-                android:id="@+id/textView132"
+                android:id="@+id/tvPlansRecipes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="14dp"
-                app:layout_constraintStart_toEndOf="@+id/textView132"
+                app:layout_constraintStart_toEndOf="@+id/tvPlansRecipes"
                 app:layout_constraintTop_toBottomOf="@+id/tvPlansName"/>
 
             <TextView
@@ -98,7 +98,7 @@
                 android:textSize="14sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView132" />
+                app:layout_constraintTop_toBottomOf="@+id/tvPlansRecipes" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
