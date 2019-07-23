@@ -104,7 +104,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     }
 
     @Override
-    public void drawGraphs(List<BarEntry> pairs, int[] colors, float min, float max) {
+    public void drawGraphs(List<BarEntry> pairs, int[] colors) {
         BarDataSet barDataSet = new BarDataSet(pairs, "kekesi");
         barDataSet.setColors(colors);
         barDataSet.setDrawValues(false);
@@ -117,8 +117,9 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         XAxis xAxis = gv.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setAxisMinimum(min - 0.5f);
-        xAxis.setAxisMaximum(max + 0.5f);
+        xAxis.setValueFormatter(new XWeekFormatter());
+        //xAxis.setAxisMinimum(min - 0.5f);
+        //xAxis.setAxisMaximum(max + 0.5f);
 
         YAxis yAxisRight = gv.getAxisRight();
         yAxisRight.setEnabled(false);
@@ -137,8 +138,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         gv.setMarker(barMarker);
         gv.notifyDataSetChanged();
         gv.invalidate();
-        Log.e("LOL", String.valueOf(max));
-        Log.e("LOL", String.valueOf(min));
+        //Log.e("LOL", String.valueOf(max));
+        //Log.e("LOL", String.valueOf(min));
     }
 
     @Override

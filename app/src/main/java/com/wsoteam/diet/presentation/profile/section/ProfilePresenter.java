@@ -43,6 +43,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     private Profile profile;
     private Context context;
     private long oneWeek = 604799999;
+    private long oneDay = 86400000 ;
     private SortedMap<Long, Integer> calories;
 
     public ProfilePresenter(Context context) {
@@ -73,7 +74,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
     private long[] getWeekInterval(int position) {
         Calendar calendar = Calendar.getInstance();
-        long[] weekInterval = new long[2];
+        long[] weekInterval = new long[7];
         int week = calendar.get(Calendar.WEEK_OF_YEAR);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.clear(Calendar.MINUTE);
@@ -81,8 +82,9 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
         calendar.clear(Calendar.MILLISECOND);
         calendar.set(Calendar.WEEK_OF_YEAR, week + position);
         calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
-        weekInterval[0] = calendar.getTimeInMillis();
-        weekInterval[1] = calendar.getTimeInMillis() + oneWeek;
+        for (int i = 0; i < 7; i++) {
+            weekInterval[i] = calendar.getTimeInMillis() + oneDay * i;
+        }
         return weekInterval;
     }
 
@@ -126,26 +128,22 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
     private void prepareGraphsData(SortedMap<Long, Integer> calories, long[] interval) {
         Calendar insideCalendar = Calendar.getInstance();
-        Iterator iterator = calories.entrySet().iterator();
-        int[] colors = new int[calories.size()];
+        int[] colors = new int[interval.length];
         List<BarEntry> pairs = new ArrayList<>();
         int count = 0;
-        while (iterator.hasNext()) {
-            Map.Entry pair = (Map.Entry) iterator.next();
-            Long time = (Long) pair.getKey();
-            Integer kcal = (Integer) pair.getValue();
-            insideCalendar.setTimeInMillis(time);
-            if (time >= interval[0] && time <= interval[1]) {
-                pairs.add(new BarEntry(insideCalendar.get(Calendar.DAY_OF_MONTH), kcal));
-                colors[count] = getColor(time);
-                count++;
+        int kcal = 0;
+        for (int i = 0; i < interval.length; i++) {
+            if (calories.get(interval[i]) != null){
+               kcal =  calories.get(interval[i]);
+            }else {
+                kcal = 0;
             }
+            colors[count] = getColor(interval[i]);
+            count++;
+            insideCalendar.setTimeInMillis(interval[i]);
+            pairs.add(new BarEntry(i, kcal));
         }
-        insideCalendar.setTimeInMillis(interval[0]);
-        int firstDay = insideCalendar.get(Calendar.DAY_OF_MONTH);
-        insideCalendar.setTimeInMillis(interval[1]);
-        int lastDay = insideCalendar.get(Calendar.DAY_OF_MONTH);
-        getViewState().drawGraphs(pairs, colors, firstDay, lastDay);
+        getViewState().drawGraphs(pairs, colors);
     }
 
     private int getColor(Long time) {
