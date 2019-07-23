@@ -73,13 +73,8 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     private long[] getWeekInterval(int position) {
-        Calendar calendar = Calendar.getInstance();
         long[] weekInterval = new long[7];
         int week = calendar.get(Calendar.WEEK_OF_YEAR);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.clear(Calendar.MINUTE);
-        calendar.clear(Calendar.SECOND);
-        calendar.clear(Calendar.MILLISECOND);
         calendar.set(Calendar.WEEK_OF_YEAR, week + position);
         calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
         for (int i = 0; i < 7; i++) {
