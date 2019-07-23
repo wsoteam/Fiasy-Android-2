@@ -11,6 +11,8 @@
             <option value="$PROJECT_DIR$/HtmlSpanner-master" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/horizontal-picker" />
+            <option value="$PROJECT_DIR$/ruler" />
+            <option value="$PROJECT_DIR$/ruler-picker" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

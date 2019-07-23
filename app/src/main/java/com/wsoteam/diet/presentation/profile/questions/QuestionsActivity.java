@@ -1,9 +1,12 @@
 package com.wsoteam.diet.presentation.profile.questions;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
@@ -24,8 +27,12 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
     @Inject
     @InjectPresenter
     QuestionsPresenter presenter;
-    @BindView(R.id.pager) ViewPager viewPager;
-    @BindView(R.id.tabDots) TabLayout tabLayout;
+    @BindView(R.id.pager)
+    ViewPager viewPager;
+    @BindView(R.id.tabDots)
+    TabLayout tabLayout;
+    @BindView(R.id.btnBack)
+    ImageView btnBack;
     private boolean isFemale = false, createUser;
     private boolean isNeedShowOnboard = false;
 
@@ -48,51 +55,34 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
 
         createUser = getIntent().getBooleanExtra(Config.CREATE_PROFILE, false);
 
-//        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-//            @Override
-//            public Fragment getItem(int position) {
-//                switch (position) {
-//                    case 0:
-//                        return QuestionSexFragments.newInstance(0, "Page # 1");
-//                    case 1:
-//                        return QuestionPurposeFragments.newInstance(0, "Page # 1");
-//                    default:
-//                        return null;
-//                }
-//            }
-//
-//            @Override
-//            public int getCount() {
-//                return 2;
-//            }
-//        });
         viewPager.setAdapter(new QuestionsPagerAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager, true);
+        btnBack.setOnClickListener(view -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1));
 
-//        dName = RxTextView.textChanges(edName).subscribe(charSequence -> {
-//            boolean isCheck = !TextUtils.isEmpty(charSequence);
-//            presenter.changeState(isCheck, tvTitleName, dot1, line1);
-//        });
-//
-//        dAge = RxTextView.textChanges(edAge).subscribe(charSequence -> {
-//            boolean isCheck = !TextUtils.isEmpty(charSequence);
-//            presenter.changeState(isCheck, tvAge, dot2, line2);
-//        });
-//
-//        dHeight = RxTextView.textChanges(edHeight).subscribe(charSequence -> {
-//            boolean isCheck = !TextUtils.isEmpty(charSequence);
-//            chHeight.setChecked(isCheck);
-//            presenter.changeState(isCheck, tvHeight, dot4, line4);
-//        });
-//
-//        dWeight = RxTextView.textChanges(edWeight).subscribe(charSequence -> {
-//            boolean isCheck = !TextUtils.isEmpty(charSequence);
-//            chWeight.setChecked(isCheck);
-//            presenter.changeState(isCheck, tvWeight, dot7, null);
-//        });
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+            }
 
+            @Override
+            public void onPageSelected(int i) {
+                btnBack.setVisibility(i == 0 ? View.GONE : View.VISIBLE);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+            }
+        });
     }
 
+    public void nextQuestion() {
+        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+    }
+
+    public void saveProfile() {
+        Intent intent = new Intent(this, QuestionsCalculationsActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void saveProfile(Profile profile) {

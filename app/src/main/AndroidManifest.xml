@@ -22,6 +22,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".presentation.auth.new_auth.MainAuthNewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/EditProfile"/>
+        <activity
+            android:name=".presentation.intro_tut.NewIntroActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/EditProfile"/>
+        <activity
+            android:name=".presentation.profile.questions.QuestionsCalculationsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/EditProfile"/>
+        <activity
             android:name=".Recipes.v2.ListRecipesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu">

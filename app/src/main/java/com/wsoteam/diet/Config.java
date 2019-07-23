@@ -43,6 +43,14 @@ public class Config {
     public static final String INTENT_PROFILE = "INTENT_PROFILE";
     public static final String CREATE_PROFILE = "CREATE_PROFILE";
 
+    public static final String ONBOARD_PROFILE = "ONBOARD_PROFILE";
+    public static final String ONBOARD_PROFILE_SEX = "ONBOARD_PROFILE_SEX";
+    public static final String ONBOARD_PROFILE_HEIGHT = "ONBOARD_PROFILE_HEIGHT";
+    public static final String ONBOARD_PROFILE_WEIGHT = "ONBOARD_PROFILE_WEIGHT";
+    public static final String ONBOARD_PROFILE_YEARS = "ONBOARD_PROFILE_YEARS";
+    public static final String ONBOARD_PROFILE_ACTIVITY = "ONBOARD_PROFILE_ACTIVITY";
+    public static final String ONBOARD_PROFILE_PURPOSE = "ONBOARD_PROFILE_PURPOSE";
+
     //Key of billing state
     public static final String STATE_BILLING = "STATE_BILLING";
     public static final String ALERT_BUY_SUBSCRIPTION = "ALERT_BUY_SUBSCRIPTION";

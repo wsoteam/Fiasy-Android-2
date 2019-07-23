@@ -10,7 +10,6 @@ import com.wsoteam.diet.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -18,14 +17,17 @@ import java.util.Locale;
 public class WheelDatePicker extends LinearLayout implements WheelPicker.OnItemSelectedListener,
         IWheelPicker, IWheelDatePicker, IWheelYearPicker, IWheelMonthPicker,
         IWheelDayPicker {
-    private static final SimpleDateFormat SDF =
-            new SimpleDateFormat("yyyy-MMM-d", Locale.getDefault());
+    private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
+    public static final SimpleDateFormat PARSED_TIME = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+    public static final int START_YEAR = 1900;
 
     private WheelYearPicker mPickerYear;
     private WheelMonthPicker mPickerMonth;
     private WheelDayPicker mPickerDay;
 
     private OnDateSelectedListener mListener;
+
+    private String[] monthList;
 
     private int mYear, mMonth, mDay;
 
@@ -52,6 +54,8 @@ public class WheelDatePicker extends LinearLayout implements WheelPicker.OnItemS
         mYear = mPickerYear.getCurrentYear();
         mMonth = mPickerMonth.getCurrentMonth();
         mDay = mPickerDay.getCurrentDay();
+
+        monthList = context.getResources().getStringArray(R.array.monthList);
     }
 
     private void setMaximumWidthTextYear() {
@@ -69,13 +73,14 @@ public class WheelDatePicker extends LinearLayout implements WheelPicker.OnItemS
             mYear = (int) data;
             mPickerDay.setYear(mYear);
         } else if (picker.getId() == R.id.wheel_date_picker_month) {
-            mMonth = (int) data;
+//            mMonth = (int) data;
+            mMonth = (int) position + 1;
             mPickerDay.setMonth(mMonth);
         }
         mDay = mPickerDay.getCurrentDay();
         String date = mYear + "-" + mMonth + "-" + mDay;
         if (null != mListener) try {
-            mListener.onDateSelected(this, SDF.parse(date));
+            mListener.onDateSelected(this, PARSED_TIME.format(SDF.parse(date)));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -392,10 +397,10 @@ public class WheelDatePicker extends LinearLayout implements WheelPicker.OnItemS
     }
 
     @Override
-    public Date getCurrentDate() {
+    public String getCurrentDate() {
         String date = mYear + "-" + mMonth + "-" + mDay;
         try {
-            return SDF.parse(date);
+            return PARSED_TIME.format(SDF.parse(date));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -480,6 +485,7 @@ public class WheelDatePicker extends LinearLayout implements WheelPicker.OnItemS
     @Override
     public void setSelectedYear(int year) {
         mYear = year;
+//        mYear = year - START_YEAR;
         mPickerYear.setSelectedYear(year);
         mPickerDay.setYear(year);
     }
@@ -544,8 +550,8 @@ public class WheelDatePicker extends LinearLayout implements WheelPicker.OnItemS
     }
 
     @Override
-    public int getMonth() {
-        return getSelectedMonth();
+    public String getMonth() {
+        return monthList[getSelectedMonth()];
     }
 
     @Override
@@ -555,7 +561,16 @@ public class WheelDatePicker extends LinearLayout implements WheelPicker.OnItemS
         mPickerDay.setMonth(month);
     }
 
+    public void updateDate(){
+        String date = mYear + "-" + mMonth + "-" + mDay;
+        if (null != mListener) try {
+            mListener.onDateSelected(this, PARSED_TIME.format(SDF.parse(date)));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
     public interface OnDateSelectedListener {
-        void onDateSelected(WheelDatePicker picker, Date date);
+        void onDateSelected(WheelDatePicker picker, String date);
     }
 }

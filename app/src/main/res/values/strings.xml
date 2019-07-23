@@ -76,6 +76,12 @@
     <string name="profile_activity">Выберите у Вас уровень активности?</string>
     <string name="profile_weight">Ваш вес</string>
 
+    <string name="intro_title">Добро пожаловать в</string>
+    <string name="intro_subtitle">FIASY!</string>
+    <string name="intro_text_1">Множество научных статей о правильном питании</string>
+    <string name="intro_text_2">Полезные рецепты на каждый день</string>
+    <string name="intro_text_3">Удобно отслеживать свои достижения</string>
+
     <string name="onboard_sex_title">Кто вы?</string>
     <string name="onboard_purpose_title">Выберите свою цель</string>
     <string name="onboard_purpose_normal_text">Поддержания тела в\nформе</string>
@@ -84,6 +90,24 @@
     <string name="onboard_purpose_save_text">Сохранение мышц и\nсжигание жира</string>
     <string name="onboard_birthday_title">Когда ваш день рождения?</string>
     <string name="onboard_birthday_text">Выберите дату\nвашего рождения</string>
+    <string name="onboard_activity_title">Отлично!</string>
+    <string name="onboard_activity_subtitle">Выбери свою активность</string>
+    <string name="onboard_activity_level_none">Минимальная\nнагрузка</string>
+    <string name="onboard_activity_level_easy">Легкая физическая\nнагрузка в течении дня</string>
+    <string name="onboard_activity_level_medium">Тренировки 2–4 раза в\nнеделю (или работа\nсредней тяжести)</string>
+    <string name="onboard_activity_level_hard">Интенсивные\nтренировки 4–5 раз в\nнеделю</string>
+    <string name="onboard_activity_level_hard_up">Ежедневные интенсивные\nтренировки</string>
+    <string name="onboard_activity_level_super">Тренировки 5–7 раз\nв неделю по два\nраза в день</string>
+    <string name="onboard_activity_level_super_up">Тяжелая физическая работа или\nежедневные интенсивные тренировки\nпо 2 раза в день</string>
+    <string name="onboard_height_title">Рассчитаем твою норму</string>
+    <string name="onboard_height_text">Для расчета мы используем формулу Миффлина-Сан-Жеора, которую в 2005 году подтвердила Американская Диетическая Ассоциация (АДА), что она является более точной.</string>
+    <string name="onboard_height_pattern">%d см</string>
+    <string name="onboard_weight_title">Рассчитаем твою норму</string>
+    <string name="onboard_weight_text">Для расчета мы используем формулу Миффлина-Сан-Жеора, которую в 2005 году подтвердила Американская Диетическая Ассоциация (АДА), что она является более точной.</string>
+    <string name="onboard_weight_choose_weight">Выберите свой вес</string>
+    <string name="onboard_weight_pattern">%d кг</string>
+    <string name="onboard_calculation_title">Подождите немного…</string>
+    <string name="onboard_calculation_subtitle">Идет расчет индивидуального плана питания</string>
 
     <!--Add Measurements Activity-->
     <string name="tv_select_date_measur">Выберите дату</string>
@@ -624,6 +648,7 @@
     <string name="dif_level_easy">Легкая</string>
     <string name="dif_level_normal">Средняя</string>
     <string name="dif_level_hard">Высокая</string>
+    <string name="dif_level_hard_up">Похудение</string>
 
     <string name="dif_easy_description">Идеально подходит для начинающих. Используется для поддержания веса</string>
     <string name="dif_normal_description">Плавное похудение. Потеря веса без больших усилий</string>

@@ -14,7 +14,10 @@ public interface IWheelDayPicker {
 
     void setYear(int year);
 
-    int getMonth();
+    String getMonth();
+//    int getMonth();
+
+//    String getMonthText();
 
     void setMonth(int month);
 }

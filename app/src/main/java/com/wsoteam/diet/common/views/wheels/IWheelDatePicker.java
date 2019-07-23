@@ -1,11 +1,9 @@
 package com.wsoteam.diet.common.views.wheels;
 
-import java.util.Date;
-
 public interface IWheelDatePicker {
     void setOnDateSelectedListener(WheelDatePicker.OnDateSelectedListener listener);
 
-    Date getCurrentDate();
+    String getCurrentDate();
 
     int getItemAlignYear();
 

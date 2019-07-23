@@ -11,9 +11,9 @@ public class BodyCalculates {
 
     public static final String DEFAULT_FIRST_NAME = "default";
     public static final String DEFAULT_LAST_NAME = "default";
-    private static final double DEFAULT_WEIGHT = 90;
-    private static final int DEFAULT_HEIGHT = 180;
-    private static final int DEFAULT_AGE = 27;
+    public static final double DEFAULT_WEIGHT = 90;
+    public static final int DEFAULT_HEIGHT = 180;
+    public static final int DEFAULT_AGE = 27;
 
     private static final int WATER_ON_KG_FEMALE = 30;
     private static final int WATER_ON_KG_MALE = 40;
@@ -96,6 +96,8 @@ public class BodyCalculates {
         } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_normal))) {
             profile.setMaxKcal((int) upLineSPK);
         } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard))) {
+            profile.setMaxKcal((int) downLineSPK);
+        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard_up))) {
             profile.setMaxKcal((int) downLineSPK);
         }
 

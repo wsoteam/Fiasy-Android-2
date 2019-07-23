@@ -9,14 +9,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-/**
- * 月份选择器
- * <p>
- * Picker for Months
- *
- * @author AigeStudio 2016-07-12
- * @version 1
- */
 public class WheelMonthPicker extends WheelPicker implements IWheelMonthPicker {
     private int mSelectedMonth;
 
@@ -30,6 +22,7 @@ public class WheelMonthPicker extends WheelPicker implements IWheelMonthPicker {
 //        List<Integer> data = new ArrayList<>();
 //        for (int i = 1; i <= 12; i++)
 //            data.add(i);
+//        super.setData(data);
         super.setData(Arrays.asList(context.getResources().getStringArray(R.array.monthList)));
 
         mSelectedMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
@@ -58,7 +51,6 @@ public class WheelMonthPicker extends WheelPicker implements IWheelMonthPicker {
 
     @Override
     public int getCurrentMonth() {
-        return getCurrentItemPosition();
-//        return Integer.valueOf(String.valueOf(getData().get(getCurrentItemPosition())));
+        return getCurrentItemPosition() - 1;
     }
 }

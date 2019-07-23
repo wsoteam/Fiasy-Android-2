@@ -3,20 +3,14 @@ package com.wsoteam.diet.common.views.wheels;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import com.wsoteam.diet.R;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 日期选择器
- * <p>
- * Picker for Day
- *
- * @author AigeStudio 2016-07-12
- * @version 1
- */
 public class WheelDayPicker extends WheelPicker implements IWheelDayPicker {
     private static final Map<Integer, List<Integer>> DAYS = new HashMap<>();
 
@@ -24,6 +18,7 @@ public class WheelDayPicker extends WheelPicker implements IWheelDayPicker {
 
     private int mYear, mMonth;
     private int mSelectedDay;
+    private String[] monthList;
 
     public WheelDayPicker(Context context) {
         this(context, null);
@@ -31,6 +26,8 @@ public class WheelDayPicker extends WheelPicker implements IWheelDayPicker {
 
     public WheelDayPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        monthList = context.getResources().getStringArray(R.array.monthList);
 
         mCalendar = Calendar.getInstance();
 
@@ -103,8 +100,8 @@ public class WheelDayPicker extends WheelPicker implements IWheelDayPicker {
     }
 
     @Override
-    public int getMonth() {
-        return mMonth;
+    public String getMonth() {
+        return monthList[mMonth];
     }
 
     @Override

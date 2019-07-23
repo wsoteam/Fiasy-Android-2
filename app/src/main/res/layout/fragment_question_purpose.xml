@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/ic_purpose_normal_selector"
         android:button="@null"
+        android:checked="true"
         app:layout_constraintBottom_toBottomOf="@+id/cbLooseWeight"
         app:layout_constraintEnd_toStartOf="@+id/cbLooseWeight"
         app:layout_constraintStart_toStartOf="parent"
