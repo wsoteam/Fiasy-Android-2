@@ -8,16 +8,18 @@ public class DietPlan implements Serializable {
     private String text;
     private String urlImage;
     private String flag;
+    private boolean premium;
 
     public DietPlan() {
     }
 
-    public DietPlan(String name, int countDays, String text, String urlImage, String flag) {
+    public DietPlan(String name, int countDays, String text, String urlImage, String flag, boolean premium) {
         this.name = name;
         this.countDays = countDays;
         this.text = text;
         this.urlImage = urlImage;
         this.flag = flag;
+        this.premium = premium;
     }
 
     public String getName() {
@@ -58,5 +60,13 @@ public class DietPlan implements Serializable {
 
     public void setFlag(String flag) {
         this.flag = flag;
+    }
+
+    public boolean isPremium() {
+        return premium;
+    }
+
+    public void setPremium(boolean premium) {
+        this.premium = premium;
     }
 }
