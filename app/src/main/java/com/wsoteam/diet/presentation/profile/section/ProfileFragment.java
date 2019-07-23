@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +64,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     @BindView(R.id.ibExpandable) ImageButton ibExpandable;
     @BindView(R.id.donutProgress) DonutProgress donutProgress;
     @BindView(R.id.gv) BarChart gv;
+    @BindView(R.id.tvTopDateSwitcher) TextView tvTopDateSwitcher;
+    @BindView(R.id.tvBottomDateSwitcher) TextView tvBottomDateSwitcher;
     private boolean isOpen = false;
     private float MAX_PROGRESS = 100;
     private long time = 500, periodTick = 5, countTick = 100;
@@ -104,7 +105,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     }
 
     @Override
-    public void drawGraphs(List<BarEntry> pairs, int[] colors) {
+    public void drawGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText) {
         BarDataSet barDataSet = new BarDataSet(pairs, "kekesi");
         barDataSet.setColors(colors);
         barDataSet.setDrawValues(false);
@@ -138,6 +139,9 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         gv.setMarker(barMarker);
         gv.notifyDataSetChanged();
         gv.invalidate();
+
+        tvTopDateSwitcher.setText(topText);
+        tvBottomDateSwitcher.setText(bottomText);
         //Log.e("LOL", String.valueOf(max));
         //Log.e("LOL", String.valueOf(min));
     }
@@ -186,14 +190,6 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_profile, container, false);
         unbinder = ButterKnife.bind(this, view);
-        days.add("понедельник");
-        days.add("вторник");
-        days.add("среда");
-        days.add("четверг");
-        days.add("пятница");
-        days.add("суббота");
-        days.add("воскресенье");
-        days.add("");
         return view;
     }
 

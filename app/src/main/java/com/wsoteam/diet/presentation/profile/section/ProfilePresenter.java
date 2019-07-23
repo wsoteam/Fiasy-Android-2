@@ -43,7 +43,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     private Profile profile;
     private Context context;
     private long oneWeek = 604799999;
-    private long oneDay = 86400000 ;
+    private long oneDay = 86400000;
     private SortedMap<Long, Integer> calories;
 
     public ProfilePresenter(Context context) {
@@ -90,16 +90,33 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
         List<BarEntry> pairs = new ArrayList<>();
         int kcal = 0;
         for (int i = 0; i < interval.length; i++) {
-            if (calories.get(interval[i]) != null){
-               kcal =  calories.get(interval[i]);
-            }else {
+            if (calories.get(interval[i]) != null) {
+                kcal = calories.get(interval[i]);
+            } else {
                 kcal = 0;
             }
             colors[i] = getColor(interval[i]);
             insideCalendar.setTimeInMillis(interval[i]);
             pairs.add(new BarEntry(i, kcal));
         }
-        getViewState().drawGraphs(pairs, colors);
+
+        getViewState().drawGraphs(pairs, colors, getBottomText(interval), getTopText(interval));
+    }
+
+    private String getBottomText(long[] interval) {
+        String bottomText = "";
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(interval[0]);
+        bottomText = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + "." + String.valueOf(1 + calendar.get(Calendar.MONTH)) + " - ";
+        calendar.setTimeInMillis(interval[interval.length - 1]);
+        bottomText += String.valueOf(calendar.get(Calendar.DAY_OF_MONTH) + "." + String.valueOf(1 + calendar.get(Calendar.MONTH)));
+        return bottomText;
+    }
+
+    private String getTopText(long[] interval) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(interval[0]);
+        return String.valueOf(calendar.get(Calendar.YEAR));
     }
 
     private int getColor(Long time) {

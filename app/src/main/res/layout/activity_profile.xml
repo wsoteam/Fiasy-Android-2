@@ -57,11 +57,11 @@
             android:layout_marginEnd="8dp"
             android:background="@drawable/filter_state_gray"
             android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView93"
+            app:layout_constraintBottom_toBottomOf="@+id/tvBottomDateSwitcher"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/textView93"
-            app:layout_constraintTop_toTopOf="@+id/textView93"
+            app:layout_constraintStart_toEndOf="@+id/tvBottomDateSwitcher"
+            app:layout_constraintTop_toTopOf="@+id/tvBottomDateSwitcher"
             app:srcCompat="@drawable/right_arrow_graph" />
 
         <ImageButton
@@ -72,11 +72,11 @@
             android:layout_marginEnd="20dp"
             android:background="@drawable/filter_state_gray"
             android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView93"
-            app:layout_constraintEnd_toStartOf="@+id/textView93"
+            app:layout_constraintBottom_toBottomOf="@+id/tvBottomDateSwitcher"
+            app:layout_constraintEnd_toStartOf="@+id/tvBottomDateSwitcher"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView93"
+            app:layout_constraintTop_toTopOf="@+id/tvBottomDateSwitcher"
             app:srcCompat="@drawable/left_arrow_graph" />
 
         <ImageButton
@@ -285,7 +285,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView93"
+            app:layout_constraintTop_toBottomOf="@+id/tvBottomDateSwitcher"
             app:layout_constraintVertical_bias="1.0"></com.github.mikephil.charting.charts.BarChart>
 
         <TextView
@@ -374,7 +374,7 @@
             app:layout_constraintTop_toBottomOf="@+id/rgrpInterval" />
 
         <TextView
-            android:id="@+id/textView93"
+            android:id="@+id/tvBottomDateSwitcher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
