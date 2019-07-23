@@ -1,4 +1,4 @@
-package com.wsoteam.diet.Recipes.adding;
+package com.wsoteam.diet.presentation.food.template.create.detail;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.ClaimForm;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
+import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplateHolder;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.POJOProfile.FavoriteFood;
@@ -38,7 +40,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class ActivityDetailFood extends AppCompatActivity {
+public class DetailFoodActivity extends AppCompatActivity {
     private final int EMPTY_FIELD = -1;
     @BindView(R.id.btnAddFood) Button addButton;
     @BindView(R.id.tvActivityDetailOfFoodCollapsingTitle) TextView tvTitle;
@@ -90,13 +92,25 @@ public class ActivityDetailFood extends AppCompatActivity {
     private boolean isFavorite = false;
     private FavoriteFood currentFavorite;
 
+    private boolean isSendResult;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_food);
         ButterKnife.bind(this);
         ButterKnife.apply(viewList, (view, value, index) -> view.setVisibility(value), View.GONE);
-        foodItem = (Food) getIntent().getSerializableExtra(Config.INTENT_DETAIL_FOOD);
+
+        isSendResult = getIntent().getBooleanExtra(Config.SEND_RESULT_TO_BACK, false);
+        int position = getIntent().getIntExtra(Config.INTENT_DETAIL_FOOD, 0);
+
+
+        if (isSendResult) {
+            foodItem = (Food) getIntent().getSerializableExtra(Config.INTENT_DETAIL_FOOD);
+        } else {
+            foodItem = FoodTemplateHolder.get().get(position);
+        }
+
         bindFields();
         cardView6.setBackgroundResource(R.drawable.shape_calculate);
         getFavoriteFood();
@@ -273,23 +287,13 @@ public class ActivityDetailFood extends AppCompatActivity {
                     Double portion = Double.parseDouble(edtWeight.getText().toString());
                     foodItem.setPortion(portion);
 
-                    foodItem.setKilojoules(foodItem.getKilojoules() * portion);
-                    foodItem.setCalories(foodItem.getCalories() * portion);
-                    foodItem.setProteins(foodItem.getProteins() * portion);
-                    foodItem.setCarbohydrates(foodItem.getCarbohydrates() * portion);
-                    foodItem.setSugar(foodItem.getSugar() * portion);
-                    foodItem.setFats(foodItem.getFats() * portion);
-                    foodItem.setSaturatedFats(foodItem.getSaturatedFats() * portion);
-                    foodItem.setMonoUnSaturatedFats(foodItem.getMonoUnSaturatedFats() * portion);
-                    foodItem.setPolyUnSaturatedFats(foodItem.getPolyUnSaturatedFats() * portion);
-                    foodItem.setCholesterol(foodItem.getCholesterol() * portion);
-                    foodItem.setCellulose(foodItem.getCellulose() * portion);
-                    foodItem.setSodium(foodItem.getSodium() * portion);
-                    foodItem.setPottassium(foodItem.getPottassium() * portion);
+                        if (isSendResult){
+                            Intent intent = new Intent();
+                            intent.putExtra(Config.RECIPE_FOOD_INTENT, foodItem);
+                            setResult(RESULT_OK, intent);
+                        } else {
 
-                    Intent intent = new Intent();
-                    intent.putExtra(Config.RECIPE_FOOD_INTENT, foodItem);
-                    setResult(RESULT_OK, intent);
+                        }
                     finish();
                 }
                 break;

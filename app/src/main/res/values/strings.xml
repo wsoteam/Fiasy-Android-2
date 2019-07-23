@@ -1,5 +1,18 @@
 <resources>
 
+    <!--food_template-->
+    <string name="nameTemplate">Название шаблона</string>
+    <string name="eatingTemplate">Категория:</string>
+    <string name="contextMenuDelete">Удалить</string>
+    <string name="contextMenuEdit">Редактировать</string>
+    <string name="addTemplate">Добавить шаблон</string>
+    <string name="hintEating">Прием пищи</string>
+    <string name="templates">Шаблоны</string>
+    <string name="templateDescription">Здесь вы можете создать и сохранить набор продуктов, который употребляете ежедневно в определенный прием пищи</string>
+    <string name="btnAddTemplate">Создать шаблон</string>
+    <!--end_food_template-->
+
+
     <!--adding recipe-->
     <string name="add">Добавить</string>
     <string name="cancel">Отменить</string>

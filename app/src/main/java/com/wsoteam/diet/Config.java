@@ -2,6 +2,12 @@ package com.wsoteam.diet;
 
 public class Config {
 
+//    temolate
+    public static final String EATING_SPINNER_POSITION = "EATING_SPINNER_POSITION";
+    public static final String SEND_RESULT_TO_BACK = "SEND_RESULT_TO_BACK";
+    public static final String DETAIL_FOOD_BTN_NAME = "DETAIL_FOOD_BTN_NAME";
+    public static final String FOOD_TEMPLATE_INTENT = "FOOD_TEMPLATE_INTENT";
+
     public static final boolean RELEASE = false;
 //    public static final boolean RELEASE = true;
 

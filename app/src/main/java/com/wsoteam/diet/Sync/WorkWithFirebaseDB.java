@@ -175,6 +175,7 @@ public class WorkWithFirebaseDB {
 
 
     public static void addUsersSharedRecipe(RecipeItem recipeItem){
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.USERS_RECIPES);
         myRef.push().setValue(recipeItem);
@@ -321,5 +322,34 @@ public class WorkWithFirebaseDB {
         myRef.setValue(customFood);
     }
 
+    public static String addFoodTemplate(FoodTemplate foodTemplate) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodTemplates");
+        String key = myRef.push().getKey();
+        foodTemplate.setKey(key);
+        myRef.child(key).setValue(foodTemplate);
+        return key;
+    }
 
+    public static void deleteFoodTemplate(String key) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodTemplates").child(key);
+        myRef.removeValue();
+    }
+    public static void editFoodTemplate(String key,FoodTemplate foodTemplate){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodTemplates").child(key);
+        myRef.setValue(foodTemplate);
+    }
+
+    public static void setVisibilityFoodTemplate(String key, boolean visibility){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodTemplates")
+                .child(key).child("showFoods");
+        myRef.setValue(visibility);
+    }
 }

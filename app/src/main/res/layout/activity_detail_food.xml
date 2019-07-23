@@ -252,7 +252,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:paddingLeft="46dp"
                     android:paddingRight="46dp"
-                    android:text="добавить в рецепт"
+                    android:text="добавить"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"

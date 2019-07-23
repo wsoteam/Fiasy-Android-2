@@ -2,10 +2,14 @@ package com.wsoteam.diet.di;
 
 import android.content.Context;
 
+import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.presentation.auth.main.MainAuthPresenter;
+import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplatePresenter;
 import com.wsoteam.diet.presentation.intro.IntroPresenter;
 import com.wsoteam.diet.presentation.main.water.WaterPresenter;
 import com.wsoteam.diet.presentation.profile.edit.EditProfilePresenter;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -32,5 +36,10 @@ public class PresentersModule {
     @Provides
     WaterPresenter provideWaterPresenter(Context context, Router router) {
         return new WaterPresenter(context, router);
+    }
+
+    @Provides
+    CreateFoodTemplatePresenter provideCreateFoodTemplatePresenter(Router router, FoodTemplate foodTemplate){
+        return new CreateFoodTemplatePresenter(router, foodTemplate);
     }
 }

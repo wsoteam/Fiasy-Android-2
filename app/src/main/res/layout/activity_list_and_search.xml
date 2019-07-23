@@ -51,11 +51,11 @@
                         android:layout_height="wrap_content"
                         android:layout="@layout/tab_lat_favorites" />
 
-                    <!--<android.support.design.widget.TabItem
+                    <android.support.design.widget.TabItem
                         android:id="@+id/tiTemplates"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout="@layout/tab_lat_templates" />-->
+                        android:layout="@layout/tab_lat_templates" />
 
                     <android.support.design.widget.TabItem
                         android:id="@+id/tiRecipes"

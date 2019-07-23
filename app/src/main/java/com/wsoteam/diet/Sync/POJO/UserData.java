@@ -34,12 +34,12 @@ public class UserData implements Serializable {
     private HashMap<String, FavoriteFood> foodFavorites;
     private HashMap<String, RecipeItem> favoriteRecipes;
     private HashMap<String, CustomFood> customFoods;
+    private HashMap<String, FoodTemplate> foodTemplates;
 
     public UserData() {
     }
 
-
-    public UserData(String name, Profile profile, SubInfo subInfo, TrackInfo trackInfo, CheckHistory checkHistory, HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners, HashMap<String, Snack> snacks, HashMap<String, WeightDiaryObject> diaryDataList, HashMap<String, RecipeItem> recipes, HashMap<String, FavoriteFood> foodFavorites, HashMap<String, RecipeItem> favoriteRecipes, HashMap<String, CustomFood> customFoods) {
+    public UserData(String name, Profile profile, SubInfo subInfo, TrackInfo trackInfo, CheckHistory checkHistory, HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners, HashMap<String, Snack> snacks, HashMap<String, WeightDiaryObject> diaryDataList, HashMap<String, RecipeItem> recipes, HashMap<String, FavoriteFood> foodFavorites, HashMap<String, RecipeItem> favoriteRecipes) {
         this.name = name;
         this.profile = profile;
         this.subInfo = subInfo;
@@ -55,6 +55,7 @@ public class UserData implements Serializable {
         this.foodFavorites = foodFavorites;
         this.favoriteRecipes = favoriteRecipes;
         this.customFoods = customFoods;
+        this.foodTemplates = foodTemplates;
     }
 
     public SubInfo getSubInfo() {
@@ -175,5 +176,13 @@ public class UserData implements Serializable {
 
     public void setCustomFoods(HashMap<String, CustomFood> customFoods) {
         this.customFoods = customFoods;
+    }
+
+    public HashMap<String, FoodTemplate> getFoodTemplates() {
+        return foodTemplates;
+    }
+
+    public void setFoodTemplates(HashMap<String, FoodTemplate> foodTemplates) {
+        this.foodTemplates = foodTemplates;
     }
 }

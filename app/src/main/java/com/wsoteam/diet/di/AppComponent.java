@@ -16,6 +16,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
         CiceroneModule.class,
         ActivityBuilder.class,
         PresentersModule.class,
+        AdaptersModules.class,
         AndroidSupportInjectionModule.class})
 @Singleton
 public interface AppComponent extends AndroidInjector<App> {
