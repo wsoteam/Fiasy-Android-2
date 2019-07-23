@@ -117,8 +117,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         XAxis xAxis = gv.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setAxisMinimum(min);
-        xAxis.setAxisMaximum(max + 1);
+        xAxis.setAxisMinimum(min - 0.5f);
+        xAxis.setAxisMaximum(max + 0.5f);
 
         YAxis yAxisRight = gv.getAxisRight();
         yAxisRight.setEnabled(false);
