@@ -30,10 +30,11 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.views.bar.BarRender;
-import com.wsoteam.diet.common.views.bar.formater.XFormatter;
+import com.wsoteam.diet.common.views.bar.formater.XWeekFormatter;
 import com.wsoteam.diet.common.views.bar.marker.BarMarker;
 import com.wsoteam.diet.presentation.profile.settings.ProfileSettingsActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -69,6 +70,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     private long time = 500, periodTick = 5, countTick = 100;
     private CountDownTimer countDownTimer;
     private int counterMove = 0;
+    private int INTERVAL_STATE = 0; //0 - week, 1 - month, 2 - year
+    private ArrayList<String> days = new ArrayList<>();
 
     @Override
     public void bindCircleProgressBar(float progress) {
@@ -109,6 +112,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         BarData barData = new BarData(barDataSet);
         gv.setRenderer(new BarRender(gv, gv.getAnimator(), gv.getViewPortHandler(), colors, 18));
         gv.setDrawValueAboveBar(true);
+        barData.setBarWidth(0.4f);
 
         XAxis xAxis = gv.getXAxis();
         xAxis.setDrawGridLines(false);
@@ -170,12 +174,25 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         return profilePresenter;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        profilePresenter.attachPresenter();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_profile, container, false);
         unbinder = ButterKnife.bind(this, view);
-        profilePresenter.attachPresenter();
+        days.add("понедельник");
+        days.add("вторник");
+        days.add("среда");
+        days.add("четверг");
+        days.add("пятница");
+        days.add("суббота");
+        days.add("воскресенье");
+        days.add("");
         return view;
     }
 
