@@ -83,49 +83,10 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
         return weekInterval;
     }
 
-    private long[] getMonthInterval(int position) {
-        Calendar calendar = Calendar.getInstance();
-        int month = calendar.get(Calendar.MONTH);
-        long[] monthInterval = new long[2];
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.clear(Calendar.MINUTE);
-        calendar.clear(Calendar.SECOND);
-        calendar.clear(Calendar.MILLISECOND);
-        calendar.set(Calendar.MONTH, month + position);
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
-        monthInterval[0] = calendar.getTimeInMillis();
-        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-        calendar.set(Calendar.HOUR_OF_DAY, calendar.getActualMaximum(Calendar.HOUR_OF_DAY));
-        calendar.set(Calendar.MINUTE, calendar.getActualMaximum(Calendar.MINUTE));
-        calendar.set(Calendar.SECOND, calendar.getActualMaximum(Calendar.SECOND));
-        monthInterval[1] = calendar.getTimeInMillis();
-        Log.e("LOL", String.valueOf(calendar.getTimeInMillis()));
-        return monthInterval;
-    }
-
-    private long[] getYearInterval(int position) {
-        Calendar calendar = Calendar.getInstance();
-        long[] yearInterval = new long[2];
-        int year = calendar.get(Calendar.YEAR);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.clear(Calendar.MINUTE);
-        calendar.clear(Calendar.SECOND);
-        calendar.clear(Calendar.MILLISECOND);
-        calendar.set(Calendar.YEAR, year + position);
-        calendar.set(Calendar.DAY_OF_YEAR, calendar.getActualMinimum(Calendar.DAY_OF_YEAR));
-        yearInterval[0] = calendar.getTimeInMillis();
-        calendar.set(Calendar.DAY_OF_YEAR, calendar.getActualMaximum(Calendar.DAY_OF_YEAR));
-        yearInterval[1] = calendar.getTimeInMillis();
-        Log.e("LOL", String.valueOf(yearInterval[0]));
-        Log.e("LOL", String.valueOf(yearInterval[1]));
-        return yearInterval;
-    }
-
     private void prepareGraphsData(SortedMap<Long, Integer> calories, long[] interval) {
         Calendar insideCalendar = Calendar.getInstance();
         int[] colors = new int[interval.length];
         List<BarEntry> pairs = new ArrayList<>();
-        int count = 0;
         int kcal = 0;
         for (int i = 0; i < interval.length; i++) {
             if (calories.get(interval[i]) != null){
@@ -133,8 +94,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
             }else {
                 kcal = 0;
             }
-            colors[count] = getColor(interval[i]);
-            count++;
+            colors[i] = getColor(interval[i]);
             insideCalendar.setTimeInMillis(interval[i]);
             pairs.add(new BarEntry(i, kcal));
         }
@@ -142,7 +102,6 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     private int getColor(Long time) {
-
         if (time == calendar.getTimeInMillis()) {
             return context.getResources().getColor(R.color.color_bar);
         } else if (time < calendar.getTimeInMillis()) {
