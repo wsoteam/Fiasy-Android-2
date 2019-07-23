@@ -73,12 +73,13 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     private long[] getWeekInterval(int position) {
+        Calendar calendarForWork = calendar;
         long[] weekInterval = new long[7];
-        int week = calendar.get(Calendar.WEEK_OF_YEAR);
-        calendar.set(Calendar.WEEK_OF_YEAR, week + position);
-        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+        int week = calendarForWork.get(Calendar.WEEK_OF_YEAR);
+        calendarForWork.set(Calendar.WEEK_OF_YEAR, week + position);
+        calendarForWork.set(Calendar.DAY_OF_WEEK, calendarForWork.getFirstDayOfWeek());
         for (int i = 0; i < 7; i++) {
-            weekInterval[i] = calendar.getTimeInMillis() + oneDay * i;
+            weekInterval[i] = calendarForWork.getTimeInMillis() + oneDay * i;
         }
         return weekInterval;
     }
@@ -102,6 +103,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     private int getColor(Long time) {
+        Log.e("LOL", String.valueOf(calendar.getTimeInMillis()) + "--" + String.valueOf(time));
         if (time == calendar.getTimeInMillis()) {
             return context.getResources().getColor(R.color.color_bar);
         } else if (time < calendar.getTimeInMillis()) {
@@ -123,8 +125,9 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     private long getCurrentDate() {
-        calendar.set(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-        return calendar.getTimeInMillis();
+        Calendar calendarForWork = calendar;
+        calendarForWork.set(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        return calendarForWork.getTimeInMillis();
     }
 
 
@@ -218,8 +221,9 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
 
     private Long formDate(int day, int month, int year) {
-        calendar.set(year, month, day);
-        return calendar.getTimeInMillis();
+        Calendar calendarForWork = calendar;
+        calendarForWork.set(year, month, day);
+        return calendarForWork.getTimeInMillis();
     }
 
     public void uploadPhoto(Bitmap bitmap) {
