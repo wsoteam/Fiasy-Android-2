@@ -4,22 +4,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
+
 
 import com.amplitude.api.Amplitude;
 import com.arellomobile.mvp.InjectViewState;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Breakfast;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Dinner;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Lunch;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOEating.Snack;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.model.Breakfast;
+import com.wsoteam.diet.model.Dinner;
+import com.wsoteam.diet.model.Lunch;
+import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
 import com.wsoteam.diet.presentation.global.BasePresenter;
 

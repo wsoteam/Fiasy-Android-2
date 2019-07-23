@@ -14,6 +14,7 @@ import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.BranchOfAnalyzer.Const;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.CustomFood;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOClaim.Claim;
+import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.POJOProfile.Profile;

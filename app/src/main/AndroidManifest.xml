@@ -23,14 +23,13 @@
         android:theme="@style/AppTheme">
         <activity android:name=".presentation.food.template.create.search.SearchFoodActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu" >
+            android:theme="@style/Menu" />
 
         <activity android:name=".Recipes.v2.ListRecipesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu">
         </activity>
 
-        <activity android:name=".Recipes.adding.ProductDetailActivity"></activity>
         <activity android:name=".BarcodeScanner.BaseScanner"
             android:screenOrientation="portrait"
             android:theme="@style/CreateFood"/>
