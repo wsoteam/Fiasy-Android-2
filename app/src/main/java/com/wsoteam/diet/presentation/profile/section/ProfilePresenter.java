@@ -110,10 +110,25 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
         String bottomText = "";
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(interval[0]);
-        bottomText = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + "." + String.valueOf(1 + calendar.get(Calendar.MONTH)) + " - ";
+        String firstDay = getNumber(calendar.get(Calendar.DAY_OF_MONTH));
+        String firstMonth = getNumber(calendar.get(Calendar.MONTH) + 1);
+        bottomText = firstDay + "." + firstMonth + " - ";
+
         calendar.setTimeInMillis(interval[interval.length - 1]);
-        bottomText += String.valueOf(calendar.get(Calendar.DAY_OF_MONTH) + "." + String.valueOf(1 + calendar.get(Calendar.MONTH)));
+        String secondDay = getNumber(calendar.get(Calendar.DAY_OF_MONTH));
+        String secondMonth = getNumber(calendar.get(Calendar.MONTH) + 1);
+        bottomText += secondDay + "." + secondMonth;
         return bottomText;
+    }
+
+    private String getNumber(int i) {
+        String number;
+        if (String.valueOf(i).length() == 1){
+            number = "0" + String.valueOf(i);
+        }else {
+            number = String.valueOf(i);
+        }
+        return number;
     }
 
     private String getTopText(long[] interval) {
