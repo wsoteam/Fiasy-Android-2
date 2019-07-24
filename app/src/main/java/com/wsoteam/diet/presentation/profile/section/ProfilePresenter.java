@@ -282,26 +282,53 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
     public void getMonthGraph(int counterMove) {
         calendar.setTimeInMillis(currentTime);
-        calendar.set(Calendar.MONTH, 10);
         long[] monthIntervals = new long[calendar.getActualMaximum(Calendar.WEEK_OF_MONTH) * 2];
-       /* for (int i = 0; i < monthIntervals.length / 2; i += 2) {
-            calendar.set(Calendar.DAY_OF_WEEK, calendar.getActualMinimum(Calendar.DAY_OF_WEEK_IN_MONTH));
-            monthIntervals[i] =calendar.getTimeInMillis();
-            calendar.set(Calendar.DAY_OF_WEEK, calendar.getActualMaximum(Calendar.DAY_OF_WEEK_IN_MONTH));
-            monthIntervals[i + 1] = calendar.getTimeInMillis();
-        }*/
-        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_WEEK_IN_MONTH));
-        //calendar.setTimeInMillis(monthIntervals[0]);
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getActualMaximum(Calendar.DAY_OF_WEEK));
         Log.e("LOL", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
-        //calendar.setTimeInMillis(monthIntervals[1]);
-        Log.e("LOL", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
+        /*for (int i = 0, j = 1; i < monthIntervals.length; i += 2, j++) {
+            calendar.setTimeInMillis(currentTime);
+            calendar.set(Calendar.WEEK_OF_MONTH, j);
+            if (j == 1) {
+                calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+            } else {
+                calendar.set(Calendar.DAY_OF_WEEK, calendar.getActualMinimum(Calendar.DAY_OF_WEEK));
+            }
+            monthIntervals[i] = calendar.getTimeInMillis();
 
-        /*for (int i = 0; i < monthIntervals.length; i++) {
-            Log.e("LOL", String.valueOf(calendar.get(Calendar.WEEK_OF_MONTH)));
+            if (j == monthIntervals.length / 2 - 1) {
+                calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+            } else {
+                calendar.set(Calendar.DAY_OF_WEEK, calendar.getActualMaximum(Calendar.DAY_OF_WEEK));
+            }
+            monthIntervals[i + 1] = calendar.getTimeInMillis();
+        }
+
+
+        for (int i = 0; i < monthIntervals.length; i++) {
+            calendar.setTimeInMillis(monthIntervals[i]);
+            Log.e("LOL", " dd" + String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         }*/
 
     }
 
     public void getYearGraph(int counterMove) {
+        calendar.setTimeInMillis(currentTime);
+        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + counterMove);
+        long[] yearIntervals = new long[24];
+
+        for (int i = 0, j = 0; i < yearIntervals.length; i+=2, j++) {
+            calendar.set(Calendar.MONTH, j);
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+            yearIntervals[i] = calendar.getTimeInMillis();
+
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+            //Log.e("LOL", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
+            yearIntervals[i + 1] = calendar.getTimeInMillis();
+        }
+
+        for (int i = 0; i < yearIntervals.length; i++) {
+            calendar.setTimeInMillis(yearIntervals[i]);
+            Log.e("LOL", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
+        }
     }
 }
