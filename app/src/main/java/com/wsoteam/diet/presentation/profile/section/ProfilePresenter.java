@@ -322,7 +322,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
         Calendar insideCalendar = Calendar.getInstance();
         int[] colors = new int[interval.length / 2];
         List<BarEntry> pairs = new ArrayList<>();
-        for (int i = 0, j = 0; i < interval.length / 2; i += 2, j++) {
+        for (int i = 0, j = 0; i < interval.length; i += 2, j++) {
             int count = 0;
             int sumKcal = 0;
             Iterator iterator = calories.entrySet().iterator();
@@ -339,7 +339,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
             }else {
                 pairs.add(new BarEntry(j, 0));
             }
-            colors[i] = getColor(interval[i]);
+            colors[j] = getColor(interval[i]);
         }
         insideCalendar.setTimeInMillis(interval[0]);
         getViewState().drawYearGraphs(pairs, colors, String.valueOf(insideCalendar.get(Calendar.YEAR)), "");

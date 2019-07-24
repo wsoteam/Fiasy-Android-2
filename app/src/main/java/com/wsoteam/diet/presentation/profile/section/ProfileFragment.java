@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.views.bar.BarRender;
 import com.wsoteam.diet.common.views.bar.formater.XWeekFormatter;
+import com.wsoteam.diet.common.views.bar.formater.XYearFormatter;
 import com.wsoteam.diet.common.views.bar.marker.BarMarker;
 import com.wsoteam.diet.presentation.profile.settings.ProfileSettingsActivity;
 
@@ -109,6 +111,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
     @Override
     public void drawYearGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText) {
+        Log.e("LOL", String.valueOf(pairs.size()));
         BarDataSet barDataSet = new BarDataSet(pairs, "");
         barDataSet.setColors(colors);
         barDataSet.setDrawValues(false);
@@ -121,7 +124,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         XAxis xAxis = gv.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setValueFormatter(new XWeekFormatter());
+        xAxis.setValueFormatter(new XYearFormatter());
 
         YAxis yAxisRight = gv.getAxisRight();
         yAxisRight.setEnabled(false);
