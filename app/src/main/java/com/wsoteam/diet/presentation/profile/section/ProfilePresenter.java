@@ -123,9 +123,9 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
     private String getNumber(int i) {
         String number;
-        if (String.valueOf(i).length() == 1){
+        if (String.valueOf(i).length() == 1) {
             number = "0" + String.valueOf(i);
-        }else {
+        } else {
             number = String.valueOf(i);
         }
         return number;
@@ -281,6 +281,25 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     public void getMonthGraph(int counterMove) {
+        calendar.setTimeInMillis(currentTime);
+        calendar.set(Calendar.MONTH, 10);
+        long[] monthIntervals = new long[calendar.getActualMaximum(Calendar.WEEK_OF_MONTH) * 2];
+       /* for (int i = 0; i < monthIntervals.length / 2; i += 2) {
+            calendar.set(Calendar.DAY_OF_WEEK, calendar.getActualMinimum(Calendar.DAY_OF_WEEK_IN_MONTH));
+            monthIntervals[i] =calendar.getTimeInMillis();
+            calendar.set(Calendar.DAY_OF_WEEK, calendar.getActualMaximum(Calendar.DAY_OF_WEEK_IN_MONTH));
+            monthIntervals[i + 1] = calendar.getTimeInMillis();
+        }*/
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_WEEK_IN_MONTH));
+        //calendar.setTimeInMillis(monthIntervals[0]);
+        Log.e("LOL", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
+        //calendar.setTimeInMillis(monthIntervals[1]);
+        Log.e("LOL", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
+
+        /*for (int i = 0; i < monthIntervals.length; i++) {
+            Log.e("LOL", String.valueOf(calendar.get(Calendar.WEEK_OF_MONTH)));
+        }*/
+
     }
 
     public void getYearGraph(int counterMove) {
