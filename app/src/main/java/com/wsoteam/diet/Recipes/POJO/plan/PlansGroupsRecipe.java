@@ -1,12 +1,23 @@
-package com.wsoteam.diet.Recipes.POJO;
+package com.wsoteam.diet.Recipes.POJO.plan;
+
+import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
+import com.wsoteam.diet.Recipes.POJO.ListRecipes;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlansGroupsRecipe implements GroupsRecipes{
+public class PlansGroupsRecipe implements GroupsRecipes {
     private List<ListRecipes> listRecipesGroups;
 
+    public List<RecipeForDay> getRecipeForDays() {
+        return recipeForDays;
+    }
+
+    private List<RecipeForDay> recipeForDays;
+
     public PlansGroupsRecipe(ListRecipes listRecipes, String plan) {
+        int days = 28;
         listRecipesGroups = new ArrayList<>();
 
         ListRecipes listBreakfast = new ListRecipes("Завтрак");
@@ -49,6 +60,37 @@ public class PlansGroupsRecipe implements GroupsRecipes{
                 snack.add(recipe);
             }
         }
+        recipeForDays = new ArrayList<>();
+        for (int i = 0; i < 28; i++){
+            recipeForDays.add(createForDay());
+        }
+    }
+
+    RecipeForDay createForDay(){
+        List<RecipeItem> breakfast = new ArrayList<>();
+        breakfast.add(listRecipesGroups.get(0).getListrecipes().get(0));
+        breakfast.add(listRecipesGroups.get(0).getListrecipes().get(2));
+        breakfast.add(listRecipesGroups.get(0).getListrecipes().get(3));
+        List<RecipeItem> lunch = new ArrayList<>();
+        lunch.add(listRecipesGroups.get(1).getListrecipes().get(0));
+        lunch.add(listRecipesGroups.get(1).getListrecipes().get(1));
+        lunch.add(listRecipesGroups.get(1).getListrecipes().get(2));
+        List<RecipeItem> dinner = new ArrayList<>();
+        dinner.add(listRecipesGroups.get(2).getListrecipes().get(0));
+        dinner.add(listRecipesGroups.get(2).getListrecipes().get(1));
+        dinner.add(listRecipesGroups.get(2).getListrecipes().get(2));
+        List<RecipeItem> snack = new ArrayList<>();
+        snack.add(listRecipesGroups.get(2).getListrecipes().get(0));
+        snack.add(listRecipesGroups.get(2).getListrecipes().get(1));
+        snack.add(listRecipesGroups.get(2).getListrecipes().get(2));
+
+        RecipeForDay forDay = new RecipeForDay();
+        forDay.setBreakfast(breakfast);
+        forDay.setLunch(lunch);
+        forDay.setDinner(dinner);
+        forDay.setSnack(snack);
+
+        return forDay;
     }
 
     @Override

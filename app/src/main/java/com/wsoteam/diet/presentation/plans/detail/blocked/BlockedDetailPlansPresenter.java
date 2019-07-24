@@ -2,12 +2,10 @@ package com.wsoteam.diet.presentation.plans.detail.blocked;
 
 
 
-import android.util.Log;
-
 import com.arellomobile.mvp.InjectViewState;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
-import com.wsoteam.diet.Recipes.POJO.PlansGroupsRecipe;
 import com.wsoteam.diet.Recipes.POJO.RecipesHolder;
+import com.wsoteam.diet.Recipes.POJO.plan.PlansGroupsRecipe;
 import com.wsoteam.diet.presentation.global.BasePresenter;
 import com.wsoteam.diet.presentation.global.Screens;
 
