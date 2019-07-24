@@ -94,7 +94,6 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
                 int stepNumber = (int) ((time - millisUntilFinished) / periodTick);
                 double stepValue = ((double) progress) / ((double) countTick);
                 donutProgress.setProgress(((float) stepValue * stepNumber));
-
             }
 
             @Override
@@ -106,6 +105,44 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
             }
         }.start();
 
+    }
+
+    @Override
+    public void drawYearGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText) {
+        BarDataSet barDataSet = new BarDataSet(pairs, "");
+        barDataSet.setColors(colors);
+        barDataSet.setDrawValues(false);
+
+        BarData barData = new BarData(barDataSet);
+        gv.setRenderer(new BarRender(gv, gv.getAnimator(), gv.getViewPortHandler(), colors, 18));
+        gv.setDrawValueAboveBar(true);
+        barData.setBarWidth(0.4f);
+
+        XAxis xAxis = gv.getXAxis();
+        xAxis.setDrawGridLines(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setValueFormatter(new XWeekFormatter());
+
+        YAxis yAxisRight = gv.getAxisRight();
+        yAxisRight.setEnabled(false);
+        yAxisRight.setAxisMinimum(0f);
+
+        YAxis yAxisLeft = gv.getAxisLeft();
+        yAxisLeft.setAxisMinimum(0f);
+        gv.setMarker(new MarkerView(getActivity(), R.layout.marker_calories));
+        BarMarker barMarker = new BarMarker(getActivity(), R.layout.marker_calories, colors, pairs);
+
+        gv.setDrawBarShadow(false);
+        gv.getDescription().setEnabled(false);
+        gv.setDrawGridBackground(false);
+        gv.getLegend().setEnabled(false);
+        gv.setData(barData);
+        gv.setMarker(barMarker);
+        gv.notifyDataSetChanged();
+        gv.invalidate();
+
+        tvTopDateSwitcher.setText(topText);
+        tvBottomDateSwitcher.setText(bottomText);
     }
 
     @Override

@@ -282,9 +282,11 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
     public void getMonthGraph(int counterMove) {
         calendar.setTimeInMillis(currentTime);
+        calendar.set(Calendar.MONTH, 8);
+        calendar.set(Calendar.WEEK_OF_MONTH, 1);
         long[] monthIntervals = new long[calendar.getActualMaximum(Calendar.WEEK_OF_MONTH) * 2];
-        calendar.set(Calendar.DAY_OF_WEEK, calendar.getActualMaximum(Calendar.DAY_OF_WEEK));
-        Log.e("LOL", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getActualMinimum(Calendar.DAY_OF_WEEK_IN_MONTH));
+        Log.e("LOL", calendar.toString());
         /*for (int i = 0, j = 1; i < monthIntervals.length; i += 2, j++) {
             calendar.setTimeInMillis(currentTime);
             calendar.set(Calendar.WEEK_OF_MONTH, j);
@@ -300,6 +302,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
             } else {
                 calendar.set(Calendar.DAY_OF_WEEK, calendar.getActualMaximum(Calendar.DAY_OF_WEEK));
             }
+
             monthIntervals[i + 1] = calendar.getTimeInMillis();
         }
 
@@ -312,23 +315,49 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     public void getYearGraph(int counterMove) {
+        prepareYearGraphs(calories, getYearInterval(counterMove));
+    }
+
+    private void prepareYearGraphs(SortedMap<Long, Integer> calories, long[] interval) {
+        Calendar insideCalendar = Calendar.getInstance();
+        int[] colors = new int[interval.length / 2];
+        List<BarEntry> pairs = new ArrayList<>();
+        for (int i = 0, j = 0; i < interval.length / 2; i += 2, j++) {
+            int count = 0;
+            int sumKcal = 0;
+            Iterator iterator = calories.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry entry = (Map.Entry) iterator.next();
+                Long key = (Long) entry.getKey();
+                if (key >= interval[i] && key <= interval[i + 1]) {
+                    count++;
+                    sumKcal += (int) entry.getValue();
+                }
+            }
+            if (count != 0) {
+                pairs.add(new BarEntry(j, sumKcal / count));
+            }else {
+                pairs.add(new BarEntry(j, 0));
+            }
+            colors[i] = getColor(interval[i]);
+        }
+        insideCalendar.setTimeInMillis(interval[0]);
+        getViewState().drawYearGraphs(pairs, colors, String.valueOf(insideCalendar.get(Calendar.YEAR)), "");
+    }
+
+    public long[] getYearInterval(int counterMove) {
         calendar.setTimeInMillis(currentTime);
         calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + counterMove);
         long[] yearIntervals = new long[24];
 
-        for (int i = 0, j = 0; i < yearIntervals.length; i+=2, j++) {
+        for (int i = 0, j = 0; i < yearIntervals.length; i += 2, j++) {
             calendar.set(Calendar.MONTH, j);
             calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
             yearIntervals[i] = calendar.getTimeInMillis();
 
             calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-            //Log.e("LOL", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
             yearIntervals[i + 1] = calendar.getTimeInMillis();
         }
-
-        for (int i = 0; i < yearIntervals.length; i++) {
-            calendar.setTimeInMillis(yearIntervals[i]);
-            Log.e("LOL", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
-        }
+        return yearIntervals;
     }
 }
