@@ -39,11 +39,12 @@ import static java.util.Map.Entry.comparingByKey;
 
 @InjectViewState
 public class ProfilePresenter extends MvpPresenter<ProfileView> {
-    private Calendar calendar = Calendar.getInstance();
+    private Calendar calendar;
     private Profile profile;
     private Context context;
     private long oneWeek = 604799999;
     private long oneDay = 86400000;
+    private long currentTime;
     private SortedMap<Long, Integer> calories;
 
     public ProfilePresenter(Context context) {
@@ -51,6 +52,8 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     public void attachPresenter() {
+        calendar = Calendar.getInstance();
+        currentTime = calendar.getTimeInMillis();
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_profile);
         bindFields();
         Single.fromCallable(() -> {
@@ -73,13 +76,13 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     private long[] getWeekInterval(int position) {
-        Calendar calendarForWork = calendar;
+        calendar.setTimeInMillis(currentTime);
         long[] weekInterval = new long[7];
-        int week = calendarForWork.get(Calendar.WEEK_OF_YEAR);
-        calendarForWork.set(Calendar.WEEK_OF_YEAR, week + position);
-        calendarForWork.set(Calendar.DAY_OF_WEEK, calendarForWork.getFirstDayOfWeek());
+        int week = calendar.get(Calendar.WEEK_OF_YEAR);
+        calendar.set(Calendar.WEEK_OF_YEAR, week + position);
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
         for (int i = 0; i < 7; i++) {
-            weekInterval[i] = calendarForWork.getTimeInMillis() + oneDay * i;
+            weekInterval[i] = calendar.getTimeInMillis() + oneDay * i;
         }
         return weekInterval;
     }
@@ -120,7 +123,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     private int getColor(Long time) {
-        Log.e("LOL", String.valueOf(calendar.getTimeInMillis()) + "--" + String.valueOf(time));
+        calendar.setTimeInMillis(currentTime);
         if (time == calendar.getTimeInMillis()) {
             return context.getResources().getColor(R.color.color_bar);
         } else if (time < calendar.getTimeInMillis()) {
