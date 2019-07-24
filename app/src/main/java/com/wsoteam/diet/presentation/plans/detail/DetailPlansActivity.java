@@ -80,6 +80,7 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
             return true;
         }
     };
+    //test
 
     @Override
     public void showProgress(boolean show) {
