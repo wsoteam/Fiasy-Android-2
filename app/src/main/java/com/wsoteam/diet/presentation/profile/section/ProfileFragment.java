@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
@@ -26,6 +28,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.views.bar.BarRender;
@@ -71,7 +74,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     private long time = 500, periodTick = 5, countTick = 100;
     private CountDownTimer countDownTimer;
     private int counterMove = 0;
-    private int INTERVAL_STATE = 0; //0 - week, 1 - month, 2 - year
+    private int INTERVAL_CHOISE = 0; //0 - week, 1 - month, 2 - year
+    private final int CHOISED_WEEK = 0, CHOISED_MONTH = 1, CHOISED_YEAR = 2;
     private ArrayList<String> days = new ArrayList<>();
 
     @Override
@@ -105,8 +109,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     }
 
     @Override
-    public void drawGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText) {
-        BarDataSet barDataSet = new BarDataSet(pairs, "kekesi");
+    public void drawWeekGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText) {
+        BarDataSet barDataSet = new BarDataSet(pairs, "");
         barDataSet.setColors(colors);
         barDataSet.setDrawValues(false);
 
@@ -119,8 +123,6 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setValueFormatter(new XWeekFormatter());
-        //xAxis.setAxisMinimum(min - 0.5f);
-        //xAxis.setAxisMaximum(max + 0.5f);
 
         YAxis yAxisRight = gv.getAxisRight();
         yAxisRight.setEnabled(false);
@@ -142,8 +144,6 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
         tvTopDateSwitcher.setText(topText);
         tvBottomDateSwitcher.setText(bottomText);
-        //Log.e("LOL", String.valueOf(max));
-        //Log.e("LOL", String.valueOf(min));
     }
 
     @Override
@@ -222,24 +222,55 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
                 openParams();
                 break;
             case R.id.ibLeft:
-                profilePresenter.getWeekGraph(--counterMove);
+                counterMove--;
+                drawChoisedGraph();
                 break;
             case R.id.ibRight:
-                profilePresenter.getWeekGraph(++counterMove);
+                counterMove++;
+                drawChoisedGraph();
                 break;
-           /* case R.id.civProfile:
-                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.CAMERA}, 1);
-                } else {
-                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+        }
+    }
+
+    @OnClick({R.id.rbtnWeek, R.id.rbtnMonth, R.id.rbtnYear})
+    public void onRadioButtonClicked(RadioButton radioButton) {
+        boolean checked = radioButton.isChecked();
+        switch (radioButton.getId()) {
+            case R.id.rbtnWeek:
+                if (checked) {
+                    counterMove = 0;
+                    INTERVAL_CHOISE = 0;
+                    drawChoisedGraph();
                 }
                 break;
-            case R.id.tvUserName:
-                startActivity(new Intent(getActivity(), ActivityEditCompletedProfile.class));
-                break;*/
+            case R.id.rbtnMonth:
+                if (checked) {
+                    counterMove = 0;
+                    INTERVAL_CHOISE = 1;
+                    drawChoisedGraph();
+                }
+                break;
+            case R.id.rbtnYear:
+                if (checked) {
+                    counterMove = 0;
+                    INTERVAL_CHOISE = 2;
+                    drawChoisedGraph();
+                }
+                break;
+        }
+    }
+
+    private void drawChoisedGraph() {
+        switch (INTERVAL_CHOISE) {
+            case CHOISED_WEEK:
+                profilePresenter.getWeekGraph(counterMove);
+                break;
+            case CHOISED_MONTH:
+                profilePresenter.getMonthGraph(counterMove);
+                break;
+            case CHOISED_YEAR:
+                profilePresenter.getYearGraph(counterMove);
+                break;
         }
     }
 

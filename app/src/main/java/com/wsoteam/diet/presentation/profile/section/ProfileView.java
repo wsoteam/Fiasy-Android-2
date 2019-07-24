@@ -15,5 +15,5 @@ import java.util.SortedMap;
 public interface ProfileView extends MvpView {
     void fillViewsIfProfileNotNull(Profile profile);
     void bindCircleProgressBar(float progress);
-    void drawGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText);
+    void drawWeekGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText);
 }

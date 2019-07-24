@@ -68,11 +68,11 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     private void updateUI(SortedMap<Long, Integer> calories) {
         this.calories = calories;
         bindCircleProgressBar(calories);
-        prepareGraphsData(calories, getWeekInterval(0));
+        prepareWeekGraphs(calories, getWeekInterval(0));
     }
 
     public void getWeekGraph(int position) {
-        prepareGraphsData(calories, getWeekInterval(position));
+        prepareWeekGraphs(calories, getWeekInterval(position));
     }
 
     private long[] getWeekInterval(int position) {
@@ -87,7 +87,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
         return weekInterval;
     }
 
-    private void prepareGraphsData(SortedMap<Long, Integer> calories, long[] interval) {
+    private void prepareWeekGraphs(SortedMap<Long, Integer> calories, long[] interval) {
         Calendar insideCalendar = Calendar.getInstance();
         int[] colors = new int[interval.length];
         List<BarEntry> pairs = new ArrayList<>();
@@ -103,7 +103,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
             pairs.add(new BarEntry(i, kcal));
         }
 
-        getViewState().drawGraphs(pairs, colors, getBottomText(interval), getTopText(interval));
+        getViewState().drawWeekGraphs(pairs, colors, getBottomText(interval), getTopText(interval));
     }
 
     private String getBottomText(long[] interval) {
@@ -278,5 +278,11 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
                 });
             }
         });
+    }
+
+    public void getMonthGraph(int counterMove) {
+    }
+
+    public void getYearGraph(int counterMove) {
     }
 }
