@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.DietPlans.POJO.DietsList;
 import com.wsoteam.diet.R;
 

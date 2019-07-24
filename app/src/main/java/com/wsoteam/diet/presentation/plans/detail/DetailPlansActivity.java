@@ -2,6 +2,8 @@ package com.wsoteam.diet.presentation.plans.detail;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,7 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.arellomobile.mvp.MvpAppCompatActivity;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
@@ -18,6 +20,7 @@ import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.helper.NounsDeclension;
 import com.wsoteam.diet.presentation.global.BaseActivity;
+import com.wsoteam.diet.presentation.plans.adapter.VerticalDetailPlansAdapter;
 
 import javax.inject.Inject;
 
@@ -32,6 +35,9 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
     @BindView(R.id.tvPlansName) TextView tvName;
     @BindView(R.id.tvPlansRecipes) TextView tvRecipes;
     @BindView(R.id.tvTime) TextView tvTime;
+    @BindView(R.id.recycler) RecyclerView recycler;
+
+    VerticalDetailPlansAdapter adapter;
 
     @Inject
     @InjectPresenter
@@ -63,6 +69,12 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
 
         shareMenu.setOnMenuItemClickListener(menuListener);
         dotMenu.setOnMenuItemClickListener(menuListener);
+
+        recycler.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new VerticalDetailPlansAdapter(presenter.getList());
+        recycler.setAdapter(adapter);
+
+
 
     }
 
@@ -114,6 +126,11 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
         Glide.with(this)
                 .load(dietPlan.getUrlImage())
                 .into(imageView);
+    }
+
+    @Override
+    public void setAdapter() {
+        adapter.updateList(presenter.getList());
     }
 
     @Override

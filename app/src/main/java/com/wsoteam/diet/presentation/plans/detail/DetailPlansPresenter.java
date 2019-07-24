@@ -7,6 +7,7 @@ import com.wsoteam.diet.Recipes.POJO.RecipesHolder;
 import com.wsoteam.diet.Recipes.POJO.plan.PlansGroupsRecipe;
 import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay;
 import com.wsoteam.diet.presentation.global.BasePresenter;
+import com.wsoteam.diet.presentation.plans.adapter.VerticalDetailPlansAdapter;
 
 import java.util.List;
 
@@ -34,6 +35,11 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
         plansRecipe = new PlansGroupsRecipe(RecipesHolder.get(), dietPlan.getFlag());
         recipeForDays = plansRecipe.getRecipeForDays();
         getViewState().showData(dietPlan);
+        getViewState().setAdapter();
+    }
+
+    List<RecipeForDay> getList(){
+       return recipeForDays;
     }
 
     PlansGroupsRecipe getRecipes(){

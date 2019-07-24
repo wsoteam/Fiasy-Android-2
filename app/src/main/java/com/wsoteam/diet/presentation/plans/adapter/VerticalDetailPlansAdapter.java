@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
+import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,12 +22,20 @@ import butterknife.ButterKnife;
 public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     GroupsRecipes groupsRecipes;
+    List<RecipeForDay> recipeForDays;
     private Context mContext;
     private RecyclerView.RecycledViewPool viewPool;
 
-    public VerticalDetailPlansAdapter(GroupsRecipes groupsRecipes) {
-        this.groupsRecipes = groupsRecipes;
+    public VerticalDetailPlansAdapter(List<RecipeForDay> recipeForDays) {
+        this.recipeForDays = recipeForDays;
         viewPool = new RecyclerView.RecycledViewPool();
+    }
+
+    public void updateList(List<RecipeForDay> recipeForDays){
+
+        this.recipeForDays = recipeForDays;
+        notifyDataSetChanged();
+
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

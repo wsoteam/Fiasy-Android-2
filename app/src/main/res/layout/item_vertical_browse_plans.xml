@@ -20,7 +20,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Название диеты" />
+        android:text="Название диеты" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
