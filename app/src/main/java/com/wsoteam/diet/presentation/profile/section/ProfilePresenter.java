@@ -22,6 +22,7 @@ import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.model.Eating;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -282,36 +283,24 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
     public void getMonthGraph(int counterMove) {
         calendar.setTimeInMillis(currentTime);
-        calendar.set(Calendar.MONTH, 8);
-        calendar.set(Calendar.WEEK_OF_MONTH, 1);
+        calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) + counterMove);
         long[] monthIntervals = new long[calendar.getActualMaximum(Calendar.WEEK_OF_MONTH) * 2];
-        calendar.set(Calendar.DAY_OF_WEEK, calendar.getActualMinimum(Calendar.DAY_OF_WEEK_IN_MONTH));
-        Log.e("LOL", calendar.toString());
-        /*for (int i = 0, j = 1; i < monthIntervals.length; i += 2, j++) {
-            calendar.setTimeInMillis(currentTime);
+        for (int i = 0, j = 1; i < monthIntervals.length; i += 2, j++) {
             calendar.set(Calendar.WEEK_OF_MONTH, j);
             if (j == 1) {
                 calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
-            } else {
-                calendar.set(Calendar.DAY_OF_WEEK, calendar.getActualMinimum(Calendar.DAY_OF_WEEK));
+            }else {
+                calendar.set(Calendar.DAY_OF_WEEK, 2);
             }
             monthIntervals[i] = calendar.getTimeInMillis();
 
-            if (j == monthIntervals.length / 2 - 1) {
+            if (j == monthIntervals.length / 2) {
                 calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
             } else {
-                calendar.set(Calendar.DAY_OF_WEEK, calendar.getActualMaximum(Calendar.DAY_OF_WEEK));
+                calendar.set(Calendar.DAY_OF_WEEK, 1);
             }
-
             monthIntervals[i + 1] = calendar.getTimeInMillis();
         }
-
-
-        for (int i = 0; i < monthIntervals.length; i++) {
-            calendar.setTimeInMillis(monthIntervals[i]);
-            Log.e("LOL", " dd" + String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
-        }*/
-
     }
 
     public void getYearGraph(int counterMove) {
