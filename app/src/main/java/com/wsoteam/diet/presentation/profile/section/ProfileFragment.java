@@ -149,7 +149,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     }
 
     @Override
-    public void drawMonthGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText) {
+    public void drawMonthGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText, ArrayList<String> namesIntervals) {
         Log.e("LOL", String.valueOf(pairs.size()));
         BarDataSet barDataSet = new BarDataSet(pairs, "");
         barDataSet.setColors(colors);

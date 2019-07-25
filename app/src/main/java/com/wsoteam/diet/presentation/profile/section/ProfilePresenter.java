@@ -302,12 +302,25 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
             }
             if (count != 0) {
                 pairs.add(new BarEntry(j, sumKcal / count));
-            }else {
+            } else {
                 pairs.add(new BarEntry(j, 0));
             }
             colors[j] = getColor(monthIntervals[i]);
         }
-        getViewState().drawYearGraphs(pairs, colors, "", "");
+        getViewState().drawMonthGraphs(pairs, colors, "", "", getNamesMonthIntervals(monthIntervals));
+    }
+
+    private ArrayList<String> getNamesMonthIntervals(long[] monthIntervals) {
+        ArrayList<String> namesIntervals = new ArrayList<>();
+        for (int i = 0; i < monthIntervals.length; i += 2) {
+            calendar.setTimeInMillis(monthIntervals[i]);
+            String name = getNumber(calendar.get(Calendar.DAY_OF_MONTH)) + "." + getNumber(calendar.get(Calendar.MONTH)) + "\n";
+            calendar.setTimeInMillis(monthIntervals[i + 1]);
+            name+= getNumber(calendar.get(Calendar.DAY_OF_MONTH)) + "." + getNumber(calendar.get(Calendar.MONTH));
+            Log.e("LOL", name);
+            namesIntervals.add(name);
+        }
+        return namesIntervals;
     }
 
     public long[] getMonthIntervals(int counterMove) {
@@ -318,7 +331,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
             calendar.set(Calendar.WEEK_OF_MONTH, j);
             if (j == 1) {
                 calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
-            }else {
+            } else {
                 calendar.set(Calendar.DAY_OF_WEEK, 2);
             }
             monthIntervals[i] = calendar.getTimeInMillis();
@@ -355,7 +368,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
             }
             if (count != 0) {
                 pairs.add(new BarEntry(j, sumKcal / count));
-            }else {
+            } else {
                 pairs.add(new BarEntry(j, 0));
             }
             colors[j] = getColor(interval[i]);
