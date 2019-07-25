@@ -39,6 +39,10 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
     }
 
+    public void setHeader(){
+
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder implements TabLayout.OnTabSelectedListener {
 
         @BindView(R.id.tvDay) TextView tvDay;
@@ -63,11 +67,11 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(adapter);
-//            adapter.updateList(recipeForDays.get(getAdapterPosition()).getBreakfast());
         }
 
         void bind(int i){
-            tvDay.setText(i + "");
+            tabLayout.getTabAt(0).select(); 
+            tvDay.setText("День " + ++i);
             adapter.updateList(recipeForDays.get(getAdapterPosition()).getBreakfast());
         }
 

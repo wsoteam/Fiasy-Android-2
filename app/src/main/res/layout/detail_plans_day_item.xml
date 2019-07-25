@@ -23,7 +23,6 @@
         android:id="@+id/tabs"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -31,39 +30,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDay"
         app:tabContentStart="32dp"
-        app:tabIndicatorColor="@color/white"
-        app:tabMode="scrollable">
+        app:tabIndicatorColor="@color/orange1"
+        app:tabMode="scrollable"
+        app:tabTextColor="@color/black"
+        app:tabSelectedTextColor="@color/orange1"
+        app:tabTextAppearance="@style/MyCustomTextAppearance">
 
         <android.support.design.widget.TabItem
             android:id="@+id/tiBreakfast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout="@layout/tab_plans_breakfast" />
+            android:text="@string/breakfast"/>
 
         <android.support.design.widget.TabItem
             android:id="@+id/tiLunch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout="@layout/tab_plans_lunch" />
+            android:text="@string/lunch" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tiDinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout="@layout/tab_plans_dinner" />
+            android:text="@string/dinner" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tiSnack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout="@layout/tab_plans_snack" />
+            android:text="@string/snack" />
 
 
     </android.support.design.widget.TabLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
-        android:background="#8BC34A"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="8dp"

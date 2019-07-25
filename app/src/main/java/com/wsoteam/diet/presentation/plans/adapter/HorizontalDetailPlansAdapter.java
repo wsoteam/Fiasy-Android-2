@@ -6,12 +6,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
 
@@ -26,11 +31,16 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
 
     class HorizontalViewHolder extends RecyclerView.ViewHolder{
 
+        @BindView(R.id.ivImage) ImageView imageView;
+
         public HorizontalViewHolder(@NonNull View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
         }
-        void bind(List<RecipeItem> recipeItems){
-
+        void bind(RecipeItem recipeItem){
+            Glide.with(context)
+                    .load(recipeItem.getUrl())
+                    .into(imageView);
         }
     }
 
@@ -52,7 +62,7 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
         switch (viewHolder.getItemViewType()) {
             default: {
                 HorizontalViewHolder cellViewHolder = (HorizontalViewHolder) viewHolder;
-                cellViewHolder.bind(recipeItems);
+                cellViewHolder.bind(recipeItems.get(i));
                 break;
             }
         }
