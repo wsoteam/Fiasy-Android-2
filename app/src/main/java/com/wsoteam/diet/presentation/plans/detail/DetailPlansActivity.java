@@ -74,7 +74,8 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
         VerticalBrowsePlansAdapter adapter2 = new VerticalBrowsePlansAdapter(DietPlansHolder.get().getListGroups());
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new VerticalDetailPlansAdapter(presenter.getList());
+        adapter = new VerticalDetailPlansAdapter(presenter.getList(),
+                (DietPlan)getIntent().getSerializableExtra(Config.DIETS_PLAN_INTENT));
         recycler.setAdapter(adapter);
 
 
@@ -112,6 +113,8 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
         DietPlan dietPlan = (DietPlan)getIntent().getSerializableExtra(Config.DIETS_PLAN_INTENT);
         presenter.setDietPlan(dietPlan);
     }
+
+
 
     @Override
     public void showData(DietPlan dietPlan){

@@ -38,6 +38,10 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
         getViewState().setAdapter();
     }
 
+    DietPlan getDietPlan(){
+        return dietPlan;
+    }
+
     List<RecipeForDay> getList(){
        return recipeForDays;
     }
