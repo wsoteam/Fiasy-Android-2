@@ -5,13 +5,13 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay;
 
 import java.util.List;
@@ -21,8 +21,9 @@ import butterknife.ButterKnife;
 
 public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    GroupsRecipes groupsRecipes;
-    List<RecipeForDay> recipeForDays;
+    private List<RecipeForDay> recipeForDays;
+    private SparseIntArray listPosition = new SparseIntArray();
+    private HorizontalDetailPlansAdapter.OnItemClickListener mItemClickListener;
     private Context mContext;
     private RecyclerView.RecycledViewPool viewPool;
 
@@ -61,6 +62,10 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(adapter);
         }
+
+        void bind(int i){
+            tvDay.setText(i + "");
+        }
     }
 
     @NonNull
@@ -77,13 +82,40 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+        switch (viewHolder.getItemViewType()) {
+            default: {
+                ViewHolder holder = (ViewHolder) viewHolder;
 
+                holder.bind(i);
+
+                int lastSeenFirstPosition = listPosition.get(i, 0);
+                if (lastSeenFirstPosition >= 0) {
+                    holder.layoutManager.scrollToPositionWithOffset(lastSeenFirstPosition, 0);
+                }
+                break;
+            }
+        }
     }
 
     @Override
     public int getItemCount() {
-        if (groupsRecipes == null) return 0;
+        if (recipeForDays == null) return 0;
 
-        return groupsRecipes.getGroups().size();
+        return recipeForDays.size();
+    }
+
+    @Override
+    public void onViewRecycled(RecyclerView.ViewHolder viewHolder) {
+        final int position = viewHolder.getAdapterPosition();
+        ViewHolder cellViewHolder = (ViewHolder) viewHolder;
+        int firstVisiblePosition = cellViewHolder.layoutManager.findFirstVisibleItemPosition();
+        listPosition.put(position, firstVisiblePosition);
+
+        super.onViewRecycled(viewHolder);
+    }
+
+    // for both short and long click
+    public void SetOnItemClickListener(final HorizontalDetailPlansAdapter.OnItemClickListener mItemClickListener) {
+        this.mItemClickListener = mItemClickListener;
     }
 }

@@ -17,9 +17,11 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
+import com.wsoteam.diet.DietPlans.POJO.DietPlansHolder;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.helper.NounsDeclension;
 import com.wsoteam.diet.presentation.global.BaseActivity;
+import com.wsoteam.diet.presentation.plans.adapter.VerticalBrowsePlansAdapter;
 import com.wsoteam.diet.presentation.plans.adapter.VerticalDetailPlansAdapter;
 
 import javax.inject.Inject;
@@ -69,6 +71,7 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
 
         shareMenu.setOnMenuItemClickListener(menuListener);
         dotMenu.setOnMenuItemClickListener(menuListener);
+        VerticalBrowsePlansAdapter adapter2 = new VerticalBrowsePlansAdapter(DietPlansHolder.get().getListGroups());
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
         adapter = new VerticalDetailPlansAdapter(presenter.getList());

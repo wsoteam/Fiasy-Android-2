@@ -38,33 +38,34 @@
             android:id="@+id/tiBreakfast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout="@layout/tab_lat_search" />
+            android:layout="@layout/tab_plans_breakfast" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tiLunch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout="@layout/tab_lat_favorites" />
+            android:layout="@layout/tab_plans_lunch" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tiDinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout="@layout/tab_lat_templates" />
+            android:layout="@layout/tab_plans_dinner" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tiSnack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout="@layout/tab_lat_recipes" />
+            android:layout="@layout/tab_plans_snack" />
 
 
     </android.support.design.widget.TabLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
+        android:background="#8BC34A"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/tabs">
 
