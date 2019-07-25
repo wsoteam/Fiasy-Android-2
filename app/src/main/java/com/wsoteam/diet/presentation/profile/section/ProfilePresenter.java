@@ -282,6 +282,35 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     }
 
     public void getMonthGraph(int counterMove) {
+        prepareMonthGraphs(calories, getMonthIntervals(counterMove));
+    }
+
+    private void prepareMonthGraphs(SortedMap<Long, Integer> calories, long[] monthIntervals) {
+        int[] colors = new int[monthIntervals.length / 2];
+        List<BarEntry> pairs = new ArrayList<>();
+        for (int i = 0, j = 0; i < monthIntervals.length; i += 2, j++) {
+            int count = 0;
+            int sumKcal = 0;
+            Iterator iterator = calories.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry entry = (Map.Entry) iterator.next();
+                Long key = (Long) entry.getKey();
+                if (key >= monthIntervals[i] && key <= monthIntervals[i + 1]) {
+                    count++;
+                    sumKcal += (int) entry.getValue();
+                }
+            }
+            if (count != 0) {
+                pairs.add(new BarEntry(j, sumKcal / count));
+            }else {
+                pairs.add(new BarEntry(j, 0));
+            }
+            colors[j] = getColor(monthIntervals[i]);
+        }
+        getViewState().drawYearGraphs(pairs, colors, "", "");
+    }
+
+    public long[] getMonthIntervals(int counterMove) {
         calendar.setTimeInMillis(currentTime);
         calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) + counterMove);
         long[] monthIntervals = new long[calendar.getActualMaximum(Calendar.WEEK_OF_MONTH) * 2];
@@ -301,6 +330,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
             }
             monthIntervals[i + 1] = calendar.getTimeInMillis();
         }
+        return monthIntervals;
     }
 
     public void getYearGraph(int counterMove) {

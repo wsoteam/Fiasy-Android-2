@@ -17,4 +17,5 @@ public interface ProfileView extends MvpView {
     void bindCircleProgressBar(float progress);
     void drawWeekGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText);
     void drawYearGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText);
+    void drawMonthGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText);
 }
