@@ -29,6 +29,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
@@ -112,82 +113,28 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
     @Override
     public void drawYearGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText) {
-        BarDataSet barDataSet = new BarDataSet(pairs, "");
-        barDataSet.setColors(colors);
-        barDataSet.setDrawValues(false);
-
-        BarData barData = new BarData(barDataSet);
-        gv.setRenderer(new BarRender(gv, gv.getAnimator(), gv.getViewPortHandler(), colors, 18));
-        gv.setDrawValueAboveBar(true);
-        barData.setBarWidth(0.4f);
-
-        XAxis xAxis = gv.getXAxis();
-        xAxis.setDrawGridLines(false);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setValueFormatter(new XYearFormatter());
-
-        YAxis yAxisRight = gv.getAxisRight();
-        yAxisRight.setEnabled(false);
-        yAxisRight.setAxisMinimum(0f);
-
-        YAxis yAxisLeft = gv.getAxisLeft();
-        yAxisLeft.setAxisMinimum(0f);
-        gv.setMarker(new MarkerView(getActivity(), R.layout.marker_calories));
-        BarMarker barMarker = new BarMarker(getActivity(), R.layout.marker_calories, colors, pairs);
-
-        gv.setDrawBarShadow(false);
-        gv.getDescription().setEnabled(false);
-        gv.setDrawGridBackground(false);
-        gv.getLegend().setEnabled(false);
-        gv.setData(barData);
-        gv.setMarker(barMarker);
-        gv.notifyDataSetChanged();
-        gv.invalidate();
-
-        tvTopDateSwitcher.setText(topText);
-        tvBottomDateSwitcher.setText(bottomText);
+        XYearFormatter xYearFormatter = new XYearFormatter();
+        drawGraph(pairs, colors, xYearFormatter, topText, bottomText);
     }
 
     @Override
     public void drawMonthGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText, ArrayList<String> namesIntervals) {
-        BarDataSet barDataSet = new BarDataSet(pairs, "");
-        barDataSet.setColors(colors);
-        barDataSet.setDrawValues(false);
-
-        BarData barData = new BarData(barDataSet);
-        gv.setRenderer(new BarRender(gv, gv.getAnimator(), gv.getViewPortHandler(), colors, 18));
-        gv.setDrawValueAboveBar(true);
-        barData.setBarWidth(1f);
-
-        XAxis xAxis = gv.getXAxis();
-        xAxis.setDrawGridLines(false);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setValueFormatter(new XMonthFormatter(namesIntervals));
-
-        YAxis yAxisRight = gv.getAxisRight();
-        yAxisRight.setEnabled(false);
-        yAxisRight.setAxisMinimum(0f);
-
-        YAxis yAxisLeft = gv.getAxisLeft();
-        yAxisLeft.setAxisMinimum(0f);
-        gv.setMarker(new MarkerView(getActivity(), R.layout.marker_calories));
-        BarMarker barMarker = new BarMarker(getActivity(), R.layout.marker_calories, colors, pairs);
-
-        gv.setDrawBarShadow(false);
-        gv.getDescription().setEnabled(false);
-        gv.setDrawGridBackground(false);
-        gv.getLegend().setEnabled(false);
-        gv.setData(barData);
-        gv.setMarker(barMarker);
-        gv.notifyDataSetChanged();
-        gv.invalidate();
-
-        tvTopDateSwitcher.setText(topText);
-        tvBottomDateSwitcher.setText(bottomText);
+        XMonthFormatter xMonthFormatter = new XMonthFormatter(namesIntervals);
+        drawGraph(pairs, colors, xMonthFormatter, topText, bottomText);
     }
 
     @Override
     public void drawWeekGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText) {
+        XWeekFormatter xWeekFormatter = new XWeekFormatter();
+        drawGraph(pairs, colors, xWeekFormatter, topText, bottomText);
+    }
+
+    private void drawGraph(List<BarEntry> pairs, int[] colors, ValueFormatter valueFormatter, String topText, String bottomText) {
+        if (gv.getBarData() != null) {
+            gv.invalidate();
+            gv.clearValues();
+            gv.notifyDataSetChanged();
+        }
         BarDataSet barDataSet = new BarDataSet(pairs, "");
         barDataSet.setColors(colors);
         barDataSet.setDrawValues(false);
@@ -200,7 +147,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         XAxis xAxis = gv.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setValueFormatter(new XWeekFormatter());
+        xAxis.setValueFormatter(valueFormatter);
 
         YAxis yAxisRight = gv.getAxisRight();
         yAxisRight.setEnabled(false);

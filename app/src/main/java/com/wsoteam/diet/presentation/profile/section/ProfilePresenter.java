@@ -69,7 +69,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     private void updateUI(SortedMap<Long, Integer> calories) {
         this.calories = calories;
         bindCircleProgressBar(calories);
-        prepareMonthGraphs(calories, getMonthIntervals(0));
+        prepareWeekGraphs(calories, getWeekInterval(0));
     }
 
     public void getWeekGraph(int position) {
@@ -315,9 +315,9 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
         ArrayList<String> namesIntervals = new ArrayList<>();
         for (int i = 0; i < monthIntervals.length; i += 2) {
             calendar.setTimeInMillis(monthIntervals[i]);
-            String name = getNumber(calendar.get(Calendar.DAY_OF_MONTH)) + "." + getNumber(calendar.get(Calendar.MONTH)) + "\n";
+            String name = getNumber(calendar.get(Calendar.DAY_OF_MONTH)) + " - ";
             calendar.setTimeInMillis(monthIntervals[i + 1]);
-            name+= getNumber(calendar.get(Calendar.DAY_OF_MONTH)) + "." + getNumber(calendar.get(Calendar.MONTH));
+            name+= getNumber(calendar.get(Calendar.DAY_OF_MONTH));
             namesIntervals.add(name);
         }
         return namesIntervals;
