@@ -33,6 +33,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.views.bar.BarRender;
+import com.wsoteam.diet.common.views.bar.formater.XMonthFormatter;
 import com.wsoteam.diet.common.views.bar.formater.XWeekFormatter;
 import com.wsoteam.diet.common.views.bar.formater.XYearFormatter;
 import com.wsoteam.diet.common.views.bar.marker.BarMarker;
@@ -111,7 +112,6 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
     @Override
     public void drawYearGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText) {
-        Log.e("LOL", String.valueOf(pairs.size()));
         BarDataSet barDataSet = new BarDataSet(pairs, "");
         barDataSet.setColors(colors);
         barDataSet.setDrawValues(false);
@@ -150,7 +150,6 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
     @Override
     public void drawMonthGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText, ArrayList<String> namesIntervals) {
-        Log.e("LOL", String.valueOf(pairs.size()));
         BarDataSet barDataSet = new BarDataSet(pairs, "");
         barDataSet.setColors(colors);
         barDataSet.setDrawValues(false);
@@ -158,12 +157,12 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         BarData barData = new BarData(barDataSet);
         gv.setRenderer(new BarRender(gv, gv.getAnimator(), gv.getViewPortHandler(), colors, 18));
         gv.setDrawValueAboveBar(true);
-        barData.setBarWidth(0.4f);
+        barData.setBarWidth(1f);
 
         XAxis xAxis = gv.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setValueFormatter(new XYearFormatter());
+        xAxis.setValueFormatter(new XMonthFormatter(namesIntervals));
 
         YAxis yAxisRight = gv.getAxisRight();
         yAxisRight.setEnabled(false);

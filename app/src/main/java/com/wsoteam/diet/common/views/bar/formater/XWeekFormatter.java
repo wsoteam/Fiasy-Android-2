@@ -1,5 +1,7 @@
 package com.wsoteam.diet.common.views.bar.formater;
 
+import android.util.Log;
+
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
@@ -21,6 +23,7 @@ public class XWeekFormatter extends ValueFormatter {
 
     @Override
     public String getFormattedValue(float value) {
+        Log.e("LOL", String.valueOf(value));
         return days.get((int) value);
     }
 }

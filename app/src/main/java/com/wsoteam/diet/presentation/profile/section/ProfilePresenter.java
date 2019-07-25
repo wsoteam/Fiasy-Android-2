@@ -69,7 +69,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     private void updateUI(SortedMap<Long, Integer> calories) {
         this.calories = calories;
         bindCircleProgressBar(calories);
-        prepareWeekGraphs(calories, getWeekInterval(0));
+        prepareMonthGraphs(calories, getMonthIntervals(0));
     }
 
     public void getWeekGraph(int position) {
@@ -305,6 +305,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
             } else {
                 pairs.add(new BarEntry(j, 0));
             }
+            Log.e("LOL", String.valueOf(j));
             colors[j] = getColor(monthIntervals[i]);
         }
         getViewState().drawMonthGraphs(pairs, colors, "", "", getNamesMonthIntervals(monthIntervals));
@@ -317,7 +318,6 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
             String name = getNumber(calendar.get(Calendar.DAY_OF_MONTH)) + "." + getNumber(calendar.get(Calendar.MONTH)) + "\n";
             calendar.setTimeInMillis(monthIntervals[i + 1]);
             name+= getNumber(calendar.get(Calendar.DAY_OF_MONTH)) + "." + getNumber(calendar.get(Calendar.MONTH));
-            Log.e("LOL", name);
             namesIntervals.add(name);
         }
         return namesIntervals;
@@ -366,6 +366,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
                     sumKcal += (int) entry.getValue();
                 }
             }
+
             if (count != 0) {
                 pairs.add(new BarEntry(j, sumKcal / count));
             } else {
