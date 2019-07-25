@@ -9,18 +9,18 @@ import android.view.ViewGroup;
 
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
-import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay;
+
 
 import java.util.List;
 
 public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
 
-    private RecipeForDay recipes;
+    private List<RecipeItem> recipeItems;
     private OnItemClickListener mItemClickListener;
     private Context context;
 
-    public void updateList(RecipeForDay recipes){
-        this.recipes = recipes;
+    public void updateList(List<RecipeItem> recipeItems){
+        this.recipeItems = recipeItems;
         notifyDataSetChanged();
     }
 
@@ -52,7 +52,7 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
         switch (viewHolder.getItemViewType()) {
             default: {
                 HorizontalViewHolder cellViewHolder = (HorizontalViewHolder) viewHolder;
-                cellViewHolder.bind(recipes.getBreakfast());
+                cellViewHolder.bind(recipeItems);
                 break;
             }
         }
@@ -61,15 +61,20 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
 
-        if (recipes == null)
+        if (recipeItems == null)
         return 0;
 
-        return recipes.getBreakfast().size();
+        return recipeItems.size();
     }
 
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
 
         void onItemLongClick(View view, int position);
+    }
+
+    // for both short and long click
+    public void SetOnItemClickListener(final HorizontalDetailPlansAdapter.OnItemClickListener mItemClickListener) {
+        this.mItemClickListener = mItemClickListener;
     }
 }

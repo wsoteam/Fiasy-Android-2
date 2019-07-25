@@ -39,7 +39,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder implements TabLayout.OnTabSelectedListener {
 
         @BindView(R.id.tvDay) TextView tvDay;
         @BindView(R.id.tabs) TabLayout tabLayout;
@@ -52,6 +52,8 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
             super(itemView);
             ButterKnife.bind(this, itemView);
 
+            tabLayout.addOnTabSelectedListener(this);
+
             recyclerView.setRecycledViewPool(viewPool);
             recyclerView.setHasFixedSize(true);
 
@@ -61,10 +63,45 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(adapter);
+//            adapter.updateList(recipeForDays.get(getAdapterPosition()).getBreakfast());
         }
 
         void bind(int i){
             tvDay.setText(i + "");
+            adapter.updateList(recipeForDays.get(getAdapterPosition()).getBreakfast());
+        }
+
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+
+            switch (tab.getPosition()){
+                case 0:
+                    adapter.updateList(recipeForDays.get(getAdapterPosition()).getBreakfast());
+                    break;
+                case 1:
+                    adapter.updateList(recipeForDays.get(getAdapterPosition()).getLunch());
+                    break;
+                case 2:
+                    adapter.updateList(recipeForDays.get(getAdapterPosition()).getDinner());
+                    break;
+                case 3:
+                    adapter.updateList(recipeForDays.get(getAdapterPosition()).getSnack());
+                    break;
+                    default:
+                        adapter.updateList(recipeForDays.get(getAdapterPosition()).getBreakfast());
+
+            }
+
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
         }
     }
 
