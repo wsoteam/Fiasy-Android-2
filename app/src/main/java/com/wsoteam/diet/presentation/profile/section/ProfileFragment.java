@@ -114,22 +114,22 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     @Override
     public void drawYearGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText) {
         XYearFormatter xYearFormatter = new XYearFormatter();
-        drawGraph(pairs, colors, xYearFormatter, topText, bottomText);
+        drawGraph(pairs, colors, xYearFormatter, topText, bottomText, 0.6f);
     }
 
     @Override
     public void drawMonthGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText, ArrayList<String> namesIntervals) {
         XMonthFormatter xMonthFormatter = new XMonthFormatter(namesIntervals);
-        drawGraph(pairs, colors, xMonthFormatter, topText, bottomText);
+        drawGraph(pairs, colors, xMonthFormatter, topText, bottomText, 0.3f);
     }
 
     @Override
     public void drawWeekGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText) {
         XWeekFormatter xWeekFormatter = new XWeekFormatter();
-        drawGraph(pairs, colors, xWeekFormatter, topText, bottomText);
+        drawGraph(pairs, colors, xWeekFormatter, topText, bottomText, 0.4f);
     }
 
-    private void drawGraph(List<BarEntry> pairs, int[] colors, ValueFormatter valueFormatter, String topText, String bottomText) {
+    private void drawGraph(List<BarEntry> pairs, int[] colors, ValueFormatter valueFormatter, String topText, String bottomText, float width) {
         if (gv.getBarData() != null) {
             gv.invalidate();
             gv.clearValues();
@@ -142,7 +142,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         BarData barData = new BarData(barDataSet);
         gv.setRenderer(new BarRender(gv, gv.getAnimator(), gv.getViewPortHandler(), colors, 18));
         gv.setDrawValueAboveBar(true);
-        barData.setBarWidth(0.4f);
+        barData.setBarWidth(width);
 
         XAxis xAxis = gv.getXAxis();
         xAxis.setDrawGridLines(false);

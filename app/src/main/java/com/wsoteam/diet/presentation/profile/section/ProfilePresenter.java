@@ -23,11 +23,15 @@ import com.wsoteam.diet.model.Eating;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
+import java.time.Month;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -308,7 +312,9 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
             Log.e("LOL", String.valueOf(j));
             colors[j] = getColor(monthIntervals[i]);
         }
-        getViewState().drawMonthGraphs(pairs, colors, "", "", getNamesMonthIntervals(monthIntervals));
+        calendar.setTimeInMillis(monthIntervals[0]);
+        String nameMonth = context.getResources().getStringArray(R.array.names_months)[calendar.get(Calendar.MONTH)];
+        getViewState().drawMonthGraphs(pairs, colors, nameMonth, String.valueOf(calendar.get(Calendar.YEAR)), getNamesMonthIntervals(monthIntervals));
     }
 
     private ArrayList<String> getNamesMonthIntervals(long[] monthIntervals) {
