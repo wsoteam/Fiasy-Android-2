@@ -309,7 +309,6 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
             } else {
                 pairs.add(new BarEntry(j, 0));
             }
-            Log.e("LOL", String.valueOf(j));
             colors[j] = getColor(monthIntervals[i]);
         }
         calendar.setTimeInMillis(monthIntervals[0]);

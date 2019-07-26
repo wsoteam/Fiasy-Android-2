@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +29,16 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.CombinedData;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.dataprovider.BarDataProvider;
 import com.github.mikephil.charting.renderer.CombinedChartRenderer;
 import com.github.mikephil.charting.renderer.DataRenderer;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.common.views.graph.BarRenderer;
 import com.wsoteam.diet.common.views.graph.formater.XMonthFormatter;
 import com.wsoteam.diet.common.views.graph.formater.XWeekFormatter;
@@ -141,10 +146,21 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         barDataSet.setDrawValues(false);
 
         BarData barData = new BarData(barDataSet);
-        //gv.setRenderer(new BarRenderer(gv, gv.getAnimator(), gv.getViewPortHandler(), colors, 18));
         gv.setDrawValueAboveBar(true);
         barData.setBarWidth(width);
 
+        List<Entry> limitLine = new ArrayList<>();
+        int limit = UserDataHolder.getUserData().getProfile().getMaxKcal();
+        limitLine.add(new Entry(-1, limit));
+        for (int i = 0; i < pairs.size(); i++) {
+            Entry entry = new Entry(pairs.get(i).getX(), limit);
+            limitLine.add(entry);
+        }
+        Log.e("LOL", String.valueOf(pairs.size()));
+        limitLine.add(new Entry(pairs.size(), limit));
+        LineDataSet lineDataSet = new LineDataSet(limitLine, "11");
+        lineDataSet.setCircleRadius();
+        LineData lineData = new LineData(lineDataSet);
 
         XAxis xAxis = gv.getXAxis();
         xAxis.setDrawGridLines(false);
@@ -164,7 +180,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
         CombinedData combinedData = new CombinedData();
         combinedData.setData(barData);
-
+        combinedData.setData(lineData);
 
         List<DataRenderer> subRenderers = new ArrayList<>();
         DataRenderer dataRenderer = new BarRenderer(gv, gv.getAnimator(), gv.getViewPortHandler(), colors, 18);
@@ -178,7 +194,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         gv.getLegend().setEnabled(false);
         gv.setData(combinedData);
         gv.setMarker(barMarker);
-        gv.setRenderer(combinedChartRenderer);
+        //gv.setRenderer(combinedChartRenderer);
         gv.notifyDataSetChanged();
         gv.invalidate();
 
