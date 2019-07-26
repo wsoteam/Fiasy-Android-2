@@ -1,4 +1,4 @@
-package com.wsoteam.diet.common.views.bar.formater;
+package com.wsoteam.diet.common.views.graph.formater;
 
 import com.github.mikephil.charting.formatter.ValueFormatter;
 

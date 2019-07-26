@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
@@ -32,14 +29,16 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
+import com.github.mikephil.charting.interfaces.dataprovider.BarDataProvider;
+import com.github.mikephil.charting.renderer.CombinedChartRenderer;
+import com.github.mikephil.charting.renderer.DataRenderer;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.common.views.bar.BarRender;
-import com.wsoteam.diet.common.views.bar.formater.XMonthFormatter;
-import com.wsoteam.diet.common.views.bar.formater.XWeekFormatter;
-import com.wsoteam.diet.common.views.bar.formater.XYearFormatter;
-import com.wsoteam.diet.common.views.bar.marker.BarMarker;
+import com.wsoteam.diet.common.views.graph.BarRenderer;
+import com.wsoteam.diet.common.views.graph.formater.XMonthFormatter;
+import com.wsoteam.diet.common.views.graph.formater.XWeekFormatter;
+import com.wsoteam.diet.common.views.graph.formater.XYearFormatter;
+import com.wsoteam.diet.common.views.graph.marker.BarMarker;
 import com.wsoteam.diet.presentation.profile.settings.ProfileSettingsActivity;
 
 import java.util.ArrayList;
@@ -142,7 +141,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         barDataSet.setDrawValues(false);
 
         BarData barData = new BarData(barDataSet);
-        //gv.setRenderer(new BarRender(gv, gv.getAnimator(), gv.getViewPortHandler(), colors, 18));
+        //gv.setRenderer(new BarRenderer(gv, gv.getAnimator(), gv.getViewPortHandler(), colors, 18));
         gv.setDrawValueAboveBar(true);
         barData.setBarWidth(width);
 
@@ -166,12 +165,20 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         CombinedData combinedData = new CombinedData();
         combinedData.setData(barData);
 
+
+        List<DataRenderer> subRenderers = new ArrayList<>();
+        DataRenderer dataRenderer = new BarRenderer(gv, gv.getAnimator(), gv.getViewPortHandler(), colors, 18);
+        subRenderers.add(dataRenderer);
+        CombinedChartRenderer combinedChartRenderer = new CombinedChartRenderer(gv, gv.getAnimator(), gv.getViewPortHandler());
+        combinedChartRenderer.setSubRenderers(subRenderers);
+
         gv.setDrawBarShadow(false);
         gv.getDescription().setEnabled(false);
         gv.setDrawGridBackground(false);
         gv.getLegend().setEnabled(false);
         gv.setData(combinedData);
         gv.setMarker(barMarker);
+        gv.setRenderer(combinedChartRenderer);
         gv.notifyDataSetChanged();
         gv.invalidate();
 

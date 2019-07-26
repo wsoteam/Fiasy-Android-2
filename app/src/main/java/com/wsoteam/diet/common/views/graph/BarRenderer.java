@@ -1,4 +1,4 @@
-package com.wsoteam.diet.common.views.bar;
+package com.wsoteam.diet.common.views.graph;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -9,15 +9,13 @@ import com.github.mikephil.charting.interfaces.dataprovider.BarDataProvider;
 import com.github.mikephil.charting.renderer.BarChartRenderer;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
-import java.util.ArrayList;
-
-public class BarRender extends BarChartRenderer {
+public class BarRenderer extends BarChartRenderer {
 
     private Paint myPaint;
     private int[] myColors;
     private int currentNumber;
 
-    public BarRender(BarDataProvider chart, ChartAnimator animator, ViewPortHandler viewPortHandler, int[] myColors, int currentNumber) {
+    public BarRenderer(BarDataProvider chart, ChartAnimator animator, ViewPortHandler viewPortHandler, int[] myColors, int currentNumber) {
         super(chart, animator, viewPortHandler);
         this.myPaint = new Paint();
         this.myColors = myColors;
