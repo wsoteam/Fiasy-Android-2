@@ -15,7 +15,6 @@ public class XMonthFormatter extends ValueFormatter {
 
     @Override
     public String getFormattedValue(float value) {
-        Log.e("LOL", String.valueOf(value));
         return weeks.get((int) value);
     }
 }

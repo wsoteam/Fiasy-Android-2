@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +22,8 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.github.mikephil.charting.charts.CombinedChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.MarkerImage;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -33,13 +35,13 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.interfaces.dataprovider.BarDataProvider;
 import com.github.mikephil.charting.renderer.CombinedChartRenderer;
 import com.github.mikephil.charting.renderer.DataRenderer;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.common.views.graph.BarRenderer;
+import com.wsoteam.diet.common.views.graph.LineRenderer;
 import com.wsoteam.diet.common.views.graph.formater.XMonthFormatter;
 import com.wsoteam.diet.common.views.graph.formater.XWeekFormatter;
 import com.wsoteam.diet.common.views.graph.formater.XYearFormatter;
@@ -156,14 +158,15 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
             Entry entry = new Entry(pairs.get(i).getX(), limit);
             limitLine.add(entry);
         }
-        Log.e("LOL", String.valueOf(pairs.size()));
         limitLine.add(new Entry(pairs.size(), limit));
-        LineDataSet lineDataSet = new LineDataSet(limitLine, "11");
+        LineDataSet lineDataSet = new LineDataSet(limitLine, "");
         lineDataSet.setDrawCircles(false);
         lineDataSet.setColor(getResources().getColor(R.color.color_line_chart));
+        lineDataSet.setLineWidth(3f);
+        lineDataSet.setDrawHorizontalHighlightIndicator(false);
         LineData lineData = new LineData(lineDataSet);
         lineData.setDrawValues(false);
-        lineDataSet.setLineWidth(3f);
+
 
         XAxis xAxis = gv.getXAxis();
         xAxis.setDrawGridLines(false);
@@ -185,9 +188,13 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         combinedData.setData(barData);
         combinedData.setData(lineData);
 
+        Bitmap starBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.marker_line);
+
         List<DataRenderer> subRenderers = new ArrayList<>();
         DataRenderer dataRenderer = new BarRenderer(gv, gv.getAnimator(), gv.getViewPortHandler(), colors, 18);
         subRenderers.add(dataRenderer);
+        DataRenderer lineRenderer = new LineRenderer(gv, gv.getAnimator(), gv.getViewPortHandler(), starBitmap);
+        subRenderers.add(lineRenderer);
         CombinedChartRenderer combinedChartRenderer = new CombinedChartRenderer(gv, gv.getAnimator(), gv.getViewPortHandler());
         combinedChartRenderer.setSubRenderers(subRenderers);
 
@@ -197,7 +204,9 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         gv.getLegend().setEnabled(false);
         gv.setData(combinedData);
         gv.setMarker(barMarker);
-        //gv.setRenderer(combinedChartRenderer);
+        gv.setDragEnabled(false);
+        gv.setScaleEnabled(false);
+        gv.setRenderer(combinedChartRenderer);
         gv.notifyDataSetChanged();
         gv.invalidate();
 
