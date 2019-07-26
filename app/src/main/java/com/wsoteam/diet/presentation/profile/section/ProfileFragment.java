@@ -159,8 +159,11 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         Log.e("LOL", String.valueOf(pairs.size()));
         limitLine.add(new Entry(pairs.size(), limit));
         LineDataSet lineDataSet = new LineDataSet(limitLine, "11");
-        lineDataSet.setCircleRadius();
+        lineDataSet.setDrawCircles(false);
+        lineDataSet.setColor(getResources().getColor(R.color.color_line_chart));
         LineData lineData = new LineData(lineDataSet);
+        lineData.setDrawValues(false);
+        lineDataSet.setLineWidth(3f);
 
         XAxis xAxis = gv.getXAxis();
         xAxis.setDrawGridLines(false);
