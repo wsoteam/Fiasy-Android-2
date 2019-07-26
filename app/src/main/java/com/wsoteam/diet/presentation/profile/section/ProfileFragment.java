@@ -23,12 +23,14 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.POJOProfile.Profile;
@@ -70,7 +72,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     List<View> viewListExpandable;
     @BindView(R.id.ibExpandable) ImageButton ibExpandable;
     @BindView(R.id.donutProgress) DonutProgress donutProgress;
-    @BindView(R.id.gv) BarChart gv;
+    @BindView(R.id.gv) CombinedChart gv;
     @BindView(R.id.tvTopDateSwitcher) TextView tvTopDateSwitcher;
     @BindView(R.id.tvBottomDateSwitcher) TextView tvBottomDateSwitcher;
     private boolean isOpen = false;
@@ -140,14 +142,17 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         barDataSet.setDrawValues(false);
 
         BarData barData = new BarData(barDataSet);
-        gv.setRenderer(new BarRender(gv, gv.getAnimator(), gv.getViewPortHandler(), colors, 18));
+        //gv.setRenderer(new BarRender(gv, gv.getAnimator(), gv.getViewPortHandler(), colors, 18));
         gv.setDrawValueAboveBar(true);
         barData.setBarWidth(width);
+
 
         XAxis xAxis = gv.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setValueFormatter(valueFormatter);
+        xAxis.setAxisMinimum(barData.getXMin() - .5f);
+        xAxis.setAxisMaximum(barData.getXMax() + .5f);
 
         YAxis yAxisRight = gv.getAxisRight();
         yAxisRight.setEnabled(false);
@@ -158,11 +163,14 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         gv.setMarker(new MarkerView(getActivity(), R.layout.marker_calories));
         BarMarker barMarker = new BarMarker(getActivity(), R.layout.marker_calories, colors, pairs);
 
+        CombinedData combinedData = new CombinedData();
+        combinedData.setData(barData);
+
         gv.setDrawBarShadow(false);
         gv.getDescription().setEnabled(false);
         gv.setDrawGridBackground(false);
         gv.getLegend().setEnabled(false);
-        gv.setData(barData);
+        gv.setData(combinedData);
         gv.setMarker(barMarker);
         gv.notifyDataSetChanged();
         gv.invalidate();
