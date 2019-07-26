@@ -167,7 +167,6 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         LineData lineData = new LineData(lineDataSet);
         lineData.setDrawValues(false);
 
-
         XAxis xAxis = gv.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -181,6 +180,11 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
         YAxis yAxisLeft = gv.getAxisLeft();
         yAxisLeft.setAxisMinimum(0f);
+        if (barData.getYMax() >= limit) {
+            yAxisLeft.setAxisMaximum(barData.getYMax() + 500);
+        }else {
+            yAxisLeft.setAxisMaximum(limit + 500);
+        }
         gv.setMarker(new MarkerView(getActivity(), R.layout.marker_calories));
         BarMarker barMarker = new BarMarker(getActivity(), R.layout.marker_calories, colors, pairs);
 

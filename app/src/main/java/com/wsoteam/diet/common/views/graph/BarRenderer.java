@@ -5,6 +5,7 @@ import android.graphics.Paint;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.buffer.BarBuffer;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.dataprovider.BarDataProvider;
 import com.github.mikephil.charting.renderer.BarChartRenderer;
 import com.github.mikephil.charting.utils.ViewPortHandler;
@@ -20,6 +21,24 @@ public class BarRenderer extends BarChartRenderer {
         this.myPaint = new Paint();
         this.myColors = myColors;
         this.currentNumber = currentNumber;
+    }
+
+    @Override
+    public void drawHighlighted(Canvas c, Highlight[] indices) {
+        super.drawHighlighted(c, indices);
+        int colorIndex = 0;
+        for (int i = 0; i < mChart.getBarData().getDataSetCount(); i++) {
+            BarBuffer buffer = mBarBuffers[i];
+            float left, right, top, bottom;
+            for (int j = 0; j < buffer.buffer.length * mAnimator.getPhaseX(); j += 4) {
+                myPaint.setColor(myColors[colorIndex++]);
+                left = buffer.buffer[j];
+                right = buffer.buffer[j + 2];
+                top = buffer.buffer[j + 1];
+                bottom = buffer.buffer[j + 3];
+                c.drawArc(left, top - 20, right, top + 23, 180, 180, true, myPaint);
+            }
+        }
     }
 
     @Override

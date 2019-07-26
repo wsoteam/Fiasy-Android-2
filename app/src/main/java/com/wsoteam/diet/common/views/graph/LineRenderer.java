@@ -29,6 +29,7 @@ public class LineRenderer extends LineChartRenderer {
 
     @Override
     public void drawExtras(Canvas c) {
+
         super.drawExtras(c);
 
         Highlight[] highlighted = combinedChart.getHighlighted();
