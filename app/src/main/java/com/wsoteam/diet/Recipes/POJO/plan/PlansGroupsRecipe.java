@@ -1,7 +1,5 @@
 package com.wsoteam.diet.Recipes.POJO.plan;
 
-
-
 import android.util.Log;
 
 import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
@@ -37,7 +35,6 @@ public class PlansGroupsRecipe implements GroupsRecipes {
     List<RecipeItem> snack;
 
     public PlansGroupsRecipe(ListRecipes listRecipes, String plan) {
-
 
 
         int days = 14;
@@ -91,11 +88,8 @@ public class PlansGroupsRecipe implements GroupsRecipes {
         recipeForDays = new ArrayList<>();
         for (int i = 0; i < days + 1; i++){
             buffer = new HashSet<>();
-
             recipeForDays.add(selectRecipe(buffer));
         }
-
-        recipeForDays.remove(days);
     }
 
     RecipeForDay selectRecipe(Set<RecipeItem> buffer){
@@ -144,36 +138,6 @@ public class PlansGroupsRecipe implements GroupsRecipes {
 
         return forDay;
     }
-
-
-    RecipeForDay createForDay(){
-        List<RecipeItem> breakfast = new ArrayList<>();
-        breakfast.add(listRecipesGroups.get(0).getListrecipes().get(0));
-        breakfast.add(listRecipesGroups.get(0).getListrecipes().get(2));
-        breakfast.add(listRecipesGroups.get(0).getListrecipes().get(3));
-        List<RecipeItem> lunch = new ArrayList<>();
-        lunch.add(listRecipesGroups.get(1).getListrecipes().get(0));
-        lunch.add(listRecipesGroups.get(1).getListrecipes().get(1));
-        lunch.add(listRecipesGroups.get(1).getListrecipes().get(2));
-        List<RecipeItem> dinner = new ArrayList<>();
-        dinner.add(listRecipesGroups.get(2).getListrecipes().get(0));
-        dinner.add(listRecipesGroups.get(2).getListrecipes().get(1));
-        dinner.add(listRecipesGroups.get(2).getListrecipes().get(2));
-        List<RecipeItem> snack = new ArrayList<>();
-        snack.add(listRecipesGroups.get(2).getListrecipes().get(0));
-        snack.add(listRecipesGroups.get(2).getListrecipes().get(1));
-        snack.add(listRecipesGroups.get(2).getListrecipes().get(2));
-
-        RecipeForDay forDay = new RecipeForDay();
-        forDay.setBreakfast(breakfast);
-        forDay.setLunch(lunch);
-        forDay.setDinner(dinner);
-        forDay.setSnack(snack);
-
-        return forDay;
-    }
-
-
 
     RecipeItem getRecipeItem(List<RecipeItem> recipeItemList, AtomicInteger index){
         if (index.get() < recipeItemList.size()){

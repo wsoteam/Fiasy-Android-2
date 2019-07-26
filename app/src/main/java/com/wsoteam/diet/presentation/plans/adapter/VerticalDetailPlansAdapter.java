@@ -86,19 +86,19 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
             switch (tab.getPosition()){
                 case 0:
-                    adapter.updateList(recipeForDays.get(getAdapterPosition()).getBreakfast());
+                    adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast());
                     break;
                 case 1:
-                    adapter.updateList(recipeForDays.get(getAdapterPosition()).getLunch());
+                    adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getLunch());
                     break;
                 case 2:
-                    adapter.updateList(recipeForDays.get(getAdapterPosition()).getDinner());
+                    adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getDinner());
                     break;
                 case 3:
-                    adapter.updateList(recipeForDays.get(getAdapterPosition()).getSnack());
+                    adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getSnack());
                     break;
                     default:
-                        adapter.updateList(recipeForDays.get(getAdapterPosition()).getBreakfast());
+                        adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast());
 
             }
 
