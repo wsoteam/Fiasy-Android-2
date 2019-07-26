@@ -1,6 +1,8 @@
 package com.wsoteam.diet.common.views.graph.marker;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.MarkerView;
@@ -17,18 +19,31 @@ import java.util.List;
 public class BarMarker extends MarkerView {
     private TextView tvTitle;
     private int[] colors;
+    private int lineMarkerColor;
     private List<BarEntry> pairs;
+    private boolean isBarClick = true;
 
-    public BarMarker(Context context, int layoutResource, int[] colors, List<BarEntry> pairs) {
+
+    public BarMarker(Context context, int layoutResource, int[] colors, List<BarEntry> pairs, int lineMarkerColor) {
         super(context, layoutResource);
         tvTitle = findViewById(R.id.tvContent);
         this.colors = colors;
+        this.lineMarkerColor = lineMarkerColor;
         this.pairs = pairs;
     }
 
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        tvTitle.setTextColor(colors[getIndex(e.getX())]);
+        if (e instanceof  BarEntry){
+            isBarClick = true;
+        }else {
+            isBarClick = false;
+        }
+        if (isBarClick) {
+            tvTitle.setTextColor(colors[getIndex(e.getX())]);
+        }else {
+            tvTitle.setTextColor(lineMarkerColor);
+        }
         if (e instanceof CandleEntry) {
             CandleEntry ce = (CandleEntry) e;
             tvTitle.setText("" + Utils.formatNumber(ce.getHigh(), 0, true) + " " + getContext().getString(R.string.marker_kcal));
@@ -50,6 +65,10 @@ public class BarMarker extends MarkerView {
 
     @Override
     public MPPointF getOffset() {
-        return new MPPointF(-(getWidth() / 2), -getHeight() - 15);
+        if (isBarClick){
+            return new MPPointF(-(getWidth() / 2), -getHeight() + 15);
+        }else {
+            return new MPPointF(-(getWidth() / 2), -getHeight() - 25);
+        }
     }
 }

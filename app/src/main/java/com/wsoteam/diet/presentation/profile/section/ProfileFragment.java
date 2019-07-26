@@ -186,7 +186,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
             yAxisLeft.setAxisMaximum(limit + 500);
         }
         gv.setMarker(new MarkerView(getActivity(), R.layout.marker_calories));
-        BarMarker barMarker = new BarMarker(getActivity(), R.layout.marker_calories, colors, pairs);
+        BarMarker barMarker = new BarMarker(getActivity(), R.layout.marker_calories, colors, pairs, getResources().getColor(R.color.color_line_chart));
 
         CombinedData combinedData = new CombinedData();
         combinedData.setData(barData);
