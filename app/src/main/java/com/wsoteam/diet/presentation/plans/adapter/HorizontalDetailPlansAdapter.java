@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.R;
@@ -32,12 +33,17 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
     class HorizontalViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.ivImage) ImageView imageView;
+        @BindView(R.id.tvName) TextView tvName;
+        @BindView(R.id.tvCalories) TextView tvCalories;
 
         public HorizontalViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
         void bind(RecipeItem recipeItem){
+
+            tvName.setText(recipeItem.getName());
+            tvCalories.setText(recipeItem.getCalories() + context.getResources().getString(R.string.kcal));
             Glide.with(context)
                     .load(recipeItem.getUrl())
                     .into(imageView);

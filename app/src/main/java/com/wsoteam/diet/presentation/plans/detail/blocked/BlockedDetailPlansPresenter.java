@@ -24,7 +24,7 @@ public class BlockedDetailPlansPresenter extends BasePresenter<BlockedDetailPlan
 
     void setDietPlan(DietPlan diet){
         this.dietPlan = diet;
-        plansRecipe = new PlansGroupsRecipe(RecipesHolder.get(), dietPlan.getFlag());
+        plansRecipe = new PlansGroupsRecipe(RecipesHolder.get(), dietPlan);
         getViewState().showData(dietPlan);
     }
 

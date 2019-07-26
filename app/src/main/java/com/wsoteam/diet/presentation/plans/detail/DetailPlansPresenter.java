@@ -32,7 +32,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
 
     void setDietPlan(DietPlan diet){
         this.dietPlan = diet;
-        plansRecipe = new PlansGroupsRecipe(RecipesHolder.get(), dietPlan.getFlag());
+        plansRecipe = new PlansGroupsRecipe(RecipesHolder.get(), dietPlan);
         recipeForDays = plansRecipe.getRecipeForDays();
         getViewState().showData(dietPlan);
         getViewState().setAdapter();

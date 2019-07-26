@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.POJO.plan.PlansGroupsRecipe;
 import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay;
 import com.wsoteam.diet.helper.NounsDeclension;
 
@@ -27,13 +28,15 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
     private DietPlan dietPlan;
     private List<RecipeForDay> recipeForDays;
+    PlansGroupsRecipe plansGroupsRecipe;
     private SparseIntArray listPosition = new SparseIntArray();
     private HorizontalDetailPlansAdapter.OnItemClickListener mItemClickListener;
     private Context mContext;
     private RecyclerView.RecycledViewPool viewPool;
 
-    public VerticalDetailPlansAdapter(List<RecipeForDay> recipeForDays, DietPlan dietPlan) {
-        this.recipeForDays = recipeForDays;
+    public VerticalDetailPlansAdapter(PlansGroupsRecipe plansGroupsRecipe, DietPlan dietPlan) {
+        this.plansGroupsRecipe = plansGroupsRecipe;
+        this.recipeForDays = plansGroupsRecipe.getRecipeForDays();
         this.dietPlan = dietPlan;
         viewPool = new RecyclerView.RecycledViewPool();
     }
@@ -42,10 +45,6 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
         this.recipeForDays = recipeForDays;
         notifyDataSetChanged();
-
-    }
-
-    public void setHeader(){
 
     }
 
@@ -128,11 +127,11 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
             tvName.setText(dietPlan.getName());
 //        tvTime.setText(dietPlan.getCountDays() + "");
-//        tvRecipes.setText("55");
+//        tvRecipes.setText(plansGroupsRecipe.size() + "");
 //        tvUsers.setText("475");
 
-//            tvRecipes.setText(presenter.getRecipes().size() +
-//                    NounsDeclension.check(presenter.getRecipes().size(), " рецепт", " рецепта", " рецептов"));
+            tvRecipes.setText(plansGroupsRecipe.size() +
+                    NounsDeclension.check(plansGroupsRecipe.size(), " рецепт", " рецепта", " рецептов"));
 
             tvTime.setText(dietPlan.getCountDays() +
                     NounsDeclension.check(dietPlan.getCountDays(), " день"," дня", " дней"));

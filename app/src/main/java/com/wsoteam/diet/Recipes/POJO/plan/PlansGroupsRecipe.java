@@ -2,6 +2,7 @@ package com.wsoteam.diet.Recipes.POJO.plan;
 
 import android.util.Log;
 
+import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
@@ -20,6 +21,7 @@ public class PlansGroupsRecipe implements GroupsRecipes {
             indexDinner = new AtomicInteger(0),
             indexSnack = new AtomicInteger(0);
     private Set<RecipeItem> buffer;
+    Set<RecipeItem> recipeItemSet;
 
     private List<ListRecipes> listRecipesGroups;
 
@@ -34,10 +36,10 @@ public class PlansGroupsRecipe implements GroupsRecipes {
     List<RecipeItem> dinner;
     List<RecipeItem> snack;
 
-    public PlansGroupsRecipe(ListRecipes listRecipes, String plan) {
+    public PlansGroupsRecipe(ListRecipes listRecipes, DietPlan plan) {
 
 
-        int days = 14;
+        int days = plan.getCountDays();
         listRecipesGroups = new ArrayList<>();
 
         ListRecipes listBreakfast = new ListRecipes("Завтрак");
@@ -69,27 +71,34 @@ public class PlansGroupsRecipe implements GroupsRecipes {
 
         for (RecipeItem recipe:
              listRecipes.getListrecipes()) {
-            if (recipe.getBreakfast().contains(plan)){
+            if (recipe.getBreakfast().contains(plan.getFlag())){
                 breakfast.add(recipe);
             }
 
-            if (recipe.getLunch().contains(plan)){
+            if (recipe.getLunch().contains(plan.getFlag())){
                 lunch.add(recipe);
             }
 
-            if (recipe.getDinner().contains(plan)){
+            if (recipe.getDinner().contains(plan.getFlag())){
                 dinner.add(recipe);
             }
 
-            if (recipe.getSnack().contains(plan)){
+            if (recipe.getSnack().contains(plan.getFlag())){
                 snack.add(recipe);
             }
         }
         recipeForDays = new ArrayList<>();
-        for (int i = 0; i < days + 1; i++){
+        for (int i = 0; i < days; i++){
             buffer = new HashSet<>();
             recipeForDays.add(selectRecipe(buffer));
         }
+
+        recipeItemSet = new HashSet<>();
+        for (ListRecipes groups:
+                listRecipesGroups) {
+                recipeItemSet.addAll(groups.getListrecipes());
+        }
+
     }
 
     RecipeForDay selectRecipe(Set<RecipeItem> buffer){
@@ -174,14 +183,6 @@ public class PlansGroupsRecipe implements GroupsRecipes {
 
     @Override
     public int size() {
-
-        int size = 0;
-
-        for (ListRecipes groups:
-             listRecipesGroups) {
-            size = size + groups.getListrecipes().size();
-        }
-
-        return size;
+        return recipeItemSet.size();
     }
 }
