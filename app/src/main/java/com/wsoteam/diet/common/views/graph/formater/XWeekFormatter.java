@@ -21,7 +21,6 @@ public class XWeekFormatter extends ValueFormatter {
 
     @Override
     public String getFormattedValue(float value) {
-        Log.e("LOL", String.valueOf(value));
         return days.get((int) value);
     }
 }

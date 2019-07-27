@@ -2,6 +2,8 @@ package com.wsoteam.diet.common.views.graph;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.RectF;
+import android.util.Log;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.buffer.BarBuffer;
@@ -15,6 +17,7 @@ public class BarRenderer extends BarChartRenderer {
     private Paint myPaint;
     private int[] myColors;
     private int currentNumber;
+    private boolean isClickThisChart = false;
 
     public BarRenderer(BarDataProvider chart, ChartAnimator animator, ViewPortHandler viewPortHandler, int[] myColors, int currentNumber) {
         super(chart, animator, viewPortHandler);
@@ -23,24 +26,13 @@ public class BarRenderer extends BarChartRenderer {
         this.currentNumber = currentNumber;
     }
 
-    /*@Override
-    public void drawHighlighted(Canvas c, Highlight[] indices) {
-        super.drawHighlighted(c, indices);
-        int colorIndex = 0;
-        for (int i = 0; i < mChart.getBarData().getDataSetCount(); i++) {
-            BarBuffer buffer = mBarBuffers[i];
-            float left, right, top, bottom;
-            for (int j = 0; j < buffer.buffer.length * mAnimator.getPhaseX(); j += 4) {
-                myPaint.setColor(myColors[colorIndex++]);
-                myPaint.setColor(myColors[0]);
-                left = buffer.buffer[j];
-                right = buffer.buffer[j + 2];
-                top = buffer.buffer[j + 1];
-                bottom = buffer.buffer[j + 3];
-                c.drawArc(left, top - 20, right, top + 23, 180, 180, true, myPaint);
-            }
-        }
-    }*/
+    @Override
+    protected void setHighlightDrawPos(Highlight high, RectF bar) {
+        super.setHighlightDrawPos(high, bar);
+        isClickThisChart = true;
+        StateClickHolder.setIsClickBar(true);
+    }
+
 
     @Override
     public void drawData(Canvas c) {
@@ -55,7 +47,6 @@ public class BarRenderer extends BarChartRenderer {
                 right = buffer.buffer[j + 2];
                 top = buffer.buffer[j + 1];
                 bottom = buffer.buffer[j + 3];
-
                 c.drawArc(left, top - 20, right, top + 23, 180, 180, true, myPaint);
             }
         }
