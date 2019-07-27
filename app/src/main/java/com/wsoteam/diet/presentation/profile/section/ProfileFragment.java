@@ -127,6 +127,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
     @Override
     public void drawMonthGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText, ArrayList<String> namesIntervals) {
+
         XMonthFormatter xMonthFormatter = new XMonthFormatter(namesIntervals);
         drawGraph(pairs, colors, xMonthFormatter, topText, bottomText, 0.3f);
     }
@@ -146,6 +147,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         BarDataSet barDataSet = new BarDataSet(pairs, "");
         barDataSet.setColors(colors);
         barDataSet.setDrawValues(false);
+
 
         BarData barData = new BarData(barDataSet);
         gv.setDrawValueAboveBar(true);
@@ -171,6 +173,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         lineDataSet.setCircleRadius(3);
 
         XAxis xAxis = gv.getXAxis();
+        xAxis.setGranularity(1);
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setValueFormatter(valueFormatter);

@@ -3,6 +3,7 @@ package com.wsoteam.diet.common.views.graph.formater;
 import android.util.Log;
 
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.wsoteam.diet.POJOSExercises.Ex;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,11 @@ public class XMonthFormatter extends ValueFormatter {
 
     @Override
     public String getFormattedValue(float value) {
-        return weeks.get((int) value);
+        try {
+            return weeks.get((int) value);
+        } catch (Exception e){
+
+        }
+        return "";
     }
 }
