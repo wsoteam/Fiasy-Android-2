@@ -32,6 +32,7 @@ public class BarRenderer extends BarChartRenderer {
             float left, right, top, bottom;
             for (int j = 0; j < buffer.buffer.length * mAnimator.getPhaseX(); j += 4) {
                 myPaint.setColor(myColors[colorIndex++]);
+                myPaint.setColor(myColors[0]);
                 left = buffer.buffer[j];
                 right = buffer.buffer[j + 2];
                 top = buffer.buffer[j + 1];

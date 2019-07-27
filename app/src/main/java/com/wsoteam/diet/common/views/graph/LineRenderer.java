@@ -32,7 +32,6 @@ public class LineRenderer extends LineChartRenderer {
 
     @Override
     public void drawExtras(Canvas c) {
-
         super.drawExtras(c);
 
         Highlight[] highlighted = combinedChart.getHighlighted();
@@ -77,6 +76,7 @@ public class LineRenderer extends LineChartRenderer {
                     mRenderPaint);
         }
     }
+
 
     private Bitmap scaleImage(int radius) {
         return Bitmap.createScaledBitmap(image, radius, radius, false);

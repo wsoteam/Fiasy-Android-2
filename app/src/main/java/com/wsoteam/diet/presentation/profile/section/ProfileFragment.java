@@ -166,6 +166,9 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         lineDataSet.setDrawHorizontalHighlightIndicator(false);
         LineData lineData = new LineData(lineDataSet);
         lineData.setDrawValues(false);
+        lineDataSet.setHighLightColor(getResources().getColor(R.color.highlight_line_color));
+        lineDataSet.setHighlightLineWidth(2);
+        lineDataSet.setCircleRadius(3);
 
         XAxis xAxis = gv.getXAxis();
         xAxis.setDrawGridLines(false);
