@@ -66,7 +66,7 @@ public class BarMarker extends MarkerView {
     @Override
     public MPPointF getOffset() {
         if (isBarClick){
-            return new MPPointF(-(getWidth() / 2), -getHeight() + 15);
+            return new MPPointF(-(getWidth() / 2), -getHeight() + 20);
         }else {
             return new MPPointF(-(getWidth() / 2), -getHeight() - 25);
         }
