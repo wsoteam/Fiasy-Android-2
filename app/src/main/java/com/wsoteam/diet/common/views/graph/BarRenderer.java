@@ -23,7 +23,7 @@ public class BarRenderer extends BarChartRenderer {
         this.currentNumber = currentNumber;
     }
 
-    @Override
+    /*@Override
     public void drawHighlighted(Canvas c, Highlight[] indices) {
         super.drawHighlighted(c, indices);
         int colorIndex = 0;
@@ -40,11 +40,11 @@ public class BarRenderer extends BarChartRenderer {
                 c.drawArc(left, top - 20, right, top + 23, 180, 180, true, myPaint);
             }
         }
-    }
+    }*/
 
     @Override
-    public void drawValues(Canvas c) {
-        super.drawValues(c);
+    public void drawData(Canvas c) {
+        super.drawData(c);
         int colorIndex = 0;
         for (int i = 0; i < mChart.getBarData().getDataSetCount(); i++) {
             BarBuffer buffer = mBarBuffers[i];
@@ -55,9 +55,15 @@ public class BarRenderer extends BarChartRenderer {
                 right = buffer.buffer[j + 2];
                 top = buffer.buffer[j + 1];
                 bottom = buffer.buffer[j + 3];
+
                 c.drawArc(left, top - 20, right, top + 23, 180, 180, true, myPaint);
             }
         }
+    }
+
+    @Override
+    public void drawValues(Canvas c) {
+        super.drawValues(c);
     }
 
 
