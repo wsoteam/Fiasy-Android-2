@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.bnv_main_profile:
                     isMainFragment = false;
                     transaction.replace(R.id.flFragmentContainer, new ProfileFragment()).commit();
-                    window.setStatusBarColor(Color.parseColor("#d1a160"));
+                    window.setStatusBarColor(Color.parseColor("#AE6A23"));
                     return true;
             }
             return false;

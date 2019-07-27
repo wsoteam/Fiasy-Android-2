@@ -21,6 +21,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.MarkerImage;
@@ -217,6 +218,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         gv.setDragEnabled(false);
         gv.setScaleEnabled(false);
         gv.setRenderer(combinedChartRenderer);
+        gv.animateY(1000, Easing.EaseOutBack);
         gv.notifyDataSetChanged();
         gv.invalidate();
 
