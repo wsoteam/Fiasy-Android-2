@@ -32,6 +32,7 @@
         tools:text="Салат овощной с кус-кусом и сыром фета" />
 
     <TextView
+        android:id="@+id/tvCalories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

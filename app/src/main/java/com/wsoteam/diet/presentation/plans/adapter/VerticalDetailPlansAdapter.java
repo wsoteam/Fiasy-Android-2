@@ -10,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Recipes.POJO.plan.PlansGroupsRecipe;
 import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay;
 import com.wsoteam.diet.helper.NounsDeclension;
@@ -126,19 +128,40 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
             ButterKnife.bind(this, itemView);
 
             tvName.setText(dietPlan.getName());
-//        tvTime.setText(dietPlan.getCountDays() + "");
-//        tvRecipes.setText(plansGroupsRecipe.size() + "");
-//        tvUsers.setText("475");
-
             tvRecipes.setText(plansGroupsRecipe.size() +
                     NounsDeclension.check(plansGroupsRecipe.size(), " рецепт", " рецепта", " рецептов"));
-
             tvTime.setText(dietPlan.getCountDays() +
                     NounsDeclension.check(dietPlan.getCountDays(), " день"," дня", " дней"));
+            Glide.with(mContext).load(dietPlan.getUrlImage()).into(imageView);
+        }
+    }
 
-            Glide.with(mContext)
-                    .load(dietPlan.getUrlImage())
-                    .into(imageView);
+    class DiaryRecipesViewHolder extends RecyclerView.ViewHolder{
+
+        //            R.layout.diary_recipe_plans
+        @BindView(R.id.tvDay) TextView tvDays;
+        @BindView(R.id.llRecipeContainer) LinearLayout recipeContainer;
+
+        public DiaryRecipesViewHolder(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+
+
+        }
+        public void bind(int position){
+            tvDays.setText("День " + ++position);
+            recipeContainer.removeAllViews();
+
+            for (RecipeItem recipe:
+                 recipeForDays.get(position).getBreakfast()) {
+                View view = LayoutInflater.from(mContext).inflate(R.layout.diary_recipe_plans_item, null);
+                TextView tvName = view.findViewById(R.id.tvRecipeName);
+                TextView tvCalories = view.findViewById(R.id.tvCalories);
+
+                tvName.setText(recipe.getName());
+                tvCalories.setText(recipe.getCalories() + " ккал");
+                recipeContainer.addView(view);
+            }
         }
     }
 
@@ -147,6 +170,9 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         mContext = viewGroup.getContext();
         switch (viewType) {
+            case R.layout.diary_recipe_plans:
+                View v2 = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.diary_recipe_plans, viewGroup, false);
+                return new DiaryRecipesViewHolder(v2);
             case R.layout.plans_header_item:
                 View v1 = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.plans_header_item, viewGroup, false);
                 return new HeaderViewHolder(v1);
@@ -160,10 +186,17 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
+
+
         if (i == 0) {
 
         }else {
             switch (viewHolder.getItemViewType()) {
+                case R.layout.diary_recipe_plans:{
+                    DiaryRecipesViewHolder holder = (DiaryRecipesViewHolder) viewHolder;
+                    holder.bind(--i);
+                }
+                    break;
                 default: {
                     ViewHolder holder = (ViewHolder) viewHolder;
 
@@ -200,6 +233,8 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     public int getItemViewType(int position) {
         if (position == 0){
             return R.layout.plans_header_item;
+        } else if (position > 0 && position < 5){
+            return R.layout.diary_recipe_plans;
         } else {
             return R.layout.detail_plans_day_item;
         }
