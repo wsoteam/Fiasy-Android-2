@@ -5,17 +5,21 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.presentation.plans.adapter.VerticalDetailPlansAdapter;
 import dagger.android.AndroidInjection;
@@ -28,6 +32,7 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
   @BindView(R.id.btnJoin) Button btnJoin;
 
   VerticalDetailPlansAdapter adapter;
+  DietPlan plan;
 
   @Inject
   @InjectPresenter
@@ -60,6 +65,15 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
 
     getDietPlan();
 
+    Log.d("kkk", "onCreate: " + UserDataHolder.getUserData().getPlan());
+
+    plan = (DietPlan) getIntent().getSerializableExtra(Config.DIETS_PLAN_INTENT);
+    if (UserDataHolder.getUserData() != null
+        && UserDataHolder.getUserData().getPlan() != null
+        && UserDataHolder.getUserData().getPlan().getName().equals(plan.getName())) {
+      btnJoin.setVisibility(View.GONE);
+    }
+
     getWindow().getDecorView().setSystemUiVisibility(
         View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
@@ -76,12 +90,22 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
     dotMenu.setOnMenuItemClickListener(menuListener);
 
     recycler.setLayoutManager(new LinearLayoutManager(this));
-    DietPlan plan = (DietPlan) getIntent().getSerializableExtra(Config.DIETS_PLAN_INTENT);
+
     plan.setRecipes(presenter.getList(), presenter.plansRecipe.size());
     adapter = new VerticalDetailPlansAdapter(plan);
     recycler.setAdapter(adapter);
   }
-  //test
+
+  @OnClick({ R.id.btnJoin })
+  void onClicked(View view) {
+    switch (view.getId()) {
+      case R.id.btnJoin: {
+        WorkWithFirebaseDB.joinDietPlan(plan);
+        btnJoin.setVisibility(View.GONE);
+      }
+      break;
+    }
+  }
 
   @Override
   public void showProgress(boolean show) {

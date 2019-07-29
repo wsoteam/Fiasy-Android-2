@@ -113,29 +113,29 @@ public class PlansGroupsRecipe implements GroupsRecipes {
         while (x > 0) {
             temp = getBreakfast();
             if (breakfast.size() < 3 && buffer.add(temp)) {
-                Log.d("kkk", "selectRecipe: b");
+                //Log.d("kkk", "selectRecipe: b");
                 breakfast.add(temp);
                 x--;
             }
             temp = getLunch();
             if (lunch.size() < 3 && buffer.add(temp)){
-                Log.d("kkk", "selectRecipe: l");
+                //Log.d("kkk", "selectRecipe: l");
                 lunch.add(temp);
                 x--;
             }
             temp = getDinner();
             if (dinner.size() < 3 && buffer.add(temp)){
-                Log.d("kkk", "selectRecipe: d");
+                //Log.d("kkk", "selectRecipe: d");
                 dinner.add(temp);
                 x--;
             }
             temp = getSnack();
             if (snack.size() < 3 && buffer.add(temp)){
-                Log.d("kkk", "selectRecipe: s");
+                //Log.d("kkk", "selectRecipe: s");
                 snack.add(temp);
                 x--;
             }
-            Log.d("kkk", "selectRecipe: " + x);
+            //Log.d("kkk", "selectRecipe: " + x);
         }
 
 

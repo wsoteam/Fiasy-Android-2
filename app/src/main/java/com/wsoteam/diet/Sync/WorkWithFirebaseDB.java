@@ -15,6 +15,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.Const;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.CustomFood;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOClaim.Claim;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
@@ -319,6 +320,20 @@ public class WorkWithFirebaseDB {
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("customFoods").child(customFood.getKey());
         myRef.setValue(customFood);
+    }
+
+    public static void joinDietPlan(DietPlan plan) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+            child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        myRef.child("plan").setValue(plan);
+    }
+
+    public static void leaveDietPlan() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+            child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("plan");
+        myRef.removeValue();
     }
 
 
