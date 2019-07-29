@@ -2,15 +2,28 @@ package com.wsoteam.diet.Recipes.POJO.plan;
 
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeForDay {
+public class RecipeForDay implements Serializable {
 
     List<RecipeItem> breakfast = new ArrayList<>();
     List<RecipeItem> lunch = new ArrayList<>();
     List<RecipeItem> dinner = new ArrayList<>();
     List<RecipeItem> snack = new ArrayList<>();
+
+    public RecipeForDay() {
+    }
+
+    public RecipeForDay(List<RecipeItem> breakfast,
+        List<RecipeItem> lunch, List<RecipeItem> dinner,
+        List<RecipeItem> snack) {
+        this.breakfast = breakfast;
+        this.lunch = lunch;
+        this.dinner = dinner;
+        this.snack = snack;
+    }
 
     public List<RecipeItem> getBreakfast() {
         return breakfast;

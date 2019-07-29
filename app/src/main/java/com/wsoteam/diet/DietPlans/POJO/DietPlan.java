@@ -1,6 +1,8 @@
 package com.wsoteam.diet.DietPlans.POJO;
 
+import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay;
 import java.io.Serializable;
+import java.util.List;
 
 public class DietPlan implements Serializable {
     private String name;
@@ -9,6 +11,9 @@ public class DietPlan implements Serializable {
     private String urlImage;
     private String flag;
     private boolean premium;
+
+    private int recipeCount;
+    private List<RecipeForDay> recipeForDays;
 
     public DietPlan() {
     }
@@ -20,6 +25,19 @@ public class DietPlan implements Serializable {
         this.urlImage = urlImage;
         this.flag = flag;
         this.premium = premium;
+    }
+
+    public void setRecipes(List<RecipeForDay> recipeForDays, int recipeCount){
+        this.recipeForDays = recipeForDays;
+        this.recipeCount = recipeCount;
+    }
+
+    public int getRecipeCount() {
+        return recipeCount;
+    }
+
+    public List<RecipeForDay> getRecipeForDays() {
+        return recipeForDays;
     }
 
     public String getName() {
