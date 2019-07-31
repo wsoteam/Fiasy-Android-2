@@ -7,23 +7,21 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.Articles.POJO.Article;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
-import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.R;
 
 import java.util.ArrayList;
@@ -38,100 +36,134 @@ import butterknife.Unbinder;
 
 public class ListArticlesFragment extends Fragment implements Observer {
 
-    @BindView(R.id.rvArticle) RecyclerView recyclerView;
-    @BindView(R.id.etArticleItem) EditText searchEditText;
-    private Unbinder unbinder;
-    private ListArticlesAdapter adapter;
+  @BindView(R.id.rvArticle) RecyclerView recyclerView;
+  @BindView(R.id.etArticleItem) EditText searchEditText;
+  @BindView(R.id.toolbar) Toolbar mToolbar;
+  private Unbinder unbinder;
+  private ListArticlesAdapter adapter;
 
-    @Nullable
+  @Nullable
+  @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    Window window = getActivity().getWindow();
+    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+    window.setStatusBarColor(Color.parseColor("#9C5E21"));
+
+    View view = inflater.inflate(R.layout.fragment_list_articles, container, false);
+    unbinder = ButterKnife.bind(this, view);
+
+    mToolbar.setTitle("Статьи");
+    mToolbar.inflateMenu(R.menu.toolbar_menu);
+    mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
+    mToolbar.setNavigationOnClickListener(onClickListener);
+    mToolbar.setTitleTextColor(0xFFFFFFFF);
+
+    Menu menu = mToolbar.getMenu();
+    MenuItem mSearch = menu.findItem(R.id.action_search);
+    SearchView mSearchView = (SearchView) mSearch.getActionView();
+    mSearchView.setOnQueryTextListener(textListener);
+
+    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+    if (ArticlesHolder.getListArticles() != null) {
+
+      adapter = new ListArticlesAdapter(ArticlesHolder.getListArticles().getListArticles(),
+          getActivity());
+      recyclerView.setAdapter(adapter);
+      activateSearch();
+    } else {
+
+      ArticlesHolder.subscribe(this);
+      recyclerView.setAdapter(null);
+    }
+
+    return view;
+  }
+
+  private View.OnClickListener onClickListener = new View.OnClickListener() {
+    @Override public void onClick(View view) {
+      getActivity().onBackPressed();
+    }
+  };
+
+  private SearchView.OnQueryTextListener textListener = new SearchView.OnQueryTextListener() {
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Window window = getActivity().getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(Color.parseColor("#9C5E21"));
+    public boolean onQueryTextSubmit(String s) {
+      return false;
+    }
 
-        View view = inflater.inflate(R.layout.fragment_list_articles, container, false);
-        unbinder = ButterKnife.bind(this, view);
+    @Override
+    public boolean onQueryTextChange(String s) {
+      search(s);
+      return false;
+    }
+  };
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    unbinder.unbind();
+  }
 
-        if (ArticlesHolder.getListArticles() != null) {
+  @OnClick(R.id.ArticleBackButton)
+  public void onViewClicked(View view) {
+    switch (view.getId()) {
+      case R.id.ArticleBackButton:
+        getActivity().onBackPressed();
+        break;
+    }
+  }
 
-            adapter = new ListArticlesAdapter(ArticlesHolder.getListArticles().getListArticles(), getActivity());
-            recyclerView.setAdapter(adapter);
-            activateSearch();
+  private void search(String str){
+    String key = str.toLowerCase();
+    List<Article> result = new ArrayList<>();
+    List<Article> articles = ArticlesHolder.getListArticles().getListArticles();
 
-        } else {
-
-            ArticlesHolder.subscribe(this);
-            recyclerView.setAdapter(null);
+    if (key.equals("")) {
+      recyclerView.setAdapter(adapter);
+    } else {
+      for (Article article :
+          articles) {
+        if (article.getTitle().toLowerCase().contains(key)) {
+          result.add(article);
         }
-
-        return view;
+      }
+      ListArticlesAdapter newAdapter = new ListArticlesAdapter(result, getActivity());
+      recyclerView.setAdapter(newAdapter);
     }
+  }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+  private void activateSearch() {
 
+    searchEditText.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+      }
 
-    @OnClick(R.id.ArticleBackButton)
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ArticleBackButton:
-                getActivity().onBackPressed();
-                break;
-        }
-    }
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+       search(s.toString());
+      }
 
-    private void activateSearch() {
+      @Override
+      public void afterTextChanged(Editable s) {
+      }
+    });
+  }
 
-        searchEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+  @Override
+  public void update(Observable o, Object arg) {
+    adapter =
+        new ListArticlesAdapter(ArticlesHolder.getListArticles().getListArticles(), getActivity());
+    recyclerView.setAdapter(adapter);
+    activateSearch();
+    ArticlesHolder.unsubscribe(this);
+  }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String key = s.toString().toLowerCase();
-                List<Article> result = new ArrayList<>();
-                List<Article> articles = ArticlesHolder.getListArticles().getListArticles();
-
-                if (key.equals("")) {
-                    recyclerView.setAdapter(adapter);
-                } else {
-                    for (Article article :
-                            articles) {
-                        if (article.getTitle().toLowerCase().contains(key)) {
-                            result.add(article);
-                        }
-                    }
-                    ListArticlesAdapter newAdapter = new ListArticlesAdapter(result, getActivity());
-                    recyclerView.setAdapter(newAdapter);
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        adapter = new ListArticlesAdapter(ArticlesHolder.getListArticles().getListArticles(), getActivity());
-        recyclerView.setAdapter(adapter);
-        activateSearch();
-        ArticlesHolder.unsubscribe(this);
-    }
-
-    @Override
-    public void onPause() {
-        ArticlesHolder.unsubscribe(this);
-        super.onPause();
-    }
+  @Override
+  public void onPause() {
+    ArticlesHolder.unsubscribe(this);
+    super.onPause();
+  }
 }
