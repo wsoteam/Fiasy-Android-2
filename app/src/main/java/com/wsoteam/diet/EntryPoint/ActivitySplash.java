@@ -8,7 +8,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustAttribution;
 import com.amplitude.api.Amplitude;
@@ -47,69 +48,71 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
-
+import dagger.android.AndroidInjection;
 import java.util.Calendar;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import dagger.android.AndroidInjection;
-
 public class ActivitySplash extends BaseActivity {
-    private final String TAG_FIRST_RUN = "TAG_FIRST_RUN";
-    @BindView(R.id.auth_first_iv_image) ImageView authFirstIvImage;
-    @BindView(R.id.tvSplashText) ImageView tvSplashText;
-    private FirebaseUser user;
-    private BillingClient mBillingClient;
-    private SharedPreferences isBuyPrem;
+  private final String TAG_FIRST_RUN = "TAG_FIRST_RUN";
+  @BindView(R.id.auth_first_iv_image) ImageView authFirstIvImage;
+  @BindView(R.id.tvSplashText) ImageView tvSplashText;
+  private FirebaseUser user;
+  private BillingClient mBillingClient;
+  private SharedPreferences isBuyPrem;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        ButterKnife.bind(this);
-        Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
-        Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    AndroidInjection.inject(this);
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_splash);
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    ButterKnife.bind(this);
+    Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
+    Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
 
-//        startActivity(new Intent(this, ForTestFragmentActivity.class));
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
-        checkFirstLaunch();
-        checkRegistrationAndRun();
-    }
+    //        startActivity(new Intent(this, ForTestFragmentActivity.class));
+    FacebookSdk.sdkInitialize(getApplicationContext());
+    AppEventsLogger.activateApp(this);
+    checkFirstLaunch();
+    checkRegistrationAndRun();
+  }
 
-    private void checkRegistrationAndRun() {
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            SetUserProperties.setUserProperties(Adjust.getAttribution());
-            FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
-            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
-            setTrackInfoInDatabase(Adjust.getAttribution());
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
-                    child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-            Log.d("fr", "checkRegistrationAndRun: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
-            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
-                    checkBilling();
-//                    startActivity(new Intent(ActivitySplash.this, ForTestFragmentActivity.class));
-                    startActivity(new Intent(ActivitySplash.this, MainActivity.class));
-                    finish();
-                }
+  private void checkRegistrationAndRun() {
+    user = FirebaseAuth.getInstance().getCurrentUser();
+    if (user != null) {
+      SetUserProperties.setUserProperties(Adjust.getAttribution());
+      FirebaseAnalytics.getInstance(this)
+          .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
+      AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS,
+          AmplitudaEvents.registered);
+      setTrackInfoInDatabase(Adjust.getAttribution());
+      FirebaseDatabase database = FirebaseDatabase.getInstance();
+      DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+          child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+      Log.d("fr",
+          "checkRegistrationAndRun: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
+      myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+          new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
+          checkBilling();
+          //                    startActivity(new Intent(ActivitySplash.this, ForTestFragmentActivity.class));
+          startActivity(new Intent(ActivitySplash.this, MainActivity.class));
+          finish();
+        }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
-        } else {
-            FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
-            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
-            startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
-//            startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+        }
+      });
+    } else {
+      FirebaseAnalytics.getInstance(this)
+          .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
+      AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS,
+          AmplitudaEvents.unRegistered);
+      startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
+      //            startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
             /*
             if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_ONBOARD, true)) {
                 Log.d("MyLogs", "2");
@@ -120,159 +123,171 @@ public class ActivitySplash extends BaseActivity {
                 startActivity(new Intent(ActivitySplash.this, MainAuthActivity.class).putExtra(Config.CREATE_PROFILE, true));
             }
             */
-            finish();
-        }
+      finish();
     }
+  }
 
-    private void setTrackInfoInDatabase(AdjustAttribution aa) {
-        TrackInfo trackInfo = new TrackInfo();
-        trackInfo.setTt(aa.trackerToken);
-        trackInfo.setTn(aa.trackerName);
-        trackInfo.setNet(aa.network);
-        trackInfo.setCam(aa.campaign);
-        trackInfo.setCre(aa.creative);
-        trackInfo.setCl(aa.clickLabel);
-        trackInfo.setAdid(aa.adid);
-        trackInfo.setAdg(aa.adgroup);
-        WorkWithFirebaseDB.setTrackInfo(trackInfo);
+  private void setTrackInfoInDatabase(AdjustAttribution aa) {
+    TrackInfo trackInfo = new TrackInfo();
+    trackInfo.setTt(aa.trackerToken);
+    trackInfo.setTn(aa.trackerName);
+    trackInfo.setNet(aa.network);
+    trackInfo.setCam(aa.campaign);
+    trackInfo.setCre(aa.creative);
+    trackInfo.setCl(aa.clickLabel);
+    trackInfo.setAdid(aa.adid);
+    trackInfo.setAdg(aa.adgroup);
+    WorkWithFirebaseDB.setTrackInfo(trackInfo);
+  }
+
+  private void checkBilling() {
+    if (SingletonMakePurchase.getInstance().isMakePurchaseNow()) {
+      changePremStatus(true);
+      AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
+    } else if (UserDataHolder.getUserData() != null
+        && UserDataHolder.getUserData().getSubInfo() == null) {
+      //unknown status premium or new user
+      setSubInfoWithGooglePlayInfo();
+    } else if (UserDataHolder.getUserData() != null
+        && UserDataHolder.getUserData().getSubInfo() != null
+        && !UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
+      //user have premium status, check time of premium
+      SubInfo subInfo = UserDataHolder.getUserData().getSubInfo();
+      if (subInfo.getPaymentState() == 0) {
+        changePremStatus(false);
+        AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS,
+            AmplitudaEvents.preferential);
+        new CheckAndSetPurchase().execute(subInfo.getProductId(), subInfo.getPurchaseToken(),
+            subInfo.getPackageName());
+      } else if (subInfo.getPaymentState() != 0) {
+        compareTime(subInfo);
+      }
+    } else if (UserDataHolder.getUserData() != null
+        && UserDataHolder.getUserData().getSubInfo() != null
+        && UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
+      AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS,
+          AmplitudaEvents.not_buy);
+      changePremStatus(false);
     }
+  }
 
-    private void checkBilling() {
-        if (SingletonMakePurchase.getInstance().isMakePurchaseNow()) {
+  private void compareTime(SubInfo subInfo) {
+    long currentTime = Calendar.getInstance().getTimeInMillis();
+    if (currentTime > subInfo.getExpiryTimeMillis()) {
+      new CheckAndSetPurchase().execute(subInfo.getProductId(), subInfo.getPurchaseToken(),
+          subInfo.getPackageName());
+    } else {
+      if (subInfo.getPaymentState() == 1) {
+        AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
+      } else if (subInfo.getPaymentState() == 2) {
+        AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS,
+            AmplitudaEvents.trial);
+      }
+      changePremStatus(true);
+    }
+  }
+
+  private void setSubInfoWithGooglePlayInfo() {
+    mBillingClient = BillingClient.newBuilder(this).setListener((responseCode, purchases) -> {
+      if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
+        //сюда мы попадем когда будет осуществлена покупка
+
+      }
+    }).build();
+    mBillingClient.startConnection(new BillingClientStateListener() {
+      @Override
+      public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
+        if (billingResponseCode == BillingClient.BillingResponse.OK) {
+          List<Purchase> purchasesList = queryPurchases();
+          if (purchasesList.size() > 0) {
             changePremStatus(true);
-            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
-        } else if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getSubInfo() == null) {
-            //unknown status premium or new user
-            setSubInfoWithGooglePlayInfo();
-        } else if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getSubInfo() != null
-                && !UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
-            //user have premium status, check time of premium
-            SubInfo subInfo = UserDataHolder.getUserData().getSubInfo();
-            if (subInfo.getPaymentState() == 0) {
-                changePremStatus(false);
-                AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.preferential);
-                new CheckAndSetPurchase().execute(subInfo.getProductId(), subInfo.getPurchaseToken(), subInfo.getPackageName());
-            } else if (subInfo.getPaymentState() != 0) {
-                compareTime(subInfo);
-            }
-        } else if (UserDataHolder.getUserData() != null
-                && UserDataHolder.getUserData().getSubInfo() != null
-                && UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
-            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.not_buy);
+            setSubInfo(purchasesList.get(0));
+          } else {
+            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS,
+                AmplitudaEvents.not_buy);
+            EmptySubInfo.setEmptySubInfo();
             changePremStatus(false);
+          }
         }
+      }
 
+      @Override
+      public void onBillingServiceDisconnected() {
+        //сюда мы попадем если что-то пойдет не так
+      }
+    });
+  }
+
+  private void setSubInfo(Purchase purchase) {
+    new CheckAndSetPurchase().execute(purchase.getSku(), purchase.getPurchaseToken(),
+        purchase.getPackageName());
+  }
+
+  private void getABVersion() {
+    FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+    firebaseRemoteConfig.setDefaults(R.xml.default_config);
+
+    firebaseRemoteConfig.fetch(3600).addOnCompleteListener(task -> {
+      if (task.isSuccessful()) {
+        firebaseRemoteConfig.activateFetched();
+        Amplitude.getInstance().logEvent("norm_ab");
+      } else {
+        Amplitude.getInstance().logEvent("crash_ab");
+      }
+      setABTestConfig(firebaseRemoteConfig.getString(ABConfig.REQUEST_STRING));
+    });
+  }
+
+  private void setABTestConfig(String responseString) {
+    Identify abStatus = new Identify().set(ABConfig.AB_VERSION, responseString);
+    Amplitude.getInstance().identify(abStatus);
+    getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
+        edit().putString(ABConfig.KEY_FOR_SAVE_STATE, responseString).
+        apply();
+  }
+
+  private void checkFirstLaunch() {
+    SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+
+    if (!sharedPreferences.getBoolean(TAG_FIRST_RUN, false)) {
+      Calendar calendar = Calendar.getInstance();
+      String day = String.valueOf(calendar.get(Calendar.DAY_OF_YEAR));
+      String week = String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
+      String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+
+      Identify date = new Identify().set(AmplitudaEvents.FIRST_DAY, day)
+          .set(AmplitudaEvents.FIRST_WEEK, week).set(AmplitudaEvents.FIRST_MONTH, month);
+      Amplitude.getInstance().identify(date);
+      Amplitude.getInstance().logEvent(AmplitudaEvents.first_launch);
+
+      getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).
+          edit().putBoolean(Config.IS_NEED_SHOW_ONBOARD, true).
+          apply();
+
+      getSharedPreferences(Config.STARTING_POINT, MODE_PRIVATE).edit()
+          .putLong(Config.STARTING_POINT, getTime())
+          .apply();
+
+      SharedPreferences.Editor editor = sharedPreferences.edit();
+      editor.putBoolean(TAG_FIRST_RUN, true);
+      editor.apply();
     }
+  }
 
-    private void compareTime(SubInfo subInfo) {
-        long currentTime = Calendar.getInstance().getTimeInMillis();
-        if (currentTime > subInfo.getExpiryTimeMillis()) {
-            new CheckAndSetPurchase().execute(subInfo.getProductId(), subInfo.getPurchaseToken(), subInfo.getPackageName());
-        } else {
-            if (subInfo.getPaymentState() == 1) {
-                AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
-            } else if (subInfo.getPaymentState() == 2) {
-                AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
-            }
-            changePremStatus(true);
-        }
-    }
+  private long getTime() {
+    Calendar calendar = Calendar.getInstance();
+    return calendar.getTimeInMillis();
+  }
 
-    private void setSubInfoWithGooglePlayInfo() {
-        mBillingClient = BillingClient.newBuilder(this).setListener((responseCode, purchases) -> {
-            if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
-                //сюда мы попадем когда будет осуществлена покупка
+  private List<Purchase> queryPurchases() {
+    Purchase.PurchasesResult purchasesResult =
+        mBillingClient.queryPurchases(BillingClient.SkuType.SUBS);
+    return purchasesResult.getPurchasesList();
+  }
 
-            }
-        }).build();
-        mBillingClient.startConnection(new BillingClientStateListener() {
-            @Override
-            public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
-                if (billingResponseCode == BillingClient.BillingResponse.OK) {
-                    List<Purchase> purchasesList = queryPurchases();
-                    if (purchasesList.size() > 0) {
-                        changePremStatus(true);
-                        setSubInfo(purchasesList.get(0));
-                    } else {
-                        AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.not_buy);
-                        EmptySubInfo.setEmptySubInfo();
-                        changePremStatus(false);
-                    }
-                }
-            }
-
-            @Override
-            public void onBillingServiceDisconnected() {
-                //сюда мы попадем если что-то пойдет не так
-            }
-        });
-    }
-
-    private void setSubInfo(Purchase purchase) {
-        new CheckAndSetPurchase().execute(purchase.getSku(), purchase.getPurchaseToken(), purchase.getPackageName());
-    }
-
-    private void getABVersion() {
-        FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-        firebaseRemoteConfig.setDefaults(R.xml.default_config);
-
-        firebaseRemoteConfig.fetch(3600).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                firebaseRemoteConfig.activateFetched();
-                Amplitude.getInstance().logEvent("norm_ab");
-            } else {
-                Amplitude.getInstance().logEvent("crash_ab");
-            }
-            setABTestConfig(firebaseRemoteConfig.getString(ABConfig.REQUEST_STRING));
-        });
-    }
-
-
-    private void setABTestConfig(String responseString) {
-        Identify abStatus = new Identify().set(ABConfig.AB_VERSION, responseString);
-        Amplitude.getInstance().identify(abStatus);
-        getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
-                edit().putString(ABConfig.KEY_FOR_SAVE_STATE, responseString).
-                apply();
-    }
-
-    private void checkFirstLaunch() {
-        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-
-        if (!sharedPreferences.getBoolean(TAG_FIRST_RUN, false)) {
-            Calendar calendar = Calendar.getInstance();
-            String day = String.valueOf(calendar.get(Calendar.DAY_OF_YEAR));
-            String week = String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
-            String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
-
-            Identify date = new Identify().set(AmplitudaEvents.FIRST_DAY, day)
-                    .set(AmplitudaEvents.FIRST_WEEK, week).set(AmplitudaEvents.FIRST_MONTH, month);
-            Amplitude.getInstance().identify(date);
-            Amplitude.getInstance().logEvent(AmplitudaEvents.first_launch);
-
-            getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).
-                    edit().putBoolean(Config.IS_NEED_SHOW_ONBOARD, true).
-                    apply();
-
-            getSharedPreferences(Config.STARTING_POINT, MODE_PRIVATE).edit().putLong(Config.STARTING_POINT, getTime()).apply();
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean(TAG_FIRST_RUN, true);
-            editor.apply();
-        }
-    }
-
-    private long getTime() {
-        Calendar calendar = Calendar.getInstance();
-        return calendar.getTimeInMillis();
-    }
-
-    private List<Purchase> queryPurchases() {
-        Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.SUBS);
-        return purchasesResult.getPurchasesList();
-    }
-
-    private void changePremStatus(boolean isPremUser) {
-        getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).edit().putBoolean(Config.STATE_BILLING, isPremUser).apply();
-    }
+  private void changePremStatus(boolean isPremUser) {
+    getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).edit()
+        .putBoolean(Config.STATE_BILLING, isPremUser)
+        .apply();
+  }
 }

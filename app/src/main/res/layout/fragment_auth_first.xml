@@ -96,11 +96,11 @@
         app:layout_constraintTop_toBottomOf="@+id/tvText2"/>
 
     <TextView
-        android:id="@+id/textView151"
+        android:id="@+id/signIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="У вас уже есть аккаунт? войти"
+        android:text="@string/sign_in_already_have_account"
         android:textColor="@color/gray_light2"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,12 +109,13 @@
 
 
     <TextView
+        android:id="@+id/privacyPolicy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:letterSpacing="0.05"
-        android:text="Ознакомиться с условиями\nполитики конфидециальности"
+        android:text="@string/privacy_policy_title"
         android:textColor="#a63a3a3a"
         android:textSize="10sp"
         android:textStyle="normal"
@@ -122,6 +123,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView151"
+        app:layout_constraintTop_toBottomOf="@+id/signIn"
         app:layout_constraintVertical_bias="0.835"/>
 </android.support.constraint.ConstraintLayout>
