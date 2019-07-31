@@ -18,7 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
+
 
 import com.wsoteam.diet.Articles.POJO.Article;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
@@ -31,13 +31,11 @@ import java.util.Observer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class ListArticlesFragment extends Fragment implements Observer {
 
   @BindView(R.id.rvArticle) RecyclerView recyclerView;
-  @BindView(R.id.etArticleItem) EditText searchEditText;
   @BindView(R.id.toolbar) Toolbar mToolbar;
   private Unbinder unbinder;
   private ListArticlesAdapter adapter;
@@ -71,7 +69,6 @@ public class ListArticlesFragment extends Fragment implements Observer {
       adapter = new ListArticlesAdapter(ArticlesHolder.getListArticles().getListArticles(),
           getActivity());
       recyclerView.setAdapter(adapter);
-      activateSearch();
     } else {
 
       ArticlesHolder.subscribe(this);
@@ -106,14 +103,6 @@ public class ListArticlesFragment extends Fragment implements Observer {
     unbinder.unbind();
   }
 
-  @OnClick(R.id.ArticleBackButton)
-  public void onViewClicked(View view) {
-    switch (view.getId()) {
-      case R.id.ArticleBackButton:
-        getActivity().onBackPressed();
-        break;
-    }
-  }
 
   private void search(String str){
     String key = str.toLowerCase();
@@ -134,30 +123,12 @@ public class ListArticlesFragment extends Fragment implements Observer {
     }
   }
 
-  private void activateSearch() {
-
-    searchEditText.addTextChangedListener(new TextWatcher() {
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-      }
-
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
-       search(s.toString());
-      }
-
-      @Override
-      public void afterTextChanged(Editable s) {
-      }
-    });
-  }
 
   @Override
   public void update(Observable o, Object arg) {
     adapter =
         new ListArticlesAdapter(ArticlesHolder.getListArticles().getListArticles(), getActivity());
     recyclerView.setAdapter(adapter);
-    activateSearch();
     ArticlesHolder.unsubscribe(this);
   }
 
