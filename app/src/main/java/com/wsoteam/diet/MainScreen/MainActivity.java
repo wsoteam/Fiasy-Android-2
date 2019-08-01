@@ -55,6 +55,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplateFragment;
 import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
@@ -227,6 +228,11 @@ public class MainActivity extends AppCompatActivity {
 
                 ListRecipes groupsRecipes = dataSnapshot.getValue(ListRecipes.class);
 
+                //int i = 1;
+                //for (RecipeItem recipe:
+                //groupsRecipes.getListrecipes()) {
+                //    Log.d("kkk", i++ + "\n" +recipe.toString());
+                //}
                 EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes);
                 GroupsHolder groupsHolder = new GroupsHolder();
                 groupsHolder.bind(eatingGroupsRecipes);

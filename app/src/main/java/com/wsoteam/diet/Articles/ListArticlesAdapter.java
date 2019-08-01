@@ -24,101 +24,128 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class ListArticlesAdapter extends RecyclerView.Adapter<ListArticlesAdapter.ArticlesViewHolder>{
+public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Article> listItem;
-    private Context context;
-    private Activity activity;
+  private List<Article> listItem;
+  private Context context;
+  private Activity activity;
 
-    public ListArticlesAdapter(List<Article> listItem, Activity activity) {
-        this.listItem = listItem;
-        this.activity = activity;
-    }
+  public ListArticlesAdapter(List<Article> listItem, Activity activity) {
+    this.listItem = listItem;
+    this.activity = activity;
+  }
 
-    @NonNull
-    @Override
-    public ArticlesViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        this.context = viewGroup.getContext();
+  @NonNull
+  @Override
+  public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    this.context = viewGroup.getContext();
 
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.article_item, viewGroup, false);
+    LayoutInflater inflater = LayoutInflater.from(context);
 
-        ArticlesViewHolder viewHolder = new ArticlesViewHolder(view);
+    View view = inflater.inflate(R.layout.article_view_holder, viewGroup, false);
+    RecyclerView.ViewHolder viewHolder = new ArticleViewHolder(view);
+    view.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent intent;
+        boolean isPremArticle = listItem.get(viewHolder.getAdapterPosition()).isPremium();
 
-        return viewHolder ;
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ArticlesViewHolder articlesViewHolder, int position) {
-
-            articlesViewHolder.bind(position);
-    }
-
-    @Override
-    public int getItemCount() {
-        return listItem.size();
-    }
-
-    class ArticlesViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView imageView;
-        TextView premium;
-        TextView title;
-        TextView intro;
-        CardView cvBorder;
-
-        public ArticlesViewHolder(View view){
-            super(view);
-
-            imageView = view.findViewById(R.id.ivArticle);
-            premium = view.findViewById(R.id.tvArticlePremium);
-            title = view.findViewById(R.id.tvArticleTitle);
-            intro = view.findViewById(R.id.tvArticleIntro);
-            cvBorder = view.findViewById(R.id.cvArticleBorder);
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent;
-                    boolean isPremArticle = listItem.get(getAdapterPosition()).isPremium();
-
-                    if (!checkSubscribe() && isPremArticle) {
-                        intent = new Intent(activity, ItemArticleWithoutPremActivity.class);
-                    } else {
-                        intent = new Intent(activity, ItemArticleActivity.class);
-                    }
-
-                    intent.putExtra(Config.ARTICLE_INTENT, getAdapterPosition());
-                    activity.startActivity(intent);
-                }
-            });
+        if (!checkSubscribe() && isPremArticle) {
+          intent = new Intent(activity, ItemArticleWithoutPremActivity.class);
+        } else {
+          intent = new Intent(activity, ItemArticleActivity.class);
         }
 
-        void bind(int position){
+        intent.putExtra(Config.ARTICLE_INTENT, viewHolder.getAdapterPosition());
+        activity.startActivity(intent);
+      }
+    });
 
-            boolean isPrem = listItem.get(position).isPremium();
-            String url = listItem.get(position).getImgUrl();
+    return viewHolder;
+  }
 
-            Glide.with(context).load(url).into(imageView);
-            title.setText(Html.fromHtml(listItem.get(position).getTitle()));
-            intro.setText(Html.fromHtml(listItem.get(position).getIntroPart()));
+  @Override
+  public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
 
-            if (isPrem){
-                cvBorder.setCardBackgroundColor(Color.parseColor("#FF5722"));
-                premium.setVisibility(View.VISIBLE);
-            } else {
-                cvBorder.setCardBackgroundColor(Color.parseColor("#00FF5722"));
-                premium.setVisibility(View.GONE);
-            }
-        }
+    ((ArticleViewHolder) viewHolder).bind(listItem.get(position));
+  }
 
-        private boolean checkSubscribe() {
-            SharedPreferences sharedPreferences = activity.getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-            if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+  @Override
+  public int getItemCount() {
+    return listItem.size();
+  }
+
+  private boolean checkSubscribe() {
+    SharedPreferences sharedPreferences =
+        activity.getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+    if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
+      return true;
+    } else {
+      return false;
     }
+  }
+
+  class MyViewHolder extends RecyclerView.ViewHolder {
+
+    ImageView imageView;
+    TextView premium;
+    TextView title;
+    TextView intro;
+    CardView cvBorder;
+
+    public MyViewHolder(View view) {
+      super(view);
+
+      imageView = view.findViewById(R.id.ivArticle);
+      premium = view.findViewById(R.id.tvArticlePremium);
+      title = view.findViewById(R.id.tvArticleTitle);
+      intro = view.findViewById(R.id.tvArticleIntro);
+      cvBorder = view.findViewById(R.id.cvArticleBorder);
+
+      view.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          Intent intent;
+          boolean isPremArticle = listItem.get(getAdapterPosition()).isPremium();
+
+          if (!checkSubscribe() && isPremArticle) {
+            intent = new Intent(activity, ItemArticleWithoutPremActivity.class);
+          } else {
+            intent = new Intent(activity, ItemArticleActivity.class);
+          }
+
+          intent.putExtra(Config.ARTICLE_INTENT, getAdapterPosition());
+          activity.startActivity(intent);
+        }
+      });
+    }
+
+    void bind(int position) {
+
+      boolean isPrem = listItem.get(position).isPremium();
+      String url = listItem.get(position).getImgUrl();
+
+      Glide.with(context).load(url).into(imageView);
+      title.setText(Html.fromHtml(listItem.get(position).getTitle()));
+      intro.setText(Html.fromHtml(listItem.get(position).getIntroPart()));
+
+      if (isPrem) {
+        cvBorder.setCardBackgroundColor(Color.parseColor("#FF5722"));
+        premium.setVisibility(View.VISIBLE);
+      } else {
+        cvBorder.setCardBackgroundColor(Color.parseColor("#00FF5722"));
+        premium.setVisibility(View.GONE);
+      }
+    }
+
+    private boolean checkSubscribe() {
+      SharedPreferences sharedPreferences =
+          activity.getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+      if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
 }
