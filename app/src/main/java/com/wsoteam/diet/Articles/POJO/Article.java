@@ -9,6 +9,7 @@ public class Article implements Serializable {
     private String title;
     private String introPart;
     private String mainPart;
+    private String section;
 
     public Article() {
     }
@@ -51,5 +52,13 @@ public class Article implements Serializable {
 
     public void setMainPart(String mainPart) {
         this.mainPart = mainPart;
+    }
+
+    public String getSection() {
+        return section;
+    }
+
+    public void setSection(String section) {
+        this.section = section;
     }
 }
