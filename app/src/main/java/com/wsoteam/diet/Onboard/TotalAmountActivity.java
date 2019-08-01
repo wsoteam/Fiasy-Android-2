@@ -2,17 +2,15 @@ package com.wsoteam.diet.Onboard;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.amplitude.api.Amplitude;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.EntryPoint.EditProfileIntrodaction;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Sync.UserDataHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

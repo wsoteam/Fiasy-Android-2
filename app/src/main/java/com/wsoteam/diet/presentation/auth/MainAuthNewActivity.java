@@ -1,13 +1,8 @@
-package com.wsoteam.diet.presentation.auth.new_auth;
+package com.wsoteam.diet.presentation.auth;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.FrameLayout;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import androidx.appcompat.app.AppCompatActivity;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.presentation.auth.new_auth.fragments.AuthFirstFragment;
 
 public class MainAuthNewActivity extends AppCompatActivity {
 

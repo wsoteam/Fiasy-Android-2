@@ -1,8 +1,8 @@
 package com.wsoteam.diet.presentation.intro_tut;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.wsoteam.diet.presentation.intro_tut.fragments.IntroOneFragments;
 import com.wsoteam.diet.presentation.intro_tut.fragments.IntroThreeFragments;

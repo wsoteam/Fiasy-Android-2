@@ -1,7 +1,7 @@
 package com.wsoteam.diet.presentation.profile.questions;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatCheckedTextView;
+import androidx.appcompat.widget.AppCompatCheckedTextView;
 import android.text.TextUtils;
 import android.view.View;
 

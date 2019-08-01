@@ -2,7 +2,7 @@ package com.wsoteam.diet;
 
 import android.app.Activity;
 import android.app.Application;
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.os.Bundle;
 
 import com.adjust.sdk.Adjust;

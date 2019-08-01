@@ -14,7 +14,7 @@
 package com.wsoteam.diet.common.views.ruler;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 final class RulerViewUtils {
 

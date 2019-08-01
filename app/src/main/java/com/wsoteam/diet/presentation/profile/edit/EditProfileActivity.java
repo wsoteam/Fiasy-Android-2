@@ -1,9 +1,9 @@
 package com.wsoteam.diet.presentation.profile.edit;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatCheckedTextView;
-import android.support.v7.widget.PopupMenu;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckedTextView;
+import androidx.appcompat.widget.PopupMenu;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;

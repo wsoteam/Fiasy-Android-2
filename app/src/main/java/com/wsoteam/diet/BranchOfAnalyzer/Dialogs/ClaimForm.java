@@ -1,7 +1,7 @@
 package com.wsoteam.diet.BranchOfAnalyzer.Dialogs;
 
 import android.content.Context;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,8 +18,6 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import java.util.Calendar;
-
-import butterknife.BindView;
 
 public class ClaimForm {
     public static AlertDialog createChoiseEatingAlertDialog(Context context, Food food) {

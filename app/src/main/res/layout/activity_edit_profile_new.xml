@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:blurkit="http://schemas.android.com/apk/res-auto"
@@ -48,12 +48,12 @@
         app:layout_constraintBottom_toTopOf="@id/btnNext"
         app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#99ffffff">
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/tvTitleName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                 app:layout_constraintStart_toEndOf="@id/dot1"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/dot1"
                 style="@style/DotStyle"
                 android:layout_width="20dp"
@@ -94,7 +94,7 @@
                 android:background="@color/grey_300"
                 app:layout_constraintTop_toBottomOf="@id/edName"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/tvAge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                 app:layout_constraintStart_toEndOf="@id/dot2"
                 app:layout_constraintTop_toBottomOf="@id/divider1"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/dot2"
                 style="@style/DotStyle"
                 android:layout_width="20dp"
@@ -135,7 +135,7 @@
                 android:background="@color/grey_300"
                 app:layout_constraintTop_toBottomOf="@id/edAge"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/tvSex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
                 app:layout_constraintStart_toEndOf="@id/dot3"
                 app:layout_constraintTop_toBottomOf="@id/divider2"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/dot3"
                 style="@style/DotStyle"
                 android:layout_width="20dp"
@@ -158,7 +158,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider2"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/edSex"
                 style="@style/AnketaButtonStyle"
                 android:layout_width="wrap_content"
@@ -177,7 +177,7 @@
                 android:background="@color/grey_300"
                 app:layout_constraintTop_toBottomOf="@id/edSex"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/tvHeight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -188,7 +188,7 @@
                 app:layout_constraintStart_toEndOf="@id/dot4"
                 app:layout_constraintTop_toBottomOf="@id/divider3"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/dot4"
                 style="@style/DotStyle"
                 android:layout_width="20dp"
@@ -211,7 +211,7 @@
                 app:layout_constraintStart_toStartOf="@id/tvHeight"
                 app:layout_constraintTop_toBottomOf="@id/tvHeight"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/chHeight"
                 style="@style/AnketaChooserStyle"
                 android:layout_width="wrap_content"
@@ -230,7 +230,7 @@
                 android:background="@color/grey_300"
                 app:layout_constraintTop_toBottomOf="@id/edHeight"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/tvDiff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -241,7 +241,7 @@
                 app:layout_constraintStart_toEndOf="@id/dot5"
                 app:layout_constraintTop_toBottomOf="@id/divider4"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/dot5"
                 style="@style/DotStyle"
                 android:layout_width="20dp"
@@ -253,7 +253,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider4"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/edDiff"
                 style="@style/AnketaButtonStyle"
                 android:layout_width="wrap_content"
@@ -272,7 +272,7 @@
                 android:background="@color/grey_300"
                 app:layout_constraintTop_toBottomOf="@id/edDiff"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/tvActivity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -283,7 +283,7 @@
                 app:layout_constraintStart_toEndOf="@id/dot6"
                 app:layout_constraintTop_toBottomOf="@id/divider5"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/dot6"
                 style="@style/DotStyle"
                 android:layout_width="20dp"
@@ -295,7 +295,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider5"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/edActivity"
                 style="@style/AnketaButtonStyle"
                 android:layout_width="wrap_content"
@@ -318,7 +318,7 @@
                 android:background="@color/grey_300"
                 app:layout_constraintTop_toBottomOf="@id/edActivity"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/tvWeight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -329,7 +329,7 @@
                 app:layout_constraintStart_toEndOf="@id/dot7"
                 app:layout_constraintTop_toBottomOf="@id/divider6"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/dot7"
                 style="@style/DotStyle"
                 android:layout_width="20dp"
@@ -352,7 +352,7 @@
                 app:layout_constraintStart_toStartOf="@id/tvWeight"
                 app:layout_constraintTop_toBottomOf="@id/tvWeight"/>
 
-            <android.support.v7.widget.AppCompatCheckedTextView
+            <androidx.appcompat.widget.AppCompatCheckedTextView
                 android:id="@+id/chWeight"
                 style="@style/AnketaChooserStyle"
                 android:layout_width="wrap_content"
@@ -431,7 +431,7 @@
                 app:layout_constraintStart_toStartOf="@id/dot6"
                 app:layout_constraintTop_toBottomOf="@id/dot6"/>
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
     <include
@@ -440,4 +440,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"/>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

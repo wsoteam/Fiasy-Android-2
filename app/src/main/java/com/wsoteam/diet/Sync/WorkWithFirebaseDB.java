@@ -1,6 +1,6 @@
 package com.wsoteam.diet.Sync;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;

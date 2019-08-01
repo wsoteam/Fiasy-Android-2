@@ -1,11 +1,11 @@
 package com.wsoteam.diet.Articles;
 
 
-import android.support.v4.text.HtmlCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.text.HtmlCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.View;

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -18,7 +18,7 @@ import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
-import com.wsoteam.diet.presentation.auth.new_auth.MainAuthNewActivity;
+import com.wsoteam.diet.presentation.auth.MainAuthNewActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
