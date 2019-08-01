@@ -10,6 +10,10 @@ public class ListArticles implements Serializable {
     public ListArticles() {
     }
 
+    public ListArticles(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
