@@ -1,12 +1,11 @@
 package com.wsoteam.diet.presentation.intro;
 
-import com.arellomobile.mvp.InjectViewState;
 import com.wsoteam.diet.presentation.global.BasePresenter;
 import com.wsoteam.diet.presentation.global.Screens;
 
 import ru.terrakok.cicerone.Router;
 
-@InjectViewState
+
 public class IntroPresenter extends BasePresenter<IntroView> {
 
     private Router router;

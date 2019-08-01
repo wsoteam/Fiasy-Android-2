@@ -48,7 +48,6 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
-import dagger.android.AndroidInjection;
 import java.util.Calendar;
 import java.util.List;
 
@@ -62,7 +61,6 @@ public class ActivitySplash extends BaseActivity {
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
-    AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -71,9 +69,8 @@ public class ActivitySplash extends BaseActivity {
     Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
     Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
 
-    //        startActivity(new Intent(this, ForTestFragmentActivity.class));
-    FacebookSdk.sdkInitialize(getApplicationContext());
-    AppEventsLogger.activateApp(this);
+    //FacebookSdk.sdkInitialize(getApplicationContext());
+    //AppEventsLogger.activateApp(getApplicationContext());
     checkFirstLaunch();
     checkRegistrationAndRun();
   }

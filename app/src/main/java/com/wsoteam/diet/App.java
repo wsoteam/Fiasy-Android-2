@@ -1,10 +1,9 @@
 package com.wsoteam.diet;
 
 import android.app.Activity;
-import android.app.Application;
-import androidx.room.Room;
 import android.os.Bundle;
-
+import androidx.multidex.MultiDexApplication;
+import androidx.room.Room;
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
 import com.amplitude.api.Amplitude;
@@ -12,21 +11,13 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orm.SugarContext;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
-import com.wsoteam.diet.di.DaggerAppComponent;
 import com.yandex.metrica.YandexMetrica;
 import com.yandex.metrica.YandexMetricaConfig;
-
-import javax.inject.Inject;
-
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasActivityInjector;
 import io.intercom.android.sdk.Intercom;
 
-public class App extends Application implements HasActivityInjector {
+public class App extends MultiDexApplication {
     public static App instance;
-    @Inject
-    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
+
     private FoodDatabase foodDatabase;
 
     public static App getInstance() {
@@ -37,11 +28,13 @@ public class App extends Application implements HasActivityInjector {
     public void onCreate() {
         super.onCreate();
         SugarContext.init(this);
+
+        FirebaseApp.initializeApp(this);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         YandexMetricaConfig.Builder configBuilder = YandexMetricaConfig.newConfigBuilder(Config.YANDEX_API_KEY);
         YandexMetrica.activate(getApplicationContext(), configBuilder.build());
         YandexMetrica.enableActivityAutoTracking(this);
-        FirebaseApp.initializeApp(getApplicationContext());
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 //        Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
         Adjust.onCreate(new AdjustConfig(this, EventsAdjust.app_token, AdjustConfig.ENVIRONMENT_PRODUCTION));
         registerActivityLifecycleCallbacks(new AdjustLifecycleCallbacks());
@@ -53,19 +46,6 @@ public class App extends Application implements HasActivityInjector {
         foodDatabase = Room.databaseBuilder(this, FoodDatabase.class, "foodDB.db").build();
 
         //SetUserProperties.setUserProperties(Adjust.getAttribution());
-
-        DaggerAppComponent
-                .builder()
-                .application(this)
-                .build()
-                .inject(this);
-    }
-
-
-    //
-    @Override
-    public AndroidInjector<Activity> activityInjector() {
-        return dispatchingAndroidInjector;
     }
 
     public FoodDatabase getFoodDatabase() {

@@ -16,14 +16,13 @@ import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.di.CiceroneModule;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.AndroidInjection;
 import io.alterac.blurkit.BlurLayout;
 import io.reactivex.disposables.Disposable;
 
@@ -31,8 +30,7 @@ import io.reactivex.disposables.Disposable;
 public class EditProfileActivity extends BaseActivity implements EditProfileView {
 
     private static final String TAG = "EditProfile";
-    @Inject
-    @InjectPresenter
+
     EditProfilePresenter presenter;
 
     @BindView(R.id.ivMain) ImageView ivMain;
@@ -78,17 +76,13 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
     boolean isFemale = false, createUser;
     private boolean isNeedShowOnboard = false;
 
-    @ProvidePresenter
-    EditProfilePresenter providePresenter() {
-        return presenter;
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile_new);
         ButterKnife.bind(this);
+
+        presenter = new EditProfilePresenter(this, CiceroneModule.router());
 
         if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_ONBOARD, false)) {
             isNeedShowOnboard = true;

@@ -13,19 +13,16 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.di.CiceroneModule;
 import com.wsoteam.diet.presentation.global.BaseActivity;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.AndroidInjection;
 
 public class QuestionsActivity extends BaseActivity implements QuestionsView {
 
     private static final String TAG = "EditProfile";
-    @Inject
-    @InjectPresenter
+
     QuestionsPresenter presenter;
     @BindView(R.id.pager)
     ViewPager viewPager;
@@ -43,10 +40,11 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions_container);
         ButterKnife.bind(this);
+
+        presenter = new QuestionsPresenter(this, CiceroneModule.router());
 
         if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_ONBOARD, false)) {
             isNeedShowOnboard = true;

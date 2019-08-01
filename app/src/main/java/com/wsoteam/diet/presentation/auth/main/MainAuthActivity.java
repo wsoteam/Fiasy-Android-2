@@ -15,7 +15,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.arellomobile.mvp.presenter.InjectPresenter;
+
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -41,22 +41,20 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.helpers.AsteriskPasswordTransformationMethod;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
+import com.wsoteam.diet.di.CiceroneModule;
 import com.wsoteam.diet.presentation.auth.dialogs.InstaAuthDialogFragment;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.AndroidInjection;
 
 public class MainAuthActivity extends BaseActivity implements MainAuthView, InstaAuthDialogFragment.InstaAuthListener {
 
     private static final String TAG = "Authenticate";
     private static final int RC_SIGN_IN = 9001;
-    @Inject
-    @InjectPresenter
+
     MainAuthPresenter presenter;
 
     @BindView(R.id.auth_main_tv_respasss) TextView resPassTextView;
@@ -87,10 +85,11 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth_main_new);
         ButterKnife.bind(this);
+
+        presenter = new MainAuthPresenter(this, CiceroneModule.router());
 
         createUser = getIntent().getBooleanExtra(Config.CREATE_PROFILE, false);
 
