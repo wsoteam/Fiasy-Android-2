@@ -89,11 +89,13 @@ public class ListArticlesFragment extends Fragment implements Observer {
       };
   private View.OnClickListener onClickListener = new View.OnClickListener() {
     @Override public void onClick(View view) {
+      isSubSection = false;
       recyclerView.setAdapter(verticalArticlesAdapter);
       mToolbar.setTitle("Статьи");
       mToolbar.setNavigationIcon(null);
     }
   };
+
   private SearchView.OnQueryTextListener textListener = new SearchView.OnQueryTextListener() {
     @Override
     public boolean onQueryTextSubmit(String s) {
@@ -166,7 +168,12 @@ public class ListArticlesFragment extends Fragment implements Observer {
     }
 
     if (key.equals("")) {
-      recyclerView.setAdapter(verticalArticlesAdapter);
+      if (isSubSection){
+        adapter.updateData(subList);
+        recyclerView.setAdapter(adapter);
+      }else {
+        recyclerView.setAdapter(verticalArticlesAdapter);
+      }
     } else {
       for (Article article :
           articles) {
