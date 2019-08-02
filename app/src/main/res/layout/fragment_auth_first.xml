@@ -45,7 +45,7 @@
         tools:text="Войти с помощью"/>
 
     <ImageView
-        android:id="@+id/btnFacebook"
+        android:id="@+id/auth_strategy_facebook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -61,8 +61,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnFacebook"
-        app:layout_constraintTop_toTopOf="@+id/btnFacebook"
+        app:layout_constraintStart_toEndOf="@+id/auth_strategy_facebook"
+        app:layout_constraintTop_toTopOf="@+id/auth_strategy_facebook"
         app:srcCompat="@drawable/ic_google"/>
 
     <TextView
@@ -76,7 +76,7 @@
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnFacebook"
+        app:layout_constraintTop_toBottomOf="@+id/auth_strategy_facebook"
         tools:text="Или"/>
 
     <TextView

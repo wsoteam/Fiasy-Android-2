@@ -1,11 +1,15 @@
 package com.wsoteam.diet.presentation.auth;
 
 import android.app.Activity;
+import android.content.Intent;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.content.Intent;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.wsoteam.diet.utils.RxFirebase;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -25,6 +29,10 @@ public abstract class AuthStrategy {
     return fragment.requireActivity();
   }
 
+  protected Fragment getFragment() {
+    return fragment;
+  }
+
   protected void disposeOnRelease(Disposable disposable) {
     disposables.add(disposable);
   }
@@ -35,6 +43,13 @@ public abstract class AuthStrategy {
 
   public boolean isAuthRequest(int requestCode) {
     return requestCode == AUTH_REQUEST;
+  }
+
+  protected void handleCredentials(AuthCredential credential){
+    disposeOnRelease(RxFirebase.from(FirebaseAuth.getInstance()
+        .signInWithCredential(credential))
+        .map(AuthResult::getUser)
+        .subscribe(this::onAuthenticated, this::onAuthException));
   }
 
   /**
@@ -71,7 +86,7 @@ public abstract class AuthStrategy {
       this.error = error;
     }
 
-    public boolean isSuccessfull(){
+    public boolean isSuccessfull() {
       return user != null;
     }
 
