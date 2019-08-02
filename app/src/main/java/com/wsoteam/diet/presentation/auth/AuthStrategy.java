@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.auth;
 
 import android.app.Activity;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import android.content.Intent;
@@ -11,17 +12,17 @@ import io.reactivex.disposables.Disposable;
 public abstract class AuthStrategy {
   public final static int AUTH_REQUEST = 100;
 
-  private final Activity context;
+  private final Fragment fragment;
   private final CompositeDisposable disposables = new CompositeDisposable();
 
   private final MutableLiveData<AuthenticationResult> userStream = new MutableLiveData<>();
 
-  public AuthStrategy(Activity context) {
-    this.context = context;
+  public AuthStrategy(Fragment fragment) {
+    this.fragment = fragment;
   }
 
   protected Activity getActivity() {
-    return context;
+    return fragment.requireActivity();
   }
 
   protected void disposeOnRelease(Disposable disposable) {
@@ -29,7 +30,7 @@ public abstract class AuthStrategy {
   }
 
   protected void startActivityForResult(Intent intent) {
-    context.startActivityForResult(intent, AUTH_REQUEST);
+    fragment.startActivityForResult(intent, AUTH_REQUEST);
   }
 
   public boolean isAuthRequest(int requestCode) {

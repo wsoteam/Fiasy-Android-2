@@ -1,6 +1,8 @@
 package com.wsoteam.diet.presentation.auth;
 
+import android.content.Intent;
 import android.os.Bundle;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.wsoteam.diet.R;
 

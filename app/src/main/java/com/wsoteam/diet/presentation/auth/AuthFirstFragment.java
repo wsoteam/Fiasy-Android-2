@@ -98,7 +98,7 @@ public class AuthFirstFragment extends Fragment {
 
   private void authorize(Class<? extends AuthStrategy> strategyType) {
     if (strategyType == GoogleAuthStrategy.class) {
-      authStrategy = new GoogleAuthStrategy(requireActivity());
+      authStrategy = new GoogleAuthStrategy(this);
     } else {
       authStrategy = null;
     }
