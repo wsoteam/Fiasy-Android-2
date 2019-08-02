@@ -5,12 +5,8 @@ import androidx.fragment.app.Fragment;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.internal.ServerProtocol;
-import com.facebook.login.DefaultAudience;
-import com.facebook.login.LoginBehavior;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.google.firebase.auth.FacebookAuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import java.util.Arrays;
 import java.util.concurrent.CancellationException;
@@ -27,9 +23,6 @@ public class FacebookAuthStrategy extends AuthStrategy {
     callbackManager = CallbackManager.Factory.create();
 
     loginManager = LoginManager.getInstance();
-    loginManager.setDefaultAudience(DefaultAudience.FRIENDS);
-    loginManager.setLoginBehavior(LoginBehavior.DEVICE_AUTH);
-    loginManager.setAuthType(ServerProtocol.DIALOG_REREQUEST_AUTH_TYPE);
     loginManager.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
       @Override public void onSuccess(LoginResult loginResult) {
         final String fbAuthToken = loginResult.getAccessToken().getToken();
@@ -54,6 +47,12 @@ public class FacebookAuthStrategy extends AuthStrategy {
     super.onActivityResult(resultData, status);
 
     callbackManager.onActivityResult(FACEBOOK_REQUEST_CODE, status, resultData);
+  }
+
+  @Override public void release() {
+    super.release();
+
+    loginManager.unregisterCallback(callbackManager);
   }
 
   @Override public void enter() {

@@ -1,8 +1,12 @@
 package com.wsoteam.diet.presentation.auth;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.collection.SparseArrayCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -15,6 +19,7 @@ public abstract class AuthStrategyFragment extends Fragment {
   protected static final SparseArrayCompat<Class<? extends AuthStrategy>> strategy =
       new SparseArrayCompat<Class<? extends AuthStrategy>>() {{
         put(R.id.auth_strategy_google, GoogleAuthStrategy.class);
+        put(R.id.auth_strategy_facebook, FacebookAuthStrategy.class);
       }};
 
   protected final Observer<AuthStrategy.AuthenticationResult> userObserver =
@@ -34,6 +39,8 @@ public abstract class AuthStrategyFragment extends Fragment {
     final AuthStrategy strategy;
     if (strategyType == GoogleAuthStrategy.class) {
       strategy = new GoogleAuthStrategy(this);
+    } else if (strategyType == FacebookAuthStrategy.class) {
+      strategy = new FacebookAuthStrategy(this);
     } else {
       strategy = null;
     }
@@ -65,18 +72,25 @@ public abstract class AuthStrategyFragment extends Fragment {
 
   }
 
-  protected void onAuthorized(FirebaseUser user){
-
+  protected void onAuthorized(FirebaseUser user) {
+    if (BuildConfig.DEBUG) {
+      Log.d("AuthStrategy", "Logged in as: " + user.getDisplayName());
+    }
   }
 
   protected void onAuthException(Throwable error) {
-
+    error.printStackTrace();
   }
 
   protected void authorize(Class<? extends AuthStrategy> strategyType) {
-    final AuthStrategy targetStrategy = getStrategyByType(strategyType);
+    final AuthStrategy targetStrategy;
 
-    setAuthStrategy(targetStrategy);
+    if (getAuthStrategy() != null && getAuthStrategy().getClass() == strategyType) {
+      targetStrategy = getAuthStrategy();
+    } else {
+      targetStrategy = getStrategyByType(strategyType);
+      setAuthStrategy(targetStrategy);
+    }
 
     if (targetStrategy != null) {
       prepareAuthStrategy(targetStrategy);
@@ -114,12 +128,48 @@ public abstract class AuthStrategyFragment extends Fragment {
     this.authStrategy.liveAuthResult().observe(getViewLifecycleOwner(), userObserver);
   }
 
+  @Override public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+    super.onViewStateRestored(savedInstanceState);
+
+    // Facebook and third-party auth providers, might destroy instance of fragment,
+    // therefore we have to restore auth-strategy instance
+
+    if (savedInstanceState != null) {
+      final String className = savedInstanceState.getString("currentAuthStrategy");
+
+      if (TextUtils.isEmpty(className)) {
+        return;
+      }
+
+      assert className != null;
+
+      try {
+        //noinspection unchecked
+        Class<? extends AuthStrategy> currentAuthStrategy =
+            (Class<? extends AuthStrategy>) Class.forName(className);
+
+        setAuthStrategy(getStrategyByType(currentAuthStrategy));
+
+      } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  @Override public void onSaveInstanceState(@NonNull Bundle outState) {
+    if (authStrategy != null) {
+      outState.putString("currentAuthStrategy", authStrategy.getClass().getCanonicalName());
+    }
+
+    super.onSaveInstanceState(outState);
+  }
+
   public AuthStrategy getAuthStrategy() {
     return authStrategy;
   }
 
-  @Override public void onDestroyView() {
-    super.onDestroyView();
+  @Override public void onDestroy() {
+    super.onDestroy();
 
     releaseCurrentAuthStrategy();
   }
