@@ -3,10 +3,12 @@ package com.wsoteam.diet.Articles;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.wsoteam.diet.Articles.POJO.Article;
+import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.R;
 import java.util.List;
 
@@ -22,7 +24,13 @@ public class HorizontalArticlesAdapter extends RecyclerView.Adapter<RecyclerView
     switch (viewType) {
       default: {
         View v1 = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.article_view_holder, viewGroup, false);
-        return new ArticleViewHolder(v1);
+        ArticleViewHolder viewHolder = new ArticleViewHolder(v1);
+        v1.setOnClickListener(new View.OnClickListener() {
+          @Override public void onClick(View v) {
+            mItemClickListener.onItemClick(v, viewHolder.getAdapterPosition(), articles.get(viewHolder.getAdapterPosition()));
+          }
+        });
+        return viewHolder;
       }
     }
   }
@@ -56,6 +64,6 @@ public class HorizontalArticlesAdapter extends RecyclerView.Adapter<RecyclerView
   public interface OnItemClickListener {
     void onItemClick(View view, int position, Article dietPlan);
 
-    void onItemLongClick(View view, int position, Article dietPlan);
+    void onClickAll(View view, int position, ListArticles listArticles);
   }
 }

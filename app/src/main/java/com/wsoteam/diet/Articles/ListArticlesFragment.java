@@ -1,5 +1,7 @@
 package com.wsoteam.diet.Articles;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,8 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,20 +18,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import com.wsoteam.diet.Articles.POJO.Article;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
+import com.wsoteam.diet.Articles.POJO.ListArticles;
+import com.wsoteam.diet.Articles.POJO.SectionArticles;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import static android.content.Context.MODE_PRIVATE;
 
 public class ListArticlesFragment extends Fragment implements Observer {
 
@@ -39,6 +40,72 @@ public class ListArticlesFragment extends Fragment implements Observer {
   @BindView(R.id.toolbar) Toolbar mToolbar;
   private Unbinder unbinder;
   private ListArticlesAdapter adapter;
+  private VerticalArticlesAdapter verticalArticlesAdapter;
+  private SectionArticles sectionArticles;
+
+  private boolean isSubSection;
+  private List<Article> subList;
+  HorizontalArticlesAdapter.OnItemClickListener onItemClickListener =
+      new HorizontalArticlesAdapter.OnItemClickListener() {
+        @Override public void onItemClick(View view, int position, Article dietPlan) {
+          Intent intent;
+
+          for (int i = 0; i < ArticlesHolder.getListArticles().getListArticles().size(); i++) {
+            if (dietPlan.getTitle()
+                .equals(ArticlesHolder.getListArticles().getListArticles().get(i).getTitle())) {
+              if (!checkSubscribe() && ArticlesHolder.getListArticles()
+                  .getListArticles()
+                  .get(i)
+                  .isPremium()) {
+                intent = new Intent(getActivity(), ItemArticleWithoutPremActivity.class);
+              } else {
+                intent = new Intent(getActivity(), ItemArticleActivity.class);
+              }
+              intent.putExtra(Config.ARTICLE_INTENT, i);
+              getActivity().startActivity(intent);
+              break;
+            }
+          }
+        }
+
+        private boolean checkSubscribe() {
+          SharedPreferences sharedPreferences =
+              getActivity().getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+          if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        @Override public void onClickAll(View view, int position, ListArticles listArticles) {
+          subList = listArticles.getListArticles();
+          isSubSection = true;
+          adapter.updateData(listArticles.getListArticles());
+          recyclerView.setAdapter(adapter);
+          mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
+          mToolbar.setTitle(listArticles.getName());
+        }
+      };
+  private View.OnClickListener onClickListener = new View.OnClickListener() {
+    @Override public void onClick(View view) {
+      recyclerView.setAdapter(verticalArticlesAdapter);
+      mToolbar.setTitle("Статьи");
+      mToolbar.setNavigationIcon(null);
+    }
+  };
+  private SearchView.OnQueryTextListener textListener = new SearchView.OnQueryTextListener() {
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+      return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+      search(s);
+      return false;
+    }
+  };
 
   @Nullable
   @Override
@@ -53,7 +120,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
 
     mToolbar.setTitle("Статьи");
     mToolbar.inflateMenu(R.menu.toolbar_menu);
-    mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
+    mToolbar.setNavigationIcon(null);
     mToolbar.setNavigationOnClickListener(onClickListener);
     mToolbar.setTitleTextColor(0xFFFFFFFF);
 
@@ -66,9 +133,13 @@ public class ListArticlesFragment extends Fragment implements Observer {
 
     if (ArticlesHolder.getListArticles() != null) {
 
+      sectionArticles = new SectionArticles(ArticlesHolder.getListArticles().getListArticles());
+      verticalArticlesAdapter = new VerticalArticlesAdapter(sectionArticles.getGroups());
+      verticalArticlesAdapter.SetOnItemClickListener(onItemClickListener);
+
       adapter = new ListArticlesAdapter(ArticlesHolder.getListArticles().getListArticles(),
           getActivity());
-      recyclerView.setAdapter(adapter);
+      recyclerView.setAdapter(verticalArticlesAdapter);
     } else {
 
       ArticlesHolder.subscribe(this);
@@ -78,39 +149,24 @@ public class ListArticlesFragment extends Fragment implements Observer {
     return view;
   }
 
-  private View.OnClickListener onClickListener = new View.OnClickListener() {
-    @Override public void onClick(View view) {
-      getActivity().onBackPressed();
-    }
-  };
-
-  private SearchView.OnQueryTextListener textListener = new SearchView.OnQueryTextListener() {
-    @Override
-    public boolean onQueryTextSubmit(String s) {
-      return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String s) {
-      search(s);
-      return false;
-    }
-  };
-
   @Override
   public void onDestroyView() {
     super.onDestroyView();
     unbinder.unbind();
   }
 
-
-  private void search(String str){
+  private void search(String str) {
     String key = str.toLowerCase();
     List<Article> result = new ArrayList<>();
-    List<Article> articles = ArticlesHolder.getListArticles().getListArticles();
+    List<Article> articles;
+    if (isSubSection){
+      articles = subList;
+    } else {
+      articles = ArticlesHolder.getListArticles().getListArticles();
+    }
 
     if (key.equals("")) {
-      recyclerView.setAdapter(adapter);
+      recyclerView.setAdapter(verticalArticlesAdapter);
     } else {
       for (Article article :
           articles) {
@@ -122,7 +178,6 @@ public class ListArticlesFragment extends Fragment implements Observer {
       recyclerView.setAdapter(newAdapter);
     }
   }
-
 
   @Override
   public void update(Observable o, Object arg) {

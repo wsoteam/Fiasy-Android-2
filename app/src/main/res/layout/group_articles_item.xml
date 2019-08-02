@@ -39,6 +39,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Все "
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
         android:textColor="#f2994a"
         />
     <ImageView

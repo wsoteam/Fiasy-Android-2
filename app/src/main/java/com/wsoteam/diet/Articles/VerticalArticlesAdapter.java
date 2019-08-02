@@ -107,7 +107,7 @@ public class VerticalArticlesAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @OnClick({ R.id.llShowAll })
     void onClicked(View view) {
-      Log.d("kkk", "onClicked: all");
+      mItemClickListener.onClickAll(view, getAdapterPosition(), sectionsArticles.get(getAdapterPosition()));
     }
 
     public void setData(ListArticles listArticles) {

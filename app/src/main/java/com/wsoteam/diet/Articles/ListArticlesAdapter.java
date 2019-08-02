@@ -72,6 +72,8 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
   @Override
   public int getItemCount() {
+    if (listItem == null) return 0;
+
     return listItem.size();
   }
 
@@ -83,6 +85,11 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     } else {
       return false;
     }
+  }
+
+  public void updateData(List<Article> listItem){
+    this.listItem = listItem;
+    notifyDataSetChanged();
   }
 
   class MyViewHolder extends RecyclerView.ViewHolder {
