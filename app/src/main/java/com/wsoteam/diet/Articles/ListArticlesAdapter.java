@@ -2,7 +2,6 @@ package com.wsoteam.diet.Articles;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -17,22 +16,20 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Articles.POJO.Article;
-import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 
 import java.util.List;
 
-import static android.content.Context.MODE_PRIVATE;
 
 public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
   private List<Article> listItem;
   private Context context;
-  private Activity activity;
+  private OnItemClickListener onItemClickListener;
 
-  public ListArticlesAdapter(List<Article> listItem, Activity activity) {
+  public ListArticlesAdapter(List<Article> listItem, OnItemClickListener onItemClickListener) {
     this.listItem = listItem;
-    this.activity = activity;
+    this.onItemClickListener = onItemClickListener;
   }
 
   @NonNull
@@ -47,17 +44,7 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     view.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent intent;
-        boolean isPremArticle = listItem.get(viewHolder.getAdapterPosition()).isPremium();
-
-        if (!checkSubscribe() && isPremArticle) {
-          intent = new Intent(activity, ItemArticleWithoutPremActivity.class);
-        } else {
-          intent = new Intent(activity, ItemArticleActivity.class);
-        }
-
-        intent.putExtra(Config.ARTICLE_INTENT, viewHolder.getAdapterPosition());
-        activity.startActivity(intent);
+        onItemClickListener.onItemClick(v, listItem.get(viewHolder.getAdapterPosition()));
       }
     });
 
@@ -77,15 +64,6 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     return listItem.size();
   }
 
-  private boolean checkSubscribe() {
-    SharedPreferences sharedPreferences =
-        activity.getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-    if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   public void updateData(List<Article> listItem){
     this.listItem = listItem;
@@ -112,17 +90,19 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
       view.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-          Intent intent;
-          boolean isPremArticle = listItem.get(getAdapterPosition()).isPremium();
 
-          if (!checkSubscribe() && isPremArticle) {
-            intent = new Intent(activity, ItemArticleWithoutPremActivity.class);
-          } else {
-            intent = new Intent(activity, ItemArticleActivity.class);
-          }
-
-          intent.putExtra(Config.ARTICLE_INTENT, getAdapterPosition());
-          activity.startActivity(intent);
+          onItemClickListener.onItemClick(v, listItem.get(getAdapterPosition()));
+          //Intent intent;
+          //boolean isPremArticle = listItem.get(getAdapterPosition()).isPremium();
+          //
+          //if (!checkSubscribe() && isPremArticle) {
+          //  intent = new Intent(activity, ItemArticleWithoutPremActivity.class);
+          //} else {
+          //  intent = new Intent(activity, ItemArticleActivity.class);
+          //}
+          //
+          //intent.putExtra(Config.ARTICLE_INTENT, getAdapterPosition());
+          //activity.startActivity(intent);
         }
       });
     }
@@ -145,14 +125,22 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
       }
     }
 
-    private boolean checkSubscribe() {
-      SharedPreferences sharedPreferences =
-          activity.getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-      if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
-        return true;
-      } else {
-        return false;
-      }
-    }
+    //private boolean checkSubscribe() {
+    //  SharedPreferences sharedPreferences =
+    //      activity.getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+    //  if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
+    //    return true;
+    //  } else {
+    //    return false;
+    //  }
+    //}
+  }
+
+  public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+    this.onItemClickListener = onItemClickListener;
+  }
+
+  public interface OnItemClickListener {
+    void onItemClick(View view, Article dietPlan);
   }
 }

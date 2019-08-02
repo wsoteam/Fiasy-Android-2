@@ -45,37 +45,42 @@ public class ListArticlesFragment extends Fragment implements Observer {
 
   private boolean isSubSection;
   private List<Article> subList;
+
+  private void startDetailActivity(Article article){
+    Intent intent;
+
+    for (int i = 0; i < ArticlesHolder.getListArticles().getListArticles().size(); i++) {
+      if (article.getTitle()
+          .equals(ArticlesHolder.getListArticles().getListArticles().get(i).getTitle())) {
+        if (!checkSubscribe() && ArticlesHolder.getListArticles()
+            .getListArticles()
+            .get(i)
+            .isPremium()) {
+          intent = new Intent(getActivity(), ItemArticleWithoutPremActivity.class);
+        } else {
+          intent = new Intent(getActivity(), ItemArticleActivity.class);
+        }
+        intent.putExtra(Config.ARTICLE_INTENT, i);
+        getActivity().startActivity(intent);
+        break;
+      }
+    }
+  }
+
+  private boolean checkSubscribe() {
+    SharedPreferences sharedPreferences =
+        getActivity().getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+    if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   HorizontalArticlesAdapter.OnItemClickListener onItemClickListener =
       new HorizontalArticlesAdapter.OnItemClickListener() {
-        @Override public void onItemClick(View view, int position, Article dietPlan) {
-          Intent intent;
-
-          for (int i = 0; i < ArticlesHolder.getListArticles().getListArticles().size(); i++) {
-            if (dietPlan.getTitle()
-                .equals(ArticlesHolder.getListArticles().getListArticles().get(i).getTitle())) {
-              if (!checkSubscribe() && ArticlesHolder.getListArticles()
-                  .getListArticles()
-                  .get(i)
-                  .isPremium()) {
-                intent = new Intent(getActivity(), ItemArticleWithoutPremActivity.class);
-              } else {
-                intent = new Intent(getActivity(), ItemArticleActivity.class);
-              }
-              intent.putExtra(Config.ARTICLE_INTENT, i);
-              getActivity().startActivity(intent);
-              break;
-            }
-          }
-        }
-
-        private boolean checkSubscribe() {
-          SharedPreferences sharedPreferences =
-              getActivity().getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-          if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
-            return true;
-          } else {
-            return false;
-          }
+        @Override public void onItemClick(View view, int position, Article article) {
+            startDetailActivity(article);
         }
 
         @Override public void onClickAll(View view, int position, ListArticles listArticles) {
@@ -87,6 +92,12 @@ public class ListArticlesFragment extends Fragment implements Observer {
           mToolbar.setTitle(listArticles.getName());
         }
       };
+
+  private ListArticlesAdapter.OnItemClickListener clickListener = new ListArticlesAdapter.OnItemClickListener() {
+    @Override public void onItemClick(View view, Article article) {
+          startDetailActivity(article);
+    }
+  };
   private View.OnClickListener onClickListener = new View.OnClickListener() {
     @Override public void onClick(View view) {
       isSubSection = false;
@@ -139,8 +150,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
       verticalArticlesAdapter = new VerticalArticlesAdapter(sectionArticles.getGroups());
       verticalArticlesAdapter.SetOnItemClickListener(onItemClickListener);
 
-      adapter = new ListArticlesAdapter(ArticlesHolder.getListArticles().getListArticles(),
-          getActivity());
+      adapter = new ListArticlesAdapter(ArticlesHolder.getListArticles().getListArticles(), clickListener);
       recyclerView.setAdapter(verticalArticlesAdapter);
     } else {
 
@@ -181,7 +191,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
           result.add(article);
         }
       }
-      ListArticlesAdapter newAdapter = new ListArticlesAdapter(result, getActivity());
+      ListArticlesAdapter newAdapter = new ListArticlesAdapter(result, clickListener);
       recyclerView.setAdapter(newAdapter);
     }
   }
@@ -189,8 +199,10 @@ public class ListArticlesFragment extends Fragment implements Observer {
   @Override
   public void update(Observable o, Object arg) {
     adapter =
-        new ListArticlesAdapter(ArticlesHolder.getListArticles().getListArticles(), getActivity());
-    recyclerView.setAdapter(adapter);
+        new ListArticlesAdapter(ArticlesHolder.getListArticles().getListArticles(), clickListener);
+    sectionArticles = new SectionArticles(ArticlesHolder.getListArticles().getListArticles());
+    verticalArticlesAdapter = new VerticalArticlesAdapter(sectionArticles.getGroups());
+    recyclerView.setAdapter(verticalArticlesAdapter);
     ArticlesHolder.unsubscribe(this);
   }
 

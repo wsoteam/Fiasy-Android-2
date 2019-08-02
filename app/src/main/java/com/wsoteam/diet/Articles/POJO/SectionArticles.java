@@ -32,9 +32,6 @@ public class SectionArticles implements GroupsArticles {
         case "training":
           listTraining.add(article);
           break;
-        default:
-          listNutrition.add(article);
-          break;
       }
     }
   }
