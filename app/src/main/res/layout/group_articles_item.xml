@@ -35,14 +35,14 @@
       >
     <TextView
         android:id="@+id/textView132"
-        android:layout_width="48dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Все "
-        android:textSize="16sp"
         android:fontFamily="sans-serif-medium"
-        android:textStyle="normal"
+        android:text="Все "
         android:textColor="#f2994a"
+        android:textSize="16sp"
+        android:textStyle="normal"
         />
     <ImageView
         android:id="@+id/imageView43"
