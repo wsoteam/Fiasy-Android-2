@@ -10,7 +10,9 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/gradient_auth_first"/>
+        android:src="@drawable/gradient_auth_first"
+        android:visibility="gone"
+        />
 
     <ImageView
         android:id="@+id/auth_first_iv_image"
