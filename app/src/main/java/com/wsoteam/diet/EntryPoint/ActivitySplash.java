@@ -66,8 +66,6 @@ public class ActivitySplash extends BaseActivity {
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         WindowManager.LayoutParams.FLAG_FULLSCREEN);
     ButterKnife.bind(this);
-    Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
-    Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
 
     //FacebookSdk.sdkInitialize(getApplicationContext());
     //AppEventsLogger.activateApp(getApplicationContext());
