@@ -1,5 +1,9 @@
 <resources>
 
+<!--  Individual plan fragment-->
+  <string name="individualPlan">Индивидуальный план рассчитан</string>
+  <string name="recNorm">Рекомендуемая норма</string>
+
   <!--adding recipe-->
   <string name="add">Добавить</string>
   <string name="cancel">Отменить</string>

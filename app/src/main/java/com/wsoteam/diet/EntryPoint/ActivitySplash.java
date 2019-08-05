@@ -106,20 +106,20 @@ public class ActivitySplash extends BaseActivity {
       AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS,
           AmplitudaEvents.unRegistered);
       //startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
-      //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+      startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
 
-      if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(
-          Config.IS_NEED_SHOW_ONBOARD, true)) {
-        Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
-        startActivity(
-            new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
-        Log.d("kkk", "checkRegistrationAndRun: if");
-      } else {
-        Log.d("kkk", "checkRegistrationAndRun: else");
-        startActivity(
-            new Intent(ActivitySplash.this, MainAuthActivity.class).putExtra(Config.CREATE_PROFILE,
-                true));
-      }
+      //if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(
+      //    Config.IS_NEED_SHOW_ONBOARD, true)) {
+      //  Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
+      //  startActivity(
+      //      new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
+      //  Log.d("kkk", "checkRegistrationAndRun: if");
+      //} else {
+      //  Log.d("kkk", "checkRegistrationAndRun: else");
+      //  startActivity(
+      //      new Intent(ActivitySplash.this, MainAuthActivity.class).putExtra(Config.CREATE_PROFILE,
+      //          true));
+      //}
 
       finish();
     }
