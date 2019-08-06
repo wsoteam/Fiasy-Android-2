@@ -48,6 +48,7 @@ import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 
+import com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -171,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
         if (ArticlesHolder.getListArticles() == null) {
             loadArticles();
         }
+        //startActivity(new Intent(this, AfterQuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
     }
 
     private void checkForcedGrade() {

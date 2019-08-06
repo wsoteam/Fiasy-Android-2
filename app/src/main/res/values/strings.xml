@@ -1,6 +1,13 @@
 <resources>
 
+
+  <string name="individualPlanTxt">Вы достигните своей цели уже через месяц, получив доступ к уникальным статьям о здоровом питании и сотни рецептов</string>
+
+  <!--  Individual plan fragment-->
+
   <!--adding recipe-->
+  <string name="individualPlan">Индивидуальный план рассчитан</string>
+  <string name="recNorm">Рекомендуемая норма</string>
   <string name="add">Добавить</string>
   <string name="cancel">Отменить</string>
   <string name="addingRecipeText">В этом разделе будут храниться созданные вами рецепты</string>
@@ -24,6 +31,8 @@
   <string name="addingRecipeTime">Время приготовления (мин.)</string>
   <string name="addingRecipeShare">Могут видеть все пользователи</string>
   <string name="addingRecipeInfo">Созданные вами и введенные в базу рецепты или продукты могут быть доступны для других пользователей. Пожалуйста, постарайтесь заполнить приведенную выше форму максимально точно и полно.</string>
+
+  <!--Item Plan Recipe-->
   <string name="complexityRecipe">Сложность:</string>
   <string-array name="recipeComplexity">
     <item>Легкий</item>
@@ -789,10 +798,13 @@
   <string name="auth_password_hint">Пароль</string>
   <string name="auth_forgot_your_password">Забыли пароль?</string>
   <string name="auth_sign_in_alternatives">Или войти с помощью</string>
+  <string name="auth_sign_up_alternatives">Или зарегестрируйтесь с помощью</string>
 
   <string name="constraint_error_username_min_length">Минимальная длина логина 5 символов</string>
   <string name="constraint_error_password_min_length">Минимальная длина пароля 8 символов</string>
   <string name="constraint_error_username_email">Введите email</string>
+  <string name="enter_email_hint">Введите email</string>
+  <string name="repeat_password_hint">Повторите пароль</string>
 
 
 </resources>

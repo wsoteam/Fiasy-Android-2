@@ -107,4 +107,59 @@ public class BodyCalculates {
         profile.setMaxCarbo((int) carbohydrate);
         return profile;
     }
+
+    public static Profile calculateNew(Context context, Profile profile) {
+        double BMR, SPK = 0, upLineSPK, downLineSPK, SDD = 0.1;
+        double fat, protein, carbohydrate;
+        String stressLevel = profile.getExerciseStress();
+        String difficultyLevel = profile.getDifficultyLevel();
+        int maxWater;
+
+        if (profile.isFemale()) {
+            BMR = (10 * profile.getWeight() + 6.25 * profile.getHeight() - 5 * profile.getAge() - 161) + 5;
+            maxWater = WATER_ON_KG_FEMALE * (int) profile.getWeight();
+        } else {
+            BMR = (10 * profile.getWeight() + 6.25 * profile.getHeight() - 5 * profile.getAge() + 5) - 161;
+            maxWater = WATER_ON_KG_MALE * (int) profile.getWeight();
+        }
+
+        if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_none))) {
+            SPK = BMR * RATE_NONE;
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_easy))) {
+            SPK = BMR * RATE_EASY;
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_medium))) {
+            SPK = BMR * RATE_MEDIUM;
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_hard))) {
+            SPK = BMR * RATE_HARD;
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_hard))) {
+            SPK = BMR * RATE_UP_HARD;
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_super))) {
+            SPK = BMR * RATE_SUPER;
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_super))) {
+            SPK = BMR * RATE_UP_SUPER;
+        }
+
+        upLineSPK = SPK - COUNT_UP_LINE;
+        downLineSPK = SPK - COUNT_DOWN_LINE;
+
+        fat = upLineSPK * 0.2 / 9;
+        protein = upLineSPK * 0.3 / 4;
+        carbohydrate = upLineSPK * 0.5 / 3.75;
+
+        if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_easy))) {
+            profile.setMaxKcal((int) SPK);
+        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_normal))) {
+            profile.setMaxKcal((int) upLineSPK);
+        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard))) {
+            profile.setMaxKcal((int) downLineSPK);
+        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard_up))) {
+            profile.setMaxKcal((int) downLineSPK);
+        }
+
+        profile.setWaterCount(maxWater);
+        profile.setMaxFat((int) fat);
+        profile.setMaxProt((int) protein);
+        profile.setMaxCarbo((int) carbohydrate);
+        return profile;
+    }
 }

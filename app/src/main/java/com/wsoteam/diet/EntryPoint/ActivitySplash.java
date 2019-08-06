@@ -3,11 +3,11 @@ package com.wsoteam.diet.EntryPoint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.adjust.sdk.Adjust;
@@ -18,8 +18,6 @@ import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
 import com.bumptech.glide.Glide;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,14 +38,20 @@ import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.InApp.properties.EmptySubInfo;
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
 import com.wsoteam.diet.MainScreen.MainActivity;
+import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.di.CiceroneModule;
+import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.presentation.global.BaseActivity;
+import com.wsoteam.diet.presentation.global.Screens;
 import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
+import com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity;
+import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 import java.util.Calendar;
 import java.util.List;
 
@@ -66,8 +70,6 @@ public class ActivitySplash extends BaseActivity {
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         WindowManager.LayoutParams.FLAG_FULLSCREEN);
     ButterKnife.bind(this);
-    Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
-    Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
 
     //FacebookSdk.sdkInitialize(getApplicationContext());
     //AppEventsLogger.activateApp(getApplicationContext());
@@ -87,14 +89,13 @@ public class ActivitySplash extends BaseActivity {
       FirebaseDatabase database = FirebaseDatabase.getInstance();
       DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
           child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-      Log.d("fr",
+      Log.d("kkk",
           "checkRegistrationAndRun: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
       myRef.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
           new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
           checkBilling();
-          //                    startActivity(new Intent(ActivitySplash.this, ForTestFragmentActivity.class));
           startActivity(new Intent(ActivitySplash.this, MainActivity.class));
           finish();
         }
@@ -108,18 +109,21 @@ public class ActivitySplash extends BaseActivity {
           .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
       AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS,
           AmplitudaEvents.unRegistered);
-      startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
-      //            startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
-            /*
-            if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_ONBOARD, true)) {
-                Log.d("MyLogs", "2");
-                Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
-                startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
-            } else {
-                Log.d("MyLogs", "3");
-                startActivity(new Intent(ActivitySplash.this, MainAuthActivity.class).putExtra(Config.CREATE_PROFILE, true));
-            }
-            */
+      //startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
+      //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+      //startActivity(new Intent(this, AfterQuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+
+      if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(
+          Config.IS_NEED_SHOW_ONBOARD, true)) {
+        Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
+        startActivity(
+            new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
+        Log.d("kkk", "checkRegistrationAndRun: if");
+      } else {
+        Log.d("kkk", "checkRegistrationAndRun: else");
+
+      }
+
       finish();
     }
   }
