@@ -20,6 +20,18 @@
       app:layout_constraintStart_toStartOf="parent"
       />
   <ImageView
+      android:id="@+id/btnBack3"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="42dp"
+      android:foreground="?android:attr/selectableItemBackgroundBorderless"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/ic_arrow_back"
+      tools:visibility="visible"
+      />
+  <ImageView
       android:id="@+id/imageView45"
       android:layout_width="124dp"
       android:layout_height="117dp"
@@ -33,7 +45,7 @@
       android:id="@+id/textView153"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
+      android:layout_marginTop="52dp"
       android:fontFamily="sans-serif-medium"
       android:text="Мы предлагаем вам:"
       android:textColor="#de2b2b2b"

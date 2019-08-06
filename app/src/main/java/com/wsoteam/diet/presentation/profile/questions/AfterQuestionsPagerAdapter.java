@@ -15,15 +15,14 @@ public class AfterQuestionsPagerAdapter extends FragmentPagerAdapter {
   }
 
   @Override public Fragment getItem(int position) {
-    switch (position){
+    switch (position) {
       case 0:
-        return WeOfferFragments.newInstance();
-      case 1:
         return IndividualPlanFragments.newInstance();
+      case 1:
+        return WeOfferFragments.newInstance();
       default:
         return null;
     }
-
   }
 
   @Override public int getCount() {

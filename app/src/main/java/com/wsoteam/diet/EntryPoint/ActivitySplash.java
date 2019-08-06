@@ -38,15 +38,19 @@ import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.InApp.properties.EmptySubInfo;
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
 import com.wsoteam.diet.MainScreen.MainActivity;
+import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.di.CiceroneModule;
 import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.presentation.global.BaseActivity;
+import com.wsoteam.diet.presentation.global.Screens;
 import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
+import com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 import java.util.Calendar;
 import java.util.List;
@@ -106,20 +110,19 @@ public class ActivitySplash extends BaseActivity {
       AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS,
           AmplitudaEvents.unRegistered);
       //startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
-      startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+      //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+      //startActivity(new Intent(this, AfterQuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
 
-      //if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(
-      //    Config.IS_NEED_SHOW_ONBOARD, true)) {
-      //  Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
-      //  startActivity(
-      //      new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
-      //  Log.d("kkk", "checkRegistrationAndRun: if");
-      //} else {
-      //  Log.d("kkk", "checkRegistrationAndRun: else");
-      //  startActivity(
-      //      new Intent(ActivitySplash.this, MainAuthActivity.class).putExtra(Config.CREATE_PROFILE,
-      //          true));
-      //}
+      if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(
+          Config.IS_NEED_SHOW_ONBOARD, true)) {
+        Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
+        startActivity(
+            new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
+        Log.d("kkk", "checkRegistrationAndRun: if");
+      } else {
+        Log.d("kkk", "checkRegistrationAndRun: else");
+
+      }
 
       finish();
     }

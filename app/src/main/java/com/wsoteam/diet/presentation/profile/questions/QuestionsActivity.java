@@ -53,8 +53,8 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
 
     createUser = getIntent().getBooleanExtra(Config.CREATE_PROFILE, false);
 
-    //viewPager.setAdapter(new QuestionsPagerAdapter(getSupportFragmentManager()));
-    viewPager.setAdapter(new AfterQuestionsPagerAdapter(getSupportFragmentManager()));
+    viewPager.setAdapter(new QuestionsPagerAdapter(getSupportFragmentManager()));
+    //viewPager.setAdapter(new AfterQuestionsPagerAdapter(getSupportFragmentManager()));
     tabLayout.setupWithViewPager(viewPager, true);
     btnBack.setOnClickListener(view -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1));
 

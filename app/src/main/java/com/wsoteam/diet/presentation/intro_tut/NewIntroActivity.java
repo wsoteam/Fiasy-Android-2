@@ -7,8 +7,12 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
+import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.auth.MainAuthNewActivity;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 
 import butterknife.BindView;
@@ -40,10 +44,34 @@ public class NewIntroActivity extends AppCompatActivity {
                 if (viewPager.getCurrentItem() <= viewPager.getChildCount() - 1)
                     viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
                 else
-                    startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+                    //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+                {
+                    Intent intent = new Intent(this, MainAuthNewActivity.class);
+                    Box box = new Box();
+                    box.setBuyFrom(AmplitudaEvents.buy_prem_onboarding);
+                    box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);
+                    box.setOpenFromIntrodaction(true);
+                    box.setOpenFromPremPart(false);
+                    intent.putExtra(Config.CREATE_PROFILE, true)
+                        .putExtra(Config.INTENT_PROFILE, new Profile());
+                    startActivity(intent);
+                    finish();
+                }
                 break;
             case R.id.btnSkip:
-                startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+                //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+            {
+                Intent intent = new Intent(this, MainAuthNewActivity.class);
+                Box box = new Box();
+                box.setBuyFrom(AmplitudaEvents.buy_prem_onboarding);
+                box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);
+                box.setOpenFromIntrodaction(true);
+                box.setOpenFromPremPart(false);
+                intent.putExtra(Config.CREATE_PROFILE, true)
+                    .putExtra(Config.INTENT_PROFILE, new Profile());
+                startActivity(intent);
+                finish();
+            }
                 break;
         }
     }
