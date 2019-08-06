@@ -2,14 +2,12 @@ package com.wsoteam.diet.presentation.auth;
 
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.utils.IntentUtils;
 import com.wsoteam.diet.utils.RichTextUtils.RichText;
@@ -35,7 +33,7 @@ public class AuthFirstFragment extends AuthStrategyFragment {
         new RichText(getString(R.string.privacy_policy_link_span_text))
             .colorRes(requireContext(), R.color.blue)
             .underline()
-            .onClick(v -> IntentUtils.openWebLink(v.getContext(), "https://google.com"));
+            .onClick(v -> IntentUtils.openWebLink(v.getContext(), "http://fiasy.com/PrivacyPolice.html"));
 
     final TextView privacyPolicyView = view.findViewById(R.id.privacyPolicy);
     privacyPolicyView.setMovementMethod(LinkMovementMethod.getInstance());
