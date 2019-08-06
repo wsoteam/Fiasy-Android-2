@@ -21,6 +21,7 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 
@@ -118,6 +119,9 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         edtAge.setText(String.valueOf(profile.getAge()));
         edtWeight.setText(String.valueOf(profile.getWeight()));
         edtHeight.setText(String.valueOf(profile.getHeight()));
+        if (FirebaseAuth.getInstance().getCurrentUser().getEmail() != null){
+          edtEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        }
         if (profile.getPhotoUrl() != null && !profile.getPhotoUrl().equals("default")) {
             Glide.with(this).load(profile.getPhotoUrl()).into(civProfile);
         } else {
