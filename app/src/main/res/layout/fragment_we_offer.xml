@@ -5,6 +5,20 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+  <Button
+      android:id="@+id/btnNext"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/white"
+      android:elevation="10dp"
+      android:foreground="?android:attr/selectableItemBackgroundBorderless"
+      android:text="@string/auth_data_btn_next"
+      android:textAllCaps="true"
+      android:textColor="@color/orange1"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
   <ImageView
       android:id="@+id/imageView45"
       android:layout_width="124dp"
