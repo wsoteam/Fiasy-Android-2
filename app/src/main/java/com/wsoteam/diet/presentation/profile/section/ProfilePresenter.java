@@ -58,6 +58,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
   public void attachPresenter() {
     calendar = Calendar.getInstance();
+    calendar.setFirstDayOfWeek(2);
     currentTime = calendar.getTimeInMillis();
     Amplitude.getInstance().logEvent(AmplitudaEvents.view_profile);
     bindFields();

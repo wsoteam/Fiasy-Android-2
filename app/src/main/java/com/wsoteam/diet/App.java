@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
 import com.amplitude.api.Amplitude;
+import com.bugsee.library.Bugsee;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orm.SugarContext;
@@ -51,7 +52,7 @@ public class App extends Application
         YandexMetrica.enableActivityAutoTracking(this);
         FirebaseApp.initializeApp(getApplicationContext());
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-//        Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
+        Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
         Adjust.onCreate(new AdjustConfig(this, EventsAdjust.app_token, AdjustConfig.ENVIRONMENT_PRODUCTION));
         registerActivityLifecycleCallbacks(new AdjustLifecycleCallbacks());
         Amplitude.getInstance().trackSessionEvents(true);
