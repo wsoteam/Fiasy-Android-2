@@ -26,6 +26,8 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.presentation.profile.dialogs.DifLevelDialogFragment;
+import com.wsoteam.diet.utils.InputValidation;
+import com.wsoteam.diet.utils.InputValidation.ValueRangeValidator;
 import com.yandex.metrica.YandexMetrica;
 import java.util.Calendar;
 
@@ -111,46 +113,6 @@ public class EditProfileIntrodaction extends AppCompatActivity
     year = calendar.get(Calendar.YEAR);
 
     YandexMetrica.reportEvent("Открыт экран: Редактировать профиль");
-  }
-
-  static int getIntValue(EditText input, int defaultValue) {
-    try {
-      return Integer.parseInt(input.getText().toString());
-    } catch (NumberFormatException e) {
-      return defaultValue;
-    }
-  }
-
-  static boolean inBetween(int value, int min, int max) {
-    return value >= min && max >= value;
-  }
-
-  static interface InputValidation {
-    /**
-     * @param input EditText to test
-     * @return Error message if fails to validate
-     */
-    CharSequence validate(EditText input);
-  }
-
-  static class ValueRangeValidator implements InputValidation {
-    private final int errorMessageid;
-    private final int allowedMinValue;
-    private final int allowedMaxValue;
-
-    ValueRangeValidator(int allowedMinValue, int allowedMaxValue, int errorMessageid) {
-      this.errorMessageid = errorMessageid;
-      this.allowedMinValue = allowedMinValue;
-      this.allowedMaxValue = allowedMaxValue;
-    }
-
-    @Override public CharSequence validate(EditText input) {
-      if (inBetween(getIntValue(input, -1), allowedMinValue, allowedMaxValue)) {
-        return null;
-      } else {
-        return input.getContext().getString(errorMessageid);
-      }
-    }
   }
 
   private static SparseArrayCompat<ValueRangeValidator> validators =

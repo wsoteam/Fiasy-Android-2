@@ -785,6 +785,14 @@
   <string name="privacy_policy_link_span_text">Политики конфиндециальности</string>
   <string name="sign_in_already_have_account">У вас уже есть аккаунт?</string>
   <string name="action_sign_in_label">Войти</string>
+  <string name="auth_login_hint">Логин</string>
+  <string name="auth_password_hint">Пароль</string>
+  <string name="auth_forgot_your_password">Забыли пароль?</string>
+  <string name="auth_sign_in_alternatives">Или войти с помощью</string>
+
+  <string name="constraint_error_username_min_length">Минимальная длина логина 5 символов</string>
+  <string name="constraint_error_password_min_length">Минимальная длина пароля 8 символов</string>
+  <string name="constraint_error_username_email">Введите email</string>
 
 
 </resources>

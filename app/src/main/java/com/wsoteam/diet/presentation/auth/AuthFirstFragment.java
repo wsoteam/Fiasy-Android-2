@@ -42,7 +42,7 @@ public class AuthFirstFragment extends AuthStrategyFragment {
 
     final RichText actionSignIn = new RichText(getString(R.string.action_sign_in_label))
         .colorRes(requireContext(), R.color.blue)
-        .onClick(v -> authorize(null));
+        .onClick(v -> signIn());
 
     final TextView signInView = view.findViewById(R.id.signIn);
     signInView.setMovementMethod(LinkMovementMethod.getInstance());
@@ -50,5 +50,14 @@ public class AuthFirstFragment extends AuthStrategyFragment {
         actionSignIn.text()));
 
     bindAuthStrategies();
+  }
+
+  protected void signIn(){
+    requireFragmentManager()
+        .beginTransaction()
+        .hide(this)
+        .add(R.id.container, new SignInFragment())
+        .addToBackStack(SignInFragment.class.getName())
+        .commitAllowingStateLoss();
   }
 }
