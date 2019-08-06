@@ -9,14 +9,18 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
@@ -24,8 +28,6 @@ import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.CombinedChart;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.MarkerImage;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -49,19 +51,11 @@ import com.wsoteam.diet.common.views.graph.formater.XWeekFormatter;
 import com.wsoteam.diet.common.views.graph.formater.XYearFormatter;
 import com.wsoteam.diet.common.views.graph.marker.BarMarker;
 import com.wsoteam.diet.presentation.profile.settings.ProfileSettingsActivity;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 import de.hdodenhof.circleimageview.CircleImageView;
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Inject;
 
 public class ProfileFragment extends MvpAppCompatFragment implements ProfileView {
   @BindView(R.id.ibSettings) ImageButton ibProfileEdit;
@@ -86,6 +80,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
   @BindView(R.id.gv) CombinedChart gv;
   @BindView(R.id.tvTopDateSwitcher) TextView tvTopDateSwitcher;
   @BindView(R.id.tvBottomDateSwitcher) TextView tvBottomDateSwitcher;
+  @BindView(R.id.rgrpInterval) RadioGroup rgrpInterval;
   private boolean isOpen = false;
   private float MAX_PROGRESS = 100;
   private long time = 500, periodTick = 5, countTick = 100;
@@ -273,8 +268,12 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
   @Override
   public void onResume() {
     super.onResume();
-
     profilePresenter.attachPresenter();
+    clearSwitch();
+  }
+
+  private void clearSwitch() {
+    rgrpInterval.check(R.id.rbtnWeek);
   }
 
   @Nullable
@@ -293,7 +292,9 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
   }
 
   private void setPhoto(Profile profile) {
-    if (profile.getPhotoUrl() != null && !profile.getPhotoUrl().equals("default") && !profile.getPhotoUrl().equals("")) {
+    if (profile.getPhotoUrl() != null
+        && !profile.getPhotoUrl().equals("default")
+        && !profile.getPhotoUrl().equals("")) {
       Glide.with(this).load(profile.getPhotoUrl()).into(civProfile);
     } else {
       if (profile.isFemale()) {
