@@ -47,6 +47,8 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
   AboutPresenter aboutPresenter;
   private static final int CAMERA_REQUEST = 0;
   private static final int GALLERY_PICTURE = 1;
+  private static final int IMAGE_WIDTH = 390;
+  private static final int IMAGE_HEIGHT = 520;
   @BindView(R.id.civProfile) CircleImageView civProfile;
   @BindView(R.id.edtName) EditText edtName;
   @BindView(R.id.edtSecondName) EditText edtSecondName;
@@ -212,7 +214,7 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
       myAlertDialog.setTitle("Загрузка фото");
       myAlertDialog.setMessage("Откуда берем фото?");
 
-      myAlertDialog.setPositiveButton("Галерея",
+      myAlertDialog.setPositiveButton("Память телефона",
           new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface arg0, int arg1) {
               Intent galleryIntent = new Intent(Intent.ACTION_PICK,
@@ -241,14 +243,12 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
     } else if (requestCode == GALLERY_PICTURE && resultCode == Activity.RESULT_OK) {
       try {
         Uri selectedImage = data.getData();
-        String path = selectedImage.getPath();
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+        bitmap = Bitmap.createScaledBitmap(bitmap, IMAGE_WIDTH, IMAGE_HEIGHT, false);
         Glide.with(this).load(bitmap).into(civProfile);
         aboutPresenter.uploadPhoto(bitmap);
-      }catch (Exception ex){
-
+      } catch (Exception ex) {
+        Log.e("Error", ex.getMessage());
       }
     }
   }
