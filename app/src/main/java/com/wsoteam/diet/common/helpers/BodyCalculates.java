@@ -109,34 +109,34 @@ public class BodyCalculates {
     }
 
     public static Profile calculateNew(Context context, Profile profile) {
-        double BMR, SPK = 0, upLineSPK, downLineSPK, SDD = 0.1;
+        double BOO, SPK = 0, upLineSPK, downLineSPK, SDD = 0.1;
         double fat, protein, carbohydrate;
         String stressLevel = profile.getExerciseStress();
         String difficultyLevel = profile.getDifficultyLevel();
         int maxWater;
 
         if (profile.isFemale()) {
-            BMR = (10 * profile.getWeight() + 6.25 * profile.getHeight() - 5 * profile.getAge() - 161) + 5;
+            BOO = (9.99 * profile.getWeight() + 6.25 * profile.getHeight() - 4.92 * profile.getAge() - 161) * 1.1;
             maxWater = WATER_ON_KG_FEMALE * (int) profile.getWeight();
         } else {
-            BMR = (10 * profile.getWeight() + 6.25 * profile.getHeight() - 5 * profile.getAge() + 5) - 161;
+            BOO = (9.99 * profile.getWeight() + 6.25 * profile.getHeight() - 4.92 * profile.getAge() + 5) * 1.1;
             maxWater = WATER_ON_KG_MALE * (int) profile.getWeight();
         }
 
         if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_none))) {
-            SPK = BMR * RATE_NONE;
+            SPK = BOO * RATE_NONE;
         } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_easy))) {
-            SPK = BMR * RATE_EASY;
+            SPK = BOO * RATE_EASY;
         } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_medium))) {
-            SPK = BMR * RATE_MEDIUM;
+            SPK = BOO * RATE_MEDIUM;
         } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_hard))) {
-            SPK = BMR * RATE_HARD;
+            SPK = BOO * RATE_HARD;
         } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_hard))) {
-            SPK = BMR * RATE_UP_HARD;
+            SPK = BOO * RATE_UP_HARD;
         } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_super))) {
-            SPK = BMR * RATE_SUPER;
+            SPK = BOO * RATE_SUPER;
         } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_super))) {
-            SPK = BMR * RATE_UP_SUPER;
+            SPK = BOO * RATE_UP_SUPER;
         }
 
         upLineSPK = SPK - COUNT_UP_LINE;

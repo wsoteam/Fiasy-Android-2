@@ -80,6 +80,7 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
                 intent.putExtra(Config.INTENT_PROFILE, profile);
             }
             startActivity(intent);
+            finish();
         } else {
             if (profile != null) {
                 WorkWithFirebaseDB.putProfileValue(profile);

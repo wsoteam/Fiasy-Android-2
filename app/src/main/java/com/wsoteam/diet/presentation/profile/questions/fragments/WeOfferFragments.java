@@ -1,6 +1,5 @@
 package com.wsoteam.diet.presentation.profile.questions.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity;
 
 public class WeOfferFragments extends Fragment {
 
@@ -36,8 +35,9 @@ public class WeOfferFragments extends Fragment {
 
   @OnClick(R.id.btnNext)
   void clickNext(){
-    Intent intent = new Intent(getContext(), ActivitySplash.class);
-    startActivity(intent);
-    getActivity().finish();
+    ((AfterQuestionsActivity)getActivity()).nextQuestion();
+    //Intent intent = new Intent(getContext(), ActivitySplash.class);
+    //startActivity(intent);
+    //getActivity().finish();
   }
 }
