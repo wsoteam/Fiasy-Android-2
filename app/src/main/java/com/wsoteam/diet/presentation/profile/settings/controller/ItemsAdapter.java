@@ -33,10 +33,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
     int drawableArrow;
     private final int PREMIUM = 0, FOOD = 1, PERSONAL = 2, NOTIFICATIONS = 3, TARGET = 4, HELP = 5, LOGOUT = 6;
 
-    public ItemsAdapter(Context context, boolean isPrem) {
+    public ItemsAdapter(Context context, boolean isNotPrem) {
         this.context = context;
-        this.isNotPrem = isPrem;
-        if (isPrem) {
+        this.isNotPrem = isNotPrem;
+        if (isNotPrem) {
             names = context.getResources().getStringArray(R.array.settings_items);
             this.drawablesLeft = context.getResources().obtainTypedArray(R.array.left_drawables);
         } else {

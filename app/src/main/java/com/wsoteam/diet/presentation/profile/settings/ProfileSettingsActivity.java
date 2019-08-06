@@ -5,9 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.profile.settings.controller.ItemsAdapter;
 
@@ -37,7 +39,7 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
         setContentView(R.layout.activity_profile_settings);
         ButterKnife.bind(this);
         rvSettingsItems.setLayoutManager(new LinearLayoutManager(this));
-        rvSettingsItems.setAdapter(new ItemsAdapter(this, true));
+        rvSettingsItems.setAdapter(new ItemsAdapter(this, !getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).getBoolean(Config.STATE_BILLING, false)));
     }
 
     @OnClick(R.id.ibBack)
