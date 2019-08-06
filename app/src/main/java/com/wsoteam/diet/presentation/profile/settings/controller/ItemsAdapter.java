@@ -1,9 +1,12 @@
 package com.wsoteam.diet.presentation.profile.settings.controller;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -107,19 +110,39 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
                 context.startActivity(new Intent(context, HelpActivity.class));
                 break;
             case LOGOUT:
-                FirebaseAuth.getInstance().signOut();
-                LoginManager.getInstance().logOut();
-                UserDataHolder.clearObject();
-                intent = new Intent(context, ActivitySplash.class).
-                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                context.startActivity(intent);
+              AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(context);
+              myAlertDialog.setTitle("Выход");
+              myAlertDialog.setMessage("Вы хотите выйти из учетной записи?");
+
+              myAlertDialog.setPositiveButton("Да",
+                  new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                      exitUser();
+                    }
+                  });
+
+              myAlertDialog.setNegativeButton("Нет",
+                  new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                    }
+                  });
+              myAlertDialog.show();
                 break;
         }
 
     }
 
+  private void exitUser() {
+    Intent intent;
+    FirebaseAuth.getInstance().signOut();
+    LoginManager.getInstance().logOut();
+    UserDataHolder.clearObject();
+    intent = new Intent(context, ActivitySplash.class).
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    context.startActivity(intent);
+  }
 
-    @Override
+  @Override
     public int getItemCount() {
         return names.length;
     }
