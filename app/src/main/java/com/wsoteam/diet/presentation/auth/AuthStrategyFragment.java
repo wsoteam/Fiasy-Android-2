@@ -13,6 +13,8 @@ import androidx.lifecycle.Observer;
 import com.google.firebase.auth.FirebaseUser;
 import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.utils.RichTextUtils.RichText;
+import com.wsoteam.diet.views.InAppNotification;
 
 public abstract class AuthStrategyFragment extends Fragment {
 
@@ -35,6 +37,8 @@ public abstract class AuthStrategyFragment extends Fragment {
       };
 
   private AuthStrategy authStrategy;
+
+  private InAppNotification notification;
 
   protected <T extends AuthStrategy> T getStrategyByType(Class<T> strategyType) {
     final AuthStrategy strategy;
@@ -72,17 +76,40 @@ public abstract class AuthStrategyFragment extends Fragment {
   }
 
   protected void prepareAuthStrategy(AuthStrategy strategy) {
+    getNotification().setText(getString(R.string.auth_state_logging_in));
+    getNotification().setProgressVisible(true, false);
 
+    getNotification().show(getView(), InAppNotification.DURATION_FOREVER);
   }
 
   protected void onAuthorized(FirebaseUser user) {
     if (BuildConfig.DEBUG) {
       Log.d("AuthStrategy", "Logged in as: " + user.getDisplayName());
     }
+
+    if (getNotification().isAttached()) {
+      getNotification().setProgressVisible(false, true);
+
+      if (TextUtils.isEmpty(user.getDisplayName())) {
+        getNotification().setText("Добро пожаловать :)");
+      } else {
+        getNotification().setText(TextUtils.concat("Привет, ", new RichText(user.getDisplayName())
+            .bold()
+            .text()));
+      }
+
+      getNotification().delayedDismiss(1500);
+    }
   }
 
   protected void onAuthException(Throwable error) {
     error.printStackTrace();
+
+    if (getNotification().isAttached()) {
+      getNotification().setProgressVisible(false, true);
+      getNotification().setText("Пользователь не найден :(");
+      getNotification().delayedDismiss(1500);
+    }
   }
 
   protected void authorize(Class<? extends AuthStrategy> strategyType) {
@@ -152,11 +179,17 @@ public abstract class AuthStrategyFragment extends Fragment {
             (Class<? extends AuthStrategy>) Class.forName(className);
 
         setAuthStrategy(getStrategyByType(currentAuthStrategy));
-
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
       }
     }
+  }
+
+  private InAppNotification getNotification() {
+    if (notification == null) {
+      notification = new InAppNotification(requireContext());
+    }
+    return notification;
   }
 
   @Override public void onSaveInstanceState(@NonNull Bundle outState) {

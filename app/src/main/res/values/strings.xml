@@ -806,6 +806,7 @@
   <string name="enter_email_hint">Введите email</string>
   <string name="repeat_password_hint">Повторите пароль</string>
   <string name="constraint_error_passwords_must_match">Пароли должны совпадать</string>
+  <string name="auth_state_logging_in">Авторизуем</string>
 
 
 </resources>
