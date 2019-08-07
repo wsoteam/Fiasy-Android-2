@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.plans.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay;
 import com.wsoteam.diet.helper.NounsDeclension;
 import com.wsoteam.diet.presentation.plans.DateHelper;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,12 +45,10 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
     Date currentDate = new Date();
     Date startDate = DateHelper.stringToDate(dietPlan.getStartDate());
-    Log.d("kkk", "VerticalDetailPlansAdapter: " + dietPlan.getStartDate());
     if (startDate != null){
       long milliseconds = currentDate.getTime() - startDate.getTime();
       // 24 часа = 1 440 минут = 1 день
       daysAfterStart = (int) (milliseconds / (24 * 60 * 60 * 1000));
-      Log.d("kkk", "VerticalDetailPlansAdapter: " + daysAfterStart);
     }
 
   }
@@ -228,9 +228,10 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
   class DiaryRecipesViewHolder extends RecyclerView.ViewHolder {
 
-    //            R.layout.diary_recipe_plans
     @BindView(R.id.tvDay) TextView tvDays;
+    @BindView(R.id.tvYouAdded) TextView tvYouAdded;
     @BindView(R.id.llRecipeContainer) LinearLayout recipeContainer;
+    List<RecipeItem> recipeItemList;
 
     public DiaryRecipesViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -241,15 +242,40 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       tvDays.setText("День " + ++position);
       recipeContainer.removeAllViews();
 
-      for (RecipeItem recipe :
-          recipeForDays.get(position).getBreakfast()) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.diary_recipe_plans_item, null);
-        TextView tvName = view.findViewById(R.id.tvRecipeName);
-        TextView tvCalories = view.findViewById(R.id.tvCalories);
+      recipeItemList = new ArrayList<>();
+      getAddedRecipe(recipeForDays.get(position).getBreakfast());
+      getAddedRecipe(recipeForDays.get(position).getLunch());
+      getAddedRecipe(recipeForDays.get(position).getDinner());
+      getAddedRecipe(recipeForDays.get(position).getSnack());
 
-        tvName.setText(recipe.getName());
-        tvCalories.setText(recipe.getCalories() + " ккал");
-        recipeContainer.addView(view);
+      if (recipeItemList.size() > 0) {
+        Log.d("kkk", "bind: 1");
+        tvDays.setTextColor(Color.parseColor("#8a000000"));
+        tvYouAdded.setText("Вы занесли в дневник: ");
+        for (RecipeItem recipe :
+            recipeItemList) {
+          View view = LayoutInflater.from(mContext).inflate(R.layout.diary_recipe_plans_item, null);
+          TextView tvName = view.findViewById(R.id.tvRecipeName);
+          TextView tvCalories = view.findViewById(R.id.tvCalories);
+
+          tvName.setText(recipe.getName());
+          tvCalories.setText(recipe.getCalories() + " ккал");
+          recipeContainer.addView(view);
+        }
+      } else {
+        Log.d("kkk", "bind: 2");
+        tvDays.setTextColor(Color.parseColor("#8acc0808"));
+        tvYouAdded.setText("Вы ничего не выбрали");
+      }
+    }
+
+    private void getAddedRecipe(List<RecipeItem> recipeItems){
+      for (RecipeItem recipe:
+      recipeItems) {
+        if (recipe.isAddedInDiaryFromPlan()){
+          Log.d("kkk", "getAddedRecipe: ");
+          recipeItemList.add(recipe);
+        }
       }
     }
 

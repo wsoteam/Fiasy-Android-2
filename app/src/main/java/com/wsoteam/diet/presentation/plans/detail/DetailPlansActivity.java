@@ -85,17 +85,7 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
     setContentView(R.layout.activity_detail_plans);
     ButterKnife.bind(this);
 
-    getDietPlan();
 
-    Log.d("kkk", "onCreate: " + UserDataHolder.getUserData().getPlan());
-
-    plan = (DietPlan) getIntent().getSerializableExtra(Config.DIETS_PLAN_INTENT);
-    if (UserDataHolder.getUserData() != null
-        && UserDataHolder.getUserData().getPlan() != null
-        && UserDataHolder.getUserData().getPlan().getName().equals(plan.getName())) {
-      btnJoin.setVisibility(View.GONE);
-      plan = UserDataHolder.getUserData().getPlan();
-    }
 
     getWindow().getDecorView().setSystemUiVisibility(
         View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -114,7 +104,17 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
 
     recycler.setLayoutManager(new LinearLayoutManager(this));
 
-    plan.setRecipes(presenter.getList(), presenter.plansRecipe.size());
+    plan = (DietPlan) getIntent().getSerializableExtra(Config.DIETS_PLAN_INTENT);
+    if (UserDataHolder.getUserData() != null
+        && UserDataHolder.getUserData().getPlan() != null
+        && UserDataHolder.getUserData().getPlan().getName().equals(plan.getName())) {
+      btnJoin.setVisibility(View.GONE);
+      plan = UserDataHolder.getUserData().getPlan();
+      Log.d("kkk", "onCreate: " + plan.getRecipeForDays().get(5).getBreakfast().get(0).isAddedInDiaryFromPlan());
+    } else {
+      getDietPlan();
+      plan.setRecipes(presenter.getList(), presenter.plansRecipe.size());
+    }
     adapter = new VerticalDetailPlansAdapter(plan);
     adapter.SetOnItemClickListener(adapterListener);
     recycler.setAdapter(adapter);
@@ -162,6 +162,6 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
   @Override
   protected void onResume() {
     super.onResume();
-    getDietPlan();
+    //getDietPlan();
   }
 }
