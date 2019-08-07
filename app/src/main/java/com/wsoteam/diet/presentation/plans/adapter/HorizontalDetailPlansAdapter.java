@@ -45,8 +45,6 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
           @Override public void onClick(View v) {
             mItemClickListener.onItemClick(recipeItems.get(holder.getAdapterPosition()),
                 String.valueOf(day), meal, String.valueOf(holder.getAdapterPosition()));
-            //mItemClickListener.onItemClick(new RecipeItem(),
-            //    "", "", "");
           }
         });
         return holder;

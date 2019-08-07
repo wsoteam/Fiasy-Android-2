@@ -30,7 +30,6 @@ public class RecipeItem implements Serializable {
 
   private int portions;
   private String key;
-  private String startDate;
   private boolean addedInDiaryFromPlan;
 
   private List<String> ingredients;
@@ -49,7 +48,7 @@ public class RecipeItem implements Serializable {
       double percentFats, double carbohydrates, double proteins,
       double fats, double cellulose, double sugar, double saturatedFats,
       double unSaturatedFats, double cholesterol, double sodium, double potassium,
-      int portions, String key, String startDate, boolean addedInDiaryFromPlan,
+      int portions, String key, boolean addedInDiaryFromPlan,
       List<String> ingredients, List<String> instruction) {
     this.url = url;
     this.name = name;
@@ -71,7 +70,6 @@ public class RecipeItem implements Serializable {
     this.potassium = potassium;
     this.portions = portions;
     this.key = key;
-    this.startDate = startDate;
     this.addedInDiaryFromPlan = addedInDiaryFromPlan;
     this.ingredients = ingredients;
     this.instruction = instruction;
@@ -291,14 +289,6 @@ public class RecipeItem implements Serializable {
 
   public void setKey(String key) {
     this.key = key;
-  }
-
-  public String getStartDate() {
-    return startDate;
-  }
-
-  public void setStartDate(String startDate) {
-    this.startDate = startDate;
   }
 
   public boolean isAddedInDiaryFromPlan() {

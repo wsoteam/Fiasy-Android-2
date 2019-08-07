@@ -11,27 +11,27 @@ public class ForUploadModel {
 
     public static void upload() {
         List<DietPlan> dietPlans = new ArrayList<>();
-        dietPlans.add(new DietPlan("имя плана питания", 0, "описание диеты", "ссылка на изображение", "метка", true));
-        dietPlans.add(new DietPlan("имя плана питания", 0, "описание диеты", "ссылка на изображение", "метка", true));
-        dietPlans.add(new DietPlan("имя плана питания", 0, "описание диеты", "ссылка на изображение", "метка", true));
+        dietPlans.add(getDietPlan());
+        dietPlans.add(getDietPlan());
+        dietPlans.add(getDietPlan());
 
         DietsList dietsList = new DietsList("имя группы диет", "описание группы диет", dietPlans);
 
         List<DietPlan> dietPlans1 = new ArrayList<>();
-        dietPlans1.add(new DietPlan("имя плана питания", 0, "описание диеты", "ссылка на изображение", "метка", true));
-        dietPlans1.add(new DietPlan("имя плана питания", 0, "описание диеты", "ссылка на изображение", "метка", true));
-        dietPlans1.add(new DietPlan("имя плана питания", 0, "описание диеты", "ссылка на изображение", "метка", true));
-        dietPlans1.add(new DietPlan("имя плана питания", 0, "описание диеты", "ссылка на изображение", "метка", true));
-        dietPlans1.add(new DietPlan("имя плана питания", 0, "описание диеты", "ссылка на изображение", "метка", true));
+        dietPlans1.add(getDietPlan());
+        dietPlans1.add(getDietPlan());
+        dietPlans1.add(getDietPlan());
+        dietPlans1.add(getDietPlan());
+        dietPlans1.add(getDietPlan());
 
         DietsList dietsList1 = new DietsList("имя группы диет", "описание группы диет", dietPlans1);
 
         List<DietPlan> dietPlans2 = new ArrayList<>();
-        dietPlans2.add(new DietPlan("имя плана питания", 0, "описание диеты", "ссылка на изображение", "метка", true));
-        dietPlans2.add(new DietPlan("имя плана питания", 0, "описание диеты", "ссылка на изображение", "метка", true));
-        dietPlans2.add(new DietPlan("имя плана питания", 0, "описание диеты", "ссылка на изображение", "метка", true));
-        dietPlans2.add(new DietPlan("имя плана питания", 0, "описание диеты", "ссылка на изображение", "метка", true));
-        dietPlans2.add(new DietPlan("имя плана питания", 0, "описание диеты", "ссылка на изображение", "метка", true));
+        dietPlans2.add(getDietPlan());
+        dietPlans2.add(getDietPlan());
+        dietPlans2.add(getDietPlan());
+        dietPlans2.add(getDietPlan());
+        dietPlans2.add(getDietPlan());
 
         DietsList dietsList2 = new DietsList("имя группы диет", "описание группы диет", dietPlans2);
 
@@ -46,5 +46,9 @@ public class ForUploadModel {
         DatabaseReference myRef = database.getReference("PLANS");
         myRef.setValue(dietModule);
 
+    }
+
+    public static DietPlan getDietPlan(){
+        return new DietPlan("имя плана питания", 0, "описание диеты", "ссылка на изображение", "метка", true, "");
     }
 }

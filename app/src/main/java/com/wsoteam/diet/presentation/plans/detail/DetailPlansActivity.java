@@ -22,9 +22,11 @@ import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.global.BaseActivity;
+import com.wsoteam.diet.presentation.plans.DateHelper;
 import com.wsoteam.diet.presentation.plans.adapter.HorizontalDetailPlansAdapter;
 import com.wsoteam.diet.presentation.plans.adapter.VerticalDetailPlansAdapter;
 import dagger.android.AndroidInjection;
+import java.util.Date;
 import javax.inject.Inject;
 
 public class DetailPlansActivity extends BaseActivity implements DetailPlansView {
@@ -92,6 +94,7 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
         && UserDataHolder.getUserData().getPlan() != null
         && UserDataHolder.getUserData().getPlan().getName().equals(plan.getName())) {
       btnJoin.setVisibility(View.GONE);
+      plan = UserDataHolder.getUserData().getPlan();
     }
 
     getWindow().getDecorView().setSystemUiVisibility(
@@ -121,6 +124,8 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
   void onClicked(View view) {
     switch (view.getId()) {
       case R.id.btnJoin: {
+
+        plan.setStartDate(DateHelper.dateToString(new Date()));
         WorkWithFirebaseDB.joinDietPlan(plan);
         btnJoin.setVisibility(View.GONE);
       }

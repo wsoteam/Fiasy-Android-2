@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay;
 import com.wsoteam.diet.helper.NounsDeclension;
+import com.wsoteam.diet.presentation.plans.DateHelper;
+import java.util.Date;
 import java.util.List;
 
 public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -31,11 +34,23 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   private HorizontalDetailPlansAdapter.OnItemClickListener mItemClickListener;
   private Context mContext;
   private RecyclerView.RecycledViewPool viewPool;
+  private int daysAfterStart;
 
   public VerticalDetailPlansAdapter(DietPlan dietPlan) {
     this.recipeForDays = dietPlan.getRecipeForDays();
     this.dietPlan = dietPlan;
     viewPool = new RecyclerView.RecycledViewPool();
+
+    Date currentDate = new Date();
+    Date startDate = DateHelper.stringToDate(dietPlan.getStartDate());
+    Log.d("kkk", "VerticalDetailPlansAdapter: " + dietPlan.getStartDate());
+    if (startDate != null){
+      long milliseconds = currentDate.getTime() - startDate.getTime();
+      // 24 часа = 1 440 минут = 1 день
+      daysAfterStart = (int) (milliseconds / (24 * 60 * 60 * 1000));
+      Log.d("kkk", "VerticalDetailPlansAdapter: " + daysAfterStart);
+    }
+
   }
 
   public void updateList(List<RecipeForDay> recipeForDays) {
@@ -113,7 +128,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   public int getItemViewType(int position) {
     if (position == 0) {
       return R.layout.plans_header_item;
-    } else if (position > 0 && position < 5) {
+    } else if (position > 0 && position < daysAfterStart) {
       return R.layout.diary_recipe_plans;
     } else {
       return R.layout.detail_plans_day_item;
@@ -235,6 +250,19 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
         tvName.setText(recipe.getName());
         tvCalories.setText(recipe.getCalories() + " ккал");
         recipeContainer.addView(view);
+      }
+    }
+
+    private void addRecipe(LinearLayout linearLayout, List<RecipeItem> recipeItems){
+      for (RecipeItem recipe:
+      recipeItems) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.diary_recipe_plans_item, null);
+        TextView tvName = view.findViewById(R.id.tvRecipeName);
+        TextView tvCalories = view.findViewById(R.id.tvCalories);
+
+        tvName.setText(recipe.getName());
+        tvCalories.setText(recipe.getCalories() + " ккал");
+        linearLayout.addView(view);
       }
     }
   }
