@@ -792,6 +792,10 @@
 
   <string name="privacy_policy_title">Ознакомиться с условиями</string>
   <string name="privacy_policy_link_span_text">Политики конфиндециальности</string>
+
+  <string name="sign_up_privacy_policy_title">я согласен с условиями с </string>
+  <string name="sign_up_privacy_policy_link_span_text">политикой конфиндециальности</string>
+
   <string name="sign_in_already_have_account">У вас уже есть аккаунт?</string>
   <string name="action_sign_in_label">Войти</string>
   <string name="auth_login_hint">Логин</string>
