@@ -805,6 +805,7 @@
   <string name="constraint_error_username_email">Введите email</string>
   <string name="enter_email_hint">Введите email</string>
   <string name="repeat_password_hint">Повторите пароль</string>
+  <string name="constraint_error_passwords_must_match">Пароли должны совпадать</string>
 
 
 </resources>

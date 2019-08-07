@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.collection.SparseArrayCompat;
 import com.google.android.material.textfield.TextInputLayout;
+import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.auth.EmailLoginAuthStrategy.Account;
 import com.wsoteam.diet.utils.InputValidation;
 import com.wsoteam.diet.utils.InputValidation.EmailValidation;
 import com.wsoteam.diet.utils.InputValidation.MinLengthValidation;
@@ -31,7 +34,11 @@ public class SignInFragment extends AuthStrategyFragment {
     ));
 
     formValidators.put(R.id.password, Arrays.asList(
-        new MinLengthValidation(R.string.constraint_error_password_min_length, 8)
+        new MinLengthValidation(R.string.constraint_error_password_min_length, 7)
+    ));
+
+    formValidators.put(R.id.password2, Arrays.asList(
+        new MinLengthValidation(R.string.constraint_error_password_min_length, 7)
     ));
   }
 
@@ -63,6 +70,10 @@ public class SignInFragment extends AuthStrategyFragment {
     return inflater.inflate(R.layout.fragment_auth_login, container, false);
   }
 
+  protected List<TextInputLayout> getFormInputs() {
+    return formInputs;
+  }
+
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
@@ -80,6 +91,9 @@ public class SignInFragment extends AuthStrategyFragment {
 
     bindAuthStrategies();
 
+    view.findViewById(R.id.backButton)
+        .setOnClickListener(v -> getFragmentManager().popBackStack());
+
     signInButton = view.findViewById(R.id.auth_strategy_login);
     signInButton.setEnabled(false);
     signInButton.setOnClickListener(v -> {
@@ -89,7 +103,31 @@ public class SignInFragment extends AuthStrategyFragment {
     });
   }
 
-  private boolean validateForm(boolean displayError) {
+  @Override protected void prepareAuthStrategy(AuthStrategy strategy) {
+    super.prepareAuthStrategy(strategy);
+
+    if (strategy instanceof EmailLoginAuthStrategy) {
+      final EmailLoginAuthStrategy prep = (EmailLoginAuthStrategy) strategy;
+      prep.setAccount(getUserInputAccount());
+    }
+  }
+
+  protected Account getUserInputAccount() {
+    String username = null;
+    String password = null;
+
+    for (TextInputLayout formInput : formInputs) {
+      if (formInput.getId() == R.id.username) {
+        username = formInput.getEditText().getText().toString();
+      } else if (formInput.getId() == R.id.password){
+        password = formInput.getEditText().getText().toString();
+      }
+    }
+
+    return new Account(username, password, true);
+  }
+
+  protected boolean validateForm(boolean displayError) {
     if (getView() == null) {
       return false;
     }
@@ -105,11 +143,21 @@ public class SignInFragment extends AuthStrategyFragment {
         final CharSequence error = validator.validate(target.getEditText());
 
         if (!TextUtils.isEmpty(error)) {
+          if (BuildConfig.DEBUG) {
+            Log.d("ManualAuth", String.format("%s throws an error: %s",
+                validator.getClass().getSimpleName(), error));
+          }
+
           if (displayError) {
             target.setError(error);
           }
 
           return false;
+        } else {
+          if (BuildConfig.DEBUG) {
+            Log.d("ManualAuth", String.format("%s passed",
+                validator.getClass().getSimpleName()));
+          }
         }
       }
     }

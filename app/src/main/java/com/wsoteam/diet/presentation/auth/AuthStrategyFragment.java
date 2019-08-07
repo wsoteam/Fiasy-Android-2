@@ -20,6 +20,7 @@ public abstract class AuthStrategyFragment extends Fragment {
       new SparseArrayCompat<Class<? extends AuthStrategy>>() {{
         put(R.id.auth_strategy_google, GoogleAuthStrategy.class);
         put(R.id.auth_strategy_facebook, FacebookAuthStrategy.class);
+        put(R.id.auth_strategy_login, EmailLoginAuthStrategy.class);
       }};
 
   protected final Observer<AuthStrategy.AuthenticationResult> userObserver =
@@ -41,6 +42,8 @@ public abstract class AuthStrategyFragment extends Fragment {
       strategy = new GoogleAuthStrategy(this);
     } else if (strategyType == FacebookAuthStrategy.class) {
       strategy = new FacebookAuthStrategy(this);
+    } else if (strategyType == EmailLoginAuthStrategy.class) {
+      strategy = new EmailLoginAuthStrategy(this);
     } else {
       strategy = null;
     }

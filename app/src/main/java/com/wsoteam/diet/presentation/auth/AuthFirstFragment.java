@@ -49,7 +49,18 @@ public class AuthFirstFragment extends AuthStrategyFragment {
     signInView.setText(concat(getString(R.string.sign_in_already_have_account), " ",
         actionSignIn.text()));
 
+    view.findViewById(R.id.signUp).setOnClickListener(v -> signUp());
+
     bindAuthStrategies();
+  }
+
+  protected void signUp(){
+    requireFragmentManager()
+        .beginTransaction()
+        .hide(this)
+        .add(R.id.container, new SignUpFragment())
+        .addToBackStack(SignUpFragment.class.getName())
+        .commitAllowingStateLoss();
   }
 
   protected void signIn(){
