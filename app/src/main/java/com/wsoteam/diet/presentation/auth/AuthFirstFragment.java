@@ -57,8 +57,7 @@ public class AuthFirstFragment extends AuthStrategyFragment {
   protected void signUp(){
     requireFragmentManager()
         .beginTransaction()
-        .hide(this)
-        .add(R.id.container, new SignUpFragment())
+        .replace(R.id.container, new SignUpFragment())
         .addToBackStack(SignUpFragment.class.getName())
         .commitAllowingStateLoss();
   }
@@ -66,8 +65,7 @@ public class AuthFirstFragment extends AuthStrategyFragment {
   protected void signIn(){
     requireFragmentManager()
         .beginTransaction()
-        .hide(this)
-        .add(R.id.container, new SignInFragment())
+        .replace(R.id.container, new SignInFragment())
         .addToBackStack(SignInFragment.class.getName())
         .commitAllowingStateLoss();
   }
