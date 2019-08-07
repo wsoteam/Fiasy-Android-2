@@ -34,7 +34,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
     boolean isLogOut;
     int textColor;
     int drawableArrow;
-    private final int PREMIUM = 0, FOOD = 1, PERSONAL = 2, NOTIFICATIONS = 3, TARGET = 4, HELP = 5, LOGOUT = 6;
+    private final int PREMIUM = 0,
+           // FOOD = 1,
+            PERSONAL = 1,
+            //NOTIFICATIONS = 3,
+            //TARGET = 4,
+            HELP = 2,
+            LOGOUT = 3;
 
     public ItemsAdapter(Context context, boolean isNotPrem) {
         this.context = context;
@@ -94,18 +100,18 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
             intent.putExtra(Config.TAG_BOX, box);
                 context.startActivity(intent);
             break;
-            case FOOD:
+            /*case FOOD:
                 Toast.makeText(context, "Раздел в разработке :(", Toast.LENGTH_SHORT).show();
-                break;
+                break;*/
             case PERSONAL:
                 context.startActivity(new Intent(context, AboutActivity.class));
                 break;
-            case NOTIFICATIONS:
+            /*case NOTIFICATIONS:
                 Toast.makeText(context, "Раздел в разработке :(", Toast.LENGTH_SHORT).show();
                 break;
             case TARGET:
                 Toast.makeText(context, "Раздел в разработке :(", Toast.LENGTH_SHORT).show();
-                break;
+                break;*/
             case HELP:
                 context.startActivity(new Intent(context, HelpActivity.class));
                 break;
