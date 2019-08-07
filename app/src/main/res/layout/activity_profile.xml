@@ -433,7 +433,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="Дневная норма"
+            android:text="Будущие значения"
             android:textColor="#d9424242"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/civGray"

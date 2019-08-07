@@ -213,7 +213,8 @@
     <color name="color_bar">#f2994a</color>
     <color name="color_bar_past">#FCB981</color>
     <color name="color_bar_future">#d5d7de</color>
-    <color name="color_line_chart">#aeb3c0</color>
+    <color name="color_line_chart">#f9a7ad</color>
     <color name="highlight_line_color">#80aeb3c0</color>
+    <color name="linear_line_color">#80EB5757</color>
 
 </resources>
