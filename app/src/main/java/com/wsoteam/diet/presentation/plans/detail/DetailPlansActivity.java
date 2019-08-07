@@ -18,9 +18,11 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.global.BaseActivity;
+import com.wsoteam.diet.presentation.plans.adapter.HorizontalDetailPlansAdapter;
 import com.wsoteam.diet.presentation.plans.adapter.VerticalDetailPlansAdapter;
 import dagger.android.AndroidInjection;
 import javax.inject.Inject;
@@ -48,6 +50,24 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
     public boolean onMenuItemClick(MenuItem menuItem) {
 
       return true;
+    }
+  };
+
+  HorizontalDetailPlansAdapter.OnItemClickListener adapterListener = new HorizontalDetailPlansAdapter.OnItemClickListener() {
+    @Override
+    public void onItemClick(RecipeItem recipeItem, String day, String meal, String recipeNumber) {
+      Log.d("kkk", recipeItem.getName() + "\n" + day + "\n" + meal + "\n" + recipeNumber + "\n");
+      if (recipeItem.isAddedInDiaryFromPlan()){
+        recipeItem.setAddedInDiaryFromPlan(false);
+        WorkWithFirebaseDB.setRecipeInDiaryFromPlan(day, meal,recipeNumber, false);
+      } else {
+        recipeItem.setAddedInDiaryFromPlan(true);
+        WorkWithFirebaseDB.setRecipeInDiaryFromPlan(day, meal,recipeNumber, true);
+      }
+    }
+
+    @Override public void onItemLongClick(View view, int position) {
+
     }
   };
 
@@ -93,6 +113,7 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
 
     plan.setRecipes(presenter.getList(), presenter.plansRecipe.size());
     adapter = new VerticalDetailPlansAdapter(plan);
+    adapter.SetOnItemClickListener(adapterListener);
     recycler.setAdapter(adapter);
   }
 

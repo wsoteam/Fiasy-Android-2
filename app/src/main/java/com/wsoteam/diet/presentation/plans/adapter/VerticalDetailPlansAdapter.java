@@ -147,6 +147,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       layoutManager = new LinearLayoutManager(mContext);
       layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
       adapter = new HorizontalDetailPlansAdapter();
+      adapter.SetOnItemClickListener(mItemClickListener);
 
       recyclerView.setLayoutManager(layoutManager);
       recyclerView.setAdapter(adapter);
@@ -155,7 +156,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     void bind(int i) {
       tabLayout.getTabAt(0).select();
       tvDay.setText("День " + ++i);
-      adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast());
+      adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast(), getAdapterPosition() - 1, "breakfast");
     }
 
     @Override
@@ -163,19 +164,19 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
       switch (tab.getPosition()) {
         case 0:
-          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast());
+          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast(), getAdapterPosition() - 1, "breakfast");
           break;
         case 1:
-          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getLunch());
+          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getLunch(), getAdapterPosition() - 1, "lunch");
           break;
         case 2:
-          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getDinner());
+          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getDinner(), getAdapterPosition() - 1, "dinner");
           break;
         case 3:
-          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getSnack());
+          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getSnack(), getAdapterPosition() - 1, "snack");
           break;
         default:
-          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast());
+          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast(), getAdapterPosition() - 1, "breakfast");
       }
     }
 
