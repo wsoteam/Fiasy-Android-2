@@ -58,7 +58,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
   public void attachPresenter() {
     calendar = Calendar.getInstance();
-    calendar.setFirstDayOfWeek(2);
+    calendar.setFirstDayOfWeek(Calendar.MONDAY);
     currentTime = calendar.getTimeInMillis();
     Amplitude.getInstance().logEvent(AmplitudaEvents.view_profile);
     bindFields();
@@ -95,6 +95,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
   private void prepareWeekGraphs(SortedMap<Long, Integer> calories, long[] interval) {
     Calendar insideCalendar = Calendar.getInstance();
+    insideCalendar.setFirstDayOfWeek(Calendar.MONDAY);
     int[] colors = new int[interval.length];
     List<BarEntry> pairs = new ArrayList<>();
     int kcal = 0;
