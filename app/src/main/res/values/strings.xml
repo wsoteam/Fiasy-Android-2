@@ -797,6 +797,7 @@
   <string name="auth_login_hint">Логин</string>
   <string name="auth_password_hint">Пароль</string>
   <string name="auth_forgot_your_password">Забыли пароль?</string>
+  <string name="auth_restore_your_password">Восстановить</string>
   <string name="auth_sign_in_alternatives">Или войти с помощью</string>
   <string name="auth_sign_up_alternatives">Или зарегестрируйтесь с помощью</string>
 

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -19,6 +20,7 @@ import com.wsoteam.diet.presentation.auth.EmailLoginAuthStrategy.Account;
 import com.wsoteam.diet.utils.InputValidation;
 import com.wsoteam.diet.utils.InputValidation.EmailValidation;
 import com.wsoteam.diet.utils.InputValidation.MinLengthValidation;
+import com.wsoteam.diet.utils.RichTextUtils.RichText;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,7 +48,8 @@ public class SignInFragment extends AuthStrategyFragment {
 
   private final List<TextInputLayout> formInputs = new ArrayList<>();
   private final Runnable validateForm = () -> {
-    signInButton.setEnabled(validateForm(false));
+    signInButton.setActivated(validateForm(false));
+    signInButton.setClickable(true);
   };
 
   private final TextWatcher validateOnChange = new TextWatcher() {
@@ -91,16 +94,31 @@ public class SignInFragment extends AuthStrategyFragment {
 
     bindAuthStrategies();
 
+    final TextView forgetPassword = view.findViewById(R.id.forget_password);
+
+    if (forgetPassword != null) {
+      forgetPassword.setText(TextUtils.concat(getString(R.string.auth_forgot_your_password), " ",
+          new RichText(getString(R.string.auth_restore_your_password))
+              .colorRes(requireContext(), R.color.orange)
+              .onClick(v -> restorePassword())
+              .text()));
+    }
+
     view.findViewById(R.id.backButton)
         .setOnClickListener(v -> getFragmentManager().popBackStack());
 
     signInButton = view.findViewById(R.id.auth_strategy_login);
-    signInButton.setEnabled(false);
+    signInButton.setClickable(true);
+    signInButton.setActivated(false);
     signInButton.setOnClickListener(v -> {
       if (validateForm(true)) {
         authorize(strategy.get(R.id.auth_strategy_login));
       }
     });
+  }
+
+  private void restorePassword() {
+
   }
 
   @Override protected void prepareAuthStrategy(AuthStrategy strategy) {
@@ -119,7 +137,7 @@ public class SignInFragment extends AuthStrategyFragment {
     for (TextInputLayout formInput : formInputs) {
       if (formInput.getId() == R.id.username) {
         username = formInput.getEditText().getText().toString();
-      } else if (formInput.getId() == R.id.password){
+      } else if (formInput.getId() == R.id.password) {
         password = formInput.getEditText().getText().toString();
       }
     }
