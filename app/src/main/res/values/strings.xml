@@ -735,6 +735,7 @@
     <string name="check_your_name">Введите Ваше имя</string>
     <string name="check_your_email">Неправильный формат</string>
     <string name="marker_kcal">ккал</string>
+    <string name="dif_level_hard_up">Похудение</string>
 
 
     //ProfileSettings

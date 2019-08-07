@@ -72,94 +72,87 @@ public class AboutPresenter extends MvpPresenter<AboutView> {
     }
 
     public boolean calculateAndSave(String nameString, String secondNameString, String heightString, String weightString, String ageString, String emailString) {
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_MONTH) - 1;
-        int month = calendar.get(Calendar.MONTH);
-        int year = calendar.get(Calendar.YEAR);
-
-        final int WATER_ON_KG_FEMALE = 30;
-        final int WATER_ON_KG_MALE = 40;
-        double SPK = 0, upLineSPK, downLineSPK;
         Profile profile = UserDataHolder.getUserData().getProfile();
-        String exerciseStress = profile.getExerciseStress();
-        double BOO = 0;
-        double rateNone = 1.2, rateEasy = 1.375, rateMedium = 1.4625, rateHard = 1.55,
-                rateUpHard = 1.6375, rateSuper = 1.725, rateUpSuper = 1.9;
-        double weight = Double.parseDouble(weightString), height = Double.parseDouble(heightString);
-        int age = Integer.parseInt(ageString), maxWater;
-        double forCountUpLine = 300, forCountDownLine = 500;
+        int WATER_ON_KG_FEMALE = 30;
+        int WATER_ON_KG_MALE = 40;
+
+        double BMR, KFA = 0, result, target = 0, FPCindex;
         double fat, protein, carbohydrate;
+        String stressLevel = profile.getExerciseStress();
+        String difficultyLevel = profile.getDifficultyLevel();
+        int maxWater;
 
+        final double RATE_NONE = 1.2;
+        final double RATE_EASY = 1.375;
+        final double RATE_MEDIUM = 1.46;
+        final double RATE_HARD = 1.55;
+        final double RATE_UP_HARD = 1.6375;
+        final double RATE_SUPER = 1.725;
+        final double RATE_UP_SUPER = 1.9;
 
-        if (profile.isFemale()){
-            BOO = (9.99 * weight + 6.25 * height - 4.92 * age - 161) * 1.1;
-        }else {
-            BOO = (9.99 * weight + 6.25 * height - 4.92 * age + 5) * 1.1;
-
-        }
-
-        /*Check level load*/
-        if (exerciseStress.equalsIgnoreCase(context.getString(R.string.level_none))) {
-            SPK = BOO * rateNone;
-        }
-        if (exerciseStress.equalsIgnoreCase(context.getString(R.string.level_easy))) {
-            SPK = BOO * rateEasy;
-        }
-        if (exerciseStress.equalsIgnoreCase(context.getString(R.string.level_medium))) {
-            SPK = BOO * rateMedium;
-        }
-        if (exerciseStress.equalsIgnoreCase(context.getString(R.string.level_hard))) {
-            SPK = BOO * rateHard;
-        }
-        if (exerciseStress.equalsIgnoreCase(context.getString(R.string.level_up_hard))) {
-            SPK = BOO * rateUpHard;
-        }
-        if (exerciseStress.equalsIgnoreCase(context.getString(R.string.level_super))) {
-            SPK = BOO * rateSuper;
-        }
-        if (exerciseStress.equalsIgnoreCase(context.getString(R.string.level_up_super))) {
-            SPK = BOO * rateUpSuper;
-        }
-
-        upLineSPK = SPK - forCountUpLine;
-        downLineSPK = SPK - forCountDownLine;
-
-        fat = upLineSPK * 0.2 / 9;
-        protein = upLineSPK * 0.3 / 4;
-        carbohydrate = upLineSPK * 0.5 / 3.75;
+        final double TARGET_NORMAL = 0;
+        final double TARGET_LOOSE_WEIGHT = 0.15; //похудение
+        final double TARGET_MUSCLE = 0.3;
+        final double TARGET_SAVE = 0.1; //Сохранение мышц и сжигание жира
 
         if (profile.isFemale()) {
-            maxWater = WATER_ON_KG_FEMALE * (int) weight;
+            FPCindex = 16;
+            BMR = (10 * profile.getWeight() + 6.25 * profile.getHeight() - 5 * profile.getAge() - 161);
+            maxWater = WATER_ON_KG_FEMALE * (int) profile.getWeight();
         } else {
-            maxWater = WATER_ON_KG_MALE * (int) weight;
+            FPCindex = 36;
+            BMR = (10 * profile.getWeight() + 6.25 * profile.getHeight() - 5 * profile.getAge() + 5);
+            maxWater = WATER_ON_KG_MALE * (int) profile.getWeight();
+        }
+
+        if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_none))) {
+            KFA = RATE_NONE;
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_easy))) {
+            KFA = RATE_EASY;
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_medium))) {
+            KFA = RATE_MEDIUM;
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_hard))) {
+            KFA = RATE_HARD;
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_hard))) {
+            KFA = RATE_UP_HARD;
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_super))) {
+            KFA = RATE_SUPER;
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_super))) {
+            KFA = RATE_UP_SUPER;
         }
 
 
-        Profile profileForSave = new Profile(nameString, secondNameString,
-                profile.isFemale(), emailString,  age, Integer.parseInt(heightString), weight, 0,
-                profile.getExerciseStress(), UserDataHolder.getUserData().getProfile().getPhotoUrl(), maxWater, 0, (int) protein,
-                (int) fat, (int) carbohydrate, UserDataHolder.getUserData().getProfile().getDifficultyLevel(), day, month, year);
-
-        Log.e("LOL", profile.toString());
-        Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-
-        if (profile.getDifficultyLevel().equalsIgnoreCase(context.getString(R.string.dif_level_easy))) {
-            return saveProfile(profileForSave, SPK);
-
-        } else if (profile.getDifficultyLevel().equalsIgnoreCase(context.getString(R.string.dif_level_normal))) {
-            return saveProfile(profileForSave, upLineSPK);
-
-        } else if (profile.getDifficultyLevel().equalsIgnoreCase(context.getString(R.string.dif_level_hard))) {
-            return saveProfile(profileForSave, downLineSPK);
+        if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_easy))) {
+            target = 1 - TARGET_NORMAL;
+        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_normal))) {
+            target = 1 - TARGET_LOOSE_WEIGHT;
+        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard))) {
+            target = 1 - TARGET_MUSCLE;
+        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard_up))) {
+            target = 1 - TARGET_SAVE;
         }
-        return false;
-    }
 
-    private boolean saveProfile(Profile profile, double maxInt) {
-        profile.setMaxKcal((int) maxInt);
+        result = (BMR * KFA) * target;
+
+        fat = (result * 0.25 / 9) + FPCindex;
+        protein = (result * 0.4 / 4) - FPCindex;
+        carbohydrate = (result * 0.35 / 4) - FPCindex;
+
+        profile.setWaterCount(maxWater);
+        profile.setMaxKcal((int) result);
+        profile.setMaxFat((int) fat);
+        profile.setMaxProt((int) protein);
+        profile.setMaxCarbo((int) carbohydrate);
+        profile.setFirstName(nameString);
+        profile.setLastName(secondNameString);
+        profile.setHeight(Integer.parseInt(heightString));
+        profile.setWeight(Double.valueOf(weightString));
+        profile.setAge(Integer.parseInt(ageString));
+        profile.setEmail(emailString);
+
         WorkWithFirebaseDB.putProfileValue(profile);
         return true;
     }
+
 
 }
