@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,6 +37,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class ListArticlesFragment extends Fragment implements Observer {
 
+  @BindView(R.id.clFailSearch) ConstraintLayout constraintLayout;
   @BindView(R.id.rvArticle) RecyclerView recyclerView;
   @BindView(R.id.toolbar) Toolbar mToolbar;
   private Unbinder unbinder;
@@ -178,6 +180,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
     }
 
     if (key.equals("")) {
+      constraintLayout.setVisibility(View.INVISIBLE);
       if (isSubSection){
         adapter.updateData(subList);
         recyclerView.setAdapter(adapter);
@@ -190,6 +193,11 @@ public class ListArticlesFragment extends Fragment implements Observer {
         if (article.getTitle().toLowerCase().contains(key)) {
           result.add(article);
         }
+      }
+      if (result.size() == 0) {
+        constraintLayout.setVisibility(View.VISIBLE);
+      } else {
+        constraintLayout.setVisibility(View.INVISIBLE);
       }
       ListArticlesAdapter newAdapter = new ListArticlesAdapter(result, clickListener);
       recyclerView.setAdapter(newAdapter);
