@@ -158,11 +158,6 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
                                String topText) {
         XWeekFormatter xWeekFormatter = new XWeekFormatter();
         drawGraph(pairs, colors, xWeekFormatter, topText, bottomText, 0.4f);
-        Log.e("LOL", bottomText);
-        Log.e("LOL", topText);
-        for (int i = 0; i < pairs.size(); i++) {
-            Log.e("LOL", "count" + pairs.get(i).getY());
-        }
     }
 
     private void drawGraph(List<BarEntry> pairs, int[] colors, ValueFormatter valueFormatter,

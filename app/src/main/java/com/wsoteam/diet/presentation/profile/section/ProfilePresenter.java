@@ -78,23 +78,34 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
   }
 
   public void getWeekGraph(int position) {
+    Log.e("LOL", "position" + String.valueOf(position));
     prepareWeekGraphs(calories, getWeekInterval(position));
   }
 
   private long[] getWeekInterval(int position) {
+    Log.e("KEK", String.valueOf(position));
     calendar.setTimeInMillis(currentTime);
+    Log.e("KEK", "getTimeInMillis" + String.valueOf(calendar.getTimeInMillis()));
     long[] weekInterval = new long[7];
     int week = calendar.get(Calendar.WEEK_OF_YEAR);
+    Log.e("KEK","week" +  String.valueOf(week));
     calendar.set(Calendar.WEEK_OF_YEAR, week + position);
-    calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+    Log.e("KEK", "WEEK_OF_YEAR" + String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR)));
+    calendar.set(Calendar.DAY_OF_WEEK,  calendar.getFirstDayOfWeek());
+    Log.e("KEK", "DAY_OF_WEEK" + String.valueOf(calendar.get(Calendar.DAY_OF_WEEK)));
     for (int i = 0; i < 7; i++) {
       weekInterval[i] = calendar.getTimeInMillis() + oneDay * i;
     }
+    String line = "";
+    for (int i = 0; i < weekInterval.length; i++) {
+      line += "Time -- " + String.valueOf(weekInterval[i]);
+    }
+    Log.e("LOL", line);
     return weekInterval;
   }
 
   private void prepareWeekGraphs(SortedMap<Long, Integer> calories, long[] interval) {
-    Calendar insideCalendar = Calendar.getInstance();
+    //Calendar insideCalendar = Calendar.getInstance();
     int[] colors = new int[interval.length];
     List<BarEntry> pairs = new ArrayList<>();
     int kcal = 0;
@@ -105,7 +116,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
         kcal = 0;
       }
       colors[i] = getColor(interval[i]);
-      insideCalendar.setTimeInMillis(interval[i]);
+      calendar.setTimeInMillis(interval[i]);
       pairs.add(new BarEntry(i, kcal));
     }
 
