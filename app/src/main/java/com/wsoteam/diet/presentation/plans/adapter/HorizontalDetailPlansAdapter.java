@@ -1,7 +1,9 @@
 package com.wsoteam.diet.presentation.plans.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +25,11 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
   private int day;
   private String meal;
 
-  public void updateList(List<RecipeItem> recipeItems, int day, String meal) {
+  private boolean isCurrentDay;
+
+  public void updateList(List<RecipeItem> recipeItems,boolean isCurrentDay, int day, String meal) {
     this.recipeItems = recipeItems;
+    this.isCurrentDay = isCurrentDay;
     this.day = day;
     this.meal = meal;
     notifyDataSetChanged();
@@ -90,6 +95,7 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
     @BindView(R.id.ivImage) ImageView imageView;
     @BindView(R.id.tvName) TextView tvName;
     @BindView(R.id.tvCalories) TextView tvCalories;
+    @BindView(R.id.clBackground) ConstraintLayout constraintLayout;
 
     public HorizontalViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -104,6 +110,9 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
       Glide.with(context)
           .load(recipeItem.getUrl())
           .into(imageView);
+        constraintLayout.setBackgroundColor(Color.parseColor(
+            isCurrentDay && recipeItem.isAddedInDiaryFromPlan() ? "#2630b977" : "#ffffff"));
+
     }
   }
 }

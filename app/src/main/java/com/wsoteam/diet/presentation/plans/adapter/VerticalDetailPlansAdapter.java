@@ -95,7 +95,11 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
         default: {
           ViewHolder holder = (ViewHolder) viewHolder;
 
-          holder.bind(--i);
+          if (daysAfterStart == i){
+            holder.bind(--i, true);
+          }else {
+            holder.bind(--i, false);
+          }
 
           int lastSeenFirstPosition = listPosition.get(i, 0);
           if (lastSeenFirstPosition >= 0) {
@@ -146,6 +150,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     @BindView(R.id.tvDay) TextView tvDay;
     @BindView(R.id.tabs) TabLayout tabLayout;
     @BindView(R.id.recycler) RecyclerView recyclerView;
+    private boolean isCurrentDay;
 
     private LinearLayoutManager layoutManager;
     private HorizontalDetailPlansAdapter adapter;
@@ -168,10 +173,11 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       recyclerView.setAdapter(adapter);
     }
 
-    void bind(int i) {
+    void bind(int i, boolean isCurrentDay) {
+      this.isCurrentDay = isCurrentDay;
       tabLayout.getTabAt(0).select();
       tvDay.setText("День " + ++i);
-      adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast(), getAdapterPosition() - 1, "breakfast");
+      adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast(), isCurrentDay, getAdapterPosition() - 1, "breakfast");
     }
 
     @Override
@@ -179,19 +185,19 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
       switch (tab.getPosition()) {
         case 0:
-          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast(), getAdapterPosition() - 1, "breakfast");
+          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast(), isCurrentDay, getAdapterPosition() - 1, "breakfast");
           break;
         case 1:
-          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getLunch(), getAdapterPosition() - 1, "lunch");
+          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getLunch(), isCurrentDay, getAdapterPosition() - 1, "lunch");
           break;
         case 2:
-          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getDinner(), getAdapterPosition() - 1, "dinner");
+          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getDinner(), isCurrentDay, getAdapterPosition() - 1, "dinner");
           break;
         case 3:
-          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getSnack(), getAdapterPosition() - 1, "snack");
+          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getSnack(), isCurrentDay, getAdapterPosition() - 1, "snack");
           break;
         default:
-          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast(), getAdapterPosition() - 1, "breakfast");
+          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast(), isCurrentDay, getAdapterPosition() - 1, "breakfast");
       }
     }
 
