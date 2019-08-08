@@ -29,7 +29,10 @@ public class AfterQuestionsActivity extends AppCompatActivity {
             | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     getWindow().setStatusBarColor(Color.parseColor("#382c2c2d"));
 
+    //viewPager.onInterceptTouchEvent(null);
+    //viewPager.onTouchEvent(null);
     viewPager.setAdapter(new AfterQuestionsPagerAdapter(getSupportFragmentManager()));
+
   }
 
   public void nextQuestion() {

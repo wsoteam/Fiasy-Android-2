@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -80,6 +81,7 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
                 intent.putExtra(Config.INTENT_PROFILE, profile);
             }
             startActivity(intent);
+            finish();
         } else {
             if (profile != null) {
                 WorkWithFirebaseDB.putProfileValue(profile);

@@ -1,6 +1,7 @@
 <resources>
 
 
+  <string name="subTestText">Попробуйте 3 дня бесплатно\n Далее 49р. / неделя</string>
   <string name="individualPlanTxt">Вы достигните своей цели уже через месяц, получив доступ к уникальным статьям о здоровом питании и сотни рецептов</string>
 
   <!--  Individual plan fragment-->
