@@ -45,7 +45,7 @@ public abstract class AuthStrategy {
     return requestCode == AUTH_REQUEST;
   }
 
-  protected void handleCredentials(AuthCredential credential){
+  protected void handleCredentials(AuthCredential credential) {
     disposeOnRelease(RxFirebase.from(FirebaseAuth.getInstance()
         .signInWithCredential(credential))
         .map(AuthResult::getUser)
@@ -83,10 +83,10 @@ public abstract class AuthStrategy {
 
     public AuthenticationResult(FirebaseUser user, Throwable error) {
       this.user = user;
-      this.error = error;
+      this.error = new Throwable(error);
     }
 
-    public boolean isSuccessfull() {
+    public boolean isSuccessful() {
       return user != null;
     }
 
@@ -95,7 +95,7 @@ public abstract class AuthStrategy {
     }
 
     public Throwable error() {
-      return error;
+      return error.getCause();
     }
   }
 }

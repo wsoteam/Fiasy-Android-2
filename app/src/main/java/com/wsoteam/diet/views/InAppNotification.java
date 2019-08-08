@@ -97,9 +97,9 @@ public class InAppNotification {
       final int delay;
 
       if (duration == DURATION_LONG) {
-        delay = 2000;
+        delay = 3000;
       } else {
-        delay = 1000;
+        delay = 1500;
       }
 
       delayedDismiss(delay);

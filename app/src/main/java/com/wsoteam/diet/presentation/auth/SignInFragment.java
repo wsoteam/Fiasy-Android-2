@@ -9,13 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.collection.SparseArrayCompat;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.ResetPasswordFragment;
 import com.wsoteam.diet.presentation.auth.EmailLoginAuthStrategy.Account;
 import com.wsoteam.diet.utils.InputValidation;
 import com.wsoteam.diet.utils.InputValidation.EmailValidation;
@@ -102,6 +105,8 @@ public class SignInFragment extends AuthStrategyFragment {
               .colorRes(requireContext(), R.color.orange)
               .onClick(v -> restorePassword())
               .text()));
+
+      forgetPassword.setVisibility(View.GONE);
     }
 
     view.findViewById(R.id.backButton)
@@ -112,13 +117,25 @@ public class SignInFragment extends AuthStrategyFragment {
     signInButton.setActivated(false);
     signInButton.setOnClickListener(v -> {
       if (validateForm(true)) {
+        clearInputErrors();
+
         authorize(strategy.get(R.id.auth_strategy_login));
       }
     });
   }
 
-  private void restorePassword() {
+  private void clearInputErrors(){
+    for (TextInputLayout target : formInputs) {
+      target.setError(null);
+    }
+  }
 
+  private void restorePassword() {
+    requireFragmentManager()
+        .beginTransaction()
+        .replace(R.id.container, new ResetPasswordFragment())
+        .addToBackStack(ResetPasswordFragment.class.getName())
+        .commitAllowingStateLoss();
   }
 
   @Override protected void prepareAuthStrategy(AuthStrategy strategy) {
@@ -128,6 +145,29 @@ public class SignInFragment extends AuthStrategyFragment {
       final EmailLoginAuthStrategy prep = (EmailLoginAuthStrategy) strategy;
       prep.setAccount(getUserInputAccount());
     }
+  }
+
+  @Override protected void onAuthException(Throwable error) {
+    error.printStackTrace();
+
+    if (getView() == null) {
+      return;
+    }
+
+    if (error instanceof FirebaseAuthInvalidCredentialsException) {
+      setInputException(R.id.password, getString(R.string.auth_user_password_missmatch));
+    } else {
+      handleDefaultErrors(error);
+    }
+  }
+
+  protected void setInputException(@IdRes int targetId, @NonNull CharSequence message){
+    if (getNotification().isAttached()) {
+      getNotification().dismiss();
+    }
+
+    final TextInputLayout target = getView().findViewById(targetId);
+    target.setError(message);
   }
 
   protected Account getUserInputAccount() {

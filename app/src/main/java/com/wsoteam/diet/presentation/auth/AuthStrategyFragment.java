@@ -10,11 +10,15 @@ import androidx.annotation.Nullable;
 import androidx.collection.SparseArrayCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.utils.RichTextUtils.RichText;
 import com.wsoteam.diet.views.InAppNotification;
+import java.io.IOException;
 
 public abstract class AuthStrategyFragment extends Fragment {
 
@@ -23,13 +27,14 @@ public abstract class AuthStrategyFragment extends Fragment {
         put(R.id.auth_strategy_google, GoogleAuthStrategy.class);
         put(R.id.auth_strategy_facebook, FacebookAuthStrategy.class);
         put(R.id.auth_strategy_login, EmailLoginAuthStrategy.class);
+        put(R.id.auth_strategy_reset, ResetPasswordAuthStrategy.class);
       }};
 
   protected final Observer<AuthStrategy.AuthenticationResult> userObserver =
       authenticationResult -> {
         if (authenticationResult == null) return;
 
-        if (authenticationResult.isSuccessfull()) {
+        if (authenticationResult.isSuccessful()) {
           onAuthorized(authenticationResult.user());
         } else {
           onAuthException(authenticationResult.error());
@@ -105,14 +110,32 @@ public abstract class AuthStrategyFragment extends Fragment {
   protected void onAuthException(Throwable error) {
     error.printStackTrace();
 
-    if (getNotification().isAttached()) {
-      getNotification().setProgressVisible(false, true);
-      getNotification().setText("Пользователь не найден :(");
-      getNotification().delayedDismiss(1500);
+    handleDefaultErrors(error);
+  }
+
+  protected void handleDefaultErrors(Throwable error) {
+    getNotification().setProgressVisible(false, false);
+
+    if (error instanceof FirebaseAuthUserCollisionException) {
+      getNotification().setText(getString(R.string.auth_user_using_existing_account));
+    } else if (error instanceof FirebaseAuthInvalidCredentialsException) {
+      getNotification().setText("Сессия подключения просрочена");
+    } else if (error instanceof FirebaseAuthInvalidUserException) {
+      getNotification().setText(getString(R.string.auth_user_not_found));
+    } else if (error instanceof IOException) {
+      getNotification().setText("Нет подключения к интернету :(");
+    } else {
+      getNotification().setText("Не удалось войти");
     }
+
+    getNotification().show(getView(), InAppNotification.DURATION_LONG);
   }
 
   protected void authorize(Class<? extends AuthStrategy> strategyType) {
+    if (getNotification().isAttached()) {
+      getNotification().dismiss();
+    }
+
     final AuthStrategy targetStrategy;
 
     if (getAuthStrategy() != null && getAuthStrategy().getClass() == strategyType) {
@@ -185,7 +208,7 @@ public abstract class AuthStrategyFragment extends Fragment {
     }
   }
 
-  private InAppNotification getNotification() {
+  protected InAppNotification getNotification() {
     if (notification == null) {
       notification = new InAppNotification(requireContext());
     }

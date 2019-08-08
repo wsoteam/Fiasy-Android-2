@@ -9,6 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.auth.EmailLoginAuthStrategy.Account;
 import com.wsoteam.diet.utils.IntentUtils;
@@ -40,6 +43,24 @@ public class SignUpFragment extends SignInFragment {
       privacyView.setMovementMethod(LinkMovementMethod.getInstance());
       privacyView.setText(concat(getString(R.string.sign_up_privacy_policy_title), " ",
           actionOpenPrivacyPolicy.text()));
+    }
+  }
+
+  @Override protected void onAuthException(Throwable error) {
+    error.printStackTrace();
+
+    if (getView() == null) {
+      return;
+    }
+
+    if (error instanceof FirebaseAuthWeakPasswordException) {
+      setInputException(R.id.password, getString(R.string.auth_user_set_weak_password));
+    } else if (error instanceof FirebaseAuthInvalidCredentialsException) {
+      setInputException(R.id.username, getString(R.string.auth_user_mailformed));
+    } else if (error instanceof FirebaseAuthUserCollisionException) {
+      setInputException(R.id.username, getString(R.string.auth_user_using_existing_account));
+    } else {
+      handleDefaultErrors(error);
     }
   }
 

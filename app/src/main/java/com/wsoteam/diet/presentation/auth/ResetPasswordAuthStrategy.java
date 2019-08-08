@@ -4,11 +4,11 @@ import androidx.fragment.app.Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.wsoteam.diet.utils.RxFirebase;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class ResetPasswordAuthStrategy extends AuthStrategy {
 
-  private String email;
   private String code;
   private String password;
 
@@ -16,20 +16,14 @@ public class ResetPasswordAuthStrategy extends AuthStrategy {
     super(fragment);
   }
 
-  public void setEmail(String email) {
-    this.email = email;
-
-    disposeOnRelease(RxFirebase.from(FirebaseAuth.getInstance()
-        .sendPasswordResetEmail(email))
-        .subscribe());
+  public Single<Void> sendVerificationCode(String email) {
+    return RxFirebase.from(FirebaseAuth.getInstance()
+        .sendPasswordResetEmail(email));
   }
 
-  public void setVerficiationCode(String code) {
-    this.code = code;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
+  public Single<String> checkValidCode(String code) {
+    return RxFirebase.from(FirebaseAuth.getInstance()
+        .verifyPasswordResetCode(code));
   }
 
   @Override public void enter() {
