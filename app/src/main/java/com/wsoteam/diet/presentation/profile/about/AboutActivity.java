@@ -52,7 +52,7 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
     private static final int CAMERA_REQUEST = 0;
     private static final int GALLERY_PICTURE = 1;
     private static final int IMAGE_WIDTH = 390;
-    private static final int IMAGE_HEIGHT = 520;
+    private static final int IMAGE_HEIGHT = 390;
     @BindView(R.id.civProfile)
     CircleImageView civProfile;
     @BindView(R.id.edtName)
