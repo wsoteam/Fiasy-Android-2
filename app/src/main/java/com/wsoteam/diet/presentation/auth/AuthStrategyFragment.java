@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 import com.wsoteam.diet.utils.RichTextUtils.RichText;
 import com.wsoteam.diet.views.InAppNotification;
 import java.io.IOException;
@@ -104,6 +105,12 @@ public abstract class AuthStrategyFragment extends Fragment {
       }
 
       getNotification().delayedDismiss(1500);
+    }
+
+    if (getActivity() != null) {
+      startActivity(new Intent(requireContext(), QuestionsActivity.class));
+
+      requireActivity().finish();
     }
   }
 
