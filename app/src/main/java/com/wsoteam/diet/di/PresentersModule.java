@@ -41,9 +41,4 @@ public class PresentersModule {
         return new BlockedDetailPlansPresenter(router);
     }
 
-    @Provides
-    DetailPlansPresenter provideDetailPlansPresenter(Router router){
-        return new DetailPlansPresenter(router);
-    }
-
 }

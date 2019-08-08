@@ -49,6 +49,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       long milliseconds = currentDate.getTime() - startDate.getTime();
       // 24 часа = 1 440 минут = 1 день
       daysAfterStart = (int) (milliseconds / (24 * 60 * 60 * 1000));
+      Log.d("kkk", "" + milliseconds +"\nДней: " + daysAfterStart);
     }
 
   }
@@ -89,16 +90,16 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       switch (viewHolder.getItemViewType()) {
         case R.layout.diary_recipe_plans: {
           DiaryRecipesViewHolder holder = (DiaryRecipesViewHolder) viewHolder;
-          holder.bind(--i);
+          holder.bind(i - 1);
         }
         break;
         default: {
           ViewHolder holder = (ViewHolder) viewHolder;
 
-          if (daysAfterStart == i){
-            holder.bind(--i, true);
+          if (daysAfterStart + 1 == i){
+            holder.bind(i - 1, true);
           }else {
-            holder.bind(--i, false);
+            holder.bind(i - 1, false);
           }
 
           int lastSeenFirstPosition = listPosition.get(i, 0);
@@ -132,7 +133,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   public int getItemViewType(int position) {
     if (position == 0) {
       return R.layout.plans_header_item;
-    } else if (position > 0 && position < daysAfterStart) {
+    } else if (position > 0 && position <= daysAfterStart) {
       return R.layout.diary_recipe_plans;
     } else {
       return R.layout.detail_plans_day_item;
@@ -245,7 +246,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public void bind(int position) {
-      tvDays.setText("День " + ++position);
+      tvDays.setText("День " + position + 1);
       recipeContainer.removeAllViews();
 
       recipeItemList = new ArrayList<>();
@@ -278,8 +279,9 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     private void getAddedRecipe(List<RecipeItem> recipeItems){
       for (RecipeItem recipe:
       recipeItems) {
+        Log.d("kkk", "getAddedRecipe: " + recipe.getName());
         if (recipe.isAddedInDiaryFromPlan()){
-          Log.d("kkk", "getAddedRecipe: ");
+          Log.d("kkk", "getAddedRecipe: true " + recipe.getName());
           recipeItemList.add(recipe);
         }
       }

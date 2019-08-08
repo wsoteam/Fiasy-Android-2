@@ -17,4 +17,8 @@ public class DateHelper {
   public static String dateToString(Date date){
     return formatter.format(date);
   }
+
+  public static Date getCurrentDate(){
+   return stringToDate(dateToString(new Date()));
+  }
 }

@@ -10,6 +10,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.POJOProfile.Profile;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.presentation.auth.restore.ActivityForgotPassword;
 import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
@@ -17,6 +18,22 @@ import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 
 public class Screens {
+
+    public static final class PlanRecipeActivity extends SupportAppScreen {
+        private RecipeItem recipeItem;
+        private String[] path;
+
+        public PlanRecipeActivity(RecipeItem recipeItem) {
+            this.recipeItem = recipeItem;
+        }
+
+        @Override
+        public Intent getActivityIntent(Context context) {
+            return new Intent(context, PlanRecipeActivity.class)
+                .putExtra("RecipeItem", recipeItem)
+                .putExtra("Recipe", path);
+        }
+    }
 
     public static final class EditProfileScreen extends SupportAppScreen {
         private final boolean isReg;

@@ -21,6 +21,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.presentation.plans.DateHelper;
 import com.wsoteam.diet.presentation.plans.adapter.HorizontalDetailPlansAdapter;
@@ -28,6 +29,7 @@ import com.wsoteam.diet.presentation.plans.adapter.VerticalDetailPlansAdapter;
 import dagger.android.AndroidInjection;
 import java.util.Date;
 import javax.inject.Inject;
+import ru.terrakok.cicerone.Router;
 
 public class DetailPlansActivity extends BaseActivity implements DetailPlansView {
 
@@ -39,43 +41,14 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
   DietPlan plan;
 
   @Inject
+  Router router;
+
   @InjectPresenter
   DetailPlansPresenter presenter;
-  View.OnClickListener navigationListener = new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-      presenter.clickedClose();
-    }
-  };
-  MenuItem.OnMenuItemClickListener menuListener = new MenuItem.OnMenuItemClickListener() {
-    @Override
-    public boolean onMenuItemClick(MenuItem menuItem) {
-
-      return true;
-    }
-  };
-
-  HorizontalDetailPlansAdapter.OnItemClickListener adapterListener = new HorizontalDetailPlansAdapter.OnItemClickListener() {
-    @Override
-    public void onItemClick(RecipeItem recipeItem, String day, String meal, String recipeNumber) {
-      Log.d("kkk", recipeItem.getName() + "\n" + day + "\n" + meal + "\n" + recipeNumber + "\n");
-      if (recipeItem.isAddedInDiaryFromPlan()){
-        recipeItem.setAddedInDiaryFromPlan(false);
-        WorkWithFirebaseDB.setRecipeInDiaryFromPlan(day, meal,recipeNumber, false);
-      } else {
-        recipeItem.setAddedInDiaryFromPlan(true);
-        WorkWithFirebaseDB.setRecipeInDiaryFromPlan(day, meal,recipeNumber, true);
-      }
-    }
-
-    @Override public void onItemLongClick(View view, int position) {
-
-    }
-  };
 
   @ProvidePresenter
   DetailPlansPresenter providePresenter() {
-    return presenter;
+    return new DetailPlansPresenter(router, getIntent());
   }
 
   @Override
@@ -85,7 +58,7 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
     setContentView(R.layout.activity_detail_plans);
     ButterKnife.bind(this);
 
-
+    Log.d("kkk", "onCreate: " + router);
 
     getWindow().getDecorView().setSystemUiVisibility(
         View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -103,34 +76,11 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
     dotMenu.setOnMenuItemClickListener(menuListener);
 
     recycler.setLayoutManager(new LinearLayoutManager(this));
-
-    plan = (DietPlan) getIntent().getSerializableExtra(Config.DIETS_PLAN_INTENT);
-    if (UserDataHolder.getUserData() != null
-        && UserDataHolder.getUserData().getPlan() != null
-        && UserDataHolder.getUserData().getPlan().getName().equals(plan.getName())) {
-      btnJoin.setVisibility(View.GONE);
-      plan = UserDataHolder.getUserData().getPlan();
-      Log.d("kkk", "onCreate: " + plan.getRecipeForDays().get(5).getBreakfast().get(0).isAddedInDiaryFromPlan());
-    } else {
-      getDietPlan();
-      plan.setRecipes(presenter.getList(), presenter.plansRecipe.size());
-    }
-    adapter = new VerticalDetailPlansAdapter(plan);
-    adapter.SetOnItemClickListener(adapterListener);
-    recycler.setAdapter(adapter);
   }
 
   @OnClick({ R.id.btnJoin })
-  void onClicked(View view) {
-    switch (view.getId()) {
-      case R.id.btnJoin: {
-
-        plan.setStartDate(DateHelper.dateToString(new Date()));
-        WorkWithFirebaseDB.joinDietPlan(plan);
-        btnJoin.setVisibility(View.GONE);
-      }
-      break;
-    }
+  void onClicked() {
+        presenter.clickedJoin();
   }
 
   @Override
@@ -144,24 +94,27 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
   }
 
   @Override
-  public void getDietPlan() {
-    DietPlan dietPlan = (DietPlan) getIntent().getSerializableExtra(Config.DIETS_PLAN_INTENT);
-    presenter.setDietPlan(dietPlan);
+  public void setAdapter(RecyclerView.Adapter adapter) {
+    recycler.setAdapter(adapter);
   }
 
-  @Override
-  public void showData(DietPlan dietPlan) {
-
+  @Override public void visibilityButtonJoin(boolean value) {
+    btnJoin.setVisibility(value ? View.VISIBLE : View.GONE);
   }
 
-  @Override
-  public void setAdapter() {
-    adapter.updateList(presenter.getList());
-  }
 
-  @Override
-  protected void onResume() {
-    super.onResume();
-    //getDietPlan();
-  }
+  View.OnClickListener navigationListener = new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+      presenter.clickedClose();
+    }
+  };
+  MenuItem.OnMenuItemClickListener menuListener = new MenuItem.OnMenuItemClickListener() {
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+
+      return true;
+    }
+  };
+
 }
