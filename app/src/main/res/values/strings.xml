@@ -786,7 +786,7 @@
   <string name="base_url" translatable="false">https://api.instagram.com/</string>
 
 
-  //Search
+  <!--  Search-->
   <string name="text_start_search">Начните вводить в строку поиска \nназвание продукта</string>
   <string name="title_no_find_food">Результаты не найдены</string>
   <string name="text_no_find_food">Попробуйте еще раз или создайте свой \nпродукт</string>
@@ -794,7 +794,7 @@
   <string name="privacy_policy_title">Ознакомиться с условиями</string>
   <string name="privacy_policy_link_span_text">Политики конфиндециальности</string>
 
-  <string name="sign_up_privacy_policy_title">я согласен с условиями с </string>
+  <string name="sign_up_privacy_policy_title">я согласен с условиями </string>
   <string name="sign_up_privacy_policy_link_span_text">политикой конфиндециальности</string>
 
   <string name="sign_in_already_have_account">У вас уже есть аккаунт?</string>
@@ -804,7 +804,7 @@
   <string name="auth_forgot_your_password">Забыли пароль?</string>
   <string name="auth_restore_your_password">Восстановить</string>
   <string name="auth_sign_in_alternatives">Или войти с помощью</string>
-  <string name="auth_sign_up_alternatives">Или зарегестрируйтесь с помощью</string>
+  <string name="auth_sign_up_alternatives">Или заригестрируйтесь с помощью</string>
 
   <string name="constraint_error_username_min_length">Минимальная длина логина 5 символов</string>
   <string name="constraint_error_password_min_length">Минимальная длина пароля 8 символов</string>
@@ -816,8 +816,9 @@
   <string name="auth_user_not_found">Пользователь не найден</string>
   <string name="auth_user_password_missmatch">Неверный пароль</string>
   <string name="auth_user_set_weak_password">Пароль слишком слабый, добавьте дополнительные знаки</string>
-  <string name="auth_user_mailformed">Укажите реальный email</string>
+  <string name="auth_user_mailformed">Укажите свой email</string>
   <string name="auth_user_using_existing_account">Пользователь с таким email уже существует</string>
+  <string name="action_sign_up">Заригестрироваться</string>
 
 
 </resources>

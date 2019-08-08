@@ -15,6 +15,7 @@ import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.di.CiceroneModule;
 import com.wsoteam.diet.presentation.global.BaseActivity;
+import com.wsoteam.diet.views.CustomizedViewPager;
 
 public class QuestionsActivity extends BaseActivity implements QuestionsView {
 
@@ -22,7 +23,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
 
   QuestionsPresenter presenter;
   @BindView(R.id.pager)
-  ViewPager viewPager;
+  CustomizedViewPager viewPager;
   @BindView(R.id.tabDots)
   TabLayout tabLayout;
   @BindView(R.id.btnBack)
@@ -53,6 +54,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
 
     createUser = getIntent().getBooleanExtra(Config.CREATE_PROFILE, false);
 
+    viewPager.setHandleTouchEvents(false);
     viewPager.setAdapter(new QuestionsPagerAdapter(getSupportFragmentManager()));
     //viewPager.setAdapter(new AfterQuestionsPagerAdapter(getSupportFragmentManager()));
     tabLayout.setupWithViewPager(viewPager, true);

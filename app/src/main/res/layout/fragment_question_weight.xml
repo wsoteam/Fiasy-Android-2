@@ -72,8 +72,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvWeight"
-        app:max_value="150"
-        app:min_value="20"
+        app:max_value="200"
+        app:min_value="30"
         app:notch_color="#34847c"
         app:ruler_text_color="@color/black"
         app:ruler_text_size="6sp"/>

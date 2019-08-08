@@ -29,7 +29,7 @@
         app:srcCompat="@drawable/ic_arrow_back"
         tools:visibility="visible"/>
 
-    <androidx.viewpager.widget.ViewPager
+    <com.wsoteam.diet.views.CustomizedViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
