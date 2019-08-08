@@ -95,7 +95,6 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
 
   private void prepareWeekGraphs(SortedMap<Long, Integer> calories, long[] interval) {
     Calendar insideCalendar = Calendar.getInstance();
-    insideCalendar.setFirstDayOfWeek(Calendar.MONDAY);
     int[] colors = new int[interval.length];
     List<BarEntry> pairs = new ArrayList<>();
     int kcal = 0;
