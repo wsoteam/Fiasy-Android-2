@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
     <uses-permission android:name="com.android.vending.BILLING" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
 
     <application
         android:name=".App"
