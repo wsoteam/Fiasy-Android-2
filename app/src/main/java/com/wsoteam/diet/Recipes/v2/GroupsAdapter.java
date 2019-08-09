@@ -98,13 +98,13 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
                 public void onClick(View view) {
 
 //                    Bundle bundle = new Bundle();
-//                    bundle.putInt(Config.RECIPES_BUNDLE, getAdapterPosition());
+//                    bundle.putInt(Events.RECIPES_BUNDLE, getAdapterPosition());
 //
 //                    ListRecipesFragment fragment = new ListRecipesFragment();
 //                    fragment.setArguments(bundle);
 //
 //                    transaction.replace(containerID, fragment);
-//                    transaction.addToBackStack(Config.RECIPE_BACK_STACK);
+//                    transaction.addToBackStack(Events.RECIPE_BACK_STACK);
 //                    transaction.commit();
                     Intent intent = new Intent(context, ListRecipesActivity.class);
                     intent.putExtra(Config.RECIPES_BUNDLE, getAdapterPosition());
