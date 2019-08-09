@@ -46,6 +46,7 @@ public class Config {
 
     //INTERCOM
     public static final String INTERCOM_CHAT = "intercom_chat";
+    //ush
 
     //ARTICLES
     public static final String CHOOSE_ARTICLES = "choose_articles";
