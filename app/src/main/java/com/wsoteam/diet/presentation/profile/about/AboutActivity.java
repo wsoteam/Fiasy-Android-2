@@ -255,15 +255,20 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            aboutPresenter.uploadPhoto((Bitmap) data.getExtras().get("data"));
-            Glide.with(this).load((Bitmap) data.getExtras().get("data")).into(civProfile);
+            try {
+                aboutPresenter.uploadPhoto((Bitmap) data.getExtras().get("data"));
+                Glide.with(this).load((Bitmap) data.getExtras().get("data")).into(civProfile);
+                Log.e("LOL", data.getExtras().toString());
+                Log.e("LOL", FirebaseAuth.getInstance().getUid());
+            }catch (Exception e){
+                Log.e("LOL", e.getMessage());
+            }
         } else if (requestCode == GALLERY_PICTURE && resultCode == Activity.RESULT_OK) {
             try {
                 Uri uri = data.getData();
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
                 bitmap = Bitmap.createScaledBitmap(bitmap, IMAGE_WIDTH, IMAGE_HEIGHT, false);
                 int orientation = getOrientation(uri);
-                Log.e("LOL", "orientation" + String.valueOf(orientation));
                 Matrix matrix = new Matrix();
                 if (orientation == 90) {
                     matrix.postRotate(90);
