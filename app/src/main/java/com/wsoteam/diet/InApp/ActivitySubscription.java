@@ -10,6 +10,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenOneButton;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenUA;
+import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionOrangeOneButton;
 import com.wsoteam.diet.R;
 
 
@@ -27,14 +28,14 @@ public class ActivitySubscription extends AppCompatActivity {
 
         if (abVersion.equals(ABConfig.A_VERSION)) {
             getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                    FragmentSubscriptionGreen.newInstance(box)).commit();
+                FragmentSubscriptionOrangeOneButton.newInstance(box)).commit();
         } else {
             if (abVersion.equals(ABConfig.C_VERSION)) {
                 getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                        FragmentSubscriptionGreenUA.newInstance(box)).commit();
+                    FragmentSubscriptionOrangeOneButton.newInstance(box)).commit();
             } else {
                 getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                        FragmentSubscriptionGreenOneButton.newInstance(box)).commit();
+                    FragmentSubscriptionOrangeOneButton.newInstance(box)).commit();
             }
         }
 
