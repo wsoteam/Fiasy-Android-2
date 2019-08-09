@@ -254,7 +254,9 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.e("LOL", "result");
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            Log.e("LOL", "result ok");
             try {
                 aboutPresenter.uploadPhoto((Bitmap) data.getExtras().get("data"));
                 Glide.with(this).load((Bitmap) data.getExtras().get("data")).into(civProfile);
