@@ -39,11 +39,24 @@ public class EventProperties {
 
 
     //Food
+    public static final String food_item = "food_item";
+
     public static final String food_intake = "food_intake";
     public static final String food_intake_breakfast = "breakfast";
     public static final String food_intake_lunch = "lunch";
     public static final String food_intake_dinner = "dinner";
     public static final String food_intake_snack = "snack";
+
+    public static final String food_category = "food_category";
+    public static final String food_category_base = "base";
+    public static final String food_category_custom = "custom";
+    public static final String food_category_favorites = "favorites";
+    public static final String food_category_template = "template";
+
+    public static final String food_date = "food_date";
+    public static final String food_date_today = "today";
+    public static final String food_date_future = "future";
+    public static final String food_date_past = "food_date_past";
 
     public static final String results = "results";
 
@@ -62,6 +75,12 @@ public class EventProperties {
     public static final String template_from = "template_from";
     public static final String template_from_button = "button";
     public static final String template_from_plus = "plus";
+
+    public static final String template_intake = "template_intake";
+    public static final String template_intake_breakfast = "breakfast";
+    public static final String template_intake_lunch = "lunch";
+    public static final String template_intake_dinner = "dinner";
+    public static final String template_intake_snack = "snack";
 
 
     //Recipe
