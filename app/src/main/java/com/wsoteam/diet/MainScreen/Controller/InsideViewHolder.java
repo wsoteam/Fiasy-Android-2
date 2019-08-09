@@ -22,6 +22,7 @@ import com.wsoteam.diet.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.intercom.android.sdk.Intercom;
 
 public class InsideViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     @BindView(R.id.tvNameOfFood) TextView tvNameOfFood;
@@ -62,10 +63,12 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
                     case R.id.delete_food:
                         showConfirmDialog();
                         Amplitude.getInstance().logEvent(Events.DELETE_FOOD);
+                        Intercom.client().logEvent(Events.DELETE_FOOD);
                         break;
                     case R.id.edit_food:
                         openDetailFood(eating);
                         Amplitude.getInstance().logEvent(Events.EDIT_FOOD);
+                        Intercom.client().logEvent(Events.EDIT_FOOD);
                         break;
                 }
                 return false;

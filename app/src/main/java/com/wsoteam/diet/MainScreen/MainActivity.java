@@ -66,6 +66,7 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.intercom.android.sdk.Intercom;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.bnv_main_profile:
                     Amplitude.getInstance().logEvent(Events.VIEW_PROFILE);
+                    Intercom.client().logEvent(Events.VIEW_PROFILE);
                     isMainFragment = false;
                     transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
                     window.setStatusBarColor(Color.parseColor("#2E4E4E"));

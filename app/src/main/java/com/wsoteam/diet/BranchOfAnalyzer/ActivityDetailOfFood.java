@@ -45,6 +45,7 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.intercom.android.sdk.Intercom;
 
 public class ActivityDetailOfFood extends AppCompatActivity {
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
@@ -378,6 +379,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             case R.id.ibSendClaim:
                 ClaimForm.createChoiseEatingAlertDialog(this, foodItem);
                 Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_BUGSEND);
+                Intercom.client().logEvent(Events.PRODUCT_PAGE_BUGSEND);
                 break;
             case R.id.ibAddFavorite:
                 if (isFavorite) {
@@ -395,6 +397,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     private void shareFood(Food foodItem) {
         Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_SHARE);
+        Intercom.client().logEvent(Events.PRODUCT_PAGE_SHARE);
         String forSend;
         if (foodItem.getBrand() == null) {
             forSend = foodItem.getName()
@@ -413,6 +416,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     private void showPremiumScreen() {
         Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_MICRO);
+        Intercom.client().logEvent(Events.PRODUCT_PAGE_MICRO);
         Intent intent = new Intent(ActivityDetailOfFood.this, ActivitySubscription.class);
         Box box = new Box(AmplitudaEvents.view_prem_elements, AmplitudaEvents.buy_prem_elements, false,
                 true, null, false);
