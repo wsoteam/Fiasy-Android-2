@@ -58,8 +58,6 @@ public class Config {
     public static final String SHARE_DIET = "share_diet";
 
     //TRAINING
-    public static final String SELECT_TRAINING = "select_training";
+    //public static final String SELECT_TRAINING = "select_training";
     public static final String SHARE_TRAINING = "share_training";
-
-
 }
