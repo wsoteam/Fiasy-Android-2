@@ -24,6 +24,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.amplitude.api.Amplitude;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -56,6 +57,7 @@ import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplateFragment;
 import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
 
@@ -129,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
                     return true;
                 case R.id.bnv_main_profile:
+                    Amplitude.getInstance().logEvent(Events.VIEW_PROFILE);
                     isMainFragment = false;
                     transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
                     window.setStatusBarColor(Color.parseColor("#2E4E4E"));

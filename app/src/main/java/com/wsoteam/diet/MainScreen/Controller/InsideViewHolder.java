@@ -12,7 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.amplitude.api.Amplitude;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailSavedFood;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.model.Eating;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
@@ -58,9 +61,11 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
                 switch (menuItem.getItemId()) {
                     case R.id.delete_food:
                         showConfirmDialog();
+                        Amplitude.getInstance().logEvent(Events.DELETE_FOOD);
                         break;
                     case R.id.edit_food:
                         openDetailFood(eating);
+                        Amplitude.getInstance().logEvent(Events.EDIT_FOOD);
                         break;
                 }
                 return false;

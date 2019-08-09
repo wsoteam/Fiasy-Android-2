@@ -31,6 +31,7 @@ import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
@@ -376,6 +377,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                 break;
             case R.id.ibSendClaim:
                 ClaimForm.createChoiseEatingAlertDialog(this, foodItem);
+                Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_BUGSEND);
                 break;
             case R.id.ibAddFavorite:
                 if (isFavorite) {
@@ -392,6 +394,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     }
 
     private void shareFood(Food foodItem) {
+        Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_SHARE);
         String forSend;
         if (foodItem.getBrand() == null) {
             forSend = foodItem.getName()
@@ -409,6 +412,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     }
 
     private void showPremiumScreen() {
+        Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_MICRO);
         Intent intent = new Intent(ActivityDetailOfFood.this, ActivitySubscription.class);
         Box box = new Box(AmplitudaEvents.view_prem_elements, AmplitudaEvents.buy_prem_elements, false,
                 true, null, false);
