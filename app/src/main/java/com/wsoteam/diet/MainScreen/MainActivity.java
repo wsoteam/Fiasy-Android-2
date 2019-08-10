@@ -154,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         handlGrade(Calendar.getInstance().getTimeInMillis());
         Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        Log.e("LOL", String.valueOf(Calendar.getInstance().get(Calendar.MONTH)));
     }
 
     private void handlGrade(long currentTime) {

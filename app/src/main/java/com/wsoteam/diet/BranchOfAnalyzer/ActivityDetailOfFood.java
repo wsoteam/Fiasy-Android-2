@@ -31,12 +31,14 @@ import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
 
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -263,6 +265,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     }
 
     private void savePortion(int idOfEating) {
+        String food_intake = "";
 
         String wholeDate = getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE);
         String[] arrayOfNumbersForDate = wholeDate.split("\\.");
@@ -278,7 +281,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
         int weight = Integer.parseInt(edtWeight.getText().toString());
 
-
         String name = foodItem.getName();
         String urlOfImage = "empty_url";
 
@@ -287,20 +289,28 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             case BREAKFAST_POSITION:
                 WorkWithFirebaseDB.
                         addBreakfast(new Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                food_intake = EventProperties.food_intake_breakfast;
                 break;
             case LUNCH_POSITION:
                 WorkWithFirebaseDB.
                         addLunch(new Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                food_intake = EventProperties.food_intake_lunch;
                 break;
             case DINNER_POSITION:
                 WorkWithFirebaseDB.
                         addDinner(new Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                food_intake = EventProperties.food_intake_dinner;
                 break;
             case SNACK_POSITION:
                 WorkWithFirebaseDB.
                         addSnack(new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                food_intake = EventProperties.food_intake_snack;
                 break;
         }
+        String food_category = getFoodCategory();
+        String food_item = foodItem.getName();
+        String food_date = getDateType(day, month, year);
+        Events.logAddFood(food_intake, food_category, food_date, food_item);
         AlertDialog alertDialog = AddFoodDialog.createChoiseEatingAlertDialog(ActivityDetailOfFood.this);
         alertDialog.show();
         getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).edit().putBoolean(Config.IS_ADDED_FOOD, true).commit();
@@ -318,6 +328,31 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         }.start();
     }
 
+    private String getDateType(int day, int month, int year) {
+        Calendar calendar = Calendar.getInstance();
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentYear = calendar.get(Calendar.YEAR);
+
+        if (currentDay == day && currentMonth == month && currentYear == year){
+            return EventProperties.food_date_today;
+        }else if (currentDay > day && currentMonth >= month && currentYear >= year){
+            return EventProperties.food_date_future;
+        }else {
+            return EventProperties.food_date_past;
+        }
+    }
+
+    private String getFoodCategory() {
+        if (isFavorite){
+            return EventProperties.food_category_favorites;
+        }else if(isOwnFood){
+            return EventProperties.food_category_custom;
+        }else {
+            return EventProperties.food_category_base;
+        }
+    }
+
 
     private void calculateMainParameters(CharSequence stringPortion) {
         double portion = Double.parseDouble(stringPortion.toString());
@@ -326,7 +361,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         tvCalculateKcal.setText(String.valueOf(Math.round(portion * foodItem.getCalories())) + " " + getString(R.string.kcal));
         tvCalculateCarbohydrates.setText(String.valueOf(Math.round(portion * foodItem.getCarbohydrates())) + " " + getString(R.string.gramm));
         tvCalculateFat.setText(String.valueOf(Math.round(portion * foodItem.getFats())) + " " + getString(R.string.gramm));
-
     }
 
     @OnClick({R.id.btnSaveEating, R.id.ivBack, R.id.btnPremCell, R.id.btnPremCholy,
