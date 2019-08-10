@@ -29,6 +29,8 @@ import com.wsoteam.diet.Recipes.adding.pages.InstructionsFragment;
 import com.wsoteam.diet.Recipes.adding.pages.MainFragment;
 import com.wsoteam.diet.Recipes.adding.pages.ResultFragment;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -281,6 +283,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         recipeItem.setUrl("https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/default_recipe.png?alt=media&token=1fcf855f-fa9d-4831-9ff2-af204a612707");
 
         WorkWithFirebaseDB.addUserRecipe(recipeItem);
+        Events.logCreateRecipe(getIntent().getStringExtra(EventProperties.recipe_from));
         if (isShare) {
             WorkWithFirebaseDB.addUsersSharedRecipe(recipeItem);
         }

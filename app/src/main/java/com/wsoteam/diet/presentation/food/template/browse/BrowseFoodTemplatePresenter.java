@@ -16,6 +16,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
@@ -40,9 +41,9 @@ public class BrowseFoodTemplatePresenter extends BasePresenter<BrowseFoodTemplat
         initAdapter();
     }
 
-    void initAdapter(){
+    void initAdapter() {
         foodTemplates = UserDataHolder.getUserData().getFoodTemplates();
-        if (foodTemplates != null){
+        if (foodTemplates != null) {
             getViewState().setData(new ArrayList<>(foodTemplates.values()));
             getViewState().hideBtn();
         } else {
@@ -51,16 +52,16 @@ public class BrowseFoodTemplatePresenter extends BasePresenter<BrowseFoodTemplat
         }
     }
 
-    public void editTemplate(FoodTemplate template){
+    public void editTemplate(FoodTemplate template) {
         Intent intent = new Intent(activity, CreateFoodTemplateActivity.class);
         intent.putExtra(Config.FOOD_TEMPLATE_INTENT, template);
         activity.startActivity(intent);
     }
 
-    public  void addToDiary(FoodTemplate template){
+    public void addToDiary(FoodTemplate template) {
 
-        for (Food food:
-             template.getFoodList()) {
+        for (Food food :
+                template.getFoodList()) {
             savePortion(food);
         }
 
@@ -82,16 +83,17 @@ public class BrowseFoodTemplatePresenter extends BasePresenter<BrowseFoodTemplat
 
     }
 
-    void addTemplate(){
+    void addTemplate() {
         activity.startActivity(new Intent(activity, CreateFoodTemplateActivity.class)
-                .putExtra(Config.EATING_SPINNER_POSITION, ((ActivityListAndSearch) activity).spinnerId));
+                .putExtra(Config.EATING_SPINNER_POSITION, ((ActivityListAndSearch) activity).spinnerId)
+                .putExtra(EventProperties.template_from, EventProperties.template_from_button));
     }
 
-    void search(String str){
+    void search(String str) {
 
         initAdapter();
 
-        if (foodTemplates == null || foodTemplates.size() == 0){
+        if (foodTemplates == null || foodTemplates.size() == 0) {
             return;
         }
 
@@ -107,7 +109,7 @@ public class BrowseFoodTemplatePresenter extends BasePresenter<BrowseFoodTemplat
         if (key == null || key.equals("")) {
             getViewState().setData(new ArrayList<>(foodTemplates.values()));
         } else {
-            for( FoodTemplate template : new ArrayList<>(foodTemplates.values())) {
+            for (FoodTemplate template : new ArrayList<>(foodTemplates.values())) {
                 if (template.getName() != null && template.getName().toLowerCase().contains(key)) {
                     result.add(template);
                 }
@@ -126,12 +128,12 @@ public class BrowseFoodTemplatePresenter extends BasePresenter<BrowseFoodTemplat
         int month = Integer.parseInt(arrayOfNumbersForDate[1]) - 1;
         int year = Integer.parseInt(arrayOfNumbersForDate[2]);
 
-        int kcal = (int)(food.getCalories() * food.getPortion());
-        int carbo = (int)(food.getCarbohydrates() * food.getPortion());
-        int prot = (int)(food.getProteins() * food.getPortion());
-        int fat = (int)(food.getFats() * food.getPortion());
+        int kcal = (int) (food.getCalories() * food.getPortion());
+        int carbo = (int) (food.getCarbohydrates() * food.getPortion());
+        int prot = (int) (food.getProteins() * food.getPortion());
+        int fat = (int) (food.getFats() * food.getPortion());
 
-        int weight = (int)food.getPortion();
+        int weight = (int) food.getPortion();
 
         String name = food.getName();
         String urlOfImage = "empty_url";

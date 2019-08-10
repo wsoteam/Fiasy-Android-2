@@ -149,6 +149,34 @@ public class Events {
         Intercom.client().logEvent(VIEW_ARTICLES, eventData);
     }
 
+    public static void logCreateRecipe(String from) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.recipe_from, from);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(CUSTOM_RECIPE_SUCCESS, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.recipe_from, from);
+        Intercom.client().logEvent(CUSTOM_RECIPE_SUCCESS, eventData);
+    }
+
+    public static void logCreateTemplate(String from, String template_intake ) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.template_from, from);
+            eventProperties.put(EventProperties.template_intake, template_intake);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(CUSTOM_TEMPLATE_SUCCESS, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.template_from, from);
+        eventData.put(EventProperties.template_intake, template_intake);
+        Intercom.client().logEvent(CUSTOM_TEMPLATE_SUCCESS, eventData);
+    }
+
     public static void logAddFood(String food_intake, String food_category, String food_date, String food_item) {
         JSONObject eventProperties = new JSONObject();
         try {

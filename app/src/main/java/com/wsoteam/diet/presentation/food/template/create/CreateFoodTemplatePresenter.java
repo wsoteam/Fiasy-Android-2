@@ -9,6 +9,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplateHolder;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.global.BasePresenter;
 import com.wsoteam.diet.presentation.global.Screens;
 
@@ -56,7 +57,7 @@ public class CreateFoodTemplatePresenter extends BasePresenter<CreateFoodTemplat
         router.exit();
     }
 
-    void onSaveClicked(){
+    void onSaveClicked(String stringExtra){
 
         getViewState().setColorSaveButton(foods.size());
 
@@ -69,6 +70,7 @@ public class CreateFoodTemplatePresenter extends BasePresenter<CreateFoodTemplat
                 WorkWithFirebaseDB.editFoodTemplate(foodTemplate.getKey(), foodTemplate);
 
             }else {
+                Events.logCreateTemplate(stringExtra, foodTemplate.getEating());
                 WorkWithFirebaseDB.addFoodTemplate(foodTemplate);
             }
             getViewState().showMessage("Сохранено в раздел Шаблоны");

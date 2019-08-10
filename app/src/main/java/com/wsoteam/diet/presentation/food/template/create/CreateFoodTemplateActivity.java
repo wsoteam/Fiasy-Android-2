@@ -26,6 +26,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.presentation.food.adapter.FoodAdapter;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 
@@ -114,7 +115,7 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
 
     @OnClick({R.id.btnSave})
     public void onViewClicked(View view) {
-        presenter.onSaveClicked();
+        presenter.onSaveClicked(getIntent().getStringExtra(EventProperties.template_from));
     }
 
 
