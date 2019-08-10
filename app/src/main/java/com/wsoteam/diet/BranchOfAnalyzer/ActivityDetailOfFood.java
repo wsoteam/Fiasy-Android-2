@@ -141,7 +141,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             }
         });
 
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_detail_food);
+        Events.logViewFood(foodItem.getName());
 
     }
 
@@ -425,6 +425,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     }
 
     private String addFavorite() {
+        Events.logAddFavorite(foodItem.getName());
         FavoriteFood favoriteFood = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), "empty");
         String key = WorkWithFirebaseDB.addFoodFavorite(favoriteFood);
         return key;

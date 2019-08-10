@@ -25,6 +25,7 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.Events;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,6 +70,7 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
             }
         });
 
+        Events.logViewArticle(article.getTitle());
 //        tvMain.getPaint().setMaskFilter(new BlurMaskFilter(10, BlurMaskFilter.Blur.NORMAL));
     }
 

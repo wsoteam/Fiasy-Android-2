@@ -32,6 +32,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -174,10 +175,10 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imbAddFood:
-                startActivity(new Intent(getActivity(), ActivityCreateFood.class));
+                startActivity(new Intent(getActivity(), ActivityCreateFood.class).putExtra(EventProperties.product_from, EventProperties.product_from_button));
                 break;
             case R.id.btnAddFavorite:
-                startActivity(new Intent(getActivity(), ActivityCreateFood.class));
+                startActivity(new Intent(getActivity(), ActivityCreateFood.class).putExtra(EventProperties.product_from, EventProperties.product_from_button));
                 break;
         }
     }

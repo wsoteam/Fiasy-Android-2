@@ -1,5 +1,15 @@
 package com.wsoteam.diet.common.Analytics;
 
+import com.amplitude.api.Amplitude;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import io.intercom.android.sdk.experimental.Intercom;
+
 public class Events {
 
 
@@ -70,4 +80,72 @@ public class Events {
     //TRAINING
     //public static final String SELECT_TRAINING = "select_training";
     //public static final String SHARE_TRAINING = "share_training";
+
+    //Amplitude events
+    public static void logViewFood(String id) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.product_item, id);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(VIEW_PRODUCT_PAGE, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.product_item, id);
+        Intercom.client().logEvent(VIEW_PRODUCT_PAGE, eventData);
+    }
+
+
+    public static void logAddFavorite(String id) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.favorites, id);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(PRODUCT_PAGE_FAVORITES, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.favorites, id);
+        Intercom.client().logEvent(PRODUCT_PAGE_FAVORITES, eventData);
+    }
+
+
+    public static void logFoodSearch(int count) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.results, count);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(FOOD_SEARCH, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.results, count);
+        Intercom.client().logEvent(FOOD_SEARCH, eventData);
+    }
+
+    public static void logCreateCustomFood(String from) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.product_from, from);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(CUSTOM_PRODUCT_SUCCESS, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.product_from, from);
+        Intercom.client().logEvent(CUSTOM_PRODUCT_SUCCESS, eventData);
+    }
+
+    public static void logViewArticle(String name) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.articles_item, name);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(VIEW_ARTICLES, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.articles_item, name);
+        Intercom.client().logEvent(VIEW_ARTICLES, eventData);
+    }
 }

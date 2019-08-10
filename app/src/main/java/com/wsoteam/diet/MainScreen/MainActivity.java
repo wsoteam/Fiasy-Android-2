@@ -101,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
                     window.setStatusBarColor(Color.parseColor("#AE6A23"));
                     return true;
                 case R.id.bnv_main_articles:
+                    Amplitude.getInstance().logEvent(Events.CHOOSE_ARTICLES);
+                    Intercom.client().logEvent(Events.CHOOSE_ARTICLES);
                     box.setComeFrom(AmplitudaEvents.view_prem_content);
                     box.setBuyFrom(AmplitudaEvents.buy_prem_content);
                     isMainFragment = false;

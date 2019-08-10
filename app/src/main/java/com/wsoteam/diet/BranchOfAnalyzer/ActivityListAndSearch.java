@@ -33,6 +33,8 @@ import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
 import com.wsoteam.diet.Recipes.helper.FragmentRecipeContainer;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplateFragment;
 import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
 
@@ -209,7 +211,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
                     /*case R.id.userNote:
                         break;*/
                     case R.id.createFood:
-                        startActivity(new Intent(ActivityListAndSearch.this, ActivityCreateFood.class));
+                        startActivity(new Intent(ActivityListAndSearch.this, ActivityCreateFood.class).putExtra(EventProperties.product_from, EventProperties.product_from_plus));
                         break;
                     /*case R.id.createEating:
                         break;*/
