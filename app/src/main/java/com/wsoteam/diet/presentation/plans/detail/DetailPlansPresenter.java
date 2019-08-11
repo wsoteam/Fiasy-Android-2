@@ -69,17 +69,6 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
     router.exit();
   }
 
-  //void setDietPlan(DietPlan diet){
-  //    this.dietPlan = diet;
-  //    plansRecipe = new PlansGroupsRecipe(RecipesHolder.get(), dietPlan);
-  //    recipeForDays = plansRecipe.getRecipeForDays();
-  //    getViewState().showData(dietPlan);
-  //    getViewState().setAdapter();
-  //}
-
-  DietPlan getDietPlan() {
-    return dietPlan;
-  }
 
   List<RecipeForDay> getList() {
     return recipeForDays;
@@ -93,6 +82,13 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
     dietPlan.setStartDate(DateHelper.dateToString(new Date()));
     WorkWithFirebaseDB.joinDietPlan(dietPlan);
     getViewState().visibilityButtonJoin(false);
+  }
+
+  void clickedLeave(){
+    WorkWithFirebaseDB.leaveDietPlan();
+    getViewState().visibilityButtonJoin(true);
+    UserDataHolder.getUserData().setPlan(null);
+    initDietPlan();
   }
 
 

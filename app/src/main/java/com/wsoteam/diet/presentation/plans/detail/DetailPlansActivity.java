@@ -1,6 +1,5 @@
 package com.wsoteam.diet.presentation.plans.detail;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +16,6 @@ import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.R;
-
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import dagger.android.AndroidInjection;
 import javax.inject.Inject;
@@ -32,8 +30,30 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
   @Inject
   Router router;
 
+  private MenuItem leaveMenu;
+
   @InjectPresenter
   DetailPlansPresenter presenter;
+  View.OnClickListener navigationListener = new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+      presenter.clickedClose();
+    }
+  };
+  MenuItem.OnMenuItemClickListener menuListener = new MenuItem.OnMenuItemClickListener() {
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+
+      switch (menuItem.getItemId()) {
+        case R.id.mLeave: {
+          presenter.clickedLeave();
+          return true;
+        }
+        default:
+          return false;
+      }
+    }
+  };
 
   @ProvidePresenter
   DetailPlansPresenter providePresenter() {
@@ -56,20 +76,22 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
 
     toolbar.inflateMenu(R.menu.diet_plans_menu);
     toolbar.setNavigationOnClickListener(navigationListener);
+    toolbar.setOverflowIcon(getDrawable(R.drawable.ic_more));
 
     Menu menu = toolbar.getMenu();
     MenuItem shareMenu = menu.findItem(R.id.mShare);
-    MenuItem dotMenu = menu.findItem(R.id.mDots);
+    leaveMenu = menu.findItem(R.id.mLeave);
+    invalidateOptionsMenu();
 
     shareMenu.setOnMenuItemClickListener(menuListener);
-    dotMenu.setOnMenuItemClickListener(menuListener);
+    leaveMenu.setOnMenuItemClickListener(menuListener);
 
     recycler.setLayoutManager(new LinearLayoutManager(this));
   }
 
   @OnClick({ R.id.btnJoin })
   void onClicked() {
-        presenter.clickedJoin();
+    presenter.clickedJoin();
   }
 
   @Override
@@ -89,21 +111,6 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
 
   @Override public void visibilityButtonJoin(boolean value) {
     btnJoin.setVisibility(value ? View.VISIBLE : View.GONE);
+    leaveMenu.setVisible(!value);
   }
-
-
-  View.OnClickListener navigationListener = new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-      presenter.clickedClose();
-    }
-  };
-  MenuItem.OnMenuItemClickListener menuListener = new MenuItem.OnMenuItemClickListener() {
-    @Override
-    public boolean onMenuItemClick(MenuItem menuItem) {
-
-      return true;
-    }
-  };
-
 }

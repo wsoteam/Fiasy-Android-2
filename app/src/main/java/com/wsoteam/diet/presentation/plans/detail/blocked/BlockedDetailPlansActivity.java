@@ -64,7 +64,7 @@ public class BlockedDetailPlansActivity extends BaseActivity implements BlockedD
 
         Menu menu = toolbar.getMenu();
         MenuItem shareMenu = menu.findItem(R.id.mShare);
-        MenuItem dotMenu = menu.findItem(R.id.mDots);
+        MenuItem dotMenu = menu.findItem(R.id.mLeave);
 
         shareMenu.setOnMenuItemClickListener(menuListener);
         dotMenu.setOnMenuItemClickListener(menuListener);
