@@ -13,17 +13,18 @@ import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.presentation.auth.restore.ActivityForgotPassword;
+import com.wsoteam.diet.presentation.plans.detail.PlanRecipeActivity;
 import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 
 public class Screens {
 
-    public static final class PlanRecipeActivity extends SupportAppScreen {
+    public static final class PlanRecipeScreen extends SupportAppScreen {
         private RecipeItem recipeItem;
-        private String[] path;
+        private String[] path = {"fg", "fg"};
 
-        public PlanRecipeActivity(RecipeItem recipeItem) {
+        public PlanRecipeScreen(RecipeItem recipeItem) {
             this.recipeItem = recipeItem;
         }
 

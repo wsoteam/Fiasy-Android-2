@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.plans.detail;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,19 +16,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
-import com.wsoteam.diet.Config;
-import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Recipes.POJO.RecipeItem;
-import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import com.wsoteam.diet.presentation.global.BaseActivity;
-import com.wsoteam.diet.presentation.plans.DateHelper;
-import com.wsoteam.diet.presentation.plans.adapter.HorizontalDetailPlansAdapter;
-import com.wsoteam.diet.presentation.plans.adapter.VerticalDetailPlansAdapter;
 import dagger.android.AndroidInjection;
-import java.util.Date;
 import javax.inject.Inject;
 import ru.terrakok.cicerone.Router;
 
@@ -36,9 +28,6 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
   @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.recycler) RecyclerView recycler;
   @BindView(R.id.btnJoin) Button btnJoin;
-
-  VerticalDetailPlansAdapter adapter;
-  DietPlan plan;
 
   @Inject
   Router router;
