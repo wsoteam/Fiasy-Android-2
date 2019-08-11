@@ -255,7 +255,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fabAddEating:
-                /*AlertDialogChoiseEating.createChoiceEatingAlertDialog(getActivity(),
+                /*AlertDialogChoiceEating.createChoiceEatingAlertDialog(getActivity(),
                         tvDateForMainScreen.getText().toString()).show();*/
                 Intercom.client().displayMessenger();
                 break;

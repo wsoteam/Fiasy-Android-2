@@ -22,17 +22,20 @@ public class Screens {
 
     public static final class PlanRecipeScreen extends SupportAppScreen {
         private RecipeItem recipeItem;
-        private String[] path = {"fg", "fg"};
+        private String[] path = new String[3];
 
-        public PlanRecipeScreen(RecipeItem recipeItem) {
+        public PlanRecipeScreen(RecipeItem recipeItem, String day, String meal, String number) {
             this.recipeItem = recipeItem;
+            path[0] = day;
+            path[1] = meal;
+            path[2] = number;
         }
 
         @Override
         public Intent getActivityIntent(Context context) {
             return new Intent(context, PlanRecipeActivity.class)
-                .putExtra("RecipeItem", recipeItem)
-                .putExtra("Recipe", path);
+                .putExtra(Config.RECIPE_INTENT, recipeItem)
+                .putExtra("RecipePath", path);
         }
     }
 

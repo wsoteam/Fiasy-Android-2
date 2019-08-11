@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.plans.detail;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.presentation.global.BaseView;

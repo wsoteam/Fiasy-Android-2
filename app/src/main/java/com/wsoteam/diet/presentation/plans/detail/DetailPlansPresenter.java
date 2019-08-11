@@ -100,7 +100,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
     @Override
     public void onItemClick(RecipeItem recipeItem, String day, String meal, String recipeNumber) {
       Log.d("kkk", recipeItem.getName() + "\n" + day + "\n" + meal + "\n" + recipeNumber + "\n");
-      router.navigateTo(new Screens.PlanRecipeScreen(recipeItem));
+      router.navigateTo(new Screens.PlanRecipeScreen(recipeItem, day, meal, recipeNumber));
       //if (recipeItem.isAddedInDiaryFromPlan()){
       //  recipeItem.setAddedInDiaryFromPlan(false);
       //  WorkWithFirebaseDB.setRecipeInDiaryFromPlan(day, meal,recipeNumber, false);
