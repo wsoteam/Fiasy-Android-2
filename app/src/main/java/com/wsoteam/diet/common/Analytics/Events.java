@@ -195,4 +195,56 @@ public class Events {
         eventData.put(EventProperties.food_item, food_item);
         Intercom.client().logEvent(ADD_FOOD_SUCCESS, eventData);
     }
+
+    public static void logViewRecipe(String name) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.recipe_item, name);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(VIEW_RECIPE, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.recipe_item, name);
+        Intercom.client().logEvent(VIEW_RECIPE, eventData);
+    }
+
+    public static void logAddFavoriteRecipe(String name) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.favorites_recipe, name);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(RECIPE_FAVORITES, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.favorites_recipe, name);
+        Intercom.client().logEvent(RECIPE_FAVORITES, eventData);
+    }
+
+    public static void logAddRecipeInDiary(String eating) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.recipe_intake, eating);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(RECIPE_ADD_SUCCES, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.recipe_intake, eating);
+        Intercom.client().logEvent(RECIPE_ADD_SUCCES, eventData);
+    }
+
+    public static void logChoiseRecipeCategory(String categoryName) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.recipe_category, categoryName);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(RECIPE_CATEGORY, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.recipe_category, categoryName);
+        Intercom.client().logEvent(RECIPE_CATEGORY, eventData);
+    }
 }
