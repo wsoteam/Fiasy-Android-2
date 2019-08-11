@@ -73,11 +73,6 @@ public class IndividualPlanFragments extends Fragment {
     }
   }
 
-  @OnClick(R.id.btnBack2)
-  void clickBack(){
-   getActivity().onBackPressed();
-  }
-
   @OnClick(R.id.btnNext2)
   void clickNext(){
     ((AfterQuestionsActivity)getActivity()).nextQuestion();

@@ -273,6 +273,7 @@
         android:theme="@style/DetailFood" />
     <activity
         android:name=".presentation.profile.questions.QuestionsActivity"
+        android:exported="true"
         android:screenOrientation="portrait"
         android:theme="@style/EditProfile" />
     <activity
