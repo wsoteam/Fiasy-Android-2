@@ -113,4 +113,9 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
     btnJoin.setVisibility(value ? View.VISIBLE : View.GONE);
     leaveMenu.setVisible(!value);
   }
+
+  @Override protected void onResume() {
+    presenter.onResume();
+    super.onResume();
+  }
 }

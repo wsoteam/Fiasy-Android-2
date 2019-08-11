@@ -91,6 +91,11 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
     initDietPlan();
   }
 
+  void onResume(){
+    Log.d("kkk", "onResume: ");
+    adapter.notifyDataSetChanged();
+  }
+
 
   HorizontalDetailPlansAdapter.OnItemClickListener adapterListener = new HorizontalDetailPlansAdapter.OnItemClickListener() {
     @Override

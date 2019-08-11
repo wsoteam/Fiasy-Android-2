@@ -1,6 +1,5 @@
 package com.wsoteam.diet.presentation.plans.detail;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,6 +29,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.model.Breakfast;
@@ -39,6 +38,7 @@ import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PlanRecipeActivity extends MvpAppCompatActivity
@@ -262,7 +262,6 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
     int month = c.get(Calendar.MONTH);
     int day = c.get(Calendar.DAY_OF_MONTH);
     savePortion(idOfEating, recipeItem, year, month, day);
-
   }
 
   private void savePortion(int idOfEating, RecipeItem recipe, int year, int month, int day) {
@@ -300,6 +299,7 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
 
     WorkWithFirebaseDB.setRecipeInDiaryFromPlan(recipePath[0], recipePath[1], recipePath[2], true);
     cardViewButtonAdd.setVisibility(View.GONE);
+    setAddedInDiaryFromPlan();
 
     AlertDialog alertDialog = AddFoodDialog.createChoiseEatingAlertDialog(this);
     alertDialog.show();
@@ -318,6 +318,33 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
         onBackPressed();
       }
     }.start();
+  }
+
+  private void setAddedInDiaryFromPlan() {
+    RecipeForDay recipeForDay = UserDataHolder.getUserData()
+        .getPlan()
+        .getRecipeForDays()
+        .get(Integer.parseInt(recipePath[0]));
+    List<RecipeItem> recipeItemList;
+
+    switch (recipePath[1]){
+      case "breakfast":
+        recipeItemList = recipeForDay.getBreakfast();
+        break;
+      case "dinner":
+        recipeItemList = recipeForDay.getDinner();
+        break;
+      case "lunch":
+        recipeItemList = recipeForDay.getLunch();
+        break;
+      case "snack":
+        recipeItemList = recipeForDay.getSnack();
+        break;
+        default: recipeItemList = null;
+    }
+    if (recipeItemList != null){
+      recipeItemList.get(Integer.parseInt(recipePath[2])).setAddedInDiaryFromPlan(true);
+    }
   }
 
   public class AlertDialogChoiceEating {
