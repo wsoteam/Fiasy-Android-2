@@ -807,7 +807,7 @@
   <string name="auth_sign_up_alternatives">Или заригестрируйтесь с помощью</string>
 
   <string name="constraint_error_username_min_length">Минимальная длина логина 5 символов</string>
-  <string name="constraint_error_password_min_length">Минимальная длина пароля 8 символов</string>
+  <string name="constraint_error_password_min_length">Минимальная длина пароля 6 символов</string>
   <string name="constraint_error_username_email">Введите email</string>
   <string name="enter_email_hint">Введите email</string>
   <string name="repeat_password_hint">Повторите пароль</string>

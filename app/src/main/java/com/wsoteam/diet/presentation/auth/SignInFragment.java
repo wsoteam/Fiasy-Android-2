@@ -39,11 +39,11 @@ public class SignInFragment extends AuthStrategyFragment {
     ));
 
     formValidators.put(R.id.password, Arrays.asList(
-        new MinLengthValidation(R.string.constraint_error_password_min_length, 7)
+        new MinLengthValidation(R.string.constraint_error_password_min_length, 5)
     ));
 
     formValidators.put(R.id.password2, Arrays.asList(
-        new MinLengthValidation(R.string.constraint_error_password_min_length, 7)
+        new MinLengthValidation(R.string.constraint_error_password_min_length, 5)
     ));
   }
 
