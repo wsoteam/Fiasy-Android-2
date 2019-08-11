@@ -81,7 +81,9 @@
         android:textColor="#777777"
         android:textSize="14sp"
         android:textStyle="normal"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPlansRecipes" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPlansRecipes"
+        />
 
 </android.support.constraint.ConstraintLayout>

@@ -37,6 +37,12 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   private Context mContext;
   private RecyclerView.RecycledViewPool viewPool;
   private int daysAfterStart;
+  private boolean isCurrentPlan;
+
+  public VerticalDetailPlansAdapter(DietPlan dietPlan, boolean isCurrentPlan){
+    this(dietPlan);
+    this.isCurrentPlan = isCurrentPlan;
+  }
 
   public VerticalDetailPlansAdapter(DietPlan dietPlan) {
     this.recipeForDays = dietPlan.getRecipeForDays();
@@ -48,7 +54,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     if (startDate != null){
       long milliseconds = currentDate.getTime() - startDate.getTime();
       // 24 часа = 1 440 минут = 1 день
-      daysAfterStart = (int) (milliseconds / (24 * 60 * 60 * 1000));
+      daysAfterStart = ((int) (milliseconds / (24 * 60 * 60 * 1000)));
       Log.d("kkk", "" + milliseconds +"\nДней: " + daysAfterStart);
     }
 
@@ -72,7 +78,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       case R.layout.plans_header_item:
         View v1 = LayoutInflater.from(viewGroup.getContext())
             .inflate(R.layout.plans_header_item, viewGroup, false);
-        return new HeaderViewHolder(v1);
+        return new HeaderViewHolder(v1, dietPlan, mContext, isCurrentPlan, daysAfterStart);
       default: {
         View v0 = LayoutInflater.from(viewGroup.getContext())
             .inflate(R.layout.detail_plans_day_item, viewGroup, false);
@@ -213,14 +219,15 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     }
   }
 
-  class HeaderViewHolder extends RecyclerView.ViewHolder {
+  static class HeaderViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.ivDietsPlan) ImageView imageView;
     @BindView(R.id.tvPlansName) TextView tvName;
     @BindView(R.id.tvPlansRecipes) TextView tvRecipes;
     @BindView(R.id.tvTime) TextView tvTime;
+    @BindView(R.id.tvTimeCount) TextView tvTimeCount;
 
-    public HeaderViewHolder(@NonNull View itemView) {
+    public HeaderViewHolder(@NonNull View itemView, DietPlan dietPlan, Context mContext, boolean isCurrentPlan, int day) {
       super(itemView);
       ButterKnife.bind(this, itemView);
 
@@ -230,6 +237,11 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       tvTime.setText(dietPlan.getCountDays() +
           NounsDeclension.check(dietPlan.getCountDays(), " день", " дня", " дней"));
       Glide.with(mContext).load(dietPlan.getUrlImage()).into(imageView);
+
+      if (isCurrentPlan){
+        tvTimeCount.setVisibility(View.VISIBLE);
+        tvTimeCount.setText((day + 1) + " день из " + dietPlan.getCountDays());
+      }
     }
   }
 

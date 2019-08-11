@@ -33,6 +33,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
   VerticalDetailPlansAdapter adapter;
 
   public DetailPlansPresenter(Router router, Intent intent) {
+    Log.d("kkk", "DetailPlansPresenter: constructor");
     this.router = router;
     this.intent = intent;
     initDietPlan();
@@ -45,14 +46,16 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
         && UserDataHolder.getUserData().getPlan().getName().equals(dietPlan.getName())) {
       getViewState().visibilityButtonJoin(false);
       dietPlan = UserDataHolder.getUserData().getPlan();
+      adapter = new VerticalDetailPlansAdapter(dietPlan, true);
        Log.d("kkk", "onCreate: " + dietPlan.getRecipeForDays().get(5).getBreakfast().get(0).isAddedInDiaryFromPlan());
     } else {
+      Log.d("kkk", "initDietPlan: else " );
       plansRecipe = new PlansGroupsRecipe(RecipesHolder.get(), dietPlan);
       recipeForDays = plansRecipe.getRecipeForDays();
       dietPlan.setRecipes(getList(), plansRecipe.size());
+      adapter = new VerticalDetailPlansAdapter(dietPlan);
     }
 
-    adapter = new VerticalDetailPlansAdapter(dietPlan);
     adapter.SetOnItemClickListener(adapterListener);
     getViewState().setAdapter(adapter);
     Log.d("kkk", "initDietPlan: adapter " + adapter);
