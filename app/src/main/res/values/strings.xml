@@ -92,7 +92,7 @@
   <string name="intro_text_2">Полезные рецепты на каждый день</string>
   <string name="intro_text_3">Удобно отслеживать свои достижения</string>
 
-  <string name="onboard_sex_title">Кто вы?</string>
+  <string name="onboard_sex_title">Выберите ваш пол</string>
   <string name="onboard_purpose_title">Выберите свою цель</string>
   <string name="onboard_purpose_normal_text">Поддержания тела в\nформе</string>
   <string name="onboard_purpose_loose_weight_text">Похудение</string>

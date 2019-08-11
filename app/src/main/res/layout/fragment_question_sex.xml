@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
-    android:paddingTop="6dp">
+    android:paddingTop="6dp"
+    >
 
     <TextView
         android:id="@+id/tvTitle"
@@ -33,7 +34,7 @@
 
         <RadioButton
             android:id="@+id/rbFemale"
-            android:checked="true"
+            android:checked="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_female_selector"
@@ -54,16 +55,26 @@
             android:button="@null"/>
     </RadioGroup>
 
-    <Button
-        android:id="@+id/btnNext"
+    <TextView
+        android:id="@+id/selected_sex_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:elevation="10dp"
-        android:foreground="?android:attr/selectableItemBackgroundBorderless"
-        android:text="@string/auth_data_btn_next"
-        android:textAllCaps="true"
-        android:textColor="@color/orange1"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:gravity="center"
+        style="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintTop_toBottomOf="@id/rgSex"
+        app:layout_constraintBottom_toTopOf="@id/btnNext"
+        tools:text="Женский"
+        />
+
+    <Button
+        android:id="@+id/btnNext"
+        style="@style/Question.NextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
