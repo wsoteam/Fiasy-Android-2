@@ -89,6 +89,8 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
     window.setStatusBarColor(Color.parseColor("#66000000"));
     recipeItem = (RecipeItem) getIntent().getSerializableExtra(Config.RECIPE_INTENT);
     recipePath = getIntent().getStringArrayExtra("RecipePath");
+    int visibility = getIntent().getIntExtra("VisibilityButton", View.GONE);
+    cardViewButtonAdd.setVisibility(visibility);
 
     if (recipeItem.isAddedInDiaryFromPlan()) {
       cardViewButtonAdd.setVisibility(View.GONE);

@@ -1,7 +1,10 @@
 package com.wsoteam.diet.DietPlans.POJO;
 
+import android.util.Log;
 import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay;
+import com.wsoteam.diet.presentation.plans.DateHelper;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 public class DietPlan implements Serializable {
@@ -33,6 +36,20 @@ public class DietPlan implements Serializable {
   public void setRecipes(List<RecipeForDay> recipeForDays, int recipeCount) {
     this.recipeForDays = recipeForDays;
     this.recipeCount = recipeCount;
+  }
+
+  public int getDaysAfterStart(){
+    int daysAfterStart;
+    Date currentDate = new Date();
+    Date startDate = DateHelper.stringToDate(getStartDate());
+    if (startDate != null){
+      long milliseconds = currentDate.getTime() - startDate.getTime();
+      // 24 часа = 1 440 минут = 1 день
+      daysAfterStart = ((int) (milliseconds / (24 * 60 * 60 * 1000)));
+      Log.d("kkk", "" + milliseconds +"\nДней: " + daysAfterStart);
+    } else return -1;
+
+    return daysAfterStart;
   }
 
   public int getRecipeCount() {

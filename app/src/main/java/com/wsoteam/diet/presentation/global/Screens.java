@@ -3,6 +3,7 @@ package com.wsoteam.diet.presentation.global;
 import android.content.Context;
 import android.content.Intent;
 
+import android.view.View;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchProfile.ActivityHelp;
@@ -23,9 +24,18 @@ public class Screens {
     public static final class PlanRecipeScreen extends SupportAppScreen {
         private RecipeItem recipeItem;
         private String[] path = new String[3];
+        private int visibility = View.GONE;
 
         public PlanRecipeScreen(RecipeItem recipeItem, String day, String meal, String number) {
             this.recipeItem = recipeItem;
+            path[0] = day;
+            path[1] = meal;
+            path[2] = number;
+        }
+
+        public PlanRecipeScreen(RecipeItem recipeItem, int visibility, String day, String meal, String number) {
+            this.recipeItem = recipeItem;
+            this.visibility = visibility;
             path[0] = day;
             path[1] = meal;
             path[2] = number;
@@ -35,7 +45,8 @@ public class Screens {
         public Intent getActivityIntent(Context context) {
             return new Intent(context, PlanRecipeActivity.class)
                 .putExtra(Config.RECIPE_INTENT, recipeItem)
-                .putExtra("RecipePath", path);
+                .putExtra("RecipePath", path)
+                .putExtra("VisibilityButton", visibility);
         }
     }
 
