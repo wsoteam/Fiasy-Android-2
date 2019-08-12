@@ -574,7 +574,7 @@
 
     <string name="main_screen_topbar_kcal_over_notification">Хотим вас\nпредупредить, что\nпревышение калорий\nможет привести к\nнулевому результату</string>
 
-    <string name="main_screen_topbar_left">Ежедневная норма = %s ккал</string>
+    <string name="main_screen_topbar_left">%s ккал</string>
     <string name="main_screen_topbar_calories">Съедено</string>
     <string name="main_screen_topbar_calories_left">Осталось</string>
     <string name="main_screen_topbar_prot">Белки</string>
@@ -778,6 +778,7 @@
     <string name="create_user_food">Создать продукт</string>
     <string name="error_name">Введите название продукта</string>
     <string name="edit_food_completed">Продукт изменен</string>
+    <string name="reports">Отчеты</string>
     <string-array name="fragment_names">
         <item>Добавить продукт</item>
         <item>Пищевая ценность на 100 г</item>
