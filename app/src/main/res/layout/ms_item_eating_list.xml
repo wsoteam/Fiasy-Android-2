@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="8dp"
-                                    app:cardCornerRadius="5dp"
-                                    app:cardElevation="6dp">
+
 
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -22,6 +19,7 @@
                 android:layout_height="28dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
+                android:visibility="gone"
                 android:layout_marginBottom="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +32,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:fontFamily="@font/roboto_light"
+                android:fontFamily="@font/roboto_medium"
                 android:text="Завтрак"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -50,6 +48,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="2dp"
                 android:fontFamily="@font/roboto_light"
+                android:visibility="gone"
                 android:text="2 шт."
                 android:textColor="@color/count_color"
                 android:textSize="11sp"
@@ -71,12 +70,25 @@
                 android:id="@+id/ibtnOpenMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
                 android:background="@drawable/filter_state"
                 android:padding="10dp"
                 android:src="@drawable/ic_open_menu"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/imbAddFood"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/white"
+                android:padding="10dp"
+                android:src="@drawable/ic_eating_fab"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ibtnOpenMenu"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
         </android.support.constraint.ConstraintLayout>
@@ -85,27 +97,8 @@
             android:id="@+id/clReminderBack"
             android:layout_width="match_parent"
             android:layout_height="80dp"
+            android:visibility="gone"
             android:background="@color/back_eating">
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/imbAddFood"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:backgroundTint="@color/white"
-                android:src="@drawable/ic_eating_fab"
-                app:backgroundTint="@color/fab_eating"
-                app:borderWidth="1dp"
-                app:fabCustomSize="36dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:maxImageSize="14dp"/>
 
             <TextView
                 android:id="@+id/tvAddFood"
@@ -132,6 +125,7 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/layoutCommonInfo"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="match_parent">
 
             <TextView
@@ -281,5 +275,5 @@
         </android.support.constraint.ConstraintLayout>
 
     </LinearLayout>
-</android.support.v7.widget.CardView>
+
 
