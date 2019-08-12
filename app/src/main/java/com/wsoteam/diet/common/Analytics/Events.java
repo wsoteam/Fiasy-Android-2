@@ -92,7 +92,7 @@ public class Events {
 
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.product_item, id);
-        Intercom.client().logEvent(VIEW_PRODUCT_PAGE, eventData);
+        io.intercom.android.sdk.Intercom.client().logEvent(VIEW_PRODUCT_PAGE, eventData);
     }
 
 
@@ -106,7 +106,7 @@ public class Events {
 
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.favorites, id);
-        Intercom.client().logEvent(PRODUCT_PAGE_FAVORITES, eventData);
+        io.intercom.android.sdk.Intercom.client().logEvent(PRODUCT_PAGE_FAVORITES, eventData);
     }
 
 
@@ -120,7 +120,7 @@ public class Events {
 
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.results, count);
-        Intercom.client().logEvent(FOOD_SEARCH, eventData);
+        io.intercom.android.sdk.Intercom.client().logEvent(FOOD_SEARCH, eventData);
     }
 
     public static void logCreateCustomFood(String from) {
@@ -133,7 +133,7 @@ public class Events {
 
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.product_from, from);
-        Intercom.client().logEvent(CUSTOM_PRODUCT_SUCCESS, eventData);
+        io.intercom.android.sdk.Intercom.client().logEvent(CUSTOM_PRODUCT_SUCCESS, eventData);
     }
 
     public static void logViewArticle(String name) {
@@ -146,7 +146,7 @@ public class Events {
 
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.articles_item, name);
-        Intercom.client().logEvent(VIEW_ARTICLES, eventData);
+        io.intercom.android.sdk.Intercom.client().logEvent(VIEW_ARTICLES, eventData);
     }
 
     public static void logCreateRecipe(String from) {
@@ -159,7 +159,7 @@ public class Events {
 
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.recipe_from, from);
-        Intercom.client().logEvent(CUSTOM_RECIPE_SUCCESS, eventData);
+        io.intercom.android.sdk.Intercom.client().logEvent(CUSTOM_RECIPE_SUCCESS, eventData);
     }
 
     public static void logCreateTemplate(String from, String template_intake ) {
@@ -174,7 +174,7 @@ public class Events {
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.template_from, from);
         eventData.put(EventProperties.template_intake, template_intake);
-        Intercom.client().logEvent(CUSTOM_TEMPLATE_SUCCESS, eventData);
+        io.intercom.android.sdk.Intercom.client().logEvent(CUSTOM_TEMPLATE_SUCCESS, eventData);
     }
 
     public static void logAddFood(String food_intake, String food_category, String food_date, String food_item) {
@@ -193,7 +193,7 @@ public class Events {
         eventData.put(EventProperties.food_category, food_category);
         eventData.put(EventProperties.food_date, food_date);
         eventData.put(EventProperties.food_item, food_item);
-        Intercom.client().logEvent(ADD_FOOD_SUCCESS, eventData);
+        io.intercom.android.sdk.Intercom.client().logEvent(ADD_FOOD_SUCCESS, eventData);
     }
 
     public static void logViewRecipe(String name) {
@@ -206,7 +206,7 @@ public class Events {
 
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.recipe_item, name);
-        Intercom.client().logEvent(VIEW_RECIPE, eventData);
+        io.intercom.android.sdk.Intercom.client().logEvent(VIEW_RECIPE, eventData);
     }
 
     public static void logAddFavoriteRecipe(String name) {
@@ -219,7 +219,7 @@ public class Events {
 
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.favorites_recipe, name);
-        Intercom.client().logEvent(RECIPE_FAVORITES, eventData);
+        io.intercom.android.sdk.Intercom.client().logEvent(RECIPE_FAVORITES, eventData);
     }
 
     public static void logAddRecipeInDiary(String eating) {
@@ -232,7 +232,7 @@ public class Events {
 
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.recipe_intake, eating);
-        Intercom.client().logEvent(RECIPE_ADD_SUCCES, eventData);
+        io.intercom.android.sdk.Intercom.client().logEvent(RECIPE_ADD_SUCCES, eventData);
     }
 
     public static void logChoiseRecipeCategory(String categoryName) {
@@ -245,6 +245,6 @@ public class Events {
 
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.recipe_category, categoryName);
-        Intercom.client().logEvent(RECIPE_CATEGORY, eventData);
+        io.intercom.android.sdk.Intercom.client().logEvent(RECIPE_CATEGORY, eventData);
     }
 }
