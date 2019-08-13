@@ -94,18 +94,19 @@ public abstract class AuthStrategyFragment extends Fragment {
       Log.d("AuthStrategy", "Logged in as: " + user.getDisplayName());
     }
 
-    if (getNotification().isAttached()) {
-      getNotification().setProgressVisible(false, true);
+    final InAppNotification notification = getNotification();
+    if (notification.isAttached()) {
+      notification.setProgressVisible(false, true);
 
       if (TextUtils.isEmpty(user.getDisplayName())) {
-        getNotification().setText("Добро пожаловать :)");
+        notification.setText("Добро пожаловать :)");
       } else {
-        getNotification().setText(TextUtils.concat("Привет, ", new RichText(user.getDisplayName())
+        notification.setText(TextUtils.concat("Привет, ", new RichText(user.getDisplayName())
             .bold()
             .text()));
       }
 
-      getNotification().delayedDismiss(1500);
+      notification.delayedDismiss(1500);
     }
 
     if (getActivity() != null) {
