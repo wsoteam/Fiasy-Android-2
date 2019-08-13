@@ -101,6 +101,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
 
     Intent intent = new Intent(this, QuestionsCalculationsActivity.class);
     startActivity(intent);
+    finish();
   }
 
   @Override

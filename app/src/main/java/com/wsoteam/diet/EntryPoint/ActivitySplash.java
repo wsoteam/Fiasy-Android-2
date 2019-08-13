@@ -17,6 +17,7 @@ import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
+import com.facebook.login.LoginManager;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -73,6 +74,7 @@ public class ActivitySplash extends BaseActivity {
 
   private void checkRegistrationAndRun() {
     user = FirebaseAuth.getInstance().getCurrentUser();
+
     if (user != null) {
       SetUserProperties.setUserProperties(Adjust.getAttribution());
       FirebaseAnalytics.getInstance(this)
@@ -94,29 +96,31 @@ public class ActivitySplash extends BaseActivity {
 
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
+          FirebaseAuth.getInstance().signOut();
+          LoginManager.getInstance().logOut();
+          UserDataHolder.clearObject();
+
+          onUserNotAuthorized();
         }
       });
     } else {
-      FirebaseAnalytics.getInstance(this)
-          .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
-      AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS,
-          AmplitudaEvents.unRegistered);
-      //startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
-      //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
-      //startActivity(new Intent(this, AfterQuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
-
-      if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(
-          Config.IS_NEED_SHOW_ONBOARD, true)) {
-        Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
-        startActivity(
-            new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
-        Log.d("kkk", "checkRegistrationAndRun: if");
-      } else {
-        Log.d("kkk", "checkRegistrationAndRun: else");
-      }
-
-      finish();
+      onUserNotAuthorized();
     }
+  }
+
+  private void onUserNotAuthorized(){
+    FirebaseAnalytics.getInstance(this)
+        .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
+    AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS,
+        AmplitudaEvents.unRegistered);
+    //startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
+    //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+    //startActivity(new Intent(this, AfterQuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+
+    Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
+    startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
+
+    finish();
   }
 
   private void onSignedIn() {

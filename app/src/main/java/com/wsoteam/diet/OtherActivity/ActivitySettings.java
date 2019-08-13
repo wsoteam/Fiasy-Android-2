@@ -49,36 +49,25 @@ public class ActivitySettings extends AppCompatActivity {
 
     Amplitude.getInstance().logEvent(AmplitudaEvents.view_settings);
 
-    ivBack.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        onBackPressed();
-      }
+    ivBack.setOnClickListener(view -> onBackPressed());
+
+    cvLogout.setOnClickListener(view -> {
+      FirebaseAuth.getInstance().signOut();
+      LoginManager.getInstance().logOut();
+      UserDataHolder.clearObject();
+
+      startActivity(new Intent(ActivitySettings.this, ActivitySplash.class).
+          addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
     });
 
-    cvLogout.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        FirebaseAuth.getInstance().signOut();
-        LoginManager.getInstance().logOut();
-        UserDataHolder.clearObject();
-
-        startActivity(new Intent(ActivitySettings.this, ActivitySplash.class).
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-      }
-    });
-
-    cvRate.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        final String appPackageName = getPackageName();
-        try {
-          startActivity(new Intent(Intent.ACTION_VIEW,
-              Uri.parse("market://details?id=" + appPackageName)));
-        } catch (android.content.ActivityNotFoundException exp) {
-          startActivity(new Intent(Intent.ACTION_VIEW,
-              Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-        }
+    cvRate.setOnClickListener(view -> {
+      final String appPackageName = getPackageName();
+      try {
+        startActivity(new Intent(Intent.ACTION_VIEW,
+            Uri.parse("market://details?id=" + appPackageName)));
+      } catch (android.content.ActivityNotFoundException exp) {
+        startActivity(new Intent(Intent.ACTION_VIEW,
+            Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
       }
     });
 

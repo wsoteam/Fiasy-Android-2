@@ -3,11 +3,20 @@ package com.wsoteam.diet.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import androidx.annotation.NonNull;
+import com.google.firebase.database.FirebaseDatabase;
+import com.wsoteam.diet.EntryPoint.ActivitySplash;
 
 public class IntentUtils {
 
-  public static void openWebLink(Context context, String url){
+  public static void openWebLink(@NonNull Context context, @NonNull String url) {
     context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
   }
 
+  public static void openMainActivity(@NonNull Context context) {
+    final Intent target = new Intent(context, ActivitySplash.class);
+    target.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+    context.startActivity(target);
+  }
 }

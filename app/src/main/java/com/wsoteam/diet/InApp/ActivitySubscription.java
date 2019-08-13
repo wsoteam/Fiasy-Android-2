@@ -1,15 +1,10 @@
 package com.wsoteam.diet.InApp;
 
-
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
-import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenOneButton;
-import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenUA;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionOrangeOneButton;
 import com.wsoteam.diet.R;
 

@@ -211,7 +211,7 @@
 
   <string name="alert_buy_info_tv_1">Для вас открылись следующие функции</string>
   <string name="alert_buy_info_tv_2">Расширенная база рецептов</string>
-  <string name="alert_buy_info_tv_3">Множество полезных статей о здоровье и правилном питании</string>
+  <string name="alert_buy_info_tv_3">Множество полезных статей о здоровье и правильном питании</string>
   <string name="alert_buy_info_tv_4">Записывайте калорийность блюд с помощью AR технологии</string>
   <string name="alert_buy_info_tv_5">Теперь вы можете подобрать точный план питания и тренировок, основываясь на своих целях</string>
   <string name="alert_buy_info_tv_6">Осуществляйте быстрый поиск продуктов при помощи голосового ввода</string>
@@ -819,7 +819,7 @@
   <string name="auth_user_set_weak_password">Пароль слишком слабый, добавьте дополнительные знаки</string>
   <string name="auth_user_mailformed">Укажите свой email</string>
   <string name="auth_user_using_existing_account">Пользователь с таким email уже существует</string>
-  <string name="action_sign_up">Заригестрироваться</string>
+  <string name="action_sign_up">Зарегистрироваться</string>
 
 
 </resources>

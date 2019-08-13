@@ -83,10 +83,11 @@ public abstract class AuthStrategyFragment extends Fragment {
   }
 
   protected void prepareAuthStrategy(AuthStrategy strategy) {
-    getNotification().setText(getString(R.string.auth_state_logging_in));
-    getNotification().setProgressVisible(true, false);
+    final InAppNotification notification = getNotification();
 
-    getNotification().show(getView(), InAppNotification.DURATION_FOREVER);
+    notification.setText(getString(R.string.auth_state_logging_in));
+    notification.setProgressVisible(true, false);
+    notification.show(getView(), InAppNotification.DURATION_FOREVER);
   }
 
   protected void onAuthorized(FirebaseUser user, boolean newUser) {
@@ -95,19 +96,17 @@ public abstract class AuthStrategyFragment extends Fragment {
     }
 
     final InAppNotification notification = getNotification();
-    if (notification.isAttached()) {
-      notification.setProgressVisible(false, true);
+    notification.setProgressVisible(false, true);
 
-      if (TextUtils.isEmpty(user.getDisplayName())) {
-        notification.setText("Добро пожаловать :)");
-      } else {
-        notification.setText(TextUtils.concat("Привет, ", new RichText(user.getDisplayName())
-            .bold()
-            .text()));
-      }
-
-      notification.delayedDismiss(1500);
+    if (TextUtils.isEmpty(user.getDisplayName())) {
+      notification.setText("Добро пожаловать :)");
+    } else {
+      notification.setText(TextUtils.concat("Привет, ", new RichText(user.getDisplayName())
+          .bold()
+          .text()));
     }
+
+    notification.show(getView(), InAppNotification.DURATION_QUICK);
 
     if (getActivity() != null) {
       final Activity activity = requireActivity();
