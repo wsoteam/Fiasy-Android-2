@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
@@ -47,6 +48,7 @@ public class FragmentEatingScroll extends Fragment {
     RecyclerView rvMainScreen;
     Unbinder unbinder;
     int day, month, year;
+    @BindView(R.id.cvMotherCard) CardView cvMotherCard;
     private int enterPosition = 0;
     private EatingAdapter eatingAdapter;
     private List<List<Eating>> allEat;
@@ -98,6 +100,7 @@ public class FragmentEatingScroll extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         enterPosition = getArguments().getInt(TAG_OF_BUNDLE);
         rvMainScreen.setLayoutManager(new LinearLayoutManager(getActivity()));
+        cvMotherCard.setBackgroundResource(R.drawable.shape_card_main_screen);
 
 //        parentTitleWithDate = getActivity().findViewById(R.id.tvDateForMainScreen);
         apCollapsingKcal = getActivity().findViewById(R.id.pbCalories);
@@ -208,7 +211,7 @@ public class FragmentEatingScroll extends Fragment {
             apCollapsingKcal.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
 //            tvCaloriesDone.setText(spanText(R.string.main_screen_topbar_kcal_done, String.valueOf(kcal), R.color.main_calories_done_over));
 //            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_over, "+" + Math.abs(leftKCal), R.color.main_calories_left_over));
-            tvCaloriesNeed.setText(String.valueOf(apCollapsingKcal.getMax())  + " ккал");
+            tvCaloriesNeed.setText(String.valueOf(apCollapsingKcal.getMax()) + " ккал");
             tvCollapsCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done_over));
             tvCollapsCalories.setTextColor(getResources().getColor(R.color.main_calories_done_over));
             btnNotification.setVisibility(View.VISIBLE);
