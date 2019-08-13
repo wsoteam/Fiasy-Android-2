@@ -8,9 +8,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginBottom="5dp"
         android:orientation="horizontal">
 
@@ -21,8 +21,8 @@
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="16dp"
             android:textColor="@android:color/white"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:textSize="20sp"
+            android:fontFamily="@font/roboto_medium"
             tools:text="Апрель"
             tools:textColor="#000000"/>
 
@@ -30,10 +30,11 @@
             android:id="@+id/ivCalendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
+            android:layout_marginRight="21dp"
+            android:layout_gravity="center_vertical|right"
             app:srcCompat="@drawable/ic_calendar_small"/>
 
-    </LinearLayout>
+    </FrameLayout>
 
     <com.github.jhonnyx2012.horizontalpicker.HorizontalPickerRecyclerView
         android:id="@+id/rvDays"

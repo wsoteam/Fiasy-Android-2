@@ -105,6 +105,14 @@ public final class R {
         public static int notification_tile_bg = 0x7f090011;
         public static int notify_panel_notification_icon_bg = 0x7f090012;
     }
+    public static final class font {
+        public static int roboto = 0x7f0a0001;
+        public static int roboto_bold = 0x7f0a0002;
+        public static int roboto_light = 0x7f0a0003;
+        public static int roboto_light_italic = 0x7f0a0004;
+        public static int roboto_medium = 0x7f0a0005;
+        public static int roboto_thin = 0x7f0a0006;
+    }
     public static final class id {
         public static int action_container = 0x7f0c0001;
         public static int action_divider = 0x7f0c0002;

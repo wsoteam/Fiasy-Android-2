@@ -87,6 +87,12 @@ int drawable notification_template_icon_bg 0x7f09000f
 int drawable notification_template_icon_low_bg 0x7f090010
 int drawable notification_tile_bg 0x7f090011
 int drawable notify_panel_notification_icon_bg 0x7f090012
+int font roboto 0x7f0a0001
+int font roboto_bold 0x7f0a0002
+int font roboto_light 0x7f0a0003
+int font roboto_light_italic 0x7f0a0004
+int font roboto_medium 0x7f0a0005
+int font roboto_thin 0x7f0a0006
 int id action_container 0x7f0c0001
 int id action_divider 0x7f0c0002
 int id action_image 0x7f0c0003
