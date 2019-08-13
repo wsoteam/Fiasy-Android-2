@@ -1,14 +1,21 @@
 <resources>
 
-
   <string name="subTestText">Попробуйте 3 дня бесплатно\n Далее 49р. / неделя</string>
   <string name="individualPlanTxt">Вы достигните своей цели уже через месяц, получив доступ к уникальным статьям о здоровом питании и сотни рецептов</string>
 
-  <!--  Individual plan fragment-->
+  <!--food_template-->
+  <string name="nameTemplate">Название шаблона</string>
+  <string name="eatingTemplate">Категория:</string>
+  <string name="contextMenuDelete">Удалить</string>
+  <string name="contextMenuEdit">Редактировать</string>
+  <string name="addTemplate">Добавить шаблон</string>
+  <string name="hintEating">Прием пищи</string>
+  <string name="templates">Шаблоны</string>
+  <string name="templateDescription">Здесь вы можете создать и сохранить набор продуктов, который употребляете ежедневно в определенный прием пищи</string>
+  <string name="btnAddTemplate">Создать шаблон</string>
+  <!--end_food_template-->
 
   <!--adding recipe-->
-  <string name="individualPlan">Индивидуальный план рассчитан</string>
-  <string name="recNorm">Рекомендуемая норма</string>
   <string name="add">Добавить</string>
   <string name="cancel">Отменить</string>
   <string name="addingRecipeText">В этом разделе будут храниться созданные вами рецепты</string>
@@ -32,6 +39,12 @@
   <string name="addingRecipeTime">Время приготовления (мин.)</string>
   <string name="addingRecipeShare">Могут видеть все пользователи</string>
   <string name="addingRecipeInfo">Созданные вами и введенные в базу рецепты или продукты могут быть доступны для других пользователей. Пожалуйста, постарайтесь заполнить приведенную выше форму максимально точно и полно.</string>
+  <string name="complexityRecipe">Сложность:</string>
+  <string-array name="recipeComplexity">
+    <item>Легкий</item>
+    <item>Средний</item>
+    <item>Сложный</item>
+  </string-array>
 
   <!--Item Plan Recipe-->
   <string name="complexityRecipe">Сложность:</string>
@@ -604,11 +617,12 @@
 
   <string name="main_screen_topbar_kcal_over_notification">Хотим вас\nпредупредить, что\nпревышение калорий\nможет привести к\nнулевому результату</string>
 
-  <string name="main_screen_topbar_left">Ежедневная норма = %s ккал</string>
-  <string name="main_screen_topbar_calories">Съедено</string>
-  <string name="main_screen_topbar_prot">Белки</string>
-  <string name="main_screen_topbar_fat">Жиры</string>
-  <string name="main_screen_topbar_carbo">Углеводы</string>
+    <string name="main_screen_topbar_left">Ежедневная норма = %s ккал</string>
+    <string name="main_screen_topbar_calories">Съедено</string>
+    <string name="main_screen_topbar_calories_left">Осталось</string>
+    <string name="main_screen_topbar_prot">Белки</string>
+    <string name="main_screen_topbar_fat">Жиры</string>
+    <string name="main_screen_topbar_carbo">Углеводы</string>
 
   <string name="main_screen_breakfast">Завтрак</string>
   <string name="main_screen_lunch">Обед</string>
@@ -786,10 +800,62 @@
   <string name="base_url" translatable="false">https://api.instagram.com/</string>
 
 
-  <!--  Search-->
+  //Search
   <string name="text_start_search">Начните вводить в строку поиска \nназвание продукта</string>
   <string name="title_no_find_food">Результаты не найдены</string>
   <string name="text_no_find_food">Попробуйте еще раз или создайте свой \nпродукт</string>
+  //CustomFood
+  <string name="add_custom_food_toolbar">Добавить продукт</string>
+  <string name="back">назад</string>
+  <string name="forward">далее</string>
+  <string name="brand">Марка/производитель</string>
+  <string name="food_name">Название продукта</string>
+  <string name="barcode">Штрих-код</string>
+  <string name="all_users">Могут видеть все пользователи</string>
+  <string name="check_box_text">Созданные вами и введенные в базу рецепты или продукты могут быть  доступны для других пользователей. Пожалуйста, постарайтесь  заполнить приведенную выше форму максимально точно и полно.</string>
+  <string name="calories">Калорийность (ккал)</string>
+  <string name="create_food_fats">Жиры (г)</string>
+  <string name="carbo">Углеводы (г)</string>
+  <string name="edtPottassium">Калий (мг)</string>
+  <string name="edtSodium">Натрий (мг)</string>
+  <string name="edtCholesterol">Холестерин (мг)</string>
+  <string name="edtPolyUnSaturatedFats">Полиненасыщенные жиры (г)</string>
+  <string name="edtMonoUnSaturatedFats">Мононенасыщенные жиры (г)</string>
+  <string name="edtSaturatedFats">Насыщенные жиры (г)</string>
+  <string name="edtSugar">Сахар (г)</string>
+  <string name="edtCell">Клетчатка (г)</string>
+  <string name="info">Информация о продукте</string>
+  <string name="product_info">Пищевая ценность на 100 г</string>
+  <string name="error_toast">Проверьте введенные данные</string>
+  <string name="ok_forward">ок</string>
+  <string name="forward_btn">далее</string>
+  <string name="prot">Белки (г)</string>
+  <string name="empty_field_food">-1.0</string>
+  <string name="food_saved">Продукт сохранен в разделе избранное/свои продукты </string>
+  <string name="own_food">свои продукты</string>
+  <string name="add_food">Добавить продукт</string>
+  <string name="create_user_food">Создать продукт</string>
+  <string name="error_name">Введите название продукта</string>
+  <string name="edit_food_completed">Продукт изменен</string>
+  <string-array name="fragment_names">
+    <item>Добавить продукт</item>
+    <item>Пищевая ценность на 100 г</item>
+    <item>Пищевая ценность на 100 г</item>
+    <item>Добавить продукт</item>
+  </string-array>
+  <string-array name="fragment_names_edit">
+    <item>Изменить продукт</item>
+    <item>Пищевая ценность на 100 г</item>
+    <item>Пищевая ценность на 100 г</item>
+    <item>Изменить продукт</item>
+  </string-array>
+  <string-array name="fragment_subtitles">
+    <item>Основная информация</item>
+    <item>Обязательная информация</item>
+    <item>Необязательная информация</item>
+    <item>Завершение</item>
+  </string-array>
+
 
   <string name="privacy_policy_title">Ознакомиться с условиями</string>
   <string name="privacy_policy_link_span_text">Политики конфиндециальности</string>
@@ -820,6 +886,4 @@
   <string name="auth_user_mailformed">Укажите свой email</string>
   <string name="auth_user_using_existing_account">Пользователь с таким email уже существует</string>
   <string name="action_sign_up">Зарегистрироваться</string>
-
-
 </resources>

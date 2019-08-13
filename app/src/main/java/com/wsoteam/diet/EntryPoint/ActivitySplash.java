@@ -45,6 +45,8 @@ import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.global.BaseActivity;
+import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
+
 import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 import java.util.Calendar;
@@ -74,19 +76,19 @@ public class ActivitySplash extends BaseActivity {
 
   private void checkRegistrationAndRun() {
     user = FirebaseAuth.getInstance().getCurrentUser();
-
     if (user != null) {
-      SetUserProperties.setUserProperties(Adjust.getAttribution());
-      FirebaseAnalytics.getInstance(this)
-          .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
-      AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS,
-          AmplitudaEvents.registered);
+      try {
+        SetUserProperties.setUserProperties(Adjust.getAttribution());
+      }catch (Exception e){
+
+      }
+      FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
+      AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
       setTrackInfoInDatabase(Adjust.getAttribution());
       FirebaseDatabase database = FirebaseDatabase.getInstance();
       DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
           child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-      Log.d("kkk",
-          "checkRegistrationAndRun: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
+      Log.d("kkk", "checkRegistrationAndRun: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
       myRef.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

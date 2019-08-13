@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/imageView5"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="450dp"
             android:scaleType="fitXY"
             android:src="@drawable/gradient_for_detail_food"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,11 +37,10 @@
             android:id="@+id/ibShareFood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
             android:background="@drawable/filter_state"
             android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/ivBack"
-            app:layout_constraintEnd_toEndOf="@+id/ibAddFavorite"
+            app:layout_constraintEnd_toStartOf="@+id/ibAddFavorite"
             app:layout_constraintTop_toTopOf="@+id/ivBack"
             app:srcCompat="@drawable/ic_share_food" />
 
@@ -59,8 +58,8 @@
 
         <ImageButton
             android:id="@+id/ibAddFavorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@drawable/filter_state"
             android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/ibShareFood"

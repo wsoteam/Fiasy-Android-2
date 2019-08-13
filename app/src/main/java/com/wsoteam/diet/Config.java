@@ -2,6 +2,12 @@ package com.wsoteam.diet;
 
 public class Config {
 
+//    temolate
+    public static final String EATING_SPINNER_POSITION = "EATING_SPINNER_POSITION";
+    public static final String SEND_RESULT_TO_BACK = "SEND_RESULT_TO_BACK";
+    public static final String DETAIL_FOOD_BTN_NAME = "DETAIL_FOOD_BTN_NAME";
+    public static final String FOOD_TEMPLATE_INTENT = "FOOD_TEMPLATE_INTENT";
+
     public static final boolean RELEASE = false;
 //    public static final boolean RELEASE = true;
 
@@ -34,6 +40,7 @@ public class Config {
 
     //Tags for choise where need save food
     public static final String TAG_CHOISE_EATING = "TAG_CHOISE_EATING";
+    public static final String TAG_OWN_FOOD = "TAG_OWN_FOOD";
 
     //MainActivity
     public static final int COUNT_PAGE = 3650;
@@ -100,6 +107,8 @@ public class Config {
 
 
     public static final String INTENT_DETAIL_FOOD = "INTENT_DETAIL_FOOD";
+    public static final String BARCODE_STRING_NAME = "BARCODE_STRING_NAME";
+    public static final String LIST_CUSTOM_FOOD = "LIST_CUSTOM_FOOD";
 
 
 }

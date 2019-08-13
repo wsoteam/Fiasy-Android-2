@@ -1,5 +1,8 @@
 package com.wsoteam.diet.Sync.POJO;
 
+
+import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.CustomFood;
+import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.POJOProfile.CheckInfo.CheckHistory;
 import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.POJOProfile.Profile;
@@ -31,11 +34,20 @@ public class UserData implements Serializable {
     private HashMap<String, RecipeItem> recipes;
     private HashMap<String, FavoriteFood> foodFavorites;
     private HashMap<String, RecipeItem> favoriteRecipes;
+    private HashMap<String, CustomFood> customFoods;
+    private HashMap<String, FoodTemplate> foodTemplates;
 
     public UserData() {
     }
 
-    public UserData(String name, Profile profile, SubInfo subInfo, TrackInfo trackInfo, CheckHistory checkHistory, HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners, HashMap<String, Snack> snacks, HashMap<String, WeightDiaryObject> diaryDataList, HashMap<String, Water> water, HashMap<String, RecipeItem> recipes, HashMap<String, FavoriteFood> foodFavorites, HashMap<String, RecipeItem> favoriteRecipes) {
+    public UserData(String name, Profile profile, SubInfo subInfo, TrackInfo trackInfo,
+                    CheckHistory checkHistory, HashMap<String, Breakfast> breakfasts,
+                    HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners,
+                    HashMap<String, Snack> snacks, HashMap<String, Water> water,
+                    HashMap<String, WeightDiaryObject> diaryDataList,
+                    HashMap<String, RecipeItem> recipes, HashMap<String, FavoriteFood> foodFavorites,
+                    HashMap<String, RecipeItem> favoriteRecipes, HashMap<String,
+            CustomFood> customFoods, HashMap<String, FoodTemplate> foodTemplates) {
         this.name = name;
         this.profile = profile;
         this.subInfo = subInfo;
@@ -50,6 +62,8 @@ public class UserData implements Serializable {
         this.recipes = recipes;
         this.foodFavorites = foodFavorites;
         this.favoriteRecipes = favoriteRecipes;
+        this.customFoods = customFoods;
+        this.foodTemplates = foodTemplates;
     }
 
     public SubInfo getSubInfo() {
@@ -162,5 +176,21 @@ public class UserData implements Serializable {
 
     public void setFavoriteRecipes(HashMap<String, RecipeItem> favoriteRecipes) {
         this.favoriteRecipes = favoriteRecipes;
+    }
+
+    public HashMap<String, CustomFood> getCustomFoods() {
+        return customFoods;
+    }
+
+    public void setCustomFoods(HashMap<String, CustomFood> customFoods) {
+        this.customFoods = customFoods;
+    }
+
+    public HashMap<String, FoodTemplate> getFoodTemplates() {
+        return foodTemplates;
+    }
+
+    public void setFoodTemplates(HashMap<String, FoodTemplate> foodTemplates) {
+        this.foodTemplates = foodTemplates;
     }
 }

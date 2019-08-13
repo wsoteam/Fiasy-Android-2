@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.Nullable;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
 
     private static final int NO_SETTED = -1;
     private TextView tvMonth;
+    private ImageView ivCalendar;
     private DatePickerListener listener;
     private HorizontalPickerRecyclerView rvDays;
     private int days;
@@ -78,6 +80,8 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         int finalOffset = offset == NO_SETTED ? DEFAULT_INITIAL_OFFSET : offset;
 
         tvMonth = findViewById(R.id.tvMonth);
+        ivCalendar = findViewById(R.id.ivCalendar);
+        ivCalendar.setOnClickListener(view -> listener.onCalendarClicked());
 
         rvDays.setListener(this);
         tvMonth.setTextColor(mMonthAndYearTextColor != -1 ? mMonthAndYearTextColor : Color.WHITE);

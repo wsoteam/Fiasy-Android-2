@@ -36,7 +36,7 @@
   <color name="gray4">#aaaaaa</color>
   <color name="gray5">#575757</color>
   <color name="gray6">#8a030303</color>
-  <color name="gray7">#f7f7f7</color>
+  <color name="gray7">#ebebeb</color>
   <color name="gray_light">#757575</color>
   <color name="gray_light2">#aeaeae</color>
   <color name="light_gray">#8f8f8f</color>
@@ -45,6 +45,7 @@
   <color name="images_filter_edit_profile">#be252525</color>
   <color name="black_gray">#3A3A3A</color>
   <color name="black_gray_alpha">#A63A3A3A</color>
+  <color name="black_half_alpha">#80000000</color>
 
   <color name="text_enabled">#585757</color>
   <color name="text_disabled">#46868383</color>
@@ -191,6 +192,7 @@
   <color name="black_trans80">#32000000</color>
 
   <color name="fff">#BB6001</color>
+  <color name="bottom_create_food">#F19027</color>
 
   <color name="main_calories_done">#def6a300</color>
   <color name="main_calories_done_over">#dec87d2d</color>

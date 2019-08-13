@@ -1,7 +1,10 @@
 package com.wsoteam.diet.MainScreen;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -31,9 +34,12 @@ import com.wsoteam.diet.Articles.ListArticlesFragment;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.Authenticate.POJO.Box;
+import com.wsoteam.diet.BarcodeScanner.BaseScanner;
+import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.ActivityCreateFood;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
+import com.wsoteam.diet.DietPlans.POJO.ForUploadModel;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenOneButton;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenUA;
@@ -46,7 +52,10 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
+import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplateFragment;
+import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
 
 import com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity;
 import java.util.Calendar;
@@ -208,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadRecipes() {
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("RECIPES_PLANS_NEW");
 
@@ -217,6 +227,11 @@ public class MainActivity extends AppCompatActivity {
 
                 ListRecipes groupsRecipes = dataSnapshot.getValue(ListRecipes.class);
 
+                //int i = 1;
+                //for (RecipeItem recipe:
+                //groupsRecipes.getListrecipes()) {
+                //    Log.d("kkk", i++ + "\n" +recipe.toString());
+                //}
                 EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes);
                 GroupsHolder groupsHolder = new GroupsHolder();
                 groupsHolder.bind(eatingGroupsRecipes);

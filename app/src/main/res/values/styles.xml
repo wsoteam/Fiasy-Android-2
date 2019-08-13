@@ -28,9 +28,9 @@
         <item name="colorPrimaryDark">#CC9702</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ActivityAuthMain" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#E68D3C</item>
@@ -171,6 +171,15 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="CreateFood" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#FF9800</item>
+        <item name="colorPrimaryDark">#9C5E21</item>
+        <item name="colorAccent">#34847c</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
     <style name="TransparentStatusBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#FF9800</item>
         <item name="colorPrimaryDark">#9C5E21</item>
@@ -201,8 +210,7 @@
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="Widget.BottomNavigationView"
-           parent="Widget.Design.BottomNavigationView">
+    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/roboto_light</item>
         <item name="android:textSize">9sp</item>
     </style>
@@ -258,7 +266,8 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Light">
+
+    <style name="Toolbar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item>
         <item name="actionMenuTextColor">@android:color/white</item>
@@ -281,6 +290,10 @@
         <item name="colorAccent">#FEC152</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+</style>
+
+    <style name="OrangeCheckBox" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">@color/head_detail_food</item>
     </style>
 
     <style name="Question.NextButton" parent="TextAppearance.AppCompat.Button">

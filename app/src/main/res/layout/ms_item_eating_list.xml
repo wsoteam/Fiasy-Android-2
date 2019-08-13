@@ -25,7 +25,7 @@
                 android:layout_marginBottom="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/tvTitleOfEatingCard"
@@ -41,7 +41,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ivEatingIcon"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.0"/>
 
             <TextView
                 android:id="@+id/tvCount"
@@ -54,7 +54,7 @@
                 android:textColor="@color/count_color"
                 android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvTitleOfEatingCard"
-                app:layout_constraintStart_toEndOf="@+id/tvTitleOfEatingCard" />
+                app:layout_constraintStart_toEndOf="@+id/tvTitleOfEatingCard"/>
 
             <ImageButton
                 android:id="@+id/ibtnOpenList"
@@ -62,10 +62,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:backgroundTint="@color/white"
-                android:src="@drawable/open_eating_list"
+                android:src="@drawable/close_eating_list"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvCount"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageButton
                 android:id="@+id/ibtnOpenMenu"
@@ -76,7 +76,7 @@
                 android:src="@drawable/ic_open_menu"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -84,8 +84,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="@color/back_eating"
-            android:id="@+id/clReminderBack">
+            android:background="@color/back_eating">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/imbAddFood"
@@ -105,10 +104,10 @@
                 app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:maxImageSize="14dp" />
+                app:maxImageSize="14dp"/>
 
             <TextView
-                android:id="@+id/textView132"
+                android:id="@+id/tvAddFood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -118,14 +117,14 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imbAddFood"
                 app:layout_constraintStart_toEndOf="@+id/imbAddFood"
-                app:layout_constraintTop_toTopOf="@+id/imbAddFood" />
+                app:layout_constraintTop_toTopOf="@+id/imbAddFood"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvListOfFoodEatingCard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -135,7 +134,6 @@
 
             <TextView
                 android:id="@+id/tvRecommendation"
-                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -145,10 +143,11 @@
                 android:fontFamily="@font/roboto_light"
                 android:text="Рекомендуется 475 - 855 ккал"
                 android:textColor="@color/recommendation"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/tvSumFats"
@@ -160,7 +159,7 @@
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/tvEatingLabelFats"
                 app:layout_constraintEnd_toEndOf="@+id/tvEatingLabelFats"
-                app:layout_constraintStart_toStartOf="@+id/tvEatingLabelFats" />
+                app:layout_constraintStart_toStartOf="@+id/tvEatingLabelFats"/>
 
             <TextView
                 android:id="@+id/tvSumCarbo"
@@ -172,7 +171,7 @@
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/tvEatingLabelCarbo"
                 app:layout_constraintEnd_toEndOf="@+id/tvEatingLabelCarbo"
-                app:layout_constraintStart_toStartOf="@+id/tvEatingLabelCarbo" />
+                app:layout_constraintStart_toStartOf="@+id/tvEatingLabelCarbo"/>
 
             <TextView
                 android:id="@+id/tvSumOfKcal"
@@ -184,7 +183,7 @@
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/tvEatingLabelKcal"
                 app:layout_constraintEnd_toEndOf="@+id/tvEatingLabelKcal"
-                app:layout_constraintStart_toStartOf="@+id/tvEatingLabelKcal" />
+                app:layout_constraintStart_toStartOf="@+id/tvEatingLabelKcal"/>
 
             <TextView
                 android:id="@+id/tvSumProt"
@@ -198,7 +197,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/tvEatingLabelProt"
                 app:layout_constraintEnd_toEndOf="@+id/tvEatingLabelProt"
                 app:layout_constraintStart_toStartOf="@+id/tvEatingLabelProt"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/tvEatingLabelProt"
@@ -213,7 +212,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tvEatingLabelFats"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
                 android:id="@+id/tvEatingLabelFats"
@@ -228,7 +227,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/tvEatingLabelCarbo"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/tvEatingLabelProt"
-                app:layout_constraintTop_toTopOf="@+id/tvEatingLabelProt" />
+                app:layout_constraintTop_toTopOf="@+id/tvEatingLabelProt"/>
 
             <TextView
                 android:id="@+id/tvEatingLabelCarbo"
@@ -243,7 +242,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/tvEatingLabelKcal"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/tvEatingLabelFats"
-                app:layout_constraintTop_toTopOf="@+id/tvEatingLabelFats" />
+                app:layout_constraintTop_toTopOf="@+id/tvEatingLabelFats"/>
 
             <TextView
                 android:id="@+id/tvEatingLabelKcal"
@@ -257,7 +256,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/tvEatingLabelCarbo"
-                app:layout_constraintTop_toTopOf="@+id/tvEatingLabelCarbo" />
+                app:layout_constraintTop_toTopOf="@+id/tvEatingLabelCarbo"/>
 
             <TextView
                 android:id="@+id/tvEatingReminder"
@@ -275,7 +274,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

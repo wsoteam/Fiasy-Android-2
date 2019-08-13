@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
+import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.ActivityCreateFood;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
@@ -28,6 +30,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -38,6 +41,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     @BindView(R.id.ivSearchImage) ImageView ivSearchImage;
     @BindView(R.id.tvTitleFavoriteAdd) TextView tvTitleFavoriteAdd;
     @BindView(R.id.tvTextAddFavorite) TextView tvTextAddFavorite;
+    @BindView(R.id.btnAddFavorite) Button btnAddFavorite;
     private int RESPONSE_LIMIT = 50;
     private ItemAdapter itemAdapter;
     private boolean isEqualsNext = true;
@@ -72,6 +76,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
         ivSearchImage.setVisibility(View.GONE);
         tvTextAddFavorite.setVisibility(View.GONE);
         tvTitleFavoriteAdd.setVisibility(View.GONE);
+        btnAddFavorite.setVisibility(View.GONE);
     }
 
     private void showNoFind() {
@@ -81,6 +86,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
         ivSearchImage.setVisibility(View.VISIBLE);
         tvTextAddFavorite.setVisibility(View.VISIBLE);
         tvTitleFavoriteAdd.setVisibility(View.VISIBLE);
+        btnAddFavorite.setVisibility(View.VISIBLE);
     }
 
     private void showStartUI() {
@@ -121,6 +127,11 @@ public class FragmentSearch extends Fragment implements TabsFragment {
         itemAdapter = new ItemAdapter(foods);
         rvListOfSearchResponse.setLayoutManager(new LinearLayoutManager(getContext()));
         rvListOfSearchResponse.setAdapter(itemAdapter);
+    }
+
+    @OnClick(R.id.btnAddFavorite)
+    public void onViewClicked() {
+        startActivity(new Intent(getActivity(), ActivityCreateFood.class));
     }
 
     public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

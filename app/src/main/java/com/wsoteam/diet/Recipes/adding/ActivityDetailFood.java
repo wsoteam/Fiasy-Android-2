@@ -9,6 +9,7 @@ import androidx.cardview.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ import butterknife.OnClick;
 
 public class ActivityDetailFood extends AppCompatActivity {
     private final int EMPTY_FIELD = -1;
+    @BindView(R.id.btnAddFood) Button addButton;
     @BindView(R.id.tvActivityDetailOfFoodCollapsingTitle) TextView tvTitle;
     @BindView(R.id.tvActivityDetailOfFoodCalculateKcal) TextView tvCalculateKcal;
     @BindView(R.id.tvActivityDetailOfFoodCalculateFat) TextView tvCalculateFat;
@@ -137,6 +139,10 @@ public class ActivityDetailFood extends AppCompatActivity {
 
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_detail_food);
 
+        String btnName = getIntent().getStringExtra(Config.DETAIL_FOOD_BTN_NAME);
+        if (btnName != null){
+            addButton.setText(btnName);
+        }
     }
 
     private void getFavoriteFood() {

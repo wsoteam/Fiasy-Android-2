@@ -15,6 +15,7 @@ public class IntercomFactory {
     public static void login(String uId) {
         Registration registration = Registration.create().withUserId(uId);
         Intercom.client().registerIdentifiedUser(registration);
+        Intercom.client().handlePushMessage();
         setUsetAttributes();
     }
 

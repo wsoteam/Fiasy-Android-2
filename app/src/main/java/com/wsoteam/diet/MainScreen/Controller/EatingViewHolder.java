@@ -31,23 +31,41 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class EatingViewHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.tvTitleOfEatingCard) TextView tvTitleOfEatingCard;
-    @BindView(R.id.rvListOfFoodEatingCard) RecyclerView rvListOfFoodEatingCard;
-    @BindView(R.id.ibtnOpenList) ImageButton ibtnOpenList;
-    @BindView(R.id.tvSumOfKcal) TextView tvSumOfKcal;
-    @BindView(R.id.tvSumProt) TextView tvSumProt;
-    @BindView(R.id.tvSumFats) TextView tvSumFats;
-    @BindView(R.id.tvSumCarbo) TextView tvSumCarbo;
-    @BindView(R.id.ivEatingIcon) ImageView ivEatingIcon;
-    @BindView(R.id.tvRecommendation) TextView tvRecommendation;
-    @BindView(R.id.tvEatingLabelProt) TextView tvEatingLabelProt;
-    @BindView(R.id.tvEatingLabelFats) TextView tvEatingLabelFats;
-    @BindView(R.id.tvEatingLabelCarbo) TextView tvEatingLabelCarbo;
-    @BindView(R.id.tvEatingLabelKcal) TextView tvEatingLabelKcal;
-    @BindView(R.id.tvCount) TextView tvCount;
-    @BindView(R.id.ibtnOpenMenu) ImageButton ibtnOpenMenu;
-    @BindView(R.id.clReminderBack) ConstraintLayout clReminderBack;
-    private boolean isButtonPressed = false;
+    @BindView(R.id.tvTitleOfEatingCard)
+    TextView tvTitleOfEatingCard;
+    @BindView(R.id.rvListOfFoodEatingCard)
+    RecyclerView rvListOfFoodEatingCard;
+    @BindView(R.id.ibtnOpenList)
+    ImageButton ibtnOpenList;
+    @BindView(R.id.tvSumOfKcal)
+    TextView tvSumOfKcal;
+    @BindView(R.id.tvSumProt)
+    TextView tvSumProt;
+    @BindView(R.id.tvSumFats)
+    TextView tvSumFats;
+    @BindView(R.id.tvSumCarbo)
+    TextView tvSumCarbo;
+    @BindView(R.id.ivEatingIcon)
+    ImageView ivEatingIcon;
+    @BindView(R.id.tvRecommendation)
+    TextView tvRecommendation;
+    @BindView(R.id.tvEatingLabelProt)
+    TextView tvEatingLabelProt;
+    @BindView(R.id.tvEatingLabelFats)
+    TextView tvEatingLabelFats;
+    @BindView(R.id.tvEatingLabelCarbo)
+    TextView tvEatingLabelCarbo;
+    @BindView(R.id.tvEatingLabelKcal)
+    TextView tvEatingLabelKcal;
+    @BindView(R.id.tvCount)
+    TextView tvCount;
+    @BindView(R.id.ibtnOpenMenu)
+    ImageButton ibtnOpenMenu;
+    @BindView(R.id.clReminderBack)
+    ConstraintLayout clReminderBack;
+    @BindView(R.id.layoutCommonInfo)
+    ConstraintLayout layoutCommonInfo;
+    private boolean isButtonPressed = true;
     private final int BREAKFAST = 0, LUNCH = 1, DINNER = 2, SNACK = 3;
     private final int BREAKFAST_TIME = 9, LUNCH_TIME = 13, DINNER_TIME = 18, SNACK_TIME = 24;
 
@@ -71,9 +89,9 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
         rvListOfFoodEatingCard.setLayoutManager(new LinearLayoutManager(context));
         rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup,
-                context, false, getAdapterPosition(), this::refreshUI));
+                context, true, getAdapterPosition(), this::refreshUI));
         setExpandableView();
-        if (isNeedRemind()) remind(nameOfEatingGroup);
+//        if (isNeedRemind()) remind(nameOfEatingGroup);
     }
 
     private void remind(String eatingGroup) {
@@ -155,12 +173,14 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
                 sumFats += eatingGroup.get(i).getFat();
                 sumCarbo += eatingGroup.get(i).getCarbohydrates();
             }
+            layoutCommonInfo.setVisibility(View.VISIBLE);
             tvSumOfKcal.setText(String.valueOf(sumKcal));
 
             tvSumProt.setText(String.valueOf(sumProt) + " г");
             tvSumFats.setText(String.valueOf(sumFats) + " г");
             tvSumCarbo.setText(String.valueOf(sumCarbo) + " г");
         } else {
+            layoutCommonInfo.setVisibility(View.GONE);
             //tvRecommendation.setVisibility(View.VISIBLE);
             tvSumOfKcal.setVisibility(View.GONE);
             tvSumProt.setVisibility(View.GONE);

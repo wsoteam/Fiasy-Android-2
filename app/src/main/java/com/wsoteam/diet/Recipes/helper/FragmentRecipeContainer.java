@@ -9,16 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.adding.ListAddedRecipeFragment;
 import com.wsoteam.diet.Recipes.favorite.FavoriteRecipesFragment;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class FragmentRecipeContainer extends Fragment implements TabsFragment {
+
+    @BindView(R.id.radio_button_group) RadioGroup radioGroup;
 
     private Fragment favoriteRecipes;
     private Fragment addedRecipes;
@@ -33,6 +37,26 @@ public class FragmentRecipeContainer extends Fragment implements TabsFragment {
         ButterKnife.bind(this, view);
         return view;
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        switch (radioGroup.getCheckedRadioButtonId()) {
+            case R.id.radio0:
+                    transaction.replace(R.id.childContainer, favoriteRecipes).commit();
+                    tabsFragment = (TabsFragment) favoriteRecipes;
+                break;
+            case R.id.radio1:
+                    transaction.replace(R.id.childContainer, addedRecipes).commit();
+                    tabsFragment = (TabsFragment) addedRecipes;
+
+                break;
+        }
+
+    }
+
 
     @OnClick({R.id.radio0, R.id.radio1})
     public void onRadioButtonClicked(RadioButton radioButton) {

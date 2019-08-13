@@ -1,5 +1,6 @@
 package com.wsoteam.diet.Recipes.POJO;
 
+import androidx.annotation.NonNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,47 @@ public class RecipeItem implements Serializable {
     private List<String> dinner;
     private List<String> snack;
 
+    @NonNull @Override public String toString() {
+
+        String ingr = "";
+        String instr = "";
+
+        for (String str:
+        ingredients) {
+            ingr = ingr + str + "\n";
+        }
+
+        for (String str:
+        instruction) {
+            instr = instr + str + "\n";
+        }
+
+        String result = name + "\n" +
+            "Время готовки: " + time + "\n" +
+            "Калории: " + calories + "\n" +
+            "Ингридиенты: \n" + ingr +
+            "Инструкция: \n" + instr +
+            "Остальные параметры: \n" +
+            "description " + description + "\n" +
+            "complexity " + complexity + "\n" +
+            "percentCarbohydrates " + percentCarbohydrates + "\n" +
+            "percentProteins " + percentProteins + "\n" +
+            "percentFats " + percentFats + "\n" +
+            "carbohydrates " + carbohydrates + "\n" +
+            "proteins " + proteins + "\n" +
+            "fats " + fats + "/n" +
+            "cellulose " + cellulose + "/n" +
+            "sugar " + sugar + "\n" +
+            "saturatedFats " + saturatedFats + "\n" +
+            "unSaturatedFats " + unSaturatedFats + "\n" +
+            "cholesterol " + cholesterol + "\n" +
+            "sodium " + sodium + "\n" +
+            "potassium " + potassium + "\n" +
+            "url img " + url + "\n";
+
+
+        return result;
+    }
 
     public RecipeItem() {
     }

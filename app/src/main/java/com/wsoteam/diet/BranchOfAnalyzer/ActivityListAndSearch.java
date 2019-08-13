@@ -24,12 +24,17 @@ import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.Controller.TabsAdapter;
+import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.ActivityCreateFood;
+import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentFavoriteContainer;
 import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentFavorites;
 import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentSearch;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
 import com.wsoteam.diet.Recipes.helper.FragmentRecipeContainer;
+import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplateFragment;
+import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +53,8 @@ public class ActivityListAndSearch extends AppCompatActivity {
     private TabsAdapter tabsAdapter;
     public int spinnerId = 0;
     private boolean isCanSpeak = true;
+
+    List<Fragment> fragments;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,15 +118,26 @@ public class ActivityListAndSearch extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (fragments.get( viewPager.getCurrentItem()) instanceof BrowseFoodTemplateFragment){
+            ((BrowseFoodTemplateFragment)fragments.get( viewPager.getCurrentItem()))
+                    .setUserVisibleHint(true);
+        }
+
+    }
+
     private void updateUI() {
         tabsAdapter = new TabsAdapter(getSupportFragmentManager(), createFragmentsList());
         viewPager.setAdapter(tabsAdapter);
     }
 
     private List<Fragment> createFragmentsList() {
-        List<Fragment> fragments = new ArrayList<>();
+        fragments = new ArrayList<>();
         fragments.add(new FragmentSearch());
-        fragments.add(new FragmentFavorites());
+        fragments.add(new FragmentFavoriteContainer());
+        fragments.add(new BrowseFoodTemplateFragment());
         fragments.add(new FragmentRecipeContainer());
         return fragments;
     }
@@ -189,13 +207,16 @@ public class ActivityListAndSearch extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     /*case R.id.userNote:
-                        break;
-                    case R.id.createFood:
-                        break;
-                    case R.id.createEating:
-                        break;
-                    case R.id.createTemplate:
                         break;*/
+                    case R.id.createFood:
+                        startActivity(new Intent(ActivityListAndSearch.this, ActivityCreateFood.class));
+                        break;
+                    /*case R.id.createEating:
+                        break;*/
+                    case R.id.createTemplate:
+                        startActivity(new Intent(ActivityListAndSearch.this, CreateFoodTemplateActivity.class)
+                                .putExtra(Config.EATING_SPINNER_POSITION, (int) spinner.getSelectedItemId()));
+                        break;
                     case R.id.createRecipe:
                         startActivity(new Intent(ActivityListAndSearch.this, AddingRecipeActivity.class));
                         break;
