@@ -1,279 +1,279 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_margin="8dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:orientation="vertical">
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/ivEatingIcon"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:visibility="gone"
-                android:layout_marginBottom="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <TextView
-                android:id="@+id/tvTitleOfEatingCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/roboto_medium"
-                android:text="Завтрак"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivEatingIcon"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"/>
-
-            <TextView
-                android:id="@+id/tvCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="2dp"
-                android:fontFamily="@font/roboto_light"
-                android:visibility="gone"
-                android:text="2 шт."
-                android:textColor="@color/count_color"
-                android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvTitleOfEatingCard"
-                app:layout_constraintStart_toEndOf="@+id/tvTitleOfEatingCard"/>
-
-            <ImageButton
-                android:id="@+id/ibtnOpenList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:backgroundTint="@color/white"
-                android:src="@drawable/close_eating_list"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvCount"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <ImageButton
-                android:id="@+id/ibtnOpenMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:background="@drawable/filter_state"
-                android:padding="10dp"
-                android:src="@drawable/ic_open_menu"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/imbAddFood"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="@color/white"
-                android:padding="10dp"
-                android:src="@drawable/ic_eating_fab"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/ibtnOpenMenu"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/clReminderBack"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
+        <ImageView
+            android:id="@+id/ivEatingIcon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             android:visibility="gone"
-            android:background="@color/back_eating">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvAddFood"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="Добавить"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imbAddFood"
-                app:layout_constraintStart_toEndOf="@+id/imbAddFood"
-                app:layout_constraintTop_toTopOf="@+id/imbAddFood"/>
+        <TextView
+            android:id="@+id/tvTitleOfEatingCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Завтрак"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivEatingIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvListOfFoodEatingCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </android.support.v7.widget.RecyclerView>
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/layoutCommonInfo"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="2dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="2 шт."
+            android:textColor="@color/count_color"
+            android:textSize="11sp"
             android:visibility="gone"
-            android:layout_height="match_parent">
+            app:layout_constraintBottom_toBottomOf="@+id/tvTitleOfEatingCard"
+            app:layout_constraintStart_toEndOf="@+id/tvTitleOfEatingCard" />
 
-            <TextView
-                android:id="@+id/tvRecommendation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="Рекомендуется 475 - 855 ккал"
-                android:textColor="@color/recommendation"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+        <ImageButton
+            android:id="@+id/ibtnOpenList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/close_eating_list"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvCount"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvSumFats"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
-                android:text="Fats"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvEatingLabelFats"
-                app:layout_constraintEnd_toEndOf="@+id/tvEatingLabelFats"
-                app:layout_constraintStart_toStartOf="@+id/tvEatingLabelFats"/>
+        <ImageButton
+            android:id="@+id/ibtnOpenMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/filter_state"
+            android:padding="10dp"
+            android:src="@drawable/ic_open_menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvSumCarbo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
-                android:text="Carbo"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvEatingLabelCarbo"
-                app:layout_constraintEnd_toEndOf="@+id/tvEatingLabelCarbo"
-                app:layout_constraintStart_toStartOf="@+id/tvEatingLabelCarbo"/>
+        <ImageButton
+            android:id="@+id/imbAddFood"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/white"
+            android:padding="10dp"
+            android:src="@drawable/ic_eating_fab"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ibtnOpenMenu"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvSumOfKcal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
-                android:text="Kcal"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvEatingLabelKcal"
-                app:layout_constraintEnd_toEndOf="@+id/tvEatingLabelKcal"
-                app:layout_constraintStart_toStartOf="@+id/tvEatingLabelKcal"/>
 
-            <TextView
-                android:id="@+id/tvSumProt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/roboto_medium"
-                android:text="Prot"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvEatingLabelProt"
-                app:layout_constraintEnd_toEndOf="@+id/tvEatingLabelProt"
-                app:layout_constraintStart_toStartOf="@+id/tvEatingLabelProt"
-                app:layout_constraintTop_toTopOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tvEatingLabelProt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/roboto"
-                android:text="Белки"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tvEatingLabelFats"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"/>
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/clReminderBack"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/back_eating"
+        android:visibility="gone">
 
-            <TextView
-                android:id="@+id/tvEatingLabelFats"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/roboto"
-                android:text="Жиры"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvEatingLabelProt"
-                app:layout_constraintEnd_toStartOf="@+id/tvEatingLabelCarbo"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tvEatingLabelProt"
-                app:layout_constraintTop_toTopOf="@+id/tvEatingLabelProt"/>
+        <TextView
+            android:id="@+id/tvAddFood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Добавить"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imbAddFood"
+            app:layout_constraintStart_toEndOf="@+id/imbAddFood"
+            app:layout_constraintTop_toTopOf="@+id/imbAddFood" />
 
-            <TextView
-                android:id="@+id/tvEatingLabelCarbo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/roboto"
-                android:text="Углеводы"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvEatingLabelFats"
-                app:layout_constraintEnd_toStartOf="@+id/tvEatingLabelKcal"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tvEatingLabelFats"
-                app:layout_constraintTop_toTopOf="@+id/tvEatingLabelFats"/>
+    </android.support.constraint.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tvEatingLabelKcal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:text="Ккал"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvEatingLabelCarbo"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tvEatingLabelCarbo"
-                app:layout_constraintTop_toTopOf="@+id/tvEatingLabelCarbo"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvListOfFoodEatingCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tvEatingReminder"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/roboto_medium"
-                android:gravity="center"
-                android:text="Занесите обед сейчас и достигните своей цели быстрее"
-                android:textColor="@color/reminder_color"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+    </android.support.v7.widget.RecyclerView>
 
-        </android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layoutCommonInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tvRecommendation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Рекомендуется 475 - 855 ккал"
+            android:textColor="@color/recommendation"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSumFats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Fats"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/tvEatingLabelFats"
+            app:layout_constraintEnd_toEndOf="@+id/tvEatingLabelFats"
+            app:layout_constraintStart_toStartOf="@+id/tvEatingLabelFats" />
+
+        <TextView
+            android:id="@+id/tvSumCarbo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Carbo"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/tvEatingLabelCarbo"
+            app:layout_constraintEnd_toEndOf="@+id/tvEatingLabelCarbo"
+            app:layout_constraintStart_toStartOf="@+id/tvEatingLabelCarbo" />
+
+        <TextView
+            android:id="@+id/tvSumOfKcal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Kcal"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/tvEatingLabelKcal"
+            app:layout_constraintEnd_toEndOf="@+id/tvEatingLabelKcal"
+            app:layout_constraintStart_toStartOf="@+id/tvEatingLabelKcal" />
+
+        <TextView
+            android:id="@+id/tvSumProt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Prot"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/tvEatingLabelProt"
+            app:layout_constraintEnd_toEndOf="@+id/tvEatingLabelProt"
+            app:layout_constraintStart_toStartOf="@+id/tvEatingLabelProt"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvEatingLabelProt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/roboto"
+            android:text="Белки"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvEatingLabelFats"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvEatingLabelFats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/roboto"
+            android:text="Жиры"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvEatingLabelProt"
+            app:layout_constraintEnd_toStartOf="@+id/tvEatingLabelCarbo"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvEatingLabelProt"
+            app:layout_constraintTop_toTopOf="@+id/tvEatingLabelProt" />
+
+        <TextView
+            android:id="@+id/tvEatingLabelCarbo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/roboto"
+            android:text="Углеводы"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvEatingLabelFats"
+            app:layout_constraintEnd_toStartOf="@+id/tvEatingLabelKcal"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvEatingLabelFats"
+            app:layout_constraintTop_toTopOf="@+id/tvEatingLabelFats" />
+
+        <TextView
+            android:id="@+id/tvEatingLabelKcal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:text="Ккал"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvEatingLabelCarbo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvEatingLabelCarbo"
+            app:layout_constraintTop_toTopOf="@+id/tvEatingLabelCarbo" />
+
+        <TextView
+            android:id="@+id/tvEatingReminder"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="Занесите обед сейчас и достигните своей цели быстрее"
+            android:textColor="@color/reminder_color"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>
 
 

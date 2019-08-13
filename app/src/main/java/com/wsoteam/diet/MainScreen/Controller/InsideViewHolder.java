@@ -13,12 +13,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.amplitude.api.Amplitude;
-import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailSavedFood;
-import com.wsoteam.diet.common.Analytics.Events;
-import com.wsoteam.diet.model.Eating;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.model.Eating;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +35,7 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
     Eating eating;
     int choiseEating;
     boolean isRecipe = false;
+    @BindView(R.id.dvdrHide) View dvdrHide;
 
     public InsideViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, Context context) {
         super(layoutInflater.inflate(R.layout.ms_item_inside_list, viewGroup, false));
@@ -83,7 +83,7 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
         context.startActivity(intent);
     }
 
-    public void bind(Eating eating, int choiseEating, InsideHolderCallback insideHolderCallback) {
+    public void bind(Eating eating, int choiseEating, boolean isLastElement,  InsideHolderCallback insideHolderCallback) {
         this.eating = eating;
         this.choiseEating = choiseEating;
         tvNameOfFood.setText(eating.getName());
@@ -91,14 +91,19 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
         tvProt.setText("Б. " + eating.getProtein());
         tvFats.setText("Ж. " + eating.getFat());
         tvCarbo.setText("У. " + eating.getCarbohydrates());
-        if(eating.getWeight() == Config.RECIPE_EMPTY_WEIGHT) {
+        if (eating.getWeight() == Config.RECIPE_EMPTY_WEIGHT) {
             tvWeight.setText("1 порция");
             isRecipe = true;
-        }else {
-            tvWeight.setText(eating.getWeight() + "г");
+        } else {
+            tvWeight.setText("Вес: " + eating.getWeight() + "г");
             isRecipe = false;
         }
         this.insideHolderCallback = insideHolderCallback;
+        if (dvdrHide.getVisibility() == View.VISIBLE && isLastElement){
+            dvdrHide.setVisibility(View.VISIBLE);
+        }else {
+            dvdrHide.setVisibility(View.GONE);
+        }
     }
 
     private void showConfirmDialog() {

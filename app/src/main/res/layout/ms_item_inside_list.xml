@@ -9,7 +9,7 @@
         android:id="@+id/tvNameOfFood"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/roboto_medium"
@@ -36,7 +36,6 @@
         android:id="@+id/tvWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="11dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/roboto"
@@ -104,13 +103,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView43"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvWeight"
-        app:layout_constraintEnd_toStartOf="@+id/tvWeight"
-        app:layout_constraintTop_toTopOf="@+id/tvWeight"
-        app:srcCompat="@drawable/ic_circle_food" />
+    <View
+        android:id="@+id/dvdrHide"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>
