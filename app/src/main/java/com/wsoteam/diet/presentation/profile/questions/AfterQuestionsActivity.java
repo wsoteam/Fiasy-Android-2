@@ -38,4 +38,8 @@ public class AfterQuestionsActivity extends AppCompatActivity {
   public void nextQuestion() {
     viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
   }
+
+  public void prevQuestion() {
+    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+  }
 }

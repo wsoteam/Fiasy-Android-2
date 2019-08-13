@@ -17,7 +17,6 @@ import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
-import com.bumptech.glide.Glide;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,19 +37,14 @@ import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.InApp.properties.EmptySubInfo;
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
 import com.wsoteam.diet.MainScreen.MainActivity;
-import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.wsoteam.diet.di.CiceroneModule;
-import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.presentation.global.BaseActivity;
-import com.wsoteam.diet.presentation.global.Screens;
 import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
-import com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 import java.util.Calendar;
 import java.util.List;
@@ -95,9 +89,7 @@ public class ActivitySplash extends BaseActivity {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
           new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
-          checkBilling();
-          startActivity(new Intent(ActivitySplash.this, MainActivity.class));
-          finish();
+          onSignedIn();
         }
 
         @Override
@@ -121,11 +113,21 @@ public class ActivitySplash extends BaseActivity {
         Log.d("kkk", "checkRegistrationAndRun: if");
       } else {
         Log.d("kkk", "checkRegistrationAndRun: else");
-
       }
 
       finish();
     }
+  }
+
+  private void onSignedIn() {
+    checkBilling();
+
+    if (QuestionsActivity.hasNotAskedQuestionsLeft(this)) {
+      startActivity(new Intent(this, QuestionsActivity.class));
+    } else {
+      startActivity(new Intent(this, MainActivity.class));
+    }
+    finish();
   }
 
   private void setTrackInfoInDatabase(AdjustAttribution aa) {

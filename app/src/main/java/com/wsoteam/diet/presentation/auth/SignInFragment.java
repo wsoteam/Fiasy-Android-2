@@ -65,6 +65,8 @@ public class SignInFragment extends AuthStrategyFragment {
     }
 
     @Override public void afterTextChanged(Editable s) {
+      clearInputErrors();
+
       signInButton.removeCallbacks(validateForm);
       signInButton.postDelayed(validateForm, 200);
     }
@@ -156,15 +158,14 @@ public class SignInFragment extends AuthStrategyFragment {
 
     if (error instanceof FirebaseAuthInvalidCredentialsException) {
       setInputException(R.id.password, getString(R.string.auth_user_password_missmatch));
+      setInputException(R.id.username, getString(R.string.auth_user_email_missmatch));
     } else {
       handleDefaultErrors(error);
     }
   }
 
   protected void setInputException(@IdRes int targetId, @NonNull CharSequence message){
-    if (getNotification().isAttached()) {
-      getNotification().dismiss();
-    }
+    removeCurrentNotification();
 
     final TextInputLayout target = getView().findViewById(targetId);
     target.setError(message);
@@ -190,6 +191,8 @@ public class SignInFragment extends AuthStrategyFragment {
       return false;
     }
 
+    boolean hasErrors = false;
+
     for (TextInputLayout target : formInputs) {
       final List<InputValidation> validators = formValidators.get(target.getId());
 
@@ -208,9 +211,11 @@ public class SignInFragment extends AuthStrategyFragment {
 
           if (displayError) {
             target.setError(error);
+            hasErrors = true;
+          } else {
+            return false;
           }
 
-          return false;
         } else {
           if (BuildConfig.DEBUG) {
             Log.d("ManualAuth", String.format("%s passed",
@@ -220,6 +225,6 @@ public class SignInFragment extends AuthStrategyFragment {
       }
     }
 
-    return true;
+    return !hasErrors;
   }
 }

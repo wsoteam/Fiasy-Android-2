@@ -1,7 +1,9 @@
 package com.wsoteam.diet.presentation.profile.questions;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.annotation.Nullable;
@@ -18,6 +20,7 @@ import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.views.CustomizedViewPager;
 
 public class QuestionsActivity extends BaseActivity implements QuestionsView {
+  public static final String KEY_QUESTIONS_STARTED = "startup:should_finish_questions";
 
   private static final String TAG = "EditProfile";
 
@@ -31,6 +34,11 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
   private boolean isFemale = false, createUser;
   private boolean isNeedShowOnboard = false;
 
+  public static boolean hasNotAskedQuestionsLeft(Context context){
+    return PreferenceManager.getDefaultSharedPreferences(context)
+        .getBoolean(KEY_QUESTIONS_STARTED, false);
+  }
+
   @ProvidePresenter
   QuestionsPresenter providePresenter() {
     return presenter;
@@ -43,6 +51,11 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
     ButterKnife.bind(this);
 
     presenter = new QuestionsPresenter(this, CiceroneModule.router());
+
+    PreferenceManager.getDefaultSharedPreferences(this)
+        .edit()
+        .putBoolean(KEY_QUESTIONS_STARTED, true)
+        .apply();
 
     if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(
         Config.IS_NEED_SHOW_ONBOARD, false)) {
@@ -81,6 +94,11 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
   }
 
   public void saveProfile() {
+    PreferenceManager.getDefaultSharedPreferences(this)
+        .edit()
+        .putBoolean(KEY_QUESTIONS_STARTED, false)
+        .apply();
+
     Intent intent = new Intent(this, QuestionsCalculationsActivity.class);
     startActivity(intent);
   }

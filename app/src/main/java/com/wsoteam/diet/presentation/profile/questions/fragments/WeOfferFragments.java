@@ -30,12 +30,12 @@ public class WeOfferFragments extends Fragment {
 
   @OnClick(R.id.btnBack3)
   void clickBack(){
-    getActivity().onBackPressed();
+    ((AfterQuestionsActivity) requireActivity()).prevQuestion();
   }
 
   @OnClick(R.id.btnNext)
   void clickNext(){
-    ((AfterQuestionsActivity)getActivity()).nextQuestion();
+    ((AfterQuestionsActivity) requireActivity()).nextQuestion();
     //Intent intent = new Intent(getContext(), ActivitySplash.class);
     //startActivity(intent);
     //getActivity().finish();

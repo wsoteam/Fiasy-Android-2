@@ -34,7 +34,7 @@ public class EmailLoginAuthStrategy extends AuthStrategy {
     }
 
     disposeOnRelease(RxFirebase.from(authTask).subscribe(
-        result -> onAuthenticated(result.getUser()),
+        this::onAuthenticated,
         this::onAuthException
     ));
   }

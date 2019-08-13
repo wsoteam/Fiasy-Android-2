@@ -815,6 +815,7 @@
   <string name="auth_state_logging_in">Авторизуем</string>
   <string name="auth_user_not_found">Пользователь не найден</string>
   <string name="auth_user_password_missmatch">Неверный пароль</string>
+  <string name="auth_user_email_missmatch">Неверный email</string>
   <string name="auth_user_set_weak_password">Пароль слишком слабый, добавьте дополнительные знаки</string>
   <string name="auth_user_mailformed">Укажите свой email</string>
   <string name="auth_user_using_existing_account">Пользователь с таким email уже существует</string>

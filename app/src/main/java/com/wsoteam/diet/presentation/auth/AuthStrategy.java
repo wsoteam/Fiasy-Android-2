@@ -48,7 +48,6 @@ public abstract class AuthStrategy {
   protected void handleCredentials(AuthCredential credential) {
     disposeOnRelease(RxFirebase.from(FirebaseAuth.getInstance()
         .signInWithCredential(credential))
-        .map(AuthResult::getUser)
         .subscribe(this::onAuthenticated, this::onAuthException));
   }
 
@@ -63,12 +62,17 @@ public abstract class AuthStrategy {
 
   }
 
-  protected void onAuthenticated(FirebaseUser user) {
-    userStream.postValue(new AuthenticationResult(user, null));
+  protected void onAuthenticated(AuthenticationResult result){
+    userStream.postValue(result);
+  }
+
+  protected void onAuthenticated(AuthResult result) {
+    onAuthenticated(new AuthenticationResult(result.getUser(), null,
+        result.getAdditionalUserInfo().isNewUser()));
   }
 
   protected void onAuthException(Throwable throwable) {
-    userStream.postValue(new AuthenticationResult(null, throwable));
+    userStream.postValue(new AuthenticationResult(null, throwable, false));
   }
 
   public abstract void enter();
@@ -80,10 +84,16 @@ public abstract class AuthStrategy {
   public static class AuthenticationResult {
     private final FirebaseUser user;
     private final Throwable error;
+    private final boolean isNewUser;
 
-    public AuthenticationResult(FirebaseUser user, Throwable error) {
+    public AuthenticationResult(FirebaseUser user, Throwable error, boolean isNewUser) {
       this.user = user;
       this.error = new Throwable(error);
+      this.isNewUser = isNewUser;
+    }
+
+    public boolean isNewUser() {
+      return isNewUser;
     }
 
     public boolean isSuccessful() {

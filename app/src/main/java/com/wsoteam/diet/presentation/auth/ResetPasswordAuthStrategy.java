@@ -33,7 +33,7 @@ public class ResetPasswordAuthStrategy extends AuthStrategy {
         .doOnSuccess(task -> {
           final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-          if (user != null) onAuthenticated(user);
+          if (user != null) onAuthenticated(new AuthenticationResult(user, null, false));
         })
         .subscribe());
   }

@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.auth;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.wsoteam.diet.BuildConfig;
+import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 import com.wsoteam.diet.utils.RichTextUtils.RichText;
@@ -36,14 +38,13 @@ public abstract class AuthStrategyFragment extends Fragment {
         if (authenticationResult == null) return;
 
         if (authenticationResult.isSuccessful()) {
-          onAuthorized(authenticationResult.user());
+          onAuthorized(authenticationResult.user(), authenticationResult.isNewUser());
         } else {
           onAuthException(authenticationResult.error());
         }
       };
 
   private AuthStrategy authStrategy;
-
   private InAppNotification notification;
 
   protected <T extends AuthStrategy> T getStrategyByType(Class<T> strategyType) {
@@ -88,7 +89,7 @@ public abstract class AuthStrategyFragment extends Fragment {
     getNotification().show(getView(), InAppNotification.DURATION_FOREVER);
   }
 
-  protected void onAuthorized(FirebaseUser user) {
+  protected void onAuthorized(FirebaseUser user, boolean newUser) {
     if (BuildConfig.DEBUG) {
       Log.d("AuthStrategy", "Logged in as: " + user.getDisplayName());
     }
@@ -108,9 +109,15 @@ public abstract class AuthStrategyFragment extends Fragment {
     }
 
     if (getActivity() != null) {
-      startActivity(new Intent(requireContext(), QuestionsActivity.class));
+      final Activity activity = requireActivity();
 
-      requireActivity().finish();
+      if (newUser) {
+        activity.startActivity(new Intent(requireContext(), QuestionsActivity.class));
+      } else {
+        activity.startActivity(new Intent(requireContext(), MainActivity.class));
+      }
+
+      activity.finish();
     }
   }
 
@@ -123,19 +130,21 @@ public abstract class AuthStrategyFragment extends Fragment {
   protected void handleDefaultErrors(Throwable error) {
     getNotification().setProgressVisible(false, false);
 
+    final InAppNotification notification = getNotification();
+
     if (error instanceof FirebaseAuthUserCollisionException) {
-      getNotification().setText(getString(R.string.auth_user_using_existing_account));
+      notification.setText(getString(R.string.auth_user_using_existing_account));
     } else if (error instanceof FirebaseAuthInvalidCredentialsException) {
-      getNotification().setText("Сессия подключения просрочена");
+      notification.setText("Сессия подключения просрочена");
     } else if (error instanceof FirebaseAuthInvalidUserException) {
-      getNotification().setText(getString(R.string.auth_user_not_found));
+      notification.setText(getString(R.string.auth_user_not_found));
     } else if (error instanceof IOException) {
-      getNotification().setText("Нет подключения к интернету :(");
+      notification.setText("Нет подключения к интернету :(");
     } else {
-      getNotification().setText("Не удалось войти");
+      notification.setText("Не удалось войти");
     }
 
-    getNotification().show(getView(), InAppNotification.DURATION_LONG);
+    notification.show(getView(), InAppNotification.DURATION_LONG);
   }
 
   protected void authorize(Class<? extends AuthStrategy> strategyType) {
@@ -215,11 +224,17 @@ public abstract class AuthStrategyFragment extends Fragment {
     }
   }
 
-  protected InAppNotification getNotification() {
-    if (notification == null) {
-      notification = new InAppNotification(requireContext());
+  protected void removeCurrentNotification() {
+    if (notification != null && notification.isAttached()) {
+      notification.dismiss();
+      notification = null;
     }
-    return notification;
+  }
+
+  protected InAppNotification getNotification() {
+    removeCurrentNotification();
+
+    return notification = new InAppNotification(requireContext());
   }
 
   @Override public void onSaveInstanceState(@NonNull Bundle outState) {
