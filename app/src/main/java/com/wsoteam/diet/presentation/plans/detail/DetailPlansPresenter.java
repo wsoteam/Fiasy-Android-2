@@ -80,8 +80,10 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
 
   void clickedJoin() {
     dietPlan.setStartDate(DateHelper.dateToString(new Date()));
+    UserDataHolder.getUserData().setPlan(dietPlan);
     WorkWithFirebaseDB.joinDietPlan(dietPlan);
     getViewState().visibilityButtonJoin(false);
+    initDietPlan();
   }
 
   void clickedLeave(){
