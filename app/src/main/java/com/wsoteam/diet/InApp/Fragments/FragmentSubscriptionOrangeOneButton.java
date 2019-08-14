@@ -189,7 +189,8 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
     }
   }
 
-  @OnClick({ R.id.btnBack, R.id.btnBuyPrem })
+
+  @OnClick({ R.id.btnBack, R.id.btnClose, R.id.btnBuyPrem , R.id.tvPrivacyPolicy})
   public void onViewClicked(View view) {
     switch (view.getId()) {
 
@@ -198,20 +199,14 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
         buy(currentSKU);
         break;
 
-      case R.id.btnBack: {
-        //Amplitude.getInstance().logEvent(AmplitudaEvents.close_premium);
-        //if (box.isOpenFromIntrodaction()) {
-        //  getActivity().getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, getContext().MODE_PRIVATE)
-        //      .edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, true)
-        //      .commit();
-        //  startActivity(new Intent(getActivity(), ActivitySplash.class));
-        //  getActivity().finish();
-        //} else {
+      case R.id.btnBack:
+        getActivity().onBackPressed();
+        break;
+      case R.id.btnClose: {
         Intent intent = new Intent(getContext(), ActivitySplash.class);
         startActivity(intent);
         getActivity().finish();
-        //getActivity().onBackPressed();
-        //}
+
       }
       break;
 
@@ -219,6 +214,7 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
         Intent intent = new Intent(getActivity(), ActivityPrivacyPolicy.class);
         startActivity(intent);
         break;
+
     }
   }
 
