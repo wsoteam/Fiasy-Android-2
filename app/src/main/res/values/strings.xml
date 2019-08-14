@@ -1,5 +1,8 @@
 <resources>
 
+  <string name="load_recipe_plan_up">Загрузить предыдущие</string>
+  <string name="load_recipe_plan_down">Загрузить следующие</string>
+
   <!--diets lan-->
   <integer name="com_vk_sdk_AppId">6766798</integer>
   <integer-array name="img_id_arr">

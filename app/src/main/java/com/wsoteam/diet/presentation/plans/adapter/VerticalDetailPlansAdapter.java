@@ -79,6 +79,10 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
         View v1 = LayoutInflater.from(viewGroup.getContext())
             .inflate(R.layout.plans_header_item, viewGroup, false);
         return new HeaderViewHolder(v1, dietPlan, mContext, isCurrentPlan, daysAfterStart);
+      case R.layout.plans_footer_item:
+        View v3 = LayoutInflater.from(viewGroup.getContext())
+            .inflate(R.layout.plans_footer_item, viewGroup, false);
+        return  new FooterViewHolder(v3);
       default: {
         View v0 = LayoutInflater.from(viewGroup.getContext())
             .inflate(R.layout.detail_plans_day_item, viewGroup, false);
@@ -92,7 +96,9 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
     if (i == 0) {
 
-    } else {
+    } else  if (i == recipeForDays.size() + 1) {
+
+    }else {
       switch (viewHolder.getItemViewType()) {
         case R.layout.diary_recipe_plans: {
           DiaryRecipesViewHolder holder = (DiaryRecipesViewHolder) viewHolder;
@@ -122,7 +128,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   public int getItemCount() {
     if (recipeForDays == null) return 0;
 
-    return recipeForDays.size() + 1;
+    return recipeForDays.size() + 2;
   }
 
   @Override
@@ -141,6 +147,8 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       return R.layout.plans_header_item;
     } else if (position > 0 && position <= daysAfterStart) {
       return R.layout.diary_recipe_plans;
+    } else if (position == recipeForDays.size() + 1) {
+      return R.layout.plans_footer_item;
     } else {
       return R.layout.detail_plans_day_item;
     }
@@ -242,6 +250,13 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
         tvTimeCount.setVisibility(View.VISIBLE);
         tvTimeCount.setText((day + 1) + " день из " + dietPlan.getCountDays());
       }
+    }
+  }
+
+  static class FooterViewHolder extends RecyclerView.ViewHolder{
+
+    public FooterViewHolder(@NonNull View itemView) {
+      super(itemView);
     }
   }
 
