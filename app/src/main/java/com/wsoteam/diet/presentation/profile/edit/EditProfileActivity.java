@@ -123,6 +123,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
                         edHeight.getText().toString(), edDiff.getText().toString(), edActivity.getText().toString(),
                         edWeight.getText().toString());
                 break;
+                
 //            case R.id.chHeight:
 //                attachDimensionPopup((AppCompatCheckedTextView) view);
 //                break;

@@ -308,4 +308,17 @@
         <item name="android:text">@string/auth_data_btn_next</item>
     </style>
 
+    <style name="TextInputStyle.Hint" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#aeb3c0</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="TextInputStyle.Error" parent="TextAppearance.AppCompat">
+        <item name="colorAccent">#ed2d2d</item>
+        <item name="android:textColor">#ed2d2d</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
 </resources>

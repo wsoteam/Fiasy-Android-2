@@ -36,7 +36,11 @@ public class App extends MultiDexApplication {
         YandexMetricaConfig.Builder configBuilder = YandexMetricaConfig.newConfigBuilder(Config.YANDEX_API_KEY);
         YandexMetrica.activate(getApplicationContext(), configBuilder.build());
         YandexMetrica.enableActivityAutoTracking(this);
+
         Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
+        FirebaseApp.initializeApp(getApplicationContext());
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         Adjust.onCreate(new AdjustConfig(this, EventsAdjust.app_token, AdjustConfig.ENVIRONMENT_PRODUCTION));
         registerActivityLifecycleCallbacks(new AdjustLifecycleCallbacks());
         Amplitude.getInstance().trackSessionEvents(true);

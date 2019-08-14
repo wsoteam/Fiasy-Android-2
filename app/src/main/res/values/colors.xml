@@ -209,6 +209,18 @@
 
   <color name="uncompleted_color">#A3E0D9</color>
   <color name="uncompleted_text_color">#F8F8F8</color>
+  <color name="prem_settings">#f2994a</color>
+  <color name="unprem_settings">#d9424242</color>
+  <color name="logout_settings">#eb5757</color>
+  <color name="filter_edit_avatar">#59000000</color>
+  <color name="color_bar">#f2994a</color>
+  <color name="color_bar_past">#FCB981</color>
+  <color name="color_bar_future">#d5d7de</color>
+  <color name="color_line_chart">#f9a7ad</color>
+  <color name="highlight_line_color">#80aeb3c0</color>
+  <color name="linear_line_color">#80EB5757</color>
+  <color name="uncompleted_color">#A3E0D9</color>
+  <color name="uncompleted_text_color">#F8F8F8</color>
 
   <color name="auth_enter_background_color_disabled">#acacac</color>
   <color name="auth_enter_background_color_enabled">@color/orange</color>

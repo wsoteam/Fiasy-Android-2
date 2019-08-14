@@ -333,6 +333,13 @@ public class WorkWithFirebaseDB {
         return key;
     }
 
+    public static void setPhotoURL(String url) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("profile").child("photoUrl");
+        myRef.setValue(url);
+    }
+
     public static void deleteFoodTemplate(String key) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).

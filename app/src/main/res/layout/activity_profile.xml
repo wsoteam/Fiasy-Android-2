@@ -1,412 +1,466 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/profile_gradient"
+        android:background="@color/white"/>
+
+    <ImageButton
+        android:id="@+id/ibSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/filter_state"
+        android:padding="16dp"
+        android:elevation="9dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/settings_profile" />
+
+    <TextView
+        android:id="@+id/textView54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Профиль"
+        android:elevation="9dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
         android:focusableInTouchMode="true">
 
+        <com.github.lzyzsd.circleprogress.DonutProgress
+            android:id="@+id/donutProgress"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:elevation="10dp"
+            app:donut_finished_color="#f9a12d"
+            app:donut_finished_stroke_width="5dp"
+            app:donut_progress="75"
+            app:donut_text_color="@color/transparent"
+            app:donut_unfinished_color="@color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/civProfile"
+            app:layout_constraintEnd_toEndOf="@+id/civProfile"
+            app:layout_constraintStart_toStartOf="@+id/civProfile"
+            app:layout_constraintTop_toTopOf="@+id/civProfile" />
 
-        <TextView
-            android:id="@+id/tvProfileOld"
+
+        <ImageButton
+            android:id="@+id/ibRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/filter_state_gray"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvBottomDateSwitcher"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/tvBottomDateSwitcher"
+            app:layout_constraintTop_toTopOf="@+id/tvBottomDateSwitcher"
+            app:srcCompat="@drawable/right_arrow_graph" />
+
+        <ImageButton
+            android:id="@+id/ibLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:elevation="8dp"
-            android:fontFamily="@font/roboto"
-            android:text="24 года"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@+id/ibEditName"
-            app:layout_constraintStart_toStartOf="@+id/tvUserName"
-            app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
-
-        <ImageView
-            android:id="@+id/imageView13"
-            android:layout_width="match_parent"
-            android:layout_height="230dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/filter_state_gray"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvBottomDateSwitcher"
+            app:layout_constraintEnd_toStartOf="@+id/tvBottomDateSwitcher"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/gradient_profile_head" />
+            app:layout_constraintTop_toTopOf="@+id/tvBottomDateSwitcher"
+            app:srcCompat="@drawable/left_arrow_graph" />
 
         <ImageButton
-            android:id="@+id/ibSettings"
+            android:id="@+id/ibExpandable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/filter_state"
-            android:padding="16dp"
+            android:padding="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/settings_profile" />
+            app:layout_constraintTop_toTopOf="@+id/tvUserName"
+            app:srcCompat="@drawable/ic_open_detail_profile" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civProfile"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="24dp"
-            android:elevation="9dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="90dp"
             android:src="@drawable/default_avatar"
             app:civ_border_color="@color/white"
             app:civ_border_width="2dp"
             app:civ_circle_background_color="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvUserName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/roboto"
-            android:text="Василиса Иванова"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/civProfile"
-            app:layout_constraintStart_toStartOf="@+id/civProfile"
-            app:layout_constraintTop_toBottomOf="@+id/civProfile" />
-
-        <ImageButton
-            android:id="@+id/ibEditName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/filter_state"
-            android:backgroundTint="@color/transparent"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
-            app:layout_constraintStart_toEndOf="@+id/tvUserName"
-            app:layout_constraintTop_toTopOf="@+id/tvUserName"
-            app:srcCompat="@drawable/profile_edit_name" />
-
-        <TextView
-            android:id="@+id/tvDateRegistration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/roboto"
-            android:text="Зарегистрирован(а) с 13.04.2019"
-            android:textColor="@color/white_profile"
-            app:layout_constraintEnd_toEndOf="@+id/tvProfileOld"
-            app:layout_constraintStart_toStartOf="@+id/tvProfileOld"
-            app:layout_constraintTop_toBottomOf="@+id/tvProfileOld" />
-
-        <TextView
-            android:id="@+id/textView54"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/roboto_light"
-            android:text="Максимальные дневные значения"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView13" />
-
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="112dp"
-            android:layout_height="112dp"
-            android:layout_marginStart="32dp"
-            android:elevation="8dp"
-            android:src="@drawable/circle_kcal"
-            app:layout_constraintBottom_toBottomOf="@+id/cardView"
-            app:layout_constraintEnd_toStartOf="@+id/imageView14"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/cardView" />
-
-        <ImageView
-            android:id="@+id/imageView14"
-            android:layout_width="112dp"
-            android:layout_height="112dp"
-            android:layout_marginEnd="32dp"
-            android:elevation="8dp"
-            android:src="@drawable/circle_water"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView10"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imageView10"
-            app:layout_constraintTop_toTopOf="@+id/imageView10" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="8dp"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="3dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView54">
-
-
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/textView61"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:elevation="8dp"
-            android:fontFamily="@font/roboto_light"
-            android:text="Калории"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView10"
-            app:layout_constraintStart_toStartOf="@+id/imageView10"
-            app:layout_constraintTop_toTopOf="@+id/imageView10" />
-
-        <TextView
-            android:id="@+id/tvKcalMax"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:elevation="8dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="2000"
-            android:textColor="@color/white"
+            android:text="Иван Иванов"
+            android:textColor="#424242"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/ibExpandable"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/donutProgress"
+            app:layout_constraintTop_toTopOf="@+id/civProfile" />
+
+        <TextView
+            android:id="@+id/tvCarboCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="235 г"
+            android:textColor="#d9424242"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView61"
-            app:layout_constraintStart_toStartOf="@+id/textView61"
-            app:layout_constraintTop_toBottomOf="@+id/textView61" />
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/tvFatCount"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvProtCount"
+            app:layout_constraintTop_toTopOf="@+id/tvProtCount" />
+
+        <TextView
+            android:id="@+id/tvFatCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="60 г"
+            android:textColor="#d9424242"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvCarboCount"
+            app:layout_constraintTop_toTopOf="@+id/tvCarboCount" />
+
+        <TextView
+            android:id="@+id/tvProtCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="72dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="60 г"
+            android:textColor="#d9424242"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvCarboCount"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView150"
+            app:layout_constraintVertical_bias="0.0" />
+
 
         <TextView
             android:id="@+id/textView87"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:elevation="8dp"
-            android:fontFamily="@font/roboto_light"
-            android:text="Вода"
-            android:textColor="@color/white"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Ежедневная цель - "
+            android:textColor="#d9424242"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView14"
-            app:layout_constraintStart_toStartOf="@+id/imageView14"
-            app:layout_constraintTop_toTopOf="@+id/imageView14" />
+            app:layout_constraintStart_toStartOf="@+id/tvUserName"
+            app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
         <TextView
-            android:id="@+id/tvWaterMax"
+            android:id="@+id/textView132"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:elevation="8dp"
+            android:layout_marginTop="1dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="2.5 л"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView87"
+            android:text="План питания - "
+            android:textColor="#d9424242"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/textView87"
             app:layout_constraintTop_toBottomOf="@+id/textView87" />
 
         <TextView
-            android:id="@+id/textView89"
+            android:id="@+id/textView150"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/roboto_light"
-            android:text="Цель"
-            android:textColor="@color/black"
+            android:fontFamily="@font/roboto_medium"
+            android:text="стандартный"
+            android:textColor="#d9424242"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvDifficulty"
-            android:layout_width="match_parent"
-            android:layout_height="27dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="1dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView89" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView132"
+            app:layout_constraintStart_toEndOf="@+id/textView132"
+            app:layout_constraintTop_toTopOf="@+id/textView132" />
 
         <TextView
-            android:id="@+id/tvProfileLevel"
+            android:id="@+id/tvKcalMax"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="8dp"
-            android:fontFamily="@font/roboto"
-            android:text="Легкая"
-            android:textColor="@color/green"
-            app:layout_constraintBottom_toBottomOf="@+id/cvDifficulty"
-            app:layout_constraintEnd_toEndOf="@+id/textView89"
-            app:layout_constraintHorizontal_bias="0.492"
-            app:layout_constraintStart_toStartOf="@+id/textView89"
-            app:layout_constraintTop_toTopOf="@+id/cvDifficulty" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="8dp"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="3dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvProfileLevel">
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView91"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/roboto_light"
-                    android:text="Углеводы"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvCarboCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/roboto_light"
-                    android:text="235 г"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView91"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView91" />
-
-                <TextView
-                    android:id="@+id/tvFatCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/roboto_light"
-                    android:text="60 г"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView92"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView92" />
-
-                <TextView
-                    android:id="@+id/tvProtCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/roboto_light"
-                    android:text="100 г"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView93"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView93" />
-
-                <TextView
-                    android:id="@+id/textView92"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/roboto_light"
-                    android:text="Жиры"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/divider5" />
-
-                <TextView
-                    android:id="@+id/textView93"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:fontFamily="@font/roboto_light"
-                    android:text="Белки"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/divider6" />
-
-                <View
-                    android:id="@+id/divider5"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="?android:attr/listDivider"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView91" />
-
-                <View
-                    android:id="@+id/divider6"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="?android:attr/listDivider"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView92" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </androidx.cardview.widget.CardView>
+            android:fontFamily="@font/roboto_medium"
+            android:text="1800 ккал"
+            android:textColor="#f2994a"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView87"
+            app:layout_constraintStart_toEndOf="@+id/textView87"
+            app:layout_constraintTop_toTopOf="@+id/textView87" />
 
         <TextView
-            android:id="@+id/tvEditParams"
+            android:id="@+id/tvLabelProt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="8dp"
-            android:fontFamily="@font/roboto_light_italic"
-            android:text="Настроить свои параметры"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView9" />
+            android:fontFamily="@font/roboto_medium"
+            android:text="белка"
+            android:textColor="#80424242"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/tvProtCount"
+            app:layout_constraintStart_toStartOf="@+id/tvProtCount"
+            app:layout_constraintTop_toBottomOf="@+id/tvProtCount" />
 
-        <View
-            android:id="@+id/divider7"
+        <TextView
+            android:id="@+id/tvLabelCarbo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="углеводов"
+            android:textColor="#80424242"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/tvCarboCount"
+            app:layout_constraintStart_toStartOf="@+id/tvCarboCount"
+            app:layout_constraintTop_toBottomOf="@+id/tvCarboCount" />
+
+        <TextView
+            android:id="@+id/tvLabelFats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="жиров"
+            android:textColor="#80424242"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/tvFatCount"
+            app:layout_constraintStart_toStartOf="@+id/tvFatCount"
+            app:layout_constraintTop_toBottomOf="@+id/tvFatCount" />
+
+        <com.github.mikephil.charting.charts.CombinedChart
+            android:id="@+id/gv"
             android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginBottom="32dp"
-            android:background="?android:attr/listDivider"
+            android:layout_height="300dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/tvEditParams"
-            app:layout_constraintStart_toStartOf="@+id/tvEditParams"
-            app:layout_constraintTop_toBottomOf="@+id/tvEditParams"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBottomDateSwitcher"
+            app:layout_constraintVertical_bias="1.0"></com.github.mikephil.charting.charts.CombinedChart>
+
+        <TextView
+            android:id="@+id/textView91"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="41dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Отчеты"
+            android:textColor="#d9424242"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLabelProt" />
+
+        <RadioGroup
+            android:id="@+id/rgrpInterval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView91">
+
+
+            <RadioButton
+                android:id="@+id/rbtnWeek"
+                android:layout_width="96dp"
+                android:layout_height="35dp"
+                android:background="@drawable/radio_graph_intervals"
+                android:button="@android:color/transparent"
+                android:checked="true"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="Неделя"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/radio_flat_text_selector"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/rbtnMonth"
+                android:layout_width="96dp"
+                android:layout_height="35dp"
+                android:background="@drawable/radio_graph_intervals"
+                android:button="@android:color/transparent"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="Месяц"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/radio_flat_text_selector"
+                android:textSize="13sp"
+                android:textStyle="normal" />
+
+            <RadioButton
+                android:id="@+id/rbtnYear"
+                android:layout_width="96dp"
+                android:layout_height="35dp"
+                android:background="@drawable/radio_graph_intervals"
+                android:button="@android:color/transparent"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="Год"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/radio_flat_text_selector"
+                android:textSize="13sp"
+                android:textStyle="normal" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tvTopDateSwitcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="2019"
+            android:textColor="#80424242"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@+id/rgrpInterval"
+            app:layout_constraintStart_toStartOf="@+id/rgrpInterval"
+            app:layout_constraintTop_toBottomOf="@+id/rgrpInterval" />
+
+        <TextView
+            android:id="@+id/tvBottomDateSwitcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="10.06 - 17.06"
+            android:textColor="#d9424242"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvTopDateSwitcher"
+            app:layout_constraintStart_toStartOf="@+id/tvTopDateSwitcher"
+            app:layout_constraintTop_toBottomOf="@+id/tvTopDateSwitcher" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civGray"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="128dp"
+            android:layout_marginTop="20dp"
+            android:elevation="3dp"
+            android:src="#aeb3c0"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="2dp"
+            app:civ_circle_background_color="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/textView145"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gv" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civYellow"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="24dp"
+            android:elevation="3dp"
+            android:src="#f2994a"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="2dp"
+            app:civ_circle_background_color="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/textView145"
+            app:layout_constraintEnd_toStartOf="@+id/textView146"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView145"
+            app:layout_constraintTop_toTopOf="@+id/textView145" />
+
+        <TextView
+            android:id="@+id/textView145"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Будущие значения"
+            android:textColor="#d9424242"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/civGray"
+            app:layout_constraintEnd_toStartOf="@+id/civYellow"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/civGray"
+            app:layout_constraintTop_toTopOf="@+id/civGray"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView146"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="128dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Ваше значение"
+            android:textColor="#d9424242"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/civYellow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/civYellow"
+            app:layout_constraintTop_toTopOf="@+id/civYellow"
             app:layout_constraintVertical_bias="0.0" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
 </ScrollView>
+</android.support.constraint.ConstraintLayout>

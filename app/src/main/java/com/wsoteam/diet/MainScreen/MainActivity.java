@@ -34,6 +34,7 @@ import com.wsoteam.diet.Articles.ListArticlesFragment;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.Authenticate.POJO.Box;
+import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.BarcodeScanner.BaseScanner;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.ActivityCreateFood;
 import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
@@ -129,8 +130,8 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.bnv_main_profile:
                     isMainFragment = false;
-                    transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
-                    window.setStatusBarColor(Color.parseColor("#2E4E4E"));
+                    transaction.replace(R.id.flFragmentContainer, new ProfileFragment()).commit();
+                    window.setStatusBarColor(Color.parseColor("#AE6A23"));
                     return true;
             }
             return false;
