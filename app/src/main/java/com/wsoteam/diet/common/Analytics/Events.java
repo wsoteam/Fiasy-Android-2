@@ -45,7 +45,7 @@ public class Events {
     public static final String PRODUCT_PAGE_BUGSEND = "product_page_bugsend";
     public static final String PRODUCT_PAGE_MICRO = "product_page_micro";
     public static final String CUSTOM_PRODUCT_SUCCESS = "custom_product_success";
-    public static final String CUSTOM_RECIPE_SUCCESS = "custom_recipe_success";
+    public static final String CUSTOM_RECIPE_SUCCESS = "custom_reciepe_success";
     public static final String CUSTOM_TEMPLATE_SUCCESS = "custom_template_success";
 
 
