@@ -16,6 +16,8 @@
   <!--end_food_template-->
 
   <!--adding recipe-->
+  <string name="individualPlan">Индивидуальный план рассчитан</string>
+  <string name="recNorm">Рекомендуемая норма</string>
   <string name="add">Добавить</string>
   <string name="cancel">Отменить</string>
   <string name="addingRecipeText">В этом разделе будут храниться созданные вами рецепты</string>
@@ -39,14 +41,6 @@
   <string name="addingRecipeTime">Время приготовления (мин.)</string>
   <string name="addingRecipeShare">Могут видеть все пользователи</string>
   <string name="addingRecipeInfo">Созданные вами и введенные в базу рецепты или продукты могут быть доступны для других пользователей. Пожалуйста, постарайтесь заполнить приведенную выше форму максимально точно и полно.</string>
-  <string name="complexityRecipe">Сложность:</string>
-  <string-array name="recipeComplexity">
-    <item>Легкий</item>
-    <item>Средний</item>
-    <item>Сложный</item>
-  </string-array>
-
-  <!--Item Plan Recipe-->
   <string name="complexityRecipe">Сложность:</string>
   <string-array name="recipeComplexity">
     <item>Легкий</item>
@@ -861,7 +855,7 @@
   <string name="privacy_policy_link_span_text">Политики конфиндециальности</string>
 
   <string name="sign_up_privacy_policy_title">я согласен с условиями </string>
-  <string name="sign_up_privacy_policy_link_span_text">политикой конфиндециальности</string>
+  <string name="sign_up_privacy_policy_link_span_text">политики конфиндециальности</string>
 
   <string name="sign_in_already_have_account">У вас уже есть аккаунт?</string>
   <string name="action_sign_in_label">Войти</string>
@@ -870,7 +864,7 @@
   <string name="auth_forgot_your_password">Забыли пароль?</string>
   <string name="auth_restore_your_password">Восстановить</string>
   <string name="auth_sign_in_alternatives">Или войти с помощью</string>
-  <string name="auth_sign_up_alternatives">Или заригестрируйтесь с помощью</string>
+  <string name="auth_sign_up_alternatives">Или зарегистрируйтесь с помощью</string>
 
   <string name="constraint_error_username_min_length">Минимальная длина логина 5 символов</string>
   <string name="constraint_error_password_min_length">Минимальная длина пароля 6 символов</string>

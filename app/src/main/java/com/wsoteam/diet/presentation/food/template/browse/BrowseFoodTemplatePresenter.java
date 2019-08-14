@@ -3,7 +3,7 @@ package com.wsoteam.diet.presentation.food.template.browse;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.CountDownTimer;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 
 
 import com.amplitude.api.Amplitude;

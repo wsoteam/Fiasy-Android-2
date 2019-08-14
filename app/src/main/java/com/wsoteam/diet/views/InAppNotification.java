@@ -116,8 +116,8 @@ public class InAppNotification {
   }
 
   public void dismiss() {
-    if (parent == null) {
-      throw new IllegalStateException("notification not showing");
+    if (!isAttached()) {
+      return;
     }
 
     final Slide slide = new Slide();

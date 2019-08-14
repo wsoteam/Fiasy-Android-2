@@ -6,10 +6,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -21,31 +17,29 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.arellomobile.mvp.presenter.InjectPresenter;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.di.CiceroneModule;
 import com.wsoteam.diet.presentation.food.adapter.FoodAdapter;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.AndroidInjection;
+import java.util.ArrayList;
 
 public class CreateFoodTemplateActivity extends BaseActivity implements CreateFoodTemplateView,
         TextWatcher, AdapterView.OnItemSelectedListener {
 
-    @Inject
-    @InjectPresenter
-    CreateFoodTemplatePresenter presenter;
-
-    @Inject Context context;
-    @Inject FoodAdapter adapter;
-    @Inject LinearLayoutManager layoutManager;
+    private CreateFoodTemplatePresenter presenter;
+    private FoodAdapter adapter;
 
     @BindView(R.id.etNameTemplate) EditText etNameTemplate;
     @BindView(R.id.sEating) Spinner eatingSpinner;
@@ -62,10 +56,14 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_food_template);
         ButterKnife.bind(this);
+
+        presenter = new CreateFoodTemplatePresenter(CiceroneModule.router(),
+            new FoodTemplate("", "", "", true, new ArrayList<>()));
+
+        adapter = new FoodAdapter(this, CiceroneModule.router());
 
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -75,13 +73,9 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
         mToolbar.inflateMenu(R.menu.create_template_menu);
         Menu menu = mToolbar.getMenu();
         MenuItem btnClose = menu.findItem(R.id.close);
-        btnClose.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-               initAlert();
-//                presenter.onCancelClicked();
-                return false;
-            }
+        btnClose.setOnMenuItemClickListener(item -> {
+            initAlert();
+            return false;
         });
 
 
@@ -89,7 +83,7 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
         int spinnerPosition = getIntent().getIntExtra(Config.EATING_SPINNER_POSITION, 0);
         eatingSpinner.setSelection(spinnerPosition);
 
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -109,7 +103,7 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
 
     @Override
     public void showMessage(String message) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     @OnClick({R.id.btnSave})

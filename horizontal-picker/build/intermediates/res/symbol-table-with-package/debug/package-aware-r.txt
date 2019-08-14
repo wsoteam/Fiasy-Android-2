@@ -74,6 +74,7 @@ drawable background_day_selected
 drawable background_day_today
 drawable background_selected_day
 drawable bg_main_calendar
+drawable ic_calendar_small
 drawable notification_action_background
 drawable notification_bg
 drawable notification_bg_low
@@ -104,6 +105,7 @@ id icon_group
 id info
 id italic
 id item_touch_helper_previous_elevation
+id ivCalendar
 id left
 id line1
 id line3
