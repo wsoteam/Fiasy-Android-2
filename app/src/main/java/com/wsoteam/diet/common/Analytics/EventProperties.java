@@ -68,7 +68,7 @@ public class EventProperties {
     public static final String product_from_button = "button";
     public static final String product_from_plus = "plus";
 
-    public static final String recipe_from = "recipe_from";
+    public static final String recipe_from = "reciepe_from";
     public static final String recipe_from_button = "button";
     public static final String recipe_from_plus = "plus";
 
@@ -84,7 +84,7 @@ public class EventProperties {
 
 
     //Recipe
-    public static final String recipe_item = "recipe_item";
+    public static final String recipe_item = "reciepe_item";
 
     public static final String recipe_category = "reciepe_category";
     public static final String recipe_category_breakfast = "breakfast";
@@ -92,9 +92,9 @@ public class EventProperties {
     public static final String recipe_category_dinner = "dinner";
     public static final String recipe_category_snack = "snack";
 
-    public static final String favorites_recipe = "favorites_recipe";
+    public static final String favorites_recipe = "favorites_reciepe";
 
-    public static final String recipe_intake = "recipe_intake";
+    public static final String recipe_intake = "reciepe_intake";
     public static final String recipe_intake_breakfast = "breakfast";
     public static final String recipe_intake_lunch = "lunch";
     public static final String recipe_intake_dinner = "dinner";

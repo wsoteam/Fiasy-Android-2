@@ -50,10 +50,10 @@ public class Events {
 
 
     //RECIPE
-    public static final String VIEW_RECIPE = "view_recipe";
-    public static final String RECIPE_CATEGORY = "recipe_category";
-    public static final String RECIPE_FAVORITES = "recipe_favorites";
-    public static final String RECIPE_ADD_SUCCES = "recipe_add_success";
+    public static final String VIEW_RECIPE = "view_reciepe";
+    public static final String RECIPE_CATEGORY = "reciepe_category";
+    public static final String RECIPE_FAVORITES = "reciepe_favorites";
+    public static final String RECIPE_ADD_SUCCES = "reciepe_add_success";
 
 
     //PROFILE

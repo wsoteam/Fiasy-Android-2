@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -217,6 +218,7 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
                 return true;
             case R.id.mFavorites:
                 if (key == null) {
+                    Log.e("LOL", "fav");
                     Events.logAddFavoriteRecipe(recipeItem.getName());
                     key = WorkWithFirebaseDB.addFavoriteRecipe(recipeItem);
                     favoriteMenuItem.setIcon(R.drawable.icon_favorites_delete);
