@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -327,6 +328,7 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
         .get(Integer.parseInt(recipePath[0]));
     List<RecipeItem> recipeItemList;
 
+    Log.d("kkk", "setAddedInDiaryFromPlan: " + recipePath[1]);
     switch (recipePath[1]){
       case "breakfast":
         recipeItemList = recipeForDay.getBreakfast();
@@ -343,7 +345,10 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
         default: recipeItemList = null;
     }
     if (recipeItemList != null){
-      recipeItemList.get(Integer.parseInt(recipePath[2])).setAddedInDiaryFromPlan(true);
+      Log.d("kkk", "setAddedInDiaryFromPlan: != null");
+      RecipeItem recipeItem = recipeItemList.get(Integer.parseInt(recipePath[2]));
+      Log.d("kkk", "setAddedInDiaryFromPlan: " + recipeItem.getName());
+      recipeItem.setAddedInDiaryFromPlan(true);
     }
   }
 

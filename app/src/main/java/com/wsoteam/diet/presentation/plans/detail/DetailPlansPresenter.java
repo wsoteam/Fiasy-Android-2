@@ -37,7 +37,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
   VerticalDetailPlansAdapter adapter;
 
   public DetailPlansPresenter(Router router, Intent intent) {
-    Log.d("kkk", "DetailPlansPresenter: constructor");
+    //Log.d("kkk", "DetailPlansPresenter: constructor");
     this.router = router;
     this.intent = intent;
     initDietPlan();
@@ -95,14 +95,15 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
 
   void onResume(){
     Log.d("kkk", "onResume: ");
-    adapter.notifyDataSetChanged();
+    //adapter.notifyDataSetChanged();
+    adapter.updateList(UserDataHolder.getUserData().getPlan().getRecipeForDays());
   }
 
 
   HorizontalDetailPlansAdapter.OnItemClickListener adapterListener = new HorizontalDetailPlansAdapter.OnItemClickListener() {
     @Override
     public void onItemClick(RecipeItem recipeItem, String day, String meal, String recipeNumber) {
-      Log.d("kkk", recipeItem.getName() + "\n" + day + "\n" + meal + "\n" + recipeNumber + "\n");
+      Log.d("kkk", recipeItem.getName() + "\n" + day + "\n" + meal + "\n" + recipeNumber + "\n" + recipeItem.isAddedInDiaryFromPlan());
 
       if (dietPlan.getDaysAfterStart() == Integer.parseInt(day)) {
         router.navigateTo(new Screens.PlanRecipeScreen(recipeItem, View.VISIBLE, day, meal, recipeNumber));
