@@ -49,6 +49,7 @@ public class QuestionHeightFragments extends Fragment {
 
             }
         });
+        height = rulerPicker.getCurrentValue();
         return view;
     }
 

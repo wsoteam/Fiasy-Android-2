@@ -49,6 +49,7 @@ public class QuestionWeightFragments extends Fragment {
 
             }
         });
+        weight = rulerPicker.getCurrentValue();
         return view;
     }
 
