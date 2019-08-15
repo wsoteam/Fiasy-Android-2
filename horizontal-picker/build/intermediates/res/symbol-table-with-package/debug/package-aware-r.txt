@@ -87,6 +87,12 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+font roboto
+font roboto_bold
+font roboto_light
+font roboto_light_italic
+font roboto_medium
+font roboto_thin
 id action_container
 id action_divider
 id action_image

@@ -51,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:layout="@layout/tab_lat_favorites" />
 
-                    <android.support.design.widget.TabItem
+                    <com.google.android.material.tabs.TabItem
                         android:id="@+id/tiTemplates"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
