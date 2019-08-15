@@ -39,6 +39,9 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   private int daysAfterStart;
   private boolean isCurrentPlan;
 
+  private int indexUp;
+  private int indexDown;
+
   public VerticalDetailPlansAdapter(DietPlan dietPlan, boolean isCurrentPlan){
     this(dietPlan);
     this.isCurrentPlan = isCurrentPlan;
@@ -56,6 +59,38 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       // 24 часа = 1 440 минут = 1 день
       daysAfterStart = ((int) (milliseconds / (24 * 60 * 60 * 1000)));
       //Log.d("kkk", "" + milliseconds +"\nДней: " + daysAfterStart);
+    }
+    initIndex();
+
+  }
+
+  private int getListPosition(int adapterPosition){
+    int index = 0;
+    if (adapterPosition <= indexUp){
+      index = daysAfterStart - (indexUp - adapterPosition) - 1;
+      Log.d("kkk", "onBindViewHolder: i = " + adapterPosition + " index = " + index);
+    }else if(adapterPosition == indexUp + 1){
+      index = daysAfterStart;
+      Log.d("kkk", "onBindViewHolder: i = " + adapterPosition + " index = " + index);
+    } else if (adapterPosition > indexUp + 1){
+      index = daysAfterStart + (adapterPosition - indexUp - 1);
+      Log.d("kkk", "onBindViewHolder: i = " + adapterPosition + " index = " + index);
+    }
+
+    if (adapterPosition == recipeForDays.size() - 1) index = adapterPosition;
+    if (adapterPosition == 0) index = 0;
+
+    return index;
+  }
+
+  private void initIndex(){
+
+    if (isCurrentPlan){
+      indexUp = daysAfterStart;
+      indexDown = recipeForDays.size();
+    }else {
+      indexUp = 0;
+      indexDown = 2;
     }
 
   }
@@ -94,24 +129,38 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   @Override
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
+    Log.d("kkk", "onBindViewHolder: after start " + daysAfterStart);
+    int index = daysAfterStart + indexUp + indexDown;
+    if (i <= indexUp){
+      index = daysAfterStart - (indexUp - i) - 1;
+      Log.d("kkk", "onBindViewHolder: i = " + i + " index = " + index);
+    }else if(i == indexUp + 1){
+      index = daysAfterStart;
+      Log.d("kkk", "onBindViewHolder: i = " + i + " index = " + index);
+    } else if (i > indexUp + 1){
+      index = daysAfterStart + (i - indexUp - 1);
+      Log.d("kkk", "onBindViewHolder: i = " + i + " index = " + index);
+    }
+
+
     if (i == 0) {
 
-    } else  if (i == recipeForDays.size() + 1) {
+    } else  if (i == getItemCount() - 1) {
 
     }else {
       switch (viewHolder.getItemViewType()) {
         case R.layout.diary_recipe_plans: {
           DiaryRecipesViewHolder holder = (DiaryRecipesViewHolder) viewHolder;
-          holder.bind(i - 1);
+          holder.bind(index);
         }
         break;
         default: {
           ViewHolder holder = (ViewHolder) viewHolder;
 
           if (daysAfterStart + 1 == i){
-            holder.bind(i - 1, true);
+            holder.bind(index, true);
           }else {
-            holder.bind(i - 1, false);
+            holder.bind(index, false);
           }
 
           int lastSeenFirstPosition = listPosition.get(i, 0);
@@ -127,8 +176,8 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   @Override
   public int getItemCount() {
     if (recipeForDays == null) return 0;
-
-    return recipeForDays.size() + 2;
+    //текущий день + прошедшие и будущие + 2(это шапка и футер)
+    return 1 + (indexDown + indexUp) + 2;
   }
 
   @Override
@@ -145,13 +194,14 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   public int getItemViewType(int position) {
     if (position == 0) {
       return R.layout.plans_header_item;
-    } else if (position > 0 && position <= daysAfterStart) {
-      return R.layout.diary_recipe_plans;
-    } else if (position == recipeForDays.size() + 1) {
-      return R.layout.plans_footer_item;
-    } else {
-      return R.layout.detail_plans_day_item;
     }
+    if (getListPosition(position) > 0 && getListPosition(position) < daysAfterStart) {
+      return R.layout.diary_recipe_plans;
+    }
+    if (position == getItemCount() - 1) {
+      return R.layout.plans_footer_item;
+    }
+    return R.layout.detail_plans_day_item;
   }
 
   // for both short and long click
@@ -166,6 +216,9 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     @BindView(R.id.tabs) TabLayout tabLayout;
     @BindView(R.id.recycler) RecyclerView recyclerView;
     private boolean isCurrentDay;
+
+    private int position;
+
 
     private LinearLayoutManager layoutManager;
     private HorizontalDetailPlansAdapter adapter;
@@ -186,10 +239,13 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
       recyclerView.setLayoutManager(layoutManager);
       recyclerView.setAdapter(adapter);
+      position = getAdapterPosition();
     }
+
 
     void bind(int i, boolean isCurrentDay) {
       this.isCurrentDay = isCurrentDay;
+      this.position = i;
       tabLayout.getTabAt(0).select();
       tvDay.setText("День " + ++i);
       adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast(), isCurrentDay, getAdapterPosition() - 1, "breakfast");
@@ -200,19 +256,19 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
       switch (tab.getPosition()) {
         case 0:
-          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast(), isCurrentDay, getAdapterPosition() - 1, "breakfast");
+          adapter.updateList(recipeForDays.get(position).getBreakfast(), isCurrentDay, getAdapterPosition() - 1, "breakfast");
           break;
         case 1:
-          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getLunch(), isCurrentDay, getAdapterPosition() - 1, "lunch");
+          adapter.updateList(recipeForDays.get(position).getLunch(), isCurrentDay, getAdapterPosition() - 1, "lunch");
           break;
         case 2:
-          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getDinner(), isCurrentDay, getAdapterPosition() - 1, "dinner");
+          adapter.updateList(recipeForDays.get(position).getDinner(), isCurrentDay, getAdapterPosition() - 1, "dinner");
           break;
         case 3:
-          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getSnack(), isCurrentDay, getAdapterPosition() - 1, "snack");
+          adapter.updateList(recipeForDays.get(position).getSnack(), isCurrentDay, getAdapterPosition() - 1, "snack");
           break;
         default:
-          adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast(), isCurrentDay, getAdapterPosition() - 1, "breakfast");
+          adapter.updateList(recipeForDays.get(position).getBreakfast(), isCurrentDay, getAdapterPosition() - 1, "breakfast");
       }
     }
 
@@ -273,7 +329,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public void bind(int position) {
-      tvDays.setText("День " + position + 1);
+      tvDays.setText("День " + (position + 1));
       recipeContainer.removeAllViews();
 
       recipeItemList = new ArrayList<>();
