@@ -7,8 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,13 +55,11 @@ import com.wsoteam.diet.common.views.graph.formater.XYearFormatter;
 import com.wsoteam.diet.common.views.graph.marker.BarMarker;
 import com.wsoteam.diet.presentation.profile.settings.ProfileSettingsActivity;
 
-import dagger.android.support.AndroidSupportInjection;
+import com.wsoteam.diet.utils.ViewUtils;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 public class ProfileFragment extends MvpAppCompatFragment implements ProfileView {
     @BindView(R.id.ibSettings)
@@ -80,14 +78,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     TextView tvProtCount;
     private static final int CAMERA_REQUEST = 1888;
     Unbinder unbinder;
-    @Inject
-    @InjectPresenter
     ProfilePresenter profilePresenter;
-    @BindViews({
-            R.id.tvCarboCount, R.id.tvFatCount, R.id.tvProtCount, R.id.tvLabelProt, R.id.tvLabelCarbo,
-            R.id.tvLabelFats
-    })
-    List<View> viewListExpandable;
+
     @BindView(R.id.ibExpandable)
     ImageButton ibExpandable;
     @BindView(R.id.donutProgress)
@@ -273,12 +265,6 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         setPhoto(profile);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        AndroidSupportInjection.inject(this);
-        super.onAttach(context);
-    }
-
     @ProvidePresenter
     ProfilePresenter providePresenter() {
         return profilePresenter;
@@ -301,6 +287,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_profile, container, false);
         unbinder = ButterKnife.bind(this, view);
+        profilePresenter = new ProfilePresenter(requireContext());
         return view;
     }
 
@@ -388,14 +375,22 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
     private void openParams() {
         if (isOpen) {
-            ButterKnife.apply(viewListExpandable, (view, value, index) -> view.setVisibility(value),
-                    View.GONE);
+            ViewUtils.apply(getView(), new int[]{
+                R.id.tvCarboCount, R.id.tvFatCount, R.id.tvProtCount, R.id.tvLabelProt, R.id.tvLabelCarbo,
+                R.id.tvLabelFats
+            }, view -> view.setVisibility(View.GONE));
+
             isOpen = false;
+
             Glide.with(getActivity()).load(R.drawable.ic_open_detail_profile).into(ibExpandable);
         } else {
-            ButterKnife.apply(viewListExpandable, (view, value, index) -> view.setVisibility(value),
-                    View.VISIBLE);
+            ViewUtils.apply(getView(), new int[]{
+                R.id.tvCarboCount, R.id.tvFatCount, R.id.tvProtCount, R.id.tvLabelProt, R.id.tvLabelCarbo,
+                R.id.tvLabelFats
+            }, view -> view.setVisibility(View.VISIBLE));
+
             isOpen = true;
+
             Glide.with(getActivity()).load(R.drawable.ic_close_detail_profile).into(ibExpandable);
         }
     }

@@ -10,7 +10,8 @@ import com.wsoteam.diet.R;
 public class HelpPresenter extends MvpPresenter<HelpView> {
     private Context context;
 
-    public HelpPresenter(Context context) {
+    public
+    HelpPresenter(Context context) {
         this.context = context;
     }
 

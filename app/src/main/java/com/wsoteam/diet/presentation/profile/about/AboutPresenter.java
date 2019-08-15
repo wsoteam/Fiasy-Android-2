@@ -1,16 +1,9 @@
 package com.wsoteam.diet.presentation.profile.about;
 
 
-import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -19,16 +12,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.wsoteam.diet.BranchProfile.ActivityEditCompletedProfile;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.profile.section.Config;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Calendar;
 
 @InjectViewState
 public class AboutPresenter extends MvpPresenter<AboutView> {

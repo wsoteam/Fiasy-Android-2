@@ -7,18 +7,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.text.TextWatcher;
+import androidx.annotation.Nullable;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -30,30 +27,23 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.wsoteam.diet.POJOProfile.Profile;
-import com.wsoteam.diet.POJOSExercises.Ex;
 import com.wsoteam.diet.R;
 
-import java.io.File;
-import java.net.URI;
 import java.util.ArrayList;
 
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-import dagger.android.AndroidInjection;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AboutActivity extends MvpAppCompatActivity implements AboutView {
-    @Inject
-    @InjectPresenter
-    AboutPresenter aboutPresenter;
     private static final int CAMERA_REQUEST = 0;
     private static final int GALLERY_PICTURE = 1;
     private static final int IMAGE_WIDTH = 390;
     private static final int IMAGE_HEIGHT = 390;
+
     @BindView(R.id.civProfile)
     CircleImageView civProfile;
     @BindView(R.id.edtName)
@@ -81,6 +71,8 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
     @BindView(R.id.tilHeight)
     TextInputLayout tilHeight;
 
+    AboutPresenter aboutPresenter;
+
     @ProvidePresenter
     AboutPresenter providePresenter() {
         return aboutPresenter;
@@ -88,10 +80,11 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_activity);
         ButterKnife.bind(this);
+
+        aboutPresenter = new AboutPresenter(this);
     }
 
     @OnTextChanged(value = R.id.edtName, callback = OnTextChanged.Callback.TEXT_CHANGED)

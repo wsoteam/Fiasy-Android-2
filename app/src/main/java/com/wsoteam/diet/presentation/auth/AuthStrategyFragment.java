@@ -84,7 +84,6 @@ public abstract class AuthStrategyFragment extends Fragment {
 
   protected void prepareAuthStrategy(AuthStrategy strategy) {
     final InAppNotification notification = getNotification();
-
     notification.setText(getString(R.string.auth_state_logging_in));
     notification.setProgressVisible(true, false);
     notification.show(getView(), InAppNotification.DURATION_FOREVER);

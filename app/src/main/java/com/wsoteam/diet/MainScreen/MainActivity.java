@@ -1,19 +1,9 @@
 package com.wsoteam.diet.MainScreen;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +11,16 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,13 +33,8 @@ import com.wsoteam.diet.Articles.ListArticlesFragment;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.Authenticate.POJO.Box;
-import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
-import com.wsoteam.diet.BarcodeScanner.BaseScanner;
-import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.ActivityCreateFood;
-import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
-import com.wsoteam.diet.DietPlans.POJO.ForUploadModel;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenOneButton;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenUA;
@@ -53,17 +47,9 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
-import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
-import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplateFragment;
-import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
-
-import com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity;
+import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import java.util.Calendar;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -228,11 +214,6 @@ public class MainActivity extends AppCompatActivity {
 
                 ListRecipes groupsRecipes = dataSnapshot.getValue(ListRecipes.class);
 
-                //int i = 1;
-                //for (RecipeItem recipe:
-                //groupsRecipes.getListrecipes()) {
-                //    Log.d("kkk", i++ + "\n" +recipe.toString());
-                //}
                 EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes);
                 GroupsHolder groupsHolder = new GroupsHolder();
                 groupsHolder.bind(eatingGroupsRecipes);

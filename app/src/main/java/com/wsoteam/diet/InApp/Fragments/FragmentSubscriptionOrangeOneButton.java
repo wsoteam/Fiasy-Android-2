@@ -202,11 +202,12 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
       case R.id.btnBack:
         getActivity().onBackPressed();
         break;
-      case R.id.btnClose: {
-        Intent intent = new Intent(getContext(), ActivitySplash.class);
-        startActivity(intent);
-        getActivity().finish();
 
+      case R.id.btnClose: {
+        final Intent intent = new Intent(getContext(), ActivitySplash.class);
+        startActivity(intent);
+
+        getActivity().finish();
       }
       break;
 

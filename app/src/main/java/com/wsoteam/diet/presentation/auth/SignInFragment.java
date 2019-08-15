@@ -16,6 +16,7 @@ import androidx.cardview.widget.CardView;
 import androidx.collection.SparseArrayCompat;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.ResetPasswordFragment;
@@ -126,7 +127,7 @@ public class SignInFragment extends AuthStrategyFragment {
     });
   }
 
-  private void clearInputErrors(){
+  private void clearInputErrors() {
     for (TextInputLayout target : formInputs) {
       target.setError(null);
     }
@@ -156,7 +157,9 @@ public class SignInFragment extends AuthStrategyFragment {
       return;
     }
 
-    if (error instanceof FirebaseAuthInvalidCredentialsException) {
+    if (error instanceof FirebaseAuthInvalidUserException) {
+      setInputException(R.id.username, getString(R.string.auth_user_not_found));
+    } else if (error instanceof FirebaseAuthInvalidCredentialsException) {
       setInputException(R.id.password, getString(R.string.auth_user_password_missmatch));
       setInputException(R.id.username, getString(R.string.auth_user_email_missmatch));
     } else {
@@ -164,7 +167,7 @@ public class SignInFragment extends AuthStrategyFragment {
     }
   }
 
-  protected void setInputException(@IdRes int targetId, @NonNull CharSequence message){
+  protected void setInputException(@IdRes int targetId, @NonNull CharSequence message) {
     removeCurrentNotification();
 
     final TextInputLayout target = getView().findViewById(targetId);
@@ -215,7 +218,6 @@ public class SignInFragment extends AuthStrategyFragment {
           } else {
             return false;
           }
-
         } else {
           if (BuildConfig.DEBUG) {
             Log.d("ManualAuth", String.format("%s passed",

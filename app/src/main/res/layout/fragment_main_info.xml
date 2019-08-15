@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout22"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,9 +30,9 @@
                 android:hint="@string/brand"
                 android:maxLength="200"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout23"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,9 +51,9 @@
                 android:hint="@string/food_name"
                 android:maxLength="200"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout32"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                 android:inputType="numberDecimal"
                 android:maxLength="13"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <TextView

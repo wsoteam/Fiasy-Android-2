@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="80dp"
@@ -19,7 +19,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" >
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
 
 
@@ -104,7 +104,7 @@
             app:srcCompat="@drawable/ic_avatar_open" />
 
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -125,10 +125,10 @@
                 android:inputType="textCapSentences"
                 android:maxLength="50"
                 android:textColor="#d9424242" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilSecondName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -149,9 +149,9 @@
                 android:inputType="textCapSentences"
                 android:maxLength="50"
                 android:textColor="#d9424242" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -172,9 +172,9 @@
                 android:inputType="textEmailAddress"
                 android:maxLength="50"
                 android:textColor="#d9424242" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilAge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -195,9 +195,9 @@
                 android:inputType="number"
                 android:maxLength="3"
                 android:textColor="#d9424242" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -218,9 +218,9 @@
                 android:inputType="numberDecimal"
                 android:maxLength="5"
                 android:textColor="#d9424242" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilHeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -244,6 +244,6 @@
                 android:inputType="number"
                 android:maxLength="3"
                 android:textColor="#d9424242" />
-        </android.support.design.widget.TextInputLayout>
-    </android.support.constraint.ConstraintLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
