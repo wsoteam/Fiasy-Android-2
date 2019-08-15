@@ -173,11 +173,9 @@
         android:name=".EntryPoint.ActivitySplash"
         android:screenOrientation="unspecified"
         android:theme="@style/Theme.AppCompat.Translucent">
-
       <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar"> -->
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
-
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
@@ -363,19 +361,6 @@
         <action android:name="com.android.vending.INSTALL_REFERRER" />
       </intent-filter>
     </receiver>
-
-    <activity
-        android:name=".BranchProfile.ActivityEditCompletedProfile"
-        android:screenOrientation="portrait"
-        android:theme="@style/EditProfile" />
-    <activity
-        android:name=".EntryPoint.EditProfileIntrodaction"
-        android:screenOrientation="portrait"
-        android:theme="@style/EditProfile" />
-    <activity
-        android:name=".BranchOfAnalyzer.ActivityDetailSavedFood"
-        android:screenOrientation="portrait"
-        android:theme="@style/DetailFood" />
 
     <activity
         android:name=".presentation.profile.settings.ProfileSettingsActivity"
