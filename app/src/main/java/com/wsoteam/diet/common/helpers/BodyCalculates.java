@@ -1,6 +1,7 @@
 package com.wsoteam.diet.common.helpers;
 
 import android.content.Context;
+import android.util.Log;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import java.text.DecimalFormat;
@@ -151,6 +152,9 @@ public class BodyCalculates {
       maxWater = WATER_ON_KG_MALE * (int) profile.getWeight();
     }
 
+    //String TAG = "kkk";
+    //Log.d(TAG, "calculateNew: weight = " + profile.getWeight() +
+    //    "\n height = " + profile.getHeight() + "\n age = " + profile.getAge());
     //Log.d(TAG, "calculateNew: BMR = " + BMR);
 
     if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_none))) {
