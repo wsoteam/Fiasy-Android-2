@@ -21,6 +21,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
+import com.amplitude.api.Amplitude;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,7 +51,16 @@ import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
+import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplateFragment;
+import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
+
 import java.util.Calendar;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import io.intercom.android.sdk.Intercom;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -60,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
     private BottomSheetBehavior bottomSheetBehavior;
     private boolean isMainFragment = true;
     private Window window;
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -84,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
                     window.setStatusBarColor(Color.parseColor("#AE6A23"));
                     return true;
                 case R.id.bnv_main_articles:
+                    Amplitude.getInstance().logEvent(Events.CHOOSE_ARTICLES);
+                    Intercom.client().logEvent(Events.CHOOSE_ARTICLES);
                     box.setComeFrom(AmplitudaEvents.view_prem_content);
                     box.setBuyFrom(AmplitudaEvents.buy_prem_content);
                     isMainFragment = false;
@@ -115,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
                     return true;
                 case R.id.bnv_main_profile:
+                    //TODO move to on create profile activity
+                    Amplitude.getInstance().logEvent(Events.VIEW_PROFILE);
+                    Intercom.client().logEvent(Events.VIEW_PROFILE);
                     isMainFragment = false;
                     transaction.replace(R.id.flFragmentContainer, new ProfileFragment()).commit();
                     window.setStatusBarColor(Color.parseColor("#AE6A23"));

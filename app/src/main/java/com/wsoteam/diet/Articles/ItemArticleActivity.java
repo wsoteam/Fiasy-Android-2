@@ -18,6 +18,7 @@ import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
 import com.wsoteam.diet.Articles.Util.HtmlTagHandler;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.Events;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +50,7 @@ public class ItemArticleActivity extends AppCompatActivity {
         });
 
         setValue(article);
+        Events.logViewArticle(article.getTitle());
     }
 
     private void setValue(Article article){

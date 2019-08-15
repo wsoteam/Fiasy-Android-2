@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.appcompat.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,8 @@ import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
@@ -81,6 +84,7 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
         ButterKnife.bind(this);
+        Amplitude.getInstance().logEvent(Events.VIEW_RECIPE);
 
         window = getWindow();
         window.getDecorView().setSystemUiVisibility(
@@ -88,6 +92,7 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         window.setStatusBarColor(Color.parseColor("#66000000"));
         recipeItem = (RecipeItem) getIntent().getSerializableExtra(Config.RECIPE_INTENT);
+        Events.logViewRecipe(recipeItem.getName());
 
         tvKkal.setText(recipeItem.getCalories() + " ккал на порцию");
         tvName.setText(recipeItem.getName());
@@ -212,6 +217,8 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
                 return true;
             case R.id.mFavorites:
                 if (key == null) {
+                    Log.e("LOL", "fav");
+                    Events.logAddFavoriteRecipe(recipeItem.getName());
                     key = WorkWithFirebaseDB.addFavoriteRecipe(recipeItem);
                     favoriteMenuItem.setIcon(R.drawable.icon_favorites_delete);
 //                    SuccessfulAlertDialog.start(this, "Рецепт добавлен в избранное!");
@@ -336,18 +343,22 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
             case BREAKFAST_POSITION:
                 WorkWithFirebaseDB.
                         addBreakfast(new Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                Events.logAddRecipeInDiary(EventProperties.recipe_intake_breakfast);
                 break;
             case LUNCH_POSITION:
                 WorkWithFirebaseDB.
                         addLunch(new Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                Events.logAddRecipeInDiary(EventProperties.recipe_intake_lunch);
                 break;
             case DINNER_POSITION:
                 WorkWithFirebaseDB.
                         addDinner(new Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                Events.logAddRecipeInDiary(EventProperties.recipe_intake_dinner);
                 break;
             case SNACK_POSITION:
                 WorkWithFirebaseDB.
                         addSnack(new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                Events.logAddRecipeInDiary(EventProperties.recipe_intake_snack);
                 break;
         }
         AlertDialog alertDialog = AddFoodDialog.createChoiseEatingAlertDialog(this);

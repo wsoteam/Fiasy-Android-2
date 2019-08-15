@@ -173,14 +173,14 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
                 sumFats += eatingGroup.get(i).getFat();
                 sumCarbo += eatingGroup.get(i).getCarbohydrates();
             }
-            layoutCommonInfo.setVisibility(View.VISIBLE);
+            //layoutCommonInfo.setVisibility(View.VISIBLE);
             tvSumOfKcal.setText(String.valueOf(sumKcal));
 
             tvSumProt.setText(String.valueOf(sumProt) + " г");
             tvSumFats.setText(String.valueOf(sumFats) + " г");
             tvSumCarbo.setText(String.valueOf(sumCarbo) + " г");
         } else {
-            layoutCommonInfo.setVisibility(View.GONE);
+            //layoutCommonInfo.setVisibility(View.GONE);
             //tvRecommendation.setVisibility(View.VISIBLE);
             tvSumOfKcal.setVisibility(View.GONE);
             tvSumProt.setVisibility(View.GONE);

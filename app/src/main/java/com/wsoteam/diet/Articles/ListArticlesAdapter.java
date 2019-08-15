@@ -12,12 +12,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Articles.POJO.Article;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.Events;
 
 import java.util.List;
 
+import io.intercom.android.sdk.Intercom;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

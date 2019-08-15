@@ -127,7 +127,6 @@ public class GroupsFragment extends Fragment implements Observer {
         RecyclerView.LayoutManager gridLayout = new GridLayoutManager(getContext(), 2);
 
         if (key.equals("")) {
-
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(layoutManager);
         } else {

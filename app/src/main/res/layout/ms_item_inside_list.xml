@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/back_food_item_diary">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tvNameOfFood"
@@ -12,11 +11,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/roboto"
+        android:layout_marginEnd="32dp"
+        android:fontFamily="@font/roboto_medium"
         android:text="Name"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvCalories"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,23 +23,25 @@
         android:id="@+id/tvCalories"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="19dp"
+        android:fontFamily="@font/roboto_medium"
         android:text="Kcal"
-        android:textColor="@color/black"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvCarbo"
-        app:layout_constraintEnd_toEndOf="@+id/tvNameOfFood"
-        app:layout_constraintTop_toTopOf="@+id/tvCarbo" />
+        android:textColor="#d9424242"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="11dp"
         android:layout_marginBottom="8dp"
-        android:fontFamily="@font/roboto_light"
+        android:fontFamily="@font/roboto"
         android:text="Вес"
-        android:textSize="10sp"
+        android:textColor="#8a000000"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvNameOfFood"
         app:layout_constraintTop_toBottomOf="@+id/tvNameOfFood" />
@@ -52,6 +53,7 @@
         android:layout_marginStart="8dp"
         android:fontFamily="@font/roboto_light"
         android:text="B"
+        android:visibility="gone"
         android:textColor="@color/b_color"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvWeight"
@@ -66,6 +68,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_light"
         android:text="G"
+        android:visibility="gone"
         android:textColor="@color/g_color"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvWeight"
@@ -81,6 +84,7 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto_light"
         android:text="U"
+        android:visibility="gone"
         android:textColor="@color/u_color"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvWeight"
@@ -98,4 +102,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/dvdrHide"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

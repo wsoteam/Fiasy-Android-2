@@ -42,7 +42,11 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull InsideViewHolder holder, int position) {
-        holder.bind(oneGroupOfEating.get(position), choiseEating,  new InsideHolderCallback() {
+        boolean isLastElement = false;
+        if (position == oneGroupOfEating.size() - 1){
+            isLastElement = true;
+        }
+        holder.bind(oneGroupOfEating.get(position), choiseEating, isLastElement,   new InsideHolderCallback() {
             @Override
             public void itemWasClicked(int position) {
                 removeItem(position);

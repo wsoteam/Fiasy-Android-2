@@ -20,6 +20,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,6 +33,7 @@ import com.amplitude.api.Amplitude;
 import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
 import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.MainScreen.Dialogs.SublimePickerDialogFragment;
 import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
@@ -88,15 +91,18 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
     HorizontalPicker datePicker;
     @BindView(R.id.btnNotification)
     ImageView btnNotification;
+    private BottomNavigationView bnvMain;
     private Unbinder unbinder;
     private Profile profile;
     private int COUNT_OF_RUN = 0;
+    private FragmentTransaction transaction;
     private int dayPosition = Config.COUNT_PAGE;
     private SharedPreferences countOfRun;
     private boolean isFiveStarSend = false;
     private AlertDialog alertDialogBuyInfo;
     private SharedPreferences sharedPreferences, freeUser;
     private LinearLayout.LayoutParams layoutParams;
+    private Window window;
     private ViewPager.OnPageChangeListener viewPagerListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int i, float v, int i1) {
@@ -123,6 +129,8 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         View mainView = inflater.inflate(R.layout.activity_main_new, container, false);
         unbinder = ButterKnife.bind(this, mainView);
         getActivity().setTitle("");
+        bnvMain = getActivity().findViewById(R.id.bnv_main);
+        transaction = getActivity().getSupportFragmentManager().beginTransaction();
         Amplitude.getInstance().logEvent(AmplitudaEvents.view_diary);
         /** on your logout method:**/
         Intent broadcastIntent = new Intent();
@@ -251,7 +259,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         return countOfRun.getInt(TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG, 0);
     }
 
-    @OnClick({R.id.fabAddEating, R.id.btnNotification})
+    @OnClick({R.id.fabAddEating, R.id.btnNotification, R.id.tvReports})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fabAddEating:
@@ -261,6 +269,13 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
                 break;
             case R.id.btnNotification:
                 attachCaloriesPopup();
+                break;
+            case R.id.tvReports:
+                window = getActivity().getWindow();
+                window.setStatusBarColor(Color.parseColor("#2E4E4E"));
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
+                bnvMain.setSelectedItemId(R.id.bnv_main_profile);
                 break;
         }
     }
