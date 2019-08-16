@@ -5,9 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.OtherActivity.ActivitySettings;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.profile.about.AboutActivity;
 import com.wsoteam.diet.presentation.profile.help.HelpActivity;
 
@@ -35,11 +38,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
     int textColor;
     int drawableArrow;
     private final int PREMIUM = 0,
-           // FOOD = 1,
-            PERSONAL = 1,
-            //NOTIFICATIONS = 3,
-            //TARGET = 4,
-            HELP = 2,
+    // FOOD = 1,
+    PERSONAL = 1,
+    //NOTIFICATIONS = 3,
+    //TARGET = 4,
+    HELP = 2,
             LOGOUT = 3;
 
     public ItemsAdapter(Context context, boolean isNotPrem) {
@@ -91,15 +94,16 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
         if (!isNotPrem) position += 1;
         Intent intent;
         switch (position) {
-            case PREMIUM: intent = new Intent(context, ActivitySubscription.class);
-            Box box = new Box();
-            box.setComeFrom(AmplitudaEvents.view_prem_settings);
-            box.setBuyFrom(AmplitudaEvents.buy_prem_settings);
-            box.setOpenFromPremPart(true);
-            box.setOpenFromIntrodaction(false);
-            intent.putExtra(Config.TAG_BOX, box);
+            case PREMIUM:
+                intent = new Intent(context, ActivitySubscription.class);
+                Box box = new Box();
+                box.setComeFrom(AmplitudaEvents.view_prem_settings);
+                box.setBuyFrom(AmplitudaEvents.buy_prem_settings);
+                box.setOpenFromPremPart(true);
+                box.setOpenFromIntrodaction(false);
+                intent.putExtra(Config.TAG_BOX, box);
                 context.startActivity(intent);
-            break;
+                break;
             /*case FOOD:
                 Toast.makeText(context, "Раздел в разработке :(", Toast.LENGTH_SHORT).show();
                 break;*/
@@ -116,39 +120,40 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
                 context.startActivity(new Intent(context, HelpActivity.class));
                 break;
             case LOGOUT:
-              AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(context);
-              myAlertDialog.setTitle("Выход");
-              myAlertDialog.setMessage("Вы хотите выйти из учетной записи?");
+                Events.logLogout();
+                AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(context);
+                myAlertDialog.setTitle("Выход");
+                myAlertDialog.setMessage("Вы хотите выйти из учетной записи?");
 
-              myAlertDialog.setPositiveButton("Да",
-                  new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                      exitUser();
-                    }
-                  });
+                myAlertDialog.setPositiveButton("Да",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                exitUser();
+                            }
+                        });
 
-              myAlertDialog.setNegativeButton("Нет",
-                  new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                    }
-                  });
-              myAlertDialog.show();
+                myAlertDialog.setNegativeButton("Нет",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                            }
+                        });
+                myAlertDialog.show();
                 break;
         }
 
     }
 
-  private void exitUser() {
-    Intent intent;
-    FirebaseAuth.getInstance().signOut();
-    LoginManager.getInstance().logOut();
-    UserDataHolder.clearObject();
-    intent = new Intent(context, ActivitySplash.class).
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-    context.startActivity(intent);
-  }
+    private void exitUser() {
+        Intent intent;
+        FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut();
+        UserDataHolder.clearObject();
+        intent = new Intent(context, ActivitySplash.class).
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+    }
 
-  @Override
+    @Override
     public int getItemCount() {
         return names.length;
     }

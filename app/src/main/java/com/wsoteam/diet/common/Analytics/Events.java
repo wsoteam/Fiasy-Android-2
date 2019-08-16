@@ -340,4 +340,9 @@ public class Events {
         eventData.put(EventProperties.question, page);
         io.intercom.android.sdk.Intercom.client().logEvent(QUESTION_NEXT, eventData);
     }
+
+    public static void logLogout() {
+        Amplitude.getInstance().logEvent(PROFILE_LOGOUT);
+        io.intercom.android.sdk.Intercom.client().logEvent(PROFILE_LOGOUT);
+    }
 }
