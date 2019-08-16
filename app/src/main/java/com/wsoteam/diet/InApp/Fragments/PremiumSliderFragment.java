@@ -22,7 +22,7 @@ public class PremiumSliderFragment extends Fragment {
     @BindView(R.id.ivPremImage) ImageView ivPremImage;
     @BindView(R.id.tvPremOnboardingText) TextView tvPremOnboardingText;
     private Unbinder unbinder;
-    private int[] drawablesForSlider = new int[] {R.drawable.prem_0, R.drawable.prem_1, R.drawable.prem_2, R.drawable.prem_3};
+    private int[] drawablesForSlider = new int[] {};
     private String[] arrayOfTexts;
 
 

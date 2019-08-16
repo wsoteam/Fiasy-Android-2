@@ -26,7 +26,7 @@ public class ActivityListOfCalculating extends AppCompatActivity {
     private String[] listOfDescriptions;
     private final int NUMBER_OF_IMT = 0, NUMBER_OF_SPK = 1;
     private InterstitialAd interstitialAd;
-    private int[] backgroundDrawables = new int[]{R.drawable.image_imt, R.drawable.image_spk};
+    private int[] backgroundDrawables = new int[]{};
 
     @Override
     public void onBackPressed() {
