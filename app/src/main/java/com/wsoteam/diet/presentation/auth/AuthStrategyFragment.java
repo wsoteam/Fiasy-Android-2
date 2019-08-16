@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.wsoteam.diet.BuildConfig;
+import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.EventProperties;
@@ -115,7 +116,7 @@ public abstract class AuthStrategyFragment extends Fragment {
       if (newUser) {
         activity.startActivity(new Intent(requireContext(), QuestionsActivity.class));
       } else {
-        activity.startActivity(new Intent(requireContext(), MainActivity.class));
+        activity.startActivity(new Intent(requireContext(), ActivitySplash.class));
       }
 
       activity.finish();

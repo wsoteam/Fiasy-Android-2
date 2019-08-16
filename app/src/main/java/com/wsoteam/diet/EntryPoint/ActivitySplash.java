@@ -69,6 +69,7 @@ public class ActivitySplash extends BaseActivity {
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         WindowManager.LayoutParams.FLAG_FULLSCREEN);
     ButterKnife.bind(this);
+    Log.e("LOL", "crete");
 
     //FacebookSdk.sdkInitialize(getApplicationContext());
     //AppEventsLogger.activateApp(getApplicationContext());
