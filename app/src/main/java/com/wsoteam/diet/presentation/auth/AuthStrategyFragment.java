@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 import com.wsoteam.diet.utils.RichTextUtils.RichText;
 import com.wsoteam.diet.views.InAppNotification;
@@ -117,6 +119,32 @@ public abstract class AuthStrategyFragment extends Fragment {
       }
 
       activity.finish();
+    }
+
+    if (newUser) {
+      final String type;
+
+      if (getAuthStrategy() instanceof FacebookAuthStrategy) {
+        type = EventProperties.registration_facebook;
+      } else if (getAuthStrategy() instanceof GoogleAuthStrategy) {
+        type = EventProperties.registration_google;
+      } else {
+        type = EventProperties.registration_email;
+      }
+
+      Events.logRegistration(type);
+    } else {
+      final String type;
+
+      if (getAuthStrategy() instanceof FacebookAuthStrategy) {
+        type = EventProperties.enter_facebook;
+      } else if (getAuthStrategy() instanceof GoogleAuthStrategy) {
+        type = EventProperties.enter_google;
+      } else {
+        type = EventProperties.enter_email;
+      }
+
+      Events.logEnter(type);
     }
   }
 

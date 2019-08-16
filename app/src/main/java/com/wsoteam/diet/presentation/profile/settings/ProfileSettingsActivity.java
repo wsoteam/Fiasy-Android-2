@@ -30,6 +30,7 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
         ButterKnife.bind(this);
 
         profileSettingsPresenter = new ProfileSettingsPresenter();
+        profileSettingsPresenter.attachView(this);
 
         rvSettingsItems.setLayoutManager(new LinearLayoutManager(this));
         rvSettingsItems.setAdapter(new ItemsAdapter(this, !getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE)
