@@ -85,6 +85,7 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         ButterKnife.bind(this);
 
         aboutPresenter = new AboutPresenter(this);
+        aboutPresenter.attachView(this);
     }
 
     @OnTextChanged(value = R.id.edtName, callback = OnTextChanged.Callback.TEXT_CHANGED)

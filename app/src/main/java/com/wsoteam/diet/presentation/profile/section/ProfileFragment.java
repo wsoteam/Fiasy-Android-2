@@ -288,6 +288,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         View view = inflater.inflate(R.layout.activity_profile, container, false);
         unbinder = ButterKnife.bind(this, view);
         profilePresenter = new ProfilePresenter(requireContext());
+        profilePresenter.attachView(this);
         return view;
     }
 

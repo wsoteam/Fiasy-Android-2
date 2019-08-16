@@ -33,6 +33,7 @@ public class HelpActivity extends MvpAppCompatActivity implements HelpView {
         ButterKnife.bind(this);
 
         helpPresenter = new HelpPresenter(this);
+        helpPresenter.attachView(this);
         rvHelpItems.setLayoutManager(new LinearLayoutManager(this));
     }
 
