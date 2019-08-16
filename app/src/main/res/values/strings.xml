@@ -2,7 +2,7 @@
 
   <string name="subTitle">Достигайте цели быстрее!</string>
   <string name="subTestText">Попробуйте 3 дня бесплатно\n Далее 49р. / неделя</string>
-  <string name="individualPlanTxt">Вы достигните своей цели уже через месяц, получив доступ к уникальным статьям о здоровом питании и сотни рецептов</string>
+  <string name="individualPlanTxt">Вы достигнете своей цели уже через месяц, получив доступ к уникальным статьям о здоровом питании и сотни рецептов</string>
 
   <!--food_template-->
   <string name="nameTemplate">Название шаблона</string>
