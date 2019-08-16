@@ -62,16 +62,6 @@ public class UserProperty {
     public static void setRegUserProperties(String regType) {
         Identify identify = new Identify().set(reg_social, regType);
         Amplitude.getInstance().identify(identify);
-
-        try {
-            UserAttributes userAttributes = new UserAttributes.Builder()
-                    .withName(UserDataHolder.getUserData().getProfile().getFirstName())
-                    .withEmail(currentUser.getEmail())
-                    .build();
-            Intercom.client().updateUser(userAttributes);
-        } catch (Exception e) {
-
-        }
     }
 
 }
