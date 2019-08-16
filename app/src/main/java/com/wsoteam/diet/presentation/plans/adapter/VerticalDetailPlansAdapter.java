@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
@@ -76,13 +77,23 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       index = daysAfterStart + (adapterPosition - indexUp - 1);
     }
 
-    if (adapterPosition > recipeForDays.size()) index = recipeForDays.size() - 1;
+    if (adapterPosition > recipeForDays.size() + 1) index = recipeForDays.size() - 1;
     if (adapterPosition == 0) index = 0;
 
     Log.d("kkk", "onBindViewHolder: i = " + adapterPosition + " index = " + index + " count days = " + recipeForDays.size());
     return index;
   }
 
+  private void incrIndexUp(){
+    indexUp = indexUp + 3;
+    if (indexUp > daysAfterStart) indexUp = daysAfterStart;
+    notifyDataSetChanged();
+  }
+  private void incrIndexDown(){
+    indexDown = indexDown + 3;
+    if (indexDown >= recipeForDays.size() - 1) indexDown = recipeForDays.size() - 1;
+    notifyDataSetChanged();
+  }
   private void initIndex(){
     Log.d("kkk", "initIndex: " + isCurrentPlan);
     if (isCurrentPlan){
@@ -95,6 +106,18 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       indexDown = recipeForDays.size() - 1;
     }
   }
+
+  View.OnClickListener downListener = new View.OnClickListener() {
+    @Override public void onClick(View v) {
+      incrIndexDown();
+    }
+  };
+
+  View.OnClickListener upListener = new View.OnClickListener() {
+    @Override public void onClick(View v) {
+      incrIndexUp();
+    }
+  };
 
   public void updateList(List<RecipeForDay> recipeForDays) {
     Log.d("kkkk", "updateList: " + recipeForDays.size());
@@ -114,11 +137,11 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       case R.layout.plans_header_item:
         View v1 = LayoutInflater.from(viewGroup.getContext())
             .inflate(R.layout.plans_header_item, viewGroup, false);
-        return new HeaderViewHolder(v1, dietPlan, mContext, isCurrentPlan, daysAfterStart);
+        return new HeaderViewHolder(v1, upListener, dietPlan, mContext, isCurrentPlan, daysAfterStart);
       case R.layout.plans_footer_item:
         View v3 = LayoutInflater.from(viewGroup.getContext())
             .inflate(R.layout.plans_footer_item, viewGroup, false);
-        return  new FooterViewHolder(v3);
+        return  new FooterViewHolder(v3, downListener);
       default: {
         View v0 = LayoutInflater.from(viewGroup.getContext())
             .inflate(R.layout.detail_plans_day_item, viewGroup, false);
@@ -185,7 +208,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     if (position == 0) {
       return R.layout.plans_header_item;
     }
-    if (getListPosition(position) > 0 && getListPosition(position) < daysAfterStart) {
+    if (position > 0 && getListPosition(position) < daysAfterStart) {
       return R.layout.diary_recipe_plans;
     }
     if (position == getItemCount() - 1) {
@@ -281,10 +304,13 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     @BindView(R.id.tvTime) TextView tvTime;
     @BindView(R.id.tvTimeCount) TextView tvTimeCount;
 
-    public HeaderViewHolder(@NonNull View itemView, DietPlan dietPlan, Context mContext, boolean isCurrentPlan, int day) {
+    private final View.OnClickListener listener;
+
+    public HeaderViewHolder(@NonNull View itemView, View.OnClickListener listener, DietPlan dietPlan, Context mContext, boolean isCurrentPlan, int day) {
       super(itemView);
       ButterKnife.bind(this, itemView);
 
+      this.listener = listener;
       tvName.setText(dietPlan.getName());
       tvRecipes.setText(dietPlan.getRecipeCount() +
           NounsDeclension.check(dietPlan.getRecipeCount(), " рецепт", " рецепта", " рецептов"));
@@ -297,12 +323,26 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
         tvTimeCount.setText((day + 1) + " день из " + dietPlan.getCountDays());
       }
     }
+
+    @OnClick(R.id.btnLoadRecipe)
+    void clickedLoad(View view){
+      listener.onClick(view);
+    }
   }
 
   static class FooterViewHolder extends RecyclerView.ViewHolder{
 
-    public FooterViewHolder(@NonNull View itemView) {
+    private final View.OnClickListener listener;
+
+    public FooterViewHolder(@NonNull View itemView, View.OnClickListener listener) {
       super(itemView);
+      this.listener = listener;
+      ButterKnife.bind(this, itemView);
+    }
+
+    @OnClick(R.id.loadDown)
+    void clickedLoad(View view){
+      listener.onClick(view);
     }
   }
 
