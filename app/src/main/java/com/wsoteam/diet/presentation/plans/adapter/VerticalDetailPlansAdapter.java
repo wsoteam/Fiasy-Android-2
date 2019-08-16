@@ -45,6 +45,8 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   public VerticalDetailPlansAdapter(DietPlan dietPlan, boolean isCurrentPlan){
     this(dietPlan);
     this.isCurrentPlan = isCurrentPlan;
+    Log.d("kkk", "VerticalDetailPlansAdapter: " + isCurrentPlan);
+    initIndex();
   }
 
   public VerticalDetailPlansAdapter(DietPlan dietPlan) {
@@ -52,6 +54,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     this.dietPlan = dietPlan;
     viewPool = new RecyclerView.RecycledViewPool();
 
+    Log.d("kkk", "VerticalDetailPlansAdapter: " + recipeForDays.size());
     Date currentDate = new Date();
     Date startDate = DateHelper.stringToDate(dietPlan.getStartDate());
     if (startDate != null){
@@ -61,42 +64,40 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       //Log.d("kkk", "" + milliseconds +"\nДней: " + daysAfterStart);
     }
     initIndex();
-
   }
 
   private int getListPosition(int adapterPosition){
     int index = 0;
     if (adapterPosition <= indexUp){
       index = daysAfterStart - (indexUp - adapterPosition) - 1;
-      Log.d("kkk", "onBindViewHolder: i = " + adapterPosition + " index = " + index);
     }else if(adapterPosition == indexUp + 1){
       index = daysAfterStart;
-      Log.d("kkk", "onBindViewHolder: i = " + adapterPosition + " index = " + index);
     } else if (adapterPosition > indexUp + 1){
       index = daysAfterStart + (adapterPosition - indexUp - 1);
-      Log.d("kkk", "onBindViewHolder: i = " + adapterPosition + " index = " + index);
     }
 
-    if (adapterPosition == recipeForDays.size() - 1) index = adapterPosition;
+    if (adapterPosition > recipeForDays.size()) index = recipeForDays.size() - 1;
     if (adapterPosition == 0) index = 0;
 
+    Log.d("kkk", "onBindViewHolder: i = " + adapterPosition + " index = " + index + " count days = " + recipeForDays.size());
     return index;
   }
 
   private void initIndex(){
-
+    Log.d("kkk", "initIndex: " + isCurrentPlan);
     if (isCurrentPlan){
-      indexUp = daysAfterStart;
-      indexDown = recipeForDays.size();
-    }else {
+      Log.d("kkk", "initIndex: 1");
       indexUp = 0;
       indexDown = 2;
+    }else {
+      Log.d("kkk", "initIndex: 0");
+      indexUp = 0;
+      indexDown = recipeForDays.size() - 1;
     }
-
   }
 
   public void updateList(List<RecipeForDay> recipeForDays) {
-
+    Log.d("kkkk", "updateList: " + recipeForDays.size());
     this.recipeForDays = recipeForDays;
     notifyDataSetChanged();
   }
@@ -130,18 +131,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
     Log.d("kkk", "onBindViewHolder: after start " + daysAfterStart);
-    int index = daysAfterStart + indexUp + indexDown;
-    if (i <= indexUp){
-      index = daysAfterStart - (indexUp - i) - 1;
-      Log.d("kkk", "onBindViewHolder: i = " + i + " index = " + index);
-    }else if(i == indexUp + 1){
-      index = daysAfterStart;
-      Log.d("kkk", "onBindViewHolder: i = " + i + " index = " + index);
-    } else if (i > indexUp + 1){
-      index = daysAfterStart + (i - indexUp - 1);
-      Log.d("kkk", "onBindViewHolder: i = " + i + " index = " + index);
-    }
-
+    int index = getListPosition(i);
 
     if (i == 0) {
 
