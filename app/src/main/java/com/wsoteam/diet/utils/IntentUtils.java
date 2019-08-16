@@ -6,10 +6,12 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import com.google.firebase.database.FirebaseDatabase;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
+import com.wsoteam.diet.common.Analytics.Events;
 
 public class IntentUtils {
 
   public static void openWebLink(@NonNull Context context, @NonNull String url) {
+    Events.logOpenPolitic();
     context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
   }
 

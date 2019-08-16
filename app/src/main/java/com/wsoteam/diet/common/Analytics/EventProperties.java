@@ -14,14 +14,9 @@ public class EventProperties {
     public static final String question_close = "feature";
 
     public static final String go_onboard = "onboarding";
-    public static final String go_onboard_first = "1";
-    public static final String go_onboard_second = "2";
-    public static final String go_onboard_third = "3";
 
     public static final String skip_onboard = "onboarding";
-    public static final String skip_onboard_first = "1";
-    public static final String skip_onboard_second = "2";
-    public static final String skip_onboard_third = "3";
+
 
     public static final String registration = "type";
     public static final String registration_email = "email";

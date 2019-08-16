@@ -247,4 +247,79 @@ public class Events {
         eventData.put(EventProperties.recipe_category, categoryName);
         io.intercom.android.sdk.Intercom.client().logEvent(RECIPE_CATEGORY, eventData);
     }
+
+    public static void logMoveOnboard(int page) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.go_onboard, page);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(ONBOARING_NEXT, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.go_onboard, page);
+        io.intercom.android.sdk.Intercom.client().logEvent(ONBOARING_NEXT, eventData);
+    }
+
+    public static void logSkipOnboard(int page) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.skip_onboard, page);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(ONBOARING_SKIP, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.skip_onboard, page);
+        io.intercom.android.sdk.Intercom.client().logEvent(ONBOARING_SKIP, eventData);
+    }
+
+    public static void logOpenPolitic() {
+        Amplitude.getInstance().logEvent(REGISRTATION_PRIVACY);
+        io.intercom.android.sdk.Intercom.client().logEvent(REGISRTATION_PRIVACY);
+    }
+
+    public static void logRestorePassword() {
+        Amplitude.getInstance().logEvent(RESEND_SUCCESS);
+        io.intercom.android.sdk.Intercom.client().logEvent(RESEND_SUCCESS);
+    }
+
+    public static void logRegistrationError(String error_type) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.error_type, error_type);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(REGISTRATION_ERROR, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.error_type, error_type);
+        io.intercom.android.sdk.Intercom.client().logEvent(REGISTRATION_ERROR, eventData);
+    }
+
+    public static void logRegistration(String typeRegistration) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.registration, typeRegistration);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(REGISTRATION_SUCCESS, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.registration, typeRegistration);
+        io.intercom.android.sdk.Intercom.client().logEvent(REGISTRATION_SUCCESS, eventData);
+    }
+
+    public static void logEnter(String typeEnter) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.registration, typeEnter);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(ENTER_SUCCESS, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.registration, typeEnter);
+        io.intercom.android.sdk.Intercom.client().logEvent(ENTER_SUCCESS, eventData);
+    }
 }

@@ -3,17 +3,21 @@ package com.wsoteam.diet.presentation.intro_tut;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.google.android.material.tabs.TabLayout;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.auth.MainAuthNewActivity;
 
 public class NewIntroActivity extends AppCompatActivity {
@@ -38,10 +42,11 @@ public class NewIntroActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnNext:
-                if (viewPager.getCurrentItem() <= viewPager.getChildCount() - 1)
+                if (viewPager.getCurrentItem() <= viewPager.getChildCount() - 1) {
                     viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-                else
-                    //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+                    Events.logMoveOnboard(viewPager.getCurrentItem() + 1);
+                } else
+                //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
                 {
                     Intent intent = new Intent(this, MainAuthNewActivity.class);
                     Box box = new Box();
@@ -50,7 +55,7 @@ public class NewIntroActivity extends AppCompatActivity {
                     box.setOpenFromIntrodaction(true);
                     box.setOpenFromPremPart(false);
                     intent.putExtra(Config.CREATE_PROFILE, true)
-                        .putExtra(Config.INTENT_PROFILE, new Profile());
+                            .putExtra(Config.INTENT_PROFILE, new Profile());
                     startActivity(intent);
                     finish();
                 }
@@ -58,6 +63,7 @@ public class NewIntroActivity extends AppCompatActivity {
             case R.id.btnSkip:
                 //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
             {
+                Events.logSkipOnboard(viewPager.getCurrentItem() + 1);
                 Intent intent = new Intent(this, MainAuthNewActivity.class);
                 Box box = new Box();
                 box.setBuyFrom(AmplitudaEvents.buy_prem_onboarding);
@@ -65,11 +71,11 @@ public class NewIntroActivity extends AppCompatActivity {
                 box.setOpenFromIntrodaction(true);
                 box.setOpenFromPremPart(false);
                 intent.putExtra(Config.CREATE_PROFILE, true)
-                    .putExtra(Config.INTENT_PROFILE, new Profile());
+                        .putExtra(Config.INTENT_PROFILE, new Profile());
                 startActivity(intent);
                 finish();
             }
-                break;
+            break;
         }
     }
 }

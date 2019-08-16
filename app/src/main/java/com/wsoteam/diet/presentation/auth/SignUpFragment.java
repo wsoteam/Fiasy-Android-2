@@ -13,6 +13,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.auth.EmailLoginAuthStrategy.Account;
 import com.wsoteam.diet.utils.IntentUtils;
 import com.wsoteam.diet.utils.RichTextUtils;
@@ -55,10 +57,13 @@ public class SignUpFragment extends SignInFragment {
 
     if (error instanceof FirebaseAuthWeakPasswordException) {
       setInputException(R.id.password, getString(R.string.auth_user_set_weak_password));
+      Events.logRegistrationError(EventProperties.invalid_password);
     } else if (error instanceof FirebaseAuthInvalidCredentialsException) {
       setInputException(R.id.username, getString(R.string.auth_user_mailformed));
+      Events.logRegistrationError(EventProperties.invalid_email);
     } else if (error instanceof FirebaseAuthUserCollisionException) {
       setInputException(R.id.username, getString(R.string.auth_user_using_existing_account));
+      Events.logRegistrationError(EventProperties.invalid_email);
     } else {
       handleDefaultErrors(error);
     }
@@ -83,6 +88,7 @@ public class SignUpFragment extends SignInFragment {
 
             if (displayError) {
               target.setError(getString(R.string.constraint_error_passwords_must_match));
+              Events.logRegistrationError(EventProperties.invalid_password);
             }
 
             return false;
