@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.annotation.Nullable;
@@ -15,6 +16,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.di.CiceroneModule;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.views.CustomizedViewPager;
@@ -33,6 +36,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
   ImageView btnBack;
   private boolean isFemale = false, createUser;
   private boolean isNeedShowOnboard = false;
+  private final int MALE = 0, HEIGHT = 1, WEIGHT = 2, AGE = 3, ACTIVE = 4, GOAL = 5;
 
   public static boolean hasNotAskedQuestionsLeft(Context context){
     return PreferenceManager.getDefaultSharedPreferences(context)
@@ -72,7 +76,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
     //viewPager.setAdapter(new AfterQuestionsPagerAdapter(getSupportFragmentManager()));
     tabLayout.setupWithViewPager(viewPager, true);
     btnBack.setOnClickListener(view -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1));
-
+    Events.logMoveQuestions(EventProperties.question_male);
     viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
       @Override
       public void onPageScrolled(int i, float v, int i1) {
@@ -80,6 +84,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
 
       @Override
       public void onPageSelected(int i) {
+        logMove(i);
         btnBack.setVisibility(i == 0 ? View.GONE : View.VISIBLE);
       }
 
@@ -87,6 +92,26 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
       public void onPageScrollStateChanged(int i) {
       }
     });
+  }
+
+  private void logMove(int i) {
+    switch (i){
+      case HEIGHT:
+        Events.logMoveQuestions(EventProperties.question_height);
+        break;
+      case WEIGHT:
+        Events.logMoveQuestions(EventProperties.question_weight);
+        break;
+      case AGE:
+        Events.logMoveQuestions(EventProperties.question_age);
+        break;
+      case ACTIVE:
+        Events.logMoveQuestions(EventProperties.question_active);
+        break;
+      case GOAL:
+        Events.logMoveQuestions(EventProperties.question_goal);
+        break;
+    }
   }
 
   public void nextQuestion() {

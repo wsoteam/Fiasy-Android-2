@@ -49,6 +49,8 @@ import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.utils.IntentUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -204,9 +206,12 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
         break;
 
       case R.id.btnClose: {
+        if (box.isOpenFromIntrodaction()){
+          Events.logMoveQuestions(EventProperties.question_close);
+        }
+
         final Intent intent = new Intent(getContext(), ActivitySplash.class);
         startActivity(intent);
-
         getActivity().finish();
       }
       break;

@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import com.wsoteam.diet.Authenticate.POJO.Box;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionOrangeOneButton;
 import com.wsoteam.diet.presentation.profile.questions.fragments.IndividualPlanFragments;
 import com.wsoteam.diet.presentation.profile.questions.fragments.WeOfferFragments;
@@ -23,7 +24,9 @@ public class AfterQuestionsPagerAdapter extends FragmentPagerAdapter {
       case 1:
         return WeOfferFragments.newInstance();
       case 2:
-        return FragmentSubscriptionOrangeOneButton.newInstance(new Box());
+        Box box = new Box();
+        box.setOpenFromIntrodaction(true);
+        return FragmentSubscriptionOrangeOneButton.newInstance(box);
       default:
         return null;
     }

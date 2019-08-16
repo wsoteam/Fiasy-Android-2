@@ -322,4 +322,22 @@ public class Events {
         eventData.put(EventProperties.registration, typeEnter);
         io.intercom.android.sdk.Intercom.client().logEvent(ENTER_SUCCESS, eventData);
     }
+
+    public static void logEnterError() {
+        Amplitude.getInstance().logEvent(ENTER_ERROR);
+        io.intercom.android.sdk.Intercom.client().logEvent(ENTER_ERROR);
+    }
+
+    public static void logMoveQuestions(String page) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.question, page);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(QUESTION_NEXT, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.question, page);
+        io.intercom.android.sdk.Intercom.client().logEvent(QUESTION_NEXT, eventData);
+    }
 }
