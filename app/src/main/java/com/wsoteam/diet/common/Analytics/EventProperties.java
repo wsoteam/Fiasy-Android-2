@@ -21,12 +21,12 @@ public class EventProperties {
     public static final String registration = "type";
     public static final String registration_email = "email";
     public static final String registration_facebook = "fb";
-    public static final String registration_google = "type";
+    public static final String registration_google = "google";
 
     public static final String enter = "type";
     public static final String enter_email = "email";
     public static final String enter_facebook = "fb";
-    public static final String enter_google = "type";
+    public static final String enter_google = "google";
 
     public static final String error_type = "error_type";
     public static final String invalid_password = "invalid password";
