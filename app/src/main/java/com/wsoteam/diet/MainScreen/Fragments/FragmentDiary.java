@@ -70,8 +70,6 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
     TextView tvDaysAtRow;
     @BindView(R.id.mainappbar)
     AppBarLayout mainappbar;
-    @BindView(R.id.cvParams)
-    CardView cvParams;
     @BindView(R.id.collapsingToolbarLayout)
     CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.vpEatingTimeLine)
