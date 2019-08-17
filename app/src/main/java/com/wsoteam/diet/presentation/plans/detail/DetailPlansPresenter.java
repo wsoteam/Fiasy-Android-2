@@ -101,6 +101,10 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
     initDietPlan();
   }
 
+  void clickedShare(){
+    getViewState().sharePlan(dietPlan.getName() + "\n https://play.google.com/store/apps/details?id=com.wild.diet" );
+  }
+
   void onResume(){
     if (isCurrentPlan)
     adapter.updateList(UserDataHolder.getUserData().getPlan().getRecipeForDays());

@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.plans.detail;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -49,6 +50,10 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
       switch (menuItem.getItemId()) {
         case R.id.mLeave: {
           presenter.clickedLeave();
+          return true;
+        }
+        case R.id.mShare:{
+          presenter.clickedShare();
           return true;
         }
         default:
@@ -130,6 +135,15 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
 
   @Override public void showAlertJoinToPlan() {
     AlertDialogs.planJoined(this, 2000).show();
+  }
+
+  @Override public void sharePlan(String str) {
+    Intent i = new Intent(
+        android.content.Intent.ACTION_SEND);
+    i.setType("text/plain");
+    i.putExtra(android.content.Intent.EXTRA_TEXT, str);
+    startActivity(
+        Intent.createChooser(i, getResources().getString(R.string.titleShareDialogPlan)));
   }
 
   @Override protected void onResume() {

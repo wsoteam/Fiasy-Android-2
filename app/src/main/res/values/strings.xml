@@ -1,6 +1,7 @@
 <resources>
 
   <!--  alert plan change-->
+  <string name="titleShareDialogPlan">Поделиться планом питания</string>
   <string name="btnCancel">Отменить</string>
   <string name="btnChange">Поменять</string>
   <string name="tvInfo">Вы хотите сменить план питания? \nВаш план питания “%s” будет закрыт.</string>

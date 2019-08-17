@@ -8,4 +8,5 @@ public interface DetailPlansView extends BaseView {
     void visibilityButtonJoin(boolean value);
     void startAlert(String plan);
     void showAlertJoinToPlan();
+    void sharePlan(String str);
 }
