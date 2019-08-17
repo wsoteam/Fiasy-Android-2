@@ -1,12 +1,15 @@
 package com.wsoteam.diet.presentation.plans.detail;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import com.arellomobile.mvp.InjectViewState;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
+import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Recipes.POJO.RecipesHolder;
 import com.wsoteam.diet.Recipes.POJO.plan.PlansGroupsRecipe;
@@ -84,6 +87,10 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
   }
 
   void clickedJoin() {
+    getViewState().startAlert(UserDataHolder.getUserData().getPlan().getName());
+  }
+
+  void joinPlans(){
     dietPlan.setStartDate(DateHelper.dateToString(new Date()));
     UserDataHolder.getUserData().setPlan(dietPlan);
     WorkWithFirebaseDB.joinDietPlan(dietPlan);

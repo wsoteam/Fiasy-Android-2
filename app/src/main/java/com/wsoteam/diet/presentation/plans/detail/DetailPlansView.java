@@ -8,4 +8,5 @@ import com.wsoteam.diet.presentation.global.BaseView;
 public interface DetailPlansView extends BaseView {
     void setAdapter(RecyclerView.Adapter adapter);
     void visibilityButtonJoin(boolean value);
+    void startAlert(String plan);
 }
