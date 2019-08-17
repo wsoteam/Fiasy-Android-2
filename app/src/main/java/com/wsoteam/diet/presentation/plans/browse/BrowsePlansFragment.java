@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import butterknife.ButterKnife;
 
 public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowsePlansView {
 
+    @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.recycler) RecyclerView recyclerView;
     @InjectPresenter
     BrowsePlansPresenter presenter;
@@ -45,6 +47,9 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
                 container, false);
         ButterKnife.bind(this, view);
 
+        mToolbar.setTitle(getString(R.string.plans));
+        mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
+        mToolbar.setNavigationOnClickListener(navigationListener);
         adapter = new VerticalBrowsePlansAdapter(DietPlansHolder.get().getListGroups());
         adapter.SetOnItemClickListener(onItemClickListener);
 
@@ -53,6 +58,12 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
 
         return view;
     }
+
+    View.OnClickListener navigationListener = new View.OnClickListener() {
+        @Override public void onClick(View v) {
+            getActivity().onBackPressed();
+        }
+    };
 
     HorizontalBrowsePlansAdapter.OnItemClickListener onItemClickListener = new HorizontalBrowsePlansAdapter.OnItemClickListener() {
         @Override

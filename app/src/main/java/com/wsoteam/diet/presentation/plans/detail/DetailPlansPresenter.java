@@ -1,15 +1,12 @@
 package com.wsoteam.diet.presentation.plans.detail;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import com.arellomobile.mvp.InjectViewState;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
-import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Recipes.POJO.RecipesHolder;
 import com.wsoteam.diet.Recipes.POJO.plan.PlansGroupsRecipe;
@@ -41,7 +38,6 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
   boolean isCurrentPlan;
 
   public DetailPlansPresenter(Router router, Intent intent) {
-    //Log.d("kkk", "DetailPlansPresenter: constructor");
     this.router = router;
     this.intent = intent;
     initDietPlan();
@@ -55,22 +51,17 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
       getViewState().visibilityButtonJoin(false);
       dietPlan = UserDataHolder.getUserData().getPlan();
       adapter = new VerticalDetailPlansAdapter(dietPlan, true);
-       Log.d("kkk", "onCreate: " + dietPlan.getRecipeForDays().get(5).getBreakfast().get(0).isAddedInDiaryFromPlan());
        isCurrentPlan = true;
     } else {
-      Log.d("kkk", "initDietPlan: else " );
       plansRecipe = new PlansGroupsRecipe(RecipesHolder.get(), dietPlan);
       recipeForDays = plansRecipe.getRecipeForDays();
-      Log.d("kkkk", "initDietPlan: " + recipeForDays.size());
       dietPlan.setRecipes(getList(), plansRecipe.size());
-      Log.d("kkkk", "initDietPlan: getList() " + getList().size());
       adapter = new VerticalDetailPlansAdapter(dietPlan);
       isCurrentPlan = false;
     }
 
     adapter.SetOnItemClickListener(adapterListener);
     getViewState().setAdapter(adapter);
-    Log.d("kkk", "initDietPlan: adapter " + adapter);
   }
 
   void clickedClose() {
@@ -110,8 +101,6 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
   }
 
   void onResume(){
-    Log.d("kkk", "onResume: ");
-    //adapter.notifyDataSetChanged();
     if (isCurrentPlan)
     adapter.updateList(UserDataHolder.getUserData().getPlan().getRecipeForDays());
   }
@@ -127,13 +116,6 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
       } else {
         router.navigateTo(new Screens.PlanRecipeScreen(recipeItem, day, meal, recipeNumber));
       }
-      //if (recipeItem.isAddedInDiaryFromPlan()){
-      //  recipeItem.setAddedInDiaryFromPlan(false);
-      //  WorkWithFirebaseDB.setRecipeInDiaryFromPlan(day, meal,recipeNumber, false);
-      //} else {
-      //  recipeItem.setAddedInDiaryFromPlan(true);
-      //  WorkWithFirebaseDB.setRecipeInDiaryFromPlan(day, meal,recipeNumber, true);
-      //}
     }
 
     @Override public void onItemLongClick(View view, int position) {
