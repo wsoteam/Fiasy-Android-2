@@ -88,6 +88,7 @@ public class PlansGroupsRecipe implements GroupsRecipes {
             }
         }
         recipeForDays = new ArrayList<>();
+        //buffer = new HashSet<>();
         for (int i = 0; i < days; i++){
             buffer = new HashSet<>();
             recipeForDays.add(selectRecipe(buffer));

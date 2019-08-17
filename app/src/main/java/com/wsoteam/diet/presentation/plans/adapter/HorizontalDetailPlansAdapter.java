@@ -13,9 +13,12 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import java.util.List;
+
+import com.wsoteam.diet.blur.BlurTransformation;
 
 public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
 
@@ -96,6 +99,7 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
     @BindView(R.id.tvName) TextView tvName;
     @BindView(R.id.tvCalories) TextView tvCalories;
     @BindView(R.id.clBackground) ConstraintLayout constraintLayout;
+    @BindView(R.id.tvRecipeAdded) TextView tvRecipeAdded;
 
     public HorizontalViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -106,10 +110,21 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
 
       tvName.setText(recipeItem.getName());
       tvCalories.setText(
-          recipeItem.getCalories() + context.getResources().getString(R.string.kcal));
-      Glide.with(context)
-          .load(recipeItem.getUrl())
-          .into(imageView);
+          recipeItem.getCalories() + " " + context.getResources().getString(R.string.kcal));
+
+      if (isCurrentDay && recipeItem.isAddedInDiaryFromPlan()){
+        Glide.with(context)
+            .load(recipeItem.getUrl())
+            .apply(RequestOptions.bitmapTransform(new BlurTransformation(10, 1)))
+            .into(imageView);
+        tvRecipeAdded.setVisibility(View.VISIBLE);
+      }else {
+        Glide.with(context)
+            .load(recipeItem.getUrl())
+            .into(imageView);
+        tvRecipeAdded.setVisibility(View.INVISIBLE);
+      }
+
         constraintLayout.setBackgroundColor(Color.parseColor(
             isCurrentDay && recipeItem.isAddedInDiaryFromPlan() ? "#2630b977" : "#ffffff"));
 
