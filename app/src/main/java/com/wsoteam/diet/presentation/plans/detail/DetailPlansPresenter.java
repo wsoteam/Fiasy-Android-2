@@ -87,7 +87,11 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
   }
 
   void clickedJoin() {
-    getViewState().startAlert(UserDataHolder.getUserData().getPlan().getName());
+    if (UserDataHolder.getUserData().getPlan() == null){
+      joinPlans();
+    } else {
+      getViewState().startAlert(UserDataHolder.getUserData().getPlan().getName());
+    }
   }
 
   void joinPlans(){
