@@ -90,6 +90,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
     UserDataHolder.getUserData().setPlan(dietPlan);
     WorkWithFirebaseDB.joinDietPlan(dietPlan);
     getViewState().visibilityButtonJoin(false);
+    getViewState().showAlertJoinToPlan();
     initDietPlan();
   }
 

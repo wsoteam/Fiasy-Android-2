@@ -1,21 +1,16 @@
 package com.wsoteam.diet.presentation.plans.detail;
 
-import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -37,6 +32,7 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
   Router router;
 
   private MenuItem leaveMenu;
+  private AlertDialog alertDialogChangePlan;
 
   @InjectPresenter
   DetailPlansPresenter presenter;
@@ -122,36 +118,18 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
   }
 
   @Override public void startAlert(String plan) {
-    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
-    LayoutInflater inflater = this.getLayoutInflater();
-    View dialogView = inflater.inflate(R.layout.alert_dialog_plan_change, null);
-    dialogBuilder.setView(dialogView);
+    alertDialogChangePlan = AlertDialogs.changePlan(this, (View v) -> {
+          presenter.joinPlans();
+          alertDialogChangePlan.dismiss();
+        }
+        , plan);
 
-    Button cancelButton = dialogView.findViewById(R.id.btnCancel);
-    Button changeButton = dialogView.findViewById(R.id.btnChange);
-    TextView infoTextView = dialogView.findViewById(R.id.tvInfo);
+    alertDialogChangePlan.show();
+  }
 
-    Spannable wordtoSpan = new SpannableString(String.format(getString(R.string.tvInfo), plan));
-    int startColor = 50;
-    wordtoSpan.setSpan(new ForegroundColorSpan(Color.parseColor("#de0067a1")), startColor,
-        startColor + plan.length() + 2,
-        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    infoTextView.setText(wordtoSpan);
-    AlertDialog alertDialog = dialogBuilder.create();
-    alertDialog.show();
-    cancelButton.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        alertDialog.dismiss();
-      }
-    });
-
-    changeButton.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        presenter.joinPlans();
-        alertDialog.dismiss();
-      }
-    });
+  @Override public void showAlertJoinToPlan() {
+    AlertDialogs.planJoined(this, 2000).show();
   }
 
   @Override protected void onResume() {
