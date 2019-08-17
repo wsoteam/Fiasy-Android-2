@@ -77,7 +77,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       index = daysAfterStart + (adapterPosition - indexUp - 1);
     }
 
-    if (adapterPosition > recipeForDays.size() + 1) index = recipeForDays.size() - 1;
+    if (adapterPosition > recipeForDays.size()) index = recipeForDays.size() - 1;
     if (adapterPosition == 0) index = 0;
 
     Log.d("kkk", "onBindViewHolder: i = " + adapterPosition + " index = " + index + " count days = " + recipeForDays.size());
@@ -91,7 +91,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   }
   private void incrIndexDown(){
     indexDown = indexDown + 3;
-    if (indexDown >= recipeForDays.size() - 1) indexDown = recipeForDays.size() - 1;
+    if (indexDown >= recipeForDays.size() - daysAfterStart) indexDown = recipeForDays.size() - daysAfterStart - 1;
     notifyDataSetChanged();
   }
   private void initIndex(){
