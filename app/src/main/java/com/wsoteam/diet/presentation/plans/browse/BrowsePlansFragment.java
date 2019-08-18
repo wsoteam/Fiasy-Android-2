@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.plans.browse;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -47,6 +48,7 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
                 container, false);
         ButterKnife.bind(this, view);
 
+        getActivity().getWindow().setStatusBarColor(Color.parseColor("#9E5203"));
         mToolbar.setTitle(getString(R.string.plans));
         mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
         mToolbar.setNavigationOnClickListener(navigationListener);

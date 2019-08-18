@@ -31,6 +31,7 @@ import com.wsoteam.diet.Articles.ListArticlesFragment;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.Authenticate.POJO.Box;
+import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietModule;
 import com.wsoteam.diet.DietPlans.POJO.DietPlansHolder;
@@ -116,13 +117,17 @@ public class MainActivity extends AppCompatActivity {
                         transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();
                     }
                     return true;
+                case R.id.bnv_main_trainer:
+                    isMainFragment = false;
+                    transaction.replace(R.id.flFragmentContainer, new BrowsePlansFragment()).commit();
+                    return true;
                 case R.id.bnv_main_recipes:
                     isMainFragment = false;
                     transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
                     return true;
                 case R.id.bnv_main_profile:
                     isMainFragment = false;
-                    transaction.replace(R.id.flFragmentContainer, new BrowsePlansFragment()).commit();
+                    transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
                     window.setStatusBarColor(Color.parseColor("#2E4E4E"));
                     return true;
             }
