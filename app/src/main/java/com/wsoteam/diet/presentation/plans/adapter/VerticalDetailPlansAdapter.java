@@ -64,47 +64,65 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       long milliseconds = currentDate.getTime() - startDate.getTime();
       // 24 часа = 1 440 минут = 1 день
       daysAfterStart = ((int) (milliseconds / (24 * 60 * 60 * 1000)));
-      //Log.d("kkk", "" + milliseconds +"\nДней: " + daysAfterStart);
       if (daysAfterStart >= recipeForDays.size()){daysAfterStart = recipeForDays.size();}
+      Log.d("kkk", "" + milliseconds +"\nДней: " + daysAfterStart);
     }
     initIndex();
   }
 
   private int getListPosition(int adapterPosition){
     int index = 0;
+    int days = daysAfterStart;
+    if (daysAfterStart >= recipeForDays.size()){
+      days = recipeForDays.size() - 1;
+    }
     if (adapterPosition <= indexUp){
-      index = daysAfterStart - (indexUp - adapterPosition) - 1;
+      index = days - (indexUp - adapterPosition) - 1;
     }else if(adapterPosition == indexUp + 1){
-      index = daysAfterStart;
+      index = days;
     } else if (adapterPosition > indexUp + 1){
-      index = daysAfterStart + (adapterPosition - indexUp - 1);
+      index = days + (adapterPosition - indexUp - 1);
     }
 
-    if (adapterPosition > recipeForDays.size()) index = recipeForDays.size() - 1;
+    //if (adapterPosition > recipeForDays.size()) index = recipeForDays.size() - 1;
     if (adapterPosition == 0) index = 0;
+    //if (daysAfterStart == recipeForDays.size()) index = recipeForDays.size() - 1
 
-    Log.d("kkk", "onBindViewHolder: i = " + adapterPosition + " index = " + index + " count days = " + recipeForDays.size());
+    Log.d("kkk", String.format("onBindViewHolder: i = %d index = %d count days = %d indexUp = %d indexDown = %d",
+        adapterPosition, index, recipeForDays.size(), indexUp, indexDown ));
     return index;
   }
 
   private void incrIndexUp(){
     indexUp = indexUp + 3;
-    if (indexUp > daysAfterStart) indexUp = daysAfterStart;
+    if (indexUp > daysAfterStart){
+      indexUp = daysAfterStart;
+    }
+    if (indexUp >= recipeForDays.size()){
+      indexUp = recipeForDays.size() - 1;
+    }
     notifyDataSetChanged();
   }
   private void incrIndexDown(){
     indexDown = indexDown + 3;
-    if (indexDown >= recipeForDays.size() - daysAfterStart) indexDown = recipeForDays.size() - daysAfterStart - 1;
+    if (indexDown >= recipeForDays.size() - daysAfterStart){
+      indexDown = recipeForDays.size() - daysAfterStart - 1;
+      if (daysAfterStart >= recipeForDays.size()){
+        indexDown = 0;
+      }
+    }
+
     notifyDataSetChanged();
   }
   private void initIndex(){
     Log.d("kkk", "initIndex: " + isCurrentPlan);
-    if (isCurrentPlan){
-      Log.d("kkk", "initIndex: 1");
+    if (isCurrentPlan && (daysAfterStart == recipeForDays.size())){
+      indexUp = 0;
+      indexDown = 0;
+    }else if (isCurrentPlan){
       indexUp = 0;
       indexDown = 2;
     }else {
-      Log.d("kkk", "initIndex: 0");
       indexUp = 0;
       indexDown = recipeForDays.size() - 1;
     }
@@ -156,9 +174,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   @Override
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-    Log.d("kkk", "onBindViewHolder: after start " + daysAfterStart);
     int index = getListPosition(i);
-
     if (i == 0) {
 
     } else  if (i == getItemCount() - 1) {
@@ -169,7 +185,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
         holder.showEndMessage(false);
       }
 
-    }else {
+    }else if (i > 0 && i < getItemCount() - 1){
       switch (viewHolder.getItemViewType()) {
         case R.layout.diary_recipe_plans: {
           DiaryRecipesViewHolder holder = (DiaryRecipesViewHolder) viewHolder;
@@ -214,10 +230,16 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
   @Override
   public int getItemViewType(int position) {
+    int days = daysAfterStart;
+    if (daysAfterStart >= recipeForDays.size()){
+      days = recipeForDays.size();
+    }
+
+
     if (position == 0) {
       return R.layout.plans_header_item;
     }
-    if (position > 0 && getListPosition(position) < daysAfterStart) {
+    if (position > 0 && getListPosition(position) < days) {
       return R.layout.diary_recipe_plans;
     }
     if (position == getItemCount() - 1) {
