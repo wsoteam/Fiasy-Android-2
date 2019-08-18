@@ -38,6 +38,7 @@ import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.InApp.properties.EmptySubInfo;
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
 import com.wsoteam.diet.MainScreen.MainActivity;
+import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
 import com.wsoteam.diet.R;
@@ -46,6 +47,7 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.common.Analytics.UserProperty;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
 
@@ -90,11 +92,11 @@ public class ActivitySplash extends BaseActivity {
       FirebaseDatabase database = FirebaseDatabase.getInstance();
       DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
           child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-      Log.d("kkk", "checkRegistrationAndRun: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
       myRef.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
           new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
+          setUserProperties(UserDataHolder.getUserData().getProfile());
           onSignedIn();
         }
 
@@ -110,6 +112,52 @@ public class ActivitySplash extends BaseActivity {
     } else {
       onUserNotAuthorized();
     }
+  }
+
+  private void setUserProperties(Profile profile) {
+    Log.e("LOL", "set");
+    String goal = "", active = "", sex;
+    String userStressLevel = profile.getExerciseStress();
+    String userGoal = profile.getDifficultyLevel();
+
+    String age = String.valueOf(profile.getAge());
+    String weight = String.valueOf(profile.getWeight());
+    String height = String.valueOf(profile.getHeight());
+
+    if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_none))) {
+      active = UserProperty.q_active_status1;
+    } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_easy))) {
+      active = UserProperty.q_active_status2;
+    } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_medium))) {
+      active = UserProperty.q_active_status3;
+    } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_hard))) {
+      active = UserProperty.q_active_status4;
+    } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_up_hard))) {
+      active = UserProperty.q_active_status5;
+    } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_super))) {
+      active = UserProperty.q_active_status6;
+    } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_up_super))) {
+      active = UserProperty.q_active_status7;
+    }
+
+    if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_easy))) {
+      goal = UserProperty.q_goal_status1;
+    } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_normal))) {
+      goal = UserProperty.q_goal_status2;
+    } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_hard))) {
+      goal = UserProperty.q_goal_status3;
+    } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_hard_up))) {
+      goal = UserProperty.q_goal_status4;
+    }
+
+    if (profile.isFemale()){
+      sex = UserProperty.q_male_status_female;
+    }else {
+      sex = UserProperty.q_male_status_male;
+    }
+
+    UserProperty.setUserProperties(sex, height, weight, age, active, goal);
+
   }
 
   private void onUserNotAuthorized(){

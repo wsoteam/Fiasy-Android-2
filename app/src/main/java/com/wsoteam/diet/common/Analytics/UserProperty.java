@@ -59,9 +59,25 @@ public class UserProperty {
     public static final String ltv_duration = "ltv_duration";
     public static final String ltv_revenue = "ltv_revenue";
 
-    public static void setRegUserProperties(String regType) {
-        Identify identify = new Identify().set(reg_social, regType);
+    public static void setUserProperties(String sex, String height, String weight, String age, String active, String goal) {
+        Identify identify = new Identify()
+                .set(q_male_status, sex)
+                .set(q_height_status, height)
+                .set(q_weight_status, weight)
+                .set(q_age_status, age)
+                .set(q_active_status, active)
+                .set(q_goal_status, goal);
         Amplitude.getInstance().identify(identify);
+
+        UserAttributes userAttributes = new UserAttributes.Builder()
+                .withCustomAttribute(q_male_status, sex)
+                .withCustomAttribute(q_height_status, height)
+                .withCustomAttribute(q_weight_status, weight)
+                .withCustomAttribute(q_age_status, age)
+                .withCustomAttribute(q_active_status, active)
+                .withCustomAttribute(q_goal_status, goal)
+                .build();
+        Intercom.client().updateUser(userAttributes);
     }
 
 }
