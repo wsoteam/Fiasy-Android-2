@@ -7,7 +7,7 @@
     tools:context="com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity"
     >
 
-  <androidx.viewpager.widget.ViewPager
+  <com.wsoteam.diet.presentation.profile.questions.CustomViewPager
       android:id="@+id/pager"
       android:layout_width="match_parent"
       android:layout_height="0dp"
