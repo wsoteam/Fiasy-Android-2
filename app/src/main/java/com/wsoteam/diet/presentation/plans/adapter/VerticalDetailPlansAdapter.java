@@ -3,6 +3,7 @@ package com.wsoteam.diet.presentation.plans.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -63,6 +65,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       // 24 часа = 1 440 минут = 1 день
       daysAfterStart = ((int) (milliseconds / (24 * 60 * 60 * 1000)));
       //Log.d("kkk", "" + milliseconds +"\nДней: " + daysAfterStart);
+      if (daysAfterStart >= recipeForDays.size()){daysAfterStart = recipeForDays.size();}
     }
     initIndex();
   }
@@ -159,6 +162,12 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     if (i == 0) {
 
     } else  if (i == getItemCount() - 1) {
+      FooterViewHolder holder = (FooterViewHolder) viewHolder;
+      if (daysAfterStart >= recipeForDays.size()){
+        holder.showEndMessage(true);
+      } else {
+        holder.showEndMessage(false);
+      }
 
     }else {
       switch (viewHolder.getItemViewType()) {
@@ -332,6 +341,8 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
   static class FooterViewHolder extends RecyclerView.ViewHolder{
 
+    @BindView(R.id.clEndPlan) ConstraintLayout layout;
+    @BindView(R.id.loadDown) Button loadButton;
     private final View.OnClickListener listener;
 
     public FooterViewHolder(@NonNull View itemView, View.OnClickListener listener) {
@@ -340,9 +351,30 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       ButterKnife.bind(this, itemView);
     }
 
-    @OnClick(R.id.loadDown)
+    void showEndMessage(boolean isShow){
+      if (isShow){
+        layout.setVisibility(View.VISIBLE);
+        loadButton.setVisibility(View.GONE);
+      }else {
+        layout.setVisibility(View.GONE);
+        loadButton.setVisibility(View.VISIBLE);
+      }
+    }
+
+    @OnClick({R.id.loadDown, R.id.imgFacebook, R.id.imgInstagramm, R.id.imgGoogle})
     void clickedLoad(View view){
-      listener.onClick(view);
+      switch (view.getId()){
+        case R.id.loadDown:
+          listener.onClick(view);
+          break;
+        case R.id.imgFacebook:
+          break;
+        case R.id.imgInstagramm:
+          break;
+        case R.id.imgGoogle:
+          break;
+
+      }
     }
   }
 
