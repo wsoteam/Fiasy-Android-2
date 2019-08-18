@@ -59,14 +59,17 @@ public class UserProperty {
     public static final String ltv_duration = "ltv_duration";
     public static final String ltv_revenue = "ltv_revenue";
 
-    public static void setUserProperties(String sex, String height, String weight, String age, String active, String goal) {
+    public static final String user_id = "id";
+
+    public static void setUserProperties(String sex, String height, String weight, String age, String active, String goal, String id) {
         Identify identify = new Identify()
                 .set(q_male_status, sex)
                 .set(q_height_status, height)
                 .set(q_weight_status, weight)
                 .set(q_age_status, age)
                 .set(q_active_status, active)
-                .set(q_goal_status, goal);
+                .set(q_goal_status, goal)
+                .set(user_id, id);
         Amplitude.getInstance().identify(identify);
 
         UserAttributes userAttributes = new UserAttributes.Builder()
@@ -75,7 +78,8 @@ public class UserProperty {
                 .withCustomAttribute(q_weight_status, weight)
                 .withCustomAttribute(q_age_status, age)
                 .withCustomAttribute(q_active_status, active)
-                .withCustomAttribute(q_goal_status, goal)
+                .withCustomAttribute(q_goal_status, id)
+                .withCustomAttribute(user_id, id)
                 .build();
         Intercom.client().updateUser(userAttributes);
     }

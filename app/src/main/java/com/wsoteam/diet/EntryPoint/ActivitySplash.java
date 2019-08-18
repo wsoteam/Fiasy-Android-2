@@ -115,7 +115,6 @@ public class ActivitySplash extends BaseActivity {
   }
 
   private void setUserProperties(Profile profile) {
-    Log.e("LOL", "set");
     String goal = "", active = "", sex;
     String userStressLevel = profile.getExerciseStress();
     String userGoal = profile.getDifficultyLevel();
@@ -156,7 +155,7 @@ public class ActivitySplash extends BaseActivity {
       sex = UserProperty.q_male_status_male;
     }
 
-    UserProperty.setUserProperties(sex, height, weight, age, active, goal);
+    UserProperty.setUserProperties(sex, height, weight, age, active, goal, FirebaseAuth.getInstance().getCurrentUser().getUid());
 
   }
 
