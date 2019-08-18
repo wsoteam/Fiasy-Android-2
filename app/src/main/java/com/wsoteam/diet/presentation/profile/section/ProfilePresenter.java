@@ -60,7 +60,6 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
     calendar = Calendar.getInstance();
     calendar.setFirstDayOfWeek(Calendar.MONDAY);
     currentTime = calendar.getTimeInMillis();
-    Amplitude.getInstance().logEvent(AmplitudaEvents.view_profile);
     bindFields();
     Single.fromCallable(() -> {
       SortedMap<Long, Integer> calories = dateSort();

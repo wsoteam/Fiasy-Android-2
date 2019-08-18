@@ -197,7 +197,6 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
     switch (view.getId()) {
 
       case R.id.btnBuyPrem:
-        AmplitudaEvents.logEventClickBuy(currentSKU);
         buy(currentSKU);
         break;
 

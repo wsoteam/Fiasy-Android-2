@@ -153,8 +153,6 @@ public class DetailFoodActivity extends AppCompatActivity {
             }
         });
 
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_detail_food);
-
         String btnName = getIntent().getStringExtra(Config.DETAIL_FOOD_BTN_NAME);
         if (btnName != null){
             addButton.setText(btnName);

@@ -86,8 +86,6 @@ public class ItemActivity extends AppCompatActivity {
                 .with(this)
                 .load(itemRecipes.getUrl())
                 .into(imageView);
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_recipe);
-
     }
 
     private boolean checkSubscribe() {

@@ -68,7 +68,6 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
   }
 
   void saveProfile(boolean isNeedShowOnboard, Profile profile, boolean createProfile) {
-    Amplitude.getInstance().logEvent(AmplitudaEvents.fill_reg_data);
     if (createProfile) {
       //Intent intent = new Intent(this, MainAuthNewActivity.class);
       Intent intent = new Intent(this, AfterQuestionsActivity.class);

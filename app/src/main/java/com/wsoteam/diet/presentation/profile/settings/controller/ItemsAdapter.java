@@ -4,15 +4,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.provider.MediaStore;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,7 +18,6 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.InApp.ActivitySubscription;
-import com.wsoteam.diet.OtherActivity.ActivitySettings;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.common.Analytics.Events;

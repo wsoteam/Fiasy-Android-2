@@ -27,7 +27,6 @@ public class SleepActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleep);
         ButterKnife.bind(this);
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_sleep);
 
         animationRotate = AnimationUtils.loadAnimation(this, R.anim.animation_rotate);
         ivLoadingCircle.startAnimation(animationRotate);

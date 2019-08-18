@@ -110,10 +110,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
             }
         });
         tabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
-
-        Amplitude.getInstance().logEvent(AmplitudaEvents.attempt_add_food);
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_search_food);
-
     }
 
     private void changeSpeakButton(CharSequence charSequence) {

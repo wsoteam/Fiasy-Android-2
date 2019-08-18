@@ -70,7 +70,6 @@ public class QuestionsPresenter extends BasePresenter<QuestionsView> {
     }
 
     void saveProfile(boolean isNeedShowOnboard, Profile profile, boolean createProfile) {
-        Amplitude.getInstance().logEvent(AmplitudaEvents.fill_reg_data);
         if (createProfile) {
             if (isNeedShowOnboard) {
                 Box box = new Box();

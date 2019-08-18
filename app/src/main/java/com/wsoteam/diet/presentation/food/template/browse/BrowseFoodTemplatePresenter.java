@@ -138,7 +138,6 @@ public class BrowseFoodTemplatePresenter extends BasePresenter<BrowseFoodTemplat
         String name = food.getName();
         String urlOfImage = "empty_url";
 
-        Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
 
         switch (((ActivityListAndSearch) activity).spinnerId) {
             case BREAKFAST_POSITION:

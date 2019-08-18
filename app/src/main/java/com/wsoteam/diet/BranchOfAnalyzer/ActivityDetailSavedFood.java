@@ -88,8 +88,6 @@ public class ActivityDetailSavedFood extends AppCompatActivity {
         });
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_detail_food);
-
     }
 
     private void reCalculate() {

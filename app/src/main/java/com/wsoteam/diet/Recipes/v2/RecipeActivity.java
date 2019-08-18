@@ -338,7 +338,6 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
         String name = recipe.getName();
         String urlOfImage = recipe.getUrl();
 
-        Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
         switch (idOfEating) {
             case BREAKFAST_POSITION:
                 WorkWithFirebaseDB.

@@ -134,15 +134,6 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
         mAuthListener = firebaseAuth -> {
             FirebaseUser user = firebaseAuth.getCurrentUser();
             if (user != null) {
-                // User is signed in
-                Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
-
-                if (createUser && presenter.mAuth.getCurrentUser().getProviderData().size() > 0) {
-                    AmplitudaEvents.logEventReg(presenter.mAuth.getCurrentUser().getProviderData().get(0).toString());
-                } else {
-                    AmplitudaEvents.logEventReg("unknown");
-                }
-
                 if (createUser && getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
                     WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
                 } else if (createUser && getIntent().getSerializableExtra(Config.INTENT_PROFILE) == null) {

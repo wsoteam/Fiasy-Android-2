@@ -30,7 +30,6 @@ public class TotalAmountActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Profile profile = (Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE);
         bindValues(profile);
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_total);
     }
 
     private void bindValues(Profile profile) {

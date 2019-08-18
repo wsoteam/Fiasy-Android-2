@@ -185,11 +185,9 @@ public class FragmentSubscriptionGreen extends Fragment implements PurchasesUpda
             backCV1mOrange.setVisibility(View.INVISIBLE);
         }
         if (view.getId() == R.id.btnBuyPrem) {
-            AmplitudaEvents.logEventClickBuy(currentSKU);
             buy(currentSKU);
         }
         if (view.getId() == R.id.imbtnCancel) {
-            Amplitude.getInstance().logEvent(AmplitudaEvents.close_premium);
             if (box.isOpenFromIntrodaction()) {
                 getActivity().getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE)
                         .edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, true)

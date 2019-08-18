@@ -115,7 +115,6 @@ public class GroupsFragment extends Fragment implements Observer {
             recyclerView.setAdapter(null);
         }
 
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_all_recipes);
         return view;
     }
 

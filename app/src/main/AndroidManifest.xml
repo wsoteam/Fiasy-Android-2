@@ -181,10 +181,6 @@
     </activity>
 
     <activity
-        android:name=".OtherActivity.ActivitySettings"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBarSettings" />
-    <activity
         android:name=".BranchOfCalculating.ActivityListOfCalculating"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar" />
@@ -211,10 +207,6 @@
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar" />
     <activity
-        android:name=".OtherActivity.ActivityEmpty"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
         android:name=".BranchOfCalculating.ActivityCalculatorIMT"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar" />
@@ -235,10 +227,6 @@
         android:name=".BranchOfDiary.ActivityListOfDiary"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme2" />
-    <activity
-        android:name=".OtherActivity.ActivityAboutSetingsNotifications"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
     <activity
         android:name=".BranchOfCalculating.ActivityCalculatorSPK"
         android:theme="@style/AppTheme.NoActionBar" />
@@ -290,11 +278,7 @@
         android:name=".BranchProfile.ActivityEditCompletedProfile"
         android:screenOrientation="portrait"
         android:theme="@style/EditProfile" />
-    <activity
-        android:name=".EntryPoint.EditProfileIntrodaction"
-        android:screenOrientation="portrait"
-        android:theme="@style/EditProfile" />
-    <activity
+      <activity
         android:name=".BranchOfAnalyzer.ActivityDetailSavedFood"
         android:screenOrientation="portrait"
         android:theme="@style/DetailFood" />

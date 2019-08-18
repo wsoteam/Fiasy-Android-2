@@ -203,11 +203,9 @@ public class FragmentSubscriptionWhite extends Fragment implements PurchasesUpda
             cvSub1mBack.setVisibility(View.GONE);
         }
         if (view.getId() == R.id.btnBuyPrem) {
-            AmplitudaEvents.logEventClickBuy(currentSKU);
             buy(currentSKU);
         }
         if (view.getId() == R.id.imbtnCancel) {
-            Amplitude.getInstance().logEvent(AmplitudaEvents.close_premium);
             if (isOpenFromIntro) {
                 startActivity(new Intent(getActivity(), MainActivity.class));
                 getActivity().finish();

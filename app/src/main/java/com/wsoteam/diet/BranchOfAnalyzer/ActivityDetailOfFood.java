@@ -289,7 +289,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         String name = foodItem.getName();
         String urlOfImage = "empty_url";
 
-        Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
         switch (spnFood.getSelectedItemPosition()) {
             case BREAKFAST_POSITION:
                 WorkWithFirebaseDB.

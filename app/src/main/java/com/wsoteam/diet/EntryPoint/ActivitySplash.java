@@ -87,7 +87,6 @@ public class ActivitySplash extends BaseActivity {
 
       }
       FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
-      AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
       setTrackInfoInDatabase(Adjust.getAttribution());
       FirebaseDatabase database = FirebaseDatabase.getInstance();
       DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
@@ -162,13 +161,10 @@ public class ActivitySplash extends BaseActivity {
   private void onUserNotAuthorized(){
     FirebaseAnalytics.getInstance(this)
         .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
-    AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS,
-        AmplitudaEvents.unRegistered);
     //startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
     //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
     //startActivity(new Intent(this, AfterQuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
 
-    Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
     startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
 
     finish();
@@ -309,15 +305,6 @@ public class ActivitySplash extends BaseActivity {
 
     if (!sharedPreferences.getBoolean(TAG_FIRST_RUN, false)) {
       Calendar calendar = Calendar.getInstance();
-      String day = String.valueOf(calendar.get(Calendar.DAY_OF_YEAR));
-      String week = String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
-      String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
-
-      Identify date = new Identify().set(AmplitudaEvents.FIRST_DAY, day)
-          .set(AmplitudaEvents.FIRST_WEEK, week).set(AmplitudaEvents.FIRST_MONTH, month);
-      Amplitude.getInstance().identify(date);
-      Amplitude.getInstance().logEvent(AmplitudaEvents.first_launch);
-
       getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).
           edit().putBoolean(Config.IS_NEED_SHOW_ONBOARD, true).
           apply();
