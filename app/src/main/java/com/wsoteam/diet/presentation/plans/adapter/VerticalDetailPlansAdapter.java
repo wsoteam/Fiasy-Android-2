@@ -76,17 +76,15 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     if (daysAfterStart >= recipeForDays.size()){
       days = recipeForDays.size() - 1;
     }
+
     if (adapterPosition <= indexUp){
-      index = days - (indexUp - adapterPosition) - 1;
-    }else if(adapterPosition == indexUp + 1){
-      index = days;
-    } else if (adapterPosition > indexUp + 1){
+      index = days - (indexUp - adapterPosition) - 1 ;
+      if (daysAfterStart >= recipeForDays.size()) index++;
+    }else if (adapterPosition > indexUp){
       index = days + (adapterPosition - indexUp - 1);
     }
 
-    //if (adapterPosition > recipeForDays.size()) index = recipeForDays.size() - 1;
     if (adapterPosition == 0) index = 0;
-    //if (daysAfterStart == recipeForDays.size()) index = recipeForDays.size() - 1
 
     Log.d("kkk", String.format("onBindViewHolder: i = %d index = %d count days = %d indexUp = %d indexDown = %d",
         adapterPosition, index, recipeForDays.size(), indexUp, indexDown ));
@@ -99,14 +97,14 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       indexUp = daysAfterStart;
     }
     if (indexUp >= recipeForDays.size()){
-      indexUp = recipeForDays.size() - 1;
+      indexUp = recipeForDays.size();
     }
     notifyDataSetChanged();
   }
   private void incrIndexDown(){
     indexDown = indexDown + 3;
     if (indexDown >= recipeForDays.size() - daysAfterStart){
-      indexDown = recipeForDays.size() - daysAfterStart - 1;
+      indexDown = recipeForDays.size() - daysAfterStart;
       if (daysAfterStart >= recipeForDays.size()){
         indexDown = 0;
       }
@@ -114,16 +112,21 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
     notifyDataSetChanged();
   }
-  private void initIndex(){
-    Log.d("kkk", "initIndex: " + isCurrentPlan);
-    if (isCurrentPlan && (daysAfterStart == recipeForDays.size())){
-      indexUp = 0;
-      indexDown = 0;
-    }else if (isCurrentPlan){
-      indexUp = 0;
-      indexDown = 2;
-    }else {
-      indexUp = 0;
+
+  private void initIndex() {
+    indexUp = 0;
+    if (isCurrentPlan) {
+      switch (recipeForDays.size() - daysAfterStart) {
+        case 1:
+          indexDown = 1;
+          break;
+        case 0:
+          indexDown = 0;
+          break;
+        default:
+          indexDown = 2;
+      }
+    } else {
       indexDown = recipeForDays.size() - 1;
     }
   }
@@ -195,7 +198,8 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
         default: {
           ViewHolder holder = (ViewHolder) viewHolder;
 
-          if (daysAfterStart + 1 == i){
+          if (daysAfterStart == index){
+            Log.d("kkk", "onBindViewHolder:++ " + i);
             holder.bind(index, true);
           }else {
             holder.bind(index, false);
@@ -215,7 +219,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   public int getItemCount() {
     if (recipeForDays == null) return 0;
     //текущий день + прошедшие и будущие + 2(это шапка и футер)
-    return 1 + (indexDown + indexUp) + 2;
+    return (indexDown + indexUp) + 2;
   }
 
   @Override
@@ -235,16 +239,18 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       days = recipeForDays.size();
     }
 
-
     if (position == 0) {
       return R.layout.plans_header_item;
     }
-    if (position > 0 && getListPosition(position) < days) {
-      return R.layout.diary_recipe_plans;
-    }
+
     if (position == getItemCount() - 1) {
       return R.layout.plans_footer_item;
     }
+
+    if (position > 0 && getListPosition(position) < days) {
+      return R.layout.diary_recipe_plans;
+    }
+
     return R.layout.detail_plans_day_item;
   }
 
@@ -283,7 +289,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
       recyclerView.setLayoutManager(layoutManager);
       recyclerView.setAdapter(adapter);
-      position = getAdapterPosition();
+      position = getListPosition(getAdapterPosition());
     }
 
 
@@ -291,8 +297,8 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       this.isCurrentDay = isCurrentDay;
       this.position = i;
       tabLayout.getTabAt(0).select();
-      tvDay.setText("День " + ++i);
-      adapter.updateList(recipeForDays.get(getAdapterPosition() - 1).getBreakfast(), isCurrentDay, getAdapterPosition() - 1, "breakfast");
+      tvDay.setText("День " + (i + 1));
+      adapter.updateList(recipeForDays.get(i).getBreakfast(), isCurrentDay, i, "breakfast");
     }
 
     @Override
@@ -351,7 +357,9 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
       if (isCurrentPlan){
         tvTimeCount.setVisibility(View.VISIBLE);
-        tvTimeCount.setText((day + 1) + " день из " + dietPlan.getCountDays());
+        tvTimeCount.setText(String.format("%d день из %d",
+            day < dietPlan.getRecipeForDays().size() ? day + 1 : dietPlan.getRecipeForDays().size()
+            , dietPlan.getCountDays()));
       }
     }
 
@@ -446,9 +454,9 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     private void getAddedRecipe(List<RecipeItem> recipeItems){
       for (RecipeItem recipe:
       recipeItems) {
-        Log.d("kkk", "getAddedRecipe: " + recipe.getName());
+        //Log.d("kkk", "getAddedRecipe: " + recipe.getName());
         if (recipe.isAddedInDiaryFromPlan()){
-          Log.d("kkk", "getAddedRecipe: true " + recipe.getName());
+          //Log.d("kkk", "getAddedRecipe: true " + recipe.getName());
           recipeItemList.add(recipe);
         }
       }
