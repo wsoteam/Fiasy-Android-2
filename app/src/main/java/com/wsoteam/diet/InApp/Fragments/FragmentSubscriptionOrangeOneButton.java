@@ -164,10 +164,6 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
       new CheckAndSetPurchase().execute(p.getSku(), p.getPurchaseToken(), p.getPackageName());
 
       Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
-      Identify identify = new Identify();
-      identify.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
-      identify.set(AmplitudaEvents.LONG_OF_PREM, currentSKU);
-      Amplitude.getInstance().identify(identify);
       AmplitudaEvents.logEventBuyPremium(box.getBuyFrom(), ABConfig.green_P1M_one_button,
           currentSKU);
       logTrial();

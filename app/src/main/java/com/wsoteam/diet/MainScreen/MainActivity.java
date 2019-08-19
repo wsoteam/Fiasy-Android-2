@@ -11,14 +11,17 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
@@ -37,12 +40,8 @@ import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
-import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
-import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenOneButton;
-import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenUA;
 import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
-import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
 import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodDB;
 import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.R;
@@ -52,14 +51,9 @@ import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.common.Analytics.Events;
-import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplateFragment;
-import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
 
 import java.util.Calendar;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.intercom.android.sdk.Intercom;
 
 
@@ -99,28 +93,8 @@ public class MainActivity extends AppCompatActivity {
                     box.setComeFrom(AmplitudaEvents.view_prem_content);
                     box.setBuyFrom(AmplitudaEvents.buy_prem_content);
                     isMainFragment = false;
-
-                    if (Config.RELEASE) {
-                        if (checkSubscribe()) {
-                            transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
-                        } else {
-                            if (getABVersion().equals(ABConfig.C_VERSION)) {
-                                transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.
-                                        newInstance(box)).commit();
-                            } else {
-                                if (getABVersion().equals(ABConfig.A_VERSION)) {
-                                    transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.
-                                            newInstance(box)).commit();
-                                } else {
-                                    transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenOneButton.
-                                            newInstance(box)).commit();
-                                }
-                            }
-                            window.setStatusBarColor(Color.parseColor("#747d3b"));
-                        }
-                    } else {
-                        transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();
-                    }
+                    window.setStatusBarColor(Color.parseColor("#747d3b"));
+                    transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();
                     return true;
                 case R.id.bnv_main_recipes:
                     isMainFragment = false;
@@ -266,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (isMainFragment) {
             super.onBackPressed();
-        }else {
+        } else {
             isMainFragment = true;
             getSupportFragmentManager().beginTransaction().replace(R.id.flFragmentContainer, new FragmentDiary()).commit();
             window.setStatusBarColor(Color.parseColor("#AE6A23"));
