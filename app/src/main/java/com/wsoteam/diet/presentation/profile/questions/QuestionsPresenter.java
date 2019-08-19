@@ -12,6 +12,7 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.presentation.global.BasePresenter;
 import com.wsoteam.diet.presentation.global.Screens;
@@ -73,7 +74,7 @@ public class QuestionsPresenter extends BasePresenter<QuestionsView> {
         if (createProfile) {
             if (isNeedShowOnboard) {
                 Box box = new Box();
-                box.setBuyFrom(AmplitudaEvents.buy_prem_onboarding);
+                box.setBuyFrom(EventProperties.trial_from_onboard);
                 box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);
                 box.setOpenFromIntrodaction(true);
                 box.setOpenFromPremPart(false);

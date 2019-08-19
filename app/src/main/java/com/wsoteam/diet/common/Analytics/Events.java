@@ -71,6 +71,8 @@ public class Events {
     public static final String SELECT_DIET = "select_diet";
     public static final String SELECT_TRAINING = "select_training";
 
+    //Purchase
+    public static final String TRIAL_SUCCESS = "trial_success";
 
     //DIET
     //public static final String SELECT_DIET_FILTRES = "select_diet_filters";
@@ -81,7 +83,20 @@ public class Events {
     //public static final String SELECT_TRAINING = "select_training";
     //public static final String SHARE_TRAINING = "share_training";
 
-    //Amplitude events
+    public static void logBuy(String from) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.trial_from, from);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(TRIAL_SUCCESS, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.trial_from, from);
+        io.intercom.android.sdk.Intercom.client().logEvent(TRIAL_SUCCESS, eventData);
+    }
+
+
     public static void logViewFood(String id) {
         JSONObject eventProperties = new JSONObject();
         try {

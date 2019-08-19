@@ -456,7 +456,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_MICRO);
         Intercom.client().logEvent(Events.PRODUCT_PAGE_MICRO);
         Intent intent = new Intent(ActivityDetailOfFood.this, ActivitySubscription.class);
-        Box box = new Box(AmplitudaEvents.view_prem_elements, AmplitudaEvents.buy_prem_elements, false,
+        Box box = new Box(AmplitudaEvents.view_prem_elements, EventProperties.trial_from_elements, false,
                 true, null, false);
         intent.putExtra(Config.TAG_BOX, box);
         startActivity(intent);

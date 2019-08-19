@@ -29,6 +29,7 @@ import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 
 import java.util.Iterator;
 import java.util.List;
@@ -373,7 +374,7 @@ public class DetailFoodActivity extends AppCompatActivity {
 
     private void showPremiumScreen() {
         Intent intent = new Intent(this, ActivitySubscription.class);
-        Box box = new Box(AmplitudaEvents.view_prem_elements, AmplitudaEvents.buy_prem_elements, false,
+        Box box = new Box(AmplitudaEvents.view_prem_elements, EventProperties.trial_from_elements, false,
                 true, null, false);
         intent.putExtra(Config.TAG_BOX, box);
         startActivity(intent);

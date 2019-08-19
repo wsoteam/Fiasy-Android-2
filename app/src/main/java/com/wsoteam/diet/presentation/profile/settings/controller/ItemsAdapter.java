@@ -20,6 +20,7 @@ import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.profile.about.AboutActivity;
 import com.wsoteam.diet.presentation.profile.help.HelpActivity;
@@ -94,7 +95,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
                 intent = new Intent(context, ActivitySubscription.class);
                 Box box = new Box();
                 box.setComeFrom(AmplitudaEvents.view_prem_settings);
-                box.setBuyFrom(AmplitudaEvents.buy_prem_settings);
+                box.setBuyFrom(EventProperties.trial_from_settings);
                 box.setOpenFromPremPart(true);
                 box.setOpenFromIntrodaction(false);
                 intent.putExtra(Config.TAG_BOX, box);

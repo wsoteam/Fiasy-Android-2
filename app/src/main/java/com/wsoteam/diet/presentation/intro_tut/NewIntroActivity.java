@@ -17,6 +17,7 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.auth.MainAuthNewActivity;
 
@@ -50,7 +51,7 @@ public class NewIntroActivity extends AppCompatActivity {
                 {
                     Intent intent = new Intent(this, MainAuthNewActivity.class);
                     Box box = new Box();
-                    box.setBuyFrom(AmplitudaEvents.buy_prem_onboarding);
+                    box.setBuyFrom(EventProperties.trial_from_onboard);
                     box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);
                     box.setOpenFromIntrodaction(true);
                     box.setOpenFromPremPart(false);
@@ -66,7 +67,7 @@ public class NewIntroActivity extends AppCompatActivity {
                 Events.logSkipOnboard(viewPager.getCurrentItem() + 1);
                 Intent intent = new Intent(this, MainAuthNewActivity.class);
                 Box box = new Box();
-                box.setBuyFrom(AmplitudaEvents.buy_prem_onboarding);
+                box.setBuyFrom(EventProperties.trial_from_onboard);
                 box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);
                 box.setOpenFromIntrodaction(true);
                 box.setOpenFromPremPart(false);

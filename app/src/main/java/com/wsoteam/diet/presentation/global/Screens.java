@@ -12,7 +12,7 @@ import com.wsoteam.diet.presentation.auth.restore.ActivityForgotPassword;
 import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
 import com.wsoteam.diet.presentation.food.template.create.detail.DetailFoodActivity;
 import com.wsoteam.diet.presentation.food.template.create.search.SearchFoodActivity;
-import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
+
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 
@@ -54,11 +54,6 @@ public class Screens {
             this.isReg = isReg;
         }
 
-        @Override
-        public Intent getActivityIntent(Context context) {
-            return new Intent(context, EditProfileActivity.class)
-                    .putExtra("registration", isReg);
-        }
     }
 
     public static final class SignInScreen extends SupportAppScreen {

@@ -49,6 +49,7 @@ import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.common.Analytics.Events;
 
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     Amplitude.getInstance().logEvent(Events.CHOOSE_ARTICLES);
                     Intercom.client().logEvent(Events.CHOOSE_ARTICLES);
                     box.setComeFrom(AmplitudaEvents.view_prem_content);
-                    box.setBuyFrom(AmplitudaEvents.buy_prem_content);
+                    box.setBuyFrom(EventProperties.trial_from_articles);
                     isMainFragment = false;
                     window.setStatusBarColor(Color.parseColor("#747d3b"));
                     transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();

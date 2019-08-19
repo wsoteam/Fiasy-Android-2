@@ -6,23 +6,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AmplitudaEvents {
-    public static final String buy_prem_onboarding = "buy_prem_onboarding";
-
     public static final String view_group_recipes = "view_group_recipes";
     public static final String view_prem_recipe = "view_prem_recipe";
-    public static final String buy_prem_recipe = "buy_prem_recipe";
 
     public static final String view_prem_content = "view_prem_content";
-    public static final String buy_prem_content = "buy_prem_content";
 
     public static final String view_prem_settings = "view_prem_settings";
-    public static final String buy_prem_settings = "buy_prem_settings";
 
     public static final String view_prem_elements = "view_prem_elements";
-    public static final String buy_prem_elements = "buy_prem_elements";
 
     public static final String view_prem_free_onboard = "view_prem_free_onboard";
-    public static final String buy_prem_free_onboard = "buy_prem_free_onboard";
 
 
     public static final String  view_prem = "view_prem";

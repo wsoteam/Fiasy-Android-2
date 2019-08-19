@@ -18,6 +18,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.POJOS.ItemRecipes;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 
 public class ItemActivity extends AppCompatActivity {
 
@@ -64,7 +65,7 @@ public class ItemActivity extends AppCompatActivity {
             arrowBackButton.setOnClickListener(listener);
         } else {
             Box box = new Box();
-            box.setBuyFrom(AmplitudaEvents.buy_prem_recipe);
+            box.setBuyFrom(EventProperties.trial_from_recipe);
             box.setComeFrom(AmplitudaEvents.view_prem_recipe);
             box.setOpenFromIntrodaction(false);
             box.setOpenFromPremPart(true);
