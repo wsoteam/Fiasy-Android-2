@@ -272,6 +272,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
                 /*AlertDialogChoiseEating.createChoiceEatingAlertDialog(getActivity(),
                         tvDateForMainScreen.getText().toString()).show();*/
                 Intercom.client().displayMessenger();
+                Events.logOpenChat();
                 break;
             case R.id.btnNotification:
                 attachCaloriesPopup();
@@ -302,13 +303,13 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
     @Override
     public void onPause() {
         super.onPause();
-        IntercomFactory.hide();
+        //IntercomFactory.hide();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        IntercomFactory.show();
+        //IntercomFactory.show();
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
             Profile profile = UserDataHolder.getUserData().getProfile();
             setMaxParamsInProgressBars(profile);

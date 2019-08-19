@@ -83,6 +83,12 @@ public class Events {
     //public static final String SELECT_TRAINING = "select_training";
     //public static final String SHARE_TRAINING = "share_training";
 
+    public static void logOpenChat() {
+        Amplitude.getInstance().logEvent(INTERCOM_CHAT);
+        io.intercom.android.sdk.Intercom.client().logEvent(INTERCOM_CHAT);
+    }
+
+
     public static void logBuy(String from) {
         JSONObject eventProperties = new JSONObject();
         try {
