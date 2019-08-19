@@ -33,16 +33,20 @@
 
         <TextView
             android:id="@+id/tvRecipeKK"
-            android:layout_width="199dp"
+            android:layout_width="0dp"
             android:layout_height="46dp"
-            android:background="@drawable/recipe_background"
+            android:background="@drawable/gradient_white"
             android:fontFamily="@font/roboto_bold"
             android:gravity="center"
+            android:paddingLeft="16dp"
             android:text="0 ккал на порцию"
-            android:textColor="@android:color/white"
+            android:textAlignment="textStart"
+            android:textColor="@color/pumpkin_orange"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
 
       </android.support.constraint.ConstraintLayout>
 
