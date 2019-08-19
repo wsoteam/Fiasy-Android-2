@@ -206,10 +206,13 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
         if (box.isOpenFromIntrodaction()){
           Events.logMoveQuestions(EventProperties.question_close);
         }
-
-        final Intent intent = new Intent(getContext(), ActivitySplash.class);
-        startActivity(intent);
-        getActivity().finish();
+        if (box.isOpenFromIntrodaction()) {
+          final Intent intent = new Intent(getContext(), ActivitySplash.class);
+          startActivity(intent);
+          getActivity().finish();
+        }else {
+          getActivity().onBackPressed();
+        }
       }
       break;
 

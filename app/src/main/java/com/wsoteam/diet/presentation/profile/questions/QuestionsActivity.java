@@ -179,7 +179,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
       sex = UserProperty.q_male_status_male;
     }
 
-    UserProperty.setUserProperties(sex, height, weight, age, active, goal, FirebaseAuth.getInstance().getCurrentUser().getUid(), FirebaseAuth.getInstance().getCurrentUser().getProviderId());
+    UserProperty.setUserProperties(sex, height, weight, age, active, goal, FirebaseAuth.getInstance().getCurrentUser().getUid());
 
   }
 
