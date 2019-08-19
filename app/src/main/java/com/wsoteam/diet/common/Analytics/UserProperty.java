@@ -16,29 +16,22 @@ import io.intercom.android.sdk.Intercom;
 import io.intercom.android.sdk.UserAttributes;
 
 public class UserProperty {
-    public static final String reg_social = "reg_social";
-    public static final String reg_social_facebook = "facebook";
-    public static final String reg_social_google = "google";
+    public static final String registration = "registration";
+    public static final String registration_google = "facebook";
+    public static final String registration_fb = "google";
+    public static final String registration_email = "email";
 
-    public static final String reg_enter_social = "reg_enter_social";
-    public static final String reg_enter_social_facebook = "facebook";
-    public static final String reg_enter_social_google = "google";
-
-    public static final String reg_reg_social = "reg_reg_social";
-    public static final String reg_reg_enter_social_facebook = "facebook";
-    public static final String reg_reg_enter_social_google = "google";
-
-    public static final String q_male_status = "q_male_status";
+    public static final String q_male_status = "male";
     public static final String q_male_status_male = "male";
     public static final String q_male_status_female = "female";
 
-    public static final String q_height_status = "q_height_status";
+    public static final String q_height_status = "height";
 
-    public static final String q_weight_status = "q_weight_status";
+    public static final String q_weight_status = "weight";
 
-    public static final String q_age_status = "q_age_status";
+    public static final String q_age_status = "age";
 
-    public static final String q_active_status = "q_active_status";
+    public static final String q_active_status = "active";
     public static final String q_active_status1 = "1";
     public static final String q_active_status2 = "2";
     public static final String q_active_status3 = "3";
@@ -47,7 +40,7 @@ public class UserProperty {
     public static final String q_active_status6 = "6";
     public static final String q_active_status7 = "7";
 
-    public static final String q_goal_status = "q_goal_status";
+    public static final String q_goal_status = "goal";
     public static final String q_goal_status1 = "1";
     public static final String q_goal_status2 = "2";
     public static final String q_goal_status3 = "3";
