@@ -141,6 +141,7 @@ public abstract class AuthStrategyFragment extends Fragment {
         provider = UserProperty.registration_email;
       }
 
+      Log.e("LOL", "create user");
       Events.logRegistration(type);
       UserProperty.setUserProvider(provider);
       getActivity().getSharedPreferences(Config.IS_NEED_SHOW_LOADING_SPLASH, MODE_PRIVATE).edit().putBoolean(Config.IS_NEED_SHOW_LOADING_SPLASH, true).commit();

@@ -2,7 +2,9 @@ package com.wsoteam.diet.EntryPoint;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -16,6 +18,9 @@ import androidx.annotation.Nullable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustAttribution;
@@ -38,6 +43,7 @@ import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Amplitude.SetUserProperties;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.InApp.IDs;
@@ -62,6 +68,7 @@ import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ActivitySplash extends BaseActivity {
     private final String TAG_FIRST_RUN = "TAG_FIRST_RUN";
@@ -109,7 +116,6 @@ public class ActivitySplash extends BaseActivity {
         rotate.setInterpolator(new LinearInterpolator());
 
         loader.startAnimation(rotate);
-        getSharedPreferences(Config.IS_NEED_SHOW_LOADING_SPLASH, MODE_PRIVATE).edit().putBoolean(Config.IS_NEED_SHOW_LOADING_SPLASH, false).commit();
     }
 
     private void checkRegistrationAndRun() {
@@ -208,8 +214,18 @@ public class ActivitySplash extends BaseActivity {
         if (QuestionsActivity.hasNotAskedQuestionsLeft(this)) {
             startActivity(new Intent(this, QuestionsActivity.class));
         } else {
-            startActivity(new Intent(this, MainActivity.class));
+            if (getSharedPreferences(Config.IS_NEED_SHOW_LOADING_SPLASH, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_LOADING_SPLASH, false)) {
+               new FalseWait().execute();
+            } else {
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            }
         }
+
+    }
+
+    private void openMainScreen() {
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
@@ -361,5 +377,24 @@ public class ActivitySplash extends BaseActivity {
         getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).edit()
                 .putBoolean(Config.STATE_BILLING, isPremUser)
                 .apply();
+    }
+
+    public class FalseWait extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            getSharedPreferences(Config.IS_NEED_SHOW_LOADING_SPLASH, MODE_PRIVATE).edit().putBoolean(Config.IS_NEED_SHOW_LOADING_SPLASH, false).commit();
+            openMainScreen();
+        }
     }
 }
