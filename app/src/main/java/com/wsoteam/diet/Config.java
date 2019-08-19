@@ -110,5 +110,7 @@ public class Config {
     public static final String BARCODE_STRING_NAME = "BARCODE_STRING_NAME";
     public static final String LIST_CUSTOM_FOOD = "LIST_CUSTOM_FOOD";
 
+    public static final String IS_NEED_SHOW_LOADING_SPLASH = "IS_NEED_SHOW_LOADING_SPLASH";
+
 
 }

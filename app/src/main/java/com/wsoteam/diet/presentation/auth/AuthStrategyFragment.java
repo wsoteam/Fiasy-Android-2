@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.wsoteam.diet.BuildConfig;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
@@ -26,6 +27,8 @@ import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 import com.wsoteam.diet.utils.RichTextUtils.RichText;
 import com.wsoteam.diet.views.InAppNotification;
 import java.io.IOException;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public abstract class AuthStrategyFragment extends Fragment {
 
@@ -140,6 +143,8 @@ public abstract class AuthStrategyFragment extends Fragment {
 
       Events.logRegistration(type);
       UserProperty.setUserProvider(provider);
+      getActivity().getSharedPreferences(Config.IS_NEED_SHOW_LOADING_SPLASH, MODE_PRIVATE).edit().putBoolean(Config.IS_NEED_SHOW_LOADING_SPLASH, true).commit();
+
     } else {
       final String type;
 
