@@ -229,6 +229,19 @@ public final class VerticalRulerValuePicker extends FrameLayout implements Obser
         mNotchPath.lineTo(getWidth(), getHeight() / 2 + 30);
     }
 
+    public void selectValue2(final int value){
+        int valuesToScroll;
+        if (value < mRulerView.getMinValue()) {
+            valuesToScroll = 0;
+        } else if (value > mRulerView.getMaxValue()) {
+            valuesToScroll = mRulerView.getMaxValue() - mRulerView.getMinValue();
+        } else {
+            valuesToScroll = value - mRulerView.getMinValue();
+        }
+
+        mVerticalScrollView.scrollTo(valuesToScroll * mRulerView.getIndicatorIntervalWidth(), 0);
+    }
+
     public void selectValue(final int value) {
         mVerticalScrollView.postDelayed(() -> {
             int valuesToScroll;
@@ -242,7 +255,7 @@ public final class VerticalRulerValuePicker extends FrameLayout implements Obser
 
             mVerticalScrollView.smoothScrollTo(
                     valuesToScroll * mRulerView.getIndicatorIntervalWidth(), 0);
-        }, 400);
+        }, 1000);
     }
 
     public int getCurrentValue() {

@@ -36,7 +36,11 @@ public class QuestionWeightFragments extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_question_weight, container, false);
         ButterKnife.bind(this, view);
-        tvWeight.setText(String.format(getString(R.string.onboard_weight_pattern), rulerPicker.getCurrentValue()));
+
+        weight = 65;
+        tvWeight.setText(String.format(getString(R.string.onboard_weight_pattern), weight));
+
+        rulerPicker.selectValue(weight);
         rulerPicker.setValuePickerListener(new RulerValuePickerListener() {
             @Override
             public void onValueChange(int selectedValue) {
@@ -49,7 +53,6 @@ public class QuestionWeightFragments extends Fragment {
 
             }
         });
-        weight = rulerPicker.getCurrentValue();
         return view;
     }
 

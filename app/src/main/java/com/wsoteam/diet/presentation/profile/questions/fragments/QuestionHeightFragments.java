@@ -36,7 +36,11 @@ public class QuestionHeightFragments extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_question_height, container, false);
         ButterKnife.bind(this, view);
-        tvHeight.setText(String.format(getString(R.string.onboard_height_pattern), rulerPicker.getCurrentValue()));
+
+        height = 180;
+        tvHeight.setText(String.format(getString(R.string.onboard_height_pattern), height));
+
+        rulerPicker.selectValue2(height);
         rulerPicker.setValuePickerListener(new RulerValuePickerListener() {
             @Override
             public void onValueChange(int selectedValue) {
@@ -49,7 +53,6 @@ public class QuestionHeightFragments extends Fragment {
 
             }
         });
-        height = rulerPicker.getCurrentValue();
         return view;
     }
 
