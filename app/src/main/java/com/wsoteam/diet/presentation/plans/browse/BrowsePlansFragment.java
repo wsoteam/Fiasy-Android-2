@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.plans.browse;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,6 +27,8 @@ import com.wsoteam.diet.presentation.plans.detail.blocked.BlockedDetailPlansActi
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowsePlansView {
 
@@ -70,16 +73,22 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
     HorizontalBrowsePlansAdapter.OnItemClickListener onItemClickListener = new HorizontalBrowsePlansAdapter.OnItemClickListener() {
         @Override
         public void onItemClick(View view, int position, DietPlan dietPlan) {
-            Intent intent = new Intent(getContext(), DetailPlansActivity.class);
+            Intent intent;
+            if (!checkSubscribe() && dietPlan.isPremium()){
+                intent = new Intent(getContext(), BlockedDetailPlansActivity.class);
+            }else {
+                intent = new Intent(getContext(), DetailPlansActivity.class);
+            }
+
             intent.putExtra(Config.DIETS_PLAN_INTENT, dietPlan);
             startActivity(intent);
         }
 
         @Override
         public void onItemLongClick(View view, int position, DietPlan dietPlan) {
-            Intent intent = new Intent(getContext(), BlockedDetailPlansActivity.class);
-            intent.putExtra(Config.DIETS_PLAN_INTENT, dietPlan);
-            startActivity(intent);
+            //Intent intent = new Intent(getContext(), DetailPlansActivity.class);
+            //intent.putExtra(Config.DIETS_PLAN_INTENT, dietPlan);
+            //startActivity(intent);
         }
     };
 
@@ -91,5 +100,14 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
     @Override
     public void showMessage(String message) {
 
+    }
+
+    private boolean checkSubscribe() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+        if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

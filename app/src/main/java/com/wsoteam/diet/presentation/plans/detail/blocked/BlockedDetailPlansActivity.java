@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.plans.detail.blocked;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -61,13 +62,16 @@ public class BlockedDetailPlansActivity extends BaseActivity implements BlockedD
 
         toolbar.inflateMenu(R.menu.diet_plans_menu);
         toolbar.setNavigationOnClickListener(navigationListener);
+        toolbar.setOverflowIcon(getDrawable(R.drawable.ic_more));
 
         Menu menu = toolbar.getMenu();
         MenuItem shareMenu = menu.findItem(R.id.mShare);
-        MenuItem dotMenu = menu.findItem(R.id.mLeave);
+        MenuItem leaveMenu = menu.findItem(R.id.mLeave);
+        invalidateOptionsMenu();
+        leaveMenu.setVisible(false);
 
         shareMenu.setOnMenuItemClickListener(menuListener);
-        dotMenu.setOnMenuItemClickListener(menuListener);
+        leaveMenu.setOnMenuItemClickListener(menuListener);
 
     }
 
@@ -81,8 +85,18 @@ public class BlockedDetailPlansActivity extends BaseActivity implements BlockedD
     MenuItem.OnMenuItemClickListener menuListener = new MenuItem.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
-
-            return true;
+            switch (menuItem.getItemId()) {
+                case R.id.mLeave: {
+                    //presenter.clickedLeave();
+                    return true;
+                }
+                case R.id.mShare:{
+                    presenter.clickedShare();
+                    return true;
+                }
+                default:
+                    return false;
+            }
         }
     };
 
@@ -119,6 +133,15 @@ public class BlockedDetailPlansActivity extends BaseActivity implements BlockedD
         Glide.with(this)
                 .load(dietPlan.getUrlImage())
                 .into(ivPlans);
+    }
+
+    @Override public void sharePlan(String str) {
+        Intent i = new Intent(
+            android.content.Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(android.content.Intent.EXTRA_TEXT, str);
+        startActivity(
+            Intent.createChooser(i, getResources().getString(R.string.titleShareDialogPlan)));
     }
 
     @Override

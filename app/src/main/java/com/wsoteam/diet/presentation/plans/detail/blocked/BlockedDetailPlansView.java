@@ -7,4 +7,5 @@ public interface BlockedDetailPlansView extends BaseView {
 
     void getDietPlan();
     void showData(DietPlan dietPlan);
+    void sharePlan(String str);
 }

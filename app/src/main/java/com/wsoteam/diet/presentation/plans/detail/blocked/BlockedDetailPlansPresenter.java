@@ -28,6 +28,10 @@ public class BlockedDetailPlansPresenter extends BasePresenter<BlockedDetailPlan
         getViewState().showData(dietPlan);
     }
 
+    void clickedShare(){
+        getViewState().sharePlan(dietPlan.getName() + "\n https://play.google.com/store/apps/details?id=com.wild.diet" );
+    }
+
     void clickedPremButton(){
        router.navigateTo(new Screens.SubscriptionScreen());
     }
