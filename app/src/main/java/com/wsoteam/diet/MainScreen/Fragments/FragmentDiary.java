@@ -10,12 +10,15 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -23,11 +26,14 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
 import com.amplitude.api.Amplitude;
 import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
 import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
@@ -41,8 +47,12 @@ import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
+
 import io.intercom.android.sdk.Intercom;
+
 import java.util.Calendar;
+
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
@@ -152,7 +162,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
             alertDialogBuyInfo.show();
 
             SharedPreferences sharedPreferences =
-                getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
+                    getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(Config.ALERT_BUY_SUBSCRIPTION, false);
             editor.apply();
@@ -237,7 +247,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         SharedPreferences.Editor editor = countOfRun.edit();
         int COUNT_OF_RUN = 0;
         editor.putInt(TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG, countOfRun.getInt(TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG,
-            COUNT_OF_RUN) + 1);
+                COUNT_OF_RUN) + 1);
         editor.apply();
     }
 
@@ -246,7 +256,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         return countOfRun.getInt(TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG, 0);
     }
 
-    @OnClick({R.id.fabAddEating, R.id.btnNotification})
+    @OnClick({R.id.fabAddEating, R.id.btnNotification, R.id.tvReports})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fabAddEating:
@@ -257,7 +267,18 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
             case R.id.btnNotification:
                 attachCaloriesPopup();
                 break;
+            case R.id.tvReports:
+                openProfile();
+                break;
         }
+    }
+
+    private void openProfile() {
+        Window window = getActivity().getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.flFragmentContainer, new ProfileFragment()).commit();
+        window.setStatusBarColor(Color.parseColor("#AE6A23"));
     }
 
     @Override

@@ -127,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
                     return true;
                 case R.id.bnv_main_profile:
-                    //TODO move to on create profile activity
                     Amplitude.getInstance().logEvent(Events.VIEW_PROFILE);
                     Intercom.client().logEvent(Events.VIEW_PROFILE);
                     isMainFragment = false;
