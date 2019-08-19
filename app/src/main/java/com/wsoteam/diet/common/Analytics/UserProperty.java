@@ -17,8 +17,8 @@ import io.intercom.android.sdk.UserAttributes;
 
 public class UserProperty {
     public static final String registration = "registration";
-    public static final String registration_google = "facebook";
-    public static final String registration_fb = "google";
+    public static final String registration_google = "google";
+    public static final String registration_fb = "facebook";
     public static final String registration_email = "email";
 
     public static final String q_male_status = "male";
@@ -91,6 +91,17 @@ public class UserProperty {
 
         UserAttributes userAttributes = new UserAttributes.Builder()
                 .withCustomAttribute(premium_status, status)
+                .build();
+        Intercom.client().updateUser(userAttributes);
+    }
+
+    public static void setUserProvider(String provider) {
+        Identify identify = new Identify()
+                .set(registration, provider);
+        Amplitude.getInstance().identify(identify);
+
+        UserAttributes userAttributes = new UserAttributes.Builder()
+                .withCustomAttribute(registration, provider)
                 .build();
         Intercom.client().updateUser(userAttributes);
     }

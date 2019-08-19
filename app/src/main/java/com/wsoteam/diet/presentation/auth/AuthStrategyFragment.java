@@ -21,6 +21,7 @@ import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.common.Analytics.UserProperty;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 import com.wsoteam.diet.utils.RichTextUtils.RichText;
 import com.wsoteam.diet.views.InAppNotification;
@@ -124,16 +125,21 @@ public abstract class AuthStrategyFragment extends Fragment {
 
     if (newUser) {
       final String type;
+      final String provider;
 
       if (getAuthStrategy() instanceof FacebookAuthStrategy) {
         type = EventProperties.registration_facebook;
+        provider = UserProperty.registration_fb;
       } else if (getAuthStrategy() instanceof GoogleAuthStrategy) {
         type = EventProperties.registration_google;
+        provider = UserProperty.registration_google;
       } else {
         type = EventProperties.registration_email;
+        provider = UserProperty.registration_email;
       }
 
       Events.logRegistration(type);
+      UserProperty.setUserProvider(provider);
     } else {
       final String type;
 

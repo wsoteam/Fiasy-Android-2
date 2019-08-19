@@ -153,7 +153,7 @@ public class ActivitySplash extends BaseActivity {
     }else {
       sex = UserProperty.q_male_status_male;
     }
-
+    Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getProviderId());
     UserProperty.setUserProperties(sex, height, weight, age, active, goal, FirebaseAuth.getInstance().getCurrentUser().getUid());
 
   }
@@ -262,7 +262,7 @@ public class ActivitySplash extends BaseActivity {
 
       @Override
       public void onBillingServiceDisconnected() {
-        //сюда мы попадем если что-то пойдет не так
+
       }
     });
   }
