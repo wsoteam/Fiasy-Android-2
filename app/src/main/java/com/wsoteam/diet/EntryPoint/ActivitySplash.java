@@ -197,7 +197,6 @@ public class ActivitySplash extends BaseActivity {
   private void checkBilling() {
     if (SingletonMakePurchase.getInstance().isMakePurchaseNow()) {
       changePremStatus(true);
-      AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
     } else if (UserDataHolder.getUserData() != null
         && UserDataHolder.getUserData().getSubInfo() == null) {
       //unknown status premium or new user
@@ -209,8 +208,7 @@ public class ActivitySplash extends BaseActivity {
       SubInfo subInfo = UserDataHolder.getUserData().getSubInfo();
       if (subInfo.getPaymentState() == 0) {
         changePremStatus(false);
-        AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS,
-            AmplitudaEvents.preferential);
+        UserProperty.setPremStatus(UserProperty.preferential);
         new CheckAndSetPurchase().execute(subInfo.getProductId(), subInfo.getPurchaseToken(),
             subInfo.getPackageName());
       } else if (subInfo.getPaymentState() != 0) {
@@ -219,8 +217,7 @@ public class ActivitySplash extends BaseActivity {
     } else if (UserDataHolder.getUserData() != null
         && UserDataHolder.getUserData().getSubInfo() != null
         && UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
-      AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS,
-          AmplitudaEvents.not_buy);
+      UserProperty.setPremStatus(UserProperty.not_buy);
       changePremStatus(false);
     }
   }
@@ -232,10 +229,9 @@ public class ActivitySplash extends BaseActivity {
           subInfo.getPackageName());
     } else {
       if (subInfo.getPaymentState() == 1) {
-        AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
+        UserProperty.setPremStatus(UserProperty.buy);
       } else if (subInfo.getPaymentState() == 2) {
-        AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS,
-            AmplitudaEvents.trial);
+        UserProperty.setPremStatus(UserProperty.trial);
       }
       changePremStatus(true);
     }
@@ -257,8 +253,7 @@ public class ActivitySplash extends BaseActivity {
             changePremStatus(true);
             setSubInfo(purchasesList.get(0));
           } else {
-            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS,
-                AmplitudaEvents.not_buy);
+            UserProperty.setPremStatus(UserProperty.not_buy);
             EmptySubInfo.setEmptySubInfo();
             changePremStatus(false);
           }

@@ -25,19 +25,6 @@ public class AmplitudaEvents {
     public static final String buy_prem_free_onboard = "buy_prem_free_onboard";
 
 
-    public static final String PREM_STATUS = "PREM_STATUS";
-    public static final String buy = "buy";
-    public static final String not_buy = "not_buy";
-    public static final String trial = "trial";
-    public static final String preferential = "preferential";
-    public static final String paid = "paid";
-
-    public static final String LONG_OF_PREM = "LONG_OF_PREM";
-    public static final String PRICE_OF_PREM = "PRICE_OF_PREM";
-
-    public static final String  ONE_MONTH_PRICE = "299р", THREE_MONTH_PRICE = "199р", ONE_YEAR_PRICE = "99р";
-
-
     public static final String  view_prem = "view_prem";
     public static final String  VIEW_PREM_FROM = "VIEW_PREM_FROM";
 

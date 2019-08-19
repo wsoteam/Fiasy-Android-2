@@ -10,6 +10,7 @@ import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.InApp.IDs;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.UserProperty;
 
 import io.intercom.android.sdk.Intercom;
 
@@ -33,7 +34,7 @@ public class CheckAndSetPurchase extends AsyncTask<String, Void, Void> {
     private SubInfo getAllSubInfo(String packageName, String productId, String token, SubscriptionPurchase subscription) {
         SubInfo subInfo = new SubInfo();
         if (subscription.getPaymentState() == null) {
-            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.not_buy);
+            UserProperty.setPremStatus(UserProperty.not_buy);
             return getEmptySubInfo();
         } else {
             subInfo.setOrderId(subscription.getOrderId());
@@ -46,28 +47,10 @@ public class CheckAndSetPurchase extends AsyncTask<String, Void, Void> {
             subInfo.setPaymentState(subscription.getPaymentState());
             subInfo.setCurrency(subscription.getPriceCurrencyCode());
             subInfo.setPrice(subscription.getPriceAmountMicros());
-            choiseUserPremState(subscription.getPaymentState());
         }
         return subInfo;
     }
 
-    private void choiseUserPremState(Integer paymentState) {
-        Log.e("LOL", String.valueOf(paymentState));
-        switch (paymentState) {
-            case 0:
-                AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.preferential);
-                Intercom.client().logEvent(AmplitudaEvents.preferential);
-                break;
-            case 1:
-                AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.paid);
-                Intercom.client().logEvent(AmplitudaEvents.paid);
-                break;
-            case 2:
-                AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
-                Intercom.client().logEvent(AmplitudaEvents.trial);
-                break;
-        }
-    }
 
     private SubInfo getEmptySubInfo() {
         SubInfo subInfo = new SubInfo();

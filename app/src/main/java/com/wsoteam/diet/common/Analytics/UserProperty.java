@@ -47,12 +47,19 @@ public class UserProperty {
     public static final String q_goal_status4 = "4";
 
     public static final String premium_status = "premium_status";
+    public static final String buy = "premium";
+    public static final String not_buy = "free";
+    public static final String trial = "trial";
+    public static final String preferential = "trial_no_pay";
+    public static final String paid = "paid";
+
     public static final String premium_duration = "premium_duration";
     public static final String trial_duration = "trial_duration";
     public static final String ltv_duration = "ltv_duration";
     public static final String ltv_revenue = "ltv_revenue";
 
     public static final String user_id = "id";
+
 
     public static void setUserProperties(String sex, String height, String weight, String age, String active, String goal, String id) {
         Identify identify = new Identify()
@@ -73,6 +80,17 @@ public class UserProperty {
                 .withCustomAttribute(q_active_status, active)
                 .withCustomAttribute(q_goal_status, id)
                 .withCustomAttribute(user_id, id)
+                .build();
+        Intercom.client().updateUser(userAttributes);
+    }
+
+    public static void setPremStatus(String status) {
+        Identify identify = new Identify()
+                .set(premium_status, status);
+        Amplitude.getInstance().identify(identify);
+
+        UserAttributes userAttributes = new UserAttributes.Builder()
+                .withCustomAttribute(premium_status, status)
                 .build();
         Intercom.client().updateUser(userAttributes);
     }
