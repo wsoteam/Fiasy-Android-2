@@ -43,11 +43,14 @@ public class QuestionBirthdayFragments extends Fragment implements WheelDatePick
         View view = inflater.inflate(R.layout.fragment_question_birthday, container, false);
         ButterKnife.bind(this, view);
 
+        final SharedPreferences prefs = getActivity().getSharedPreferences(Config.ONBOARD_PROFILE, MODE_PRIVATE);
+        final int diffs = prefs.getInt(Config.ONBOARD_PROFILE_YEARS, 12);
+
         wheelDate.setOnDateSelectedListener(this);
         wheelDate.setSelectedDay(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-        wheelDate.setSelectedYear(Calendar.getInstance().get(Calendar.YEAR) - 12);
+        wheelDate.setSelectedYear(Calendar.getInstance().get(Calendar.YEAR) - diffs);
         wheelDate.setSelectedMonth(Calendar.getInstance().get(Calendar.MONTH) + 1);
-        wheelDate.setYearEnd(Calendar.getInstance().get(Calendar.YEAR) - 12);
+        wheelDate.setYearEnd(Calendar.getInstance().get(Calendar.YEAR) - diffs);
         wheelDate.updateDate();
         return view;
     }
@@ -55,9 +58,11 @@ public class QuestionBirthdayFragments extends Fragment implements WheelDatePick
     @OnClick(R.id.btnNext)
     public void onClickNext() {
         try {
-            Date date1 = new SimpleDateFormat("dd.MM.yyyy").parse(tvDate.getText().toString());
+            final Date date1 = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+                .parse(tvDate.getText().toString());
+
             int difference = getDiffYears(date1, new Date());
-            SharedPreferences sp = getActivity().getSharedPreferences(Config.ONBOARD_PROFILE, MODE_PRIVATE);
+            final SharedPreferences sp = getActivity().getSharedPreferences(Config.ONBOARD_PROFILE, MODE_PRIVATE);
             SharedPreferences.Editor editor = sp.edit();
             editor.putInt(Config.ONBOARD_PROFILE_YEARS, difference);
             editor.apply();

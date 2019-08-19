@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -44,11 +45,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.wsoteam.diet.common.Analytics.EventProperties;
-import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.global.BaseActivity;
-import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
-
 import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 import java.util.Calendar;
@@ -81,21 +78,33 @@ public class ActivitySplash extends BaseActivity {
     if (user != null) {
       try {
         SetUserProperties.setUserProperties(Adjust.getAttribution());
-      }catch (Exception e){
+      } catch (Exception e) {
 
       }
-      FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
-      AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
+      FirebaseAnalytics.getInstance(this)
+          .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
+      AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS,
+          AmplitudaEvents.registered);
       setTrackInfoInDatabase(Adjust.getAttribution());
       FirebaseDatabase database = FirebaseDatabase.getInstance();
       DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
           child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-      Log.d("kkk", "checkRegistrationAndRun: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
+      Log.d("kkk",
+          "checkRegistrationAndRun: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
       myRef.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-          new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
-          onSignedIn();
+          try {
+            new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
+
+            onSignedIn();
+          } catch (Exception e) {
+            e.printStackTrace();
+
+            if (e instanceof DatabaseException) {
+              WorkWithFirebaseDB.dropUserMealsDiary();
+            }
+          }
         }
 
         @Override
@@ -112,7 +121,7 @@ public class ActivitySplash extends BaseActivity {
     }
   }
 
-  private void onUserNotAuthorized(){
+  private void onUserNotAuthorized() {
     FirebaseAnalytics.getInstance(this)
         .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
     AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS,

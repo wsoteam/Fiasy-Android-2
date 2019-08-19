@@ -112,8 +112,6 @@ public class QuestionActivityFragments extends Fragment {
 
     private String getDiffLevel(int position) {
         switch (position) {
-            case 0:
-                return getString(R.string.level_none);
             case 1:
                 return getString(R.string.level_easy);
             case 2:

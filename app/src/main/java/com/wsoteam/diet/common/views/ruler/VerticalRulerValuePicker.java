@@ -253,8 +253,8 @@ public final class VerticalRulerValuePicker extends FrameLayout implements Obser
                 valuesToScroll = value - mRulerView.getMinValue();
             }
 
-            mVerticalScrollView.smoothScrollTo(
-                    valuesToScroll * mRulerView.getIndicatorIntervalWidth(), 0);
+            mVerticalScrollView.smoothScrollTo(0,
+                valuesToScroll * mRulerView.getIndicatorIntervalWidth());
         }, 1000);
     }
 
@@ -390,7 +390,7 @@ public final class VerticalRulerValuePicker extends FrameLayout implements Obser
     public void setMinMaxValue(final int minValue, final int maxValue) {
         mRulerView.setValueRange(minValue, maxValue);
         invalidate();
-        selectValue(minValue);
+        selectValue(maxValue);
     }
 
     @CheckResult

@@ -31,9 +31,9 @@ public class AuthFirstFragment extends AuthStrategyFragment {
 
     final RichText actionOpenPrivacyPolicy =
         new RichText(getString(R.string.privacy_policy_link_span_text))
-            .colorRes(requireContext(), R.color.blue)
             .underline()
-            .onClick(v -> IntentUtils.openWebLink(v.getContext(), "http://fiasy.com/PrivacyPolice.html"));
+            .onClick(v -> IntentUtils.openWebLink(v.getContext(), "http://fiasy.com/PrivacyPolice.html"))
+            .color(0xa63a3a3a);
 
     final TextView privacyPolicyView = view.findViewById(R.id.privacyPolicy);
     privacyPolicyView.setMovementMethod(LinkMovementMethod.getInstance());
@@ -41,8 +41,9 @@ public class AuthFirstFragment extends AuthStrategyFragment {
         actionOpenPrivacyPolicy.text()));
 
     final RichText actionSignIn = new RichText(getString(R.string.action_sign_in_label))
-        .colorRes(requireContext(), R.color.blue)
-        .onClick(v -> signIn());
+        .onClick(v -> signIn())
+        .textScale(1.2f)
+        .colorRes(requireContext(), R.color.orange);
 
     final TextView signInView = view.findViewById(R.id.signIn);
     signInView.setMovementMethod(LinkMovementMethod.getInstance());

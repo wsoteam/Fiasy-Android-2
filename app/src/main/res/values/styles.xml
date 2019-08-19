@@ -299,8 +299,8 @@
     <style name="Question.NextButton" parent="TextAppearance.AppCompat.Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingRight">32dp</item>
-        <item name="android:paddingLeft">32dp</item>
+        <item name="android:paddingRight">48dp</item>
+        <item name="android:paddingLeft">48dp</item>
         <item name="android:elevation">4dp</item>
         <item name="android:background">@drawable/question_next_button_background</item>
         <item name="android:layout_marginBottom">16dp</item>

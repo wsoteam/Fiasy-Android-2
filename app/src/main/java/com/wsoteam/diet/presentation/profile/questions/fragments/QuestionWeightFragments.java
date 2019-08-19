@@ -37,7 +37,10 @@ public class QuestionWeightFragments extends Fragment {
         View view = inflater.inflate(R.layout.fragment_question_weight, container, false);
         ButterKnife.bind(this, view);
 
-        weight = 65;
+        final SharedPreferences prefs = getActivity()
+            .getSharedPreferences(Config.ONBOARD_PROFILE, MODE_PRIVATE);
+
+        weight = prefs.getInt(Config.ONBOARD_PROFILE_WEIGHT, 65);
         tvWeight.setText(String.format(getString(R.string.onboard_weight_pattern), weight));
 
         rulerPicker.selectValue(weight);

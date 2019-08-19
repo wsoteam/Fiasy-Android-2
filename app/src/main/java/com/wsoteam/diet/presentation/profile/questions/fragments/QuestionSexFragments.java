@@ -37,9 +37,11 @@ public class QuestionSexFragments extends Fragment {
     return view;
   }
 
-
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+
+    final SharedPreferences prefs = getActivity()
+        .getSharedPreferences(Config.ONBOARD_PROFILE, MODE_PRIVATE);
 
     sexGroup.setOnCheckedChangeListener((group, checkedId) -> {
       if (checkedId == R.id.rbMale) {
@@ -50,6 +52,11 @@ public class QuestionSexFragments extends Fragment {
 
       nextButton.setEnabled(true);
     });
+
+    if (prefs.contains(Config.ONBOARD_PROFILE_SEX)) {
+      sexGroup.check(prefs.getBoolean(Config.ONBOARD_PROFILE_SEX, false)
+          ? R.id.rbFemale : R.id.rbMale);
+    }
   }
 
   @OnClick(R.id.btnNext)
@@ -57,7 +64,8 @@ public class QuestionSexFragments extends Fragment {
     SharedPreferences sp = getActivity().getSharedPreferences(Config.ONBOARD_PROFILE, MODE_PRIVATE);
     SharedPreferences.Editor editor = sp.edit();
     // true when female, otherwise male
-    editor.putBoolean(Config.ONBOARD_PROFILE_SEX, sexGroup.getCheckedRadioButtonId() == R.id.rbFemale);
+    editor.putBoolean(Config.ONBOARD_PROFILE_SEX,
+        sexGroup.getCheckedRadioButtonId() == R.id.rbFemale);
     editor.apply();
     ((QuestionsActivity) getActivity()).nextQuestion();
   }

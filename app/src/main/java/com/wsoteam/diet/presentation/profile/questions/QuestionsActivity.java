@@ -39,11 +39,6 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
         .getBoolean(KEY_QUESTIONS_STARTED, false);
   }
 
-  @ProvidePresenter
-  QuestionsPresenter providePresenter() {
-    return presenter;
-  }
-
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -51,6 +46,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
     ButterKnife.bind(this);
 
     presenter = new QuestionsPresenter(this, CiceroneModule.router());
+    presenter.attachView(this);
 
     PreferenceManager.getDefaultSharedPreferences(this)
         .edit()
@@ -87,6 +83,13 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
       public void onPageScrollStateChanged(int i) {
       }
     });
+  }
+
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    presenter.detachView(this);
+    presenter.destroyView(this);
+    presenter.onDestroy();
   }
 
   public void nextQuestion() {

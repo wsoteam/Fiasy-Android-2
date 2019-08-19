@@ -37,10 +37,13 @@ public class QuestionHeightFragments extends Fragment {
         View view = inflater.inflate(R.layout.fragment_question_height, container, false);
         ButterKnife.bind(this, view);
 
-        height = 180;
+        final SharedPreferences prefs = getActivity()
+            .getSharedPreferences(Config.ONBOARD_PROFILE, MODE_PRIVATE);
+
+        height = prefs.getInt(Config.ONBOARD_PROFILE_HEIGHT, 180);
         tvHeight.setText(String.format(getString(R.string.onboard_height_pattern), height));
 
-        rulerPicker.selectValue2(height);
+        rulerPicker.selectValue(height);
         rulerPicker.setValuePickerListener(new RulerValuePickerListener() {
             @Override
             public void onValueChange(int selectedValue) {

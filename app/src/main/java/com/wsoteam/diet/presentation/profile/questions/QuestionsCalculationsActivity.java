@@ -36,7 +36,7 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        rotate.setDuration(1000);
+        rotate.setDuration(4000);
         rotate.setRepeatMode(Animation.INFINITE);
         rotate.setRepeatCount(Animation.INFINITE);
         rotate.setInterpolator(new LinearInterpolator());
@@ -61,7 +61,7 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
         }
         createUser = getIntent().getBooleanExtra(Config.CREATE_PROFILE, true);
 
-        new Handler().postDelayed(() -> saveProfile(isNeedShowOnboard, profileFinal, createUser), 2000);
+        new Handler().postDelayed(() -> saveProfile(isNeedShowOnboard, profileFinal, createUser), 4000);
     }
 
     void saveProfile(boolean isNeedShowOnboard, Profile profile, boolean createProfile) {

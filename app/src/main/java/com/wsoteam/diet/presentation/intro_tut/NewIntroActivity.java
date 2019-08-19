@@ -18,13 +18,14 @@ import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.auth.MainAuthNewActivity;
+import com.wsoteam.diet.views.CustomizedViewPager;
 
 public class NewIntroActivity extends AppCompatActivity {
 
   private final static String KEY_ONBOARD_SHOWN = "app:on_board_has_been_shown";
 
   @BindView(R.id.pager)
-  ViewPager viewPager;
+  CustomizedViewPager viewPager;
   @BindView(R.id.tabDots)
   TabLayout tabLayout;
 
@@ -37,8 +38,7 @@ public class NewIntroActivity extends AppCompatActivity {
     final SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(this);
 
     if (!pm.getBoolean(KEY_ONBOARD_SHOWN, false)) {
-      pm.edit().putBoolean(KEY_ONBOARD_SHOWN, true).apply();
-
+      viewPager.setHandleTouchEvents(false);
       viewPager.setAdapter(new IntroSlidesAdapter(getSupportFragmentManager()));
       tabLayout.setupWithViewPager(viewPager, true);
     } else {
@@ -67,34 +67,35 @@ public class NewIntroActivity extends AppCompatActivity {
         } else
         //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
         {
-          Intent intent = new Intent(this, MainAuthNewActivity.class);
-          Box box = new Box();
-          box.setBuyFrom(AmplitudaEvents.buy_prem_onboarding);
-          box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);
-          box.setOpenFromIntrodaction(true);
-          box.setOpenFromPremPart(false);
-          intent.putExtra(Config.CREATE_PROFILE, true)
-              .putExtra(Config.INTENT_PROFILE, new Profile());
-          startActivity(intent);
-          finish();
+          finishSlides();
         }
         break;
       case R.id.btnSkip:
         //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
       {
         Events.logSkipOnboard(viewPager.getCurrentItem() + 1);
-        Intent intent = new Intent(this, MainAuthNewActivity.class);
-        Box box = new Box();
-        box.setBuyFrom(AmplitudaEvents.buy_prem_onboarding);
-        box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);
-        box.setOpenFromIntrodaction(true);
-        box.setOpenFromPremPart(false);
-        intent.putExtra(Config.CREATE_PROFILE, true)
-            .putExtra(Config.INTENT_PROFILE, new Profile());
-        startActivity(intent);
-        finish();
+        finishSlides();
       }
       break;
     }
   }
+
+  protected void finishSlides(){
+    PreferenceManager.getDefaultSharedPreferences(this)
+        .edit()
+        .putBoolean(KEY_ONBOARD_SHOWN, true)
+        .apply();
+
+    Intent intent = new Intent(this, MainAuthNewActivity.class);
+    Box box = new Box();
+    box.setBuyFrom(AmplitudaEvents.buy_prem_onboarding);
+    box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);
+    box.setOpenFromIntrodaction(true);
+    box.setOpenFromPremPart(false);
+    intent.putExtra(Config.CREATE_PROFILE, true)
+        .putExtra(Config.INTENT_PROFILE, new Profile());
+    startActivity(intent);
+    finish();
+  }
+
 }

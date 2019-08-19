@@ -72,6 +72,18 @@ public class WorkWithFirebaseDB {
 
     }
 
+    public static void dropUserMealsDiary(){
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference currentUserRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY)
+            .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        currentUserRef.updateChildren(new HashMap<String, Object>(){{
+            put("breakfasts", null);
+            put("lunches", null);
+            put("dinners", null);
+        }});
+    }
+
     public static void addBreakfast(Breakfast breakfast) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).

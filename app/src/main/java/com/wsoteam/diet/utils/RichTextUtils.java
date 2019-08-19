@@ -2,6 +2,7 @@ package com.wsoteam.diet.utils;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.style.RelativeSizeSpan;
 import androidx.core.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -43,6 +44,11 @@ public class RichTextUtils {
       return this;
     }
 
+    public RichText textScale(float scaleBy){
+      RichTextUtils.setTextScale(spannable, scaleBy);
+      return this;
+    }
+
     public RichText italic() {
       RichTextUtils.setTextStyle(spannable, Typeface.ITALIC);
       return this;
@@ -64,6 +70,12 @@ public class RichTextUtils {
     } else {
       return new SpannableString(text);
     }
+  }
+
+  public static Spannable setTextScale(@NonNull CharSequence text, float scaleBy) {
+    Spannable editable = edit(text);
+    editable.setSpan(new RelativeSizeSpan(scaleBy), 0, text.length(), 0);
+    return editable;
   }
 
   public static Spannable setTextStyle(@NonNull CharSequence text, int style) {
