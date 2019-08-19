@@ -71,6 +71,8 @@ public class Events {
     public static final String SELECT_DIET = "select_diet";
     public static final String SELECT_TRAINING = "select_training";
 
+    //Purchase
+    public static final String TRIAL_SUCCESS = "trial_success";
 
     //DIET
     //public static final String SELECT_DIET_FILTRES = "select_diet_filters";
@@ -81,7 +83,26 @@ public class Events {
     //public static final String SELECT_TRAINING = "select_training";
     //public static final String SHARE_TRAINING = "share_training";
 
-    //Amplitude events
+    public static void logOpenChat() {
+        Amplitude.getInstance().logEvent(INTERCOM_CHAT);
+        io.intercom.android.sdk.Intercom.client().logEvent(INTERCOM_CHAT);
+    }
+
+
+    public static void logBuy(String from) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.trial_from, from);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(TRIAL_SUCCESS, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.trial_from, from);
+        io.intercom.android.sdk.Intercom.client().logEvent(TRIAL_SUCCESS, eventData);
+    }
+
+
     public static void logViewFood(String id) {
         JSONObject eventProperties = new JSONObject();
         try {
@@ -321,5 +342,28 @@ public class Events {
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.registration, typeEnter);
         io.intercom.android.sdk.Intercom.client().logEvent(ENTER_SUCCESS, eventData);
+    }
+
+    public static void logEnterError() {
+        Amplitude.getInstance().logEvent(ENTER_ERROR);
+        io.intercom.android.sdk.Intercom.client().logEvent(ENTER_ERROR);
+    }
+
+    public static void logMoveQuestions(String page) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.question, page);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(QUESTION_NEXT, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.question, page);
+        io.intercom.android.sdk.Intercom.client().logEvent(QUESTION_NEXT, eventData);
+    }
+
+    public static void logLogout() {
+        Amplitude.getInstance().logEvent(PROFILE_LOGOUT);
+        io.intercom.android.sdk.Intercom.client().logEvent(PROFILE_LOGOUT);
     }
 }

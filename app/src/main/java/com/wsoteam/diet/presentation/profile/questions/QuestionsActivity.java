@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.annotation.Nullable;
@@ -12,9 +13,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.common.Analytics.UserProperty;
 import com.wsoteam.diet.di.CiceroneModule;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.views.CustomizedViewPager;
@@ -33,6 +38,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
   ImageView btnBack;
   private boolean isFemale = false, createUser;
   private boolean isNeedShowOnboard = false;
+  private final int MALE = 0, HEIGHT = 1, WEIGHT = 2, AGE = 3, ACTIVE = 4, GOAL = 5;
 
   public static boolean hasNotAskedQuestionsLeft(Context context){
     return PreferenceManager.getDefaultSharedPreferences(context)
@@ -68,7 +74,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
     //viewPager.setAdapter(new AfterQuestionsPagerAdapter(getSupportFragmentManager()));
     tabLayout.setupWithViewPager(viewPager, true);
     btnBack.setOnClickListener(view -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1));
-
+    Events.logMoveQuestions(EventProperties.question_male);
     viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
       @Override
       public void onPageScrolled(int i, float v, int i1) {
@@ -76,6 +82,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
 
       @Override
       public void onPageSelected(int i) {
+        logMove(i);
         btnBack.setVisibility(i == 0 ? View.GONE : View.VISIBLE);
       }
 
@@ -83,6 +90,26 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
       public void onPageScrollStateChanged(int i) {
       }
     });
+  }
+
+  private void logMove(int i) {
+    switch (i){
+      case HEIGHT:
+        Events.logMoveQuestions(EventProperties.question_height);
+        break;
+      case WEIGHT:
+        Events.logMoveQuestions(EventProperties.question_weight);
+        break;
+      case AGE:
+        Events.logMoveQuestions(EventProperties.question_age);
+        break;
+      case ACTIVE:
+        Events.logMoveQuestions(EventProperties.question_active);
+        break;
+      case GOAL:
+        Events.logMoveQuestions(EventProperties.question_goal);
+        break;
+    }
   }
 
   @Override protected void onDestroy() {
@@ -109,7 +136,54 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
 
   @Override
   public void saveProfile(Profile profile) {
+    setUserProperties(profile);
     presenter.saveProfile(isNeedShowOnboard, profile, createUser);
+  }
+
+  private void setUserProperties(Profile profile) {
+    //TODO вынести в отдельный класс, желательно в класс пропертей
+    String goal = "", active = "", sex;
+    String userStressLevel = profile.getExerciseStress();
+    String userGoal = profile.getDifficultyLevel();
+
+    String age = String.valueOf(profile.getAge());
+    String weight = String.valueOf(profile.getWeight());
+    String height = String.valueOf(profile.getHeight());
+
+    if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_none))) {
+      active = UserProperty.q_active_status1;
+    } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_easy))) {
+      active = UserProperty.q_active_status2;
+    } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_medium))) {
+      active = UserProperty.q_active_status3;
+    } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_hard))) {
+      active = UserProperty.q_active_status4;
+    } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_up_hard))) {
+      active = UserProperty.q_active_status5;
+    } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_super))) {
+      active = UserProperty.q_active_status6;
+    } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_up_super))) {
+      active = UserProperty.q_active_status7;
+    }
+
+    if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_easy))) {
+      goal = UserProperty.q_goal_status1;
+    } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_normal))) {
+      goal = UserProperty.q_goal_status2;
+    } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_hard))) {
+      goal = UserProperty.q_goal_status3;
+    } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_hard_up))) {
+      goal = UserProperty.q_goal_status4;
+    }
+
+    if (profile.isFemale()){
+      sex = UserProperty.q_male_status_female;
+    }else {
+      sex = UserProperty.q_male_status_male;
+    }
+
+    UserProperty.setUserProperties(sex, height, weight, age, active, goal, FirebaseAuth.getInstance().getCurrentUser().getUid());
+
   }
 
   @Override

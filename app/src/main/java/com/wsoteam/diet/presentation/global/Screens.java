@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.wsoteam.diet.Authenticate.POJO.Box;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
-import com.wsoteam.diet.BranchProfile.ActivityHelp;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.POJOProfile.Profile;
@@ -14,7 +12,7 @@ import com.wsoteam.diet.presentation.auth.restore.ActivityForgotPassword;
 import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
 import com.wsoteam.diet.presentation.food.template.create.detail.DetailFoodActivity;
 import com.wsoteam.diet.presentation.food.template.create.search.SearchFoodActivity;
-import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
+
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 
@@ -56,11 +54,6 @@ public class Screens {
             this.isReg = isReg;
         }
 
-        @Override
-        public Intent getActivityIntent(Context context) {
-            return new Intent(context, EditProfileActivity.class)
-                    .putExtra("registration", isReg);
-        }
     }
 
     public static final class SignInScreen extends SupportAppScreen {
@@ -70,12 +63,6 @@ public class Screens {
         }
     }
 
-    public static final class HelpScreen extends SupportAppScreen {
-        @Override
-        public Intent getActivityIntent(Context context) {
-            return new Intent(context, ActivityHelp.class);
-        }
-    }
 
     public static final class AuthScreen extends SupportAppScreen {
         private Box box = null;

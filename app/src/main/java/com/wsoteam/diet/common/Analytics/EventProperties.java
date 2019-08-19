@@ -98,4 +98,12 @@ public class EventProperties {
 
     //Articles
     public static final String articles_item = "articles_item";
+
+    //Purchase
+    public static final String trial_from = "trial_from";
+    public static final String trial_from_onboard = "onboarding";
+    public static final String trial_from_recipe = "reciepe";
+    public static final String trial_from_articles = "articles";
+    public static final String trial_from_settings = "settings";
+    public static final String trial_from_elements = "micro";
 }

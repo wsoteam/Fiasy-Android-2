@@ -16,14 +16,19 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.wsoteam.diet.BuildConfig;
+import com.wsoteam.diet.Config;
+import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.common.Analytics.UserProperty;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 import com.wsoteam.diet.utils.RichTextUtils.RichText;
 import com.wsoteam.diet.views.InAppNotification;
 import java.io.IOException;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public abstract class AuthStrategyFragment extends Fragment {
 
@@ -115,7 +120,7 @@ public abstract class AuthStrategyFragment extends Fragment {
       if (newUser) {
         activity.startActivity(new Intent(requireContext(), QuestionsActivity.class));
       } else {
-        activity.startActivity(new Intent(requireContext(), MainActivity.class));
+        activity.startActivity(new Intent(requireContext(), ActivitySplash.class));
       }
 
       activity.finish();
@@ -123,16 +128,24 @@ public abstract class AuthStrategyFragment extends Fragment {
 
     if (newUser) {
       final String type;
+      final String provider;
 
       if (getAuthStrategy() instanceof FacebookAuthStrategy) {
         type = EventProperties.registration_facebook;
+        provider = UserProperty.registration_fb;
       } else if (getAuthStrategy() instanceof GoogleAuthStrategy) {
         type = EventProperties.registration_google;
+        provider = UserProperty.registration_google;
       } else {
         type = EventProperties.registration_email;
+        provider = UserProperty.registration_email;
       }
 
+      Log.e("LOL", "create user");
       Events.logRegistration(type);
+      UserProperty.setUserProvider(provider);
+      getActivity().getSharedPreferences(Config.IS_NEED_SHOW_LOADING_SPLASH, MODE_PRIVATE).edit().putBoolean(Config.IS_NEED_SHOW_LOADING_SPLASH, true).commit();
+
     } else {
       final String type;
 

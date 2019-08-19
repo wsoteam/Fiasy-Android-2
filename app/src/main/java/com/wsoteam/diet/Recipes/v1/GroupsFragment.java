@@ -104,7 +104,6 @@ public class GroupsFragment extends Fragment {
             updateUINew();
         }
 
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_all_recipes);
         return view;
     }
 

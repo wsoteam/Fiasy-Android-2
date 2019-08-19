@@ -10,12 +10,16 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -23,16 +27,21 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
 import com.amplitude.api.Amplitude;
 import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
 import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.MainScreen.Dialogs.SublimePickerDialogFragment;
@@ -41,8 +50,13 @@ import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
+
 import io.intercom.android.sdk.Intercom;
+
 import java.util.Calendar;
+
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
@@ -70,8 +84,6 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
     TextView tvDaysAtRow;
     @BindView(R.id.mainappbar)
     AppBarLayout mainappbar;
-    @BindView(R.id.cvParams)
-    CardView cvParams;
     @BindView(R.id.collapsingToolbarLayout)
     CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.vpEatingTimeLine)
@@ -89,6 +101,9 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
     private SharedPreferences countOfRun;
     private AlertDialog alertDialogBuyInfo;
     private LinearLayout.LayoutParams layoutParams;
+    private Window window;
+    private FragmentTransaction transaction;
+    private BottomNavigationView bnvMain;
     private ViewPager.OnPageChangeListener viewPagerListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int i, float v, int i1) {
@@ -117,14 +132,15 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.activity_main_new, container, false);
         unbinder = ButterKnife.bind(this, mainView);
+        transaction = getActivity().getSupportFragmentManager().beginTransaction();
         getActivity().setTitle("");
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_diary);
         /** on your logout method:**/
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("com.wsoteam.diet.ACTION_LOGOUT");
         getActivity().sendBroadcast(broadcastIntent);
 
         layoutParams = (LinearLayout.LayoutParams) llHead.getLayoutParams();
+        bnvMain = getActivity().findViewById(R.id.bnv_main);
 
         mainappbar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
             float diff = (float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange();
@@ -155,7 +171,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
             alertDialogBuyInfo.show();
 
             SharedPreferences sharedPreferences =
-                getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
+                    getActivity().getSharedPreferences(Config.ALERT_BUY_SUBSCRIPTION, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(Config.ALERT_BUY_SUBSCRIPTION, false);
             editor.apply();
@@ -240,7 +256,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         SharedPreferences.Editor editor = countOfRun.edit();
         int COUNT_OF_RUN = 0;
         editor.putInt(TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG, countOfRun.getInt(TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG,
-            COUNT_OF_RUN) + 1);
+                COUNT_OF_RUN) + 1);
         editor.apply();
     }
 
@@ -249,18 +265,33 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         return countOfRun.getInt(TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG, 0);
     }
 
-    @OnClick({R.id.fabAddEating, R.id.btnNotification})
+    @OnClick({R.id.fabAddEating, R.id.btnNotification, R.id.tvReports})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fabAddEating:
                 /*AlertDialogChoiseEating.createChoiceEatingAlertDialog(getActivity(),
                         tvDateForMainScreen.getText().toString()).show();*/
                 Intercom.client().displayMessenger();
+                Events.logOpenChat();
                 break;
             case R.id.btnNotification:
                 attachCaloriesPopup();
                 break;
+            case R.id.tvReports:
+                Toast.makeText(getActivity(), "Раздел в разработке", Toast.LENGTH_SHORT).show();
+                openProfile();
+                break;
         }
+    }
+
+    private void openProfile() {
+        //window = getActivity().getWindow();
+        //window.setStatusBarColor(Color.parseColor("#2E4E4E"));
+        //window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        //Amplitude.getInstance().logEvent(Events.VIEW_PROFILE);
+        //Intercom.client().logEvent(Events.VIEW_PROFILE);
+        //transaction.replace(R.id.flFragmentContainer, new ProfileFragment()).commit();
+        //bnvMain.setSelectedItemId(R.id.bnv_main_profile);
     }
 
     @Override
@@ -272,13 +303,13 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
     @Override
     public void onPause() {
         super.onPause();
-        IntercomFactory.hide();
+        //IntercomFactory.hide();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        IntercomFactory.show();
+        //IntercomFactory.show();
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
             Profile profile = UserDataHolder.getUserData().getProfile();
             setMaxParamsInProgressBars(profile);

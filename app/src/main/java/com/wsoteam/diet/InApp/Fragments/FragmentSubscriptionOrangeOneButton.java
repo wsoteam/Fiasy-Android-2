@@ -49,6 +49,8 @@ import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.utils.IntentUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -162,12 +164,10 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
       new CheckAndSetPurchase().execute(p.getSku(), p.getPurchaseToken(), p.getPackageName());
 
       Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
-      Identify identify = new Identify();
-      identify.set(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
-      identify.set(AmplitudaEvents.LONG_OF_PREM, currentSKU);
-      Amplitude.getInstance().identify(identify);
-      AmplitudaEvents.logEventBuyPremium(box.getBuyFrom(), ABConfig.green_P1M_one_button,
-          currentSKU);
+     /* AmplitudaEvents.logEventBuyPremium(box.getBuyFrom(), ABConfig.green_P1M_one_button,
+          currentSKU);*/
+     Events.logBuy(box.getBuyFrom());
+
       logTrial();
 
       requireContext().getSharedPreferences(Config.STATE_BILLING, Context.MODE_PRIVATE).
@@ -195,7 +195,6 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
     switch (view.getId()) {
 
       case R.id.btnBuyPrem:
-        AmplitudaEvents.logEventClickBuy(currentSKU);
         buy(currentSKU);
         break;
 
@@ -204,10 +203,16 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
         break;
 
       case R.id.btnClose: {
-        final Intent intent = new Intent(getContext(), ActivitySplash.class);
-        startActivity(intent);
-
-        getActivity().finish();
+        if (box.isOpenFromIntrodaction()){
+          Events.logMoveQuestions(EventProperties.question_close);
+        }
+        if (box.isOpenFromIntrodaction()) {
+          final Intent intent = new Intent(getContext(), ActivitySplash.class);
+          startActivity(intent);
+          getActivity().finish();
+        }else {
+          getActivity().onBackPressed();
+        }
       }
       break;
 

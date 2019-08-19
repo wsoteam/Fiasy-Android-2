@@ -22,6 +22,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -134,7 +135,7 @@ public class BlockedRecipeActivity extends AppCompatActivity  implements Toolbar
         box.setOpenFromPremPart(true);
         box.setOpenFromIntrodaction(false);
         box.setComeFrom(AmplitudaEvents.view_prem_recipe);
-        box.setComeFrom(AmplitudaEvents.buy_prem_recipe);
+        box.setComeFrom(EventProperties.trial_from_recipe);
         Intent intent = new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box);
         startActivity(intent);
     }

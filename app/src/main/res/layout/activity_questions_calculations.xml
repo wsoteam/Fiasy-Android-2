@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/clBackground"
+    android:background="@color/white"
     tools:context="com.wsoteam.diet.presentation.profile.questions.QuestionsCalculationsActivity">
 
     <TextView

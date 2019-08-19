@@ -22,6 +22,7 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 
 import butterknife.BindView;
@@ -91,7 +92,7 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
         box.setOpenFromPremPart(true);
         box.setOpenFromIntrodaction(false);
         box.setComeFrom(AmplitudaEvents.view_prem_content);
-        box.setComeFrom(AmplitudaEvents.buy_prem_content);
+        box.setComeFrom(EventProperties.trial_from_articles);
         Intent intent = new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box);
         startActivity(intent);
     }
