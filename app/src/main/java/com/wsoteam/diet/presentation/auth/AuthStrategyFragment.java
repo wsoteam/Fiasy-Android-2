@@ -156,7 +156,7 @@ public abstract class AuthStrategyFragment extends Fragment {
       } else {
         type = EventProperties.enter_email;
       }
-
+      getActivity().getSharedPreferences(Config.IS_NEED_SHOW_LOADING_SPLASH, MODE_PRIVATE).edit().putBoolean(Config.IS_NEED_SHOW_LOADING_SPLASH, true).commit();
       Events.logEnter(type);
     }
   }
