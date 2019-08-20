@@ -21,6 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.Config;
@@ -39,7 +40,8 @@ import java.util.ArrayList;
 public class CreateFoodTemplateActivity extends BaseActivity implements CreateFoodTemplateView,
         TextWatcher, AdapterView.OnItemSelectedListener {
 
-    private CreateFoodTemplatePresenter presenter;
+    @InjectPresenter
+    CreateFoodTemplatePresenter presenter;
     private FoodAdapter adapter;
 
     @BindView(R.id.etNameTemplate) EditText etNameTemplate;
@@ -52,7 +54,8 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
 
     @ProvidePresenter
     CreateFoodTemplatePresenter providePresenter() {
-        return presenter;
+        return new CreateFoodTemplatePresenter(CiceroneModule.router(),
+            new FoodTemplate("", "", "", true, new ArrayList<>()));
     }
 
     @Override
@@ -61,8 +64,6 @@ public class CreateFoodTemplateActivity extends BaseActivity implements CreateFo
         setContentView(R.layout.activity_create_food_template);
         ButterKnife.bind(this);
 
-        presenter = new CreateFoodTemplatePresenter(CiceroneModule.router(),
-            new FoodTemplate("", "", "", true, new ArrayList<>()));
 
         adapter = new FoodAdapter(this, CiceroneModule.router());
 
