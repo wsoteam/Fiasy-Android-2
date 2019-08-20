@@ -112,12 +112,12 @@ public class ActivitySplash extends BaseActivity {
     if (user != null) {
       try {
         SetUserProperties.setUserProperties(Adjust.getAttribution());
+        setTrackInfoInDatabase(Adjust.getAttribution());
       } catch (Exception e) {
 
       }
       FirebaseAnalytics.getInstance(this)
           .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
-      setTrackInfoInDatabase(Adjust.getAttribution());
       FirebaseDatabase database = FirebaseDatabase.getInstance();
       DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
           child(FirebaseAuth.getInstance().getCurrentUser().getUid());
