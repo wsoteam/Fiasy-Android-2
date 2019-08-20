@@ -42,12 +42,61 @@
       app:layout_constraintTop_toBottomOf="@+id/textView151"
       tools:text="День 6/8"
       />
-  <android.support.v7.widget.RecyclerView
-      android:layout_width="match_parent"
-      android:layout_height="200dp"
-      android:layout_marginTop="16dp"
+  <android.support.design.widget.TabLayout
+      android:id="@+id/tabs"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="8dp"
+      android:layout_marginStart="8dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/tvPlanName"
+      app:tabContentStart="32dp"
+      app:tabIndicatorColor="@color/orange1"
+      app:tabMode="scrollable"
+      app:tabSelectedTextColor="@color/orange1"
+      app:tabTextAppearance="@style/MyCustomTextAppearance"
+      app:tabTextColor="@color/black"
+      >
+
+    <android.support.design.widget.TabItem
+        android:id="@+id/tiBreakfast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/breakfast"
+        />
+
+    <android.support.design.widget.TabItem
+        android:id="@+id/tiLunch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lunch"
+        />
+
+    <android.support.design.widget.TabItem
+        android:id="@+id/tiDinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dinner"
+        />
+
+    <android.support.design.widget.TabItem
+        android:id="@+id/tiSnack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/snack"
+        />
+
+
+  </android.support.design.widget.TabLayout>
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/recycler"
+      android:layout_width="match_parent"
+      android:layout_height="200dp"
+      android:layout_marginTop="8dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tabs"
       ></android.support.v7.widget.RecyclerView>
 </android.support.constraint.ConstraintLayout>
