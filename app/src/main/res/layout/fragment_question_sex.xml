@@ -32,12 +32,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
-        <RadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rbFemale"
             android:checked="false"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_female_selector"
+            android:layout_width="58dp"
+            android:layout_height="145dp"
             android:button="@null"/>
 
         <ImageView
@@ -47,13 +46,13 @@
             android:layout_marginEnd="22dp"
             android:background="@drawable/ic_curve_line"/>
 
-        <RadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rbMale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_male_selector"
             android:button="@null"/>
     </RadioGroup>
+
 
     <TextView
         android:id="@+id/selected_sex_name"
