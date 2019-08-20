@@ -1,10 +1,12 @@
 package com.wsoteam.diet.presentation.auth;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +22,12 @@ public abstract class AuthStrategy {
   private final CompositeDisposable disposables = new CompositeDisposable();
 
   private final MutableLiveData<AuthenticationResult> userStream = new MutableLiveData<>();
+
+  public static void signOut(Context context){
+    FirebaseAuth.getInstance().signOut();
+    LoginManager.getInstance().logOut();
+    GoogleAuthStrategy.signOut(context);
+  }
 
   public AuthStrategy(Fragment fragment) {
     this.fragment = fragment;

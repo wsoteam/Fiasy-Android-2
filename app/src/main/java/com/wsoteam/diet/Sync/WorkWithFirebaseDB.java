@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -53,6 +54,17 @@ public class WorkWithFirebaseDB {
         });
     }
 
+    public static UserData getUserData(DataSnapshot snapshot){
+        try {
+            return snapshot.getValue(UserData.class);
+        } catch (DatabaseException e){
+          e.printStackTrace();
+
+          dropUserMealsDiary();
+          return null;
+        }
+    }
+
     public static void setFirebaseStateListener() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
@@ -61,7 +73,11 @@ public class WorkWithFirebaseDB {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
+                final UserData user = getUserData(dataSnapshot);
+
+                if (user != null) {
+                  new UserDataHolder().bindObjectWithHolder(user);
+                }
             }
 
             @Override

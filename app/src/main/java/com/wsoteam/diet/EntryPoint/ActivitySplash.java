@@ -28,7 +28,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -45,18 +44,20 @@ import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
-import com.wsoteam.diet.POJOSExercises.Ex;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.UserProperty;
+import com.wsoteam.diet.presentation.auth.AuthStrategy;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import static com.wsoteam.diet.Sync.WorkWithFirebaseDB.getUserData;
 
 public class ActivitySplash extends BaseActivity {
   private final String TAG_FIRST_RUN = "TAG_FIRST_RUN";
@@ -121,32 +122,43 @@ public class ActivitySplash extends BaseActivity {
       FirebaseDatabase database = FirebaseDatabase.getInstance();
       DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
           child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-      myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-          try {
-            new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
-            setUserProperties(UserDataHolder.getUserData().getProfile());
-            onSignedIn();
-          } catch (DatabaseException e){
-            e.printStackTrace();
 
-            WorkWithFirebaseDB.dropUserMealsDiary();
-          }
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-          FirebaseAuth.getInstance().signOut();
-          LoginManager.getInstance().logOut();
-          UserDataHolder.clearObject();
-
-          onUserNotAuthorized();
-        }
-      });
+      checkUser(myRef, true);
     } else {
       onUserNotAuthorized();
     }
+  }
+
+  private void checkUser(DatabaseReference myRef, boolean deeper) {
+    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        final UserData user = getUserData(dataSnapshot);
+
+        if (user == null) {
+          if (deeper) {
+            checkUser(myRef, false);
+          } else {
+            AuthStrategy.signOut(ActivitySplash.this);
+          }
+          return;
+        }
+
+        new UserDataHolder().bindObjectWithHolder(user);
+
+        setUserProperties(UserDataHolder.getUserData().getProfile());
+        onSignedIn();
+      }
+
+      @Override
+      public void onCancelled(@NonNull DatabaseError databaseError) {
+        FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut();
+        UserDataHolder.clearObject();
+
+        onUserNotAuthorized();
+      }
+    });
   }
 
   private void setUserProperties(Profile profile) {
@@ -163,16 +175,18 @@ public class ActivitySplash extends BaseActivity {
         active = UserProperty.q_active_status1;
       } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_easy))) {
         active = UserProperty.q_active_status2;
-      } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_medium))) {
+      } else if (userStressLevel.equalsIgnoreCase(
+          getResources().getString(R.string.level_medium))) {
         active = UserProperty.q_active_status3;
       } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_hard))) {
         active = UserProperty.q_active_status4;
-      } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_up_hard))) {
+      } else if (userStressLevel.equalsIgnoreCase(
+          getResources().getString(R.string.level_up_hard))) {
         active = UserProperty.q_active_status5;
       } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_super))) {
         active = UserProperty.q_active_status6;
       } else if (userStressLevel.equalsIgnoreCase(
-              getResources().getString(R.string.level_up_super))) {
+          getResources().getString(R.string.level_up_super))) {
         active = UserProperty.q_active_status7;
       }
 
@@ -192,8 +206,8 @@ public class ActivitySplash extends BaseActivity {
         sex = UserProperty.q_male_status_male;
       }
       UserProperty.setUserProperties(sex, height, weight, age, active, goal,
-              FirebaseAuth.getInstance().getCurrentUser().getUid());
-    }catch (Exception ex){
+          FirebaseAuth.getInstance().getCurrentUser().getUid());
+    } catch (Exception ex) {
       Log.e("LOL", ex.getLocalizedMessage());
     }
   }

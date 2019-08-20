@@ -26,6 +26,8 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.Events;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +50,8 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     private boolean isEqualsNext = true;
     private FoodDAO foodDAO = App.getInstance().getFoodDatabase().foodDAO();
     private final int ONE_WORD = 1, TWO_WORDS = 2, THREE_WORDS = 3, FOUR_WORDS = 4, FIVE_WORDS = 5;
+
+    private CompositeDisposable disposables = new CompositeDisposable();
 
     @BindView(R.id.rvListOfSearchResponse) RecyclerView rvListOfSearchResponse;
     Unbinder unbinder;
@@ -101,22 +105,26 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        disposables.clear();
     }
 
     private void search(String searchString) {
-        Single.fromCallable(() -> {
+        disposables.add(Single.fromCallable(() -> {
             List<Food> cFOODS = getFirstList(searchString);
             Events.logFoodSearch(cFOODS.size());
             return cFOODS;
         })
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(t -> refreshAdapter(t), Throwable::printStackTrace);
+                .subscribe(t -> refreshAdapter(t), Throwable::printStackTrace));
     }
 
     private void refreshAdapter(List<Food> t) {
-        itemAdapter = new ItemAdapter(t);
-        rvListOfSearchResponse.setAdapter(itemAdapter);
+        if (rvListOfSearchResponse == null) {
+          return;
+        }
+
+        rvListOfSearchResponse.setAdapter(itemAdapter = new ItemAdapter(t));
         if (t.size() > 0) {
             hideMessageUI();
         } else {

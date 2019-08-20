@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.auth;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -21,6 +22,16 @@ public class GoogleAuthStrategy extends AuthStrategy {
 
   public GoogleAuthStrategy(@NonNull Fragment fragment) {
     super(fragment);
+  }
+
+  public static void signOut(Context context) {
+    final GoogleSignInOptions options =
+        new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(context.getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build();
+
+    GoogleSignIn.getClient(context, options).signOut();
   }
 
   private GoogleSignInClient googleClient() {

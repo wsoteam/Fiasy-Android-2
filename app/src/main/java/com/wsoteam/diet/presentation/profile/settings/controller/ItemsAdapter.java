@@ -12,6 +12,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
@@ -22,6 +25,8 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.presentation.auth.AuthStrategy;
+import com.wsoteam.diet.presentation.auth.GoogleAuthStrategy;
 import com.wsoteam.diet.presentation.profile.about.AboutActivity;
 import com.wsoteam.diet.presentation.profile.help.HelpActivity;
 
@@ -141,11 +146,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
     }
 
     private void exitUser() {
-        Intent intent;
-        FirebaseAuth.getInstance().signOut();
-        LoginManager.getInstance().logOut();
+        AuthStrategy.signOut(context);
         UserDataHolder.clearObject();
-        intent = new Intent(context, ActivitySplash.class).
+        Intent intent = new Intent(context, ActivitySplash.class).
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
     }
