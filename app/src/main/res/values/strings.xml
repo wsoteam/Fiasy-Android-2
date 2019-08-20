@@ -6,7 +6,10 @@
   <string name="btnChange">Поменять</string>
   <string name="tvInfo">Вы хотите сменить план питания? \nВаш план питания “%s” будет закрыт.</string>
 
+
+  <string name="planDays">День %d/%d</string>
   <string name="plans">Планы питания</string>
+  <string name="plan">План питания</string>
   <string name="leavePlan">Выйти из диеты</string>
   <string name="sharePlan">Подельтися</string>
   <string name="load_recipe_plan_up">Загрузить предыдущие</string>

@@ -12,6 +12,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -21,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -39,6 +41,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
+import com.wsoteam.diet.presentation.plans.detail.day.CurrentDayPlanFragment;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
@@ -54,40 +57,24 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class FragmentDiary extends Fragment implements SublimePickerDialogFragment.OnDateChoosedListener, DatePickerListener {
     private final String TAG_COUNT_OF_RUN_FOR_ALERT_DIALOG = "COUNT_OF_RUN";
-    @BindView(R.id.pbProt)
-    ProgressBar pbProgressProt;
-    @BindView(R.id.pbCarbo)
-    ProgressBar pbProgressCarbo;
-    @BindView(R.id.pbFat)
-    ProgressBar pbProgressFat;
-    @BindView(R.id.pbCalories)
-    ProgressBar pbProgressCalories;
-    @BindView(R.id.tvCarbo)
-    TextView tvCarbo;
-    @BindView(R.id.tvFat)
-    TextView tvFat;
-    @BindView(R.id.tvProt)
-    TextView tvProt;
-    @BindView(R.id.tvCaloriesNeed)
-    TextView tvCaloriesNeed;
-    @BindView(R.id.textView138)
-    TextView tvDaysAtRow;
-    @BindView(R.id.mainappbar)
-    AppBarLayout mainappbar;
-    @BindView(R.id.cvParams)
-    CardView cvParams;
-    @BindView(R.id.collapsingToolbarLayout)
-    CollapsingToolbarLayout collapsingToolbarLayout;
-    @BindView(R.id.vpEatingTimeLine)
-    ViewPager vpEatingTimeLine;
-    @BindView(R.id.llSum)
-    LinearLayout llSum;
-    @BindView(R.id.llHead)
-    ConstraintLayout llHead;
-    @BindView(R.id.datePicker)
-    HorizontalPicker datePicker;
-    @BindView(R.id.btnNotification)
-    ImageView btnNotification;
+    @BindView(R.id.pbProt) ProgressBar pbProgressProt;
+    @BindView(R.id.pbCarbo) ProgressBar pbProgressCarbo;
+    @BindView(R.id.pbFat) ProgressBar pbProgressFat;
+    @BindView(R.id.pbCalories) ProgressBar pbProgressCalories;
+    @BindView(R.id.tvCarbo) TextView tvCarbo;
+    @BindView(R.id.tvFat) TextView tvFat;
+    @BindView(R.id.tvProt) TextView tvProt;
+    @BindView(R.id.tvCaloriesNeed) TextView tvCaloriesNeed;
+    @BindView(R.id.textView138) TextView tvDaysAtRow;
+    @BindView(R.id.mainappbar) AppBarLayout mainappbar;
+    @BindView(R.id.cvParams) CardView cvParams;
+    @BindView(R.id.collapsingToolbarLayout) CollapsingToolbarLayout collapsingToolbarLayout;
+    @BindView(R.id.vpEatingTimeLine) ViewPager vpEatingTimeLine;
+    @BindView(R.id.llSum) LinearLayout llSum;
+    @BindView(R.id.llHead) ConstraintLayout llHead;
+    @BindView(R.id.datePicker) HorizontalPicker datePicker;
+    @BindView(R.id.btnNotification) ImageView btnNotification;
+    @BindView(R.id.flCurrentDayPlan) FrameLayout containerCurrentDayPlan;
     private Unbinder unbinder;
     private Profile profile;
     private int COUNT_OF_RUN = 0;
@@ -97,6 +84,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
     private AlertDialog alertDialogBuyInfo;
     private SharedPreferences sharedPreferences, freeUser;
     private LinearLayout.LayoutParams layoutParams;
+    private FragmentTransaction transaction;
     private ViewPager.OnPageChangeListener viewPagerListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int i, float v, int i1) {
@@ -128,6 +116,9 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("com.wsoteam.diet.ACTION_LOGOUT");
         getActivity().sendBroadcast(broadcastIntent);
+
+        transaction = getChildFragmentManager().beginTransaction();
+        transaction.add(R.id.flCurrentDayPlan, new CurrentDayPlanFragment()).commit();
 
         layoutParams = (LinearLayout.LayoutParams) llHead.getLayoutParams();
 
