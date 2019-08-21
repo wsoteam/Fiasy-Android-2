@@ -50,6 +50,7 @@ import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.common.Analytics.Events;
 
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         if (ArticlesHolder.getListArticles() == null) {
             loadArticles();
         }
-        //startActivity(new Intent(this, AfterQuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+        FoodSearch.getSearchResult();
     }
 
     private void checkForcedGrade() {
