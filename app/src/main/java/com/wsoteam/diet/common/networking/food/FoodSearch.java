@@ -12,17 +12,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FoodSearch {
     private static final String BASE_URL = "http://116.203.193.111:8000";
+    private static FoodSearch instance = new FoodSearch();
+    private FoodResultAPI api;
 
     public static void getSearchResult() {
-        Log.e("LOL", "start");
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-
-        FoodResultAPI foodSearchAPI = retrofit.create(FoodResultAPI.class);
-        Observable<FoodResult> result = foodSearchAPI.getResponse(1, 0, "молоко");
+        Observable<FoodResult> result = api.getResponse(1, 0, "молоко");
 
 
         result
@@ -31,4 +25,17 @@ public class FoodSearch {
                 .subscribe(t -> Log.e("LOL", String.valueOf(t.getCount())));
     }
 
+    public FoodSearch() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+                .build();
+
+        api = retrofit.create(FoodResultAPI.class);
+    }
+
+    public FoodResultAPI getFoodSearchAPI(){
+        return api;
+    }
 }

@@ -107,6 +107,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     }
 
     private void search(String searchString) {
+
         /*disposables.add(Single.fromCallable(() -> {
             List<Food> cFOODS = getFirstList(searchString);
             Events.logFoodSearch(cFOODS.size());
