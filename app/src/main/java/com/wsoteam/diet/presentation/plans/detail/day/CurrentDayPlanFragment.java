@@ -34,6 +34,7 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
   @BindView(R.id.tabs) TabLayout tabLayout;
   @BindView(R.id.clRecipes) ConstraintLayout activePlan;
   @BindView(R.id.clNotActivePlan) ConstraintLayout notActivePlan;
+  @BindView(R.id.clFinishPlan) ConstraintLayout finishPlan;
   @BindView(R.id.tvPlanName) TextView planName;
   @BindView(R.id.textView154) TextView dayTextView;
 
@@ -67,20 +68,28 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
 
   private void initData(DietPlan plan){
     if (plan != null){
-      activePlan.setVisibility(View.VISIBLE);
-      notActivePlan.setVisibility(View.GONE);
-
       day = plan.getDaysAfterStart();
-      recipeForDay = plan.getRecipeForDays().get(day);
-      planName.setText("\"" + plan.getName() + "\"");
-      dayTextView.setText(String.format(getString(R.string.planDays), day + 1, plan.getCountDays()));
-      onTabSelected(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()));
 
+      if (day >= plan.getCountDays()) {
+        activePlan.setVisibility(View.GONE);
+        notActivePlan.setVisibility(View.GONE);
+        finishPlan.setVisibility(View.VISIBLE);
+      }else {
+        activePlan.setVisibility(View.VISIBLE);
+        notActivePlan.setVisibility(View.GONE);
+        finishPlan.setVisibility(View.GONE);
+        recipeForDay = plan.getRecipeForDays().get(day);
+        planName.setText("\"" + plan.getName() + "\"");
+        dayTextView.setText(String.format(getString(R.string.planDays), day + 1, plan.getCountDays()));
+        onTabSelected(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()));
 
+      }
+      
     } else {
       recipeForDay = null;
       activePlan.setVisibility(View.GONE);
       notActivePlan.setVisibility(View.VISIBLE);
+      finishPlan.setVisibility(View.GONE);
     }
   }
 
@@ -124,7 +133,7 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
     }
   }
 
-  @OnClick(R.id.tvViewPlans)
+  @OnClick({R.id.tvViewPlans, R.id.tvViewcOtherPlans})
   void clicked(){
     getActivity().startActivity(new Intent(getContext(), BrowsePlansActivity.class));
   }

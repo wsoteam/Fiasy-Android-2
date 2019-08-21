@@ -3,6 +3,8 @@
 <!--  plan main screen-->
   <string name="plan_start_text">Не знаете с чего начать? Попробуте планы питания от нашего штатного диетолога.</string>
   <string name="view_plans">Посмотреть планы питания</string>
+  <string name="view_other_plans">Подобрать другой план питания</string>
+  <string name="plan_end_text">Ваша диета закончилась. Поздравляем!</string>
 
 
   <!--  alert plan change-->
