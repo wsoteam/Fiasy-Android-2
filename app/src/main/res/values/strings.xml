@@ -1,5 +1,10 @@
 <resources>
 
+<!--  plan main screen-->
+  <string name="plan_start_text">Не знаете с чего начать? Попробуте планы питания от нашего штатного диетолога.</string>
+  <string name="view_plans">Посмотреть планы питания</string>
+
+
   <!--  alert plan change-->
   <integer name="com_vk_sdk_AppId">6766798</integer>
   <integer-array name="img_id_arr">

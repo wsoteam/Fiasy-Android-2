@@ -6,97 +6,184 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
-  <TextView
-      android:id="@+id/textView151"
-      android:layout_width="wrap_content"
+  <android.support.constraint.ConstraintLayout
+      android:id="@+id/clRecipes"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginStart="24dp"
-      android:layout_marginTop="24dp"
-      android:text="@string/plan"
-      android:textColor="@color/black"
-      android:textSize="18sp"
-      android:textStyle="bold"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      />
-  <TextView
-      android:id="@+id/tvPlanName"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
-      android:layout_marginStart="24dp"
-      android:layout_marginTop="8dp"
-      app:layout_constraintEnd_toStartOf="@+id/textView154"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/textView151"
-      tools:text="Keto"
-      />
-  <TextView
-      android:id="@+id/textView154"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
-      android:layout_marginTop="8dp"
-      android:text="День 0/0"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/textView151"
-      tools:text="День 6/8"
-      />
-  <android.support.design.widget.TabLayout
-      android:id="@+id/tabs"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="8dp"
-      android:layout_marginStart="8dp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/tvPlanName"
-      app:tabContentStart="32dp"
-      app:tabIndicatorColor="@color/orange1"
-      app:tabMode="scrollable"
-      app:tabSelectedTextColor="@color/orange1"
-      app:tabTextAppearance="@style/MyCustomTextAppearance"
-      app:tabTextColor="@color/black"
       >
-
-    <android.support.design.widget.TabItem
-        android:id="@+id/tiBreakfast"
+    <TextView
+        android:id="@+id/textView151"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:text="@string/plan"
+        android:textAlignment="center"
+        android:textColor="@color/com_facebook_likeboxcountview_text_color"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:id="@+id/tvPlanName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto"
+        android:textAlignment="center"
+        android:textColor="#F2994A"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView151"
+        tools:text="Keto"
+        />
+    <TextView
+        android:id="@+id/textView154"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/breakfast"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto"
+        android:text="День 0/0"
+        android:textColor="@color/com_facebook_likeboxcountview_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlanName"
+        tools:text="День 6/8"
         />
-
-    <android.support.design.widget.TabItem
-        android:id="@+id/tiLunch"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/lunch"
-        />
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView154"
+        app:tabContentStart="32dp"
+        app:tabIndicatorColor="@color/orange1"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/orange1"
+        app:tabTextAppearance="@style/MyCustomTextAppearance"
+        app:tabTextColor="@color/black"
+        >
 
-    <android.support.design.widget.TabItem
-        android:id="@+id/tiDinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/dinner"
-        />
+      <android.support.design.widget.TabItem
+          android:id="@+id/tiBreakfast"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/breakfast"
+          />
 
-    <android.support.design.widget.TabItem
-        android:id="@+id/tiSnack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/snack"
-        />
+      <android.support.design.widget.TabItem
+          android:id="@+id/tiLunch"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/lunch"
+          />
+
+      <android.support.design.widget.TabItem
+          android:id="@+id/tiDinner"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/dinner"
+          />
+
+      <android.support.design.widget.TabItem
+          android:id="@+id/tiSnack"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/snack"
+          />
 
 
-  </android.support.design.widget.TabLayout>
-  <android.support.v7.widget.RecyclerView
-      android:id="@+id/recycler"
-      android:layout_width="match_parent"
-      android:layout_height="200dp"
-      android:layout_marginTop="8dp"
+    </android.support.design.widget.TabLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabs"
+        ></android.support.v7.widget.RecyclerView>
+  </android.support.constraint.ConstraintLayout>
+
+  <android.support.constraint.ConstraintLayout
+      android:id="@+id/clNotActivePlan"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="1.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/tabs"
-      ></android.support.v7.widget.RecyclerView>
+      app:layout_constraintTop_toTopOf="parent"
+      >
+    <ImageView
+        android:id="@+id/imageView47"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlanStart"
+        app:srcCompat="@drawable/plan_main_scren_start_img"
+        />
+
+    <TextView
+        android:id="@+id/tvPlanStart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/plan"
+        android:textAlignment="center"
+        android:textColor="@color/com_facebook_likeboxcountview_text_color"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:id="@+id/textView153"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/plan_start_text"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView47"
+        />
+    <TextView
+        android:id="@+id/tvViewPlans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/view_plans"
+        android:textColor="@color/pumpkin_orange"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView153"
+        />
+
+  </android.support.constraint.ConstraintLayout>
+
 </android.support.constraint.ConstraintLayout>

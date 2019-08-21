@@ -32,7 +32,8 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
 
   @BindView(R.id.recycler) RecyclerView recyclerView;
   @BindView(R.id.tabs) TabLayout tabLayout;
-  @BindView(R.id.mainLayout) ConstraintLayout maimLayout;
+  @BindView(R.id.clRecipes) ConstraintLayout activePlan;
+  @BindView(R.id.clNotActivePlan) ConstraintLayout notActivePlan;
   @BindView(R.id.tvPlanName) TextView planName;
   @BindView(R.id.textView154) TextView dayTextView;
 
@@ -66,18 +67,20 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
 
   private void initData(DietPlan plan){
     if (plan != null){
-      maimLayout.setVisibility(View.VISIBLE);
+      activePlan.setVisibility(View.VISIBLE);
+      notActivePlan.setVisibility(View.GONE);
 
       day = plan.getDaysAfterStart();
       recipeForDay = plan.getRecipeForDays().get(day);
-      planName.setText(plan.getName());
+      planName.setText("\"" + plan.getName() + "\"");
       dayTextView.setText(String.format(getString(R.string.planDays), day + 1, plan.getCountDays()));
       onTabSelected(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()));
 
 
     } else {
       recipeForDay = null;
-      maimLayout.setVisibility(View.GONE);
+      activePlan.setVisibility(View.GONE);
+      notActivePlan.setVisibility(View.VISIBLE);
     }
   }
 
@@ -121,7 +124,7 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
     }
   }
 
-  @OnClick(R.id.tvPlanName)
+  @OnClick(R.id.tvViewPlans)
   void clicked(){
     getActivity().startActivity(new Intent(getContext(), BrowsePlansActivity.class));
   }
