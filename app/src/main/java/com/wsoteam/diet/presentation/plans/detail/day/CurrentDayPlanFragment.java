@@ -20,10 +20,9 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.di.CiceroneModule;
 import com.wsoteam.diet.presentation.global.Screens;
-import com.wsoteam.diet.presentation.plans.DateHelper;
 import com.wsoteam.diet.presentation.plans.adapter.HorizontalDetailPlansAdapter;
-import java.util.Date;
 import ru.terrakok.cicerone.Router;
 
 public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabLayout.OnTabSelectedListener {
@@ -47,6 +46,7 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
         container, false);
     ButterKnife.bind(this, view);
 
+    router = CiceroneModule.router();
     tabLayout.addOnTabSelectedListener(this);
     layoutManager = new LinearLayoutManager(getContext());
     layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -69,7 +69,7 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
       recipeForDay = plan.getRecipeForDays().get(day);
       planName.setText(plan.getName());
       dayTextView.setText(String.format(getString(R.string.planDays), day + 1, plan.getCountDays()));
-      adapter.updateList(recipeForDay.getBreakfast(), true, day, "breakfast");
+      onTabSelected(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()));
 
 
     } else {
@@ -83,11 +83,10 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
         @Override
         public void onItemClick(RecipeItem recipeItem, String days, String meal,
             String recipeNumber) {
-          if (day == Integer.parseInt(days)) {
-            router.navigateTo(new Screens.PlanRecipeScreen(recipeItem, View.VISIBLE, days, meal, recipeNumber));
-          } else {
-            router.navigateTo(new Screens.PlanRecipeScreen(recipeItem, days, meal, recipeNumber));
-          }
+          Log.d("kkk", "onItemClick: " + day + "  -- " + days + " -- " + router);
+
+          Screens.PlanRecipeScreen screen = new Screens.PlanRecipeScreen(recipeItem, View.VISIBLE, days, meal, recipeNumber);
+          getActivity().startActivity(screen.getActivityIntent(getContext()));
 
         }
 
@@ -125,5 +124,11 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
 
   @Override public void onTabReselected(TabLayout.Tab tab) {
 
+  }
+
+  @Override public void onResume() {
+    super.onResume();
+    Log.d("kkk", "onResume: ");
+    initData(UserDataHolder.getUserData().getPlan());
   }
 }
