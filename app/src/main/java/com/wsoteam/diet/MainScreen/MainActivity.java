@@ -50,6 +50,7 @@ import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipesHolder;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
+import com.wsoteam.diet.presentation.plans.browse.BrowsePlansActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 
 import java.util.Calendar;

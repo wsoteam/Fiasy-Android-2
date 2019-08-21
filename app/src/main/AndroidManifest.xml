@@ -11,10 +11,15 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
-    <activity android:name=".presentation.plans.detail.PlanRecipeActivity"
+    <activity
+        android:name=".presentation.plans.browse.BrowsePlansActivity"
         android:screenOrientation="portrait"
-        android:theme="@style/Menu">
-    </activity>
+        android:theme="@style/Menu" />
+
+    <activity
+        android:name=".presentation.plans.detail.PlanRecipeActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/Menu" />
     <activity
         android:name=".presentation.plans.detail.blocked.BlockedDetailPlansActivity"
         android:screenOrientation="portrait"
@@ -120,12 +125,10 @@
         android:parentActivityName=".presentation.intro.IntroActivity"
         android:screenOrientation="portrait"
         android:theme="@style/ActivityAuthMain" />
-
     <activity
         android:name="com.facebook.FacebookActivity"
         android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
         android:label="@string/app_name" />
-
     <activity
         android:name="com.facebook.CustomTabActivity"
         android:exported="true">
@@ -154,7 +157,6 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-
     <activity
         android:name=".OtherActivity.ActivitySettings"
         android:screenOrientation="portrait"
@@ -192,7 +194,6 @@
         android:name=".BranchOfCalculating.ActivityCalculatorIMT"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar" />
-
     <activity
         android:name=".BranchOfRecipes.ActivityRecipes"
         android:screenOrientation="portrait"
@@ -272,6 +273,7 @@
         android:name=".BranchOfAnalyzer.ActivityDetailSavedFood"
         android:screenOrientation="portrait"
         android:theme="@style/DetailFood" />
+
     <meta-data
         android:name="com.facebook.sdk.ApplicationId"
         android:value="@string/facebook_app_id" />
@@ -287,7 +289,6 @@
     <meta-data
         android:name="QUERY_LOG"
         android:value="true" />
-
     <meta-data
         android:name="DOMAIN_PACKAGE_NAME"
         android:value="com.wsoteam.diet" />

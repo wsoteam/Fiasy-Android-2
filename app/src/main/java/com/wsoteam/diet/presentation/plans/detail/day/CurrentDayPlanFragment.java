@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.plans.detail.day;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
@@ -23,6 +25,7 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.di.CiceroneModule;
 import com.wsoteam.diet.presentation.global.Screens;
 import com.wsoteam.diet.presentation.plans.adapter.HorizontalDetailPlansAdapter;
+import com.wsoteam.diet.presentation.plans.browse.BrowsePlansActivity;
 import ru.terrakok.cicerone.Router;
 
 public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabLayout.OnTabSelectedListener {
@@ -116,6 +119,11 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
           adapter.updateList(recipeForDay.getBreakfast(), true, day, "breakfast");
       }
     }
+  }
+
+  @OnClick(R.id.tvPlanName)
+  void clicked(){
+    getActivity().startActivity(new Intent(getContext(), BrowsePlansActivity.class));
   }
 
   @Override public void onTabUnselected(TabLayout.Tab tab) {
