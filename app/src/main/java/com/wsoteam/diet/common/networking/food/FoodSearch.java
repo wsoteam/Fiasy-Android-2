@@ -25,7 +25,7 @@ public class FoodSearch {
         result.enqueue(new Callback<FoodResult>() {
             @Override
             public void onResponse(Call<FoodResult> call, Response<FoodResult> response) {
-                Log.e("LOL", String.valueOf(response.body().getCount()));
+                Log.e("LOL", response.body().getResults().get(0).toString());
 
             }
 

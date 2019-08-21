@@ -215,4 +215,32 @@ public class Result {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public String toString() {
+        return "Result{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", fullInfo='" + fullInfo + '\'' +
+                ", barcode=" + barcode +
+                ", portion=" + portion +
+                ", isLiquid=" + isLiquid +
+                ", kilojoules=" + kilojoules +
+                ", calories=" + calories +
+                ", proteins=" + proteins +
+                ", carbohydrates=" + carbohydrates +
+                ", sugar=" + sugar +
+                ", fats=" + fats +
+                ", saturatedFats=" + saturatedFats +
+                ", monounsaturatedFats=" + monounsaturatedFats +
+                ", polyunsaturatedFats=" + polyunsaturatedFats +
+                ", cholesterol=" + cholesterol +
+                ", cellulose=" + cellulose +
+                ", sodium=" + sodium +
+                ", pottasium=" + pottasium +
+                ", category=" + category +
+                ", brand=" + brand +
+                ", measurementUnits=" + measurementUnits +
+                ", additionalProperties=" + additionalProperties +
+                '}';
+    }
 }
