@@ -26,6 +26,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.Events;
 
+import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
@@ -47,9 +48,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     @BindView(R.id.btnAddFavorite) Button btnAddFavorite;
     private int RESPONSE_LIMIT = 50;
     private ItemAdapter itemAdapter;
-    private boolean isEqualsNext = true;
     private FoodDAO foodDAO = App.getInstance().getFoodDatabase().foodDAO();
-    private final int ONE_WORD = 1, TWO_WORDS = 2, THREE_WORDS = 3, FOUR_WORDS = 4, FIVE_WORDS = 5;
 
     private CompositeDisposable disposables = new CompositeDisposable();
 
@@ -61,7 +60,6 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     @Override
     public void sendString(String searchString) {
         if (searchString.length() > 2) {
-            isEqualsNext = true;
             this.searchString = searchString;
             search(searchString);
         }
@@ -109,14 +107,14 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     }
 
     private void search(String searchString) {
-        disposables.add(Single.fromCallable(() -> {
+        /*disposables.add(Single.fromCallable(() -> {
             List<Food> cFOODS = getFirstList(searchString);
             Events.logFoodSearch(cFOODS.size());
             return cFOODS;
         })
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(t -> refreshAdapter(t), Throwable::printStackTrace));
+                .subscribe(t -> refreshAdapter(t), Throwable::printStackTrace));*/
     }
 
     private void refreshAdapter(List<Food> t) {
@@ -183,11 +181,9 @@ public class FragmentSearch extends Fragment implements TabsFragment {
 
     public class ItemAdapter extends RecyclerView.Adapter<ItemHolder> {
         private List<Food> foods;
-        private int counter;
 
         public ItemAdapter(List<Food> foods) {
             this.foods = foods;
-            counter = -1;
         }
 
         public List<Food> getFoods() {
@@ -204,94 +200,18 @@ public class FragmentSearch extends Fragment implements TabsFragment {
         @Override
         public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
             holder.bind(foods.get(position));
-            if (position > counter && position % RESPONSE_LIMIT == 0) {
-                counter = position;
-                getNextPortion(position + RESPONSE_LIMIT);
-            }
         }
 
-        private void getNextPortion(int offset) {
-            Single.fromCallable(() -> {
-                List<Food> cFOODS = getSearchResult(offset);
-                return cFOODS;
-            })
-                    .subscribeOn(Schedulers.computation())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(t -> updateAdapter(t), Throwable::printStackTrace);
-        }
 
         private void updateAdapter(List<Food> nextPortion) {
             foods.addAll(nextPortion);
             notifyDataSetChanged();
         }
 
-        private List<Food> getSearchResult(int offset) {
-            List<Food> foods = new ArrayList<>();
-            if (isEqualsNext) {
-                foods = foodDAO.searchFullMatchWord(searchString, RESPONSE_LIMIT, offset);
-                if (foods.size() < RESPONSE_LIMIT) {
-                    isEqualsNext = false;
-                    if (searchString.contains(" ") && searchString.split(" ").length > 1) {
-                        foods.addAll(searchMultiWords(searchString, foods.size() + offset));
-                    } else {
-                        foods.addAll(foodDAO.searchOneWord("%" + searchString + "%",
-                                RESPONSE_LIMIT, offset + foods.size()));
-                    }
-                }
-            } else {
-                if (searchString.contains(" ") && searchString.split(" ").length > 1) {
-                    foods.addAll(searchMultiWords(searchString, offset));
-                } else {
-                    foods.addAll(foodDAO.searchOneWord("%" + searchString + "%",
-                            RESPONSE_LIMIT, offset));
-                }
-            }
-            return foods;
-        }
 
         @Override
         public int getItemCount() {
             return foods.size();
         }
-    }
-
-    private List<Food> getFirstList(String searchString) {
-        List<Food> foods = new ArrayList<>();
-        foods.addAll(foodDAO.searchFullMatchWord(searchString, RESPONSE_LIMIT, 0));
-        if (foods.size() < RESPONSE_LIMIT) {
-            isEqualsNext = false;
-            if (searchString.contains(" ") && searchString.split(" ").length > 1) {
-                foods.addAll(searchMultiWords(searchString, foods.size()));
-            } else {
-                foods.addAll(foodDAO.searchOneWord("%" + searchString + "%", RESPONSE_LIMIT, foods.size()));
-            }
-        }
-        return foods;
-    }
-
-    private List<Food> searchMultiWords(String searchPhrase, int offset) {
-        List<Food> foods = new ArrayList<>();
-        if (searchPhrase.split(" ").length == TWO_WORDS) {
-            foods = foodDAO.searchTwoWord("%" + searchPhrase.split(" ")[0] + "%",
-                    "%" + searchPhrase.split(" ")[1] + "%", RESPONSE_LIMIT, offset);
-        } else if (searchPhrase.split(" ").length == THREE_WORDS) {
-            foods = foodDAO.searchThreeWord("%" + searchPhrase.split(" ")[0] + "%",
-                    "%" + searchPhrase.split(" ")[1] + "%",
-                    "%" + searchPhrase.split(" ")[2] + "%",
-                    RESPONSE_LIMIT, offset);
-        } else if (searchPhrase.split(" ").length == FOUR_WORDS) {
-            foods = foodDAO.searchFourWord("%" + searchPhrase.split(" ")[0] + "%",
-                    "%" + searchPhrase.split(" ")[1] + "%",
-                    "%" + searchPhrase.split(" ")[2] + "%",
-                    "%" + searchPhrase.split(" ")[3] + "%", RESPONSE_LIMIT, offset);
-        } else if (searchPhrase.split(" ").length == FIVE_WORDS) {
-            foods = foodDAO.searchFiveWord("%" + searchPhrase.split(" ")[0] + "%",
-                    "%" + searchPhrase.split(" ")[1] + "%",
-                    "%" + searchPhrase.split(" ")[2] + "%",
-                    "%" + searchPhrase.split(" ")[3] + "%",
-                    "%" + searchPhrase.split(" ")[4] + "%",
-                    RESPONSE_LIMIT, offset);
-        }
-        return foods;
     }
 }
