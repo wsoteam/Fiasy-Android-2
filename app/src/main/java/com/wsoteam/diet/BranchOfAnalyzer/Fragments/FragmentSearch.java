@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,8 @@ import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.common.networking.food.FoodSearch;
+import com.wsoteam.diet.common.networking.food.Result;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
@@ -107,7 +111,13 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     }
 
     private void search(String searchString) {
-
+        FoodSearch
+                .getInstance()
+                .getFoodSearchAPI()
+                .getResponse(100, 0, "молоко")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(t -> refreshAdapter(t.getResults()), Throwable::printStackTrace));
         /*disposables.add(Single.fromCallable(() -> {
             List<Food> cFOODS = getFirstList(searchString);
             Events.logFoodSearch(cFOODS.size());
@@ -118,7 +128,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
                 .subscribe(t -> refreshAdapter(t), Throwable::printStackTrace));*/
     }
 
-    private void refreshAdapter(List<Food> t) {
+    private void refreshAdapter(List<Result> t) {
         if (rvListOfSearchResponse == null) {
           return;
         }
@@ -160,7 +170,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(getActivity(), ActivityDetailOfFood.class);
-            intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
+            //intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
             intent.putExtra(Config.TAG_CHOISE_EATING, ((ActivityListAndSearch) getActivity()).spinnerId);
             intent.putExtra(Config.INTENT_DATE_FOR_SAVE, getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
             startActivity(intent);
@@ -181,13 +191,13 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     }
 
     public class ItemAdapter extends RecyclerView.Adapter<ItemHolder> {
-        private List<Food> foods;
+        private List<Result> foods;
 
-        public ItemAdapter(List<Food> foods) {
+        public ItemAdapter(List<Result> foods) {
             this.foods = foods;
         }
 
-        public List<Food> getFoods() {
+        public List<Result> getFoods() {
             return foods;
         }
 
@@ -202,13 +212,6 @@ public class FragmentSearch extends Fragment implements TabsFragment {
         public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
             holder.bind(foods.get(position));
         }
-
-
-        private void updateAdapter(List<Food> nextPortion) {
-            foods.addAll(nextPortion);
-            notifyDataSetChanged();
-        }
-
 
         @Override
         public int getItemCount() {

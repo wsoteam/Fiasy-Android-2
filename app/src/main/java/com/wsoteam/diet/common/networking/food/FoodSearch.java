@@ -15,6 +15,11 @@ public class FoodSearch {
     private static FoodSearch instance = new FoodSearch();
     private FoodResultAPI api;
 
+
+    public static FoodSearch getInstance(){
+        return instance;
+    }
+
     public static void getSearchResult() {
         Observable<FoodResult> result = api.getResponse(1, 0, "молоко");
 
@@ -29,7 +34,7 @@ public class FoodSearch {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
         api = retrofit.create(FoodResultAPI.class);
