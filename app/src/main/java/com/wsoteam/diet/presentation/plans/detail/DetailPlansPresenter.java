@@ -29,7 +29,6 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
   Router router;
   Intent intent;
   DietPlan dietPlan;
-  @Inject
   Context context;
 
   PlansGroupsRecipe plansRecipe;
@@ -37,9 +36,10 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
   VerticalDetailPlansAdapter adapter;
   boolean isCurrentPlan;
 
-  public DetailPlansPresenter(Router router, Intent intent) {
+  public DetailPlansPresenter(Router router, Intent intent, Context context) {
     this.router = router;
     this.intent = intent;
+    this.context = context;
     initDietPlan();
   }
 

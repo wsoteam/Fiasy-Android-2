@@ -64,7 +64,7 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
 
   @ProvidePresenter
   DetailPlansPresenter providePresenter() {
-    return new DetailPlansPresenter(router, getIntent());
+    return new DetailPlansPresenter(router, getIntent(), this);
   }
 
   @Override
@@ -73,8 +73,6 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_detail_plans);
     ButterKnife.bind(this);
-
-    Log.d("kkk", "onCreate: " + router);
 
     getWindow().getDecorView().setSystemUiVisibility(
         View.SYSTEM_UI_FLAG_LAYOUT_STABLE
