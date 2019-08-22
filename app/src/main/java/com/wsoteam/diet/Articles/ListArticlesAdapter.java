@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Articles.POJO.Article;
@@ -75,25 +78,17 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
   class MyViewHolder extends RecyclerView.ViewHolder {
 
-    ImageView imageView;
-    TextView premium;
-    TextView title;
-    TextView intro;
-    CardView cvBorder;
+    @BindView(R.id.ivArticle) ImageView imageView;
+    @BindView(R.id.tvArticlePremium) TextView premium;
+    @BindView(R.id.tvArticleTitle) TextView title;
+    @BindView(R.id.tvArticleIntro) TextView intro;
+    @BindView(R.id.cvArticleBorder) CardView cvBorder;
 
     public MyViewHolder(View view) {
       super(view);
+      ButterKnife.bind(this, view);
 
-      imageView = view.findViewById(R.id.ivArticle);
-      premium = view.findViewById(R.id.tvArticlePremium);
-      title = view.findViewById(R.id.tvArticleTitle);
-      intro = view.findViewById(R.id.tvArticleIntro);
-      cvBorder = view.findViewById(R.id.cvArticleBorder);
-
-      view.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
+      view.setOnClickListener((View v) -> {
           onItemClickListener.onItemClick(v, listItem.get(getAdapterPosition()));
           //Intent intent;
           //boolean isPremArticle = listItem.get(getAdapterPosition()).isPremium();
@@ -106,8 +101,7 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
           //
           //intent.putExtra(Config.ARTICLE_INTENT, getAdapterPosition());
           //activity.startActivity(intent);
-        }
-      });
+        });
     }
 
     void bind(int position) {
