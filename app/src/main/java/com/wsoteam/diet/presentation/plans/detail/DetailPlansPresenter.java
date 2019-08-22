@@ -29,6 +29,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
   Router router;
   Intent intent;
   DietPlan dietPlan;
+  @Inject
   Context context;
 
   PlansGroupsRecipe plansRecipe;
@@ -36,10 +37,9 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
   VerticalDetailPlansAdapter adapter;
   boolean isCurrentPlan;
 
-  public DetailPlansPresenter(Router router, Intent intent, Context context) {
+  public DetailPlansPresenter(Router router, Intent intent) {
     this.router = router;
     this.intent = intent;
-    this.context = context;
     initDietPlan();
   }
 
@@ -51,7 +51,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
       getViewState().visibilityButtonJoin(false);
       dietPlan = UserDataHolder.getUserData().getPlan();
       adapter = new VerticalDetailPlansAdapter(dietPlan, true);
-       isCurrentPlan = true;
+      isCurrentPlan = true;
     } else {
       plansRecipe = new PlansGroupsRecipe(RecipesHolder.get(), dietPlan);
       recipeForDays = plansRecipe.getRecipeForDays();
@@ -107,7 +107,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
 
   void onResume(){
     if (isCurrentPlan)
-    adapter.updateList(UserDataHolder.getUserData().getPlan().getRecipeForDays());
+      adapter.updateList(UserDataHolder.getUserData().getPlan().getRecipeForDays());
   }
 
 

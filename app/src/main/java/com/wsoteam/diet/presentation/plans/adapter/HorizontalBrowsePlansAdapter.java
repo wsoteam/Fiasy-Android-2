@@ -19,7 +19,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class  HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private List<DietPlan> dietPlans;
     private OnItemClickListener mItemClickListener;
