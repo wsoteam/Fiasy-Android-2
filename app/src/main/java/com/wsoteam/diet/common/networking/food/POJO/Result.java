@@ -23,7 +23,7 @@ public class Result {
     private Double monounsaturatedFats;
     private Double polyunsaturatedFats;
     private Double cholesterol;
-    private Integer cellulose;
+    private Double cellulose;
     private Double sodium;
     private Double pottasium;
     private Category category;
@@ -159,11 +159,11 @@ public class Result {
         this.cholesterol = cholesterol;
     }
 
-    public Integer getCellulose() {
+    public Double getCellulose() {
         return cellulose;
     }
 
-    public void setCellulose(Integer cellulose) {
+    public void setCellulose(Double cellulose) {
         this.cellulose = cellulose;
     }
 
@@ -215,4 +215,32 @@ public class Result {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public String toString() {
+        return "Result{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", fullInfo='" + fullInfo + '\'' +
+                ", barcode=" + barcode +
+                ", portion=" + portion +
+                ", isLiquid=" + isLiquid +
+                ", kilojoules=" + kilojoules +
+                ", calories=" + calories +
+                ", proteins=" + proteins +
+                ", carbohydrates=" + carbohydrates +
+                ", sugar=" + sugar +
+                ", fats=" + fats +
+                ", saturatedFats=" + saturatedFats +
+                ", monounsaturatedFats=" + monounsaturatedFats +
+                ", polyunsaturatedFats=" + polyunsaturatedFats +
+                ", cholesterol=" + cholesterol +
+                ", cellulose=" + cellulose +
+                ", sodium=" + sodium +
+                ", pottasium=" + pottasium +
+                ", category=" + category +
+                ", brand=" + brand +
+                ", measurementUnits=" + measurementUnits +
+                ", additionalProperties=" + additionalProperties +
+                '}';
+    }
 }

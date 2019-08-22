@@ -158,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
         if (ArticlesHolder.getListArticles() == null) {
             loadArticles();
         }
-        FoodSearch.getSearchResult();
     }
 
     private void checkForcedGrade() {
