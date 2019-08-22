@@ -74,6 +74,8 @@ public class Events {
     //Purchase
     public static final String TRIAL_SUCCESS = "trial_success";
 
+    public static final String PREMIUM_NEXT = "premium_next";
+
     //DIET
     //public static final String SELECT_DIET_FILTRES = "select_diet_filters";
     //public static final String SHARE_DIET = "share_diet";
@@ -82,6 +84,20 @@ public class Events {
     //TRAINING
     //public static final String SELECT_TRAINING = "select_training";
     //public static final String SHARE_TRAINING = "share_training";
+
+    public static void logPushButton(String whichButton) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.push_button, whichButton);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(PREMIUM_NEXT, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.push_button, whichButton);
+        io.intercom.android.sdk.Intercom.client().logEvent(PREMIUM_NEXT, eventData);
+    }
+
 
     public static void logOpenChat() {
         Amplitude.getInstance().logEvent(INTERCOM_CHAT);

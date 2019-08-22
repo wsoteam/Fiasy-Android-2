@@ -193,16 +193,16 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
   @OnClick({ R.id.btnBack, R.id.btnClose, R.id.btnBuyPrem , R.id.tvPrivacyPolicy})
   public void onViewClicked(View view) {
     switch (view.getId()) {
-
       case R.id.btnBuyPrem:
+        Events.logPushButton(EventProperties.push_button_next);
         buy(currentSKU);
         break;
-
       case R.id.btnBack:
+        Events.logPushButton(EventProperties.push_button_back);
         getActivity().onBackPressed();
         break;
-
       case R.id.btnClose: {
+        Events.logPushButton(EventProperties.push_button_close);
         if (box.isOpenFromIntrodaction()){
           Events.logMoveQuestions(EventProperties.question_close);
         }
@@ -215,8 +215,8 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
         }
       }
       break;
-
       case R.id.tvPrivacyPolicy:
+        Events.logPushButton(EventProperties.push_button_privacy);
         Intent intent = new Intent(getActivity(), ActivityPrivacyPolicy.class);
         startActivity(intent);
         break;
