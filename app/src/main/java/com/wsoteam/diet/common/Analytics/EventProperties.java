@@ -12,6 +12,7 @@ public class EventProperties {
     public static final String question_calculate = "calculate";
     public static final String question_feature = "feature";
     public static final String question_close = "feature";
+    public static final String question_premium = "premium";
 
     public static final String go_onboard = "onboarding";
 
@@ -106,4 +107,10 @@ public class EventProperties {
     public static final String trial_from_articles = "articles";
     public static final String trial_from_settings = "settings";
     public static final String trial_from_elements = "micro";
+
+    public static final String push_button = "push_button";
+    public static final String push_button_next = "next";
+    public static final String push_button_close = "close";
+    public static final String push_button_privacy = "privacy";
+    public static final String push_button_back = "back";
 }
