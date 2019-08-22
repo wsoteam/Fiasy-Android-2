@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -15,17 +14,11 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Articles.POJO.Article;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.common.Analytics.Events;
 
 import java.util.List;
-
-import io.intercom.android.sdk.Intercom;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -47,12 +40,9 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     View view = inflater.inflate(R.layout.article_view_holder, viewGroup, false);
     RecyclerView.ViewHolder viewHolder = new ArticleViewHolder(view);
-    view.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
+    view.setOnClickListener((View v) -> {
         onItemClickListener.onItemClick(v, listItem.get(viewHolder.getAdapterPosition()));
-      }
-    });
+      });
 
     return viewHolder;
   }
