@@ -1,5 +1,5 @@
 
-package com.wsoteam.diet.common.networking.food;
+package com.wsoteam.diet.common.networking.food.POJO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +26,8 @@ public class Result {
     private Integer cellulose;
     private Double sodium;
     private Double pottasium;
-    private Object category;
-    private Object brand;
+    private Category category;
+    private Brand brand;
     private List<Object> measurementUnits = null;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -183,19 +183,19 @@ public class Result {
         this.pottasium = pottasium;
     }
 
-    public Object getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Object category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    public Object getBrand() {
+    public Brand getBrand() {
         return brand;
     }
 
-    public void setBrand(Object brand) {
+    public void setBrand(Brand brand) {
         this.brand = brand;
     }
 
@@ -215,32 +215,4 @@ public class Result {
         this.additionalProperties.put(name, value);
     }
 
-    @Override
-    public String toString() {
-        return "Result{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", fullInfo='" + fullInfo + '\'' +
-                ", barcode=" + barcode +
-                ", portion=" + portion +
-                ", isLiquid=" + isLiquid +
-                ", kilojoules=" + kilojoules +
-                ", calories=" + calories +
-                ", proteins=" + proteins +
-                ", carbohydrates=" + carbohydrates +
-                ", sugar=" + sugar +
-                ", fats=" + fats +
-                ", saturatedFats=" + saturatedFats +
-                ", monounsaturatedFats=" + monounsaturatedFats +
-                ", polyunsaturatedFats=" + polyunsaturatedFats +
-                ", cholesterol=" + cholesterol +
-                ", cellulose=" + cellulose +
-                ", sodium=" + sodium +
-                ", pottasium=" + pottasium +
-                ", category=" + category +
-                ", brand=" + brand +
-                ", measurementUnits=" + measurementUnits +
-                ", additionalProperties=" + additionalProperties +
-                '}';
-    }
 }

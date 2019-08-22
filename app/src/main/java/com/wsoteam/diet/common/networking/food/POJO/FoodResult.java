@@ -1,5 +1,5 @@
 
-package com.wsoteam.diet.common.networking.food;
+package com.wsoteam.diet.common.networking.food.POJO;
 
 import java.util.HashMap;
 import java.util.List;

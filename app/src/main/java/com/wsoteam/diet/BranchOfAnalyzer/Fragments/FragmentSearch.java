@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,18 +20,15 @@ import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.ActivityCreateFood;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
-import com.wsoteam.diet.common.networking.food.Result;
+import com.wsoteam.diet.common.networking.food.POJO.Result;
 
-import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +36,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -114,10 +109,10 @@ public class FragmentSearch extends Fragment implements TabsFragment {
         FoodSearch
                 .getInstance()
                 .getFoodSearchAPI()
-                .getResponse(100, 0, "молоко")
+                .getResponse(RESPONSE_LIMIT, 0, searchString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(t -> refreshAdapter(t.getResults()), Throwable::printStackTrace));
+                .subscribe(t -> refreshAdapter(t.getResults()), Throwable::printStackTrace);
         /*disposables.add(Single.fromCallable(() -> {
             List<Food> cFOODS = getFirstList(searchString);
             Events.logFoodSearch(cFOODS.size());
@@ -142,7 +137,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     }
 
     private void updateUI() {
-        List<Food> foods = new ArrayList<>();
+        List<Result> foods = new ArrayList<>();
         itemAdapter = new ItemAdapter(foods);
         rvListOfSearchResponse.setLayoutManager(new LinearLayoutManager(getContext()));
         rvListOfSearchResponse.setAdapter(itemAdapter);
@@ -176,10 +171,10 @@ public class FragmentSearch extends Fragment implements TabsFragment {
             startActivity(intent);
         }
 
-        public void bind(Food food) {
-            tvNameOfFood.setText(food.getFullInfo().replace("()", ""));
+        public void bind(Result food) {
+            tvNameOfFood.setText(food.getName());
             tvCalories.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
-            if (food.isLiquid()) {
+            if (food.getIsLiquid()) {
                 tvWeight.setText("Вес: 100мл");
             } else {
                 tvWeight.setText("Вес: 100г");

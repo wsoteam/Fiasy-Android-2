@@ -20,16 +20,6 @@ public class FoodSearch {
         return instance;
     }
 
-    public static void getSearchResult() {
-        Observable<FoodResult> result = api.getResponse(1, 0, "молоко");
-
-
-        result
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(t -> Log.e("LOL", String.valueOf(t.getCount())));
-    }
-
     public FoodSearch() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)

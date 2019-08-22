@@ -1,12 +1,8 @@
 package com.wsoteam.diet.common.networking.food;
 
-import com.wsoteam.diet.IPCheck.IPCheckObject;
-
-import java.util.List;
+import com.wsoteam.diet.common.networking.food.POJO.FoodResult;
 
 import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
