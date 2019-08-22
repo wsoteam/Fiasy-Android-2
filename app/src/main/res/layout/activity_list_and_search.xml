@@ -113,6 +113,7 @@
                             android:drawableLeft="@drawable/ic_search"
                             android:drawablePadding="4dp"
                             android:maxLines="1"
+                            android:imeOptions="actionSearch"
                             android:singleLine="true"
                             android:textColor="@color/black"
                             android:textColorHint="@color/light_gray" />

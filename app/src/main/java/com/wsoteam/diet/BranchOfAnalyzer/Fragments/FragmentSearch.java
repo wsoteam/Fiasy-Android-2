@@ -60,7 +60,6 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     @Override
     public void sendString(String searchString) {
         if (searchString.length() > 2) {
-            //this.searchString = searchString;
             search(searchString);
         }
     }
@@ -107,8 +106,9 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     }
 
     private void search(String searchString) {
+        Log.e("LOL", "start search");
         foodResultAPI
-                .getResponse(100, 0, searchString)
+                .getResponse(1, 0, searchString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(t -> refreshAdapter(t.getResults()), Throwable::printStackTrace);
@@ -119,6 +119,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
           return;
         }
         rvListOfSearchResponse.setAdapter(itemAdapter = new ItemAdapter(t));
+        Log.e("LOL", "end search");
         if (t.size() > 0) {
             hideMessageUI();
         } else {
