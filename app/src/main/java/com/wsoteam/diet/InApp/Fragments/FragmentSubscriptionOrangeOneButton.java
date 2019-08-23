@@ -72,6 +72,7 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
     Unbinder unbinder;
     private static final String TAG_BOX = "TAG_BOX";
     private Box box;
+    private final String BUY_NOW = "BUY_NOW";
 
     public static FragmentSubscriptionOrangeOneButton newInstance(Box box) {
         Bundle bundle = new Bundle();
@@ -164,11 +165,9 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
                 Log.d("Fiasy", "Purchased, " + p.toString());
             }
 
-            new CheckAndSetPurchase().execute(p.getSku(), p.getPurchaseToken(), p.getPackageName());
+            new CheckAndSetPurchase(getActivity()).execute(p.getSku(), p.getPurchaseToken(), p.getPackageName(), BUY_NOW);
 
             Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
-     /* AmplitudaEvents.logEventBuyPremium(box.getBuyFrom(), ABConfig.green_P1M_one_button,
-          currentSKU);*/
             Events.logBuy(box.getBuyFrom());
 
             logTrial();

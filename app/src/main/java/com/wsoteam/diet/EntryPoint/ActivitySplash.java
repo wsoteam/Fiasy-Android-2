@@ -273,7 +273,7 @@ public class ActivitySplash extends BaseActivity {
       if (subInfo.getPaymentState() == 0) {
         changePremStatus(false);
         UserProperty.setPremStatus(UserProperty.preferential);
-        new CheckAndSetPurchase().execute(subInfo.getProductId(), subInfo.getPurchaseToken(),
+        new CheckAndSetPurchase(this).execute(subInfo.getProductId(), subInfo.getPurchaseToken(),
             subInfo.getPackageName());
       } else if (subInfo.getPaymentState() != 0) {
         compareTime(subInfo);
@@ -289,7 +289,7 @@ public class ActivitySplash extends BaseActivity {
   private void compareTime(SubInfo subInfo) {
     long currentTime = Calendar.getInstance().getTimeInMillis();
     if (currentTime > subInfo.getExpiryTimeMillis()) {
-      new CheckAndSetPurchase().execute(subInfo.getProductId(), subInfo.getPurchaseToken(),
+      new CheckAndSetPurchase(this).execute(subInfo.getProductId(), subInfo.getPurchaseToken(),
           subInfo.getPackageName());
     } else {
       if (subInfo.getPaymentState() == 1) {
@@ -332,7 +332,7 @@ public class ActivitySplash extends BaseActivity {
   }
 
   private void setSubInfo(Purchase purchase) {
-    new CheckAndSetPurchase().execute(purchase.getSku(), purchase.getPurchaseToken(),
+    new CheckAndSetPurchase(this).execute(purchase.getSku(), purchase.getPurchaseToken(),
         purchase.getPackageName());
   }
 
