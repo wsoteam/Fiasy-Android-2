@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.ColorUtils;
 import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +24,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.imageView) ImageView imageView;
   @BindView(R.id.tvName) TextView tvName;
   @BindView(R.id.background) LinearLayout llBackground;
+  @BindView(R.id.premiumLabel) ConstraintLayout premiumLabel;
   Context context;
 
   public ArticleViewHolder(@NonNull View itemView) {
@@ -48,6 +50,8 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
             llBackground.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
           }
         });
+
+    premiumLabel.setVisibility(article.isPremium() ? View.VISIBLE : View.GONE);
 
   }
 }
