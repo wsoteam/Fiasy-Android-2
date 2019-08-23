@@ -140,6 +140,7 @@
         android:name=".InApp.ActivitySubscription"
         android:screenOrientation="portrait"
         android:exported="true"
+        android:hardwareAccelerated="true"
         android:theme="@style/PremiumActivity" />
     <activity
         android:name=".presentation.auth.main.MainAuthActivity"

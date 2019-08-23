@@ -12,12 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.adjust.sdk.Adjust;
@@ -59,16 +59,7 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
         implements PurchasesUpdatedListener {
 
     @BindView(R.id.textView161) TextView textView;
-    @BindView(R.id.ivCentral) ImageView ivCentral;
-    @BindView(R.id.ivTopRight) ImageView ivTopRight;
-    @BindView(R.id.cvTopRight) CardView cvTopRight;
-    @BindView(R.id.ivBottomRight) ImageView ivBottomRight;
-    @BindView(R.id.cvBottomRight) CardView cvBottomRight;
-    @BindView(R.id.ivBottomLeft) ImageView ivBottomLeft;
-    @BindView(R.id.cvBottomLeft) CardView cvBottomLeft;
-    @BindView(R.id.ivTopLeft) ImageView ivTopLeft;
-    @BindView(R.id.cvTopLeft) CardView cvTopLeft;
-    //@BindView(R.id.imgTitle) ImageView poster;
+
 
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
@@ -95,7 +86,7 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
         //View view = inflater.inflate(R.layout.fragment_subscription_one_button_2, container, false);
         View view = inflater.inflate(R.layout.cards_fragment_subscription, container, false);
         unbinder = ButterKnife.bind(this, view);
-        setViews();
+
         box = (Box) getArguments().getSerializable(TAG_BOX);
 
         Spannable wordtoSpan = new SpannableString(getString(R.string.subTestText));
@@ -129,18 +120,6 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
         return view;
     }
 
-    private void setViews() {
-        cvTopLeft.setBackgroundResource(R.drawable.shape_prem_top_left);
-        cvBottomLeft.setBackgroundResource(R.drawable.shape_prem_top_left);
-        cvTopRight.setBackgroundResource(R.drawable.shape_prem_top_right);
-        cvBottomRight.setBackgroundResource(R.drawable.shape_prem_top_right);
-
-        Glide.with(getActivity()).load(R.drawable.central_image_prem).into(ivCentral);
-        Glide.with(getActivity()).load(R.drawable.top_left_prem).into(ivTopLeft);
-        Glide.with(getActivity()).load(R.drawable.left_bottom_prem).into(ivBottomLeft);
-        Glide.with(getActivity()).load(R.drawable.right_top_prem).into(ivTopRight);
-        Glide.with(getActivity()).load(R.drawable.right_bottom_prem).into(ivBottomRight);
-    }
 
     private void getSKU() {
         List<String> skuList = new ArrayList<>();
