@@ -45,6 +45,7 @@ import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.common.Analytics.SavedConst;
 import com.wsoteam.diet.utils.IntentUtils;
 
 import java.util.ArrayList;
@@ -89,17 +90,15 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
 
         box = (Box) getArguments().getSerializable(TAG_BOX);
 
+        if (box.isOpenFromIntrodaction()){
+            getActivity().getSharedPreferences(SavedConst.SEE_PREMIUM, Context.MODE_PRIVATE).edit().putBoolean(SavedConst.SEE_PREMIUM, true).commit();
+        }
+
         Spannable wordtoSpan = new SpannableString(getString(R.string.subTestText));
         wordtoSpan.setSpan(new ForegroundColorSpan(Color.parseColor("#ef7d02")), 11, 26,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(wordtoSpan);
 
-        /*Glide.with(requireContext())
-                .load(R.drawable.subscription_one_button_title_img)
-                .apply(new RequestOptions()
-                        .skipMemoryCache(true)
-                        .centerInside())
-                .into(poster);*/
 
         billingClient = BillingClient.newBuilder(requireContext())
                 .setListener(this)
@@ -208,7 +207,6 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
                     Events.logMoveQuestions(EventProperties.question_close);
                 }
                 if (box.isOpenFromIntrodaction()) {
-                    Events.logSuccessOnboarding();
                     final Intent intent = new Intent(getContext(), ActivitySplash.class);
                     startActivity(intent);
                     getActivity().finish();
