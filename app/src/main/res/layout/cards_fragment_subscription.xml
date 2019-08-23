@@ -10,17 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/ivCentral"
-            android:layout_width="0dp"
-            android:layout_height="380dp"
-            android:layout_marginTop="60dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/central_prem"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <Button
             android:id="@+id/btnBuyPrem"
             android:layout_width="250dp"
@@ -66,10 +55,10 @@
             android:id="@+id/imageView57"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="100dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivCentral"
+            app:layout_constraintTop_toBottomOf="@+id/cardView17"
             app:srcCompat="@drawable/ic_title_premium" />
 
         <TextView
@@ -114,6 +103,84 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView57" />
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView17"
+            android:layout_width="146dp"
+            android:layout_height="192dp"
+            android:layout_marginTop="116dp"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivCentral"
+                android:layout_width="match_parent"
+                android:src="@drawable/central_image_prem"
+                android:scaleType="fitXY"
+                android:layout_height="match_parent" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvTopRight"
+            android:layout_width="86dp"
+            android:layout_height="109dp"
+            android:layout_marginTop="82dp"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivTopRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvBottomRight"
+            android:layout_width="81dp"
+            android:layout_height="154dp"
+            android:layout_marginTop="29dp"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvTopRight">
+
+            <ImageView
+                android:id="@+id/ivBottomRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvBottomLeft"
+            android:layout_width="83dp"
+            android:layout_height="127dp"
+            android:layout_marginTop="24dp"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvTopLeft">
+
+            <ImageView
+                android:id="@+id/ivBottomLeft"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvTopLeft"
+            android:layout_width="62dp"
+            android:layout_height="135dp"
+            android:layout_marginTop="69dp"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivTopLeft"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

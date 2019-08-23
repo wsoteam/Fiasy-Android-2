@@ -31,7 +31,6 @@ import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.facebook.appevents.AppEventsConstants;
 import com.facebook.appevents.AppEventsLogger;
 import com.wsoteam.diet.Authenticate.POJO.Box;
@@ -61,6 +60,14 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
 
     @BindView(R.id.textView161) TextView textView;
     @BindView(R.id.ivCentral) ImageView ivCentral;
+    @BindView(R.id.ivTopRight) ImageView ivTopRight;
+    @BindView(R.id.cvTopRight) CardView cvTopRight;
+    @BindView(R.id.ivBottomRight) ImageView ivBottomRight;
+    @BindView(R.id.cvBottomRight) CardView cvBottomRight;
+    @BindView(R.id.ivBottomLeft) ImageView ivBottomLeft;
+    @BindView(R.id.cvBottomLeft) CardView cvBottomLeft;
+    @BindView(R.id.ivTopLeft) ImageView ivTopLeft;
+    @BindView(R.id.cvTopLeft) CardView cvTopLeft;
     //@BindView(R.id.imgTitle) ImageView poster;
 
     private BillingClient billingClient;
@@ -123,7 +130,16 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
     }
 
     private void setViews() {
-        Glide.with(getActivity()).load(R.drawable.central_prem).into(ivCentral);
+        cvTopLeft.setBackgroundResource(R.drawable.shape_prem_top_left);
+        cvBottomLeft.setBackgroundResource(R.drawable.shape_prem_top_left);
+        cvTopRight.setBackgroundResource(R.drawable.shape_prem_top_right);
+        cvBottomRight.setBackgroundResource(R.drawable.shape_prem_top_right);
+
+        Glide.with(getActivity()).load(R.drawable.central_image_prem).into(ivCentral);
+        Glide.with(getActivity()).load(R.drawable.top_left_prem).into(ivTopLeft);
+        Glide.with(getActivity()).load(R.drawable.left_bottom_prem).into(ivBottomLeft);
+        Glide.with(getActivity()).load(R.drawable.right_top_prem).into(ivTopRight);
+        Glide.with(getActivity()).load(R.drawable.right_bottom_prem).into(ivBottomRight);
     }
 
     private void getSKU() {
