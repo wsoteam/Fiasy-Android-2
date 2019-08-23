@@ -17,17 +17,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
-import com.amplitude.api.Amplitude;
-import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
@@ -37,11 +31,8 @@ import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.facebook.appevents.AppEventsConstants;
 import com.facebook.appevents.AppEventsLogger;
-import com.wsoteam.diet.ABConfig;
-import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.Config;
@@ -59,11 +50,25 @@ import com.wsoteam.diet.utils.IntentUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
 public class FragmentSubscriptionOrangeOneButton extends Fragment
         implements PurchasesUpdatedListener {
 
     @BindView(R.id.textView161) TextView textView;
-    @BindView(R.id.imgTitle) ImageView poster;
+    @BindView(R.id.ivCentral) ImageView ivCentral;
+    @BindView(R.id.ivTopRight) ImageView ivTopRight;
+    @BindView(R.id.cvTopRight) CardView cvTopRight;
+    @BindView(R.id.ivBottomRight) ImageView ivBottomRight;
+    @BindView(R.id.cvBottomRight) CardView cvBottomRight;
+    @BindView(R.id.ivBottomLeft) ImageView ivBottomLeft;
+    @BindView(R.id.cvBottomLeft) CardView cvBottomLeft;
+    @BindView(R.id.ivTopLeft) ImageView ivTopLeft;
+    @BindView(R.id.cvTopLeft) CardView cvTopLeft;
+    //@BindView(R.id.imgTitle) ImageView poster;
 
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
@@ -87,8 +92,10 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_subscription_one_button_2, container, false);
+        //View view = inflater.inflate(R.layout.fragment_subscription_one_button_2, container, false);
+        View view = inflater.inflate(R.layout.cards_fragment_subscription, container, false);
         unbinder = ButterKnife.bind(this, view);
+        setViews();
         box = (Box) getArguments().getSerializable(TAG_BOX);
 
         Spannable wordtoSpan = new SpannableString(getString(R.string.subTestText));
@@ -96,12 +103,12 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(wordtoSpan);
 
-        Glide.with(requireContext())
+        /*Glide.with(requireContext())
                 .load(R.drawable.subscription_one_button_title_img)
                 .apply(new RequestOptions()
                         .skipMemoryCache(true)
                         .centerInside())
-                .into(poster);
+                .into(poster);*/
 
         billingClient = BillingClient.newBuilder(requireContext())
                 .setListener(this)
@@ -120,6 +127,19 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
             }
         });
         return view;
+    }
+
+    private void setViews() {
+        cvTopLeft.setBackgroundResource(R.drawable.shape_prem_top_left);
+        cvBottomLeft.setBackgroundResource(R.drawable.shape_prem_top_left);
+        cvTopRight.setBackgroundResource(R.drawable.shape_prem_top_right);
+        cvBottomRight.setBackgroundResource(R.drawable.shape_prem_top_right);
+
+        Glide.with(getActivity()).load(R.drawable.central_image_prem).into(ivCentral);
+        Glide.with(getActivity()).load(R.drawable.top_left_prem).into(ivTopLeft);
+        Glide.with(getActivity()).load(R.drawable.left_bottom_prem).into(ivBottomLeft);
+        Glide.with(getActivity()).load(R.drawable.right_top_prem).into(ivTopRight);
+        Glide.with(getActivity()).load(R.drawable.right_bottom_prem).into(ivBottomRight);
     }
 
     private void getSKU() {
