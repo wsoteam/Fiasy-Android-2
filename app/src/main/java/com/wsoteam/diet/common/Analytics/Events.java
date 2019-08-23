@@ -24,6 +24,7 @@ public class Events {
     public static final String RESEND_SUCCESS = "resend_success";
     public static final String RESEND_ERROR = "resend_error";
     public static final String QUESTION_NEXT = "question_next";
+    public static final String ONBOARDING_SUCCESS = "onboarding_success";
 
 
     //PURCHASE
@@ -84,6 +85,11 @@ public class Events {
     //TRAINING
     //public static final String SELECT_TRAINING = "select_training";
     //public static final String SHARE_TRAINING = "share_training";
+
+    public static void logSuccessOnboarding() {
+        Amplitude.getInstance().logEvent(ONBOARDING_SUCCESS);
+        io.intercom.android.sdk.Intercom.client().logEvent(ONBOARDING_SUCCESS);
+    }
 
     public static void logPushButton(String whichButton) {
         JSONObject eventProperties = new JSONObject();
