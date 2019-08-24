@@ -8,11 +8,10 @@ android {
         applicationId "com.wild.diet"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 86
-        versionName "2.8.2dev"
+        versionCode 87
+        versionName "2.8.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-
         renderscriptTargetApi 27
         renderscriptSupportModeEnabled true
     }
