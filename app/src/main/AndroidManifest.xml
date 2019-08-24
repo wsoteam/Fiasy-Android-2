@@ -290,9 +290,7 @@
         android:theme="@style/EditProfile" />
     <activity
         android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
-        android:screenOrientation="portrait"
         android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-
     <meta-data
         android:name="com.facebook.sdk.ApplicationId"
         android:value="@string/facebook_app_id" />
