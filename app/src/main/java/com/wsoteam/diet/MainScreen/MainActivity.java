@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import com.amplitude.api.Identify;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
@@ -158,6 +159,10 @@ public class MainActivity extends AppCompatActivity {
         if (ArticlesHolder.getListArticles() == null) {
             loadArticles();
         }
+        Identify identify = new Identify()
+                .set("LOL", "KEK");
+        Amplitude.getInstance().identify(identify);
+        Amplitude.getInstance().logEvent("LOL");
     }
 
     private void checkForcedGrade() {
