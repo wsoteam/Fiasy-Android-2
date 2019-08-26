@@ -38,6 +38,7 @@ import com.wsoteam.diet.Articles.ListArticlesFragment;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.Authenticate.POJO.Box;
+import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
@@ -50,6 +51,7 @@ import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.presentation.activity.UserActivityFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.common.Analytics.Events;
 
@@ -146,8 +148,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_drawer);
         ButterKnife.bind(this);
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
+
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+
+        if (BuildConfig.DEBUG) {
+            getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.flFragmentContainer, new UserActivityFragment())
+                .commit();
+        } else {
+            getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.flFragmentContainer, new FragmentDiary())
+                .commit();
+        }
+
         //checkForcedGrade();
         IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
         new AsyncWriteFoodDB().execute(MainActivity.this);

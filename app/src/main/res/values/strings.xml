@@ -990,4 +990,9 @@
   <string name="action_sign_up">Зарегистрироваться</string>
   <string name="skip">Пропустить</string>
   <string name="personal_diary">Создаём ваш персональный дневник питания</string>
+  <string name="user_activity_title">Активность</string>
+  <string name="user_activity_section_favorite">Избранное</string>
+  <string name="user_activity_section_my">Мои активности</string>
+  <string name="user_activity_section_defaults">Стандартные активности</string>
+  <string name="action_add">Добавить</string>
 </resources>
