@@ -21,7 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class FoodFavoriteConverter {
+public class OldFavoriteConverter {
     static FoodDAO foodDAO = App.getInstance().getFoodDatabase().foodDAO();
 
     public static void run() {

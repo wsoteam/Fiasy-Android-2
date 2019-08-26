@@ -2,7 +2,6 @@ package com.wsoteam.diet.BranchOfAnalyzer.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +14,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.PrimaryKey;
 
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.ActivityCreateFood;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.backward.FoodConverter;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
@@ -39,7 +37,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class FragmentSearch extends Fragment implements TabsFragment {
@@ -153,7 +150,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(getActivity(), ActivityDetailOfFood.class);
-            intent.putExtra(Config.INTENT_DETAIL_FOOD, convert(itemAdapter.foods.get(getAdapterPosition())));
+            intent.putExtra(Config.INTENT_DETAIL_FOOD, FoodConverter.convertResultToFood(itemAdapter.foods.get(getAdapterPosition())));
             intent.putExtra(Config.TAG_CHOISE_EATING, ((ActivityListAndSearch) getActivity()).spinnerId);
             intent.putExtra(Config.INTENT_DATE_FOR_SAVE, getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
             startActivity(intent);
@@ -181,29 +178,6 @@ public class FragmentSearch extends Fragment implements TabsFragment {
                 tvBrand.setVisibility(View.GONE);
             }
         }
-    }
-
-    private Food convert(Result result) {
-        Food food = new Food();
-        food.setId(result.getId());
-        food.setName(result.getName());
-        food.setBrand(result.getBrand().getName());
-        food.setPortion(result.getPortion());
-        food.setLiquid(result.isLiquid());
-        food.setKilojoules(result.getKilojoules());
-        food.setCalories(result.getCalories());
-        food.setProteins(result.getProteins());
-        food.setCarbohydrates(result.getCarbohydrates());
-        food.setSugar(result.getSugar());
-        food.setFats(result.getFats());
-        food.setSaturatedFats(result.getSaturatedFats());
-        food.setMonoUnSaturatedFats(result.getMonounsaturatedFats());
-        food.setPolyUnSaturatedFats(result.getPolyunsaturatedFats());
-        food.setCholesterol(result.getCholesterol());
-        food.setCellulose(result.getCellulose());
-        food.setPottassium(result.getPottasium());
-        food.setSodium(result.getSodium());
-        return food;
     }
 
     public class ItemAdapter extends RecyclerView.Adapter<ItemHolder> {

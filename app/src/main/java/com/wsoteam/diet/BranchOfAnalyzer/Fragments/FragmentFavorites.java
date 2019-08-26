@@ -2,11 +2,13 @@ package com.wsoteam.diet.BranchOfAnalyzer.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.common.backward.FoodConverter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -50,7 +53,6 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
     @BindView(R.id.tvTitleFavoriteAdd) TextView tvTitleFavoriteAdd;
     @BindView(R.id.tvTextAddFavorite) TextView tvTextAddFavorite;
     @BindView(R.id.btnAddFavorite) Button btnAddFavorite;
-    private FoodDAO foodDAO = App.getInstance().getFoodDatabase().foodDAO();
     private ItemAdapter itemAdapter;
     private String searchString = "";
 
@@ -116,27 +118,7 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
 
 
     private void findFavoritesInDb() {
-        Single.fromCallable(() -> {
-            List<Food> foods = getFavoriteFoods(getMarkers());
-            return foods;
-        })
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<List<Food>>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onSuccess(List<Food> foods) {
-                updateUI(foods);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-        });
+        updateUI(getFavorites());
     }
 
     private void updateUI(List<Food> foods) {
@@ -166,23 +148,15 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
         ivAddFavorite.setVisibility(View.VISIBLE);
     }
 
-    private List<Food> getFavoriteFoods(List<FavoriteFood> favoriteFoods) {
-        List<Food> foods = new ArrayList<>();
-        for (int i = 0; i < favoriteFoods.size(); i++) {
-            foods.add(foodDAO.getById(favoriteFoods.get(i).getId()));
-        }
-        return foods;
-    }
-
-    private List<FavoriteFood> getMarkers() {
-        List<FavoriteFood> favoriteFoods = new ArrayList<>();
+    private List<Food> getFavorites() {
+        List<Food> favoriteFoods = new ArrayList<>();
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getFoodFavorites() != null) {
             Iterator iterator = UserDataHolder.getUserData().getFoodFavorites().entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry pair = (Map.Entry) iterator.next();
                 FavoriteFood favoriteFood = (FavoriteFood) pair.getValue();
                 favoriteFood.setKey((String) pair.getKey());
-                favoriteFoods.add(favoriteFood);
+                favoriteFoods.add(FoodConverter.convertFavoriteToFood(favoriteFood));
             }
         }
         return favoriteFoods;
@@ -218,9 +192,9 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
         }
 
         public void bind(Food food) {
-            tvNameOfFood.setText(food.getFullInfo().replace("()", ""));
+            tvNameOfFood.setText(food.getName());
             tvCalories.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
-            if (food.isLiquid()) {
+            if (food.isLiquid() &&) {
                 tvWeight.setText("Вес: 100мл");
             } else {
                 tvWeight.setText("Вес: 100г");
