@@ -7,35 +7,35 @@ import java.util.Map;
 
 public class Result {
 
-    private Integer id;
+    private int id;
     private String name;
     private String fullInfo;
     private Object barcode;
-    private Integer portion;
-    private Boolean isLiquid;
-    private Double kilojoules;
-    private Double calories;
-    private Double proteins;
-    private Double carbohydrates;
-    private Double sugar;
-    private Double fats;
-    private Double saturatedFats;
-    private Double monounsaturatedFats;
-    private Double polyunsaturatedFats;
-    private Double cholesterol;
-    private Double cellulose;
-    private Double sodium;
-    private Double pottasium;
+    private int portion;
+    private boolean isLiquid;
+    private double kilojoules;
+    private double calories;
+    private double proteins;
+    private double carbohydrates;
+    private double sugar;
+    private double fats;
+    private double saturatedFats;
+    private double monounsaturatedFats;
+    private double polyunsaturatedFats;
+    private double cholesterol;
+    private double cellulose;
+    private double sodium;
+    private double pottasium;
     private Category category;
     private Brand brand;
     private List<Object> measurementUnits = null;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -63,123 +63,123 @@ public class Result {
         this.barcode = barcode;
     }
 
-    public Integer getPortion() {
+    public int getPortion() {
         return portion;
     }
 
-    public void setPortion(Integer portion) {
+    public void setPortion(int portion) {
         this.portion = portion;
     }
 
-    public Boolean getIsLiquid() {
+    public boolean isLiquid() {
         return isLiquid;
     }
 
-    public void setIsLiquid(Boolean isLiquid) {
-        this.isLiquid = isLiquid;
+    public void setLiquid(boolean liquid) {
+        isLiquid = liquid;
     }
 
-    public Double getKilojoules() {
+    public double getKilojoules() {
         return kilojoules;
     }
 
-    public void setKilojoules(Double kilojoules) {
+    public void setKilojoules(double kilojoules) {
         this.kilojoules = kilojoules;
     }
 
-    public Double getCalories() {
+    public double getCalories() {
         return calories;
     }
 
-    public void setCalories(Double calories) {
+    public void setCalories(double calories) {
         this.calories = calories;
     }
 
-    public Double getProteins() {
+    public double getProteins() {
         return proteins;
     }
 
-    public void setProteins(Double proteins) {
+    public void setProteins(double proteins) {
         this.proteins = proteins;
     }
 
-    public Double getCarbohydrates() {
+    public double getCarbohydrates() {
         return carbohydrates;
     }
 
-    public void setCarbohydrates(Double carbohydrates) {
+    public void setCarbohydrates(double carbohydrates) {
         this.carbohydrates = carbohydrates;
     }
 
-    public Double getSugar() {
+    public double getSugar() {
         return sugar;
     }
 
-    public void setSugar(Double sugar) {
+    public void setSugar(double sugar) {
         this.sugar = sugar;
     }
 
-    public Double getFats() {
+    public double getFats() {
         return fats;
     }
 
-    public void setFats(Double fats) {
+    public void setFats(double fats) {
         this.fats = fats;
     }
 
-    public Double getSaturatedFats() {
+    public double getSaturatedFats() {
         return saturatedFats;
     }
 
-    public void setSaturatedFats(Double saturatedFats) {
+    public void setSaturatedFats(double saturatedFats) {
         this.saturatedFats = saturatedFats;
     }
 
-    public Double getMonounsaturatedFats() {
+    public double getMonounsaturatedFats() {
         return monounsaturatedFats;
     }
 
-    public void setMonounsaturatedFats(Double monounsaturatedFats) {
+    public void setMonounsaturatedFats(double monounsaturatedFats) {
         this.monounsaturatedFats = monounsaturatedFats;
     }
 
-    public Double getPolyunsaturatedFats() {
+    public double getPolyunsaturatedFats() {
         return polyunsaturatedFats;
     }
 
-    public void setPolyunsaturatedFats(Double polyunsaturatedFats) {
+    public void setPolyunsaturatedFats(double polyunsaturatedFats) {
         this.polyunsaturatedFats = polyunsaturatedFats;
     }
 
-    public Double getCholesterol() {
+    public double getCholesterol() {
         return cholesterol;
     }
 
-    public void setCholesterol(Double cholesterol) {
+    public void setCholesterol(double cholesterol) {
         this.cholesterol = cholesterol;
     }
 
-    public Double getCellulose() {
+    public double getCellulose() {
         return cellulose;
     }
 
-    public void setCellulose(Double cellulose) {
+    public void setCellulose(double cellulose) {
         this.cellulose = cellulose;
     }
 
-    public Double getSodium() {
+    public double getSodium() {
         return sodium;
     }
 
-    public void setSodium(Double sodium) {
+    public void setSodium(double sodium) {
         this.sodium = sodium;
     }
 
-    public Double getPottasium() {
+    public double getPottasium() {
         return pottasium;
     }
 
-    public void setPottasium(Double pottasium) {
+    public void setPottasium(double pottasium) {
         this.pottasium = pottasium;
     }
 
@@ -208,11 +208,11 @@ public class Result {
     }
 
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+        return additionalProperties;
     }
 
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+    public void setAdditionalProperties(Map<String, Object> additionalProperties) {
+        this.additionalProperties = additionalProperties;
     }
 
     @Override
