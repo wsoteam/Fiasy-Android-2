@@ -2,13 +2,6 @@ package com.wsoteam.diet.BranchOfAnalyzer.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +10,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
-import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.FavoriteFood;
@@ -38,11 +35,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.reactivex.Single;
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class FragmentFavorites extends Fragment implements TabsFragment {
 
@@ -175,6 +167,7 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
         @BindView(R.id.tvProt) TextView tvProt;
         @BindView(R.id.tvFats) TextView tvFats;
         @BindView(R.id.tvCarbo) TextView tvCarbo;
+        @BindView(R.id.tvBrand) TextView tvBrand;
 
         public ItemHolder(LayoutInflater layoutInflater, ViewGroup viewGroup) {
             super(layoutInflater.inflate(R.layout.item_rv_list_of_search_response, viewGroup, false));
@@ -194,7 +187,7 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
         public void bind(Food food) {
             tvNameOfFood.setText(food.getName());
             tvCalories.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
-            if (food.isLiquid() &&) {
+            if (food.isLiquid()) {
                 tvWeight.setText("Вес: 100мл");
             } else {
                 tvWeight.setText("Вес: 100г");
@@ -202,6 +195,12 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
             tvProt.setText("Б. " + String.valueOf(Math.round(food.getProteins() * 100)));
             tvFats.setText("Ж. " + String.valueOf(Math.round(food.getFats() * 100)));
             tvCarbo.setText("У. " + String.valueOf(Math.round(food.getCarbohydrates() * 100)));
+            if (!food.getBrand().equals("")) {
+                tvBrand.setVisibility(View.VISIBLE);
+                tvBrand.setText(food.getBrand());
+            }else {
+                tvBrand.setVisibility(View.GONE);
+            }
         }
     }
 

@@ -171,6 +171,8 @@ public class ActivityListAndSearch extends AppCompatActivity {
         if (requestCode == 1234 && resultCode == RESULT_OK) {
             ArrayList<String> commandList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             edtSearchField.setText(commandList.get(0));
+            ((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
+                    sendString(edtSearchField.getText().toString().replaceAll("\\s+", " "));
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
