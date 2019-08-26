@@ -3,22 +3,29 @@ package com.wsoteam.diet.BranchOfAnalyzer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+
 import androidx.annotation.Nullable;
+
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
+
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
@@ -82,14 +89,23 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                ((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
-                        sendString(charSequence.toString().replaceAll("\\s+", " "));
                 changeSpeakButton(charSequence);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
 
+            }
+        });
+        edtSearchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    ((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
+                            sendString(edtSearchField.getText().toString().replaceAll("\\s+", " "));
+                    return true;
+                }
+                return false;
             }
         });
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

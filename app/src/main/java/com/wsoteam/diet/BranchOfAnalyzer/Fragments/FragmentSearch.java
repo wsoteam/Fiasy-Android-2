@@ -2,12 +2,6 @@ package com.wsoteam.diet.BranchOfAnalyzer.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +9,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.App;
@@ -29,8 +29,6 @@ import com.wsoteam.diet.common.networking.food.FoodResultAPI;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 
-import io.reactivex.disposables.CompositeDisposable;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class FragmentSearch extends Fragment implements TabsFragment {
@@ -59,9 +58,8 @@ public class FragmentSearch extends Fragment implements TabsFragment {
 
     @Override
     public void sendString(String searchString) {
-        if (searchString.length() > 2) {
-            search(searchString);
-        }
+        search(searchString);
+        
     }
 
     @Nullable
@@ -108,7 +106,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     private void search(String searchString) {
         Log.e("LOL", "start search");
         foodResultAPI
-                .getResponse(1, 0, searchString)
+                .getResponse(RESPONSE_LIMIT, 0, searchString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(t -> refreshAdapter(t.getResults()), Throwable::printStackTrace);
@@ -116,7 +114,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
 
     private void refreshAdapter(List<Result> t) {
         if (rvListOfSearchResponse == null) {
-          return;
+            return;
         }
         rvListOfSearchResponse.setAdapter(itemAdapter = new ItemAdapter(t));
         Log.e("LOL", "end search");
@@ -146,6 +144,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
         @BindView(R.id.tvProt) TextView tvProt;
         @BindView(R.id.tvFats) TextView tvFats;
         @BindView(R.id.tvCarbo) TextView tvCarbo;
+        @BindView(R.id.tvBrand) TextView tvBrand;
 
         public ItemHolder(LayoutInflater layoutInflater, ViewGroup viewGroup) {
             super(layoutInflater.inflate(R.layout.item_rv_list_of_search_response, viewGroup, false));
@@ -167,16 +166,22 @@ public class FragmentSearch extends Fragment implements TabsFragment {
             tvCalories.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
             try {
                 if (food.getIsLiquid()) {
-                    tvWeight.setText("Вес: 100мл");
+                    tvWeight.setText("Вес: 100 мл");
                 } else {
-                    tvWeight.setText("Вес: 100г");
+                    tvWeight.setText("Вес: 100 г");
                 }
-            }catch (Exception e){
-                Log.e("LOL", String.valueOf(getAdapterPosition()));
+            } catch (Exception e) {
+                tvWeight.setText("Вес: 100 г");
             }
             tvProt.setText("Б. " + String.valueOf(Math.round(food.getProteins() * 100)));
             tvFats.setText("Ж. " + String.valueOf(Math.round(food.getFats() * 100)));
             tvCarbo.setText("У. " + String.valueOf(Math.round(food.getCarbohydrates() * 100)));
+            if (food.getBrand() != null && !food.getBrand().getName().equals("")) {
+                tvBrand.setVisibility(View.VISIBLE);
+                tvBrand.setText(food.getBrand().getName());
+            } else {
+                tvBrand.setVisibility(View.GONE);
+            }
         }
     }
 
