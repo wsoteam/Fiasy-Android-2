@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
+import com.wsoteam.diet.common.backward.FoodFavoriteConverter;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

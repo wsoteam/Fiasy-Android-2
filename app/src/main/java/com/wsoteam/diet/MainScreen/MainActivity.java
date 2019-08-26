@@ -35,10 +35,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.App;
 import com.wsoteam.diet.Articles.ListArticlesFragment;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.Authenticate.POJO.Box;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
@@ -51,6 +54,7 @@ import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.backward.FoodFavoriteConverter;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.common.Analytics.Events;
@@ -159,10 +163,7 @@ public class MainActivity extends AppCompatActivity {
         if (ArticlesHolder.getListArticles() == null) {
             loadArticles();
         }
-        Identify identify = new Identify()
-                .set("LOL", "KEK");
-        Amplitude.getInstance().identify(identify);
-        Amplitude.getInstance().logEvent("LOL");
+
     }
 
     private void checkForcedGrade() {

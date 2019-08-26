@@ -249,4 +249,33 @@ public class FavoriteFood implements Serializable {
     public void setPercentProteins(int percentProteins) {
         this.percentProteins = percentProteins;
     }
+
+    @Override
+    public String toString() {
+        return "FavoriteFood{" +
+                "id=" + id +
+                ", fullInfo='" + fullInfo + '\'' +
+                ", key='" + key + '\'' +
+                ", name='" + name + '\'' +
+                ", brand='" + brand + '\'' +
+                ", portion=" + portion +
+                ", isLiquid=" + isLiquid +
+                ", kilojoules=" + kilojoules +
+                ", calories=" + calories +
+                ", proteins=" + proteins +
+                ", carbohydrates=" + carbohydrates +
+                ", sugar=" + sugar +
+                ", fats=" + fats +
+                ", saturatedFats=" + saturatedFats +
+                ", monoUnSaturatedFats=" + monoUnSaturatedFats +
+                ", polyUnSaturatedFats=" + polyUnSaturatedFats +
+                ", cholesterol=" + cholesterol +
+                ", cellulose=" + cellulose +
+                ", sodium=" + sodium +
+                ", pottassium=" + pottassium +
+                ", percentCarbohydrates=" + percentCarbohydrates +
+                ", percentFats=" + percentFats +
+                ", percentProteins=" + percentProteins +
+                '}';
+    }
 }

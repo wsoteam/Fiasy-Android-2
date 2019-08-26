@@ -244,6 +244,14 @@ public class WorkWithFirebaseDB {
         return key;
     }
 
+    public static void rewriteFoodFavorite(FavoriteFood food) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodFavorites");
+        myRef.child(food.getKey()).setValue(food);
+    }
+
+
     public static void deleteFavorite(String key) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).

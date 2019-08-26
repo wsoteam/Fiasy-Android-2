@@ -35,6 +35,7 @@ import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
 import com.wsoteam.diet.Recipes.helper.FragmentRecipeContainer;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.common.backward.FoodFavoriteConverter;
 import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplateFragment;
 import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
 
@@ -71,6 +72,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         ButterKnife.bind(this);
         bindSpinnerChoiceEating();
         updateUI();
+        FoodFavoriteConverter.run();
         getSupportFragmentManager().beginTransaction().add(R.id.searchFragmentContainer, new FragmentSearch()).commit();
         edtSearchField.addTextChangedListener(new TextWatcher() {
             @Override
