@@ -28,6 +28,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.backward.FoodConverter;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
+import com.wsoteam.diet.common.networking.food.POJO.FoodResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     @BindView(R.id.btnAddFavorite) Button btnAddFavorite;
     private int RESPONSE_LIMIT = 100;
     private ItemAdapter itemAdapter;
+    private FoodDAO foodDAO = App.getInstance().getFoodDatabase().foodDAO();
     private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
     private String searchString = "";
     @BindView(R.id.rvListOfSearchResponse) RecyclerView rvListOfSearchResponse;
@@ -183,6 +185,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     public class ItemAdapter extends RecyclerView.Adapter<ItemHolder> {
         private List<Result> foods;
         private int currentPaginationTrigger = 0;
+        private int countPaginations = 0;
 
         public ItemAdapter(List<Result> foods) {
             this.foods = foods;
@@ -199,9 +202,9 @@ public class FragmentSearch extends Fragment implements TabsFragment {
             return new ItemHolder(layoutInflater, parent);
         }
 
-        private void loadNextPortion(int position){
+        private void loadNextPortion(int offset){
             foodResultAPI
-                    .getResponse(RESPONSE_LIMIT, 0, searchString)
+                    .getResponse(RESPONSE_LIMIT, offset, searchString)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
@@ -217,8 +220,9 @@ public class FragmentSearch extends Fragment implements TabsFragment {
         @Override
         public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
             if (position == currentPaginationTrigger){
-                loadNextPortion(position);
                 currentPaginationTrigger += RESPONSE_LIMIT - 1;
+                countPaginations += 1;
+                loadNextPortion(countPaginations * RESPONSE_LIMIT);
             }
             holder.bind(foods.get(position));
         }
