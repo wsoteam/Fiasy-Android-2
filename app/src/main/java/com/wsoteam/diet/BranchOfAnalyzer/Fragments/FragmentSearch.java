@@ -49,7 +49,6 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     @BindView(R.id.btnAddFavorite) Button btnAddFavorite;
     private int RESPONSE_LIMIT = 100;
     private ItemAdapter itemAdapter;
-    private FoodDAO foodDAO = App.getInstance().getFoodDatabase().foodDAO();
     private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
     private String searchString = "";
     @BindView(R.id.rvListOfSearchResponse) RecyclerView rvListOfSearchResponse;
