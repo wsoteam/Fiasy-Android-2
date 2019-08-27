@@ -2,6 +2,7 @@ package com.wsoteam.diet.BranchOfAnalyzer.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,9 +48,8 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     @BindView(R.id.btnAddFavorite) Button btnAddFavorite;
     private int RESPONSE_LIMIT = 100;
     private ItemAdapter itemAdapter;
-    private FoodDAO foodDAO = App.getInstance().getFoodDatabase().foodDAO();
     private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
-
+    private String searchString = "";
     @BindView(R.id.rvListOfSearchResponse) RecyclerView rvListOfSearchResponse;
     Unbinder unbinder;
 
@@ -57,7 +57,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     @Override
     public void sendString(String searchString) {
         search(searchString);
-
+        this.searchString = searchString;
     }
 
     @Nullable
@@ -182,6 +182,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
 
     public class ItemAdapter extends RecyclerView.Adapter<ItemHolder> {
         private List<Result> foods;
+        private int currentPaginationTrigger = 0;
 
         public ItemAdapter(List<Result> foods) {
             this.foods = foods;
@@ -198,8 +199,27 @@ public class FragmentSearch extends Fragment implements TabsFragment {
             return new ItemHolder(layoutInflater, parent);
         }
 
+        private void loadNextPortion(int position){
+            foodResultAPI
+                    .getResponse(RESPONSE_LIMIT, 0, searchString)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
+        }
+
+        private void addItems(List<Result> results) {
+            for (int i = 0; i < results.size(); i++) {
+                foods.add(results.get(i));
+            }
+            notifyDataSetChanged();
+        }
+
         @Override
         public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
+            if (position == currentPaginationTrigger){
+                loadNextPortion(position);
+                currentPaginationTrigger += RESPONSE_LIMIT - 1;
+            }
             holder.bind(foods.get(position));
         }
 

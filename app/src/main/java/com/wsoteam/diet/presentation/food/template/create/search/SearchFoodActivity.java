@@ -5,13 +5,17 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.speech.RecognizerIntent;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -79,7 +83,6 @@ public class SearchFoodActivity extends AppCompatActivity {
         foodList = FoodTemplateHolder.get();
 
 
-
         edtSearchField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -104,11 +107,11 @@ public class SearchFoodActivity extends AppCompatActivity {
 
     }
 
-    private boolean checkFood(Food food){
+    private boolean checkFood(Food food) {
 
-        for (Food f:
-             foodList) {
-            if (f.getName().equals(food.getName())){
+        for (Food f :
+                foodList) {
+            if (f.getName().equals(food.getName())) {
                 return true;
             }
         }
@@ -119,35 +122,32 @@ public class SearchFoodActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
-
         if (requestCode == 1234 && resultCode == RESULT_OK) {
             ArrayList<String> commandList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             edtSearchField.setText(commandList.get(0));
         }
-        if (requestCode == 45 && resultCode == RESULT_OK){
+        if (requestCode == 45 && resultCode == RESULT_OK) {
 
             Bundle bundle = data.getExtras();
             if (bundle != null) {
                 Food food = (Food) bundle.get(Config.RECIPE_FOOD_INTENT);
 
-               int position = getPosition(food);
+                int position = getPosition(food);
 
-               if (position < 0){
-                   foodList.add(food);
-               } else {
-                   foodList.set(position, food);
-               }
+                if (position < 0) {
+                    foodList.add(food);
+                } else {
+                    foodList.set(position, food);
+                }
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    int getPosition(Food food){
-        for (Food f:
-                foodList) {
-            if (f.getName().equals(food.getName())){
-                return  foodList.indexOf(f);
+    int getPosition(Food food) {
+        for (Food f : foodList) {
+            if (f.getName().equals(food.getName())) {
+                return foodList.indexOf(f);
             }
         }
         return -1;
@@ -245,33 +245,33 @@ public class SearchFoodActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            if (checkFood(itemAdapter.foods.get(getAdapterPosition()))){
+            if (checkFood(itemAdapter.foods.get(getAdapterPosition()))) {
                 alert();
             } else {
                 Intent intent = new Intent(SearchFoodActivity.this, DetailFoodActivity.class);
                 intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
                 intent.putExtra(Config.SEND_RESULT_TO_BACK, true);
-                startActivityForResult(intent,45);
+                startActivityForResult(intent, 45);
             }
 
         }
 
-        void alert(){
+        void alert() {
             AlertDialog.Builder builder = new AlertDialog.Builder(SearchFoodActivity.this);
             AlertDialog alertDialog = builder.create();
             View.OnClickListener listener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    switch (v.getId()){
-                            case R.id.btnCancel:
+                    switch (v.getId()) {
+                        case R.id.btnCancel:
                             alertDialog.dismiss();
                             break;
-                            case R.id.btnChange:
-                                Intent intent = new Intent(SearchFoodActivity.this, ActivityDetailFood.class);
-                                intent.putExtra(Config.DETAIL_FOOD_BTN_NAME, "Изменить");
-                                intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
-                                startActivityForResult(intent,45);
-                                alertDialog.dismiss();
+                        case R.id.btnChange:
+                            Intent intent = new Intent(SearchFoodActivity.this, ActivityDetailFood.class);
+                            intent.putExtra(Config.DETAIL_FOOD_BTN_NAME, "Изменить");
+                            intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
+                            startActivityForResult(intent, 45);
+                            alertDialog.dismiss();
                             break;
                     }
                 }
@@ -373,7 +373,7 @@ public class SearchFoodActivity extends AppCompatActivity {
 
     }
 
-    private void startAlertDialog(Food food){
+    private void startAlertDialog(Food food) {
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout = inflater.inflate(R.layout.adding_recipe_product, null);
 
@@ -386,10 +386,10 @@ public class SearchFoodActivity extends AppCompatActivity {
         ImageButton closeButton = alertLayout.findViewById(R.id.btnClose);
 
 //        portionEditText.setText("100");
-        kcalTextView.setText(String.valueOf((int)(food.getCalories())) + " Ккал");
-        carboTextView.setText(String.valueOf((int)(food.getCarbohydrates())) + " г");
-        fatTextView.setText(String.valueOf((int)(food.getFats())) + " г");
-        proteinTextView.setText(String.valueOf((int)(food.getProteins())) + " г");
+        kcalTextView.setText(String.valueOf((int) (food.getCalories())) + " Ккал");
+        carboTextView.setText(String.valueOf((int) (food.getCarbohydrates())) + " г");
+        fatTextView.setText(String.valueOf((int) (food.getFats())) + " г");
+        proteinTextView.setText(String.valueOf((int) (food.getProteins())) + " г");
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setView(alertLayout);
@@ -422,7 +422,7 @@ public class SearchFoodActivity extends AppCompatActivity {
 
                 try {
                     index = Integer.parseInt(String.valueOf(s));
-                } catch (Exception e){
+                } catch (Exception e) {
                     index = 0;
                 }
 
@@ -438,10 +438,10 @@ public class SearchFoodActivity extends AppCompatActivity {
                     proteins = 0;
                 }
 
-                kcalTextView.setText(String.valueOf((int)calories) + " Ккал");
-                fatTextView.setText(String.valueOf((int)fats) + " г");
-                carboTextView.setText(String.valueOf((int)carbo) + " г");
-                proteinTextView.setText(String.valueOf((int)proteins) + " г");
+                kcalTextView.setText(String.valueOf((int) calories) + " Ккал");
+                fatTextView.setText(String.valueOf((int) fats) + " г");
+                carboTextView.setText(String.valueOf((int) carbo) + " г");
+                proteinTextView.setText(String.valueOf((int) proteins) + " г");
             }
 
             @Override
@@ -462,7 +462,7 @@ public class SearchFoodActivity extends AppCompatActivity {
 
                 try {
                     index = Integer.parseInt(String.valueOf(portionEditText.getText()));
-                } catch (Exception e){
+                } catch (Exception e) {
                     index = 0;
                 }
 
@@ -493,8 +493,8 @@ public class SearchFoodActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent();
-        intent.putExtra(Config.RECIPE_FOOD_INTENT,(Serializable) foodList);
-        setResult(RESULT_OK,intent);
+        intent.putExtra(Config.RECIPE_FOOD_INTENT, (Serializable) foodList);
+        setResult(RESULT_OK, intent);
         finish();
     }
 }
