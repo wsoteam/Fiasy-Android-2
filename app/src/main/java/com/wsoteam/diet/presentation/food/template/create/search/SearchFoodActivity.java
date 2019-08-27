@@ -3,38 +3,39 @@ package com.wsoteam.diet.presentation.food.template.create.search;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.wsoteam.diet.App;
+import com.bumptech.glide.Glide;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
+import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplateHolder;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.adding.ActivityDetailFood;
+import com.wsoteam.diet.common.backward.FoodConverter;
+import com.wsoteam.diet.common.networking.food.FoodResultAPI;
+import com.wsoteam.diet.common.networking.food.FoodSearch;
+import com.wsoteam.diet.common.networking.food.POJO.Result;
 import com.wsoteam.diet.presentation.food.template.create.detail.DetailFoodActivity;
 
 import java.io.Serializable;
@@ -44,7 +45,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -54,16 +54,15 @@ public class SearchFoodActivity extends AppCompatActivity {
     @BindView(R.id.rvListOfSearchResponse) RecyclerView rvListOfSearchResponse;
     @BindView(R.id.ivActivityListAndSearchEmptyImage) ImageView ivEmptyImage;
     @BindView(R.id.tvActivityListAndSearchEmptyText) TextView tvEmptyText;
-
+    @BindView(R.id.ibActivityListAndSearchCollapsingCancelButton) ImageView ibSpeakAndClear;
+    private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
     private AlertDialog dialog;
     private Window window;
 
-    private int RESPONSE_LIMIT = 50;
+    private int RESPONSE_LIMIT = 100;
     private ItemAdapter itemAdapter;
-    private boolean isEqualsNext = true;
-    private FoodDAO foodDAO = App.getInstance().getFoodDatabase().foodDAO();
-    private final int ONE_WORD = 1, TWO_WORDS = 2, THREE_WORDS = 3, FOUR_WORDS = 4, FIVE_WORDS = 5;
-
+    private String searchString = "";
+    private boolean isCanSpeak = true;
     private List<Food> foodList;
 
 
@@ -91,12 +90,7 @@ public class SearchFoodActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (ivEmptyImage.getVisibility() == View.VISIBLE) {
-                    ivEmptyImage.setVisibility(View.GONE);
-                    tvEmptyText.setVisibility(View.GONE);
-                }
-                isEqualsNext = true;
-                search(charSequence.toString().replaceAll("\\s+", " "));
+                changeSpeakButton(charSequence);
             }
 
             @Override
@@ -105,6 +99,39 @@ public class SearchFoodActivity extends AppCompatActivity {
             }
         });
 
+        edtSearchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    search(edtSearchField.getText().toString().replaceAll("\\s+", " "));
+                    return true;
+                }
+                return false;
+            }
+        });
+
+    }
+
+    private void showNoFind() {
+        Glide.with(this).load(R.drawable.ic_no_find).into(ivEmptyImage);
+        tvEmptyText.setText(getResources().getString(R.string.text_no_find_food));
+        ivEmptyImage.setVisibility(View.VISIBLE);
+        tvEmptyText.setVisibility(View.VISIBLE);
+    }
+
+    private void hideMessageUI() {
+        ivEmptyImage.setVisibility(View.GONE);
+        tvEmptyText.setVisibility(View.GONE);
+    }
+
+    private void changeSpeakButton(CharSequence charSequence) {
+        if (charSequence.length() > 0 && isCanSpeak) {
+            isCanSpeak = false;
+            Glide.with(this).load(R.drawable.ic_cancel).into(ibSpeakAndClear);
+        } else if (charSequence.length() == 0 && !isCanSpeak) {
+            isCanSpeak = true;
+            Glide.with(this).load(R.drawable.ic_speak).into(ibSpeakAndClear);
+        }
     }
 
     private boolean checkFood(Food food) {
@@ -154,73 +181,46 @@ public class SearchFoodActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        List<Food> foods = new ArrayList<>();
+        List<Result> foods = new ArrayList<>();
         itemAdapter = new ItemAdapter(foods);
         rvListOfSearchResponse.setLayoutManager(new LinearLayoutManager(this));
         rvListOfSearchResponse.setAdapter(itemAdapter);
     }
 
     private void search(String searchString) {
-        Single.fromCallable(() -> {
-            List<Food> cFOODS = getFirstList(searchString);
-            return cFOODS;
-        })
-                .subscribeOn(Schedulers.computation())
+        foodResultAPI
+                .getResponse(RESPONSE_LIMIT, 0, searchString)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(t -> refreshAdapter(t), Throwable::printStackTrace);
+                .subscribe(t -> refreshAdapter(t.getResults()), Throwable::printStackTrace);
     }
 
-    private void refreshAdapter(List<Food> t) {
+    private void refreshAdapter(List<Result> t) {
         itemAdapter = new ItemAdapter(t);
         rvListOfSearchResponse.setAdapter(itemAdapter);
-    }
-
-    private List<Food> getFirstList(String searchString) {
-        List<Food> foods = new ArrayList<>();
-        foods.addAll(foodDAO.searchFullMatchWord(searchString, RESPONSE_LIMIT, 0));
-        if (foods.size() < RESPONSE_LIMIT) {
-            isEqualsNext = false;
-            if (searchString.contains(" ") && searchString.split(" ").length > 1) {
-                foods.addAll(searchMultiWords(searchString, foods.size()));
-            } else {
-                foods.addAll(foodDAO.searchOneWord("%" + searchString + "%", RESPONSE_LIMIT, foods.size()));
-            }
+        if (t.size() > 0) {
+            hideMessageUI();
+        } else {
+            showNoFind();
         }
-        return foods;
     }
 
-    private List<Food> searchMultiWords(String searchPhrase, int offset) {
-        List<Food> foods = new ArrayList<>();
-        if (searchPhrase.split(" ").length == TWO_WORDS) {
-            foods = foodDAO.searchTwoWord("%" + searchPhrase.split(" ")[0] + "%",
-                    "%" + searchPhrase.split(" ")[1] + "%", RESPONSE_LIMIT, offset);
-        } else if (searchPhrase.split(" ").length == THREE_WORDS) {
-            foods = foodDAO.searchThreeWord("%" + searchPhrase.split(" ")[0] + "%",
-                    "%" + searchPhrase.split(" ")[1] + "%",
-                    "%" + searchPhrase.split(" ")[2] + "%",
-                    RESPONSE_LIMIT, offset);
-        } else if (searchPhrase.split(" ").length == FOUR_WORDS) {
-            foods = foodDAO.searchFourWord("%" + searchPhrase.split(" ")[0] + "%",
-                    "%" + searchPhrase.split(" ")[1] + "%",
-                    "%" + searchPhrase.split(" ")[2] + "%",
-                    "%" + searchPhrase.split(" ")[3] + "%", RESPONSE_LIMIT, offset);
-        } else if (searchPhrase.split(" ").length == FIVE_WORDS) {
-            foods = foodDAO.searchFiveWord("%" + searchPhrase.split(" ")[0] + "%",
-                    "%" + searchPhrase.split(" ")[1] + "%",
-                    "%" + searchPhrase.split(" ")[2] + "%",
-                    "%" + searchPhrase.split(" ")[3] + "%",
-                    "%" + searchPhrase.split(" ")[4] + "%",
-                    RESPONSE_LIMIT, offset);
-        }
-        return foods;
+    private void speak() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH); // намерение для вызова формы обработки речи (ОР)
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM); // сюда он слушает и запоминает
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Говорите!");
+        startActivityForResult(intent, 1234); // вызываем активность ОР
     }
-
 
     @OnClick({R.id.ibActivityListAndSearchCollapsingCancelButton, R.id.ivBack})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibActivityListAndSearchCollapsingCancelButton:
-                edtSearchField.setText("");
+                if (isCanSpeak) {
+                    speak();
+                } else {
+                    edtSearchField.setText("");
+                }
                 break;
             case R.id.ivBack:
                 onBackPressed();
@@ -235,6 +235,7 @@ public class SearchFoodActivity extends AppCompatActivity {
         @BindView(R.id.tvProt) TextView tvProt;
         @BindView(R.id.tvFats) TextView tvFats;
         @BindView(R.id.tvCarbo) TextView tvCarbo;
+        @BindView(R.id.tvBrand) TextView tvBrand;
 
         public ItemHolder(LayoutInflater layoutInflater, ViewGroup viewGroup) {
             super(layoutInflater.inflate(R.layout.item_rv_list_of_search_response, viewGroup, false));
@@ -244,12 +245,11 @@ public class SearchFoodActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-
-            if (checkFood(itemAdapter.foods.get(getAdapterPosition()))) {
+            if (checkFood(FoodConverter.convertResultToFood(itemAdapter.foods.get(getAdapterPosition())))) {
                 alert();
             } else {
                 Intent intent = new Intent(SearchFoodActivity.this, DetailFoodActivity.class);
-                intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
+                intent.putExtra(Config.INTENT_DETAIL_FOOD, FoodConverter.convertResultToFood(itemAdapter.foods.get(getAdapterPosition())));
                 intent.putExtra(Config.SEND_RESULT_TO_BACK, true);
                 startActivityForResult(intent, 45);
             }
@@ -269,7 +269,7 @@ public class SearchFoodActivity extends AppCompatActivity {
                         case R.id.btnChange:
                             Intent intent = new Intent(SearchFoodActivity.this, ActivityDetailFood.class);
                             intent.putExtra(Config.DETAIL_FOOD_BTN_NAME, "Изменить");
-                            intent.putExtra(Config.INTENT_DETAIL_FOOD, itemAdapter.foods.get(getAdapterPosition()));
+                            intent.putExtra(Config.INTENT_DETAIL_FOOD, FoodConverter.convertResultToFood(itemAdapter.foods.get(getAdapterPosition())));
                             startActivityForResult(intent, 45);
                             alertDialog.dismiss();
                             break;
@@ -286,8 +286,8 @@ public class SearchFoodActivity extends AppCompatActivity {
             alertDialog.show();
         }
 
-        public void bind(Food food) {
-            tvNameOfFood.setText(food.getFullInfo().replace("()", ""));
+        public void bind(Result food) {
+            tvNameOfFood.setText(food.getName());
             tvCalories.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
             if (food.isLiquid()) {
                 tvWeight.setText("Вес: 100мл");
@@ -297,17 +297,22 @@ public class SearchFoodActivity extends AppCompatActivity {
             tvProt.setText("Б. " + String.valueOf(Math.round(food.getProteins() * 100)));
             tvFats.setText("Ж. " + String.valueOf(Math.round(food.getFats() * 100)));
             tvCarbo.setText("У. " + String.valueOf(Math.round(food.getCarbohydrates() * 100)));
+            if (food.getBrand() != null && !food.getBrand().getName().equals("")) {
+                tvBrand.setVisibility(View.VISIBLE);
+                tvBrand.setText(food.getBrand().getName());
+            } else {
+                tvBrand.setVisibility(View.GONE);
+            }
         }
     }
 
     public class ItemAdapter extends RecyclerView.Adapter<ItemHolder> {
-        private List<Food> foods;
-        private int counter;
+        private List<Result> foods;
+        private int currentPaginationTrigger = 0;
+        private int countPaginations = 0;
 
-        public ItemAdapter(List<Food> foods) {
+        public ItemAdapter(List<Result> foods) {
             this.foods = foods;
-//            tvIndex.setText(String.valueOf(foods.size()));
-            counter = -1;
         }
 
 
@@ -320,174 +325,35 @@ public class SearchFoodActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
-            holder.bind(foods.get(position));
-            if (position > counter && position % RESPONSE_LIMIT == 0) {
-                counter = position;
-                getNextPortion(position + RESPONSE_LIMIT);
+            if (position == currentPaginationTrigger) {
+                currentPaginationTrigger += RESPONSE_LIMIT - 1;
+                countPaginations += 1;
+                loadNextPortion(countPaginations * RESPONSE_LIMIT);
             }
+            holder.bind(foods.get(position));
         }
 
-        private void getNextPortion(int offset) {
-            Single.fromCallable(() -> {
-                List<Food> cFOODS = getSearchResult(offset);
-                return cFOODS;
-            })
-                    .subscribeOn(Schedulers.computation())
+        private void loadNextPortion(int offset) {
+            foodResultAPI
+                    .getResponse(RESPONSE_LIMIT, offset, searchString)
+                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(t -> updateAdapter(t), Throwable::printStackTrace);
+                    .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
         }
 
-        private void updateAdapter(List<Food> nextPortion) {
-            foods.addAll(nextPortion);
+        private void addItems(List<Result> results) {
+            for (int i = 0; i < results.size(); i++) {
+                foods.add(results.get(i));
+            }
             notifyDataSetChanged();
         }
 
-        private List<Food> getSearchResult(int offset) {
-            List<Food> foods = new ArrayList<>();
-            if (isEqualsNext) {
-                foods = foodDAO.searchFullMatchWord(edtSearchField.getText().toString(), RESPONSE_LIMIT, offset);
-                if (foods.size() < RESPONSE_LIMIT) {
-                    isEqualsNext = false;
-                    if (edtSearchField.getText().toString().contains(" ") && edtSearchField.getText().toString().split(" ").length > 1) {
-                        foods.addAll(searchMultiWords(edtSearchField.getText().toString(), foods.size() + offset));
-                    } else {
-                        foods.addAll(foodDAO.searchOneWord("%" + edtSearchField.getText().toString() + "%",
-                                RESPONSE_LIMIT, offset + foods.size()));
-                    }
-                }
-            } else {
-                if (edtSearchField.getText().toString().contains(" ") && edtSearchField.getText().toString().split(" ").length > 1) {
-                    foods.addAll(searchMultiWords(edtSearchField.getText().toString(), offset));
-                } else {
-                    foods.addAll(foodDAO.searchOneWord("%" + edtSearchField.getText().toString() + "%",
-                            RESPONSE_LIMIT, offset));
-                }
-            }
-            return foods;
-        }
 
         @Override
         public int getItemCount() {
             return foods.size();
         }
 
-    }
-
-    private void startAlertDialog(Food food) {
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.adding_recipe_product, null);
-
-        EditText portionEditText = alertLayout.findViewById(R.id.edtActivityDetailOfFoodPortion);
-        TextView kcalTextView = alertLayout.findViewById(R.id.tvActivityDetailOfFoodCalculateKcal);
-        TextView carboTextView = alertLayout.findViewById(R.id.tvActivityDetailOfFoodCalculateCarbo);
-        TextView fatTextView = alertLayout.findViewById(R.id.tvActivityDetailOfFoodCalculateFat);
-        TextView proteinTextView = alertLayout.findViewById(R.id.tvActivityDetailOfFoodCalculateProtein);
-        Button saveButton = alertLayout.findViewById(R.id.btnAddRecipe);
-        ImageButton closeButton = alertLayout.findViewById(R.id.btnClose);
-
-//        portionEditText.setText("100");
-        kcalTextView.setText(String.valueOf((int) (food.getCalories())) + " Ккал");
-        carboTextView.setText(String.valueOf((int) (food.getCarbohydrates())) + " г");
-        fatTextView.setText(String.valueOf((int) (food.getFats())) + " г");
-        proteinTextView.setText(String.valueOf((int) (food.getProteins())) + " г");
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setView(alertLayout);
-//        alert.setCancelable(false);
-        dialog = alert.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        portionEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                int index;
-                double calories;
-                double fats;
-                double carbo;
-                double proteins;
-
-                try {
-                    index = Integer.parseInt(String.valueOf(s));
-                } catch (Exception e) {
-                    index = 0;
-                }
-
-                if (index > 0) {
-                    calories = food.getCalories() * index;
-                    fats = food.getFats() * index;
-                    carbo = food.getCarbohydrates() * index;
-                    proteins = food.getProteins() * index;
-                } else {
-                    calories = 0;
-                    fats = 0;
-                    carbo = 0;
-                    proteins = 0;
-                }
-
-                kcalTextView.setText(String.valueOf((int) calories) + " Ккал");
-                fatTextView.setText(String.valueOf((int) fats) + " г");
-                carboTextView.setText(String.valueOf((int) carbo) + " г");
-                proteinTextView.setText(String.valueOf((int) proteins) + " г");
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                int index;
-                double calories;
-                double fats;
-                double carbo;
-                double proteins;
-
-                try {
-                    index = Integer.parseInt(String.valueOf(portionEditText.getText()));
-                } catch (Exception e) {
-                    index = 0;
-                }
-
-                if (index > 0) {
-                    calories = food.getCalories() * index;
-                    fats = food.getFats() * index;
-                    carbo = food.getCarbohydrates() * index;
-                    proteins = food.getProteins() * index;
-
-                    food.setCalories(calories);
-                    food.setFats(fats);
-                    food.setCarbohydrates(carbo);
-                    food.setProteins(proteins);
-                    food.setPortion(index);
-
-                    Intent intent = new Intent();
-                    intent.putExtra(Config.RECIPE_FOOD_INTENT, food);
-
-                    setResult(RESULT_OK, intent);
-                    dialog.dismiss();
-                    finish();
-
-                }
-            }
-        });
     }
 
     @Override

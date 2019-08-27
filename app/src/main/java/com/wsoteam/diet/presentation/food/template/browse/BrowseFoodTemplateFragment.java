@@ -17,6 +17,8 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.networking.food.FoodResultAPI;
+import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.presentation.food.adapter.FoodTemplateAdapter;
 
 import java.util.List;
@@ -30,7 +32,6 @@ public class BrowseFoodTemplateFragment  extends MvpAppCompatFragment
 
     @InjectPresenter
     BrowseFoodTemplatePresenter presenter;
-
     @BindView(R.id.recycler) RecyclerView recyclerView;
     @BindView(R.id.layoutWithButton) ConstraintLayout layoutWithBtn;
 

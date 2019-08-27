@@ -121,7 +121,7 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         public void bind(Food food) {
             double portion = food.getPortion();
-            tvNameOfFood.setText(food.getFullInfo().replace("()", ""));
+            tvNameOfFood.setText(food.getName());
             tvCalories.setText((int)(food.getCalories() * portion) + " Ккал");
             if (food.isLiquid()) {
                 tvWeight.setText("Вес: " + (int)portion + " мл");
