@@ -127,7 +127,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
           indexDown = 2;
       }
     } else {
-      indexDown = recipeForDays.size() - 1;
+      indexDown = recipeForDays.size();
     }
   }
 
@@ -180,12 +180,18 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     int index = getListPosition(i);
     if (i == 0) {
 
+      if (indexUp >= daysAfterStart) ((HeaderViewHolder)viewHolder).visibilityBtnLoad(false);
+
     } else  if (i == getItemCount() - 1) {
       FooterViewHolder holder = (FooterViewHolder) viewHolder;
       if (daysAfterStart >= recipeForDays.size()){
         holder.showEndMessage(true);
       } else {
         holder.showEndMessage(false);
+      }
+
+      if (indexDown >= recipeForDays.size() - daysAfterStart){
+        holder.visibilityLoadBtn(false);
       }
 
     }else if (i > 0 && i < getItemCount() - 1){
@@ -340,6 +346,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     @BindView(R.id.tvPlansRecipes) TextView tvRecipes;
     @BindView(R.id.tvTime) TextView tvTime;
     @BindView(R.id.tvTimeCount) TextView tvTimeCount;
+    @BindView(R.id.btnLoadRecipe) Button btnLoadRecipe;
 
     private final View.OnClickListener listener;
 
@@ -367,6 +374,14 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     void clickedLoad(View view){
       listener.onClick(view);
     }
+
+    public void visibilityBtnLoad(boolean b){
+      if (b){
+        btnLoadRecipe.setVisibility(View.VISIBLE);
+      }else {
+        btnLoadRecipe.setVisibility(View.GONE);
+      }
+    }
   }
 
   static class FooterViewHolder extends RecyclerView.ViewHolder{
@@ -388,6 +403,14 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       }else {
         layout.setVisibility(View.GONE);
         loadButton.setVisibility(View.VISIBLE);
+      }
+    }
+
+    void visibilityLoadBtn(boolean b){
+      if (b){
+        loadButton.setVisibility(View.VISIBLE);
+      }else {
+        loadButton.setVisibility(View.GONE);
       }
     }
 
