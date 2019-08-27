@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,9 +16,11 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.collection.SparseArrayCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.activity.ActivitiesAdapter.UserActivityView;
 import com.wsoteam.diet.presentation.activity.ExercisesSource.AssetsSource;
 import com.wsoteam.diet.utils.Metrics;
 import com.wsoteam.diet.utils.RandomTool;
@@ -28,6 +31,8 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static com.wsoteam.diet.presentation.activity.ActivitiesAdapter.VIEW_TYPE_ACTIVITY;
 
 public class UserActivityFragment extends Fragment implements
     // Loool
@@ -51,9 +56,6 @@ public class UserActivityFragment extends Fragment implements
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    sources.put(R.string.user_activity_section_defaults,
-        new AssetsSource(getResources().getAssets()));
-
     toolbar = view.findViewById(R.id.toolbar);
     toolbar.inflateMenu(R.menu.fragment_user_activity_toolbar_menu);
     toolbar.setOnMenuItemClickListener(this);
@@ -64,22 +66,78 @@ public class UserActivityFragment extends Fragment implements
     container.addItemDecoration(new DividerDecoration(requireContext()));
     container.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+    adapter.setSearchListener(this::search);
     adapter.addItemClickListener(new ActivitiesAdapter.AdapterItemsClickListener() {
       @Override
-      public void onSectionClick(ActivitiesAdapter.HeaderView view, int sectionId, int position) {
+      public void onSectionClick(ActivitiesAdapter.HeaderView view, int sectionId) {
         adapter.toggleSection(sectionId);
       }
 
       @Override
-      public void onItemClick(RecyclerView.ViewHolder view, int sectionId, int position) {
+      public void onItemClick(RecyclerView.ViewHolder view, int sectionId) {
 
       }
+
+      @Override public void onItemMenuClick(@NonNull RecyclerView.ViewHolder view, int sectionId) {
+        final UserActivityView v = (UserActivityView) view;
+
+        final PopupMenu menu =
+            new PopupMenu(v.overflowMenu.getContext(), v.overflowMenu, Gravity.BOTTOM);
+        menu.inflate(R.menu.fragment_user_activity_edit_activity);
+        menu.show();
+      }
     });
+
+    sources.put(R.string.user_activity_section_defaults,
+        new AssetsSource(getResources().getAssets()));
+
+    adapter.createSection(R.string.user_activity_section_my);
+    adapter.createSection(R.string.user_activity_section_favorite);
+    adapter.createSection(R.string.user_activity_section_defaults);
 
     fetchSources();
   }
 
+  private void search(CharSequence q) {
+    disposables.clear();
+
+    final List<Single<List<UserActivityExercise>>> streams = new ArrayList<>();
+
+    for (int i = 0; i < sources.size(); i++) {
+      final int sourceId = sources.keyAt(i);
+
+      streams.add(
+          sources.valueAt(i).search(q)
+              .subscribeOn(Schedulers.io())
+              .onErrorReturn(error -> {
+                error.printStackTrace();
+
+                // default for now
+                return Collections.emptyList();
+              })
+              .observeOn(AndroidSchedulers.mainThread())
+              .doOnSuccess(
+                  exercises -> {
+                    final DiffUtil.DiffResult diff = ExercisesSource.calculateDiff(
+                        adapter.getItemsBySection(sourceId), exercises);
+
+                    if (adapter.isExpanded(sourceId)) {
+                      adapter.addItems(sourceId, exercises, diff);
+                    } else {
+                      adapter.clearSection(sourceId);
+                      adapter.addItems(sourceId, exercises);
+                    }
+                  }
+              )
+      );
+    }
+
+    disposables.add(Single.concat(streams).subscribe());
+  }
+
   private void fetchSources() {
+    disposables.clear();
+
     final List<Single<List<UserActivityExercise>>> streams = new ArrayList<>();
 
     for (int i = 0; i < sources.size(); i++) {
@@ -88,16 +146,16 @@ public class UserActivityFragment extends Fragment implements
       streams.add(
           sources.valueAt(i).getExercises()
               .subscribeOn(Schedulers.io())
-              .observeOn(AndroidSchedulers.mainThread())
               .onErrorReturn(error -> {
                 error.printStackTrace();
 
                 // default for now
                 return Collections.emptyList();
               })
+              .observeOn(AndroidSchedulers.mainThread())
               .doOnSuccess(
                   exercises -> {
-                    adapter.createSection(sourceId);
+                    adapter.clearSection(sourceId);
                     adapter.addItems(sourceId, exercises);
                   }
               )
@@ -146,7 +204,7 @@ public class UserActivityFragment extends Fragment implements
     final Paint p = new Paint();
 
     public DividerDecoration(Context context) {
-      dividerHeight = Metrics.dp(context, 0.75f);
+      dividerHeight = Metrics.dp(context, 1f);
       p.setColor(0xFFD3D3D3);
       p.setStrokeWidth(dividerHeight);
       p.setStyle(Paint.Style.STROKE);
@@ -158,13 +216,13 @@ public class UserActivityFragment extends Fragment implements
 
       for (int i = 0; i < parent.getChildCount(); i++) {
         final View view = parent.getChildAt(i);
-        final int aP = parent.getChildAdapterPosition(view);
+        final RecyclerView.ViewHolder holder = parent.getChildViewHolder(view);
 
-        if (parent.getAdapter().getItemViewType(aP) != ActivitiesAdapter.VIEW_TYPE_ACTIVITY) {
+        if (holder.getItemViewType() != VIEW_TYPE_ACTIVITY) {
           continue;
         }
 
-        c.drawLine(view.getLeft(), view.getBottom(), view.getRight(), view.getBottom(), p);
+        c.drawLine(parent.getLeft(), view.getBottom(), parent.getRight(), view.getBottom(), p);
       }
     }
 

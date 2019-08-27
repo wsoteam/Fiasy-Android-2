@@ -2,6 +2,7 @@ package com.wsoteam.diet.utils;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.style.ImageSpan;
 import android.text.style.RelativeSizeSpan;
 import androidx.core.content.ContextCompat;
 import android.text.Spannable;
@@ -87,6 +88,12 @@ public class RichTextUtils {
   public static Spannable setTextColor(@NonNull CharSequence text, @ColorInt int color) {
     final Spannable editable = edit(text);
     editable.setSpan(new ForegroundColorSpan(color), 0, text.length(), 0);
+    return editable;
+  }
+
+  public static Spannable replaceWithIcon(CharSequence text, ImageSpan span){
+    Spannable editable = edit(text);
+    editable.setSpan(span, 0, text.length(), 0);
     return editable;
   }
 

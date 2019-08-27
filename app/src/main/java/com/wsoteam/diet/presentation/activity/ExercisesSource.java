@@ -1,17 +1,55 @@
 package com.wsoteam.diet.presentation.activity;
 
 import android.content.res.AssetManager;
+import androidx.recyclerview.widget.DiffUtil;
+import io.reactivex.Flowable;
 import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.List;
 import kotlin.text.StringsKt;
 import okio.BufferedSource;
 import okio.Okio;
 
-public interface ExercisesSource {
-  Single<List<UserActivityExercise>> getExercises();
+public abstract class ExercisesSource {
 
-  class AssetsSource implements ExercisesSource {
+  public abstract Single<List<UserActivityExercise>> getExercises();
+
+  public Single<List<UserActivityExercise>> search(CharSequence query) {
+    return getExercises()
+        .observeOn(Schedulers.io())
+        .flatMap(exercises -> Flowable.fromIterable(exercises)
+            .filter(e -> StringsKt.contains(e.title(), query, true))
+            .toList());
+  }
+
+  public static DiffUtil.DiffResult calculateDiff(
+      final List<UserActivityExercise> old,
+      final List<UserActivityExercise> latest) {
+
+    return DiffUtil.calculateDiff(new DiffUtil.Callback() {
+      @Override public int getOldListSize() {
+        return old.size();
+      }
+
+      @Override public int getNewListSize() {
+        return latest.size();
+      }
+
+      @Override public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+        final UserActivityExercise l = old.get(oldItemPosition);
+        final UserActivityExercise r = latest.get(newItemPosition);
+
+        return l.title().equals(r.title());
+      }
+
+      @Override public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+        return areItemsTheSame(oldItemPosition, newItemPosition);
+      }
+    });
+  }
+
+  public static class AssetsSource extends ExercisesSource {
 
     private final AssetManager assets;
 
@@ -56,7 +94,8 @@ public interface ExercisesSource {
 
           final int burnsPerMinute = Integer.parseInt(cols[1]);
 
-          final UserActivityExercise e = new UserActivityExercise(cols[0], burnsPerMinute * 30, 30);
+          final UserActivityExercise e =
+              new UserActivityExercise(cols[0], burnsPerMinute * 30, 30 * 60);
           exercises.add(e);
         }
 
