@@ -274,6 +274,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     private boolean isCurrentDay;
 
     private int position;
+    private  int tabPosition;
 
 
     private LinearLayoutManager layoutManager;
@@ -302,29 +303,38 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     void bind(int i, boolean isCurrentDay) {
       this.isCurrentDay = isCurrentDay;
       this.position = i;
-      tabLayout.getTabAt(0).select();
+      tabLayout.getTabAt(tabPosition).select();
+      selectListRecipe(tabPosition);
       tvDay.setText("День " + (i + 1));
-      adapter.updateList(recipeForDays.get(i).getBreakfast(), isCurrentDay, i, "breakfast");
     }
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
 
-      switch (tab.getPosition()) {
+     selectListRecipe(tab.getPosition());
+    }
+
+    private void selectListRecipe(int tabPosition){
+      switch (tabPosition) {
         case 0:
           adapter.updateList(recipeForDays.get(position).getBreakfast(), isCurrentDay, getAdapterPosition() - 1, "breakfast");
+          this.tabPosition = 0;
           break;
         case 1:
           adapter.updateList(recipeForDays.get(position).getLunch(), isCurrentDay, getAdapterPosition() - 1, "lunch");
+          this.tabPosition = 1;
           break;
         case 2:
           adapter.updateList(recipeForDays.get(position).getDinner(), isCurrentDay, getAdapterPosition() - 1, "dinner");
+          this.tabPosition = 2;
           break;
         case 3:
           adapter.updateList(recipeForDays.get(position).getSnack(), isCurrentDay, getAdapterPosition() - 1, "snack");
+          this.tabPosition = 3;
           break;
         default:
           adapter.updateList(recipeForDays.get(position).getBreakfast(), isCurrentDay, getAdapterPosition() - 1, "breakfast");
+          this.tabPosition = 0;
       }
     }
 
