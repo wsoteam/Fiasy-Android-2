@@ -83,7 +83,30 @@ public class UserActivityFragment extends Fragment implements
 
         final PopupMenu menu =
             new PopupMenu(v.overflowMenu.getContext(), v.overflowMenu, Gravity.BOTTOM);
-        menu.inflate(R.menu.fragment_user_activity_edit_activity);
+
+        if (sectionId == R.string.user_activity_section_defaults) {
+          menu.getMenu().add(0, R.id.action_make_favorite, 1, R.string.action_add_to_favorite);
+        } else if (sectionId == R.string.user_activity_section_favorite) {
+          menu.getMenu().add(0, R.id.action_delete, 1, R.string.contextMenuDelete);
+        } else if (sectionId == R.string.user_activity_section_my) {
+          menu.getMenu().add(0, R.id.action_edit, 1, R.string.contextMenuEdit);
+          menu.getMenu().add(0, R.id.action_delete, 1, R.string.contextMenuDelete);
+        }
+
+        menu.setOnMenuItemClickListener(item -> {
+          final UserActivityExercise target = adapter.getItem(v.getAdapterPosition());
+
+          switch (item.getItemId()) {
+            case R.id.action_make_favorite:
+              adapter.addItem(R.string.user_activity_section_favorite, target);
+              break;
+
+            case R.id.action_delete:
+              adapter.removeItem(sectionId, v.getAdapterPosition());
+              break;
+          }
+          return true;
+        });
         menu.show();
       }
     });

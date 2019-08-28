@@ -998,4 +998,10 @@
   <string name="user_activity_time_elapsed_wh">%dч %d м</string>
   <string name="user_activity_burned">%d ккал</string>
   <string name="action_add">Добавить</string>
+  <string name="action_add_to_favorite">Добавить в избранное</string>
+  <string name="add_user_activity_edit_title">Название активности</string>
+  <string name="action_done">Готово</string>
+  <string name="add_user_activity_burned_hint">количество калорий за %d минут:</string>
+  <string name="add_user_activity_warning">Неправильно добавленная активность, может показывать недостоверные данные по дневной норме КБЖУ</string>
+  <string name="add_user_activity_warning_custom_important">Внимание!</string>
 </resources>

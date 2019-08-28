@@ -207,8 +207,16 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
   }
 
   @Nullable
-  protected UserActivityExercise getItemAt(int position) {
+  private UserActivityExercise getItemAt(int position) {
     return head.getItemAt(position);
+  }
+
+  public UserActivityExercise getItem(int position){
+    return getItemAt(position - headers);
+  }
+
+  public int getSectionsHeader(@StringRes int sectionId) {
+    return 1;
   }
 
   public int getSectionOffset(int adapterPosition) {
@@ -350,6 +358,27 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     notifyItemRangeInserted(index + (size - headers), items.size());
+  }
+
+  public void removeItem(@StringRes int sectionId, int position) {
+    final Section section = sections.get(sectionId);
+
+    if (section == null) {
+      throw new IllegalArgumentException(
+          "section with id #" + Integer.toHexString(sectionId) + " not found");
+    }
+
+    final int offset = getSectionOffset(section);
+    final int id = position - offset - 1 - headers;
+
+    section.items.remove(id);
+
+    if (section.items.isEmpty()) {
+      notifyItemChanged(position);
+    } else {
+      total -= 1;
+      notifyItemRemoved(position);
+    }
   }
 
   @NonNull @Override
@@ -552,7 +581,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
       final VectorDrawableCompat target = (VectorDrawableCompat)
           VectorDrawableCompat.create(context.getResources(), targetVectorId, context.getTheme())
-          .mutate();
+              .mutate();
 
       target.setBounds(0, 0, Metrics.dp(context, 16), Metrics.dp(context, 16));
       target.setTint(ContextCompat.getColor(context, R.color.orange));
