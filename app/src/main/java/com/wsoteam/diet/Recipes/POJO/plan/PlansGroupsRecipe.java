@@ -64,13 +64,15 @@ public class PlansGroupsRecipe implements GroupsRecipes {
         listRecipesGroups.add(listDinner);
         listRecipesGroups.add(listSnack);
 
-        Collections.shuffle(breakfast);
-        Collections.shuffle(lunch);
-        Collections.shuffle(dinner);
-        Collections.shuffle(snack);
 
         for (RecipeItem recipe:
              listRecipes.getListrecipes()) {
+
+            if (recipe.getName().equals("name")){
+                Log.d("kkk", "PlansGroupsRecipe: default name");
+                continue;
+            }
+
             if (recipe.getBreakfast().contains(plan.getFlag())){
                 breakfast.add(recipe);
             }
@@ -87,10 +89,20 @@ public class PlansGroupsRecipe implements GroupsRecipes {
                 snack.add(recipe);
             }
         }
+
+        Collections.shuffle(breakfast);
+        Collections.shuffle(lunch);
+        Collections.shuffle(dinner);
+        Collections.shuffle(snack);
+
         recipeForDays = new ArrayList<>();
-        //buffer = new HashSet<>();
-        for (int i = 0; i < days; i++){
-            buffer = new HashSet<>();
+        buffer = new HashSet<>();
+        int bufIndex = 0;
+        for (int i = 0; i < days; i++, bufIndex++){
+            if (bufIndex > 0){
+                buffer = new HashSet<>();
+                bufIndex = 0;
+            }
             recipeForDays.add(selectRecipe(buffer));
         }
 

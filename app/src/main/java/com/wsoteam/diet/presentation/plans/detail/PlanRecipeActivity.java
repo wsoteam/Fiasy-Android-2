@@ -307,7 +307,7 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
     getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).edit()
         .putBoolean(Config.IS_ADDED_FOOD, true)
         .commit();
-    new CountDownTimer(800, 100) {
+    new CountDownTimer(2000, 2000) {
       @Override
       public void onTick(long millisUntilFinished) {
 

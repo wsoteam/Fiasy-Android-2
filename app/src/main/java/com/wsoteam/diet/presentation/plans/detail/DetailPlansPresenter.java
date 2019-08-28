@@ -52,6 +52,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
       adapter = new VerticalDetailPlansAdapter(dietPlan, true);
       isCurrentPlan = true;
     } else {
+      //RecipesHolder.get()
       plansRecipe = new PlansGroupsRecipe(RecipesHolder.get(), dietPlan);
       recipeForDays = plansRecipe.getRecipeForDays();
       dietPlan.setRecipes(getList(), plansRecipe.size());
