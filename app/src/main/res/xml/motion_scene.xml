@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:motion="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Transition
+        motion:constraintSetStart="@layout/activity_profile_settings"
+        motion:constraintSetEnd="@layout/activity_profile_settings_end"
+        motion:duration="1000">
+
+        <OnClick
+            motion:targetId="@id/ibSettingsPremClose"/>
+
+        <KeyFrameSet >
+            <KeyAttribute android:translationX="100dp"
+                motion:framePosition="10"
+                android:elevation="8dp"
+                motion:motionTarget="@id/cvPremium"/>
+        </KeyFrameSet>
+    </Transition>
+
+</MotionScene>

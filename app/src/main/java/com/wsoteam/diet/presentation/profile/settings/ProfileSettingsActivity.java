@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,10 +25,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+
 public class ProfileSettingsActivity extends MvpAppCompatActivity implements ProfileSettingsView {
     ProfileSettingsPresenter profileSettingsPresenter;
     @BindView(R.id.rvSettingsItems) RecyclerView rvSettingsItems;
-    @BindView(R.id.cvPremium) CardView cvPremium;
+    CardView cvPremium;
+    @BindView(R.id.mlParent) MotionLayout mlParent;
 
 
     @ProvidePresenter
@@ -41,9 +44,10 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
         setContentView(R.layout.activity_profile_settings);
         ButterKnife.bind(this);
 
+        cvPremium = findViewById(R.id.cvPremium);
+        //cvPremium.setVisibility(VISIBLE);
         profileSettingsPresenter = new ProfileSettingsPresenter();
         profileSettingsPresenter.attachView(this);
-
         rvSettingsItems.setLayoutManager(new LinearLayoutManager(this));
         rvSettingsItems.setAdapter(new ItemsAdapter(this, !getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE)
                 .getBoolean(Config.STATE_BILLING, false)));
@@ -54,6 +58,7 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
             cvPremium.setVisibility(View.GONE);
         }
     }
+
 
 
     @OnClick({R.id.btnSettingsPrem, R.id.ibSettingsPremClose, R.id.ibBack})
@@ -74,7 +79,8 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
                 PremiumCloseStateSingleton.getInstance().setClosePremium(true);
                 break;
             case R.id.ibBack:
-                onBackPressed();
+                //onBackPressed();
+                cvPremium.setVisibility(View.VISIBLE);
                 break;
         }
     }
