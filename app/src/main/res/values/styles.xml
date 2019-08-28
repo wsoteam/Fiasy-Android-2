@@ -155,6 +155,12 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="ProfileActivity" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#d1d1d1</item>
+        <item name="colorPrimaryDark">#d1d1d1</item>
+        <item name="colorAccent">#d1d1d1</item>
+    </style>
+
     <style name="PremiumTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/statusbar_prem</item>
         <item name="colorPrimaryDark">@color/statusbar_prem</item>

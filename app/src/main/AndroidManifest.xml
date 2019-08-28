@@ -349,7 +349,7 @@
     <activity
         android:name=".presentation.profile.settings.ProfileSettingsActivity"
         android:screenOrientation="portrait"
-        android:theme="@style/DetailFood" />
+        android:theme="@style/ProfileActivity" />
 
     <activity
         android:name=".presentation.profile.about.AboutActivity"

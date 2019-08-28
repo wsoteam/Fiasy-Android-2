@@ -990,4 +990,7 @@
   <string name="action_sign_up">Зарегистрироваться</string>
   <string name="skip">Пропустить</string>
   <string name="personal_diary">Создаём ваш персональный дневник питания</string>
+    <string name="prem_title_settings">Улучши свои показатели!</string>
+    <string name="text_prem_settings">Эксклюзивные статьи от ведущих \nдиетологов и спортсменов, а так же \nмножество рецепетов!</string>
+  <string name="btn_settings_prem">стать лучше</string>
 </resources>
