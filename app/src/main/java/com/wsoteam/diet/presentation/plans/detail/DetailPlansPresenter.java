@@ -78,7 +78,8 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
   }
 
   void clickedJoin() {
-    if (UserDataHolder.getUserData().getPlan() == null){
+    DietPlan plan = UserDataHolder.getUserData().getPlan();
+    if (plan == null || plan.getDaysAfterStart() >= plan.getCountDays()){
       joinPlans();
     } else {
       getViewState().startAlert(UserDataHolder.getUserData().getPlan().getName());
