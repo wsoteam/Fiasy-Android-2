@@ -152,6 +152,7 @@ public class SearchFoodActivity extends AppCompatActivity {
         if (requestCode == 1234 && resultCode == RESULT_OK) {
             ArrayList<String> commandList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             edtSearchField.setText(commandList.get(0));
+            search(edtSearchField.getText().toString().replaceAll("\\s+", " "));
         }
         if (requestCode == 45 && resultCode == RESULT_OK) {
 
