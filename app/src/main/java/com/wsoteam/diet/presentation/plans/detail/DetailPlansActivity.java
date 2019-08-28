@@ -64,7 +64,7 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
 
   @ProvidePresenter
   DetailPlansPresenter providePresenter() {
-    return new DetailPlansPresenter(router, getIntent());
+    return new DetailPlansPresenter(router, getIntent(), this);
   }
 
   @Override

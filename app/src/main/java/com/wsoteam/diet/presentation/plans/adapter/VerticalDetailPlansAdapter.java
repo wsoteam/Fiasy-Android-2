@@ -143,7 +143,15 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     }
   };
 
-  public void updateList(List<RecipeForDay> recipeForDays) {
+  View.OnClickListener goAllListener = new View.OnClickListener() {
+    @Override public void onClick(View v) {
+      if (mItemClickListener != null){
+        mItemClickListener.onClickGoAllPlans(v);
+      }
+    }
+  };
+
+  public void updateList( List<RecipeForDay> recipeForDays) {
     Log.d("kkkk", "updateList: " + recipeForDays.size());
     this.recipeForDays = recipeForDays;
     notifyDataSetChanged();
@@ -165,7 +173,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       case R.layout.plans_footer_item:
         View v3 = LayoutInflater.from(viewGroup.getContext())
             .inflate(R.layout.plans_footer_item, viewGroup, false);
-        return  new FooterViewHolder(v3, downListener);
+        return  new FooterViewHolder(v3, downListener, goAllListener);
       default: {
         View v0 = LayoutInflater.from(viewGroup.getContext())
             .inflate(R.layout.detail_plans_day_item, viewGroup, false);
@@ -399,10 +407,12 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     @BindView(R.id.clEndPlan) ConstraintLayout layout;
     @BindView(R.id.loadDown) Button loadButton;
     private final View.OnClickListener listener;
+    private final View.OnClickListener listenerAllPlans;
 
-    public FooterViewHolder(@NonNull View itemView, View.OnClickListener listener) {
+    public FooterViewHolder(@NonNull View itemView, View.OnClickListener listener, View.OnClickListener listenerAllPlans) {
       super(itemView);
       this.listener = listener;
+      this.listenerAllPlans = listenerAllPlans;
       ButterKnife.bind(this, itemView);
     }
 
@@ -424,7 +434,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       }
     }
 
-    @OnClick({R.id.loadDown, R.id.imgFacebook, R.id.imgInstagramm, R.id.imgGoogle})
+    @OnClick({R.id.loadDown, R.id.imgFacebook, R.id.imgInstagramm, R.id.imgGoogle, R.id.goToPlanList})
     void clickedLoad(View view){
       switch (view.getId()){
         case R.id.loadDown:
@@ -435,6 +445,11 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
         case R.id.imgInstagramm:
           break;
         case R.id.imgGoogle:
+          break;
+        case R.id.goToPlanList:
+          if (listenerAllPlans != null){
+            listenerAllPlans.onClick(view);
+          }
           break;
 
       }

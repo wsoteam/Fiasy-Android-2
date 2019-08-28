@@ -57,10 +57,6 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
   private RecipeForDay recipeForDay;
   private int day = 5;
   private Router router;
-
-  private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2,
-      SNACK_POSITION = 3, EMPTY_FIELD = -1;
-
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
@@ -152,8 +148,15 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
     }
   }
 
-  @OnClick({R.id.tvViewPlans, R.id.tvViewcOtherPlans})
-  void clicked(){
+  @OnClick(R.id.tvViewcOtherPlans)
+  void clickedOther(){
+    WorkWithFirebaseDB.leaveDietPlan();
+    UserDataHolder.getUserData().setPlan(null);
+    getActivity().startActivity(new Intent(getContext(), BrowsePlansActivity.class));
+  }
+
+  @OnClick(R.id.tvViewPlans)
+  void clickedViewPlans(){
     getActivity().startActivity(new Intent(getContext(), BrowsePlansActivity.class));
   }
 
@@ -167,7 +170,6 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
 
   @Override public void onResume() {
     super.onResume();
-    Log.d("kkk", "onResume: ");
     initData(UserDataHolder.getUserData().getPlan());
   }
 
@@ -238,9 +240,7 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
     List<RecipeItem> recipeItemList = adapter.getLisrRecipe();
 
     if (recipeItemList != null){
-      Log.d("kkk", "setAddedInDiaryFromPlan: != null");
       RecipeItem recipeItem = recipeItemList.get(Integer.parseInt(recipeNumber));
-      Log.d("kkk", "setAddedInDiaryFromPlan: " + recipeItem.getName());
       recipeItem.setAddedInDiaryFromPlan(true);
     }
     adapter.notifyDataSetChanged();

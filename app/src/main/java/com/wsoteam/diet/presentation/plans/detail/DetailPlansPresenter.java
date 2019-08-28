@@ -20,7 +20,6 @@ import com.wsoteam.diet.presentation.plans.adapter.HorizontalDetailPlansAdapter;
 import com.wsoteam.diet.presentation.plans.adapter.VerticalDetailPlansAdapter;
 import java.util.Date;
 import java.util.List;
-import javax.inject.Inject;
 import ru.terrakok.cicerone.Router;
 
 @InjectViewState
@@ -29,7 +28,6 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
   Router router;
   Intent intent;
   DietPlan dietPlan;
-  @Inject
   Context context;
 
   PlansGroupsRecipe plansRecipe;
@@ -37,9 +35,10 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
   VerticalDetailPlansAdapter adapter;
   boolean isCurrentPlan;
 
-  public DetailPlansPresenter(Router router, Intent intent) {
+  public DetailPlansPresenter(Router router, Intent intent, Context context) {
     this.router = router;
     this.intent = intent;
+    this.context = context;
     initDietPlan();
   }
 
@@ -126,6 +125,12 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
 
     @Override public void onItemLongClick(View view, int position) {
 
+    }
+
+    @Override public void onClickGoAllPlans(View view) {
+      router.exit();
+      WorkWithFirebaseDB.leaveDietPlan();
+      UserDataHolder.getUserData().setPlan(null);
     }
   };
 }

@@ -91,6 +91,8 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
     void onItemClick(RecipeItem recipeItem, String day, String meal, String recipeNumber);
 
     void onItemLongClick(View view, int position);
+
+    void onClickGoAllPlans(View view);
   }
 
   class HorizontalViewHolder extends RecyclerView.ViewHolder {
