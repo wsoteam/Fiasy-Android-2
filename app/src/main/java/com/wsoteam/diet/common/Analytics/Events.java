@@ -1,6 +1,7 @@
 package com.wsoteam.diet.common.Analytics;
 
 import com.amplitude.api.Amplitude;
+import com.android.billingclient.api.BillingClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,15 +25,6 @@ public class Events {
     public static final String RESEND_SUCCESS = "resend_success";
     public static final String RESEND_ERROR = "resend_error";
     public static final String QUESTION_NEXT = "question_next";
-
-
-    //PURCHASE
-    public static final String TRIAL_SUCCES = "trial_success";
-    public static final String TRIAL_ERROR = "trial_error";
-    public static final String PURCHASE_SUCCESS = "purchase_success";
-    public static final String PURCHASE_ERROR = "purchase_error";
-    public static final String REVENUE = "revenue";
-
 
     //FOOD
     public static final String ADD_FOOD_SUCCESS = "add_food_success";
@@ -73,6 +65,7 @@ public class Events {
 
     //Purchase
     public static final String TRIAL_SUCCESS = "trial_success";
+    public static final String TRIAL_ERROR = "trial_error";
 
     //DIET
     //public static final String SELECT_DIET_FILTRES = "select_diet_filters";
@@ -82,6 +75,47 @@ public class Events {
     //TRAINING
     //public static final String SELECT_TRAINING = "select_training";
     //public static final String SHARE_TRAINING = "share_training";
+
+    public static void logBillingError(int responseCode) {
+        String eventDecryption = "unknown";
+        switch (responseCode) {
+            case BillingClient.BillingResponse.USER_CANCELED:
+                eventDecryption = EventProperties.trial_error_back_or_canceled;
+                break;
+            case BillingClient.BillingResponse.SERVICE_UNAVAILABLE:
+                eventDecryption = EventProperties.trial_error_service_unvailable;
+                break;
+            case BillingClient.BillingResponse.BILLING_UNAVAILABLE:
+                eventDecryption = EventProperties.trial_error_billing_unvailable;
+                break;
+            case BillingClient.BillingResponse.ITEM_UNAVAILABLE:
+                eventDecryption = EventProperties.trial_error_item_unvailable;
+                break;
+            case BillingClient.BillingResponse.DEVELOPER_ERROR:
+                eventDecryption = EventProperties.trial_error_dev_error;
+                break;
+            case BillingClient.BillingResponse.ERROR:
+                eventDecryption = EventProperties.trial_error_error;
+                break;
+            case BillingClient.BillingResponse.ITEM_ALREADY_OWNED:
+                eventDecryption = EventProperties.trial_error_already_owned;
+                break;
+            case BillingClient.BillingResponse.ITEM_NOT_OWNED:
+                eventDecryption = EventProperties.trial_error_not_owned;
+                break;
+        }
+
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.trial_error, eventDecryption);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(TRIAL_ERROR, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.trial_error, eventDecryption);
+        io.intercom.android.sdk.Intercom.client().logEvent(TRIAL_ERROR, eventData);
+    }
 
     public static void logOpenChat() {
         Amplitude.getInstance().logEvent(INTERCOM_CHAT);
@@ -183,7 +217,7 @@ public class Events {
         io.intercom.android.sdk.Intercom.client().logEvent(CUSTOM_RECIPE_SUCCESS, eventData);
     }
 
-    public static void logCreateTemplate(String from, String template_intake ) {
+    public static void logCreateTemplate(String from, String template_intake) {
         JSONObject eventProperties = new JSONObject();
         try {
             eventProperties.put(EventProperties.template_from, from);
