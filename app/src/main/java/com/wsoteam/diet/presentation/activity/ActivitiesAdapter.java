@@ -416,18 +416,13 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
       ((HeaderView) holder).bind(section);
     } else if (holder instanceof UserActivityView) {
-      final Section section = getSectionAt(position);
       final UserActivityExercise model = getItemAt(position);
-
-      if (section == null) {
-        throw new IllegalStateException("expected section on position = " + position);
-      }
 
       if (model == null) {
         throw new IllegalStateException("expected user-activity on position = " + position);
       }
 
-      ((UserActivityView) holder).bind(section, model);
+      ((UserActivityView) holder).bind(model);
     } else if (holder instanceof EmptyView) {
       final Section section = getSectionAt(position);
 
@@ -606,18 +601,14 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
       effectiveness = itemView.findViewById(R.id.activity_effectivity);
     }
 
-    public void bind(Section section, UserActivityExercise item) {
+    public void bind(UserActivityExercise item) {
       title.setText(item.title());
       duration.setText(DateUtils.formatElapsedTime(duration.getContext(), item.duration()));
 
       effectiveness.setText(effectiveness.getContext()
           .getString(R.string.user_activity_burned, item.burned()));
 
-      if (section.titleRes == R.string.user_activity_section_defaults) {
-        overflowMenu.setVisibility(View.GONE);
-      } else {
-        overflowMenu.setVisibility(View.VISIBLE);
-      }
+      overflowMenu.setVisibility(View.VISIBLE);
     }
   }
 
