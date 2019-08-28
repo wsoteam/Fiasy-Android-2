@@ -42,10 +42,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
     private final int PREMIUM = 0,
     // FOOD = 1,
     PERSONAL = 1,
+    KCAL = 2,
     //NOTIFICATIONS = 3,
     //TARGET = 4,
-    HELP = 2,
-            LOGOUT = 3;
+    HELP = 3,
+            LOGOUT = 4;
 
     public ItemsAdapter(Context context, boolean isNotPrem) {
         this.context = context;
@@ -110,6 +111,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
                 Toast.makeText(context, "Раздел в разработке :(", Toast.LENGTH_SHORT).show();
                 break;*/
             case PERSONAL:
+                context.startActivity(new Intent(context, AboutActivity.class));
+                break;
+            case KCAL:
                 context.startActivity(new Intent(context, AboutActivity.class));
                 break;
             /*case NOTIFICATIONS:
