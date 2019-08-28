@@ -48,6 +48,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.UserIdCreator;
 import com.wsoteam.diet.common.Analytics.UserProperty;
 import com.wsoteam.diet.presentation.auth.AuthStrategy;
 import com.wsoteam.diet.presentation.global.BaseActivity;
@@ -76,6 +77,7 @@ public class ActivitySplash extends BaseActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    UserIdCreator.createUserId();
     if (getSharedPreferences(Config.IS_NEED_SHOW_LOADING_SPLASH, MODE_PRIVATE).getBoolean(
         Config.IS_NEED_SHOW_LOADING_SPLASH, false)) {
       showLoadingScreen();

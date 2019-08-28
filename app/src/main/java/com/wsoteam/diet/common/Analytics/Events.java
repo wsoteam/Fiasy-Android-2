@@ -67,6 +67,9 @@ public class Events {
     public static final String TRIAL_SUCCESS = "trial_success";
     public static final String TRIAL_ERROR = "trial_error";
 
+    //////////////////////
+    public static final String SET_OWN_ID = "set_own_id";
+    //////////////////////
     //DIET
     //public static final String SELECT_DIET_FILTRES = "select_diet_filters";
     //public static final String SHARE_DIET = "share_diet";
@@ -75,6 +78,10 @@ public class Events {
     //TRAINING
     //public static final String SELECT_TRAINING = "select_training";
     //public static final String SHARE_TRAINING = "share_training";
+
+    public static void logSetId() {
+        Amplitude.getInstance().logEvent(SET_OWN_ID);
+    }
 
     public static void logBillingError(int responseCode) {
         String eventDecryption = "unknown";

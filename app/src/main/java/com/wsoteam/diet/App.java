@@ -13,6 +13,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orm.SugarContext;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
+import com.wsoteam.diet.common.Analytics.UserIdCreator;
 import com.yandex.metrica.YandexMetrica;
 import com.yandex.metrica.YandexMetricaConfig;
 
@@ -51,7 +52,6 @@ public class App extends MultiDexApplication {
         Intercom.initialize(this, "android_sdk-bceadc40bc17510359f5ad43a72281735676eea2", "dr8zfmz4");
         instance = this;
         foodDatabase = Room.databaseBuilder(this, FoodDatabase.class, "foodDB.db").build();
-
         //SetUserProperties.setUserProperties(Adjust.getAttribution());
     }
 
