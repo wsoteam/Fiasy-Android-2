@@ -122,6 +122,10 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
     leaveMenu.setVisible(!value);
   }
 
+  @Override public void visibilityButtonLeave(boolean value) {
+    leaveMenu.setVisible(value);
+  }
+
   @Override public void startAlert(String plan) {
 
     alertDialogChangePlan = AlertDialogs.changePlan(this, (View v) -> {

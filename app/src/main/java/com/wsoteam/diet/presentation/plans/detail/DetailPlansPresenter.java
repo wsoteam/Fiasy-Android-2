@@ -58,6 +58,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
       dietPlan.setRecipes(getList(), plansRecipe.size());
       adapter = new VerticalDetailPlansAdapter(dietPlan);
       isCurrentPlan = false;
+      getViewState().visibilityButtonLeave(false);
     }
 
     adapter.SetOnItemClickListener(adapterListener);
