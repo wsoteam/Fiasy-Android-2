@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.profile.norm.ChangeNormActivity"></activity>
+        <activity
+            android:name=".presentation.profile.norm.ChangeNormActivity"
+            android:theme="@style/ChangeNorm"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".BranchOfAnalyzer.CustomFood.ActivityCreateFood"
             android:screenOrientation="portrait"
@@ -286,6 +289,7 @@
             android:name=".presentation.profile.help.detail.DetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DetailFood" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -320,6 +324,7 @@
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider1234"
             android:exported="true" />
+
         <receiver
             android:name=".Services.AlarmManagerBR"
             android:enabled="true"
@@ -342,6 +347,7 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

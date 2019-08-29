@@ -17,6 +17,6 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
-        Log.e("LOL", "attach");
+
     }
 }

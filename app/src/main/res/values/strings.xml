@@ -765,6 +765,13 @@
   <string name="prem_title_settings">Улучши свои показатели!</string>
   <string name="text_prem_settings">Эксклюзивные статьи от ведущих \nдиетологов и спортсменов, а так же \nмножество рецепетов!</string>
   <string name="btn_settings_prem">стать лучше</string>
+    <string name="change_sex">Пол</string>
+  <string name="change_height">Рост</string>
+  <string name="change_norm">Норма калорий</string>
+  <string name="change_weight">Вес</string>
+  <string name="change_age">Возраст</string>
+  <string name="change_activity">Активность</string>
+  <string name="change_goal">Цель</string>
   <string-array name="recipeComplexity">
     <item>Легкий</item>
     <item>Средний</item>

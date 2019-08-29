@@ -51,7 +51,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
     </style>
 
     <style name="AnalyzerTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -296,7 +295,7 @@
         <item name="colorAccent">#FEC152</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-</style>
+    </style>
 
     <style name="OrangeCheckBox" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorAccent">@color/head_detail_food</item>
@@ -327,4 +326,24 @@
         <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
 
+    <style name="ChangeNorm" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#E68D3C</item>
+        <item name="colorPrimaryDark">#AE6A23</item>
+        <item name="colorAccent">#E68D3C</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="TextInputStyle.Hint.ChangeNorm" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#aeb3c0</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="TextInputStyle.Error.ChangeNorm" parent="TextAppearance.AppCompat">
+        <item name="colorAccent">#ed2d2d</item>
+        <item name="android:textColor">#ed2d2d</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
 </resources>
