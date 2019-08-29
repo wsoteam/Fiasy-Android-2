@@ -1,7 +1,6 @@
 package com.wsoteam.diet.presentation.plans.detail.day;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -120,7 +119,7 @@ public class CurrentDayPlanAdapter extends RecyclerView.Adapter {
       tvCalories.setText(
           recipeItem.getCalories() + " " + context.getResources().getString(R.string.kcal));
 
-      if (isCurrentDay && recipeItem.isAddedInDiaryFromPlan()){
+      if (recipeItem.isAddedInDiaryFromPlan()){
         Glide.with(context)
             .load(recipeItem.getUrl())
             .apply(RequestOptions.bitmapTransform(new BlurTransformation(10, 1)))
@@ -133,6 +132,10 @@ public class CurrentDayPlanAdapter extends RecyclerView.Adapter {
             .into(imageView);
         tvRecipeAdded.setVisibility(View.INVISIBLE);
         ivAddInDiary.setVisibility(View.VISIBLE);
+      }
+
+      if (!isCurrentDay){
+        ivAddInDiary.setVisibility(View.GONE);
       }
 
       //constraintLayout.setBackgroundColor(Color.parseColor(

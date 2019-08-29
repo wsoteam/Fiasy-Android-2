@@ -57,6 +57,7 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
   private CurrentDayPlanAdapter adapter;
   private RecipeForDay recipeForDay;
   private int day;
+  private int daysPicked;
   private Router router;
   private long dateForShowRecipe;
   @Nullable @Override
@@ -104,19 +105,23 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
 
         if (dateForShowRecipe == 0) {
           recipeForDay = plan.getRecipeForDays().get(day);
+          daysPicked = day;
           planName.setText("\"" + plan.getName() + "\"");
           dayTextView.setText(
               String.format(getString(R.string.planDays), day + 1, plan.getCountDays()));
           onTabSelected(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()));
+          daysPicked = -1;
         } else {
 
           if (dateForShowRecipe < DateHelper.stringToDate(plan.getStartDate()).getTime()){
             activePlan.setVisibility(View.GONE);
           }else {
             int days = (int)((dateForShowRecipe - DateHelper.stringToDate(plan.getStartDate()).getTime()) / (24 * 60 * 60 * 1000));
-            Log.d("kkk", "initData: " + days);
+            //Log.d("kkk", "initData: " + days);
             if (days < plan.getCountDays()) {
+              daysPicked = days;
               recipeForDay = plan.getRecipeForDays().get(days);
+              daysPicked = days;
               planName.setText("\"" + plan.getName() + "\"");
               dayTextView.setText(
                   String.format(getString(R.string.planDays), days + 1, plan.getCountDays()));
@@ -124,12 +129,9 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
             } else {
               activePlan.setVisibility(View.GONE);
             }
-
           }
         }
-
       }
-
     } else {
       recipeForDay = null;
       activePlan.setVisibility(View.GONE);
@@ -143,9 +145,11 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
         @Override
         public void onItemClick(RecipeItem recipeItem, String days, String meal,
             String recipeNumber) {
-          Log.d("kkk", "onItemClick: " + day + "  -- " + days + " -- " + router);
+          //Log.d("kkk", "onItemClick: " + day + "  -- " + days + " -- " + router);
 
-          Screens.PlanRecipeScreen screen = new Screens.PlanRecipeScreen(recipeItem, View.VISIBLE, days, meal, recipeNumber);
+          Screens.PlanRecipeScreen screen = new Screens.PlanRecipeScreen(recipeItem,
+              daysPicked == day ? View.VISIBLE : View.GONE,
+              days, meal, recipeNumber);
           getActivity().startActivity(screen.getActivityIntent(getContext()));
 
         }
@@ -160,22 +164,24 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
   @Override
   public void onTabSelected(TabLayout.Tab tab) {
 
+    boolean isCurrentDay = daysPicked == day;
+
     if (recipeForDay != null) {
       switch (tab.getPosition()) {
         case 0:
-          adapter.updateList(recipeForDay.getBreakfast(), true, day, "breakfast");
+          adapter.updateList(recipeForDay.getBreakfast(), isCurrentDay, daysPicked, "breakfast");
           break;
         case 1:
-          adapter.updateList(recipeForDay.getLunch(), true, day, "lunch");
+          adapter.updateList(recipeForDay.getLunch(), isCurrentDay, daysPicked, "lunch");
           break;
         case 2:
-          adapter.updateList(recipeForDay.getDinner(), true, day, "dinner");
+          adapter.updateList(recipeForDay.getDinner(), isCurrentDay, daysPicked, "dinner");
           break;
         case 3:
-          adapter.updateList(recipeForDay.getSnack(), true, day, "snack");
+          adapter.updateList(recipeForDay.getSnack(), isCurrentDay, daysPicked, "snack");
           break;
         default:
-          adapter.updateList(recipeForDay.getBreakfast(), true, day, "breakfast");
+          adapter.updateList(recipeForDay.getBreakfast(), isCurrentDay, daysPicked, "breakfast");
       }
     }
   }
