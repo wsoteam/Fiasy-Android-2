@@ -35,6 +35,7 @@ import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.presentation.global.Screens;
+import com.wsoteam.diet.presentation.plans.DateHelper;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansActivity;
 import java.util.Calendar;
 import java.util.List;
@@ -55,8 +56,9 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
   private LinearLayoutManager layoutManager;
   private CurrentDayPlanAdapter adapter;
   private RecipeForDay recipeForDay;
-  private int day = 5;
+  private int day;
   private Router router;
+  private long dateForShowRecipe;
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
@@ -79,7 +81,14 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
     return view;
   }
 
+  public void showRecipesForDate(long date){
+
+    dateForShowRecipe = date;
+    initData(UserDataHolder.getUserData().getPlan());
+  }
+
   private void initData(DietPlan plan){
+
     if (plan != null){
       day = plan.getDaysAfterStart();
 
@@ -88,13 +97,36 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
         notActivePlan.setVisibility(View.GONE);
         finishPlan.setVisibility(View.VISIBLE);
       }else {
+
         activePlan.setVisibility(View.VISIBLE);
         notActivePlan.setVisibility(View.GONE);
         finishPlan.setVisibility(View.GONE);
-        recipeForDay = plan.getRecipeForDays().get(day);
-        planName.setText("\"" + plan.getName() + "\"");
-        dayTextView.setText(String.format(getString(R.string.planDays), day + 1, plan.getCountDays()));
-        onTabSelected(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()));
+
+        if (dateForShowRecipe == 0) {
+          recipeForDay = plan.getRecipeForDays().get(day);
+          planName.setText("\"" + plan.getName() + "\"");
+          dayTextView.setText(
+              String.format(getString(R.string.planDays), day + 1, plan.getCountDays()));
+          onTabSelected(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()));
+        } else {
+
+          if (dateForShowRecipe < DateHelper.stringToDate(plan.getStartDate()).getTime()){
+            activePlan.setVisibility(View.GONE);
+          }else {
+            int days = (int)((dateForShowRecipe - DateHelper.stringToDate(plan.getStartDate()).getTime()) / (24 * 60 * 60 * 1000));
+            Log.d("kkk", "initData: " + days);
+            if (days < plan.getCountDays()) {
+              recipeForDay = plan.getRecipeForDays().get(days);
+              planName.setText("\"" + plan.getName() + "\"");
+              dayTextView.setText(
+                  String.format(getString(R.string.planDays), days + 1, plan.getCountDays()));
+              onTabSelected(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()));
+            } else {
+              activePlan.setVisibility(View.GONE);
+            }
+
+          }
+        }
 
       }
 
