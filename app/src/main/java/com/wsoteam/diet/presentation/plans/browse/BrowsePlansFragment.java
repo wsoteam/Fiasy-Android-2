@@ -19,7 +19,9 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.DietPlans.POJO.DietPlansHolder;
+import com.wsoteam.diet.DietPlans.POJO.DietsList;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.presentation.plans.adapter.HorizontalBrowsePlansAdapter;
 import com.wsoteam.diet.presentation.plans.adapter.VerticalBrowsePlansAdapter;
 import com.wsoteam.diet.presentation.plans.detail.DetailPlansActivity;
@@ -27,6 +29,8 @@ import com.wsoteam.diet.presentation.plans.detail.blocked.BlockedDetailPlansActi
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import java.util.LinkedList;
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -38,6 +42,8 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
     BrowsePlansPresenter presenter;
 
     VerticalBrowsePlansAdapter adapter;
+
+    private final String currentPlanProperti = "CURRENT_PLAN";
 
     @ProvidePresenter
     BrowsePlansPresenter providePresenter() {
@@ -55,13 +61,35 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
         mToolbar.setTitle(getString(R.string.plans));
         mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
         mToolbar.setNavigationOnClickListener(navigationListener);
-        adapter = new VerticalBrowsePlansAdapter(DietPlansHolder.get().getListGroups());
+
+        adapter = new VerticalBrowsePlansAdapter(prepareList());
         adapter.SetOnItemClickListener(onItemClickListener);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
         return view;
+    }
+
+    private List<DietsList> prepareList(){
+
+        List<DietsList> listGroups = DietPlansHolder.get().getListGroups();
+        if (listGroups.get(0).getProperties().equals(currentPlanProperti)){
+            listGroups.remove(0);
+        }
+
+        if (UserDataHolder.getUserData().getPlan() != null) {
+            DietsList dietsList = new DietsList();
+            dietsList.setName("Мой план питания");
+            dietsList.setProperties(currentPlanProperti);
+            List<DietPlan> plan = new LinkedList<>();
+            plan.add(UserDataHolder.getUserData().getPlan());
+
+            dietsList.setDietPlans(plan);
+
+            listGroups.add(0, dietsList);
+        }
+        return listGroups;
     }
 
     View.OnClickListener navigationListener = new View.OnClickListener() {
@@ -109,5 +137,10 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
         } else {
             return false;
         }
+    }
+
+    @Override public void onResume() {
+        super.onResume();
+        adapter.updateList(prepareList());
     }
 }

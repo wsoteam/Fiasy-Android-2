@@ -31,6 +31,11 @@ public class VerticalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerVie
         viewPool = new RecyclerView.RecycledViewPool();
     }
 
+    public void updateList(List<DietsList> listGroups){
+        this.listGroups = listGroups;
+        notifyDataSetChanged();
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder{
 
         private RecyclerView mRecyclerView;
