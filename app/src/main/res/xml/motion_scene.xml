@@ -10,6 +10,15 @@
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/cardView"/>
+
+        <Constraint
+            android:id="@+id/rvSettingsItems"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/cvPremium" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/ending_set">
@@ -17,9 +26,19 @@
             android:id="@+id/cvPremium"
             android:layout_width="match_parent"
             android:layout_height="300dp"
+            android:translationX="-5000dp"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+        <Constraint
+            android:id="@+id/rvSettingsItems"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/cardView"  />
     </ConstraintSet>
 
     <Transition
