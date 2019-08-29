@@ -29,6 +29,7 @@ import com.wsoteam.diet.presentation.auth.AuthStrategy;
 import com.wsoteam.diet.presentation.auth.GoogleAuthStrategy;
 import com.wsoteam.diet.presentation.profile.about.AboutActivity;
 import com.wsoteam.diet.presentation.profile.help.HelpActivity;
+import com.wsoteam.diet.presentation.profile.norm.ChangeNormActivity;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
 
@@ -114,7 +115,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
                 context.startActivity(new Intent(context, AboutActivity.class));
                 break;
             case KCAL:
-                context.startActivity(new Intent(context, AboutActivity.class));
+                context.startActivity(new Intent(context, ChangeNormActivity.class));
                 break;
             /*case NOTIFICATIONS:
                 Toast.makeText(context, "Раздел в разработке :(", Toast.LENGTH_SHORT).show();

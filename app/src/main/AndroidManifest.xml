@@ -3,369 +3,356 @@
     package="com.wsoteam.diet"
     android:installLocation="internalOnly">
 
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-  <uses-permission android:name="android.permission.BLUETOOTH" />
-  <uses-permission android:name="android.permission.WAKE_LOCK" />
-  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-  <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
-  <uses-permission android:name="com.android.vending.BILLING" />
-  <uses-permission android:name="android.permission.CAMERA" />
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".presentation.profile.norm.ChangeNormActivity"></activity>
+        <activity
+            android:name=".BranchOfAnalyzer.CustomFood.ActivityCreateFood"
+            android:screenOrientation="portrait"
+            android:theme="@style/CreateFood"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".presentation.food.template.create.search.SearchFoodActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" />
+        <activity
+            android:name=".Recipes.v2.ListRecipesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" />
+        <activity
+            android:name=".presentation.profile.questions.AfterQuestionsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/EditProfile" />
+        <activity
+            android:name=".presentation.auth.MainAuthNewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/EditProfile" />
+        <activity
+            android:name=".presentation.intro_tut.NewIntroActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/EditProfile" />
+        <activity
+            android:name=".presentation.profile.questions.QuestionsCalculationsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/EditProfile" />
+        <activity
+            android:name=".presentation.food.template.create.CreateFoodTemplateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".presentation.main.water.WaterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AddWaterStyle" />
+        <activity
+            android:name=".Recipes.adding.UsersRecipesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" />
+        <activity
+            android:name=".presentation.food.template.create.detail.DetailFoodActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DetailFood" />
+        <activity
+            android:name=".Recipes.adding.ActivityDetailFood"
+            android:screenOrientation="portrait"
+            android:theme="@style/DetailFood" />
+        <activity
+            android:name=".Recipes.adding.ProductSearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" />
+        <activity
+            android:name=".Recipes.adding.AddingRecipeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Recipes.v2.BlockedRecipeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" />
+        <activity
+            android:name=".Articles.ItemArticleWithoutPremActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TransparentStatusBar" />
+        <activity
+            android:name=".Articles.ItemArticleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TransparentStatusBar" />
+        <activity
+            android:name=".Recipes.v1.RecipeWithoutPremActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" />
+        <activity
+            android:name=".Onboard.TotalAmountActivity"
+            android:theme="@style/TotalAmount" />
+        <activity
+            android:name=".Onboard.SleepActivity"
+            android:theme="@style/SleepActivity" />
+        <activity
+            android:name=".Recipes.v1.ItemActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" />
+        <activity
+            android:name=".Recipes.v2.RecipeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" />
+        <activity
+            android:name=".Recipes.v1.ItemPlansActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" />
+        <activity
+            android:name=".AddMeasurementsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Measurements" />
+        <activity
+            android:name=".presentation.auth.restore.ActivityForgotPassword"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".OtherActivity.ActivityPrivacyPolicy"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemePolicy" />
+        <activity
+            android:name=".InApp.ActivitySubscription"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/PremiumActivity" />
+        <activity
+            android:name=".presentation.auth.main.MainAuthActivity"
+            android:parentActivityName=".presentation.intro.IntroActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ActivityAuthMain" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
-  <uses-feature
-      android:name="android.hardware.camera"
-      android:required="false" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-  <application
-      android:name=".App"
-      android:allowBackup="true"
-      android:icon="@mipmap/ic_launcher"
-      android:label="@string/app_name"
-      android:roundIcon="@mipmap/ic_launcher_round"
-      android:supportsRtl="true"
-      android:theme="@style/AppTheme">
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.intro.IntroActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".EntryPoint.ActivitySplash"
+            android:screenOrientation="unspecified"
+            android:theme="@style/Theme.AppCompat.Translucent">
 
-    <activity
-        android:name=".BranchOfAnalyzer.CustomFood.ActivityCreateFood"
-        android:screenOrientation="portrait"
-        android:theme="@style/CreateFood"
-        android:windowSoftInputMode="adjustPan" />
+            <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar"> -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-    <activity
-        android:name=".presentation.food.template.create.search.SearchFoodActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Menu" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".BranchOfCalculating.ActivityListOfCalculating"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainScreen.MainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
 
-    <activity
-        android:name=".Recipes.v2.ListRecipesActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Menu" />
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".BranchOfCalculating.ActivityCalculatorBrok"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfCalculating.ActivityCalculatorLorenc"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfCalculating.ActivityCalculatorIMT"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfRecipes.ActivityRecipes"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfRecipes.ActivityGroupsOfRecipes"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfDiary.ActivityAddData"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfDiary.ActivityListOfDiary"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".BranchOfCalculating.ActivityCalculatorSPK"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfExercises.Activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityListOfExGroups"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityListOfEx"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityExDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfExercises.ActivitiesProgramm.ActivityListOfTraining"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfExercises.ActivitiesProgramm.ActivityWithTiles"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfExercises.ActivitiesArticles.ActivityDetailAcrticles"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchOfAnalyzer.ActivityListAndSearch"
+            android:screenOrientation="portrait"
+            android:theme="@style/AnalyzerTheme" />
+        <activity
+            android:name=".BranchOfAnalyzer.ActivityDetailOfFood"
+            android:screenOrientation="portrait"
+            android:theme="@style/DetailFood" />
+        <activity
+            android:name=".presentation.profile.edit.EditProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/EditProfile" />
+        <activity
+            android:name=".BranchProfile.ActivityHelp"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BranchProfile.ActivityEditCompletedProfile"
+            android:screenOrientation="portrait"
+            android:theme="@style/EditProfile" />
+        <activity
+            android:name=".BranchOfAnalyzer.ActivityDetailSavedFood"
+            android:screenOrientation="portrait"
+            android:theme="@style/DetailFood" />
+        <activity
+            android:name=".presentation.profile.questions.QuestionsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/EditProfile" />
+        <activity
+            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
 
-    <activity
-        android:name=".presentation.profile.questions.AfterQuestionsActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/EditProfile" />
-    <activity
-        android:name=".presentation.auth.MainAuthNewActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/EditProfile" />
-    <activity
-        android:name=".presentation.intro_tut.NewIntroActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/EditProfile" />
-    <activity
-        android:name=".presentation.profile.questions.QuestionsCalculationsActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/EditProfile" />
-    <activity
-        android:name=".presentation.food.template.create.CreateFoodTemplateActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Menu"
-        android:windowSoftInputMode="adjustResize" />
-    <activity
-        android:name=".presentation.main.water.WaterActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/AddWaterStyle" />
-    <activity
-        android:name=".Recipes.adding.UsersRecipesActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Menu" />
+        <activity
+            android:name=".presentation.profile.settings.ProfileSettingsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ProfileActivity" />
+        <activity
+            android:name=".presentation.profile.about.AboutActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DetailFood"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".presentation.profile.help.HelpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DetailFood" />
+        <activity
+            android:name=".presentation.profile.help.detail.DetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DetailFood" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/fb_login_protocol_scheme" />
+        <meta-data
+            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+            android:value="true" />
+        <meta-data
+            android:name="DATABASE"
+            android:value="foodBase.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="4" />
 
-    <activity
-        android:name=".presentation.food.template.create.detail.DetailFoodActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/DetailFood" />
-    <activity
-        android:name=".Recipes.adding.ActivityDetailFood"
-        android:screenOrientation="portrait"
-        android:theme="@style/DetailFood" />
-    <activity
-        android:name=".Recipes.adding.ProductSearchActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Menu" />
-    <activity
-        android:name=".Recipes.adding.AddingRecipeActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Menu"
-        android:windowSoftInputMode="adjustPan" />
-    <activity
-        android:name=".Recipes.v2.BlockedRecipeActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Menu" />
-    <activity
-        android:name=".Articles.ItemArticleWithoutPremActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/TransparentStatusBar" />
-    <activity
-        android:name=".Articles.ItemArticleActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/TransparentStatusBar" />
-    <activity
-        android:name=".Recipes.v1.RecipeWithoutPremActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Menu" />
-    <activity
-        android:name=".Onboard.TotalAmountActivity"
-        android:theme="@style/TotalAmount" />
-    <activity
-        android:name=".Onboard.SleepActivity"
-        android:theme="@style/SleepActivity" />
-    <activity
-        android:name=".Recipes.v1.ItemActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Menu" />
-    <activity
-        android:name=".Recipes.v2.RecipeActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Menu" />
-    <activity
-        android:name=".Recipes.v1.ItemPlansActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Menu" />
-    <activity
-        android:name=".AddMeasurementsActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Measurements" />
-    <activity
-        android:name=".presentation.auth.restore.ActivityForgotPassword"
-        android:screenOrientation="portrait"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-    <activity
-        android:name=".OtherActivity.ActivityPrivacyPolicy"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppThemePolicy" />
-    <activity
-        android:name=".InApp.ActivitySubscription"
-        android:screenOrientation="portrait"
-        android:exported="true"
-        android:theme="@style/PremiumActivity" />
-    <activity
-        android:name=".presentation.auth.main.MainAuthActivity"
-        android:parentActivityName=".presentation.intro.IntroActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/ActivityAuthMain" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
 
-    <activity
-        android:name="com.facebook.FacebookActivity"
-        android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-        android:label="@string/app_name" />
-    <activity
-        android:name="com.facebook.CustomTabActivity"
-        android:exported="true">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.wsoteam.diet" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1234"
+            android:exported="true" />
+        <receiver
+            android:name=".Services.AlarmManagerBR"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver android:name=".Services.RestartReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.adjust.sdk.AdjustReferrerReceiver"
+            android:exported="true"
+            android:permission="android.permission.INSTALL_PACKAGES">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+    </application>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
 
-        <data android:scheme="@string/fb_login_protocol_scheme" />
-      </intent-filter>
-    </activity>
+    <uses-permission android:name="com.android.vending.BILLING" />
 
-    <activity
-        android:name=".presentation.intro.IntroActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
-    <activity
-        android:name=".EntryPoint.ActivitySplash"
-        android:screenOrientation="unspecified"
-        android:theme="@style/Theme.AppCompat.Translucent">
-      <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar"> -->
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
-
-    <activity
-        android:name=".BranchOfCalculating.ActivityListOfCalculating"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-
-    <activity
-        android:name=".MainScreen.MainActivity"
-        android:launchMode="singleTop"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme2">
-      <intent-filter>
-        <action android:name="android.intent.action.SEARCH" />
-      </intent-filter>
-
-      <meta-data
-          android:name="android.app.searchable"
-          android:resource="@xml/searchable" />
-    </activity>
-    <activity
-        android:name=".BranchOfCalculating.ActivityCalculatorBrok"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfCalculating.ActivityCalculatorLorenc"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfCalculating.ActivityCalculatorIMT"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfRecipes.ActivityRecipes"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfRecipes.ActivityGroupsOfRecipes"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-
-    <activity
-        android:name=".BranchOfDiary.ActivityAddData"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfDiary.ActivityListOfDiary"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme2" />
-    <activity
-        android:name=".BranchOfCalculating.ActivityCalculatorSPK"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfExercises.Activities.MainActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityListOfExGroups"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityListOfEx"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityExDetail"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfExercises.ActivitiesProgramm.ActivityListOfTraining"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfExercises.ActivitiesProgramm.ActivityWithTiles"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfExercises.ActivitiesArticles.ActivityDetailAcrticles"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfAnalyzer.ActivityListAndSearch"
-        android:screenOrientation="portrait"
-        android:theme="@style/AnalyzerTheme" />
-    <activity
-        android:name=".BranchOfAnalyzer.ActivityDetailOfFood"
-        android:screenOrientation="portrait"
-        android:theme="@style/DetailFood" />
-    <activity
-        android:name=".presentation.profile.edit.EditProfileActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/EditProfile" />
-    <activity
-        android:name=".BranchProfile.ActivityHelp"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchProfile.ActivityEditCompletedProfile"
-        android:screenOrientation="portrait"
-        android:theme="@style/EditProfile" />
-      <activity
-        android:name=".BranchOfAnalyzer.ActivityDetailSavedFood"
-        android:screenOrientation="portrait"
-        android:theme="@style/DetailFood" />
-    <activity
-        android:name=".presentation.profile.questions.QuestionsActivity"
-        android:exported="true"
-        android:screenOrientation="portrait"
-        android:theme="@style/EditProfile" />
-    <activity
-        android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
-        android:screenOrientation="portrait"
-        android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-
-    <meta-data
-        android:name="com.facebook.sdk.ApplicationId"
-        android:value="@string/facebook_app_id" />
-    <meta-data
-        android:name="com.facebook.sdk.ClientToken"
-        android:value="@string/fb_login_protocol_scheme" />
-    <meta-data
-        android:name="com.google.android.gms.ads.AD_MANAGER_APP"
-        android:value="true" />
-    <meta-data
-        android:name="DATABASE"
-        android:value="foodBase.db" />
-    <meta-data
-        android:name="VERSION"
-        android:value="4" />
-
-    <meta-data
-        android:name="QUERY_LOG"
-        android:value="true" />
-    <meta-data
-        android:name="DOMAIN_PACKAGE_NAME"
-        android:value="com.wsoteam.diet" />
-    <meta-data
-        android:name="preloaded_fonts"
-        android:resource="@array/preloaded_fonts" />
-
-    <meta-data
-        android:name="com.google.android.gms.version"
-        android:value="@integer/google_play_services_version" />
-
-    <provider
-        android:name="com.facebook.FacebookContentProvider"
-        android:authorities="com.facebook.app.FacebookContentProvider1234"
-        android:exported="true" />
-
-    <receiver
-        android:name=".Services.AlarmManagerBR"
-        android:enabled="true"
-        android:exported="true" />
-    <receiver android:name=".Services.RestartReceiver">
-      <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED" />
-        <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-      </intent-filter>
-    </receiver>
-    <receiver
-        android:name="com.adjust.sdk.AdjustReferrerReceiver"
-        android:exported="true"
-        android:permission="android.permission.INSTALL_PACKAGES">
-      <intent-filter>
-        <action android:name="com.android.vending.INSTALL_REFERRER" />
-      </intent-filter>
-    </receiver>
-
-    <activity
-        android:name=".presentation.profile.settings.ProfileSettingsActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/ProfileActivity" />
-
-    <activity
-        android:name=".presentation.profile.about.AboutActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/DetailFood"
-        android:windowSoftInputMode="adjustPan" />
-
-    <activity
-        android:name=".presentation.profile.help.HelpActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/DetailFood" />
-
-    <activity
-        android:name=".presentation.profile.help.detail.DetailActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/DetailFood" />
-  </application>
+    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>

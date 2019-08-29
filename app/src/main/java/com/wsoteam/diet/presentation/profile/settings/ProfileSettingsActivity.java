@@ -2,9 +2,9 @@ package com.wsoteam.diet.presentation.profile.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
@@ -27,7 +27,6 @@ import com.wsoteam.diet.presentation.profile.settings.controller.ItemsAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnTouch;
 
 
 public class ProfileSettingsActivity extends MvpAppCompatActivity implements ProfileSettingsView {
@@ -35,7 +34,8 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
     @BindView(R.id.rvSettingsItems) RecyclerView rvSettingsItems;
     CardView cvPremium;
     @BindView(R.id.mlParent) MotionLayout mlParent;
-    ImageButton ibPremClose;
+    ImageButton ibPremClose, ibBack;
+    Button btnSettingsPrem;
 
 
     @ProvidePresenter
@@ -51,6 +51,8 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
 
         cvPremium = findViewById(R.id.cvPremium);
         ibPremClose = findViewById(R.id.ibSettingsPremClose);
+        ibBack = findViewById(R.id.ibBack);
+        btnSettingsPrem = findViewById(R.id.btnSettingsPrem);
         profileSettingsPresenter = new ProfileSettingsPresenter();
         profileSettingsPresenter.attachView(this);
         rvSettingsItems.setLayoutManager(new LinearLayoutManager(this));
@@ -69,15 +71,16 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
                 return false;
             }
         });
-    }
-
-
-
-    @OnClick({R.id.btnSettingsPrem, R.id.ibBack})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btnSettingsPrem:
-                Intent intent = new Intent(this, ActivitySubscription.class);
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        btnSettingsPrem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileSettingsActivity.this, ActivitySubscription.class);
                 Box box = new Box();
                 box.setComeFrom(AmplitudaEvents.view_prem_settings);
                 box.setBuyFrom(EventProperties.trial_from_settings);
@@ -85,10 +88,7 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
                 box.setOpenFromIntrodaction(false);
                 intent.putExtra(Config.TAG_BOX, box);
                 startActivity(intent);
-                break;
-            case R.id.ibBack:
-                onBackPressed();
-                break;
-        }
+            }
+        });
     }
 }
