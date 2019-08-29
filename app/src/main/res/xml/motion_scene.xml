@@ -9,7 +9,8 @@
             android:layout_height="300dp"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toBottomOf="@+id/cardView"/>
+            motion:layout_constraintTop_toBottomOf="@+id/cardView"
+            motion:visibilityMode="ignore" />
 
         <Constraint
             android:id="@+id/rvSettingsItems"
@@ -29,7 +30,8 @@
             android:translationX="-5000dp"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toBottomOf="@+id/cardView" />
+            motion:layout_constraintTop_toBottomOf="@+id/cardView"
+            motion:visibilityMode="ignore" />
 
         <Constraint
             android:id="@+id/rvSettingsItems"
@@ -38,12 +40,12 @@
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toBottomOf="@+id/cardView"  />
+            motion:layout_constraintTop_toBottomOf="@+id/cardView" />
     </ConstraintSet>
 
     <Transition
-        motion:constraintSetStart="@+id/starting_set"
         motion:constraintSetEnd="@+id/ending_set"
+        motion:constraintSetStart="@+id/starting_set"
         motion:duration="1000">
 
         <KeyFrameSet>

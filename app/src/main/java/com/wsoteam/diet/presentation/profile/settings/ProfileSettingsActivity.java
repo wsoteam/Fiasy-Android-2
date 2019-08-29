@@ -2,7 +2,10 @@ package com.wsoteam.diet.presentation.profile.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -24,6 +27,7 @@ import com.wsoteam.diet.presentation.profile.settings.controller.ItemsAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTouch;
 
 
 public class ProfileSettingsActivity extends MvpAppCompatActivity implements ProfileSettingsView {
@@ -31,6 +35,7 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
     @BindView(R.id.rvSettingsItems) RecyclerView rvSettingsItems;
     CardView cvPremium;
     @BindView(R.id.mlParent) MotionLayout mlParent;
+    ImageButton ibPremClose;
 
 
     @ProvidePresenter
@@ -45,7 +50,7 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
         ButterKnife.bind(this);
 
         cvPremium = findViewById(R.id.cvPremium);
-        //cvPremium.setVisibility(VISIBLE);
+        ibPremClose = findViewById(R.id.ibSettingsPremClose);
         profileSettingsPresenter = new ProfileSettingsPresenter();
         profileSettingsPresenter.attachView(this);
         rvSettingsItems.setLayoutManager(new LinearLayoutManager(this));
@@ -57,11 +62,18 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
                 .getBoolean(Config.STATE_BILLING, false) || PremiumCloseStateSingleton.getInstance().isClosePremium()) {
             cvPremium.setVisibility(View.GONE);
         }
+        ibPremClose.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                PremiumCloseStateSingleton.getInstance().setClosePremium(true);
+                return false;
+            }
+        });
     }
 
 
 
-    @OnClick({R.id.btnSettingsPrem, R.id.ibSettingsPremClose, R.id.ibBack})
+    @OnClick({R.id.btnSettingsPrem, R.id.ibBack})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSettingsPrem:
@@ -74,13 +86,8 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
                 intent.putExtra(Config.TAG_BOX, box);
                 startActivity(intent);
                 break;
-            case R.id.ibSettingsPremClose:
-                cvPremium.setVisibility(View.GONE);
-                PremiumCloseStateSingleton.getInstance().setClosePremium(true);
-                break;
             case R.id.ibBack:
-                //onBackPressed();
-                cvPremium.setVisibility(View.VISIBLE);
+                onBackPressed();
                 break;
         }
     }
