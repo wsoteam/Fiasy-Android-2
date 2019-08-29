@@ -43,7 +43,7 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
 
     VerticalBrowsePlansAdapter adapter;
 
-    private final String currentPlanProperti = "CURRENT_PLAN";
+    public static String currentPlanProperti = "CURRENT_PLAN";
 
     @ProvidePresenter
     BrowsePlansPresenter providePresenter() {

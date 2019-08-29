@@ -63,7 +63,7 @@ public class VerticalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
         public void setData(DietsList dietsList){
             tvtitle.setText(dietsList.getName());
-            adapter.updateList(dietsList.getDietPlans());
+            adapter.updateList(dietsList);
         }
     }
 

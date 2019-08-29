@@ -11,9 +11,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
+import com.wsoteam.diet.DietPlans.POJO.DietsList;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.helper.NounsDeclension;
 
+import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
+import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,8 +32,21 @@ public class  HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<Recycler
     public HorizontalBrowsePlansAdapter() {
     }
 
-    public void updateList(List<DietPlan> dietPlans){
-        this.dietPlans = dietPlans;
+    public void updateList(DietsList dietsList){
+
+        this.dietPlans = new LinkedList<>(dietsList.getDietPlans());
+
+        if (UserDataHolder.getUserData().getPlan() != null && !dietsList.getProperties().equals(
+            BrowsePlansFragment.currentPlanProperti)){
+            for (int i = 0; i < dietPlans.size(); i++){
+                if (dietPlans.get(i).getName().equals(
+                    UserDataHolder.getUserData().getPlan().getName())){
+                    this.dietPlans.remove(i);
+                    break;
+                }
+            }
+        }
+
         notifyDataSetChanged();
     }
 
