@@ -11,6 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".presentation.profile.norm.choise.activity.ActivActivity"></activity>
+        <activity android:name=".presentation.profile.norm.choise.goal.GoalActivity" />
         <activity
             android:name=".presentation.profile.norm.ChangeNormActivity"
             android:theme="@style/ChangeNorm"
@@ -271,7 +273,6 @@
             android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-
         <activity
             android:name=".presentation.profile.settings.ProfileSettingsActivity"
             android:screenOrientation="portrait"
@@ -305,11 +306,9 @@
         <meta-data
             android:name="VERSION"
             android:value="4" />
-
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
-
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.wsoteam.diet" />
@@ -344,10 +343,10 @@
             </intent-filter>
         </receiver>
     </application>
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -356,7 +355,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
-
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <uses-permission android:name="android.permission.CAMERA" />

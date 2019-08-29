@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.profile.norm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -9,6 +10,8 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.profile.norm.choise.activity.ActivActivity;
+import com.wsoteam.diet.presentation.profile.norm.choise.goal.GoalActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,8 +94,10 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
             case R.id.edtSex:
                 break;
             case R.id.edtActivity:
+                startActivity(new Intent(this, ActivActivity.class).putExtra(Config.ACTIVITY, edtActivity.getText().toString()));
                 break;
             case R.id.edtGoal:
+                startActivity(new Intent(this, GoalActivity.class).putExtra(Config.GOAL, edtGoal.getText().toString()));
                 break;
         }
     }

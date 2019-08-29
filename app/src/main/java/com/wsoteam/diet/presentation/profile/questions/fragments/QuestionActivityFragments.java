@@ -2,14 +2,16 @@ package com.wsoteam.diet.presentation.profile.questions.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatSeekBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatSeekBar;
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -32,6 +34,7 @@ public class QuestionActivityFragments extends Fragment {
     TextView tvActivity;
     @BindView(R.id.ivImage)
     AppCompatImageView ivImage;
+    @BindView(R.id.btnNext) Button btnNext;
 
     public static QuestionActivityFragments newInstance() {
         return new QuestionActivityFragments();
@@ -42,7 +45,6 @@ public class QuestionActivityFragments extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_question_activity, container, false);
         ButterKnife.bind(this, view);
-
         changeProgress(0);
         pbActivity.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -61,7 +63,11 @@ public class QuestionActivityFragments extends Fragment {
         return view;
     }
 
-    private void changeProgress(int progress) {
+    public void changeButtonText(String text) {
+        btnNext.setText(text);
+    }
+
+    public void changeProgress(int progress) {
         String text = getString(R.string.onboard_activity_level_none);
         int imageResource = R.drawable.ic_activity0;
         switch (progress) {
