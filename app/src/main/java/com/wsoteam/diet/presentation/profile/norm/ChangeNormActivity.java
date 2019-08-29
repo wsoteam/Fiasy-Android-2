@@ -3,9 +3,11 @@ package com.wsoteam.diet.presentation.profile.norm;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.google.android.material.textfield.TextInputLayout;
+import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 
 import butterknife.BindView;
@@ -21,7 +23,24 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     @BindView(R.id.tilWeight) TextInputLayout tilWeight;
     @BindView(R.id.edtAge) EditText edtAge;
     @BindView(R.id.tilAge) TextInputLayout tilAge;
+    @BindView(R.id.edtSex) EditText edtSex;
+    @BindView(R.id.edtActivity) EditText edtActivity;
+    @BindView(R.id.edtGoal) EditText edtGoal;
     private ChangeNormPresenter presenter;
+
+    @Override
+    public void bindFields(Profile profile, String goal, String activity) {
+        edtAge.setText(String.valueOf(profile.getAge()));
+        edtWeight.setText(String.valueOf(profile.getWeight()));
+        edtHeight.setText(String.valueOf(profile.getHeight()));
+        if (profile.isFemale()){
+            edtSex.setText(getResources().getString(R.string.profile_female));
+        }else {
+            getResources().getString(R.string.profile_male);
+        }
+        edtActivity.setText(activity);
+        edtGoal.setText(goal);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +77,16 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibSave:
+                if (isNoError()) {
+                    if (presenter.calculateAndSave(edtHeight.getText().toString(), edtWeight.getText().toString(),
+                            edtAge.getText().toString(), edtSex.getText().toString(), edtActivity.getText().toString(), edtGoal.getText().toString())) {
+                        Toast.makeText(this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }
                 break;
             case R.id.ibBack:
+                onBackPressed();
                 break;
             case R.id.edtSex:
                 break;

@@ -772,6 +772,8 @@
   <string name="change_age">Возраст</string>
   <string name="change_activity">Активность</string>
   <string name="change_goal">Цель</string>
+    <string name="profile_female">Женский</string>
+  <string name="profile_male">Мужской</string>
   <string-array name="recipeComplexity">
     <item>Легкий</item>
     <item>Средний</item>
@@ -1002,5 +1004,23 @@
     <item>Октябрь</item>
     <item>Ноябрь</item>
     <item>Декабрь</item>
+  </string-array>
+
+  <string-array name="goals">
+    <item>Поддержания тела в форме</item>
+    <item>Похудение</item>
+    <item>Набор мышечной массы</item>
+    <item>Сохранение мышц и сжигание жира</item>
+  </string-array>
+
+  <string-array name="activities">
+    <item>Минимальная нагрузка</item>
+    <item>Легкая физическая нагрузка в течении дня</item>
+    <item>Тренировки 2-4 раза в неделю (или работа средней тяжести)</item>
+    <item>Интенсивные тренировки 4-5 раз в неделю</item>
+    <item>Ежедневные интенсивные тренировки</item>
+    <item>Тренировки 5-7 раз в неделю по два раза в день</item>
+    <item>Тяжелая физическая работа или ежедневные интенсивные тренировки по 2 раза в день</item>
+    <item>Сохранение мышц и сжигание жира</item>
   </string-array>
 </resources>
