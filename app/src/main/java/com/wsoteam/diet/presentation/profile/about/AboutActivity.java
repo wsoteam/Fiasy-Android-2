@@ -11,11 +11,15 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+
 import androidx.annotation.Nullable;
+
 import com.google.android.material.textfield.TextInputLayout;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AlertDialog;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -262,7 +266,7 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
                 Glide.with(this).load((Bitmap) data.getExtras().get("data")).into(civProfile);
                 Log.e("LOL", data.getExtras().toString());
                 Log.e("LOL", FirebaseAuth.getInstance().getUid());
-            }catch (Exception e){
+            } catch (Exception e) {
                 Log.e("LOL", e.getMessage());
             }
         } else if (requestCode == GALLERY_PICTURE && resultCode == Activity.RESULT_OK) {
