@@ -109,12 +109,22 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && requestCode == Config.GOAL_CHANGE){
-            Log.e("LOL", "goal " + String.valueOf(data.getIntExtra(Config.GOAL_CHANGE_RESULT, 0)));
+            presenter.convertAndSetGoal(data.getIntExtra(Config.GOAL_CHANGE_RESULT, 0));
         }else if (data != null && requestCode == Config.ACTIVITY_CHANGE){
-            Log.e("LOL", "activity " + String.valueOf(data.getIntExtra(Config.ACTIVITY_CHANGE_RESULT, 0)));
+            presenter.convertAndSetActivity(data.getIntExtra(Config.ACTIVITY_CHANGE_RESULT, 0));
         }else {
             Log.e("LOL", "error");
         }
+    }
+
+    @Override
+    public void setGoal(String goal) {
+        edtGoal.setText(goal);
+    }
+
+    @Override
+    public void setActivity(String activity) {
+        edtActivity.setText(activity);
     }
 
     private boolean isNoError() {

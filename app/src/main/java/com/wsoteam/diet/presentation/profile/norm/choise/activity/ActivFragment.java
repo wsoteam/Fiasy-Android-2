@@ -39,6 +39,7 @@ public class ActivFragment extends QuestionActivityFragments {
         super.onResume();
         activity = getArguments().getString(ACTIVITY_TAG);
         changeProgress(choisePosition(activity));
+        pbActivity.setProgress(choisePosition(activity));
         tvActivity = getView().findViewById(R.id.tvActivity);
         btnSave = getView().findViewById(R.id.btnNext);
         btnSave.setText(getActivity().getResources().getString(R.string.activity_save));

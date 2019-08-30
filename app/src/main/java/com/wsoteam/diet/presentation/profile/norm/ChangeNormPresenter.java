@@ -195,4 +195,14 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
         }
         UserProperty.setUserProperties(sex, height, weight, age, active, goal, FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
+
+    public void convertAndSetGoal(int i) {
+        String goal = context.getResources().getStringArray(R.array.goals)[i];
+        getViewState().setGoal(goal);
+    }
+
+    public void convertAndSetActivity(int i) {
+        String activity = context.getResources().getStringArray(R.array.activities)[i];
+        getViewState().setActivity(activity);
+    }
 }
