@@ -63,10 +63,6 @@ public class QuestionActivityFragments extends Fragment {
         return view;
     }
 
-    public void changeButtonText(String text) {
-        btnNext.setText(text);
-    }
-
     public void changeProgress(int progress) {
         String text = getString(R.string.onboard_activity_level_none);
         int imageResource = R.drawable.ic_activity0;

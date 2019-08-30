@@ -14,7 +14,7 @@ import com.wsoteam.diet.presentation.profile.questions.fragments.QuestionActivit
 import butterknife.BindView;
 
 public class ActivFragment extends QuestionActivityFragments {
-    public static final String ACTIVITY_TAG = "ACTIVITY_TAG";
+    public static final String ACTIVITY_TAG = "ActivFragment";
     private String activity;
     private TextView tvActivity;
     private Button btnSave;
@@ -33,9 +33,9 @@ public class ActivFragment extends QuestionActivityFragments {
         super.onResume();
         activity = getArguments().getString(ACTIVITY_TAG);
         changeProgress(choisePosition(activity));
-        changeButtonText(getActivity().getResources().getString(R.string.activity_save));
         tvActivity = getView().findViewById(R.id.tvActivity);
         btnSave = getView().findViewById(R.id.btnNext);
+        btnSave.setText(getActivity().getResources().getString(R.string.activity_save));
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

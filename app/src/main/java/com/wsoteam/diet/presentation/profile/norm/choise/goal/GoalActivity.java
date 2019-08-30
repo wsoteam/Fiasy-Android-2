@@ -14,6 +14,6 @@ public class GoalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal);
-        getSupportFragmentManager().beginTransaction().replace(R.id.clContainer, ActivFragment.newInstance(getIntent().getStringExtra(Config.ACTIVITY))).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.clContainer, GoalFragment.newInstance(getIntent().getStringExtra(Config.GOAL))).commit();
     }
 }
