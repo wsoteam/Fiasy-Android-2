@@ -205,13 +205,12 @@ public class UserActivityFragment extends Fragment implements
         break;
 
       case R.id.action_add_user_activity:
-        int[] sections = new int[] {
-            R.string.user_activity_section_my,
-            R.string.user_activity_section_favorite,
-        };
 
-        final int targetSection = RandomTool.getAnythingRandomItDoesntMatter(sections);
-        adapter.addItem(targetSection, new UserActivityExercise("Fuck you Sher", 1, 1));
+        getActivity().getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.flFragmentContainer, new AddUserActivityFragment())
+            .addToBackStack(null)
+            .commitAllowingStateLoss();
 
         break;
 

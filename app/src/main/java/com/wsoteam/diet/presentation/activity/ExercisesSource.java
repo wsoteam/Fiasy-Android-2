@@ -7,6 +7,7 @@ import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import kotlin.text.StringsKt;
 import okio.BufferedSource;
 import okio.Okio;
@@ -19,7 +20,7 @@ public abstract class ExercisesSource {
     return getExercises()
         .observeOn(Schedulers.io())
         .flatMap(exercises -> Flowable.fromIterable(exercises)
-            .filter(e -> StringsKt.contains(e.title(), query, true))
+            .filter(e -> StringsKt.contains(e.getTitle(), query, true))
             .toList());
   }
 
@@ -40,7 +41,7 @@ public abstract class ExercisesSource {
         final UserActivityExercise l = old.get(oldItemPosition);
         final UserActivityExercise r = latest.get(newItemPosition);
 
-        return l.title().equals(r.title());
+        return l.getTitle().equals(r.getTitle());
       }
 
       @Override public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
@@ -53,11 +54,18 @@ public abstract class ExercisesSource {
 
     private final AssetManager assets;
 
+    private final CopyOnWriteArrayList<UserActivityExercise> cached =
+        new CopyOnWriteArrayList<>();
+
     public AssetsSource(AssetManager assets) {
       this.assets = assets;
     }
 
     @Override public Single<List<UserActivityExercise>> getExercises() {
+      if (!cached.isEmpty()) {
+        return Single.just(new ArrayList<>(cached));
+      }
+
       return Single.fromCallable(() -> {
         final BufferedSource source =
             Okio.buffer(Okio.source(assets.open("user_activity_table.csv")));
@@ -97,6 +105,10 @@ public abstract class ExercisesSource {
           final UserActivityExercise e =
               new UserActivityExercise(cols[0], burnsPerMinute * 30, 30 * 60);
           exercises.add(e);
+        }
+
+        if (!exercises.isEmpty()) {
+          cached.addAll(exercises);
         }
 
         return exercises;

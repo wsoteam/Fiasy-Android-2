@@ -631,11 +631,11 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void bind(UserActivityExercise item) {
-      title.setText(item.title());
-      duration.setText(DateUtils.formatElapsedTime(duration.getContext(), item.duration()));
+      title.setText(item.getTitle());
+      duration.setText(DateUtils.formatElapsedTime(duration.getContext(), item.getDuration()));
 
       effectiveness.setText(effectiveness.getContext()
-          .getString(R.string.user_activity_burned, item.burned()));
+          .getString(R.string.user_activity_burned, item.getBurned()));
 
       overflowMenu.setVisibility(View.VISIBLE);
     }
