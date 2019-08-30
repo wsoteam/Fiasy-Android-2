@@ -37,6 +37,7 @@ import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.presentation.global.Screens;
 import com.wsoteam.diet.presentation.plans.DateHelper;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansActivity;
+import com.wsoteam.diet.presentation.plans.detail.DetailPlansActivity;
 import java.util.Calendar;
 import java.util.List;
 import ru.terrakok.cicerone.Router;
@@ -88,6 +89,14 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
     initData(UserDataHolder.getUserData().getPlan());
   }
 
+  View.OnClickListener planListener = new View.OnClickListener() {
+    @Override public void onClick(View v) {
+     Intent intent = new Intent(getContext(), DetailPlansActivity.class);
+     intent.putExtra(Config.DIETS_PLAN_INTENT, UserDataHolder.getUserData().getPlan());
+    startActivity(intent);
+    }
+  };
+
   private void initData(DietPlan plan){
 
     if (plan != null){
@@ -102,6 +111,7 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
         activePlan.setVisibility(View.VISIBLE);
         notActivePlan.setVisibility(View.GONE);
         finishPlan.setVisibility(View.GONE);
+        planName.setOnClickListener(planListener);
 
         if (dateForShowRecipe == 0) {
           recipeForDay = plan.getRecipeForDays().get(day);
