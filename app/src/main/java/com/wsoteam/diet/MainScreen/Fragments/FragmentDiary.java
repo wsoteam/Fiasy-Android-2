@@ -16,7 +16,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -43,7 +42,6 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import com.wsoteam.diet.presentation.plans.detail.day.CurrentDayPlanFragment;
-import java.util.Date;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
@@ -193,7 +191,6 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
 
     @Override
     public void dateChoosed(Calendar calendar, int dayOfMonth, int month, int year) {
-        Log.d("kkk", "dateChoosed: ");
         datePicker.setDate(new DateTime(calendar.getTime()).withTime(0, 0, 0, 0));
     }
 
@@ -209,14 +206,13 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
             dayPosition = vpEatingTimeLine.getCurrentItem();
         }
 
-        Log.d("kkk", "onPageSelected: ");
         if (currentDayPlanFragment != null){
             currentDayPlanFragment.showRecipesForDate(dateSelected.getMillis());
-            Log.d("kkk", "onPageSelected: 0 " + datePicker.getDrawingTime());
-            Log.d("kkk", "onPageSelected: 1 " + new Date().getTime());
+            //Log.d("kkk", "onPageSelected: 0 " + datePicker.getDrawingTime());
+            //Log.d("kkk", "onPageSelected: 1 " + new Date().getTime());
         }
 
-        Log.d("kkk", "onDateSelected: " + dateSelected.getMillis());
+        //Log.d("kkk", "onDateSelected: " + dateSelected.getMillis());
     }
 
     @Override
@@ -296,5 +292,9 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         }
         if (datePicker != null)
             datePicker.setDate(new DateTime());
+
+        if (currentDayPlanFragment != null){
+            currentDayPlanFragment.onResume();
+        }
     }
 }
