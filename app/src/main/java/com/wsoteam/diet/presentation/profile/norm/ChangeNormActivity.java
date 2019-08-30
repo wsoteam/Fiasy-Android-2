@@ -97,6 +97,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
             case R.id.edtSex:
                 break;
             case R.id.edtActivity:
+                Log.e("LOL", edtActivity.getText().toString());
                 startActivityForResult(new Intent(this, ActivActivity.class).putExtra(Config.ACTIVITY, edtActivity.getText().toString()), Config.ACTIVITY_CHANGE);
                 break;
             case R.id.edtGoal:

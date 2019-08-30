@@ -59,6 +59,7 @@ public class ActivFragment extends QuestionActivityFragments {
         String[] activities = getActivity().getResources().getStringArray(R.array.activities);
         for (int i = 0; i < activities.length; i++) {
             if (activity.equalsIgnoreCase(activities[i])) {
+                Log.e("LOL", activity);
                 position = i;
                 break;
             }
