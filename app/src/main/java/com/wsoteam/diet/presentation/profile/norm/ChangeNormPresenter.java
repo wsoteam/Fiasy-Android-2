@@ -1,7 +1,6 @@
 package com.wsoteam.diet.presentation.profile.norm;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -72,8 +71,8 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
 
         double BMR, KFA = 0, result, target = 0, FPCindex;
         double fat, protein, carbohydrate;
-        String stressLevel = activity;
-        String difficultyLevel = goal;
+        String stressLevel =  convertToOldActivity(activity);
+        String difficultyLevel = convertToOldGoal(goal);
         int maxWater;
 
         final double RATE_NONE = 1.2;
@@ -147,10 +146,47 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
         profile.setWeight(userWeight);
         profile.setAge(userAge);
         profile.setEmail(profile.getEmail());
+        profile.setDifficultyLevel(difficultyLevel);
+        profile.setExerciseStress(stressLevel);
 
         setUserProperties(profile);
         WorkWithFirebaseDB.putProfileValue(profile);
         return true;
+    }
+
+    private String convertToOldGoal(String goal) {
+        String oldGoal = "";
+
+        if (goal.equalsIgnoreCase(context.getResources().getStringArray(R.array.goals)[0])) {
+            oldGoal = context.getString(R.string.dif_level_easy);
+        } else if (goal.equalsIgnoreCase(context.getResources().getStringArray(R.array.goals)[1])) {
+            oldGoal = context.getString(R.string.dif_level_normal);
+        } else if (goal.equalsIgnoreCase(context.getResources().getStringArray(R.array.goals)[2])) {
+            oldGoal = context.getString(R.string.dif_level_hard);
+        } else if (goal.equalsIgnoreCase(context.getResources().getStringArray(R.array.goals)[3])) {
+            oldGoal = context.getString(R.string.dif_level_hard_up);
+        }
+        return oldGoal;
+    }
+
+    private String convertToOldActivity(String activity) {
+        String oldActivity = "";
+        if (activity.equalsIgnoreCase(context.getResources().getStringArray(R.array.activities)[0])) {
+            oldActivity = context.getString(R.string.level_none);
+        } else if (activity.equalsIgnoreCase(context.getResources().getStringArray(R.array.activities)[1])) {
+            oldActivity = context.getString(R.string.level_easy);
+        } else if (activity.equalsIgnoreCase(context.getResources().getStringArray(R.array.activities)[2])) {
+            oldActivity = context.getString(R.string.level_medium);
+        } else if (activity.equalsIgnoreCase(context.getResources().getStringArray(R.array.activities)[3])) {
+            oldActivity = context.getString(R.string.level_hard);
+        } else if (activity.equalsIgnoreCase(context.getResources().getStringArray(R.array.activities)[4])) {
+            oldActivity = context.getString(R.string.level_up_hard);
+        } else if (activity.equalsIgnoreCase(context.getResources().getStringArray(R.array.activities)[5])) {
+            oldActivity = context.getString(R.string.level_super);
+        } else if (activity.equalsIgnoreCase(context.getResources().getStringArray(R.array.activities)[6])) {
+            oldActivity = context.getString(R.string.level_up_super);
+        }
+        return oldActivity;
     }
 
     private void setUserProperties(Profile profile) {
