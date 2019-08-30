@@ -62,7 +62,7 @@ public class AboutPresenter extends MvpPresenter<AboutView> {
         });
     }
 
-    public boolean calculateAndSave(String nameString, String secondNameString, String heightString, String weightString, String ageString, String emailString) {
+    public boolean calculateAndSave(String nameString, String secondNameString, String emailString) {
         Profile profile = UserDataHolder.getUserData().getProfile();
         int WATER_ON_KG_FEMALE = 30;
         int WATER_ON_KG_MALE = 40;
@@ -136,9 +136,9 @@ public class AboutPresenter extends MvpPresenter<AboutView> {
         profile.setMaxCarbo((int) carbohydrate);
         profile.setFirstName(nameString);
         profile.setLastName(secondNameString);
-        profile.setHeight(Integer.parseInt(heightString));
-        profile.setWeight(Double.valueOf(weightString));
-        profile.setAge(Integer.parseInt(ageString));
+        profile.setHeight(profile.getHeight());
+        profile.setWeight(profile.getWeight());
+        profile.setAge(profile.getAge());
         profile.setEmail(emailString);
 
         setUserProperties(profile);

@@ -56,24 +56,12 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
     EditText edtSecondName;
     @BindView(R.id.edtEmail)
     EditText edtEmail;
-    @BindView(R.id.edtAge)
-    EditText edtAge;
-    @BindView(R.id.edtWeight)
-    EditText edtWeight;
-    @BindView(R.id.edtHeight)
-    EditText edtHeight;
     @BindView(R.id.tilName)
     TextInputLayout tilName;
     @BindView(R.id.tilSecondName)
     TextInputLayout tilSecondName;
     @BindView(R.id.tilEmail)
     TextInputLayout tilEmail;
-    @BindView(R.id.tilAge)
-    TextInputLayout tilAge;
-    @BindView(R.id.tilWeight)
-    TextInputLayout tilWeight;
-    @BindView(R.id.tilHeight)
-    TextInputLayout tilHeight;
 
     AboutPresenter aboutPresenter;
 
@@ -107,21 +95,6 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         checkTextInputLayout(tilEmail);
     }
 
-    @OnTextChanged(value = R.id.edtAge, callback = OnTextChanged.Callback.TEXT_CHANGED)
-    public void ageChanged(CharSequence text) {
-        checkTextInputLayout(tilAge);
-    }
-
-    @OnTextChanged(value = R.id.edtWeight, callback = OnTextChanged.Callback.TEXT_CHANGED)
-    public void weightChanged(CharSequence text) {
-        checkTextInputLayout(tilWeight);
-    }
-
-    @OnTextChanged(value = R.id.edtHeight, callback = OnTextChanged.Callback.TEXT_CHANGED)
-    public void heightChanged(CharSequence text) {
-        checkTextInputLayout(tilHeight);
-    }
-
     private void checkTextInputLayout(TextInputLayout currentTextInputLayout) {
         if (currentTextInputLayout.getError() != null) {
             currentTextInputLayout.setError("");
@@ -139,9 +112,6 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         if (profile.getEmail() != null) {
             edtEmail.setText(profile.getEmail());
         }
-        edtAge.setText(String.valueOf(profile.getAge()));
-        edtWeight.setText(String.valueOf(profile.getWeight()));
-        edtHeight.setText(String.valueOf(profile.getHeight()));
         if (FirebaseAuth.getInstance().getCurrentUser().getEmail() != null) {
             edtEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         }
@@ -168,9 +138,7 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
             case R.id.tvSave:
                 if (checkInputData()) {
                     if (aboutPresenter.calculateAndSave(edtName.getText().toString(),
-                            edtSecondName.getText().toString(),
-                            edtHeight.getText().toString(), edtWeight.getText().toString(),
-                            edtAge.getText().toString(), edtEmail.getText().toString())) {
+                            edtSecondName.getText().toString(), edtEmail.getText().toString())) {
                         Toast.makeText(this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
                         finish();
                     }
@@ -183,31 +151,10 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         if (!edtName.getText().toString().equals("") && !edtName.getText().toString().replaceAll("\\s+", " ").equals(" ")) {
             if (!edtSecondName.getText().toString().equals("") && !edtSecondName.getText().toString().replaceAll("\\s+", " ").equals(" ")) {
-                if (!edtAge.getText().toString().equals("")
-                        && Integer.parseInt(edtAge.getText().toString()) >= 9
-                        && Integer.parseInt(edtAge.getText().toString()) <= 200) {
-                    if (!edtHeight.getText().toString().equals("")
-                            && Integer.parseInt(edtHeight.getText().toString()) >= 100
-                            && Integer.parseInt(edtHeight.getText().toString()) <= 300) {
-                        if (!edtWeight.getText().toString().equals("")
-                                && Double.parseDouble(edtWeight.getText().toString()) >= 30
-                                && Double.parseDouble(edtWeight.getText().toString()) <= 300) {
-                            if (edtEmail.getText().toString().matches(emailPattern)) {
-                                return true;
-                            } else {
-                                tilEmail.setError(getString(R.string.check_your_email));
-                                return false;
-                            }
-                        } else {
-                            tilWeight.setError(getString(R.string.spk_check_weight));
-                            return false;
-                        }
-                    } else {
-                        tilHeight.setError(getString(R.string.spk_check_your_height));
-                        return false;
-                    }
+                if (edtEmail.getText().toString().matches(emailPattern)) {
+                    return true;
                 } else {
-                    tilAge.setError(getString(R.string.spk_check_your_age));
+                    tilEmail.setError(getString(R.string.check_your_email));
                     return false;
                 }
             } else {
@@ -306,20 +253,5 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         }
 
         return result;
-    }
-
-    public boolean hasImageCaptureBug() {
-        // list of known devices that have the bug
-        ArrayList<String> devices = new ArrayList<String>();
-        devices.add("android-devphone1/dream_devphone/dream");
-        devices.add("generic/sdk/generic");
-        devices.add("vodafone/vfpioneer/sapphire");
-        devices.add("tmobile/kila/dream");
-        devices.add("verizon/voles/sholes");
-        devices.add("google_ion/google_ion/sapphire");
-
-        return devices.contains(android.os.Build.BRAND + "/" + android.os.Build.PRODUCT + "/"
-                + android.os.Build.DEVICE);
-
     }
 }
