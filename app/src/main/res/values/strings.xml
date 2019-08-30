@@ -775,6 +775,7 @@
     <string name="profile_female">Женский</string>
   <string name="profile_male">Мужской</string>
     <string name="activity_save">сохранить</string>
+    <string name="personal_data">Личные данные</string>
     <string-array name="recipeComplexity">
     <item>Легкий</item>
     <item>Средний</item>

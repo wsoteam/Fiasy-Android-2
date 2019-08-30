@@ -126,7 +126,7 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         }
     }
 
-    @OnClick({R.id.ibBack, R.id.ibMakeImage, R.id.tvSave})
+    @OnClick({R.id.ibBack, R.id.ibMakeImage, R.id.ibSave})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibBack:
@@ -135,7 +135,7 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
             case R.id.ibMakeImage:
                 callCamera();
                 break;
-            case R.id.tvSave:
+            case R.id.ibSave:
                 if (checkInputData()) {
                     if (aboutPresenter.calculateAndSave(edtName.getText().toString(),
                             edtSecondName.getText().toString(), edtEmail.getText().toString())) {
