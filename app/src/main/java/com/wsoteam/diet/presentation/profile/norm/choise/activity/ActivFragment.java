@@ -1,5 +1,7 @@
 package com.wsoteam.diet.presentation.profile.norm.choise.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatSeekBar;
+
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.profile.norm.Config;
 import com.wsoteam.diet.presentation.profile.questions.fragments.QuestionActivityFragments;
 
 import butterknife.BindView;
@@ -16,8 +21,9 @@ import butterknife.BindView;
 public class ActivFragment extends QuestionActivityFragments {
     public static final String ACTIVITY_TAG = "ActivFragment";
     private String activity;
-    private TextView tvActivity;
-    private Button btnSave;
+    @BindView(R.id.pbActivity) AppCompatSeekBar pbActivity;
+    @BindView(R.id.tvActivity) TextView tvActivity;
+    @BindView(R.id.btnNext) Button btnSave;
 
     public static ActivFragment newInstance(String activity) {
         Bundle bundle = new Bundle();
@@ -39,7 +45,10 @@ public class ActivFragment extends QuestionActivityFragments {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("LOL", tvActivity.getText().toString());
+                Intent intent = new Intent();
+                intent.putExtra(Config.ACTIVITY_CHANGE_RESULT, pbActivity.getProgress());
+                getActivity().setResult(Activity.RESULT_OK, intent);
+                getActivity().finish();
             }
         });
     }

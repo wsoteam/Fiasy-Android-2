@@ -1,11 +1,14 @@
 package com.wsoteam.diet.presentation.profile.norm.choise.goal;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.profile.norm.Config;
 import com.wsoteam.diet.presentation.profile.questions.fragments.QuestionPurposeFragments;
 
 import butterknife.BindView;
@@ -36,7 +39,10 @@ public class GoalFragment extends QuestionPurposeFragments {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getCheckedId();
+                Intent intent = new Intent();
+                intent.putExtra(Config.GOAL_CHANGE_RESULT, getCheckedId());
+                getActivity().setResult(Activity.RESULT_OK, intent);
+                getActivity().finish();
             }
         });
     }

@@ -2,9 +2,12 @@ package com.wsoteam.diet.presentation.profile.norm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.google.android.material.textfield.TextInputLayout;
@@ -94,11 +97,23 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
             case R.id.edtSex:
                 break;
             case R.id.edtActivity:
-                startActivity(new Intent(this, ActivActivity.class).putExtra(Config.ACTIVITY, edtActivity.getText().toString()));
+                startActivityForResult(new Intent(this, ActivActivity.class).putExtra(Config.ACTIVITY, edtActivity.getText().toString()), Config.ACTIVITY_CHANGE);
                 break;
             case R.id.edtGoal:
-                startActivity(new Intent(this, GoalActivity.class).putExtra(Config.GOAL, edtGoal.getText().toString()));
+                startActivityForResult(new Intent(this, GoalActivity.class).putExtra(Config.GOAL, edtGoal.getText().toString()), Config.GOAL_CHANGE);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null && requestCode == Config.GOAL_CHANGE){
+            Log.e("LOL", "goal " + String.valueOf(data.getIntExtra(Config.GOAL_CHANGE_RESULT, 0)));
+        }else if (data != null && requestCode == Config.ACTIVITY_CHANGE){
+            Log.e("LOL", "activity " + String.valueOf(data.getIntExtra(Config.ACTIVITY_CHANGE_RESULT, 0)));
+        }else {
+            Log.e("LOL", "error");
         }
     }
 
