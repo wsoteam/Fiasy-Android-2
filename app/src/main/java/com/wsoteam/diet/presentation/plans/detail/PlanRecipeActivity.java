@@ -51,7 +51,7 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
   @BindView(R.id.tvUsers) TextView tvTime;
   @BindView(R.id.llIngedientsItem) LinearLayout llIngredients;
   @BindView(R.id.llInstructions) LinearLayout llInstructions;
-  @BindView(R.id.cvIngedients) CardView cvIngredients;
+  //@BindView(R.id.cvIngedients) CardView cvIngredients;
   @BindView(R.id.cvInstructions) CardView cvInstructions;
   @BindView(R.id.tvCarbohydrates) TextView tvCarbohydrates;
   @BindView(R.id.tvCellulose) TextView tvCellulose;
@@ -140,17 +140,17 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
           recipeItem.getIngredients()) {
         indexIngredients++;
         View view = getLayoutInflater().inflate(R.layout.plan_recipes_ingredient, null);
-        View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
-        line.setPadding(0, 0, 0, 0);
+        //View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
+        //line.setPadding(0, 0, 0, 0);
         TextView textView = view.findViewById(R.id.tvIngredient);
         textView.setText(ingredient);
         llIngredients.addView(view);
-        if (indexIngredients < borderIngredients) {
-          llIngredients.addView(line);
-        }
+        //if (indexIngredients < borderIngredients) {
+        //  llIngredients.addView(line);
+        //}
       }
     } else {
-      cvIngredients.setVisibility(View.GONE);
+      //cvIngredients.setVisibility(View.GONE);
     }
 
     if (recipeItem.getInstruction() != null) {
@@ -160,14 +160,14 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
           recipeItem.getInstruction()) {
         indexInstruction++;
         View view = getLayoutInflater().inflate(R.layout.plan_recipes_instruction, null);
-        View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
-        line.setPadding(dpToPx(70), 0, 0, 0);
+        //View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
+        //line.setPadding(dpToPx(70), 0, 0, 0);
         TextView textView = view.findViewById(R.id.tvInstruction);
         textView.setText(instruction);
         llInstructions.addView(view);
-        if (indexInstruction < borderInstruction) {
-          llInstructions.addView(line);
-        }
+      //  if (indexInstruction < borderInstruction) {
+      //    llInstructions.addView(line);
+      //  }
       }
     } else {
       cvInstructions.setVisibility(View.GONE);

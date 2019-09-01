@@ -13,11 +13,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        >
 
       <android.support.constraint.ConstraintLayout
           android:layout_width="match_parent"
-          android:layout_height="wrap_content">
+          android:layout_height="wrap_content"
+          >
 
         <ImageView
             android:id="@+id/ivHead"
@@ -29,7 +31,8 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/background_item_profile_fat" />
+            app:srcCompat="@drawable/background_item_profile_fat"
+            />
 
         <TextView
             android:id="@+id/tvRecipeKK"
@@ -52,13 +55,14 @@
 
       <android.support.v7.widget.CardView
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          app:cardUseCompatPadding="true">
+          android:layout_height="wrap_content"
+          >
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            >
 
           <TextView
               android:id="@+id/tvName"
@@ -66,12 +70,14 @@
               android:layout_height="wrap_content"
               android:layout_marginStart="8dp"
               android:layout_marginTop="8dp"
-              android:fontFamily="@font/roboto"
+              android:fontFamily="@font/roboto_medium"
               android:textColor="#000000"
+              android:textSize="18sp"
               android:textStyle="bold"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toTopOf="parent"
-              tools:text="Салат с оливками, авокадо и брынзой" />
+              tools:text="Салат с оливками, авокадо и брынзой"
+              />
 
           <TextView
               android:id="@+id/textView99"
@@ -81,10 +87,12 @@
               android:layout_marginTop="16dp"
               android:fontFamily="@font/roboto_light"
               android:text="@string/tvItemPlanTime"
-              android:textColor="@android:color/black"
+              android:textColor="#777777"
+              android:textSize="15sp"
               android:textStyle="bold"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/tvName" />
+              app:layout_constraintTop_toBottomOf="@+id/tvName"
+              />
 
           <TextView
               android:id="@+id/tvUsers"
@@ -93,11 +101,13 @@
               android:layout_marginStart="4dp"
               android:fontFamily="@font/roboto_light"
               android:text="00"
-              android:textColor="@android:color/black"
+              android:textColor="#777777"
+              android:textSize="15sp"
               android:textStyle="bold"
               app:layout_constraintBottom_toBottomOf="@+id/textView99"
               app:layout_constraintStart_toEndOf="@+id/textView99"
-              app:layout_constraintTop_toTopOf="@+id/textView99" />
+              app:layout_constraintTop_toTopOf="@+id/textView99"
+              />
 
           <TextView
               android:id="@+id/textView101"
@@ -106,11 +116,13 @@
               android:layout_marginStart="8dp"
               android:fontFamily="@font/roboto_light"
               android:text="@string/tvItemPlanMinute"
-              android:textColor="@android:color/black"
+              android:textColor="#777777"
+              android:textSize="15sp"
               android:textStyle="bold"
               app:layout_constraintBottom_toBottomOf="@+id/textView99"
               app:layout_constraintStart_toEndOf="@+id/tvUsers"
-              app:layout_constraintTop_toTopOf="@+id/textView99" />
+              app:layout_constraintTop_toTopOf="@+id/textView99"
+              />
 
           <TextView
               android:id="@+id/tvComplexityField"
@@ -124,7 +136,8 @@
               android:textStyle="bold"
               android:visibility="gone"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView99" />
+              app:layout_constraintTop_toBottomOf="@+id/textView99"
+              />
 
           <TextView
               android:id="@+id/tvComplexity"
@@ -137,115 +150,133 @@
               android:visibility="gone"
               app:layout_constraintBottom_toBottomOf="@+id/tvComplexityField"
               app:layout_constraintStart_toEndOf="@+id/tvComplexityField"
-              app:layout_constraintTop_toTopOf="@+id/tvComplexityField" />
-        </android.support.constraint.ConstraintLayout>
-      </android.support.v7.widget.CardView>
-
-      <android.support.v7.widget.CardView
-          android:id="@+id/cvIngedients"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          app:cardUseCompatPadding="true">
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:paddingBottom="20dp">
-
-          <TextView
-              android:id="@+id/textView100"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="8dp"
-              android:layout_marginTop="8dp"
-              android:fontFamily="@font/roboto_bold"
-              android:text="@string/tvItemPlanIngredients"
-              android:textColor="@android:color/black"
-              android:textSize="14sp"
-              android:textStyle="bold"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent" />
-
-          <TextView
-              android:id="@+id/tvPorcionsCount"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="8dp"
-              android:layout_marginTop="8dp"
-              android:fontFamily="@font/roboto_light"
-              android:text="@string/tvRecipeInrgidientCount"
-              android:textColor="@android:color/black"
-              android:textSize="14sp"
-              android:textStyle="bold"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView100" />
-
-          <LinearLayout
-              android:id="@+id/llIngedientsItem"
+              app:layout_constraintTop_toTopOf="@+id/tvComplexityField"
+              />
+          <android.support.constraint.ConstraintLayout
+              android:id="@+id/clIngiridients"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_marginStart="8dp"
-              android:layout_marginTop="8dp"
-              android:layout_marginBottom="8dp"
-              android:orientation="vertical"
-              app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/tvPorcionsCount"></LinearLayout>
+              android:layout_height="wrap_content"
+              android:paddingBottom="20dp"
+              app:layout_constraintTop_toBottomOf="@+id/tvComplexity"
+              >
 
+            <LinearLayout
+                android:id="@+id/llIngedientsItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvPorcionsCount"
+                ></LinearLayout>
+
+            <TextView
+                android:id="@+id/tvPorcionsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/tvRecipeInrgidientCount"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView100"
+                />
+
+            <TextView
+                android:id="@+id/textView100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/tvItemPlanIngredients"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+          </android.support.constraint.ConstraintLayout>
         </android.support.constraint.ConstraintLayout>
       </android.support.v7.widget.CardView>
 
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="2dp"
+          android:orientation="vertical"
+          ></LinearLayout>
       <android.support.v7.widget.CardView
           android:id="@+id/cvInstructions"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          app:cardUseCompatPadding="true">
+          >
 
-
-        <LinearLayout
-            android:id="@+id/llInstructions"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
-            android:paddingBottom="20dp">
+            android:layout_height="wrap_content"
+            >
+          <ImageView
+              android:id="@+id/imageView49"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="8dp"
+              app:layout_constraintBottom_toBottomOf="@+id/textView155"
+              app:layout_constraintEnd_toStartOf="@+id/textView155"
+              app:layout_constraintHorizontal_bias="0.5"
+              app:layout_constraintHorizontal_chainStyle="packed"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="@+id/textView155"
 
-        </LinearLayout>
+              app:srcCompat="@drawable/ic_knife_fork_2"
+              />
+          <LinearLayout
+              android:id="@+id/llInstructions"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:orientation="vertical"
+              android:paddingBottom="20dp"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/textView155"
+              ></LinearLayout>
+          <TextView
+              android:id="@+id/textView155"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:text="Способ приготовления"
+              android:textColor="#212121"
+              android:textSize="17sp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintHorizontal_bias="0.5"
+              app:layout_constraintHorizontal_chainStyle="packed"
+              app:layout_constraintStart_toEndOf="@+id/imageView49"
+              app:layout_constraintTop_toTopOf="parent"
+              />
+        </android.support.constraint.ConstraintLayout>
       </android.support.v7.widget.CardView>
 
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="2dp"
+          android:orientation="vertical"
+          ></LinearLayout>
       <android.support.v7.widget.CardView
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          app:cardUseCompatPadding="true">
+          >
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dp">
-
-          <android.support.v7.widget.CardView
-              android:id="@+id/cardView8"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="8dp"
-              android:layout_marginTop="24dp"
-              android:layout_marginEnd="8dp"
-              app:cardCornerRadius="25dp"
-              app:layout_constraintBottom_toBottomOf="@+id/ivRecipe"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent">
-
-            <Button
-                android:id="@+id/addDiary"
-                android:layout_width="238dp"
-                android:layout_height="match_parent"
-                android:background="#34847C"
-                android:padding="2dp"
-                android:text="@string/btnRecipeDiary"
-                android:textColor="@android:color/white" />
-          </android.support.v7.widget.CardView>
+            android:layout_margin="5dp"
+            >
 
           <TextView
               android:id="@+id/tvNourishment"
@@ -258,7 +289,8 @@
               android:textColor="#000"
               android:textStyle="bold"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/cardView8" />
+              app:layout_constraintTop_toBottomOf="@+id/cardView8"
+              />
 
           <TextView
               android:id="@+id/textView106"
@@ -271,7 +303,8 @@
               android:textSize="12sp"
               android:textStyle="bold"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/tvNourishment" />
+              app:layout_constraintTop_toBottomOf="@+id/tvNourishment"
+              />
 
           <TextView
               android:id="@+id/textView105"
@@ -284,7 +317,8 @@
               android:textColor="@android:color/black"
               android:textStyle="bold"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView106" />
+              app:layout_constraintTop_toBottomOf="@+id/textView106"
+              />
 
           <TextView
               android:id="@+id/tvCarbohydrates"
@@ -297,7 +331,8 @@
               android:textStyle="bold"
               app:layout_constraintBottom_toBottomOf="@+id/textView105"
               app:layout_constraintEnd_toStartOf="@+id/textView108"
-              app:layout_constraintTop_toTopOf="@+id/textView105" />
+              app:layout_constraintTop_toTopOf="@+id/textView105"
+              />
 
           <TextView
               android:id="@+id/textView108"
@@ -310,7 +345,8 @@
               android:textStyle="bold"
               app:layout_constraintBottom_toBottomOf="@+id/tvCarbohydrates"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="@+id/tvCarbohydrates" />
+              app:layout_constraintTop_toTopOf="@+id/tvCarbohydrates"
+              />
 
           <TextView
               android:id="@+id/textView110"
@@ -322,14 +358,15 @@
               android:textColor="@android:color/black"
               android:textStyle="bold"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView105" />
+              app:layout_constraintTop_toBottomOf="@+id/textView105"
+              />
 
           <TextView
               android:id="@+id/tvCellulose"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginEnd="8dp"
               android:layout_marginBottom="8dp"
+              android:layout_marginEnd="8dp"
               android:fontFamily="@font/roboto_light"
               android:text="00"
               android:textColor="@android:color/black"
@@ -337,7 +374,8 @@
               app:layout_constraintBottom_toBottomOf="@+id/textView110"
               app:layout_constraintEnd_toStartOf="@+id/textView112"
               app:layout_constraintTop_toBottomOf="@+id/textView105"
-              app:layout_constraintVertical_bias="0.111" />
+              app:layout_constraintVertical_bias="0.111"
+              />
 
           <TextView
               android:id="@+id/textView112"
@@ -349,7 +387,8 @@
               android:textColor="@android:color/black"
               app:layout_constraintBottom_toBottomOf="@+id/tvCellulose"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="@+id/tvCellulose" />
+              app:layout_constraintTop_toTopOf="@+id/tvCellulose"
+              />
 
           <TextView
               android:id="@+id/textView113"
@@ -361,21 +400,23 @@
               android:textColor="@android:color/black"
               android:textStyle="bold"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView110" />
+              app:layout_constraintTop_toBottomOf="@+id/textView110"
+              />
 
           <TextView
               android:id="@+id/tvSugar"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginEnd="8dp"
               android:layout_marginBottom="8dp"
+              android:layout_marginEnd="8dp"
               android:fontFamily="@font/roboto_light"
               android:text="00"
               android:textColor="@android:color/black"
               android:textStyle="bold"
               app:layout_constraintBottom_toBottomOf="@+id/textView113"
               app:layout_constraintEnd_toStartOf="@+id/textView115"
-              app:layout_constraintTop_toTopOf="@+id/textView113" />
+              app:layout_constraintTop_toTopOf="@+id/textView113"
+              />
 
           <TextView
               android:id="@+id/textView115"
@@ -387,7 +428,8 @@
               android:textColor="@android:color/black"
               app:layout_constraintBottom_toBottomOf="@+id/tvSugar"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="@+id/tvSugar" />
+              app:layout_constraintTop_toTopOf="@+id/tvSugar"
+              />
 
           <TextView
               android:id="@+id/textView116"
@@ -400,7 +442,8 @@
               android:textColor="@android:color/black"
               android:textStyle="bold"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView113" />
+              app:layout_constraintTop_toBottomOf="@+id/textView113"
+              />
 
           <TextView
               android:id="@+id/tvFat"
@@ -413,7 +456,8 @@
               android:textStyle="bold"
               app:layout_constraintBottom_toBottomOf="@+id/textView116"
               app:layout_constraintEnd_toStartOf="@+id/textView118"
-              app:layout_constraintTop_toTopOf="@+id/textView116" />
+              app:layout_constraintTop_toTopOf="@+id/textView116"
+              />
 
           <TextView
               android:id="@+id/textView118"
@@ -426,7 +470,8 @@
               android:textStyle="bold"
               app:layout_constraintBottom_toBottomOf="@+id/tvFat"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="@+id/tvFat" />
+              app:layout_constraintTop_toTopOf="@+id/tvFat"
+              />
 
           <TextView
               android:id="@+id/textView119"
@@ -438,7 +483,8 @@
               android:textColor="@android:color/black"
               android:textStyle="bold"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView116" />
+              app:layout_constraintTop_toBottomOf="@+id/textView116"
+              />
 
           <TextView
               android:id="@+id/tvSaturatedFats"
@@ -451,7 +497,8 @@
               android:textStyle="bold"
               app:layout_constraintBottom_toBottomOf="@+id/textView119"
               app:layout_constraintEnd_toStartOf="@+id/textView121"
-              app:layout_constraintTop_toTopOf="@+id/textView119" />
+              app:layout_constraintTop_toTopOf="@+id/textView119"
+              />
 
           <TextView
               android:id="@+id/textView121"
@@ -463,7 +510,8 @@
               android:textColor="@android:color/black"
               app:layout_constraintBottom_toBottomOf="@+id/tvSaturatedFats"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="@+id/tvSaturatedFats" />
+              app:layout_constraintTop_toTopOf="@+id/tvSaturatedFats"
+              />
 
           <TextView
               android:id="@+id/textView122"
@@ -475,7 +523,8 @@
               android:textColor="@android:color/black"
               android:textStyle="bold"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView119" />
+              app:layout_constraintTop_toBottomOf="@+id/textView119"
+              />
 
           <TextView
               android:id="@+id/tvUnSaturatedFats"
@@ -488,7 +537,8 @@
               android:textStyle="bold"
               app:layout_constraintBottom_toBottomOf="@+id/textView122"
               app:layout_constraintEnd_toStartOf="@+id/textView124"
-              app:layout_constraintTop_toTopOf="@+id/textView122" />
+              app:layout_constraintTop_toTopOf="@+id/textView122"
+              />
 
           <TextView
               android:id="@+id/textView124"
@@ -500,7 +550,8 @@
               android:textColor="@android:color/black"
               app:layout_constraintBottom_toBottomOf="@+id/tvUnSaturatedFats"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="@+id/tvUnSaturatedFats" />
+              app:layout_constraintTop_toTopOf="@+id/tvUnSaturatedFats"
+              />
 
           <TextView
               android:id="@+id/textView125"
@@ -513,7 +564,8 @@
               android:textColor="@android:color/black"
               android:textStyle="bold"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView122" />
+              app:layout_constraintTop_toBottomOf="@+id/textView122"
+              />
 
           <TextView
               android:id="@+id/tvProtein"
@@ -527,7 +579,8 @@
               app:layout_constraintBottom_toBottomOf="@+id/textView125"
               app:layout_constraintEnd_toStartOf="@+id/textView127"
               app:layout_constraintTop_toTopOf="@+id/textView125"
-              app:layout_constraintVertical_bias="0.0" />
+              app:layout_constraintVertical_bias="0.0"
+              />
 
           <TextView
               android:id="@+id/textView127"
@@ -540,7 +593,8 @@
               android:textStyle="bold"
               app:layout_constraintBottom_toBottomOf="@+id/tvProtein"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="@+id/tvProtein" />
+              app:layout_constraintTop_toTopOf="@+id/tvProtein"
+              />
 
           <TextView
               android:id="@+id/textView128"
@@ -552,7 +606,8 @@
               android:textColor="@android:color/black"
               android:textStyle="bold"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView125" />
+              app:layout_constraintTop_toBottomOf="@+id/textView125"
+              />
 
           <TextView
               android:id="@+id/tvCholesterol"
@@ -565,7 +620,8 @@
               android:textStyle="bold"
               app:layout_constraintBottom_toBottomOf="@+id/textView128"
               app:layout_constraintEnd_toStartOf="@+id/textView130"
-              app:layout_constraintTop_toTopOf="@+id/textView128" />
+              app:layout_constraintTop_toTopOf="@+id/textView128"
+              />
 
           <TextView
               android:id="@+id/textView130"
@@ -577,7 +633,8 @@
               android:textColor="@android:color/black"
               app:layout_constraintBottom_toBottomOf="@+id/textView128"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="@+id/textView128" />
+              app:layout_constraintTop_toTopOf="@+id/textView128"
+              />
 
           <TextView
               android:id="@+id/textView131"
@@ -589,7 +646,8 @@
               android:textColor="@android:color/black"
               android:textStyle="bold"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView128" />
+              app:layout_constraintTop_toBottomOf="@+id/textView128"
+              />
 
           <TextView
               android:id="@+id/tvSodium"
@@ -602,7 +660,8 @@
               android:textStyle="bold"
               app:layout_constraintBottom_toBottomOf="@+id/textView131"
               app:layout_constraintEnd_toStartOf="@+id/textView133"
-              app:layout_constraintTop_toTopOf="@+id/textView131" />
+              app:layout_constraintTop_toTopOf="@+id/textView131"
+              />
 
           <TextView
               android:id="@+id/textView133"
@@ -614,7 +673,8 @@
               android:textColor="@android:color/black"
               app:layout_constraintBottom_toBottomOf="@+id/textView131"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="@+id/textView131" />
+              app:layout_constraintTop_toTopOf="@+id/textView131"
+              />
 
           <TextView
               android:id="@+id/textView134"
@@ -626,7 +686,8 @@
               android:textColor="@android:color/black"
               android:textStyle="bold"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView131" />
+              app:layout_constraintTop_toBottomOf="@+id/textView131"
+              />
 
           <TextView
               android:id="@+id/tvPotassium"
@@ -639,7 +700,8 @@
               android:textStyle="bold"
               app:layout_constraintBottom_toBottomOf="@+id/textView134"
               app:layout_constraintEnd_toStartOf="@+id/textView136"
-              app:layout_constraintTop_toTopOf="@+id/textView134" />
+              app:layout_constraintTop_toTopOf="@+id/textView134"
+              />
 
           <TextView
               android:id="@+id/textView136"
@@ -651,7 +713,33 @@
               android:textColor="@android:color/black"
               app:layout_constraintBottom_toBottomOf="@+id/textView134"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="@+id/textView134" />
+              app:layout_constraintTop_toTopOf="@+id/textView134"
+              />
+
+          <android.support.v7.widget.CardView
+              android:id="@+id/cardView8"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="8dp"
+              android:layout_marginStart="8dp"
+              android:layout_marginTop="24dp"
+              app:layout_constraintBottom_toBottomOf="@+id/ivRecipe"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              app:cardCornerRadius="25dp"
+              >
+
+            <Button
+                android:id="@+id/addDiary"
+                android:layout_width="238dp"
+                android:layout_height="match_parent"
+                android:background="#34847C"
+                android:padding="2dp"
+                android:text="@string/btnRecipeDiary"
+                android:textColor="@android:color/white"
+                />
+          </android.support.v7.widget.CardView>
         </android.support.constraint.ConstraintLayout>
 
       </android.support.v7.widget.CardView>
