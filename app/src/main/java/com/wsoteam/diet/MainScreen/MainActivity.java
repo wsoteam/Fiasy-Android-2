@@ -2,6 +2,8 @@ package com.wsoteam.diet.MainScreen;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -158,6 +160,13 @@ public class MainActivity extends AppCompatActivity {
         }
         if (ArticlesHolder.getListArticles() == null) {
             loadArticles();
+        }
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            String version = pInfo.versionName;
+            Log.e("LOL", version);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
