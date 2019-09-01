@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
 import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.MainScreen.Controller.UpdateCallback;
 import com.wsoteam.diet.MainScreen.Dialogs.SublimePickerDialogFragment;
 import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.POJOProfile.Profile;
@@ -109,6 +111,15 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         }
     };
 
+    UpdateCallback updateCallback = new UpdateCallback() {
+        @Override public void update() {
+            Log.d("kkk", "update: test callback in diary");
+            if (currentDayPlanFragment != null){
+                currentDayPlanFragment.onResume();
+            }
+        }
+    };
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -179,7 +190,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
         vpEatingTimeLine.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return FragmentEatingScroll.newInstance(position);
+                return FragmentEatingScroll.newInstance(position).setUpdateCallback(updateCallback);
             }
 
             @Override
@@ -188,6 +199,7 @@ public class FragmentDiary extends Fragment implements SublimePickerDialogFragme
             }
         });
     }
+
 
     @Override
     public void dateChoosed(Calendar calendar, int dayOfMonth, int month, int year) {

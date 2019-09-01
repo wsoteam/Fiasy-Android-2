@@ -21,10 +21,13 @@ public class EatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private Context context;
     private String data;
 
-    public EatingAdapter(List<List<Eating>> allEatingGroups, Context context, String data) {
+    private UpdateCallback updateCallback;
+
+    public EatingAdapter(List<List<Eating>> allEatingGroups, Context context, String data, UpdateCallback updateCallback) {
         this.allEatingGroups = allEatingGroups;
         this.context = context;
         this.data = data;
+        this.updateCallback = updateCallback;
     }
 
     @NonNull
@@ -36,7 +39,7 @@ public class EatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case TYPE_LUNCH:
             case TYPE_DINNER:
             case TYPE_SNACKS:
-                return new EatingViewHolder(layoutInflater, parent, context, data);
+                return new EatingViewHolder(layoutInflater, parent, context, data, updateCallback);
             case TYPE_WATER:
                 return new WaterViewHolder(layoutInflater, parent, context, data);
             default:

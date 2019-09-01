@@ -25,6 +25,7 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideViewHolder> {
     private int choiseEating;
     private final int BREAKFAST = 0, LUNCH = 1, DINNER = 2, SNACK = 3;
     private EatingHolderCallback callback;
+    private UpdateCallback updateCallback;
 
 
     public InsideAdapter(List<Eating> oneGroupOfEating, Context context, boolean isFull, int choiseEating, EatingHolderCallback callback) {
@@ -38,6 +39,11 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideViewHolder> {
             this.oneGroupOfEating = oneGroupOfEating;
             this.context = context;
         }
+    }
+
+    public InsideAdapter setUpdateCallback(@NonNull UpdateCallback updateCallback) {
+        this.updateCallback = updateCallback;
+        return this;
     }
 
     @NonNull
@@ -125,7 +131,10 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideViewHolder> {
                     WorkWithFirebaseDB.setRecipeInDiaryFromPlan(dayS, mealS, recipeNumberS, false);
                 }
             }
+        }
 
+        if (updateCallback != null) {
+            updateCallback.update();
         }
     }
 

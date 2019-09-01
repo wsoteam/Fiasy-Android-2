@@ -74,12 +74,15 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     private List<Eating> eatingGroup;
     private int endTime;
 
+    private UpdateCallback updateCallback;
 
-    public EatingViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, Context context, String data) {
+
+    public EatingViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, Context context, String data, UpdateCallback updateCallback) {
         super(layoutInflater.inflate(R.layout.ms_item_eating_list, viewGroup, false));
         ButterKnife.bind(this, itemView);
         this.context = context;
         this.data = data;
+        this.updateCallback = updateCallback;
     }
 
     public void bind(List<Eating> eatingGroup, Context context, String nameOfEatingGroup) {
@@ -89,7 +92,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
         rvListOfFoodEatingCard.setLayoutManager(new LinearLayoutManager(context));
         rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup,
-                context, true, getAdapterPosition(), this::refreshUI));
+                context, true, getAdapterPosition(), this::refreshUI).setUpdateCallback(updateCallback));
         setExpandableView();
 //        if (isNeedRemind()) remind(nameOfEatingGroup);
     }
@@ -134,7 +137,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
                     Glide.with(context).load(R.drawable.open_eating_list).into(ibtnOpenList);
                 }
                 rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup,
-                        context, !isButtonPressed, getAdapterPosition(), this::refreshUI));
+                        context, !isButtonPressed, getAdapterPosition(), this::refreshUI).setUpdateCallback(updateCallback));
                 isButtonPressed = !isButtonPressed;
             });
         }
