@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -32,13 +33,17 @@ public class UpdateChecker {
     }
 
 
-    private void runChecker() {
+    public void runChecker() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.UPDATE_PATH);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                compareVersions(dataSnapshot.getValue(StoreVersion.class));
+                try {
+                    compareVersions(dataSnapshot.getValue(StoreVersion.class));
+                } catch (Exception ex) {
+                    ex.getLocalizedMessage();
+                }
             }
 
             @Override
@@ -57,11 +62,12 @@ public class UpdateChecker {
         long timeLastShow = currentTime - getPeriodPoint();
 
         if (userVersion < marketVersion) {
-            if (getStartPoint() != Config.SP_COUNTDOWN_EMPTY) {
+            if (getStartPoint() != Config.SP_START_POINT_EMPTY) {
                 setStartPoint(currentTime);
                 setPeriodPoint(currentTime);
                 showWeakDialog();
             } else {
+                Log.e("LOL", String.valueOf(value.getTimeUntilHardUpdate()));
                 if (timeAfterStart > value.getTimeUntilHardUpdate()) {
                     showHardDialog();
                 } else {
@@ -71,24 +77,34 @@ public class UpdateChecker {
                     }
                 }
             }
+        } else {
+            clearSavedPoints();
+        }
+    }
 
+    private void clearSavedPoints() {
+        if (getPeriodPoint() != Config.SP_PERIOD_SHOW_POINT_EMPTY) {
+            setPeriodPoint(Config.SP_PERIOD_SHOW_POINT_EMPTY);
+        }
+        if (getStartPoint() != Config.SP_PERIOD_SHOW_POINT_EMPTY) {
+            setStartPoint(Config.SP_START_POINT_EMPTY);
         }
     }
 
     private void setPeriodPoint(long time) {
-        context.getSharedPreferences(Config.SP_SHOW_POINT, Context.MODE_PRIVATE).edit().putLong(Config.SP_SHOW_POINT, time).commit();
+        context.getSharedPreferences(Config.SP_PERIOD_SHOW_POINT, Context.MODE_PRIVATE).edit().putLong(Config.SP_PERIOD_SHOW_POINT, time).commit();
     }
 
     private void setStartPoint(long time) {
-        context.getSharedPreferences(Config.SP_COUNTDOWN, Context.MODE_PRIVATE).edit().putLong(Config.SP_COUNTDOWN, time).commit();
+        context.getSharedPreferences(Config.SP_START_POINT, Context.MODE_PRIVATE).edit().putLong(Config.SP_START_POINT, time).commit();
     }
 
     private long getStartPoint() {
-        return context.getSharedPreferences(Config.SP_COUNTDOWN, Context.MODE_PRIVATE).getLong(Config.SP_COUNTDOWN, Config.SP_COUNTDOWN_EMPTY);
+        return context.getSharedPreferences(Config.SP_START_POINT, Context.MODE_PRIVATE).getLong(Config.SP_START_POINT, Config.SP_START_POINT_EMPTY);
     }
 
     private long getPeriodPoint() {
-        return context.getSharedPreferences(Config.SP_SHOW_POINT, Context.MODE_PRIVATE).getLong(Config.SP_SHOW_POINT, Config.SP_SHOW_POINT_EMPTY);
+        return context.getSharedPreferences(Config.SP_PERIOD_SHOW_POINT, Context.MODE_PRIVATE).getLong(Config.SP_PERIOD_SHOW_POINT, Config.SP_PERIOD_SHOW_POINT_EMPTY);
     }
 
 

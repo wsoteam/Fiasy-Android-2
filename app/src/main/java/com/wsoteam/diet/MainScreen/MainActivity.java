@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         handlGrade(Calendar.getInstance().getTimeInMillis());
+        new UpdateChecker(this).runChecker();
         Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 

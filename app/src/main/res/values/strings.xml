@@ -776,7 +776,10 @@
   <string name="profile_male">Мужской</string>
     <string name="activity_save">сохранить</string>
     <string name="personal_data">Личные данные</string>
-    <string-array name="recipeComplexity">
+    <string name="update_message">Вышла новая версия приложения!  \nОбновите приложение в Google Play</string>
+  <string name="go_update">Обновить</string>
+  <string name="update_title">Обновление!</string>
+  <string-array name="recipeComplexity">
     <item>Легкий</item>
     <item>Средний</item>
     <item>Сложный</item>
