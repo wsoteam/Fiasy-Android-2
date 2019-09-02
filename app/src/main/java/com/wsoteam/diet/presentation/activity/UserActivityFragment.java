@@ -23,7 +23,6 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.activity.ActivitiesAdapter.UserActivityView;
 import com.wsoteam.diet.presentation.activity.ExercisesSource.AssetsSource;
 import com.wsoteam.diet.utils.Metrics;
-import com.wsoteam.diet.utils.RandomTool;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -31,13 +30,15 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 import static com.wsoteam.diet.presentation.activity.ActivitiesAdapter.VIEW_TYPE_ACTIVITY;
 
 public class UserActivityFragment extends Fragment implements
     // Loool
     Toolbar.OnMenuItemClickListener,
-    PopupMenu.OnMenuItemClickListener {
+    PopupMenu.OnMenuItemClickListener,
+    AddUserActivityFragment.OnActivityCreated{
 
   private Toolbar toolbar;
 
@@ -75,7 +76,8 @@ public class UserActivityFragment extends Fragment implements
 
       @Override
       public void onItemClick(RecyclerView.ViewHolder view, int sectionId) {
-
+        final UserActivityExercise e = adapter.getItem(view.getAdapterPosition());
+        requestAddUserActivity(e);
       }
 
       @Override public void onItemMenuClick(@NonNull RecyclerView.ViewHolder view, int sectionId) {
@@ -188,6 +190,19 @@ public class UserActivityFragment extends Fragment implements
     disposables.add(Single.concat(streams).subscribe());
   }
 
+  private void requestAddUserActivity(@Nullable UserActivityExercise exercise){
+    final AddUserActivityFragment target = new AddUserActivityFragment();
+    target.setSelected(exercise);
+    target.setLockName(exercise != null);
+    target.setTargetFragment(this, 1);
+
+    getActivity().getSupportFragmentManager()
+        .beginTransaction()
+        .replace(android.R.id.content, target, target.getClass().getSimpleName())
+        .addToBackStack(null)
+        .commitAllowingStateLoss();
+  }
+
   @Override public void onDestroyView() {
     super.onDestroyView();
     disposables.clear();
@@ -205,13 +220,7 @@ public class UserActivityFragment extends Fragment implements
         break;
 
       case R.id.action_add_user_activity:
-
-        getActivity().getSupportFragmentManager()
-            .beginTransaction()
-            .replace(R.id.flFragmentContainer, new AddUserActivityFragment())
-            .addToBackStack(null)
-            .commitAllowingStateLoss();
-
+        requestAddUserActivity(null);
         break;
 
       default:
@@ -219,6 +228,10 @@ public class UserActivityFragment extends Fragment implements
     }
 
     return true;
+  }
+
+  @Override public void didCreateActivity(@NotNull UserActivityExercise exercise) {
+    adapter.addItem(R.string.user_activity_section_my, exercise);
   }
 
   static class DividerDecoration extends RecyclerView.ItemDecoration {

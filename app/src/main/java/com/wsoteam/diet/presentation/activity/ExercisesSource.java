@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.activity;
 
 import android.content.res.AssetManager;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
@@ -16,7 +17,7 @@ public abstract class ExercisesSource {
 
   public abstract Single<List<UserActivityExercise>> getExercises();
 
-  public Single<List<UserActivityExercise>> search(CharSequence query) {
+  public Single<List<UserActivityExercise>> search(@Nullable CharSequence query) {
     return getExercises()
         .observeOn(Schedulers.io())
         .flatMap(exercises -> Flowable.fromIterable(exercises)
