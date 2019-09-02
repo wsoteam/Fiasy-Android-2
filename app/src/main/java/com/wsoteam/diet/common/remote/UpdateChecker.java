@@ -6,18 +6,23 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.remote.POJO.StoreVersion;
+
+import java.util.Calendar;
 
 public class UpdateChecker {
     private Context context;
@@ -26,6 +31,65 @@ public class UpdateChecker {
         this.context = context;
     }
 
+
+    private void runChecker() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.UPDATE_PATH);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                compareVersions(dataSnapshot.getValue(StoreVersion.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void compareVersions(StoreVersion value) {
+        int userVersion = checkUserVersion();
+        int marketVersion = value.getVersionCode();
+        long currentTime = Calendar.getInstance().getTimeInMillis();
+        long timeAfterStart = currentTime - getStartPoint();
+        long timeLastShow = currentTime - getPeriodPoint();
+
+        if (userVersion < marketVersion) {
+            if (getStartPoint() != Config.SP_COUNTDOWN_EMPTY) {
+                setStartPoint(currentTime);
+                setPeriodPoint(currentTime);
+                showWeakDialog();
+            } else {
+                if (timeAfterStart > value.getTimeUntilHardUpdate()) {
+                    showHardDialog();
+                } else {
+                    if (timeLastShow > value.getWeekPeriod()) {
+                        setPeriodPoint(currentTime);
+                        showWeakDialog();
+                    }
+                }
+            }
+
+        }
+    }
+
+    private void setPeriodPoint(long time) {
+        context.getSharedPreferences(Config.SP_SHOW_POINT, Context.MODE_PRIVATE).edit().putLong(Config.SP_SHOW_POINT, time).commit();
+    }
+
+    private void setStartPoint(long time) {
+        context.getSharedPreferences(Config.SP_COUNTDOWN, Context.MODE_PRIVATE).edit().putLong(Config.SP_COUNTDOWN, time).commit();
+    }
+
+    private long getStartPoint() {
+        return context.getSharedPreferences(Config.SP_COUNTDOWN, Context.MODE_PRIVATE).getLong(Config.SP_COUNTDOWN, Config.SP_COUNTDOWN_EMPTY);
+    }
+
+    private long getPeriodPoint() {
+        return context.getSharedPreferences(Config.SP_SHOW_POINT, Context.MODE_PRIVATE).getLong(Config.SP_SHOW_POINT, Config.SP_SHOW_POINT_EMPTY);
+    }
 
 
     private int checkUserVersion() {
@@ -40,7 +104,7 @@ public class UpdateChecker {
     }
 
 
-    private void showWeakDialog(Context context) {
+    private void showWeakDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         AlertDialog alertDialog = builder.create();
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -70,14 +134,12 @@ public class UpdateChecker {
             }
         });
 
-        //alertDialog.setCancelable(false);
-        //alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         alertDialog.setView(view);
         alertDialog.show();
     }
 
-    private void showHardDialog(Context context) {
+    private void showHardDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         AlertDialog alertDialog = builder.create();
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

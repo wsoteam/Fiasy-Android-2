@@ -163,9 +163,7 @@ public class MainActivity extends AppCompatActivity {
         if (ArticlesHolder.getListArticles() == null) {
             loadArticles();
         }
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("UPDATE");
-        myRef.setValue(new StoreVersion(82, -1));
+
     }
 
     private void checkForcedGrade() {
