@@ -53,6 +53,8 @@ import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.remote.POJO.StoreVersion;
+import com.wsoteam.diet.common.remote.UpdateChecker;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.common.Analytics.Events;
 
@@ -161,14 +163,9 @@ public class MainActivity extends AppCompatActivity {
         if (ArticlesHolder.getListArticles() == null) {
             loadArticles();
         }
-        try {
-            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            String version = pInfo.versionName;
-
-            Log.e("LOL", version);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("UPDATE");
+        myRef.setValue(new StoreVersion(82, -1));
     }
 
     private void checkForcedGrade() {
