@@ -1,12 +1,14 @@
 package com.wsoteam.diet.common.remote;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -36,7 +38,7 @@ public class UpdateChecker {
     public void runChecker() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.UPDATE_PATH);
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
@@ -62,7 +64,7 @@ public class UpdateChecker {
         long timeLastShow = currentTime - getPeriodPoint();
 
         if (userVersion < marketVersion) {
-            if (getStartPoint() != Config.SP_START_POINT_EMPTY) {
+            if (getStartPoint() == Config.SP_START_POINT_EMPTY) {
                 setStartPoint(currentTime);
                 setPeriodPoint(currentTime);
                 showWeakDialog();
@@ -165,10 +167,16 @@ public class UpdateChecker {
         ImageButton ibClose = view.findViewById(R.id.ibClose);
         ibClose.setVisibility(View.GONE);
 
-        ibClose.setOnClickListener(new View.OnClickListener() {
+        alertDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
-            public void onClick(View view) {
-                alertDialog.cancel();
+            public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
+                if (i == KeyEvent.KEYCODE_BACK &&
+                        keyEvent.getAction() == KeyEvent.ACTION_UP &&
+                        !keyEvent.isCanceled()) {
+                        
+                    return true;
+                }
+                return false;
             }
         });
 

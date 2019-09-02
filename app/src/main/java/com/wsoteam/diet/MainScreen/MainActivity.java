@@ -126,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         handlGrade(Calendar.getInstance().getTimeInMillis());
-        new UpdateChecker(this).runChecker();
         Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
@@ -158,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
         //checkForcedGrade();
         IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
         new AsyncWriteFoodDB().execute(MainActivity.this);
+        new UpdateChecker(this).runChecker();
         if (GroupsHolder.getGroupsRecipes() == null) {
             loadRecipes();
         }
