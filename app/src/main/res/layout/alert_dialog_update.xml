@@ -3,56 +3,88 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView58"
-        android:layout_width="201dp"
-        android:layout_height="148dp"
-        android:layout_marginTop="13dp"
-        android:src="@drawable/main_image_update_alert"
-        app:layout_constraintEnd_toEndOf="@+id/textView162"
-        app:layout_constraintStart_toStartOf="@+id/textView162"
-        app:layout_constraintTop_toBottomOf="@+id/textView162" />
-
-    <TextView
-        android:id="@+id/textView162"
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/roboto"
-        android:text="Обновление!"
-        android:textColor="#DE2B2B2B"
-        android:textSize="20sp"
+        android:elevation="8dp"
+        app:cardCornerRadius="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textView163"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:lineSpacingExtra="2sp"
-        android:text="Вышла новая версия приложения! \nОбновите приложениев Google Play"
-        android:textColor="#8A000000"
-        app:layout_constraintEnd_toEndOf="@+id/imageView58"
-        app:layout_constraintStart_toStartOf="@+id/imageView58"
-        app:layout_constraintTop_toBottomOf="@+id/imageView58" />
 
-    <TextView
-        android:id="@+id/tvOk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:text="Понятно"
-        android:textColor="#EF7D02"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textView163"
-        app:layout_constraintStart_toStartOf="@+id/textView163"
-        app:layout_constraintTop_toBottomOf="@+id/textView163"
-        app:layout_constraintVertical_bias="0.0" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/ibClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/filter_state"
+                android:elevation="9dp"
+                android:padding="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/close_bs" />
+
+            <ImageView
+                android:id="@+id/imageView58"
+                android:layout_width="201dp"
+                android:layout_height="148dp"
+                android:layout_marginTop="13dp"
+                android:src="@drawable/main_image_update_alert"
+                app:layout_constraintEnd_toEndOf="@+id/textView162"
+                app:layout_constraintStart_toStartOf="@+id/textView162"
+                app:layout_constraintTop_toBottomOf="@+id/textView162" />
+
+            <TextView
+                android:id="@+id/textView163"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:gravity="center"
+                android:lineSpacingExtra="2sp"
+                android:text="Вышла новая версия приложения! \nОбновите приложениев Google Play"
+                android:textColor="#8A000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView58" />
+
+            <TextView
+                android:id="@+id/tvOk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="24dp"
+                android:text="Понятно"
+                android:textColor="#EF7D02"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textView163"
+                app:layout_constraintStart_toStartOf="@+id/textView163"
+                app:layout_constraintTop_toBottomOf="@+id/textView163"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textView162"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/roboto"
+                android:text="Обновление!"
+                android:textColor="#DE2B2B2B"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

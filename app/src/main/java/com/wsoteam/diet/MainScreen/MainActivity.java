@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;
+
             Log.e("LOL", version);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
