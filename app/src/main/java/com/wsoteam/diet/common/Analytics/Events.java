@@ -311,15 +311,21 @@ public class Events {
     }
 
     public static void logMoveOnboard(int page) {
+        String eventProp = "";
+        if (page != EventProperties.reg_onboard) {
+            eventProp += EventProperties.pre_onboard + String.valueOf(page);
+        } else {
+            eventProp = EventProperties.onboard_reg;
+        }
         JSONObject eventProperties = new JSONObject();
         try {
-            eventProperties.put(EventProperties.go_onboard, page);
+            eventProperties.put(EventProperties.go_onboard, eventProp);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ONBOARING_NEXT, eventProperties);
 
         Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.go_onboard, page);
+        eventData.put(EventProperties.go_onboard, eventProp);
         io.intercom.android.sdk.Intercom.client().logEvent(ONBOARING_NEXT, eventData);
     }
 

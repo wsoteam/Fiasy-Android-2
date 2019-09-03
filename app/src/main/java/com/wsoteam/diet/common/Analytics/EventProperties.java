@@ -14,6 +14,12 @@ public class EventProperties {
     public static final String question_close = "feature";
 
     public static final String go_onboard = "onboarding";
+    public static final int reg_onboard = -1;
+    public static final String pre_onboard = "page";
+    public static final String onboard_reg = "reg";
+
+
+    public static final String go_onboard = "onboarding";
 
     public static final String skip_onboard = "onboarding";
 
