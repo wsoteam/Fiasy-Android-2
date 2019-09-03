@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
+import com.amplitude.api.Amplitude;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
@@ -172,6 +173,9 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
 
     @Override
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
+        if (responseCode != BillingClient.BillingResponse.OK){
+
+        }
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
             //send data about purchase into firebase (and save into profile subInfo)
             SingletonMakePurchase.getInstance().setMakePurchaseNow(true);
@@ -184,7 +188,16 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
             new CheckAndSetPurchase(getActivity()).execute(p.getSku(), p.getPurchaseToken(), p.getPackageName(), BUY_NOW);
 
             Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
-            Events.logBuy(box.getBuyFrom());
+            try {
+                if (p.isAutoRenewing()) {
+                    Events.logBuy(box.getBuyFrom(), EventProperties.auto_renewal_true);
+                } else {
+                    Events.logBuy(box.getBuyFrom(), EventProperties.auto_renewal_false);
+                }
+            } catch (Exception ex) {
+                Events.logSetBuyError(ex.getMessage());
+            }
+
 
             logTrial();
 

@@ -155,7 +155,7 @@ public class Events {
     }
 
 
-    public static void logBuy(String from) {
+    public static void logBuy(String from, String autoRenewing) {
         JSONObject eventProperties = new JSONObject();
         try {
             eventProperties.put(EventProperties.trial_from, from);
@@ -166,6 +166,15 @@ public class Events {
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.trial_from, from);
         io.intercom.android.sdk.Intercom.client().logEvent(TRIAL_SUCCESS, eventData);
+    }
+
+    public static void logSetBuyError(String message) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put("error", message);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent("settings_error", eventProperties);
     }
 
 

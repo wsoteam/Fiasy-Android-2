@@ -127,6 +127,10 @@ public class EventProperties {
     public static final String trial_from_settings = "settings";
     public static final String trial_from_elements = "micro";
 
+    public static final String auto_renewal = "auto_renewal";
+    public static final String auto_renewal_false = "false";
+    public static final String auto_renewal_true = "true";
+
     public static final String push_button = "push_button";
     public static final String push_button_next = "next";
     public static final String push_button_close = "close";
