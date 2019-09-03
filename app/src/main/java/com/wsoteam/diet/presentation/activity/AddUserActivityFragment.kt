@@ -27,7 +27,7 @@ class AddUserActivityFragment : DialogFragment() {
   var lockName by argument<Boolean>()
 
   private lateinit var exerciseName: AutoCompleteTextView
-  private lateinit var exerciseEfficency: TextView
+  private lateinit var exerciseEfficiency: TextView
   private lateinit var exerciseDuration: SeekBar
 
   private lateinit var doneButton: View
@@ -85,7 +85,7 @@ class AddUserActivityFragment : DialogFragment() {
       }
 
     })
-    exerciseEfficency = view.findViewById(R.id.activity_burned_hint)
+    exerciseEfficiency = view.findViewById(R.id.activity_burned_hint)
 
     exerciseName = view.findViewById(R.id.activity_name)
     exerciseName.isEnabled = !(lockName ?: false)
@@ -134,7 +134,7 @@ class AddUserActivityFragment : DialogFragment() {
       .bold()
       .text()
 
-    exerciseEfficency.text = TextUtils.concat(exerciseTemplate, "\n", burned)
+    exerciseEfficiency.text = TextUtils.concat(exerciseTemplate, "\n", burned)
   }
 
   interface OnActivityCreated {
@@ -169,7 +169,7 @@ class AddUserActivityFragment : DialogFragment() {
 
       override fun performFiltering(constraint: CharSequence?): FilterResults {
         val exercises = if (TextUtils.isEmpty(constraint)) {
-          source.exercises.blockingGet()
+          source.all().blockingGet()
         } else {
           source.search(constraint).blockingGet()
         }

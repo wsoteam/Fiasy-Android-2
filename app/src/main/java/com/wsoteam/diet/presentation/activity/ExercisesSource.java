@@ -15,11 +15,27 @@ import okio.Okio;
 
 public abstract class ExercisesSource {
 
-  public abstract Single<List<UserActivityExercise>> getExercises();
+  /**
+   * @return All exercises available in this source
+   */
+  public abstract Single<List<UserActivityExercise>> all();
+
+  /**
+   * Add exercise to the current repository
+   *
+   * @param exercise Exercise to be added
+   */
+  public abstract Single<UserActivityExercise> add(UserActivityExercise exercise);
+
+  /**
+   * Remove exercise from current repository
+   *
+   * @param exercise Exercise to be removed
+   */
+  public abstract Single<UserActivityExercise> remove(UserActivityExercise exercise);
 
   public Single<List<UserActivityExercise>> search(@Nullable CharSequence query) {
-    return getExercises()
-        .observeOn(Schedulers.io())
+    return all().observeOn(Schedulers.io())
         .flatMap(exercises -> Flowable.fromIterable(exercises)
             .filter(e -> StringsKt.contains(e.getTitle(), query, true))
             .toList());
@@ -62,7 +78,7 @@ public abstract class ExercisesSource {
       this.assets = assets;
     }
 
-    @Override public Single<List<UserActivityExercise>> getExercises() {
+    @Override public Single<List<UserActivityExercise>> all() {
       if (!cached.isEmpty()) {
         return Single.just(new ArrayList<>(cached));
       }
@@ -114,6 +130,14 @@ public abstract class ExercisesSource {
 
         return exercises;
       });
+    }
+
+    @Override public Single<UserActivityExercise> add(UserActivityExercise exercise) {
+      throw new UnsupportedOperationException("cannot add to default list");
+    }
+
+    @Override public Single<UserActivityExercise> remove(UserActivityExercise exercise) {
+      throw new UnsupportedOperationException("cannot remove from default list");
     }
   }
 }

@@ -43,9 +43,7 @@ public class WorkWithFirebaseDB {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserData userData = dataSnapshot.getValue(UserData.class);
-                Log.e("LOL", "get user data");
-            }
+                UserData userData = dataSnapshot.getValue(UserData.class); }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

@@ -130,6 +130,8 @@ public class ActivitySplash extends BaseActivity {
   }
 
   private void checkUser(DatabaseReference myRef, boolean deeper) {
+    Log.d("FirebaseUserId", FirebaseAuth.getInstance().getUid());
+
     myRef.addListenerForSingleValueEvent(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

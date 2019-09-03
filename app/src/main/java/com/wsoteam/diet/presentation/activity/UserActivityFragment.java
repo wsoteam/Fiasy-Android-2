@@ -26,6 +26,7 @@ import com.wsoteam.diet.utils.Metrics;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.internal.functions.Functions;
 import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,15 +39,15 @@ public class UserActivityFragment extends Fragment implements
     // Loool
     Toolbar.OnMenuItemClickListener,
     PopupMenu.OnMenuItemClickListener,
-    AddUserActivityFragment.OnActivityCreated{
+    AddUserActivityFragment.OnActivityCreated {
 
   private Toolbar toolbar;
 
   private RecyclerView container;
   private ActivitiesAdapter adapter;
 
-  private SparseArrayCompat<ExercisesSource> sources = new SparseArrayCompat<>();
-  private CompositeDisposable disposables = new CompositeDisposable();
+  private final SparseArrayCompat<ExercisesSource> sources = new SparseArrayCompat<>();
+  private final CompositeDisposable disposables = new CompositeDisposable();
 
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -104,7 +105,17 @@ public class UserActivityFragment extends Fragment implements
               break;
 
             case R.id.action_delete:
+              final UserActivityExercise exercise = adapter.getItem(v.getAdapterPosition());
+
               adapter.removeItem(sectionId, v.getAdapterPosition());
+
+              if (sources.containsKey(R.string.user_activity_section_my)) {
+                disposables.add(sources.get(R.string.user_activity_section_my)
+                    .remove(exercise)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe());
+              }
               break;
           }
           return true;
@@ -115,6 +126,9 @@ public class UserActivityFragment extends Fragment implements
 
     sources.put(R.string.user_activity_section_defaults,
         new AssetsSource(getResources().getAssets()));
+
+    sources.put(R.string.user_activity_section_my,
+        new MyActivitiesSource());
 
     adapter.createSection(R.string.user_activity_section_my);
     adapter.createSection(R.string.user_activity_section_favorite);
@@ -169,7 +183,7 @@ public class UserActivityFragment extends Fragment implements
       final int sourceId = sources.keyAt(i);
 
       streams.add(
-          sources.valueAt(i).getExercises()
+          sources.valueAt(i).all()
               .subscribeOn(Schedulers.io())
               .onErrorReturn(error -> {
                 error.printStackTrace();
@@ -188,19 +202,6 @@ public class UserActivityFragment extends Fragment implements
     }
 
     disposables.add(Single.concat(streams).subscribe());
-  }
-
-  private void requestAddUserActivity(@Nullable UserActivityExercise exercise){
-    final AddUserActivityFragment target = new AddUserActivityFragment();
-    target.setSelected(exercise);
-    target.setLockName(exercise != null);
-    target.setTargetFragment(this, 1);
-
-    getActivity().getSupportFragmentManager()
-        .beginTransaction()
-        .replace(android.R.id.content, target, target.getClass().getSimpleName())
-        .addToBackStack(null)
-        .commitAllowingStateLoss();
   }
 
   @Override public void onDestroyView() {
@@ -230,8 +231,30 @@ public class UserActivityFragment extends Fragment implements
     return true;
   }
 
+  private void requestAddUserActivity(@Nullable UserActivityExercise exercise) {
+    final AddUserActivityFragment target = new AddUserActivityFragment();
+    target.setSelected(exercise);
+    target.setLockName(exercise != null);
+    target.setTargetFragment(this, 1);
+
+    getActivity().getSupportFragmentManager()
+        .beginTransaction()
+        .replace(android.R.id.content, target, target.getClass().getSimpleName())
+        .addToBackStack(null)
+        .commitAllowingStateLoss();
+  }
+
   @Override public void didCreateActivity(@NotNull UserActivityExercise exercise) {
     adapter.addItem(R.string.user_activity_section_my, exercise);
+
+    disposables.add(sources.get(R.string.user_activity_section_my)
+        .add(exercise)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            Functions.emptyConsumer(),
+            Throwable::printStackTrace
+        ));
   }
 
   static class DividerDecoration extends RecyclerView.ItemDecoration {
