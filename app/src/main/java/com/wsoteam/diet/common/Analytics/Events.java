@@ -63,6 +63,7 @@ public class Events {
     //PROFILE
     public static final String VIEW_PROFILE = "view_profile";
     public static final String PROFILE_LOGOUT = "profile_logout";
+    public static final String VIEW_SETTINGS = "view_settings";
 
 
     //INTERCOM
@@ -88,6 +89,11 @@ public class Events {
     //TRAINING
     //public static final String SELECT_TRAINING = "select_training";
     //public static final String SHARE_TRAINING = "share_training";
+
+    public static void logViewSettings() {
+        Amplitude.getInstance().logEvent(VIEW_SETTINGS);
+        io.intercom.android.sdk.Intercom.client().logEvent(VIEW_SETTINGS);
+    }
 
     public static void logDeleteFood() {
         Amplitude.getInstance().logEvent(DELETE_FOOD);
