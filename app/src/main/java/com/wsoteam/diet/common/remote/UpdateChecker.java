@@ -1,5 +1,6 @@
 package com.wsoteam.diet.common.remote;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -173,7 +175,7 @@ public class UpdateChecker {
                 if (i == KeyEvent.KEYCODE_BACK &&
                         keyEvent.getAction() == KeyEvent.ACTION_UP &&
                         !keyEvent.isCanceled()) {
-                        
+                    ((AppCompatActivity) context).finish();
                     return true;
                 }
                 return false;

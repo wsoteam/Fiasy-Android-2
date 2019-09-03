@@ -129,6 +129,12 @@ public class MainActivity extends AppCompatActivity {
         Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        new UpdateChecker(this).runChecker();
+    }
+
     private void handlGrade(long currentTime) {
         long timeStartingPoint = getSharedPreferences(Config.STARTING_POINT, MODE_PRIVATE).getLong(Config.STARTING_POINT, 0);
         boolean isAddedFoodEarly = getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).getBoolean(Config.IS_ADDED_FOOD, false);
@@ -157,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         //checkForcedGrade();
         IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
         new AsyncWriteFoodDB().execute(MainActivity.this);
-        new UpdateChecker(this).runChecker();
+
         if (GroupsHolder.getGroupsRecipes() == null) {
             loadRecipes();
         }
