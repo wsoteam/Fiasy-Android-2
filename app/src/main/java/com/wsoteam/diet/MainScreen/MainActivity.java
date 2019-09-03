@@ -126,13 +126,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         handlGrade(Calendar.getInstance().getTimeInMillis());
-        Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         new UpdateChecker(this).runChecker();
+        Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
     private void handlGrade(long currentTime) {
@@ -156,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
         ButterKnife.bind(this);
-        Amplitude.getInstance().logEvent("view_diary");
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);

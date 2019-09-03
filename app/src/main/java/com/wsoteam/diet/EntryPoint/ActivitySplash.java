@@ -11,10 +11,10 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustAttribution;
 import com.amplitude.api.Amplitude;
@@ -48,15 +48,18 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.wsoteam.diet.common.Analytics.UserIdCreator;
 import com.wsoteam.diet.common.Analytics.UserProperty;
 import com.wsoteam.diet.presentation.auth.AuthStrategy;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
+
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static com.wsoteam.diet.Sync.WorkWithFirebaseDB.getUserData;
 
@@ -77,7 +80,6 @@ public class ActivitySplash extends BaseActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    UserIdCreator.createUserId();
     if (getSharedPreferences(Config.IS_NEED_SHOW_LOADING_SPLASH, MODE_PRIVATE).getBoolean(
         Config.IS_NEED_SHOW_LOADING_SPLASH, false)) {
       showLoadingScreen();
@@ -114,7 +116,7 @@ public class ActivitySplash extends BaseActivity {
     user = FirebaseAuth.getInstance().getCurrentUser();
     if (user != null) {
       try {
-        SetUserProperties.setUserProperties(Adjust.getAttribution());
+        //SetUserProperties.setUserProperties(Adjust.getAttribution());
         setTrackInfoInDatabase(Adjust.getAttribution());
       } catch (Exception e) {
 

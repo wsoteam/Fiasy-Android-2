@@ -1,18 +1,12 @@
 package com.wsoteam.diet.InApp.properties;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
-import com.android.billingclient.api.Purchase;
 import com.google.api.services.androidpublisher.model.SubscriptionPurchase;
-import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.InApp.IDs;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.UserProperty;
-
-import io.intercom.android.sdk.Intercom;
 
 
 public class CheckAndSetPurchase extends AsyncTask<String, Void, Void> {

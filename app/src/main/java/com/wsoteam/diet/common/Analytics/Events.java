@@ -42,10 +42,10 @@ public class Events {
 
 
     //RECIPE
-    public static final String VIEW_RECIPE = "view_reciepe";
-    public static final String RECIPE_CATEGORY = "reciepe_category";
-    public static final String RECIPE_FAVORITES = "reciepe_favorites";
-    public static final String RECIPE_ADD_SUCCES = "reciepe_add_success";
+    public static final String VIEW_RECIPE = "view_recipe";
+    public static final String RECIPE_CATEGORY = "recipe_category";
+    public static final String RECIPE_FAVORITES = "recipe_favorites";
+    public static final String RECIPE_ADD_SUCCES = "recipe_add_success";
 
 
     //PROFILE
@@ -67,9 +67,9 @@ public class Events {
     public static final String TRIAL_SUCCESS = "trial_success";
     public static final String TRIAL_ERROR = "trial_error";
 
-    //////////////////////
+
     public static final String SET_OWN_ID = "set_own_id";
-    //////////////////////
+
     //DIET
     //public static final String SELECT_DIET_FILTRES = "select_diet_filters";
     //public static final String SHARE_DIET = "share_diet";

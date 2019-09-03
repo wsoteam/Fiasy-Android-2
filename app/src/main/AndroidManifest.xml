@@ -115,10 +115,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
         <activity
-            android:name=".AddMeasurementsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Measurements" />
-        <activity
             android:name=".presentation.auth.restore.ActivityForgotPassword"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
