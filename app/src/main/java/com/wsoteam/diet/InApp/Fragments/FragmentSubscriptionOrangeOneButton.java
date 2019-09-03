@@ -174,7 +174,7 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
     @Override
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
         if (responseCode != BillingClient.BillingResponse.OK){
-
+            Events.logBillingError(responseCode);
         }
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
             //send data about purchase into firebase (and save into profile subInfo)

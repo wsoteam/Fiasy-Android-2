@@ -19,6 +19,7 @@ import com.wsoteam.diet.InApp.IDs;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.Recipes.adding.pages.IngredientsFragment_ViewBinding;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.UserProperty;
 
 import java.lang.ref.WeakReference;
@@ -63,6 +64,12 @@ public class CheckAndSetPurchase extends AsyncTask<String, Void, Void> {
         } else {
             if (isNeedTrackPurchase && subscription.getPaymentState() == PAYMENT_RECIEVED){
                 logPayment();
+                Events.logPurchaseSuccess();
+                try{
+                    Events.logTrackRevenue(subscription.getPriceAmountMicros());
+                }catch (Exception ex){
+
+                }
             }
             subInfo.setOrderId(subscription.getOrderId());
             subInfo.setPackageName(packageName);

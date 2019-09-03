@@ -138,4 +138,14 @@ public class EventProperties {
     public static final String push_button_back = "back";
 
     public static final String push_button_from = "from";
+
+    public static final String trial_error = "trial_error";
+    public static final String trial_error_back_or_canceled = "back_or_canceled";
+    public static final String trial_error_service_unvailable = "service_unvailable";
+    public static final String trial_error_billing_unvailable = "billing_unvailable";
+    public static final String trial_error_item_unvailable = "item_unvailable";
+    public static final String trial_error_dev_error = "dev_error";
+    public static final String trial_error_error = "error";
+    public static final String trial_error_already_owned = "already_owned";
+    public static final String trial_error_not_owned = "not_owned";
 }
