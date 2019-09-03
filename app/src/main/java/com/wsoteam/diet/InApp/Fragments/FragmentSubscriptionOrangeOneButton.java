@@ -64,7 +64,7 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
 
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
-    private String currentSKU = IDs.ID_ONE_WEEK, currentPrice = "99р";
+    private String currentSKU = IDs.ID_ONE_YEAR, currentPrice = "99р";
     private SharedPreferences sharedPreferences;
     Unbinder unbinder;
     private static final String TAG_BOX = "TAG_BOX";
