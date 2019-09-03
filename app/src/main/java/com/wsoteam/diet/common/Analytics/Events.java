@@ -1,5 +1,7 @@
 package com.wsoteam.diet.common.Analytics;
 
+import android.util.Log;
+
 import com.amplitude.api.Amplitude;
 
 import org.json.JSONException;
@@ -25,6 +27,7 @@ public class Events {
     public static final String RESEND_ERROR = "resend_error";
     public static final String QUESTION_NEXT = "question_next";
     public static final String ONBOARDING_SUCCESS = "onboarding_success";
+    public static final String REGISTRATION_NEXT = "registration_next";
 
 
     //PURCHASE
@@ -86,21 +89,56 @@ public class Events {
     //public static final String SELECT_TRAINING = "select_training";
     //public static final String SHARE_TRAINING = "share_training";
 
-    public static void logSuccessOnboarding() {
-        Amplitude.getInstance().logEvent(ONBOARDING_SUCCESS);
-        io.intercom.android.sdk.Intercom.client().logEvent(ONBOARDING_SUCCESS);
+    public static void logDeleteFood() {
+        Amplitude.getInstance().logEvent(DELETE_FOOD);
+        io.intercom.android.sdk.Intercom.client().logEvent(DELETE_FOOD);
     }
 
-    public static void logPushButton(String whichButton) {
+    public static void logEditFood() {
+        Amplitude.getInstance().logEvent(EDIT_FOOD);
+        io.intercom.android.sdk.Intercom.client().logEvent(EDIT_FOOD);
+    }
+
+    public static void logPushButtonReg(String whichButton) {
+        Log.e("LOL", whichButton);
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.enter_push_button, whichButton);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(REGISTRATION_NEXT, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.enter_push_button, whichButton);
+        io.intercom.android.sdk.Intercom.client().logEvent(REGISTRATION_NEXT, eventData);
+    }
+
+
+    public static void logSuccessOnboarding(String how) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.onboarding_success_from, how);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(ONBOARDING_SUCCESS, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.onboarding_success_from, how);
+        io.intercom.android.sdk.Intercom.client().logEvent(ONBOARDING_SUCCESS, eventData);
+    }
+
+    public static void logPushButton(String whichButton, String from) {
         JSONObject eventProperties = new JSONObject();
         try {
             eventProperties.put(EventProperties.push_button, whichButton);
+            eventProperties.put(EventProperties.push_button_from, from);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(PREMIUM_NEXT, eventProperties);
 
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.push_button, whichButton);
+        eventData.put(EventProperties.push_button_from, from);
         io.intercom.android.sdk.Intercom.client().logEvent(PREMIUM_NEXT, eventData);
     }
 
@@ -205,7 +243,7 @@ public class Events {
         io.intercom.android.sdk.Intercom.client().logEvent(CUSTOM_RECIPE_SUCCESS, eventData);
     }
 
-    public static void logCreateTemplate(String from, String template_intake ) {
+    public static void logCreateTemplate(String from, String template_intake) {
         JSONObject eventProperties = new JSONObject();
         try {
             eventProperties.put(EventProperties.template_from, from);
@@ -292,28 +330,38 @@ public class Events {
     }
 
     public static void logMoveOnboard(int page) {
+        String eventName = "";
+        if (page != EventProperties.go_onboard_reg) {
+            eventName = EventProperties.go_onboard_prename + String.valueOf(page);
+        } else {
+            eventName = EventProperties.go_onboard_reg_name;
+        }
+        Log.e("LOL", eventName);
         JSONObject eventProperties = new JSONObject();
         try {
-            eventProperties.put(EventProperties.go_onboard, page);
+            eventProperties.put(EventProperties.go_onboard, eventName);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ONBOARING_NEXT, eventProperties);
 
         Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.go_onboard, page);
+        eventData.put(EventProperties.go_onboard, eventName);
         io.intercom.android.sdk.Intercom.client().logEvent(ONBOARING_NEXT, eventData);
     }
 
     public static void logSkipOnboard(int page) {
+        String name = "";
+        name = EventProperties.skip_onboard_prename + String.valueOf(page);
+        Log.e("LOL", name);
         JSONObject eventProperties = new JSONObject();
         try {
-            eventProperties.put(EventProperties.skip_onboard, page);
+            eventProperties.put(EventProperties.skip_onboard, name);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ONBOARING_SKIP, eventProperties);
 
         Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.skip_onboard, page);
+        eventData.put(EventProperties.skip_onboard, name);
         io.intercom.android.sdk.Intercom.client().logEvent(ONBOARING_SKIP, eventData);
     }
 

@@ -57,8 +57,10 @@ public abstract class AuthStrategyFragment extends Fragment {
   protected <T extends AuthStrategy> T getStrategyByType(Class<T> strategyType) {
     final AuthStrategy strategy;
     if (strategyType == GoogleAuthStrategy.class) {
+      Events.logPushButtonReg(EventProperties.enter_push_button_google);
       strategy = new GoogleAuthStrategy(this);
     } else if (strategyType == FacebookAuthStrategy.class) {
+      Events.logPushButtonReg(EventProperties.enter_push_button_fb);
       strategy = new FacebookAuthStrategy(this);
     } else if (strategyType == EmailLoginAuthStrategy.class) {
       strategy = new EmailLoginAuthStrategy(this);

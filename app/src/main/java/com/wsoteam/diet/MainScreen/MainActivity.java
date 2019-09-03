@@ -161,9 +161,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void logEvents() {
-        if (getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).getBoolean(SavedConst.SEE_PREMIUM, false)){
-            Events.logSuccessOnboarding();
-            getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).edit().putBoolean(SavedConst.SEE_PREMIUM, false).commit();
+        if (getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).getBoolean(SavedConst.SEE_PREMIUM, false)) {
+            Events.logSuccessOnboarding(getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).getString(SavedConst.HOW_END, EventProperties.onboarding_success_reopen));
+            getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).edit().remove(SavedConst.SEE_PREMIUM).commit();
+            getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).edit().remove(SavedConst.HOW_END).commit();
         }
     }
 

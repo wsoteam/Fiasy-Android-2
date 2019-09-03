@@ -16,7 +16,21 @@ public class EventProperties {
 
     public static final String go_onboard = "onboarding";
 
+    public static final int go_onboard_reg = -1;
+    public static final String go_onboard_reg_name = "reg";
+    public static final String go_onboard_prename = "page";
+
     public static final String skip_onboard = "onboarding";
+
+    public static final String skip_onboard_prename = "page";
+
+    public static final String enter_push_button = "push_button";
+    public static final String enter_push_button_fb = "fb";
+    public static final String enter_push_button_google = "google";
+    public static final String enter_push_button_email = "email";
+    public static final String enter_push_button_enter = "enter";
+    public static final String enter_push_button_privacy = "privacy";
+
 
 
     public static final String registration = "type";
@@ -32,6 +46,11 @@ public class EventProperties {
     public static final String error_type = "error_type";
     public static final String invalid_password = "invalid password";
     public static final String invalid_email = "invalid email";
+
+    public static final String onboarding_success_from = "from";
+    public static final String onboarding_success_close = "close";
+    public static final String onboarding_success_trial = "trial";
+    public static final String onboarding_success_reopen = "reopen";
 
 
     //Food
@@ -113,4 +132,6 @@ public class EventProperties {
     public static final String push_button_close = "close";
     public static final String push_button_privacy = "privacy";
     public static final String push_button_back = "back";
+
+    public static final String push_button_from = "from";
 }

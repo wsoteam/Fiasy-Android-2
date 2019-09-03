@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,7 +29,6 @@ import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
-import com.bumptech.glide.Glide;
 import com.facebook.appevents.AppEventsConstants;
 import com.facebook.appevents.AppEventsLogger;
 import com.wsoteam.diet.Authenticate.POJO.Box;
@@ -60,6 +58,7 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
         implements PurchasesUpdatedListener {
 
     @BindView(R.id.textView161) TextView textView;
+    @BindView(R.id.btnBack) ImageView btnBack;
 
 
     private BillingClient billingClient;
@@ -80,6 +79,24 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
         return fragmentSubscriptionOrangeOneButton;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isResumed()) {
+            if (box.isOpenFromIntrodaction()) {
+                Events.logMoveQuestions(EventProperties.question_premium);
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getUserVisibleHint()) {
+            setUserVisibleHint(true);
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -90,7 +107,8 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
 
         box = (Box) getArguments().getSerializable(TAG_BOX);
 
-        if (box.isOpenFromIntrodaction()){
+        if (box.isOpenFromIntrodaction()) {
+            btnBack.setVisibility(View.GONE);
             getActivity().getSharedPreferences(SavedConst.SEE_PREMIUM, Context.MODE_PRIVATE).edit().putBoolean(SavedConst.SEE_PREMIUM, true).commit();
         }
 
@@ -183,6 +201,7 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
 
             if (box.isOpenFromIntrodaction()) {
                 box.setSubscribe(true);
+                getActivity().getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE).edit().putString(SavedConst.HOW_END, EventProperties.onboarding_success_trial).commit();
             }
 
             IntentUtils.openMainActivity(requireContext());
@@ -194,19 +213,17 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnBuyPrem:
-                Events.logPushButton(EventProperties.push_button_next);
+                Events.logPushButton(EventProperties.push_button_next, box.getBuyFrom());
                 buy(currentSKU);
                 break;
             case R.id.btnBack:
-                Events.logPushButton(EventProperties.push_button_back);
+                Events.logPushButton(EventProperties.push_button_back, box.getBuyFrom());
                 getActivity().onBackPressed();
                 break;
             case R.id.btnClose: {
-                Events.logPushButton(EventProperties.push_button_close);
+                Events.logPushButton(EventProperties.push_button_close, box.getBuyFrom());
                 if (box.isOpenFromIntrodaction()) {
-                    Events.logMoveQuestions(EventProperties.question_close);
-                }
-                if (box.isOpenFromIntrodaction()) {
+                    getActivity().getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE).edit().putString(SavedConst.HOW_END, EventProperties.onboarding_success_close).commit();
                     final Intent intent = new Intent(getContext(), ActivitySplash.class);
                     startActivity(intent);
                     getActivity().finish();
@@ -216,7 +233,7 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
             }
             break;
             case R.id.tvPrivacyPolicy:
-                Events.logPushButton(EventProperties.push_button_privacy);
+                Events.logPushButton(EventProperties.push_button_privacy, box.getBuyFrom());
                 Intent intent = new Intent(getActivity(), ActivityPrivacyPolicy.class);
                 startActivity(intent);
                 break;

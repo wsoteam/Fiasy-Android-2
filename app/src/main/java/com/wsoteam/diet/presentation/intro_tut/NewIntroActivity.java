@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -36,6 +37,7 @@ public class NewIntroActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_new_intro);
     ButterKnife.bind(this);
+    Events.logMoveOnboard(viewPager.getCurrentItem() + 1);
 
     final SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -69,6 +71,7 @@ public class NewIntroActivity extends AppCompatActivity {
         } else
         //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
         {
+          Events.logMoveOnboard(EventProperties.go_onboard_reg);
           finishSlides();
         }
         break;

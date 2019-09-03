@@ -92,7 +92,7 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
         box.setOpenFromPremPart(true);
         box.setOpenFromIntrodaction(false);
         box.setComeFrom(AmplitudaEvents.view_prem_content);
-        box.setComeFrom(EventProperties.trial_from_articles);
+        box.setBuyFrom(EventProperties.trial_from_articles);
         Intent intent = new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box);
         startActivity(intent);
     }
