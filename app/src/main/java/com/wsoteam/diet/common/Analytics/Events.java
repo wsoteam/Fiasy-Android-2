@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.intercom.android.sdk.experimental.Intercom;
+import io.intercom.android.sdk.Intercom;
 
 public class Events {
 
@@ -150,6 +150,11 @@ public class Events {
     public static void logViewSettings() {
         Amplitude.getInstance().logEvent(VIEW_SETTINGS);
         io.intercom.android.sdk.Intercom.client().logEvent(VIEW_SETTINGS);
+    }
+
+    public static void logBugSend() {
+        Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_BUGSEND);
+        Intercom.client().logEvent(Events.PRODUCT_PAGE_BUGSEND);
     }
 
     public static void logDeleteFood() {
