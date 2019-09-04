@@ -1,5 +1,7 @@
 package com.wsoteam.diet.common.Analytics;
 
+import android.util.Log;
+
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Identify;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,19 +34,19 @@ public class UserProperty {
     public static final String q_age_status = "age";
 
     public static final String q_active_status = "active";
-    public static final String q_active_status1 = "1";
-    public static final String q_active_status2 = "2";
-    public static final String q_active_status3 = "3";
-    public static final String q_active_status4 = "4";
-    public static final String q_active_status5 = "5";
-    public static final String q_active_status6 = "6";
-    public static final String q_active_status7 = "7";
+    public static final String q_active_status1 = "minimal";
+    public static final String q_active_status2 = "light";
+    public static final String q_active_status3 = "two_trainings";
+    public static final String q_active_status4 = "five_trainings";
+    public static final String q_active_status5 = "everyday_intensive";
+    public static final String q_active_status6 = "ten_trainings";
+    public static final String q_active_status7 = "hard_work";
 
     public static final String q_goal_status = "goal";
-    public static final String q_goal_status1 = "1";
-    public static final String q_goal_status2 = "2";
-    public static final String q_goal_status3 = "3";
-    public static final String q_goal_status4 = "4";
+    public static final String q_goal_status1 = "keep_fit";
+    public static final String q_goal_status2 = "lose_weight";
+    public static final String q_goal_status3 = "gain_muscles";
+    public static final String q_goal_status4 = "burn_fat";
 
     public static final String premium_status = "premium_status";
     public static final String buy = "premium";
