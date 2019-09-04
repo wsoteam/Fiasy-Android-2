@@ -341,6 +341,7 @@ public class Events {
             eventProperties.put(EventProperties.food_item, food_item);
         } catch (JSONException exception) {
         }
+
         Amplitude.getInstance().logEvent(ADD_FOOD_SUCCESS, eventProperties);
 
         Map<String, Object> eventData = new HashMap<>();

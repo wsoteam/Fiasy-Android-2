@@ -55,7 +55,7 @@
   <!--Item Plan Recipe-->
   <string name="titleShareDialogRecipe">Поделится рецептом</string>
   <string name="tvItemPlanTime">Время готовки:</string>
-  <string name="tvItemPlanIngredients">Ингридиенты:</string>
+  <string name="tvItemPlanIngredients">Ингредиенты:</string>
   <string name="tvRecipeInrgidientCount">на 1 порцию</string>
   <string name="tvItemPlanMinute">минут</string>
   <string name="tvNourishment">Питательные вещества</string>
