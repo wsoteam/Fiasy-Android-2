@@ -86,7 +86,6 @@ public class ListRecipesFragment extends Fragment {
         layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
         updateUI();
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_group_recipes);
         return view;
     }
 

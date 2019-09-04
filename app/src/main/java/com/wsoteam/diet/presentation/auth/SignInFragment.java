@@ -155,7 +155,7 @@ public class SignInFragment extends AuthStrategyFragment {
 
   @Override protected void onAuthException(Throwable error) {
     error.printStackTrace();
-    Events.logEnterError();
+    //Events.logEnterError();
     if (getView() == null) {
       return;
     }
