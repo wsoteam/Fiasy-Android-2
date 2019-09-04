@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -70,7 +69,6 @@ public class NewIntroActivity extends AppCompatActivity {
         } else
         //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
         {
-          Events.logMoveOnboard(EventProperties.reg_onboard);
           finishSlides();
         }
         break;
