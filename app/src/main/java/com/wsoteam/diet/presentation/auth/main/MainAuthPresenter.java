@@ -49,7 +49,7 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
         super.onFirstViewAttach();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("USER_LIST");
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(context.getString(R.string.default_web_client_id))
+                //.requestIdToken(context.getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 

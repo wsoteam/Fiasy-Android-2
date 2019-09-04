@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -21,7 +21,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout22"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,9 +41,9 @@
                 android:fontFamily="@font/roboto"
                 android:hint="@string/brand"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout23"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,9 +63,9 @@
                 android:focusable="false"
                 android:hint="@string/food_name"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout32"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
                 android:hint="@string/barcode"
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/textView147"
@@ -100,7 +100,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout32" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -121,10 +121,10 @@
                 android:hint="@string/calories"
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -145,9 +145,9 @@
                 android:focusable="false"
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -168,9 +168,9 @@
                 android:hint="@string/carbo"
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -191,10 +191,10 @@
                 android:hint="@string/prot"
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -215,9 +215,9 @@
                 android:hint="@string/edtCell"
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -238,9 +238,9 @@
                 android:hint="@string/edtSugar"
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -261,9 +261,9 @@
                 android:hint="@string/edtSaturatedFats"
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -284,9 +284,9 @@
                 android:hint="@string/edtMonoUnSaturatedFats"
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -307,9 +307,9 @@
                 android:hint="@string/edtPolyUnSaturatedFats"
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -330,9 +330,9 @@
                 android:hint="@string/edtCholesterol"
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -353,9 +353,9 @@
                 android:enabled="false"
                 android:focusable="false"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -376,6 +376,6 @@
                 android:hint="@string/edtPottassium"
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
-        </android.support.design.widget.TextInputLayout>
-    </android.support.constraint.ConstraintLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

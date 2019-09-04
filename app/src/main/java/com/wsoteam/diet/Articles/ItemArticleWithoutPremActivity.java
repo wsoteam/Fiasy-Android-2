@@ -2,13 +2,10 @@ package com.wsoteam.diet.Articles;
 
 import android.content.Intent;
 import android.graphics.BlurMaskFilter;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
-import android.support.v4.text.HtmlCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.text.HtmlCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
@@ -25,6 +22,8 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,6 +68,7 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
             }
         });
 
+        Events.logViewArticle(article.getTitle());
 //        tvMain.getPaint().setMaskFilter(new BlurMaskFilter(10, BlurMaskFilter.Blur.NORMAL));
     }
 
@@ -92,7 +92,7 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
         box.setOpenFromPremPart(true);
         box.setOpenFromIntrodaction(false);
         box.setComeFrom(AmplitudaEvents.view_prem_content);
-        box.setComeFrom(AmplitudaEvents.buy_prem_content);
+        box.setBuyFrom(EventProperties.trial_from_articles);
         Intent intent = new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box);
         startActivity(intent);
     }

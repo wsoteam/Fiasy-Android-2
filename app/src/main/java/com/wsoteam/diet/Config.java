@@ -5,6 +5,12 @@ public class Config {
     // diets plan
     public static final String DIETS_PLAN_INTENT = "DIETS_PLAN_INTENT";
 
+//    temolate
+    public static final String EATING_SPINNER_POSITION = "EATING_SPINNER_POSITION";
+    public static final String SEND_RESULT_TO_BACK = "SEND_RESULT_TO_BACK";
+    public static final String DETAIL_FOOD_BTN_NAME = "DETAIL_FOOD_BTN_NAME";
+    public static final String FOOD_TEMPLATE_INTENT = "FOOD_TEMPLATE_INTENT";
+
     public static final boolean RELEASE = false;
 //    public static final boolean RELEASE = true;
 
@@ -46,6 +52,14 @@ public class Config {
     //Intents tags for send first profile
     public static final String INTENT_PROFILE = "INTENT_PROFILE";
     public static final String CREATE_PROFILE = "CREATE_PROFILE";
+
+    public static final String ONBOARD_PROFILE = "ONBOARD_PROFILE";
+    public static final String ONBOARD_PROFILE_SEX = "ONBOARD_PROFILE_SEX";
+    public static final String ONBOARD_PROFILE_HEIGHT = "ONBOARD_PROFILE_HEIGHT";
+    public static final String ONBOARD_PROFILE_WEIGHT = "ONBOARD_PROFILE_WEIGHT";
+    public static final String ONBOARD_PROFILE_YEARS = "ONBOARD_PROFILE_YEARS";
+    public static final String ONBOARD_PROFILE_ACTIVITY = "ONBOARD_PROFILE_ACTIVITY";
+    public static final String ONBOARD_PROFILE_PURPOSE = "ONBOARD_PROFILE_PURPOSE";
 
     //Key of billing state
     public static final String STATE_BILLING = "STATE_BILLING";
@@ -98,6 +112,8 @@ public class Config {
     public static final String INTENT_DETAIL_FOOD = "INTENT_DETAIL_FOOD";
     public static final String BARCODE_STRING_NAME = "BARCODE_STRING_NAME";
     public static final String LIST_CUSTOM_FOOD = "LIST_CUSTOM_FOOD";
+
+    public static final String IS_NEED_SHOW_LOADING_SPLASH = "IS_NEED_SHOW_LOADING_SPLASH";
 
 
 }

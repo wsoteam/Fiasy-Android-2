@@ -15,7 +15,6 @@ import com.wsoteam.diet.presentation.global.BaseActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.AndroidInjection;
 
 public class ActivityForgotPassword extends BaseActivity {
 
@@ -25,7 +24,6 @@ public class ActivityForgotPassword extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
         ButterKnife.bind(this);

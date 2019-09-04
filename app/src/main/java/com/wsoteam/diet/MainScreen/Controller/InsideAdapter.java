@@ -1,9 +1,8 @@
 package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -55,7 +54,11 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull InsideViewHolder holder, int position) {
-        holder.bind(oneGroupOfEating.get(position), choiseEating,  new InsideHolderCallback() {
+        boolean isLastElement = false;
+        if (position == oneGroupOfEating.size() - 1){
+            isLastElement = true;
+        }
+        holder.bind(oneGroupOfEating.get(position), choiseEating, isLastElement,   new InsideHolderCallback() {
             @Override
             public void itemWasClicked(int position) {
                 removeRecipeForDietPlan(position);

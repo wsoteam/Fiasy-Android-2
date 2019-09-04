@@ -2,12 +2,21 @@ package com.wsoteam.diet.EntryPoint;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustAttribution;
@@ -16,9 +25,7 @@ import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
-import com.bumptech.glide.Glide;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,7 +37,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.Amplitude.SetUserProperties;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.FirebaseUserProperties;
@@ -39,49 +45,72 @@ import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.InApp.properties.EmptySubInfo;
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
 import com.wsoteam.diet.MainScreen.MainActivity;
+import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.POJOProfile.TrackInfo;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
-import com.wsoteam.diet.Recipes.adding.ProductSearchActivity;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
+import com.wsoteam.diet.common.Analytics.UserProperty;
+import com.wsoteam.diet.presentation.auth.AuthStrategy;
 import com.wsoteam.diet.presentation.global.BaseActivity;
-import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
-import com.wsoteam.diet.tvoytrener.ForTestFragmentActivity;
+import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
+import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import dagger.android.AndroidInjection;
+import static com.wsoteam.diet.Sync.WorkWithFirebaseDB.getUserData;
 
 public class ActivitySplash extends BaseActivity {
     private final String TAG_FIRST_RUN = "TAG_FIRST_RUN";
-    @BindView(R.id.auth_first_iv_image) ImageView authFirstIvImage;
-    @BindView(R.id.tvSplashText) ImageView tvSplashText;
+    @Nullable
+    @BindView(R.id.auth_first_iv_image)
+    ImageView authFirstIvImage;
+    @Nullable
+    @BindView(R.id.tvSplashText)
+    ImageView tvSplashText;
     private FirebaseUser user;
     private BillingClient mBillingClient;
     private SharedPreferences isBuyPrem;
+    private ImageView loader;
+    private TextView tvSubTitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (getSharedPreferences(Config.IS_NEED_SHOW_LOADING_SPLASH, MODE_PRIVATE).getBoolean(
+                Config.IS_NEED_SHOW_LOADING_SPLASH, false)) {
+            showLoadingScreen();
+        } else {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            setContentView(R.layout.activity_splash);
+        }
         ButterKnife.bind(this);
-        Glide.with(this).load(R.drawable.fiasy_text_load).into(tvSplashText);
-        Glide.with(this).load(R.drawable.logo_for_onboard).into(authFirstIvImage);
 
-//        startActivity(new Intent(this, ForTestFragmentActivity.class));
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
+        //FacebookSdk.sdkInitialize(getApplicationContext());
+        //AppEventsLogger.activateApp(getApplicationContext());
         checkFirstLaunch();
         checkRegistrationAndRun();
+    }
+
+    private void showLoadingScreen() {
+        setContentView(R.layout.activity_questions_calculations);
+        loader = findViewById(R.id.loader);
+        tvSubTitle = findViewById(R.id.tvSubTitle);
+        tvSubTitle.setText(getString(R.string.personal_diary));
+        RotateAnimation rotate =
+                new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+                        0.5f);
+        rotate.setDuration(1000);
+        rotate.setRepeatMode(Animation.INFINITE);
+        rotate.setRepeatCount(Animation.INFINITE);
+        rotate.setInterpolator(new LinearInterpolator());
+
+        loader.startAnimation(rotate);
     }
 
     private void checkRegistrationAndRun() {
@@ -89,41 +118,137 @@ public class ActivitySplash extends BaseActivity {
         if (user != null) {
             try {
                 SetUserProperties.setUserProperties(Adjust.getAttribution());
-            }catch (Exception e){
+                setTrackInfoInDatabase(Adjust.getAttribution());
+            } catch (Exception e) {
 
             }
-            FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
-            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.registered);
-            setTrackInfoInDatabase(Adjust.getAttribution());
+            FirebaseAnalytics.getInstance(this)
+                    .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                     child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-            Log.d("fr", "checkRegistrationAndRun: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
-            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    new UserDataHolder().bindObjectWithHolder(dataSnapshot.getValue(UserData.class));
-                    checkBilling();
-//                    startActivity(new Intent(ActivitySplash.this, ForTestFragmentActivity.class));
-                    startActivity(new Intent(ActivitySplash.this, MainActivity.class));
-                    finish();
+
+            checkUser(myRef, true);
+        } else {
+            onUserNotAuthorized();
+        }
+    }
+
+    private void checkUser(DatabaseReference myRef, boolean deeper) {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final UserData user = getUserData(dataSnapshot);
+
+                if (user == null) {
+                    if (deeper) {
+                        checkUser(myRef, false);
+                    } else {
+                        AuthStrategy.signOut(ActivitySplash.this);
+                    }
+                    return;
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
-        } else {
-            FirebaseAnalytics.getInstance(this).setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
-            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.REG_STATUS, AmplitudaEvents.unRegistered);
-            if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_ONBOARD, false)) {
-                Amplitude.getInstance().logEvent(AmplitudaEvents.free_enter);
-                startActivity(new Intent(this, EditProfileActivity.class).putExtra(Config.CREATE_PROFILE, true));
-            } else {
-                startActivity(new Intent(ActivitySplash.this, MainAuthActivity.class).putExtra(Config.CREATE_PROFILE, true));
+                new UserDataHolder().bindObjectWithHolder(user);
+
+                setUserProperties(UserDataHolder.getUserData().getProfile());
+                onSignedIn();
             }
-            finish();
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                FirebaseAuth.getInstance().signOut();
+                LoginManager.getInstance().logOut();
+                UserDataHolder.clearObject();
+
+                onUserNotAuthorized();
+            }
+        });
+    }
+
+    private void setUserProperties(Profile profile) {
+        try {
+            String goal = "", active = "", sex;
+            String userStressLevel = profile.getExerciseStress();
+            String userGoal = profile.getDifficultyLevel();
+
+            String age = String.valueOf(profile.getAge());
+            String weight = String.valueOf(profile.getWeight());
+            String height = String.valueOf(profile.getHeight());
+
+            if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_none))) {
+                active = UserProperty.q_active_status1;
+            } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_easy))) {
+                active = UserProperty.q_active_status2;
+            } else if (userStressLevel.equalsIgnoreCase(
+                    getResources().getString(R.string.level_medium))) {
+                active = UserProperty.q_active_status3;
+            } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_hard))) {
+                active = UserProperty.q_active_status4;
+            } else if (userStressLevel.equalsIgnoreCase(
+                    getResources().getString(R.string.level_up_hard))) {
+                active = UserProperty.q_active_status5;
+            } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_super))) {
+                active = UserProperty.q_active_status6;
+            } else if (userStressLevel.equalsIgnoreCase(
+                    getResources().getString(R.string.level_up_super))) {
+                active = UserProperty.q_active_status7;
+            }
+
+            if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_easy))) {
+                goal = UserProperty.q_goal_status1;
+            } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_normal))) {
+                goal = UserProperty.q_goal_status2;
+            } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_hard))) {
+                goal = UserProperty.q_goal_status3;
+            } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_hard_up))) {
+                goal = UserProperty.q_goal_status4;
+            }
+
+            if (profile.isFemale()) {
+                sex = UserProperty.q_male_status_female;
+            } else {
+                sex = UserProperty.q_male_status_male;
+            }
+            UserProperty.setUserProperties(sex, height, weight, age, active, goal,
+                    FirebaseAuth.getInstance().getCurrentUser().getUid());
+            UserProperty.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        } catch (Exception ex) {
+            Log.e("LOL", ex.getLocalizedMessage());
         }
+    }
+
+    private void onUserNotAuthorized() {
+        FirebaseAnalytics.getInstance(this)
+                .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
+        //startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
+        //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+        //startActivity(new Intent(this, AfterQuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+
+        startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
+
+        finish();
+    }
+
+    private void onSignedIn() {
+        checkBilling();
+
+        if (QuestionsActivity.hasNotAskedQuestionsLeft(this)) {
+            startActivity(new Intent(this, QuestionsActivity.class));
+        } else {
+            if (getSharedPreferences(Config.IS_NEED_SHOW_LOADING_SPLASH, MODE_PRIVATE).getBoolean(
+                    Config.IS_NEED_SHOW_LOADING_SPLASH, false)) {
+                new FalseWait().execute();
+            } else {
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            }
+        }
+    }
+
+    private void openMainScreen() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     private void setTrackInfoInDatabase(AdjustAttribution aa) {
@@ -142,39 +267,41 @@ public class ActivitySplash extends BaseActivity {
     private void checkBilling() {
         if (SingletonMakePurchase.getInstance().isMakePurchaseNow()) {
             changePremStatus(true);
-            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
-        } else if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getSubInfo() == null) {
+        } else if (UserDataHolder.getUserData() != null
+                && UserDataHolder.getUserData().getSubInfo() == null) {
             //unknown status premium or new user
             setSubInfoWithGooglePlayInfo();
-        } else if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getSubInfo() != null
+        } else if (UserDataHolder.getUserData() != null
+                && UserDataHolder.getUserData().getSubInfo() != null
                 && !UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
             //user have premium status, check time of premium
             SubInfo subInfo = UserDataHolder.getUserData().getSubInfo();
             if (subInfo.getPaymentState() == 0) {
                 changePremStatus(false);
-                AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.preferential);
-                new CheckAndSetPurchase().execute(subInfo.getProductId(), subInfo.getPurchaseToken(), subInfo.getPackageName());
+                UserProperty.setPremStatus(UserProperty.preferential);
+                new CheckAndSetPurchase(this).execute(subInfo.getProductId(), subInfo.getPurchaseToken(),
+                        subInfo.getPackageName());
             } else if (subInfo.getPaymentState() != 0) {
                 compareTime(subInfo);
             }
         } else if (UserDataHolder.getUserData() != null
                 && UserDataHolder.getUserData().getSubInfo() != null
                 && UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
-            AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.not_buy);
+            UserProperty.setPremStatus(UserProperty.not_buy);
             changePremStatus(false);
         }
-
     }
 
     private void compareTime(SubInfo subInfo) {
         long currentTime = Calendar.getInstance().getTimeInMillis();
         if (currentTime > subInfo.getExpiryTimeMillis()) {
-            new CheckAndSetPurchase().execute(subInfo.getProductId(), subInfo.getPurchaseToken(), subInfo.getPackageName());
+            new CheckAndSetPurchase(this).execute(subInfo.getProductId(), subInfo.getPurchaseToken(),
+                    subInfo.getPackageName());
         } else {
             if (subInfo.getPaymentState() == 1) {
-                AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.buy);
+                UserProperty.setPremStatus(UserProperty.buy);
             } else if (subInfo.getPaymentState() == 2) {
-                AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.trial);
+                UserProperty.setPremStatus(UserProperty.trial);
             }
             changePremStatus(true);
         }
@@ -196,7 +323,7 @@ public class ActivitySplash extends BaseActivity {
                         changePremStatus(true);
                         setSubInfo(purchasesList.get(0));
                     } else {
-                        AmplitudeUserProperties.setUserProperties(AmplitudaEvents.PREM_STATUS, AmplitudaEvents.not_buy);
+                        UserProperty.setPremStatus(UserProperty.not_buy);
                         EmptySubInfo.setEmptySubInfo();
                         changePremStatus(false);
                     }
@@ -205,13 +332,14 @@ public class ActivitySplash extends BaseActivity {
 
             @Override
             public void onBillingServiceDisconnected() {
-                //сюда мы попадем если что-то пойдет не так
+
             }
         });
     }
 
     private void setSubInfo(Purchase purchase) {
-        new CheckAndSetPurchase().execute(purchase.getSku(), purchase.getPurchaseToken(), purchase.getPackageName());
+        new CheckAndSetPurchase(this).execute(purchase.getSku(), purchase.getPurchaseToken(),
+                purchase.getPackageName());
     }
 
     private void getABVersion() {
@@ -228,7 +356,6 @@ public class ActivitySplash extends BaseActivity {
             setABTestConfig(firebaseRemoteConfig.getString(ABConfig.REQUEST_STRING));
         });
     }
-
 
     private void setABTestConfig(String responseString) {
         Identify abStatus = new Identify().set(ABConfig.AB_VERSION, responseString);
@@ -247,10 +374,7 @@ public class ActivitySplash extends BaseActivity {
             String week = String.valueOf(calendar.get(Calendar.WEEK_OF_YEAR));
             String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
 
-            Identify date = new Identify().set(AmplitudaEvents.FIRST_DAY, day)
-                    .set(AmplitudaEvents.FIRST_WEEK, week).set(AmplitudaEvents.FIRST_MONTH, month);
-            Amplitude.getInstance().identify(date);
-            Amplitude.getInstance().logEvent(AmplitudaEvents.first_launch);
+            UserProperty.setDate(day, week, month);
 
             getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).
                     edit().putBoolean(Config.IS_NEED_SHOW_ONBOARD, true).
@@ -270,11 +394,35 @@ public class ActivitySplash extends BaseActivity {
     }
 
     private List<Purchase> queryPurchases() {
-        Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.SUBS);
+        Purchase.PurchasesResult purchasesResult =
+                mBillingClient.queryPurchases(BillingClient.SkuType.SUBS);
         return purchasesResult.getPurchasesList();
     }
 
     private void changePremStatus(boolean isPremUser) {
-        getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).edit().putBoolean(Config.STATE_BILLING, isPremUser).apply();
+        getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).edit()
+                .putBoolean(Config.STATE_BILLING, isPremUser)
+                .apply();
+    }
+
+    public class FalseWait extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            getSharedPreferences(Config.IS_NEED_SHOW_LOADING_SPLASH, MODE_PRIVATE).edit()
+                    .putBoolean(Config.IS_NEED_SHOW_LOADING_SPLASH, false)
+                    .commit();
+            openMainScreen();
+        }
     }
 }

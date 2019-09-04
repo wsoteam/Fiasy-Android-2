@@ -1,11 +1,11 @@
 package com.wsoteam.diet.Articles;
 
 
-import android.support.v4.text.HtmlCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.text.HtmlCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
@@ -18,6 +18,7 @@ import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
 import com.wsoteam.diet.Articles.Util.HtmlTagHandler;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.Events;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +50,7 @@ public class ItemArticleActivity extends AppCompatActivity {
         });
 
         setValue(article);
+        Events.logViewArticle(article.getTitle());
     }
 
     private void setValue(Article article){

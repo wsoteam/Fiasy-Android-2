@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/cardview_light_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_activity1"/>
+
+    <TextView
+        android:id="@+id/tvEntry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="#51000000"
+        android:textStyle="normal"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivMain"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:text="Зарегистрироваться с\nпомощью"/>
+
+    <ImageView
+        android:id="@+id/auth_strategy_facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="28dp"
+        app:layout_constraintEnd_toStartOf="@+id/auth_strategy_google"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEntry"
+        app:srcCompat="@drawable/ic_facebook"/>
+
+    <ImageView
+        android:id="@+id/auth_strategy_google"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/auth_strategy_facebook"
+        app:layout_constraintTop_toTopOf="@+id/auth_strategy_facebook"
+        app:srcCompat="@drawable/ic_google"/>
+
+    <LinearLayout
+        android:id="@+id/or_helper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/auth_strategy_facebook">
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="1dp"
+            android:background="#d3d3d3"
+            android:layout_marginRight="8dp"
+            />
+
+        <TextView
+            android:id="@+id/tvText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#61000000"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            android:text="или"
+            />
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="1dp"
+            android:background="#d3d3d3"
+            android:layout_marginLeft="8dp"
+            />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/signUp"
+        android:layout_width="235dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/new_auth_button_background"
+        android:elevation="3dp"
+        android:gravity="center"
+        android:text="регистрация по email"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/or_helper"/>
+
+    <TextView
+        android:id="@+id/signIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/sign_in_already_have_account"
+        android:textColor="@color/gray_light2"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signUp"/>
+
+
+    <TextView
+        android:id="@+id/privacyPolicy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:letterSpacing="0.05"
+        android:text="@string/privacy_policy_title"
+        android:textColor="#a63a3a3a"
+        android:textSize="10sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signIn"
+        app:layout_constraintVertical_bias="0.835"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

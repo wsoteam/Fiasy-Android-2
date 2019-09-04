@@ -1,128 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:elevation="5dp"
     android:padding="5dp"
-    android:background="#498E8C"
-    android:elevation="5dp">
+    >
 
-    <ImageView
-        android:id="@+id/imageView22"
+    <androidx.cardview.widget.CardView
         android:layout_width="0dp"
-        android:layout_height="454dp"
+        android:layout_height="452dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/background_light" />
+        app:cardCornerRadius="8dp"
+        >
 
-    <TextView
-        android:id="@+id/alerd_buy_info_tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#B5EF7D02"
-        android:padding="10dp"
-        android:text="@string/alert_buy_info_tv"
-        android:textAlignment="center"
-        android:textColor="@color/backgroundColor"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView22" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <Button
+                android:id="@+id/alerd_buy_info_btn"
+                android:layout_width="200dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/shape_orange"
+                android:text="@string/alert_buy_info_btn"
+                android:textColor="@color/backgroundColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView93"
+                />
+            <ImageView
+                android:id="@+id/imageView22"
+                android:layout_width="304dp"
+                android:layout_height="214dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/background_prem"
+                />
 
-    <Button
-        android:id="@+id/alerd_buy_info_btn"
-        android:layout_width="0dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="8dp"
-        android:background="#74A6B3"
-        android:text="@string/alert_buy_info_btn"
-        android:textColor="@color/backgroundColor"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView22"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alert_buy_info_tv_6"
-        app:layout_constraintVertical_bias="1.0" />
+            <ImageView
+                android:id="@+id/imageView56"
+                android:layout_width="171dp"
+                android:layout_height="171dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView22"
+                app:layout_constraintEnd_toEndOf="@+id/imageView22"
+                app:layout_constraintStart_toStartOf="@+id/imageView22"
+                app:layout_constraintTop_toTopOf="@+id/imageView22"
+                app:srcCompat="@drawable/ic_prem_diamond"
+                />
 
-    <TextView
-        android:id="@+id/alert_buy_info_tv_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/alert_buy_info_tv_1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alerd_buy_info_tv" />
+            <TextView
+                android:id="@+id/textView92"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-medium"
+                android:lineSpacingExtra="12sp"
+                android:text="Поздравляем!"
+                android:textColor="#de2b2b2b"
+                android:textSize="24sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView22"
+                />
 
-    <TextView
-        android:id="@+id/alert_buy_info_tv_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:drawableLeft="@drawable/icon_check"
-        android:text="@string/alert_buy_info_tv_2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alert_buy_info_tv_1" />
+            <TextView
+                android:id="@+id/textView93"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:lineSpacingExtra="7sp"
+                android:text="Теперь вы можете пользоваться всеми преимуществами Premium аккаунта"
+                android:textAlignment="center"
+                android:textColor="#8a000000"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView92"
+                />
 
-    <TextView
-        android:id="@+id/alert_buy_info_tv_3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:drawableLeft="@drawable/icon_check"
-        android:text="@string/alert_buy_info_tv_3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/alert_buy_info_tv_2"
-        app:layout_constraintTop_toBottomOf="@+id/alert_buy_info_tv_2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/alert_buy_info_tv_4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:drawableLeft="@drawable/icon_check"
-        android:text="@string/alert_buy_info_tv_4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/alert_buy_info_tv_3"
-        app:layout_constraintTop_toBottomOf="@+id/alert_buy_info_tv_3" />
-
-    <TextView
-        android:id="@+id/alert_buy_info_tv_5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
-        android:drawableLeft="@drawable/icon_check"
-        android:text="@string/alert_buy_info_tv_5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/alert_buy_info_tv_4"
-        app:layout_constraintTop_toBottomOf="@+id/alert_buy_info_tv_4" />
-
-    <TextView
-        android:id="@+id/alert_buy_info_tv_6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:drawableLeft="@drawable/icon_check"
-        android:text="@string/alert_buy_info_tv_6"
-        app:layout_constraintStart_toStartOf="@+id/alert_buy_info_tv_5"
-        app:layout_constraintTop_toBottomOf="@+id/alert_buy_info_tv_5" />
-
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

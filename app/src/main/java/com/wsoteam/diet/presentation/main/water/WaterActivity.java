@@ -1,7 +1,6 @@
 package com.wsoteam.diet.presentation.main.water;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,18 +9,13 @@ import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
-
-import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.arellomobile.mvp.presenter.ProvidePresenter;
-import com.wsoteam.diet.R;
-import com.wsoteam.diet.presentation.global.BaseActivity;
-
-import javax.inject.Inject;
-
+import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.AndroidInjection;
+import com.wsoteam.diet.R;
+import com.wsoteam.diet.di.CiceroneModule;
+import com.wsoteam.diet.presentation.global.BaseActivity;
 
 public class WaterActivity extends BaseActivity implements WaterView {
 
@@ -36,21 +30,19 @@ public class WaterActivity extends BaseActivity implements WaterView {
     @BindView(R.id.rbBottle) RadioButton rbBottle;
     @BindView(R.id.swWaterReminder) Switch swWaterReminder;
 
-    @Inject
-    @InjectPresenter
     WaterPresenter presenter;
 
-    @ProvidePresenter
     WaterPresenter providePresenter() {
         return presenter;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_water);
         ButterKnife.bind(this);
+
+        presenter = new WaterPresenter(this, CiceroneModule.router());
 
         toolbar.setTitle(R.string.water_screen_toolbar_title);
         setSupportActionBar(toolbar);

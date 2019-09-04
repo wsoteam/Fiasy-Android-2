@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.view.View;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
-import com.wsoteam.diet.BranchProfile.ActivityHelp;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
@@ -16,6 +15,10 @@ import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.presentation.auth.restore.ActivityForgotPassword;
 import com.wsoteam.diet.presentation.plans.detail.PlanRecipeActivity;
 import com.wsoteam.diet.presentation.profile.edit.EditProfileActivity;
+import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
+import com.wsoteam.diet.presentation.food.template.create.detail.DetailFoodActivity;
+import com.wsoteam.diet.presentation.food.template.create.search.SearchFoodActivity;
+
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 
@@ -50,6 +53,35 @@ public class Screens {
         }
     }
 
+    public static final class EditFoodActivity extends SupportAppScreen{
+        int position;
+        public EditFoodActivity(int position) {
+            this.position = position;
+        }
+
+        @Override
+        public Intent getActivityIntent(Context context) {
+            Intent intent = new Intent(context, DetailFoodActivity.class);
+            intent.putExtra(Config.INTENT_DETAIL_FOOD, position);
+            intent.putExtra(Config.DETAIL_FOOD_BTN_NAME, "Изменить");
+            return intent;
+        }
+    }
+
+    public static final class CreateSearchFoodActivity extends SupportAppScreen{
+        @Override
+        public Intent getActivityIntent(Context context) {
+            return new Intent(context, SearchFoodActivity.class);
+        }
+    }
+
+    public static final class CreateFodTemplateScreen extends SupportAppScreen{
+        @Override
+        public Intent getActivityIntent(Context context) {
+            return new Intent(context, CreateFoodTemplateActivity.class);
+        }
+    }
+
     public static final class EditProfileScreen extends SupportAppScreen {
         private final boolean isReg;
 
@@ -57,11 +89,6 @@ public class Screens {
             this.isReg = isReg;
         }
 
-        @Override
-        public Intent getActivityIntent(Context context) {
-            return new Intent(context, EditProfileActivity.class)
-                    .putExtra("registration", isReg);
-        }
     }
 
     public static final class SignInScreen extends SupportAppScreen {
@@ -71,12 +98,6 @@ public class Screens {
         }
     }
 
-    public static final class HelpScreen extends SupportAppScreen {
-        @Override
-        public Intent getActivityIntent(Context context) {
-            return new Intent(context, ActivityHelp.class);
-        }
-    }
 
     public static final class AuthScreen extends SupportAppScreen {
         private Box box = null;

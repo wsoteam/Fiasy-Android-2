@@ -6,21 +6,14 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.widget.Toast;
-
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.wsoteam.diet.R;
-
-import javax.inject.Inject;
-
+import com.wsoteam.diet.di.CiceroneModule;
 import ru.terrakok.cicerone.Navigator;
-import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.android.support.SupportAppNavigator;
 
 public abstract class BaseActivity extends MvpAppCompatActivity {
-
-    @Inject
-    NavigatorHolder navigatorHolder;
 
     private Navigator navigator = new SupportAppNavigator(this, -1);
     private MaterialDialog progressDialog;
@@ -78,13 +71,13 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        navigatorHolder.setNavigator(navigator);
+        CiceroneModule.navigator().setNavigator(navigator);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        navigatorHolder.removeNavigator();
+        CiceroneModule.navigator().removeNavigator();
     }
 
     @Override

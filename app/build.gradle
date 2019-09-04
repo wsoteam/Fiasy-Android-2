@@ -1,158 +1,162 @@
+//noinspection GradleDependency
 apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion 28
-  buildToolsVersion '27.0.3'
+    compileSdkVersion 28
 
-  defaultConfig {
-    applicationId "com.wild.diet"
-    minSdkVersion 21
-    targetSdkVersion 27
-    versionCode 81
-    versionName "2.7.1"
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    multiDexEnabled true
+    defaultConfig {
+        applicationId "com.wild.diet"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 90
+        versionName "2.8.5"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
 
-    renderscriptTargetApi 27
-    renderscriptSupportModeEnabled true
-  }
-
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        renderscriptTargetApi 27
+        renderscriptSupportModeEnabled true
     }
-    debug {
-      signingConfig signingConfigs.debug
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
+        }
     }
-  }
 
-  signingConfigs {
-    debug {
-      storeFile file("debug.keystore")
+    signingConfigs {
+        debug {
+            storeFile file("debug.keystore")
+        }
     }
-  }
 
-  lintOptions {
-    checkReleaseBuilds false
-  }
+    lintOptions {
+        checkReleaseBuilds false
+    }
 
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
-  packagingOptions {
-    exclude 'META-INF/DEPENDENCIES'
-    exclude 'META-INF/proguard/androidx-annotations.pro'
-  }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
 }
 
 repositories {
-  jcenter()
-  mavenCentral()
-  maven { url 'https://github.com/500px/500px-android-blur/raw/master/releases/' }
+    jcenter()
+    mavenCentral()
+    maven { url 'https://github.com/500px/500px-android-blur/raw/master/releases/' }
 }
 
 ext {
-  supportVersion = "28.0.0"
-  moxiVersion = "1.5.5"
-  daggerVersion = "2.23.1"
+    supportVersion = "28.0.0"
+    moxiVersion = "1.5.5"
+    daggerVersion = "2.23.1"
 }
 
 dependencies {
-  implementation fileTree(include: ['*.jar'], dir: 'libs')
-  implementation "com.android.support:appcompat-v7:$supportVersion"
-  implementation "com.android.support:design:$supportVersion"
-  implementation "com.android.support:design:$supportVersion"
-  implementation "com.android.support:cardview-v7:$supportVersion"
-  implementation "com.android.support:recyclerview-v7:$supportVersion"
-  implementation 'com.android.support.constraint:constraint-layout:2.0.0-beta1'
-  implementation "com.android.support:multidex:1.0.3"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.palette:palette:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
 
-  implementation 'com.google.firebase:firebase-config:17.0.0'
-  testImplementation 'junit:junit:4.12'
-  androidTestImplementation 'com.android.support.test:runner:1.0.2'
-  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-  implementation 'com.yandex.android:mobmetricalib:3.1.0'
+    implementation 'com.google.firebase:firebase-config:18.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'com.yandex.android:mobmetricalib:3.5.3'
 
-  implementation 'com.github.satyan:sugar:1.4'
-  implementation 'com.jjoe64:graphview:4.2.2'
-  implementation 'com.github.euzee:serviceManager:1.0.3'
-  implementation 'com.squareup.moshi:moshi:1.7.0'
-  implementation 'com.vk:androidsdk:1.6.9'
+    implementation 'com.github.satyan:sugar:1.4'
+    implementation 'com.jjoe64:graphview:4.2.2'
+    implementation 'com.github.euzee:serviceManager:1.0.3'
+    implementation 'com.squareup.moshi:moshi:1.7.0'
+    implementation 'com.vk:androidsdk:1.6.9'
 
-  implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-  implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-  implementation 'com.github.lzyzsd:circleprogress:1.2.1'
-  implementation 'com.android.billingclient:billing:1.2'
-  implementation 'me.itangqi.waveloadingview:library:0.3.5'
-  implementation 'de.hdodenhof:circleimageview:3.0.0'
-  implementation 'com.jakewharton:butterknife:8.6.0'
-  annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    implementation ('com.squareup.retrofit2:retrofit:2.5.0'){
+        force = true
+    }
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.github.lzyzsd:circleprogress:1.2.1'
+    implementation 'com.android.billingclient:billing:1.2'
+    implementation 'me.itangqi.waveloadingview:library:0.3.5'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
 
-  implementation 'com.google.firebase:firebase-core:16.0.9'
-  implementation 'com.google.firebase:firebase-messaging:18.0.0'
-  implementation 'com.google.firebase:firebase-database:17.0.0'
-  implementation 'com.google.firebase:firebase-auth:17.0.0'
-  implementation 'com.google.android.gms:play-services-auth:16.0.1'
-  implementation 'com.google.android.gms:play-services-ads:17.2.1'
-  implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
-  implementation 'com.android.billingclient:billing:1.2'
-  implementation 'com.amplitude:android-sdk:2.16.0'
-  implementation 'me.relex:circleindicator:1.2.2'
-  implementation 'com.adjust.sdk:adjust-android:4.17.0'
-  implementation 'com.android.installreferrer:installreferrer:1.0'
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
-  /*implementation 'com.bugsee:bugsee-android:+'*/
+    implementation 'com.google.firebase:firebase-core:17.0.1'
+    implementation 'com.google.firebase:firebase-storage:18.1.1'
+    implementation 'com.google.firebase:firebase-messaging:19.0.1'
+    implementation 'com.google.firebase:firebase-database:18.0.1'
+    implementation 'com.google.firebase:firebase-auth:18.1.0'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.google.android.gms:play-services-ads:18.1.1'
+    implementation 'com.facebook.android:facebook-android-sdk:5.1.1'
+    implementation 'com.android.billingclient:billing:1.2'
+    implementation 'com.amplitude:android-sdk:2.16.0'
+    implementation 'me.relex:circleindicator:1.2.2'
+    implementation 'com.adjust.sdk:adjust-android:4.17.0'
+    implementation 'com.android.installreferrer:installreferrer:1.0'
 
-  implementation 'com.google.apis:google-api-services-androidpublisher:v2-rev159-1.25.0'
+    //implementation 'com.bugsee:bugsee-android:+'
 
-  implementation 'org.sufficientlysecure:html-textview:3.6'
-  implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
-  implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-  implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
-  implementation 'io.intercom.android:intercom-sdk-base:5.+'
-  implementation 'io.intercom.android:intercom-sdk-fcm:5.+'
-  implementation "android.arch.persistence.room:runtime:1.0.0"
-  annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+    implementation 'com.google.apis:google-api-services-androidpublisher:v2-rev159-1.25.0'
 
-  //Cicerone Navigation
-  implementation 'ru.terrakok.cicerone:cicerone:4.0.2'
+    implementation 'org.sufficientlysecure:html-textview:3.6'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
 
-  // Glide
-  implementation 'com.github.bumptech.glide:glide:4.8.0'
-  annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'io.intercom.android:intercom-sdk-base-transitive:5.+'
+    implementation ('io.intercom.android:intercom-sdk-fcm:5.+'){
+        exclude group: 'io.intercom.android', module: 'intercom-sdk-base'
+    }
+    implementation 'androidx.room:room-runtime:2.1.0'
+    annotationProcessor 'androidx.room:room-compiler:2.1.0'
 
-  // MVP Moxi
-  implementation "com.arello-mobile:moxy-app-compat:$moxiVersion"
-  //    implementation "com.arello-mobile:moxy:$moxiVersion"
-  annotationProcessor "com.arello-mobile:moxy-compiler:$moxiVersion"
+    //Cicerone Navigation
+    implementation 'ru.terrakok.cicerone:cicerone:5.0.0'
 
-  // Dagger
-  implementation "com.google.dagger:dagger:$daggerVersion"
-  implementation "com.google.dagger:dagger-android:$daggerVersion"
-  implementation "com.google.dagger:dagger-android-support:$daggerVersion"
-  annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
-  annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
-  // Material Dialogs
-  implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
-  implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:3.0.3'
-  implementation 'com.android.support:support-v4:28.0.0'
+    // MVP Moxi
+    implementation 'tech.schoolhelper:moxy-x:1.7.0'
+    implementation 'tech.schoolhelper:moxy-x-androidx:1.7.0'
+    annotationProcessor 'tech.schoolhelper:moxy-x-compiler:1.7.0'
 
-  // Blur
-  implementation 'io.alterac.blurkit:blurkit:1.1.1'
+    // Material Dialogs
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:3.0.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-  // Calendar
-  implementation 'com.appeaser.sublimepickerlibrary:sublimepickerlibrary:2.1.2'
-  implementation project(path: ':horizontal-picker')
-  implementation 'joda-time:joda-time:2.9.9'
-  //    implementation 'com.wdullaer:materialdatetimepicker:3.6.4'
-  //    implementation 'org.greenrobot:eventbus:3.0.0'
+    // Blur
+    implementation 'io.alterac.blurkit:blurkit:1.1.1'
 
-  //Barcode
-  implementation 'me.dm7.barcodescanner:zxing:1.9.13'
+    // Calendar
+    implementation 'com.appeaser.sublimepickerlibrary:sublimepickerlibrary:2.1.2'
+    implementation project(path: ':horizontal-picker')
+    implementation 'joda-time:joda-time:2.9.9'
+
+    implementation 'com.github.chyrta:AndroidOnboarder:0.7'
+
+//    implementation 'com.wdullaer:materialdatetimepicker:3.6.4'
+//    implementation 'org.greenrobot:eventbus:3.0.0'
+
+    //Barcode
+    implementation 'me.dm7.barcodescanner:zxing:1.9.13'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

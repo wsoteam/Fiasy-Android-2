@@ -2,12 +2,12 @@ package com.wsoteam.diet.Recipes.v2;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +20,8 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -76,21 +78,21 @@ public class ListRecipesActivity extends AppCompatActivity {
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
         updateUI();
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_group_recipes);
     }
 
     private void updateUI() {
+        Events.logChoiseRecipeCategory(GroupsHolder.getGroupsRecipes().getGroups().get(position).getName());
         mToolbar.setTitle(GroupsHolder.getGroupsRecipes().getGroups().get(position).getName());
         adapter = new ListRecipesAdapter(GroupsHolder.getGroupsRecipes().getGroups().get(position).getListrecipes(), this);
         recyclerView.setAdapter(adapter);
     }
 
-    public void searchAndShow(CharSequence s){
+    public void searchAndShow(CharSequence s) {
         String key = s.toString().toLowerCase();
         Set<RecipeItem> result = new LinkedHashSet<>();
         GroupsRecipes groupsRecipes = GroupsHolder.getGroupsRecipes();
 
-        if (key.equals("")){
+        if (key.equals("")) {
             recyclerView.setAdapter(adapter);
         } else {
             for (int i = 0; i < groupsRecipes.getGroups().size(); i++) {

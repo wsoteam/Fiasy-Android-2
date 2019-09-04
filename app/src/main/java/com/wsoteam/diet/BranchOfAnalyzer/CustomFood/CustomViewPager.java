@@ -1,7 +1,7 @@
 package com.wsoteam.diet.BranchOfAnalyzer.CustomFood;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
@@ -18,12 +18,12 @@ public class CustomViewPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        return disable ? false : super.onInterceptTouchEvent(event);
+        return !disable && super.onInterceptTouchEvent(event);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return disable ? false : super.onTouchEvent(event);
+        return !disable && super.onTouchEvent(event);
     }
 
     public void disableScroll(Boolean disable) {

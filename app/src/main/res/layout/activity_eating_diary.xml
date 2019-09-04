@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +7,7 @@
     android:background="@color/darkWithoutAlfa"
     android:fitsSystemWindows="true">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/mainappbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="5dp">
 
-        <android.support.design.widget.CollapsingToolbarLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -27,7 +27,7 @@
             app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Subhead"
             app:layout_scrollFlags="scroll|snap">
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -146,9 +146,9 @@
                     app:layout_constraintEnd_toEndOf="@+id/tvEatingDiaryCollapsingFat"
                     app:layout_constraintStart_toStartOf="@+id/tvEatingDiaryCollapsingFat"
                     app:layout_constraintTop_toBottomOf="@+id/tvEatingDiaryCollapsingFat" />
-            </android.support.constraint.ConstraintLayout>
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <FrameLayout
@@ -159,7 +159,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 
-    <android.support.design.widget.BottomNavigationView
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottNavEatingDinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -173,7 +173,7 @@
         android:backgroundTint="@color/darkWithoutAlfa"
         app:menu="@menu/bottom_navigation_eating" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabEatingDiaryAddNewEating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -185,4 +185,4 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="68dp"/>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -10,6 +10,8 @@ public class Profile extends SugarRecord implements Serializable {
 
     private boolean isFemale;
 
+    private String email;
+
     private int age;
     private int height;
 
@@ -32,6 +34,28 @@ public class Profile extends SugarRecord implements Serializable {
     private int year;
 
     public Profile() {
+    }
+
+    public Profile(String firstName, String lastName, boolean isFemale, String email, int age, int height, double weight, double loseWeight, String exerciseStress, String photoUrl, int waterCount, int maxKcal, int maxProt, int maxFat, int maxCarbo, String difficultyLevel, int numberOfDay, int month, int year) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.isFemale = isFemale;
+        this.email = email;
+        this.age = age;
+        this.height = height;
+        this.weight = weight;
+        this.loseWeight = loseWeight;
+        this.exerciseStress = exerciseStress;
+        this.photoUrl = photoUrl;
+        this.waterCount = waterCount;
+        this.maxKcal = maxKcal;
+        this.maxProt = maxProt;
+        this.maxFat = maxFat;
+        this.maxCarbo = maxCarbo;
+        this.difficultyLevel = difficultyLevel;
+        this.numberOfDay = numberOfDay;
+        this.month = month;
+        this.year = year;
     }
 
     public Profile(String firstName, String lastName, boolean isFemale, int age, int height, double weight, double loseWeight, String exerciseStress, String photoUrl, int waterCount, int maxKcal, int maxProt, int maxFat, int maxCarbo, String difficultyLevel, int numberOfDay, int month, int year) {
@@ -197,6 +221,14 @@ public class Profile extends SugarRecord implements Serializable {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

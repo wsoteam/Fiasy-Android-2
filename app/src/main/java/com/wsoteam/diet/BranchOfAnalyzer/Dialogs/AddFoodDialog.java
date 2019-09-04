@@ -1,19 +1,11 @@
 package com.wsoteam.diet.BranchOfAnalyzer.Dialogs;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.wsoteam.diet.R;
-
-import java.util.concurrent.TimeUnit;
 
 public class AddFoodDialog {
     public static AlertDialog createChoiseEatingAlertDialog(Context context) {

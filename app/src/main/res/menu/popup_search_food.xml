@@ -10,7 +10,7 @@
             android:title="Создать продукт" />
         <!--<item
             android:id="@+id/createEating"
-            android:title="Создать прием пищи" />
+            android:title="Создать прием пищи" />-->
         <item
             android:id="@+id/createTemplate"
             android:title="Создать шаблон" />

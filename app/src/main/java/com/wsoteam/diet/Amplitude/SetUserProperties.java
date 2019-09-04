@@ -34,6 +34,6 @@ public class SetUserProperties {
             identify.set(AtributionsIds.adid, userProperties.adid);
         }
         Amplitude.getInstance().identify(identify);
-        Amplitude.getInstance().logEvent("set_attr");
+        //Amplitude.getInstance().logEvent("set_attr");
     }
 }

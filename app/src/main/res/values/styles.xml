@@ -74,7 +74,7 @@
     <style name="EditProfile" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">#2E4E4E</item>
+        <item name="colorPrimaryDark">#d1d1d1</item>
         <item name="colorAccent">#FFC107</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -294,6 +294,41 @@
 
     <style name="OrangeCheckBox" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorAccent">@color/head_detail_food</item>
+    </style>
+
+    <style name="Question.NextButton" parent="TextAppearance.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingRight">48dp</item>
+        <item name="android:paddingLeft">48dp</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:background">@drawable/question_next_button_background</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:text">@string/auth_data_btn_next</item>
+    </style>
+
+    <style name="TextInputStyle.Hint" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#aeb3c0</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="TextInputStyle.Error" parent="TextAppearance.AppCompat">
+        <item name="colorAccent">#ed2d2d</item>
+        <item name="android:textColor">#ed2d2d</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+
+    <style name="gmsTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 
     <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">

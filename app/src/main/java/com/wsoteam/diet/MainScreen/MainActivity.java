@@ -4,13 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +12,20 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
+import com.amplitude.api.Amplitude;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,17 +38,12 @@ import com.wsoteam.diet.Articles.ListArticlesFragment;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.Authenticate.POJO.Box;
-import com.wsoteam.diet.BranchProfile.Fragments.FragmentProfile;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietModule;
 import com.wsoteam.diet.DietPlans.POJO.DietPlansHolder;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
-import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreen;
-import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenOneButton;
-import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionGreenUA;
 import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
-import com.wsoteam.diet.MainScreen.Fragments.FragmentEmpty;
 import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodDB;
 import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.R;
@@ -50,14 +52,14 @@ import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipesHolder;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
-import com.wsoteam.diet.presentation.plans.browse.BrowsePlansActivity;
-import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.SavedConst;
+import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
+import com.wsoteam.diet.common.Analytics.Events;
 
 import java.util.Calendar;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import io.intercom.android.sdk.Intercom;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -68,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     private BottomSheetBehavior bottomSheetBehavior;
     private boolean isMainFragment = true;
     private Window window;
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -92,31 +93,13 @@ public class MainActivity extends AppCompatActivity {
                     window.setStatusBarColor(Color.parseColor("#AE6A23"));
                     return true;
                 case R.id.bnv_main_articles:
+                    Amplitude.getInstance().logEvent(Events.CHOOSE_ARTICLES);
+                    Intercom.client().logEvent(Events.CHOOSE_ARTICLES);
                     box.setComeFrom(AmplitudaEvents.view_prem_content);
-                    box.setBuyFrom(AmplitudaEvents.buy_prem_content);
+                    box.setBuyFrom(EventProperties.trial_from_articles);
                     isMainFragment = false;
-
-                    if (Config.RELEASE) {
-                        if (checkSubscribe()) {
-                            transaction.replace(R.id.flFragmentContainer, new FragmentEmpty()).commit();
-                        } else {
-                            if (getABVersion().equals(ABConfig.C_VERSION)) {
-                                transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenUA.
-                                        newInstance(box)).commit();
-                            } else {
-                                if (getABVersion().equals(ABConfig.A_VERSION)) {
-                                    transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreen.
-                                            newInstance(box)).commit();
-                                } else {
-                                    transaction.replace(R.id.flFragmentContainer, FragmentSubscriptionGreenOneButton.
-                                            newInstance(box)).commit();
-                                }
-                            }
-                            window.setStatusBarColor(Color.parseColor("#747d3b"));
-                        }
-                    } else {
-                        transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();
-                    }
+                    window.setStatusBarColor(Color.parseColor("#747d3b"));
+                    transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();
                     return true;
                 case R.id.bnv_main_trainer:
                     isMainFragment = false;
@@ -127,9 +110,11 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
                     return true;
                 case R.id.bnv_main_profile:
+                    Amplitude.getInstance().logEvent(Events.VIEW_PROFILE);
+                    Intercom.client().logEvent(Events.VIEW_PROFILE);
                     isMainFragment = false;
-                    transaction.replace(R.id.flFragmentContainer, new FragmentProfile()).commit();
-                    window.setStatusBarColor(Color.parseColor("#2E4E4E"));
+                    transaction.replace(R.id.flFragmentContainer, new ProfileFragment()).commit();
+                    window.setStatusBarColor(Color.parseColor("#AE6A23"));
                     return true;
             }
             return false;
@@ -171,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        //checkForcedGrade();
         IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
         new AsyncWriteFoodDB().execute(MainActivity.this);
 
@@ -181,9 +165,17 @@ public class MainActivity extends AppCompatActivity {
         if (ArticlesHolder.getListArticles() == null) {
             loadArticles();
         }
-        if (DietPlansHolder.get() == null){
-            loadDietPlans();
-            Log.d("kkk", "onCreate: loadDietPlans();");
+      if (DietPlansHolder.get() == null){
+        loadDietPlans();
+      }
+        logEvents();
+    }
+
+    private void logEvents() {
+        if (getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).getBoolean(SavedConst.SEE_PREMIUM, false)) {
+            Events.logSuccessOnboarding(getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).getString(SavedConst.HOW_END, EventProperties.onboarding_success_reopen));
+            getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).edit().remove(SavedConst.SEE_PREMIUM).commit();
+            getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).edit().remove(SavedConst.HOW_END).commit();
         }
     }
 
@@ -211,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 break;
             case R.id.btnReg:
-                AmplitudaEvents.logEventRegistration(AmplitudaEvents.reg_from_diary);
                 startActivity(new Intent(MainActivity.this, ActivitySplash.class)
                         .putExtra(Config.IS_NEED_REG, true)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
@@ -220,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadRecipes() {
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("RECIPES_PLANS_NEW");
 
@@ -287,7 +279,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (isMainFragment) {
             super.onBackPressed();
-        }else {
+        } else {
             isMainFragment = true;
             getSupportFragmentManager().beginTransaction().replace(R.id.flFragmentContainer, new FragmentDiary()).commit();
             window.setStatusBarColor(Color.parseColor("#AE6A23"));

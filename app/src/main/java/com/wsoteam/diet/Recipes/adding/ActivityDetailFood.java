@@ -3,12 +3,13 @@ package com.wsoteam.diet.Recipes.adding;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -26,6 +27,8 @@ import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.UserProperty;
 
 import java.util.Iterator;
 import java.util.List;
@@ -39,6 +42,7 @@ import butterknife.OnClick;
 
 public class ActivityDetailFood extends AppCompatActivity {
     private final int EMPTY_FIELD = -1;
+    @BindView(R.id.btnAddFood) Button addButton;
     @BindView(R.id.tvActivityDetailOfFoodCollapsingTitle) TextView tvTitle;
     @BindView(R.id.tvActivityDetailOfFoodCalculateKcal) TextView tvCalculateKcal;
     @BindView(R.id.tvActivityDetailOfFoodCalculateFat) TextView tvCalculateFat;
@@ -78,12 +82,7 @@ public class ActivityDetailFood extends AppCompatActivity {
     @BindView(R.id.btnPremSod) TextView btnPremSod;
     @BindView(R.id.btnPremPot) TextView btnPremPot;
     @BindView(R.id.cardView6) CardView cardView6;
-    @BindViews({R.id.tvCellulose, R.id.tvSugar, R.id.tvSaturated, R.id.tvСholesterol, R.id.tvSodium,
-            R.id.tvPotassium, R.id.tvMonoUnSaturated, R.id.tvPolyUnSaturated,
-            R.id.tvLabelCellulose, R.id.tvLabelSugar, R.id.tvLabelSaturated, R.id.tvLabelMonoUnSaturated, R.id.tvLabelPolyUnSaturated,
-            R.id.tvLabelСholesterol, R.id.tvLabelSodium, R.id.tvLabelPotassium, R.id.btnPremCell, R.id.btnPremSugar, R.id.btnPremSaturated,
-            R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremCholy, R.id.btnPremSod, R.id.btnPremPot})
-    List<View> viewList;
+
     private Food foodItem;
     private boolean isFavorite = false;
     private FavoriteFood currentFavorite;
@@ -93,7 +92,19 @@ public class ActivityDetailFood extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_food);
         ButterKnife.bind(this);
-        ButterKnife.apply(viewList, (view, value, index) -> view.setVisibility(value), View.GONE);
+
+        final int[] viewList = new int[]{
+            R.id.tvCellulose, R.id.tvSugar, R.id.tvSaturated, R.id.tvСholesterol, R.id.tvSodium,
+            R.id.tvPotassium, R.id.tvMonoUnSaturated, R.id.tvPolyUnSaturated,
+            R.id.tvLabelCellulose, R.id.tvLabelSugar, R.id.tvLabelSaturated, R.id.tvLabelMonoUnSaturated, R.id.tvLabelPolyUnSaturated,
+            R.id.tvLabelСholesterol, R.id.tvLabelSodium, R.id.tvLabelPotassium, R.id.btnPremCell, R.id.btnPremSugar, R.id.btnPremSaturated,
+            R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremCholy, R.id.btnPremSod, R.id.btnPremPot
+        };
+
+        for (int viewId : viewList) {
+            findViewById(viewId).setVisibility(View.GONE);
+        }
+
         foodItem = (Food) getIntent().getSerializableExtra(Config.INTENT_DETAIL_FOOD);
         bindFields();
         cardView6.setBackgroundResource(R.drawable.shape_calculate);
@@ -128,8 +139,11 @@ public class ActivityDetailFood extends AppCompatActivity {
             }
         });
 
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_detail_food);
 
+        String btnName = getIntent().getStringExtra(Config.DETAIL_FOOD_BTN_NAME);
+        if (btnName != null){
+            addButton.setText(btnName);
+        }
     }
 
     private void getFavoriteFood() {
@@ -356,7 +370,7 @@ public class ActivityDetailFood extends AppCompatActivity {
 
     private void showPremiumScreen() {
         Intent intent = new Intent(this, ActivitySubscription.class);
-        Box box = new Box(AmplitudaEvents.view_prem_elements, AmplitudaEvents.buy_prem_elements, false,
+        Box box = new Box(AmplitudaEvents.view_prem_elements, EventProperties.trial_from_elements, false,
                 true, null, false);
         intent.putExtra(Config.TAG_BOX, box);
         startActivity(intent);

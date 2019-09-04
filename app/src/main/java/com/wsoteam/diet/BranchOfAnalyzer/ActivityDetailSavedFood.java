@@ -2,10 +2,10 @@ package com.wsoteam.diet.BranchOfAnalyzer;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -88,8 +88,6 @@ public class ActivityDetailSavedFood extends AppCompatActivity {
         });
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_detail_food);
-
     }
 
     private void reCalculate() {

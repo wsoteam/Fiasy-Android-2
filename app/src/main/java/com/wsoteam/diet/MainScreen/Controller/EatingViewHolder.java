@@ -2,10 +2,10 @@ package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.RecyclerView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -176,14 +176,14 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
                 sumFats += eatingGroup.get(i).getFat();
                 sumCarbo += eatingGroup.get(i).getCarbohydrates();
             }
-            layoutCommonInfo.setVisibility(View.VISIBLE);
+            //layoutCommonInfo.setVisibility(View.VISIBLE);
             tvSumOfKcal.setText(String.valueOf(sumKcal));
 
             tvSumProt.setText(String.valueOf(sumProt) + " г");
             tvSumFats.setText(String.valueOf(sumFats) + " г");
             tvSumCarbo.setText(String.valueOf(sumCarbo) + " г");
         } else {
-            layoutCommonInfo.setVisibility(View.GONE);
+            //layoutCommonInfo.setVisibility(View.GONE);
             //tvRecommendation.setVisibility(View.VISIBLE);
             tvSumOfKcal.setVisibility(View.GONE);
             tvSumProt.setVisibility(View.GONE);

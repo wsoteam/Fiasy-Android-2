@@ -1,12 +1,12 @@
 package com.wsoteam.diet.BranchOfExercises.ActivitiesProgramm;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,17 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
-import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfExercises.ObjectHolder;
-import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.POJOSExercises.ArrayOfTiles;
 import com.wsoteam.diet.POJOSExercises.ObjectLocalDatabase;
 import com.wsoteam.diet.POJOSExercises.Tile;

@@ -1,10 +1,10 @@
 package com.wsoteam.diet.BranchOfAnalyzer.CustomFood;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +19,8 @@ import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.Fragments.FragmentOutlay;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.Fragments.FragmentResult;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,6 +162,7 @@ public class ActivityCreateFood extends AppCompatActivity {
     }
 
     private void saveFood() {
+        Events.logCreateCustomFood(getIntent().getStringExtra(EventProperties.product_from));
         customFood.setCalories(customFood.getCalories() / COUNT_GRAMM);
         customFood.setFats(customFood.getFats() / COUNT_GRAMM);
         customFood.setCarbohydrates(customFood.getCarbohydrates() / COUNT_GRAMM);

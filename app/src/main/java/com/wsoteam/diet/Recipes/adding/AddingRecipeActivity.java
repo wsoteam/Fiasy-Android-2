@@ -3,14 +3,14 @@ package com.wsoteam.diet.Recipes.adding;
 
 import android.graphics.Color;
 import android.os.CountDownTimer;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +29,8 @@ import com.wsoteam.diet.Recipes.adding.pages.InstructionsFragment;
 import com.wsoteam.diet.Recipes.adding.pages.MainFragment;
 import com.wsoteam.diet.Recipes.adding.pages.ResultFragment;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -281,6 +283,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         recipeItem.setUrl("https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/default_recipe.png?alt=media&token=1fcf855f-fa9d-4831-9ff2-af204a612707");
 
         WorkWithFirebaseDB.addUserRecipe(recipeItem);
+        Events.logCreateRecipe(getIntent().getStringExtra(EventProperties.recipe_from));
         if (isShare) {
             WorkWithFirebaseDB.addUsersSharedRecipe(recipeItem);
         }

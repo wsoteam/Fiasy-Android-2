@@ -3,9 +3,9 @@ package com.wsoteam.diet.presentation.auth.main;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.DialogFragment;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.fragment.app.DialogFragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +15,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.arellomobile.mvp.presenter.InjectPresenter;
+
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -41,22 +41,20 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.helpers.AsteriskPasswordTransformationMethod;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
+import com.wsoteam.diet.di.CiceroneModule;
 import com.wsoteam.diet.presentation.auth.dialogs.InstaAuthDialogFragment;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.AndroidInjection;
 
 public class MainAuthActivity extends BaseActivity implements MainAuthView, InstaAuthDialogFragment.InstaAuthListener {
 
     private static final String TAG = "Authenticate";
     private static final int RC_SIGN_IN = 9001;
-    @Inject
-    @InjectPresenter
+
     MainAuthPresenter presenter;
 
     @BindView(R.id.auth_main_tv_respasss) TextView resPassTextView;
@@ -87,10 +85,11 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth_main_new);
         ButterKnife.bind(this);
+
+        presenter = new MainAuthPresenter(this, CiceroneModule.router());
 
         createUser = getIntent().getBooleanExtra(Config.CREATE_PROFILE, false);
 
@@ -135,15 +134,6 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
         mAuthListener = firebaseAuth -> {
             FirebaseUser user = firebaseAuth.getCurrentUser();
             if (user != null) {
-                // User is signed in
-                Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
-
-                if (createUser && presenter.mAuth.getCurrentUser().getProviderData().size() > 0) {
-                    AmplitudaEvents.logEventReg(presenter.mAuth.getCurrentUser().getProviderData().get(0).toString());
-                } else {
-                    AmplitudaEvents.logEventReg("unknown");
-                }
-
                 if (createUser && getIntent().getSerializableExtra(Config.INTENT_PROFILE) != null) {
                     WorkWithFirebaseDB.putProfileValue((Profile) getIntent().getSerializableExtra(Config.INTENT_PROFILE));
                 } else if (createUser && getIntent().getSerializableExtra(Config.INTENT_PROFILE) == null) {

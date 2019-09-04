@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="16dp"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    app:contentPaddingLeft="16dp"
+    app:contentPaddingRight="16dp"
+    app:contentPaddingTop="12dp"
+    app:contentPaddingBottom="12dp"
+    >
+
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_marginRight="16dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Привет, Озз"
+        android:layout_gravity="center"
+        style="@style/TextAppearance.AppCompat.Body1"
+        />
+
+  </LinearLayout>
+
+</androidx.cardview.widget.CardView>

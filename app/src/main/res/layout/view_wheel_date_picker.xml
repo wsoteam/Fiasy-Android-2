@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="horizontal">
+
+    <com.wsoteam.diet.common.views.wheels.WheelDayPicker
+        android:id="@+id/wheel_date_picker_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:wheel_atmospheric="true"
+        app:wheel_curved="true"
+        app:wheel_cyclic="true"
+        app:wheel_item_space="30dp"
+        app:wheel_item_text_color="#99959595"
+        app:wheel_selected_item_text_color="#2e2e2e"
+        app:wheel_visible_item_count="3"/>
+
+    <ImageView
+        android:id="@+id/wheelDivider1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:srcCompat="@drawable/ic_wheel_divider"/>
+
+    <com.wsoteam.diet.common.views.wheels.WheelMonthPicker
+        android:id="@+id/wheel_date_picker_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:wheel_atmospheric="true"
+        app:wheel_curved="true"
+        app:wheel_cyclic="true"
+        app:wheel_item_space="30dp"
+        app:wheel_item_text_color="#99959595"
+        app:wheel_selected_item_text_color="#2e2e2e"
+        app:wheel_visible_item_count="3"/>
+
+    <ImageView
+        android:id="@+id/wheelDivider2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:srcCompat="@drawable/ic_wheel_divider"/>
+
+    <com.wsoteam.diet.common.views.wheels.WheelYearPicker
+        android:id="@+id/wheel_date_picker_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:wheel_atmospheric="true"
+        app:wheel_curved="true"
+        app:wheel_cyclic="true"
+        app:wheel_item_space="30dp"
+        app:wheel_item_text_color="#99959595"
+        app:wheel_selected_item_text_color="#2e2e2e"
+        app:wheel_visible_item_count="3"/>
+
+</LinearLayout>

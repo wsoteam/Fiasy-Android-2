@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -31,11 +31,14 @@ import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
 
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +47,7 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.intercom.android.sdk.Intercom;
 
 public class ActivityDetailOfFood extends AppCompatActivity {
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
@@ -87,12 +91,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     @BindView(R.id.btnPremSod) TextView btnPremSod;
     @BindView(R.id.btnPremPot) TextView btnPremPot;
     @BindView(R.id.cardView6) CardView cardView6;
-    @BindViews({R.id.tvCellulose, R.id.tvSugar, R.id.tvSaturated, R.id.tvСholesterol, R.id.tvSodium,
-            R.id.tvPotassium, R.id.tvMonoUnSaturated, R.id.tvPolyUnSaturated,
-            R.id.tvLabelCellulose, R.id.tvLabelSugar, R.id.tvLabelSaturated, R.id.tvLabelMonoUnSaturated, R.id.tvLabelPolyUnSaturated,
-            R.id.tvLabelСholesterol, R.id.tvLabelSodium, R.id.tvLabelPotassium, R.id.btnPremCell, R.id.btnPremSugar, R.id.btnPremSaturated,
-            R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremCholy, R.id.btnPremSod, R.id.btnPremPot})
-    List<View> viewList;
+
     private Food foodItem;
     private boolean isFavorite = false, isOwnFood = false;
     private FavoriteFood currentFavorite;
@@ -102,7 +101,17 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_of_food);
         ButterKnife.bind(this);
-        ButterKnife.apply(viewList, (view, value, index) -> view.setVisibility(value), View.GONE);
+
+        int[] viewList = new int[]{R.id.tvCellulose, R.id.tvSugar, R.id.tvSaturated, R.id.tvСholesterol, R.id.tvSodium,
+            R.id.tvPotassium, R.id.tvMonoUnSaturated, R.id.tvPolyUnSaturated,
+            R.id.tvLabelCellulose, R.id.tvLabelSugar, R.id.tvLabelSaturated, R.id.tvLabelMonoUnSaturated, R.id.tvLabelPolyUnSaturated,
+            R.id.tvLabelСholesterol, R.id.tvLabelSodium, R.id.tvLabelPotassium, R.id.btnPremCell, R.id.btnPremSugar, R.id.btnPremSaturated,
+            R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremCholy, R.id.btnPremSod, R.id.btnPremPot};
+
+        for (int viewId : viewList) {
+            findViewById(viewId).setVisibility(View.GONE);
+        }
+
         foodItem = (Food) getIntent().getSerializableExtra(Config.INTENT_DETAIL_FOOD);
         isOwnFood = getIntent().getBooleanExtra(Config.TAG_OWN_FOOD, false);
         bindFields();
@@ -139,7 +148,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             }
         });
 
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_detail_food);
+        Events.logViewFood(foodItem.getName());
 
     }
 
@@ -261,6 +270,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     }
 
     private void savePortion(int idOfEating) {
+        String food_intake = "";
 
         String wholeDate = getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE);
         String[] arrayOfNumbersForDate = wholeDate.split("\\.");
@@ -276,29 +286,35 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
         int weight = Integer.parseInt(edtWeight.getText().toString());
 
-
         String name = foodItem.getName();
         String urlOfImage = "empty_url";
 
-        Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
         switch (spnFood.getSelectedItemPosition()) {
             case BREAKFAST_POSITION:
                 WorkWithFirebaseDB.
                         addBreakfast(new Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                food_intake = EventProperties.food_intake_breakfast;
                 break;
             case LUNCH_POSITION:
                 WorkWithFirebaseDB.
                         addLunch(new Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                food_intake = EventProperties.food_intake_lunch;
                 break;
             case DINNER_POSITION:
                 WorkWithFirebaseDB.
                         addDinner(new Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                food_intake = EventProperties.food_intake_dinner;
                 break;
             case SNACK_POSITION:
                 WorkWithFirebaseDB.
                         addSnack(new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+                food_intake = EventProperties.food_intake_snack;
                 break;
         }
+        String food_category = getFoodCategory();
+        String food_item = foodItem.getName();
+        String food_date = getDateType(day, month, year);
+        Events.logAddFood(food_intake, food_category, food_date, food_item);
         AlertDialog alertDialog = AddFoodDialog.createChoiseEatingAlertDialog(ActivityDetailOfFood.this);
         alertDialog.show();
         getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).edit().putBoolean(Config.IS_ADDED_FOOD, true).commit();
@@ -316,6 +332,31 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         }.start();
     }
 
+    private String getDateType(int day, int month, int year) {
+        Calendar calendar = Calendar.getInstance();
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentYear = calendar.get(Calendar.YEAR);
+
+        if (currentDay == day && currentMonth == month && currentYear == year){
+            return EventProperties.food_date_today;
+        }else if (currentDay > day && currentMonth >= month && currentYear >= year){
+            return EventProperties.food_date_future;
+        }else {
+            return EventProperties.food_date_past;
+        }
+    }
+
+    private String getFoodCategory() {
+        if (isFavorite){
+            return EventProperties.food_category_favorites;
+        }else if(isOwnFood){
+            return EventProperties.food_category_custom;
+        }else {
+            return EventProperties.food_category_base;
+        }
+    }
+
 
     private void calculateMainParameters(CharSequence stringPortion) {
         double portion = Double.parseDouble(stringPortion.toString());
@@ -324,7 +365,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         tvCalculateKcal.setText(String.valueOf(Math.round(portion * foodItem.getCalories())) + " " + getString(R.string.kcal));
         tvCalculateCarbohydrates.setText(String.valueOf(Math.round(portion * foodItem.getCarbohydrates())) + " " + getString(R.string.gramm));
         tvCalculateFat.setText(String.valueOf(Math.round(portion * foodItem.getFats())) + " " + getString(R.string.gramm));
-
     }
 
     @OnClick({R.id.btnSaveEating, R.id.ivBack, R.id.btnPremCell, R.id.btnPremCholy,
@@ -392,6 +432,8 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     }
 
     private void shareFood(Food foodItem) {
+        Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_SHARE);
+        Intercom.client().logEvent(Events.PRODUCT_PAGE_SHARE);
         String forSend;
         if (foodItem.getBrand() == null) {
             forSend = foodItem.getName()
@@ -409,14 +451,17 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     }
 
     private void showPremiumScreen() {
+        Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_MICRO);
+        Intercom.client().logEvent(Events.PRODUCT_PAGE_MICRO);
         Intent intent = new Intent(ActivityDetailOfFood.this, ActivitySubscription.class);
-        Box box = new Box(AmplitudaEvents.view_prem_elements, AmplitudaEvents.buy_prem_elements, false,
+        Box box = new Box(AmplitudaEvents.view_prem_elements, EventProperties.trial_from_elements, false,
                 true, null, false);
         intent.putExtra(Config.TAG_BOX, box);
         startActivity(intent);
     }
 
     private String addFavorite() {
+        Events.logAddFavorite(foodItem.getName());
         FavoriteFood favoriteFood = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), "empty");
         String key = WorkWithFirebaseDB.addFoodFavorite(favoriteFood);
         return key;

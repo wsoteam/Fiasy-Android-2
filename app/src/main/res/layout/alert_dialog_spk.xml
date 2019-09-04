@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAlertDialogSPKOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -167,4 +167,4 @@
         android:src="@drawable/alert_dialog_line"
         app:layout_constraintTop_toBottomOf="@+id/tvTitleAlertDialogSPK"
         tools:layout_editor_absoluteX="16dp" />
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

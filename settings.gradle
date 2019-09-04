@@ -1,1 +1,1 @@
-include ':app', ':HtmlSpanner-master', ':horizontal-picker'
+include ':app', ':HtmlSpanner-master', ':horizontal-picker', ':ruler', ':ruler-picker'
