@@ -37,7 +37,7 @@ public class NewIntroActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_new_intro);
     ButterKnife.bind(this);
-    Events.logMoveOnboard(viewPager.getCurrentItem() + 1);
+
 
     final SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -45,6 +45,7 @@ public class NewIntroActivity extends AppCompatActivity {
       viewPager.setHandleTouchEvents(false);
       viewPager.setAdapter(new IntroSlidesAdapter(getSupportFragmentManager()));
       tabLayout.setupWithViewPager(viewPager, true);
+      Events.logMoveOnboard(viewPager.getCurrentItem() + 1);
     } else {
       final Box box = new Box();
       box.setBuyFrom(EventProperties.trial_from_onboard);
@@ -55,7 +56,7 @@ public class NewIntroActivity extends AppCompatActivity {
       final Intent intent = new Intent(this, MainAuthNewActivity.class);
       intent.putExtra(Config.CREATE_PROFILE, true)
           .putExtra(Config.INTENT_PROFILE, new Profile());
-
+      Events.logMoveOnboard(EventProperties.go_onboard_reg);
       startActivity(intent);
       finish();
     }

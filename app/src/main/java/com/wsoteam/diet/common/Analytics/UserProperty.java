@@ -136,7 +136,7 @@ public class UserProperty {
                 .set(first_month, month);
         Amplitude.getInstance().identify(identify);
 
-        signInIntercom();
+        //signInIntercom();
         UserAttributes userAttributes = new UserAttributes.Builder()
                 .withCustomAttribute(first_day, day)
                 .withCustomAttribute(first_week, week)
