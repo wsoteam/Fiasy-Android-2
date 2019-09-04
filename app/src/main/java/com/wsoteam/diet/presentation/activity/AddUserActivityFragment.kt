@@ -25,6 +25,7 @@ class AddUserActivityFragment : DialogFragment() {
 
   var selected by argument<UserActivityExercise>()
   var lockName by argument<Boolean>()
+  var editMode by argument<Boolean>()
 
   private lateinit var exerciseName: AutoCompleteTextView
   private lateinit var exerciseEfficiency: TextView
@@ -46,18 +47,19 @@ class AddUserActivityFragment : DialogFragment() {
 
     doneButton = view.findViewById<View>(R.id.action_done)
     doneButton.setOnClickListener {
-      (targetFragment as? OnActivityCreated)?.let { listener ->
-        selected?.let {
-          listener.didCreateActivity(UserActivityExercise(
-              it.title,
-              System.currentTimeMillis(),
-              getBurnedCalories(),
-              exerciseDuration.progress * 60
-          ))
+      val callback = targetFragment as? OnActivityCreated ?: return@setOnClickListener
+      val selected = selected ?: return@setOnClickListener
 
-          dismissAllowingStateLoss()
-        }
-      }
+      val activity = UserActivityExercise(
+          selected.title,
+          if (editMode == true) selected.`when` else System.currentTimeMillis(),
+          getBurnedCalories(),
+          exerciseDuration.progress * 60
+      )
+
+      callback.didCreateActivity(activity, editMode ?: false)
+
+      dismissAllowingStateLoss()
     }
 
     exerciseDuration = view.findViewById(R.id.activity_duration)
@@ -65,6 +67,8 @@ class AddUserActivityFragment : DialogFragment() {
       exerciseDuration.min = 1
     }
     exerciseDuration.max = 60
+    exerciseDuration.progress = (selected?.duration ?: 1800) / 60
+
     exerciseDuration.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
       override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
         if (progress == 0) {
@@ -138,7 +142,7 @@ class AddUserActivityFragment : DialogFragment() {
   }
 
   interface OnActivityCreated {
-    fun didCreateActivity(exercise: UserActivityExercise)
+    fun didCreateActivity(exercise: UserActivityExercise, created: Boolean)
   }
 
   class ExercisesSuggestionAdapter(context: Context)

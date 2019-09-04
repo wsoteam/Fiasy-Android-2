@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.activity;
 
 import android.content.res.AssetManager;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 import io.reactivex.Flowable;
@@ -25,14 +26,21 @@ public abstract class ExercisesSource {
    *
    * @param exercise Exercise to be added
    */
-  public abstract Single<UserActivityExercise> add(UserActivityExercise exercise);
+  public abstract Single<UserActivityExercise> add(@NonNull UserActivityExercise exercise);
 
   /**
    * Remove exercise from current repository
    *
    * @param exercise Exercise to be removed
    */
-  public abstract Single<UserActivityExercise> remove(UserActivityExercise exercise);
+  public abstract Single<UserActivityExercise> edit(@NonNull UserActivityExercise exercise);
+
+  /**
+   * Remove exercise from current repository
+   *
+   * @param exercise Exercise to be removed
+   */
+  public abstract Single<UserActivityExercise> remove(@NonNull UserActivityExercise exercise);
 
   public Single<List<UserActivityExercise>> search(@Nullable CharSequence query) {
     return all().observeOn(Schedulers.io())
@@ -134,6 +142,10 @@ public abstract class ExercisesSource {
 
     @Override public Single<UserActivityExercise> add(UserActivityExercise exercise) {
       throw new UnsupportedOperationException("cannot add to default list");
+    }
+
+    @Override public Single<UserActivityExercise> edit(UserActivityExercise exercise) {
+      throw new UnsupportedOperationException("cannot edit to default list");
     }
 
     @Override public Single<UserActivityExercise> remove(UserActivityExercise exercise) {

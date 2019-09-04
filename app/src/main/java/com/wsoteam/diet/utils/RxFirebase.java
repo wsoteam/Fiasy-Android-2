@@ -1,6 +1,5 @@
 package com.wsoteam.diet.utils;
 
-import android.util.Log;
 import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -8,6 +7,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import io.reactivex.BackpressureStrategy;
+import io.reactivex.Completable;
+import io.reactivex.CompletableEmitter;
+import io.reactivex.CompletableOnSubscribe;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
@@ -18,6 +20,10 @@ import io.reactivex.disposables.Disposable;
 import java.util.concurrent.CancellationException;
 
 public class RxFirebase {
+
+  public static Completable completable(Task<Void> googleTask) {
+    return Completable.create(new CompletableGoogleTask(googleTask));
+  }
 
   public static <T> Single<T> from(Task<T> googleTask) {
     return Single.create(new SingleGoogleTask<>(googleTask));
@@ -73,6 +79,29 @@ public class RxFirebase {
 
     @Override public void onCancelled(@NonNull DatabaseError databaseError) {
       emitter.tryOnError(databaseError.toException());
+    }
+  }
+
+  public static class CompletableGoogleTask implements CompletableOnSubscribe {
+
+    private final Task<Void> googleTask;
+
+    public CompletableGoogleTask(Task<Void> googleTask) {
+      this.googleTask = googleTask;
+    }
+
+    @Override public void subscribe(CompletableEmitter observer) throws Exception {
+      googleTask.addOnCompleteListener(task -> {
+        if (task.isSuccessful() && !observer.isDisposed()) {
+          observer.onComplete();
+        } else {
+          if (task.isCanceled()) {
+            observer.tryOnError(new CancellationException());
+          } else {
+            observer.tryOnError(task.getException());
+          }
+        }
+      });
     }
   }
 

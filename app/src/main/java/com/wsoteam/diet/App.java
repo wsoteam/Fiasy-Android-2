@@ -16,6 +16,8 @@ import com.yandex.metrica.YandexMetrica;
 import com.yandex.metrica.YandexMetricaConfig;
 import io.intercom.android.sdk.Intercom;
 
+import static com.google.firebase.database.Logger.Level.INFO;
+
 public class App extends MultiDexApplication {
     public static App instance;
 

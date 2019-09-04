@@ -78,7 +78,7 @@ public class UserActivityFragment extends Fragment implements
       @Override
       public void onItemClick(RecyclerView.ViewHolder view, int sectionId) {
         final UserActivityExercise e = adapter.getItem(view.getAdapterPosition());
-        requestAddUserActivity(e);
+        requestAddUserActivity(e, R.string.user_activity_section_my == sectionId);
       }
 
       @Override public void onItemMenuClick(@NonNull RecyclerView.ViewHolder view, int sectionId) {
@@ -90,6 +90,7 @@ public class UserActivityFragment extends Fragment implements
         if (sectionId == R.string.user_activity_section_defaults) {
           menu.getMenu().add(0, R.id.action_make_favorite, 1, R.string.action_add_to_favorite);
         } else if (sectionId == R.string.user_activity_section_favorite) {
+          menu.getMenu().add(0, R.id.action_add_user_activity, 1, R.string.action_add);
           menu.getMenu().add(0, R.id.action_delete, 1, R.string.contextMenuDelete);
         } else if (sectionId == R.string.user_activity_section_my) {
           menu.getMenu().add(0, R.id.action_edit, 1, R.string.contextMenuEdit);
@@ -102,6 +103,14 @@ public class UserActivityFragment extends Fragment implements
           switch (item.getItemId()) {
             case R.id.action_make_favorite:
               adapter.addItem(R.string.user_activity_section_favorite, target);
+              break;
+
+            case R.id.action_edit:
+              requestAddUserActivity(target, true);
+              break;
+
+            case R.id.action_add_user_activity:
+              requestAddUserActivity(target, false);
               break;
 
             case R.id.action_delete:
@@ -221,7 +230,7 @@ public class UserActivityFragment extends Fragment implements
         break;
 
       case R.id.action_add_user_activity:
-        requestAddUserActivity(null);
+        requestAddUserActivity(null, false);
         break;
 
       default:
@@ -231,10 +240,11 @@ public class UserActivityFragment extends Fragment implements
     return true;
   }
 
-  private void requestAddUserActivity(@Nullable UserActivityExercise exercise) {
+  private void requestAddUserActivity(@Nullable UserActivityExercise exercise, boolean edit) {
     final AddUserActivityFragment target = new AddUserActivityFragment();
     target.setSelected(exercise);
     target.setLockName(exercise != null);
+    target.setEditMode(edit);
     target.setTargetFragment(this, 1);
 
     getActivity().getSupportFragmentManager()
@@ -244,17 +254,30 @@ public class UserActivityFragment extends Fragment implements
         .commitAllowingStateLoss();
   }
 
-  @Override public void didCreateActivity(@NotNull UserActivityExercise exercise) {
-    adapter.addItem(R.string.user_activity_section_my, exercise);
+  @Override public void didCreateActivity(@NotNull UserActivityExercise exercise, boolean edited) {
+    if (edited) {
+      adapter.updateItemAt(R.string.user_activity_section_my, exercise);
 
-    disposables.add(sources.get(R.string.user_activity_section_my)
-        .add(exercise)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(
-            Functions.emptyConsumer(),
-            Throwable::printStackTrace
-        ));
+      disposables.add(sources.get(R.string.user_activity_section_my)
+          .edit(exercise)
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe(
+              Functions.emptyConsumer(),
+              Throwable::printStackTrace
+          ));
+    } else {
+      adapter.addItem(R.string.user_activity_section_my, exercise);
+
+      disposables.add(sources.get(R.string.user_activity_section_my)
+          .add(exercise)
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe(
+              Functions.emptyConsumer(),
+              Throwable::printStackTrace
+          ));
+    }
   }
 
   static class DividerDecoration extends RecyclerView.ItemDecoration {

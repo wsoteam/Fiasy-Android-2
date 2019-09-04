@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.activity;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -211,7 +212,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     return head.getItemAt(position);
   }
 
-  public UserActivityExercise getItem(int position){
+  public UserActivityExercise getItem(int position) {
     return getItemAt(position - headers);
   }
 
@@ -223,6 +224,9 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     return getSectionOffset(getSectionAt(adapterPosition - headers));
   }
 
+  /**
+   * @return Offset to section position, offset -> [section -> items...]
+   */
   public int getSectionOffset(Section section) {
     if (section == head) {
       return 0;
@@ -329,16 +333,51 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     });
   }
 
-  public void addItem(@StringRes int sectionId, UserActivityExercise item) {
-    addItems(sectionId, Collections.singletonList(item));
-  }
-
-  public void addItems(@StringRes int sectionId, List<UserActivityExercise> items) {
+  public void updateItemAt(@StringRes int sectionId, @NonNull UserActivityExercise item) {
     final Section section = sections.get(sectionId);
 
     if (section == null) {
       throw new IllegalArgumentException(
           "section with id #" + Integer.toHexString(sectionId) + " not found");
+    }
+
+    final int index = headers + getSectionOffset(section);
+
+    int itemId = Collections.binarySearch(section.items, item,
+        (o1, o2) -> Long.compare(o1.getWhen(), o2.getWhen()));
+
+    if (itemId < 0) {
+      throw new Resources.NotFoundException(String.format("activity with timestamp=%d, not found",
+          item.getWhen()));
+    }
+
+    section.items.set(itemId, item);
+    notifyItemChanged(index + itemId + 1);
+  }
+
+  public void addItem(@StringRes int sectionId, @NonNull UserActivityExercise item) {
+    addItems(sectionId, Collections.singletonList(item), 0);
+  }
+
+  public void addItems(@StringRes int sectionId, @NonNull List<UserActivityExercise> items) {
+    addItems(sectionId, items, -1);
+  }
+
+  public void addItems(@StringRes int sectionId, @NonNull List<UserActivityExercise> items,
+      int pushIndex) {
+    if (items.isEmpty()) {
+      return;
+    }
+
+    final Section section = sections.get(sectionId);
+
+    if (section == null) {
+      throw new IllegalArgumentException(
+          "section with id #" + Integer.toHexString(sectionId) + " not found");
+    }
+
+    if (pushIndex < 0) {
+      pushIndex = section.items.size();
     }
 
     final int index = headers + getSectionOffset(section);
@@ -350,7 +389,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
       headers = size - 1; // total items - section header => gives headers size
     }
 
-    section.items.addAll(items);
+    section.items.addAll(pushIndex, items);
     total += items.size() - headers;
 
     if (headers > 0) {

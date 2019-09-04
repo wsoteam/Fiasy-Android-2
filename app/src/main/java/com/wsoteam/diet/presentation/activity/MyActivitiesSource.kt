@@ -1,6 +1,5 @@
 package com.wsoteam.diet.presentation.activity
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
@@ -24,13 +23,13 @@ class MyActivitiesSource : ExercisesSource() {
       .getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY)
       .child(uid)
       .child("activities")
+
+    database.keepSynced(true)
   }
 
   override fun all(): Single<List<UserActivityExercise>> {
     return RxFirebase.from(database.limitToFirst(50))
       .flatMap<DataSnapshot> data@{ snapshot ->
-        Log.d("QueryLoading", "Loaded, children = " + snapshot.childrenCount)
-
         if (snapshot.childrenCount == 0L) {
           return@data Flowable.fromIterable(Collections.emptyList())
         } else {
@@ -52,6 +51,17 @@ class MyActivitiesSource : ExercisesSource() {
       .toSortedList { left, right -> right.`when`.compareTo((left.`when`)) }
   }
 
+  override fun edit(exercise: UserActivityExercise): Single<UserActivityExercise> {
+    database.child(exercise.`when`.toString()).updateChildren(mapOf(
+        "title" to exercise.title,
+        "burned" to exercise.burned,
+        "duration" to exercise.duration
+    ))
+
+    database.database.purgeOutstandingWrites()
+    return Single.just(exercise)
+  }
+
   override fun add(exercise: UserActivityExercise): Single<UserActivityExercise> {
     database.child(exercise.`when`.toString())
       .updateChildren(mapOf(
@@ -61,14 +71,13 @@ class MyActivitiesSource : ExercisesSource() {
           "duration" to exercise.duration
       ))
 
+    database.database.purgeOutstandingWrites()
     return Single.just(exercise)
   }
 
   override fun remove(exercise: UserActivityExercise): Single<UserActivityExercise> {
-    database.equalTo(exercise.`when`.toString(), "when")
-      .ref
-      .removeValue()
-
+    database.child(exercise.`when`.toString()).removeValue()
+    database.database.purgeOutstandingWrites()
     return Single.just(exercise)
   }
 }
