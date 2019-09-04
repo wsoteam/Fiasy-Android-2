@@ -93,6 +93,7 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
     if (profile != null) {
       setUserProperties(profile);
       WorkWithFirebaseDB.putProfileValue(profile);
+
     }
   }
 
@@ -142,6 +143,7 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
       }
       UserProperty.setUserProperties(sex, height, weight, age, active, goal,
               FirebaseAuth.getInstance().getCurrentUser().getUid());
+      UserProperty.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
     } catch (Exception ex) {
       Log.e("LOL", ex.getLocalizedMessage());
     }

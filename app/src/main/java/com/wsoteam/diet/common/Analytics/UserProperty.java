@@ -16,6 +16,7 @@ import java.util.Map;
 
 import io.intercom.android.sdk.Intercom;
 import io.intercom.android.sdk.UserAttributes;
+import io.intercom.android.sdk.identity.Registration;
 
 public class UserProperty {
     public static final String registration = "registration";
@@ -49,10 +50,10 @@ public class UserProperty {
     public static final String q_goal_status4 = "burn_fat";
 
     public static final String premium_status = "premium_status";
-    public static final String buy = "premium";
+    public static final String buy = "pay";
     public static final String not_buy = "free";
     public static final String trial = "trial";
-    public static final String preferential = "trial_no_pay";
+    public static final String preferential = "unable";
     public static final String paid = "paid";
 
     public static final String premium_duration = "premium_duration";
@@ -61,6 +62,8 @@ public class UserProperty {
     public static final String ltv_revenue = "ltv_revenue";
 
     public static final String user_id = "id";
+
+    public static final String email = "email";
 
 
     public static void setUserProperties(String sex, String height, String weight, String age, String active, String goal, String id) {
@@ -91,6 +94,7 @@ public class UserProperty {
                 .set(premium_status, status);
         Amplitude.getInstance().identify(identify);
 
+        signInIntercom();
         UserAttributes userAttributes = new UserAttributes.Builder()
                 .withCustomAttribute(premium_status, status)
                 .build();
@@ -102,10 +106,28 @@ public class UserProperty {
                 .set(registration, provider);
         Amplitude.getInstance().identify(identify);
 
+        signInIntercom();
         UserAttributes userAttributes = new UserAttributes.Builder()
                 .withCustomAttribute(registration, provider)
                 .build();
         Intercom.client().updateUser(userAttributes);
     }
 
+    public static void setEmail(String email) {
+        Identify identify = new Identify()
+                .set(email, email);
+        Amplitude.getInstance().identify(identify);
+
+        signInIntercom();
+        UserAttributes userAttributes = new UserAttributes.Builder()
+                .withCustomAttribute(email, email)
+                .build();
+        Intercom.client().updateUser(userAttributes);
+    }
+
+    private static void signInIntercom(){
+        Registration registration = Registration.create().withUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        Intercom.client().registerIdentifiedUser(registration);
+        Intercom.client().handlePushMessage();
+    }
 }
