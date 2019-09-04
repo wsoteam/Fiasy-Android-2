@@ -1,6 +1,6 @@
 package com.wsoteam.diet.presentation.plans.detail;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.presentation.global.BaseView;
 
 public interface DetailPlansView extends BaseView {

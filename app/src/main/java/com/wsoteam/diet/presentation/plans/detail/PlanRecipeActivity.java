@@ -6,9 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,6 +16,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -276,7 +276,7 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
     String name = recipe.getName();
     String urlOfImage = recipe.getUrl();
 
-    Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
+    //Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
     switch (idOfEating) {
       case BREAKFAST_POSITION:
         WorkWithFirebaseDB.

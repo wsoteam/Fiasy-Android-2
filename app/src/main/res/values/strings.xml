@@ -1,5 +1,10 @@
 <resources>
 
+  <string name="breakfast">Завтрак</string>
+  <string name="lunch">Обед</string>
+  <string name="dinner">Ужин</string>
+  <string name="snack">Перекус</string>
+
   <string name="subTitle">Достигайте цели быстрее!</string>
   <string name="subTestText">Попробуйте 3 дня бесплатно\n Далее 2490 р. / год</string>
   <string name="individualPlanTxt">Вы достигнете своей цели уже через месяц, получив доступ к уникальным статьям о здоровом питании и сотни рецептов</string>
@@ -19,68 +24,12 @@
   <!--adding recipe-->
   <string name="individualPlan">Индивидуальный план рассчитан</string>
   <string name="recNorm">Рекомендуемая норма</string>
-  <string name="add">Добавить</string>
-  <string name="cancel">Отменить</string>
-  <string name="addingRecipeText">В этом разделе будут храниться созданные вами рецепты</string>
-  <string name="favoriteRecipeText">В этом разделе будут храниться понравившиеся вам рецепты </string>
-  <string name="myRecipe">Свои рецепты</string>
-  <string name="favoriteRecipe">Понравившиеся</string>
-  <string name="addRecipe">Добавить рецепт</string>
-  <string name="recipes">Рецепты</string>
-  <string name="addingRecipeTxt">Здесь вы можете создать и сохранить набор продуктов, который употребляете ежедневно в определенный прием пищи</string>
-  <string name="alertDialogSuccess">Рецепт сохранен</string>
-  <string name="instructions">Инструкции</string>
-  <string name="ingredients">Ингридиенты</string>
-  <string name="addingRecipePortionV">Вес:</string>
-  <string name="addingRecipeAddInstruction">Добавить шаг</string>
-  <string name="addingRecipeAddIngredient">Добавить ингридиент</string>
-  <string name="createRecipe">Создать рецепт</string>
-  <string name="btnBack">Назад</string>
-  <string name="btnNext">Далее</string>
-  <string name="addingRecipeName">Название блюда</string>
-  <string name="addingRecipePortion">Количество порций (необязательно)</string>
-  <string name="addingRecipeTime">Время приготовления (мин.)</string>
-  <string name="addingRecipeShare">Могут видеть все пользователи</string>
-  <string name="addingRecipeInfo">Созданные вами и введенные в базу рецепты или продукты могут быть доступны для других пользователей. Пожалуйста, постарайтесь заполнить приведенную выше форму максимально точно и полно.</string>
-  <string name="complexityRecipe">Сложность:</string>
   <string-array name="recipeComplexity">
     <item>Легкий</item>
     <item>Средний</item>
     <item>Сложный</item>
   </string-array>
 
-  <string name="tvArticlePremText">Получите доступ к сотням полезных статей при подписке на premium.</string>
-  <string name="tvTitleArticleFragment">Полезные статьи</string>
-
-  <!--Item Plan Recipe-->
-  <string name="titleShareDialogRecipe">Поделится рецептом</string>
-  <string name="tvItemPlanTime">Время готовки:</string>
-  <string name="tvItemPlanIngredients">Ингредиенты:</string>
-  <string name="tvRecipeInrgidientCount">на 1 порцию</string>
-  <string name="tvItemPlanMinute">минут</string>
-  <string name="tvNourishment">Питательные вещества</string>
-  <string name="tvOnePortion">на 1 порцию</string>
-  <string name="tvCarbohydrates">Углеводы</string>
-  <string name="tvCellulose">Клетчатка</string>
-  <string name="tvSugar">Сахар</string>
-  <string name="tvFat">Жиры</string>
-  <string name="tvSaturatedFats">Насыщеные</string>
-  <string name="tvUnSaturatedFats">Ненасыщеные</string>
-  <string name="tvProtein">Белки</string>
-  <string name="tvCholesterol">Холестерин</string>
-  <string name="tvSodium">Натрий</string>
-  <string name="tvPotassium">Калий</string>
-  <string name="tvGram">г</string>
-  <string name="tvMG">мг</string>
-  <string name="tvKkal">Ккал</string>
-  <string name="tvKkal0">0 Ккал</string>
-
-
-  <!--Menu-->
-  <string name="etSearch">Поиск</string>
-  <string name="btnRecipeDiary">Добавить в дневник</string>
-  <string name="btnRecipePrem">Обновление до Premium</string>
-  <string name="tvRecipePrem">Оформите подписку Premium - и вы \n
 <!--  plan main screen-->
   <string name="plan_start_text">Не знаете с чего начать? Попробуте планы питания от нашего штатного диетолога.</string>
   <string name="view_plans">Посмотреть планы питания</string>
@@ -88,28 +37,12 @@
   <string name="plan_end_text">Ваша диета закончилась. Поздравляем!</string>
 
 
-  <!--  alert plan change-->
-  <integer name="com_vk_sdk_AppId">6766798</integer>
   <integer-array name="img_id_arr">
     <item>@drawable/background_item_profile_carbo</item>
     <item>@drawable/background_item_profile_prot</item>
     <item>@drawable/background_item_profile_water</item>
     <item>@drawable/background_gradient_data</item>
   </integer-array>
-  <plurals name="years">
-    <item quantity="zero"></item>
-    <item quantity="one">%d год</item>
-    <item quantity="two">%d года</item>
-    <item quantity="few">%d года</item>
-    <item quantity="many">%d лет</item>
-    <item quantity="other">%d лет</item>
-  </plurals>
-  <plurals name="daysAtRow">
-    <item quantity="one">%d день подряд ведется запись</item>
-    <item quantity="few">%d дня подряд ведется запись</item>
-    <item quantity="many">%d дней подряд ведется запись</item>
-    <item quantity="other">%d дней подряд ведется запись</item>
-  </plurals>
 
 
   <string name="titleShareDialogPlan">Поделиться планом питания</string>
@@ -314,12 +247,6 @@
   <string name="forgot_pass_check_email">Проверьте вашу почту!</string>
   <string name="forgot_pass_wrong_user">Пользователь не найден</string>
 
-  <integer-array name="img_id_arr">
-    <item>@drawable/background_item_profile_carbo</item>
-    <item>@drawable/background_item_profile_prot</item>
-    <item>@drawable/background_item_profile_water</item>
-    <item>@drawable/background_gradient_data</item>
-  </integer-array>
 
   <!--alert_dialog_buy_info-->
   <string name="alert_buy_info_tv">Теперь вы являетесь обладателем аккаунта Premium!</string>

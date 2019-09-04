@@ -4,29 +4,27 @@ package com.wsoteam.diet.presentation.plans.detail.blocked;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.arellomobile.mvp.MvpAppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.di.CiceroneModule;
 import com.wsoteam.diet.helper.NounsDeclension;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.AndroidInjection;
 
 public class BlockedDetailPlansActivity extends BaseActivity implements BlockedDetailPlansView {
 
@@ -39,18 +37,17 @@ public class BlockedDetailPlansActivity extends BaseActivity implements BlockedD
     @BindView(R.id.tvUsers) TextView tvUsers;
     @BindView(R.id.tvTimeText) TextView tvTimeTxt;
 
-    @Inject
+
     @InjectPresenter
     BlockedDetailPlansPresenter presenter;
 
     @ProvidePresenter
     BlockedDetailPlansPresenter providePresenter(){
-        return presenter;
+        return new BlockedDetailPlansPresenter(CiceroneModule.router());
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blocked_detail_plans);
         ButterKnife.bind(this);

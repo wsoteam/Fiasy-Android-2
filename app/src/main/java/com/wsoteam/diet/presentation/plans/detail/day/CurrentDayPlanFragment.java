@@ -3,24 +3,23 @@ package com.wsoteam.diet.presentation.plans.detail.day;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.amplitude.api.Amplitude;
+
 import com.arellomobile.mvp.MvpAppCompatFragment;
-import com.wsoteam.diet.AmplitudaEvents;
+import com.google.android.material.tabs.TabLayout;
+
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
@@ -239,7 +238,7 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
     String name = recipe.getName();
     String urlOfImage = recipe.getUrl();
 
-    Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
+    //Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
     switch (meal) {
       case "breakfast":
         WorkWithFirebaseDB.

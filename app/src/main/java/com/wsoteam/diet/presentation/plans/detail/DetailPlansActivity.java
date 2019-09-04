@@ -3,24 +3,23 @@ package com.wsoteam.diet.presentation.plans.detail;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.di.CiceroneModule;
 import com.wsoteam.diet.presentation.global.BaseActivity;
-import dagger.android.AndroidInjection;
-import javax.inject.Inject;
 import ru.terrakok.cicerone.Router;
 
 public class DetailPlansActivity extends BaseActivity implements DetailPlansView {
@@ -29,7 +28,7 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
   @BindView(R.id.recycler) RecyclerView recycler;
   @BindView(R.id.btnJoin) Button btnJoin;
 
-  @Inject
+
   Router router;
 
   private MenuItem leaveMenu;
@@ -69,11 +68,11 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_detail_plans);
     ButterKnife.bind(this);
 
+    router = CiceroneModule.router();
     Log.d("kkk", "onCreate: " + router);
 
     getWindow().getDecorView().setSystemUiVisibility(

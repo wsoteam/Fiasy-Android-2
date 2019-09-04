@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
-  <android.support.constraint.ConstraintLayout
+  <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/clRecipes"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvPlanName"
         tools:text="День 6/8"
         />
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -79,28 +79,28 @@
         app:tabTextColor="@color/black"
         >
 
-      <android.support.design.widget.TabItem
+      <com.google.android.material.tabs.TabItem
           android:id="@+id/tiBreakfast"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/breakfast"
           />
 
-      <android.support.design.widget.TabItem
+      <com.google.android.material.tabs.TabItem
           android:id="@+id/tiLunch"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/lunch"
           />
 
-      <android.support.design.widget.TabItem
+      <com.google.android.material.tabs.TabItem
           android:id="@+id/tiDinner"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/dinner"
           />
 
-      <android.support.design.widget.TabItem
+      <com.google.android.material.tabs.TabItem
           android:id="@+id/tiSnack"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -108,8 +108,8 @@
           />
 
 
-    </android.support.design.widget.TabLayout>
-    <android.support.v7.widget.RecyclerView
+    </com.google.android.material.tabs.TabLayout>
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -118,10 +118,10 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabs"
-        ></android.support.v7.widget.RecyclerView>
-  </android.support.constraint.ConstraintLayout>
+        ></androidx.recyclerview.widget.RecyclerView>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
-  <android.support.constraint.ConstraintLayout
+  <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/clNotActivePlan"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
@@ -185,9 +185,9 @@
         app:layout_constraintTop_toBottomOf="@+id/textView153"
         />
 
-  </android.support.constraint.ConstraintLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
-  <android.support.constraint.ConstraintLayout
+  <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/clFinishPlan"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
@@ -248,6 +248,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textView156"
         />
 
-  </android.support.constraint.ConstraintLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
