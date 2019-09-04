@@ -65,6 +65,10 @@ public class UserProperty {
 
     public static final String email = "email";
 
+    public static final String first_day = "first_day";
+    public static final String first_week = "first_week";
+    public static final String first_month = "first_month";
+
 
     public static void setUserProperties(String sex, String height, String weight, String age, String active, String goal, String id) {
         Identify identify = new Identify()
@@ -121,6 +125,22 @@ public class UserProperty {
         signInIntercom();
         UserAttributes userAttributes = new UserAttributes.Builder()
                 .withCustomAttribute(email, email)
+                .build();
+        Intercom.client().updateUser(userAttributes);
+    }
+
+    public static void setDate(String day, String week, String month) {
+        Identify identify = new Identify()
+                .set(first_day, day)
+                .set(first_week, week)
+                .set(first_month, month);
+        Amplitude.getInstance().identify(identify);
+
+        signInIntercom();
+        UserAttributes userAttributes = new UserAttributes.Builder()
+                .withCustomAttribute(first_day, day)
+                .withCustomAttribute(first_week, week)
+                .withCustomAttribute(first_month, month)
                 .build();
         Intercom.client().updateUser(userAttributes);
     }
