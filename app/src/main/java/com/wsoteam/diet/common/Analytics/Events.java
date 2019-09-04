@@ -216,12 +216,14 @@ public class Events {
         JSONObject eventProperties = new JSONObject();
         try {
             eventProperties.put(EventProperties.trial_from, from);
+            eventProperties.put(EventProperties.auto_renewal, autoRenewing);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(TRIAL_SUCCESS, eventProperties);
 
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.trial_from, from);
+        eventData.put(EventProperties.auto_renewal, autoRenewing);
         io.intercom.android.sdk.Intercom.client().logEvent(TRIAL_SUCCESS, eventData);
     }
 
