@@ -29,7 +29,6 @@ public class AfterQuestionsPagerAdapter extends FragmentPagerAdapter {
         Box box = new Box();
         box.setOpenFromIntrodaction(true);
         box.setBuyFrom(EventProperties.trial_from_onboard);
-        Events.logMoveQuestions(EventProperties.question_premium);
         return FragmentSubscriptionOrangeOneButton.newInstance(box);
       default:
         return null;

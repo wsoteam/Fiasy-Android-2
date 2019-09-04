@@ -78,7 +78,6 @@ public class ListRecipesActivity extends AppCompatActivity {
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
         updateUI();
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_group_recipes);
     }
 
     private void updateUI() {

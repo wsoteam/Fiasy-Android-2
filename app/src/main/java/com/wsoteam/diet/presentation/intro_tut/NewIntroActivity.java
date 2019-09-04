@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -37,12 +38,14 @@ public class NewIntroActivity extends AppCompatActivity {
     setContentView(R.layout.activity_new_intro);
     ButterKnife.bind(this);
 
+
     final SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(this);
 
     if (!pm.getBoolean(KEY_ONBOARD_SHOWN, false)) {
       viewPager.setHandleTouchEvents(false);
       viewPager.setAdapter(new IntroSlidesAdapter(getSupportFragmentManager()));
       tabLayout.setupWithViewPager(viewPager, true);
+      Events.logMoveOnboard(viewPager.getCurrentItem() + 1);
     } else {
       final Box box = new Box();
       box.setBuyFrom(EventProperties.trial_from_onboard);
@@ -53,7 +56,7 @@ public class NewIntroActivity extends AppCompatActivity {
       final Intent intent = new Intent(this, MainAuthNewActivity.class);
       intent.putExtra(Config.CREATE_PROFILE, true)
           .putExtra(Config.INTENT_PROFILE, new Profile());
-
+      Events.logMoveOnboard(EventProperties.go_onboard_reg);
       startActivity(intent);
       finish();
     }
@@ -69,6 +72,7 @@ public class NewIntroActivity extends AppCompatActivity {
         } else
         //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
         {
+          Events.logMoveOnboard(EventProperties.go_onboard_reg);
           finishSlides();
         }
         break;

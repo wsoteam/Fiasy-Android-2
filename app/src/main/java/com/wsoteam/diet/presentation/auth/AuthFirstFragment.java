@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.utils.IntentUtils;
 import com.wsoteam.diet.utils.RichTextUtils.RichText;
 
@@ -56,6 +58,7 @@ public class AuthFirstFragment extends AuthStrategyFragment {
   }
 
   protected void signUp(){
+    Events.logPushButtonReg(EventProperties.enter_push_button_email);
     requireFragmentManager()
         .beginTransaction()
         .replace(R.id.container, new SignUpFragment())
@@ -64,6 +67,7 @@ public class AuthFirstFragment extends AuthStrategyFragment {
   }
 
   protected void signIn(){
+    Events.logPushButtonReg(EventProperties.enter_push_button_enter);
     requireFragmentManager()
         .beginTransaction()
         .replace(R.id.container, new SignInFragment())

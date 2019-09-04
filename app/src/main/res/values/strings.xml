@@ -1,7 +1,7 @@
 <resources>
 
   <string name="subTitle">Достигайте цели быстрее!</string>
-  <string name="subTestText">Попробуйте 3 дня бесплатно\n Далее 49р. / неделя</string>
+  <string name="subTestText">Попробуйте 3 дня бесплатно\n Далее 2490 р. / год</string>
   <string name="individualPlanTxt">Вы достигнете своей цели уже через месяц, получив доступ к уникальным статьям о здоровом питании и сотни рецептов</string>
   <string name="premium">Premium</string>
   <!--food_template-->
@@ -55,7 +55,7 @@
   <!--Item Plan Recipe-->
   <string name="titleShareDialogRecipe">Поделится рецептом</string>
   <string name="tvItemPlanTime">Время готовки:</string>
-  <string name="tvItemPlanIngredients">Ингридиенты:</string>
+  <string name="tvItemPlanIngredients">Ингредиенты:</string>
   <string name="tvRecipeInrgidientCount">на 1 порцию</string>
   <string name="tvItemPlanMinute">минут</string>
   <string name="tvNourishment">Питательные вещества</string>

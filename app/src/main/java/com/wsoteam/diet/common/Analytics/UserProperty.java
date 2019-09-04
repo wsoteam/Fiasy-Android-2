@@ -1,5 +1,7 @@
 package com.wsoteam.diet.common.Analytics;
 
+import android.util.Log;
+
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Identify;
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,6 +16,7 @@ import java.util.Map;
 
 import io.intercom.android.sdk.Intercom;
 import io.intercom.android.sdk.UserAttributes;
+import io.intercom.android.sdk.identity.Registration;
 
 public class UserProperty {
     public static final String registration = "registration";
@@ -32,25 +35,25 @@ public class UserProperty {
     public static final String q_age_status = "age";
 
     public static final String q_active_status = "active";
-    public static final String q_active_status1 = "1";
-    public static final String q_active_status2 = "2";
-    public static final String q_active_status3 = "3";
-    public static final String q_active_status4 = "4";
-    public static final String q_active_status5 = "5";
-    public static final String q_active_status6 = "6";
-    public static final String q_active_status7 = "7";
+    public static final String q_active_status1 = "minimal";
+    public static final String q_active_status2 = "light";
+    public static final String q_active_status3 = "two_trainings";
+    public static final String q_active_status4 = "five_trainings";
+    public static final String q_active_status5 = "everyday_intensive";
+    public static final String q_active_status6 = "ten_trainings";
+    public static final String q_active_status7 = "hard_work";
 
     public static final String q_goal_status = "goal";
-    public static final String q_goal_status1 = "1";
-    public static final String q_goal_status2 = "2";
-    public static final String q_goal_status3 = "3";
-    public static final String q_goal_status4 = "4";
+    public static final String q_goal_status1 = "keep_fit";
+    public static final String q_goal_status2 = "lose_weight";
+    public static final String q_goal_status3 = "gain_muscles";
+    public static final String q_goal_status4 = "burn_fat";
 
     public static final String premium_status = "premium_status";
-    public static final String buy = "premium";
+    public static final String buy = "pay";
     public static final String not_buy = "free";
     public static final String trial = "trial";
-    public static final String preferential = "trial_no_pay";
+    public static final String preferential = "unable";
     public static final String paid = "paid";
 
     public static final String premium_duration = "premium_duration";
@@ -59,6 +62,12 @@ public class UserProperty {
     public static final String ltv_revenue = "ltv_revenue";
 
     public static final String user_id = "id";
+
+    public static final String email = "email";
+
+    public static final String first_day = "first_day";
+    public static final String first_week = "first_week";
+    public static final String first_month = "first_month";
 
 
     public static void setUserProperties(String sex, String height, String weight, String age, String active, String goal, String id) {
@@ -89,6 +98,7 @@ public class UserProperty {
                 .set(premium_status, status);
         Amplitude.getInstance().identify(identify);
 
+        signInIntercom();
         UserAttributes userAttributes = new UserAttributes.Builder()
                 .withCustomAttribute(premium_status, status)
                 .build();
@@ -100,10 +110,44 @@ public class UserProperty {
                 .set(registration, provider);
         Amplitude.getInstance().identify(identify);
 
+        signInIntercom();
         UserAttributes userAttributes = new UserAttributes.Builder()
                 .withCustomAttribute(registration, provider)
                 .build();
         Intercom.client().updateUser(userAttributes);
     }
 
+    public static void setEmail(String email) {
+        Identify identify = new Identify()
+                .set(email, email);
+        Amplitude.getInstance().identify(identify);
+
+        signInIntercom();
+        UserAttributes userAttributes = new UserAttributes.Builder()
+                .withCustomAttribute(email, email)
+                .build();
+        Intercom.client().updateUser(userAttributes);
+    }
+
+    public static void setDate(String day, String week, String month) {
+        Identify identify = new Identify()
+                .set(first_day, day)
+                .set(first_week, week)
+                .set(first_month, month);
+        Amplitude.getInstance().identify(identify);
+
+        //signInIntercom();
+        UserAttributes userAttributes = new UserAttributes.Builder()
+                .withCustomAttribute(first_day, day)
+                .withCustomAttribute(first_week, week)
+                .withCustomAttribute(first_month, month)
+                .build();
+        Intercom.client().updateUser(userAttributes);
+    }
+
+    private static void signInIntercom(){
+        Registration registration = Registration.create().withUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        Intercom.client().registerIdentifiedUser(registration);
+        Intercom.client().handlePushMessage();
+    }
 }

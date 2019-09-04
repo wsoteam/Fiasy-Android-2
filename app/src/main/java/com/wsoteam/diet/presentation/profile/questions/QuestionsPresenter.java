@@ -3,6 +3,7 @@ package com.wsoteam.diet.presentation.profile.questions;
 import android.content.Context;
 import androidx.appcompat.widget.AppCompatCheckedTextView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.amplitude.api.Amplitude;
