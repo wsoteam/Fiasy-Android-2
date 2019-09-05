@@ -1,5 +1,6 @@
 package com.wsoteam.diet.BranchOfAnalyzer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -19,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -98,6 +100,9 @@ public class ActivityListAndSearch extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     ((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
                             sendString(edtSearchField.getText().toString().replaceAll("\\s+", " "));
+                    edtSearchField.clearFocus();
+                    InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
                     return true;
                 }
                 return false;
@@ -138,6 +143,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        edtSearchField.clearFocus();
         if (fragments.get(viewPager.getCurrentItem()) instanceof BrowseFoodTemplateFragment) {
             ((BrowseFoodTemplateFragment) fragments.get(viewPager.getCurrentItem()))
                     .setUserVisibleHint(true);
@@ -173,6 +179,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
             edtSearchField.setText(commandList.get(0));
             ((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
                     sendString(edtSearchField.getText().toString().replaceAll("\\s+", " "));
+            edtSearchField.clearFocus();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
