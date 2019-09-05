@@ -1005,4 +1005,6 @@
   <string name="add_user_activity_warning">Неправильно добавленная активность, может показывать недостоверные данные по дневной норме КБЖУ</string>
   <string name="add_user_activity_warning_custom_important">Внимание!</string>
   <string name="add_user_activity_hint">Введите название активности</string>
+  <string name="widget_user_activity_title">Активности</string>
+  <string name="widget_user_activity_show_all">Все</string>
 </resources>

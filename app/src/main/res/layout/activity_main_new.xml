@@ -522,12 +522,19 @@
                     app:layout_constraintStart_toEndOf="@+id/tvFatTitleCollapsed" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+            <com.wsoteam.diet.presentation.activity.ActivityWidget
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vpEatingTimeLine"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="90dp" />
         </LinearLayout>
+
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

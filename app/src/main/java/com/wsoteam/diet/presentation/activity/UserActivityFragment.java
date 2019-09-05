@@ -15,12 +15,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.collection.SparseArrayCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.presentation.activity.ActivitiesAdapter.UserActivityView;
+import com.wsoteam.diet.presentation.activity.UserActivityView;
 import com.wsoteam.diet.presentation.activity.ExercisesSource.AssetsSource;
 import com.wsoteam.diet.utils.Metrics;
 import io.reactivex.Single;
@@ -35,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static com.wsoteam.diet.presentation.activity.ActivitiesAdapter.VIEW_TYPE_ACTIVITY;
 
-public class UserActivityFragment extends Fragment implements
+public class UserActivityFragment extends DialogFragment implements
     // Loool
     Toolbar.OnMenuItemClickListener,
     PopupMenu.OnMenuItemClickListener,
@@ -61,6 +62,7 @@ public class UserActivityFragment extends Fragment implements
     toolbar = view.findViewById(R.id.toolbar);
     toolbar.inflateMenu(R.menu.fragment_user_activity_toolbar_menu);
     toolbar.setOnMenuItemClickListener(this);
+    toolbar.setNavigationOnClickListener(v -> dismissAllowingStateLoss());
 
     container = view.findViewById(R.id.container);
 

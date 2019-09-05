@@ -30,6 +30,7 @@ import com.wsoteam.diet.utils.RichTextUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import kotlin.collections.CollectionsKt;
 
 public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   final static int VIEW_TYPE_UNKNOWN = -1;
@@ -343,8 +344,9 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     final int index = headers + getSectionOffset(section);
 
-    int itemId = Collections.binarySearch(section.items, item,
-        (o1, o2) -> Long.compare(o1.getWhen(), o2.getWhen()));
+    int itemId = CollectionsKt.indexOfFirst(section.items, exercise -> {
+      return exercise.getWhen() == item.getWhen();
+    });
 
     if (itemId < 0) {
       throw new Resources.NotFoundException(String.format("activity with timestamp=%d, not found",
@@ -376,12 +378,14 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
           "section with id #" + Integer.toHexString(sectionId) + " not found");
     }
 
+    final int index = headers + getSectionOffset(section);
+    final int size = section.total();
+
+    final boolean prepend = pushIndex >= 0;
+
     if (pushIndex < 0) {
       pushIndex = section.items.size();
     }
-
-    final int index = headers + getSectionOffset(section);
-    final int size = section.total();
 
     int headers = 0;
 
@@ -396,7 +400,11 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
       notifyItemRangeRemoved(index + 1, headers);
     }
 
-    notifyItemRangeInserted(index + (size - headers), items.size());
+    if (prepend) {
+      notifyItemRangeInserted(index + 1, items.size());
+    } else {
+      notifyItemRangeInserted(index + (size - headers), items.size());
+    }
   }
 
   public void removeItem(@StringRes int sectionId, int position) {
@@ -643,40 +651,6 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
       }
 
       emptyView.invalidate();
-    }
-  }
-
-  static class UserActivityView extends RecyclerView.ViewHolder {
-    public final TextView title;
-    public final TextView duration;
-    public final TextView effectiveness;
-    public final View overflowMenu;
-
-    public UserActivityView(@NonNull View itemView) {
-      super(itemView);
-
-      final Context c = itemView.getContext();
-      final VectorDrawableCompat d = VectorDrawableCompat.create(c.getResources(),
-          R.drawable.ic_access_time, c.getTheme());
-
-      d.setTint(ContextCompat.getColor(c, R.color.search_icon_grey));
-
-      overflowMenu = itemView.findViewById(R.id.action_edit_activity);
-
-      title = itemView.findViewById(R.id.activity_name);
-      duration = itemView.findViewById(R.id.activity_duration);
-      duration.setCompoundDrawablesWithIntrinsicBounds(d, null, null, null);
-      effectiveness = itemView.findViewById(R.id.activity_effectivity);
-    }
-
-    public void bind(UserActivityExercise item) {
-      title.setText(item.getTitle());
-      duration.setText(DateUtils.formatElapsedTime(duration.getContext(), item.getDuration()));
-
-      effectiveness.setText(effectiveness.getContext()
-          .getString(R.string.user_activity_burned, item.getBurned()));
-
-      overflowMenu.setVisibility(View.VISIBLE);
     }
   }
 
