@@ -164,15 +164,10 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
             String recipeNumber) {
           //Log.d("kkk", "onItemClick: " + day + "  -- " + days + " -- " + router);
 
-          //Screens.PlanRecipeScreen screen = new Screens.PlanRecipeScreen(recipeItem,
-          //    daysPicked == day ? View.VISIBLE : View.GONE,
-          //    days, meal, recipeNumber);
-          //getActivity().startActivity(screen.getActivityIntent(getContext()));
-
-          Log.d("kkk", "onItemClick: " + UserDataHolder.getUserData().getBreakfasts().size());
-          //if (updateCallback != null){
-          //  updateCallback.update();
-          //}
+          Screens.PlanRecipeScreen screen = new Screens.PlanRecipeScreen(recipeItem,
+              daysPicked == day ? View.VISIBLE : View.GONE,
+              days, meal, recipeNumber);
+          getActivity().startActivity(screen.getActivityIntent(getContext()));
 
         }
 
