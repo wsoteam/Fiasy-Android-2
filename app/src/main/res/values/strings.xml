@@ -985,4 +985,11 @@
         <item>Тренировки 5-7 раз в неделю по два раза в день</item>
         <item>Тяжелая физическая работа или ежедневные интенсивные тренировки по 2 раза в день</item>
     </string-array>
+
+  <plurals name="daysAtRow">
+    <item quantity="one">%d день подряд ведется запись</item>
+    <item quantity="few">%d дня подряд ведется запись</item>
+    <item quantity="many">%d дней подряд ведется запись</item>
+    <item quantity="other">%d дней подряд ведется запись</item>
+  </plurals>
 </resources>
