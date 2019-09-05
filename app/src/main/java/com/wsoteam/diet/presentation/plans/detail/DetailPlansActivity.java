@@ -29,7 +29,7 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
   @BindView(R.id.btnJoin) Button btnJoin;
 
 
-  Router router;
+  Router router = CiceroneModule.router();
 
   private MenuItem leaveMenu;
   private AlertDialog alertDialogChangePlan;
@@ -71,8 +71,7 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_detail_plans);
     ButterKnife.bind(this);
-
-    router = CiceroneModule.router();
+    
     Log.d("kkk", "onCreate: " + router);
 
     getWindow().getDecorView().setSystemUiVisibility(
