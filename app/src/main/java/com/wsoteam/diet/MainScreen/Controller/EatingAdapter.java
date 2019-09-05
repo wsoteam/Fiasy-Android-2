@@ -85,4 +85,8 @@ public class EatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public int getItemCount() {
         return allEatingGroups.size();
     }
+
+    interface EatingUpdateCaqllback{
+        void update(Eating eating, int mealPosition );
+    }
 }

@@ -88,6 +88,19 @@ public class FragmentEatingScroll extends Fragment {
         }
     }
 
+    public void update(){
+        try {
+            new LoadEatingForThisDay().execute(getChooseDate(getArguments().getInt(TAG_OF_BUNDLE))).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        if (getUserVisibleHint()) {
+            setUserVisibleHint(true);
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();

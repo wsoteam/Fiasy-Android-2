@@ -2,7 +2,6 @@ package com.wsoteam.diet.presentation.plans.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +47,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   public VerticalDetailPlansAdapter(DietPlan dietPlan, boolean isCurrentPlan){
     this(dietPlan);
     this.isCurrentPlan = isCurrentPlan;
-    Log.d("kkk", "VerticalDetailPlansAdapter: " + isCurrentPlan);
+    //Log.d("kkk", "VerticalDetailPlansAdapter: " + isCurrentPlan);
     initIndex();
   }
 
@@ -57,7 +56,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     this.dietPlan = dietPlan;
     viewPool = new RecyclerView.RecycledViewPool();
 
-    Log.d("kkk", "VerticalDetailPlansAdapter: " + recipeForDays.size());
+    //Log.d("kkk", "VerticalDetailPlansAdapter: " + recipeForDays.size());
     Date currentDate = new Date();
     Date startDate = DateHelper.stringToDate(dietPlan.getStartDate());
     if (startDate != null){
@@ -65,7 +64,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       // 24 часа = 1 440 минут = 1 день
       daysAfterStart = ((int) (milliseconds / (24 * 60 * 60 * 1000)));
       if (daysAfterStart >= recipeForDays.size()){daysAfterStart = recipeForDays.size();}
-      Log.d("kkk", "" + milliseconds +"\nДней: " + daysAfterStart);
+      //Log.d("kkk", "" + milliseconds +"\nДней: " + daysAfterStart);
     }
     initIndex();
   }
@@ -86,8 +85,8 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
     if (adapterPosition == 0) index = 0;
 
-    Log.d("kkk", String.format("onBindViewHolder: i = %d index = %d count days = %d indexUp = %d indexDown = %d",
-        adapterPosition, index, recipeForDays.size(), indexUp, indexDown ));
+    //Log.d("kkk", String.format("onBindViewHolder: i = %d index = %d count days = %d indexUp = %d indexDown = %d",
+    //    adapterPosition, index, recipeForDays.size(), indexUp, indexDown ));
     return index;
   }
 
@@ -152,7 +151,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   };
 
   public void updateList( List<RecipeForDay> recipeForDays) {
-    Log.d("kkkk", "updateList: " + recipeForDays.size());
+    //Log.d("kkkk", "updateList: " + recipeForDays.size());
     this.recipeForDays = recipeForDays;
     notifyDataSetChanged();
   }
@@ -213,7 +212,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
           ViewHolder holder = (ViewHolder) viewHolder;
 
           if (daysAfterStart == index){
-            Log.d("kkk", "onBindViewHolder:++ " + i);
+            //Log.d("kkk", "onBindViewHolder:++ " + i);
             holder.bind(index, true);
           }else {
             holder.bind(index, false);
@@ -479,7 +478,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       getAddedRecipe(recipeForDays.get(position).getSnack());
 
       if (recipeItemList.size() > 0) {
-        Log.d("kkk", "bind: 1");
+        //Log.d("kkk", "bind: 1");
         tvDays.setTextColor(Color.parseColor("#8a000000"));
         tvYouAdded.setText("Вы занесли в дневник: ");
         for (RecipeItem recipe :
@@ -493,7 +492,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
           recipeContainer.addView(view);
         }
       } else {
-        Log.d("kkk", "bind: 2");
+        //Log.d("kkk", "bind: 2");
         tvDays.setTextColor(Color.parseColor("#8acc0808"));
         tvYouAdded.setText("Вы ничего не выбрали");
       }

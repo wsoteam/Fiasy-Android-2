@@ -71,7 +71,7 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_detail_plans);
     ButterKnife.bind(this);
-    
+
     Log.d("kkk", "onCreate: " + router);
 
     getWindow().getDecorView().setSystemUiVisibility(

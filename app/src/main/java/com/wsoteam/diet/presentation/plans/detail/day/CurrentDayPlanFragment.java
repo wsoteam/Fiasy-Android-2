@@ -3,6 +3,7 @@ package com.wsoteam.diet.presentation.plans.detail.day;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
+import com.wsoteam.diet.MainScreen.Controller.UpdateCallback;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay;
@@ -60,6 +62,8 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
   private int daysPicked;
   private Router router;
   private long dateForShowRecipe;
+  private UpdateCallback updateCallback;
+
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
@@ -80,6 +84,10 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
     recyclerView.setAdapter(adapter);
     initData(UserDataHolder.getUserData().getPlan());
     return view;
+  }
+
+  public void setUpdateCallback(@NonNull UpdateCallback updateCallback){
+    this.updateCallback = updateCallback;
   }
 
   public void showRecipesForDate(long date){
@@ -156,16 +164,25 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
             String recipeNumber) {
           //Log.d("kkk", "onItemClick: " + day + "  -- " + days + " -- " + router);
 
-          Screens.PlanRecipeScreen screen = new Screens.PlanRecipeScreen(recipeItem,
-              daysPicked == day ? View.VISIBLE : View.GONE,
-              days, meal, recipeNumber);
-          getActivity().startActivity(screen.getActivityIntent(getContext()));
+          //Screens.PlanRecipeScreen screen = new Screens.PlanRecipeScreen(recipeItem,
+          //    daysPicked == day ? View.VISIBLE : View.GONE,
+          //    days, meal, recipeNumber);
+          //getActivity().startActivity(screen.getActivityIntent(getContext()));
+
+          Log.d("kkk", "onItemClick: " + UserDataHolder.getUserData().getBreakfasts().size());
+          //if (updateCallback != null){
+          //  updateCallback.update();
+          //}
 
         }
 
         @Override public void onButtonClick(RecipeItem recipeItem, String day, String meal,
             String recipeNumber) {
           savePortion(recipeItem, day, meal, recipeNumber);
+
+          if (updateCallback != null){
+            updateCallback.update();
+          }
 
         }
       };
@@ -241,22 +258,25 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
     //Amplitude.getInstance().logEvent(AmplitudaEvents.success_add_food);
     switch (meal) {
       case "breakfast":
-        WorkWithFirebaseDB.
-            addBreakfast(
-                new Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+        Breakfast breakfast = new Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year);
+
+        WorkWithFirebaseDB.addBreakfast(breakfast);
+        UserDataHolder.getUserData().getBreakfasts().put(System.currentTimeMillis() + "", breakfast);
         break;
       case "lunch":
-        WorkWithFirebaseDB.
-            addLunch(new Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+        Lunch lunch = new Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year);
+        WorkWithFirebaseDB.addLunch(lunch);
+        UserDataHolder.getUserData().getLunches().put(System.currentTimeMillis() + "", lunch);
         break;
       case "dinner":
-        WorkWithFirebaseDB.
-            addDinner(
-                new Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+        Dinner dinner = new Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year);
+        WorkWithFirebaseDB.addDinner(dinner);
+        UserDataHolder.getUserData().getDinners().put(System.currentTimeMillis() + "", dinner);
         break;
       case "snack":
-        WorkWithFirebaseDB.
-            addSnack(new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
+        Snack snack =new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year);
+        WorkWithFirebaseDB.addSnack(snack);
+        UserDataHolder.getUserData().getSnacks().put(System.currentTimeMillis() + "", snack);
         break;
     }
 
