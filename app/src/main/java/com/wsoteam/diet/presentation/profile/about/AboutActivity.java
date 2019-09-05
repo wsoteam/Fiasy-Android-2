@@ -109,11 +109,11 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         if (profile.getLastName() != null && !profile.getLastName().equals("default")) {
             edtSecondName.setText(profile.getLastName());
         }
-        if (profile.getEmail() != null) {
-            edtEmail.setText(profile.getEmail());
-        }
         if (FirebaseAuth.getInstance().getCurrentUser().getEmail() != null) {
             edtEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        }
+        if (profile.getEmail() != null) {
+            edtEmail.setText(profile.getEmail());
         }
         if (profile.getPhotoUrl() != null && !profile.getPhotoUrl().equals("default")) {
             Glide.with(this).load(profile.getPhotoUrl()).into(civProfile);
