@@ -231,9 +231,10 @@
               app:layout_constraintHorizontal_chainStyle="packed"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toTopOf="@+id/textView155"
-
               app:srcCompat="@drawable/ic_knife_fork_2"
               />
+
+
           <LinearLayout
               android:id="@+id/llInstructions"
               android:layout_width="0dp"
@@ -245,7 +246,16 @@
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/textView155"
-              ></LinearLayout>
+              >
+            <com.transferwise.sequencelayout.SequenceLayout
+                android:id="@+id/SequenceLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:progressForegroundColor="@color/pumpkin_orange"
+                app:progressBackgroundColor="@color/pumpkin_orange">
+
+            </com.transferwise.sequencelayout.SequenceLayout>
+          </LinearLayout>
           <TextView
               android:id="@+id/textView155"
               android:layout_width="wrap_content"
@@ -275,35 +285,111 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dp"
+            android:paddingBottom="40dp"
             >
 
           <TextView
               android:id="@+id/tvNourishment"
-              android:layout_width="wrap_content"
+              android:layout_width="0dp"
               android:layout_height="23dp"
+              android:layout_marginEnd="8dp"
               android:layout_marginStart="8dp"
               android:layout_marginTop="24dp"
               android:fontFamily="@font/roboto"
               android:text="@string/tvNourishment"
+              android:textAlignment="center"
               android:textColor="#000"
               android:textStyle="bold"
+              app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/cardView8"
               />
 
           <TextView
               android:id="@+id/textView106"
-              android:layout_width="wrap_content"
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
+              android:layout_marginEnd="8dp"
               android:layout_marginStart="8dp"
               android:fontFamily="@font/roboto_light"
               android:text="@string/tvOnePortion"
+              android:textAlignment="center"
               android:textColor="@android:color/black"
               android:textSize="12sp"
               android:textStyle="bold"
+              app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/tvNourishment"
+              />
+
+
+          <View
+              android:id="@+id/divider32"
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:background="?android:attr/listDivider"
+              app:layout_constraintBottom_toTopOf="@id/textViewCC"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/textView106"
+              tools:layout_editor_absoluteX="-21dp"
+              tools:layout_editor_absoluteY="82dp"
+              />
+
+          <TextView
+              android:id="@+id/textViewCC"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="8dp"
+              android:layout_marginTop="24dp"
+              android:fontFamily="@font/roboto"
+              android:text="Калорий"
+              android:textColor="@android:color/black"
+              android:textStyle="bold"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/textView106"
+              />
+
+          <TextView
+              android:id="@+id/tvCCnum"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="8dp"
+              android:fontFamily="@font/roboto"
+              android:text="00"
+              android:textColor="@android:color/black"
+              android:textStyle="bold"
+              app:layout_constraintBottom_toBottomOf="@+id/textViewCC"
+              app:layout_constraintEnd_toStartOf="@+id/textViewCCd"
+              app:layout_constraintTop_toTopOf="@+id/textViewCC"
+              />
+
+          <TextView
+              android:id="@+id/textViewCCd"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="8dp"
+              android:fontFamily="@font/roboto"
+              android:text="Ккал"
+              android:textColor="@android:color/black"
+              android:textStyle="bold"
+              app:layout_constraintBottom_toBottomOf="@+id/tvCCnum"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintTop_toTopOf="@+id/tvCCnum"
+              />
+
+
+          <View
+              android:id="@+id/divider33"
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:background="?android:attr/listDivider"
+              app:layout_constraintBottom_toTopOf="@id/textView105"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/textViewCC"
+              tools:layout_editor_absoluteX="-21dp"
+              tools:layout_editor_absoluteY="82dp"
               />
 
           <TextView
@@ -316,9 +402,11 @@
               android:text="@string/tvCarbohydrates"
               android:textColor="@android:color/black"
               android:textStyle="bold"
+              android:paddingVertical="4dp"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView106"
+              app:layout_constraintTop_toBottomOf="@+id/textViewCC"
               />
+
 
           <TextView
               android:id="@+id/tvCarbohydrates"
@@ -348,59 +436,19 @@
               app:layout_constraintTop_toTopOf="@+id/tvCarbohydrates"
               />
 
-          <TextView
-              android:id="@+id/textView110"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="8dp"
-              android:fontFamily="@font/roboto_light"
-              android:text="@string/tvCellulose"
-              android:textColor="@android:color/black"
-              android:textStyle="bold"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView105"
-              />
-
-          <TextView
-              android:id="@+id/tvCellulose"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="8dp"
-              android:layout_marginEnd="8dp"
-              android:fontFamily="@font/roboto_light"
-              android:text="00"
-              android:textColor="@android:color/black"
-              android:textStyle="bold"
-              app:layout_constraintBottom_toBottomOf="@+id/textView110"
-              app:layout_constraintEnd_toStartOf="@+id/textView112"
-              app:layout_constraintTop_toBottomOf="@+id/textView105"
-              app:layout_constraintVertical_bias="0.111"
-              />
-
-          <TextView
-              android:id="@+id/textView112"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginEnd="8dp"
-              android:fontFamily="@font/roboto_light"
-              android:text="@string/tvGram"
-              android:textColor="@android:color/black"
-              app:layout_constraintBottom_toBottomOf="@+id/tvCellulose"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="@+id/tvCellulose"
-              />
 
           <TextView
               android:id="@+id/textView113"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginStart="8dp"
+              android:layout_marginStart="24dp"
               android:fontFamily="@font/roboto_light"
               android:text="@string/tvSugar"
               android:textColor="@android:color/black"
               android:textStyle="bold"
+              android:paddingVertical="4dp"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView110"
+              app:layout_constraintTop_toBottomOf="@+id/textView105"
               />
 
           <TextView
@@ -432,6 +480,62 @@
               />
 
           <TextView
+              android:id="@+id/textView110"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="24dp"
+              android:fontFamily="@font/roboto_light"
+              android:text="@string/tvCellulose"
+              android:textColor="@android:color/black"
+              android:textStyle="bold"
+              android:paddingVertical="4dp"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/textView113"
+              />
+
+          <TextView
+              android:id="@+id/tvCellulose"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="8dp"
+              android:layout_marginEnd="8dp"
+              android:fontFamily="@font/roboto_light"
+              android:text="00"
+              android:textColor="@android:color/black"
+              android:textStyle="bold"
+              app:layout_constraintBottom_toBottomOf="@+id/textView110"
+              app:layout_constraintEnd_toStartOf="@+id/textView112"
+              app:layout_constraintTop_toTopOf="@+id/textView110"
+              />
+
+          <TextView
+              android:id="@+id/textView112"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="8dp"
+              android:fontFamily="@font/roboto_light"
+              android:text="@string/tvGram"
+              android:textColor="@android:color/black"
+              app:layout_constraintBottom_toBottomOf="@+id/tvCellulose"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintTop_toTopOf="@+id/tvCellulose"
+              />
+
+
+          <View
+              android:id="@+id/divider34"
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:background="?android:attr/listDivider"
+              app:layout_constraintBottom_toTopOf="@id/textView110"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/textView116"
+              tools:layout_editor_absoluteX="-21dp"
+              tools:layout_editor_absoluteY="82dp"
+              />
+
+          <TextView
               android:id="@+id/textView116"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -441,8 +545,9 @@
               android:text="@string/tvFat"
               android:textColor="@android:color/black"
               android:textStyle="bold"
+              android:paddingVertical="4dp"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView113"
+              app:layout_constraintTop_toBottomOf="@+id/textView110"
               />
 
           <TextView
@@ -477,11 +582,12 @@
               android:id="@+id/textView119"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginStart="8dp"
+              android:layout_marginStart="24dp"
               android:fontFamily="@font/roboto_light"
               android:text="@string/tvSaturatedFats"
               android:textColor="@android:color/black"
               android:textStyle="bold"
+              android:paddingVertical="4dp"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/textView116"
               />
@@ -517,11 +623,12 @@
               android:id="@+id/textView122"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginStart="8dp"
+              android:layout_marginStart="24dp"
               android:fontFamily="@font/roboto_light"
               android:text="@string/tvUnSaturatedFats"
               android:textColor="@android:color/black"
               android:textStyle="bold"
+              android:paddingVertical="4dp"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/textView119"
               />
@@ -553,6 +660,19 @@
               app:layout_constraintTop_toTopOf="@+id/tvUnSaturatedFats"
               />
 
+          <View
+              android:id="@+id/divider35"
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:background="?android:attr/listDivider"
+              app:layout_constraintBottom_toTopOf="@id/textView122"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/textView125"
+              tools:layout_editor_absoluteX="-21dp"
+              tools:layout_editor_absoluteY="82dp"
+              />
+
           <TextView
               android:id="@+id/textView125"
               android:layout_width="wrap_content"
@@ -563,6 +683,7 @@
               android:text="@string/tvProtein"
               android:textColor="@android:color/black"
               android:textStyle="bold"
+              android:paddingVertical="4dp"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/textView122"
               />
@@ -597,20 +718,21 @@
               />
 
           <TextView
-              android:id="@+id/textView128"
+              android:id="@+id/textView134"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginStart="8dp"
+              android:layout_marginStart="24dp"
               android:fontFamily="@font/roboto_light"
-              android:text="@string/tvCholesterol"
+              android:text="@string/tvPotassium"
               android:textColor="@android:color/black"
               android:textStyle="bold"
+              android:paddingVertical="4dp"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/textView125"
               />
 
           <TextView
-              android:id="@+id/tvCholesterol"
+              android:id="@+id/tvPotassium"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginEnd="8dp"
@@ -618,35 +740,38 @@
               android:text="00"
               android:textColor="@android:color/black"
               android:textStyle="bold"
-              app:layout_constraintBottom_toBottomOf="@+id/textView128"
-              app:layout_constraintEnd_toStartOf="@+id/textView130"
-              app:layout_constraintTop_toTopOf="@+id/textView128"
+              app:layout_constraintBottom_toBottomOf="@+id/textView134"
+              app:layout_constraintEnd_toStartOf="@+id/textView136"
+              app:layout_constraintTop_toTopOf="@+id/textView134"
               />
 
           <TextView
-              android:id="@+id/textView130"
+              android:id="@+id/textView136"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginEnd="8dp"
               android:fontFamily="@font/roboto_light"
               android:text="@string/tvMG"
               android:textColor="@android:color/black"
-              app:layout_constraintBottom_toBottomOf="@+id/textView128"
+              app:layout_constraintBottom_toBottomOf="@+id/textView134"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="@+id/textView128"
+              app:layout_constraintTop_toTopOf="@+id/textView134"
               />
+
+
 
           <TextView
               android:id="@+id/textView131"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginStart="8dp"
+              android:layout_marginStart="24dp"
               android:fontFamily="@font/roboto_light"
               android:text="@string/tvSodium"
               android:textColor="@android:color/black"
               android:textStyle="bold"
+              android:paddingVertical="4dp"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView128"
+              app:layout_constraintTop_toBottomOf="@+id/textView134"
               />
 
           <TextView
@@ -677,20 +802,21 @@
               />
 
           <TextView
-              android:id="@+id/textView134"
+              android:id="@+id/textView128"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginStart="8dp"
+              android:layout_marginStart="24dp"
               android:fontFamily="@font/roboto_light"
-              android:text="@string/tvPotassium"
+              android:text="@string/tvCholesterol"
               android:textColor="@android:color/black"
               android:textStyle="bold"
+              android:paddingVertical="4dp"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/textView131"
               />
 
           <TextView
-              android:id="@+id/tvPotassium"
+              android:id="@+id/tvCholesterol"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginEnd="8dp"
@@ -698,23 +824,25 @@
               android:text="00"
               android:textColor="@android:color/black"
               android:textStyle="bold"
-              app:layout_constraintBottom_toBottomOf="@+id/textView134"
-              app:layout_constraintEnd_toStartOf="@+id/textView136"
-              app:layout_constraintTop_toTopOf="@+id/textView134"
+              app:layout_constraintBottom_toBottomOf="@+id/textView128"
+              app:layout_constraintEnd_toStartOf="@+id/textView130"
+              app:layout_constraintTop_toTopOf="@+id/textView128"
               />
 
           <TextView
-              android:id="@+id/textView136"
+              android:id="@+id/textView130"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginEnd="8dp"
               android:fontFamily="@font/roboto_light"
               android:text="@string/tvMG"
               android:textColor="@android:color/black"
-              app:layout_constraintBottom_toBottomOf="@+id/textView134"
+              app:layout_constraintBottom_toBottomOf="@+id/textView128"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="@+id/textView134"
+              app:layout_constraintTop_toTopOf="@+id/textView128"
               />
+
+
 
           <androidx.cardview.widget.CardView
               android:id="@+id/cardView8"
@@ -740,6 +868,7 @@
                 android:textColor="@android:color/white"
                 />
           </androidx.cardview.widget.CardView>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
       </androidx.cardview.widget.CardView>

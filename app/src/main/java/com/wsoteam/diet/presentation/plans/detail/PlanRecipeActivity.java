@@ -25,6 +25,7 @@ import butterknife.OnClick;
 import com.amplitude.api.Amplitude;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.bumptech.glide.Glide;
+import com.transferwise.sequencelayout.SequenceLayout;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
 import com.wsoteam.diet.Config;
@@ -65,6 +66,7 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
   @BindView(R.id.tvPotassium) TextView tvPotassium;
   @BindView(R.id.toolbar) Toolbar mToolbar;
   @BindView(R.id.tvRecipeKK) TextView tvKkal;
+  @BindView(R.id.tvCCnum) TextView textViewCalories2;
 
   @BindView(R.id.tvComplexityField) TextView tvComplexityField;
   @BindView(R.id.tvComplexity) TextView tvComplexity;
@@ -76,6 +78,8 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
   MenuItem favoriteMenuItem;
   HashMap<String, RecipeItem> favoriteRecipes;
   private String key;
+
+  @BindView(R.id.SequenceLayout) SequenceLayout sequenceLayout;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +101,9 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
       cardViewButtonAdd.setVisibility(View.GONE);
     }
 
+
     tvKkal.setText(recipeItem.getCalories() + " ккал на порцию");
+    textViewCalories2.setText(String.valueOf(recipeItem.getCalories()));
     tvName.setText(recipeItem.getName());
     tvTime.setText(String.valueOf(recipeItem.getTime()));
     tvCarbohydrates.setText(String.valueOf(recipeItem.getCarbohydrates()));
@@ -136,6 +142,7 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
     if (recipeItem.getIngredients() != null) {
       int indexIngredients = 0;
       int borderIngredients = recipeItem.getIngredients().size();
+
       for (String ingredient :
           recipeItem.getIngredients()) {
         indexIngredients++;
@@ -156,6 +163,8 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
     if (recipeItem.getInstruction() != null) {
       int indexInstruction = 0;
       int borderInstruction = recipeItem.getInstruction().size();
+      StringSequenceAdapter stringSequenceAdapter = new StringSequenceAdapter(recipeItem.getIngredients());
+      sequenceLayout.setAdapter(stringSequenceAdapter);
       for (String instruction :
           recipeItem.getInstruction()) {
         indexInstruction++;
@@ -164,11 +173,17 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
         //line.setPadding(dpToPx(70), 0, 0, 0);
         TextView textView = view.findViewById(R.id.tvInstruction);
         textView.setText(instruction);
-        llInstructions.addView(view);
+
+
+        //stepView.addStepItem(instruction);
+
+
+        //llInstructions.addView(view);
       //  if (indexInstruction < borderInstruction) {
       //    llInstructions.addView(line);
       //  }
       }
+
     } else {
       cvInstructions.setVisibility(View.GONE);
     }
