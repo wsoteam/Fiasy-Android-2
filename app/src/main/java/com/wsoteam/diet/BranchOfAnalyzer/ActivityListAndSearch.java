@@ -74,7 +74,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         ButterKnife.bind(this);
         bindSpinnerChoiceEating();
         updateUI();
-        OldFavoriteConverter.run();
+
         getSupportFragmentManager().beginTransaction().add(R.id.searchFragmentContainer, new FragmentSearch()).commit();
         edtSearchField.addTextChangedListener(new TextWatcher() {
             @Override

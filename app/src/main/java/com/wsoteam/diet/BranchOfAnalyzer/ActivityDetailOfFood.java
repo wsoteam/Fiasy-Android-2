@@ -170,6 +170,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         }
     }
 
+
     private void bindSpinnerChoiceEating() {
         ArrayAdapter<String> adapter = new ArrayAdapter(this,
                 R.layout.item_spinner_food_search, getResources().getStringArray(R.array.eatingList));

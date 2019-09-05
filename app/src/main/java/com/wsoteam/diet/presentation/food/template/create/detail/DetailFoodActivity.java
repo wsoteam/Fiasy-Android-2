@@ -30,6 +30,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 
 import java.util.Iterator;
 import java.util.List;
@@ -167,10 +168,11 @@ public class DetailFoodActivity extends AppCompatActivity {
             Iterator iterator = UserDataHolder.getUserData().getFoodFavorites().entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry pair = (Map.Entry) iterator.next();
-                if (((FavoriteFood) pair.getValue()).getFullInfo().equals(foodItem.getFullInfo())) {
+                if (((FavoriteFood) pair.getValue()).getName().equals(foodItem.getName()) && ((FavoriteFood) pair.getValue()).getBrand().equals(foodItem.getBrand())) {
                     currentFavorite = (FavoriteFood) pair.getValue();
                     isFavorite = true;
                     Glide.with(this).load(R.drawable.ic_fill_favorite).into(ibAddFavorite);
+                    return;
                 }
             }
 
@@ -381,7 +383,11 @@ public class DetailFoodActivity extends AppCompatActivity {
     }
 
     private String addFavorite() {
-        FavoriteFood favoriteFood = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), "empty");
+        Events.logAddFavorite(foodItem.getName());
+        FavoriteFood favoriteFood = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), "empty", foodItem.getName(), foodItem.getBrand(),
+                foodItem.getPortion(), foodItem.isLiquid(), foodItem.getKilojoules(), foodItem.getCalories(), foodItem.getProteins(), foodItem.getCarbohydrates(),
+                foodItem.getSugar(), foodItem.getFats(), foodItem.getSaturatedFats(), foodItem.getMonoUnSaturatedFats(), foodItem.getPolyUnSaturatedFats(), foodItem.getCholesterol(),
+                foodItem.getCellulose(), foodItem.getSodium(), foodItem.getPottassium(), foodItem.getPercentCarbohydrates(), foodItem.getPercentFats(), foodItem.getPercentProteins());
         String key = WorkWithFirebaseDB.addFoodFavorite(favoriteFood);
         return key;
     }
