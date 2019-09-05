@@ -16,7 +16,6 @@ public class UserIdCreator {
             userId += String.valueOf(Calendar.getInstance().getTimeInMillis());
             userId += String.valueOf(new Random().nextInt());
             Amplitude.getInstance().setUserId(userId);
-            Events.logSetId();
         }
     }
 }
