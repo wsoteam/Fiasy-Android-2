@@ -22,6 +22,7 @@ import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.settings.PremiumCloseStateSingleton;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.profile.settings.controller.ItemsAdapter;
 
 import butterknife.BindView;
@@ -48,6 +49,7 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
         ButterKnife.bind(this);
+        Events.logViewSettings();
 
         cvPremium = findViewById(R.id.cvPremium);
         ibPremClose = findViewById(R.id.ibSettingsPremClose);

@@ -417,8 +417,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                 break;
             case R.id.ibSendClaim:
                 ClaimForm.createChoiseEatingAlertDialog(this, foodItem);
-                Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_BUGSEND);
-                Intercom.client().logEvent(Events.PRODUCT_PAGE_BUGSEND);
                 break;
             case R.id.ibAddFavorite:
                 if (isFavorite) {

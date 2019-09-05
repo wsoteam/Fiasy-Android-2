@@ -55,6 +55,8 @@ import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.remote.POJO.StoreVersion;
 import com.wsoteam.diet.common.remote.UpdateChecker;
+import com.wsoteam.diet.common.Analytics.SavedConst;
+
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.common.Analytics.Events;
 
@@ -154,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        //checkForcedGrade();
         IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
         new AsyncWriteFoodDB().execute(MainActivity.this);
 
@@ -163,6 +164,15 @@ public class MainActivity extends AppCompatActivity {
         }
         if (ArticlesHolder.getListArticles() == null) {
             loadArticles();
+        }
+        logEvents();
+    }
+
+    private void logEvents() {
+        if (getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).getBoolean(SavedConst.SEE_PREMIUM, false)) {
+            Events.logSuccessOnboarding(getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).getString(SavedConst.HOW_END, EventProperties.onboarding_success_reopen));
+            getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).edit().remove(SavedConst.SEE_PREMIUM).commit();
+            getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).edit().remove(SavedConst.HOW_END).commit();
         }
 
     }

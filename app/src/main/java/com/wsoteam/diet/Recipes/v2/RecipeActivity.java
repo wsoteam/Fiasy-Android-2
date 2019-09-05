@@ -84,7 +84,6 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
         ButterKnife.bind(this);
-        Amplitude.getInstance().logEvent(Events.VIEW_RECIPE);
 
         window = getWindow();
         window.getDecorView().setSystemUiVisibility(

@@ -6,7 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AmplitudaEvents {
-    public static final String view_group_recipes = "view_group_recipes";
     public static final String view_prem_recipe = "view_prem_recipe";
 
     public static final String view_prem_content = "view_prem_content";

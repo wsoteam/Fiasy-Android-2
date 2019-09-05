@@ -135,7 +135,7 @@ public class BlockedRecipeActivity extends AppCompatActivity  implements Toolbar
         box.setOpenFromPremPart(true);
         box.setOpenFromIntrodaction(false);
         box.setComeFrom(AmplitudaEvents.view_prem_recipe);
-        box.setComeFrom(EventProperties.trial_from_recipe);
+        box.setBuyFrom(EventProperties.trial_from_recipe);
         Intent intent = new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box);
         startActivity(intent);
     }
