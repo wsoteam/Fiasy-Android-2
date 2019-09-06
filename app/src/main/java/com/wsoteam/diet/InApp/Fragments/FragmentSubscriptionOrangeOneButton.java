@@ -80,24 +80,6 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
         return fragmentSubscriptionOrangeOneButton;
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && isResumed()) {
-            if (box.isOpenFromIntrodaction()) {
-                Events.logMoveQuestions(EventProperties.question_premium);
-            }
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (getUserVisibleHint()) {
-            setUserVisibleHint(true);
-        }
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,

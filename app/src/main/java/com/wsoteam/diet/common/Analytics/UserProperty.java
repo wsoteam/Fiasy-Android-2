@@ -63,7 +63,7 @@ public class UserProperty {
 
     public static final String user_id = "id";
 
-    public static final String email = "email";
+    public static final String EMAIL = "email";
 
     public static final String first_day = "first_day";
     public static final String first_week = "first_week";
@@ -119,12 +119,12 @@ public class UserProperty {
 
     public static void setEmail(String email) {
         Identify identify = new Identify()
-                .set(email, email);
+                .set(EMAIL, email);
         Amplitude.getInstance().identify(identify);
 
         signInIntercom();
         UserAttributes userAttributes = new UserAttributes.Builder()
-                .withCustomAttribute(email, email)
+                .withCustomAttribute(EMAIL, email)
                 .build();
         Intercom.client().updateUser(userAttributes);
     }
