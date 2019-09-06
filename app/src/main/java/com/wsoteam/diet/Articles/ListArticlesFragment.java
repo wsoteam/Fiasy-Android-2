@@ -29,6 +29,7 @@ import com.wsoteam.diet.Articles.POJO.SectionArticles;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -212,6 +213,12 @@ public class ListArticlesFragment extends Fragment implements Observer {
     verticalArticlesAdapter = new VerticalArticlesAdapter(sectionArticles.getGroups());
     recyclerView.setAdapter(verticalArticlesAdapter);
     ArticlesHolder.unsubscribe(this);
+  }
+
+  @Override public void onResume() {
+    super.onResume();
+    List<Article> list = ArticlesHolder.getListArticles().getListArticles();
+    if (list != null) Collections.shuffle(list);
   }
 
   @Override
