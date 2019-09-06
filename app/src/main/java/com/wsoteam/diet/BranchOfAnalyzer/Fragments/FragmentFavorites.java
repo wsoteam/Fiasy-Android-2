@@ -58,7 +58,7 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
         if (foods.size() != 0) {
             List<Food> correctFoods = new ArrayList<>();
             for (int i = 0; i < foods.size(); i++) {
-                if (foods.get(i).getFullInfo().toLowerCase().contains(searchString.toLowerCase())) {
+                if (foods.get(i).getName().toLowerCase().contains(searchString.toLowerCase())) {
                     correctFoods.add(foods.get(i));
                 }
             }
