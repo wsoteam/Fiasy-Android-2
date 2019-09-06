@@ -1,9 +1,10 @@
 package com.wsoteam.diet.presentation.plans.adapter;
 
 
-import android.content.Context;
+import  android.content.Context;
 import android.graphics.Color;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wsoteam.diet.R;
@@ -22,7 +24,7 @@ import java.util.List;
 
 import com.wsoteam.diet.blur.BlurTransformation;
 
-public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
+public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
   private List<RecipeItem> recipeItems;
   private OnItemClickListener mItemClickListener;
@@ -47,16 +49,14 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
 
     switch (viewType) {
       default: {
-        View v1 = LayoutInflater.from(viewGroup.getContext())
-            .inflate(R.layout.detail_plans_recipe_item, viewGroup, false);
+        //View v1 = LayoutInflater.from(viewGroup.getContext())
+        //    .inflate(R.layout.detail_plans_recipe_item, viewGroup, false);
         HorizontalDetailPlansAdapter.HorizontalViewHolder holder =
-            new HorizontalDetailPlansAdapter.HorizontalViewHolder(v1);
-        v1.setOnClickListener(new View.OnClickListener() {
-          @Override public void onClick(View v) {
-            mItemClickListener.onItemClick(recipeItems.get(holder.getAdapterPosition()),
-                String.valueOf(day), meal, String.valueOf(holder.getAdapterPosition()));
-          }
-        });
+            new HorizontalDetailPlansAdapter.HorizontalViewHolder(viewGroup, mItemClickListener);
+        //v1.setOnClickListener((View v) -> {
+        //    mItemClickListener.onItemClick(recipeItems.get(holder.getAdapterPosition()),
+        //        String.valueOf(day), meal, String.valueOf(holder.getAdapterPosition()));
+        //  });
         return holder;
       }
     }
@@ -105,12 +105,25 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter {
     @BindView(R.id.clBackground) ConstraintLayout constraintLayout;
     @BindView(R.id.tvRecipeAdded) TextView tvRecipeAdded;
 
-    public HorizontalViewHolder(@NonNull View itemView) {
-      super(itemView);
+    private RecipeItem recipeItem;
+    private OnItemClickListener clickListener;
+
+    public HorizontalViewHolder(@NonNull ViewGroup parent, OnItemClickListener listener) {
+      super(LayoutInflater.from(parent.getContext())
+          .inflate(R.layout.detail_plans_recipe_item, parent, false));
+      this.clickListener = listener;
       ButterKnife.bind(this, itemView);
+      itemView.setOnClickListener(v -> {
+        Log.d("kkk", "///- HorizontalViewHolder: " + recipeItem.getName() + " \n"
+            +  day  + " " + meal + " " + getAdapterPosition() + " -///");
+        clickListener.onItemClick(recipeItem, String.valueOf(day), meal, getAdapterPosition() + "");
+      });
     }
 
+
     void bind(RecipeItem recipeItem) {
+
+      this.recipeItem = recipeItem;
 
       tvName.setText(recipeItem.getName());
       tvCalories.setText(
