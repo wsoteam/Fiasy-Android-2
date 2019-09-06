@@ -150,15 +150,10 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
     private boolean checkInputData() {
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         if (!edtName.getText().toString().equals("") && !edtName.getText().toString().replaceAll("\\s+", " ").equals(" ")) {
-            if (!edtSecondName.getText().toString().equals("") && !edtSecondName.getText().toString().replaceAll("\\s+", " ").equals(" ")) {
-                if (edtEmail.getText().toString().matches(emailPattern)) {
-                    return true;
-                } else {
-                    tilEmail.setError(getString(R.string.check_your_email));
-                    return false;
-                }
+            if (edtEmail.getText().toString().matches(emailPattern)) {
+                return true;
             } else {
-                tilSecondName.setError(getString(R.string.spk_check_your_second_name));
+                tilEmail.setError(getString(R.string.check_your_email));
                 return false;
             }
         } else {

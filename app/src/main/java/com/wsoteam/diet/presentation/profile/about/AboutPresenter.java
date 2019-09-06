@@ -128,6 +128,7 @@ public class AboutPresenter extends MvpPresenter<AboutView> {
         fat = (result * 0.25 / 9) + FPCindex;
         protein = (result * 0.4 / 4) - FPCindex;
         carbohydrate = (result * 0.35 / 4) - FPCindex;
+       
 
         profile.setWaterCount(maxWater);
         profile.setMaxKcal((int) result);

@@ -157,7 +157,7 @@
     <style name="ProfileActivity" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#d1d1d1</item>
         <item name="colorPrimaryDark">#d1d1d1</item>
-        <item name="colorAccent">#d1d1d1</item>
+        <item name="colorAccent">#FF9800</item>
     </style>
 
     <style name="PremiumTheme" parent="Theme.AppCompat.Light.NoActionBar">
