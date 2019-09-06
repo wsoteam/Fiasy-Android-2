@@ -1,5 +1,6 @@
 //noinspection GradleDependency
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 28
@@ -12,7 +13,6 @@ android {
         versionName "2.8.5dev"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-
         renderscriptTargetApi 27
         renderscriptSupportModeEnabled true
     }
@@ -75,7 +75,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'com.yandex.android:mobmetricalib:3.5.3'
 
     implementation 'com.github.satyan:sugar:1.4'
     implementation 'com.jjoe64:graphview:4.2.2'
@@ -160,6 +159,10 @@ dependencies {
     //Barcode
     implementation 'me.dm7.barcodescanner:zxing:1.9.13'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    //Crash
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

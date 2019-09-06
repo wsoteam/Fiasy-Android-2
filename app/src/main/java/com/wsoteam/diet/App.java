@@ -14,8 +14,6 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orm.SugarContext;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
-import com.yandex.metrica.YandexMetrica;
-import com.yandex.metrica.YandexMetricaConfig;
 
 import io.intercom.android.sdk.Intercom;
 
@@ -36,11 +34,8 @@ public class App extends MultiDexApplication {
         FirebaseApp.initializeApp(this);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-        YandexMetricaConfig.Builder configBuilder = YandexMetricaConfig.newConfigBuilder(Config.YANDEX_API_KEY);
-        YandexMetrica.activate(getApplicationContext(), configBuilder.build());
-        YandexMetrica.enableActivityAutoTracking(this);
-
         Bugsee.launch(this, "ec43078d-e5d9-4e97-9912-4f293e315bdf");
+
         FirebaseApp.initializeApp(getApplicationContext());
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
