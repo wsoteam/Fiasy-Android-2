@@ -2,7 +2,9 @@ package com.wsoteam.diet.Articles;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,11 +29,15 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.premiumLabel) ConstraintLayout premiumLabel;
   Context context;
 
-  public ArticleViewHolder(@NonNull View itemView) {
-    super(itemView);
+  public ArticleViewHolder(ViewGroup parent) {
+    super(LayoutInflater.from(parent.getContext()).inflate(R.layout.article_view_holder, parent, false));
     ButterKnife.bind(this, itemView);
     context = itemView.getContext();
 
+  }
+
+  public void setOnClickListener(View.OnClickListener listener){
+    itemView.setOnClickListener(listener);
   }
 
   public void bind(Article article){

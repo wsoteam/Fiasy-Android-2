@@ -36,13 +36,11 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
     this.context = viewGroup.getContext();
 
-    LayoutInflater inflater = LayoutInflater.from(context);
+    RecyclerView.ViewHolder viewHolder = new ArticleViewHolder(viewGroup);
 
-    View view = inflater.inflate(R.layout.article_view_holder, viewGroup, false);
-    RecyclerView.ViewHolder viewHolder = new ArticleViewHolder(view);
-    view.setOnClickListener((View v) -> {
-        onItemClickListener.onItemClick(v, listItem.get(viewHolder.getAdapterPosition()));
-      });
+    ((ArticleViewHolder)viewHolder).setOnClickListener((View v) -> {
+      onItemClickListener.onItemClick(v, listItem.get(viewHolder.getAdapterPosition()));
+    });
 
     return viewHolder;
   }
