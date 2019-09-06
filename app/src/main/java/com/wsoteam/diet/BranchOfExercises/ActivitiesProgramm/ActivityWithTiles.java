@@ -1,12 +1,6 @@
 package com.wsoteam.diet.BranchOfExercises.ActivitiesProgramm;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,18 +11,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.wsoteam.diet.BranchOfExercises.ObjectHolder;
 import com.wsoteam.diet.POJOSExercises.ArrayOfTiles;
 import com.wsoteam.diet.POJOSExercises.ObjectLocalDatabase;
 import com.wsoteam.diet.POJOSExercises.Tile;
 import com.wsoteam.diet.POJOSExercises.Training;
 import com.wsoteam.diet.R;
-import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
 
@@ -112,8 +112,6 @@ public class ActivityWithTiles extends AppCompatActivity {
                 fab.setVisibility(View.GONE);
             }
         });
-
-        YandexMetrica.reportEvent("Открыт экран: Детализация тренировки");
 
     }
 

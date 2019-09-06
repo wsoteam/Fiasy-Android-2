@@ -1,16 +1,17 @@
 package com.wsoteam.diet.BranchOfExercises.ActivitiesArticles;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
@@ -20,7 +21,6 @@ import com.wsoteam.diet.BranchOfExercises.ObjectHolder;
 import com.wsoteam.diet.POJOSExercises.Article;
 import com.wsoteam.diet.POJOSExercises.WholeArticle;
 import com.wsoteam.diet.R;
-import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
 
@@ -67,7 +67,6 @@ public class ActivityDetailAcrticles extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new PartOfArticleAdapter((ArrayList<Article>) wholeArticle.getArticleList()));
 
-        YandexMetrica.reportEvent("Открыт экран: Статья");
     }
 
     private class PartOfArticleVH extends RecyclerView.ViewHolder {
