@@ -12,7 +12,6 @@ android {
         versionName "2.8.5dev"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-
         renderscriptTargetApi 27
         renderscriptSupportModeEnabled true
     }
