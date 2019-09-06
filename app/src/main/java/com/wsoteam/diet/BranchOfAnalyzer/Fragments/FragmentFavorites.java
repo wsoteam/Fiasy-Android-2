@@ -49,6 +49,10 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
     private String searchString = "";
 
     @Override
+    public void sendClearSearchField() {
+    }
+
+    @Override
     public void sendString(String searchString) {
         this.searchString = searchString;
         search(searchString);

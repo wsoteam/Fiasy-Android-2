@@ -34,6 +34,11 @@ public class FavoriteRecipesFragment extends Fragment implements TabsFragment {
     private ListRecipesAdapter adapter;
 
     @Override
+    public void sendClearSearchField() {
+
+    }
+
+    @Override
     public void onResume() {
         initial();
         updateUI(list);

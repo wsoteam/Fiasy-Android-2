@@ -66,6 +66,11 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
     }
 
     @Override
+    public void sendClearSearchField() {
+
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         customFoods = getCustomFoods();

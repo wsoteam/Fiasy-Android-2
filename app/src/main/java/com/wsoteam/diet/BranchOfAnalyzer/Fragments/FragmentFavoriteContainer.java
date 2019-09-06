@@ -27,6 +27,11 @@ public class FragmentFavoriteContainer extends Fragment implements TabsFragment 
         ((TabsFragment) getChildFragmentManager().findFragmentById(R.id.flContainer)).sendString(searchString);
     }
 
+    @Override
+    public void sendClearSearchField() {
+        sendString("");
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

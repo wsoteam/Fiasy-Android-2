@@ -29,10 +29,14 @@ public class FragmentRecipeContainer extends Fragment implements TabsFragment {
     private TabsFragment tabsFragment;
     private String searchKey = "";
 
+    @Override
+    public void sendClearSearchField() {
+        sendString("");
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_container, container, false);
         ButterKnife.bind(this, view);
         return view;

@@ -54,6 +54,10 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     @BindView(R.id.rvListOfSearchResponse) RecyclerView rvListOfSearchResponse;
     Unbinder unbinder;
 
+    @Override
+    public void sendClearSearchField() {
+
+    }
 
     @Override
     public void sendString(String searchString) {

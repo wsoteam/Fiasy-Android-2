@@ -38,6 +38,11 @@ public class BrowseFoodTemplateFragment  extends MvpAppCompatFragment
     FoodTemplateAdapter adapter;
     boolean isCreated;
 
+    @Override
+    public void sendClearSearchField() {
+        sendString("");
+    }
+
     @ProvidePresenter
     BrowseFoodTemplatePresenter providePresenter() {
         return new BrowseFoodTemplatePresenter(getActivity());

@@ -213,6 +213,11 @@ public class ActivityListAndSearch extends AppCompatActivity {
                     speak();
                 } else {
                     edtSearchField.setText("");
+                    ((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
+                            sendString(edtSearchField.getText().toString().replaceAll("\\s+", " "));
+                    edtSearchField.clearFocus();
+                    InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
                 }
                 break;
             case R.id.ivBack:
