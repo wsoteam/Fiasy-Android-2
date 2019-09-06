@@ -2,7 +2,6 @@ package com.wsoteam.diet.presentation.plans.detail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import com.arellomobile.mvp.InjectViewState;
 import com.wsoteam.diet.Config;
@@ -34,6 +33,30 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
   List<RecipeForDay> recipeForDays;
   VerticalDetailPlansAdapter adapter;
   boolean isCurrentPlan;
+  HorizontalDetailPlansAdapter.OnItemClickListener adapterListener =
+      new HorizontalDetailPlansAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(RecipeItem recipeItem, String day, String meal,
+            String recipeNumber) {
+
+          if (dietPlan.getDaysAfterStart() == Integer.parseInt(day)) {
+            router.navigateTo(
+                new Screens.PlanRecipeScreen(recipeItem, View.VISIBLE, day, meal, recipeNumber));
+          } else {
+            router.navigateTo(new Screens.PlanRecipeScreen(recipeItem, day, meal, recipeNumber));
+          }
+        }
+
+        @Override public void onItemLongClick(View view, int position) {
+
+        }
+
+        @Override public void onClickGoAllPlans(View view) {
+          router.exit();
+          WorkWithFirebaseDB.leaveDietPlan();
+          UserDataHolder.getUserData().setPlan(null);
+        }
+      };
 
   public DetailPlansPresenter(Router router, Intent intent, Context context) {
     this.router = router;
@@ -69,7 +92,6 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
     router.exit();
   }
 
-
   List<RecipeForDay> getList() {
     return recipeForDays;
   }
@@ -80,14 +102,14 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
 
   void clickedJoin() {
     DietPlan plan = UserDataHolder.getUserData().getPlan();
-    if (plan == null || plan.getDaysAfterStart() >= plan.getCountDays()){
+    if (plan == null || plan.getDaysAfterStart() >= plan.getCountDays()) {
       joinPlans();
     } else {
       getViewState().startAlert(UserDataHolder.getUserData().getPlan().getName());
     }
   }
 
-  void joinPlans(){
+  void joinPlans() {
     dietPlan.setStartDate(DateHelper.dateToString(new Date()));
     UserDataHolder.getUserData().setPlan(dietPlan);
     WorkWithFirebaseDB.joinDietPlan(dietPlan);
@@ -96,43 +118,21 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
     initDietPlan();
   }
 
-  void clickedLeave(){
+  void clickedLeave() {
     WorkWithFirebaseDB.leaveDietPlan();
     getViewState().visibilityButtonJoin(true);
     UserDataHolder.getUserData().setPlan(null);
     initDietPlan();
   }
 
-  void clickedShare(){
-    getViewState().sharePlan(dietPlan.getName() + "\n https://play.google.com/store/apps/details?id=com.wild.diet" );
+  void clickedShare() {
+    getViewState().sharePlan(
+        dietPlan.getName() + "\n https://play.google.com/store/apps/details?id=com.wild.diet");
   }
 
-  void onResume(){
-    if (isCurrentPlan)
+  void onResume() {
+    if (isCurrentPlan) {
       adapter.updateList(UserDataHolder.getUserData().getPlan().getRecipeForDays());
+    }
   }
-
-
-  HorizontalDetailPlansAdapter.OnItemClickListener adapterListener = new HorizontalDetailPlansAdapter.OnItemClickListener() {
-    @Override
-    public void onItemClick(RecipeItem recipeItem, String day, String meal, String recipeNumber) {
-      Log.d("kkk", recipeItem.getName() + "\n" + day + "\n" + meal + "\n" + recipeNumber + "\n" + recipeItem.isAddedInDiaryFromPlan());
-
-      if (dietPlan.getDaysAfterStart() == Integer.parseInt(day)) {
-        router.navigateTo(new Screens.PlanRecipeScreen(recipeItem, View.VISIBLE, day, meal, recipeNumber));
-      } else {
-        router.navigateTo(new Screens.PlanRecipeScreen(recipeItem, day, meal, recipeNumber));
-      }
-    }
-
-    @Override public void onItemLongClick(View view, int position) {
-
-    }
-
-    @Override public void onClickGoAllPlans(View view) {
-      router.exit();
-      WorkWithFirebaseDB.leaveDietPlan();
-      UserDataHolder.getUserData().setPlan(null);
-    }
-  };
 }

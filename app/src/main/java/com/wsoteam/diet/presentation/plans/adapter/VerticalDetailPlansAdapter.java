@@ -47,7 +47,6 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   public VerticalDetailPlansAdapter(DietPlan dietPlan, boolean isCurrentPlan){
     this(dietPlan);
     this.isCurrentPlan = isCurrentPlan;
-    //Log.d("kkk", "VerticalDetailPlansAdapter: " + isCurrentPlan);
     initIndex();
   }
 
@@ -56,7 +55,6 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     this.dietPlan = dietPlan;
     viewPool = new RecyclerView.RecycledViewPool();
 
-    //Log.d("kkk", "VerticalDetailPlansAdapter: " + recipeForDays.size());
     Date currentDate = new Date();
     Date startDate = DateHelper.stringToDate(dietPlan.getStartDate());
     if (startDate != null){
@@ -64,7 +62,6 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       // 24 часа = 1 440 минут = 1 день
       daysAfterStart = ((int) (milliseconds / (24 * 60 * 60 * 1000)));
       if (daysAfterStart >= recipeForDays.size()){daysAfterStart = recipeForDays.size();}
-      //Log.d("kkk", "" + milliseconds +"\nДней: " + daysAfterStart);
     }
     initIndex();
   }
@@ -211,12 +208,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
         default: {
           ViewHolder holder = (ViewHolder) viewHolder;
 
-          if (daysAfterStart == index){
-            //Log.d("kkk", "onBindViewHolder:++ " + i);
-            holder.bind(index, true);
-          }else {
-            holder.bind(index, false);
-          }
+          holder.bind(index, daysAfterStart == index);
 
           int lastSeenFirstPosition = listPosition.get(i, 0);
           if (lastSeenFirstPosition >= 0) {
@@ -324,23 +316,23 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     private void selectListRecipe(int tabPosition){
       switch (tabPosition) {
         case 0:
-          adapter.updateList(recipeForDays.get(position).getBreakfast(), isCurrentDay, getAdapterPosition() - 1, "breakfast");
+          adapter.updateList(recipeForDays.get(position).getBreakfast(), isCurrentDay, position, "breakfast");
           this.tabPosition = 0;
           break;
         case 1:
-          adapter.updateList(recipeForDays.get(position).getLunch(), isCurrentDay, getAdapterPosition() - 1, "lunch");
+          adapter.updateList(recipeForDays.get(position).getLunch(), isCurrentDay, position, "lunch");
           this.tabPosition = 1;
           break;
         case 2:
-          adapter.updateList(recipeForDays.get(position).getDinner(), isCurrentDay, getAdapterPosition() - 1, "dinner");
+          adapter.updateList(recipeForDays.get(position).getDinner(), isCurrentDay, position, "dinner");
           this.tabPosition = 2;
           break;
         case 3:
-          adapter.updateList(recipeForDays.get(position).getSnack(), isCurrentDay, getAdapterPosition() - 1, "snack");
+          adapter.updateList(recipeForDays.get(position).getSnack(), isCurrentDay, position, "snack");
           this.tabPosition = 3;
           break;
         default:
-          adapter.updateList(recipeForDays.get(position).getBreakfast(), isCurrentDay, getAdapterPosition() - 1, "breakfast");
+          adapter.updateList(recipeForDays.get(position).getBreakfast(), isCurrentDay, position, "breakfast");
           this.tabPosition = 0;
       }
     }
@@ -478,7 +470,6 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       getAddedRecipe(recipeForDays.get(position).getSnack());
 
       if (recipeItemList.size() > 0) {
-        //Log.d("kkk", "bind: 1");
         tvDays.setTextColor(Color.parseColor("#8a000000"));
         tvYouAdded.setText("Вы занесли в дневник: ");
         for (RecipeItem recipe :
@@ -492,7 +483,6 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
           recipeContainer.addView(view);
         }
       } else {
-        //Log.d("kkk", "bind: 2");
         tvDays.setTextColor(Color.parseColor("#8acc0808"));
         tvYouAdded.setText("Вы ничего не выбрали");
       }
@@ -501,9 +491,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     private void getAddedRecipe(List<RecipeItem> recipeItems){
       for (RecipeItem recipe:
       recipeItems) {
-        //Log.d("kkk", "getAddedRecipe: " + recipe.getName());
         if (recipe.isAddedInDiaryFromPlan()){
-          //Log.d("kkk", "getAddedRecipe: true " + recipe.getName());
           recipeItemList.add(recipe);
         }
       }

@@ -78,7 +78,10 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
             listGroups.remove(0);
         }
 
-        if (UserDataHolder.getUserData().getPlan() != null) {
+
+
+        if (UserDataHolder.getUserData().getPlan() != null && UserDataHolder.getUserData().getPlan().getDaysAfterStart() <
+            UserDataHolder.getUserData().getPlan().getCountDays()) {
             DietsList dietsList = new DietsList();
             dietsList.setName("Мой план питания");
             dietsList.setProperties(currentPlanProperti);

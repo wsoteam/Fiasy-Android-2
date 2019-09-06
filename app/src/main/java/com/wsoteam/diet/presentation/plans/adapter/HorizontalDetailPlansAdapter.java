@@ -1,10 +1,7 @@
 package com.wsoteam.diet.presentation.plans.adapter;
 
-
-import  android.content.Context;
+import android.content.Context;
 import android.graphics.Color;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +12,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
-import java.util.List;
-
 import com.wsoteam.diet.blur.BlurTransformation;
+import java.util.List;
 
 public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -34,7 +29,7 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerV
 
   private boolean isCurrentDay;
 
-  public void updateList(List<RecipeItem> recipeItems,boolean isCurrentDay, int day, String meal) {
+  public void updateList(List<RecipeItem> recipeItems, boolean isCurrentDay, int day, String meal) {
     this.recipeItems = recipeItems;
     this.isCurrentDay = isCurrentDay;
     this.day = day;
@@ -49,15 +44,8 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerV
 
     switch (viewType) {
       default: {
-        //View v1 = LayoutInflater.from(viewGroup.getContext())
-        //    .inflate(R.layout.detail_plans_recipe_item, viewGroup, false);
-        HorizontalDetailPlansAdapter.HorizontalViewHolder holder =
-            new HorizontalDetailPlansAdapter.HorizontalViewHolder(viewGroup, mItemClickListener);
-        //v1.setOnClickListener((View v) -> {
-        //    mItemClickListener.onItemClick(recipeItems.get(holder.getAdapterPosition()),
-        //        String.valueOf(day), meal, String.valueOf(holder.getAdapterPosition()));
-        //  });
-        return holder;
+
+        return new HorizontalDetailPlansAdapter.HorizontalViewHolder(viewGroup, mItemClickListener);
       }
     }
   }
@@ -114,12 +102,9 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerV
       this.clickListener = listener;
       ButterKnife.bind(this, itemView);
       itemView.setOnClickListener(v -> {
-        Log.d("kkk", "///- HorizontalViewHolder: " + recipeItem.getName() + " \n"
-            +  day  + " " + meal + " " + getAdapterPosition() + " -///");
         clickListener.onItemClick(recipeItem, String.valueOf(day), meal, getAdapterPosition() + "");
       });
     }
-
 
     void bind(RecipeItem recipeItem) {
 
@@ -129,22 +114,21 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerV
       tvCalories.setText(
           recipeItem.getCalories() + " " + context.getResources().getString(R.string.kcal));
 
-      if (isCurrentDay && recipeItem.isAddedInDiaryFromPlan()){
+      if (isCurrentDay && recipeItem.isAddedInDiaryFromPlan()) {
         Glide.with(context)
             .load(recipeItem.getUrl())
             .apply(RequestOptions.bitmapTransform(new BlurTransformation(10, 1)))
             .into(imageView);
         tvRecipeAdded.setVisibility(View.VISIBLE);
-      }else {
+      } else {
         Glide.with(context)
             .load(recipeItem.getUrl())
             .into(imageView);
         tvRecipeAdded.setVisibility(View.INVISIBLE);
       }
 
-        constraintLayout.setBackgroundColor(Color.parseColor(
-            isCurrentDay && recipeItem.isAddedInDiaryFromPlan() ? "#2630b977" : "#ffffff"));
-
+      constraintLayout.setBackgroundColor(Color.parseColor(
+          isCurrentDay && recipeItem.isAddedInDiaryFromPlan() ? "#2630b977" : "#ffffff"));
     }
   }
 }
