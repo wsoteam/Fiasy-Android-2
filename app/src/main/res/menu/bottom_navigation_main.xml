@@ -13,8 +13,8 @@
 
     <item
         android:id="@+id/bnv_main_trainer"
-        android:icon="@drawable/bnv_main_trainer"
-        android:title="@string/bnv_main_trainer" />
+        android:icon="@drawable/bnv_main_plan"
+        android:title="@string/bnv_main_plan" />
 
 
     <item
