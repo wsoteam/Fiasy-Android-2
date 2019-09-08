@@ -410,7 +410,8 @@
                 android:layout_height="81dp"
                 android:background="@color/white"
                 android:elevation="10dp"
-                android:paddingBottom="8dp">
+                android:paddingBottom="8dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tvLeft"
