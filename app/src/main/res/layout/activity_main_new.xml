@@ -258,6 +258,7 @@
                                     android:fontFamily="@font/roboto_medium"
                                     android:lineSpacingExtra="7sp"
                                     android:text="@string/reports"
+                                    android:visibility="gone"
                                     android:textColor="#ef7d02"
                                     app:layout_constraintBottom_toBottomOf="@+id/textView132"
                                     app:layout_constraintEnd_toEndOf="parent"
