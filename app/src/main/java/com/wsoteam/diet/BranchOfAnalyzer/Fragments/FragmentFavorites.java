@@ -2,6 +2,7 @@ package com.wsoteam.diet.BranchOfAnalyzer.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.MainScreen.Fragments.FragmentEatingScroll;
 import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -31,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,6 +73,8 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
         }
     }
 
+
+
     private void showResult(List<Food> correctFoods) {
         if (correctFoods.size() > 0) {
             hideMessageUI();
@@ -90,6 +95,7 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
         tvTextAddFavorite.setVisibility(View.VISIBLE);
         tvTitleFavoriteAdd.setVisibility(View.VISIBLE);
     }
+
 
 
     @Override

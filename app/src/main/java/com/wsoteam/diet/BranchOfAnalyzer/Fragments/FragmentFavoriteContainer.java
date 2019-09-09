@@ -4,6 +4,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +43,16 @@ public class FragmentFavoriteContainer extends Fragment implements TabsFragment 
         return view;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isResumed()) {
+            sendString("");
+        }
+    }
+
+
+
     @OnClick({R.id.rbtnFavorite, R.id.rbtnOwnFood})
     public void onRadioButtonClicked(RadioButton radioButton) {
         boolean checked = radioButton.isChecked();
@@ -57,6 +69,7 @@ public class FragmentFavoriteContainer extends Fragment implements TabsFragment 
                 break;
         }
     }
+
 
 
     @Override

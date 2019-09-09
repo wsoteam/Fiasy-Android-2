@@ -16,6 +16,7 @@ import androidx.appcompat.widget.PopupMenu;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
