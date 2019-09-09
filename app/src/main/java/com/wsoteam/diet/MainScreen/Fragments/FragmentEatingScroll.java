@@ -13,6 +13,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.MainScreen.Controller.EatingAdapter;
+import com.wsoteam.diet.MainScreen.Controller.UpdateCallback;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.model.Breakfast;
@@ -61,6 +63,9 @@ public class FragmentEatingScroll extends Fragment {
     private ProgressBar apCollapsingFat;
     private ImageView btnNotification;
 
+    private UpdateCallback updateCallback;
+
+
     public static FragmentEatingScroll newInstance(int position) {
         Bundle bundle = new Bundle();
         bundle.putInt(TAG_OF_BUNDLE, position);
@@ -69,12 +74,30 @@ public class FragmentEatingScroll extends Fragment {
         return fragmentEatingScroll;
     }
 
+    public FragmentEatingScroll setUpdateCallback(UpdateCallback updateCallback){
+        this.updateCallback = updateCallback;
+        return this;
+    }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isResumed()) {
 //            parentTitleWithDate.setText(setDateTitle(day, month, year));
             setMainParamsInBars(allEat);
+        }
+    }
+
+    public void update(){
+        try {
+            new LoadEatingForThisDay().execute(getChooseDate(getArguments().getInt(TAG_OF_BUNDLE))).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        if (getUserVisibleHint()) {
+            setUserVisibleHint(true);
         }
     }
 
@@ -354,7 +377,7 @@ public class FragmentEatingScroll extends Fragment {
         @Override
         protected void onPostExecute(List<List<Eating>> lists) {
             super.onPostExecute(lists);
-            eatingAdapter = new EatingAdapter(lists, getActivity(), setDateTitle(day, month, year));
+            eatingAdapter = new EatingAdapter(lists, getActivity(), setDateTitle(day, month, year), updateCallback);
             rvMainScreen.setAdapter(eatingAdapter);
         }
     }

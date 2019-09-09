@@ -51,7 +51,7 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
     @BindView(R.id.ivHead) ImageView ivHead;
     @BindView(R.id.tvName) TextView tvName;
-    @BindView(R.id.tvTime) TextView tvTime;
+    @BindView(R.id.tvUsers) TextView tvTime;
     @BindView(R.id.llIngedientsItem) LinearLayout llIngredients;
     @BindView(R.id.llInstructions) LinearLayout llInstructions;
     @BindView(R.id.cvIngedients) CardView cvIngredients;

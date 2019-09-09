@@ -2,7 +2,6 @@ package com.wsoteam.diet.Sync;
 
 import androidx.annotation.NonNull;
 import android.util.Log;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,6 +16,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.CustomFood;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOClaim.Claim;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
@@ -30,7 +30,6 @@ import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.model.Water;
-
 import java.util.HashMap;
 
 public class WorkWithFirebaseDB {
@@ -350,7 +349,19 @@ public class WorkWithFirebaseDB {
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("customFoods").child(customFood.getKey());
         myRef.setValue(customFood);
     }
+  public static void joinDietPlan(DietPlan plan) {
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+        child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+    myRef.child("plan").setValue(plan);
+  }
 
+  public static void leaveDietPlan() {
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+        child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("plan");
+    myRef.removeValue();
+  }
     public static String addFoodTemplate(FoodTemplate foodTemplate) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
@@ -368,6 +379,18 @@ public class WorkWithFirebaseDB {
         myRef.setValue(url);
     }
 
+  public static void setRecipeInDiaryFromPlan(String day, String meal, String recipeNumber,
+      boolean value) {
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY)
+        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+        .child("plan")
+        .child("recipeForDays")
+        .child(day)
+        .child(meal)
+        .child(recipeNumber);
+    myRef.child("addedInDiaryFromPlan").setValue(value);
+  }
     public static void deleteFoodTemplate(String key) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).

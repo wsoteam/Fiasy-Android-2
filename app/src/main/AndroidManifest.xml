@@ -28,6 +28,24 @@
       android:theme="@style/AppTheme">
 
     <activity
+        android:name=".presentation.plans.browse.BrowsePlansActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/Menu" />
+
+    <activity
+        android:name=".presentation.plans.detail.PlanRecipeActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/Menu" />
+    <activity
+        android:name=".presentation.plans.detail.blocked.BlockedDetailPlansActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/Menu" />
+    <activity
+        android:name=".presentation.plans.detail.DetailPlansActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/Menu" />
+
+    <activity
         android:name=".BranchOfAnalyzer.CustomFood.ActivityCreateFood"
         android:screenOrientation="portrait"
         android:theme="@style/CreateFood"

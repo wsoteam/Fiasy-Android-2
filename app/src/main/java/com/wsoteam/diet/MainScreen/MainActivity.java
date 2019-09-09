@@ -39,6 +39,8 @@ import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.DietPlans.POJO.DietModule;
+import com.wsoteam.diet.DietPlans.POJO.DietPlansHolder;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
@@ -48,9 +50,11 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
+import com.wsoteam.diet.Recipes.POJO.RecipesHolder;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.SavedConst;
+import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.common.Analytics.Events;
 
@@ -97,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
                     isMainFragment = false;
                     window.setStatusBarColor(Color.parseColor("#747d3b"));
                     transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();
+                    return true;
+                case R.id.bnv_main_trainer:
+                    isMainFragment = false;
+                    transaction.replace(R.id.flFragmentContainer, new BrowsePlansFragment()).commit();
                     return true;
                 case R.id.bnv_main_recipes:
                     isMainFragment = false;
@@ -151,12 +159,16 @@ public class MainActivity extends AppCompatActivity {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
         new AsyncWriteFoodDB().execute(MainActivity.this);
+
         if (GroupsHolder.getGroupsRecipes() == null) {
             loadRecipes();
         }
         if (ArticlesHolder.getListArticles() == null) {
             loadArticles();
         }
+      if (DietPlansHolder.get() == null){
+        loadDietPlans();
+      }
         logEvents();
     }
 
@@ -210,6 +222,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ListRecipes groupsRecipes = dataSnapshot.getValue(ListRecipes.class);
 
+                RecipesHolder.bind(groupsRecipes);
+
                 EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes);
                 GroupsHolder groupsHolder = new GroupsHolder();
                 groupsHolder.bind(eatingGroupsRecipes);
@@ -241,6 +255,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    private void loadDietPlans(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("PLANS");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                DietModule dietModule = dataSnapshot.getValue(DietModule.class);
+                DietPlansHolder.bind(dietModule);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }

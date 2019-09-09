@@ -37,7 +37,7 @@ public class BlockedRecipeActivity extends AppCompatActivity  implements Toolbar
     @BindView(R.id.ivHead) ImageView ivHead;
     @BindView(R.id.tvName) TextView tvName;
     @BindView(R.id.tvRecipeKK) TextView tvKkal;
-    @BindView(R.id.tvTime) TextView tvTime;
+    @BindView(R.id.tvUsers) TextView tvTime;
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.llInstructions) LinearLayout llInstructions;
     @BindView(R.id.tvCarbohydrates) TextView tvCarbohydrates;
