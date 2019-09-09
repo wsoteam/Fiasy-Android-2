@@ -64,38 +64,31 @@ class MyActivitiesSource : ExercisesSource() {
   }
 
   override fun edit(exercise: UserActivityExercise): Single<UserActivityExercise> {
-    database.child(exercise.`when`.toString()).updateChildren(mapOf(
-        "title" to exercise.title,
-        "burned" to exercise.burned,
-        "duration" to exercise.duration
-    ))
-
-    database.database.purgeOutstandingWrites()
-
-    changeCallback.postValue(OP_EDITED)
-    return Single.just(exercise)
+    return RxFirebase.completable(database.child(exercise.`when`.toString())
+      .updateChildren(mapOf(
+          "title" to exercise.title,
+          "burned" to exercise.burned,
+          "duration" to exercise.duration
+      )))
+      .doOnComplete { changeCallback.postValue(OP_EDITED) }
+      .toSingleDefault(exercise)
   }
 
   override fun add(exercise: UserActivityExercise): Single<UserActivityExercise> {
-    database.child(exercise.`when`.toString())
+    return RxFirebase.completable(database.child(exercise.`when`.toString())
       .updateChildren(mapOf(
           "title" to exercise.title,
           "when" to exercise.`when`,
           "burned" to exercise.burned,
           "duration" to exercise.duration
-      ))
-
-    database.database.purgeOutstandingWrites()
-
-    changeCallback.postValue(OP_ADDED)
-    return Single.just(exercise)
+      )))
+      .doOnComplete { changeCallback.postValue(OP_ADDED) }
+      .toSingleDefault(exercise)
   }
 
   override fun remove(exercise: UserActivityExercise): Single<UserActivityExercise> {
-    database.child(exercise.`when`.toString()).removeValue()
-    database.database.purgeOutstandingWrites()
-
-    changeCallback.postValue(OP_REMOVED)
-    return Single.just(exercise)
+    return RxFirebase.completable(database.child(exercise.`when`.toString()).removeValue())
+      .doOnComplete { changeCallback.postValue(OP_REMOVED) }
+      .toSingleDefault(exercise)
   }
 }
