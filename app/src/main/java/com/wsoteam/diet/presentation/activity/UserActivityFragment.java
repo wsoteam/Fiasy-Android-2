@@ -16,12 +16,10 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.collection.SparseArrayCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.presentation.activity.UserActivityView;
 import com.wsoteam.diet.presentation.activity.ExercisesSource.AssetsSource;
 import com.wsoteam.diet.utils.Metrics;
 import io.reactivex.Single;
@@ -251,7 +249,7 @@ public class UserActivityFragment extends DialogFragment implements
 
     getActivity().getSupportFragmentManager()
         .beginTransaction()
-        .replace(android.R.id.content, target, target.getClass().getSimpleName())
+        .add(android.R.id.content, target, target.getClass().getSimpleName())
         .addToBackStack(null)
         .commitAllowingStateLoss();
   }

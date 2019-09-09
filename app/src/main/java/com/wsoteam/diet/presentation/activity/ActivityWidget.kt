@@ -7,6 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle.Event.ON_CREATE
+import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.Observer
 import com.wsoteam.diet.R
 import com.wsoteam.diet.utils.getVectorIcon
 import com.wsoteam.diet.utils.tint
@@ -14,13 +20,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ActivityWidget(context: Context) : CardView(context) {
-
+class ActivityWidget(context: Context) : CardView(context){
   private val actionShowAll: TextView
   private val activityContainer: ViewGroup
 
   private val disposables = CompositeDisposable()
   private val myActivitySource = MyActivitiesSource()
+  private val changesObserver = Observer<Int> {
+    reloadLastActivities()
+  }
 
   constructor(context: Context, attrs: AttributeSet? = null) : this(context)
 
@@ -44,9 +52,7 @@ class ActivityWidget(context: Context) : CardView(context) {
     }
   }
 
-  override fun onAttachedToWindow() {
-    super.onAttachedToWindow()
-
+  private fun reloadLastActivities(){
     disposables.add(myActivitySource.all()
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
@@ -55,6 +61,13 @@ class ActivityWidget(context: Context) : CardView(context) {
           { activities -> displayActivities(activities) },
           { error -> error.printStackTrace() }
       ))
+  }
+
+  override fun onAttachedToWindow() {
+    super.onAttachedToWindow()
+    MyActivitiesSource.changesLive.observeForever(changesObserver)
+
+    reloadLastActivities()
   }
 
   private fun displayActivities(activities: List<UserActivityExercise>) {
@@ -74,6 +87,8 @@ class ActivityWidget(context: Context) : CardView(context) {
 
   override fun onDetachedFromWindow() {
     super.onDetachedFromWindow()
+    MyActivitiesSource.changesLive.removeObserver(changesObserver)
+
     disposables.clear()
   }
 }

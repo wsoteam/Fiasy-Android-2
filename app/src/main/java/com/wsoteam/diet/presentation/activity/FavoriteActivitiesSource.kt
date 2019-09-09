@@ -1,5 +1,8 @@
 package com.wsoteam.diet.presentation.activity
 
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -12,7 +15,7 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import java.util.Collections
 
-class MyActivitiesSource : ExercisesSource() {
+class FavoriteActivitiesSource : ExercisesSource() {
   companion object {
     const val OP_EDITED = 0
     const val OP_ADDED = 1
