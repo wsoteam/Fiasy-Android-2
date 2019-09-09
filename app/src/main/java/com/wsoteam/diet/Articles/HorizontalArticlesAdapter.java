@@ -23,13 +23,10 @@ public class HorizontalArticlesAdapter extends RecyclerView.Adapter<RecyclerView
     context = viewGroup.getContext();
     switch (viewType) {
       default: {
-        View v1 = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.article_view_holder, viewGroup, false);
-        ArticleViewHolder viewHolder = new ArticleViewHolder(v1);
-        v1.setOnClickListener(new View.OnClickListener() {
-          @Override public void onClick(View v) {
+        ArticleViewHolder viewHolder = new ArticleViewHolder(viewGroup);
+        viewHolder.setOnClickListener((View v) -> {
             mItemClickListener.onItemClick(v, viewHolder.getAdapterPosition(), articles.get(viewHolder.getAdapterPosition()));
-          }
-        });
+          });
         return viewHolder;
       }
     }

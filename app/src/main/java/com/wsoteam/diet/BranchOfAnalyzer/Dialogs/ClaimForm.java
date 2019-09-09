@@ -11,13 +11,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.amplitude.api.Amplitude;
 import com.google.firebase.auth.FirebaseAuth;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOClaim.Claim;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.Events;
 
 import java.util.Calendar;
+
+import io.intercom.android.sdk.Intercom;
 
 public class ClaimForm {
     public static AlertDialog createChoiseEatingAlertDialog(Context context, Food food) {
@@ -38,7 +42,6 @@ public class ClaimForm {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.e("LOL", "LOL");
                 if (s.length() > MIN && !send.isClickable() && s.toString().replaceAll("\\s+", " ").length() > MIN) {
                     send.setClickable(true);
                     send.setTextColor(context.getResources().getColor(R.color.button_claim_active));
@@ -70,6 +73,8 @@ public class ClaimForm {
                         && edtClaim.getText().toString().length() > MIN
                         && edtClaim.getText().toString().replaceAll("\\s+", " ").length() > MIN) {
                     WorkWithFirebaseDB.sendClaim(fillClaim(food, edtClaim.getText().toString()));
+                    Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_BUGSEND);
+                    Intercom.client().logEvent(Events.PRODUCT_PAGE_BUGSEND);
                     Toast.makeText(context, "Жалоба отправлена. Спасибо!", Toast.LENGTH_SHORT).show();
                     alertDialog.cancel();
                 }

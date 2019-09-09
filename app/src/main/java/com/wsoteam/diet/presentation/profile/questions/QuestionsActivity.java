@@ -168,12 +168,16 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
 
     if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_easy))) {
       goal = UserProperty.q_goal_status1;
+      Log.e("LOL", "0");
     } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_normal))) {
       goal = UserProperty.q_goal_status2;
+      Log.e("LOL", "1");
     } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_hard))) {
       goal = UserProperty.q_goal_status3;
+      Log.e("LOL", "2");
     } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_hard_up))) {
       goal = UserProperty.q_goal_status4;
+      Log.e("LOL", "3");
     }
 
     if (profile.isFemale()){

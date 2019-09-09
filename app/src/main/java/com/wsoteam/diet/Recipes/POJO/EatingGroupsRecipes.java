@@ -103,4 +103,9 @@ public class EatingGroupsRecipes implements GroupsRecipes {
     public List<ListRecipes> getGroups() {
         return listRecipesGroups;
     }
+
+    @Override
+    public int size() {
+        return 0;
+    }
 }

@@ -62,13 +62,11 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
                 switch (menuItem.getItemId()) {
                     case R.id.delete_food:
                         showConfirmDialog();
-                        Amplitude.getInstance().logEvent(Events.DELETE_FOOD);
-                        Intercom.client().logEvent(Events.DELETE_FOOD);
+                        Events.logDeleteFood();
                         break;
                     case R.id.edit_food:
                         openDetailFood(eating);
-                        Amplitude.getInstance().logEvent(Events.EDIT_FOOD);
-                        Intercom.client().logEvent(Events.EDIT_FOOD);
+                        Events.logEditFood();
                         break;
                 }
                 return false;

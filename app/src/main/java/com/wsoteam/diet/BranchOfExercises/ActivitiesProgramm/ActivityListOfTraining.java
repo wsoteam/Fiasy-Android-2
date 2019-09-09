@@ -2,16 +2,17 @@ package com.wsoteam.diet.BranchOfExercises.ActivitiesProgramm;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
@@ -21,7 +22,6 @@ import com.wsoteam.diet.POJOSExercises.ObjectLocalDatabase;
 import com.wsoteam.diet.POJOSExercises.Programm;
 import com.wsoteam.diet.POJOSExercises.Training;
 import com.wsoteam.diet.R;
-import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
 
@@ -64,7 +64,6 @@ public class ActivityListOfTraining extends AppCompatActivity {
         mInterstitialAd.setAdUnitId(this.getResources().getString(R.string.admob_interstitial));
         mInterstitialAd.loadAd(adRequest);
 
-        YandexMetrica.reportEvent("Открыт экран: Список тренировок");
 
     }
 

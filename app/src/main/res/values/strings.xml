@@ -1,9 +1,14 @@
 <resources>
 
-  <string name="subTitle">Достигайте цели быстрее!</string>
-  <string name="subTestText">Попробуйте 3 дня бесплатно\n Далее 49р. / неделя</string>
-  <string name="individualPlanTxt">Вы достигнете своей цели уже через месяц, получив доступ к уникальным статьям о здоровом питании и сотни рецептов</string>
+  <string name="breakfast">Завтрак</string>
+  <string name="lunch">Обед</string>
+  <string name="dinner">Ужин</string>
+  <string name="snack">Перекус</string>
 
+  <string name="subTitle">Достигайте цели быстрее!</string>
+  <string name="subTestText">Попробуйте 3 дня бесплатно\n Далее 2490 р. / год</string>
+  <string name="individualPlanTxt">Вы достигнете своей цели уже через месяц, получив доступ к уникальным статьям о здоровом питании и сотни рецептов</string>
+  <string name="premium">Premium</string>
   <!--food_template-->
   <string name="nameTemplate">Название шаблона</string>
   <string name="eatingTemplate">Категория:</string>
@@ -19,6 +24,45 @@
   <!--adding recipe-->
   <string name="individualPlan">Индивидуальный план рассчитан</string>
   <string name="recNorm">Рекомендуемая норма</string>
+  <string-array name="recipeComplexity">
+    <item>Легкий</item>
+    <item>Средний</item>
+    <item>Сложный</item>
+  </string-array>
+
+<!--  plan main screen-->
+  <string name="plan_start_text">Не знаете с чего начать? Попробуйте планы питания от нашего штатного диетолога.</string>
+  <string name="view_plans">Посмотреть планы питания</string>
+  <string name="view_other_plans">Подобрать другой план питания</string>
+  <string name="plan_end_text">Ваша диета закончилась. Поздравляем!</string>
+
+
+  <integer-array name="img_id_arr">
+    <item>@drawable/background_item_profile_carbo</item>
+    <item>@drawable/background_item_profile_prot</item>
+    <item>@drawable/background_item_profile_water</item>
+    <item>@drawable/background_gradient_data</item>
+  </integer-array>
+
+
+  <string name="titleShareDialogPlan">Поделиться планом питания</string>
+  <string name="btnCancel">Отменить</string>
+  <string name="btnChange">Поменять</string>
+  <string name="tvInfo">Вы хотите сменить план питания? \nВаш план питания “%s” будет закрыт.</string>
+  <string name="planDays">День %d/%d</string>
+  <string name="plans">Планы питания</string>
+  <string name="plan">План питания</string>
+
+  <!--diets lan-->
+  <string name="leavePlan">Выйти из диеты</string>
+  <string name="sharePlan">Подельтися</string>
+
+
+  <!--adding recipe-->
+  <string name="load_recipe_plan_up">Загрузить предыдущие</string>
+  <string name="load_recipe_plan_down">Загрузить следующие</string>
+  <string name="days">дней</string>
+  <string name="join">Присоединиться</string>
   <string name="add">Добавить</string>
   <string name="cancel">Отменить</string>
   <string name="addingRecipeText">В этом разделе будут храниться созданные вами рецепты</string>
@@ -40,19 +84,14 @@
   <string name="addingRecipeName">Название блюда</string>
   <string name="addingRecipePortion">Количество порций (необязательно)</string>
   <string name="addingRecipeTime">Время приготовления (мин.)</string>
+
   <string name="addingRecipeShare">Могут видеть все пользователи</string>
   <string name="addingRecipeInfo">Созданные вами и введенные в базу рецепты или продукты могут быть доступны для других пользователей. Пожалуйста, постарайтесь заполнить приведенную выше форму максимально точно и полно.</string>
-  <string name="complexityRecipe">Сложность:</string>
-  <string-array name="recipeComplexity">
-    <item>Легкий</item>
-    <item>Средний</item>
-    <item>Сложный</item>
-  </string-array>
-
-  <string name="tvArticlePremText">Получите доступ к сотням полезных статей при подписке на premium.</string>
-  <string name="tvTitleArticleFragment">Полезные статьи</string>
 
   <!--Item Plan Recipe-->
+  <string name="complexityRecipe">Сложность:</string>
+  <string name="tvArticlePremText">Получите доступ к сотням полезных статей при подписке на premium.</string>
+  <string name="tvTitleArticleFragment">Полезные статьи</string>
   <string name="titleShareDialogRecipe">Поделится рецептом</string>
   <string name="tvItemPlanTime">Время готовки:</string>
   <string name="tvItemPlanIngredients">Ингридиенты:</string>
@@ -71,13 +110,15 @@
   <string name="tvSodium">Натрий</string>
   <string name="tvPotassium">Калий</string>
   <string name="tvGram">г</string>
-  <string name="tvMG">мг</string>
-  <string name="tvKkal">Ккал</string>
-  <string name="tvKkal0">0 Ккал</string>
 
 
   <!--Menu-->
+  <string name="tvMG">мг</string>
+  <string name="tvKkal">Ккал</string>
+  <string name="tvKkal0">0 Ккал</string>
   <string name="etSearch">Поиск</string>
+
+  <!-- Опросник -->
   <string name="btnRecipeDiary">Добавить в дневник</string>
   <string name="btnRecipePrem">Обновление до Premium</string>
   <string name="tvRecipePrem">Оформите подписку Premium - и вы \n
@@ -206,12 +247,6 @@
   <string name="forgot_pass_check_email">Проверьте вашу почту!</string>
   <string name="forgot_pass_wrong_user">Пользователь не найден</string>
 
-  <integer-array name="img_id_arr">
-    <item>@drawable/background_item_profile_carbo</item>
-    <item>@drawable/background_item_profile_prot</item>
-    <item>@drawable/background_item_profile_water</item>
-    <item>@drawable/background_gradient_data</item>
-  </integer-array>
 
   <!--alert_dialog_buy_info-->
   <string name="alert_buy_info_tv">Теперь вы являетесь обладателем аккаунта Premium!</string>
@@ -685,7 +720,7 @@
 
   <string name="bnv_main_diary">Дневник</string>
   <string name="bnv_main_articles">Статьи</string>
-  <string name="bnv_main_trainer">Тренер</string>
+  <string name="bnv_main_plan">Планы</string>
   <string name="bnv_main_recipes">Рецепты</string>
   <string name="bnv_main_profile">Профиль</string>
 

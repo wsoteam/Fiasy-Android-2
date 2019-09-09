@@ -100,8 +100,6 @@ public class ListRecipesFragment extends Fragment {
             updateUINew();
         }
 
-
-        Amplitude.getInstance().logEvent(AmplitudaEvents.view_group_recipes);
         return view;
     }
 

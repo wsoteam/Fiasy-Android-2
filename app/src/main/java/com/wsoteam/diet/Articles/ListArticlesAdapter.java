@@ -12,17 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.amplitude.api.Amplitude;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Articles.POJO.Article;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.common.Analytics.Events;
 
 import java.util.List;
-
-import io.intercom.android.sdk.Intercom;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -40,15 +36,10 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
     this.context = viewGroup.getContext();
 
-    LayoutInflater inflater = LayoutInflater.from(context);
+    RecyclerView.ViewHolder viewHolder = new ArticleViewHolder(viewGroup);
 
-    View view = inflater.inflate(R.layout.article_view_holder, viewGroup, false);
-    RecyclerView.ViewHolder viewHolder = new ArticleViewHolder(view);
-    view.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        onItemClickListener.onItemClick(v, listItem.get(viewHolder.getAdapterPosition()));
-      }
+    ((ArticleViewHolder)viewHolder).setOnClickListener((View v) -> {
+      onItemClickListener.onItemClick(v, listItem.get(viewHolder.getAdapterPosition()));
     });
 
     return viewHolder;
@@ -75,25 +66,17 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
   class MyViewHolder extends RecyclerView.ViewHolder {
 
-    ImageView imageView;
-    TextView premium;
-    TextView title;
-    TextView intro;
-    CardView cvBorder;
+    @BindView(R.id.ivArticle) ImageView imageView;
+    @BindView(R.id.tvArticlePremium) TextView premium;
+    @BindView(R.id.tvArticleTitle) TextView title;
+    @BindView(R.id.tvArticleIntro) TextView intro;
+    @BindView(R.id.cvArticleBorder) CardView cvBorder;
 
     public MyViewHolder(View view) {
       super(view);
+      ButterKnife.bind(this, view);
 
-      imageView = view.findViewById(R.id.ivArticle);
-      premium = view.findViewById(R.id.tvArticlePremium);
-      title = view.findViewById(R.id.tvArticleTitle);
-      intro = view.findViewById(R.id.tvArticleIntro);
-      cvBorder = view.findViewById(R.id.cvArticleBorder);
-
-      view.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
+      view.setOnClickListener((View v) -> {
           onItemClickListener.onItemClick(v, listItem.get(getAdapterPosition()));
           //Intent intent;
           //boolean isPremArticle = listItem.get(getAdapterPosition()).isPremium();
@@ -106,8 +89,7 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
           //
           //intent.putExtra(Config.ARTICLE_INTENT, getAdapterPosition());
           //activity.startActivity(intent);
-        }
-      });
+        });
     }
 
     void bind(int position) {

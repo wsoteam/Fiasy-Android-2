@@ -2,18 +2,18 @@ package com.wsoteam.diet;
 
 import android.app.Activity;
 import android.os.Bundle;
+
 import androidx.multidex.MultiDexApplication;
 import androidx.room.Room;
+
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
 import com.amplitude.api.Amplitude;
-import com.bugsee.library.Bugsee;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orm.SugarContext;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
-import com.yandex.metrica.YandexMetrica;
-import com.yandex.metrica.YandexMetricaConfig;
+
 import io.intercom.android.sdk.Intercom;
 
 import static com.google.firebase.database.Logger.Level.INFO;
@@ -35,11 +35,7 @@ public class App extends MultiDexApplication {
         FirebaseApp.initializeApp(this);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-        YandexMetricaConfig.Builder configBuilder = YandexMetricaConfig.newConfigBuilder(Config.YANDEX_API_KEY);
-        YandexMetrica.activate(getApplicationContext(), configBuilder.build());
-        YandexMetrica.enableActivityAutoTracking(this);
-
-        Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
+        //Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
         FirebaseApp.initializeApp(getApplicationContext());
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 

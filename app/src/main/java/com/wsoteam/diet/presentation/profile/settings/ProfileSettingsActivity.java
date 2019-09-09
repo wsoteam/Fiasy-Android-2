@@ -11,6 +11,7 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.profile.settings.controller.ItemsAdapter;
 
 public class ProfileSettingsActivity extends MvpAppCompatActivity implements ProfileSettingsView {
@@ -28,6 +29,7 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
         ButterKnife.bind(this);
+        Events.logViewSettings();
 
         profileSettingsPresenter = new ProfileSettingsPresenter();
         profileSettingsPresenter.attachView(this);
