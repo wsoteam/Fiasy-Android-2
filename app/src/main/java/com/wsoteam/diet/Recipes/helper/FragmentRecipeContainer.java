@@ -61,6 +61,14 @@ public class FragmentRecipeContainer extends Fragment implements TabsFragment {
 
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isResumed()) {
+            sendString("");
+        }
+    }
+
 
     @OnClick({R.id.radio0, R.id.radio1})
     public void onRadioButtonClicked(RadioButton radioButton) {
