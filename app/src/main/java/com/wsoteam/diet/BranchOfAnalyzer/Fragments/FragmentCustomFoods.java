@@ -11,6 +11,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -70,9 +72,10 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
 
     }
 
+
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         customFoods = getCustomFoods();
         updateUI();
     }
@@ -93,10 +96,12 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
 
     private void showResult(List<CustomFood> customFoods) {
         if (customFoods.size() > 0) {
+            Log.e("LOL", "> 0");
             hideMessageUI();
             itemAdapter = new ItemAdapter(customFoods);
             rvFavorites.setAdapter(itemAdapter);
         } else {
+            Log.e("LOL", "< 0");
             showNoFind();
             itemAdapter = new ItemAdapter(customFoods);
             rvFavorites.setAdapter(itemAdapter);
