@@ -97,12 +97,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
         <activity
-            android:name=".Onboard.TotalAmountActivity"
-            android:theme="@style/TotalAmount" />
-        <activity
-            android:name=".Onboard.SleepActivity"
-            android:theme="@style/SleepActivity" />
-        <activity
             android:name=".Recipes.v1.ItemActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
@@ -152,12 +146,11 @@
             android:name=".presentation.intro.IntroActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name=".EntryPoint.ActivitySplash"
             android:screenOrientation="unspecified"
             android:theme="@style/Theme.AppCompat.Translucent">
-
-            <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar"> -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -165,36 +158,24 @@
             </intent-filter>
         </activity>
 
-    <activity
-        android:name=".presentation.plans.browse.BrowsePlansActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Menu" />
-
-    <activity
-        android:name=".presentation.plans.detail.PlanRecipeActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Menu" />
-    <activity
-        android:name=".presentation.plans.detail.blocked.BlockedDetailPlansActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Menu" />
-    <activity
-        android:name=".presentation.plans.detail.DetailPlansActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Menu" />
-
-    <activity
-        android:name=".BranchOfAnalyzer.CustomFood.ActivityCreateFood"
-        android:screenOrientation="portrait"
-        android:theme="@style/CreateFood"
-        android:windowSoftInputMode="adjustPan" />
-
-
-                
         <activity
-            android:name=".BranchOfCalculating.ActivityListOfCalculating"
+            android:name=".presentation.plans.browse.BrowsePlansActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Menu" />
+
+        <activity
+            android:name=".presentation.plans.detail.PlanRecipeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" />
+        <activity
+            android:name=".presentation.plans.detail.blocked.BlockedDetailPlansActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" />
+        <activity
+            android:name=".presentation.plans.detail.DetailPlansActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Menu" />
+
         <activity
             android:name=".MainScreen.MainActivity"
             android:launchMode="singleTop"
@@ -208,37 +189,6 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity
-            android:name=".BranchOfCalculating.ActivityCalculatorBrok"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BranchOfCalculating.ActivityCalculatorLorenc"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BranchOfCalculating.ActivityCalculatorIMT"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BranchOfRecipes.ActivityRecipes"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BranchOfRecipes.ActivityGroupsOfRecipes"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BranchOfDiary.ActivityAddData"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BranchOfDiary.ActivityListOfDiary"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2" />
-        <activity
-            android:name=".BranchOfCalculating.ActivityCalculatorSPK"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BranchOfExercises.Activities.MainActivity"
             android:screenOrientation="portrait"
@@ -276,17 +226,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/DetailFood" />
         <activity
-            android:name=".presentation.profile.edit.EditProfileActivity"
+            android:name=".BarcodeScanner.BaseScanner"
             android:screenOrientation="portrait"
-            android:theme="@style/EditProfile" />
-        <activity
-            android:name=".BranchProfile.ActivityHelp"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BranchProfile.ActivityEditCompletedProfile"
-            android:screenOrientation="portrait"
-            android:theme="@style/EditProfile" />
+            android:theme="@style/DetailFood" />
         <activity
             android:name=".BranchOfAnalyzer.ActivityDetailSavedFood"
             android:screenOrientation="portrait"
@@ -344,6 +286,7 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider1234"
