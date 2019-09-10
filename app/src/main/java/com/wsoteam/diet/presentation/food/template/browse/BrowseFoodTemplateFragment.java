@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +68,11 @@ public class BrowseFoodTemplateFragment  extends MvpAppCompatFragment
        presenter.addTemplate();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        presenter.initAdapter();
+    }
 
     @Override
     public void showProgress(boolean show) {
@@ -100,7 +107,7 @@ public class BrowseFoodTemplateFragment  extends MvpAppCompatFragment
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && isCreated) {
+        if (isResumed()) {
             presenter.initAdapter();
         }
     }
