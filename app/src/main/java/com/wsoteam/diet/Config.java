@@ -2,6 +2,9 @@ package com.wsoteam.diet;
 
 public class Config {
 
+    // diets plan
+    public static final String DIETS_PLAN_INTENT = "DIETS_PLAN_INTENT";
+
 //    temolate
     public static final String EATING_SPINNER_POSITION = "EATING_SPINNER_POSITION";
     public static final String SEND_RESULT_TO_BACK = "SEND_RESULT_TO_BACK";

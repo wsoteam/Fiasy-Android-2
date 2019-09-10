@@ -5,8 +5,9 @@
   <color name="colorAccent">#FF4081</color>
   <color name="colorTitleText">#1d1c1c</color>
 
-  <color name="black">#1D1C1C</color>
-  <color name="black_for_background">#371d1c1c</color>
+    <color name="pumpkin_orange">#ef7d02</color>
+    <color name="black">#1D1C1C</color>
+    <color name="black_for_background">#371d1c1c</color>
 
   <color name="colorPrimaryDarkAlfa">#cd340447</color>
 
@@ -222,5 +223,7 @@
 
   <color name="auth_enter_background_color_disabled">#acacac</color>
   <color name="auth_enter_background_color_enabled">@color/orange</color>
+
+    <color name="diets_plan_prem_btn">#ef7d02</color>
 
 </resources>

@@ -156,14 +156,39 @@
             android:name=".EntryPoint.ActivitySplash"
             android:screenOrientation="unspecified"
             android:theme="@style/Theme.AppCompat.Translucent">
-
             <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar"> -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+    <activity
+        android:name=".presentation.plans.browse.BrowsePlansActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/Menu" />
+
+    <activity
+        android:name=".presentation.plans.detail.PlanRecipeActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/Menu" />
+    <activity
+        android:name=".presentation.plans.detail.blocked.BlockedDetailPlansActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/Menu" />
+    <activity
+        android:name=".presentation.plans.detail.DetailPlansActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/Menu" />
+
+    <activity
+        android:name=".BranchOfAnalyzer.CustomFood.ActivityCreateFood"
+        android:screenOrientation="portrait"
+        android:theme="@style/CreateFood"
+        android:windowSoftInputMode="adjustPan" />
+
+
+                
         <activity
             android:name=".BranchOfCalculating.ActivityListOfCalculating"
             android:screenOrientation="portrait"

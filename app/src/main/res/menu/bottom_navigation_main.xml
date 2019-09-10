@@ -11,6 +11,11 @@
         android:icon="@drawable/bnv_main_articles"
         android:title="@string/bnv_main_articles" />
 
+    <item
+        android:id="@+id/bnv_main_trainer"
+        android:icon="@drawable/bnv_main_plan"
+        android:title="@string/bnv_main_plan" />
+
 
     <item
         android:id="@+id/bnv_main_recipes"
@@ -21,6 +26,4 @@
         android:id="@+id/bnv_main_profile"
         android:icon="@drawable/bnv_main_profile"
         android:title="@string/bnv_main_profile" />
-
-
 </menu>

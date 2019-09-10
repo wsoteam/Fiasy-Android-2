@@ -38,10 +38,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
         this.groupsRecipes = groupsRecipes;
         this.groupsFragment = groupsFragment;
         this.containerID = containerID;
-        Log.d("GroupsFragment", "GroupsAdapterNew: " + groupsFragment);
         this.transaction = groupsFragment.getActivity().getSupportFragmentManager().beginTransaction();
-        Log.d("GroupsFragment", "GroupsAdapterNew: " + containerID);
-
     }
 
     @NonNull

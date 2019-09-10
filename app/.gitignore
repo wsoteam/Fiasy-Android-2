@@ -1,4 +1,15 @@
-/build
-
-# Intellij IDEA
-/.idea
+*.iml
+.gradle
+local.properties
+.idea/libraries
+.idea/modules.xml
+.idea/workspace.xml
+.DS_Store
+build
+captures
+.externalNativeBuild
+.idea/caches/build_file_checksums.ser
+.idea/modules.xml
+.idea
+*.iml
+.build
