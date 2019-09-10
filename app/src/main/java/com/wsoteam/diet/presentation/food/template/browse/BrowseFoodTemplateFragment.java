@@ -69,12 +69,6 @@ public class BrowseFoodTemplateFragment  extends MvpAppCompatFragment
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        presenter.initAdapter();
-    }
-
-    @Override
     public void showProgress(boolean show) {
 
     }
@@ -104,6 +98,11 @@ public class BrowseFoodTemplateFragment  extends MvpAppCompatFragment
         layoutWithBtn.setVisibility(View.GONE);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        presenter.initAdapter();
+    }
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);

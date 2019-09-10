@@ -11,7 +11,7 @@ public class Result {
     private String name;
     private String fullInfo;
     private Object barcode;
-    private int portion;
+    private double portion;
     private boolean isLiquid;
     private double kilojoules;
     private double calories;
@@ -63,7 +63,7 @@ public class Result {
         this.barcode = barcode;
     }
 
-    public int getPortion() {
+    public double getPortion() {
         return portion;
     }
 
