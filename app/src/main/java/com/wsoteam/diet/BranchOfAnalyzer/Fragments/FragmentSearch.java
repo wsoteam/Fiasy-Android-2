@@ -61,7 +61,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
 
     @Override
     public void sendString(String searchString) {
-        search(searchString);
+        search(searchString.trim());
         this.searchString = searchString;
     }
 
