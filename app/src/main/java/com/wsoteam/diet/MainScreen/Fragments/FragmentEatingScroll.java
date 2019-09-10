@@ -56,7 +56,6 @@ public class FragmentEatingScroll extends Fragment {
     private List<List<Eating>> allEat;
     private TextView tvCarbo, tvFat, tvProt;
     private TextView tvCaloriesLeft, tvCaloriesDone, tvCaloriesNeed;
-    private TextView tvCollapsCaloriesNeed, tvCollapsCalories, tvCollapsProt, tvCollapsFat, tvCollapsCarbo;
     private ProgressBar apCollapsingKcal;
     private ProgressBar apCollapsingProt;
     private ProgressBar apCollapsingCarbo;
@@ -134,12 +133,6 @@ public class FragmentEatingScroll extends Fragment {
         tvFat = getActivity().findViewById(R.id.tvFat);
         tvProt = getActivity().findViewById(R.id.tvProt);
 
-        tvCollapsCaloriesNeed = getActivity().findViewById(R.id.tvLeft);
-        tvCollapsCalories = getActivity().findViewById(R.id.tvCaloriesCollapsed);
-        tvCollapsProt = getActivity().findViewById(R.id.tvProtCollapsed);
-        tvCollapsFat = getActivity().findViewById(R.id.tvFatCollapsed);
-        tvCollapsCarbo = getActivity().findViewById(R.id.tvCarboCollapsed);
-
         tvCaloriesLeft = getActivity().findViewById(R.id.tvCaloriesLeft);
         tvCaloriesDone = getActivity().findViewById(R.id.tvCaloriesDone);
         tvCaloriesNeed = getActivity().findViewById(R.id.tvCaloriesNeed);
@@ -212,10 +205,6 @@ public class FragmentEatingScroll extends Fragment {
         apCollapsingCarbo.setProgress(carbo);
         apCollapsingFat.setProgress(fat);
 
-        tvCollapsCalories.setText(String.valueOf(kcal));
-        tvCollapsProt.setText(String.valueOf(prot));
-        tvCollapsFat.setText(String.valueOf(fat));
-        tvCollapsCarbo.setText(String.valueOf(carbo));
 
         tvCaloriesDone.setText(String.valueOf(kcal));
         tvCaloriesLeft.setText(String.valueOf(leftKCal));
@@ -227,16 +216,12 @@ public class FragmentEatingScroll extends Fragment {
 //            tvCaloriesDone.setText(spanText(R.string.main_screen_topbar_kcal_done, String.valueOf(kcal), R.color.main_calories_done));
 //            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_left, String.valueOf(leftKCal), R.color.main_calories_left));
             tvCaloriesNeed.setText(String.valueOf(apCollapsingKcal.getMax()) + " ккал");
-            tvCollapsCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done));
-            tvCollapsCalories.setTextColor(getResources().getColor(R.color.total_title));
             btnNotification.setVisibility(View.GONE);
         } else {
             apCollapsingKcal.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
 //            tvCaloriesDone.setText(spanText(R.string.main_screen_topbar_kcal_done, String.valueOf(kcal), R.color.main_calories_done_over));
 //            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_over, "+" + Math.abs(leftKCal), R.color.main_calories_left_over));
             tvCaloriesNeed.setText(String.valueOf(apCollapsingKcal.getMax()) + " ккал");
-            tvCollapsCaloriesNeed.setText(spanText(R.string.main_screen_topbar_left, String.valueOf(apCollapsingKcal.getMax()), R.color.main_calories_done_over));
-            tvCollapsCalories.setTextColor(getResources().getColor(R.color.main_calories_done_over));
             btnNotification.setVisibility(View.VISIBLE);
         }
 
@@ -244,33 +229,27 @@ public class FragmentEatingScroll extends Fragment {
         if (apCollapsingCarbo.getMax() >= carbo) {
             apCollapsingCarbo.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_main));
             tvCarbo.setText(spanText(carboText, String.valueOf(carbo), R.color.gray4));
-            tvCollapsCarbo.setTextColor(getResources().getColor(R.color.total_title));
         } else {
             apCollapsingCarbo.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
             tvCarbo.setText(spanText(carboText, String.valueOf(carbo), R.color.main_value_over));
-            tvCollapsCarbo.setTextColor(getResources().getColor(R.color.main_value_over));
         }
 
         final String fatText = String.format(pattern, fat, apCollapsingFat.getMax());
         if (apCollapsingFat.getMax() >= fat) {
             apCollapsingFat.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_main));
             tvFat.setText(spanText(fatText, String.valueOf(fat), R.color.gray4));
-            tvCollapsFat.setTextColor(getResources().getColor(R.color.total_title));
         } else {
             apCollapsingFat.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
             tvFat.setText(spanText(fatText, String.valueOf(fat), R.color.main_value_over));
-            tvCollapsFat.setTextColor(getResources().getColor(R.color.main_value_over));
         }
 
         final String protText = String.format(pattern, prot, apCollapsingProt.getMax());
         if (apCollapsingProt.getMax() >= prot) {
             apCollapsingProt.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_main));
             tvProt.setText(spanText(protText, String.valueOf(prot), R.color.gray4));
-            tvCollapsProt.setTextColor(getResources().getColor(R.color.total_title));
         } else {
             apCollapsingProt.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
             tvProt.setText(spanText(protText, String.valueOf(prot), R.color.main_value_over));
-            tvCollapsProt.setTextColor(getResources().getColor(R.color.main_value_over));
         }
     }
 
