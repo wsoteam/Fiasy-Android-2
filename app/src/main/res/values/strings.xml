@@ -70,6 +70,7 @@
     <string name="individualPlan">Индивидуальный план рассчитан</string>
     <string name="recNorm">Рекомендуемая норма</string>
     <string name="plan_start_text">Не знаете с чего начать? Попробуйте планы питания от нашего штатного диетолога.</string>
+    <string name="plan_profile_txt">План питания - %s</string>
 
 
     <string name="view_plans">Посмотреть планы питания</string>
