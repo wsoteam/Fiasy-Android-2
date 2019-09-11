@@ -82,7 +82,8 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
 
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setAdapter(adapter);
-    initData(UserDataHolder.getUserData().getPlan());
+    initData(UserDataHolder.getUserData() != null ?
+        UserDataHolder.getUserData().getPlan() : null);
     return view;
   }
 

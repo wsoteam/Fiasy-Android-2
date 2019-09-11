@@ -44,6 +44,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.renderer.CombinedChartRenderer;
 import com.github.mikephil.charting.renderer.DataRenderer;
+import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -76,6 +77,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     TextView tvFatCount;
     @BindView(R.id.tvProtCount)
     TextView tvProtCount;
+    @BindView(R.id.tvPlan)
+    TextView tvPlanName;
     private static final int CAMERA_REQUEST = 1888;
     Unbinder unbinder;
     ProfilePresenter profilePresenter;
@@ -252,11 +255,12 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     }
 
     @Override
-    public void fillViewsIfProfileNotNull(Profile profile) {
+    public void fillViewsIfProfileNotNull(Profile profile, DietPlan plan) {
         tvKcalMax.setText(String.valueOf(profile.getMaxKcal()) + " ккал");
         tvCarboCount.setText(String.valueOf(profile.getMaxCarbo()) + " г");
         tvFatCount.setText(String.valueOf(profile.getMaxFat()) + " г");
         tvProtCount.setText(String.valueOf(profile.getMaxProt()) + " г");
+        tvPlanName.setText(plan != null ? String.format(getString(R.string.plan_profile_txt), plan.getName()) : "");
         if (profile.getFirstName().equals("default")) {
             tvUserName.setText("Введите Ваше имя");
         } else {
