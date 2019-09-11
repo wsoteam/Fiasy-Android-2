@@ -95,6 +95,11 @@ public class Events {
     //Search
     public static final String SEARCH_SUCCESS = "search_success";
 
+    public static final String ADD_TEMPLATE_SUCCESS = "add_template_success";
+    public static final String ADD_CUSTOM_SUCCESS = "add_custom_success";
+    public static final String ADD_CUSTOM_RECIPE = "add_custom_recipe";
+    public static final String CHANGE_GOAL = "change_goal";
+
     //DIET
     //public static final String SELECT_DIET_FILTRES = "select_diet_filters";
     //public static final String SHARE_DIET = "share_diet";
@@ -103,6 +108,42 @@ public class Events {
     //TRAINING
     //public static final String SELECT_TRAINING = "select_training";
     //public static final String SHARE_TRAINING = "share_training";
+
+    public static void logChangeGoal() {
+        Amplitude.getInstance().logEvent(CHANGE_GOAL);
+        io.intercom.android.sdk.Intercom.client().logEvent(CHANGE_GOAL);
+    }
+
+    public static void logAddCustomRecipe(String nameRecipe) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.recipe_id_add, nameRecipe);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(ADD_CUSTOM_RECIPE, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.recipe_id_add, nameRecipe);
+        io.intercom.android.sdk.Intercom.client().logEvent(ADD_CUSTOM_RECIPE, eventData);
+    }
+
+    public static void logAddCustomFood(String nameFood) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.custom_product_id, nameFood);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(ADD_CUSTOM_SUCCESS, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.custom_product_id, nameFood);
+        io.intercom.android.sdk.Intercom.client().logEvent(ADD_CUSTOM_SUCCESS, eventData);
+    }
+
+    public static void logAddTemplate() {
+        Amplitude.getInstance().logEvent(ADD_TEMPLATE_SUCCESS);
+        io.intercom.android.sdk.Intercom.client().logEvent(ADD_TEMPLATE_SUCCESS);
+    }
 
     public static void logSearch(String nameFood) {
         JSONObject eventProperties = new JSONObject();

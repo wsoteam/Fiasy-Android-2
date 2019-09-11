@@ -316,7 +316,11 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         String food_category = getFoodCategory();
         String food_item = foodItem.getName();
         String food_date = getDateType(day, month, year);
-        Events.logAddFood(food_intake, food_category, food_date, food_item);
+        if (isOwnFood){
+            Events.logAddCustomFood(name);
+        }else {
+            Events.logAddFood(food_intake, food_category, food_date, food_item);
+        }
         AlertDialog alertDialog = AddFoodDialog.createChoiseEatingAlertDialog(ActivityDetailOfFood.this);
         alertDialog.show();
         getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).edit().putBoolean(Config.IS_ADDED_FOOD, true).commit();

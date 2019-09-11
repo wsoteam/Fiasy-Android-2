@@ -1,8 +1,12 @@
 package com.wsoteam.diet.presentation.food.adapter;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.EventLog;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -19,6 +23,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.food.helper.NounsDeclension;
 import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplatePresenter;
 
@@ -29,7 +34,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapter.ViewHolder>{
+public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapter.ViewHolder> {
 
     private Context context;
     private List<FoodTemplate> templateList = new ArrayList<>();
@@ -41,9 +46,9 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
         this.presenter = presenter;
     }
 
-    public void setListContent(List<FoodTemplate> templateList){
-        if (templateList != null){
-        this.templateList = templateList;
+    public void setListContent(List<FoodTemplate> templateList) {
+        if (templateList != null) {
+            this.templateList = templateList;
         } else {
             this.templateList = new ArrayList<>();
         }
@@ -60,7 +65,7 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-            viewHolder.bind(i);
+        viewHolder.bind(i);
     }
 
     @Override
@@ -92,7 +97,8 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
 
         @OnClick({R.id.ivAddTemplate})
         public void onViewClicked(View view) {
-                presenter.addToDiary(templateList.get(getAdapterPosition()));
+            Events.logAddTemplate();
+            presenter.addToDiary(templateList.get(getAdapterPosition()));
         }
 
         @Override
@@ -106,7 +112,7 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case menuEditID:
                     presenter.editTemplate(templateList.get(getAdapterPosition()));
                     return true;
@@ -114,12 +120,13 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
                     WorkWithFirebaseDB.deleteFoodTemplate(templateList.get(getAdapterPosition()).getKey());
                     templateList.remove(templateList.get(getAdapterPosition()));
                     notifyDataSetChanged();
-                    if (templateList.size() == 0){
+                    if (templateList.size() == 0) {
                         presenter.getViewState().showBtn();
                     }
                     return true;
 
-                default: return false;
+                default:
+                    return false;
             }
         }
 
@@ -131,7 +138,7 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
                 templateList.get(getAdapterPosition()).setShowFoods(isChecked);
             }
 
-            if (isChecked){
+            if (isChecked) {
                 linearLayout.setVisibility(View.VISIBLE);
                 ivTogle.setImageResource(R.drawable.ic_slide_switch_on);
             } else {
@@ -140,31 +147,31 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
             }
         }
 
-        void bind(int position){
+        void bind(int position) {
             imageView.setImageResource(getImgID(templateList.get(position).getEating()));
             tvName.setText(templateList.get(position).getName());
             tvEating.setText(templateList.get(position).getEating().toLowerCase());
             linearLayout.removeAllViews();
             int numbers = templateList.get(position).getFoodList().size();
             tvCountFoods.setText(numbers
-            + NounsDeclension.check(numbers, " продукт", " продукта", " продуктов"));
+                    + NounsDeclension.check(numbers, " продукт", " продукта", " продуктов"));
 
-            for (Food food:
+            for (Food food :
                     templateList.get(position).getFoodList()) {
                 View view = layoutInflater.inflate(R.layout.item_food_for_template, linearLayout, false);
                 TextView foodName = view.findViewById(R.id.tvNameTemplate);
                 TextView foodCalories = view.findViewById(R.id.tvCalories);
                 foodName.setText(food.getName());
-                foodCalories.setText(String.valueOf((int)(food.getCalories() * food.getPortion())));
+                foodCalories.setText(String.valueOf((int) (food.getCalories() * food.getPortion())));
 
                 linearLayout.addView(view);
             }
 
-                tbShowFoods.setChecked(templateList.get(position).isShowFoods());
+            tbShowFoods.setChecked(templateList.get(position).isShowFoods());
         }
 
-        int getImgID(String str){
-            switch (str){
+        int getImgID(String str) {
+            switch (str) {
                 case "Завтрак":
                     return R.drawable.ic_breakfast_template;
                 case "Обед":
@@ -174,8 +181,8 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
                 case "Ужин":
                     return R.drawable.ic_dinner_template;
 
-                    default:
-                        return R.drawable.ic_snack_template_2;
+                default:
+                    return R.drawable.ic_snack_template_2;
             }
         }
 

@@ -96,12 +96,10 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
 
     private void showResult(List<CustomFood> customFoods) {
         if (customFoods.size() > 0) {
-            Log.e("LOL", "> 0");
             hideMessageUI();
             itemAdapter = new ItemAdapter(customFoods);
             rvFavorites.setAdapter(itemAdapter);
         } else {
-            Log.e("LOL", "< 0");
             showNoFind();
             itemAdapter = new ItemAdapter(customFoods);
             rvFavorites.setAdapter(itemAdapter);

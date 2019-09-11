@@ -13,6 +13,7 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.profile.norm.choise.activity.ActivActivity;
 import com.wsoteam.diet.presentation.profile.norm.choise.goal.GoalActivity;
 
@@ -87,6 +88,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
                     if (presenter.calculateAndSave(edtHeight.getText().toString(), edtWeight.getText().toString(),
                             edtAge.getText().toString(), edtSex.getText().toString(), edtActivity.getText().toString(), edtGoal.getText().toString())) {
                         Toast.makeText(this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
+                        Events.logChangeGoal();
                         finish();
                     }
                 }

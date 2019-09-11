@@ -162,4 +162,6 @@ public class EventProperties {
 
     //Search
     public static final String search_item = "search_item";
+    public static final String custom_product_id = "product_id";
+    public static final String recipe_id_add = "recipe_id";
 }
