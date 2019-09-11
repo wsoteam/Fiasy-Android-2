@@ -251,7 +251,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
                                 .putExtra(EventProperties.template_from, EventProperties.template_from_plus));
                         break;
                     case R.id.createRecipe:
-                        startActivity(new Intent(ActivityListAndSearch.this, AddingRecipeActivity.class).putExtra(EventProperties.recipe_from, EventProperties.recipe_from_button));
+                        startActivity(new Intent(ActivityListAndSearch.this, AddingRecipeActivity.class).putExtra(EventProperties.recipe_from, EventProperties.recipe_from_plus));
                         break;
                 }
                 return false;

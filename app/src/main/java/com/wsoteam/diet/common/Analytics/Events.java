@@ -5,11 +5,13 @@ import android.util.Log;
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Revenue;
 import com.android.billingclient.api.BillingClient;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.intercom.android.sdk.Intercom;
@@ -330,16 +332,18 @@ public class Events {
         io.intercom.android.sdk.Intercom.client().logEvent(FOOD_SEARCH, eventData);
     }
 
-    public static void logCreateCustomFood(String from) {
+    public static void logCreateCustomFood(String from, String name) {
         JSONObject eventProperties = new JSONObject();
         try {
             eventProperties.put(EventProperties.product_from, from);
+            eventProperties.put(EventProperties.product_id, name);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CUSTOM_PRODUCT_SUCCESS, eventProperties);
 
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.product_from, from);
+        eventData.put(EventProperties.product_id, name);
         io.intercom.android.sdk.Intercom.client().logEvent(CUSTOM_PRODUCT_SUCCESS, eventData);
     }
 
@@ -356,24 +360,31 @@ public class Events {
         io.intercom.android.sdk.Intercom.client().logEvent(VIEW_ARTICLES, eventData);
     }
 
-    public static void logCreateRecipe(String from) {
+    public static void logCreateRecipe(String from, String name) {
         JSONObject eventProperties = new JSONObject();
         try {
             eventProperties.put(EventProperties.recipe_from, from);
+            eventProperties.put(EventProperties.recipe_id, name);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CUSTOM_RECIPE_SUCCESS, eventProperties);
 
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.recipe_from, from);
+        eventData.put(EventProperties.recipe_id, name);
         io.intercom.android.sdk.Intercom.client().logEvent(CUSTOM_RECIPE_SUCCESS, eventData);
     }
 
-    public static void logCreateTemplate(String from, String template_intake) {
+    public static void logCreateTemplate(String from, String template_intake, List<Food> foodList) {
+        String namesLine = "";
+        for (int i = 0; i < foodList.size(); i++) {
+            namesLine = namesLine + "  " + foodList.get(i).getName();
+        }
         JSONObject eventProperties = new JSONObject();
         try {
             eventProperties.put(EventProperties.template_from, from);
             eventProperties.put(EventProperties.template_intake, template_intake);
+            eventProperties.put(EventProperties.product_inside, namesLine);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CUSTOM_TEMPLATE_SUCCESS, eventProperties);
@@ -381,6 +392,7 @@ public class Events {
         Map<String, Object> eventData = new HashMap<>();
         eventData.put(EventProperties.template_from, from);
         eventData.put(EventProperties.template_intake, template_intake);
+        eventData.put(EventProperties.product_inside, namesLine);
         io.intercom.android.sdk.Intercom.client().logEvent(CUSTOM_TEMPLATE_SUCCESS, eventData);
     }
 

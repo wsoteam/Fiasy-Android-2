@@ -82,10 +82,12 @@ public class EventProperties {
     public static final String product_from = "product_from";
     public static final String product_from_button = "button";
     public static final String product_from_plus = "plus";
+    public static final String product_id = "product_id";
 
     public static final String recipe_from = "recipe_from";
     public static final String recipe_from_button = "button";
     public static final String recipe_from_plus = "plus";
+    public static final String recipe_id = "product_id";
 
     public static final String template_from = "template_from";
     public static final String template_from_button = "button";
@@ -96,6 +98,7 @@ public class EventProperties {
     public static final String template_intake_lunch = "lunch";
     public static final String template_intake_dinner = "dinner";
     public static final String template_intake_snack = "snack";
+    public static final String product_inside = "product_inside";
 
 
     //Recipe
