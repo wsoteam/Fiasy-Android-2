@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustAttribution;
 import com.amplitude.api.Amplitude;
@@ -211,7 +212,8 @@ public class ActivitySplash extends BaseActivity {
                 sex = UserProperty.q_male_status_male;
             }
             UserProperty.setUserProperties(sex, height, weight, age, active, goal,
-                    FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                    String.valueOf(profile.getMaxKcal()), String.valueOf(profile.getMaxProt()), String.valueOf(profile.getMaxFat()), String.valueOf(profile.getMaxCarbo()));
             UserProperty.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         } catch (Exception ex) {
             Log.e("LOL", ex.getLocalizedMessage());

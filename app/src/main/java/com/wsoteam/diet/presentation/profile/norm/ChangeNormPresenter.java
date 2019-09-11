@@ -229,7 +229,8 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
         } else {
             sex = UserProperty.q_male_status_male;
         }
-        UserProperty.setUserProperties(sex, height, weight, age, active, goal, FirebaseAuth.getInstance().getCurrentUser().getUid());
+        UserProperty.setUserProperties(sex, height, weight, age, active, goal, FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                String.valueOf(profile.getMaxKcal()), String.valueOf(profile.getMaxProt()), String.valueOf(profile.getMaxFat()), String.valueOf(profile.getMaxCarbo()));
     }
 
     public void convertAndSetGoal(int i) {
