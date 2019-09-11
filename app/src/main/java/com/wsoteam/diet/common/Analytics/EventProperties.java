@@ -149,4 +149,14 @@ public class EventProperties {
     public static final String trial_error_error = "error";
     public static final String trial_error_already_owned = "already_owned";
     public static final String trial_error_not_owned = "not_owned";
+
+    //Diary
+    public static final String add_intake = "add_intake";
+    public static final String add_intake_breakfast = "breakfast";
+    public static final String add_intake_lunch = "lunch";
+    public static final String add_intake_dinner = "dinner";
+    public static final String add_intake_snack = "snack";
+
+    //Search
+    public static final String search_item = "search_item";
 }

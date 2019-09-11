@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.model.Eating;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
@@ -205,6 +206,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
                 break;
             case R.id.imbAddFood:
                 openSearch();
+                Events.logDiaryNext(getAdapterPosition());
                 break;
         }
     }

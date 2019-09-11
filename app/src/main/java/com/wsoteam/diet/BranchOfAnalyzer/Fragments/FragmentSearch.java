@@ -2,6 +2,7 @@ package com.wsoteam.diet.BranchOfAnalyzer.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.EventLog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.backward.FoodConverter;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
@@ -62,6 +64,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     @Override
     public void sendString(String searchString) {
         search(searchString.trim());
+        Events.logSearch(searchString);
         this.searchString = searchString;
     }
 

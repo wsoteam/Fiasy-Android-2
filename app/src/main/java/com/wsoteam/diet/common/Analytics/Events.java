@@ -1,9 +1,11 @@
 package com.wsoteam.diet.common.Analytics;
 
 import android.util.Log;
+
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Revenue;
 import com.android.billingclient.api.BillingClient;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +30,6 @@ public class Events {
     public static final String QUESTION_NEXT = "question_next";
     public static final String ONBOARDING_SUCCESS = "onboarding_success";
     public static final String REGISTRATION_NEXT = "registration_next";
-
 
 
     //PURCHASE
@@ -82,6 +83,15 @@ public class Events {
 
     public static final String TRIAL_ERROR = "trial_error";
 
+    //Purchase
+    public static final String DIARY_NEXT = "diary_next";
+    public static final int BREAKFAST = 0;
+    public static final int LUNCH = 1;
+    public static final int DINNER = 2;
+    public static final int SNACK = 3;
+
+    //Search
+    public static final String SEARCH_SUCCESS = "search_success";
 
     //DIET
     //public static final String SELECT_DIET_FILTRES = "select_diet_filters";
@@ -91,6 +101,48 @@ public class Events {
     //TRAINING
     //public static final String SELECT_TRAINING = "select_training";
     //public static final String SHARE_TRAINING = "share_training";
+
+    public static void logSearch(String nameFood) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.search_item, nameFood);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(SEARCH_SUCCESS, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.search_item, nameFood);
+        io.intercom.android.sdk.Intercom.client().logEvent(SEARCH_SUCCESS, eventData);
+    }
+
+    public static void logDiaryNext(int number) {
+        String eating = "";
+        switch (number) {
+            case BREAKFAST:
+                eating = EventProperties.add_intake_breakfast;
+                break;
+            case LUNCH:
+                eating = EventProperties.add_intake_lunch;
+                break;
+            case DINNER:
+                eating = EventProperties.add_intake_dinner;
+                break;
+            case SNACK:
+                eating = EventProperties.add_intake_snack;
+                break;
+        }
+        Log.e("LOL", eating);
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.add_intake, eating);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(DIARY_NEXT, eventProperties);
+
+        Map<String, Object> eventData = new HashMap<>();
+        eventData.put(EventProperties.add_intake, eating);
+        io.intercom.android.sdk.Intercom.client().logEvent(DIARY_NEXT, eventData);
+    }
 
     public static void logTrackRevenue(double price) {
         Revenue revenue = new Revenue().setProductId("com.wild.diet").setPrice(price).setQuantity(1);
