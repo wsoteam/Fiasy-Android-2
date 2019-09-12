@@ -103,7 +103,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
                             sendString(edtSearchField.getText().toString().replaceAll("\\s+", " "));
                     edtSearchField.clearFocus();
                     InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+                    inputManager.hideSoftInputFromWindow(edtSearchField.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
                     return true;
                 }
                 return false;
@@ -218,7 +218,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
                             sendClearSearchField();
                     edtSearchField.clearFocus();
                     InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+                    inputManager.hideSoftInputFromWindow(edtSearchField.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
                 }
                 break;
             case R.id.ivBack:
