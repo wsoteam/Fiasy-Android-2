@@ -9,6 +9,7 @@ import androidx.room.Room;
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
 import com.amplitude.api.Amplitude;
+import com.bugsee.library.Bugsee;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orm.SugarContext;
@@ -35,7 +36,7 @@ public class App extends MultiDexApplication {
         FirebaseApp.initializeApp(this);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-        //Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
+        Bugsee.launch(this, "52c744b7-4e0e-460a-be52-80501e3c27fa");
         FirebaseApp.initializeApp(getApplicationContext());
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
