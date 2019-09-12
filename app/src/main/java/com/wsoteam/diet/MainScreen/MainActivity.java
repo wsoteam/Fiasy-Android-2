@@ -56,6 +56,7 @@ import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.presentation.activity.UserActivityFragment;
 import com.wsoteam.diet.common.Analytics.SavedConst;
+import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.common.Analytics.Events;
 
@@ -103,10 +104,10 @@ public class MainActivity extends AppCompatActivity {
                     window.setStatusBarColor(Color.parseColor("#747d3b"));
                     transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();
                     return true;
-                case R.id.bnv_main_trainer:
-                    isMainFragment = false;
-                    transaction.replace(R.id.flFragmentContainer, new BrowsePlansFragment()).commit();
-                    return true;
+                //case R.id.bnv_main_trainer:
+                //    isMainFragment = false;
+                //    transaction.replace(R.id.flFragmentContainer, new BrowsePlansFragment()).commit();
+                //    return true;
                 case R.id.bnv_main_recipes:
                     isMainFragment = false;
                     transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();

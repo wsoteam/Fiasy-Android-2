@@ -1028,6 +1028,7 @@
   <string name="user_activity_title">Активность</string>
   <string name="user_activity_section_favorite">Избранное</string>
   <string name="user_activity_section_my">Мои активности</string>
+  <string name="user_activity_section_google_fit">Google Fit</string>
   <string name="user_activity_section_defaults">Стандартные активности</string>
   <string name="user_activity_time_elapsed">%d минут</string>
   <string name="user_activity_time_elapsed_wh">%dч %d м</string>

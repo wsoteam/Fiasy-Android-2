@@ -24,7 +24,6 @@ import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.utils.DateUtils;
 import com.wsoteam.diet.utils.Metrics;
 import com.wsoteam.diet.utils.RichTextUtils;
 import java.util.ArrayList;
@@ -228,18 +227,22 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
   /**
    * @return Offset to section position, offset -> [section -> items...]
    */
-  public int getSectionOffset(Section section) {
+  public int getSectionOffset(@NonNull Section section) {
     if (section == head) {
       return 0;
     } else if (section == tail) {
       return total - tail.total() - headers;
     } else {
+      int skipped = 0;
       Section cur = head;
 
-      int skipped = head.total();
-      while (cur != null && cur.tail != section) {
+      while (cur.titleRes != section.titleRes) {
         skipped += cur.total();
         cur = cur.tail;
+
+        if (cur == null) {
+          throw new IllegalArgumentException("section not found");
+        }
       }
 
       return skipped;

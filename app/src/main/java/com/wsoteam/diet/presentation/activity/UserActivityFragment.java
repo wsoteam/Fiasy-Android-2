@@ -136,9 +136,15 @@ public class UserActivityFragment extends DialogFragment implements
     sources.put(R.string.user_activity_section_defaults,
         new AssetsSource(getResources().getAssets()));
 
+    final GoogleFitSource googleFitSource = new GoogleFitSource(requireContext());
+    googleFitSource.ensurePermission(this);
+
+    sources.put(R.string.user_activity_section_google_fit, googleFitSource);
+
     sources.put(R.string.user_activity_section_my,
         new MyActivitiesSource());
 
+    adapter.createSection(R.string.user_activity_section_google_fit);
     adapter.createSection(R.string.user_activity_section_my);
     adapter.createSection(R.string.user_activity_section_favorite);
     adapter.createSection(R.string.user_activity_section_defaults);
