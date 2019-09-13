@@ -817,6 +817,7 @@
     <string name="update_message">Вышла новая версия приложения!  \nОбновите приложение в Google Play</string>
     <string name="go_update">Обновить</string>
     <string name="update_title">Обновление!</string>
+    <string name="enter_multi_params">Введите данные</string>
 
     <string-array name="settings_items">
         <item>Premium аккаунт</item>

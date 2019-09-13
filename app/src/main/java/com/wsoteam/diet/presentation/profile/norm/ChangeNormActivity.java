@@ -49,9 +49,23 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     @BindView(R.id.edtFats) EditText edtFats;
     @BindView(R.id.tvFormulaHint) TextView tvFormulaHint;
     @BindView(R.id.btnReturnParametrs) Button btnReturnParametrs;
+
+    @BindView(R.id.tilKcal) TextInputLayout tilKcal;
+    @BindView(R.id.tilProt) TextInputLayout tilProt;
+    @BindView(R.id.tilCarbo) TextInputLayout tilCarbo;
+    @BindView(R.id.tilFats) TextInputLayout tilFats;
     private boolean isPremUser = false;
 
     private final double PROTEIN_COUNT = 0.1, FAT_COUNT = 0.027, CARBO_COUNT = 0.0875;
+
+
+    @Override
+    public void setDefaultPremParams(String kcal, String fat, String carbo, String c) {
+        edtKcal.setText(kcal);
+        edtFats.setText(fat);
+        edtCarbo.setText(carbo);
+        edtProt.setText(carbo);
+    }
 
     @Override
     public void bindFields(Profile profile, String goal, String activity) {
@@ -65,6 +79,10 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         }
         edtActivity.setText(activity);
         edtGoal.setText(goal);
+        edtKcal.setText(String.valueOf(profile.getMaxKcal()));
+        edtCarbo.setText(String.valueOf(profile.getMaxCarbo()));
+        edtFats.setText(String.valueOf(profile.getMaxFat()));
+        edtProt.setText(String.valueOf(profile.getMaxProt()));
     }
 
     @Override
@@ -128,6 +146,22 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         } else {
             recountMainParams(Integer.parseInt(text.toString()));
         }
+
+        if (tvFormulaHint.getVisibility() == View.VISIBLE) {
+            setDropModeOn();
+        }
+    }
+
+    private void setDropModeOn() {
+        tvFormulaHint.setVisibility(View.GONE);
+        btnReturnParametrs.setBackgroundTintList(this.getResources().getColorStateList(R.color.active_drop));
+        btnReturnParametrs.setEnabled(true);
+    }
+
+    private void setDropModeOff() {
+        tvFormulaHint.setVisibility(View.VISIBLE);
+        btnReturnParametrs.setBackgroundTintList(this.getResources().getColorStateList(R.color.inactive_drop));
+        btnReturnParametrs.setEnabled(false);
     }
 
     private void recountMainParams(int parseInt) {
@@ -151,7 +185,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
 
         switch (view.getId()) {
             case R.id.ibSave:
-                if (isNoError()) {
+                if (isNoErrorInMainParams()) {
                     if (presenter.calculateAndSave(edtHeight.getText().toString(), edtWeight.getText().toString(),
                             edtAge.getText().toString(), edtSex.getText().toString(), edtActivity.getText().toString(), edtGoal.getText().toString())) {
                         Toast.makeText(this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
@@ -176,12 +210,16 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
                 openPrem();
                 break;
             case R.id.btnReturnParametrs:
-                dropParametrs();
+                setDefaultPremParameters();
                 break;
         }
     }
 
-    private void dropParametrs() {
+    private void setDefaultPremParameters() {
+        if (isNoErrorInPremParams()) {
+            setDropModeOff();
+            presenter.dropParams();
+        }
     }
 
     private void openPrem() {
@@ -215,7 +253,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         edtActivity.setText(activity);
     }
 
-    private boolean isNoError() {
+    private boolean isNoErrorInMainParams() {
         if (!edtAge.getText().toString().equals("")
                 && Integer.parseInt(edtAge.getText().toString()) >= 9
                 && Integer.parseInt(edtAge.getText().toString()) <= 200) {
@@ -236,6 +274,30 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
             }
         } else {
             tilAge.setError(getString(R.string.spk_check_your_age));
+            return false;
+        }
+    }
+
+    private boolean isNoErrorInPremParams() {
+        if (!edtKcal.getText().toString().equals("")) {
+            if (!edtProt.getText().toString().equals("")) {
+                if (!edtCarbo.getText().toString().equals("")) {
+                    if (!edtFats.getText().toString().equals("")) {
+                        return true;
+                    } else {
+                        tilFats.setError(getString(R.string.enter_multi_params));
+                        return false;
+                    }
+                } else {
+                    tilCarbo.setError(getString(R.string.enter_multi_params));
+                    return false;
+                }
+            } else {
+                tilProt.setError(getString(R.string.enter_multi_params));
+                return false;
+            }
+        } else {
+            tilKcal.setError(getResources().getString(R.string.enter_multi_params));
             return false;
         }
     }

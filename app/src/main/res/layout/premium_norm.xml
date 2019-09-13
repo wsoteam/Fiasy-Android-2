@@ -173,6 +173,7 @@
         android:text="стандартные значения"
         android:textColor="@color/white"
         android:textSize="14sp"
+        android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
