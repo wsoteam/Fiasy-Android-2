@@ -4,15 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.google.android.material.textfield.TextInputLayout;
+import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Authenticate.POJO.Box;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.profile.norm.choise.activity.ActivActivity;
 import com.wsoteam.diet.presentation.profile.norm.choise.goal.GoalActivity;
@@ -35,18 +41,36 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     @BindView(R.id.edtGoal) EditText edtGoal;
     private ChangeNormPresenter presenter;
 
+    @BindView(R.id.tvPropPremium) TextView tvPropPremium;
+    @BindView(R.id.tvClickablePrem) TextView tvClickablePrem;
+    @BindView(R.id.edtKcal) EditText edtKcal;
+    @BindView(R.id.edtProt) EditText edtProt;
+    @BindView(R.id.edtCarbo) EditText edtCarbo;
+    @BindView(R.id.edtFats) EditText edtFats;
+    @BindView(R.id.tvFormulaHint) TextView tvFormulaHint;
+    @BindView(R.id.btnReturnParametrs) Button btnReturnParametrs;
+    private boolean isPremUser = false;
+
+    private final double PROTEIN_COUNT = 0.1, FAT_COUNT = 0.027, CARBO_COUNT = 0.0875;
+
     @Override
     public void bindFields(Profile profile, String goal, String activity) {
         edtAge.setText(String.valueOf(profile.getAge()));
         edtWeight.setText(String.valueOf(profile.getWeight()));
         edtHeight.setText(String.valueOf(profile.getHeight()));
-        if (profile.isFemale()){
+        if (profile.isFemale()) {
             edtSex.setText(getResources().getString(R.string.profile_female));
-        }else {
+        } else {
             getResources().getString(R.string.profile_male);
         }
         edtActivity.setText(activity);
         edtGoal.setText(goal);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bindPremiumUI();
     }
 
     @Override
@@ -57,6 +81,27 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
 
         presenter = new ChangeNormPresenter(this);
         presenter.attachView(this);
+    }
+
+    private void bindPremiumUI() {
+        isPremUser = getSharedPreferences(com.wsoteam.diet.Config.STATE_BILLING, MODE_PRIVATE)
+                .getBoolean(com.wsoteam.diet.Config.STATE_BILLING, false);
+        isPremUser = true;
+        if (isPremUser) {
+            tvPropPremium.setVisibility(View.GONE);
+            tvClickablePrem.setVisibility(View.GONE);
+            edtKcal.setEnabled(true);
+            edtProt.setEnabled(true);
+            edtCarbo.setEnabled(true);
+            edtFats.setEnabled(true);
+        } else {
+            tvPropPremium.setVisibility(View.VISIBLE);
+            tvClickablePrem.setVisibility(View.VISIBLE);
+            edtKcal.setEnabled(false);
+            edtProt.setEnabled(false);
+            edtCarbo.setEnabled(false);
+            edtFats.setEnabled(false);
+        }
     }
 
     @OnTextChanged(value = R.id.edtHeight, callback = OnTextChanged.Callback.TEXT_CHANGED)
@@ -74,14 +119,36 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         checkTextInputLayout(tilAge);
     }
 
+    @OnTextChanged(value = R.id.edtKcal, callback = OnTextChanged.Callback.TEXT_CHANGED)
+    public void kcalChanged(CharSequence text) {
+        if (text.toString().equals("-")) {
+            edtKcal.setText("");
+        } else if (text.toString().equals("")) {
+            recountMainParams(0);
+        } else {
+            recountMainParams(Integer.parseInt(text.toString()));
+        }
+    }
+
+    private void recountMainParams(int parseInt) {
+        double fat = parseInt * FAT_COUNT;
+        double prot = parseInt * PROTEIN_COUNT;
+        double carbo = parseInt * CARBO_COUNT;
+
+        edtProt.setText(String.valueOf(Math.round(prot)));
+        edtFats.setText(String.valueOf(Math.round(fat)));
+        edtCarbo.setText(String.valueOf(Math.round(carbo)));
+    }
+
     private void checkTextInputLayout(TextInputLayout currentTextInputLayout) {
         if (currentTextInputLayout.getError() != null) {
             currentTextInputLayout.setError("");
         }
     }
 
-    @OnClick({R.id.ibSave, R.id.ibBack, R.id.edtSex, R.id.edtActivity, R.id.edtGoal})
+    @OnClick({R.id.ibSave, R.id.ibBack, R.id.edtSex, R.id.edtActivity, R.id.edtGoal, R.id.tvPropPremium, R.id.tvClickablePrem, R.id.btnReturnParametrs})
     public void onViewClicked(View view) {
+
         switch (view.getId()) {
             case R.id.ibSave:
                 if (isNoError()) {
@@ -99,23 +166,41 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
             case R.id.edtSex:
                 break;
             case R.id.edtActivity:
-                Log.e("LOL", edtActivity.getText().toString());
                 startActivityForResult(new Intent(this, ActivActivity.class).putExtra(Config.ACTIVITY, edtActivity.getText().toString()), Config.ACTIVITY_CHANGE);
                 break;
             case R.id.edtGoal:
                 startActivityForResult(new Intent(this, GoalActivity.class).putExtra(Config.GOAL, edtGoal.getText().toString()), Config.GOAL_CHANGE);
                 break;
+            case R.id.tvPropPremium:
+            case R.id.tvClickablePrem:
+                openPrem();
+                break;
+            case R.id.btnReturnParametrs:
+                dropParametrs();
+                break;
         }
+    }
+
+    private void dropParametrs() {
+    }
+
+    private void openPrem() {
+        Box box = new Box();
+        box.setComeFrom(AmplitudaEvents.view_prem_settings);
+        box.setBuyFrom(EventProperties.trial_from_settings);
+        box.setOpenFromPremPart(true);
+        box.setOpenFromIntrodaction(false);
+        startActivity(new Intent(this, ActivitySubscription.class).putExtra(com.wsoteam.diet.Config.TAG_BOX, box));
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null && requestCode == Config.GOAL_CHANGE){
+        if (data != null && requestCode == Config.GOAL_CHANGE) {
             presenter.convertAndSetGoal(data.getIntExtra(Config.GOAL_CHANGE_RESULT, 0));
-        }else if (data != null && requestCode == Config.ACTIVITY_CHANGE){
+        } else if (data != null && requestCode == Config.ACTIVITY_CHANGE) {
             presenter.convertAndSetActivity(data.getIntExtra(Config.ACTIVITY_CHANGE_RESULT, 0));
-        }else {
+        } else {
             Log.e("LOL", "error");
         }
     }

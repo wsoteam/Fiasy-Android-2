@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tvClickablePrem"
@@ -66,8 +66,8 @@
             android:layout_height="48dp"
             android:fontFamily="@font/roboto_medium"
             android:hint="Калории"
-            android:inputType="textCapSentences"
-            android:maxLength="50"
+            android:inputType="numberSigned"
+            android:maxLength="4"
             android:text="2000"
             android:textColor="#d9424242"
             android:textSize="16sp" />
@@ -90,8 +90,8 @@
             android:layout_height="48dp"
             android:fontFamily="@font/roboto_medium"
             android:hint="Белки"
-            android:inputType="textCapSentences"
-            android:maxLength="50"
+            android:inputType="numberSigned"
+            android:maxLength="4"
             android:text="40"
             android:textColor="#d9424242"
             android:textSize="16sp" />
@@ -114,8 +114,8 @@
             android:layout_height="48dp"
             android:fontFamily="@font/roboto_medium"
             android:hint="Углеводы"
-            android:inputType="textCapSentences"
-            android:maxLength="50"
+            android:inputType="numberSigned"
+            android:maxLength="4"
             android:text="40"
             android:textColor="#d9424242"
             android:textSize="16sp" />
@@ -138,8 +138,8 @@
             android:layout_height="48dp"
             android:fontFamily="@font/roboto_medium"
             android:hint="Жиры"
-            android:inputType="textCapSentences"
-            android:maxLength="50"
+            android:inputType="numberSigned"
+            android:maxLength="4"
             android:text="40"
             android:textColor="#d9424242"
             android:textSize="16sp" />
@@ -179,20 +179,20 @@
         app:layout_constraintTop_toBottomOf="@+id/tvFormulaHint" />
 
     <TextView
-        android:id="@+id/textView164"
+        android:id="@+id/textView165"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="70dp"
         android:fontFamily="@font/roboto"
         android:gravity="center"
-        android:text="Если вы меняли значение КБЖУ, то вы всегда можете \nвернуться к стандартным значеним"
+        android:text="Если вы меняли значение КБЖУ, то вы всегда можете \nвернуться к стандартным значениям"
         android:textColor="#80424242"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.604"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnReturnParametrs"
-        app:layout_constraintVertical_bias="0.00999999" />
+        app:layout_constraintTop_toBottomOf="@+id/btnReturnParametrs" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
