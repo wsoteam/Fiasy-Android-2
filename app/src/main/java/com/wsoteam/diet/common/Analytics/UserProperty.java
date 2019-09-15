@@ -92,15 +92,15 @@ public class UserProperty {
 
         UserAttributes userAttributes = new UserAttributes.Builder()
                 .withCustomAttribute(q_male_status, sex)
-                .withCustomAttribute(q_height_status, height)
-                .withCustomAttribute(q_weight_status, weight)
-                .withCustomAttribute(q_age_status, age)
+                .withCustomAttribute(q_height_status, Integer.parseInt(height))
+                .withCustomAttribute(q_weight_status, Double.parseDouble(weight))
+                .withCustomAttribute(q_age_status, Integer.parseInt(age))
                 .withCustomAttribute(q_active_status, active)
-                .withCustomAttribute(q_goal_status, id)
-                .withCustomAttribute(calorie, kcal)
-                .withCustomAttribute(proteins, prot)
-                .withCustomAttribute(fats, fat)
-                .withCustomAttribute(сarbohydrates, carbo)
+                .withCustomAttribute(q_goal_status, goal)
+                .withCustomAttribute(calorie, Integer.parseInt(kcal))
+                .withCustomAttribute(proteins, Integer.parseInt(prot))
+                .withCustomAttribute(fats, Integer.parseInt(fat))
+                .withCustomAttribute(сarbohydrates, Integer.parseInt(carbo))
                 .withCustomAttribute(user_id, id)
                 .build();
         Intercom.client().updateUser(userAttributes);
