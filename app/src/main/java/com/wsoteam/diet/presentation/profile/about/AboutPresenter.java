@@ -64,82 +64,9 @@ public class AboutPresenter extends MvpPresenter<AboutView> {
 
     public boolean calculateAndSave(String nameString, String secondNameString, String emailString) {
         Profile profile = UserDataHolder.getUserData().getProfile();
-        int WATER_ON_KG_FEMALE = 30;
-        int WATER_ON_KG_MALE = 40;
 
-        double BMR, KFA = 0, result, target = 0, FPCindex;
-        double fat, protein, carbohydrate;
-        String stressLevel = profile.getExerciseStress();
-        String difficultyLevel = profile.getDifficultyLevel();
-        int maxWater;
-
-        final double RATE_NONE = 1.2;
-        final double RATE_EASY = 1.375;
-        final double RATE_MEDIUM = 1.46;
-        final double RATE_HARD = 1.55;
-        final double RATE_UP_HARD = 1.6375;
-        final double RATE_SUPER = 1.725;
-        final double RATE_UP_SUPER = 1.9;
-
-        final double TARGET_NORMAL = 0;
-        final double TARGET_LOOSE_WEIGHT = 0.15; //похудение
-        final double TARGET_MUSCLE = 0.3;
-        final double TARGET_SAVE = 0.1; //Сохранение мышц и сжигание жира
-
-        if (profile.isFemale()) {
-            FPCindex = 16;
-            BMR = (10 * profile.getWeight() + 6.25 * profile.getHeight() - 5 * profile.getAge() - 161);
-            maxWater = WATER_ON_KG_FEMALE * (int) profile.getWeight();
-        } else {
-            FPCindex = 36;
-            BMR = (10 * profile.getWeight() + 6.25 * profile.getHeight() - 5 * profile.getAge() + 5);
-            maxWater = WATER_ON_KG_MALE * (int) profile.getWeight();
-        }
-
-        if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_none))) {
-            KFA = RATE_NONE;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_easy))) {
-            KFA = RATE_EASY;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_medium))) {
-            KFA = RATE_MEDIUM;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_hard))) {
-            KFA = RATE_HARD;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_hard))) {
-            KFA = RATE_UP_HARD;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_super))) {
-            KFA = RATE_SUPER;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_super))) {
-            KFA = RATE_UP_SUPER;
-        }
-
-
-        if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_easy))) {
-            target = 1 - TARGET_NORMAL;
-        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_normal))) {
-            target = 1 - TARGET_LOOSE_WEIGHT;
-        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard))) {
-            target = 1 - TARGET_MUSCLE;
-        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard_up))) {
-            target = 1 - TARGET_SAVE;
-        }
-
-        result = (BMR * KFA) * target;
-
-        fat = (result * 0.25 / 9) + FPCindex;
-        protein = (result * 0.4 / 4) - FPCindex;
-        carbohydrate = (result * 0.35 / 4) - FPCindex;
-       
-
-        profile.setWaterCount(maxWater);
-        profile.setMaxKcal((int) result);
-        profile.setMaxFat((int) fat);
-        profile.setMaxProt((int) protein);
-        profile.setMaxCarbo((int) carbohydrate);
         profile.setFirstName(nameString);
         profile.setLastName(secondNameString);
-        profile.setHeight(profile.getHeight());
-        profile.setWeight(profile.getWeight());
-        profile.setAge(profile.getAge());
         profile.setEmail(emailString);
 
         setUserProperties(profile);
