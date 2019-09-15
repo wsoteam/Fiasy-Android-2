@@ -89,6 +89,11 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     protected void onResume() {
         super.onResume();
         bindPremiumUI();
+        checkDefaultParams();
+    }
+
+    private void checkDefaultParams() {
+
     }
 
     @Override
