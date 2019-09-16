@@ -59,14 +59,63 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     private boolean isPremUser = false;
 
     private final double PROTEIN_COUNT = 0.1, FAT_COUNT = 0.027, CARBO_COUNT = 0.0875;
+    private TextWatcher kcalTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            if (charSequence.toString().equals("-")) {
+                edtKcal.setText("");
+            } else if (charSequence.toString().equals("")) {
+                recountMainParams(0);
+            } else {
+                recountMainParams(Integer.parseInt(charSequence.toString()));
+            }
+
+            if (tvFormulaHint.getVisibility() == View.VISIBLE) {
+                setDropModeOn();
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+
+    private TextWatcher otherParamsTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            if (tvFormulaHint.getVisibility() == View.VISIBLE) {
+                setDropModeOn();
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
 
 
     @Override
     public void setDefaultPremParams(String kcal, String fat, String carbo, String c) {
+        edtKcal.removeTextChangedListener(kcalTextWatcher);
+        removeOtherParamsListener();
         edtKcal.setText(kcal);
         edtFats.setText(fat);
         edtCarbo.setText(carbo);
         edtProt.setText(carbo);
+        edtKcal.addTextChangedListener(kcalTextWatcher);
+        addOtherParamsListener();
     }
 
     @Override
@@ -89,32 +138,21 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         if (!presenter.isDefaultParams()) {
             setDropModeOn();
         }
-        edtKcal.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        addOtherParamsListener();
+        edtKcal.addTextChangedListener(kcalTextWatcher);
 
-            }
+    }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().equals("-")) {
-                    edtKcal.setText("");
-                } else if (charSequence.toString().equals("")) {
-                    recountMainParams(0);
-                } else {
-                    recountMainParams(Integer.parseInt(charSequence.toString()));
-                }
+    private void addOtherParamsListener() {
+        edtFats.addTextChangedListener(otherParamsTextWatcher);
+        edtCarbo.addTextChangedListener(otherParamsTextWatcher);
+        edtProt.addTextChangedListener(otherParamsTextWatcher);
+    }
 
-                if (tvFormulaHint.getVisibility() == View.VISIBLE) {
-                    setDropModeOn();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+    private void removeOtherParamsListener() {
+        edtFats.removeTextChangedListener(otherParamsTextWatcher);
+        edtCarbo.removeTextChangedListener(otherParamsTextWatcher);
+        edtProt.removeTextChangedListener(otherParamsTextWatcher);
     }
 
 
@@ -300,9 +338,9 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
 
     private boolean isNoErrorInPremParams() {
         if (!edtKcal.getText().toString().equals("")) {
-            if (!edtProt.getText().toString().equals("")) {
-                if (!edtCarbo.getText().toString().equals("")) {
-                    if (!edtFats.getText().toString().equals("")) {
+            if (!edtProt.getText().toString().equals("") && !edtProt.getText().toString().contains("-")) {
+                if (!edtCarbo.getText().toString().equals("") && !edtCarbo.getText().toString().contains("-")) {
+                    if (!edtFats.getText().toString().equals("") && !edtFats.getText().toString().contains("-")) {
                         return true;
                     } else {
                         tilFats.setError(getString(R.string.enter_multi_params));
