@@ -71,7 +71,7 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
 
         double BMR, KFA = 0, result, target = 0, FPCindex;
         double fat, protein, carbohydrate;
-        String stressLevel =  convertToOldActivity(activity);
+        String stressLevel = convertToOldActivity(activity);
         String difficultyLevel = convertToOldGoal(goal);
         int maxWater;
 
@@ -319,17 +319,28 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
         getViewState().setDefaultPremParams(String.valueOf(result), String.valueOf(fat), String.valueOf(carbohydrate), String.valueOf(protein));
     }
 
-    public void checkDefaultParams() {
+    public boolean isDefaultParams() {
         Profile profile = UserDataHolder.getUserData().getProfile();
         int userKcal = profile.getMaxKcal();
         int userProt = profile.getMaxProt();
         int userFat = profile.getMaxFat();
         int userCarbo = profile.getMaxCarbo();
 
+        Profile profileDefaultMainParams = getCalculateProfile(profile.getFirstName(), profile.getLastName(),
+                profile.getEmail(), profile.getHeight(), profile.getWeight(), profile.getAge(), profile.isFemale(),
+                profile.getExerciseStress(), profile.getDifficultyLevel());
 
+        if (userKcal == profileDefaultMainParams.getMaxKcal()
+                && userProt == profileDefaultMainParams.getMaxProt()
+                && userFat == profileDefaultMainParams.getMaxFat()
+                && userCarbo == profileDefaultMainParams.getMaxCarbo()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public Profile getCalculateProfile(String firstName, String secondName, String email, int userHeight, double userWeight, int userAge, String sex, String oldActivity, String oldGoal) {
+    public Profile getCalculateProfile(String firstName, String secondName, String email, int userHeight, double userWeight, int userAge, boolean isFemale, String oldActivity, String oldGoal) {
         int WATER_ON_KG_FEMALE = 30;
         int WATER_ON_KG_MALE = 40;
 
@@ -350,7 +361,7 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
         final double TARGET_MUSCLE = 0.3;
         final double TARGET_SAVE = 0.1; //Сохранение мышц и сжигание жира
 
-        if (sex.equalsIgnoreCase(context.getResources().getString(R.string.profile_female))) {
+        if (isFemale) {
             FPCindex = 16;
             BMR = (10 * userWeight + 6.25 * userHeight - 5 * userAge - 161);
             maxWater = WATER_ON_KG_FEMALE * (int) userWeight;

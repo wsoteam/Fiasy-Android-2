@@ -86,7 +86,9 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         edtFats.setText(String.valueOf(profile.getMaxFat()));
         edtProt.setText(String.valueOf(profile.getMaxProt()));
         bindPremiumUI();
-        checkDefaultParams();
+        if (!presenter.isDefaultParams()) {
+            setDropModeOn();
+        }
         edtKcal.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -115,9 +117,6 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         });
     }
 
-    private void checkDefaultParams() {
-        presenter.checkDefaultParams();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
