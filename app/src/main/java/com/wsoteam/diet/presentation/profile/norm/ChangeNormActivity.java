@@ -2,6 +2,8 @@ package com.wsoteam.diet.presentation.profile.norm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -83,13 +85,34 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         edtCarbo.setText(String.valueOf(profile.getMaxCarbo()));
         edtFats.setText(String.valueOf(profile.getMaxFat()));
         edtProt.setText(String.valueOf(profile.getMaxProt()));
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         bindPremiumUI();
         checkDefaultParams();
+        edtKcal.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().equals("-")) {
+                    edtKcal.setText("");
+                } else if (charSequence.toString().equals("")) {
+                    recountMainParams(0);
+                } else {
+                    recountMainParams(Integer.parseInt(charSequence.toString()));
+                }
+
+                if (tvFormulaHint.getVisibility() == View.VISIBLE) {
+                    setDropModeOn();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     private void checkDefaultParams() {
@@ -140,21 +163,6 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     @OnTextChanged(value = R.id.edtAge, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void ageChanged(CharSequence text) {
         checkTextInputLayout(tilAge);
-    }
-
-    @OnTextChanged(value = R.id.edtKcal, callback = OnTextChanged.Callback.TEXT_CHANGED)
-    public void kcalChanged(CharSequence text) {
-        if (text.toString().equals("-")) {
-            edtKcal.setText("");
-        } else if (text.toString().equals("")) {
-            recountMainParams(0);
-        } else {
-            recountMainParams(Integer.parseInt(text.toString()));
-        }
-
-        if (tvFormulaHint.getVisibility() == View.VISIBLE) {
-            setDropModeOn();
-        }
     }
 
     private void setDropModeOn() {
