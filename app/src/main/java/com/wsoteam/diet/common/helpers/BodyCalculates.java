@@ -63,7 +63,7 @@ public class BodyCalculates {
         return calculateNew(context, profile);
     }
 
-    private static String convertToOldGoal(Context context, String goal) {
+    public static String convertToOldGoal(Context context, String goal) {
         String oldGoal = "";
 
         if (goal.equalsIgnoreCase(context.getResources().getStringArray(R.array.goals)[0])) {
@@ -78,7 +78,7 @@ public class BodyCalculates {
         return oldGoal;
     }
 
-    private static String convertToOldActivity(Context context, String activity) {
+    public static String convertToOldActivity(Context context, String activity) {
         String oldActivity = "";
         if (activity.equalsIgnoreCase(context.getResources().getStringArray(R.array.activities)[0])) {
             oldActivity = context.getString(R.string.level_none);

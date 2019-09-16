@@ -197,13 +197,19 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
 
         switch (view.getId()) {
             case R.id.ibSave:
-                if (isNoErrorInMainParams()) {
-                    if (presenter.calculateAndSave(edtHeight.getText().toString(), edtWeight.getText().toString(),
-                            edtAge.getText().toString(), edtSex.getText().toString(), edtActivity.getText().toString(), edtGoal.getText().toString())) {
-                        Toast.makeText(this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
-                        Events.logChangeGoal();
-                        finish();
+                if (isNoErrorInMainParams() && isNoErrorInPremParams()) {
+                    if (isPremUser && isDropModeOn()) {
+                        presenter.onlySave(edtHeight.getText().toString(), edtWeight.getText().toString(),
+                                edtAge.getText().toString(), edtSex.getText().toString(), edtActivity.getText().toString(),
+                                edtGoal.getText().toString(), edtKcal.getText().toString(), edtProt.getText().toString(),
+                                edtCarbo.getText().toString(), edtFats.getText().toString());
+                    } else {
+                        presenter.calculateAndSave(edtHeight.getText().toString(), edtWeight.getText().toString(),
+                                edtAge.getText().toString(), edtSex.getText().toString(), edtActivity.getText().toString(), edtGoal.getText().toString());
                     }
+                    Toast.makeText(this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
+                    Events.logChangeGoal();
+                    finish();
                 }
                 break;
             case R.id.ibBack:
@@ -227,11 +233,13 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         }
     }
 
+    private boolean isDropModeOn() {
+        return btnReturnParametrs.isEnabled() && tvFormulaHint.getVisibility() == View.GONE;
+    }
+
     private void setDefaultPremParameters() {
-        if (isNoErrorInPremParams()) {
-            setDropModeOff();
-            presenter.dropParams();
-        }
+        setDropModeOff();
+        presenter.dropParams();
     }
 
     private void openPrem() {

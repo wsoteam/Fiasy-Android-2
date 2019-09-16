@@ -38,6 +38,26 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
         return true;
     }
 
+    public void onlySave(String height, String weight, String age, String sex, String activity, String goal, String kcal, String prot, String carbo, String fats) {
+        Profile profile = UserDataHolder.getUserData().getProfile();
+        profile.setHeight(Integer.parseInt(height));
+        profile.setWeight(Double.parseDouble(weight));
+        profile.setAge(Integer.parseInt(age));
+
+        profile.setFemale(sex.equalsIgnoreCase(context.getResources().getString(R.string.profile_female)));
+
+        profile.setExerciseStress(BodyCalculates.convertToOldActivity(context, activity));
+        profile.setDifficultyLevel(BodyCalculates.convertToOldGoal(context, goal));
+
+        profile.setMaxKcal(Integer.parseInt(kcal));
+        profile.setMaxProt(Integer.parseInt(prot));
+        profile.setMaxCarbo(Integer.parseInt(carbo));
+        profile.setMaxFat(Integer.parseInt(fats));
+
+        setUserProperties(profile);
+        WorkWithFirebaseDB.putProfileValue(profile);
+    }
+
 
     private void setUserProperties(Profile profile) {
         String goal = "", active = "", sex;
