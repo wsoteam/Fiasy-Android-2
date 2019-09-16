@@ -1,11 +1,13 @@
 package com.wsoteam.diet.presentation.profile.norm;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -299,9 +301,11 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
             case R.id.edtSex:
                 break;
             case R.id.edtActivity:
+                hideKeayboard();
                 startActivityForResult(new Intent(this, ActivActivity.class).putExtra(Config.ACTIVITY, edtActivity.getText().toString()), Config.ACTIVITY_CHANGE);
                 break;
             case R.id.edtGoal:
+                hideKeayboard();
                 startActivityForResult(new Intent(this, GoalActivity.class).putExtra(Config.GOAL, edtGoal.getText().toString()), Config.GOAL_CHANGE);
                 break;
             case R.id.tvPropPremium:
@@ -312,6 +316,11 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
                 setDefaultPremParameters();
                 break;
         }
+    }
+
+    private void hideKeayboard() {
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(edtActivity.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     private boolean isDropModeOn() {
