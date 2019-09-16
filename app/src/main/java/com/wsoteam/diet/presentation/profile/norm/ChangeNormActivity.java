@@ -214,7 +214,6 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     private void bindPremiumUI() {
         isPremUser = getSharedPreferences(com.wsoteam.diet.Config.STATE_BILLING, MODE_PRIVATE)
                 .getBoolean(com.wsoteam.diet.Config.STATE_BILLING, false);
-        isPremUser = true;
         if (isPremUser) {
             tvPropPremium.setVisibility(View.GONE);
             tvClickablePrem.setVisibility(View.GONE);
