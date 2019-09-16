@@ -59,7 +59,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     private boolean isPremUser = false;
 
     private final double PROTEIN_COUNT = 0.1, FAT_COUNT = 0.027, CARBO_COUNT = 0.0875;
-    private TextWatcher kcalTextWatcher = new TextWatcher() {
+    private TextWatcher kcalTW = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -86,7 +86,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         }
     };
 
-    private TextWatcher otherParamsTextWatcher = new TextWatcher() {
+    private TextWatcher protTW = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -94,6 +94,47 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            removeError(tilProt);
+            if (tvFormulaHint.getVisibility() == View.VISIBLE) {
+                setDropModeOn();
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+
+    private TextWatcher carboTW = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            removeError(tilCarbo);
+            if (tvFormulaHint.getVisibility() == View.VISIBLE) {
+                setDropModeOn();
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+
+    private TextWatcher fatTW = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            removeError(tilFats);
             if (tvFormulaHint.getVisibility() == View.VISIBLE) {
                 setDropModeOn();
             }
@@ -106,15 +147,17 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     };
 
 
+
+
     @Override
     public void setDefaultPremParams(String kcal, String fat, String carbo, String c) {
-        edtKcal.removeTextChangedListener(kcalTextWatcher);
+        edtKcal.removeTextChangedListener(kcalTW);
         removeOtherParamsListener();
         edtKcal.setText(kcal);
         edtFats.setText(fat);
         edtCarbo.setText(carbo);
         edtProt.setText(carbo);
-        edtKcal.addTextChangedListener(kcalTextWatcher);
+        edtKcal.addTextChangedListener(kcalTW);
         addOtherParamsListener();
     }
 
@@ -139,20 +182,20 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
             setDropModeOn();
         }
         addOtherParamsListener();
-        edtKcal.addTextChangedListener(kcalTextWatcher);
+        edtKcal.addTextChangedListener(kcalTW);
 
     }
 
     private void addOtherParamsListener() {
-        edtFats.addTextChangedListener(otherParamsTextWatcher);
-        edtCarbo.addTextChangedListener(otherParamsTextWatcher);
-        edtProt.addTextChangedListener(otherParamsTextWatcher);
+        edtFats.addTextChangedListener(fatTW);
+        edtCarbo.addTextChangedListener(carboTW);
+        edtProt.addTextChangedListener(protTW);
     }
 
     private void removeOtherParamsListener() {
-        edtFats.removeTextChangedListener(otherParamsTextWatcher);
-        edtCarbo.removeTextChangedListener(otherParamsTextWatcher);
-        edtProt.removeTextChangedListener(otherParamsTextWatcher);
+        edtFats.removeTextChangedListener(fatTW);
+        edtCarbo.removeTextChangedListener(carboTW);
+        edtProt.removeTextChangedListener(protTW);
     }
 
 
@@ -189,17 +232,17 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
 
     @OnTextChanged(value = R.id.edtHeight, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void heightChanged(CharSequence text) {
-        checkTextInputLayout(tilHeight);
+        removeError(tilHeight);
     }
 
     @OnTextChanged(value = R.id.edtWeight, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void weightChanged(CharSequence text) {
-        checkTextInputLayout(tilWeight);
+        removeError(tilWeight);
     }
 
     @OnTextChanged(value = R.id.edtAge, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void ageChanged(CharSequence text) {
-        checkTextInputLayout(tilAge);
+        removeError(tilAge);
     }
 
     private void setDropModeOn() {
@@ -224,7 +267,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         edtCarbo.setText(String.valueOf(Math.round(carbo)));
     }
 
-    private void checkTextInputLayout(TextInputLayout currentTextInputLayout) {
+    private void removeError(TextInputLayout currentTextInputLayout) {
         if (currentTextInputLayout.getError() != null) {
             currentTextInputLayout.setError("");
         }
