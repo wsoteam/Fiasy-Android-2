@@ -13,12 +13,15 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".presentation.profile.norm.choise.activity.ActivActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/ChangeGoalActivity" />
         <activity
             android:name=".presentation.profile.norm.choise.goal.GoalActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/ChangeGoalActivity" />
         <activity
             android:name=".presentation.profile.norm.ChangeNormActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/ChangeNorm"
             android:windowSoftInputMode="adjustPan" />
         <activity
