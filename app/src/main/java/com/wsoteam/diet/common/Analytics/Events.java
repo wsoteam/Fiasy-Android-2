@@ -109,6 +109,15 @@ public class Events {
     //public static final String SELECT_TRAINING = "select_training";
     //public static final String SHARE_TRAINING = "share_training";
 
+    public static void logSetUserPropertyError(String message) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put("message", message);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent("prop_error", eventProperties);
+    }
+
     public static void logChangeGoal() {
         Amplitude.getInstance().logEvent(CHANGE_GOAL);
         io.intercom.android.sdk.Intercom.client().logEvent(CHANGE_GOAL);
