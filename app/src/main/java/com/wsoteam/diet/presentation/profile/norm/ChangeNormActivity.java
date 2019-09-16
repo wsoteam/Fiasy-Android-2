@@ -116,7 +116,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     }
 
     private void checkDefaultParams() {
-
+        presenter.checkDefaultParams();
     }
 
     @Override
