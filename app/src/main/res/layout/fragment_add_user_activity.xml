@@ -29,29 +29,15 @@
       />
 
   <TextView
-      android:id="@+id/activity_title_hint"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/activity_poster"
-      android:layout_marginLeft="16dp"
-      android:layout_marginRight="16dp"
-      android:layout_marginTop="8dp"
-      android:textSize="24sp"
-      android:textColor="#d9424242"
-      android:text="@string/add_user_activity_edit_title"
-      style="@style/TextAppearance.AppCompat.Title"
-      />
-
-  <AutoCompleteTextView
       android:id="@+id/activity_name"
       android:layout_width="match_parent"
       android:layout_height="56dp"
-      android:gravity="top"
+      android:gravity="center"
       android:layout_marginLeft="24dp"
       android:layout_marginRight="24dp"
       android:layout_marginTop="16dp"
       android:hint="@string/add_user_activity_hint"
-      android:layout_below="@id/activity_title_hint"
+      android:layout_below="@id/activity_poster"
       android:textColor="@color/orange1"
       android:textSize="24sp"
       tools:text="Танцы"
@@ -66,7 +52,7 @@
       android:layout_marginRight="16dp"
       android:layout_marginTop="32dp"
       android:layout_marginBottom="48dp"
-      android:textSize="16sp"
+      android:textSize="18sp"
       android:fontFamily="@font/roboto_medium"
       android:gravity="center"
       android:textColor="#80424242"
@@ -88,13 +74,27 @@
       android:progress="30"
       />
 
+  <TextView
+      android:id="@+id/duration_slide_to_change_hint"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/activity_duration"
+      android:layout_margin="16dp"
+      android:textColor="#51000000"
+      android:gravity="center"
+      android:text="Передвигайте ползунок, чтобы\nизменить время"
+      android:fontFamily="@font/roboto_medium"
+      style="@style/TextAppearance.AppCompat.Caption"
+      android:textSize="16sp"
+      />
+
   <Button
       android:id="@+id/action_done"
       style="@style/Question.NextButton"
-      android:layout_below="@id/activity_duration"
+      android:layout_below="@id/duration_slide_to_change_hint"
       android:layout_centerHorizontal="true"
       android:layout_marginTop="24dp"
-      android:text="@string/action_done"
+      android:text="@string/add_user_activity_done_button"
       />
 
   <TextView
@@ -106,6 +106,7 @@
       android:layout_marginRight="32dp"
       android:lineSpacingExtra="4dp"
       android:textSize="16sp"
+      android:visibility="gone"
       android:textColor="#80424242"
       android:gravity="center"
       android:text="@string/add_user_activity_warning"

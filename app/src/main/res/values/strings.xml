@@ -1036,11 +1036,21 @@
   <string name="action_add">Добавить</string>
   <string name="action_add_to_favorite">Добавить в избранное</string>
   <string name="add_user_activity_edit_title">Название активности</string>
+  <string name="add_user_activity_done_button">Добавить в дневник</string>
   <string name="action_done">Готово</string>
-  <string name="add_user_activity_burned_hint">количество калорий за %d минут:</string>
+  <string name="add_user_activity_burned_hint">Потрачено калорий</string>
+  <string name="add_user_activity_duration_hint">за %s</string>
+  <string name="add_user_activity_burned">= %d ккал</string>
   <string name="add_user_activity_warning">Неправильно добавленная активность, может показывать недостоверные данные по дневной норме КБЖУ</string>
   <string name="add_user_activity_warning_custom_important">Внимание!</string>
   <string name="add_user_activity_hint">Введите название активности</string>
   <string name="widget_user_activity_title">Активности</string>
   <string name="widget_user_activity_show_all">Все</string>
+
+  <plurals name="duration_minutes">
+    <item quantity="one">минуту</item>
+    <item quantity="few">минуты</item>
+    <item quantity="many">минут</item>
+    <item quantity="other">минут</item>
+  </plurals>
 </resources>

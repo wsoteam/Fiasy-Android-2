@@ -1,6 +1,5 @@
 package com.wsoteam.diet.presentation.activity
 
-import android.content.Context
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
@@ -8,26 +7,22 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Filter
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.R
-import com.wsoteam.diet.presentation.activity.ExercisesSource.AssetsSource
+import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.utils.RichTextUtils.RichText
 import com.wsoteam.diet.utils.argument
 
 class AddUserActivityFragment : DialogFragment() {
 
   var selected by argument<UserActivityExercise>()
-  var lockName by argument<Boolean>()
   var editMode by argument<Boolean>()
 
-  private lateinit var exerciseName: AutoCompleteTextView
+  private lateinit var exerciseName: TextView
   private lateinit var exerciseEfficiency: TextView
   private lateinit var exerciseDuration: SeekBar
 
@@ -92,13 +87,6 @@ class AddUserActivityFragment : DialogFragment() {
     exerciseEfficiency = view.findViewById(R.id.activity_burned_hint)
 
     exerciseName = view.findViewById(R.id.activity_name)
-    exerciseName.isEnabled = !(lockName ?: false)
-    exerciseName.setAdapter(ExercisesSuggestionAdapter(requireContext()))
-    exerciseName.setText(selected?.title)
-    exerciseName.setOnItemClickListener { parent, view, position, id ->
-      val selected = parent.adapter.getItem(position) as UserActivityExercise
-      onExerciseSelected(selected)
-    }
 
     selected?.let { onExerciseSelected(it) } ?: kotlin.run {
       setEfficiency(30, 0)
@@ -118,8 +106,10 @@ class AddUserActivityFragment : DialogFragment() {
   }
 
   private fun getBurnedCalories(): Int {
+    val weight = (UserDataHolder.getUserData()?.profile?.weight ?: 1.0).toInt()
+
     return selected?.let { exercise ->
-      exerciseDuration.progress * if (exercise.duration > 60) {
+      weight * exerciseDuration.progress * if (exercise.duration > 60) {
         exercise.burned / (exercise.duration / 60)
       } else {
         exercise.burned
@@ -130,69 +120,17 @@ class AddUserActivityFragment : DialogFragment() {
   private fun setEfficiency(duration: Int, burned: Int) {
     exerciseDuration.progress = duration
 
-    val exerciseTemplate =
-      getString(R.string.add_user_activity_burned_hint, duration)
+    val pluralDuration =  "$duration " + resources.getQuantityString(R.plurals.duration_minutes, duration)
 
-    val burned = RichText(getString(R.string.user_activity_burned, burned))
+    val exerciseTemplate =
+      getString(R.string.add_user_activity_duration_hint, pluralDuration)
+
+    val burned = RichText(getString(R.string.add_user_activity_burned, burned))
       .color(R.color.black)
       .bold()
       .text()
 
-    exerciseEfficiency.text = TextUtils.concat(exerciseTemplate, "\n", burned)
+    exerciseEfficiency.text = TextUtils.concat(getString(R.string.add_user_activity_burned_hint),
+        burned, "\n", exerciseTemplate)
   }
-
-  interface OnActivityCreated {
-    fun didCreateActivity(exercise: UserActivityExercise, created: Boolean)
-  }
-
-  class ExercisesSuggestionAdapter(context: Context)
-    : ArrayAdapter<UserActivityExercise>(context, 0) {
-
-    private val filter by lazy { ExercisesSearch(context) }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-      val target = convertView ?: LayoutInflater.from(parent.context)
-        .inflate(R.layout.support_simple_spinner_dropdown_item, parent, false)
-
-      target as TextView
-      target.text = getItem(position).title
-
-      return target
-    }
-
-    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-      return getView(position, convertView, parent)
-    }
-
-    override fun getFilter(): Filter {
-      return filter
-    }
-
-    inner class ExercisesSearch(context: Context) : Filter() {
-      private val source = AssetsSource(context.assets)
-
-      override fun performFiltering(constraint: CharSequence?): FilterResults {
-        val exercises = if (TextUtils.isEmpty(constraint)) {
-          source.all().blockingGet()
-        } else {
-          source.search(constraint).blockingGet()
-        }
-
-        val r = FilterResults()
-        r.values = exercises
-        r.count = exercises.size
-        return r
-      }
-
-      override fun convertResultToString(resultValue: Any?): CharSequence {
-        return (resultValue as? UserActivityExercise)?.title ?: ""
-      }
-
-      override fun publishResults(constraint: CharSequence?, results: FilterResults) {
-        clear()
-        addAll(results.values as MutableCollection<UserActivityExercise>)
-      }
-    }
-  }
-
 }

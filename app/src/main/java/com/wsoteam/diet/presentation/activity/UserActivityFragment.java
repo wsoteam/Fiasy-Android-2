@@ -16,6 +16,7 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.collection.SparseArrayCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,7 +39,7 @@ public class UserActivityFragment extends DialogFragment implements
     // Loool
     Toolbar.OnMenuItemClickListener,
     PopupMenu.OnMenuItemClickListener,
-    AddUserActivityFragment.OnActivityCreated {
+    OnActivityCreated {
 
   private Toolbar toolbar;
 
@@ -103,6 +104,14 @@ public class UserActivityFragment extends DialogFragment implements
           switch (item.getItemId()) {
             case R.id.action_make_favorite:
               adapter.addItem(R.string.user_activity_section_favorite, target);
+
+              if (sources.containsKey(R.string.user_activity_section_favorite)) {
+                disposables.add(sources.get(R.string.user_activity_section_favorite)
+                    .add(target)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe());
+              }
               break;
 
             case R.id.action_edit:
@@ -118,8 +127,8 @@ public class UserActivityFragment extends DialogFragment implements
 
               adapter.removeItem(sectionId, v.getAdapterPosition());
 
-              if (sources.containsKey(R.string.user_activity_section_my)) {
-                disposables.add(sources.get(R.string.user_activity_section_my)
+              if (sources.containsKey(sectionId)) {
+                disposables.add(sources.get(sectionId)
                     .remove(exercise)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -136,15 +145,16 @@ public class UserActivityFragment extends DialogFragment implements
     sources.put(R.string.user_activity_section_defaults,
         new AssetsSource(getResources().getAssets()));
 
-    final GoogleFitSource googleFitSource = new GoogleFitSource(requireContext());
-    googleFitSource.ensurePermission(this);
-
-    sources.put(R.string.user_activity_section_google_fit, googleFitSource);
+    //final GoogleFitSource googleFitSource = new GoogleFitSource(requireContext());
+    //googleFitSource.ensurePermission(this);
+    //sources.put(R.string.user_activity_section_google_fit, googleFitSource);
 
     sources.put(R.string.user_activity_section_my,
         new MyActivitiesSource());
 
-    adapter.createSection(R.string.user_activity_section_google_fit);
+    sources.put(R.string.user_activity_section_favorite,
+        new FavoriteSource(requireContext()));
+
     adapter.createSection(R.string.user_activity_section_my);
     adapter.createSection(R.string.user_activity_section_favorite);
     adapter.createSection(R.string.user_activity_section_defaults);
@@ -247,10 +257,19 @@ public class UserActivityFragment extends DialogFragment implements
   }
 
   private void requestAddUserActivity(@Nullable UserActivityExercise exercise, boolean edit) {
-    final AddUserActivityFragment target = new AddUserActivityFragment();
-    target.setSelected(exercise);
-    target.setLockName(exercise != null);
-    target.setEditMode(edit);
+    Fragment target;
+
+    if (exercise == null) {
+      final CreateUserActivityFragment f = new CreateUserActivityFragment();
+      target = f;
+    } else {
+      final AddUserActivityFragment f = new AddUserActivityFragment();
+      f.setSelected(exercise);
+      f.setEditMode(edit);
+
+      target = f;
+    }
+
     target.setTargetFragment(this, 1);
 
     getActivity().getSupportFragmentManager()

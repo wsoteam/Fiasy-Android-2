@@ -4,6 +4,8 @@ import android.content.res.AssetManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
+import com.wsoteam.diet.Sync.POJO.UserData;
+import com.wsoteam.diet.Sync.UserDataHolder;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
@@ -95,6 +97,9 @@ public abstract class ExercisesSource {
         final BufferedSource source =
             Okio.buffer(Okio.source(assets.open("user_activity_table.csv")));
 
+        final UserData user = UserDataHolder.getUserData();
+        final int weight = user != null && user.getProfile() != null ? (int) user.getProfile().getWeight() : 1;
+
         final List<UserActivityExercise> exercises = new ArrayList<>();
 
         // lines to skip from start
@@ -125,10 +130,11 @@ public abstract class ExercisesSource {
             cols = tmp;
           }
 
+          final int duration = 30;
           final int burnsPerMinute = Integer.parseInt(cols[1]);
 
           final UserActivityExercise e =
-              new UserActivityExercise(cols[0], burnsPerMinute * 30, 30 * 60);
+              new UserActivityExercise(cols[0], weight * burnsPerMinute * duration, duration * 60);
           exercises.add(e);
         }
 
