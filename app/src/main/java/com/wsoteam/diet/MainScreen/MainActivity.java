@@ -63,6 +63,7 @@ import com.wsoteam.diet.common.Analytics.SavedConst;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.presentation.promo.PromoFormActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -179,12 +180,7 @@ public class MainActivity extends AppCompatActivity {
             loadDietPlans();
         }
         logEvents();
-        List<String> promos = new ArrayList<>();
-        promos.add("1");
-        promos.add("2");
-        promos.add("3");
-        promos.add("4");
-        Generator.generate(promos);
+        startActivity(new Intent(this, PromoFormActivity.class));
     }
 
     private void logEvents() {
