@@ -43,11 +43,11 @@
                 android:id="@+id/tvFact1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="36dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginEnd="36dp"
-                android:drawableStart="@drawable/ic_accept"
                 android:drawablePadding="15dp"
+                android:drawableStart="@drawable/ic_checkmark"
                 android:fontFamily="sans-serif"
                 android:text="@string/water_screen_fact1"
                 android:textColor="@color/water_text_black"
@@ -55,17 +55,18 @@
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle"/>
+                app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                />
 
             <TextView
                 android:id="@+id/tvFact2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="36dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginEnd="36dp"
-                android:drawableStart="@drawable/ic_accept"
                 android:drawablePadding="15dp"
+                android:drawableStart="@drawable/ic_checkmark"
                 android:fontFamily="sans-serif"
                 android:text="@string/water_screen_fact2"
                 android:textColor="@color/water_text_black"
@@ -73,17 +74,18 @@
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvFact1"/>
+                app:layout_constraintTop_toBottomOf="@id/tvFact1"
+                />
 
             <TextView
                 android:id="@+id/tvFact3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="36dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginEnd="36dp"
-                android:drawableStart="@drawable/ic_accept"
                 android:drawablePadding="15dp"
+                android:drawableStart="@drawable/ic_checkmark"
                 android:fontFamily="sans-serif"
                 android:text="@string/water_screen_fact3"
                 android:textColor="@color/water_text_black"
@@ -91,7 +93,8 @@
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvFact2"/>
+                app:layout_constraintTop_toBottomOf="@id/tvFact2"
+                />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -105,6 +108,66 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvFact3">
 
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="0dp"
+                    android:layout_height="25dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="19dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/pbWater"
+                    app:layout_constraintEnd_toEndOf="@+id/pbWater"
+                    app:layout_constraintStart_toStartOf="@+id/pbWater"
+                    >
+                    <View
+                        android:id="@+id/divider41"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/water_blue"
+                        />
+                    <View
+                        android:id="@+id/divider40"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="45dp"
+                        android:background="@color/water_blue"
+                        />
+                    <View
+                        android:id="@+id/divider39"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="48dp"
+                        android:background="@color/water_blue"
+                        />
+                    <View
+                        android:id="@+id/divider38"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="50dp"
+                        android:background="@color/water_blue"
+                        />
+                    <View
+                        android:id="@+id/divider37"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="45dp"
+                        android:background="@color/water_blue"
+                        />
+                    <View
+                        android:id="@+id/divider36"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="45dp"
+                        android:background="@color/water_blue"
+                        />
+                    <View
+                        android:id="@+id/divider42"
+                        android:layout_width="1dp"
+                        android:layout_marginLeft="45dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/water_blue"
+                        />
+                </LinearLayout>
                 <TextView
                     android:id="@+id/tvWaterTitle"
                     android:layout_width="wrap_content"
@@ -121,13 +184,13 @@
 
                 <androidx.appcompat.widget.AppCompatSeekBar
                     android:id="@+id/pbWater"
-                    style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="37dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="57dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="37dp"
+                    android:progressTint="@color/water_blue"
                     android:max="30"
                     android:maxHeight="12dp"
                     android:minHeight="12dp"
@@ -137,133 +200,42 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvWaterTitle"/>
+                    app:layout_constraintTop_toBottomOf="@id/tvWaterTitle"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    />
 
                 <TextView
                     android:id="@+id/tvWater"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
                     android:fontFamily="sans-serif"
                     android:text="@string/water_screen_water_1_0"
                     android:textColor="@color/water_text_black"
                     android:textSize="16sp"
                     android:textStyle="normal"
-                    app:layout_constraintBottom_toTopOf="@id/pbWater"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
                     app:layout_constraintEnd_toEndOf="@id/pbWater"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@id/pbWater"/>
+                    app:layout_constraintStart_toStartOf="@id/pbWater"
+                    />
+
+                <TextView
+                    android:id="@+id/textView164"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#8a000000"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pbWater"
+                    tools:text="Ваша норма на каждый день"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tvAddWaterTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="sans-serif"
-                android:text="@string/water_screen_water_add_title"
-                android:textColor="@color/water_text_black"
-                android:textSize="16sp"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cWater"/>
-
-            <RadioButton
-                android:id="@+id/rbGlass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/selector_bg_button_glass"
-                android:button="@android:color/transparent"
-                android:checked="true"
-                android:elevation="5dp"
-                app:layout_constraintStart_toStartOf="@+id/tvAddWaterTitle"
-                app:layout_constraintTop_toBottomOf="@id/tvAddWaterTitle"/>
-
-            <RadioButton
-                android:id="@+id/rbBottle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:background="@drawable/selector_bg_button_bottle"
-                android:button="@android:color/transparent"
-                android:elevation="5dp"
-                app:layout_constraintBottom_toBottomOf="@+id/rbGlass"
-                app:layout_constraintEnd_toEndOf="@+id/tvAddWaterTitle"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/rbGlass"
-                app:layout_constraintTop_toTopOf="@+id/rbGlass"/>
-
-            <TextView
-                android:id="@+id/textView137"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/water_screen_glass"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="@+id/rbGlass"
-                app:layout_constraintStart_toStartOf="@+id/rbGlass"
-                app:layout_constraintTop_toBottomOf="@+id/rbGlass"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/water_screen_bottle"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="@+id/rbBottle"
-                app:layout_constraintStart_toStartOf="@+id/rbBottle"
-                app:layout_constraintTop_toBottomOf="@+id/rbBottle"/>
-
-            <TextView
-                android:id="@+id/tvWaterNotification"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
-                android:layout_marginTop="29dp"
-                android:fontFamily="sans-serif"
-                android:text="@string/water_screen_water_notification"
-                android:textColor="@color/water_text_black"
-                android:textSize="14sp"
-                android:textStyle="normal"
-                android:visibility="invisible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView137"/>
-
-            <Switch
-                android:id="@+id/swWaterReminder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:checked="true"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/tvWaterNotification"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvWaterNotification"/>
-
-            <Button
-                android:id="@+id/btnDefault"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="30dp"
-                android:background="@color/white"
-                android:paddingStart="16dp"
-                android:paddingTop="12dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="12dp"
-                android:text="@string/water_screen_water_btn_default"
-                android:textAllCaps="true"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvWaterNotification"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
