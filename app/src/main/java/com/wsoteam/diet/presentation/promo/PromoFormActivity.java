@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.utils.IntentUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -109,7 +110,7 @@ public class PromoFormActivity extends MvpAppCompatActivity implements PromoForm
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                IntentUtils.openMainActivity(PromoFormActivity.this);
             }
         });
 
