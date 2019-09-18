@@ -10,6 +10,7 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,6 +29,7 @@ public class WaterActivity extends BaseActivity implements WaterView {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.pbWater) SeekBar pbWater;
     @BindView(R.id.tvWater) TextView tvWater;
+    @BindView(R.id.cardTitle) CardView cardTitle;
 
 
     @InjectPresenter
@@ -44,6 +46,7 @@ public class WaterActivity extends BaseActivity implements WaterView {
         setContentView(R.layout.activity_water);
         ButterKnife.bind(this);
 
+        cardTitle.setBackgroundResource(R.drawable.water_bottom_corner);
 
         toolbar.setTitle(R.string.water_screen_toolbar_title);
         setSupportActionBar(toolbar);
