@@ -24,6 +24,7 @@ import com.wsoteam.diet.presentation.auth.AuthStrategy;
 import com.wsoteam.diet.presentation.profile.about.AboutActivity;
 import com.wsoteam.diet.presentation.profile.help.HelpActivity;
 import com.wsoteam.diet.presentation.profile.norm.ChangeNormActivity;
+import com.wsoteam.diet.presentation.promo.PromoFormActivity;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
 
@@ -36,12 +37,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
     int drawableArrow;
     private final int PREMIUM = 0,
     // FOOD = 1,
-    PERSONAL = 1,
-    KCAL = 2,
+    PROMO = 1,
+            PERSONAL = 2,
+            KCAL = 3,
     //NOTIFICATIONS = 3,
     //TARGET = 4,
-    HELP = 3,
-            LOGOUT = 4;
+    HELP = 4,
+            LOGOUT = 5;
 
     public ItemsAdapter(Context context, boolean isNotPrem) {
         this.context = context;
@@ -105,6 +107,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
             /*case FOOD:
                 Toast.makeText(context, "Раздел в разработке :(", Toast.LENGTH_SHORT).show();
                 break;*/
+            case PROMO:
+                context.startActivity(new Intent(context, PromoFormActivity.class));
+                break;
             case PERSONAL:
                 context.startActivity(new Intent(context, AboutActivity.class));
                 break;

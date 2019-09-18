@@ -11,6 +11,7 @@
     <integer-array name="left_drawables">
         <item>@drawable/ic_left_settings_diamond</item>
         <!--<item>@drawable/ic_left_settings_item_fork</item>-->
+        <item>@drawable/ic_left_settings_item_promo</item>
         <item>@drawable/ic_left_settings_item_man</item>
         <item>@drawable/ic_left_settings_item_kcal</item>
         <!--<item>@drawable/ic_left_settings_item_bell</item>
@@ -21,6 +22,7 @@
 
     <integer-array name="left_drawables_prem">
         <!--<item>@drawable/ic_left_settings_item_fork</item>-->
+        <item>@drawable/ic_left_settings_item_promo</item>
         <item>@drawable/ic_left_settings_item_man</item>
         <item>@drawable/ic_left_settings_item_kcal</item>
         <!--<item>@drawable/ic_left_settings_item_bell</item>
@@ -821,6 +823,7 @@
     <string-array name="settings_items">
         <item>Premium аккаунт</item>
         <!--<item>Еда и аллергия</item>-->
+        <item>Промокоды</item>
         <item>Личные данные</item>
         <item>Норма калорий</item>
         <!--<item>Уведомления</item>
