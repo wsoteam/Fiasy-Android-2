@@ -16,7 +16,6 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.collection.SparseArrayCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,10 +40,14 @@ public class UserActivityFragment extends DialogFragment implements
     PopupMenu.OnMenuItemClickListener,
     OnActivityCreated {
 
+  private final static int CREATE_CUSTOM_ACTIVITY = 0;
+  private final static int ADD_ACTIVITY_2_DIARY = 1;
+
   private Toolbar toolbar;
 
   private RecyclerView container;
   private ActivitiesAdapter adapter;
+  private ExercisesSource diarySource = new ActivitiesSyncedSource(ActivitiesSyncedSource.DIARY);
 
   private final SparseArrayCompat<ExercisesSource> sources = new SparseArrayCompat<>();
   private final CompositeDisposable disposables = new CompositeDisposable();
@@ -79,7 +82,7 @@ public class UserActivityFragment extends DialogFragment implements
       @Override
       public void onItemClick(RecyclerView.ViewHolder view, int sectionId) {
         final UserActivityExercise e = adapter.getItem(view.getAdapterPosition());
-        requestAddUserActivity(e, R.string.user_activity_section_my == sectionId);
+        requestAddUserActivity(e, false);
       }
 
       @Override public void onItemMenuClick(@NonNull RecyclerView.ViewHolder view, int sectionId) {
@@ -91,7 +94,6 @@ public class UserActivityFragment extends DialogFragment implements
         if (sectionId == R.string.user_activity_section_defaults) {
           menu.getMenu().add(0, R.id.action_make_favorite, 1, R.string.action_add_to_favorite);
         } else if (sectionId == R.string.user_activity_section_favorite) {
-          menu.getMenu().add(0, R.id.action_add_user_activity, 1, R.string.action_add);
           menu.getMenu().add(0, R.id.action_delete, 1, R.string.contextMenuDelete);
         } else if (sectionId == R.string.user_activity_section_my) {
           menu.getMenu().add(0, R.id.action_edit, 1, R.string.contextMenuEdit);
@@ -119,7 +121,7 @@ public class UserActivityFragment extends DialogFragment implements
               break;
 
             case R.id.action_add_user_activity:
-              requestAddUserActivity(target, false);
+              requestCreateCustomActivity();
               break;
 
             case R.id.action_delete:
@@ -150,7 +152,7 @@ public class UserActivityFragment extends DialogFragment implements
     //sources.put(R.string.user_activity_section_google_fit, googleFitSource);
 
     sources.put(R.string.user_activity_section_my,
-        new MyActivitiesSource());
+        new ActivitiesSyncedSource(ActivitiesSyncedSource.ACTIVITIES));
 
     sources.put(R.string.user_activity_section_favorite,
         new FavoriteSource(requireContext()));
@@ -256,21 +258,9 @@ public class UserActivityFragment extends DialogFragment implements
     return true;
   }
 
-  private void requestAddUserActivity(@Nullable UserActivityExercise exercise, boolean edit) {
-    Fragment target;
-
-    if (exercise == null) {
-      final CreateUserActivityFragment f = new CreateUserActivityFragment();
-      target = f;
-    } else {
-      final AddUserActivityFragment f = new AddUserActivityFragment();
-      f.setSelected(exercise);
-      f.setEditMode(edit);
-
-      target = f;
-    }
-
-    target.setTargetFragment(this, 1);
+  private void requestCreateCustomActivity() {
+    final CreateUserActivityFragment target = new CreateUserActivityFragment();
+    target.setTargetFragment(this, CREATE_CUSTOM_ACTIVITY);
 
     getActivity().getSupportFragmentManager()
         .beginTransaction()
@@ -279,23 +269,51 @@ public class UserActivityFragment extends DialogFragment implements
         .commitAllowingStateLoss();
   }
 
-  @Override public void didCreateActivity(@NotNull UserActivityExercise exercise, boolean edited) {
-    if (edited) {
-      adapter.updateItemAt(R.string.user_activity_section_my, exercise);
+  private void requestAddUserActivity(@Nullable UserActivityExercise exercise, boolean edit) {
+    final EditUserActivityFragment f = new EditUserActivityFragment();
+    f.setTargetFragment(this, !edit ? ADD_ACTIVITY_2_DIARY : CREATE_CUSTOM_ACTIVITY);
+    f.setSelected(exercise);
+    f.setEditMode(edit);
 
-      disposables.add(sources.get(R.string.user_activity_section_my)
-          .edit(exercise)
-          .subscribeOn(Schedulers.io())
-          .observeOn(AndroidSchedulers.mainThread())
-          .subscribe(
-              Functions.emptyConsumer(),
-              Throwable::printStackTrace
-          ));
+    getActivity().getSupportFragmentManager()
+        .beginTransaction()
+        .add(android.R.id.content, f, f.getClass().getSimpleName())
+        .addToBackStack(null)
+        .commitAllowingStateLoss();
+  }
+
+  @Override public void didCreateActivity(@NotNull UserActivityExercise exercise,
+      final boolean edited,
+      final int requestCode) {
+
+    final boolean createCustomActivity = requestCode == CREATE_CUSTOM_ACTIVITY;
+
+    if (createCustomActivity) {
+      if (edited) {
+        adapter.updateItemAt(R.string.user_activity_section_my, exercise);
+
+        disposables.add(sources.get(R.string.user_activity_section_my)
+            .edit(exercise)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                Functions.emptyConsumer(),
+                Throwable::printStackTrace
+            ));
+      } else {
+        adapter.addItem(R.string.user_activity_section_my, exercise);
+
+        disposables.add(sources.get(R.string.user_activity_section_my)
+            .add(exercise)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                Functions.emptyConsumer(),
+                Throwable::printStackTrace
+            ));
+      }
     } else {
-      adapter.addItem(R.string.user_activity_section_my, exercise);
-
-      disposables.add(sources.get(R.string.user_activity_section_my)
-          .add(exercise)
+      disposables.add(diarySource.add(exercise)
           .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe(

@@ -12,11 +12,13 @@ import android.widget.Filter
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.presentation.activity.ExercisesSource.AssetsSource
 import com.wsoteam.diet.utils.RichTextUtils.RichText
+import io.reactivex.disposables.CompositeDisposable
 
 class CreateUserActivityFragment : DialogFragment() {
 
@@ -40,6 +42,9 @@ class CreateUserActivityFragment : DialogFragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
+    val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
+    toolbar.setNavigationOnClickListener { dismissAllowingStateLoss() }
+
     doneButton = view.findViewById<View>(R.id.action_done)
     doneButton.setOnClickListener {
       val callback = targetFragment as? OnActivityCreated ?: return@setOnClickListener
@@ -52,7 +57,7 @@ class CreateUserActivityFragment : DialogFragment() {
           exerciseDuration.progress * 60
       )
 
-      callback.didCreateActivity(activity, true)
+      callback.didCreateActivity(activity, false, targetRequestCode)
 
       dismissAllowingStateLoss()
     }
@@ -61,7 +66,7 @@ class CreateUserActivityFragment : DialogFragment() {
     exerciseDurationText = view.findViewById(R.id.activity_duration_selected)
 
     exerciseDuration = view.findViewById(R.id.activity_duration)
-    exerciseDuration.setOnSeekBarChangeListener(object: OnSeekBarChangeListener{
+    exerciseDuration.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
       override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
         val minutes = (durations.step * (progress + 1))
         val duration = RichText(minutes.toString())
@@ -77,7 +82,7 @@ class CreateUserActivityFragment : DialogFragment() {
       override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
       override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
     })
-    exerciseDuration.max = (durations.last - durations.first ) / durations.step
+    exerciseDuration.max = (durations.last - durations.first) / durations.step
     exerciseDuration.progress = exerciseDuration.max / 2
 
     exerciseName = view.findViewById(R.id.activity_name)
@@ -102,15 +107,19 @@ class CreateUserActivityFragment : DialogFragment() {
       .text()
   }
 
+  private val duration: Int
+    get() = (exerciseDuration.progress + 1) * durations.step
+
+
   private fun getBurnedCalories(): Int {
     val weight = (UserDataHolder.getUserData()?.profile?.weight ?: 1.0).toInt()
 
     return selected?.let { exercise ->
-      weight * exerciseDuration.progress * if (exercise.duration > 60) {
-        exercise.burned / (exercise.duration / 60)
-      } else {
-        exercise.burned
-      }
+      weight * duration * if (exercise.duration > 60) {
+      exercise.burned / (exercise.duration / 60)
+    } else {
+      exercise.burned
+    }
     } ?: 0
   }
 

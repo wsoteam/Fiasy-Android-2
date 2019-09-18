@@ -16,17 +16,22 @@ import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.utils.RichTextUtils.RichText
 import com.wsoteam.diet.utils.argument
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
-class AddUserActivityFragment : DialogFragment() {
+class EditUserActivityFragment : DialogFragment() {
 
   var selected by argument<UserActivityExercise>()
   var editMode by argument<Boolean>()
+  var fromDiary by argument<Boolean>()
+
+  private val disposables = CompositeDisposable()
 
   private lateinit var exerciseName: TextView
   private lateinit var exerciseEfficiency: TextView
   private lateinit var exerciseDuration: SeekBar
 
-  private lateinit var doneButton: View
+  private lateinit var doneButton: TextView
 
   override fun onCreateView(inflater: LayoutInflater,
     container: ViewGroup?,
@@ -38,12 +43,36 @@ class AddUserActivityFragment : DialogFragment() {
     super.onViewCreated(view, savedInstanceState)
 
     val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
-    toolbar.setNavigationOnClickListener { v -> dismissAllowingStateLoss() }
+    toolbar.setNavigationOnClickListener { dismissAllowingStateLoss() }
 
-    doneButton = view.findViewById<View>(R.id.action_done)
+    doneButton = view.findViewById(R.id.action_done)
+
+    if (editMode == true) {
+      doneButton.text = "Изменить"
+    }
+
     doneButton.setOnClickListener {
+      var selected = selected ?: return@setOnClickListener
+
+      selected = selected.copy(
+          burned = getBurnedCalories(),
+          duration = exerciseDuration.progress * 60
+      )
+
+      if (fromDiary == true) {
+        val diarySource = ActivitiesSyncedSource(ActivitiesSyncedSource.DIARY)
+        val task = if (editMode == true) diarySource.edit(selected) else diarySource.add(selected)
+
+        disposables.add(task.subscribeOn(Schedulers.io()).subscribe { r, error ->
+          if (error != null) {
+            error.printStackTrace()
+          } else {
+            dismissAllowingStateLoss()
+          }
+        })
+      }
+
       val callback = targetFragment as? OnActivityCreated ?: return@setOnClickListener
-      val selected = selected ?: return@setOnClickListener
 
       val activity = UserActivityExercise(
           selected.title,
@@ -52,7 +81,7 @@ class AddUserActivityFragment : DialogFragment() {
           exerciseDuration.progress * 60
       )
 
-      callback.didCreateActivity(activity, editMode ?: false)
+      callback.didCreateActivity(activity, editMode ?: false, targetRequestCode)
 
       dismissAllowingStateLoss()
     }
@@ -87,6 +116,7 @@ class AddUserActivityFragment : DialogFragment() {
     exerciseEfficiency = view.findViewById(R.id.activity_burned_hint)
 
     exerciseName = view.findViewById(R.id.activity_name)
+    exerciseName.text = selected?.title
 
     selected?.let { onExerciseSelected(it) } ?: kotlin.run {
       setEfficiency(30, 0)
@@ -117,10 +147,16 @@ class AddUserActivityFragment : DialogFragment() {
     } ?: 0
   }
 
+  override fun onDestroyView() {
+    super.onDestroyView()
+    disposables.clear()
+  }
+
   private fun setEfficiency(duration: Int, burned: Int) {
     exerciseDuration.progress = duration
 
-    val pluralDuration =  "$duration " + resources.getQuantityString(R.plurals.duration_minutes, duration)
+    val pluralDuration =
+      "$duration " + resources.getQuantityString(R.plurals.duration_minutes, duration)
 
     val exerciseTemplate =
       getString(R.string.add_user_activity_duration_hint, pluralDuration)

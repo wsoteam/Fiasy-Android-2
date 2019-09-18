@@ -12,11 +12,14 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import java.util.Collections
 
-class MyActivitiesSource : ExercisesSource() {
+class ActivitiesSyncedSource(val source: String) : ExercisesSource() {
   companion object {
     const val OP_EDITED = 0
     const val OP_ADDED = 1
     const val OP_REMOVED = 2
+
+    const val ACTIVITIES = "activities"
+    const val DIARY = "activity_diary"
 
     private val changeCallback = MutableLiveData<Int>()
 
@@ -34,7 +37,7 @@ class MyActivitiesSource : ExercisesSource() {
     database = FirebaseDatabase.getInstance()
       .getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY)
       .child(uid)
-      .child("activities")
+      .child(source)
 
     database.keepSynced(true)
   }
