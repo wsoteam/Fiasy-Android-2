@@ -344,7 +344,7 @@
         <item name="colorAccent">#ed2d2d</item>
         <item name="android:textColor">#ed2d2d</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
 
     <style name="ChangeGoalActivity" parent="Theme.AppCompat.Light.NoActionBar">
