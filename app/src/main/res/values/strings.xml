@@ -631,7 +631,8 @@
     <string name="water_screen_fact2">Поставляет полезные вещества клеткам, не допуская тем самым их голодание и гибель.</string>
     <string name="water_screen_fact3">Способствует похудению путём улучшения процессов обмена веществ.</string>
 
-    <string name="water_screen_water_need_title">Задать норму на каждый день</string>
+    <string name="water_screen_water_need_title">Общее</string>
+    <string name="water_screen_water_normal">Ваша норма на каждый день</string>
     <string name="water_screen_water_1_0">1.0 л</string>
 
     <!--Water Screen-->

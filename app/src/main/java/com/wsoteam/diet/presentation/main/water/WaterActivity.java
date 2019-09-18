@@ -76,8 +76,8 @@ public class WaterActivity extends BaseActivity implements WaterView {
     }
 
     private void calculateWaterX() {
-        tvWater.setText(((float) pbWater.getProgress() * (false ? PROGRESS_MAX_GLASS : PROGRESS_MAX_BOTTLE) + 1) + " л");
-        tvWater.setX(presenter.calcXPosition(pbWater, pbWater.getProgress(), tvWater));
+        tvWater.setText(((float) pbWater.getProgress() * (false ? PROGRESS_MAX_GLASS : PROGRESS_MAX_BOTTLE) + 1.5) + " л");
+        //tvWater.setX(presenter.calcXPosition(pbWater, pbWater.getProgress(), tvWater));
     }
 
     private void setDefaultProgress() {
@@ -114,21 +114,21 @@ public class WaterActivity extends BaseActivity implements WaterView {
         pbWater.setProgress(waterProgress);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu_water, menu);
-        return true;
-    }
+    //@Override
+    //public boolean onCreateOptionsMenu(Menu menu) {
+    //    getMenuInflater().inflate(R.menu.toolbar_menu_water, menu);
+    //    return true;
+    //}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_save:
-                presenter.saveWaterParameters(false, pbWater.getProgress(), false);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+    //@Override
+    //public boolean onOptionsItemSelected(MenuItem item) {
+    //    switch (item.getItemId()) {
+    //        case R.id.action_save:
+    //            presenter.saveWaterParameters(false, pbWater.getProgress(), false);
+    //            return true;
+    //    }
+    //    return super.onOptionsItemSelected(item);
+    //}
 
     @Override
     public void settingSaved() {

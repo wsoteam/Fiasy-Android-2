@@ -106,82 +106,129 @@
                 android:elevation="3dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvFact3">
+                app:layout_constraintTop_toBottomOf="@id/tvFact3"
+                >
 
-                <LinearLayout
-                    android:id="@+id/linearLayout3"
-                    android:layout_width="0dp"
-                    android:layout_height="25dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginStart="19dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="@+id/pbWater"
-                    app:layout_constraintEnd_toEndOf="@+id/pbWater"
-                    app:layout_constraintStart_toStartOf="@+id/pbWater"
-                    >
-                    <View
-                        android:id="@+id/divider41"
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/water_blue"
-                        />
-                    <View
-                        android:id="@+id/divider40"
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="45dp"
-                        android:background="@color/water_blue"
-                        />
-                    <View
-                        android:id="@+id/divider39"
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="48dp"
-                        android:background="@color/water_blue"
-                        />
-                    <View
-                        android:id="@+id/divider38"
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="50dp"
-                        android:background="@color/water_blue"
-                        />
-                    <View
-                        android:id="@+id/divider37"
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="45dp"
-                        android:background="@color/water_blue"
-                        />
-                    <View
-                        android:id="@+id/divider36"
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="45dp"
-                        android:background="@color/water_blue"
-                        />
-                    <View
-                        android:id="@+id/divider42"
-                        android:layout_width="1dp"
-                        android:layout_marginLeft="45dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/water_blue"
-                        />
-                </LinearLayout>
                 <TextView
                     android:id="@+id/tvWaterTitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="12dp"
-                    android:fontFamily="sans-serif"
                     android:text="@string/water_screen_water_need_title"
-                    android:textColor="@color/water_text_black"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-medium"
                     android:textStyle="normal"
+                    android:textColor="#d9424242"
+                    android:lineSpacingExtra="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
 
+                <TextView
+                    android:id="@+id/tvWater"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:lineSpacingExtra="10sp"
+                    android:text="@string/water_screen_water_1_0"
+                    android:textColor="#2d9cdb"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toTopOf="@+id/pbWater"
+                    app:layout_constraintEnd_toEndOf="@id/pbWater"
+                    app:layout_constraintStart_toStartOf="@id/pbWater"
+                    app:layout_constraintTop_toBottomOf="@+id/tvWaterTitle"
+                    app:layout_constraintVertical_bias="0.233"
+                    />
+                <TextView
+                    android:id="@+id/tvWaterBottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/water_screen_water_normal"
+                    android:textColor="#8a000000"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pbWater"
+                    />
+
+                <View
+                    android:id="@+id/divider42"
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
+                    android:background="@color/water_blue"
+                    app:layout_constraintBottom_toBottomOf="@+id/divider41"
+                    app:layout_constraintEnd_toStartOf="@+id/divider36"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/divider37"
+                    />
+                <View
+                    android:id="@+id/divider41"
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@color/water_blue"
+                    app:layout_constraintBottom_toTopOf="@+id/pbWater"
+                    app:layout_constraintEnd_toStartOf="@+id/divider40"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="@+id/pbWater"
+                    />
+                <View
+                    android:id="@+id/divider40"
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
+                    android:background="@color/water_blue"
+                    app:layout_constraintBottom_toBottomOf="@+id/divider41"
+                    app:layout_constraintEnd_toStartOf="@+id/divider39"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/divider41"
+                    />
+                <View
+                    android:id="@+id/divider39"
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
+                    android:background="@color/water_blue"
+                    app:layout_constraintBottom_toBottomOf="@+id/divider41"
+                    app:layout_constraintEnd_toStartOf="@+id/divider37"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/divider40"
+                    />
+                <View
+                    android:id="@+id/divider38"
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/water_blue"
+                    app:layout_constraintBottom_toBottomOf="@+id/divider41"
+                    app:layout_constraintEnd_toEndOf="@+id/pbWater"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/divider36"
+                    />
+                <View
+                    android:id="@+id/divider37"
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
+                    android:background="@color/water_blue"
+                    app:layout_constraintBottom_toBottomOf="@+id/divider41"
+                    app:layout_constraintEnd_toStartOf="@+id/divider42"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/divider39"
+                    />
+                <View
+                    android:id="@+id/divider36"
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
+                    android:background="@color/water_blue"
+                    app:layout_constraintBottom_toBottomOf="@+id/divider41"
+                    app:layout_constraintEnd_toStartOf="@+id/divider38"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/divider42"
+                    />
                 <androidx.appcompat.widget.AppCompatSeekBar
                     android:id="@+id/pbWater"
                     android:layout_width="0dp"
@@ -190,11 +237,11 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="57dp"
-                    android:progressTint="@color/water_blue"
                     android:max="30"
                     android:maxHeight="12dp"
                     android:minHeight="12dp"
                     android:progressDrawable="@drawable/bg_seekbar_water"
+                    android:progressTint="@color/water_blue"
                     android:splitTrack="false"
                     android:thumb="@drawable/thumb_seekbar"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -202,36 +249,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvWaterTitle"
                     style="?android:attr/progressBarStyleHorizontal"
-                    />
-
-                <TextView
-                    android:id="@+id/tvWater"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:text="@string/water_screen_water_1_0"
-                    android:textColor="@color/water_text_black"
-                    android:textSize="16sp"
-                    android:textStyle="normal"
-                    app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-                    app:layout_constraintEnd_toEndOf="@id/pbWater"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@id/pbWater"
-                    />
-
-                <TextView
-                    android:id="@+id/textView164"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:textColor="#8a000000"
-                    android:textSize="14sp"
-                    android:textStyle="normal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pbWater"
-                    tools:text="Ваша норма на каждый день"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
