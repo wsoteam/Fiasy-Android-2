@@ -134,6 +134,13 @@ public class WorkWithFirebaseDB {
         myRef.push().setValue(water);
     }
 
+    public static void setMaxWater(float maxWater){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+            child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("profile").child("maxWater");
+        myRef.setValue(maxWater);
+    }
+
     public static void putProfileValue(Profile profile) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).

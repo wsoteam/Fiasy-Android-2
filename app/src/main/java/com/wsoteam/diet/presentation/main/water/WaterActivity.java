@@ -1,13 +1,8 @@
 package com.wsoteam.diet.presentation.main.water;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewTreeObserver;
-import android.widget.RadioButton;
+import android.util.Log;
 import android.widget.SeekBar;
-import android.widget.Switch;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -22,8 +17,7 @@ import com.wsoteam.diet.presentation.global.BaseActivity;
 
 public class WaterActivity extends BaseActivity implements WaterView {
 
-    public static final float PROGRESS_MAX_GLASS = 0.25f;
-    public static final float PROGRESS_MAX_BOTTLE = 0.25f;
+    public static final float PROGRESS_STEP = 0.25f;
     private static final float PROGRESS_MIN = 1.5f;
     public static final float PROGRESS_MAX = 3;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -37,7 +31,7 @@ public class WaterActivity extends BaseActivity implements WaterView {
 
     @ProvidePresenter
     WaterPresenter providePresenter() {
-        return new WaterPresenter(this, CiceroneModule.router());
+        return new WaterPresenter();
     }
 
     @Override
@@ -69,69 +63,30 @@ public class WaterActivity extends BaseActivity implements WaterView {
         });
         setDefaultProgress();
 
-        pbWater.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                pbWater.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                calculateWaterX();
-            }
-        });
+    }
+
+    @Override protected void onPause() {
+        presenter.saveUsersMaxWater((float) (pbWater.getProgress() * PROGRESS_STEP + 1.5));
+        super.onPause();
     }
 
     private void calculateWaterX() {
-        tvWater.setText(((float) pbWater.getProgress() * (false ? PROGRESS_MAX_GLASS : PROGRESS_MAX_BOTTLE) + 1.5) + " л");
-        //tvWater.setX(presenter.calcXPosition(pbWater, pbWater.getProgress(), tvWater));
+        tvWater.setText(((float) pbWater.getProgress() * PROGRESS_STEP + 1.5) + " л");
+
     }
 
     private void setDefaultProgress() {
-        //rbGlass.setChecked(presenter.getWaterPackParameter());
-        //rbBottle.setChecked(!presenter.getWaterPackParameter());
-        //
-        //swWaterReminder.setChecked(presenter.getWaterNotificationParameter());
 
-        changePack(presenter.getWaterProgressStepParameter());
+        changePack(presenter.getUsersMaxWater());
     }
 
-    //@OnClick({R.id.btnDefault, R.id.rbGlass, R.id.rbBottle})
-    //void onClick(View view) {
-    //    switch (view.getId()) {
-    //        case R.id.btnDefault:
-    //            rbGlass.setChecked(true);
-    //            rbBottle.setChecked(false);
-    //            swWaterReminder.setChecked(true);
-    //            break;
-    //        case R.id.rbGlass:
-    //            rbBottle.setChecked(false);
-    //            break;
-    //        case R.id.rbBottle:
-    //            rbGlass.setChecked(false);
-    //            break;
-    //    }
-    //    changePack(0);
-    //}
-
-    private void changePack(int waterProgress) {
-        int steps = (int) ((PROGRESS_MAX - PROGRESS_MIN) / (false ? PROGRESS_MAX_GLASS : PROGRESS_MAX_BOTTLE));
+    private void changePack(float waterProgress) {
+        int steps = (int) ((PROGRESS_MAX - PROGRESS_MIN) / PROGRESS_STEP);
         pbWater.setMax(steps);
         pbWater.setProgress(1);
-        pbWater.setProgress(waterProgress);
+        pbWater.setProgress((int) ((waterProgress - PROGRESS_MIN) / PROGRESS_STEP));
     }
 
-    //@Override
-    //public boolean onCreateOptionsMenu(Menu menu) {
-    //    getMenuInflater().inflate(R.menu.toolbar_menu_water, menu);
-    //    return true;
-    //}
-
-    //@Override
-    //public boolean onOptionsItemSelected(MenuItem item) {
-    //    switch (item.getItemId()) {
-    //        case R.id.action_save:
-    //            presenter.saveWaterParameters(false, pbWater.getProgress(), false);
-    //            return true;
-    //    }
-    //    return super.onOptionsItemSelected(item);
-    //}
 
     @Override
     public void settingSaved() {

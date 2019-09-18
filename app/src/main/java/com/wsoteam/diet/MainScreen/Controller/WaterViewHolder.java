@@ -55,10 +55,10 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
         Glide.with(context).load(R.drawable.water_icon).into(ivEatingIcon);
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
 
-        float waterCount = getWaterProgressStepParameter() * (getWaterPackParameter() ? WaterActivity.PROGRESS_MAX_GLASS : WaterActivity.PROGRESS_MAX_BOTTLE) + 1;
+        float waterCount = getWaterProgressStepParameter() * WaterActivity.PROGRESS_STEP + 1;
         tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), 0f, waterCount));
         waterStepView.setOnWaterClickListener(progress -> {
-            float waterProgress = getWaterPackParameter() ? progress * WaterActivity.PROGRESS_MAX_GLASS : progress * WaterActivity.PROGRESS_MAX_BOTTLE;
+            float waterProgress = progress * WaterActivity.PROGRESS_STEP;
             tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), waterProgress, waterCount));
             waterStepView.setStepNum(progress, waterProgress < WaterActivity.PROGRESS_MAX);
             WorkWithFirebaseDB.
