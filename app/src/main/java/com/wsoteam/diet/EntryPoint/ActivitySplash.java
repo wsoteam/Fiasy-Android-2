@@ -50,6 +50,7 @@ import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.UserProperty;
+import com.wsoteam.diet.common.promo.POJO.UserPromo;
 import com.wsoteam.diet.presentation.auth.AuthStrategy;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
@@ -267,30 +268,48 @@ public class ActivitySplash extends BaseActivity {
     }
 
     private void checkBilling() {
-        if (SingletonMakePurchase.getInstance().isMakePurchaseNow()) {
+        if (isHasPromo()) {
             changePremStatus(true);
-        } else if (UserDataHolder.getUserData() != null
-                && UserDataHolder.getUserData().getSubInfo() == null) {
-            //unknown status premium or new user
-            setSubInfoWithGooglePlayInfo();
-        } else if (UserDataHolder.getUserData() != null
-                && UserDataHolder.getUserData().getSubInfo() != null
-                && !UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
-            //user have premium status, check time of premium
-            SubInfo subInfo = UserDataHolder.getUserData().getSubInfo();
-            if (subInfo.getPaymentState() == 0) {
+        } else {
+            if (SingletonMakePurchase.getInstance().isMakePurchaseNow()) {
+                changePremStatus(true);
+            } else if (UserDataHolder.getUserData() != null
+                    && UserDataHolder.getUserData().getSubInfo() == null) {
+                //unknown status premium or new user
+                setSubInfoWithGooglePlayInfo();
+            } else if (UserDataHolder.getUserData() != null
+                    && UserDataHolder.getUserData().getSubInfo() != null
+                    && !UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
+                //user have premium status, check time of premium
+                SubInfo subInfo = UserDataHolder.getUserData().getSubInfo();
+                if (subInfo.getPaymentState() == 0) {
+                    changePremStatus(false);
+                    UserProperty.setPremStatus(UserProperty.preferential);
+                    new CheckAndSetPurchase(this).execute(subInfo.getProductId(), subInfo.getPurchaseToken(),
+                            subInfo.getPackageName());
+                } else if (subInfo.getPaymentState() != 0) {
+                    compareTime(subInfo);
+                }
+            } else if (UserDataHolder.getUserData() != null
+                    && UserDataHolder.getUserData().getSubInfo() != null
+                    && UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
+                UserProperty.setPremStatus(UserProperty.not_buy);
                 changePremStatus(false);
-                UserProperty.setPremStatus(UserProperty.preferential);
-                new CheckAndSetPurchase(this).execute(subInfo.getProductId(), subInfo.getPurchaseToken(),
-                        subInfo.getPackageName());
-            } else if (subInfo.getPaymentState() != 0) {
-                compareTime(subInfo);
             }
-        } else if (UserDataHolder.getUserData() != null
-                && UserDataHolder.getUserData().getSubInfo() != null
-                && UserDataHolder.getUserData().getSubInfo().getProductId().equals(IDs.EMPTY_SUB)) {
-            UserProperty.setPremStatus(UserProperty.not_buy);
-            changePremStatus(false);
+        }
+    }
+
+    private boolean isHasPromo() {
+        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getUserPromo() != null) {
+            UserPromo userPromo = UserDataHolder.getUserData().getUserPromo();
+            long currentTime = Calendar.getInstance().getTimeInMillis();
+            if (currentTime <= userPromo.getStartActivated() + userPromo.getDuration()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 
