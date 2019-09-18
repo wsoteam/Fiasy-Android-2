@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -25,6 +26,15 @@ public class PromoFormActivity extends MvpAppCompatActivity implements PromoForm
     @BindView(R.id.tilPromo) TextInputLayout tilPromo;
     private PromoFormPresenter presenter;
     private boolean isError = false;
+
+    @Override
+    public void resultCheckedPromo(boolean isSuccess) {
+        if (isSuccess){
+            showSuccesDialog();
+        }else {
+            showError();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +94,7 @@ public class PromoFormActivity extends MvpAppCompatActivity implements PromoForm
                 onBackPressed();
                 break;
             case R.id.btnSendPromo:
-                showSuccesDialog();
+                presenter.checkPromo(edtPromo.getText().toString());
                 break;
         }
     }
@@ -99,7 +109,7 @@ public class PromoFormActivity extends MvpAppCompatActivity implements PromoForm
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                
             }
         });
 
