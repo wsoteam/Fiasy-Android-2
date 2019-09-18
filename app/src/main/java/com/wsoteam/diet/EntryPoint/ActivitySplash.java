@@ -306,6 +306,8 @@ public class ActivitySplash extends BaseActivity {
             if (currentTime <= userPromo.getStartActivated() + userPromo.getDuration()) {
                 return true;
             } else {
+                WorkWithFirebaseDB.setEmptyUserPromo();
+                changePremStatus(false);
                 return false;
             }
         } else {

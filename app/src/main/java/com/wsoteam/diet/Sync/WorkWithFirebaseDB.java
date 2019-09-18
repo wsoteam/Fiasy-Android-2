@@ -429,6 +429,13 @@ public class WorkWithFirebaseDB {
         myRef.setValue(userPromo);
     }
 
+    public static void setEmptyUserPromo(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("userPromo");
+        myRef.removeValue();
+    }
+
     public static void changePromo(Promo promo){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(com.wsoteam.diet.common.promo.Config.promoStoragePath).
