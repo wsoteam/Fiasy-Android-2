@@ -12,7 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.promo.PromoFormActivity"></activity>
+        <activity android:name=".presentation.promo.PromoFormActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/PromoScreen"/>
+        <activity
+            android:name=".presentation.profile.norm.ChangeNormActivity"
+            android:theme="@style/ChangeNorm"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".presentation.profile.norm.choise.activity.ActivActivity"
             android:theme="@style/ChangeGoalActivity" />
