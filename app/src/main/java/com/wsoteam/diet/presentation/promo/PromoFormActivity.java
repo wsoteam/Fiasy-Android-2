@@ -79,8 +79,11 @@ public class PromoFormActivity extends MvpAppCompatActivity implements PromoForm
                 onBackPressed();
                 break;
             case R.id.btnSendPromo:
-                showError();
+                showSuccesDialog();
                 break;
         }
+    }
+
+    private void showSuccesDialog() {
     }
 }
