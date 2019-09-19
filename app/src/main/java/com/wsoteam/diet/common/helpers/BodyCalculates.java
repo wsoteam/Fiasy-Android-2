@@ -259,7 +259,7 @@ public class BodyCalculates {
         } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_normal))) {
             target = 1 - TARGET_LOOSE_WEIGHT;
         } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard))) {
-            target = 1 - TARGET_MUSCLE;
+            target = 1 + TARGET_MUSCLE;
         } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard_up))) {
             target = 1 - TARGET_SAVE;
         }
