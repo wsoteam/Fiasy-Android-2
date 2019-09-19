@@ -268,6 +268,9 @@ public class ActivitySplash extends BaseActivity {
     }
 
     private void checkBilling() {
+        if (isHasPromo()) {
+            changePremStatus(true);
+        } else {
             if (SingletonMakePurchase.getInstance().isMakePurchaseNow()) {
                 changePremStatus(true);
             } else if (UserDataHolder.getUserData() != null
@@ -293,9 +296,24 @@ public class ActivitySplash extends BaseActivity {
                 UserProperty.setPremStatus(UserProperty.not_buy);
                 changePremStatus(false);
             }
+        }
     }
 
-
+    private boolean isHasPromo() {
+        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getUserPromo() != null) {
+            UserPromo userPromo = UserDataHolder.getUserData().getUserPromo();
+            long currentTime = Calendar.getInstance().getTimeInMillis();
+            if (currentTime <= userPromo.getStartActivated() + userPromo.getDuration()) {
+                return true;
+            } else {
+                WorkWithFirebaseDB.setEmptyUserPromo();
+                changePremStatus(false);
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
     private void compareTime(SubInfo subInfo) {
         long currentTime = Calendar.getInstance().getTimeInMillis();
