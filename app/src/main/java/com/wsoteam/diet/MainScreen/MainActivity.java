@@ -55,8 +55,11 @@ import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipesHolder;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
+import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.promo.Generator;
+import com.wsoteam.diet.common.promo.POJO.UserPromo;
 import com.wsoteam.diet.common.remote.POJO.StoreVersion;
 import com.wsoteam.diet.common.remote.UpdateChecker;
 import com.wsoteam.diet.common.Analytics.SavedConst;
@@ -140,7 +143,16 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         handlGrade(Calendar.getInstance().getTimeInMillis());
         new UpdateChecker(this).runChecker();
+        checkPromo();
         Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
+    }
+
+    private void checkPromo() {
+        if (isHasPromo()) {
+            changePremStatus(true);
+        } else {
+            changePremStatus(false);
+        }
     }
 
     private void handlGrade(long currentTime) {
@@ -180,11 +192,6 @@ public class MainActivity extends AppCompatActivity {
             loadDietPlans();
         }
         logEvents();
-        List<String> list = new ArrayList<>();
-        for (int i = 5; i < 16; i++) {
-            list.add(String.valueOf(i));
-        }
-        Generator.generate(list);
     }
 
     private void logEvents() {
@@ -303,5 +310,26 @@ public class MainActivity extends AppCompatActivity {
             bnvMain.setSelectedItemId(R.id.bnv_main_diary);
         }
 
+    }
+
+    private void changePremStatus(boolean isPremUser) {
+        getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).edit()
+                .putBoolean(Config.STATE_BILLING, isPremUser)
+                .apply();
+    }
+
+    private boolean isHasPromo() {
+        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getUserPromo() != null) {
+            UserPromo userPromo = UserDataHolder.getUserData().getUserPromo();
+            long currentTime = Calendar.getInstance().getTimeInMillis();
+            if (currentTime <= userPromo.getStartActivated() + userPromo.getDuration()) {
+                return true;
+            } else {
+                WorkWithFirebaseDB.setEmptyUserPromo();
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 }
