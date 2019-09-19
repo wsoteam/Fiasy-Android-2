@@ -52,8 +52,7 @@
         android:id="@+id/btnSendPromo"
         android:layout_width="wrap_content"
         android:layout_height="44dp"
-        android:layout_marginTop="116dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="96dp"
         android:background="@drawable/unactive_promo_btn"
         android:enabled="false"
         android:fontFamily="@font/roboto_bold"
@@ -62,12 +61,10 @@
         android:text="подтвердить"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilPromo"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/tilPromo" />
 
     <ImageView
         android:id="@+id/imageView59"
