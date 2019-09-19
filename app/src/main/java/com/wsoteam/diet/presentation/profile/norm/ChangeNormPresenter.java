@@ -82,7 +82,15 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
         int userFat = profile.getMaxFat();
         int userCarbo = profile.getMaxCarbo();
 
-        Profile profileDefaultMainParams = BodyCalculates.calculateNew(context, profile);
+        Profile profileCalculate = new Profile();
+        profileCalculate.setHeight(profile.getHeight());
+        profileCalculate.setWeight(profile.getWeight());
+        profileCalculate.setAge(profile.getAge());
+        profileCalculate.setFemale(profile.isFemale());
+        profileCalculate.setExerciseStress(profile.getExerciseStress());
+        profileCalculate.setDifficultyLevel(profile.getDifficultyLevel());
+
+        Profile profileDefaultMainParams = BodyCalculates.calculateNew(context, profileCalculate);
 
         if (userKcal == profileDefaultMainParams.getMaxKcal()
                 && userProt == profileDefaultMainParams.getMaxProt()
