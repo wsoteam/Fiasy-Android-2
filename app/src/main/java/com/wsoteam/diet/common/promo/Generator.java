@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Generator {
     public static long duration = 31536000000l;
+    public static long durationTest = 180000l;
     public static int type = 0;
     public static boolean isActivated = false;
     public static String userOwner = "";
@@ -17,7 +18,7 @@ public class Generator {
         DatabaseReference myRef = database.getReference(Config.promoStoragePath);
 
         for (int i = 0; i < ids.size(); i++) {
-            Promo promo = new Promo(ids.get(i), type, duration, isActivated, userOwner);
+            Promo promo = new Promo(ids.get(i), type, durationTest, isActivated, userOwner);
             myRef.child(ids.get(i)).setValue(promo);
         }
     }
