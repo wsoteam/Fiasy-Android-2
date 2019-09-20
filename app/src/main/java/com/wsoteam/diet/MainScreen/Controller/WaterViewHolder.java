@@ -35,6 +35,11 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.ibtnOpenMenu) ImageButton ibtnOpenMenu;
     @BindView(R.id.tvEatingReminder) TextView tvEatingReminder;
     @BindView(R.id.waterStepView) WaterStepView waterStepView;
+
+    @BindView(R.id.ivAch) ImageView ivAch;
+    @BindView(R.id.tvAchTitle) TextView tvAchTitle;
+    @BindView(R.id.tvAchTxt) TextView tvAchTxt;
+
     private SharedPreferences sharedPreferences;
     private boolean isButtonPressed = false;
     private Context context;
@@ -62,6 +67,7 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
             float waterProgress = progress * WaterActivity.PROGRESS_STEP;
             tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), waterProgress));
             waterStepView.setStepNum(progress, waterProgress < WaterActivity.PROGRESS_MAX);
+            achievement(waterProgress > 2);
             WorkWithFirebaseDB.
                     addWater(new Water(progress, getWaterProgressStepParameter(), getWaterPackParameter()));
         });
@@ -73,6 +79,18 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
             case R.id.ibtnOpenMenu:
                 createPopupMenu(context, ibtnOpenMenu);
                 break;
+        }
+    }
+
+    void achievement(boolean achiv){
+        if (achiv){
+            Glide.with(context).load(R.drawable.ic_water_achievements).into(ivAch);
+            tvAchTitle.setText(context.getText(R.string.water_achievement_title_2));
+            tvAchTxt.setText(context.getText(R.string.water_achievement_txt_2));
+        }else {
+            Glide.with(context).load(R.drawable.ic_water_achievement_gray).into(ivAch);
+            tvAchTitle.setText(context.getText(R.string.water_achievement_title_1));
+            tvAchTxt.setText(context.getText(R.string.water_achievement_txt_1));
         }
     }
 

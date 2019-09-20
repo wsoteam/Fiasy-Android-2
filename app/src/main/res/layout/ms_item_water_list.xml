@@ -95,7 +95,7 @@
             android:layout_height="match_parent"
             >
             <TextView
-                android:id="@+id/textView164"
+                android:id="@+id/tvAchTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -107,27 +107,28 @@
                 android:textColor="#c0000000"
                 android:textSize="16sp"
                 android:textStyle="normal"
-                app:layout_constraintEnd_toStartOf="@+id/imageView59"
+                app:layout_constraintEnd_toStartOf="@+id/ivAch"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 />
             <TextView
+                android:id="@+id/tvAchTxt"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4.6sp"
+                android:text="@string/water_achievement_txt_1"
                 android:textColor="#8a000000"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView59"
+                app:layout_constraintEnd_toStartOf="@+id/ivAch"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView164"
-                android:text="@string/water_achievement_txt_1"
+                app:layout_constraintTop_toBottomOf="@+id/tvAchTitle"
                 />
 
             <ImageView
-                android:id="@+id/imageView59"
+                android:id="@+id/ivAch"
                 android:layout_width="100dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
