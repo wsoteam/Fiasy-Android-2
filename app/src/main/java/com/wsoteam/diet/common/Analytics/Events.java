@@ -126,25 +126,7 @@ public class Events {
         eventData.put(EventProperties.recipe_id_add, nameRecipe);
         io.intercom.android.sdk.Intercom.client().logEvent(ADD_CUSTOM_RECIPE, eventData);
     }
-
-    public static void logAddCustomFood(String nameFood) {
-        JSONObject eventProperties = new JSONObject();
-        try {
-            eventProperties.put(EventProperties.custom_product_id, nameFood);
-        } catch (JSONException exception) {
-        }
-        Amplitude.getInstance().logEvent(ADD_CUSTOM_SUCCESS, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.custom_product_id, nameFood);
-        io.intercom.android.sdk.Intercom.client().logEvent(ADD_CUSTOM_SUCCESS, eventData);
-    }
-
-    public static void logAddTemplate() {
-        Amplitude.getInstance().logEvent(ADD_TEMPLATE_SUCCESS);
-        io.intercom.android.sdk.Intercom.client().logEvent(ADD_TEMPLATE_SUCCESS);
-    }
-
+    
     public static void logSearch(String nameFood) {
         JSONObject eventProperties = new JSONObject();
         try {
