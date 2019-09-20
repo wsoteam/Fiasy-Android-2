@@ -31,7 +31,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class WaterViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvTitleOfEatingCard) TextView tvTitleOfEatingCard;
-    @BindView(R.id.ivEatingIcon) ImageView ivEatingIcon;
+    //@BindView(R.id.ivEatingIcon) ImageView ivEatingIcon;
     @BindView(R.id.ibtnOpenMenu) ImageButton ibtnOpenMenu;
     @BindView(R.id.tvEatingReminder) TextView tvEatingReminder;
     @BindView(R.id.waterStepView) WaterStepView waterStepView;
@@ -52,14 +52,15 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(List<Eating> waterGroup, Context context, String nameOfEatingGroup) {
         this.waterGroup = waterGroup;
-        Glide.with(context).load(R.drawable.water_icon).into(ivEatingIcon);
+        //Glide.with(context).load(R.drawable.water_icon).into(ivEatingIcon);
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
 
         float waterCount = getWaterProgressStepParameter() * WaterActivity.PROGRESS_STEP + 1;
-        tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), 0f, waterCount));
+        //tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), 0f, waterCount));
+        tvEatingReminder.setText("0,0 л");
         waterStepView.setOnWaterClickListener(progress -> {
             float waterProgress = progress * WaterActivity.PROGRESS_STEP;
-            tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), waterProgress, waterCount));
+            tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), waterProgress));
             waterStepView.setStepNum(progress, waterProgress < WaterActivity.PROGRESS_MAX);
             WorkWithFirebaseDB.
                     addWater(new Water(progress, getWaterProgressStepParameter(), getWaterPackParameter()));

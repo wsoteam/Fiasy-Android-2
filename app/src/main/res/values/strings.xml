@@ -623,7 +623,7 @@
     <string name="main_screen_snack">Перекус</string>
     <string name="main_screen_water">Вода</string>
     <string name="main_screen_menu_water">Настройки для воды</string>
-    <string name="main_screen_menu_water_count">%.2f л из %.2f л</string>
+    <string name="main_screen_menu_water_count">%.2f л</string>
 
     <string name="water_screen_toolbar_title">Вода</string>
     <string name="water_screen_title">Польза воды</string>
