@@ -121,7 +121,7 @@ public class UserActivityFragment extends DialogFragment implements
               break;
 
             case R.id.action_add_user_activity:
-              requestCreateCustomActivity();
+              requestAddUserActivity(target, false);
               break;
 
             case R.id.action_delete:
@@ -155,7 +155,7 @@ public class UserActivityFragment extends DialogFragment implements
         new ActivitiesSyncedSource(ActivitiesSyncedSource.ACTIVITIES));
 
     sources.put(R.string.user_activity_section_favorite,
-        new FavoriteSource(requireContext()));
+        new FavoriteSource());
 
     adapter.createSection(R.string.user_activity_section_my);
     adapter.createSection(R.string.user_activity_section_favorite);
@@ -248,7 +248,7 @@ public class UserActivityFragment extends DialogFragment implements
         break;
 
       case R.id.action_add_user_activity:
-        requestAddUserActivity(null, false);
+        requestCreateCustomActivity();
         break;
 
       default:

@@ -8,23 +8,33 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.utils.RxFirebase
+import com.wsoteam.diet.utils.valueOf
 import io.reactivex.Flowable
 import io.reactivex.Single
+import java.util.Calendar
 import java.util.Collections
 
-class ActivitiesSyncedSource(val source: String) : ExercisesSource() {
+open class ActivitiesSyncedSource(val source: ActivitySource) : ExercisesSource() {
   companion object {
     const val OP_EDITED = 0
     const val OP_ADDED = 1
     const val OP_REMOVED = 2
 
-    const val ACTIVITIES = "activities"
-    const val DIARY = "activity_diary"
+    @JvmField
+    val ACTIVITIES = ActivitySource.CUSTOM
+
+    @JvmField
+    val DIARY = ActivitySource.DIARY
 
     private val changeCallback = MutableLiveData<Int>()
 
     val changesLive: LiveData<Int>
       get() = changeCallback
+
+    enum class ActivitySource(val table: String) {
+      DIARY("activities"),
+      CUSTOM("customActivities")
+    }
   }
 
   private val database: DatabaseReference
@@ -37,7 +47,7 @@ class ActivitiesSyncedSource(val source: String) : ExercisesSource() {
     database = FirebaseDatabase.getInstance()
       .getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY)
       .child(uid)
-      .child(source)
+      .child(source.table)
 
     database.keepSynced(true)
   }
@@ -56,11 +66,17 @@ class ActivitiesSyncedSource(val source: String) : ExercisesSource() {
         snapshot.hasChildren() and requiredFields.all { field -> snapshot.hasChild(field) }
       }
       .map { snapshot ->
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.DAY_OF_MONTH, snapshot.valueOf<Int>("day")!!)
+        calendar.set(Calendar.DAY_OF_MONTH, snapshot.valueOf<Int>("month")!!)
+        calendar.set(Calendar.DAY_OF_YEAR, snapshot.valueOf<Int>("year")!!)
+
         UserActivityExercise(
-            snapshot.child("title").getValue(String::class.java)!!,
-            snapshot.child("when").getValue(Long::class.java)!!,
-            snapshot.child("burned").getValue(Int::class.java)!!,
-            snapshot.child("duration").getValue(Int::class.java)!!
+            snapshot.valueOf<String>("title")!!,
+            calendar.timeInMillis,
+            snapshot.valueOf<Int>("burned")!!,
+            snapshot.valueOf<Int>("duration")!!,
+            snapshot.valueOf<Boolean>("favorite")!!
         )
       }
       .toSortedList { left, right -> right.`when`.compareTo((left.`when`)) }
@@ -71,6 +87,7 @@ class ActivitiesSyncedSource(val source: String) : ExercisesSource() {
       .updateChildren(mapOf(
           "title" to exercise.title,
           "burned" to exercise.burned,
+          "favorite" to exercise.favorite,
           "duration" to exercise.duration
       )))
       .doOnComplete { changeCallback.postValue(OP_EDITED) }
@@ -78,11 +95,17 @@ class ActivitiesSyncedSource(val source: String) : ExercisesSource() {
   }
 
   override fun add(exercise: UserActivityExercise): Single<UserActivityExercise> {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = exercise.`when`
+
     return RxFirebase.completable(database.child(exercise.`when`.toString())
       .updateChildren(mapOf(
           "title" to exercise.title,
-          "when" to exercise.`when`,
+          "day" to calendar.get(Calendar.DAY_OF_MONTH),
+          "month" to calendar.get(Calendar.MONTH),
+          "year" to calendar.get(Calendar.YEAR),
           "burned" to exercise.burned,
+          "favorite" to exercise.favorite,
           "duration" to exercise.duration
       )))
       .doOnComplete { changeCallback.postValue(OP_ADDED) }

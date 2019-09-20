@@ -56,7 +56,7 @@ class EditUserActivityFragment : DialogFragment() {
 
       selected = selected.copy(
           burned = getBurnedCalories(),
-          duration = exerciseDuration.progress * 60
+          duration = exerciseDuration.progress
       )
 
       if (fromDiary == true) {
@@ -90,8 +90,8 @@ class EditUserActivityFragment : DialogFragment() {
     if (VERSION.SDK_INT >= VERSION_CODES.O) {
       exerciseDuration.min = 1
     }
-    exerciseDuration.max = 60
-    exerciseDuration.progress = (selected?.duration ?: 1800) / 60
+    exerciseDuration.max = 360
+    exerciseDuration.progress = (selected?.duration ?: 30)
 
     exerciseDuration.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
       override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -139,8 +139,8 @@ class EditUserActivityFragment : DialogFragment() {
     val weight = (UserDataHolder.getUserData()?.profile?.weight ?: 1.0).toInt()
 
     return selected?.let { exercise ->
-      weight * exerciseDuration.progress * if (exercise.duration > 60) {
-        exercise.burned / (exercise.duration / 60)
+      weight * exerciseDuration.progress * if (exercise.duration > 0) {
+        exercise.burned / exercise.duration
       } else {
         exercise.burned
       }

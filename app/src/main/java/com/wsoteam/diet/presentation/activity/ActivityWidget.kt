@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.activity
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,9 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
+import com.wsoteam.diet.POJOProfile.Profile
 import com.wsoteam.diet.R
+import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.utils.getVectorIcon
 import com.wsoteam.diet.utils.tint
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -131,10 +131,10 @@ public abstract class ExercisesSource {
           }
 
           final int duration = 30;
-          final int burnsPerMinute = Integer.parseInt(cols[1]);
+          final double burnsPerMinute = Integer.parseInt(cols[1]) / 60f;
 
           final UserActivityExercise e =
-              new UserActivityExercise(cols[0], weight * burnsPerMinute * duration, duration * 60);
+              new UserActivityExercise(cols[0], (int) (weight * burnsPerMinute * duration), duration);
           exercises.add(e);
         }
 

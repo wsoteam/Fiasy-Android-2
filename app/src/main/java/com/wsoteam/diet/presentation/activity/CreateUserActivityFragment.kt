@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.activity
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -9,16 +10,17 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Filter
+import android.widget.NumberPicker
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.presentation.activity.ExercisesSource.AssetsSource
 import com.wsoteam.diet.utils.RichTextUtils.RichText
-import io.reactivex.disposables.CompositeDisposable
 
 class CreateUserActivityFragment : DialogFragment() {
 
@@ -54,7 +56,7 @@ class CreateUserActivityFragment : DialogFragment() {
           selected.title,
           System.currentTimeMillis(),
           getBurnedCalories(),
-          exerciseDuration.progress * 60
+          duration
       )
 
       callback.didCreateActivity(activity, false, targetRequestCode)
@@ -63,6 +65,27 @@ class CreateUserActivityFragment : DialogFragment() {
     }
 
     exerciseEfficiency = view.findViewById(R.id.activity_ccal)
+    exerciseEfficiency.setOnClickListener {
+      val numberPicker = NumberPicker(it.context)
+      numberPicker.minValue = 1
+      numberPicker.maxValue = 9999
+      numberPicker.value = 1
+
+      val dialog = AlertDialog.Builder(it.context)
+        .setView(numberPicker)
+        .setTitle("Укажите калории")
+        .setPositiveButton(android.R.string.ok) { _, _ ->
+          onExerciseSelected(UserActivityExercise(
+              title = exerciseName.text.toString(),
+              burned = numberPicker.value,
+              duration = 0
+          ))
+        }
+        .setNeutralButton(android.R.string.cancel, null)
+        .create()
+
+      dialog.show()
+    }
     exerciseDurationText = view.findViewById(R.id.activity_duration_selected)
 
     exerciseDuration = view.findViewById(R.id.activity_duration)
@@ -110,17 +133,8 @@ class CreateUserActivityFragment : DialogFragment() {
   private val duration: Int
     get() = (exerciseDuration.progress + 1) * durations.step
 
-
   private fun getBurnedCalories(): Int {
-    val weight = (UserDataHolder.getUserData()?.profile?.weight ?: 1.0).toInt()
-
-    return selected?.let { exercise ->
-      weight * duration * if (exercise.duration > 60) {
-      exercise.burned / (exercise.duration / 60)
-    } else {
-      exercise.burned
-    }
-    } ?: 0
+    return selected?.burned ?: 1
   }
 
   class ExercisesSuggestionAdapter(context: Context)

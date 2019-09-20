@@ -92,7 +92,7 @@
         android:layout_below="@id/activity_duration_description"
         />
 
-    <SeekBar
+    <com.wsoteam.diet.views.RulerSeekBar
         android:id="@+id/activity_duration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
