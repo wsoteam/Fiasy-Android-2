@@ -69,10 +69,22 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
     }
 
     public void dropParams() {
-        Profile profileDefaultMainParams = BodyCalculates.calculateNew(context, UserDataHolder.getUserData().getProfile());
+        Profile profileDefaultMainParams = BodyCalculates.calculateNew(context, fillProfileCalculate(UserDataHolder.getUserData().getProfile()));
 
         getViewState().setDefaultPremParams(String.valueOf(profileDefaultMainParams.getMaxKcal()), String.valueOf(profileDefaultMainParams.getMaxFat()),
                 String.valueOf(profileDefaultMainParams.getMaxCarbo()), String.valueOf(profileDefaultMainParams.getMaxProt()));
+    }
+
+    private Profile fillProfileCalculate(Profile profile) {
+        Profile profileCalculate = new Profile();
+        profileCalculate.setHeight(profile.getHeight());
+        profileCalculate.setWeight(profile.getWeight());
+        profileCalculate.setAge(profile.getAge());
+        profileCalculate.setFemale(profile.isFemale());
+        profileCalculate.setExerciseStress(profile.getExerciseStress());
+        profileCalculate.setDifficultyLevel(profile.getDifficultyLevel());
+
+        return profileCalculate;
     }
 
     public boolean isDefaultParams() {
@@ -82,15 +94,8 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
         int userFat = profile.getMaxFat();
         int userCarbo = profile.getMaxCarbo();
 
-        Profile profileCalculate = new Profile();
-        profileCalculate.setHeight(profile.getHeight());
-        profileCalculate.setWeight(profile.getWeight());
-        profileCalculate.setAge(profile.getAge());
-        profileCalculate.setFemale(profile.isFemale());
-        profileCalculate.setExerciseStress(profile.getExerciseStress());
-        profileCalculate.setDifficultyLevel(profile.getDifficultyLevel());
 
-        Profile profileDefaultMainParams = BodyCalculates.calculateNew(context, profileCalculate);
+        Profile profileDefaultMainParams = BodyCalculates.calculateNew(context, fillProfileCalculate(profile));
 
         if (userKcal == profileDefaultMainParams.getMaxKcal()
                 && userProt == profileDefaultMainParams.getMaxProt()
