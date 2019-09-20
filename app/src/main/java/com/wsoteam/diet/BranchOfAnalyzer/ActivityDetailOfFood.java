@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -103,10 +105,10 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         ButterKnife.bind(this);
 
         int[] viewList = new int[]{R.id.tvCellulose, R.id.tvSugar, R.id.tvSaturated, R.id.tvСholesterol, R.id.tvSodium,
-            R.id.tvPotassium, R.id.tvMonoUnSaturated, R.id.tvPolyUnSaturated,
-            R.id.tvLabelCellulose, R.id.tvLabelSugar, R.id.tvLabelSaturated, R.id.tvLabelMonoUnSaturated, R.id.tvLabelPolyUnSaturated,
-            R.id.tvLabelСholesterol, R.id.tvLabelSodium, R.id.tvLabelPotassium, R.id.btnPremCell, R.id.btnPremSugar, R.id.btnPremSaturated,
-            R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremCholy, R.id.btnPremSod, R.id.btnPremPot};
+                R.id.tvPotassium, R.id.tvMonoUnSaturated, R.id.tvPolyUnSaturated,
+                R.id.tvLabelCellulose, R.id.tvLabelSugar, R.id.tvLabelSaturated, R.id.tvLabelMonoUnSaturated, R.id.tvLabelPolyUnSaturated,
+                R.id.tvLabelСholesterol, R.id.tvLabelSodium, R.id.tvLabelPotassium, R.id.btnPremCell, R.id.btnPremSugar, R.id.btnPremSaturated,
+                R.id.btnPremMonoUnSaturated, R.id.btnPremPolyUnSaturated, R.id.btnPremCholy, R.id.btnPremSod, R.id.btnPremPot};
 
         for (int viewId : viewList) {
             findViewById(viewId).setVisibility(View.GONE);
@@ -256,7 +258,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             }
         }
 
-        if (isOwnFood){
+        if (isOwnFood) {
             ibAddFavorite.setVisibility(View.GONE);
         }
 
@@ -315,12 +317,13 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         }
         String food_category = getFoodCategory();
         String food_item = foodItem.getName();
+        food_item += " - " + foodItem.getBrand();
         String food_date = getDateType(day, month, year);
-        if (isOwnFood){
+        if (isOwnFood) {
             Events.logAddCustomFood(name);
-        }else {
-            Events.logAddFood(food_intake, food_category, food_date, food_item);
         }
+        Events.logAddFood(food_intake, food_category, food_date, food_item, kcal, weight);
+
         AlertDialog alertDialog = AddFoodDialog.createChoiseEatingAlertDialog(ActivityDetailOfFood.this);
         alertDialog.show();
         getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).edit().putBoolean(Config.IS_ADDED_FOOD, true).commit();
@@ -344,21 +347,21 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         int currentMonth = calendar.get(Calendar.MONTH);
         int currentYear = calendar.get(Calendar.YEAR);
 
-        if (currentDay == day && currentMonth == month && currentYear == year){
+        if (currentDay == day && currentMonth == month && currentYear == year) {
             return EventProperties.food_date_today;
-        }else if (currentDay > day && currentMonth >= month && currentYear >= year){
+        } else if (currentDay > day && currentMonth >= month && currentYear >= year) {
             return EventProperties.food_date_future;
-        }else {
+        } else {
             return EventProperties.food_date_past;
         }
     }
 
     private String getFoodCategory() {
-        if (isFavorite){
+        if (isFavorite) {
             return EventProperties.food_category_favorites;
-        }else if(isOwnFood){
+        } else if (isOwnFood) {
             return EventProperties.food_category_custom;
-        }else {
+        } else {
             return EventProperties.food_category_base;
         }
     }

@@ -73,6 +73,9 @@ public class EventProperties {
     public static final String food_date_future = "future";
     public static final String food_date_past = "food_date_past";
 
+    public static final String calorie_value = "calorie_value";
+    public static final String product_weight = "product_weight";
+
     public static final String results = "results";
 
     public static final String product_item = "product_item";

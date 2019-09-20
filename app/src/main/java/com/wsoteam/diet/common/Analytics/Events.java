@@ -437,13 +437,16 @@ public class Events {
         io.intercom.android.sdk.Intercom.client().logEvent(CUSTOM_TEMPLATE_SUCCESS, eventData);
     }
 
-    public static void logAddFood(String food_intake, String food_category, String food_date, String food_item) {
+    public static void logAddFood(String food_intake, String food_category, String food_date, String food_item, int kcals, int weight) {
         JSONObject eventProperties = new JSONObject();
         try {
             eventProperties.put(EventProperties.food_intake, food_intake);
             eventProperties.put(EventProperties.food_category, food_category);
             eventProperties.put(EventProperties.food_date, food_date);
             eventProperties.put(EventProperties.food_item, food_item);
+            eventProperties.put(EventProperties.calorie_value, kcals);
+            eventProperties.put(EventProperties.calorie_value, kcals);
+            eventProperties.put(EventProperties.product_weight, weight);
         } catch (JSONException exception) {
         }
 
@@ -454,6 +457,8 @@ public class Events {
         eventData.put(EventProperties.food_category, food_category);
         eventData.put(EventProperties.food_date, food_date);
         eventData.put(EventProperties.food_item, food_item);
+        eventData.put(EventProperties.calorie_value, kcals);
+        eventData.put(EventProperties.product_weight, weight);
         io.intercom.android.sdk.Intercom.client().logEvent(ADD_FOOD_SUCCESS, eventData);
     }
 
