@@ -635,6 +635,9 @@
     <string name="water_screen_water_normal">Ваша норма на каждый день</string>
     <string name="water_screen_water_1_0">1.0 л</string>
 
+    <string name="water_achievement_title_1">2 литра - ежедневная норма</string>
+    <string name="water_achievement_txt_1">Изменить ежеденвную норму вы можете в настройках воды</string>
+
     <!--Water Screen-->
     <string name="water_screen_water_2_5">2.5 л</string>
     <string name="water_screen_water_3_5">3.5 л</string>
