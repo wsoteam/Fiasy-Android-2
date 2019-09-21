@@ -109,6 +109,16 @@ public class Events {
     //public static final String SELECT_TRAINING = "select_training";
     //public static final String SHARE_TRAINING = "share_training";
 
+    public static void logViewArticlesDiet() {
+        Amplitude.getInstance().logEvent(SELECT_DIET);
+        io.intercom.android.sdk.Intercom.client().logEvent(SELECT_DIET);
+    }
+
+    public static void logViewArticlesTraining() {
+        Amplitude.getInstance().logEvent(SELECT_TRAINING);
+        io.intercom.android.sdk.Intercom.client().logEvent(SELECT_TRAINING);
+    }
+
     public static void logChangeGoal() {
         Amplitude.getInstance().logEvent(CHANGE_GOAL);
         io.intercom.android.sdk.Intercom.client().logEvent(CHANGE_GOAL);
@@ -126,7 +136,7 @@ public class Events {
         eventData.put(EventProperties.recipe_id_add, nameRecipe);
         io.intercom.android.sdk.Intercom.client().logEvent(ADD_CUSTOM_RECIPE, eventData);
     }
-    
+
     public static void logSearch(String nameFood) {
         JSONObject eventProperties = new JSONObject();
         try {
