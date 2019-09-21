@@ -100,14 +100,13 @@ public class Events {
     public static final String ADD_CUSTOM_RECIPE = "add_custom_recipe";
     public static final String CHANGE_GOAL = "change_goal";
 
-    //DIET
-    //public static final String SELECT_DIET_FILTRES = "select_diet_filters";
-    //public static final String SHARE_DIET = "share_diet";
-
-
-    //TRAINING
-    //public static final String SELECT_TRAINING = "select_training";
-    //public static final String SHARE_TRAINING = "share_training";
+    //Diets
+    public static final String CHOOSE_PLAN = "choose_plan";
+    public static final String CONNECT_PLAN_SUCCES = "connect_plan_success";
+    public static final String WATCH_PLAN_RECIPIES = "watch_plan_recipies";
+    public static final String ADD_PLAN_RECIPE_SUCCESS = "add_plan_recipe_success";
+    public static final String PLAN_COMPLETE = "plan_complete";
+    public static final String LEAVE_PLAN = "leave_plan";
 
     public static void logViewArticlesDiet() {
         Amplitude.getInstance().logEvent(SELECT_DIET);
