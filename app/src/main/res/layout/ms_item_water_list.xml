@@ -71,15 +71,16 @@
             android:id="@+id/clReminderBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:minHeight="80dp"
             android:orientation="vertical"
             android:padding="4dp">
 
             <com.wsoteam.diet.common.views.water_step.WaterStepView
                 android:id="@+id/waterStepView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
         </LinearLayout>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

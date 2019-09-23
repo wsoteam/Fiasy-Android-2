@@ -163,7 +163,7 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
     if (recipeItem.getInstruction() != null) {
       int indexInstruction = 0;
       int borderInstruction = recipeItem.getInstruction().size();
-      StringSequenceAdapter stringSequenceAdapter = new StringSequenceAdapter(recipeItem.getIngredients());
+      StringSequenceAdapter stringSequenceAdapter = new StringSequenceAdapter(recipeItem.getInstruction());
       sequenceLayout.setAdapter(stringSequenceAdapter);
       for (String instruction :
           recipeItem.getInstruction()) {

@@ -18,10 +18,12 @@ import com.wsoteam.diet.R;
 
 public class WaterStepView extends LinearLayout implements View.OnClickListener {
 
-    private static final int lineCount = 7;
+    private final int imageSize = dpToPx(52);
+    private final int lineCount = getResources().getDisplayMetrics().widthPixels / imageSize;
     private final int rowMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, lineCount, getResources().getDisplayMetrics());
-    private final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(50, 100, 1);
-    private final LinearLayout.LayoutParams rowLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    //private final int rowMargin = 0;
+    private final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(dpToPx(52), dpToPx(52), 1);
+    private final LinearLayout.LayoutParams rowLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
     private final Drawable mSelectedIcon = ContextCompat.getDrawable(getContext(), R.drawable.ic_water_selected);
     private final Drawable mUnSelectedIcon = ContextCompat.getDrawable(getContext(), R.drawable.ic_water_unselected);
@@ -42,6 +44,12 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
         super(context, attrs, defStyleAttr);
         init();
     }
+
+   private int dpToPx(float dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getContext().getResources().getDisplayMetrics());
+    }
+
+
     private void init() {
         View rootView = LayoutInflater.from(getContext()).inflate(R.layout.view_water, this);
         rlContainer = rootView.findViewById(R.id.rlContainer);
@@ -49,24 +57,29 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
 
         //
         layoutParams.gravity = Gravity.LEFT;
+        Log.d("kkk", "imageSize: " + imageSize);
+        Log.d("kkk", "lineCount: " + lineCount);
+        Log.d("kkk", "rowMargin: " + rowMargin);
+        Log.d("kkk", "init: " + getResources().getDisplayMetrics());
 
         //
 
         firstLinearLayout = new LinearLayout(getContext());
+        //firstLinearLayout.setBackgroundColor(Color.RED);
         for (int i = 0; i < lineCount; i++) {
             ImageView imageView = new ImageView(getContext());
             imageView.setImageDrawable(i == 0 ? mAddWaterIcon : mUnSelectedIcon);
             imageView.setOnClickListener(i == 0 ? this : null);
-            imageView.setBackgroundColor(Color.RED);
             imageView.setTag(i + 1);
             firstLinearLayout.addView(imageView, layoutParams);
         }
         rlContainer.addView(firstLinearLayout, rowLayoutParams);
+        //rlContainer.addView(firstLinearLayout);
     }
 
     @Override
     public void onClick(View view) {
-        Log.d("kkk", "onClick: " + view.getTag());
+        //Log.d("kkk", "onClick: " + view.getTag());
         listener.onWaterClick((int) view.getTag());
     }
 
@@ -77,6 +90,8 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
     }
 
     private void redrawView(int count, boolean addMore) {
+
+
         if (rlContainer.getChildCount() > 1) {
             rlContainer.removeViews(1, rlContainer.getChildCount() - 1);
         }
@@ -91,7 +106,8 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
                     ImageView imageView = (ImageView) firstLinearLayout.getChildAt(i);
                     imageView.setImageDrawable(mSelectedIcon);
                     imageView.setOnClickListener(this);
-                    waterWidth = imageView.getWidth();
+                    if (i == 0)waterWidth = imageView.getWidth();
+
                 }
 
                 if (count < lineCount) {
@@ -110,13 +126,13 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
                 int left = count - (row * lineCount);
                 for (int i = 0; i < Math.min(lineCount, left); i++) {
                     ImageView imageView = new ImageView(getContext());
-                    imageView.setBackgroundColor(Color.RED);
-                    imageView.setLayoutParams(new LayoutParams(100, 150));
+                    //imageView.setLayoutParams(new LayoutParams(100, 150));
                     imageView.setImageDrawable(mSelectedIcon);
+                    //imageView.setMaxWidth(waterWidth);
                     //imageView.setMinimumWidth(waterWidth);
                     imageView.setOnClickListener(this);
                     imageView.setTag((row * lineCount) + i + 1);
-                    ll.addView(imageView);
+                    ll.addView(imageView, layoutParams);
                 }
                 if (addMore && left < lineCount) {
                     ImageView imageView = new ImageView(getContext());
@@ -124,9 +140,10 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
                     //imageView.setMinimumWidth(waterWidth);
                     imageView.setOnClickListener(this);
                     imageView.setTag((row * lineCount) + left + 1);
-                    ll.addView(imageView);
+                    ll.addView(imageView, layoutParams);
                 }
                 rlContainer.addView(ll, rowLayoutParams);
+                //rlContainer.addView(ll);
             }
         }
     }
