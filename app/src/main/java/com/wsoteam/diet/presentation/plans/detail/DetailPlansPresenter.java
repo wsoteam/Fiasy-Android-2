@@ -38,7 +38,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
         @Override
         public void onItemClick(RecipeItem recipeItem, String day, String meal,
             String recipeNumber) {
-
+            //TODO тут открываются рецепты планов
           if (dietPlan.getDaysAfterStart() == Integer.parseInt(day)) {
             router.navigateTo(
                 new Screens.PlanRecipeScreen(recipeItem, View.VISIBLE, day, meal, recipeNumber));
