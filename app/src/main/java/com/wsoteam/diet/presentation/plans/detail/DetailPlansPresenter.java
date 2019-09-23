@@ -43,7 +43,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
                 @Override
                 public void onItemClick(RecipeItem recipeItem, String day, String meal,
                                         String recipeNumber) {
-
+                    Events.logViewRecipePlan(recipeItem.getName(), dietPlan.getFlag());
                     if (dietPlan.getDaysAfterStart() == Integer.parseInt(day)) {
                         router.navigateTo(
                                 new Screens.PlanRecipeScreen(recipeItem, View.VISIBLE, day, meal, recipeNumber));
@@ -90,6 +90,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
             adapter = new VerticalDetailPlansAdapter(dietPlan);
             isCurrentPlan = false;
             getViewState().visibilityButtonLeave(false);
+
         }
 
         adapter.SetOnItemClickListener(adapterListener);

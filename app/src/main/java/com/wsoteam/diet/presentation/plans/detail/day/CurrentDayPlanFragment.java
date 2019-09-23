@@ -100,6 +100,7 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
 
   View.OnClickListener planListener = new View.OnClickListener() {
     @Override public void onClick(View v) {
+      //TODO тут открываются рецепты плана с виджета на главном экране
      Intent intent = new Intent(getContext(), DetailPlansActivity.class);
      intent.putExtra(Config.DIETS_PLAN_INTENT, UserDataHolder.getUserData().getPlan());
     startActivity(intent);
