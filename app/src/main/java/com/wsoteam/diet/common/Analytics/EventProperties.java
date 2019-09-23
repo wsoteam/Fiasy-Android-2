@@ -131,6 +131,7 @@ public class EventProperties {
     public static final String trial_from_recipe = "recipe";
     public static final String trial_from_articles = "articles";
     public static final String trial_from_settings = "settings";
+    public static final String trial_from_norm = "goal";
     public static final String trial_from_elements = "micro";
 
     public static final String auto_renewal = "auto_renewal";

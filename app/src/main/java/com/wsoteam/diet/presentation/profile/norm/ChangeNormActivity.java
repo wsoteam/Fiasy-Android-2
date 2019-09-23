@@ -334,7 +334,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     private void openPrem() {
         Box box = new Box();
         box.setComeFrom(AmplitudaEvents.view_prem_settings);
-        box.setBuyFrom(EventProperties.trial_from_settings);
+        box.setBuyFrom(EventProperties.trial_from_norm);
         box.setOpenFromPremPart(true);
         box.setOpenFromIntrodaction(false);
         startActivity(new Intent(this, ActivitySubscription.class).putExtra(com.wsoteam.diet.Config.TAG_BOX, box));
