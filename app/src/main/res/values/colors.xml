@@ -231,4 +231,7 @@
     <color name="hint_error">#8acc0808</color>
     <color name="hint_no_error_back">#f2994a</color>
 
+    <color name="active_drop">#ef7d02</color>
+    <color name="inactive_drop">#bdbdbd</color>
+
 </resources>

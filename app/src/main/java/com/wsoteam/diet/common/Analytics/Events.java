@@ -124,6 +124,20 @@ public class Events {
         io.intercom.android.sdk.Intercom.client().logEvent(LEAVE_PLAN, eventData);
     }
 
+    public static void logSetUserPropertyError(String message) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put("message", message);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent("prop_error", eventProperties);
+    }
+
+    public static void logChangeGoal() {
+        Amplitude.getInstance().logEvent(CHANGE_GOAL);
+        io.intercom.android.sdk.Intercom.client().logEvent(CHANGE_GOAL);
+    }
+
 
     public static void logPlanComplete(String namePlan, int countRecipes, String from) {
         JSONObject eventProperties = new JSONObject();
@@ -261,11 +275,6 @@ public class Events {
     public static void logViewArticlesTraining() {
         Amplitude.getInstance().logEvent(SELECT_TRAINING);
         io.intercom.android.sdk.Intercom.client().logEvent(SELECT_TRAINING);
-    }
-
-    public static void logChangeGoal() {
-        Amplitude.getInstance().logEvent(CHANGE_GOAL);
-        io.intercom.android.sdk.Intercom.client().logEvent(CHANGE_GOAL);
     }
 
     public static void logAddCustomRecipe(String nameRecipe) {
