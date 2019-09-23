@@ -123,6 +123,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
   }
 
   void clickedLeave() {
+    Events.logPlanLeave(UserDataHolder.getUserData().getPlan().getFlag(), UserDataHolder.getUserData().getPlan().getDaysAfterStart());
     WorkWithFirebaseDB.leaveDietPlan();
     getViewState().visibilityButtonJoin(true);
     UserDataHolder.getUserData().setPlan(null);

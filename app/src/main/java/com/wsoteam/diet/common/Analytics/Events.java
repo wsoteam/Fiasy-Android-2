@@ -110,16 +110,17 @@ public class Events {
 
 
     public static void logPlanLeave(String namePlan, int activeDays) {
+        String convertedNamePlan = flagToAnalConst(namePlan);
         JSONObject eventProperties = new JSONObject();
         try {
-            eventProperties.put(EventProperties.diet_plans_choose, namePlan);
+            eventProperties.put(EventProperties.diet_plans_choose, convertedNamePlan);
             eventProperties.put(EventProperties.active_day, activeDays);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(LEAVE_PLAN, eventProperties);
 
         Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.diet_plans_choose, namePlan);
+        eventData.put(EventProperties.diet_plans_choose, convertedNamePlan);
         eventData.put(EventProperties.active_day, activeDays);
         io.intercom.android.sdk.Intercom.client().logEvent(LEAVE_PLAN, eventData);
     }
