@@ -180,11 +180,7 @@ public class MainActivity extends AppCompatActivity {
             loadDietPlans();
         }
         logEvents();
-        List<String> list = new ArrayList<>();
-        for (int i = 5; i < 16; i++) {
-            list.add(String.valueOf(i));
-        }
-        Generator.generate(list);
+
     }
 
     private void logEvents() {

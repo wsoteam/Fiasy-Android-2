@@ -30,6 +30,7 @@ import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.di.CiceroneModule;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
@@ -115,6 +116,7 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
         activePlan.setVisibility(View.GONE);
         notActivePlan.setVisibility(View.GONE);
         finishPlan.setVisibility(View.VISIBLE);
+        Events.logPlanComplete(plan.getFlag(), 0);
       }else {
 
         activePlan.setVisibility(View.VISIBLE);

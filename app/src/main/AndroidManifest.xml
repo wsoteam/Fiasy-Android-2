@@ -15,16 +15,20 @@
         <activity android:name=".presentation.promo.PromoFormActivity"
             android:screenOrientation="portrait"
             android:theme="@style/PromoScreen"/>
-        <activity
-            android:name=".presentation.profile.norm.ChangeNormActivity"
-            android:theme="@style/ChangeNorm"
-            android:windowSoftInputMode="adjustPan" />
+
         <activity
             android:name=".presentation.profile.norm.choise.activity.ActivActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/ChangeGoalActivity" />
         <activity
             android:name=".presentation.profile.norm.choise.goal.GoalActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/ChangeGoalActivity" />
+        <activity
+            android:name=".presentation.profile.norm.ChangeNormActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChangeNorm"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".BranchOfAnalyzer.CustomFood.ActivityCreateFood"
             android:screenOrientation="portrait"

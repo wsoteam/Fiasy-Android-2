@@ -92,7 +92,6 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
     leaveMenu.setOnMenuItemClickListener(menuListener);
 
     recycler.setLayoutManager(new LinearLayoutManager(this));
-
   }
 
   @OnClick({ R.id.btnJoin })
