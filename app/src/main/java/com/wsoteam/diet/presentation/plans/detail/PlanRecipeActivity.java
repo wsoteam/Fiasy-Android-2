@@ -24,12 +24,10 @@ import androidx.cardview.widget.CardView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 import com.amplitude.api.Amplitude;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.transferwise.sequencelayout.SequenceLayout;
-import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
@@ -202,7 +200,6 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
         }
 
         Glide.with(this).load(url).into(ivHead);
-
         checkFavorite();
     }
 
@@ -285,6 +282,7 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
         savePortion(idOfEating, recipeItem, year, month, day);
+
     }
 
     private void savePortion(int idOfEating, RecipeItem recipe, int year, int month, int day) {
