@@ -199,4 +199,5 @@ public class EventProperties {
     public static final String diet_plans_5_2 = "5_2";
     public static final String diet_plans_LCHF_light = "LCHF_light";
     public static final String diet_plans_6_1 = "6_1";
+    public static final String diet_plans_without = "without_plan";
 }
