@@ -108,6 +108,7 @@ public class Events {
     public static final String PLAN_COMPLETE = "plan_complete";
     public static final String LEAVE_PLAN = "leave_plan";
 
+
     public static void logPlanLeave(String namePlan, int activeDays) {
         JSONObject eventProperties = new JSONObject();
         try {
@@ -156,7 +157,7 @@ public class Events {
         io.intercom.android.sdk.Intercom.client().logEvent(ADD_PLAN_RECIPE_SUCCESS, eventData);
     }
 
-    public static void logViewRecipePlan(String namePlan, String recipe) {
+    public static void logViewRecipeInPlan(String namePlan, String recipe) {
         JSONObject eventProperties = new JSONObject();
         try {
             eventProperties.put(EventProperties.diet_plans_choose, namePlan);
@@ -190,16 +191,64 @@ public class Events {
     }
 
 
+    public static String flagToAnalConst(String namePlan) {
+        String convertedNamePlan = "";
+        switch (namePlan) {
+            case "keto":
+                convertedNamePlan = EventProperties.diet_plans_keto;
+                break;
+            case "vegan":
+                convertedNamePlan = EventProperties.diet_plans_vegan;
+                break;
+            case "3week":
+                convertedNamePlan = EventProperties.diet_plans_21_day;
+                break;
+            case "prot":
+                convertedNamePlan = EventProperties.diet_plans_high_protein;
+                break;
+            case "classic":
+                convertedNamePlan = EventProperties.diet_plans_classic;
+                break;
+            case "clear":
+                convertedNamePlan = EventProperties.diet_plans_clear;
+                break;
+            case "mediterranean":
+                convertedNamePlan = EventProperties.diet_plans_mediterranean;
+                break;
+            case "scand":
+                convertedNamePlan = EventProperties.diet_plans_scandinavian;
+                break;
+            case "highLCHF":
+                convertedNamePlan = EventProperties.diet_plans_LCHF_strict;
+                break;
+            case "mediumLCHF":
+                convertedNamePlan = EventProperties.diet_plans_LCHF_moderate;
+                break;
+            case "52":
+                convertedNamePlan = EventProperties.diet_plans_5_2;
+                break;
+            case "lowLCHF":
+                convertedNamePlan = EventProperties.diet_plans_LCHF_light;
+                break;
+            case "61":
+                convertedNamePlan = EventProperties.diet_plans_6_1;
+                break;
+        }
+        return convertedNamePlan;
+    }
+
+
     public static void logViewPlan(String namePlan) {
+        String convertedNamePlan = flagToAnalConst(namePlan);
         JSONObject eventProperties = new JSONObject();
         try {
-            eventProperties.put(EventProperties.diet_plans_choose, namePlan);
+            eventProperties.put(EventProperties.diet_plans_choose, convertedNamePlan);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CHOOSE_PLAN, eventProperties);
 
         Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.diet_plans_choose, namePlan);
+        eventData.put(EventProperties.diet_plans_choose, convertedNamePlan);
         io.intercom.android.sdk.Intercom.client().logEvent(CHOOSE_PLAN, eventData);
     }
 

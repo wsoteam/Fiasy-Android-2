@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.plans.detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import com.arellomobile.mvp.InjectViewState;
 import com.wsoteam.diet.Config;
@@ -12,6 +13,7 @@ import com.wsoteam.diet.Recipes.POJO.plan.PlansGroupsRecipe;
 import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.global.BasePresenter;
 import com.wsoteam.diet.presentation.global.Screens;
 import com.wsoteam.diet.presentation.plans.DateHelper;
@@ -63,6 +65,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
     this.intent = intent;
     this.context = context;
     initDietPlan();
+    Events.logViewPlan(dietPlan.getFlag());
   }
 
   private void initDietPlan() {
