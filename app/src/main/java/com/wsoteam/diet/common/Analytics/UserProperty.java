@@ -26,6 +26,7 @@ public class UserProperty {
     public static final String registration_google = "google";
     public static final String registration_fb = "facebook";
     public static final String registration_email = "email";
+    public static final String name_const = "name";
 
     public static final String q_male_status = "male";
     public static final String q_male_status_male = "male";
@@ -119,14 +120,14 @@ public class UserProperty {
                 sex = UserProperty.q_male_status_male;
             }
             UserProperty.logProperties(sex, height, weight, age, active, goal, FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                    String.valueOf(profile.getMaxKcal()), String.valueOf(profile.getMaxProt()), String.valueOf(profile.getMaxFat()), String.valueOf(profile.getMaxCarbo()));
+                    String.valueOf(profile.getMaxKcal()), String.valueOf(profile.getMaxProt()), String.valueOf(profile.getMaxFat()), String.valueOf(profile.getMaxCarbo()), profile.getFirstName());
         } catch (Exception ex) {
             Events.logSetUserPropertyError(ex.getMessage());
         }
     }
 
 
-    private static void logProperties(String sex, String height, String weight, String age, String active, String goal, String id, String kcal, String prot, String fat, String carbo) {
+    private static void logProperties(String sex, String height, String weight, String age, String active, String goal, String id, String kcal, String prot, String fat, String carbo, String name) {
         Identify identify = new Identify()
                 .set(q_male_status, sex)
                 .set(q_height_status, height)
@@ -138,6 +139,7 @@ public class UserProperty {
                 .set(proteins, prot)
                 .set(fats, fat)
                 .set(сarbohydrates, carbo)
+                .set(name_const, name)
                 .set(user_id, id);
         Amplitude.getInstance().identify(identify);
 
@@ -152,6 +154,7 @@ public class UserProperty {
                 .withCustomAttribute(proteins, Integer.parseInt(prot))
                 .withCustomAttribute(fats, Integer.parseInt(fat))
                 .withCustomAttribute(сarbohydrates, Integer.parseInt(carbo))
+                .withCustomAttribute(name_const, name)
                 .withCustomAttribute(user_id, id)
                 .build();
         Intercom.client().updateUser(userAttributes);
