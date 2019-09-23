@@ -113,6 +113,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
   }
 
   void joinPlans() {
+    Events.logConnectPlan(dietPlan.getFlag(), "def", 0);
     dietPlan.setStartDate(DateHelper.dateToString(new Date()));
     UserDataHolder.getUserData().setPlan(dietPlan);
     WorkWithFirebaseDB.joinDietPlan(dietPlan);

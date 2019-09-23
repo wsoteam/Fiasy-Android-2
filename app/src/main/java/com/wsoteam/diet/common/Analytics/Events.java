@@ -174,9 +174,10 @@ public class Events {
 
 
     public static void logConnectPlan(String namePlan, String watchPlan, int activeDays) {
+        String convertedNamePlan = flagToAnalConst(namePlan);
         JSONObject eventProperties = new JSONObject();
         try {
-            eventProperties.put(EventProperties.diet_plans_choose, namePlan);
+            eventProperties.put(EventProperties.diet_plans_choose, convertedNamePlan);
             eventProperties.put(EventProperties.watch_plan, watchPlan);
             eventProperties.put(EventProperties.active_day, activeDays);
         } catch (JSONException exception) {
@@ -184,7 +185,7 @@ public class Events {
         Amplitude.getInstance().logEvent(CONNECT_PLAN_SUCCES, eventProperties);
 
         Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.diet_plans_choose, namePlan);
+        eventData.put(EventProperties.diet_plans_choose, convertedNamePlan);
         eventData.put(EventProperties.watch_plan, watchPlan);
         eventData.put(EventProperties.active_day, activeDays);
         io.intercom.android.sdk.Intercom.client().logEvent(CONNECT_PLAN_SUCCES, eventData);
