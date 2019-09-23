@@ -114,6 +114,7 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
         activePlan.setVisibility(View.GONE);
         notActivePlan.setVisibility(View.GONE);
         finishPlan.setVisibility(View.VISIBLE);
+        //TODO тут
       }else {
 
         activePlan.setVisibility(View.VISIBLE);

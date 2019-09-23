@@ -3,6 +3,7 @@ package com.wsoteam.diet.MainScreen.Controller;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -65,11 +66,15 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
         tvEatingReminder.setText("0,0 л");
         waterStepView.setOnWaterClickListener(progress -> {
             float waterProgress = progress * WaterActivity.PROGRESS_STEP;
+            Log.d("kkk", "bind: " + waterProgress);
             tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), waterProgress));
-            waterStepView.setStepNum(progress, waterProgress < WaterActivity.PROGRESS_MAX);
+            waterStepView.setStepNum(progress, true); //TODO delete this line
+            //waterStepView.setStepNum(progress, waterProgress < WaterActivity.PROGRESS_MAX);
             achievement(waterProgress > 2);
-            WorkWithFirebaseDB.
-                    addWater(new Water(progress, getWaterProgressStepParameter(), getWaterPackParameter()));
+            //WorkWithFirebaseDB.
+                    //addWater(new Water(progress, getWaterProgressStepParameter(), getWaterPackParameter()));
+                    //  addWater(new Water());
+          //TODO implement water save
         });
     }
 
