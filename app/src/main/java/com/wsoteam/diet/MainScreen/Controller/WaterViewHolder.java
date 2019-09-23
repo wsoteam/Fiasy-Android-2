@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.views.water_step.WaterStepView;
 import com.wsoteam.diet.model.Eating;
@@ -42,39 +43,58 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvAchTxt) TextView tvAchTxt;
 
     private SharedPreferences sharedPreferences;
-    private boolean isButtonPressed = false;
+    private final float waterStep = WaterActivity.PROGRESS_STEP;
     private Context context;
-    private String data;
-    private List<Eating> waterGroup;
+
+    private int day, month, year;
 
 
-    public WaterViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, Context context, String data) {
+
+    public WaterViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, Context context, String date) {
         super(layoutInflater.inflate(R.layout.ms_item_water_list, viewGroup, false));
         ButterKnife.bind(this, itemView);
         this.context = context;
-        this.data = data;
         sharedPreferences = context.getSharedPreferences(Config.WATER_SETTINGS, MODE_PRIVATE);
+        parseDate(date);
     }
 
-    public void bind(List<Eating> waterGroup, Context context, String nameOfEatingGroup) {
-        this.waterGroup = waterGroup;
-        //Glide.with(context).load(R.drawable.water_icon).into(ivEatingIcon);
+    private void parseDate(String str){
+        String[] strDate = str.split("\\.");
+        day = Integer.parseInt(strDate[0]);
+        month = Integer.parseInt(strDate[1]);
+        year = Integer.parseInt(strDate[2]);
+    }
+
+    public void bind(Water water, Context context, String nameOfEatingGroup) {
+
+        Log.d("kkk", "bind: water =  " + water);
+        if (water != null){
+            waterStepView.setStepNum((int)(water.getWaterCount() / waterStep), true);
+            tvEatingReminder.setText(water.getWaterCount() + " л.");
+        } else {
+            tvEatingReminder.setText("0.0 л.");
+        }
+
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
 
-        float waterCount = getWaterProgressStepParameter() * WaterActivity.PROGRESS_STEP + 1;
-        //tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), 0f, waterCount));
-        tvEatingReminder.setText("0,0 л");
         waterStepView.setOnWaterClickListener(progress -> {
-            float waterProgress = progress * WaterActivity.PROGRESS_STEP;
-            Log.d("kkk", "bind: " + waterProgress);
+            float maxWater = 2f;
+            if (UserDataHolder.getUserData() != null
+                && UserDataHolder.getUserData().getProfile() != null) {
+                maxWater = UserDataHolder.getUserData().getProfile().getMaxWater();
+            }
+            float waterProgress = progress * waterStep;
             tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), waterProgress));
-            waterStepView.setStepNum(progress, true); //TODO delete this line
-            //waterStepView.setStepNum(progress, waterProgress < WaterActivity.PROGRESS_MAX);
+            waterStepView.setStepNum(progress, waterProgress < maxWater);
             achievement(waterProgress > 2);
-            //WorkWithFirebaseDB.
-                    //addWater(new Water(progress, getWaterProgressStepParameter(), getWaterPackParameter()));
-                    //  addWater(new Water());
-          //TODO implement water save
+            Log.d("kkk", "EatingAdapter: " + day + month + year);
+            if (water == null){
+                WorkWithFirebaseDB.
+                    addWater(new Water(day, month, year, waterProgress));
+            } else {
+                WorkWithFirebaseDB.updateWater(water.getUrlOfImages(), (progress * waterStep));
+            }
+
         });
     }
 

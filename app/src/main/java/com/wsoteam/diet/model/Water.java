@@ -1,70 +1,99 @@
 package com.wsoteam.diet.model;
 
+import androidx.annotation.NonNull;
+import com.google.firebase.database.Exclude;
 import java.io.Serializable;
 
 public class Water extends Eating implements Serializable {
 
-    private int day;
-    private int month;
-    private int year;
-    private int waterCount;
-    private String key;
+  private int day;
+  private int month;
+  private int year;
+  private float waterCount;
 
-    //private int count;
-    //private int maxCount;
-    //private boolean waterPack;
+  public Water() {
+  }
 
-    public Water() {
-    }
+  public Water(int day, int month, int year, float waterCount) {
+    this.day = day;
+    this.month = month;
+    this.year = year;
+    this.waterCount = waterCount;
+  }
 
-    public Water(int day, int month, int year, int waterCount) {
-        this.day = day;
-        this.month = month;
-        this.year = year;
-        this.waterCount = waterCount;
-    }
+  public Water(String name, String urlOfImages, int calories, int carbohydrates, int protein,
+      int fat, int weight, int day, int month, int year) {
+    super(name, urlOfImages, calories, carbohydrates, protein, fat, weight, day, month, year);
+  }
 
-    public Water(String name, String urlOfImages, int calories, int carbohydrates, int protein, int fat, int weight, int day, int month, int year) {
-        super(name, urlOfImages, calories, carbohydrates, protein, fat, weight, day, month, year);
-    }
+  @Override public int getDay() {
+    return day;
+  }
 
-    @Override public int getDay() {
-        return day;
-    }
+  @Override public void setDay(int day) {
+    this.day = day;
+  }
 
-    @Override public void setDay(int day) {
-        this.day = day;
-    }
+  @Override public int getMonth() {
+    return month;
+  }
 
-    @Override public int getMonth() {
-        return month;
-    }
+  @Override public void setMonth(int month) {
+    this.month = month;
+  }
 
-    @Override public void setMonth(int month) {
-        this.month = month;
-    }
+  @Override public int getYear() {
+    return year;
+  }
 
-    @Override public int getYear() {
-        return year;
-    }
+  @Override public void setYear(int year) {
+    this.year = year;
+  }
 
-    @Override public void setYear(int year) {
-        this.year = year;
-    }
+  public float getWaterCount() {
+    return waterCount;
+  }
 
-    public int getWaterCount() {
-        return waterCount;
-    }
+  public void setWaterCount(float waterCount) {
+    this.waterCount = waterCount;
+  }
 
-    public void setWaterCount(int waterCount) {
-        this.waterCount = waterCount;
-    }
+  @Exclude
+  @Override public String getName() {
+    return super.getName();
+  }
 
-    public String getKey() {
-        return key;
-    }
+  @Exclude
+  @Override public String getUrlOfImages() {
+    return super.getUrlOfImages();
+  }
 
-    public void setKey(String key) {
-        this.key = key;
-    }
+  @Exclude
+  @Override public int getCalories() {
+    return super.getCalories();
+  }
+
+  @Exclude
+  @Override public int getCarbohydrates() {
+    return super.getCarbohydrates();
+  }
+
+  @Exclude
+  @Override public int getProtein() {
+    return super.getProtein();
+  }
+
+  @Exclude
+  @Override public int getFat() {
+    return super.getFat();
+  }
+
+  @Exclude
+  @Override public int getWeight() {
+    return super.getWeight();
+  }
+
+  @NonNull @Override public String toString() {
+    return "[ " + waterCount + " - " + day + "." + month + "." + year + " ]";
+  }
 }

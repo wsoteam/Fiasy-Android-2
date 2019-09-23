@@ -130,8 +130,16 @@ public class WorkWithFirebaseDB {
     public static void addWater(Water water) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
-                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("water");
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("waters");
         myRef.push().setValue(water);
+    }
+
+    public static void updateWater(String key, float water) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+            child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("waters").child(key)
+            .child("waterCount");
+        myRef.setValue(water);
     }
 
     public static void setMaxWater(float maxWater){
