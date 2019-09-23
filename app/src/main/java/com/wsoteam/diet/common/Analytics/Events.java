@@ -140,17 +140,18 @@ public class Events {
     }
 
 
-    public static void logPlanComplete(String namePlan, int countRecipes, String from) {
+    public static void logPlanComplete(String namePlan, int countRecipes) {
+        String convertedNamePlan = flagToAnalConst(namePlan);
         JSONObject eventProperties = new JSONObject();
         try {
-            eventProperties.put(EventProperties.diet_plans_choose, namePlan);
+            eventProperties.put(EventProperties.diet_plans_choose, convertedNamePlan);
             eventProperties.put(EventProperties.recipe_added, countRecipes);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(PLAN_COMPLETE, eventProperties);
 
         Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.diet_plans_choose, namePlan);
+        eventData.put(EventProperties.diet_plans_choose, convertedNamePlan);
         eventData.put(EventProperties.recipe_added, countRecipes);
         io.intercom.android.sdk.Intercom.client().logEvent(PLAN_COMPLETE, eventData);
     }
