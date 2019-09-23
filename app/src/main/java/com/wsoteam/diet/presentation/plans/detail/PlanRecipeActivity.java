@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,11 +21,9 @@ import androidx.cardview.widget.CardView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.amplitude.api.Amplitude;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.transferwise.sequencelayout.SequenceLayout;
-import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
@@ -132,58 +129,24 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
 
     mToolbar.setOnMenuItemClickListener(this);
     mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
-    mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        onBackPressed();
-      }
-    });
+    mToolbar.setNavigationOnClickListener(view -> onBackPressed());
 
     if (recipeItem.getIngredients() != null) {
       int indexIngredients = 0;
-      int borderIngredients = recipeItem.getIngredients().size();
 
       for (String ingredient :
           recipeItem.getIngredients()) {
         indexIngredients++;
         View view = getLayoutInflater().inflate(R.layout.plan_recipes_ingredient, null);
-        //View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
-        //line.setPadding(0, 0, 0, 0);
         TextView textView = view.findViewById(R.id.tvIngredient);
         textView.setText(ingredient);
         llIngredients.addView(view);
-        //if (indexIngredients < borderIngredients) {
-        //  llIngredients.addView(line);
-        //}
       }
-    } else {
-      //cvIngredients.setVisibility(View.GONE);
     }
 
     if (recipeItem.getInstruction() != null) {
-      int indexInstruction = 0;
-      int borderInstruction = recipeItem.getInstruction().size();
-      StringSequenceAdapter stringSequenceAdapter = new StringSequenceAdapter(recipeItem.getIngredients());
+      StringSequenceAdapter stringSequenceAdapter = new StringSequenceAdapter(recipeItem.getInstruction());
       sequenceLayout.setAdapter(stringSequenceAdapter);
-      for (String instruction :
-          recipeItem.getInstruction()) {
-        indexInstruction++;
-        View view = getLayoutInflater().inflate(R.layout.plan_recipes_instruction, null);
-        //View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
-        //line.setPadding(dpToPx(70), 0, 0, 0);
-        TextView textView = view.findViewById(R.id.tvInstruction);
-        textView.setText(instruction);
-
-
-        //stepView.addStepItem(instruction);
-
-
-        //llInstructions.addView(view);
-      //  if (indexInstruction < borderInstruction) {
-      //    llInstructions.addView(line);
-      //  }
-      }
-
     } else {
       cvInstructions.setVisibility(View.GONE);
     }
@@ -343,7 +306,7 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
         .get(Integer.parseInt(recipePath[0]));
     List<RecipeItem> recipeItemList;
 
-    Log.d("kkk", "setAddedInDiaryFromPlan: " + recipePath[1]);
+    //Log.d("kkk", "setAddedInDiaryFromPlan: " + recipePath[1]);
     switch (recipePath[1]){
       case "breakfast":
         recipeItemList = recipeForDay.getBreakfast();
@@ -360,9 +323,9 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
         default: recipeItemList = null;
     }
     if (recipeItemList != null){
-      Log.d("kkk", "setAddedInDiaryFromPlan: != null");
+
       RecipeItem recipeItem = recipeItemList.get(Integer.parseInt(recipePath[2]));
-      Log.d("kkk", "setAddedInDiaryFromPlan: " + recipeItem.getName());
+
       recipeItem.setAddedInDiaryFromPlan(true);
     }
   }
