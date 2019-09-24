@@ -1077,4 +1077,5 @@
         <item>Тяжелая физическая работа или ежедневные интенсивные тренировки по 2 раза в день</item>
     </string-array>
     <string name="meas_kg">кг</string>
+    <string name="measurments">Измерения тела</string>
 </resources>
