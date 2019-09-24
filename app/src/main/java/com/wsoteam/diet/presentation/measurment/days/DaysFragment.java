@@ -81,7 +81,6 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.days_fragment, container, false);
         currentPosition = getArguments().getInt(POSITION);
-        Log.e("LOL", String.valueOf(currentPosition));
         unbinder = ButterKnife.bind(this, view);
         tvTopText = getActivity().findViewById(R.id.tvYear);
         tvBottomText = getActivity().findViewById(R.id.tvDateInterval);
@@ -103,7 +102,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
         setDays(weightsForShow);
         saveTexts(topText, bottomText, weekAverage);
         bindViews(weightsForShow);
-        if (currentDayNumber != ConfigMeasurment.NOT_CURRENT_WEEK){
+        if (currentDayNumber != ConfigMeasurment.FUTURE_WEEK && currentDayNumber != ConfigMeasurment.PAST_WEEK){
             paintWeightsViews(currentDayNumber);
         }
     }

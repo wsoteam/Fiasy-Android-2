@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.measurment.ConfigMeasurment;
@@ -59,12 +60,20 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
     }
 
     private int getCurrentDayNumber(long[] weekInterval) {
-        int currentDayNumber = ConfigMeasurment.NOT_CURRENT_WEEK;
+        int currentDayNumber = ConfigMeasurment.EMPTY_CURRENT_DAY;
         calendar.setTimeInMillis(currentTime);
         clearTime();
         for (int i = 0; i < weekInterval.length; i++) {
             if (weekInterval[i] == calendar.getTimeInMillis()){
                 currentDayNumber = i;
+            }
+        }
+
+        if (currentDayNumber == ConfigMeasurment.EMPTY_CURRENT_DAY){
+            if (calendar.getTimeInMillis() > weekInterval[weekInterval.length - 1]){
+                currentDayNumber = ConfigMeasurment.FUTURE_WEEK;
+            }else {
+                currentDayNumber = ConfigMeasurment.PAST_WEEK;
             }
         }
         return currentDayNumber;
