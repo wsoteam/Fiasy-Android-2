@@ -3,17 +3,15 @@ package com.wsoteam.diet.MainScreen.Controller;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -27,30 +25,19 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class WaterViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.tvTitleOfEatingCard) TextView tvTitleOfEatingCard;
   @BindView(R.id.ibtnOpenMenu) ImageButton ibtnOpenMenu;
   @BindView(R.id.tvEatingReminder) TextView tvEatingReminder;
   @BindView(R.id.waterStepView) WaterStepView waterStepView;
+  @BindView(R.id.waterAchievement) CardView waterAchievement;
 
-  @BindView(R.id.ivAch) ImageView ivAch;
-  @BindView(R.id.tvAchTitle) TextView tvAchTitle;
-  @BindView(R.id.tvAchTxt) TextView tvAchTxt;
-
-  private SharedPreferences sharedPreferences;
   private final float waterStep = WaterActivity.PROGRESS_STEP;
-  private Context context;
-
   private int day, month, year;
 
-  public WaterViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, Context context,
-      String date) {
-    super(layoutInflater.inflate(R.layout.ms_item_water_list, viewGroup, false));
+  public WaterViewHolder(ViewGroup parent, String date) {
+    super(LayoutInflater.from(parent.getContext()).inflate(R.layout.ms_item_water_list, parent, false));
     ButterKnife.bind(this, itemView);
-    this.context = context;
-    sharedPreferences = context.getSharedPreferences(Config.WATER_SETTINGS, MODE_PRIVATE);
     parseDate(date);
   }
 
@@ -98,20 +85,18 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.ibtnOpenMenu:
-        createPopupMenu(context, ibtnOpenMenu);
+        createPopupMenu(itemView.getContext(), ibtnOpenMenu);
         break;
     }
   }
 
   void achievement(boolean achiv) {
     if (achiv) {
-      Glide.with(context).load(R.drawable.ic_water_achievements).into(ivAch);
-      tvAchTitle.setText(context.getText(R.string.water_achievement_title_2));
-      tvAchTxt.setText(context.getText(R.string.water_achievement_txt_2));
+      waterAchievement.setVisibility(View.VISIBLE);
+      waterAchievement.requestFocus();
+      waterAchievement.forceLayout();
     } else {
-      Glide.with(context).load(R.drawable.ic_water_achievement_gray).into(ivAch);
-      tvAchTitle.setText(context.getText(R.string.water_achievement_title_1));
-      tvAchTxt.setText(context.getText(R.string.water_achievement_txt_1));
+      waterAchievement.setVisibility(View.GONE);
     }
   }
 
@@ -127,13 +112,5 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
       }
       return false;
     });
-  }
-
-  boolean getWaterPackParameter() {
-    return sharedPreferences.getBoolean(Config.WATER_PACK, true);
-  }
-
-  int getWaterProgressStepParameter() {
-    return sharedPreferences.getInt(Config.MAX_WATER_COUNT_STEP, 0);
   }
 }

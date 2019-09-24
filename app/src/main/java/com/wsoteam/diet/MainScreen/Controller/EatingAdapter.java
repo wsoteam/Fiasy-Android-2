@@ -44,7 +44,7 @@ public class EatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case TYPE_SNACKS:
                 return new EatingViewHolder(layoutInflater, parent, context, data, updateCallback);
             case TYPE_WATER:
-                return new WaterViewHolder(layoutInflater, parent, context, data);
+                return new WaterViewHolder(parent, data);
             default:
                 throw new IllegalArgumentException("Invalid view type");
         }
