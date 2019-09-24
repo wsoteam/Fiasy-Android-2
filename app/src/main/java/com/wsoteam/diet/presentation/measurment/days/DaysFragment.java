@@ -1,12 +1,12 @@
 package com.wsoteam.diet.presentation.measurment.days;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class DaysFragment extends MvpAppCompatFragment implements DaysView {
@@ -57,6 +58,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     private TextView tvTopText;
     private TextView tvBottomText;
     private String topText, bottomText, weekAverage;
+    private boolean[] isAvailableAdd = new boolean[]{false, false, false, false, false, false, false};
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -102,15 +104,48 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
         setDays(weightsForShow);
         saveTexts(topText, bottomText, weekAverage);
         bindViews(weightsForShow);
-        if (currentDayNumber != ConfigMeasurment.FUTURE_WEEK && currentDayNumber != ConfigMeasurment.PAST_WEEK){
+        if (currentDayNumber != ConfigMeasurment.FUTURE_WEEK && currentDayNumber != ConfigMeasurment.PAST_WEEK) {
             paintWeightsViews(currentDayNumber);
         }
         paintAddViews(currentDayNumber);
+        setClickListeners(weightsForShow, weightsAdds);
+    }
+
+    private void setClickListeners(List<Weight> weightsForShow, List<ImageView> weightsAdds) {
+        for (int i = 0; i < weightsAdds.size(); i++) {
+            View.OnClickListener onClickListener;
+            int number = i;
+            if (isAvailableAdd[i]){
+                onClickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        addWeight(weightsForShow.get(number));
+                    }
+                };
+            }else {
+                onClickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showLock(view);
+                    }
+                };
+            }
+            weightsAdds.get(i).setOnClickListener(onClickListener);
+        }
+    }
+
+    private void showLock(View view) {
+        Toast.makeText(getActivity(), "close", Toast.LENGTH_SHORT).show();
+    }
+
+    private void addWeight(Weight weight) {
+        Toast.makeText(getActivity(), "add", Toast.LENGTH_SHORT).show();
     }
 
     private void paintAddViews(int currentDayNumber) {
         for (int i = 0; i <= currentDayNumber; i++) {
             weightsAdds.get(i).setImageDrawable(getResources().getDrawable(R.drawable.ic_icons_plus_weight_active));
+            isAvailableAdd[i] = true;
         }
     }
 
@@ -120,16 +155,16 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
 
     private void bindViews(List<Weight> weightsForShow) {
         for (int i = 0; i < weightsValues.size(); i++) {
-            if (weightsForShow.get(i).getWeight() != ConfigMeasurment.EMPTY_DAY){
+            if (weightsForShow.get(i).getWeight() != ConfigMeasurment.EMPTY_DAY) {
                 turnOffAdding(weightsValues.get(i), weightsAdds.get(i));
-            }else {
+            } else {
                 turnOnAdding(weightsValues.get(i), weightsAdds.get(i));
             }
         }
     }
 
     private void turnOnAdding(TextView tvWeight, ImageView ivAdd) {
-        if (tvWeight.getVisibility() == View.VISIBLE){
+        if (tvWeight.getVisibility() == View.VISIBLE) {
             tvWeight.setVisibility(View.INVISIBLE);
         }
         if (ivAdd.getVisibility() == View.INVISIBLE) {
@@ -138,7 +173,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     }
 
     private void turnOffAdding(TextView tvWeight, ImageView ivAdd) {
-        if (tvWeight.getVisibility() == View.INVISIBLE){
+        if (tvWeight.getVisibility() == View.INVISIBLE) {
             tvWeight.setVisibility(View.VISIBLE);
         }
         if (ivAdd.getVisibility() == View.VISIBLE) {
