@@ -21,9 +21,9 @@ import io.reactivex.schedulers.Schedulers
 
 class EditUserActivityFragment : DialogFragment() {
 
-  var selected by argument<UserActivityExercise>()
+  var selected by argument<ActivityModel>()
   var editMode by argument<Boolean>()
-  var fromDiary by argument<Boolean>()
+  var diaryMode by argument<Boolean>()
 
   private val disposables = CompositeDisposable()
 
@@ -54,13 +54,24 @@ class EditUserActivityFragment : DialogFragment() {
     doneButton.setOnClickListener {
       var selected = selected ?: return@setOnClickListener
 
-      selected = selected.copy(
-          burned = getBurnedCalories(),
-          duration = exerciseDuration.progress
-      )
+      selected = when (diaryMode) {
+        false -> UserActivityExercise(
+            id = "request-generate",
+            title = selected.title,
+            calories = getBurnedCalories(),
+            duration = exerciseDuration.progress
+        )
+        else -> DiaryActivityExercise(
+            id = "request-generate",
+            title = selected.title,
+            `when` = if (editMode == true) selected.`when` else  System.currentTimeMillis(),
+            calories = getBurnedCalories(),
+            duration = exerciseDuration.progress
+        )
+      }
 
-      if (fromDiary == true) {
-        val diarySource = ActivitiesSyncedSource(ActivitiesSyncedSource.DIARY)
+      if (diaryMode == true) {
+        val diarySource = DiaryActivitiesSource
         val task = if (editMode == true) diarySource.edit(selected) else diarySource.add(selected)
 
         disposables.add(task.subscribeOn(Schedulers.io()).subscribe { r, error ->
@@ -70,20 +81,23 @@ class EditUserActivityFragment : DialogFragment() {
             dismissAllowingStateLoss()
           }
         })
+
+        return@setOnClickListener
+      } else {
+        val callback = targetFragment as? OnActivityCreated ?: return@setOnClickListener
+
+        val activity = UserActivityExercise(
+            if (editMode == false) "request-generate" else selected.id,
+            selected.title,
+            if (editMode == true) selected.`when` else System.currentTimeMillis(),
+            getBurnedCalories(),
+            getDuration()
+        )
+
+        callback.didCreateActivity(activity, editMode ?: false, targetRequestCode)
+
+        dismissAllowingStateLoss()
       }
-
-      val callback = targetFragment as? OnActivityCreated ?: return@setOnClickListener
-
-      val activity = UserActivityExercise(
-          selected.title,
-          if (editMode == true) selected.`when` else System.currentTimeMillis(),
-          getBurnedCalories(),
-          exerciseDuration.progress * 60
-      )
-
-      callback.didCreateActivity(activity, editMode ?: false, targetRequestCode)
-
-      dismissAllowingStateLoss()
     }
 
     exerciseDuration = view.findViewById(R.id.activity_duration)
@@ -124,7 +138,7 @@ class EditUserActivityFragment : DialogFragment() {
     }
   }
 
-  private fun onExerciseSelected(exercise: UserActivityExercise) {
+  private fun onExerciseSelected(exercise: ActivityModel) {
     selected = exercise
 
     updateActivityEfficiency()
@@ -135,16 +149,18 @@ class EditUserActivityFragment : DialogFragment() {
     setEfficiency(exerciseDuration.progress, getBurnedCalories())
   }
 
-  private fun getBurnedCalories(): Int {
-    val weight = (UserDataHolder.getUserData()?.profile?.weight ?: 1.0).toInt()
+  private fun getDuration(): Int {
+    return exerciseDuration.progress
+  }
 
-    return selected?.let { exercise ->
-      weight * exerciseDuration.progress * if (exercise.duration > 0) {
-        exercise.burned / exercise.duration
-      } else {
-        exercise.burned
-      }
-    } ?: 0
+  private fun getBurnedCalories(): Int {
+    val activity = selected ?: return 10
+
+    val weight = if (diaryMode == false) 1 else {
+      (UserDataHolder.getUserData()?.profile?.weight ?: 1.0).toInt()
+    }
+
+    return (weight * (1f * exerciseDuration.progress / activity.duration) * activity.calories).toInt()
   }
 
   override fun onDestroyView() {

@@ -1,16 +1,14 @@
 package com.wsoteam.diet.presentation.activity
 
 import com.wsoteam.diet.presentation.activity.ActivitiesSyncedSource.Companion.ActivitySource.CUSTOM
-import io.reactivex.Flowable
 import io.reactivex.Single
 
-class FavoriteSource : ActivitiesSyncedSource(CUSTOM){
+class FavoriteSource : ActivitiesSyncedSource(CUSTOM) {
+  override var filterFavorites = true
 
-  override fun all(): Single<List<UserActivityExercise>> {
-    return super.all()
-      .flatMapPublisher { Flowable.fromIterable(it) }
-      .filter { e -> e.favorite}
-      .toList()
+  override fun add(exercise: ActivityModel): Single<ActivityModel> {
+    exercise as UserActivityExercise
+
+    return super.add(exercise.copy(favorite = true, `when` = System.currentTimeMillis()))
   }
-
 }

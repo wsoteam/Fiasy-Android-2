@@ -15,36 +15,37 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import kotlin.text.StringsKt;
 import okio.BufferedSource;
 import okio.Okio;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class ExercisesSource {
 
   /**
    * @return All exercises available in this source
    */
-  public abstract Single<List<UserActivityExercise>> all();
+  public abstract Single<List<ActivityModel>> all();
 
   /**
    * Add exercise to the current repository
    *
    * @param exercise Exercise to be added
    */
-  public abstract Single<UserActivityExercise> add(@NonNull UserActivityExercise exercise);
+  public abstract Single<ActivityModel> add(@NonNull ActivityModel exercise);
 
   /**
    * Remove exercise from current repository
    *
    * @param exercise Exercise to be removed
    */
-  public abstract Single<UserActivityExercise> edit(@NonNull UserActivityExercise exercise);
+  public abstract Single<ActivityModel> edit(@NonNull ActivityModel exercise);
 
   /**
    * Remove exercise from current repository
    *
    * @param exercise Exercise to be removed
    */
-  public abstract Single<UserActivityExercise> remove(@NonNull UserActivityExercise exercise);
+  public abstract Single<ActivityModel> remove(@NonNull ActivityModel exercise);
 
-  public Single<List<UserActivityExercise>> search(@Nullable CharSequence query) {
+  public Single<List<ActivityModel>> search(@Nullable CharSequence query) {
     return all().observeOn(Schedulers.io())
         .flatMap(exercises -> Flowable.fromIterable(exercises)
             .filter(e -> StringsKt.contains(e.getTitle(), query, true))
@@ -52,8 +53,8 @@ public abstract class ExercisesSource {
   }
 
   public static DiffUtil.DiffResult calculateDiff(
-      final List<UserActivityExercise> old,
-      final List<UserActivityExercise> latest) {
+      final List<ActivityModel> old,
+      final List<ActivityModel> latest) {
 
     return DiffUtil.calculateDiff(new DiffUtil.Callback() {
       @Override public int getOldListSize() {
@@ -65,8 +66,8 @@ public abstract class ExercisesSource {
       }
 
       @Override public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        final UserActivityExercise l = old.get(oldItemPosition);
-        final UserActivityExercise r = latest.get(newItemPosition);
+        final ActivityModel l = old.get(oldItemPosition);
+        final ActivityModel r = latest.get(newItemPosition);
 
         return l.getTitle().equals(r.getTitle());
       }
@@ -81,14 +82,14 @@ public abstract class ExercisesSource {
 
     private final AssetManager assets;
 
-    private final CopyOnWriteArrayList<UserActivityExercise> cached =
+    private final CopyOnWriteArrayList<ActivityModel> cached =
         new CopyOnWriteArrayList<>();
 
     public AssetsSource(AssetManager assets) {
       this.assets = assets;
     }
 
-    @Override public Single<List<UserActivityExercise>> all() {
+    @Override public Single<List<ActivityModel>> all() {
       if (!cached.isEmpty()) {
         return Single.just(new ArrayList<>(cached));
       }
@@ -97,10 +98,7 @@ public abstract class ExercisesSource {
         final BufferedSource source =
             Okio.buffer(Okio.source(assets.open("user_activity_table.csv")));
 
-        final UserData user = UserDataHolder.getUserData();
-        final int weight = user != null && user.getProfile() != null ? (int) user.getProfile().getWeight() : 1;
-
-        final List<UserActivityExercise> exercises = new ArrayList<>();
+        final List<ActivityModel> exercises = new ArrayList<>();
 
         // lines to skip from start
         int skip = 1;
@@ -131,10 +129,17 @@ public abstract class ExercisesSource {
           }
 
           final int duration = 30;
-          final double burnsPerMinute = Integer.parseInt(cols[1]) / 60f;
+          final double calories = Integer.parseInt(cols[1]) * 0.5;
 
-          final UserActivityExercise e =
-              new UserActivityExercise(cols[0], (int) (weight * burnsPerMinute * duration), duration);
+          final UserActivityExercise e = new UserActivityExercise(
+              "asset", // id
+              cols[0], // title
+              0,
+              (int) calories, // calories
+              duration, // per 30 minute
+              false // favorite
+          );
+
           exercises.add(e);
         }
 
@@ -146,15 +151,15 @@ public abstract class ExercisesSource {
       });
     }
 
-    @Override public Single<UserActivityExercise> add(UserActivityExercise exercise) {
+    @Override public Single<ActivityModel> add(@NotNull ActivityModel exercise) {
       throw new UnsupportedOperationException("cannot add to default list");
     }
 
-    @Override public Single<UserActivityExercise> edit(UserActivityExercise exercise) {
+    @Override public Single<ActivityModel> edit(@NotNull ActivityModel exercise) {
       throw new UnsupportedOperationException("cannot edit to default list");
     }
 
-    @Override public Single<UserActivityExercise> remove(UserActivityExercise exercise) {
+    @Override public Single<ActivityModel> remove(@NotNull ActivityModel exercise) {
       throw new UnsupportedOperationException("cannot remove from default list");
     }
   }

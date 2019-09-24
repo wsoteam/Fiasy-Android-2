@@ -18,7 +18,19 @@
       android:hint="@string/etSearch"
       android:textColorHint="#8E8E93"
       tools:drawableLeft="@drawable/search_icon"
+      android:paddingRight="48dp"
       android:layout_width="match_parent"
       android:layout_height="wrap_content" />
+
+  <ImageView
+      android:id="@+id/action_clear"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      app:srcCompat="@drawable/ic_close"
+      app:tint="#8E8E93"
+      android:visibility="gone"
+      android:padding="16dp"
+      android:layout_gravity="right"
+      />
 
 </androidx.cardview.widget.CardView>

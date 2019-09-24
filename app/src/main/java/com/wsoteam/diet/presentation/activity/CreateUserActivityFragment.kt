@@ -1,7 +1,6 @@
 package com.wsoteam.diet.presentation.activity
 
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -52,10 +51,17 @@ class CreateUserActivityFragment : DialogFragment() {
       val callback = targetFragment as? OnActivityCreated ?: return@setOnClickListener
       val selected = selected ?: return@setOnClickListener
 
+      var weight = 1.0
+
+      if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().profile != null) {
+        weight = UserDataHolder.getUserData().profile.weight
+      }
+
       val activity = UserActivityExercise(
+          "request-generate",
           selected.title,
           System.currentTimeMillis(),
-          getBurnedCalories(),
+          (getBurnedCalories() / weight).toInt(),
           duration
       )
 
@@ -76,8 +82,10 @@ class CreateUserActivityFragment : DialogFragment() {
         .setTitle("Укажите калории")
         .setPositiveButton(android.R.string.ok) { _, _ ->
           onExerciseSelected(UserActivityExercise(
+              id = "request-generate",
               title = exerciseName.text.toString(),
-              burned = numberPicker.value,
+              `when` = System.currentTimeMillis(),
+              calories = numberPicker.value,
               duration = 0
           ))
         }
@@ -134,7 +142,7 @@ class CreateUserActivityFragment : DialogFragment() {
     get() = (exerciseDuration.progress + 1) * durations.step
 
   private fun getBurnedCalories(): Int {
-    return selected?.burned ?: 1
+    return selected?.calories ?: 10
   }
 
   class ExercisesSuggestionAdapter(context: Context)

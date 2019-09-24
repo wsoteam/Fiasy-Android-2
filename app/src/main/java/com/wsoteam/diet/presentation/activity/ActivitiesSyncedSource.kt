@@ -8,10 +8,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.utils.RxFirebase
-import com.wsoteam.diet.utils.valueOf
 import io.reactivex.Flowable
 import io.reactivex.Single
-import java.util.Calendar
+import java.lang.IllegalArgumentException
 import java.util.Collections
 
 open class ActivitiesSyncedSource(val source: ActivitySource) : ExercisesSource() {
@@ -37,8 +36,8 @@ open class ActivitiesSyncedSource(val source: ActivitySource) : ExercisesSource(
     }
   }
 
-  private val database: DatabaseReference
-  private val requiredFields = arrayOf("title", "when", "burned", "duration")
+  protected val database: DatabaseReference
+  protected open var filterFavorites = false
 
   init {
     val uid = FirebaseAuth.getInstance().uid
@@ -52,7 +51,7 @@ open class ActivitiesSyncedSource(val source: ActivitySource) : ExercisesSource(
     database.keepSynced(true)
   }
 
-  override fun all(): Single<List<UserActivityExercise>> {
+  override fun all(): Single<List<ActivityModel>> {
     return RxFirebase.from(database.limitToFirst(50))
       .flatMap<DataSnapshot> data@{ snapshot ->
         if (snapshot.childrenCount == 0L) {
@@ -61,59 +60,35 @@ open class ActivitiesSyncedSource(val source: ActivitySource) : ExercisesSource(
           return@data Flowable.fromIterable(snapshot.children)
         }
       }
-      .filter { snapshot ->
-        // check data corruption and skip if any of fields are missing
-        snapshot.hasChildren() and requiredFields.all { field -> snapshot.hasChild(field) }
-      }
-      .map { snapshot ->
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.DAY_OF_MONTH, snapshot.valueOf<Int>("day")!!)
-        calendar.set(Calendar.DAY_OF_MONTH, snapshot.valueOf<Int>("month")!!)
-        calendar.set(Calendar.DAY_OF_YEAR, snapshot.valueOf<Int>("year")!!)
-
-        UserActivityExercise(
-            snapshot.valueOf<String>("title")!!,
-            calendar.timeInMillis,
-            snapshot.valueOf<Int>("burned")!!,
-            snapshot.valueOf<Int>("duration")!!,
-            snapshot.valueOf<Boolean>("favorite")!!
-        )
-      }
+      .filter { snapshot -> snapshot.hasChildren() }
+      .map { snapshot -> deserialize(snapshot) }
+      .filter { e -> if (filterFavorites) e.favorite else !e.favorite }
       .toSortedList { left, right -> right.`when`.compareTo((left.`when`)) }
   }
 
-  override fun edit(exercise: UserActivityExercise): Single<UserActivityExercise> {
-    return RxFirebase.completable(database.child(exercise.`when`.toString())
-      .updateChildren(mapOf(
-          "title" to exercise.title,
-          "burned" to exercise.burned,
-          "favorite" to exercise.favorite,
-          "duration" to exercise.duration
-      )))
+
+  override fun edit(exercise: ActivityModel): Single<ActivityModel> {
+    return RxFirebase.completable(database.child(exercise.id).updateChildren(exercise.serialize()))
       .doOnComplete { changeCallback.postValue(OP_EDITED) }
       .toSingleDefault(exercise)
   }
 
-  override fun add(exercise: UserActivityExercise): Single<UserActivityExercise> {
-    val calendar = Calendar.getInstance()
-    calendar.timeInMillis = exercise.`when`
+  override fun add(exercise: ActivityModel): Single<ActivityModel> {
+    val id = database.push().key ?: throw IllegalStateException("couldn't create new child")
 
-    return RxFirebase.completable(database.child(exercise.`when`.toString())
-      .updateChildren(mapOf(
-          "title" to exercise.title,
-          "day" to calendar.get(Calendar.DAY_OF_MONTH),
-          "month" to calendar.get(Calendar.MONTH),
-          "year" to calendar.get(Calendar.YEAR),
-          "burned" to exercise.burned,
-          "favorite" to exercise.favorite,
-          "duration" to exercise.duration
-      )))
+    val generated: ActivityModel = when (exercise) {
+      is UserActivityExercise -> exercise.copy(id = id)
+      is DiaryActivityExercise -> exercise.copy(id = id)
+      else -> throw IllegalArgumentException("unknown type of activity <${exercise::class.simpleName}>")
+    }
+
+    return RxFirebase.completable(database.child(generated.id).updateChildren(generated.serialize()))
       .doOnComplete { changeCallback.postValue(OP_ADDED) }
-      .toSingleDefault(exercise)
+      .toSingleDefault(generated)
   }
 
-  override fun remove(exercise: UserActivityExercise): Single<UserActivityExercise> {
-    return RxFirebase.completable(database.child(exercise.`when`.toString()).removeValue())
+  override fun remove(exercise: ActivityModel): Single<ActivityModel> {
+    return RxFirebase.completable(database.child(exercise.id).removeValue())
       .doOnComplete { changeCallback.postValue(OP_REMOVED) }
       .toSingleDefault(exercise)
   }

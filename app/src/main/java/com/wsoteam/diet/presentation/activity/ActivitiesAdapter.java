@@ -202,17 +202,17 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     return head.findRelatedSection(position);
   }
 
-  public List<UserActivityExercise> getItemsBySection(@StringRes int sectionId) {
+  public List<ActivityModel> getItemsBySection(@StringRes int sectionId) {
     final Section section = sections.get(sectionId);
     return section.expanded ? section.items : Collections.emptyList();
   }
 
   @Nullable
-  private UserActivityExercise getItemAt(int position) {
+  private ActivityModel getItemAt(int position) {
     return head.getItemAt(position);
   }
 
-  public UserActivityExercise getItem(int position) {
+  public ActivityModel getItem(int position) {
     return getItemAt(position - headers);
   }
 
@@ -230,8 +230,6 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
   public int getSectionOffset(@NonNull Section section) {
     if (section == head) {
       return 0;
-    } else if (section == tail) {
-      return total - tail.total() - headers;
     } else {
       int skipped = 0;
       Section cur = head;
@@ -298,7 +296,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
   }
 
-  public void addItems(@StringRes int sectionId, List<UserActivityExercise> items,
+  public void addItems(@StringRes int sectionId, List<ActivityModel> items,
       DiffUtil.DiffResult difference) {
     final Section section = sections.get(sectionId);
 
@@ -337,7 +335,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     });
   }
 
-  public void updateItemAt(@StringRes int sectionId, @NonNull UserActivityExercise item) {
+  public void updateItemAt(@StringRes int sectionId, @NonNull ActivityModel item) {
     final Section section = sections.get(sectionId);
 
     if (section == null) {
@@ -360,15 +358,15 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     notifyItemChanged(index + itemId + 1);
   }
 
-  public void addItem(@StringRes int sectionId, @NonNull UserActivityExercise item) {
+  public void addItem(@StringRes int sectionId, @NonNull ActivityModel item) {
     addItems(sectionId, Collections.singletonList(item), 0);
   }
 
-  public void addItems(@StringRes int sectionId, @NonNull List<UserActivityExercise> items) {
+  public void addItems(@StringRes int sectionId, @NonNull List<ActivityModel> items) {
     addItems(sectionId, items, -1);
   }
 
-  public void addItems(@StringRes int sectionId, @NonNull List<UserActivityExercise> items,
+  public void addItems(@StringRes int sectionId, @NonNull List<ActivityModel> items,
       int pushIndex) {
     if (items.isEmpty()) {
       return;
@@ -495,7 +493,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
       ((HeaderView) holder).bind(section);
     } else if (holder instanceof UserActivityView) {
-      final UserActivityExercise model = getItemAt(position);
+      final ActivityModel model = getItemAt(position);
 
       if (model == null) {
         throw new IllegalStateException("expected user-activity on position = " + position);
@@ -572,6 +570,20 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
   static class SearchView extends RecyclerView.ViewHolder {
 
     private final EditText searchView;
+    private final View actionClear;
+    private final TextWatcher watcher = new TextWatcher() {
+      @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+      }
+
+      @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+        actionClear.setVisibility(TextUtils.isEmpty(s) ? View.GONE : View.VISIBLE);
+      }
+
+      @Override public void afterTextChanged(Editable s) {
+
+      }
+    };
 
     public SearchView(@NonNull View itemView) {
       super(itemView);
@@ -584,6 +596,10 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
       searchView = itemView.findViewById(R.id.search_view);
       searchView.setCompoundDrawablesWithIntrinsicBounds(d, null, null, null);
+      searchView.addTextChangedListener(watcher);
+
+      actionClear = itemView.findViewById(R.id.action_clear);
+      actionClear.setOnClickListener(v -> searchView.setText(""));
     }
   }
 
@@ -662,7 +678,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean expanded = true;
 
     private final int titleRes;
-    private final List<UserActivityExercise> items = new ArrayList<>();
+    private final List<ActivityModel> items = new ArrayList<>();
 
     Section(int titleRes) {
       this.titleRes = titleRes;
@@ -693,7 +709,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Nullable
-    public UserActivityExercise getItemAt(int position) {
+    public ActivityModel getItemAt(int position) {
       int vt = viewTypeOf(position);
 
       if (vt == VIEW_TYPE_ACTIVITY) {

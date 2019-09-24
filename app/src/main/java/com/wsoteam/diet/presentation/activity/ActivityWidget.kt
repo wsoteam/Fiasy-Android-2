@@ -2,7 +2,6 @@ package com.wsoteam.diet.presentation.activity
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +11,7 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
-import com.wsoteam.diet.POJOProfile.Profile
 import com.wsoteam.diet.R
-import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.utils.getVectorIcon
 import com.wsoteam.diet.utils.tint
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -26,7 +23,7 @@ class ActivityWidget(context: Context) : CardView(context) {
   private val activityContainer: ViewGroup
 
   private val disposables = CompositeDisposable()
-  private val myActivitySource = ActivitiesSyncedSource(ActivitiesSyncedSource.DIARY)
+  private val myActivitySource = DiaryActivitiesSource
   private val changesObserver = Observer<Int> {
     reloadLastActivities()
   }
@@ -70,7 +67,7 @@ class ActivityWidget(context: Context) : CardView(context) {
     reloadLastActivities()
   }
 
-  private fun displayActivities(activities: List<UserActivityExercise>) {
+  private fun displayActivities(activities: List<ActivityModel>) {
     activityContainer.removeAllViewsInLayout()
 
     val factory = LayoutInflater.from(context)
@@ -89,7 +86,7 @@ class ActivityWidget(context: Context) : CardView(context) {
     activityContainer.invalidate()
   }
 
-  private fun openMenu(v: View, activity: UserActivityExercise) {
+  private fun openMenu(v: View, activity: ActivityModel) {
     val menu = PopupMenu(v.context, v, Gravity.BOTTOM)
     menu.menu.add(0, R.id.action_edit, 1, R.string.contextMenuEdit)
     menu.menu.add(0, R.id.action_delete, 1, R.string.contextMenuDelete)
@@ -98,7 +95,7 @@ class ActivityWidget(context: Context) : CardView(context) {
         R.id.action_edit -> {
           val target = EditUserActivityFragment()
           target.editMode = true
-          target.fromDiary = true
+          target.diaryMode = true
           target.selected = activity
 
           val activity = v.context as? FragmentActivity

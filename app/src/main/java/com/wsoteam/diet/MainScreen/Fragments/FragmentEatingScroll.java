@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.SpannableString;
@@ -33,6 +34,7 @@ import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.model.Water;
 
+import com.wsoteam.diet.presentation.activity.DiaryActivitiesSource;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -146,6 +148,11 @@ public class FragmentEatingScroll extends Fragment {
 
         btnNotification = getActivity().findViewById(R.id.btnNotification);
 
+        DiaryActivitiesSource.INSTANCE.getBurnedLive()
+            .observe(getViewLifecycleOwner(), burned -> {
+                setMainParamsInBars(allEat);
+            });
+
         return view;
     }
 
@@ -205,7 +212,7 @@ public class FragmentEatingScroll extends Fragment {
             }
         }
 
-        leftKCal = apCollapsingKcal.getMax() - kcal;
+        leftKCal = apCollapsingKcal.getMax() - kcal + DiaryActivitiesSource.INSTANCE.getBurned();
 
         apCollapsingKcal.setProgress(kcal);
         apCollapsingProt.setProgress(prot);

@@ -42,7 +42,7 @@ class GoogleFitSource(val context: Context) : ExercisesSource() {
     return true
   }
 
-  override fun all(): Single<List<UserActivityExercise>>? {
+  override fun all(): Single<List<ActivityModel>> {
     val account = GoogleSignIn.getLastSignedInAccount(context)
         ?: return Single.error(IllegalStateException("Google Auth required"))
 
@@ -76,24 +76,25 @@ class GoogleFitSource(val context: Context) : ExercisesSource() {
 
         val duration = it.getEndTime(SECONDS) - it.getStartTime(SECONDS)
         UserActivityExercise(
+            id = "google-fit",
             title = it.dataType.name,
             `when` = it.getTimestamp(MILLISECONDS),
-            burned = 0,
+            calories = 0,
             duration = duration.toInt()
-        )
+        ) as ActivityModel
       }
       .toList()
   }
 
-  override fun add(exercise: UserActivityExercise): Single<UserActivityExercise>? {
+  override fun add(exercise: ActivityModel): Single<ActivityModel>? {
     return null
   }
 
-  override fun edit(exercise: UserActivityExercise): Single<UserActivityExercise>? {
+  override fun edit(exercise: ActivityModel): Single<ActivityModel>? {
     return null
   }
 
-  override fun remove(exercise: UserActivityExercise): Single<UserActivityExercise>? {
+  override fun remove(exercise: ActivityModel): Single<ActivityModel>? {
     return null
   }
 }

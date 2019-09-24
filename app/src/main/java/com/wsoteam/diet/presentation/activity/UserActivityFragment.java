@@ -47,7 +47,7 @@ public class UserActivityFragment extends DialogFragment implements
 
   private RecyclerView container;
   private ActivitiesAdapter adapter;
-  private ExercisesSource diarySource = new ActivitiesSyncedSource(ActivitiesSyncedSource.DIARY);
+  private ExercisesSource diarySource = DiaryActivitiesSource.INSTANCE;
 
   private final SparseArrayCompat<ExercisesSource> sources = new SparseArrayCompat<>();
   private final CompositeDisposable disposables = new CompositeDisposable();
@@ -81,7 +81,7 @@ public class UserActivityFragment extends DialogFragment implements
 
       @Override
       public void onItemClick(RecyclerView.ViewHolder view, int sectionId) {
-        final UserActivityExercise e = adapter.getItem(view.getAdapterPosition());
+        final ActivityModel e = adapter.getItem(view.getAdapterPosition());
         requestAddUserActivity(e, false);
       }
 
@@ -101,7 +101,7 @@ public class UserActivityFragment extends DialogFragment implements
         }
 
         menu.setOnMenuItemClickListener(item -> {
-          final UserActivityExercise target = adapter.getItem(v.getAdapterPosition());
+          final ActivityModel target = adapter.getItem(v.getAdapterPosition());
 
           switch (item.getItemId()) {
             case R.id.action_make_favorite:
@@ -125,7 +125,7 @@ public class UserActivityFragment extends DialogFragment implements
               break;
 
             case R.id.action_delete:
-              final UserActivityExercise exercise = adapter.getItem(v.getAdapterPosition());
+              final ActivityModel exercise = adapter.getItem(v.getAdapterPosition());
 
               adapter.removeItem(sectionId, v.getAdapterPosition());
 
@@ -167,7 +167,7 @@ public class UserActivityFragment extends DialogFragment implements
   private void search(CharSequence q) {
     disposables.clear();
 
-    final List<Single<List<UserActivityExercise>>> streams = new ArrayList<>();
+    final List<Single<List<ActivityModel>>> streams = new ArrayList<>();
 
     for (int i = 0; i < sources.size(); i++) {
       final int sourceId = sources.keyAt(i);
@@ -204,7 +204,7 @@ public class UserActivityFragment extends DialogFragment implements
   private void fetchSources() {
     disposables.clear();
 
-    final List<Single<List<UserActivityExercise>>> streams = new ArrayList<>();
+    final List<Single<List<ActivityModel>>> streams = new ArrayList<>();
 
     for (int i = 0; i < sources.size(); i++) {
       final int sourceId = sources.keyAt(i);
@@ -269,11 +269,16 @@ public class UserActivityFragment extends DialogFragment implements
         .commitAllowingStateLoss();
   }
 
-  private void requestAddUserActivity(@Nullable UserActivityExercise exercise, boolean edit) {
+  private void requestAddUserActivity(@Nullable ActivityModel exercise, boolean edit) {
     final EditUserActivityFragment f = new EditUserActivityFragment();
     f.setTargetFragment(this, !edit ? ADD_ACTIVITY_2_DIARY : CREATE_CUSTOM_ACTIVITY);
     f.setSelected(exercise);
-    f.setEditMode(edit);
+
+    if (edit) {
+      f.setEditMode(true);
+    } else {
+      f.setDiaryMode(true);
+    }
 
     getActivity().getSupportFragmentManager()
         .beginTransaction()

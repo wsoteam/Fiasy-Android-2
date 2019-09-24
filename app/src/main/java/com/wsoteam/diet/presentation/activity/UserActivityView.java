@@ -8,6 +8,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.POJO.UserData;
+import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.utils.DateUtils;
 
 public class UserActivityView extends RecyclerView.ViewHolder {
@@ -34,12 +36,22 @@ public class UserActivityView extends RecyclerView.ViewHolder {
     effectiveness = itemView.findViewById(R.id.activity_effectivity);
   }
 
-  public void bind(UserActivityExercise item) {
+  public void bind(ActivityModel item) {
+    int weight = 1;
+
+    if (item instanceof UserActivityExercise) {
+      final UserData user = UserDataHolder.getUserData();
+
+      if (user != null && user.getProfile() != null) {
+        weight = (int) user.getProfile().getWeight();
+      }
+    }
+
     title.setText(item.getTitle());
     duration.setText(DateUtils.formatElapsedTime(duration.getContext(), item.getDuration() * 60));
 
     effectiveness.setText(effectiveness.getContext()
-        .getString(R.string.user_activity_burned, item.getBurned()));
+        .getString(R.string.user_activity_burned, weight * item.getCalories()));
 
     overflowMenu.setVisibility(View.VISIBLE);
   }
