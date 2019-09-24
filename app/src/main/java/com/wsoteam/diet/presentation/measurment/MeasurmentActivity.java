@@ -2,20 +2,14 @@ package com.wsoteam.diet.presentation.measurment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.CardView;
+import androidx.core.app.Fragment;
+import androidx.core.app.FragmentPagerAdapter;
+import androidx.core.view.ViewPager;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.wsoteam.diet.Config;
-import com.wsoteam.diet.MainScreen.Fragments.FragmentEatingScroll;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 import com.wsoteam.diet.presentation.measurment.days.DaysFragment;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
