@@ -1078,4 +1078,5 @@
     </string-array>
     <string name="meas_kg">кг</string>
     <string name="measurments">Измерения тела</string>
+    <string name="medium_weight">средний вес за неделю</string>
 </resources>
