@@ -1,10 +1,11 @@
 package com.wsoteam.diet.presentation.measurment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import androidx.core.app.Fragment;
 import androidx.core.app.FragmentPagerAdapter;
 import androidx.core.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
