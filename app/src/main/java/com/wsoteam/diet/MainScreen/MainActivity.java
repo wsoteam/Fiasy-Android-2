@@ -60,6 +60,7 @@ import com.wsoteam.diet.common.promo.Generator;
 import com.wsoteam.diet.common.remote.POJO.StoreVersion;
 import com.wsoteam.diet.common.remote.UpdateChecker;
 import com.wsoteam.diet.common.Analytics.SavedConst;
+import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.common.Analytics.Events;
@@ -180,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
             loadDietPlans();
         }
         logEvents();
+        startActivity(new Intent(this, MeasurmentActivity.class));
 
     }
 
