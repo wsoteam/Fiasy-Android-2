@@ -17,6 +17,8 @@ import com.wsoteam.diet.R;
 
 public class WaterStepView extends LinearLayout implements View.OnClickListener {
 
+    private int currentProgress;
+
     private final int imageSize = dpToPx(52);
     private  int lineCount = getResources().getDisplayMetrics().widthPixels / imageSize;
     private final int rowMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, lineCount, getResources().getDisplayMetrics());
@@ -66,7 +68,7 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
         for (int i = 0; i < lineCount; i++) {
             ImageView imageView = new ImageView(getContext());
             imageView.setImageDrawable(i == 0 ? mAddWaterIcon : mUnSelectedIcon);
-            imageView.setOnClickListener(i == 0 ? this : null);
+            imageView.setOnClickListener(this);
             imageView.setTag(i + 1);
             firstLinearLayout.addView(imageView, layoutParams);
         }
@@ -75,9 +77,16 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
-        //Log.d("kkk", "onClick: " + view.getTag());
+       int item = (int) view.getTag();
+       if (item <= currentProgress){
+           currentProgress = item - 1;
+       } else {
+           currentProgress = item;
+       }
+
+        
         if (listener != null)
-        listener.onWaterClick((int) view.getTag());
+        listener.onWaterClick(currentProgress);
     }
 
     public void setStepNum(int _count, boolean _addMore) {
@@ -87,7 +96,6 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
     }
 
     private void redrawView(int count, boolean addMore) {
-
 
         if (rlContainer.getChildCount() > 1) {
             rlContainer.removeViews(1, rlContainer.getChildCount() - 1);
@@ -114,7 +122,7 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
                     for (int i = count + 1; i < lineCount; i++) {
                         ImageView childImageView = (ImageView) firstLinearLayout.getChildAt(i);
                         childImageView.setImageDrawable(mUnSelectedIcon);
-                        childImageView.setOnClickListener(null);
+                        childImageView.setOnClickListener(this);
                     }
                 }
 

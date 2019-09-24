@@ -2,7 +2,6 @@ package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
@@ -93,8 +91,7 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
   void achievement(boolean achiv) {
     if (achiv) {
       waterAchievement.setVisibility(View.VISIBLE);
-      waterAchievement.requestFocus();
-      waterAchievement.forceLayout();
+
     } else {
       waterAchievement.setVisibility(View.GONE);
     }
