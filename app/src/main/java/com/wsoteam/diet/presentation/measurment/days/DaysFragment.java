@@ -44,9 +44,12 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     @BindView(R.id.ivAddSaturday) ImageView ivAddSaturday;
     @BindView(R.id.ivAddSunday) ImageView ivAddSunday;
     private int currentPosition;
-    @BindViews({R.id.tvMonday, R.id.tvWednesday, R.id.tvTuesday, R.id.tvThursday, R.id.tvFriday,
+    @BindViews({R.id.tvMonday, R.id.tvTuesday, R.id.tvWednesday, R.id.tvThursday, R.id.tvFriday,
             R.id.tvSaturday, R.id.tvSunday})
     List<TextView> weightsValues;
+    @BindViews({R.id.tvMondayLabel, R.id.tvTuesdayLabel, R.id.tvWednesdayLabel, R.id.tvThursdayLabel, R.id.tvFridayLabel,
+            R.id.tvSaturdayLabel, R.id.tvSundayLabel})
+    List<TextView> weightsValuesLabels;
     @BindViews({R.id.ivAddMonday, R.id.ivAddTuesday, R.id.ivAddWednesday, R.id.ivAddThursday, R.id.ivAddFriday,
             R.id.ivAddSaturday, R.id.ivAddSunday})
     List<ImageView> weightsAdds;
@@ -96,10 +99,17 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     }
 
     @Override
-    public void updateUI(List<Weight> weightsForShow, String topText, String bottomText, String weekAverage) {
+    public void updateUI(List<Weight> weightsForShow, String topText, String bottomText, String weekAverage, int currentDayNumber) {
         setDays(weightsForShow);
         saveTexts(topText, bottomText, weekAverage);
         bindViews(weightsForShow);
+        if (currentDayNumber != ConfigMeasurment.NOT_CURRENT_WEEK){
+            paintWeightsViews(currentDayNumber);
+        }
+    }
+
+    private void paintWeightsViews(int currentDayNumber) {
+        weightsValuesLabels.get(currentDayNumber).setTextColor(getResources().getColor(R.color.current_day));
     }
 
     private void bindViews(List<Weight> weightsForShow) {

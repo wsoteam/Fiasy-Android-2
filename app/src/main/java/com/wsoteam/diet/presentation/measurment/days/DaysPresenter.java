@@ -36,8 +36,10 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
     }
 
     void prepareWeekData(long[] weekInterval){
+        int currentDayNumber = getCurrentDayNumber(weekInterval);
+
         calendar.setTimeInMillis(currentTime);
-        dropTime();
+        clearTime();
         HashMap<String, Weight> weights = new HashMap<>();
         if (UserDataHolder.getUserData().getWeights() != null){
             weights = UserDataHolder.getUserData().getWeights();
@@ -52,8 +54,20 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
                 weightsForShow.add(new Weight("", weekInterval[i], ConfigMeasurment.EMPTY_DAY));
             }
         }
-        getViewState().updateUI(weightsForShow, getTopText(weekInterval), getBottomText(weekInterval), getWeekAverage(weightsForShow));
+        getViewState().updateUI(weightsForShow, getTopText(weekInterval), getBottomText(weekInterval), getWeekAverage(weightsForShow), currentDayNumber);
 
+    }
+
+    private int getCurrentDayNumber(long[] weekInterval) {
+        int currentDayNumber = ConfigMeasurment.NOT_CURRENT_WEEK;
+        calendar.setTimeInMillis(currentTime);
+        clearTime();
+        for (int i = 0; i < weekInterval.length; i++) {
+            if (weekInterval[i] == calendar.getTimeInMillis()){
+                currentDayNumber = i;
+            }
+        }
+        return currentDayNumber;
     }
 
     private String getWeekAverage(List<Weight> weightsForShow) {
@@ -81,7 +95,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
 
     private String getBottomText(long[] interval) {
         String bottomText = "";
-        dropTime();
+        clearTime();
         calendar.setTimeInMillis(interval[0]);
         String firstDay = getNumber(calendar.get(Calendar.DAY_OF_MONTH));
         String firstMonth = getNumber(calendar.get(Calendar.MONTH) + 1);
@@ -108,7 +122,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
 
     public long[] getWeekInterval(int position) {
         calendar.setTimeInMillis(currentTime);
-        dropTime();
+        clearTime();
         long[] weekInterval = new long[7];
         int week = calendar.get(Calendar.WEEK_OF_YEAR);
         calendar.set(Calendar.WEEK_OF_YEAR, week + position);
@@ -119,7 +133,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
         return weekInterval;
     }
 
-    private void dropTime() {
+    private void clearTime() {
         calendar.set(Calendar.HOUR_OF_DAY, 1);
         calendar.set(Calendar.MINUTE, 1);
         calendar.set(Calendar.SECOND, 1);
@@ -128,7 +142,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
 
     void addWeight(double weight, long timeInMillis){
         calendar.setTimeInMillis(timeInMillis);
-        dropTime();
+        clearTime();
         Weight weightMeasurment = new Weight("", calendar.getTimeInMillis(), weight);
         WorkWithFirebaseDB.addWeight(weightMeasurment, String.valueOf(calendar.getTimeInMillis()));
     }
@@ -136,7 +150,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
     private void createData() {
         for (int i = 0; i < 300; i++) {
             calendar.setTimeInMillis(currentTime);
-            dropTime();
+            clearTime();
             calendar.setTimeInMillis(currentTime - oneDay * i);
             addWeight(85, calendar.getTimeInMillis());
             Log.e("LOL", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
