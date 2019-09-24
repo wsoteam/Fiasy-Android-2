@@ -1,13 +1,15 @@
 package com.wsoteam.diet.presentation.measurment.days;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -34,10 +36,20 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     @BindView(R.id.tvSaturday) TextView tvSaturday;
     @BindView(R.id.tvSunday) TextView tvSunday;
     Unbinder unbinder;
+    @BindView(R.id.ivAddMonday) ImageView ivAddMonday;
+    @BindView(R.id.ivAddTuesday) ImageView ivAddTuesday;
+    @BindView(R.id.ivAddWednesday) ImageView ivAddWednesday;
+    @BindView(R.id.ivAddThursday) ImageView ivAddThursday;
+    @BindView(R.id.ivAddFriday) ImageView ivAddFriday;
+    @BindView(R.id.ivAddSaturday) ImageView ivAddSaturday;
+    @BindView(R.id.ivAddSunday) ImageView ivAddSunday;
     private int currentPosition;
     @BindViews({R.id.tvMonday, R.id.tvWednesday, R.id.tvTuesday, R.id.tvThursday, R.id.tvFriday,
             R.id.tvSaturday, R.id.tvSunday})
-    List<TextView> daysViewsList;
+    List<TextView> weightsValues;
+    @BindViews({R.id.ivAddMonday, R.id.ivAddTuesday, R.id.ivAddWednesday, R.id.ivAddThursday, R.id.ivAddFriday,
+            R.id.ivAddSaturday, R.id.ivAddSunday})
+    List<ImageView> weightsAdds;
     private TextView tvMediumWeight;
     private TextView tvTopText;
     private TextView tvBottomText;
@@ -87,6 +99,35 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     public void updateUI(List<Weight> weightsForShow, String topText, String bottomText, String weekAverage) {
         setDays(weightsForShow);
         saveTexts(topText, bottomText, weekAverage);
+        bindViews(weightsForShow);
+    }
+
+    private void bindViews(List<Weight> weightsForShow) {
+        for (int i = 0; i < weightsValues.size(); i++) {
+            if (weightsForShow.get(i).getWeight() != ConfigMeasurment.EMPTY_DAY){
+                turnOffAdding(weightsValues.get(i), weightsAdds.get(i));
+            }else {
+                turnOnAdding(weightsValues.get(i), weightsAdds.get(i));
+            }
+        }
+    }
+
+    private void turnOnAdding(TextView tvWeight, ImageView ivAdd) {
+        if (tvWeight.getVisibility() == View.VISIBLE){
+            tvWeight.setVisibility(View.INVISIBLE);
+        }
+        if (ivAdd.getVisibility() == View.INVISIBLE) {
+            ivAdd.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void turnOffAdding(TextView tvWeight, ImageView ivAdd) {
+        if (tvWeight.getVisibility() == View.INVISIBLE){
+            tvWeight.setVisibility(View.VISIBLE);
+        }
+        if (ivAdd.getVisibility() == View.VISIBLE) {
+            ivAdd.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void saveTexts(String topText, String bottomText, String weekAverage) {
@@ -97,8 +138,8 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
 
     private void setDays(List<Weight> weightsForShow) {
         for (int i = 0; i < weightsForShow.size(); i++) {
-            if (weightsForShow.get(i).getWeight() != ConfigMeasurment.EMPTY_DAY){
-                daysViewsList.get(i).setText(String.valueOf(weightsForShow.get(i).getWeight()));
+            if (weightsForShow.get(i).getWeight() != ConfigMeasurment.EMPTY_DAY) {
+                weightsValues.get(i).setText(String.valueOf(weightsForShow.get(i).getWeight()));
             }
         }
     }
