@@ -127,11 +127,13 @@ public class WorkWithFirebaseDB {
         myRef.push().setValue(snack);
     }
 
-    public static void addWater(Water water) {
+    public static String addWater(Water water) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("waters");
-        myRef.push().setValue(water);
+        String key =  myRef.push().getKey();
+        myRef.child(key).setValue(water);
+        return key;
     }
 
     public static void updateWater(String key, float water) {
