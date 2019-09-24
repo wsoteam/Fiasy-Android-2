@@ -32,6 +32,9 @@ import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.model.Water;
+import com.wsoteam.diet.presentation.measurment.POJO.Measurments;
+import com.wsoteam.diet.presentation.measurment.POJO.Weight;
+
 import java.util.HashMap;
 
 public class WorkWithFirebaseDB {
@@ -442,4 +445,17 @@ public class WorkWithFirebaseDB {
                 child(promo.getId());
         myRef.setValue(promo);
     }
+
+    public static void addMeasurment(Measurments measurment){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("measurments");
+        myRef.push().setValue(measurment);
+    }
+
+    public static void addWeight(Weight weight, String timeInMillis){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("weights").child(timeInMillis);
+        myRef.setValue(weight);
 }
