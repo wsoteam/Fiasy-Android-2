@@ -62,6 +62,7 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
   }
 
   public void bind(Water water, Context context, String nameOfEatingGroup) {
+    final int WATER_MAX = 5;
     AtomicReference<String> cache = new AtomicReference<String>();
     tvTitleOfEatingCard.setText(nameOfEatingGroup);
 
@@ -74,16 +75,16 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
     }
 
     waterStepView.setOnWaterClickListener(progress -> {
-      float maxWater = 2f;
+      float usersMaxWater = 2f;
       if (UserDataHolder.getUserData() != null
           && UserDataHolder.getUserData().getProfile() != null) {
-        maxWater = UserDataHolder.getUserData().getProfile().getMaxWater();
+        usersMaxWater = UserDataHolder.getUserData().getProfile().getMaxWater();
       }
       float waterProgress = progress * waterStep;
       tvEatingReminder.setText(
           String.format(context.getString(R.string.main_screen_menu_water_count), waterProgress));
-      waterStepView.setStepNum(progress, waterProgress < maxWater);
-      achievement(waterProgress > 2);
+      waterStepView.setStepNum(progress, progress < WATER_MAX / waterStep);
+      achievement(waterProgress >= usersMaxWater);
       if (cache.get() == null) {
         cache.set(WorkWithFirebaseDB.
             addWater(new Water(day, month, year, waterProgress)));
