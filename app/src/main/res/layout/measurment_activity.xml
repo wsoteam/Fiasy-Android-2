@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/profile_gradient" />
+
+    <ImageButton
+        android:id="@+id/ibGraphs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/filter_state"
+        android:elevation="9dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_graphs" />
+
+    <ImageButton
+        android:id="@+id/ibBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/filter_state"
+        android:elevation="9dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+        app:layout_constraintStart_toStartOf="@+id/imageView13"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_meas_arrow_back" />
+
+    <TextView
+        android:id="@+id/textView54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="9dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/measurments"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+        app:layout_constraintStart_toEndOf="@+id/ibBack"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.47" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:id="@+id/textView154"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintTop_toBottomOf="@+id/cvWeight"
+                tools:layout_editor_absoluteX="83dp" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvWeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="3dp"
+                app:cardCornerRadius="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
+
+
+                    <TextView
+                        android:id="@+id/tvMediumWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="81dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="75.5 кг"
+                        android:textColor="#de2b2b2b"
+                        android:textSize="32sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView155"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="@string/medium_weight"
+                        android:textColor="#8a000000"
+                        app:layout_constraintEnd_toEndOf="@+id/tvMediumWeight"
+                        app:layout_constraintStart_toStartOf="@+id/tvMediumWeight"
+                        app:layout_constraintTop_toBottomOf="@+id/tvMediumWeight" />
+
+                    <TextView
+                        android:id="@+id/tvYear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="19dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="2019"
+                        android:textColor="#80424242"
+                        android:textSize="13sp"
+                        app:layout_constraintEnd_toEndOf="@+id/textView155"
+                        app:layout_constraintStart_toStartOf="@+id/textView155"
+                        app:layout_constraintTop_toBottomOf="@+id/textView155" />
+
+                    <TextView
+                        android:id="@+id/tvDateInterval"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="10.06 - 17.06"
+                        android:textColor="#8a000000"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="@+id/tvYear"
+                        app:layout_constraintStart_toStartOf="@+id/tvYear"
+                        app:layout_constraintTop_toBottomOf="@+id/tvYear" />
+
+                    <ImageButton
+                        android:id="@+id/imbtnLeft"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:padding="16dp"
+                        android:src="@drawable/ic_meas_left_arrow"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvDateInterval"
+                        app:layout_constraintEnd_toStartOf="@+id/tvDateInterval"
+                        app:layout_constraintTop_toTopOf="@+id/tvDateInterval" />
+
+                    <ImageButton
+                        android:id="@+id/imbtnRight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:padding="16dp"
+                        android:src="@drawable/ic_meas_right_arrow"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvDateInterval"
+                        app:layout_constraintStart_toEndOf="@+id/tvDateInterval"
+                        app:layout_constraintTop_toTopOf="@+id/tvDateInterval" />
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/vpDays"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="28dp"
+                        android:layout_marginBottom="26dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvDateInterval"></android.support.v4.view.ViewPager>
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
