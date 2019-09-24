@@ -105,6 +105,13 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
         if (currentDayNumber != ConfigMeasurment.FUTURE_WEEK && currentDayNumber != ConfigMeasurment.PAST_WEEK){
             paintWeightsViews(currentDayNumber);
         }
+        paintAddViews(currentDayNumber);
+    }
+
+    private void paintAddViews(int currentDayNumber) {
+        for (int i = 0; i <= currentDayNumber; i++) {
+            weightsAdds.get(i).setImageDrawable(getResources().getDrawable(R.drawable.ic_icons_plus_weight_active));
+        }
     }
 
     private void paintWeightsViews(int currentDayNumber) {
