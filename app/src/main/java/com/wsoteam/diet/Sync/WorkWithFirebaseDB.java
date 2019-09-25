@@ -453,7 +453,7 @@ public class WorkWithFirebaseDB {
         myRef.push().setValue(measurment);
     }
 
-    public static void addWeight(Weight weight, String timeInMillis) {
+    public static void setWeight(Weight weight, String timeInMillis) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("weights").child(timeInMillis);

@@ -13,22 +13,22 @@ import androidx.annotation.Nullable;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.measurment.ConfigMeasurment;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 import com.wsoteam.diet.presentation.measurment.dialogs.WeightCallback;
 import com.wsoteam.diet.presentation.measurment.dialogs.WeightDialog;
+import com.wsoteam.diet.presentation.profile.section.ProfilePresenter;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class DaysFragment extends MvpAppCompatFragment implements DaysView {
-    @InjectPresenter
     DaysPresenter daysPresenter;
     private static final String POSITION = "POSITION";
     @BindView(R.id.tvMonday) TextView tvMonday;
@@ -62,6 +62,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     private String topText, bottomText, weekAverage;
     private boolean[] isAvailableAdd = new boolean[]{false, false, false, false, false, false, false};
 
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -69,6 +70,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
             tvTopText.setText(topText);
             tvBottomText.setText(bottomText);
             tvMediumWeight.setText(weekAverage + " " + getString(R.string.meas_kg));
+
         }
     }
 
@@ -89,6 +91,8 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
         tvTopText = getActivity().findViewById(R.id.tvYear);
         tvBottomText = getActivity().findViewById(R.id.tvDateInterval);
         tvMediumWeight = getActivity().findViewById(R.id.tvMediumWeight);
+        daysPresenter = new DaysPresenter();
+        daysPresenter.attachView(this);
         return view;
     }
 
@@ -100,6 +104,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
             setUserVisibleHint(true);
         }
     }
+
 
     @Override
     public void updateUI(List<Weight> weightsForShow, String topText, String bottomText, String weekAverage, int currentDayNumber) {
@@ -143,8 +148,8 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     private void addWeight(Weight weight) {
         WeightDialog.showWeightDialog(getActivity(), weight, new WeightCallback() {
             @Override
-            public void addWeight(Weight weight) {
-                daysPresenter.addWeight(weight);
+            public void update() {
+                daysPresenter.updateUI(currentPosition);
             }
         });
     }

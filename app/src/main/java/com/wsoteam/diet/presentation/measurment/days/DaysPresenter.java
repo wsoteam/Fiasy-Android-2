@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.wsoteam.diet.Config;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.measurment.ConfigMeasurment;
@@ -22,6 +21,9 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
     private long oneDay = 86400000;
     private long currentTime;
 
+    public DaysPresenter() {
+    }
+
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
@@ -33,7 +35,12 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
 
 
     public void updateUI(int position) {
+        Log.e("LOL", "update");
         prepareWeekData( getWeekInterval(position));
+    }
+
+    public void testCall(){
+        Log.e("LOL", "call");
     }
 
     void prepareWeekData(long[] weekInterval){
@@ -55,6 +62,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
                 weightsForShow.add(new Weight("", weekInterval[i], ConfigMeasurment.EMPTY_DAY));
             }
         }
+        Log.e("LOL", String.valueOf(UserDataHolder.getUserData().getWeights().size()));
         getViewState().updateUI(weightsForShow, getTopText(weekInterval), getBottomText(weekInterval), getWeekAverage(weightsForShow), currentDayNumber);
 
     }
@@ -151,7 +159,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
 
     public void addWeight(Weight weight){
         Weight weightMeasurment = new Weight("", weight.getTimeInMillis(), weight.getWeight());
-        WorkWithFirebaseDB.addWeight(weightMeasurment, String.valueOf(weight.getTimeInMillis()));
+        WorkWithFirebaseDB.setWeight(weightMeasurment, String.valueOf(weight.getTimeInMillis()));
     }
 
     private void createData() {
@@ -159,7 +167,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
             calendar.setTimeInMillis(currentTime);
             clearTime();
             calendar.setTimeInMillis(currentTime - oneDay * i);
-            //addWeight(85, calendar.getTimeInMillis());
+            //setWeight(85, calendar.getTimeInMillis());
             Log.e("LOL", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         }
     }

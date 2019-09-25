@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AlertDialog;
 
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.views.wheels.WheelWeightGrammPicker;
 import com.wsoteam.diet.common.views.wheels.WheelWeightKiloPicker;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
@@ -34,7 +35,9 @@ public class WeightDialog {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callback.addWeight(getWeight(weight));
+                Weight newWeight = getWeight(weight);
+                WorkWithFirebaseDB.setWeight(newWeight, String.valueOf(newWeight.getTimeInMillis()));
+                callback.update();
                 alertDialog.cancel();
             }
         });
