@@ -149,10 +149,8 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
         calendar.set(Calendar.MILLISECOND, 1);
     }
 
-    void addWeight(double weight, long timeInMillis){
-        calendar.setTimeInMillis(timeInMillis);
-        clearTime();
-        Weight weightMeasurment = new Weight("", calendar.getTimeInMillis(), weight);
+    public void addWeight(Weight weight){
+        Weight weightMeasurment = new Weight("", weight.getTimeInMillis(), weight.getWeight());
         WorkWithFirebaseDB.addWeight(weightMeasurment, String.valueOf(calendar.getTimeInMillis()));
     }
 
@@ -161,7 +159,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
             calendar.setTimeInMillis(currentTime);
             clearTime();
             calendar.setTimeInMillis(currentTime - oneDay * i);
-            addWeight(85, calendar.getTimeInMillis());
+            //addWeight(85, calendar.getTimeInMillis());
             Log.e("LOL", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         }
     }

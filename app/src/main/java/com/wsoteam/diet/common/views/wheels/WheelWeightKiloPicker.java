@@ -17,8 +17,9 @@ public class WheelWeightKiloPicker extends WheelPicker implements IWheelWeightKi
 
     @Override
     public int getSelectedWeight() {
-        return 0;
+        return weightValues.get(getCurrentItemPosition());
     }
+
 
     @Override
     public void setSelectedWeight(int weight) {

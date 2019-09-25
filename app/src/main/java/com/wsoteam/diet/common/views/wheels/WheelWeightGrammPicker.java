@@ -17,9 +17,8 @@ public class WheelWeightGrammPicker extends WheelPicker implements IWheelWeightG
 
     @Override
     public int getSelectedWeight() {
-        return 0;
+        return weightValues.get(getCurrentItemPosition());
     }
-
 
     public WheelWeightGrammPicker(Context context) {
         super(context, null);

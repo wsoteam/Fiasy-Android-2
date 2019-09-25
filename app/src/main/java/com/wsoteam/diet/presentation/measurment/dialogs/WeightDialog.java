@@ -14,18 +14,19 @@ import com.wsoteam.diet.common.views.wheels.WheelWeightGrammPicker;
 import com.wsoteam.diet.common.views.wheels.WheelWeightKiloPicker;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 
-import java.math.BigDecimal;
-
 public class WeightDialog {
+    private static WheelWeightGrammPicker gPicker;
+    private static WheelWeightKiloPicker kPicker;
 
-    public static void showWeightDialog(Context context, Weight weight,  WeightCallback callback) {
+
+    public static void showWeightDialog(Context context, Weight weight, WeightCallback callback) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         AlertDialog alertDialog = builder.create();
         weight.setWeight(35.80);
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.alert_dialog_add_weight, null);
-        WheelWeightGrammPicker gPicker = view.findViewById(R.id.whlWeightGrammPicker);
-        WheelWeightKiloPicker kPicker = view.findViewById(R.id.whlWeightKiloPicker);
+        gPicker = view.findViewById(R.id.whlWeightGrammPicker);
+        kPicker = view.findViewById(R.id.whlWeightKiloPicker);
         Button btnSave = view.findViewById(R.id.btnSave);
         int valueKilo = (int) weight.getWeight();
         kPicker.setSelectedWeight(valueKilo);
@@ -33,7 +34,7 @@ public class WeightDialog {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callback.addWeight();
+                callback.addWeight(getWeight(weight));
                 alertDialog.cancel();
             }
         });
@@ -41,5 +42,13 @@ public class WeightDialog {
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         alertDialog.setView(view);
         alertDialog.show();
+    }
+
+    private static Weight getWeight(Weight weight) {
+        int kilo = kPicker.getSelectedWeight();
+        double gramm = gPicker.getSelectedWeight();
+        double globalValue = kilo + gramm / 1000;
+        weight.setWeight(globalValue);
+        return weight;
     }
 }
