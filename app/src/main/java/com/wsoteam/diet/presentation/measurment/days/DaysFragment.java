@@ -57,6 +57,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     private TextView tvBottomText;
     private String topText, bottomText, weekAverage;
     private boolean[] isAvailableAdd = new boolean[]{false, false, false, false, false, false, false};
+    private Toast lockToast;
 
 
     @Override
@@ -144,6 +145,9 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     }
 
     private void showLock(View v) {
+        if (lockToast != null){
+            lockToast.cancel();
+        }
         int xOffset = 0;
         int yOffset = 0;
         Rect gvr = new Rect();
@@ -181,10 +185,10 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
                 xOffset = parentCenterX - halfWidth;
             }
         }
-        Toast toast = new Toast(getActivity());
-        toast.setView(LayoutInflater.from(getActivity()).inflate(R.layout.toast_lock_adding, null));
-        toast.setGravity(Gravity.CENTER, xOffset, yOffset);
-        toast.show();
+        lockToast = new Toast(getActivity());
+        lockToast.setView(LayoutInflater.from(getActivity()).inflate(R.layout.toast_lock_adding, null));
+        lockToast.setGravity(Gravity.CENTER, xOffset, yOffset);
+        lockToast.show();
     }
 
     private void addWeight(Weight weight) {
