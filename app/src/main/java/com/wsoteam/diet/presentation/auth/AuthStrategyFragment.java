@@ -40,7 +40,7 @@ public abstract class AuthStrategyFragment extends Fragment {
                 put(R.id.auth_strategy_google, GoogleAuthStrategy.class);
                 put(R.id.auth_strategy_facebook, FacebookAuthStrategy.class);
                 put(R.id.auth_strategy_login, EmailLoginAuthStrategy.class);
-                put(R.id.auth_strategy_reset, ResetPasswordAuthStrategy.class);
+                //put(R.id.auth_strategy_reset, ResetPasswordAuthStrategy.class);
             }};
 
     protected final Observer<AuthStrategy.AuthenticationResult> userObserver =

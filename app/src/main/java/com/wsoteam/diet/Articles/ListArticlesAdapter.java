@@ -64,62 +64,6 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     notifyDataSetChanged();
   }
 
-  class MyViewHolder extends RecyclerView.ViewHolder {
-
-    @BindView(R.id.ivArticle) ImageView imageView;
-    @BindView(R.id.tvArticlePremium) TextView premium;
-    @BindView(R.id.tvArticleTitle) TextView title;
-    @BindView(R.id.tvArticleIntro) TextView intro;
-    @BindView(R.id.cvArticleBorder) CardView cvBorder;
-
-    public MyViewHolder(View view) {
-      super(view);
-      ButterKnife.bind(this, view);
-
-      view.setOnClickListener((View v) -> {
-          onItemClickListener.onItemClick(v, listItem.get(getAdapterPosition()));
-          //Intent intent;
-          //boolean isPremArticle = listItem.get(getAdapterPosition()).isPremium();
-          //
-          //if (!checkSubscribe() && isPremArticle) {
-          //  intent = new Intent(activity, ItemArticleWithoutPremActivity.class);
-          //} else {
-          //  intent = new Intent(activity, ItemArticleActivity.class);
-          //}
-          //
-          //intent.putExtra(Config.ARTICLE_INTENT, getAdapterPosition());
-          //activity.startActivity(intent);
-        });
-    }
-
-    void bind(int position) {
-
-      boolean isPrem = listItem.get(position).isPremium();
-      String url = listItem.get(position).getImgUrl();
-
-      Glide.with(context).load(url).into(imageView);
-      title.setText(Html.fromHtml(listItem.get(position).getTitle()));
-      intro.setText(Html.fromHtml(listItem.get(position).getIntroPart()));
-
-      if (isPrem) {
-        cvBorder.setCardBackgroundColor(Color.parseColor("#FF5722"));
-        premium.setVisibility(View.VISIBLE);
-      } else {
-        cvBorder.setCardBackgroundColor(Color.parseColor("#00FF5722"));
-        premium.setVisibility(View.GONE);
-      }
-    }
-
-    //private boolean checkSubscribe() {
-    //  SharedPreferences sharedPreferences =
-    //      activity.getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-    //  if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
-    //    return true;
-    //  } else {
-    //    return false;
-    //  }
-    //}
-  }
 
   public void setOnItemClickListener(OnItemClickListener onItemClickListener){
     this.onItemClickListener = onItemClickListener;
