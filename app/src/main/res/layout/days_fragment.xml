@@ -189,7 +189,7 @@
         app:layout_constraintStart_toStartOf="@+id/tvSunday"
         app:layout_constraintTop_toBottomOf="@+id/tvSunday" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/ivAddMonday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -197,9 +197,11 @@
         app:layout_constraintEnd_toEndOf="@+id/tvMonday"
         app:layout_constraintStart_toStartOf="@+id/tvMonday"
         app:layout_constraintTop_toTopOf="@+id/tvMonday"
+        android:padding="4dp"
+        android:background="@color/white"
         app:srcCompat="@drawable/ic_icons_plus_weight" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/ivAddTuesday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -207,9 +209,11 @@
         app:layout_constraintEnd_toEndOf="@+id/tvTuesday"
         app:layout_constraintStart_toStartOf="@+id/tvTuesday"
         app:layout_constraintTop_toTopOf="@+id/tvTuesday"
+        android:background="@color/white"
+        android:padding="4dp"
         app:srcCompat="@drawable/ic_icons_plus_weight" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/ivAddWednesday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -217,9 +221,11 @@
         app:layout_constraintEnd_toEndOf="@+id/tvWednesday"
         app:layout_constraintStart_toStartOf="@+id/tvWednesday"
         app:layout_constraintTop_toTopOf="@+id/tvWednesday"
+        android:background="@color/white"
+        android:padding="4dp"
         app:srcCompat="@drawable/ic_icons_plus_weight" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/ivAddThursday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -227,9 +233,11 @@
         app:layout_constraintEnd_toEndOf="@+id/tvThursday"
         app:layout_constraintStart_toStartOf="@+id/tvThursday"
         app:layout_constraintTop_toTopOf="@+id/tvThursday"
+        android:background="@color/white"
+        android:padding="4dp"
         app:srcCompat="@drawable/ic_icons_plus_weight" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/ivAddFriday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -237,9 +245,11 @@
         app:layout_constraintEnd_toEndOf="@+id/tvFriday"
         app:layout_constraintStart_toStartOf="@+id/tvFriday"
         app:layout_constraintTop_toTopOf="@+id/tvFriday"
+        android:background="@color/white"
+        android:padding="4dp"
         app:srcCompat="@drawable/ic_icons_plus_weight" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/ivAddSaturday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -247,9 +257,11 @@
         app:layout_constraintEnd_toEndOf="@+id/tvSaturday"
         app:layout_constraintStart_toStartOf="@+id/tvSaturday"
         app:layout_constraintTop_toTopOf="@+id/tvSaturday"
+        android:background="@color/white"
+        android:padding="4dp"
         app:srcCompat="@drawable/ic_icons_plus_weight" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/ivAddSunday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -257,5 +269,7 @@
         app:layout_constraintEnd_toEndOf="@+id/tvSunday"
         app:layout_constraintStart_toStartOf="@+id/tvSunday"
         app:layout_constraintTop_toTopOf="@+id/tvSunday"
+        android:background="@color/white"
+        android:padding="4dp"
         app:srcCompat="@drawable/ic_icons_plus_weight" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,13 +40,6 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     @BindView(R.id.tvSaturday) TextView tvSaturday;
     @BindView(R.id.tvSunday) TextView tvSunday;
     Unbinder unbinder;
-    @BindView(R.id.ivAddMonday) ImageView ivAddMonday;
-    @BindView(R.id.ivAddTuesday) ImageView ivAddTuesday;
-    @BindView(R.id.ivAddWednesday) ImageView ivAddWednesday;
-    @BindView(R.id.ivAddThursday) ImageView ivAddThursday;
-    @BindView(R.id.ivAddFriday) ImageView ivAddFriday;
-    @BindView(R.id.ivAddSaturday) ImageView ivAddSaturday;
-    @BindView(R.id.ivAddSunday) ImageView ivAddSunday;
     private int currentPosition;
     @BindViews({R.id.tvMonday, R.id.tvTuesday, R.id.tvWednesday, R.id.tvThursday, R.id.tvFriday,
             R.id.tvSaturday, R.id.tvSunday})
@@ -55,7 +49,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     List<TextView> weightsValuesLabels;
     @BindViews({R.id.ivAddMonday, R.id.ivAddTuesday, R.id.ivAddWednesday, R.id.ivAddThursday, R.id.ivAddFriday,
             R.id.ivAddSaturday, R.id.ivAddSunday})
-    List<ImageView> weightsAdds;
+    List<ImageButton> weightsAdds;
     private TextView tvMediumWeight;
     private TextView tvTopText;
     private TextView tvBottomText;
@@ -124,7 +118,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
         tvMediumWeight.setText(weekAverage + " " + getString(R.string.meas_kg));
     }
 
-    private void setClickListeners(List<Weight> weightsForShow, List<ImageView> weightsAdds) {
+    private void setClickListeners(List<Weight> weightsForShow, List<ImageButton> weightsAdds) {
         for (int i = 0; i < weightsAdds.size(); i++) {
             View.OnClickListener onClickListener;
             int number = i;
