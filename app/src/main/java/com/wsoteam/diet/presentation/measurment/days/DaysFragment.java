@@ -16,6 +16,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.measurment.ConfigMeasurment;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
+import com.wsoteam.diet.presentation.measurment.dialogs.WeightCallback;
+import com.wsoteam.diet.presentation.measurment.dialogs.WeightDialog;
 
 import java.util.List;
 
@@ -139,7 +141,12 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     }
 
     private void addWeight(Weight weight) {
-        Toast.makeText(getActivity(), "add", Toast.LENGTH_SHORT).show();
+        WeightDialog.showWeightDialog(getActivity(), new WeightCallback() {
+            @Override
+            public void addWeight(double weight) {
+
+            }
+        });
     }
 
     private void paintAddViews(int currentDayNumber) {
