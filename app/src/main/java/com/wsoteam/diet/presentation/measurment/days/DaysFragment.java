@@ -141,9 +141,9 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     }
 
     private void addWeight(Weight weight) {
-        WeightDialog.showWeightDialog(getActivity(), new WeightCallback() {
+        WeightDialog.showWeightDialog(getActivity(), weight, new WeightCallback() {
             @Override
-            public void addWeight(double weight) {
+            public void addWeight(Weight weight) {
 
             }
         });
