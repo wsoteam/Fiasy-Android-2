@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.R;
@@ -14,6 +15,7 @@ import com.wsoteam.diet.presentation.global.BaseActivity;
 
 public class WaterActivity extends BaseActivity implements WaterView {
 
+  public static final float DEFAULT_NORMA = 2f;
   public static final float PROGRESS_STEP = 0.25f;
   public static final float PROGRESS_MAX = 3;
   private static final float PROGRESS_MIN = 1.5f;
@@ -79,6 +81,11 @@ public class WaterActivity extends BaseActivity implements WaterView {
     pbWater.setMax(steps);
     pbWater.setProgress(1);
     pbWater.setProgress((int) ((waterProgress - PROGRESS_MIN) / PROGRESS_STEP));
+  }
+
+  @OnClick(R.id.tvDefault)
+  void clicked(){
+    pbWater.setProgress((int) ((DEFAULT_NORMA - PROGRESS_MIN) / PROGRESS_STEP));
   }
 
   @Override
