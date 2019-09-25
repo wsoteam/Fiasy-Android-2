@@ -6,5 +6,5 @@ import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 import java.util.List;
 
 public interface DaysView extends MvpView {
-    void updateUI(List<Weight> weightsForShow, String topText, String bottomText, String weekAverage, int currentDayNumber);
+    void updateUI(List<Weight> weightsForShow, String topText, String bottomText, String weekAverage, int currentDayNumber, boolean isNeedRefreshLabels);
 }

@@ -20,6 +20,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
     private final int START_POSITION = 0;
     private long oneDay = 86400000;
     private long currentTime;
+    HashMap<String, Weight> weights;
 
     public DaysPresenter() {
     }
@@ -35,12 +36,31 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
 
 
     public void updateUI(int position) {
-        Log.e("LOL", "update");
-        prepareWeekData( getWeekInterval(position));
+        prepareWeekData(getWeekInterval(position));
     }
 
-    public void testCall(){
-        Log.e("LOL", "call");
+    public void refreshUI(int position, Weight weight){
+        reCalculateWeekData(getWeekInterval(position), weight);
+    }
+
+    void reCalculateWeekData(long[] weekInterval, Weight newWeight){
+        int currentDayNumber = getCurrentDayNumber(weekInterval);
+
+        calendar.setTimeInMillis(currentTime);
+        clearTime();
+        weights.put(String.valueOf(newWeight.getTimeInMillis()), newWeight);
+
+
+        List<Weight> weightsForShow = new ArrayList<>();
+        for (int i = 0; i < weekInterval.length; i++) {
+            Weight weight = weights.get(String.valueOf(weekInterval[i]));
+            if (weight != null) {
+                weightsForShow.add(weight);
+            }else {
+                weightsForShow.add(new Weight("", weekInterval[i], ConfigMeasurment.EMPTY_DAY));
+            }
+        }
+        getViewState().updateUI(weightsForShow, getTopText(weekInterval), getBottomText(weekInterval), getWeekAverage(weightsForShow), currentDayNumber, true);
     }
 
     void prepareWeekData(long[] weekInterval){
@@ -48,7 +68,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
 
         calendar.setTimeInMillis(currentTime);
         clearTime();
-        HashMap<String, Weight> weights = new HashMap<>();
+        weights = new HashMap<>();
         if (UserDataHolder.getUserData().getWeights() != null){
             weights = UserDataHolder.getUserData().getWeights();
         }
@@ -63,7 +83,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
             }
         }
         Log.e("LOL", String.valueOf(UserDataHolder.getUserData().getWeights().size()));
-        getViewState().updateUI(weightsForShow, getTopText(weekInterval), getBottomText(weekInterval), getWeekAverage(weightsForShow), currentDayNumber);
+        getViewState().updateUI(weightsForShow, getTopText(weekInterval), getBottomText(weekInterval), getWeekAverage(weightsForShow), currentDayNumber, false);
 
     }
 

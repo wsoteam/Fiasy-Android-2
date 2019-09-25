@@ -67,10 +67,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isResumed()) {
-            tvTopText.setText(topText);
-            tvBottomText.setText(bottomText);
-            tvMediumWeight.setText(weekAverage + " " + getString(R.string.meas_kg));
-
+            refreshLabels();
         }
     }
 
@@ -107,7 +104,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
 
 
     @Override
-    public void updateUI(List<Weight> weightsForShow, String topText, String bottomText, String weekAverage, int currentDayNumber) {
+    public void updateUI(List<Weight> weightsForShow, String topText, String bottomText, String weekAverage, int currentDayNumber, boolean isNeedRefreshLabels) {
         setDays(weightsForShow);
         saveTexts(topText, bottomText, weekAverage);
         bindViews(weightsForShow);
@@ -116,6 +113,15 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
         }
         paintAddViews(currentDayNumber);
         setClickListeners(weightsForShow, weightsAdds);
+        if (isNeedRefreshLabels){
+            refreshLabels();
+        }
+    }
+
+    private void refreshLabels() {
+        tvTopText.setText(topText);
+        tvBottomText.setText(bottomText);
+        tvMediumWeight.setText(weekAverage + " " + getString(R.string.meas_kg));
     }
 
     private void setClickListeners(List<Weight> weightsForShow, List<ImageView> weightsAdds) {
@@ -148,8 +154,8 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     private void addWeight(Weight weight) {
         WeightDialog.showWeightDialog(getActivity(), weight, new WeightCallback() {
             @Override
-            public void update() {
-                daysPresenter.updateUI(currentPosition);
+            public void update(Weight weight) {
+                daysPresenter.refreshUI(currentPosition, weight);
             }
         });
     }

@@ -37,7 +37,7 @@ public class WeightDialog {
             public void onClick(View view) {
                 Weight newWeight = getWeight(weight);
                 WorkWithFirebaseDB.setWeight(newWeight, String.valueOf(newWeight.getTimeInMillis()));
-                callback.update();
+                callback.update(newWeight);
                 alertDialog.cancel();
             }
         });
