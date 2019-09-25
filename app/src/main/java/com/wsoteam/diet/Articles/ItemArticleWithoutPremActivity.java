@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Articles.POJO.Article;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
@@ -73,7 +73,7 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
     }
 
     private void setValue(Article article){
-        Glide.with(this).load(article.getImgUrl()).into(imgArticle);
+        Picasso.get().load(article.getImgUrl()).into(imgArticle);
 
         tvTitle.setText(Html.fromHtml(article.getTitle()));
         tvIntro.setText(Html.fromHtml(article.getIntroPart()));

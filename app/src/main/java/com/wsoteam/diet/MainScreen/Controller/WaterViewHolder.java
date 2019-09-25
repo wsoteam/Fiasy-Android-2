@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
@@ -52,7 +52,7 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(List<Eating> waterGroup, Context context, String nameOfEatingGroup) {
         this.waterGroup = waterGroup;
-        Glide.with(context).load(R.drawable.water_icon).into(ivEatingIcon);
+        Picasso.get().load(R.drawable.water_icon).into(ivEatingIcon);
         tvTitleOfEatingCard.setText(nameOfEatingGroup);
 
         float waterCount = getWaterProgressStepParameter() * (getWaterPackParameter() ? WaterActivity.PROGRESS_MAX_GLASS : WaterActivity.PROGRESS_MAX_BOTTLE) + 1;

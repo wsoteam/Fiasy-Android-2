@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.DietPlans.POJO.DietsList;
 import com.wsoteam.diet.R;
@@ -112,7 +112,7 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
       tvName.setText(dietPlan.getName());
       tvTime.setText(dietPlan.getCountDays() +
           NounsDeclension.check(dietPlan.getCountDays(), " день", " дня", " дней"));
-      Glide.with(context)
+      Picasso.get()
           .load(dietPlan.getUrlImage())
           .into(imageView);
     }

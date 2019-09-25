@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
@@ -85,7 +85,7 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
     }
 
     private void showNoFind() {
-        Glide.with(getActivity()).load(R.drawable.ic_no_find).into(ivAddFavorite);
+        Picasso.get().load(R.drawable.ic_no_find).into(ivAddFavorite);
         tvTitleFavoriteAdd.setText(getActivity().getResources().getString(R.string.title_no_find_food));
         tvTextAddFavorite.setText(getActivity().getResources().getString(R.string.text_no_find_food));
         ivAddFavorite.setVisibility(View.VISIBLE);

@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
@@ -109,7 +109,7 @@ public class BlockedRecipeActivity extends AppCompatActivity  implements Toolbar
             url = "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
         }
 
-        Glide.with(this).load(url).into(ivHead);
+        Picasso.get().load(url).into(ivHead);
 
         int indexInstruction = 0;
         int borderInstruction = recipeItem.getInstruction().size();

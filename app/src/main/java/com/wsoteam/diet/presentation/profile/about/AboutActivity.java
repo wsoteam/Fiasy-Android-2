@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -22,10 +23,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
-import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 
@@ -142,12 +142,12 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
             edtEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         }
         if (profile.getPhotoUrl() != null && !profile.getPhotoUrl().equals("default")) {
-            Glide.with(this).load(profile.getPhotoUrl()).into(civProfile);
+            Picasso.get().load(profile.getPhotoUrl()).into(civProfile);
         } else {
             if (profile.isFemale()) {
-                Glide.with(this).load(R.drawable.female_avatar).into(civProfile);
+                Picasso.get().load(R.drawable.female_avatar).into(civProfile);
             } else {
-                Glide.with(this).load(R.drawable.male_avatar).into(civProfile);
+                Picasso.get().load(R.drawable.male_avatar).into(civProfile);
             }
         }
     }

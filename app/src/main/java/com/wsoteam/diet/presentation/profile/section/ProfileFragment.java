@@ -19,15 +19,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
-import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
-import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.CombinedChart;
@@ -44,6 +41,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.renderer.CombinedChartRenderer;
 import com.github.mikephil.charting.renderer.DataRenderer;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -302,12 +300,12 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         if (profile.getPhotoUrl() != null
                 && !profile.getPhotoUrl().equals("default")
                 && !profile.getPhotoUrl().equals("")) {
-            Glide.with(this).load(profile.getPhotoUrl()).into(civProfile);
+            Picasso.get().load(profile.getPhotoUrl()).into(civProfile);
         } else {
             if (profile.isFemale()) {
-                Glide.with(this).load(R.drawable.female_avatar).into(civProfile);
+                Picasso.get().load(R.drawable.female_avatar).into(civProfile);
             } else {
-                Glide.with(this).load(R.drawable.male_avatar).into(civProfile);
+                Picasso.get().load(R.drawable.male_avatar).into(civProfile);
             }
         }
     }
@@ -383,7 +381,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
             isOpen = false;
 
-            Glide.with(getActivity()).load(R.drawable.ic_open_detail_profile).into(ibExpandable);
+            Picasso.get().load(R.drawable.ic_open_detail_profile).into(ibExpandable);
         } else {
             ViewUtils.apply(getView(), new int[]{
                 R.id.tvCarboCount, R.id.tvFatCount, R.id.tvProtCount, R.id.tvLabelProt, R.id.tvLabelCarbo,
@@ -392,7 +390,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
             isOpen = true;
 
-            Glide.with(getActivity()).load(R.drawable.ic_close_detail_profile).into(ibExpandable);
+            Picasso.get().load(R.drawable.ic_close_detail_profile).into(ibExpandable);
         }
     }
 

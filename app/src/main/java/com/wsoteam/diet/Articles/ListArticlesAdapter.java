@@ -1,22 +1,13 @@
 package com.wsoteam.diet.Articles;
 
 import android.content.Context;
-import android.graphics.Color;
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import android.text.Html;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Articles.POJO.Article;
-import com.wsoteam.diet.R;
+
 
 import java.util.List;
 

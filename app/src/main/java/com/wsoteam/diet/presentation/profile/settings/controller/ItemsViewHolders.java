@@ -1,16 +1,13 @@
 package com.wsoteam.diet.presentation.profile.settings.controller;
 
-import android.content.Context;
-import android.graphics.Color;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.R;
 
 import butterknife.BindView;
@@ -32,10 +29,10 @@ public class ItemsViewHolders extends RecyclerView.ViewHolder implements View.On
     public void bind(String name, int drawable, int color, int drawableArrow, boolean isPrem, boolean isLogOut, ClickCallback clickCallback) {
         this.clickCallback = clickCallback;
         tvName.setText(name);
-        Glide.with(itemView).load(drawable).into(ivIconItem);
+        Picasso.get().load(drawable).into(ivIconItem);
         tvName.setTextColor(color);
         if (!isLogOut){
-            Glide.with(itemView).load(drawableArrow).into(ivArrow);
+            Picasso.get().load(drawableArrow).into(ivArrow);
         }
     }
 

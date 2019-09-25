@@ -20,21 +20,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.amplitude.api.Amplitude;
-import com.bumptech.glide.Glide;
-import com.wsoteam.diet.AmplitudaEvents;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.BranchOfAnalyzer.Controller.TabsAdapter;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.ActivityCreateFood;
 import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentFavoriteContainer;
-import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentFavorites;
 import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentSearch;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
 import com.wsoteam.diet.Recipes.helper.FragmentRecipeContainer;
 import com.wsoteam.diet.common.Analytics.EventProperties;
-import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplateFragment;
 import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
 
@@ -115,10 +110,10 @@ public class ActivityListAndSearch extends AppCompatActivity {
     private void changeSpeakButton(CharSequence charSequence) {
         if (charSequence.length() > 0 && isCanSpeak) {
             isCanSpeak = false;
-            Glide.with(this).load(R.drawable.ic_cancel).into(ibSpeakAndClear);
+            Picasso.get().load(R.drawable.ic_cancel).into(ibSpeakAndClear);
         } else if (charSequence.length() == 0 && !isCanSpeak) {
             isCanSpeak = true;
-            Glide.with(this).load(R.drawable.ic_speak).into(ibSpeakAndClear);
+            Picasso.get().load(R.drawable.ic_speak).into(ibSpeakAndClear);
         }
     }
 

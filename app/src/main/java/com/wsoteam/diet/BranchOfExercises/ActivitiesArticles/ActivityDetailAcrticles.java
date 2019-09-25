@@ -13,10 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.BranchOfExercises.ObjectHolder;
 import com.wsoteam.diet.POJOSExercises.Article;
 import com.wsoteam.diet.POJOSExercises.WholeArticle;
@@ -61,7 +61,7 @@ public class ActivityDetailAcrticles extends AppCompatActivity {
         collapsingTitle = findViewById(R.id.ex_tvCollapsingTitleOfArticle);
         collapsingImage = findViewById(R.id.ex_ivCollapsingImageArticle);
         collapsingTitle.setText(wholeArticle.getTitle());
-        Glide.with(this).load(wholeArticle.getImg_url()).into(collapsingImage);
+        Picasso.get().load(wholeArticle.getImg_url()).into(collapsingImage);
 
         recyclerView = findViewById(R.id.ex_rvArticle);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -81,7 +81,7 @@ public class ActivityDetailAcrticles extends AppCompatActivity {
 
         public void bind(Article article) {
             textOfOneItem.setText(Html.fromHtml(article.getText()));
-            Glide.with(ActivityDetailAcrticles.this).load(article.getImg_url()).into(imageOfOneItem);
+            Picasso.get().load(article.getImg_url()).into(imageOfOneItem);
         }
     }
 

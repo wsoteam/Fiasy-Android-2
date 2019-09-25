@@ -14,7 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.BranchOfExercises.ActivitiesProgramm.ActivityListOfTraining;
 import com.wsoteam.diet.BranchOfExercises.ObjectHolder;
 import com.wsoteam.diet.POJOSExercises.GlobalObject;
@@ -64,7 +64,7 @@ public class FragmentProgramms extends Fragment {
         }
 
         public void bind(Programm programm) {
-            Glide.with(getActivity()).load(programm.getImg_url()).into(imageView);
+            Picasso.get().load(programm.getImg_url()).into(imageView);
             tvTitleOfProgramm.setText(programm.getTitle());
             tvCountOfProgrammInside.setText(String.valueOf(programm.getTrainingList().size()));
         }

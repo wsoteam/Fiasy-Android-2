@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
@@ -127,7 +127,7 @@ public class BlockedDetailPlansActivity extends BaseActivity implements BlockedD
         tvRecipesTxt.setText(NounsDeclension.check(presenter.getRecipes().size(), "рецепт","рецепта", "рецептов"));
         tvUsers.setText("475");
 
-        Glide.with(this)
+        Picasso.get()
                 .load(dietPlan.getUrlImage())
                 .into(ivPlans);
     }

@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.blur.BlurTransformation;
@@ -127,7 +128,7 @@ public class CurrentDayPlanAdapter extends RecyclerView.Adapter {
         tvRecipeAdded.setVisibility(View.VISIBLE);
         ivAddInDiary.setVisibility(View.GONE);
       }else {
-        Glide.with(context)
+        Picasso.get()
             .load(recipeItem.getUrl())
             .into(imageView);
         tvRecipeAdded.setVisibility(View.INVISIBLE);

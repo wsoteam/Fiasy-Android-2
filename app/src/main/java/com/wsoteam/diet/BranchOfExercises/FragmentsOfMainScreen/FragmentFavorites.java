@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.BranchOfExercises.ActivitiesProgramm.ActivityWithTiles;
 import com.wsoteam.diet.BranchOfExercises.ObjectHolder;
 import com.wsoteam.diet.POJOSExercises.ObjectLocalDatabase;
@@ -114,7 +114,7 @@ public class FragmentFavorites extends Fragment {
         public void bind(Training training) {
             tvTitleOfProgramm.setText(training.getTitle());
             Log.i("LOL", training.getUrl_of_image());
-            Glide.with(getActivity())
+            Picasso.get()
                     .load(training.getUrl_of_image())
                     .into(backgroundImage);
         }

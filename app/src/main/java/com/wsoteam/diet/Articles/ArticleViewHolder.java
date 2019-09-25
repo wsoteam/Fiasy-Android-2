@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.Articles.POJO.Article;
 import com.wsoteam.diet.R;
 
@@ -41,7 +42,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
   }
 
   public void bind(Article article){
-    Glide.with(context).load(article.getImgUrl()).into(imageView);
+    Picasso.get().load(article.getImgUrl()).into(imageView);
     tvName.setText(article.getTitle().replaceAll("\\<.*?\\>", ""));
 
     Glide.with(context)

@@ -14,9 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.BranchOfExercises.ObjectHolder;
 import com.wsoteam.diet.POJOSExercises.ObjectLocalDatabase;
 import com.wsoteam.diet.POJOSExercises.Programm;
@@ -103,7 +103,7 @@ public class ActivityListOfTraining extends AppCompatActivity {
         public void bind(Training training) {
             imageIsSave.setVisibility(View.GONE);
             tvTitleOfProgramm.setText(training.getTitle());
-            Glide.with(ActivityListOfTraining.this).load(training.getUrl_of_image()).into(backgroundImage);
+            Picasso.get().load(training.getUrl_of_image()).into(backgroundImage);
             if(ObjectLocalDatabase.isAddedInBase(selectedNumber, getAdapterPosition())){
                 imageIsSave.setVisibility(View.VISIBLE);
             }

@@ -15,7 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.model.Eating;
 import com.wsoteam.diet.Config;
@@ -132,9 +132,9 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         } else {
             ibtnOpenList.setOnClickListener(view -> {
                 if (!isButtonPressed) {
-                    Glide.with(context).load(R.drawable.close_eating_list).into(ibtnOpenList);
+                    Picasso.get().load(R.drawable.close_eating_list).into(ibtnOpenList);
                 } else {
-                    Glide.with(context).load(R.drawable.open_eating_list).into(ibtnOpenList);
+                    Picasso.get().load(R.drawable.open_eating_list).into(ibtnOpenList);
                 }
                 rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup,
                         context, !isButtonPressed, getAdapterPosition(), this::refreshUI).setUpdateCallback(updateCallback));
@@ -146,19 +146,19 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     private void setIconAndTime() {
         switch (getAdapterPosition()) {
             case BREAKFAST:
-                Glide.with(context).load(R.drawable.breakfast_icon).into(ivEatingIcon);
+                Picasso.get().load(R.drawable.breakfast_icon).into(ivEatingIcon);
                 endTime = BREAKFAST_TIME;
                 break;
             case LUNCH:
-                Glide.with(context).load(R.drawable.lunch_icon).into(ivEatingIcon);
+                Picasso.get().load(R.drawable.lunch_icon).into(ivEatingIcon);
                 endTime = LUNCH_TIME;
                 break;
             case DINNER:
-                Glide.with(context).load(R.drawable.dinner_icon).into(ivEatingIcon);
+                Picasso.get().load(R.drawable.dinner_icon).into(ivEatingIcon);
                 endTime = DINNER_TIME;
                 break;
             case SNACK:
-                Glide.with(context).load(R.drawable.snack_icon).into(ivEatingIcon);
+                Picasso.get().load(R.drawable.snack_icon).into(ivEatingIcon);
                 endTime = SNACK_TIME;
                 break;
         }

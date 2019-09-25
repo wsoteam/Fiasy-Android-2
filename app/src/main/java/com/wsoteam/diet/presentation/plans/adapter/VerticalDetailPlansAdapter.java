@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
@@ -369,7 +369,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
           NounsDeclension.check(dietPlan.getRecipeCount(), " рецепт", " рецепта", " рецептов"));
       tvTime.setText(dietPlan.getCountDays() +
           NounsDeclension.check(dietPlan.getCountDays(), " день", " дня", " дней"));
-      Glide.with(mContext).load(dietPlan.getUrlImage()).into(imageView);
+      Picasso.get().load(dietPlan.getUrlImage()).into(imageView);
 
       if (isCurrentPlan){
         tvTimeCount.setVisibility(View.VISIBLE);
