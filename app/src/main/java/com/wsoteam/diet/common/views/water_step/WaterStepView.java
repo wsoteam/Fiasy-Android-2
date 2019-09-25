@@ -55,14 +55,7 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
         rlContainer = rootView.findViewById(R.id.rlContainer);
         rowLayoutParams.setMargins(0, rowMargin, 0, rowMargin);
 
-        //
         layoutParams.gravity = Gravity.LEFT;
-        //Log.d("kkk", "imageSize: " + imageSize);
-        //Log.d("kkk", "lineCount: " + lineCount);
-        //Log.d("kkk", "rowMargin: " + rowMargin);
-        //Log.d("kkk", "init: " + getResources().getDisplayMetrics());
-
-        //
 
         firstLinearLayout = new LinearLayout(getContext());
         for (int i = 0; i < lineCount; i++) {

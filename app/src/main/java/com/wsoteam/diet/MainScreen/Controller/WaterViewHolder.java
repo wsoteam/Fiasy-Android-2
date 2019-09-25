@@ -52,7 +52,7 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
     tvTitleOfEatingCard.setText(nameOfEatingGroup);
 
     if (water != null) {
-      waterStepView.setStepNum((int) (water.getWaterCount() / waterStep), true);
+      waterStepView.setStepNum((int) (water.getWaterCount() / waterStep), water.getWaterCount() < WATER_MAX);
       tvEatingReminder.setText(water.getWaterCount() + " л.");
       cache.set(water.getUrlOfImages());
     } else {
