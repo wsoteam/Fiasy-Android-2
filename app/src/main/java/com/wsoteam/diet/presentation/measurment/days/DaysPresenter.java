@@ -151,7 +151,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
 
     public void addWeight(Weight weight){
         Weight weightMeasurment = new Weight("", weight.getTimeInMillis(), weight.getWeight());
-        WorkWithFirebaseDB.addWeight(weightMeasurment, String.valueOf(calendar.getTimeInMillis()));
+        WorkWithFirebaseDB.addWeight(weightMeasurment, String.valueOf(weight.getTimeInMillis()));
     }
 
     private void createData() {
