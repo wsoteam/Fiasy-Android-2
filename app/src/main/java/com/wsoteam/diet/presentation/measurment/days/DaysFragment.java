@@ -1,6 +1,8 @@
 package com.wsoteam.diet.presentation.measurment.days;
 
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -141,8 +143,48 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
         }
     }
 
-    private void showLock(View view) {
-        Toast.makeText(getActivity(), "close", Toast.LENGTH_SHORT).show();
+    private void showLock(View v) {
+        int xOffset = 0;
+        int yOffset = 0;
+        Rect gvr = new Rect();
+
+        View parent = (View) v.getParent();
+        int parentHeight = parent.getHeight();
+
+        if (v.getGlobalVisibleRect(gvr))
+        {
+            View root = v.getRootView();
+
+            int halfWidth = root.getRight() / 2;
+            int halfHeight = root.getBottom() / 2;
+
+            int parentCenterX = ((gvr.right - gvr.left) / 2) + gvr.left;
+
+            int parentCenterY = ((gvr.bottom - gvr.top) / 2) + gvr.top;
+
+            if (parentCenterY <= halfHeight)
+            {
+                yOffset = -(halfHeight - parentCenterY) - parentHeight;
+            }
+            else
+            {
+                yOffset = (parentCenterY - halfHeight) - parentHeight;
+            }
+
+            if (parentCenterX < halfWidth)
+            {
+                xOffset = -(halfWidth - parentCenterX);
+            }
+
+            if (parentCenterX >= halfWidth)
+            {
+                xOffset = parentCenterX - halfWidth;
+            }
+        }
+        Toast toast = new Toast(getActivity());
+        toast.setView(LayoutInflater.from(getActivity()).inflate(R.layout.toast_lock_adding, null));
+        toast.setGravity(Gravity.CENTER, xOffset, yOffset);
+        toast.show();
     }
 
     private void addWeight(Weight weight) {
