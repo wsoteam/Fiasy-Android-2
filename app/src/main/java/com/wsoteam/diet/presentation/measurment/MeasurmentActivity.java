@@ -1,6 +1,8 @@
 package com.wsoteam.diet.presentation.measurment;
 
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -13,6 +15,7 @@ import com.wsoteam.diet.presentation.measurment.days.DaysFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MeasurmentActivity extends MvpAppCompatActivity implements MeasurmentView {
     @InjectPresenter
@@ -61,5 +64,17 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
             }
         });
         vpDays.setCurrentItem(MEDIUM_DATE_LINE);
+    }
+
+    @OnClick({R.id.imbtnLeft, R.id.imbtnRight})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.imbtnLeft:
+                vpDays.setCurrentItem(vpDays.getCurrentItem() - 1, true);
+                break;
+            case R.id.imbtnRight:
+                vpDays.setCurrentItem(vpDays.getCurrentItem() + 1, true);
+                break;
+        }
     }
 }
