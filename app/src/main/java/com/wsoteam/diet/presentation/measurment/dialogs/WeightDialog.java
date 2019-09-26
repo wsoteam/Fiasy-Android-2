@@ -23,7 +23,6 @@ public class WeightDialog {
     public static void showWeightDialog(Context context, Weight weight, WeightCallback callback) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         AlertDialog alertDialog = builder.create();
-        weight.setWeight(35.80);
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.alert_dialog_add_weight, null);
         gPicker = view.findViewById(R.id.whlWeightGrammPicker);
