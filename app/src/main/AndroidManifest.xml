@@ -266,7 +266,7 @@
         <activity
             android:name=".presentation.measurment.MeasurmentActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/EditProfile" />
+            android:theme="@style/MeasurmentsStyle" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
