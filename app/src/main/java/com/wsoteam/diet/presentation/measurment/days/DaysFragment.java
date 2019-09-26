@@ -15,14 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
-import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.measurment.ConfigMeasurment;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 import com.wsoteam.diet.presentation.measurment.dialogs.WeightCallback;
 import com.wsoteam.diet.presentation.measurment.dialogs.WeightDialog;
-import com.wsoteam.diet.presentation.profile.section.ProfilePresenter;
 
 import java.util.List;
 
@@ -109,9 +106,24 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
             paintWeightsViews(currentDayNumber);
         }
         paintAddViews(currentDayNumber);
-        setClickListeners(weightsForShow, weightsAdds);
+        setAddClickListeners(weightsForShow, weightsAdds);
+        setEditClickListeners(weightsForShow, weightsValues);
         if (isNeedRefreshLabels){
             refreshLabels();
+        }
+    }
+
+    private void setEditClickListeners(List<Weight> weightsForShow, List<TextView> weightsValues) {
+        for (int i = 0; i < weightsValues.size(); i++) {
+            if (weightsValues.get(i).getVisibility() == View.VISIBLE){
+                int number = i;
+                weightsValues.get(i).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        editWeightValue(weightsForShow.get(number));
+                    }
+                });
+            }
         }
     }
 
@@ -121,7 +133,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
         tvMediumWeight.setText(weekAverage + " " + getString(R.string.meas_kg));
     }
 
-    private void setClickListeners(List<Weight> weightsForShow, List<ImageButton> weightsAdds) {
+    private void setAddClickListeners(List<Weight> weightsForShow, List<ImageButton> weightsAdds) {
         for (int i = 0; i < weightsAdds.size(); i++) {
             View.OnClickListener onClickListener;
             int number = i;
@@ -142,6 +154,15 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
             }
             weightsAdds.get(i).setOnClickListener(onClickListener);
         }
+    }
+
+    private void editWeightValue(Weight weight) {
+        WeightDialog.showWeightDialog(getActivity(), weight, new WeightCallback() {
+            @Override
+            public void update(Weight weight) {
+                daysPresenter.refreshUI(currentPosition, weight);
+            }
+        });
     }
 
     private void showLock(View v) {
