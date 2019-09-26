@@ -1089,4 +1089,5 @@
     <string name="meas_add_meas">Добавить</string>
     <string name="meas_waist">Талия</string>
     <string name="meas_hips">Бедра</string>
+    <string name="meas_prem">premium</string>
 </resources>
