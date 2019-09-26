@@ -1,3 +1,4 @@
+/*
 package com.wsoteam.diet.blur;
 
 import android.content.Context;
@@ -58,3 +59,4 @@ public abstract class BitmapTransformation implements Transformation<Bitmap> {
   @Override
   public abstract int hashCode();
 }
+*/

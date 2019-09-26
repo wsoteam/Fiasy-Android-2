@@ -133,8 +133,8 @@ dependencies {
     implementation 'ru.terrakok.cicerone:cicerone:5.0.0'
 
     // Glide
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+//    implementation 'com.github.bumptech.glide:glide:4.8.0'
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
     // MVP Moxi
     implementation 'tech.schoolhelper:moxy-x:1.7.0'
@@ -173,6 +173,7 @@ dependencies {
 
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'jp.wasabeef:picasso-transformations:2.2.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

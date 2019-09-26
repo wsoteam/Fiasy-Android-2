@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import androidx.annotation.Nullable;
-import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -259,7 +258,9 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
             Log.e("LOL", "result ok");
             try {
                 aboutPresenter.uploadPhoto((Bitmap) data.getExtras().get("data"));
-                Glide.with(this).load((Bitmap) data.getExtras().get("data")).into(civProfile);
+                //Glide.with(this).load((Bitmap) data.getExtras().get("data")).into(civProfile);
+                civProfile.setImageBitmap((Bitmap) data.getExtras().get("data"));
+                //TODO check
                 Log.e("LOL", data.getExtras().toString());
                 Log.e("LOL", FirebaseAuth.getInstance().getUid());
             }catch (Exception e){
@@ -280,7 +281,9 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
                     matrix.postRotate(270);
                 }
                 bitmap = Bitmap.createBitmap(bitmap, 0, 0, IMAGE_WIDTH, IMAGE_HEIGHT, matrix, true);
-                Glide.with(this).load(bitmap).into(civProfile);
+                //Glide.with(this).load(bitmap).into(civProfile);
+                civProfile.setImageBitmap(bitmap);
+                //TODO check
                 aboutPresenter.uploadPhoto(bitmap);
             } catch (Exception ex) {
                 Log.e("LOL", ex.getMessage());
