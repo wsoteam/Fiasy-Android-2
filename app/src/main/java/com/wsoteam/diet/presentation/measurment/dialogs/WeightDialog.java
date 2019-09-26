@@ -28,6 +28,7 @@ public class WeightDialog {
         gPicker = view.findViewById(R.id.whlWeightGrammPicker);
         kPicker = view.findViewById(R.id.whlWeightKiloPicker);
         Button btnSave = view.findViewById(R.id.btnSave);
+        Button btnCancel = view.findViewById(R.id.btnCancel);
         int valueKilo = (int) weight.getWeight();
         kPicker.setSelectedWeight(valueKilo);
 
@@ -37,6 +38,13 @@ public class WeightDialog {
                 Weight newWeight = getWeight(weight);
                 WorkWithFirebaseDB.setWeight(newWeight, String.valueOf(newWeight.getTimeInMillis()));
                 callback.update(newWeight);
+                alertDialog.cancel();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 alertDialog.cancel();
             }
         });
