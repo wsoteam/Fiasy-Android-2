@@ -1090,4 +1090,13 @@
     <string name="meas_waist">Талия</string>
     <string name="meas_hips">Бедра</string>
     <string name="meas_prem">premium</string>
+
+    <plurals name="meas_days_ago">
+        <item quantity="zero"></item>
+        <item quantity="one">%d день</item>
+        <item quantity="two">%d дня</item>
+        <item quantity="few">%d дня</item>
+        <item quantity="many">%d дней</item>
+        <item quantity="other">%d дней</item>
+    </plurals>
 </resources>
