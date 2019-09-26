@@ -9,10 +9,13 @@ import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.measurment.ConfigMeasurment;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 @InjectViewState
 public class DaysPresenter extends MvpPresenter<DaysView> {
@@ -120,7 +123,9 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
         if (countNotEmptyDays == 0){
             return ConfigMeasurment.EMPTY_WEEK;
         }else {
-            return String.valueOf(sumWeights / countNotEmptyDays);
+            double value = sumWeights / countNotEmptyDays;
+            String doubleValue = String.format(Locale.US, "%.1f", value);
+            return doubleValue;
         }
     }
 
