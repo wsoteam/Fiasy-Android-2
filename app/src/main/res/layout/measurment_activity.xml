@@ -72,14 +72,6 @@
             android:focusable="true"
             android:focusableInTouchMode="true">
 
-            <TextView
-                android:id="@+id/textView154"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                app:layout_constraintTop_toBottomOf="@+id/cvWeight"
-                tools:layout_editor_absoluteX="83dp" />
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvWeight"
                 android:layout_width="match_parent"
@@ -181,6 +173,152 @@
                         app:layout_constraintTop_toBottomOf="@+id/tvDateInterval"></androidx.viewpager.widget.ViewPager>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/textView154"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="1000dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/meas_title_bottom"
+                android:textColor="#d1000000"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cvWeight" />
+
+            <TextView
+                android:id="@+id/textView164"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="#51000000"
+                android:textSize="12sp"
+                android:text="@string/propose_enter_data"
+                app:layout_constraintBottom_toBottomOf="@+id/textView154"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView154" />
+
+            <View
+                android:id="@+id/divider36"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="24dp"
+                android:background="#eeeeee"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView154" />
+
+            <TextView
+                android:id="@+id/textView166"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:textSize="16sp"
+                android:textColor="#8a000000"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/meas_chest"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider36" />
+
+            <TextView
+                android:id="@+id/tvChestValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/meas_add_meas"
+                android:textColor="#f49231"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView166"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView166" />
+
+            <View
+                android:id="@+id/divider37"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="#eeeeee"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView166" />
+
+            <TextView
+                android:id="@+id/textView168"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/meas_waist"
+                android:textColor="#8a000000"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider37" />
+
+            <TextView
+                android:id="@+id/tvWaistValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/meas_add_meas"
+                android:textColor="#f49231"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView168"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView168" />
+
+            <View
+                android:id="@+id/divider38"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="#eeeeee"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView168" />
+
+            <TextView
+                android:id="@+id/textView170"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/meas_hips"
+                android:textColor="#8a000000"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider38" />
+
+            <TextView
+                android:id="@+id/tvHipsValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/meas_add_meas"
+                android:textColor="#f49231"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView170"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView170" />
+
+            <View
+                android:id="@+id/divider39"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="#eeeeee"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView170" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
