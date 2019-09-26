@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WheelWeightKiloPicker extends WheelPicker implements IWheelWeightKiloPicker  {
-    private final int START_WEIGHT_INTERAVAL = 30;
+    private final int START_WEIGHT_INTERAVAL = 0;
     private final int END_WEIGHT_INTERAVAL = 200;
     private Context context;
     private List<Integer> weightValues = new ArrayList<>();
