@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:layout_width="160dp"
+    tools:layout_height="wrap_content"
+    tools:orientation="vertical"
+    android:gravity="center_vertical"
+    android:padding="4dp"
+    tools:parentTag="com.wsoteam.diet.views.ExperienceProgressView"
+    >
+
+
+  <TextView
+      android:id="@+id/label"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:textColor="#80424242"
+      tools:text="Calories"
+      />
+
+  <ProgressBar
+      android:id="@+id/progress"
+      android:layout_width="match_parent"
+      android:layout_height="8dp"
+      android:layout_marginTop="8dp"
+      android:layout_marginBottom="8dp"
+      tools:progress="16"
+      tools:max="100"
+      style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+      android:progressDrawable="@drawable/progress_bar_main"
+      />
+
+
+  <TextView
+      android:id="@+id/value"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+
+      android:textColor="#80424242"
+      android:gravity="center"
+      tools:text="64 from 100"
+      />
+
+</merge>

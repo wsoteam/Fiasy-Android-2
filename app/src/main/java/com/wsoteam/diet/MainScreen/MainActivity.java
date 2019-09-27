@@ -56,6 +56,7 @@ import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.presentation.activity.UserActivityFragment;
 import com.wsoteam.diet.common.Analytics.SavedConst;
+import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.common.Analytics.Events;
@@ -162,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
             .beginTransaction()
-            .add(R.id.flFragmentContainer, new FragmentDiary())
+            .add(R.id.flFragmentContainer, new DiaryFragment())
             .commit();
 
         //checkForcedGrade();
