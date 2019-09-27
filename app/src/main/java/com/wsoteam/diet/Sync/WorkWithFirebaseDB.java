@@ -32,7 +32,6 @@ import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.model.Water;
-import com.wsoteam.diet.presentation.measurment.POJO.Measurments;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 
 import java.util.HashMap;

@@ -15,7 +15,9 @@ import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.model.Water;
-import com.wsoteam.diet.presentation.measurment.POJO.Measurments;
+import com.wsoteam.diet.presentation.measurment.POJO.Chest;
+import com.wsoteam.diet.presentation.measurment.POJO.Hips;
+import com.wsoteam.diet.presentation.measurment.POJO.Waist;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 
 import java.io.Serializable;
@@ -41,8 +43,10 @@ public class UserData implements Serializable {
     private HashMap<String, FoodTemplate> foodTemplates;
     private DietPlan plan;
     private UserPromo userPromo;
-    private HashMap<String, Measurments> measurments;
     private HashMap<String, Weight> weights;
+    private HashMap<String, Chest> chest;
+    private HashMap<String, Waist> waist;
+    private HashMap<String, Hips> hips;
 
     public UserData() {
     }
@@ -53,7 +57,8 @@ public class UserData implements Serializable {
                     HashMap<String, Snack> snacks, HashMap<String, WeightDiaryObject> diaryDataList,
                     HashMap<String, RecipeItem> recipes, HashMap<String, FavoriteFood> foodFavorites,
                     HashMap<String, RecipeItem> favoriteRecipes, HashMap<String, CustomFood> customFoods,
-                    DietPlan plan, HashMap<String, FoodTemplate> foodTemplates, UserPromo userPromo, HashMap<String, Measurments> measurments, HashMap<String, Weight> weights) {
+                    DietPlan plan, HashMap<String, FoodTemplate> foodTemplates, UserPromo userPromo, HashMap<String, Weight> weights,
+                    HashMap<String, Chest> chest, HashMap<String, Waist> waist, HashMap<String, Hips> hips) {
         this.name = name;
         this.profile = profile;
         this.subInfo = subInfo;
@@ -72,8 +77,10 @@ public class UserData implements Serializable {
         this.plan = plan;
         this.foodTemplates = foodTemplates;
         this.userPromo = userPromo;
-        this.measurments = measurments;
         this.weights = weights;
+        this.chest = chest;
+        this.waist = waist;
+        this.hips = hips;
     }
 
     public SubInfo getSubInfo() {
@@ -220,13 +227,6 @@ public class UserData implements Serializable {
         this.userPromo = userPromo;
     }
 
-    public HashMap<String, Measurments> getMeasurments() {
-        return measurments;
-    }
-
-    public void setMeasurments(HashMap<String, Measurments> measurments) {
-        this.measurments = measurments;
-    }
 
     public HashMap<String, Weight> getWeights() {
         return weights;
@@ -234,5 +234,29 @@ public class UserData implements Serializable {
 
     public void setWeights(HashMap<String, Weight> weights) {
         this.weights = weights;
+    }
+
+    public HashMap<String, Chest> getChest() {
+        return chest;
+    }
+
+    public void setChest(HashMap<String, Chest> chest) {
+        this.chest = chest;
+    }
+
+    public HashMap<String, Waist> getWaist() {
+        return waist;
+    }
+
+    public void setWaist(HashMap<String, Waist> waist) {
+        this.waist = waist;
+    }
+
+    public HashMap<String, Hips> getHips() {
+        return hips;
+    }
+
+    public void setHips(HashMap<String, Hips> hips) {
+        this.hips = hips;
     }
 }
