@@ -1,5 +1,8 @@
 package com.wsoteam.diet.presentation.diary
 
+import android.text.SpannableString
+import android.text.TextUtils
+import android.text.style.ImageSpan
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -8,6 +11,9 @@ import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.presentation.activity.DiaryActivitiesSource
 import com.wsoteam.diet.presentation.diary.Meals.MealsDetailedResult
+import com.wsoteam.diet.utils.RichTextUtils
+import com.wsoteam.diet.utils.dp
+import com.wsoteam.diet.utils.getVectorIcon
 import com.wsoteam.diet.views.ExperienceProgressView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -33,7 +39,9 @@ class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
 
   override fun onBind(parent: RecyclerView, position: Int) {
     UserDataHolder.getUserData()?.profile?.let { profile ->
-      title.text = "Ежедневная норма = ${profile.maxKcal}"
+      title.text = TextUtils.concat("Ежедневная норма = ",
+          RichTextUtils.setTextColor("${profile.maxKcal} ккал",
+              itemView.context, R.color.orange))
 
       progressView.max = profile.maxKcal
 
@@ -71,8 +79,16 @@ class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
 
     progressView.progress = progress.calories
 
+    val burned = SpannableString("${DiaryActivitiesSource.burned}  ")
+    val icon = context.getVectorIcon(R.drawable.ic_calories_burned_fire)
+    icon.setBounds(0, 0, dp(context, 12f), dp(context, 12f))
+
+    burned.setSpan(ImageSpan(icon, ImageSpan.ALIGN_BASELINE),
+        burned.length - 1, burned.length, 0)
+
     eatenCaloriesView.text = progress.calories.toString()
-    burnedCaaloriesView.text = DiaryActivitiesSource.burned.toString()
+    burnedCaaloriesView.text = burned
+
     leftCaloriesView.text =
       (progressView.max - progress.calories + DiaryActivitiesSource.burned).toString()
   }
