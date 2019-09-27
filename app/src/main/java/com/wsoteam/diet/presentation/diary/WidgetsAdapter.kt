@@ -11,11 +11,27 @@ class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
 
   private var parent: RecyclerView? = null
 
+  private val widgets = intArrayOf(
+      R.layout.widget_daily_calories,
+      R.layout.fragment_current_day_plan
+  )
+
   protected fun requestParent(): RecyclerView =
     parent ?: throw IllegalArgumentException("Parent not attached")
 
+  override fun getItemViewType(position: Int): Int {
+    return widgets[position]
+  }
+
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WidgetView {
-    return DayPlanWidget(parent.inflate(R.layout.fragment_current_day_plan, false))
+    val root = parent.inflate(viewType, false)
+
+    return when (viewType) {
+      R.layout.fragment_current_day_plan -> DayPlanWidget(root)
+      R.layout.widget_daily_calories -> DailyBurnWidget(root)
+
+      else -> throw IllegalArgumentException("$viewType unknown")
+    }
   }
 
   override fun onBindViewHolder(holder: WidgetView, position: Int) {
@@ -50,7 +66,7 @@ class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
   }
 
   override fun getItemCount(): Int {
-    return 1
+    return widgets.size
   }
 
   open class WidgetView(itemView: View) : RecyclerView.ViewHolder(itemView) {
