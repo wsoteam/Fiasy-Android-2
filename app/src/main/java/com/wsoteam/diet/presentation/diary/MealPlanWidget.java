@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,9 +45,10 @@ public class MealPlanWidget extends WidgetsAdapter.WidgetView
   @BindView(R.id.tabs) TabLayout tabLayout;
   @BindView(R.id.clRecipes) ConstraintLayout activePlan;
   @BindView(R.id.clNotActivePlan) ConstraintLayout notActivePlan;
-  @BindView(R.id.clFinishPlan) ConstraintLayout finishPlan;
+  @BindView(R.id.cvFinishPlan) CardView finishPlan;
   @BindView(R.id.tvPlanName) TextView planName;
   @BindView(R.id.textView154) TextView dayTextView;
+  @BindView(R.id.titleFinishPlan) TextView titleFinishPlan;
 
   private int day;
   private int daysPicked;
@@ -128,6 +130,8 @@ public class MealPlanWidget extends WidgetsAdapter.WidgetView
         activePlan.setVisibility(View.GONE);
         notActivePlan.setVisibility(View.GONE);
         finishPlan.setVisibility(View.VISIBLE);
+        titleFinishPlan.setText("\"" + plan.getName() + "\"");
+
       } else {
 
         activePlan.setVisibility(View.VISIBLE);
@@ -202,6 +206,15 @@ public class MealPlanWidget extends WidgetsAdapter.WidgetView
     WorkWithFirebaseDB.leaveDietPlan();
     UserDataHolder.getUserData().setPlan(null);
     getContext().startActivity(new Intent(getContext(), BrowsePlansActivity.class));
+  }
+
+  @OnClick(R.id.ivClosePlan)
+  void clickedClose(){
+    WorkWithFirebaseDB.leaveDietPlan();
+    UserDataHolder.getUserData().setPlan(null);
+    activePlan.setVisibility(View.GONE);
+    notActivePlan.setVisibility(View.GONE);
+    finishPlan.setVisibility(View.GONE);
   }
 
   @OnClick(R.id.tvViewPlans)
