@@ -37,7 +37,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class DayPlanWidget extends WidgetsAdapter.WidgetView
+public class MealPlanWidget extends WidgetsAdapter.WidgetView
     implements TabLayout.BaseOnTabSelectedListener {
 
   @BindView(R.id.recycler) RecyclerView recyclerView;
@@ -66,7 +66,7 @@ public class DayPlanWidget extends WidgetsAdapter.WidgetView
 
   private CountDownTimer currentTask;
 
-  public DayPlanWidget(@NotNull View itemView) {
+  public MealPlanWidget(@NotNull View itemView) {
     super(itemView);
 
     ButterKnife.bind(this, itemView);

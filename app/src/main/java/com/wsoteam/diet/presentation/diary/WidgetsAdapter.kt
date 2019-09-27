@@ -27,7 +27,7 @@ class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
     val root = parent.inflate(viewType, false)
 
     return when (viewType) {
-      R.layout.fragment_current_day_plan -> DayPlanWidget(root)
+      R.layout.fragment_current_day_plan -> MealPlanWidget(root)
       R.layout.widget_daily_calories -> DailyBurnWidget(root)
 
       else -> throw IllegalArgumentException("$viewType unknown")
