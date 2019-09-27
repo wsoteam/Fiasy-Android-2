@@ -1080,6 +1080,7 @@
 
     <!--Measurment-->
     <string name="meas_kg">кг</string>
+    <string name="meas_cwh">см</string>
     <string name="measurments">Измерения тела</string>
     <string name="medium_weight">средний вес за неделю</string>
     <string name="meas_gramm">г</string>
