@@ -104,10 +104,10 @@ public class MainActivity extends AppCompatActivity {
                     window.setStatusBarColor(Color.parseColor("#747d3b"));
                     transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();
                     return true;
-                //case R.id.bnv_main_trainer:
-                //    isMainFragment = false;
-                //    transaction.replace(R.id.flFragmentContainer, new BrowsePlansFragment()).commit();
-                //    return true;
+                case R.id.bnv_main_trainer:
+                    isMainFragment = false;
+                    transaction.replace(R.id.flFragmentContainer, new BrowsePlansFragment()).commit();
+                    return true;
                 case R.id.bnv_main_recipes:
                     isMainFragment = false;
                     transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();

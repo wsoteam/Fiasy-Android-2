@@ -28,6 +28,23 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.premiumLabel) ConstraintLayout premiumLabel;
   Context context;
 
+  Target target = new Target() {
+    @Override public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+      Palette p = Palette.from(bitmap).generate();
+      int mainColor = p.getDarkVibrantColor(0);
+      int alphaColor = 191;
+      llBackground.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
+    }
+
+    @Override public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+    }
+
+    @Override public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+    }
+  };
+
   public ArticleViewHolder(ViewGroup parent) {
     super(LayoutInflater.from(parent.getContext()).inflate(R.layout.article_view_holder, parent, false));
     ButterKnife.bind(this, itemView);
@@ -40,42 +57,15 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
   }
 
   public void bind(Article article){
-    Picasso.get().load(article.getImgUrl()).into(imageView);
+    Picasso.get()
+        .load(article.getImgUrl())
+        .fit().centerCrop()
+        .into(imageView);
     tvName.setText(article.getTitle().replaceAll("\\<.*?\\>", ""));
 
-    //Glide.with(context)
-    //    .asBitmap()
-    //    .load(article.getImgUrl())
-    //    .into(new SimpleTarget<Bitmap>() {
-    //      @Override
-    //      public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
-    //        Palette p = Palette.from(resource).generate();
-    //        int mainColor = p.getDarkVibrantColor(0);
-    //        int alphaColor = 191;
-    //        llBackground.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
-    //      }
-    //    });
-    //
     Picasso.get().load(article.getImgUrl())
-        .into(new Target() {
-          @Override public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-            //TODO не успевает грузить
-            Palette p = Palette.from(bitmap).generate();
-            int mainColor = p.getDarkVibrantColor(0);
-            int alphaColor = 191;
-            llBackground.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
-          }
-
-          @Override public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
-          }
-
-          @Override public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-          }
-        });
+        .into(target);
 
     premiumLabel.setVisibility(article.isPremium() ? View.VISIBLE : View.GONE);
-
   }
 }

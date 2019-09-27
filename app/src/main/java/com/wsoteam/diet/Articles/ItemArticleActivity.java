@@ -1,6 +1,7 @@
 package com.wsoteam.diet.Articles;
 
 
+import android.graphics.Bitmap;
 import androidx.core.text.HtmlCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.wsoteam.diet.Articles.POJO.Article;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
 import com.wsoteam.diet.Articles.Util.HtmlTagHandler;
@@ -55,7 +57,7 @@ public class ItemArticleActivity extends AppCompatActivity {
 
     private void setValue(Article article){
 
-        Picasso.get().load(article.getImgUrl()).into(imgArticle);
+        loadImageWrapContent(imgArticle, article.getImgUrl());
 
         tvTitle.setText(Html.fromHtml(article.getTitle()));
         tvIntro.setText(Html.fromHtml(article.getIntroPart()));
@@ -65,6 +67,32 @@ public class ItemArticleActivity extends AppCompatActivity {
                 HtmlCompat.FROM_HTML_MODE_LEGACY, null, tagHandler);
         tvMain.setText(styledText);
 
+    }
+
+    private void loadImageWrapContent(final ImageView imageView, String url){
+        Picasso.get()
+            .load(url)
+            .transform(new Transformation() {
+                @Override
+                public Bitmap transform(Bitmap source) {
+                    int targetWidth = imageView.getWidth();
+                    double aspectRatio = (double) source.getHeight() / (double) source.getWidth();
+                    int targetHeight = (int) (targetWidth * aspectRatio);
+                    if (targetHeight <=0 || targetWidth <=0) return source;
+                    Bitmap result = Bitmap.createScaledBitmap(source, targetWidth, targetHeight, false);
+                    if (result != source) {
+                        // Same bitmap is returned if sizes are the same
+                        source.recycle();
+                    }
+                    return result;
+                }
+
+                @Override
+                public String key() {
+                    return "key";
+                }
+            })
+            .into(imageView);
     }
 
     public int dpToPx(int dp) {

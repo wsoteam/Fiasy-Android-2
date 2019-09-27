@@ -114,6 +114,7 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
           NounsDeclension.check(dietPlan.getCountDays(), " день", " дня", " дней"));
       Picasso.get()
           .load(dietPlan.getUrlImage())
+          .fit().centerCrop()
           .into(imageView);
     }
 

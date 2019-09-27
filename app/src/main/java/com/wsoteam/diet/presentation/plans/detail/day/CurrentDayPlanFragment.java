@@ -82,7 +82,11 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
 
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setAdapter(adapter);
-    initData(UserDataHolder.getUserData().getPlan());
+    if (UserDataHolder.getUserData() != null) {
+      initData(UserDataHolder.getUserData().getPlan());
+    }else {
+      initData(null);
+    }
     return view;
   }
 
@@ -229,7 +233,12 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
 
   @Override public void onResume() {
     super.onResume();
-    initData(UserDataHolder.getUserData().getPlan());
+    if (UserDataHolder.getUserData() != null){
+      initData(UserDataHolder.getUserData().getPlan());
+    }else {
+      initData(null);
+    }
+
   }
 
 

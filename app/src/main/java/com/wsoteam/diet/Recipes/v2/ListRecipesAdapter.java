@@ -103,8 +103,9 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.
             textView.setText(name);
             textViewKK.setText(String.valueOf(kk));
             Picasso.get()
-                    .load(url)
-                    .into(imageView);
+                .load(url)
+                .fit().centerCrop()
+                .into(imageView);
         }
         private boolean checkSubscribe() {
             SharedPreferences sharedPreferences = activity.getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);

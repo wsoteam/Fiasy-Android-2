@@ -109,7 +109,10 @@ public class BlockedRecipeActivity extends AppCompatActivity  implements Toolbar
             url = "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
         }
 
-        Picasso.get().load(url).into(ivHead);
+        Picasso.get()
+            .load(url)
+            .fit().centerCrop()
+            .into(ivHead);
 
         int indexInstruction = 0;
         int borderInstruction = recipeItem.getInstruction().size();

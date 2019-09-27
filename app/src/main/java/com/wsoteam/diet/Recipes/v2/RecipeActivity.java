@@ -170,7 +170,10 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
             url = "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
         }
 
-        Picasso.get().load(url).into(ivHead);
+        Picasso.get()
+            .load(url)
+            .fit().centerInside()
+            .into(ivHead);
 
 
         checkFavorite();

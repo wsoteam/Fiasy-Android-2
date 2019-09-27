@@ -180,6 +180,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
 
                 Picasso.get()
                         .load(url)
+                        .fit().centerCrop()
                         .into(imageViewList.get(i));
 
                 textViewList.get(i).setText(name);

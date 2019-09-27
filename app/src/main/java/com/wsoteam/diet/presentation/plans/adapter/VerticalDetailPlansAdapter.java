@@ -369,7 +369,10 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
           NounsDeclension.check(dietPlan.getRecipeCount(), " рецепт", " рецепта", " рецептов"));
       tvTime.setText(dietPlan.getCountDays() +
           NounsDeclension.check(dietPlan.getCountDays(), " день", " дня", " дней"));
-      Picasso.get().load(dietPlan.getUrlImage()).into(imageView);
+      Picasso.get()
+          .load(dietPlan.getUrlImage())
+          .fit().centerCrop()
+          .into(imageView);
 
       if (isCurrentPlan){
         tvTimeCount.setVisibility(View.VISIBLE);

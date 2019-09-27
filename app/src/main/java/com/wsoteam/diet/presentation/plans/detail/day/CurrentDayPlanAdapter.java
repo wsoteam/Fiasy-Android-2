@@ -118,26 +118,20 @@ public class CurrentDayPlanAdapter extends RecyclerView.Adapter {
     void bind(RecipeItem recipeItem) {
 
       tvName.setText(recipeItem.getName());
-      tvCalories.setText(
-          recipeItem.getCalories() + " " + context.getResources().getString(R.string.kcal));
+      tvCalories.setText(recipeItem.getCalories() + " " + context.getResources().getString(R.string.kcal));
 
       if (recipeItem.isAddedInDiaryFromPlan()){
-        //Glide.with(context)
-        //    .load(recipeItem.getUrl())
-        //    .apply(RequestOptions.bitmapTransform(new BlurTransformation(10, 1)))
-        //    .into(imageView);
-
         Picasso.get()
             .load(recipeItem.getUrl())
-            .fit()
+            .fit().centerCrop()
             .transform(new BlurTransformation(context, 25, 1))
             .into(imageView);
-          //TODO check
         tvRecipeAdded.setVisibility(View.VISIBLE);
         ivAddInDiary.setVisibility(View.GONE);
       }else {
         Picasso.get()
             .load(recipeItem.getUrl())
+            .fit().centerCrop()
             .into(imageView);
         tvRecipeAdded.setVisibility(View.INVISIBLE);
         ivAddInDiary.setVisibility(View.VISIBLE);
