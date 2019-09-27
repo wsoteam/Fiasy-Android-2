@@ -129,5 +129,6 @@
   <color name="auth_enter_background_color_enabled">@color/orange</color>
 
   <color name="diets_plan_prem_btn">#ef7d02</color>
+  <color name="diets_plan_title">#de2b2b2b</color>
 
 </resources>
