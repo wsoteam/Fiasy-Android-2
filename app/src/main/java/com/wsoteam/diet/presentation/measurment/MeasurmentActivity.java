@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,7 +19,10 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.measurment.POJO.Meas;
 import com.wsoteam.diet.presentation.measurment.days.DaysFragment;
+import com.wsoteam.diet.presentation.measurment.dialogs.MeasCallback;
+import com.wsoteam.diet.presentation.measurment.dialogs.MeasDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -114,8 +118,7 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
             case R.id.ibGraphs:
                 break;
             case R.id.ibBack:
-                break;
-            case R.id.tvMediumWeight:
+                onBackPressed();
                 break;
             case R.id.imbtnLeft:
                 vpDays.setCurrentItem(vpDays.getCurrentItem() - 1, true);
@@ -124,10 +127,18 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
                 vpDays.setCurrentItem(vpDays.getCurrentItem() + 1, true);
                 break;
             case R.id.tvChestValue:
+                MeasDialog.showMeasDialog(this, 100, new MeasCallback() {
+                    @Override
+                    public void update(int measValue) {
+                        Toast.makeText(MeasurmentActivity.this, String.valueOf(measValue), Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case R.id.tvWaistValue:
+
                 break;
             case R.id.tvHipsValue:
+
                 break;
             case R.id.btnPremChest:
             case R.id.btnPremHips:
