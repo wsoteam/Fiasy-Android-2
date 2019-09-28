@@ -51,7 +51,7 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
         handlWaists();
         handlHips();
         setMainTimeDiff();
-        
+        getViewState().updateUI(lastChest, lastWaist, lastHips, chestTimeDiff, chestValueDiff, waistTimeDiff, waistTimeDiff, hipsValueDiff, hipsTimeDiff, mainTimeDiff);
     }
 
     private void setMainTimeDiff() {

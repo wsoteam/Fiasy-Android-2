@@ -3,6 +3,9 @@ package com.wsoteam.diet.presentation.measurment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,6 +22,10 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.measurment.POJO.Chest;
+import com.wsoteam.diet.presentation.measurment.POJO.Hips;
+import com.wsoteam.diet.presentation.measurment.POJO.Meas;
+import com.wsoteam.diet.presentation.measurment.POJO.Waist;
 import com.wsoteam.diet.presentation.measurment.days.DaysFragment;
 import com.wsoteam.diet.presentation.measurment.dialogs.MeasCallback;
 import com.wsoteam.diet.presentation.measurment.dialogs.MeasDialog;
@@ -41,6 +48,41 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
     @BindView(R.id.btnPremWaist) Button btnPremWaist;
     @BindView(R.id.btnPremHips) Button btnPremHips;
     private int position = 0;
+
+    @Override
+    public void updateUI(Chest lastChest, Waist lastWaist, Hips lastHips, int chestTimeDiff, int chestValueDiff, int waistTimeDiff, int waistValueDiff, int hipsValueDiff, int hipsTimeDiff, int mainTimeDiff) {
+        if (lastChest != null){
+            tvChestValue.setText(getPaintedString(lastChest, chestValueDiff));
+        }
+        if (lastHips != null){
+            tvHipsValue.setText(getPaintedString(lastHips, hipsValueDiff));
+        }
+        if (lastWaist != null){
+            tvWaistValue.setText(getPaintedString(lastWaist, waistValueDiff));
+        }
+    }
+
+    private Spannable getPaintedString(Meas meas, int measDiffValue) {
+        String measDiff = String.valueOf(measDiffValue);
+        String firstBracket = " (";
+        String secondBracket = ")";
+        String valueUnit = getResources().getString(R.string.meas_cwh);
+        String measValue = String.valueOf(meas.getMeas()) + " " + valueUnit;
+        int colorDiff;
+        if (measDiffValue > 0){
+            colorDiff = getResources().getColor(R.color.increase_meas);
+            measDiff = "+" + measDiff;
+        }else {
+            colorDiff = getResources().getColor(R.color.decrease_meas);
+        }
+
+        String wholeText = measValue + firstBracket + measDiff + " " + valueUnit + secondBracket;
+
+        Spannable spannable = new SpannableString(wholeText);
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.default_meas)), 0, measValue.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(colorDiff), measValue.length() + 1, wholeText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannable;
+    }
 
     private ViewPager.OnPageChangeListener viewPagerListener = new ViewPager.OnPageChangeListener() {
         @Override

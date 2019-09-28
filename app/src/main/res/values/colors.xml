@@ -235,5 +235,8 @@
     <color name="inactive_drop">#bdbdbd</color>
     <color name="current_day">#f49231</color>
     <color name="active_plus_weight">#ff931f</color>
+    <color name="default_meas">#8a000000</color>
+    <color name="increase_meas">#8acc0808</color>
+    <color name="decrease_meas">#62b5a5</color>
 
 </resources>
