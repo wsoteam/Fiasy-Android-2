@@ -19,7 +19,6 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.presentation.measurment.POJO.Meas;
 import com.wsoteam.diet.presentation.measurment.days.DaysFragment;
 import com.wsoteam.diet.presentation.measurment.dialogs.MeasCallback;
 import com.wsoteam.diet.presentation.measurment.dialogs.MeasDialog;
@@ -30,7 +29,7 @@ import butterknife.OnClick;
 
 public class MeasurmentActivity extends MvpAppCompatActivity implements MeasurmentView {
     @InjectPresenter
-    MeasurmentPresenter measurmentPresenter;
+    MeasurmentPresenter presenter;
     @BindView(R.id.vpDays) ViewPager vpDays;
     private final int SIZE_DATE_LINE = 4001;
     private final int MEDIUM_DATE_LINE = 2001;
@@ -66,6 +65,8 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
         ButterKnife.bind(this);
         bindViewPager();
         setUIAccordingPrem();
+        presenter = new MeasurmentPresenter(this);
+        presenter.attachView(this);
 
     }
 
