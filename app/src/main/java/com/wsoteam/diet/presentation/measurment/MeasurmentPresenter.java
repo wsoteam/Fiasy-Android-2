@@ -46,8 +46,8 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
         calendar = Calendar.getInstance();
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         currentTime = calendar.getTimeInMillis();
-        //handlMeases();
-        createData();
+        handlMeases();
+        //createData();
     }
 
     private void handlMeases() {
@@ -166,33 +166,27 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
     }
 
     public void saveMeas(Meas meas) {
-        //calendar.setTimeInMillis(currentTime);
-        //clearTime();
-        //meas.setTimeInMillis(calendar.getTimeInMillis());
+        calendar.setTimeInMillis(currentTime);
+        clearTime();
+        meas.setTimeInMillis(calendar.getTimeInMillis());
         if (meas instanceof Chest) {
-            Log.e("LOL", "chest");
             WorkWithFirebaseDB.setChest((Chest) meas);
             if (listChests == null){
                 listChests = new HashMap<>();
             }
             listChests.put(String.valueOf(meas.getTimeInMillis()), (Chest) meas);
-            Log.e("LOL", "size" + String.valueOf(listChests.size()));
         } else if (meas instanceof Waist) {
-            Log.e("LOL", "Waist");
             WorkWithFirebaseDB.setWaist((Waist) meas);
             if (listWaist == null){
                 listWaist = new HashMap<>();
             }
             listWaist.put(String.valueOf(meas.getTimeInMillis()), (Waist) meas);
-            Log.e("LOL", "size" + String.valueOf(listWaist.size()));
         } else {
-            Log.e("LOL", "hips");
             WorkWithFirebaseDB.setHips((Hips) meas);
             if (listHips == null){
                 listHips = new HashMap<>();
             }
             listHips.put(String.valueOf(meas.getTimeInMillis()), (Hips) meas);
-            Log.e("LOL", "size" + String.valueOf(listHips.size()));
         }
         reHandleMeases();
     }
@@ -207,17 +201,14 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
 
     private void createData() {
         for (int i = 0; i < 300; i++) {
-
-            calendar.setTimeInMillis(currentTime);
+            calendar.setTimeInMillis(currentTime- oneDay * i);
             clearTime();
-            calendar.setTimeInMillis(currentTime - oneDay * i);
             Chest chest = new Chest("", calendar.getTimeInMillis(), i);
             saveMeas(chest);
             Waist waist = new Waist("", calendar.getTimeInMillis(), i);
             saveMeas(waist);
             Hips hips = new Hips("", calendar.getTimeInMillis(), i);
             saveMeas(hips);
-            Log.e("LOL", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         }
     }
 
