@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -51,6 +50,7 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
     @BindView(R.id.ivRefreshChest) ImageView ivRefreshChest;
     @BindView(R.id.ivRefreshWaist) ImageView ivRefreshWaist;
     @BindView(R.id.ivRefreshHips) ImageView ivRefreshHips;
+    @BindView(R.id.tvTicker) TextView tvTicker;
     private int position = 0;
     private final int REFRESH_TIME_LIMIT = 7;
 
@@ -71,12 +71,25 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
             tvWaistValue.setText(getPaintedString(lastWaist, waistValueDiff, isOldWaist));
             handleRefreshView(ivRefreshWaist, isOldWaist);
         }
+        if (lastChest == null && lastWaist == null && lastHips == null) {
+            tvTicker.setText(getResources().getString(R.string.propose_enter_data));
+        } else {
+            setTicker(mainTimeDiff);
+        }
+    }
+
+    private void setTicker(int timeDiff) {
+        if (timeDiff == 0){
+            tvTicker.setText(getResources().getString(R.string.meas_last_refresh) + "\n" + getResources().getString(R.string.meas_last_refresh_today));
+        }else {
+            tvTicker.setText(getResources().getString(R.string.meas_last_refresh) + "\n" + getResources().getQuantityString(R.plurals.meas_days_ago, timeDiff, timeDiff));
+        }
     }
 
     private void handleRefreshView(ImageView view, boolean isOldMeas) {
-        if (isOldMeas && view.getVisibility() == View.INVISIBLE){
+        if (isOldMeas) {
             view.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             view.setVisibility(View.INVISIBLE);
         }
     }

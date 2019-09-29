@@ -1091,13 +1091,15 @@
     <string name="meas_waist">Талия</string>
     <string name="meas_hips">Бедра</string>
     <string name="meas_prem">premium</string>
+    <string name="meas_last_refresh">Последнее обновление:</string>
+    <string name="meas_last_refresh_today">сегодня</string>
 
     <plurals name="meas_days_ago">
         <item quantity="zero"></item>
-        <item quantity="one">%d день</item>
-        <item quantity="two">%d дня</item>
-        <item quantity="few">%d дня</item>
-        <item quantity="many">%d дней</item>
-        <item quantity="other">%d дней</item>
+        <item quantity="one">%d день назад</item>
+        <item quantity="two">%d дня назад</item>
+        <item quantity="few">%d дня назад</item>
+        <item quantity="many">%d дней назад</item>
+        <item quantity="other">%d дней назад</item>
     </plurals>
 </resources>
