@@ -57,22 +57,24 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
     @Override
     public void updateUI(Chest lastChest, Waist lastWaist, Hips lastHips, int chestTimeDiff, int chestValueDiff, int waistTimeDiff, int waistValueDiff, int hipsValueDiff, int hipsTimeDiff, int mainTimeDiff) {
         if (lastChest != null) {
-            tvChestValue.setText(getPaintedString(lastChest, chestValueDiff));
-            Log.e("LOL", String.valueOf(chestTimeDiff));
-            handleRefreshView(ivRefreshChest, chestTimeDiff);
+            boolean isOldChest = chestTimeDiff >= REFRESH_TIME_LIMIT;
+            tvChestValue.setText(getPaintedString(lastChest, chestValueDiff, isOldChest));
+            handleRefreshView(ivRefreshChest, isOldChest);
         }
         if (lastHips != null) {
-            tvHipsValue.setText(getPaintedString(lastHips, hipsValueDiff));
-            handleRefreshView(ivRefreshHips, hipsTimeDiff);
+            boolean isOldHips = hipsTimeDiff >= REFRESH_TIME_LIMIT;
+            tvHipsValue.setText(getPaintedString(lastHips, hipsValueDiff, isOldHips));
+            handleRefreshView(ivRefreshHips, isOldHips);
         }
         if (lastWaist != null) {
-            tvWaistValue.setText(getPaintedString(lastWaist, waistValueDiff));
-            handleRefreshView(ivRefreshWaist, waistTimeDiff);
+            boolean isOldWaist = waistTimeDiff >= REFRESH_TIME_LIMIT;
+            tvWaistValue.setText(getPaintedString(lastWaist, waistValueDiff, isOldWaist));
+            handleRefreshView(ivRefreshWaist, isOldWaist);
         }
     }
 
-    private void handleRefreshView(ImageView view, int timeDiff) {
-        if (timeDiff >= REFRESH_TIME_LIMIT && view.getVisibility() == View.INVISIBLE){
+    private void handleRefreshView(ImageView view, boolean isOldMeas) {
+        if (isOldMeas && view.getVisibility() == View.INVISIBLE){
             view.setVisibility(View.VISIBLE);
         }else {
             view.setVisibility(View.INVISIBLE);
@@ -80,19 +82,22 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
     }
 
 
-    private Spannable getPaintedString(Meas meas, int measDiffValue) {
+    private Spannable getPaintedString(Meas meas, int measDiffValue, boolean isOldData) {
         String measDiff = String.valueOf(measDiffValue);
         String firstBracket = " (";
         String secondBracket = ")";
         String valueUnit = getResources().getString(R.string.meas_cwh);
         String measValue = String.valueOf(meas.getMeas()) + " " + valueUnit;
         int colorDiff;
+
         if (measDiffValue > 0) {
             colorDiff = getResources().getColor(R.color.increase_meas);
             measDiff = "+" + measDiff;
         } else {
             colorDiff = getResources().getColor(R.color.decrease_meas);
         }
+
+        if (isOldData) colorDiff = getResources().getColor(R.color.old_meas);
 
         String wholeText = measValue + firstBracket + measDiff + " " + valueUnit + secondBracket;
 
@@ -200,7 +205,6 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
                 MeasDialog.showMeasDialog(this, getMeasValues(waist), new MeasCallback() {
                     @Override
                     public void update(int measValue) {
-                        Log.e("LOL", String.valueOf(measValue));
                         presenter.saveMeas(new Waist("", 0, measValue));
                     }
                 });

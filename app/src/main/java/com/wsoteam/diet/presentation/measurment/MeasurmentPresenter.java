@@ -74,8 +74,8 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
     }
 
     private void setMainTimeDiff() {
-        int firstMax = Math.max(chestTimeDiff, waistTimeDiff);
-        mainTimeDiff = Math.max(firstMax, hipsTimeDiff);
+        int firstMax = Math.min(chestTimeDiff, waistTimeDiff);
+        mainTimeDiff = Math.min(firstMax, hipsTimeDiff);
     }
 
     private void handlHips(HashMap<String, Hips> hips) {
