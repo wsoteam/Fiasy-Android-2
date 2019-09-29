@@ -33,6 +33,9 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
     private int chestValueDiff, waistValuesDiff, hipsValueDiff,
             chestTimeDiff, waistTimeDiff, hipsTimeDiff,
             mainTimeDiff;
+    private HashMap<String, Chest> listChests;
+    private HashMap<String, Waist> listWaist;
+    private HashMap<String, Hips> listHips;
 
 
     public MeasurmentPresenter() {
@@ -47,11 +50,27 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
     }
 
     private void handlMeases() {
-        handlChests();
-        handlWaists();
-        handlHips();
+        bindListMeases();
+        handlChests(listChests);
+        handlWaists(listWaist);
+        handlHips(listHips);
         setMainTimeDiff();
         getViewState().updateUI(lastChest, lastWaist, lastHips, chestTimeDiff, chestValueDiff, waistTimeDiff, waistTimeDiff, hipsValueDiff, hipsTimeDiff, mainTimeDiff);
+    }
+
+
+    private void reHandleMeases() {
+        handlChests(listChests);
+        handlWaists(listWaist);
+        handlHips(listHips);
+        setMainTimeDiff();
+        getViewState().updateUI(lastChest, lastWaist, lastHips, chestTimeDiff, chestValueDiff, waistTimeDiff, waistTimeDiff, hipsValueDiff, hipsTimeDiff, mainTimeDiff);
+    }
+
+    private void bindListMeases() {
+        listChests = UserDataHolder.getUserData().getChest();
+        listHips = UserDataHolder.getUserData().getHips();
+        listWaist = UserDataHolder.getUserData().getWaist();
     }
 
     private void setMainTimeDiff() {
@@ -59,25 +78,24 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
         mainTimeDiff = Math.max(firstMax, hipsTimeDiff);
     }
 
-    private void handlHips() {
-        if (UserDataHolder.getUserData().getHips() == null || UserDataHolder.getUserData().getHips().size() == 0){
+    private void handlHips(HashMap<String, Hips> hips) {
+        if (hips == null || hips.size() == 0){
             lastHips = null;
             hipsValueDiff = 0;
             hipsTimeDiff = 0;
         }else {
             List<String> keys = new ArrayList<>();
-            HashMap<String, Hips> meases = UserDataHolder.getUserData().getHips();
-            Iterator iterator = meases.entrySet().iterator();
+            Iterator iterator = hips.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry pair = (Map.Entry) iterator.next();
                 keys.add((String) pair.getKey());
             }
             Collections.sort(keys);
             String lastKey = keys.get(keys.size() - 1);
-            lastHips = meases.get(lastKey);
+            lastHips = hips.get(lastKey);
             if (keys.size() > 1) {
                 String penultKey = keys.get(keys.size() - 2);
-                Hips penultMeas = meases.get(penultKey);
+                Hips penultMeas = hips.get(penultKey);
                 hipsValueDiff = lastHips.getMeas() - penultMeas.getMeas();
                 hipsTimeDiff = Math.round((lastHips.getTimeInMillis() - penultMeas.getTimeInMillis()) / oneDay);
             }else {
@@ -87,25 +105,24 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
         }
     }
 
-    private void handlWaists() {
-        if (UserDataHolder.getUserData().getWaist() == null || UserDataHolder.getUserData().getWaist().size() == 0){
+    private void handlWaists(HashMap<String, Waist> waist) {
+        if (waist == null || waist.size() == 0){
             lastWaist = null;
             waistValuesDiff = 0;
             waistTimeDiff = 0;
         }else {
             List<String> keys = new ArrayList<>();
-            HashMap<String, Waist> meases = UserDataHolder.getUserData().getWaist();
-            Iterator iterator = meases.entrySet().iterator();
+            Iterator iterator = waist.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry pair = (Map.Entry) iterator.next();
                 keys.add((String) pair.getKey());
             }
             Collections.sort(keys);
             String lastKey = keys.get(keys.size() - 1);
-            lastWaist = meases.get(lastKey);
+            lastWaist = waist.get(lastKey);
             if (keys.size() > 1) {
                 String penultKey = keys.get(keys.size() - 2);
-                Waist penultMeas = meases.get(penultKey);
+                Waist penultMeas = waist.get(penultKey);
                 waistValuesDiff = lastWaist.getMeas() - penultMeas.getMeas();
                 waistTimeDiff = Math.round((lastWaist.getTimeInMillis() - penultMeas.getTimeInMillis()) / oneDay);
             }else {
@@ -115,25 +132,24 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
         }
     }
 
-    private void handlChests() {
-        if (UserDataHolder.getUserData().getChest() == null || UserDataHolder.getUserData().getChest().size() == 0){
+    private void handlChests(HashMap<String, Chest> chest) {
+        if (chest == null || chest.size() == 0){
             lastChest = null;
             chestValueDiff = 0;
             chestTimeDiff = 0;
         }else {
             List<String> keys = new ArrayList<>();
-            HashMap<String, Chest> meases = UserDataHolder.getUserData().getChest();
-            Iterator iterator = meases.entrySet().iterator();
+            Iterator iterator = chest.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry pair = (Map.Entry) iterator.next();
                 keys.add((String) pair.getKey());
             }
             Collections.sort(keys);
             String lastKey = keys.get(keys.size() - 1);
-            lastChest = meases.get(lastKey);
+            lastChest = chest.get(lastKey);
             if (keys.size() > 1) {
                 String penultKey = keys.get(keys.size() - 2);
-                Chest penultChest = meases.get(penultKey);
+                Chest penultChest = chest.get(penultKey);
                 chestValueDiff = lastChest.getMeas() - penultChest.getMeas();
                 chestTimeDiff = Math.round((lastChest.getTimeInMillis() - penultChest.getTimeInMillis()) / oneDay);
             }else {
@@ -148,15 +164,20 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
         super.onFirstViewAttach();
     }
 
-    private void saveMeas(Meas meas) {
+    public void saveMeas(Meas meas) {
         if (meas instanceof Chest) {
             WorkWithFirebaseDB.setChest((Chest) meas);
+            listChests.put(meas.getKey(), (Chest) meas);
         } else if (meas instanceof Waist) {
             WorkWithFirebaseDB.setWaist((Waist) meas);
+            listWaist.put(meas.getKey(), (Waist) meas);
         } else {
             WorkWithFirebaseDB.setHips((Hips) meas);
+            listHips.put(meas.getKey(), (Hips) meas);
         }
+        reHandleMeases();
     }
+
 
     private void clearTime() {
         calendar.set(Calendar.HOUR_OF_DAY, 1);
@@ -182,4 +203,15 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
     }
 
 
+    public Chest getLastChest() {
+        return lastChest;
+    }
+
+    public Waist getLastWaist() {
+        return lastWaist;
+    }
+
+    public Hips getLastHips() {
+        return lastHips;
+    }
 }

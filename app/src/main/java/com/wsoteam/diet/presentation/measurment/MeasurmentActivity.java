@@ -62,6 +62,7 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
         }
     }
 
+
     private Spannable getPaintedString(Meas meas, int measDiffValue) {
         String measDiff = String.valueOf(measDiffValue);
         String firstBracket = " (";
@@ -170,24 +171,48 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
                 vpDays.setCurrentItem(vpDays.getCurrentItem() + 1, true);
                 break;
             case R.id.tvChestValue:
-                MeasDialog.showMeasDialog(this, 100, new MeasCallback() {
+                Chest chest = presenter.getLastChest();
+                MeasDialog.showMeasDialog(this, getMeasValues(chest), new MeasCallback() {
                     @Override
                     public void update(int measValue) {
-                        Toast.makeText(MeasurmentActivity.this, String.valueOf(measValue), Toast.LENGTH_SHORT).show();
+                        chest.setMeas(measValue);
+                        presenter.saveMeas(chest);
                     }
                 });
                 break;
             case R.id.tvWaistValue:
-
+                Waist waist = presenter.getLastWaist();
+                MeasDialog.showMeasDialog(this, getMeasValues(waist), new MeasCallback() {
+                    @Override
+                    public void update(int measValue) {
+                        waist.setMeas(measValue);
+                        presenter.saveMeas(waist);
+                    }
+                });
                 break;
             case R.id.tvHipsValue:
-
+                Hips hips = presenter.getLastHips();
+                MeasDialog.showMeasDialog(this, getMeasValues(hips), new MeasCallback() {
+                    @Override
+                    public void update(int measValue) {
+                        hips.setMeas(measValue);
+                        presenter.saveMeas(hips);
+                    }
+                });
                 break;
             case R.id.btnPremChest:
             case R.id.btnPremHips:
             case R.id.btnPremWaist:
                 openPremScreen();
                 break;
+        }
+    }
+
+    private int getMeasValues(Meas meas) {
+        if (meas != null){
+            return meas.getMeas();
+        }else {
+            return 0;
         }
     }
 
