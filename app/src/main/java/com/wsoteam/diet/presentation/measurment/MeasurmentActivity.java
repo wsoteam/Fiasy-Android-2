@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -110,7 +111,6 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
         setUIAccordingPrem();
         presenter = new MeasurmentPresenter(this);
         presenter.attachView(this);
-
     }
 
     private void setUIAccordingPrem() {
@@ -175,8 +175,7 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
                 MeasDialog.showMeasDialog(this, getMeasValues(chest), new MeasCallback() {
                     @Override
                     public void update(int measValue) {
-                        chest.setMeas(measValue);
-                        presenter.saveMeas(chest);
+                        presenter.saveMeas(new Chest("", 0, measValue));
                     }
                 });
                 break;
@@ -185,8 +184,8 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
                 MeasDialog.showMeasDialog(this, getMeasValues(waist), new MeasCallback() {
                     @Override
                     public void update(int measValue) {
-                        waist.setMeas(measValue);
-                        presenter.saveMeas(waist);
+                        Log.e("LOL", String.valueOf(measValue));
+                        presenter.saveMeas(new Waist("", 0, measValue));
                     }
                 });
                 break;
@@ -195,8 +194,7 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
                 MeasDialog.showMeasDialog(this, getMeasValues(hips), new MeasCallback() {
                     @Override
                     public void update(int measValue) {
-                        hips.setMeas(measValue);
-                        presenter.saveMeas(hips);
+                        presenter.saveMeas(new Hips("", 0, measValue));
                     }
                 });
                 break;

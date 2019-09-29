@@ -46,7 +46,8 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
         calendar = Calendar.getInstance();
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         currentTime = calendar.getTimeInMillis();
-        handlMeases();
+        //handlMeases();
+        createData();
     }
 
     private void handlMeases() {
@@ -55,7 +56,7 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
         handlWaists(listWaist);
         handlHips(listHips);
         setMainTimeDiff();
-        getViewState().updateUI(lastChest, lastWaist, lastHips, chestTimeDiff, chestValueDiff, waistTimeDiff, waistTimeDiff, hipsValueDiff, hipsTimeDiff, mainTimeDiff);
+        getViewState().updateUI(lastChest, lastWaist, lastHips, chestTimeDiff, chestValueDiff, waistTimeDiff, waistValuesDiff, hipsValueDiff, hipsTimeDiff, mainTimeDiff);
     }
 
 
@@ -64,7 +65,7 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
         handlWaists(listWaist);
         handlHips(listHips);
         setMainTimeDiff();
-        getViewState().updateUI(lastChest, lastWaist, lastHips, chestTimeDiff, chestValueDiff, waistTimeDiff, waistTimeDiff, hipsValueDiff, hipsTimeDiff, mainTimeDiff);
+        getViewState().updateUI(lastChest, lastWaist, lastHips, chestTimeDiff, chestValueDiff, waistTimeDiff, waistValuesDiff, hipsValueDiff, hipsTimeDiff, mainTimeDiff);
     }
 
     private void bindListMeases() {
@@ -165,18 +166,33 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
     }
 
     public void saveMeas(Meas meas) {
-        calendar.setTimeInMillis(currentTime);
-        clearTime();
-        meas.setTimeInMillis(calendar.getTimeInMillis());
+        //calendar.setTimeInMillis(currentTime);
+        //clearTime();
+        //meas.setTimeInMillis(calendar.getTimeInMillis());
         if (meas instanceof Chest) {
+            Log.e("LOL", "chest");
             WorkWithFirebaseDB.setChest((Chest) meas);
+            if (listChests == null){
+                listChests = new HashMap<>();
+            }
             listChests.put(String.valueOf(meas.getTimeInMillis()), (Chest) meas);
+            Log.e("LOL", "size" + String.valueOf(listChests.size()));
         } else if (meas instanceof Waist) {
+            Log.e("LOL", "Waist");
             WorkWithFirebaseDB.setWaist((Waist) meas);
+            if (listWaist == null){
+                listWaist = new HashMap<>();
+            }
             listWaist.put(String.valueOf(meas.getTimeInMillis()), (Waist) meas);
+            Log.e("LOL", "size" + String.valueOf(listWaist.size()));
         } else {
+            Log.e("LOL", "hips");
             WorkWithFirebaseDB.setHips((Hips) meas);
+            if (listHips == null){
+                listHips = new HashMap<>();
+            }
             listHips.put(String.valueOf(meas.getTimeInMillis()), (Hips) meas);
+            Log.e("LOL", "size" + String.valueOf(listHips.size()));
         }
         reHandleMeases();
     }
@@ -207,14 +223,26 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
 
 
     public Chest getLastChest() {
-        return lastChest;
+        if (lastChest != null) {
+            return lastChest;
+        }else {
+            return new Chest();
+        }
     }
 
     public Waist getLastWaist() {
-        return lastWaist;
+        if (lastWaist != null) {
+            return lastWaist;
+        }else {
+            return new Waist();
+        }
     }
 
     public Hips getLastHips() {
-        return lastHips;
+        if (lastHips != null) {
+            return lastHips;
+        }else {
+            return new Hips();
+        }
     }
 }
