@@ -9,8 +9,8 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -48,18 +48,34 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
     @BindView(R.id.btnPremChest) Button btnPremChest;
     @BindView(R.id.btnPremWaist) Button btnPremWaist;
     @BindView(R.id.btnPremHips) Button btnPremHips;
+    @BindView(R.id.ivRefreshChest) ImageView ivRefreshChest;
+    @BindView(R.id.ivRefreshWaist) ImageView ivRefreshWaist;
+    @BindView(R.id.ivRefreshHips) ImageView ivRefreshHips;
     private int position = 0;
+    private final int REFRESH_TIME_LIMIT = 7;
 
     @Override
     public void updateUI(Chest lastChest, Waist lastWaist, Hips lastHips, int chestTimeDiff, int chestValueDiff, int waistTimeDiff, int waistValueDiff, int hipsValueDiff, int hipsTimeDiff, int mainTimeDiff) {
-        if (lastChest != null){
+        if (lastChest != null) {
             tvChestValue.setText(getPaintedString(lastChest, chestValueDiff));
+            Log.e("LOL", String.valueOf(chestTimeDiff));
+            handleRefreshView(ivRefreshChest, chestTimeDiff);
         }
-        if (lastHips != null){
+        if (lastHips != null) {
             tvHipsValue.setText(getPaintedString(lastHips, hipsValueDiff));
+            handleRefreshView(ivRefreshHips, hipsTimeDiff);
         }
-        if (lastWaist != null){
+        if (lastWaist != null) {
             tvWaistValue.setText(getPaintedString(lastWaist, waistValueDiff));
+            handleRefreshView(ivRefreshWaist, waistTimeDiff);
+        }
+    }
+
+    private void handleRefreshView(ImageView view, int timeDiff) {
+        if (timeDiff >= REFRESH_TIME_LIMIT && view.getVisibility() == View.INVISIBLE){
+            view.setVisibility(View.VISIBLE);
+        }else {
+            view.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -71,10 +87,10 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
         String valueUnit = getResources().getString(R.string.meas_cwh);
         String measValue = String.valueOf(meas.getMeas()) + " " + valueUnit;
         int colorDiff;
-        if (measDiffValue > 0){
+        if (measDiffValue > 0) {
             colorDiff = getResources().getColor(R.color.increase_meas);
             measDiff = "+" + measDiff;
-        }else {
+        } else {
             colorDiff = getResources().getColor(R.color.decrease_meas);
         }
 
@@ -114,9 +130,9 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
     }
 
     private void setUIAccordingPrem() {
-        if(isPremiumUser()){
+        if (isPremiumUser()) {
             turnOnUIPremMode();
-        }else {
+        } else {
             turnOffUIPremMode();
         }
     }
@@ -207,9 +223,9 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
     }
 
     private int getMeasValues(Meas meas) {
-        if (meas != null){
+        if (meas != null) {
             return meas.getMeas();
-        }else {
+        } else {
             return 0;
         }
     }

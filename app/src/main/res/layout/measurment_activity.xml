@@ -238,6 +238,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView166" />
 
+            <ImageView
+                android:id="@+id/ivRefreshChest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/textView166"
+                app:layout_constraintStart_toEndOf="@+id/textView166"
+                app:layout_constraintTop_toTopOf="@+id/textView166"
+                app:srcCompat="@drawable/ic_meas_max_refresh_time" />
+
             <View
                 android:id="@+id/divider37"
                 android:layout_width="match_parent"
@@ -274,6 +285,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView168" />
 
+            <ImageView
+                android:id="@+id/ivRefreshWaist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/textView168"
+                app:layout_constraintStart_toEndOf="@+id/textView168"
+                app:layout_constraintTop_toTopOf="@+id/textView168"
+                app:srcCompat="@drawable/ic_meas_max_refresh_time" />
+
             <View
                 android:id="@+id/divider38"
                 android:layout_width="match_parent"
@@ -309,6 +331,17 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView170"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView170" />
+
+            <ImageView
+                android:id="@+id/ivRefreshHips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/textView170"
+                app:layout_constraintStart_toEndOf="@+id/textView170"
+                app:layout_constraintTop_toTopOf="@+id/textView170"
+                app:srcCompat="@drawable/ic_meas_max_refresh_time" />
 
             <View
                 android:id="@+id/divider39"
@@ -361,6 +394,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/tvHipsValue"
                 app:layout_constraintStart_toStartOf="@+id/tvHipsValue"
                 app:layout_constraintTop_toTopOf="@+id/tvHipsValue" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

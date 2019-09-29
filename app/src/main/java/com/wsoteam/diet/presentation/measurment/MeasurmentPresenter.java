@@ -47,7 +47,6 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         currentTime = calendar.getTimeInMillis();
         handlMeases();
-        //createData();
     }
 
     private void handlMeases() {
@@ -98,11 +97,10 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
                 String penultKey = keys.get(keys.size() - 2);
                 Hips penultMeas = hips.get(penultKey);
                 hipsValueDiff = lastHips.getMeas() - penultMeas.getMeas();
-                hipsTimeDiff = Math.round((lastHips.getTimeInMillis() - penultMeas.getTimeInMillis()) / oneDay);
             }else {
                 hipsValueDiff = 0;
-                hipsTimeDiff = 0;
             }
+            hipsTimeDiff = getDaysDiff(lastHips.getTimeInMillis());
         }
     }
 
@@ -125,11 +123,10 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
                 String penultKey = keys.get(keys.size() - 2);
                 Waist penultMeas = waist.get(penultKey);
                 waistValuesDiff = lastWaist.getMeas() - penultMeas.getMeas();
-                waistTimeDiff = Math.round((lastWaist.getTimeInMillis() - penultMeas.getTimeInMillis()) / oneDay);
             }else {
                 waistValuesDiff = 0;
-                waistTimeDiff = 0;
             }
+            waistTimeDiff = getDaysDiff(lastWaist.getTimeInMillis());
         }
     }
 
@@ -152,18 +149,21 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
                 String penultKey = keys.get(keys.size() - 2);
                 Chest penultChest = chest.get(penultKey);
                 chestValueDiff = lastChest.getMeas() - penultChest.getMeas();
-                chestTimeDiff = Math.round((lastChest.getTimeInMillis() - penultChest.getTimeInMillis()) / oneDay);
             }else {
                 chestTimeDiff = 0;
-                chestValueDiff = 0;
             }
+            chestTimeDiff = getDaysDiff(lastChest.getTimeInMillis());
         }
     }
 
-    @Override
-    protected void onFirstViewAttach() {
-        super.onFirstViewAttach();
+
+    private int getDaysDiff(long lastMeasTime) {
+        calendar.setTimeInMillis(currentTime);
+        clearTime();
+        int daysDiff = Math.round((calendar.getTimeInMillis() - lastMeasTime) / oneDay);
+        return daysDiff;
     }
+
 
     public void saveMeas(Meas meas) {
         calendar.setTimeInMillis(currentTime);
