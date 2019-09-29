@@ -165,15 +165,18 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
     }
 
     public void saveMeas(Meas meas) {
+        calendar.setTimeInMillis(currentTime);
+        clearTime();
+        meas.setTimeInMillis(calendar.getTimeInMillis());
         if (meas instanceof Chest) {
             WorkWithFirebaseDB.setChest((Chest) meas);
-            listChests.put(meas.getKey(), (Chest) meas);
+            listChests.put(String.valueOf(meas.getTimeInMillis()), (Chest) meas);
         } else if (meas instanceof Waist) {
             WorkWithFirebaseDB.setWaist((Waist) meas);
-            listWaist.put(meas.getKey(), (Waist) meas);
+            listWaist.put(String.valueOf(meas.getTimeInMillis()), (Waist) meas);
         } else {
             WorkWithFirebaseDB.setHips((Hips) meas);
-            listHips.put(meas.getKey(), (Hips) meas);
+            listHips.put(String.valueOf(meas.getTimeInMillis()), (Hips) meas);
         }
         reHandleMeases();
     }
