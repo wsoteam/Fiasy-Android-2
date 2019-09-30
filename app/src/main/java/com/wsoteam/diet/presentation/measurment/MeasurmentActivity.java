@@ -29,6 +29,7 @@ import com.wsoteam.diet.presentation.measurment.POJO.Waist;
 import com.wsoteam.diet.presentation.measurment.days.DaysFragment;
 import com.wsoteam.diet.presentation.measurment.dialogs.MeasCallback;
 import com.wsoteam.diet.presentation.measurment.dialogs.MeasDialog;
+import com.wsoteam.diet.presentation.measurment.history.HistoryActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -194,6 +195,7 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibGraphs:
+                startActivity(new Intent(this, HistoryActivity.class));
                 break;
             case R.id.ibBack:
                 onBackPressed();

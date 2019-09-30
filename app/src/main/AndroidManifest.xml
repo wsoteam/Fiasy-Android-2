@@ -12,10 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.promo.PromoFormActivity"
+        <activity android:name=".presentation.measurment.history.HistoryActivity"></activity>
+        <activity
+            android:name=".presentation.promo.PromoFormActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/PromoScreen"/>
-
+            android:theme="@style/PromoScreen" />
         <activity
             android:name=".presentation.profile.norm.choise.activity.ActivActivity"
             android:screenOrientation="portrait"
@@ -262,7 +263,6 @@
             android:name=".presentation.profile.help.detail.DetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DetailFood" />
-
         <activity
             android:name=".presentation.measurment.MeasurmentActivity"
             android:screenOrientation="portrait"
