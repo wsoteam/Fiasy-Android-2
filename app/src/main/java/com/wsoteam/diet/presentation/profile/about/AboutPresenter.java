@@ -69,7 +69,7 @@ public class AboutPresenter extends MvpPresenter<AboutView> {
         profile.setLastName(secondNameString);
         profile.setEmail(emailString);
 
-        UserProperty.setUserProperties(profile, context);
+        UserProperty.setUserProperties(profile, context, true);
         WorkWithFirebaseDB.putProfileValue(profile);
         return true;
     }
