@@ -1,9 +1,12 @@
 package com.wsoteam.diet.presentation.measurment.history.fragment;
 
+import android.util.Log;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
+import com.wsoteam.diet.presentation.measurment.history.Config;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,10 +16,6 @@ import java.util.Map;
 
 @InjectViewState
 public class MeasHistoryPresenter extends MvpPresenter<MeasHistoryView> {
-    private final int MEAS_WEIGHT = 0;
-    private final int MEAS_WAIST = 1;
-    private final int MEAS_CHEST = 2;
-    private final int MEAS_HIPS = 3;
     private ArrayList<String> keys = new ArrayList<>();
     private ArrayList<String> values = new ArrayList<>();
 
@@ -25,16 +24,16 @@ public class MeasHistoryPresenter extends MvpPresenter<MeasHistoryView> {
 
     public void getHistoryList(int type) {
         switch (type) {
-            case MEAS_WEIGHT:
+            case Config.MEAS_WEIGHT:
                 getWeightHistory();
                 break;
-            case MEAS_WAIST:
+            case Config.MEAS_WAIST:
                 getWaistHistory();
                 break;
-            case MEAS_CHEST:
+            case Config.MEAS_CHEST:
                 getChestHistory();
                 break;
-            case MEAS_HIPS:
+            case Config.MEAS_HIPS:
                 getHipsHistory();
                 break;
         }
@@ -50,11 +49,12 @@ public class MeasHistoryPresenter extends MvpPresenter<MeasHistoryView> {
     }
 
     private void getWeightHistory() {
-        if (UserDataHolder.getUserData().getWeights() != null && UserDataHolder.getUserData().getWeights().size() > 0){
+        Log.e("LOL", "enter");
+        if (UserDataHolder.getUserData().getWeights() != null && UserDataHolder.getUserData().getWeights().size() > 0) {
             HashMap<String, Weight> weightHashMap = UserDataHolder.getUserData().getWeights();
             keys = new ArrayList<>();
             Iterator iterator = weightHashMap.entrySet().iterator();
-            while (iterator.hasNext()){
+            while (iterator.hasNext()) {
                 Map.Entry pair = (Map.Entry) iterator.next();
                 keys.add((String) pair.getKey());
             }
@@ -64,10 +64,18 @@ public class MeasHistoryPresenter extends MvpPresenter<MeasHistoryView> {
             for (int i = 0; i < keys.size(); i++) {
                 values.add(String.valueOf(weightHashMap.get(keys.get(i)).getWeight()));
             }
-        }else {
+        } else {
             keys = new ArrayList<>();
             values = new ArrayList<>();
         }
 
+        showLists(keys, values);
+
+    }
+
+    private void showLists(ArrayList<String> keys, ArrayList<String> values) {
+        for (int i = 0; i < keys.size(); i++) {
+            Log.e("LOL", "key - " + keys.get(i) + ", value - " + values.get(i));
+        }
     }
 }
