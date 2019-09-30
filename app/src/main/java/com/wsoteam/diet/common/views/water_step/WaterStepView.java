@@ -70,16 +70,27 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
+      String TAG = "kkk";
        int item = (int) view.getTag();
-       if (item <= currentProgress){
+
+      Log.d(TAG, "onClick: item = " + item);
+      Log.d(TAG, "onClick: cuerrntProg = " + currentProgress);
+
+
+      if (item <= currentProgress){
+         Log.d(TAG, "onClick: <=");
            currentProgress = item - 1;
        } else {
+         Log.d(TAG, "onClick: else");
            currentProgress = item;
        }
-
-        
-        if (listener != null)
-        listener.onWaterClick(currentProgress);
+      Log.d(TAG, "onClick: item = " + item);
+      Log.d(TAG, "onClick: cuerrntProg = " + currentProgress);
+      
+        if (listener != null) {
+          listener.onWaterClick(currentProgress);
+          Log.d(TAG, "onClick: != null");
+        }
     }
 
     public void setStepNum(int _count, boolean _addMore) {
@@ -89,6 +100,8 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
     }
 
     private void redrawView(int count, boolean addMore) {
+
+      currentProgress = count;
 
         if (rlContainer.getChildCount() > 1) {
             rlContainer.removeViews(1, rlContainer.getChildCount() - 1);

@@ -55,9 +55,16 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
       waterStepView.setStepNum((int) (water.getWaterCount() / waterStep), water.getWaterCount() < WATER_MAX);
       tvEatingReminder.setText(water.getWaterCount() + " л.");
       cache.set(water.getUrlOfImages());
+
+      if (UserDataHolder.getUserData() != null
+          && UserDataHolder.getUserData().getProfile() != null) {
+        float maxWater = UserDataHolder.getUserData().getProfile().getMaxWater();
+        achievement(water.getWaterCount() >= maxWater);
+      }
     } else {
       tvEatingReminder.setText("0.0 л.");
     }
+
 
     waterStepView.setOnWaterClickListener(progress -> {
       float usersMaxWater = 2f;
