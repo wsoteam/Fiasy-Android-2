@@ -37,7 +37,7 @@ public class HistoryActivity extends AppCompatActivity {
 
             @Override
             public int getCount() {
-                return 4;
+                return fragments.size();
             }
         });
     }

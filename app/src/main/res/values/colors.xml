@@ -239,5 +239,7 @@
     <color name="increase_meas">#8acc0808</color>
     <color name="decrease_meas">#62b5a5</color>
     <color name="old_meas">#51000000</color>
+    <color name="value_history_color">#8a000000</color>
+    <color name="unit_history_color">#ff931f</color>
 
 </resources>
