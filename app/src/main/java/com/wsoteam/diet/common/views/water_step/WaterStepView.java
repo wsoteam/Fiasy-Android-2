@@ -70,26 +70,26 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
-      String TAG = "kkk";
+      //String TAG = "kkk";
        int item = (int) view.getTag();
 
-      Log.d(TAG, "onClick: item = " + item);
-      Log.d(TAG, "onClick: cuerrntProg = " + currentProgress);
+      //Log.d(TAG, "onClick: item = " + item);
+      //Log.d(TAG, "onClick: cuerrntProg = " + currentProgress);
 
 
       if (item <= currentProgress){
-         Log.d(TAG, "onClick: <=");
+         //Log.d(TAG, "onClick: <=");
            currentProgress = item - 1;
        } else {
-         Log.d(TAG, "onClick: else");
+         //Log.d(TAG, "onClick: else");
            currentProgress = item;
        }
-      Log.d(TAG, "onClick: item = " + item);
-      Log.d(TAG, "onClick: cuerrntProg = " + currentProgress);
+      //Log.d(TAG, "onClick: item = " + item);
+      //Log.d(TAG, "onClick: cuerrntProg = " + currentProgress);
       
         if (listener != null) {
           listener.onWaterClick(currentProgress);
-          Log.d(TAG, "onClick: != null");
+          //Log.d(TAG, "onClick: != null");
         }
     }
 
