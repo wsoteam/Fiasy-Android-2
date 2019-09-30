@@ -5,12 +5,7 @@
         <attr name="card_text_month" format="string|reference" />
     </declare-styleable>
 
-    <declare-styleable name="ExperienceProgressView">
-        <attr name="label" format="reference|string" />
-        <attr name="value" format="reference|string" />
-        <attr name="progress" format="reference|integer" />
-        <attr name="max" format="reference|integer" />
-    </declare-styleable>
+
 
 
     <declare-styleable name="NumberPickerView">

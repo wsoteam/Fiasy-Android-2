@@ -38,7 +38,7 @@
   <string name="btnCancel">Отменить</string>
   <string name="btnChange">Поменять</string>
   <string name="tvInfo">Вы хотите сменить план питания? \nВаш план питания “%s” будет закрыт.</string>
-  <string name="planDays">День %d/%d</string>
+  <string name="planDays" formatted="false">День %d/%d</string>
   <string name="plans">Планы питания</string>
   <string name="plan">План питания</string>
 
@@ -356,7 +356,7 @@
   <string name="check_connection">Проверьте свое подключение к интернету</string>
 
   <!--Main screen-->
-  <string name="main_screen_topbar_string">%d из %d г</string>
+  <string name="main_screen_topbar_string" formatted="false">%d из %d г</string>
 
   <string name="main_screen_topbar_kcal_over_notification">Хотим вас\nпредупредить, что\nпревышение калорий\nможет привести к\nнулевому результату</string>
 
@@ -374,7 +374,7 @@
   <string name="main_screen_water">Вода</string>
 
   <string name="main_screen_menu_water">Настройки для воды</string>
-  <string name="main_screen_menu_water_count">%.2f л из %.2f л</string>
+  <string name="main_screen_menu_water_count">%.2f л</string>
 
   <!--Water Screen-->
   <string name="water_screen_toolbar_title">Вода</string>
@@ -650,7 +650,7 @@
   <string name="user_activity_section_my">Мои активности</string>
   <string name="user_activity_section_defaults">Стандартные активности</string>
   <string name="user_activity_time_elapsed">%d минут</string>
-  <string name="user_activity_time_elapsed_wh">%dч %d м</string>
+  <string name="user_activity_time_elapsed_wh" formatted="false">%dч %d м</string>
   <string name="user_activity_time_elapsed_wh_wm">%dч</string>
   <string name="user_activity_burned">%d ккал</string>
   <string name="action_add">Добавить</string>
@@ -670,4 +670,23 @@
     <item quantity="many">минут</item>
     <item quantity="other">минут</item>
   </plurals>
+
+
+  <string name="prem_title_settings">Улучши свои показатели!</string>
+  <string name="text_prem_settings">Эксклюзивные статьи от ведущих \nдиетологов и спортсменов, а так же \nмножество рецептов!</string>
+  <string name="btn_settings_prem">стать лучше</string>
+  <string name="change_sex">Пол</string>
+  <string name="change_height">Рост</string>
+  <string name="change_norm">Норма калорий</string>
+  <string name="change_weight">Вес</string>
+  <string name="change_age">Возраст</string>
+  <string name="change_activity">Активность</string>
+  <string name="change_goal">Цель</string>
+  <string name="profile_female">Женский</string>
+  <string name="profile_male">Мужской</string>
+  <string name="activity_save">сохранить</string>
+  <string name="personal_data">Личные данные</string>
+  <string name="update_message">Вышла новая версия приложения!  \nОбновите приложение в Google Play</string>
+  <string name="go_update">Обновить</string>
+  <string name="update_title">Обновление!</string>
 </resources>

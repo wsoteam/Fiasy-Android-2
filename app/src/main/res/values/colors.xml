@@ -116,6 +116,8 @@
   <color name="main_screen_progress_bar_protein">#f2942e</color>
   <color name="main_screen_progress_bar_over">#f55d4e</color>
 
+  <color name="statusbar_prem">#374557</color>
+
   <color name="prem_settings">#f2994a</color>
   <color name="unprem_settings">#d9424242</color>
   <color name="logout_settings">#eb5757</color>
