@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.UserDataHolder
+import com.wsoteam.diet.utils.DateUtils
 import com.wsoteam.diet.utils.RichTextUtils.RichText
 import com.wsoteam.diet.utils.argument
 import io.reactivex.disposables.CompositeDisposable
@@ -62,7 +63,7 @@ class EditUserActivityFragment : DialogFragment() {
             duration = exerciseDuration.progress
         )
         else -> DiaryActivityExercise(
-            id = "request-generate",
+            id = selected.id,
             title = selected.title,
             `when` = if (editMode == true) selected.`when` else  System.currentTimeMillis(),
             calories = getBurnedCalories(),
@@ -155,12 +156,7 @@ class EditUserActivityFragment : DialogFragment() {
 
   private fun getBurnedCalories(): Int {
     val activity = selected ?: return 10
-
-    val weight = if (diaryMode == false) 1 else {
-      (UserDataHolder.getUserData()?.profile?.weight ?: 1.0).toInt()
-    }
-
-    return (weight * (1f * exerciseDuration.progress / activity.duration) * activity.calories).toInt()
+    return ((1f * exerciseDuration.progress / activity.duration) * activity.calories).toInt()
   }
 
   override fun onDestroyView() {
@@ -171,8 +167,7 @@ class EditUserActivityFragment : DialogFragment() {
   private fun setEfficiency(duration: Int, burned: Int) {
     exerciseDuration.progress = duration
 
-    val pluralDuration =
-      "$duration " + resources.getQuantityString(R.plurals.duration_minutes, duration)
+    val pluralDuration = DateUtils.formatElapsedTime(context, (duration * 60).toLong())
 
     val exerciseTemplate =
       getString(R.string.add_user_activity_duration_hint, pluralDuration)
@@ -182,7 +177,7 @@ class EditUserActivityFragment : DialogFragment() {
       .bold()
       .text()
 
-    exerciseEfficiency.text = TextUtils.concat(getString(R.string.add_user_activity_burned_hint),
+    exerciseEfficiency.text = TextUtils.concat(getString(R.string.add_user_activity_burned_hint), " ",
         burned, "\n", exerciseTemplate)
   }
 }

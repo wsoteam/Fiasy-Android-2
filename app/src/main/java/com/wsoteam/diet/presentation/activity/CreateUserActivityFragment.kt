@@ -2,28 +2,41 @@ package com.wsoteam.diet.presentation.activity
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.Selection
+import android.text.SpannableString
 import android.text.TextUtils
+import android.text.TextWatcher
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.EditText
 import android.widget.Filter
-import android.widget.NumberPicker
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
+import androidx.annotation.Nullable
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.R
-import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.presentation.activity.ExercisesSource.AssetsSource
 import com.wsoteam.diet.utils.RichTextUtils.RichText
+import kotlin.math.max
 
 class CreateUserActivityFragment : DialogFragment() {
 
-  private var selected: UserActivityExercise? = null
+  private var selected: UserActivityExercise = UserActivityExercise(
+      id = "request-generate",
+      title = "",
+      `when` = -1,
+      calories = 10,
+      duration = 30,
+      favorite = false
+  )
 
   private lateinit var exerciseName: AutoCompleteTextView
   private lateinit var exerciseDuration: SeekBar
@@ -49,72 +62,43 @@ class CreateUserActivityFragment : DialogFragment() {
     doneButton = view.findViewById<View>(R.id.action_done)
     doneButton.setOnClickListener {
       val callback = targetFragment as? OnActivityCreated ?: return@setOnClickListener
-      val selected = selected ?: return@setOnClickListener
 
-      var weight = 1.0
-
-      if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().profile != null) {
-        weight = UserDataHolder.getUserData().profile.weight
+      if (exerciseName.length() < 1) {
+        Toast.makeText(it.context, "Введите название", Toast.LENGTH_SHORT).show()
+        return@setOnClickListener
       }
 
       val activity = UserActivityExercise(
           "request-generate",
-          selected.title,
+          exerciseName.text.toString(),
           System.currentTimeMillis(),
-          (getBurnedCalories() / weight).toInt(),
-          duration
+          selected.calories,
+          selected.duration
       )
 
       callback.didCreateActivity(activity, false, targetRequestCode)
-
       dismissAllowingStateLoss()
     }
 
     exerciseEfficiency = view.findViewById(R.id.activity_ccal)
-    exerciseEfficiency.setOnClickListener {
-      val numberPicker = NumberPicker(it.context)
-      numberPicker.minValue = 1
-      numberPicker.maxValue = 9999
-      numberPicker.value = 1
 
-      val dialog = AlertDialog.Builder(it.context)
-        .setView(numberPicker)
-        .setTitle("Укажите калории")
-        .setPositiveButton(android.R.string.ok) { _, _ ->
-          onExerciseSelected(UserActivityExercise(
-              id = "request-generate",
-              title = exerciseName.text.toString(),
-              `when` = System.currentTimeMillis(),
-              calories = numberPicker.value,
-              duration = 0
-          ))
-        }
-        .setNeutralButton(android.R.string.cancel, null)
-        .create()
-
-      dialog.show()
-    }
     exerciseDurationText = view.findViewById(R.id.activity_duration_selected)
 
     exerciseDuration = view.findViewById(R.id.activity_duration)
     exerciseDuration.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
       override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-        val minutes = (durations.step * (progress + 1))
-        val duration = RichText(minutes.toString())
-          .colorRes(seekBar.context, R.color.orange1)
-          .text()
+        if (fromUser) {
+          val minutes = (durations.step * (progress + 1))
 
-        exerciseDurationText.text = TextUtils.concat(duration, " ",
-            resources.getQuantityString(R.plurals.duration_minutes, minutes))
-
-        updateCalories()
+          onExerciseSelected(selected.copy(duration = minutes))
+        }
       }
 
       override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
       override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
     })
+
     exerciseDuration.max = (durations.last - durations.first) / durations.step
-    exerciseDuration.progress = exerciseDuration.max / 2
 
     exerciseName = view.findViewById(R.id.activity_name)
     exerciseName.setAdapter(ExercisesSuggestionAdapter(requireContext()))
@@ -122,27 +106,29 @@ class CreateUserActivityFragment : DialogFragment() {
       val selected = parent.adapter.getItem(position) as UserActivityExercise
       onExerciseSelected(selected)
     }
+
+    onExerciseSelected(selected)
   }
 
   private fun onExerciseSelected(exercise: UserActivityExercise) {
     selected = exercise
 
-    doneButton.isEnabled = true
-    updateCalories()
-  }
+    val duration = RichText(exercise.duration.toString())
+      .colorRes(requireContext(), R.color.orange1)
+      .text()
 
-  private fun updateCalories() {
-    exerciseEfficiency.text = RichText("${getBurnedCalories()} калорий")
+    val steps = exerciseDuration.max
+
+    exerciseDuration.progress = (((1f * exercise.duration / durations.last) * steps)).toInt()
+    exerciseDurationText.text = TextUtils.concat(duration, " ",
+        resources.getQuantityString(R.plurals.duration_minutes, exercise.duration))
+
+    exerciseEfficiency.text = RichText("${selected.calories} калорий")
       .underline()
       .colorRes(requireContext(), R.color.orange1)
       .text()
-  }
 
-  private val duration: Int
-    get() = (exerciseDuration.progress + 1) * durations.step
-
-  private fun getBurnedCalories(): Int {
-    return selected?.calories ?: 10
+    doneButton.isEnabled = true
   }
 
   class ExercisesSuggestionAdapter(context: Context)
@@ -193,6 +179,15 @@ class CreateUserActivityFragment : DialogFragment() {
         addAll(results.values as MutableCollection<UserActivityExercise>)
       }
     }
+  }
+
+  class BlockedEditText
+  @JvmOverloads
+  constructor(context: Context, @Nullable attrs: AttributeSet) : EditText(context, attrs) {
+    override fun onSelectionChanged(selStart: Int, selEnd: Int) {
+      setSelection(max(0, text.indexOf(' ')))
+    }
+
   }
 
 }

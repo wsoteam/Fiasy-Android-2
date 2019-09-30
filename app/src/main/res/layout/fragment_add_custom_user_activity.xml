@@ -46,6 +46,7 @@
         android:layout_below="@id/activity_poster"
         android:textColor="@color/orange1"
         android:textSize="24sp"
+        android:maxLength="100"
         tools:text="Танцы"
         />
 
@@ -138,19 +139,24 @@
         style="@style/TextAppearance.AppCompat.Caption"
         />
 
-    <TextView
+    <view
+        class="com.wsoteam.diet.presentation.activity.CreateUserActivityFragment$BlockedEditText"
         android:id="@+id/activity_ccal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="16dp"
+        android:background="@null"
+        android:gravity="left"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
         android:fontFamily="@font/roboto_medium"
         android:textSize="20sp"
+        android:inputType="numberSigned"
         android:textColor="@color/orange1"
         android:layout_below="@id/activity_ccal_description"
+        android:maxLength="12"
         tools:text="500 калорий"
         />
-
 
     <Button
         android:id="@+id/action_done"
@@ -176,7 +182,5 @@
         android:gravity="center"
         android:text="@string/add_user_activity_warning"
         />
-
-
   </RelativeLayout>
 </androidx.core.widget.NestedScrollView>
