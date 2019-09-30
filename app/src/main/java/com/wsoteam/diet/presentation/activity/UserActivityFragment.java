@@ -5,11 +5,13 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
@@ -20,6 +22,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.views.wheels.WheelPicker;
 import com.wsoteam.diet.presentation.activity.ExercisesSource.AssetsSource;
 import com.wsoteam.diet.utils.Metrics;
 import io.reactivex.Single;
@@ -96,7 +99,6 @@ public class UserActivityFragment extends DialogFragment implements
         } else if (sectionId == R.string.user_activity_section_favorite) {
           menu.getMenu().add(0, R.id.action_delete, 1, R.string.contextMenuDelete);
         } else if (sectionId == R.string.user_activity_section_my) {
-          menu.getMenu().add(0, R.id.action_edit, 1, R.string.contextMenuEdit);
           menu.getMenu().add(0, R.id.action_delete, 1, R.string.contextMenuDelete);
         }
 
@@ -112,6 +114,9 @@ public class UserActivityFragment extends DialogFragment implements
                     .add(target)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSuccess(e -> {
+                      Toast.makeText(requireContext(), "Добавлено в избранное", Toast.LENGTH_SHORT).show();
+                    })
                     .subscribe());
               }
               break;
@@ -184,14 +189,22 @@ public class UserActivityFragment extends DialogFragment implements
               .observeOn(AndroidSchedulers.mainThread())
               .doOnSuccess(
                   exercises -> {
-                    final DiffUtil.DiffResult diff = ExercisesSource.calculateDiff(
-                        adapter.getItemsBySection(sourceId), exercises);
-
                     if (adapter.isExpanded(sourceId)) {
+                      final DiffUtil.DiffResult diff = ExercisesSource.calculateDiff(
+                          adapter.getItemsBySection(sourceId), exercises);
+
                       adapter.addItems(sourceId, exercises, diff);
+
+                      if (exercises.isEmpty()) {
+                        adapter.collapse(sourceId);
+                      }
                     } else {
                       adapter.clearSection(sourceId);
                       adapter.addItems(sourceId, exercises);
+
+                      if (!exercises.isEmpty() || TextUtils.isEmpty(q)) {
+                        adapter.expand(sourceId);
+                      }
                     }
                   }
               )
@@ -223,6 +236,7 @@ public class UserActivityFragment extends DialogFragment implements
                   exercises -> {
                     adapter.clearSection(sourceId);
                     adapter.addItems(sourceId, exercises);
+                    adapter.expand(sourceId);
                   }
               )
       );

@@ -20,9 +20,14 @@ public class DateUtils {
     }
 
     if (hours > 0) {
-      return context.getString(R.string.user_activity_time_elapsed_wh, hours, minutes);
+      if (minutes > 0) {
+        return context.getString(R.string.user_activity_time_elapsed_wh, hours, minutes);
+      } else {
+        return context.getString(R.string.user_activity_time_elapsed_wh_wm, hours);
+      }
     } else {
-      return context.getString(R.string.user_activity_time_elapsed, minutes);
+      return minutes + " " + context.getResources().getQuantityString(R.plurals.duration_minutes,
+          (int) minutes);
     }
   }
 }

@@ -4,17 +4,18 @@ import android.content.res.AssetManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
-import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.utils.csv.CSVParser;
+import com.wsoteam.diet.utils.csv.CSVStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import kotlin.text.StringsKt;
-import okio.BufferedSource;
-import okio.Okio;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ExercisesSource {
@@ -95,41 +96,36 @@ public abstract class ExercisesSource {
       }
 
       return Single.fromCallable(() -> {
-        final BufferedSource source =
-            Okio.buffer(Okio.source(assets.open("user_activity_table.csv")));
 
         final List<ActivityModel> exercises = new ArrayList<>();
 
         // lines to skip from start
-        int skip = 1;
+        boolean skip = true;
 
-        while (!source.exhausted()) {
-          final String line = source.readUtf8Line();
+        final Reader stream = new InputStreamReader(assets.open("user_activity_table.csv"));
+        final CSVParser parser = new CSVParser(stream, CSVStrategy.EXCEL_STRATEGY);
 
-          if (skip > 0) {
-            skip--;
+        while (true) {
+          String[] cols = parser.getLine();
+
+          if (skip) {
+            skip = false;
             continue;
           }
 
-          final String[] tmp = line.split(",");
-          final String[] cols;
+          if (cols == null) {
+            break;
+          }
 
-          if (tmp.length > 2) {
-            cols = new String[2];
-            cols[1] = tmp[tmp.length - 1];
+          double weight = 1;
 
-            final StringBuilder b = new StringBuilder();
-            for (int i = 0; i < tmp.length - 1; i++) {
-              b.append(tmp[i]);
-            }
-
-            cols[0] = StringsKt.removeSurrounding(b.toString(), "\"");
-          } else {
-            cols = tmp;
+          if (UserDataHolder.getUserData() != null
+              && UserDataHolder.getUserData().getProfile() != null) {
+            weight = UserDataHolder.getUserData().getProfile().getWeight();
           }
 
           final int duration = 30;
-          final double calories = Integer.parseInt(cols[1]) * 0.5;
+          final double calories = Integer.parseInt(cols[1]) * weight * 0.5f;
 
           final UserActivityExercise e = new UserActivityExercise(
               "asset", // id

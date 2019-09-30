@@ -37,21 +37,11 @@ public class UserActivityView extends RecyclerView.ViewHolder {
   }
 
   public void bind(ActivityModel item) {
-    int weight = 1;
-
-    if (item instanceof UserActivityExercise) {
-      final UserData user = UserDataHolder.getUserData();
-
-      if (user != null && user.getProfile() != null) {
-        weight = (int) user.getProfile().getWeight();
-      }
-    }
-
     title.setText(item.getTitle());
     duration.setText(DateUtils.formatElapsedTime(duration.getContext(), item.getDuration() * 60));
 
     effectiveness.setText(effectiveness.getContext()
-        .getString(R.string.user_activity_burned, weight * item.getCalories()));
+        .getString(R.string.user_activity_burned, item.getCalories()));
 
     overflowMenu.setVisibility(View.VISIBLE);
   }

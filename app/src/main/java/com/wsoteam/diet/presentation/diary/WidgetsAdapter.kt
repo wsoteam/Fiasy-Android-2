@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
+import com.wsoteam.diet.presentation.activity.DiaryActivityWidget
 import com.wsoteam.diet.utils.inflate
 
 class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
@@ -13,7 +14,8 @@ class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
 
   private val widgets = intArrayOf(
       R.layout.widget_daily_calories,
-      R.layout.fragment_current_day_plan
+      R.layout.fragment_current_day_plan,
+      R.layout.widget_user_activities
   )
 
   protected fun requestParent(): RecyclerView =
@@ -29,6 +31,8 @@ class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
     return when (viewType) {
       R.layout.fragment_current_day_plan -> MealPlanWidget(root)
       R.layout.widget_daily_calories -> DailyBurnWidget(root)
+      R.layout.widget_user_activities -> DiaryActivityWidget(
+          root)
 
       else -> throw IllegalArgumentException("$viewType unknown")
     }

@@ -5,6 +5,10 @@ import com.wsoteam.diet.model.Eating
 import io.reactivex.Flowable
 
 object Meals {
+
+  /**
+   * Подсчет калорий, углеводов и жиров за указанный день
+   */
   fun all(day: Int, month: Int, year: Int): Flowable<MealsDetailedResult> {
     UserDataHolder.getUserData()?.let {
       val meals =

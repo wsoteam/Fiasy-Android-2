@@ -651,6 +651,7 @@
   <string name="user_activity_section_defaults">Стандартные активности</string>
   <string name="user_activity_time_elapsed">%d минут</string>
   <string name="user_activity_time_elapsed_wh">%dч %d м</string>
+  <string name="user_activity_time_elapsed_wh_wm">%dч</string>
   <string name="user_activity_burned">%d ккал</string>
   <string name="action_add">Добавить</string>
   <string name="action_add_to_favorite">Добавить в избранное</string>
