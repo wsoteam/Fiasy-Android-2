@@ -15,9 +15,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustAttribution;
 import com.amplitude.api.Amplitude;
@@ -62,6 +59,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.wsoteam.diet.Sync.WorkWithFirebaseDB.getUserData;
 
 public class ActivitySplash extends BaseActivity {
@@ -96,6 +96,7 @@ public class ActivitySplash extends BaseActivity {
         checkFirstLaunch();
         checkRegistrationAndRun();
     }
+
 
     private void showLoadingScreen() {
         setContentView(R.layout.activity_questions_calculations);
@@ -211,7 +212,8 @@ public class ActivitySplash extends BaseActivity {
                 sex = UserProperty.q_male_status_male;
             }
             UserProperty.setUserProperties(sex, height, weight, age, active, goal,
-                    FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                    String.valueOf(profile.getMaxKcal()), String.valueOf(profile.getMaxProt()), String.valueOf(profile.getMaxFat()), String.valueOf(profile.getMaxCarbo()));
             UserProperty.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         } catch (Exception ex) {
             Log.e("LOL", ex.getLocalizedMessage());

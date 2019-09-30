@@ -64,7 +64,7 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
 
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
-    private String currentSKU = IDs.ID_ONE_YEAR, currentPrice = "99р";
+    private String currentSKU = IDs.ID_ONE_MONTHS, currentPrice = "99р";
     private SharedPreferences sharedPreferences;
     Unbinder unbinder;
     private static final String TAG_BOX = "TAG_BOX";
@@ -95,8 +95,9 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
             getActivity().getSharedPreferences(SavedConst.SEE_PREMIUM, Context.MODE_PRIVATE).edit().putBoolean(SavedConst.SEE_PREMIUM, true).commit();
         }
 
+
         Spannable wordtoSpan = new SpannableString(getString(R.string.subTestText));
-        wordtoSpan.setSpan(new ForegroundColorSpan(Color.parseColor("#ef7d02")), 11, 26,
+        wordtoSpan.setSpan(new ForegroundColorSpan(Color.parseColor("#ef7d02")), 11, 27,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(wordtoSpan);
 

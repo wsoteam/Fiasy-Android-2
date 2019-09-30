@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,8 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.networking.food.FoodResultAPI;
+import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.presentation.food.adapter.FoodTemplateAdapter;
 
 import java.util.List;
@@ -30,12 +34,16 @@ public class BrowseFoodTemplateFragment  extends MvpAppCompatFragment
 
     @InjectPresenter
     BrowseFoodTemplatePresenter presenter;
-
     @BindView(R.id.recycler) RecyclerView recyclerView;
     @BindView(R.id.layoutWithButton) ConstraintLayout layoutWithBtn;
 
     FoodTemplateAdapter adapter;
     boolean isCreated;
+
+    @Override
+    public void sendClearSearchField() {
+        sendString("");
+    }
 
     @ProvidePresenter
     BrowseFoodTemplatePresenter providePresenter() {
@@ -59,7 +67,6 @@ public class BrowseFoodTemplateFragment  extends MvpAppCompatFragment
     public void onViewClicked(View view) {
        presenter.addTemplate();
     }
-
 
     @Override
     public void showProgress(boolean show) {
@@ -92,9 +99,14 @@ public class BrowseFoodTemplateFragment  extends MvpAppCompatFragment
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        presenter.initAdapter();
+    }
+    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && isCreated) {
+        if (isResumed()) {
             presenter.initAdapter();
         }
     }

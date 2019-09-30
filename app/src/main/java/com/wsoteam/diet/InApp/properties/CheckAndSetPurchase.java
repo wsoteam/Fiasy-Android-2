@@ -2,29 +2,20 @@ package com.wsoteam.diet.InApp.properties;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
-import com.amplitude.api.Amplitude;
-import com.android.billingclient.api.Purchase;
 import com.facebook.appevents.AppEventsConstants;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.api.services.androidpublisher.model.SubscriptionPurchase;
-import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.Amplitude.AmplitudeUserProperties;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.IDs;
 import com.wsoteam.diet.POJOProfile.SubInfo;
-import com.wsoteam.diet.Recipes.adding.pages.IngredientsFragment_ViewBinding;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.UserProperty;
 
 import java.lang.ref.WeakReference;
-
-import io.intercom.android.sdk.Intercom;
 
 
 public class CheckAndSetPurchase extends AsyncTask<String, Void, Void> {

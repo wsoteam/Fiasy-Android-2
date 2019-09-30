@@ -283,7 +283,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         recipeItem.setUrl("https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/default_recipe.png?alt=media&token=1fcf855f-fa9d-4831-9ff2-af204a612707");
 
         WorkWithFirebaseDB.addUserRecipe(recipeItem);
-        Events.logCreateRecipe(getIntent().getStringExtra(EventProperties.recipe_from));
+        Events.logCreateRecipe(getIntent().getStringExtra(EventProperties.recipe_from), recipeItem.getName());
         if (isShare) {
             WorkWithFirebaseDB.addUsersSharedRecipe(recipeItem);
         }

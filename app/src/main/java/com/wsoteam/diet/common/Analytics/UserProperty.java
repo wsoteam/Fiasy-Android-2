@@ -49,6 +49,11 @@ public class UserProperty {
     public static final String q_goal_status3 = "gain_muscles";
     public static final String q_goal_status4 = "burn_fat";
 
+    public static final String calorie = "calorie";
+    public static final String proteins = "proteins";
+    public static final String fats = "fats";
+    public static final String сarbohydrates = "сarbohydrates";
+
     public static final String premium_status = "premium_status";
     public static final String buy = "pay";
     public static final String not_buy = "free";
@@ -70,7 +75,7 @@ public class UserProperty {
     public static final String first_month = "first_month";
 
 
-    public static void setUserProperties(String sex, String height, String weight, String age, String active, String goal, String id) {
+    public static void setUserProperties(String sex, String height, String weight, String age, String active, String goal, String id, String kcal, String prot, String fat, String carbo) {
         Identify identify = new Identify()
                 .set(q_male_status, sex)
                 .set(q_height_status, height)
@@ -78,6 +83,10 @@ public class UserProperty {
                 .set(q_age_status, age)
                 .set(q_active_status, active)
                 .set(q_goal_status, goal)
+                .set(calorie, kcal)
+                .set(proteins, prot)
+                .set(fats, fat)
+                .set(сarbohydrates, carbo)
                 .set(user_id, id);
         Amplitude.getInstance().identify(identify);
 
@@ -88,6 +97,10 @@ public class UserProperty {
                 .withCustomAttribute(q_age_status, age)
                 .withCustomAttribute(q_active_status, active)
                 .withCustomAttribute(q_goal_status, id)
+                .withCustomAttribute(calorie, kcal)
+                .withCustomAttribute(proteins, prot)
+                .withCustomAttribute(fats, fat)
+                .withCustomAttribute(сarbohydrates, carbo)
                 .withCustomAttribute(user_id, id)
                 .build();
         Intercom.client().updateUser(userAttributes);

@@ -162,7 +162,7 @@ public class ActivityCreateFood extends AppCompatActivity {
     }
 
     private void saveFood() {
-        Events.logCreateCustomFood(getIntent().getStringExtra(EventProperties.product_from));
+        Events.logCreateCustomFood(getIntent().getStringExtra(EventProperties.product_from), customFood.getName());
         customFood.setCalories(customFood.getCalories() / COUNT_GRAMM);
         customFood.setFats(customFood.getFats() / COUNT_GRAMM);
         customFood.setCarbohydrates(customFood.getCarbohydrates() / COUNT_GRAMM);

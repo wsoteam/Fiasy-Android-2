@@ -46,7 +46,7 @@ public class DietPlan implements Serializable {
       long milliseconds = currentDate.getTime() - startDate.getTime();
       // 24 часа = 1 440 минут = 1 день
       daysAfterStart = ((int) (milliseconds / (24 * 60 * 60 * 1000)));
-      Log.d("kkk", "" + milliseconds +"\nДней: " + daysAfterStart);
+      //Log.d("kkk", "" + milliseconds +"\nДней: " + daysAfterStart);
     } else return -1;
 
     return daysAfterStart;

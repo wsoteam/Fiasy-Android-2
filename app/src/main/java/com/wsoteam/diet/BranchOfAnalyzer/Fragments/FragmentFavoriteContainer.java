@@ -4,6 +4,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,11 @@ public class FragmentFavoriteContainer extends Fragment implements TabsFragment 
         ((TabsFragment) getChildFragmentManager().findFragmentById(R.id.flContainer)).sendString(searchString);
     }
 
+    @Override
+    public void sendClearSearchField() {
+        sendString("");
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,6 +42,16 @@ public class FragmentFavoriteContainer extends Fragment implements TabsFragment 
         getChildFragmentManager().beginTransaction().replace(R.id.flContainer, new FragmentFavorites()).commit();
         return view;
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isResumed()) {
+            sendString("");
+        }
+    }
+
+
 
     @OnClick({R.id.rbtnFavorite, R.id.rbtnOwnFood})
     public void onRadioButtonClicked(RadioButton radioButton) {
@@ -52,6 +69,7 @@ public class FragmentFavoriteContainer extends Fragment implements TabsFragment 
                 break;
         }
     }
+
 
 
     @Override
