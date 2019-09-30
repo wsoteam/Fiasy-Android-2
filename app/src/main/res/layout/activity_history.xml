@@ -6,4 +6,131 @@
     android:layout_height="match_parent"
     tools:context="com.wsoteam.diet.presentation.measurment.history.HistoryActivity">
 
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/profile_gradient" />
+
+    <ImageButton
+        android:id="@+id/ibBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/filter_state"
+        android:elevation="9dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+        app:layout_constraintStart_toStartOf="@+id/imageView13"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_meas_arrow_back" />
+
+    <TextView
+        android:id="@+id/textView54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="9dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/measurments"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+        app:layout_constraintStart_toEndOf="@+id/ibBack"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.47" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView13">
+
+
+        <RadioGroup
+            android:id="@+id/rgrpType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView91">
+
+
+            <RadioButton
+                android:id="@+id/rbtnWeight"
+                android:layout_width="70dp"
+                android:layout_height="29dp"
+                android:layout_marginLeft="22dp"
+                android:background="@drawable/radio_history"
+                android:button="@android:color/transparent"
+                android:checked="true"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="Вес"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/radio_flat_text_selector"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/rbtnWaist"
+                android:layout_width="70dp"
+                android:layout_height="29dp"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/radio_history"
+                android:button="@android:color/transparent"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="Талия"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/radio_flat_text_selector"
+                android:textSize="13sp"
+                android:textStyle="normal" />
+
+            <RadioButton
+                android:id="@+id/rbtnChest"
+                android:layout_width="70dp"
+                android:layout_height="29dp"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/radio_history"
+                android:button="@android:color/transparent"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="Грудь"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/radio_flat_text_selector"
+                android:textSize="13sp"
+                android:textStyle="normal" />
+
+            <RadioButton
+                android:id="@+id/rbtnHips"
+                android:layout_width="70dp"
+                android:layout_height="29dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="22dp"
+                android:background="@drawable/radio_history"
+                android:button="@android:color/transparent"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="Бедра"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/radio_flat_text_selector"
+                android:textSize="13sp"
+                android:textStyle="normal" />
+        </RadioGroup>
+    </HorizontalScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
