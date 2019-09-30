@@ -85,7 +85,6 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
                 weightsForShow.add(new Weight("", weekInterval[i], ConfigMeasurment.EMPTY_DAY));
             }
         }
-        Log.e("LOL", String.valueOf(UserDataHolder.getUserData().getWeights().size()));
         getViewState().updateUI(weightsForShow, getTopText(weekInterval), getBottomText(weekInterval), getWeekAverage(weightsForShow), currentDayNumber, false);
 
     }
