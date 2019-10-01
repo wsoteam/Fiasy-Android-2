@@ -31,6 +31,7 @@ public class WeightDialog {
         Button btnCancel = view.findViewById(R.id.btnCancel);
         int valueKilo = (int) weight.getWeight();
         kPicker.setSelectedWeight(valueKilo);
+        Log.e("LOL", String.valueOf(weight.getWeight()));
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2,6 +2,8 @@ package com.wsoteam.diet.presentation.measurment.days;
 
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -46,13 +48,14 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
         reCalculateWeekData(getWeekInterval(position), weight);
     }
 
-    void reCalculateWeekData(long[] weekInterval, Weight newWeight){
+    void reCalculateWeekData(long[] weekInterval, @Nullable Weight newWeight){
         int currentDayNumber = getCurrentDayNumber(weekInterval);
 
         calendar.setTimeInMillis(currentTime);
         clearTime();
-        weights.put(String.valueOf(newWeight.getTimeInMillis()), newWeight);
-
+        if (newWeight != null) {
+            weights.put(String.valueOf(newWeight.getTimeInMillis()), newWeight);
+        }
 
         List<Weight> weightsForShow = new ArrayList<>();
         for (int i = 0; i < weekInterval.length; i++) {
@@ -194,5 +197,11 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
             //setWeight(85, calendar.getTimeInMillis());
             Log.e("LOL", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         }
+    }
+
+    public void deleteWeight(int currentPosition, Weight weight) {
+        WorkWithFirebaseDB.deleteWeight(String.valueOf(weight.getTimeInMillis()));
+        weights.remove(String.valueOf(weight.getTimeInMillis()));
+        refreshUI(currentPosition, null);
     }
 }

@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.measurment.days;
 
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -156,14 +157,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
         }
     }
 
-    private void editWeightValue(Weight weight) {
-        WeightDialog.showWeightDialog(getActivity(), weight, new WeightCallback() {
-            @Override
-            public void update(Weight weight) {
-                daysPresenter.refreshUI(currentPosition, weight);
-            }
-        });
-    }
+
 
     private void showLock(View v) {
         if (lockToast != null){
@@ -216,7 +210,24 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
         WeightDialog.showWeightDialog(getActivity(), weight, new WeightCallback() {
             @Override
             public void update(Weight weight) {
-                daysPresenter.refreshUI(currentPosition, weight);
+                if (weight.getWeight() == 0){
+                    daysPresenter.deleteWeight(currentPosition, weight);
+                }else {
+                    daysPresenter.refreshUI(currentPosition, weight);
+                }
+            }
+        });
+    }
+
+    private void editWeightValue(Weight weight) {
+        WeightDialog.showWeightDialog(getActivity(), weight, new WeightCallback() {
+            @Override
+            public void update(Weight weight) {
+                if (weight.getWeight() == 0){
+                    daysPresenter.deleteWeight(currentPosition, weight);
+                }else {
+                    daysPresenter.refreshUI(currentPosition, weight);
+                }
             }
         });
     }

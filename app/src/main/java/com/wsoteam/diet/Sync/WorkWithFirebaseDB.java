@@ -456,6 +456,13 @@ public class WorkWithFirebaseDB {
         myRef.setValue(weight);
     }
 
+    public static void deleteWeight(String key) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("weights").child(key);
+        myRef.removeValue();
+    }
+
     public static void setChest(Chest chest) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
