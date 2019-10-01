@@ -81,7 +81,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/radio_flat_text_selector"
-                android:textSize="13sp" />
+                android:textSize="11sp" />
 
             <RadioButton
                 android:id="@+id/rbtnWaist"
@@ -96,8 +96,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/radio_flat_text_selector"
-                android:textSize="13sp"
-                android:textStyle="normal" />
+                android:textSize="11sp" />
 
             <RadioButton
                 android:id="@+id/rbtnChest"
@@ -112,8 +111,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/radio_flat_text_selector"
-                android:textSize="13sp"
-                android:textStyle="normal" />
+                android:textSize="11sp" />
 
             <RadioButton
                 android:id="@+id/rbtnHips"
@@ -129,8 +127,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/radio_flat_text_selector"
-                android:textSize="13sp"
-                android:textStyle="normal" />
+                android:textSize="11sp"/>
         </RadioGroup>
     </HorizontalScrollView>
 

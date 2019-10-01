@@ -6,10 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.wsoteam.diet.presentation.measurment.history.fragment.MeasHistoryFragment;
 
 import java.util.List;
 
