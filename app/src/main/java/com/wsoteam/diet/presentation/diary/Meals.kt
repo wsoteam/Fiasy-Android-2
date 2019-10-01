@@ -12,8 +12,7 @@ object Meals {
   fun all(day: Int, month: Int, year: Int): Flowable<MealsDetailedResult> {
     UserDataHolder.getUserData()?.let {
       val meals =
-        arrayOf(it.breakfasts, it.lunches, it.dinners, it.snacks/*, it.water*/).filterNotNull()
-      //TODO check
+        arrayOf(it.breakfasts, it.lunches, it.dinners, it.snacks, it.waters).filterNotNull()
 
       return Flowable.fromArray(meals)
         .flatMap { all -> Flowable.fromIterable(all) }

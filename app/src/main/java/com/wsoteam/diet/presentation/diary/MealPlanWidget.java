@@ -113,6 +113,16 @@ public class MealPlanWidget extends WidgetsAdapter.WidgetView
     initData(UserDataHolder.getUserData().getPlan());
   }
 
+  @Override public void onAttached(@NotNull RecyclerView parent) {
+    super.onAttached(parent);
+
+    initData(UserDataHolder.getUserData().getPlan());
+  }
+
+  @Override public void onBind(@NotNull RecyclerView parent, int position) {
+    super.onBind(parent, position);
+  }
+
   public void setUpdateCallback(@NonNull UpdateCallback updateCallback) {
     this.updateCallback = updateCallback;
   }
@@ -222,11 +232,7 @@ public class MealPlanWidget extends WidgetsAdapter.WidgetView
     getContext().startActivity(new Intent(getContext(), BrowsePlansActivity.class));
   }
 
-  @Override public void onAttached(@NotNull RecyclerView parent) {
-    super.onAttached(parent);
 
-    initData(UserDataHolder.getUserData().getPlan());
-  }
 
   private void savePortion(RecipeItem recipe, String dayPlan, String meal,
       String recipeNumber) {

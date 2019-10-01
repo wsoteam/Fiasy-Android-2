@@ -1,7 +1,6 @@
 package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;

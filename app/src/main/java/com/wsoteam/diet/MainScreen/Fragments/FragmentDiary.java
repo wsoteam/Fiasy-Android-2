@@ -79,7 +79,6 @@ public class FragmentDiary extends Fragment
   private SharedPreferences countOfRun;
   private AlertDialog alertDialogBuyInfo;
   private LinearLayout.LayoutParams layoutParams;
-  private Window window;
   private FragmentTransaction transaction;
   private BottomNavigationView bnvMain;
 
@@ -227,11 +226,8 @@ public class FragmentDiary extends Fragment
 
     if (currentDayPlanFragment != null) {
       currentDayPlanFragment.showRecipesForDate(dateSelected.getMillis());
-      //Log.d("kkk", "onPageSelected: 0 " + datePicker.getDrawingTime());
-      //Log.d("kkk", "onPageSelected: 1 " + new Date().getTime());
     }
 
-    //Log.d("kkk", "onDateSelected: " + dateSelected.getMillis());
   }
 
   @Override
