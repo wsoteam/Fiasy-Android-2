@@ -14,8 +14,11 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 import com.wsoteam.diet.presentation.measurment.history.Config;
 
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -79,8 +82,30 @@ public class MeasHistoryPresenter extends MvpPresenter<MeasHistoryView> {
             keys = new ArrayList<>();
             values = new ArrayList<>();
         }
-
+        keys = keysToDates(keys);
+        Collections.reverse(keys);
+        Collections.reverse(values);
         getViewState().updateUI(keys, convertToSpannable(values));
+    }
+
+    private ArrayList<String> keysToDates(ArrayList<String> keys) {
+        ArrayList<Long> millisList = new ArrayList<>();
+        for (int i = 0; i < keys.size(); i++) {
+            millisList.add(Long.parseLong(keys.get(i)));
+        }
+        keys = new ArrayList<>();
+        DateFormatSymbols months = new DateFormatSymbols() {
+            @Override
+            public String[] getMonths() {
+                return context.getResources().getStringArray(R.array.names_months_meas);
+            }
+        };
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy", months);
+        for (int i = 0; i < millisList.size(); i++) {
+            Date date = new Date(millisList.get(i));
+            keys.add(formatter.format(date));
+        }
+        return keys;
     }
 
     private List<Spannable> convertToSpannable(ArrayList<String> values) {

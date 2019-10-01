@@ -1102,4 +1102,19 @@
         <item>Тренировки 5-7 раз в неделю по два раза в день</item>
         <item>Тяжелая физическая работа или ежедневные интенсивные тренировки по 2 раза в день</item>
     </string-array>
+
+    <string-array name="names_months_meas">
+        <item>января</item>
+        <item>февраля</item>
+        <item>марта</item>
+        <item>апреля</item>
+        <item>мая</item>
+        <item>июня</item>
+        <item>июля</item>
+        <item>августа</item>
+        <item>сентября</item>
+        <item>октября</item>
+        <item>ноября</item>
+        <item>декабря</item>
+    </string-array>
 </resources>
