@@ -697,4 +697,24 @@
   <string name="update_message">Вышла новая версия приложения!  \nОбновите приложение в Google Play</string>
   <string name="go_update">Обновить</string>
   <string name="update_title">Обновление!</string>
+
+
+
+
+  <string-array name="goals">
+    <item>Поддержания тела в форме</item>
+    <item>Похудение</item>
+    <item>Набор мышечной массы</item>
+    <item>Сохранение мышц и сжигание жира</item>
+  </string-array>
+  <!--food_template-->
+  <string-array name="activities">
+    <item>Минимальная нагрузка</item>
+    <item>Легкая физическая нагрузка в течении дня</item>
+    <item>Тренировки 2-4 раза в неделю (или работа средней тяжести)</item>
+    <item>Интенсивные тренировки 4-5 раз в неделю</item>
+    <item>Ежедневные интенсивные тренировки</item>
+    <item>Тренировки 5-7 раз в неделю по два раза в день</item>
+    <item>Тяжелая физическая работа или ежедневные интенсивные тренировки по 2 раза в день</item>
+  </string-array>
 </resources>

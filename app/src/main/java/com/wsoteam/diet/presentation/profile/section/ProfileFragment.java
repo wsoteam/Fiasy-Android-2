@@ -42,6 +42,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.renderer.CombinedChartRenderer;
 import com.github.mikephil.charting.renderer.DataRenderer;
 import com.squareup.picasso.Picasso;
+import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -98,6 +99,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     private int INTERVAL_CHOISE = 0; //0 - week, 1 - month, 2 - year
     private final int CHOISED_WEEK = 0, CHOISED_MONTH = 1, CHOISED_YEAR = 2;
     private ArrayList<String> days = new ArrayList<>();
+
 
     @Override
     public void bindCircleProgressBar(float progress) {
@@ -250,7 +252,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     }
 
     @Override
-    public void fillViewsIfProfileNotNull(Profile profile) {
+    public void fillViewsIfProfileNotNull(Profile profile, DietPlan plan) {
         tvKcalMax.setText(String.valueOf(profile.getMaxKcal()) + " ккал");
         tvCarboCount.setText(String.valueOf(profile.getMaxCarbo()) + " г");
         tvFatCount.setText(String.valueOf(profile.getMaxFat()) + " г");

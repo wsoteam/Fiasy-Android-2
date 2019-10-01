@@ -60,6 +60,10 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
         search(searchString);
     }
 
+    @Override public void sendClearSearchField() {
+
+    }
+
     private void search(String searchString) {
         if (foods.size() != 0) {
             List<Food> correctFoods = new ArrayList<>();

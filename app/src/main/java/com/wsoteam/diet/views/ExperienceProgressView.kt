@@ -33,7 +33,7 @@ class ExperienceProgressView
       label.text = parsed.getString(R.styleable.ExperienceProgressView_label)
       value.text = parsed.getString(R.styleable.ExperienceProgressView_value)
 
-      progressView.progress = parsed.getInt(R.styleable.ExperienceProgressView_progress, 0)
+      progressView.progress = parsed.getInt(R.styleable.ExperienceProgressView_progressValue, 0)
       progressView.max = parsed.getInt(R.styleable.ExperienceProgressView_max, 0)
     } finally {
       parsed.recycle()

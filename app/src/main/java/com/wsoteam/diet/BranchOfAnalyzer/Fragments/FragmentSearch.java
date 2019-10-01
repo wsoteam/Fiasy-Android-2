@@ -65,6 +65,10 @@ public class FragmentSearch extends Fragment implements TabsFragment {
         }
     }
 
+    @Override public void sendClearSearchField() {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
