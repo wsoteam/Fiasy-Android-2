@@ -59,7 +59,7 @@ public class QuestionActivityFragments extends Fragment {
         return view;
     }
 
-    private void changeProgress(int progress) {
+    protected void changeProgress(int progress) {
         String text = getString(R.string.onboard_activity_level_none);
         int imageResource = R.drawable.ic_activity0;
         switch (progress) {
