@@ -2,6 +2,8 @@ package com.wsoteam.diet.common.views.water_step;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
+import android.view.Gravity;
 import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -15,16 +17,20 @@ import com.wsoteam.diet.R;
 
 public class WaterStepView extends LinearLayout implements View.OnClickListener {
 
-    private static final int lineCount = 8;
-    private final int rowMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
-    private final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
-    private final LinearLayout.LayoutParams rowLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    private int currentProgress;
+
+    private final int imageSize = dpToPx(52);
+    private  int lineCount = getResources().getDisplayMetrics().widthPixels / imageSize;
+    private final int rowMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, lineCount, getResources().getDisplayMetrics());
+    private final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(imageSize, imageSize, 1);
+    private final LinearLayout.LayoutParams rowLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
     private final Drawable mSelectedIcon = ContextCompat.getDrawable(getContext(), R.drawable.ic_water_selected);
     private final Drawable mUnSelectedIcon = ContextCompat.getDrawable(getContext(), R.drawable.ic_water_unselected);
     private final Drawable mAddWaterIcon = ContextCompat.getDrawable(getContext(), R.drawable.ic_water_add);
-    private LinearLayout rlContainer, firstLineatLayout;
+    private LinearLayout rlContainer, firstLinearLayout;
     private OnWaterClickListener listener;
-    private int waterWidth, count;
+    private int count;
 
     public WaterStepView(Context context) {
         super(context);
@@ -39,73 +45,109 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
         init();
     }
 
+   private int dpToPx(float dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getContext().getResources().getDisplayMetrics());
+    }
+
+
     private void init() {
         View rootView = LayoutInflater.from(getContext()).inflate(R.layout.view_water, this);
         rlContainer = rootView.findViewById(R.id.rlContainer);
         rowLayoutParams.setMargins(0, rowMargin, 0, rowMargin);
 
-        firstLineatLayout = new LinearLayout(getContext());
+        layoutParams.gravity = Gravity.LEFT;
+
+        firstLinearLayout = new LinearLayout(getContext());
         for (int i = 0; i < lineCount; i++) {
             ImageView imageView = new ImageView(getContext());
             imageView.setImageDrawable(i == 0 ? mAddWaterIcon : mUnSelectedIcon);
-            imageView.setOnClickListener(i == 0 ? this : null);
+            imageView.setOnClickListener(this);
             imageView.setTag(i + 1);
-            firstLineatLayout.addView(imageView, layoutParams);
+            firstLinearLayout.addView(imageView, layoutParams);
         }
-        rlContainer.addView(firstLineatLayout, rowLayoutParams);
+        rlContainer.addView(firstLinearLayout, rowLayoutParams);
     }
 
     @Override
     public void onClick(View view) {
-        listener.onWaterClick((int) view.getTag());
+      //String TAG = "kkk";
+       int item = (int) view.getTag();
+
+      //Log.d(TAG, "onClick: item = " + item);
+      //Log.d(TAG, "onClick: cuerrntProg = " + currentProgress);
+
+
+      if (item <= currentProgress){
+         //Log.d(TAG, "onClick: <=");
+           currentProgress = item - 1;
+       } else {
+         //Log.d(TAG, "onClick: else");
+           currentProgress = item;
+       }
+      //Log.d(TAG, "onClick: item = " + item);
+      //Log.d(TAG, "onClick: cuerrntProg = " + currentProgress);
+      
+        if (listener != null) {
+          listener.onWaterClick(currentProgress);
+          //Log.d(TAG, "onClick: != null");
+        }
     }
 
-    public void setStepNum(int count, boolean addMore) {
-        this.count = count;
-        redrawView(count, addMore);
+    public void setStepNum(int _count, boolean _addMore) {
+        this.count = _count;
+        redrawView(count, _addMore);
         requestLayout();
     }
 
     private void redrawView(int count, boolean addMore) {
-        if (rlContainer.getChildCount() > 1)
+
+      currentProgress = count;
+
+        if (rlContainer.getChildCount() > 1) {
             rlContainer.removeViews(1, rlContainer.getChildCount() - 1);
+        }
+
         int rows = count < lineCount ? 1 : (count / lineCount + 1);
+
         for (int row = 0; row < rows; row++) {
+
             if (row == 0) {
+
+                Log.d("kkk", "lineCount: " + lineCount + "count: " + count);
                 for (int i = 0; i < Math.min(lineCount, count); i++) {
-                    ImageView imageView = (ImageView) firstLineatLayout.getChildAt(i);
+                    ImageView imageView = (ImageView) firstLinearLayout.getChildAt(i);
                     imageView.setImageDrawable(mSelectedIcon);
                     imageView.setOnClickListener(this);
-                    waterWidth = imageView.getWidth();
+
                 }
+
                 if (count < lineCount) {
-                    ImageView imageView = (ImageView) firstLineatLayout.getChildAt(count);
+                    ImageView imageView = (ImageView) firstLinearLayout.getChildAt(count);
                     imageView.setOnClickListener(this);
                     imageView.setImageDrawable(mAddWaterIcon);
                     for (int i = count + 1; i < lineCount; i++) {
-                        ImageView childImageView = (ImageView) firstLineatLayout.getChildAt(i);
+                        ImageView childImageView = (ImageView) firstLinearLayout.getChildAt(i);
                         childImageView.setImageDrawable(mUnSelectedIcon);
-                        childImageView.setOnClickListener(null);
+                        childImageView.setOnClickListener(this);
                     }
                 }
+
             } else {
                 LinearLayout ll = new LinearLayout(getContext());
                 int left = count - (row * lineCount);
                 for (int i = 0; i < Math.min(lineCount, left); i++) {
                     ImageView imageView = new ImageView(getContext());
                     imageView.setImageDrawable(mSelectedIcon);
-                    imageView.setMinimumWidth(waterWidth);
                     imageView.setOnClickListener(this);
                     imageView.setTag((row * lineCount) + i + 1);
-                    ll.addView(imageView);
+                    ll.addView(imageView, layoutParams);
                 }
                 if (addMore && left < lineCount) {
                     ImageView imageView = new ImageView(getContext());
                     imageView.setImageDrawable(mAddWaterIcon);
-                    imageView.setMinimumWidth(waterWidth);
                     imageView.setOnClickListener(this);
                     imageView.setTag((row * lineCount) + left + 1);
-                    ll.addView(imageView);
+                    ll.addView(imageView, layoutParams);
                 }
                 rlContainer.addView(ll, rowLayoutParams);
             }

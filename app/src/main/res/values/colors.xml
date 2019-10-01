@@ -234,4 +234,6 @@
     <color name="active_drop">#ef7d02</color>
     <color name="inactive_drop">#bdbdbd</color>
 
+  <color name="water_blue">#2d9cdb</color>
+
 </resources>

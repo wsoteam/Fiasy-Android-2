@@ -330,12 +330,12 @@ public class FragmentEatingScroll extends Fragment {
             }
 
             List<Water> waterList = new ArrayList<>();
-            if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getWater() != null) {
-                Iterator iterator = UserDataHolder.getUserData().getWater().entrySet().iterator();
+            if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getWaters() != null) {
+                Iterator iterator = UserDataHolder.getUserData().getWaters().entrySet().iterator();
                 while (iterator.hasNext()) {
                     Map.Entry pair = (Map.Entry) iterator.next();
                     Water water = (Water) pair.getValue();
-                    if (water.getDay() == day && water.getMonth() == month && water.getYear() == year) {
+                    if (water.getDay() == day && water.getMonth() == (month + 1) && water.getYear() == year) {
                         water.setUrlOfImages(pair.getKey().toString());
                         waterList.add(water);
                     }
@@ -346,7 +346,8 @@ public class FragmentEatingScroll extends Fragment {
             allEatingForThisDay.add(lunches);
             allEatingForThisDay.add(dinners);
             allEatingForThisDay.add(snacks);
-//            allEatingForThisDay.add(waterList);
+            allEatingForThisDay.add(waterList);
+
 
             allEat = allEatingForThisDay;
 
