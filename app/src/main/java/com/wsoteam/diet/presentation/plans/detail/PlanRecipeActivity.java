@@ -26,7 +26,6 @@ import com.amplitude.api.Amplitude;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.transferwise.sequencelayout.SequenceLayout;
-import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;

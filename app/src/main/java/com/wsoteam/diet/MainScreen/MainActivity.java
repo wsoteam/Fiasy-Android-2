@@ -29,7 +29,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import com.amplitude.api.Amplitude;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,6 +47,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietModule;
 import com.wsoteam.diet.DietPlans.POJO.DietPlansHolder;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
+import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodDB;
@@ -56,14 +59,18 @@ import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipesHolder;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.promo.Generator;
 import com.wsoteam.diet.common.remote.POJO.StoreVersion;
 import com.wsoteam.diet.common.remote.UpdateChecker;
 import com.wsoteam.diet.common.Analytics.SavedConst;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.presentation.promo.PromoFormActivity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import io.intercom.android.sdk.Intercom;
 
@@ -163,19 +170,18 @@ public class MainActivity extends AppCompatActivity {
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
         new AsyncWriteFoodDB().execute(MainActivity.this);
-
         if (GroupsHolder.getGroupsRecipes() == null) {
             loadRecipes();
         }
         if (ArticlesHolder.getListArticles() == null) {
             loadArticles();
         }
-      if (DietPlansHolder.get() == null){
-        loadDietPlans();
-      }
+        if (DietPlansHolder.get() == null) {
+            loadDietPlans();
+        }
         logEvents();
+
     }
 
     private void logEvents() {
@@ -266,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void loadDietPlans(){
+    private void loadDietPlans() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("PLANS");
 
