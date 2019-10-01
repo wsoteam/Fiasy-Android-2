@@ -25,9 +25,22 @@ public class HistoryListViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bind(String date, Spannable value){
+    public void bind(String date, Spannable value, int size){
         tvDate.setText(date);
         tvValue.setText(value);
+        handleDivider(getAdapterPosition(), size);
+    }
+
+    private void handleDivider(int adapterPosition, int size) {
+        if (adapterPosition == 0){
+            dvdrBottom.setVisibility(View.INVISIBLE);
+        }else if (adapterPosition == size - 1){
+            dvdrTop.setVisibility(View.VISIBLE);
+            dvdrBottom.setVisibility(View.VISIBLE);
+        }else {
+            dvdrTop.setVisibility(View.VISIBLE);
+            dvdrBottom.setVisibility(View.INVISIBLE);
+        }
     }
 
 

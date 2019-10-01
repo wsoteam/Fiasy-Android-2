@@ -30,7 +30,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListViewHold
 
     @Override
     public void onBindViewHolder(@NonNull HistoryListViewHolder holder, int position) {
-        holder.bind(dates.get(position), values.get(position));
+        holder.bind(dates.get(position), values.get(position), dates.size());
     }
 
     @Override
