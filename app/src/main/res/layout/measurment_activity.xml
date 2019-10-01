@@ -213,18 +213,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView154" />
 
-            <TextView
-                android:id="@+id/textView166"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:textSize="16sp"
-                android:textColor="#8a000000"
-                android:fontFamily="@font/roboto_medium"
-                android:text="@string/meas_chest"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider36" />
+                app:layout_constraintTop_toTopOf="@+id/divider36"
+                android:id="@+id/clChest">
+
+                <TextView
+                    android:id="@+id/textView166"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="@string/meas_chest"
+                    android:textColor="#8a000000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvChestValue"
@@ -250,99 +258,165 @@
                 app:layout_constraintTop_toTopOf="@+id/textView166"
                 app:srcCompat="@drawable/ic_meas_max_refresh_time" />
 
+                <Button
+                    android:id="@+id/btnPremChest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:background="@drawable/prem_meas"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/meas_prem"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvChestValue"
+                    app:layout_constraintEnd_toEndOf="@+id/tvChestValue"
+                    app:layout_constraintStart_toStartOf="@+id/tvChestValue"
+                    app:layout_constraintTop_toTopOf="@+id/tvChestValue" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <View
                 android:id="@+id/divider37"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="12dp"
                 android:background="#eeeeee"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView166" />
+                app:layout_constraintTop_toBottomOf="@+id/clChest" />
 
-            <TextView
-                android:id="@+id/textView168"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clWaist"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/roboto_medium"
-                android:text="@string/meas_waist"
-                android:textColor="#8a000000"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider37" />
+                app:layout_constraintTop_toBottomOf="@+id/divider37"
+                tools:layout_editor_absoluteX="0dp">
 
-            <TextView
-                android:id="@+id/tvWaistValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/meas_add_meas"
-                android:textColor="#f49231"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView168"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView168" />
+                <ImageView
+                    android:id="@+id/ivRefreshWaist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView168"
+                    app:layout_constraintStart_toEndOf="@+id/textView168"
+                    app:layout_constraintTop_toTopOf="@+id/textView168"
+                    app:srcCompat="@drawable/ic_meas_max_refresh_time" />
 
-            <ImageView
-                android:id="@+id/ivRefreshWaist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/textView168"
-                app:layout_constraintStart_toEndOf="@+id/textView168"
-                app:layout_constraintTop_toTopOf="@+id/textView168"
-                app:srcCompat="@drawable/ic_meas_max_refresh_time" />
+                <TextView
+                    android:id="@+id/tvWaistValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/meas_add_meas"
+                    android:textColor="#f49231"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView168"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView168" />
+
+                <TextView
+                    android:id="@+id/textView168"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="@string/meas_waist"
+                    android:textColor="#8a000000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnPremWaist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:background="@drawable/prem_meas"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/meas_prem"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvWaistValue"
+                    app:layout_constraintEnd_toEndOf="@+id/tvWaistValue"
+                    app:layout_constraintStart_toStartOf="@+id/tvWaistValue"
+                    app:layout_constraintTop_toTopOf="@+id/tvWaistValue" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:id="@+id/divider38"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="12dp"
                 android:background="#eeeeee"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView168" />
+                app:layout_constraintTop_toBottomOf="@+id/clWaist" />
 
-            <TextView
-                android:id="@+id/textView170"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/roboto_medium"
-                android:text="@string/meas_hips"
-                android:textColor="#8a000000"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider38" />
 
-            <TextView
-                android:id="@+id/tvHipsValue"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clHips"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/meas_add_meas"
-                android:textColor="#f49231"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView170"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView170" />
+                app:layout_constraintTop_toBottomOf="@id/divider38"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="516dp">
 
-            <ImageView
-                android:id="@+id/ivRefreshHips"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/textView170"
-                app:layout_constraintStart_toEndOf="@+id/textView170"
-                app:layout_constraintTop_toTopOf="@+id/textView170"
-                app:srcCompat="@drawable/ic_meas_max_refresh_time" />
+                <ImageView
+                    android:id="@+id/ivRefreshHips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView170"
+                    app:layout_constraintStart_toEndOf="@+id/textView170"
+                    app:layout_constraintTop_toTopOf="@+id/textView170"
+                    app:srcCompat="@drawable/ic_meas_max_refresh_time" />
+
+                <TextView
+                    android:id="@+id/tvHipsValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/meas_add_meas"
+                    android:textColor="#f49231"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView170"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView170" />
+
+                <TextView
+                    android:id="@+id/textView170"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="@string/meas_hips"
+                    android:textColor="#8a000000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnPremHips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:background="@drawable/prem_meas"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/meas_prem"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvHipsValue"
+                    app:layout_constraintEnd_toEndOf="@+id/tvHipsValue"
+                    app:layout_constraintStart_toStartOf="@+id/tvHipsValue"
+                    app:layout_constraintTop_toTopOf="@+id/tvHipsValue" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:id="@+id/divider39"
@@ -352,49 +426,7 @@
                 android:background="#eeeeee"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView170" />
-
-            <Button
-                android:id="@+id/btnPremChest"
-                android:layout_width="wrap_content"
-                android:layout_height="22dp"
-                android:background="@drawable/prem_meas"
-                android:fontFamily="@font/roboto"
-                android:text="@string/meas_prem"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvChestValue"
-                app:layout_constraintEnd_toEndOf="@+id/tvChestValue"
-                app:layout_constraintStart_toStartOf="@+id/tvChestValue"
-                app:layout_constraintTop_toTopOf="@+id/tvChestValue" />
-
-            <Button
-                android:id="@+id/btnPremWaist"
-                android:layout_width="wrap_content"
-                android:layout_height="22dp"
-                android:background="@drawable/prem_meas"
-                android:fontFamily="@font/roboto"
-                android:text="@string/meas_prem"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvWaistValue"
-                app:layout_constraintEnd_toEndOf="@+id/tvWaistValue"
-                app:layout_constraintStart_toStartOf="@+id/tvWaistValue"
-                app:layout_constraintTop_toTopOf="@+id/tvWaistValue" />
-
-            <Button
-                android:id="@+id/btnPremHips"
-                android:layout_width="wrap_content"
-                android:layout_height="22dp"
-                android:background="@drawable/prem_meas"
-                android:fontFamily="@font/roboto"
-                android:text="@string/meas_prem"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvHipsValue"
-                app:layout_constraintEnd_toEndOf="@+id/tvHipsValue"
-                app:layout_constraintStart_toStartOf="@+id/tvHipsValue"
-                app:layout_constraintTop_toTopOf="@+id/tvHipsValue" />
+                app:layout_constraintTop_toBottomOf="@+id/clHips" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -191,7 +191,9 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
     }
 
 
-    @OnClick({R.id.ibGraphs, R.id.ibBack, R.id.tvMediumWeight, R.id.imbtnLeft, R.id.imbtnRight, R.id.tvChestValue, R.id.tvWaistValue, R.id.tvHipsValue, R.id.btnPremChest, R.id.btnPremWaist, R.id.btnPremHips})
+    @OnClick({R.id.ibGraphs, R.id.ibBack, R.id.tvMediumWeight, R.id.imbtnLeft, R.id.imbtnRight,
+            R.id.tvChestValue, R.id.tvWaistValue, R.id.tvHipsValue, R.id.btnPremChest, R.id.btnPremWaist, R.id.btnPremHips,
+            R.id.clChest, R.id.clWaist, R.id.clHips})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibGraphs:
@@ -207,38 +209,65 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
                 vpDays.setCurrentItem(vpDays.getCurrentItem() + 1, true);
                 break;
             case R.id.tvChestValue:
-                Chest chest = presenter.getLastChest();
-                MeasDialog.showMeasDialog(this, getMeasValues(chest), new MeasCallback() {
-                    @Override
-                    public void update(int measValue) {
-                        presenter.saveMeas(new Chest("", 0, measValue));
-                    }
-                });
+                showChestAlert();
                 break;
             case R.id.tvWaistValue:
-                Waist waist = presenter.getLastWaist();
-                MeasDialog.showMeasDialog(this, getMeasValues(waist), new MeasCallback() {
-                    @Override
-                    public void update(int measValue) {
-                        presenter.saveMeas(new Waist("", 0, measValue));
-                    }
-                });
+               showWaistAlert();
                 break;
             case R.id.tvHipsValue:
-                Hips hips = presenter.getLastHips();
-                MeasDialog.showMeasDialog(this, getMeasValues(hips), new MeasCallback() {
-                    @Override
-                    public void update(int measValue) {
-                        presenter.saveMeas(new Hips("", 0, measValue));
-                    }
-                });
+
                 break;
             case R.id.btnPremChest:
             case R.id.btnPremHips:
             case R.id.btnPremWaist:
                 openPremScreen();
                 break;
+            case R.id.clChest:
+                if (isPremiumUser()){
+                    showChestAlert();
+                }
+                break;
+            case R.id.clWaist:
+                if (isPremiumUser()){
+                    showWaistAlert();
+                }
+                break;
+            case R.id.clHips:
+                if (isPremiumUser()){
+                    showHipsAlert();
+                }
+                break;
         }
+    }
+
+    private void showChestAlert() {
+        Chest chest = presenter.getLastChest();
+        MeasDialog.showMeasDialog(this, getMeasValues(chest), new MeasCallback() {
+            @Override
+            public void update(int measValue) {
+                presenter.saveMeas(new Chest("", 0, measValue));
+            }
+        });
+    }
+
+    private void showWaistAlert() {
+        Waist waist = presenter.getLastWaist();
+        MeasDialog.showMeasDialog(this, getMeasValues(waist), new MeasCallback() {
+            @Override
+            public void update(int measValue) {
+                presenter.saveMeas(new Waist("", 0, measValue));
+            }
+        });
+    }
+
+    private void showHipsAlert() {
+        Hips hips = presenter.getLastHips();
+        MeasDialog.showMeasDialog(this, getMeasValues(hips), new MeasCallback() {
+            @Override
+            public void update(int measValue) {
+                presenter.saveMeas(new Hips("", 0, measValue));
+            }
+        });
     }
 
     private int getMeasValues(Meas meas) {
