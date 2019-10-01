@@ -1,7 +1,6 @@
 package com.wsoteam.diet.presentation.measurment.history.fragment.controller;
 
 import android.text.Spannable;
-import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,15 +25,10 @@ public class HistoryListViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bind(String date, String value){
+    public void bind(String date, Spannable value){
         tvDate.setText(date);
-        tvValue.setText(getPaintedstring(value));
+        tvValue.setText(value);
     }
 
-    private Spannable getPaintedstring(String value) {
-        Spannable spannable = new SpannableString(value);
-        int position = value.indexOf(" ");
-        spannable.setSpan();
-        //TODO туть
-    }
+
 }
