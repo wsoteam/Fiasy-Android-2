@@ -11,6 +11,9 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.presentation.measurment.POJO.Chest;
+import com.wsoteam.diet.presentation.measurment.POJO.Hips;
+import com.wsoteam.diet.presentation.measurment.POJO.Waist;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 import com.wsoteam.diet.presentation.measurment.history.Config;
 
@@ -55,12 +58,78 @@ public class MeasHistoryPresenter extends MvpPresenter<MeasHistoryView> {
     }
 
     private void getHipsHistory() {
+        if (UserDataHolder.getUserData().getHips() != null && UserDataHolder.getUserData().getHips().size() > 0) {
+            HashMap<String, Hips> measHashMap = UserDataHolder.getUserData().getHips();
+            keys = new ArrayList<>();
+            Iterator iterator = measHashMap.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry pair = (Map.Entry) iterator.next();
+                keys.add((String) pair.getKey());
+            }
+            Collections.sort(keys);
+
+            values = new ArrayList<>();
+            for (int i = 0; i < keys.size(); i++) {
+                values.add(String.valueOf(measHashMap.get(keys.get(i)).getMeas()));
+            }
+        } else {
+            keys = new ArrayList<>();
+            values = new ArrayList<>();
+        }
+        keys = keysToDates(keys);
+        Collections.reverse(keys);
+        Collections.reverse(values);
+        getViewState().updateUI(keys, convertToSpannable(values, false));
     }
 
     private void getChestHistory() {
+        if (UserDataHolder.getUserData().getChest() != null && UserDataHolder.getUserData().getChest().size() > 0) {
+            HashMap<String, Chest> measHashMap = UserDataHolder.getUserData().getChest();
+            keys = new ArrayList<>();
+            Iterator iterator = measHashMap.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry pair = (Map.Entry) iterator.next();
+                keys.add((String) pair.getKey());
+            }
+            Collections.sort(keys);
+
+            values = new ArrayList<>();
+            for (int i = 0; i < keys.size(); i++) {
+                values.add(String.valueOf(measHashMap.get(keys.get(i)).getMeas()));
+            }
+        } else {
+            keys = new ArrayList<>();
+            values = new ArrayList<>();
+        }
+        keys = keysToDates(keys);
+        Collections.reverse(keys);
+        Collections.reverse(values);
+        getViewState().updateUI(keys, convertToSpannable(values, false));
     }
 
     private void getWaistHistory() {
+        if (UserDataHolder.getUserData().getWaist() != null && UserDataHolder.getUserData().getWaist().size() > 0) {
+            HashMap<String, Waist> measHashMap = UserDataHolder.getUserData().getWaist();
+            keys = new ArrayList<>();
+            Iterator iterator = measHashMap.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry pair = (Map.Entry) iterator.next();
+                keys.add((String) pair.getKey());
+            }
+            Collections.sort(keys);
+
+            values = new ArrayList<>();
+            for (int i = 0; i < keys.size(); i++) {
+                values.add(String.valueOf(measHashMap.get(keys.get(i)).getMeas()));
+            }
+        } else {
+            keys = new ArrayList<>();
+            values = new ArrayList<>();
+        }
+        keys = keysToDates(keys);
+        Collections.reverse(keys);
+        Collections.reverse(values);
+        getViewState().updateUI(keys, convertToSpannable(values, false));
     }
 
     private void getWeightHistory() {
@@ -85,7 +154,7 @@ public class MeasHistoryPresenter extends MvpPresenter<MeasHistoryView> {
         keys = keysToDates(keys);
         Collections.reverse(keys);
         Collections.reverse(values);
-        getViewState().updateUI(keys, convertToSpannable(values));
+        getViewState().updateUI(keys, convertToSpannable(values, true));
     }
 
     private ArrayList<String> keysToDates(ArrayList<String> keys) {
@@ -108,17 +177,23 @@ public class MeasHistoryPresenter extends MvpPresenter<MeasHistoryView> {
         return keys;
     }
 
-    private List<Spannable> convertToSpannable(ArrayList<String> values) {
+    private List<Spannable> convertToSpannable(ArrayList<String> values, boolean isWeight) {
         List<Spannable> paintedStrings = new ArrayList<>();
         for (int i = 0; i < values.size(); i++) {
-            paintedStrings.add(toSpannable(values.get(i)));
+            paintedStrings.add(toSpannable(values.get(i), isWeight));
         }
         return paintedStrings;
     }
 
-    private Spannable toSpannable(String s) {
+    private Spannable toSpannable(String s, boolean isWeight) {
         int position = s.length();
-        s = s + " " + context.getResources().getString(R.string.meas_kg);
+        String valueUnit;
+        if (isWeight){
+            valueUnit = context.getResources().getString(R.string.meas_kg);
+        }else {
+            valueUnit = context.getResources().getString(R.string.meas_cwh);
+        }
+        s = s + " " + valueUnit;
         Spannable spannable = new SpannableString(s);
         spannable.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.value_history_color)), 0, position, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
