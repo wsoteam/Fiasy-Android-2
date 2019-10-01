@@ -191,8 +191,7 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
     }
 
 
-    @OnClick({R.id.ibGraphs, R.id.ibBack, R.id.tvMediumWeight, R.id.imbtnLeft, R.id.imbtnRight,
-            R.id.tvChestValue, R.id.tvWaistValue, R.id.tvHipsValue, R.id.btnPremChest, R.id.btnPremWaist, R.id.btnPremHips,
+    @OnClick({R.id.ibGraphs, R.id.ibBack, R.id.tvMediumWeight, R.id.imbtnLeft, R.id.imbtnRight, R.id.btnPremChest, R.id.btnPremWaist, R.id.btnPremHips,
             R.id.clChest, R.id.clWaist, R.id.clHips})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -228,6 +227,7 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
                     showHipsAlert();
                 }
                 break;
+
         }
     }
 

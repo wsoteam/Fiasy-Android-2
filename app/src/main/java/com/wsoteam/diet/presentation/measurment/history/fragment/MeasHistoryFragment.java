@@ -5,6 +5,8 @@ import android.text.Spannable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +27,8 @@ public class MeasHistoryFragment extends MvpAppCompatFragment implements MeasHis
     MeasHistoryPresenter presenter;
     public static final String TYPE = "TYPE";
     @BindView(R.id.rvHistoryList) RecyclerView rvHistoryList;
+    @BindView(R.id.ivEmptyState) ImageView ivEmptyState;
+    @BindView(R.id.tvEmptyState) TextView tvEmptyState;
     private int type;
     Unbinder unbinder;
     HistoryListAdapter adapter;
@@ -52,8 +56,17 @@ public class MeasHistoryFragment extends MvpAppCompatFragment implements MeasHis
 
     @Override
     public void updateUI(List<String> dates, List<Spannable> values) {
-        adapter = new HistoryListAdapter(dates, values, getActivity());
-        rvHistoryList.setAdapter(adapter);
+        if (dates.size() > 0) {
+            adapter = new HistoryListAdapter(dates, values, getActivity());
+            rvHistoryList.setAdapter(adapter);
+        } else {
+            showEmptyState();
+        }
+    }
+
+    private void showEmptyState() {
+        ivEmptyState.setVisibility(View.VISIBLE);
+        tvEmptyState.setVisibility(View.VISIBLE);
     }
 
     @Override

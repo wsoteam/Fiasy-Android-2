@@ -97,13 +97,13 @@ public class MeasHistoryPresenter extends MvpPresenter<MeasHistoryView> {
             for (int i = 0; i < keys.size(); i++) {
                 values.add(String.valueOf(measHashMap.get(keys.get(i)).getMeas()));
             }
+            keys = keysToDates(keys);
+            Collections.reverse(keys);
+            Collections.reverse(values);
         } else {
             keys = new ArrayList<>();
             values = new ArrayList<>();
         }
-        keys = keysToDates(keys);
-        Collections.reverse(keys);
-        Collections.reverse(values);
         getViewState().updateUI(keys, convertToSpannable(values, false));
     }
 
@@ -122,13 +122,13 @@ public class MeasHistoryPresenter extends MvpPresenter<MeasHistoryView> {
             for (int i = 0; i < keys.size(); i++) {
                 values.add(String.valueOf(measHashMap.get(keys.get(i)).getMeas()));
             }
+            keys = keysToDates(keys);
+            Collections.reverse(keys);
+            Collections.reverse(values);
         } else {
             keys = new ArrayList<>();
             values = new ArrayList<>();
         }
-        keys = keysToDates(keys);
-        Collections.reverse(keys);
-        Collections.reverse(values);
         getViewState().updateUI(keys, convertToSpannable(values, false));
     }
 
@@ -147,13 +147,13 @@ public class MeasHistoryPresenter extends MvpPresenter<MeasHistoryView> {
             for (int i = 0; i < keys.size(); i++) {
                 values.add(String.valueOf(weightHashMap.get(keys.get(i)).getWeight()));
             }
+            keys = keysToDates(keys);
+            Collections.reverse(keys);
+            Collections.reverse(values);
         } else {
             keys = new ArrayList<>();
             values = new ArrayList<>();
         }
-        keys = keysToDates(keys);
-        Collections.reverse(keys);
-        Collections.reverse(values);
         getViewState().updateUI(keys, convertToSpannable(values, true));
     }
 
