@@ -848,6 +848,7 @@
     <string name="meas_prem">premium</string>
     <string name="meas_last_refresh">Последнее обновление:</string>
     <string name="meas_last_refresh_today">сегодня</string>
+    <string name="meas_history_title">История измерений</string>
     <string-array name="settings_items">
         <item>Premium аккаунт</item>
         <!--<item>Еда и аллергия</item>-->
