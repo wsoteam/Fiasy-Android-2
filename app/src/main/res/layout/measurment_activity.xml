@@ -217,6 +217,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@+id/divider36"
+                android:background="?selectableItemBackground"
                 android:id="@+id/clChest">
 
                 <TextView
@@ -288,6 +289,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/divider37"
+                android:background="?selectableItemBackground"
                 tools:layout_editor_absoluteX="0dp">
 
                 <ImageView
@@ -361,6 +363,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/divider38"
                 tools:layout_editor_absoluteX="0dp"
+                android:background="?selectableItemBackground"
                 tools:layout_editor_absoluteY="516dp">
 
                 <ImageView

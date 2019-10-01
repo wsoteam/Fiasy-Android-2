@@ -80,9 +80,9 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
     }
 
     private void setTicker(int timeDiff) {
-        if (timeDiff == 0){
+        if (timeDiff == 0) {
             tvTicker.setText(getResources().getString(R.string.meas_last_refresh) + "\n" + getResources().getString(R.string.meas_last_refresh_today));
-        }else {
+        } else {
             tvTicker.setText(getResources().getString(R.string.meas_last_refresh) + "\n" + getResources().getQuantityString(R.plurals.meas_days_ago, timeDiff, timeDiff));
         }
     }
@@ -208,32 +208,23 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
             case R.id.imbtnRight:
                 vpDays.setCurrentItem(vpDays.getCurrentItem() + 1, true);
                 break;
-            case R.id.tvChestValue:
-                showChestAlert();
-                break;
-            case R.id.tvWaistValue:
-               showWaistAlert();
-                break;
-            case R.id.tvHipsValue:
-
-                break;
             case R.id.btnPremChest:
             case R.id.btnPremHips:
             case R.id.btnPremWaist:
                 openPremScreen();
                 break;
             case R.id.clChest:
-                if (isPremiumUser()){
+                if (isPremiumUser()) {
                     showChestAlert();
                 }
                 break;
             case R.id.clWaist:
-                if (isPremiumUser()){
+                if (isPremiumUser()) {
                     showWaistAlert();
                 }
                 break;
             case R.id.clHips:
-                if (isPremiumUser()){
+                if (isPremiumUser()) {
                     showHipsAlert();
                 }
                 break;

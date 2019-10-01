@@ -91,14 +91,18 @@ public class HistoryActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 int id = 0;
-                switch (position){
-                    case Config.MEAS_WEIGHT: id = R.id.rbtnWeight;
+                switch (position) {
+                    case Config.MEAS_WEIGHT:
+                        id = R.id.rbtnWeight;
                         break;
-                    case Config.MEAS_WAIST: id = R.id.rbtnWaist;
+                    case Config.MEAS_WAIST:
+                        id = R.id.rbtnWaist;
                         break;
-                    case Config.MEAS_CHEST: id = R.id.rbtnChest;
+                    case Config.MEAS_CHEST:
+                        id = R.id.rbtnChest;
                         break;
-                    case Config.MEAS_HIPS: id = R.id.rbtnHips;
+                    case Config.MEAS_HIPS:
+                        id = R.id.rbtnHips;
                         break;
                 }
                 rgrpType.check(id);
@@ -109,5 +113,10 @@ public class HistoryActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @OnClick(R.id.ibBack)
+    public void onViewClicked() {
+        onBackPressed();
     }
 }
