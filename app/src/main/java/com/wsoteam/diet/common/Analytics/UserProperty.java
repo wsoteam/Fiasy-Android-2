@@ -166,7 +166,7 @@ public class UserProperty {
                 .set(premium_status, status);
         Amplitude.getInstance().identify(identify);
 
-        analLogIn();
+        //analLogIn();
         UserAttributes userAttributes = new UserAttributes.Builder()
                 .withCustomAttribute(premium_status, status)
                 .build();
@@ -178,7 +178,7 @@ public class UserProperty {
                 .set(registration, provider);
         Amplitude.getInstance().identify(identify);
 
-        analLogIn();
+        //analLogIn();
         UserAttributes userAttributes = new UserAttributes.Builder()
                 .withCustomAttribute(registration, provider)
                 .build();
@@ -192,7 +192,7 @@ public class UserProperty {
                 .set(first_month, month);
         Amplitude.getInstance().identify(identify);
 
-        analLogIn();
+        //analLogIn();
         UserAttributes userAttributes = new UserAttributes.Builder()
                 .withCustomAttribute(first_day, day)
                 .withCustomAttribute(first_week, week)
