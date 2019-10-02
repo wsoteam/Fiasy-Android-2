@@ -255,15 +255,15 @@
                     android:id="@+id/btnPremChest"
                     android:layout_width="wrap_content"
                     android:layout_height="22dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/prem_meas"
                     android:fontFamily="@font/roboto"
                     android:text="@string/meas_prem"
                     android:textColor="@color/white"
                     android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvChestValue"
-                    app:layout_constraintEnd_toEndOf="@+id/tvChestValue"
-                    app:layout_constraintStart_toStartOf="@+id/tvChestValue"
-                    app:layout_constraintTop_toTopOf="@+id/tvChestValue" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/ivRefreshChest"
@@ -319,15 +319,15 @@
                     android:id="@+id/btnPremWaist"
                     android:layout_width="wrap_content"
                     android:layout_height="22dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/prem_meas"
                     android:fontFamily="@font/roboto"
                     android:text="@string/meas_prem"
                     android:textColor="@color/white"
                     android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvWaistValue"
-                    app:layout_constraintEnd_toEndOf="@+id/tvWaistValue"
-                    app:layout_constraintStart_toStartOf="@+id/tvWaistValue"
-                    app:layout_constraintTop_toTopOf="@+id/tvWaistValue" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/ivRefreshWaist"
@@ -383,15 +383,15 @@
                     android:id="@+id/btnPremHips"
                     android:layout_width="wrap_content"
                     android:layout_height="22dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/prem_meas"
                     android:fontFamily="@font/roboto"
                     android:text="@string/meas_prem"
                     android:textColor="@color/white"
                     android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvHipsValue"
-                    app:layout_constraintEnd_toEndOf="@+id/tvHipsValue"
-                    app:layout_constraintStart_toStartOf="@+id/tvHipsValue"
-                    app:layout_constraintTop_toTopOf="@+id/tvHipsValue" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/ivRefreshHips"

@@ -57,25 +57,31 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
 
     @Override
     public void updateUI(Chest lastChest, Waist lastWaist, Hips lastHips, int chestTimeDiff, int chestValueDiff, int waistTimeDiff, int waistValueDiff, int hipsValueDiff, int hipsTimeDiff, int mainTimeDiff) {
-        if (lastChest != null) {
-            boolean isOldChest = chestTimeDiff >= REFRESH_TIME_LIMIT;
-            tvChestValue.setText(getPaintedString(lastChest, chestValueDiff, isOldChest));
-            handleRefreshView(ivRefreshChest, isOldChest);
-        }
-        if (lastHips != null) {
-            boolean isOldHips = hipsTimeDiff >= REFRESH_TIME_LIMIT;
-            tvHipsValue.setText(getPaintedString(lastHips, hipsValueDiff, isOldHips));
-            handleRefreshView(ivRefreshHips, isOldHips);
-        }
-        if (lastWaist != null) {
-            boolean isOldWaist = waistTimeDiff >= REFRESH_TIME_LIMIT;
-            tvWaistValue.setText(getPaintedString(lastWaist, waistValueDiff, isOldWaist));
-            handleRefreshView(ivRefreshWaist, isOldWaist);
-        }
-        if (lastChest == null && lastWaist == null && lastHips == null) {
-            tvTicker.setText(getResources().getString(R.string.propose_enter_data));
-        } else {
-            setTicker(mainTimeDiff);
+        if (isPremiumUser()) {
+            if (lastChest != null) {
+                boolean isOldChest = chestTimeDiff >= REFRESH_TIME_LIMIT;
+                tvChestValue.setText(getPaintedString(lastChest, chestValueDiff, isOldChest));
+                handleRefreshView(ivRefreshChest, isOldChest);
+            }
+            if (lastHips != null) {
+                boolean isOldHips = hipsTimeDiff >= REFRESH_TIME_LIMIT;
+                tvHipsValue.setText(getPaintedString(lastHips, hipsValueDiff, isOldHips));
+                handleRefreshView(ivRefreshHips, isOldHips);
+            }
+            if (lastWaist != null) {
+                boolean isOldWaist = waistTimeDiff >= REFRESH_TIME_LIMIT;
+                tvWaistValue.setText(getPaintedString(lastWaist, waistValueDiff, isOldWaist));
+                handleRefreshView(ivRefreshWaist, isOldWaist);
+            }
+            if (lastChest == null && lastWaist == null && lastHips == null) {
+                tvTicker.setText(getResources().getString(R.string.propose_enter_data));
+            } else {
+                setTicker(mainTimeDiff);
+            }
+        }else {
+            tvChestValue.setText("");
+            tvWaistValue.setText("");
+            tvHipsValue.setText("");
         }
     }
 
