@@ -292,4 +292,9 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
         super.onDestroyView();
         unbinder.unbind();
     }
+
+    @Override
+    public void showUpdateWeightToast() {
+        Toast.makeText(getActivity(), getString(R.string.meas_update_weight), Toast.LENGTH_SHORT).show();
+    }
 }

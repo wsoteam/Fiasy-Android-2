@@ -55,7 +55,17 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
 
     public void refreshUI(int position, Weight weight){
         reCalculateWeekData(getWeekInterval(position), weight);
-        BodyCalculates.saveWeight(weight.getWeight(), context);
+        handleCurrentWeight(weight);
+    }
+
+    private void handleCurrentWeight(Weight weight) {
+        calendar.setTimeInMillis(currentTime);
+        calendar = DateAndTime.dropTime(calendar);
+        long currentTimeInMillis = calendar.getTimeInMillis();
+        if (currentTimeInMillis == weight.getTimeInMillis()) {
+            BodyCalculates.saveWeight(weight.getWeight(), context);
+            getViewState().showUpdateWeightToast();
+        }
     }
 
     void reCalculateWeekData(long[] weekInterval, @Nullable Weight newWeight){
