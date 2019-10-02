@@ -90,7 +90,7 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
 
   public void setStepNum(int _count) {
     this.count = _count;
-    redrawView(count, MAX_PROGRESS == 0 || currentProgress < MAX_PROGRESS);
+    redrawView(count, MAX_PROGRESS == 0 || _count < MAX_PROGRESS);
     requestLayout();
   }
 

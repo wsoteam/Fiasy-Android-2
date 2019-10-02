@@ -24,7 +24,6 @@ import java.util.Calendar.YEAR
 import java.util.Calendar.getInstance
 
 class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
-
   private val stepView: WaterStepView = itemView.findViewById(R.id.waterStepView)
   private val waterAchievement: CardView = itemView.findViewById(R.id.waterAchievement)
   private val waterReminder: TextView = itemView.findViewById(R.id.tvEatingReminder)
@@ -35,19 +34,18 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
   private val disposables = CompositeDisposable()
   private var water: Water? = null
 
+  init {
+    stepView.setMaxProgress((waterMaxValue / waterStep).toInt())
+  }
+
   override fun onAttached(parent: RecyclerView) {
     super.onAttached(parent)
     stepView.setMaxProgress((waterMaxValue / waterStep).toInt())
     stepView.setOnWaterClickListener { progress ->
-      water?.waterCount = progress * waterStep
-      waterReminder.text = String.format(
-          itemView.context.getString(R.string.main_screen_menu_water_count), water?.waterCount
-      )
 
-      if (water?.waterCount!! >= UserDataHolder.getUserData()?.profile?.maxWater ?: 2f) {
-        waterAchievement.visibility = View.VISIBLE
-      } else {
-        waterAchievement.visibility = View.GONE
+      water?.let {
+        it.waterCount = progress * waterStep
+        updateUi(it)
       }
 
       if (water?.key == null) {
@@ -89,6 +87,10 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
   private fun updateProgress(water: Water) {
     this.water = water
     stepView.setStepNum((water.waterCount / waterStep).toInt())
+    updateUi(water)
+  }
+
+  private fun updateUi(water: Water){
     waterReminder.text = String.format(
         itemView.context.getString(R.string.main_screen_menu_water_count), water.waterCount
     )
