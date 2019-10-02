@@ -169,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        new AsyncWriteFoodDB().execute(MainActivity.this);
 
         if (GroupsHolder.getGroupsRecipes() == null) {
             loadRecipes();
