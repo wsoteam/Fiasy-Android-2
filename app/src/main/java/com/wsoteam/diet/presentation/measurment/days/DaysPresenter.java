@@ -207,4 +207,8 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
         weights.remove(String.valueOf(weight.getTimeInMillis()));
         refreshUI(currentPosition, null);
     }
+
+    public double getCurrentWeight() {
+        return UserDataHolder.getUserData().getProfile().getWeight();
+    }
 }
