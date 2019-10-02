@@ -8,9 +8,11 @@ import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class BodyCalculates {
 
@@ -205,7 +207,17 @@ public class BodyCalculates {
         profile.setMaxFat((int) fat);
         profile.setMaxProt((int) protein);
         profile.setMaxCarbo((int) carbohydrate);
+
+        createWeightMeas(profile.getWeight());
+
         return profile;
+    }
+
+    public static void createWeightMeas(double weightValue) {
+        Calendar calendar = Calendar.getInstance();
+        calendar = DateAndTime.dropTime(calendar);
+        Weight weight = new Weight("", calendar.getTimeInMillis(), weightValue);
+        WorkWithFirebaseDB.setWeight(weight, String.valueOf(weight.getTimeInMillis()));
     }
 
     public static Profile cloneProfile(Profile profile) {

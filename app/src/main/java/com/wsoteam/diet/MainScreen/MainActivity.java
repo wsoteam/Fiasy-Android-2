@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
             loadDietPlans();
         }
         logEvents();
-        startActivity(new Intent(this, MeasurmentActivity.class));
+
 
     }
 

@@ -56,6 +56,7 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
 
         UserProperty.setUserProperties(profile, context);
         WorkWithFirebaseDB.putProfileValue(profile);
+        BodyCalculates.createWeightMeas(profile.getWeight());
     }
 
     public void convertAndSetGoal(int i) {

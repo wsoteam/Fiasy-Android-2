@@ -46,6 +46,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.detail.day.CurrentDayPlanFragment;
 import io.intercom.android.sdk.Intercom;
 import java.util.Calendar;
@@ -283,7 +284,8 @@ public class FragmentDiary extends Fragment
       case R.id.fabAddEating:
                 /*AlertDialogChoiceEating.createChoiceEatingAlertDialog(getActivity(),
                         tvDateForMainScreen.getText().toString()).show();*/
-        Intercom.client().displayMessenger();
+        //Intercom.client().displayMessenger();
+        startActivity(new Intent(getActivity(), MeasurmentActivity.class));
         Events.logOpenChat();
         break;
       case R.id.btnNotification:

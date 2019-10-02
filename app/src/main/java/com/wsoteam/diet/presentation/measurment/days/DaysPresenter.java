@@ -10,6 +10,7 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
+import com.wsoteam.diet.common.helpers.DateAndTime;
 import com.wsoteam.diet.presentation.measurment.ConfigMeasurment;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 
@@ -61,7 +62,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
         int currentDayNumber = getCurrentDayNumber(weekInterval);
 
         calendar.setTimeInMillis(currentTime);
-        clearTime();
+        calendar = DateAndTime.dropTime(calendar);
         if (newWeight != null) {
             weights.put(String.valueOf(newWeight.getTimeInMillis()), newWeight);
         }
@@ -82,7 +83,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
         int currentDayNumber = getCurrentDayNumber(weekInterval);
 
         calendar.setTimeInMillis(currentTime);
-        clearTime();
+        calendar = DateAndTime.dropTime(calendar);
         weights = new HashMap<>();
         if (UserDataHolder.getUserData().getWeights() != null){
             weights = UserDataHolder.getUserData().getWeights();
@@ -104,7 +105,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
     private int getCurrentDayNumber(long[] weekInterval) {
         int currentDayNumber = ConfigMeasurment.EMPTY_CURRENT_DAY;
         calendar.setTimeInMillis(currentTime);
-        clearTime();
+        calendar = DateAndTime.dropTime(calendar);
         for (int i = 0; i < weekInterval.length; i++) {
             if (weekInterval[i] == calendar.getTimeInMillis()){
                 currentDayNumber = i;
@@ -148,7 +149,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
 
     private String getBottomText(long[] interval) {
         String bottomText = "";
-        clearTime();
+        calendar = DateAndTime.dropTime(calendar);
         calendar.setTimeInMillis(interval[0]);
         String firstDay = getNumber(calendar.get(Calendar.DAY_OF_MONTH));
         String firstMonth = getNumber(calendar.get(Calendar.MONTH) + 1);
@@ -175,7 +176,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
 
     public long[] getWeekInterval(int position) {
         calendar.setTimeInMillis(currentTime);
-        clearTime();
+        calendar = DateAndTime.dropTime(calendar);
         long[] weekInterval = new long[7];
         int week = calendar.get(Calendar.WEEK_OF_YEAR);
         calendar.set(Calendar.WEEK_OF_YEAR, week + position);
@@ -186,13 +187,6 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
         return weekInterval;
     }
 
-    private void clearTime() {
-        calendar.set(Calendar.HOUR_OF_DAY, 1);
-        calendar.set(Calendar.MINUTE, 1);
-        calendar.set(Calendar.SECOND, 1);
-        calendar.set(Calendar.MILLISECOND, 1);
-    }
-
     public void addWeight(Weight weight){
         Weight weightMeasurment = new Weight("", weight.getTimeInMillis(), weight.getWeight());
         WorkWithFirebaseDB.setWeight(weightMeasurment, String.valueOf(weight.getTimeInMillis()));
@@ -201,7 +195,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
     private void createData() {
         for (int i = 0; i < 300; i++) {
             calendar.setTimeInMillis(currentTime);
-            clearTime();
+            calendar = DateAndTime.dropTime(calendar);
             calendar.setTimeInMillis(currentTime - oneDay * i);
             //setWeight(85, calendar.getTimeInMillis());
             Log.e("LOL", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
