@@ -28,6 +28,12 @@ public class WaterPresenter extends BasePresenter<WaterView> {
 
     void saveUsersMaxWater(float water){
         WorkWithFirebaseDB.setMaxWater(water);
+        if (UserDataHolder.getUserData() != null
+            && UserDataHolder.getUserData().getProfile() != null
+            && UserDataHolder.getUserData().getProfile().getMaxWater() >= 1.5
+            && UserDataHolder.getUserData().getProfile().getMaxWater() <= 3) {
+            UserDataHolder.getUserData().getProfile().setMaxWater(water);
+        }
     }
 
 }

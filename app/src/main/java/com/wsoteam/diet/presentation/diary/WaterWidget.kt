@@ -1,9 +1,11 @@
 package com.wsoteam.diet.presentation.diary
 
-import android.util.Log
+import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.widget.PopupMenu
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
@@ -30,33 +32,33 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
 
   private val waterStep = WaterActivity.PROGRESS_STEP
   private val waterMaxValue = 5
-  private val userWaterMax: Float = UserDataHolder.getUserData()?.profile?.maxWater ?: 2f
   private val disposables = CompositeDisposable()
-  private var recyclerView: RecyclerView? = null
-
   private var water: Water? = null
 
   override fun onAttached(parent: RecyclerView) {
     super.onAttached(parent)
-    recyclerView = parent
     stepView.setMaxProgress((waterMaxValue / waterStep).toInt())
     stepView.setOnWaterClickListener { progress ->
       water?.waterCount = progress * waterStep
-      waterReminder.text = String.format(itemView.context.getString(R.string.main_screen_menu_water_count), water?.waterCount)
+      waterReminder.text = String.format(
+          itemView.context.getString(R.string.main_screen_menu_water_count), water?.waterCount
+      )
 
-      if(water?.waterCount!! >= userWaterMax)  {
+      if (water?.waterCount!! >= UserDataHolder.getUserData()?.profile?.maxWater ?: 2f) {
         waterAchievement.visibility = View.VISIBLE
-        parent.scrollToPosition(adapterPosition)
-      }else {
+      } else {
         waterAchievement.visibility = View.GONE
       }
 
-      if (water?.key == null){
+      if (water?.key == null) {
         water?.key = WorkWithFirebaseDB.addWater(water)
-      }else{
+      } else {
         WorkWithFirebaseDB.updateWater(water?.key, (progress * waterStep))
       }
+    }
 
+    openWaterSettings.setOnClickListener {
+      createPopupMenu(itemView.context, it as ImageButton)
     }
   }
 
@@ -64,16 +66,14 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
     super.onDetached(parent)
     disposables.clear()
     stepView.setOnWaterClickListener(null)
-    recyclerView = null
   }
 
-  override fun onBind(parent: RecyclerView, position: Int) {
+  override fun onBind(
+    parent: RecyclerView,
+    position: Int
+  ) {
     super.onBind(parent, position)
     showWaterForDate(getInstance())
-  }
-
-  override fun onRecycled(parent: RecyclerView) {
-    super.onRecycled(parent)
   }
 
   private fun showWaterForDate(calendar: Calendar) {
@@ -89,12 +89,28 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
   private fun updateProgress(water: Water) {
     this.water = water
     stepView.setStepNum((water.waterCount / waterStep).toInt())
-    waterReminder.text = String.format(itemView.context.getString(R.string.main_screen_menu_water_count), water.waterCount)
-    if(water.waterCount >= userWaterMax)  {
+    waterReminder.text = String.format(
+        itemView.context.getString(R.string.main_screen_menu_water_count), water.waterCount
+    )
+    if (water.waterCount >= UserDataHolder.getUserData()?.profile?.maxWater ?: 2f) {
       waterAchievement.visibility = View.VISIBLE
-      recyclerView?.scrollToPosition(adapterPosition)
-    }else {
+    } else {
       waterAchievement.visibility = View.GONE
+    }
+  }
+
+  private fun createPopupMenu(
+    context: Context,
+    button: ImageButton
+  ) {
+    val popupMenu = PopupMenu(context, button)
+    popupMenu.inflate(R.menu.dots_popup_menu_water)
+    popupMenu.show()
+    popupMenu.setOnMenuItemClickListener { menuItem ->
+      when (menuItem.itemId) {
+        R.id.water_settings -> context.startActivity(Intent(context, WaterActivity::class.java))
+      }
+      false
     }
   }
 }
