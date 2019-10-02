@@ -55,7 +55,9 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
 
     public void refreshUI(int position, Weight weight){
         reCalculateWeekData(getWeekInterval(position), weight);
-        handleCurrentWeight(weight);
+        if (weight != null) {
+            handleCurrentWeight(weight);
+        }
     }
 
     private void handleCurrentWeight(Weight weight) {
