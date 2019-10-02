@@ -2,8 +2,15 @@ package com.wsoteam.diet.presentation.diary
 
 import android.util.Log
 import android.view.View
+import android.widget.ImageButton
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.wsoteam.diet.R
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB
+import com.wsoteam.diet.common.views.water_step.WaterStepView
 import com.wsoteam.diet.model.Water
+import com.wsoteam.diet.presentation.main.water.WaterActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -15,23 +22,40 @@ import java.util.Calendar.getInstance
 
 class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
 
+  private val stepView: WaterStepView = itemView.findViewById(R.id.waterStepView)
+  private val waterAchievement: CardView = itemView.findViewById(R.id.waterAchievement)
+  private val waterReminder: TextView = itemView.findViewById(R.id.tvEatingReminder)
+  private val openWaterSettings: ImageButton = itemView.findViewById(R.id.ibtnOpenMenu)
 
+  private val waterStep = WaterActivity.PROGRESS_STEP
+  private val waterMaxValue = 5
   private val disposables = CompositeDisposable()
 
-
+  private var water: Water? = null
 
   override fun onAttached(parent: RecyclerView) {
     super.onAttached(parent)
+    stepView.setMaxProgress((waterMaxValue / waterStep).toInt())
+    stepView.setOnWaterClickListener { progress ->
+      water?.waterCount = progress * waterStep
+      waterReminder.text = String.format(itemView.context.getString(R.string.main_screen_menu_water_count), water?.waterCount)
+      Log.d("kkk", "new water count = ${water?.waterCount}")
+      if (water?.key == null){
+        water?.key = WorkWithFirebaseDB.addWater(water)
+      }else{
+        WorkWithFirebaseDB.updateWater(water?.key, (progress * waterStep))
+      }
+    }
   }
 
   override fun onDetached(parent: RecyclerView) {
     super.onDetached(parent)
     disposables.clear()
+    stepView.setOnWaterClickListener(null)
   }
 
   override fun onBind(parent: RecyclerView, position: Int) {
     super.onBind(parent, position)
-
     showWaterForDate(getInstance())
   }
 
@@ -40,16 +64,18 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
   }
 
   private fun showWaterForDate(calendar: Calendar) {
-      disposables.add(Meals.water(calendar[DAY_OF_MONTH], calendar[MONTH], calendar[YEAR])
-          .subscribeOn(Schedulers.io())
-          .observeOn(AndroidSchedulers.mainThread())
-          .subscribe(
-              { updateProgress(it) },
-              { error -> error.printStackTrace() }
-          ))
+    disposables.add(Meals.water(calendar[DAY_OF_MONTH], calendar[MONTH] + 1, calendar[YEAR])
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            { updateProgress(it) },
+            { error -> error.printStackTrace() }
+        ))
   }
 
-  private fun updateProgress(water : Water) {
-      Log.d("kkk", water.toString())
+  private fun updateProgress(water: Water) {
+    this.water = water
+    stepView.setStepNum((water.waterCount / waterStep).toInt())
+    waterReminder.text = String.format(itemView.context.getString(R.string.main_screen_menu_water_count), water.waterCount)
   }
 }

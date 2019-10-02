@@ -57,12 +57,12 @@ object Meals {
             && mapWater[key]?.month == month
             && mapWater[key]?.year == year
         ) {
-          mapWater[key]?.urlOfImages = key
+          mapWater[key]?.key = key
           return Flowable.fromArray(mapWater[key])
         }
       }
     }
-    return Flowable.empty()
+    return Flowable.fromArray(Water(day, month, year, 0f))
   }
 
   data class MealsDetailedResult(
