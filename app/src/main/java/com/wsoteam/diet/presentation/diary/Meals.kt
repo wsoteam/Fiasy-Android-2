@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.diary
 
 import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.model.Eating
+import com.wsoteam.diet.model.Water
 import io.reactivex.Flowable
 
 object Meals {
@@ -44,6 +45,23 @@ object Meals {
         }
     }
 
+    return Flowable.empty()
+  }
+
+  fun water(day: Int, month: Int, year: Int): Flowable<Water> {
+    UserDataHolder.getUserData()
+        ?.waters?.let { mapWater ->
+
+      mapWater.keys.forEach { key ->
+        if (mapWater[key]?.day == day
+            && mapWater[key]?.month == month
+            && mapWater[key]?.year == year
+        ) {
+          mapWater[key]?.urlOfImages = key
+          return Flowable.fromArray(mapWater[key])
+        }
+      }
+    }
     return Flowable.empty()
   }
 
