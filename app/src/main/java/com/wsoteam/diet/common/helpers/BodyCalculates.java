@@ -132,79 +132,6 @@ public class BodyCalculates {
         return choisedGoal;
     }
 
-    /*
-    Минимальные нагрузки (сидячая работа) - К=1.2
-    Немного дневной активности и легкие упражнения 1-3 раза в неделю - К=1.375
-    Тренировки 4-5 раз в неделю (или работа средней тяжести) - К= 1.4625
-    Интенсивные тренировки 4-5 раз в неделю - К=1.550
-    Ежедневные тренировки - К=1.6375
-    Ежедневные интенсивные тренировки или тренировки 2 раза в день - К=1.725
-    Тяжелая физическая работа или интенсивные тренировки 2 раза в день - К=1.9
-    */
-    public static Profile calculate(Context context, Profile profile) {
-        double BOO, SPK = 0, upLineSPK, downLineSPK, SDD = 0.1;
-        double fat, protein, carbohydrate;
-        String stressLevel = profile.getExerciseStress();
-        String difficultyLevel = profile.getDifficultyLevel();
-        int maxWater;
-
-
-        if (profile.isFemale()) {
-            BOO = (((9.99 * profile.getWeight()) + (6.25 * profile.getHeight())
-                    - (4.92 * profile.getAge())
-                    - 161) * 1.1);
-            maxWater = WATER_ON_KG_FEMALE * (int) profile.getWeight();
-        } else {
-            BOO =
-                    (((9.99 * profile.getWeight()) + (6.25 * profile.getHeight()) - (4.92 * profile.getAge())
-                            + 5) * 1.1);
-            maxWater = WATER_ON_KG_MALE * (int) profile.getWeight();
-        }
-
-        DecimalFormat df = new DecimalFormat("0.00");
-        BOO = Double.valueOf(df.format(BOO));
-
-        if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_none))) {
-            SPK = BOO * RATE_NONE;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_easy))) {
-            SPK = BOO * RATE_EASY;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_medium))) {
-            SPK = BOO * RATE_MEDIUM;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_hard))) {
-            SPK = BOO * RATE_HARD;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_hard))) {
-            SPK = BOO * RATE_UP_HARD;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_super))) {
-            SPK = BOO * RATE_SUPER;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_super))) {
-            SPK = BOO * RATE_UP_SUPER;
-        }
-
-
-        upLineSPK = SPK - COUNT_UP_LINE;
-        downLineSPK = SPK - COUNT_DOWN_LINE;
-
-        fat = upLineSPK * 0.2 / 9;
-        protein = upLineSPK * 0.3 / 4;
-        carbohydrate = upLineSPK * 0.5 / 3.75;
-
-        if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_easy))) {
-            profile.setMaxKcal((int) SPK);
-        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_normal))) {
-            profile.setMaxKcal((int) upLineSPK);
-        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard))) {
-            profile.setMaxKcal((int) downLineSPK);
-        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard_up))) {
-            profile.setMaxKcal((int) downLineSPK);
-        }
-
-        profile.setWaterCount(maxWater);
-        profile.setMaxFat((int) fat);
-        profile.setMaxProt((int) protein);
-        profile.setMaxCarbo((int) carbohydrate);
-        return profile;
-    }
-
     public static Profile calculateNew(Context context, Profile profile) {
 
         double BMR, KFA = 0, result, target = 0, FPCindex;
@@ -278,5 +205,37 @@ public class BodyCalculates {
         profile.setMaxProt((int) protein);
         profile.setMaxCarbo((int) carbohydrate);
         return profile;
+    }
+
+    public static Profile cloneProfile(Profile profile) {
+        Profile profileCalculate = new Profile();
+        profileCalculate.setHeight(profile.getHeight());
+        profileCalculate.setWeight(profile.getWeight());
+        profileCalculate.setAge(profile.getAge());
+        profileCalculate.setFemale(profile.isFemale());
+        profileCalculate.setExerciseStress(profile.getExerciseStress());
+        profileCalculate.setDifficultyLevel(profile.getDifficultyLevel());
+
+        return profileCalculate;
+    }
+
+    public static boolean isDefaultParams(Context context) {
+        Profile profile = UserDataHolder.getUserData().getProfile();
+        int userKcal = profile.getMaxKcal();
+        int userProt = profile.getMaxProt();
+        int userFat = profile.getMaxFat();
+        int userCarbo = profile.getMaxCarbo();
+
+
+        Profile profileDefaultMainParams = BodyCalculates.calculateNew(context, cloneProfile(profile));
+
+        if (userKcal == profileDefaultMainParams.getMaxKcal()
+                && userProt == profileDefaultMainParams.getMaxProt()
+                && userFat == profileDefaultMainParams.getMaxFat()
+                && userCarbo == profileDefaultMainParams.getMaxCarbo()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
