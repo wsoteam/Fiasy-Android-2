@@ -24,19 +24,22 @@ import butterknife.OnClick;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class WaterViewHolder extends RecyclerView.ViewHolder {
-  @BindView(R.id.tvTitleOfEatingCard) TextView tvTitleOfEatingCard;
   @BindView(R.id.ibtnOpenMenu) ImageButton ibtnOpenMenu;
   @BindView(R.id.tvEatingReminder) TextView tvEatingReminder;
   @BindView(R.id.waterStepView) WaterStepView waterStepView;
   @BindView(R.id.waterAchievement) CardView waterAchievement;
 
   private final float waterStep = WaterActivity.PROGRESS_STEP;
+  private final int WATER_MAX = 5;
   private int day, month, year;
+
+
 
   public WaterViewHolder(ViewGroup parent, String date) {
     super(LayoutInflater.from(parent.getContext()).inflate(R.layout.ms_item_water_list, parent, false));
     ButterKnife.bind(this, itemView);
     parseDate(date);
+    waterStepView.setMaxProgress((int)(WATER_MAX / waterStep));
   }
 
   private void parseDate(String str) {
@@ -47,9 +50,8 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
   }
 
   public void bind(Water water, Context context, String nameOfEatingGroup) {
-    final int WATER_MAX = 5;
+
     AtomicReference<String> cache = new AtomicReference<String>();
-    tvTitleOfEatingCard.setText(nameOfEatingGroup);
 
     if (water != null) {
       waterStepView.setStepNum((int) (water.getWaterCount() / waterStep), water.getWaterCount() < WATER_MAX);
@@ -75,7 +77,7 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
       float waterProgress = progress * waterStep;
       tvEatingReminder.setText(
           String.format(context.getString(R.string.main_screen_menu_water_count), waterProgress));
-      waterStepView.setStepNum(progress, progress < WATER_MAX / waterStep);
+      //waterStepView.setStepNum(progress, progress < WATER_MAX / waterStep);
       achievement(waterProgress >= usersMaxWater);
       if (cache.get() == null) {
         cache.set(WorkWithFirebaseDB.

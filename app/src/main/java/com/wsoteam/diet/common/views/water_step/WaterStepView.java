@@ -2,7 +2,6 @@ package com.wsoteam.diet.common.views.water_step;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.Gravity;
 import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
@@ -16,6 +15,9 @@ import android.widget.LinearLayout;
 import com.wsoteam.diet.R;
 
 public class WaterStepView extends LinearLayout implements View.OnClickListener {
+
+
+    private int MAX_PROGRESS;
 
     private int currentProgress;
 
@@ -49,8 +51,11 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getContext().getResources().getDisplayMetrics());
     }
 
+    public void setMaxProgress(int MAX_PROGRESS) {
+    this.MAX_PROGRESS = MAX_PROGRESS;
+    }
 
-    private void init() {
+  private void init() {
         View rootView = LayoutInflater.from(getContext()).inflate(R.layout.view_water, this);
         rlContainer = rootView.findViewById(R.id.rlContainer);
         rowLayoutParams.setMargins(0, rowMargin, 0, rowMargin);
@@ -68,30 +73,26 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
         rlContainer.addView(firstLinearLayout, rowLayoutParams);
     }
 
-    @Override
-    public void onClick(View view) {
-      //String TAG = "kkk";
-       int item = (int) view.getTag();
+  @Override
+  public void onClick(View view) {
+    int item = (int) view.getTag();
 
-      //Log.d(TAG, "onClick: item = " + item);
-      //Log.d(TAG, "onClick: cuerrntProg = " + currentProgress);
-
-
-      if (item <= currentProgress){
-         //Log.d(TAG, "onClick: <=");
-           currentProgress = item - 1;
-       } else {
-         //Log.d(TAG, "onClick: else");
-           currentProgress = item;
-       }
-      //Log.d(TAG, "onClick: item = " + item);
-      //Log.d(TAG, "onClick: cuerrntProg = " + currentProgress);
-      
-        if (listener != null) {
-          listener.onWaterClick(currentProgress);
-          //Log.d(TAG, "onClick: != null");
-        }
+    if (item <= currentProgress) {
+      currentProgress = item - 1;
+    } else {
+      currentProgress = item;
     }
+    setStepNum(currentProgress, MAX_PROGRESS == 0 || currentProgress < MAX_PROGRESS);
+    if (listener != null) {
+      listener.onWaterClick(currentProgress);
+    }
+  }
+
+  public void setStepNum(int _count) {
+    this.count = _count;
+    redrawView(count, MAX_PROGRESS == 0 || currentProgress < MAX_PROGRESS);
+    requestLayout();
+  }
 
     public void setStepNum(int _count, boolean _addMore) {
         this.count = _count;
@@ -113,7 +114,7 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
 
             if (row == 0) {
 
-                Log.d("kkk", "lineCount: " + lineCount + "count: " + count);
+
                 for (int i = 0; i < Math.min(lineCount, count); i++) {
                     ImageView imageView = (ImageView) firstLinearLayout.getChildAt(i);
                     imageView.setImageDrawable(mSelectedIcon);

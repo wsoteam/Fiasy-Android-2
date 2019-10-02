@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
+import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.common.views.water_step.WaterStepView
 import com.wsoteam.diet.model.Water
@@ -29,22 +30,33 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
 
   private val waterStep = WaterActivity.PROGRESS_STEP
   private val waterMaxValue = 5
+  private val userWaterMax: Float = UserDataHolder.getUserData()?.profile?.maxWater ?: 2f
   private val disposables = CompositeDisposable()
+  private var recyclerView: RecyclerView? = null
 
   private var water: Water? = null
 
   override fun onAttached(parent: RecyclerView) {
     super.onAttached(parent)
+    recyclerView = parent
     stepView.setMaxProgress((waterMaxValue / waterStep).toInt())
     stepView.setOnWaterClickListener { progress ->
       water?.waterCount = progress * waterStep
       waterReminder.text = String.format(itemView.context.getString(R.string.main_screen_menu_water_count), water?.waterCount)
-      Log.d("kkk", "new water count = ${water?.waterCount}")
+
+      if(water?.waterCount!! >= userWaterMax)  {
+        waterAchievement.visibility = View.VISIBLE
+        parent.scrollToPosition(adapterPosition)
+      }else {
+        waterAchievement.visibility = View.GONE
+      }
+
       if (water?.key == null){
         water?.key = WorkWithFirebaseDB.addWater(water)
       }else{
         WorkWithFirebaseDB.updateWater(water?.key, (progress * waterStep))
       }
+
     }
   }
 
@@ -52,6 +64,7 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
     super.onDetached(parent)
     disposables.clear()
     stepView.setOnWaterClickListener(null)
+    recyclerView = null
   }
 
   override fun onBind(parent: RecyclerView, position: Int) {
@@ -77,5 +90,11 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
     this.water = water
     stepView.setStepNum((water.waterCount / waterStep).toInt())
     waterReminder.text = String.format(itemView.context.getString(R.string.main_screen_menu_water_count), water.waterCount)
+    if(water.waterCount >= userWaterMax)  {
+      waterAchievement.visibility = View.VISIBLE
+      recyclerView?.scrollToPosition(adapterPosition)
+    }else {
+      waterAchievement.visibility = View.GONE
+    }
   }
 }

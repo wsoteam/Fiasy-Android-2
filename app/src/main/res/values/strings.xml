@@ -376,6 +376,7 @@
   <string name="main_screen_menu_water">Настройки для воды</string>
   <string name="main_screen_menu_water_count">%.2f л</string>
 
+
   <string name="water_screen_water_need_title">Общее</string>
   <string name="water_screen_water_normal">Ваша норма на каждый день</string>
   <string name="water_screen_water_1_0">1.0 л</string>

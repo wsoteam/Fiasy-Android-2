@@ -10,6 +10,8 @@ public class Water extends Eating implements Serializable {
   private int month;
   private int year;
   private float waterCount;
+  @Exclude
+  private String key;
 
   public Water() {
   }
@@ -91,6 +93,16 @@ public class Water extends Eating implements Serializable {
   @Exclude
   @Override public int getWeight() {
     return super.getWeight();
+  }
+
+  @Exclude
+  public String getKey() {
+    return key;
+  }
+
+  @Exclude
+  public void setKey(String key) {
+    this.key = key;
   }
 
   @NonNull @Override public String toString() {
