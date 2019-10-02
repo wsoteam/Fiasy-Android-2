@@ -7,6 +7,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.Const;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -237,5 +238,16 @@ public class BodyCalculates {
         } else {
             return false;
         }
+    }
+
+    public static void saveWeight(double weight, Context context){
+        Profile profile = UserDataHolder.getUserData().getProfile();
+        if (isDefaultParams(context)){
+            profile.setWeight(weight);
+            profile = calculateNew(context, profile);
+        }else {
+            profile.setWeight(weight);
+        }
+        WorkWithFirebaseDB.putProfileValue(profile);
     }
 }

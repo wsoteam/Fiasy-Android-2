@@ -83,7 +83,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
         tvTopText = getActivity().findViewById(R.id.tvYear);
         tvBottomText = getActivity().findViewById(R.id.tvDateInterval);
         tvMediumWeight = getActivity().findViewById(R.id.tvMediumWeight);
-        daysPresenter = new DaysPresenter();
+        daysPresenter = new DaysPresenter(getActivity());
         daysPresenter.attachView(this);
         return view;
     }

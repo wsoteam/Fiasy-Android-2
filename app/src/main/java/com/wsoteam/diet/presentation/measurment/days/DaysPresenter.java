@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.measurment.days;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -8,6 +9,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.presentation.measurment.ConfigMeasurment;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 
@@ -25,9 +27,15 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
     private final int START_POSITION = 0;
     private long oneDay = 86400000;
     private long currentTime;
-    HashMap<String, Weight> weights;
+    private HashMap<String, Weight> weights;
+    private Context context;
 
     public DaysPresenter() {
+    }
+
+
+    public DaysPresenter(Context context) {
+        this.context = context;
     }
 
     @Override
@@ -46,6 +54,7 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
 
     public void refreshUI(int position, Weight weight){
         reCalculateWeekData(getWeekInterval(position), weight);
+        BodyCalculates.saveWeight(weight.getWeight(), context);
     }
 
     void reCalculateWeekData(long[] weekInterval, @Nullable Weight newWeight){
