@@ -36,6 +36,7 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
     private HashMap<String, Chest> listChests;
     private HashMap<String, Waist> listWaist;
     private HashMap<String, Hips> listHips;
+    private final int NEVER_SAVE = 3000000;
 
 
     public MeasurmentPresenter() {
@@ -82,7 +83,7 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
         if (hips == null || hips.size() == 0){
             lastHips = null;
             hipsValueDiff = 0;
-            hipsTimeDiff = 0;
+            hipsTimeDiff = NEVER_SAVE;
         }else {
             List<String> keys = new ArrayList<>();
             Iterator iterator = hips.entrySet().iterator();
@@ -108,7 +109,7 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
         if (waist == null || waist.size() == 0){
             lastWaist = null;
             waistValuesDiff = 0;
-            waistTimeDiff = 0;
+            waistTimeDiff = NEVER_SAVE;
         }else {
             List<String> keys = new ArrayList<>();
             Iterator iterator = waist.entrySet().iterator();
@@ -134,7 +135,7 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
         if (chest == null || chest.size() == 0){
             lastChest = null;
             chestValueDiff = 0;
-            chestTimeDiff = 0;
+            chestTimeDiff = NEVER_SAVE;
         }else {
             List<String> keys = new ArrayList<>();
             Iterator iterator = chest.entrySet().iterator();
