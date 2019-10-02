@@ -80,7 +80,7 @@
                 android:text="Вес"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/radio_flat_text_selector"
+                android:textColor="@color/white"
                 android:textSize="11sp" />
 
             <RadioButton
@@ -95,7 +95,7 @@
                 android:text="Талия"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/radio_flat_text_selector"
+                android:textColor="@color/white"
                 android:textSize="11sp" />
 
             <RadioButton
@@ -110,7 +110,7 @@
                 android:text="Грудь"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/radio_flat_text_selector"
+                android:textColor="@color/white"
                 android:textSize="11sp" />
 
             <RadioButton
@@ -126,7 +126,7 @@
                 android:text="Бедра"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/radio_flat_text_selector"
+                android:textColor="@color/white"
                 android:textSize="11sp"/>
         </RadioGroup>
     </HorizontalScrollView>
