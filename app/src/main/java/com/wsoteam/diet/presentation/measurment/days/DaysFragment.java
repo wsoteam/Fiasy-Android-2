@@ -57,7 +57,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     private TextView tvTopText;
     private TextView tvBottomText;
     private String topText, bottomText, weekAverage;
-    private boolean[] isAvailableAdd = new boolean[]{false, false, false, false, false, false, false};
+    private boolean[] isAvailableAdd = new boolean[7];
     private Toast lockToast;
 
 
