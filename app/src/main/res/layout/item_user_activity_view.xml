@@ -23,6 +23,7 @@
         tools:text="Танцы"
         android:layout_toLeftOf="@id/activity_effectivity"
         android:textColor="#d9424242"
+        android:textSize="16sp"
         style="@style/TextAppearance.AppCompat.Title"
         />
 

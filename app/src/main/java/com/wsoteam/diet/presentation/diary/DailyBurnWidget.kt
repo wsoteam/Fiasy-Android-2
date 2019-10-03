@@ -31,9 +31,9 @@ class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
   private val leftCaloriesView: TextView = itemView.findViewById(R.id.progress_label_left)
   private val progressView: ProgressBar = itemView.findViewById(R.id.total_progress)
 
-  private val proteinsView: ExperienceProgressView = itemView.findViewById(R.id.progress_protein)
   private val fatsView: ExperienceProgressView = itemView.findViewById(R.id.progress_fats)
   private val carbonsView: ExperienceProgressView = itemView.findViewById(R.id.progress_carbons)
+  private val proteinsView: ExperienceProgressView = itemView.findViewById(R.id.progress_protein)
 
   private val disposables = CompositeDisposable()
 

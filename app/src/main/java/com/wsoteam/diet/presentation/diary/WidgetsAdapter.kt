@@ -15,6 +15,7 @@ class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
   private val widgets = intArrayOf(
       R.layout.widget_daily_calories,
       R.layout.fragment_current_day_plan,
+      R.layout.widget_user_weight,
       R.layout.widget_user_activities
   )
 
@@ -31,8 +32,8 @@ class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
     return when (viewType) {
       R.layout.fragment_current_day_plan -> MealPlanWidget(root)
       R.layout.widget_daily_calories -> DailyBurnWidget(root)
-      R.layout.widget_user_activities -> DiaryActivityWidget(
-          root)
+      R.layout.widget_user_weight -> UserWeightWidget(root)
+      R.layout.widget_user_activities -> DiaryActivityWidget(root)
 
       else -> throw IllegalArgumentException("$viewType unknown")
     }

@@ -1047,6 +1047,10 @@
   <string name="add_user_activity_hint">Введите название активности</string>
   <string name="widget_user_activity_title">Активности</string>
   <string name="widget_user_activity_show_all">Все</string>
+  <string name="calendar_today">Сегодня</string>
+  <string name="widget_weight_title">Измерение тела</string>
+  <string name="action_refresh">Обновить</string>
+
 
   <plurals name="duration_minutes">
     <item quantity="one">минуту</item>

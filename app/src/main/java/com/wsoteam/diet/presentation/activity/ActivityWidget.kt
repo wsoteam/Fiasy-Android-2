@@ -46,11 +46,7 @@ class ActivityWidget(context: Context) : CardView(context) {
 
     val addAction = RichText(context.getString(string.action_add))
       .onClick {
-        val fragment = EditUserActivityFragment()
-        fragment.diaryMode = true
-        fragment.editMode = false
-
-        display(fragment)
+        display(UserActivityFragment())
       }
       .colorRes(context, R.color.orange)
       .textScale(1.2f)
@@ -66,11 +62,7 @@ class ActivityWidget(context: Context) : CardView(context) {
         d.tint(context, R.color.orange), null)
 
     actionShowAll.setOnClickListener {
-      (it.context as FragmentActivity).supportFragmentManager
-        .beginTransaction()
-        .add(android.R.id.content, UserActivityFragment(), UserActivityFragment::class.simpleName)
-        .addToBackStack(null)
-        .commitAllowingStateLoss()
+      display(UserActivityFragment())
     }
   }
 
@@ -146,6 +138,7 @@ class ActivityWidget(context: Context) : CardView(context) {
     activity.supportFragmentManager
       .beginTransaction()
       .add(android.R.id.content, target, target::class.simpleName)
+      .addToBackStack(null)
       .commitAllowingStateLoss()
   }
 
