@@ -212,7 +212,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="81dp"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="75.5 кг"
                         android:textColor="#de2b2b2b"
                         android:textSize="32sp"
                         app:layout_constraintEnd_toEndOf="parent"

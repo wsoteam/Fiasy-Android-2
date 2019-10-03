@@ -183,8 +183,6 @@ public class MainActivity extends AppCompatActivity {
             loadDietPlans();
         }
         logEvents();
-
-
     }
 
     private void logEvents() {

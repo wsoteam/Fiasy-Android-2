@@ -104,8 +104,6 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
 
     private Spannable getPaintedString(Meas meas, int measDiffValue, boolean isOldData) {
         String measDiff = String.valueOf(measDiffValue);
-        String firstBracket = " (";
-        String secondBracket = ")";
         String valueUnit = getResources().getString(R.string.meas_cwh);
         String measValue = String.valueOf(meas.getMeas()) + " " + valueUnit;
         int colorDiff;
@@ -119,7 +117,7 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
 
         if (isOldData) colorDiff = getResources().getColor(R.color.old_meas);
 
-        String wholeText = measValue + firstBracket + measDiff + " " + valueUnit + secondBracket;
+        String wholeText = measValue + " (" + measDiff + " " + valueUnit + ")";
 
         Spannable spannable = new SpannableString(wholeText);
         spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.default_meas)), 0, measValue.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

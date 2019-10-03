@@ -24,8 +24,10 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class MeasHistoryFragment extends MvpAppCompatFragment implements MeasHistoryView {
-    MeasHistoryPresenter presenter;
     public static final String TYPE = "TYPE";
+
+
+    MeasHistoryPresenter presenter;
     @BindView(R.id.rvHistoryList) RecyclerView rvHistoryList;
     @BindView(R.id.ivEmptyState) ImageView ivEmptyState;
     @BindView(R.id.tvEmptyState) TextView tvEmptyState;
