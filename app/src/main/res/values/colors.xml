@@ -242,4 +242,6 @@
     <color name="unit_history_color">#8a000000</color>
     <color name="value_history_color">#ff931f</color>
 
+  <color name="water_blue">#2d9cdb</color>
+
 </resources>

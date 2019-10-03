@@ -141,7 +141,8 @@ public class BodyCalculates {
         double fat, protein, carbohydrate;
         String stressLevel = profile.getExerciseStress();
         String difficultyLevel = profile.getDifficultyLevel();
-        int maxWater;
+        int waterCount;
+        float maxWater = 2f;
 
         final double RATE_NONE = 1.2;
         final double RATE_EASY = 1.375;
@@ -159,11 +160,11 @@ public class BodyCalculates {
         if (profile.isFemale()) {
             FPCindex = 16;
             BMR = (10 * profile.getWeight() + 6.25 * profile.getHeight() - 5 * profile.getAge() - 161);
-            maxWater = WATER_ON_KG_FEMALE * (int) profile.getWeight();
+            waterCount = WATER_ON_KG_FEMALE * (int) profile.getWeight();
         } else {
             FPCindex = 36;
             BMR = (10 * profile.getWeight() + 6.25 * profile.getHeight() - 5 * profile.getAge() + 5);
-            maxWater = WATER_ON_KG_MALE * (int) profile.getWeight();
+            waterCount = WATER_ON_KG_MALE * (int) profile.getWeight();
         }
 
 
@@ -202,14 +203,14 @@ public class BodyCalculates {
         carbohydrate = (result * 0.35 / 4) - FPCindex;
 
 
-        profile.setWaterCount(maxWater);
+        profile.setWaterCount(waterCount);
         profile.setMaxKcal((int) result);
         profile.setMaxFat((int) fat);
         profile.setMaxProt((int) protein);
         profile.setMaxCarbo((int) carbohydrate);
+        profile.setMaxWater(maxWater);
 
         createWeightMeas(profile.getWeight());
-
         return profile;
     }
 

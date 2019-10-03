@@ -135,11 +135,7 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
 
     private boolean checkSubscribe() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-        if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
-            return true;
-        } else {
-            return false;
-        }
+        return sharedPreferences.getBoolean(Config.STATE_BILLING, false);
     }
 
     @Override public void onResume() {

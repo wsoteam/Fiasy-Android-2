@@ -1,7 +1,6 @@
 package com.wsoteam.diet.POJOProfile;
 
 import com.orm.SugarRecord;
-
 import java.io.Serializable;
 
 public class Profile extends SugarRecord implements Serializable {
@@ -27,6 +26,8 @@ public class Profile extends SugarRecord implements Serializable {
     private int maxFat;
     private int maxCarbo;
 
+    private float maxWater;
+
     private String difficultyLevel;
 
     private int numberOfDay;
@@ -36,7 +37,11 @@ public class Profile extends SugarRecord implements Serializable {
     public Profile() {
     }
 
-    public Profile(String firstName, String lastName, boolean isFemale, String email, int age, int height, double weight, double loseWeight, String exerciseStress, String photoUrl, int waterCount, int maxKcal, int maxProt, int maxFat, int maxCarbo, String difficultyLevel, int numberOfDay, int month, int year) {
+    public Profile(float maxWater, String firstName, String lastName, boolean isFemale,
+        String email, int age, int height, double weight, double loseWeight, String exerciseStress,
+        String photoUrl, int waterCount, int maxKcal, int maxProt, int maxFat, int maxCarbo,
+        String difficultyLevel, int numberOfDay, int month, int year) {
+        this.maxWater = maxWater;
         this.firstName = firstName;
         this.lastName = lastName;
         this.isFemale = isFemale;
@@ -77,6 +82,14 @@ public class Profile extends SugarRecord implements Serializable {
         this.numberOfDay = numberOfDay;
         this.month = month;
         this.year = year;
+    }
+
+    public float getMaxWater() {
+        return maxWater;
+    }
+
+    public void setMaxWater(float maxWater) {
+        this.maxWater = maxWater;
     }
 
     public int getNumberOfDay() {

@@ -33,7 +33,7 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
 
     public boolean calculateAndSave(String height, String weight, String age, String sex, String activity, String goal) {
         Profile profile = BodyCalculates.calculate(context, height, weight, age, sex, activity, goal);
-        UserProperty.setUserProperties(profile, context);
+        UserProperty.setUserProperties(profile, context, true);
         WorkWithFirebaseDB.putProfileValue(profile);
         return true;
     }
@@ -54,7 +54,7 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
         profile.setMaxCarbo(Integer.parseInt(carbo));
         profile.setMaxFat(Integer.parseInt(fats));
 
-        UserProperty.setUserProperties(profile, context);
+        UserProperty.setUserProperties(profile, context, true);
         WorkWithFirebaseDB.putProfileValue(profile);
         BodyCalculates.createWeightMeas(profile.getWeight());
     }

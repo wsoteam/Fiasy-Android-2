@@ -153,7 +153,7 @@ public class ActivitySplash extends BaseActivity {
 
                 new UserDataHolder().bindObjectWithHolder(user);
 
-                UserProperty.setUserProperties(UserDataHolder.getUserData().getProfile(), ActivitySplash.this);
+                UserProperty.setUserProperties(UserDataHolder.getUserData().getProfile(), ActivitySplash.this, false);
                 onSignedIn();
             }
 

@@ -26,6 +26,8 @@ import com.wsoteam.diet.presentation.profile.help.HelpActivity;
 import com.wsoteam.diet.presentation.profile.norm.ChangeNormActivity;
 import com.wsoteam.diet.presentation.promo.PromoFormActivity;
 
+import io.intercom.android.sdk.Intercom;
+
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
 
     Context context;
@@ -150,6 +152,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
     }
 
     private void exitUser() {
+        Intercom.client().logout();
         AuthStrategy.signOut(context);
         UserDataHolder.clearObject();
         Intent intent = new Intent(context, ActivitySplash.class).

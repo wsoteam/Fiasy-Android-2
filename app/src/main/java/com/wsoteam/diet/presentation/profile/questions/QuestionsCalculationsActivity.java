@@ -94,7 +94,7 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
         }
 
         if (profile != null) {
-            UserProperty.setUserProperties(profile, this);
+            UserProperty.setUserProperties(profile, this, false);
             WorkWithFirebaseDB.putProfileValue(profile);
 
         }

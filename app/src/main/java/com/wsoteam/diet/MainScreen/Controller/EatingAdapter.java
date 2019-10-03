@@ -1,6 +1,7 @@
 package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.model.Eating;
 
+import com.wsoteam.diet.model.Water;
 import java.util.List;
 
 public class EatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -28,6 +30,7 @@ public class EatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.context = context;
         this.data = data;
         this.updateCallback = updateCallback;
+
     }
 
     @NonNull
@@ -41,7 +44,7 @@ public class EatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case TYPE_SNACKS:
                 return new EatingViewHolder(layoutInflater, parent, context, data, updateCallback);
             case TYPE_WATER:
-                return new WaterViewHolder(layoutInflater, parent, context, data);
+                return new WaterViewHolder(parent, data);
             default:
                 throw new IllegalArgumentException("Invalid view type");
         }
@@ -71,7 +74,8 @@ public class EatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (holder instanceof EatingViewHolder) {
             ((EatingViewHolder) holder).bind(allEatingGroups.get(position), context, nameOfGroup);
         } else if (holder instanceof WaterViewHolder) {
-            ((WaterViewHolder) holder).bind(allEatingGroups.get(position), context, nameOfGroup);
+            ((WaterViewHolder) holder).bind(allEatingGroups.get(position).size() == 0 ? null :
+                (Water) (allEatingGroups.get(position).get(0)), context, nameOfGroup);
         }
     }
 

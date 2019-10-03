@@ -233,7 +233,8 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
 
   @Override public void onResume() {
     super.onResume();
-    initData(UserDataHolder.getUserData().getPlan());
+    initData(UserDataHolder.getUserData() != null ?
+        UserDataHolder.getUserData().getPlan() : null);
   }
 
 

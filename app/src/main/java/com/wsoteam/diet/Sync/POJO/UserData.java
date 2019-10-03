@@ -34,7 +34,7 @@ public class UserData implements Serializable {
     private HashMap<String, Lunch> lunches;
     private HashMap<String, Dinner> dinners;
     private HashMap<String, Snack> snacks;
-    private HashMap<String, Water> water;
+    private HashMap<String, Water> waters;
     private HashMap<String, WeightDiaryObject> diaryDataList;
     private HashMap<String, RecipeItem> recipes;
     private HashMap<String, FavoriteFood> foodFavorites;
@@ -51,13 +51,11 @@ public class UserData implements Serializable {
     public UserData() {
     }
 
-    public UserData(String name, Profile profile, SubInfo subInfo, TrackInfo trackInfo,
-                    CheckHistory checkHistory, HashMap<String, Breakfast> breakfasts,
-                    HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners,
-                    HashMap<String, Snack> snacks, HashMap<String, WeightDiaryObject> diaryDataList,
-                    HashMap<String, RecipeItem> recipes, HashMap<String, FavoriteFood> foodFavorites,
-                    HashMap<String, RecipeItem> favoriteRecipes, HashMap<String, CustomFood> customFoods,
-                    DietPlan plan, HashMap<String, FoodTemplate> foodTemplates, UserPromo userPromo, HashMap<String, Weight> weights,
+    public UserData(String name, Profile profile, SubInfo subInfo, TrackInfo trackInfo, CheckHistory checkHistory,
+                    HashMap<String, Breakfast> breakfasts, HashMap<String, Lunch> lunches, HashMap<String, Dinner> dinners,
+                    HashMap<String, Snack> snacks, HashMap<String, Water> waters, HashMap<String, WeightDiaryObject> diaryDataList,
+                    HashMap<String, RecipeItem> recipes, HashMap<String, FavoriteFood> foodFavorites, HashMap<String, RecipeItem> favoriteRecipes,
+                    HashMap<String, CustomFood> customFoods, HashMap<String, FoodTemplate> foodTemplates, DietPlan plan, UserPromo userPromo, HashMap<String, Weight> weights,
                     HashMap<String, Chest> chest, HashMap<String, Waist> waist, HashMap<String, Hips> hips) {
         this.name = name;
         this.profile = profile;
@@ -68,27 +66,19 @@ public class UserData implements Serializable {
         this.lunches = lunches;
         this.dinners = dinners;
         this.snacks = snacks;
-        this.water = water;
+        this.waters = waters;
         this.diaryDataList = diaryDataList;
         this.recipes = recipes;
         this.foodFavorites = foodFavorites;
         this.favoriteRecipes = favoriteRecipes;
         this.customFoods = customFoods;
-        this.plan = plan;
         this.foodTemplates = foodTemplates;
+        this.plan = plan;
         this.userPromo = userPromo;
         this.weights = weights;
         this.chest = chest;
         this.waist = waist;
         this.hips = hips;
-    }
-
-    public SubInfo getSubInfo() {
-        return subInfo;
-    }
-
-    public void setSubInfo(SubInfo subInfo) {
-        this.subInfo = subInfo;
     }
 
     public String getName() {
@@ -105,6 +95,30 @@ public class UserData implements Serializable {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    public SubInfo getSubInfo() {
+        return subInfo;
+    }
+
+    public void setSubInfo(SubInfo subInfo) {
+        this.subInfo = subInfo;
+    }
+
+    public TrackInfo getTrackInfo() {
+        return trackInfo;
+    }
+
+    public void setTrackInfo(TrackInfo trackInfo) {
+        this.trackInfo = trackInfo;
+    }
+
+    public CheckHistory getCheckHistory() {
+        return checkHistory;
+    }
+
+    public void setCheckHistory(CheckHistory checkHistory) {
+        this.checkHistory = checkHistory;
     }
 
     public HashMap<String, Breakfast> getBreakfasts() {
@@ -139,12 +153,12 @@ public class UserData implements Serializable {
         this.snacks = snacks;
     }
 
-    public HashMap<String, Water> getWater() {
-        return water;
+    public HashMap<String, Water> getWaters() {
+        return waters;
     }
 
-    public void setWater(HashMap<String, Water> water) {
-        this.water = water;
+    public void setWaters(HashMap<String, Water> waters) {
+        this.waters = waters;
     }
 
     public HashMap<String, WeightDiaryObject> getDiaryDataList() {
@@ -153,22 +167,6 @@ public class UserData implements Serializable {
 
     public void setDiaryDataList(HashMap<String, WeightDiaryObject> diaryDataList) {
         this.diaryDataList = diaryDataList;
-    }
-
-    public TrackInfo getTrackInfo() {
-        return trackInfo;
-    }
-
-    public void setTrackInfo(TrackInfo trackInfo) {
-        this.trackInfo = trackInfo;
-    }
-
-    public CheckHistory getCheckHistory() {
-        return checkHistory;
-    }
-
-    public void setCheckHistory(CheckHistory checkHistory) {
-        this.checkHistory = checkHistory;
     }
 
     public HashMap<String, RecipeItem> getRecipes() {
@@ -226,7 +224,6 @@ public class UserData implements Serializable {
     public void setUserPromo(UserPromo userPromo) {
         this.userPromo = userPromo;
     }
-
 
     public HashMap<String, Weight> getWeights() {
         return weights;

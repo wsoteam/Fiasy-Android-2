@@ -29,7 +29,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import com.amplitude.api.Amplitude;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,6 +47,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietModule;
 import com.wsoteam.diet.DietPlans.POJO.DietPlansHolder;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
+import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodDB;
@@ -168,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().add(R.id.flFragmentContainer, new FragmentDiary()).commit();
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        new AsyncWriteFoodDB().execute(MainActivity.this);
 
         if (GroupsHolder.getGroupsRecipes() == null) {
             loadRecipes();

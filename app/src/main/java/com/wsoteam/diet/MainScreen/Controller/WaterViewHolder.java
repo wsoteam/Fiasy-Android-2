@@ -2,99 +2,119 @@ package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.views.water_step.WaterStepView;
-import com.wsoteam.diet.model.Eating;
 import com.wsoteam.diet.model.Water;
 import com.wsoteam.diet.presentation.main.water.WaterActivity;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static android.content.Context.MODE_PRIVATE;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class WaterViewHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.tvTitleOfEatingCard) TextView tvTitleOfEatingCard;
-    @BindView(R.id.ivEatingIcon) ImageView ivEatingIcon;
-    @BindView(R.id.ibtnOpenMenu) ImageButton ibtnOpenMenu;
-    @BindView(R.id.tvEatingReminder) TextView tvEatingReminder;
-    @BindView(R.id.waterStepView) WaterStepView waterStepView;
-    private SharedPreferences sharedPreferences;
-    private boolean isButtonPressed = false;
-    private Context context;
-    private String data;
-    private List<Eating> waterGroup;
+  @BindView(R.id.tvTitleOfEatingCard) TextView tvTitleOfEatingCard;
+  @BindView(R.id.ibtnOpenMenu) ImageButton ibtnOpenMenu;
+  @BindView(R.id.tvEatingReminder) TextView tvEatingReminder;
+  @BindView(R.id.waterStepView) WaterStepView waterStepView;
+  @BindView(R.id.waterAchievement) CardView waterAchievement;
 
+  private final float waterStep = WaterActivity.PROGRESS_STEP;
+  private int day, month, year;
 
-    public WaterViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, Context context, String data) {
-        super(layoutInflater.inflate(R.layout.ms_item_water_list, viewGroup, false));
-        ButterKnife.bind(this, itemView);
-        this.context = context;
-        this.data = data;
-        sharedPreferences = context.getSharedPreferences(Config.WATER_SETTINGS, MODE_PRIVATE);
+  public WaterViewHolder(ViewGroup parent, String date) {
+    super(LayoutInflater.from(parent.getContext()).inflate(R.layout.ms_item_water_list, parent, false));
+    ButterKnife.bind(this, itemView);
+    parseDate(date);
+  }
+
+  private void parseDate(String str) {
+    String[] strDate = str.split("\\.");
+    day = Integer.parseInt(strDate[0]);
+    month = Integer.parseInt(strDate[1]);
+    year = Integer.parseInt(strDate[2]);
+  }
+
+  public void bind(Water water, Context context, String nameOfEatingGroup) {
+    final int WATER_MAX = 5;
+    AtomicReference<String> cache = new AtomicReference<String>();
+    tvTitleOfEatingCard.setText(nameOfEatingGroup);
+
+    if (water != null) {
+      waterStepView.setStepNum((int) (water.getWaterCount() / waterStep), water.getWaterCount() < WATER_MAX);
+      tvEatingReminder.setText(water.getWaterCount() + " л.");
+      cache.set(water.getUrlOfImages());
+
+      if (UserDataHolder.getUserData() != null
+          && UserDataHolder.getUserData().getProfile() != null) {
+        float maxWater = UserDataHolder.getUserData().getProfile().getMaxWater();
+        achievement(water.getWaterCount() >= maxWater);
+      }
+    } else {
+      tvEatingReminder.setText("0.0 л.");
     }
 
-    public void bind(List<Eating> waterGroup, Context context, String nameOfEatingGroup) {
-        this.waterGroup = waterGroup;
-        Glide.with(context).load(R.drawable.water_icon).into(ivEatingIcon);
-        tvTitleOfEatingCard.setText(nameOfEatingGroup);
 
-        float waterCount = getWaterProgressStepParameter() * (getWaterPackParameter() ? WaterActivity.PROGRESS_MAX_GLASS : WaterActivity.PROGRESS_MAX_BOTTLE) + 1;
-        tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), 0f, waterCount));
-        waterStepView.setOnWaterClickListener(progress -> {
-            float waterProgress = getWaterPackParameter() ? progress * WaterActivity.PROGRESS_MAX_GLASS : progress * WaterActivity.PROGRESS_MAX_BOTTLE;
-            tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), waterProgress, waterCount));
-            waterStepView.setStepNum(progress, waterProgress < WaterActivity.PROGRESS_MAX);
-            WorkWithFirebaseDB.
-                    addWater(new Water(progress, getWaterProgressStepParameter(), getWaterPackParameter()));
-        });
+    waterStepView.setOnWaterClickListener(progress -> {
+      float usersMaxWater = 2f;
+      if (UserDataHolder.getUserData() != null
+          && UserDataHolder.getUserData().getProfile() != null) {
+        usersMaxWater = UserDataHolder.getUserData().getProfile().getMaxWater();
+      }
+      float waterProgress = progress * waterStep;
+      tvEatingReminder.setText(
+          String.format(context.getString(R.string.main_screen_menu_water_count), waterProgress));
+      waterStepView.setStepNum(progress, progress < WATER_MAX / waterStep);
+      achievement(waterProgress >= usersMaxWater);
+      if (cache.get() == null) {
+        cache.set(WorkWithFirebaseDB.
+            addWater(new Water(day, month, year, waterProgress)));
+      } else {
+        WorkWithFirebaseDB.updateWater(cache.get(), (progress * waterStep));
+      }
+    });
+  }
+
+  @OnClick({ R.id.ibtnOpenMenu })
+  public void onViewClicked(View view) {
+    switch (view.getId()) {
+      case R.id.ibtnOpenMenu:
+        createPopupMenu(itemView.getContext(), ibtnOpenMenu);
+        break;
     }
+  }
 
-    @OnClick({R.id.ibtnOpenMenu})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ibtnOpenMenu:
-                createPopupMenu(context, ibtnOpenMenu);
-                break;
-        }
+  void achievement(boolean achiv) {
+    if (achiv) {
+      waterAchievement.setVisibility(View.VISIBLE);
+
+    } else {
+      waterAchievement.setVisibility(View.GONE);
     }
+  }
 
-    private void createPopupMenu(Context context, ImageButton ibtnOpenMenu) {
-        final PopupMenu popupMenu = new PopupMenu(context, ibtnOpenMenu);
-        popupMenu.inflate(R.menu.dots_popup_menu_water);
-        popupMenu.show();
-        popupMenu.setOnMenuItemClickListener(menuItem -> {
-            switch (menuItem.getItemId()) {
-                case R.id.water_settings:
-                    context.startActivity(new Intent(context, WaterActivity.class));
-                    break;
-            }
-            return false;
-        });
-    }
-
-    boolean getWaterPackParameter() {
-        return sharedPreferences.getBoolean(Config.WATER_PACK, true);
-    }
-
-    int getWaterProgressStepParameter() {
-        return sharedPreferences.getInt(Config.MAX_WATER_COUNT_STEP, 0);
-    }
-
+  private void createPopupMenu(Context context, ImageButton ibtnOpenMenu) {
+    final PopupMenu popupMenu = new PopupMenu(context, ibtnOpenMenu);
+    popupMenu.inflate(R.menu.dots_popup_menu_water);
+    popupMenu.show();
+    popupMenu.setOnMenuItemClickListener(menuItem -> {
+      switch (menuItem.getItemId()) {
+        case R.id.water_settings:
+          context.startActivity(new Intent(context, WaterActivity.class));
+          break;
+      }
+      return false;
+    });
+  }
 }

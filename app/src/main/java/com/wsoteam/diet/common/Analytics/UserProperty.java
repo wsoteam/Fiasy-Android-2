@@ -78,7 +78,7 @@ public class UserProperty {
     public static final String first_week = "first_week";
     public static final String first_month = "first_month";
 
-    public static void setUserProperties(Profile profile, Context context) {
+    public static void setUserProperties(Profile profile, Context context, boolean isChangeProfile) {
         try {
             String goal = "", active = "", sex;
             String userStressLevel = profile.getExerciseStress();
@@ -119,6 +119,7 @@ public class UserProperty {
             } else {
                 sex = UserProperty.q_male_status_male;
             }
+            if (!isChangeProfile) analLogIn();
             UserProperty.logProperties(sex, height, weight, age, active, goal, FirebaseAuth.getInstance().getCurrentUser().getUid(),
                     String.valueOf(profile.getMaxKcal()), String.valueOf(profile.getMaxProt()), String.valueOf(profile.getMaxFat()), String.valueOf(profile.getMaxCarbo()), profile.getFirstName());
         } catch (Exception ex) {
@@ -165,7 +166,7 @@ public class UserProperty {
                 .set(premium_status, status);
         Amplitude.getInstance().identify(identify);
 
-        signInIntercom();
+        //analLogIn();
         UserAttributes userAttributes = new UserAttributes.Builder()
                 .withCustomAttribute(premium_status, status)
                 .build();
@@ -177,21 +178,9 @@ public class UserProperty {
                 .set(registration, provider);
         Amplitude.getInstance().identify(identify);
 
-        signInIntercom();
+        //analLogIn();
         UserAttributes userAttributes = new UserAttributes.Builder()
                 .withCustomAttribute(registration, provider)
-                .build();
-        Intercom.client().updateUser(userAttributes);
-    }
-
-    public static void setEmail(String email) {
-        Identify identify = new Identify()
-                .set(EMAIL, email);
-        Amplitude.getInstance().identify(identify);
-
-        signInIntercom();
-        UserAttributes userAttributes = new UserAttributes.Builder()
-                .withCustomAttribute(EMAIL, email)
                 .build();
         Intercom.client().updateUser(userAttributes);
     }
@@ -203,7 +192,7 @@ public class UserProperty {
                 .set(first_month, month);
         Amplitude.getInstance().identify(identify);
 
-        //signInIntercom();
+        //analLogIn();
         UserAttributes userAttributes = new UserAttributes.Builder()
                 .withCustomAttribute(first_day, day)
                 .withCustomAttribute(first_week, week)
@@ -212,9 +201,22 @@ public class UserProperty {
         Intercom.client().updateUser(userAttributes);
     }
 
-    private static void signInIntercom() {
+    private static void analLogIn() {
+        Identify identify = new Identify()
+                .set(EMAIL, FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        Amplitude.getInstance().identify(identify);
+
         Registration registration = Registration.create().withUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
         Intercom.client().registerIdentifiedUser(registration);
         Intercom.client().handlePushMessage();
+        try {
+            UserAttributes userAttributes = new UserAttributes.Builder()
+                    .withName(UserDataHolder.getUserData().getProfile().getFirstName())
+                    .withEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+                    .build();
+            Intercom.client().updateUser(userAttributes);
+        } catch (Exception e) {
+
+        }
     }
 }

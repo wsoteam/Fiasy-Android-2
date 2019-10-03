@@ -140,7 +140,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
 
     @Override
     public void saveProfile(Profile profile) {
-        UserProperty.setUserProperties(profile, this);
+        UserProperty.setUserProperties(profile, this, false);
         presenter.saveProfile(isNeedShowOnboard, profile, createUser);
     }
 
