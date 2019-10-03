@@ -1,18 +1,22 @@
 package com.wsoteam.diet.presentation.diary
 
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.Tab
 import com.wsoteam.diet.DietPlans.POJO.DietPlan
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.presentation.plans.DateHelper
 import java.util.Calendar
+import java.util.concurrent.TimeUnit
 
-class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
+
+class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView), TabLayout.BaseOnTabSelectedListener<TabLayout.Tab> {
 
   private val recyclerView: RecyclerView = itemView.findViewById(R.id.recycler)
   private val tabLayout: TabLayout = itemView.findViewById(R.id.tabs)
@@ -58,8 +62,10 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
         return
       }
 
-      if (currentDate.after(endDay.time)){
-        finishPlan(plan)
+      if (currentDate.after(startDay.time) && currentDate.before(endDay.time)){
+        showRecipe(plan, TimeUnit.DAYS.convert(
+                (currentDate.time.minus(startDay.time.time)),
+                TimeUnit.MILLISECONDS).toInt())
         return
       }
 
@@ -69,6 +75,20 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
     }
 
 
+  }
+
+  private fun showRecipe(plan: DietPlan, day: Int){
+    Log.d("kkk", "kkk $day " )
+    activePlan.visibility = View.VISIBLE
+    notActivePlan.visibility = View.GONE
+    finishPlan.visibility = View.GONE
+
+    planName.text = "\"${plan.name}\""
+    dayText.text = String.format(
+        context.getString(R.string.planDays), day + 1,
+        plan.countDays
+    )
+//    planName.setOnClickListener(planListener)
   }
 
   private fun notActivePlan(){
@@ -89,4 +109,23 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
     notActivePlan.visibility = View.GONE
     finishPlan.visibility = View.GONE
   }
+
+  override fun onTabReselected(p0: Tab?) {
+    TODO(
+        "not implemented"
+    ) //To change body of created functions use File | Settings | File Templates.
+  }
+
+  override fun onTabUnselected(p0: Tab?) {
+    TODO(
+        "not implemented"
+    ) //To change body of created functions use File | Settings | File Templates.
+  }
+
+  override fun onTabSelected(p0: Tab?) {
+    TODO(
+        "not implemented"
+    ) //To change body of created functions use File | Settings | File Templates.
+  }
+
 }
