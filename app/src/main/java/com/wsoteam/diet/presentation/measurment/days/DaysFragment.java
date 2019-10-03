@@ -7,6 +7,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.wsoteam.diet.BranchOfExercises.ActivitiesProgramm.ActivityWithTiles;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.measurment.ConfigMeasurment;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
@@ -295,6 +298,13 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
 
     @Override
     public void showUpdateWeightToast() {
-        Toast.makeText(getActivity(), getString(R.string.meas_update_weight), Toast.LENGTH_SHORT).show();
+        Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_meas_update);
+        Toast updateToast = new Toast(getActivity());
+        updateToast.setView(LayoutInflater.from(getActivity()).inflate(R.layout.toast_meas_update, null));
+        updateToast.setGravity(Gravity.CENTER, 0, 0);
+        updateToast.setDuration(Toast.LENGTH_SHORT);
+        ImageView ivEllipse = updateToast.getView().findViewById(R.id.ivEllipse);
+        ivEllipse.startAnimation(animation);
+        updateToast.show();
     }
 }
