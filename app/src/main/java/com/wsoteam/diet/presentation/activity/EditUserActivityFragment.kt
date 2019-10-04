@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.R
@@ -49,6 +50,7 @@ class EditUserActivityFragment : DialogFragment() {
     doneButton = view.findViewById(R.id.action_done)
 
     if (editMode == true) {
+      toolbar.title = "Редактировать активность"
       doneButton.text = "Изменить"
     }
 
@@ -77,8 +79,10 @@ class EditUserActivityFragment : DialogFragment() {
 
         disposables.add(task.subscribeOn(Schedulers.io()).subscribe { r, error ->
           if (error != null) {
+            Toast.makeText(requireContext(), "Не удалось добавить", Toast.LENGTH_SHORT).show()
             error.printStackTrace()
           } else {
+            Toast.makeText(requireContext(), "Добавлено в Дневник", Toast.LENGTH_SHORT).show()
             dismissAllowingStateLoss()
           }
         })
@@ -172,8 +176,8 @@ class EditUserActivityFragment : DialogFragment() {
     val exerciseTemplate =
       getString(R.string.add_user_activity_duration_hint, pluralDuration)
 
-    val burned = RichText(getString(R.string.add_user_activity_burned, burned))
-      .color(R.color.black)
+    val burned = RichText(" = $burned")
+      .colorRes(requireContext(), R.color.orange)
       .bold()
       .text()
 

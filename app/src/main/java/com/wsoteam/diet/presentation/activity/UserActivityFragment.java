@@ -18,12 +18,9 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.collection.SparseArrayCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.common.views.wheels.WheelPicker;
-import com.wsoteam.diet.presentation.activity.ExercisesSource.AssetsSource;
 import com.wsoteam.diet.utils.Metrics;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -115,7 +112,8 @@ public class UserActivityFragment extends DialogFragment implements
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSuccess(e -> {
-                      Toast.makeText(requireContext(), "Добавлено в избранное", Toast.LENGTH_SHORT).show();
+                      Toast.makeText(requireContext(), "Добавлено в избранное", Toast.LENGTH_SHORT)
+                          .show();
                     })
                     .subscribe());
               }
@@ -149,9 +147,6 @@ public class UserActivityFragment extends DialogFragment implements
       }
     });
 
-    sources.put(R.string.user_activity_section_defaults,
-        new AssetsSource(getResources().getAssets()));
-
     //final GoogleFitSource googleFitSource = new GoogleFitSource(requireContext());
     //googleFitSource.ensurePermission(this);
     //sources.put(R.string.user_activity_section_google_fit, googleFitSource);
@@ -162,9 +157,12 @@ public class UserActivityFragment extends DialogFragment implements
     sources.put(R.string.user_activity_section_favorite,
         new FavoriteSource());
 
+    //sources.put(R.string.user_activity_section_defaults,
+    //    new AssetsSource(getResources().getAssets()));
+
     adapter.createSection(R.string.user_activity_section_my);
     adapter.createSection(R.string.user_activity_section_favorite);
-    adapter.createSection(R.string.user_activity_section_defaults);
+    //adapter.createSection(R.string.user_activity_section_defaults);
 
     fetchSources();
   }
@@ -189,22 +187,13 @@ public class UserActivityFragment extends DialogFragment implements
               .observeOn(AndroidSchedulers.mainThread())
               .doOnSuccess(
                   exercises -> {
-                    if (adapter.isExpanded(sourceId)) {
-                      final DiffUtil.DiffResult diff = ExercisesSource.calculateDiff(
-                          adapter.getItemsBySection(sourceId), exercises);
+                    adapter.clearSection(sourceId);
+                    adapter.addItems(sourceId, exercises);
 
-                      adapter.addItems(sourceId, exercises, diff);
-
-                      if (exercises.isEmpty()) {
-                        adapter.collapse(sourceId);
-                      }
+                    if (exercises.isEmpty() && !TextUtils.isEmpty(q)) {
+                      adapter.collapse(sourceId);
                     } else {
-                      adapter.clearSection(sourceId);
-                      adapter.addItems(sourceId, exercises);
-
-                      if (!exercises.isEmpty() || TextUtils.isEmpty(q)) {
-                        adapter.expand(sourceId);
-                      }
+                      adapter.expand(sourceId);
                     }
                   }
               )
