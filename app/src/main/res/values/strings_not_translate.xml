@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <integer-array name="left_drawables">
+    <item>@drawable/ic_left_settings_diamond</item>
+    <!--<item>@drawable/ic_left_settings_item_fork</item>-->
+    <item>@drawable/ic_left_settings_item_promo</item>
+    <item>@drawable/ic_left_settings_item_man</item>
+    <item>@drawable/ic_left_settings_item_kcal</item>
+    <!--<item>@drawable/ic_left_settings_item_bell</item>
+<item>@drawable/ic_left_settings_item_run</item>-->
+    <item>@drawable/ic_left_settings_item_help</item>
+    <item>@drawable/ic_left_settings_item_exit</item>
+  </integer-array>
+
+  <integer-array name="left_drawables_prem">
+    <!--<item>@drawable/ic_left_settings_item_fork</item>-->
+    <item>@drawable/ic_left_settings_item_promo</item>
+    <item>@drawable/ic_left_settings_item_man</item>
+    <item>@drawable/ic_left_settings_item_kcal</item>
+    <!--<item>@drawable/ic_left_settings_item_bell</item>
+<item>@drawable/ic_left_settings_item_run</item>-->
+    <item>@drawable/ic_left_settings_item_help</item>
+    <item>@drawable/ic_left_settings_item_exit</item>
+  </integer-array>
+
+  <!--  plan main screen-->
+  <string name="btnAddTemplate">Создать шаблон</string>
+  <string name="individualPlan">Индивидуальный план рассчитан</string>
+  <string name="recNorm">Рекомендуемая норма</string>
+  <string name="plan_start_text">Не знаете с чего начать? Попробуйте планы питания от нашего штатного диетолога.</string>
+  <string name="plan_profile_txt">План питания - %s</string>
+  <string name="view_plans">Посмотреть планы питания</string>
+  <string name="view_other_plans">Подобрать другой план питания</string>
+  <string name="plan_end_text">Ваша диета закончилась. Поздравляем!</string>
+  <string name="titleShareDialogPlan">Поделиться планом питания</string>
+  <string name="btnCancel">Отменить</string>
+  <string name="btnChange">Поменять</string>
+  <string name="tvInfo">Вы хотите сменить план питания? \nВаш план питания “%s” будет закрыт.</string>
+  <string name="planDays">День %d/%d</string>
+
+  <!--diets plan-->
+  <string name="plans">Планы питания</string>
+  <string name="plan">План питания</string>
+
+  <!--adding recipe-->
+  <string name="leavePlan">Выйти из диеты</string>
+  <string name="sharePlan">Подельтися</string>
+  <string name="load_recipe_plan_up">Загрузить предыдущие</string>
+  <string name="load_recipe_plan_down">Загрузить следующие</string>
+  <string name="days">дней</string>
+  <string name="join">Присоединиться</string>
+  <string name="add">Добавить</string>
+  <string name="cancel">Отменить</string>
+  <string name="addingRecipeText">В этом разделе будут храниться созданные вами рецепты</string>
+  <string name="favoriteRecipeText">В этом разделе будут храниться понравившиеся вам рецепты </string>
+  <string name="myRecipe">Свои рецепты</string>
+  <string name="favoriteRecipe">Понравившиеся</string>
+  <string name="recipes">Рецепты</string>
+  <string name="alertDialogSuccess">Рецепт сохранен</string>
+  <string name="instructions">Инструкции</string>
+  <string name="ingredients">Ингридиенты</string>
+  <string name="addingRecipePortionV">Вес:</string>
+  <string name="addingRecipeAddInstruction">Добавить шаг</string>
+  <string name="addingRecipeAddIngredient">Добавить ингридиент</string>
+  <string name="createRecipe">Создать рецепт</string>
+  <string name="btnBack">Назад</string>
+  <string name="btnNext">Далее</string>
+  <string name="addingRecipeName">Название блюда</string>
+
+  <string name="addingRecipePortion">Количество порций (необязательно)</string>
+  <string name="addingRecipeTime">Время приготовления (мин.)</string>
+
+  <!--Item Plan Recipe-->
+  <string name="addingRecipeShare">Могут видеть все пользователи</string>
+  <string name="addingRecipeInfo">Созданные вами и введенные в базу рецепты или продукты могут быть доступны для других пользователей. Пожалуйста, постарайтесь заполнить приведенную выше форму максимально точно и полно.</string>
+  <string name="complexityRecipe">Сложность:</string>
+  <string name="tvArticlePremText">Получите доступ к сотням полезных статей при подписке на premium.</string>
+  <string name="tvTitleArticleFragment">Полезные статьи</string>
+  <string name="titleShareDialogRecipe">Поделится рецептом</string>
+  <string name="tvItemPlanTime">Время готовки:</string>
+  <string name="tvItemPlanIngredients">Ингридиенты:</string>
+  <string name="tvRecipeInrgidientCount">на 1 порцию</string>
+  <string name="tvItemPlanMinute">минут</string>
+  <string name="tvNourishment">Питательные вещества</string>
+  <string name="tvOnePortion">на 1 порцию</string>
+  <string name="tvCarbohydrates">Углеводы</string>
+  <string name="tvCellulose">Клетчатка</string>
+  <string name="tvSugar">Сахар</string>
+  <string name="tvFat">Жиры</string>
+  <string name="tvSaturatedFats">Насыщеные</string>
+  <string name="tvUnSaturatedFats">Ненасыщеные</string>
+  <string name="tvProtein">Белки</string>
+  <string name="tvCholesterol">Холестерин</string>
+  <string name="tvSodium">Натрий</string>
+
+
+  <!--Types of body-->
+  <string name="policy_text">Fiasy Privacy Policy\n\nBy installing our mobile application or in any way using or accessing our Services,
+        you accept the terms and conditions of this Privacy Policy and the processing of your personal data.
+        \n\nPersonal data controller
+        \n\nResponsible for the processing of your personal data is:
+        \n\nCOMPANY NAME
+        \n\nIP Salamov Alexander
+        \n\nCORPORATE IDENTITY NO:
+        \n\n319500700005522
+        \n\nADDRESS
+        \n\n141551, Russia, Moscow obl., Solnechnogorskii, Andreevka, Staroandreevskaka street 43-231
+        \n\nE-MAIL
+        \n\ncontact@Fiasy.com
+        \n\nInformation about personal data we collect Fiasy.com</string>
+
+  <string-array name="names_items_help">
+    <item>Как получить доступ к Premium функциям?</item>
+    <item>Что такое Premium аккаунт?</item>
+    <item>Как редактировать свои данные?</item>
+    <item>Как добавить продукт в дневник питания?</item>
+    <item>Что такое дневник питания?</item>
+    <item>Я нашел ошибку, что мне делать?</item>
+    <item>Могу ли я использовать приложение на нескольких устройствах или переключаться между устройствами?</item>
+    <item>Приложение сбоит, что я могу сделать?</item>
+    <item>После ввода моих пользовательских данных ничего не происходит, в чем причина?</item>
+    <item>Я забыл свой пароль, что я могу сделать?</item>
+    <item>Как я могу изменить размеры порций?</item>
+    <item>Ваши собственные продукты</item>
+    <item>Продукты в базе данных</item>
+  </string-array>
+
+  <string-array name="texts_items_help">
+    <item>Что бы оформить Premium достаточно зайти в любой раздел, который недоступный для пользователей без премиальной подписки, и оформить подписку на него. В начале можно оформить пробную подписку на 3 дня, что бы посмотреть все функции.</item>
+    <item>Premium аккаунт - это пользовательский профиль с расширенным, премиальным функционалом. В таком аккаунте доступно большее количество планов питания, полезных статей, тренировок и т.д.</item>
+    <item>Для редактирования пользовательских данных необходимо зайти во вкладку "Профиль". Затем нажимаем на пиктограмму "Настроить свои параметры" или на значок карандаша возле фото профиля.</item>
+    <item>Все очень просто. Сначала нажимаем значок "+" внизу справа в дневнике питания. Затем выбираем время приема пищи. Потом вводим название продукта, например, "колбаса" в поле для поиска. Из списка предложенных продуктов выбираем нужный. В конце указываем количество употребленного продукта и  жмем "Добавить". Готово</item>
+    <item>Дневник питания - это дневник, в котором мы ежедневно фиксируем абсолютно всю информацию о съеденных продуктах по таким критериям: что вы съели и в каком количестве (вплоть до грамм), чем перекусывали на ходу; всё, что вы выпили (воду отдельно); в какое время был прием пищи. Дневник автоматически произведет пересчет употребленных продуктов в калории, белки, жиры и углеводы (КБЖУ).</item>
+    <item>Вы нашли ошибку в приложении или что-то не работает должным образом?
+Пожалуйста, отправьте запрос на нашу почту со следующей информацией:
+Подробное описание ошибки (где в приложении произошла ошибка и что вы делали до этого?)
+Вы используете приложение для Android или iOS?
+Какую версию вы установили?
+Если возможно, приложите скриншот.
+Большое спасибо за Вашу помощь!
+</item>
+    <item>Ваши данные и записи автоматически сохраняются на наших серверах. Это означает, что не имеет значения, какое устройство вы используете, если вы вошли в ту же учетную запись пользователя, вы можете без проблем пользоваться дневником питания.
+Если вы покупаете новый смартфон или планшет, вам не нужно предпринимать никаких действий для сохранения ваших данных. Просто войдите в систему на своем новом устройстве, указав данные своей учетной записи.
+Также можно одновременно использовать приложение на нескольких устройствах для обновления вашего дневника. Ваши данные и записи будут синхронизированы между двумя устройствами. Имейте в виду, что вам может потребоваться полностью закрыть и снова открыть приложение, чтобы увидеть новые записи в дневнике.</item>
+    <item>Вы пытаетесь использовать приложение интенсивно, но оно продолжает сбоить в определенной ситуации или на определенном экране?
+Мы очень сожалеем, что у вас возникли проблемы с приложением. Если это так, пожалуйста, выполните следующие действия:
+Пожалуйста, проверьте в Google Play или App Store, чтобы увидеть, есть ли новое обновление, доступное для приложения  - если да, пожалуйста, загрузите и установите обновление на свой телефон или планшет
+Если проблемы по-прежнему возникают, удалите приложение с телефона или планшета и снова загрузите и установите приложение.
+Пожалуйста, попробуйте описать сбой или проблему как можно более подробно.
+Скриншоты проблемы, которую вы испытываете, также будут полезны.
+Кроме того, сообщите нам, какую версию, какой телефон и операционную систему вы используете.
+Спасибо!
+</item>
+    <item>Вы забыли текущий пароль своей учетной записи и вам нужно создать новый пароль? Если вы вышли из приложения, пожалуйста, запустите приложение. Нажмите «Войти», а затем «Забыли пароль?», Чтобы запросить сброс пароля. Вы должны ввести адрес электронной почты, на котором вы зарегистрировали свою учетную запись. Как только вы это сделаете, мы отправим вам ссылку по электронной почте. После того, как вы открыли ссылку, вы можете выбрать новый пароль. После этого откройте приложение и войдите в систему с новым паролем. Если это не работает, обратите внимание на верхний / нижний регистр. Если это не помогло, пожалуйста, сбросьте пароль еще раз.</item>
+    <item>Если приложение не запускается должным образом после открытия или после ввода ваших пользовательских данных, причина в основном отсутствует или плохое подключение к Интернету. Пожалуйста, проверьте, активен ли ваш WiFi или у вас стабильное соединение с мобильным интернетом. Это также может помочь закрыть приложение и снова открыть его.</item>
+    <item>Существуют различные размеры порций, которые вы можете выбрать для каждого элемента в нашей базе данных продуктов питания. Для каждой записи мы стараемся предоставить максимально возможное количество порций, например, «чайную ложку» или «чашку», насколько это возможно. Если опция недоступна, всегда можно взвесить предмет и ввести его в таких единицах, как граммы или миллилитры. Мы постоянно работаем над улучшением и расширением нашей базы данных продуктов питания. </item>
+    <item>Когда вы создаете свою собственную запись еды в приложении, вы можете решить, какой тип порции вы хотели бы использовать. Пока вы не делаете элемент видимым для других пользователей, вы можете редактировать запись в любое время. В будущем мы планируем сделать эту опцию доступной и для опубликованных продуктов питания.</item>
+    <item>Как только вы добавите продукт из нашей базы данных в свой дневник, размер и количество выбранной порции будут сохранены и автоматически предложены при следующем добавлении того же продукта. Редактирование или добавление дополнительной информации в настоящее время недоступно. В этом случае вам нужно будет снова создать продукт.</item>
+
+  </string-array>
+
+</resources>
