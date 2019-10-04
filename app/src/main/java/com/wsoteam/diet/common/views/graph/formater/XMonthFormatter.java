@@ -1,9 +1,6 @@
 package com.wsoteam.diet.common.views.graph.formater;
 
-import android.util.Log;
-
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.wsoteam.diet.POJOSExercises.Ex;
 
 import java.util.ArrayList;
 
