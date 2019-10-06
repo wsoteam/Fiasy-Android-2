@@ -121,7 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:fontFamily="@font/roboto"
-                android:hint="Имя"
+                android:hint="@string/about_activity_name_hint"
                 android:inputType="textCapSentences"
                 android:maxLength="50"
                 android:textColor="#d9424242" />
@@ -145,7 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:fontFamily="@font/roboto"
-                android:hint="Фамилия"
+                android:hint="@string/about_activity_surname_hint"
                 android:inputType="textCapSentences"
                 android:maxLength="50"
                 android:textColor="#d9424242" />
@@ -168,7 +168,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:fontFamily="@font/roboto"
-                android:hint="Почта"
+                android:hint="@string/about_activity_email_hint"
                 android:inputType="textEmailAddress"
                 android:maxLength="50"
                 android:textColor="#d9424242" />

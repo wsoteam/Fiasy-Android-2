@@ -14,7 +14,8 @@
   <!--food_template-->
   <string name="subTestText">Попробуйте 7 дней бесплатно\n Далее 199 р. / месяц</string>
   <string name="individualPlanTxt">Вы достигнете своей цели уже через месяц, получив доступ к уникальным статьям о здоровом питании и сотни рецептов</string>
-  <string name="premium">Premium</string>
+  <string name="Premium">Premium</string>
+  <string name="premium">premium</string>
   <string name="nameTemplate">Название шаблона</string>
   <string name="eatingTemplate">Категория:</string>
   <string name="contextMenuDelete">Удалить</string>
@@ -264,8 +265,9 @@
   <string name="water_achievement_title_2">Поздравляем!</string>
   <string name="water_achievement_txt_2">Вы выпили ежеденевную норму воды! Продолжайте в том же духе!</string>
 
-  <!--Water Screen-->
-  <string name="gramm">г</string>
+
+  <string name="g">г</string>
+  <string name="gram">грамм</string>
 
   <string name="kcal">Ккал</string>
   <string name="input_weight_of_eating">Введите вес порции</string>
@@ -492,4 +494,57 @@
     <item>Тренировки 5-7 раз в неделю по два раза в день</item>
     <item>Тяжелая физическая работа или ежедневные интенсивные тренировки по 2 раза в день</item>
   </string-array>
+
+
+  <string name="about_activity_name_hint">Имя</string>
+  <string name="about_activity_surname_hint">Фамилия</string>
+  <string name="about_activity_email_hint">Почта</string>
+  
+  <string name="activity_change_norm_example_gender">Мужской</string>
+  <string name="activity_change_norm_example_height">180 см</string>
+  <string name="activity_change_norm_example_weight">75 кг</string>
+  <string name="activity_change_norm_example_age">25 лет</string>
+  <string name="activity_change_norm_example_training">Ежедневные интенсивные тренировки</string>
+  <string name="activity_change_norm_example_target">Сохранение мышц и сжигание жира</string>
+
+  <string name="activity_create_food_main_information">Основная информация</string>
+
+  <string name="activity_create_food_template_section">Категория</string>
+
+  <string name="activity_detail_food_name">Название продукта</string>
+  <string name="activity_detail_food_portion">Расчет порции</string>
+  <string name="activity_detail_food_0_kkal">0 Ккал</string>
+  <string name="activity_detail_food_0_gram">0 г</string>
+  <string name="activity_detail_food_3_3_g">3.3 г</string>
+  <string name="activity_detail_food_add">добавить</string>
+  <string name="activity_detail_food_save">сохранить</string>
+  <string name="activity_detail_food_nutrients">Питательные вещества</string>
+  <string name="activity_detail_food_to_100_g">на 100 г\u0020</string>
+  <string name="activity_detail_food_1234">1234</string>
+  <string name="activity_detail_food_bug_report">Сообщить об ошибке</string>
+  <string name="activity_detail_of_food_add_in_diary">добавить в дневник</string>
+  <string name="activity_detail_saved_food">Состав продукта</string>
+  <string name="activity_detail_saved_food_other">Другое</string>
+
+  <string name="Proteins">Белки</string>
+  <string name="Fats">Жиры</string>
+  <string name="Cholesterol">Холестерин</string>
+  <string name="Sodium">Натрий</string>
+  <string name="Potassium">Калий</string>
+  <string name="Carbohydrates">Углеводы</string>
+  <string name="Cellulose">Клетчатка</string>
+  <string name="Sugar">Сахар</string>
+  <string name="Saturated">Насыщенные</string>
+  <string name="Monounsaturated">Мононенасыщенные</string>
+  <string name="Polyunsaturated">Полиненасыщенные</string>
+  <string name="Kilojoule">Килоджоули</string>
+  <string name="kJ">кДж</string>
+  <string name="Calories">Калории</string>
+
+  <string name="activity_item_plans_def_value">00</string>
+  <string name="activity_list_and_search_searсh">\u0020\u0020\u0020\u0020\u0020\u0020\u0020Поиск</string>
+
+  <string name="activity_main_new_burnt">0\nсожжено</string>
+  <string name="activity_main_new_daily_rate">Ежедневная норма =</string>
+
 </resources>

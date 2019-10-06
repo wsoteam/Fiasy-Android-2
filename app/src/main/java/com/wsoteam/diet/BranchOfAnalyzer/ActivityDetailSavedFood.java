@@ -14,8 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amplitude.api.Amplitude;
-import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
@@ -72,10 +70,10 @@ public class ActivityDetailSavedFood extends AppCompatActivity {
                     if (!edtWeight.getText().toString().equals("")) {
                         calculateMainParameters(charSequence);
                     } else {
-                        tvCalculateProtein.setText("0 " + getString(R.string.gramm));
+                        tvCalculateProtein.setText("0 " + getString(R.string.g));
                         tvCalculateKcal.setText("0 " + getString(R.string.kcal));
-                        tvCalculateCarbohydrates.setText("0 " + getString(R.string.gramm));
-                        tvCalculateFat.setText("0 " + getString(R.string.gramm));
+                        tvCalculateCarbohydrates.setText("0 " + getString(R.string.g));
+                        tvCalculateFat.setText("0 " + getString(R.string.g));
                     }
                 }
             }
@@ -163,10 +161,10 @@ public class ActivityDetailSavedFood extends AppCompatActivity {
     private void calculateMainParameters(CharSequence stringPortion) {
         double portion = Double.parseDouble(stringPortion.toString());
 
-        tvCalculateProtein.setText(String.valueOf(Math.round(portion * proteins)) + " " + getString(R.string.gramm));
+        tvCalculateProtein.setText(String.valueOf(Math.round(portion * proteins)) + " " + getString(R.string.g));
         tvCalculateKcal.setText(String.valueOf(Math.round(portion * calories)) + " " + getString(R.string.kcal));
-        tvCalculateCarbohydrates.setText(String.valueOf(Math.round(portion * carbo)) + " " + getString(R.string.gramm));
-        tvCalculateFat.setText(String.valueOf(Math.round(portion * fats)) + " " + getString(R.string.gramm));
+        tvCalculateCarbohydrates.setText(String.valueOf(Math.round(portion * carbo)) + " " + getString(R.string.g));
+        tvCalculateFat.setText(String.valueOf(Math.round(portion * fats)) + " " + getString(R.string.g));
 
     }
 

@@ -112,7 +112,7 @@
                             android:hint="@string/change_sex"
                             android:inputType="textCapSentences"
                             android:maxLength="50"
-                            android:text="Мужской"
+                            android:text="@string/activity_change_norm_example_gender"
                             android:textColor="#80424242"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -133,7 +133,7 @@
                             android:hint="@string/change_height"
                             android:inputType="number"
                             android:maxLength="3"
-                            android:text="180 см"
+                            android:text="@string/activity_change_norm_example_height"
                             android:textColor="#d9424242"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -154,7 +154,7 @@
                             android:hint="@string/change_weight"
                             android:inputType="numberDecimal"
                             android:maxLength="5"
-                            android:text="75 кг"
+                            android:text="@string/activity_change_norm_example_weight"
                             android:textColor="#d9424242"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -175,7 +175,7 @@
                             android:hint="@string/change_age"
                             android:inputType="number"
                             android:maxLength="3"
-                            android:text="25 лет"
+                            android:text="@string/activity_change_norm_example_age"
                             android:textColor="#d9424242"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -195,7 +195,7 @@
                             android:focusableInTouchMode="false"
                             android:fontFamily="@font/roboto_medium"
                             android:hint="@string/change_activity"
-                            android:text="Ежедневные интенсивные тренировки"
+                            android:text="@string/activity_change_norm_example_training"
                             android:textColor="#d9424242"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -216,7 +216,7 @@
                             android:fontFamily="@font/roboto_medium"
                             android:hint="@string/change_goal"
                             android:inputType="textCapSentences"
-                            android:text="Сохранение мышц и сжигание жира"
+                            android:text="@string/activity_change_norm_example_target"
                             android:background="@color/transparent"
                             android:textColor="#d9424242"
                             android:layout_marginLeft="3dp"
