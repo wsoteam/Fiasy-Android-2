@@ -146,7 +146,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     tvTopText.setText(topText);
     tvBottomText.setText(bottomText);
     if (weekAverage.equals(EMPTY_WEEK)) {
-      tvMediumWeight.setText("--");
+      tvMediumWeight.setText(EMPTY_WEEK_TEXT);
     } else {
       tvMediumWeight.setText(weekAverage + " " + getString(R.string.meas_kg));
     }
