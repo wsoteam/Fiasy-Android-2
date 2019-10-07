@@ -37,6 +37,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
   private static final String POSITION = "POSITION";
   private static final String EMPTY_WEEK = "0.0";
   private static final String EMPTY_WEEK_TEXT = "--";
+  private static final int CURRENT_WEEK_POSITION = 0;
 
   private Animation animation;
   @BindView(R.id.tvMonday) TextView tvMonday;
@@ -71,6 +72,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
   private String topText, bottomText, weekAverage;
   private boolean[] isAvailableAdd = new boolean[7];
   private Toast lockToast;
+  private Toast updateToast;
 
   @Override
   public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -108,6 +110,9 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
   public void onResume() {
     super.onResume();
     daysPresenter.updateUI(currentPosition);
+    if (currentPosition == CURRENT_WEEK_POSITION){
+      createUpdateWeightToast();
+    }
     if (getUserVisibleHint()) {
       setUserVisibleHint(true);
     }
@@ -309,13 +314,18 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
 
   @Override
   public void showUpdateWeightToast() {
-    Toast updateToast = new Toast(getActivity());
-    updateToast.setView(
-        LayoutInflater.from(getActivity()).inflate(R.layout.toast_meas_update, null));
-    updateToast.setGravity(Gravity.CENTER, 0, 0);
-    updateToast.setDuration(Toast.LENGTH_SHORT);
     ImageView ivEllipse = updateToast.getView().findViewById(R.id.ivEllipse);
     ivEllipse.startAnimation(animation);
     updateToast.show();
   }
+
+  private void createUpdateWeightToast() {
+    updateToast = new Toast(getActivity());
+    updateToast.setView(
+        LayoutInflater.from(getActivity()).inflate(R.layout.toast_meas_update, null));
+    updateToast.setGravity(Gravity.CENTER, 0, 0);
+    updateToast.setDuration(Toast.LENGTH_SHORT);
+  }
+
+
 }
