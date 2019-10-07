@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
+import android.widget.ImageButton;
 import androidx.appcompat.app.AlertDialog;
 
 import com.wsoteam.diet.R;
@@ -29,9 +30,9 @@ public class WeightDialog {
         kPicker = view.findViewById(R.id.whlWeightKiloPicker);
         Button btnSave = view.findViewById(R.id.btnSave);
         Button btnCancel = view.findViewById(R.id.btnCancel);
+        ImageButton ibDelete = view.findViewById(R.id.ibDelete);
         int valueKilo = (int) weight.getWeight();
         kPicker.setSelectedWeight(valueKilo);
-        Log.e("LOL", String.valueOf(weight.getWeight()));
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +51,15 @@ public class WeightDialog {
             }
         });
 
+        ibDelete.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                Weight newWeight = getEmptyWeight(weight);
+                WorkWithFirebaseDB.setWeight(newWeight, String.valueOf(newWeight.getTimeInMillis()));
+                callback.update(newWeight);
+                alertDialog.cancel();
+            }
+        });
+
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         alertDialog.setView(view);
         alertDialog.show();
@@ -60,6 +70,11 @@ public class WeightDialog {
         double gramm = gPicker.getSelectedWeight();
         double globalValue = kilo + gramm / 1000;
         weight.setWeight(globalValue);
+        return weight;
+    }
+
+    private static Weight getEmptyWeight(Weight weight) {
+        weight.setWeight(0);
         return weight;
     }
 }
