@@ -54,7 +54,7 @@
         style="@style/Question.NextButton"
         android:layout_marginTop="12dp"
         android:fontFamily="sans-serif-medium"
-        android:text="далее"
+        android:text="@string/activity_new_intro_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabDots" />

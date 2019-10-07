@@ -160,4 +160,15 @@
 
   </string-array>
 
+  <string name="activity_blocked_detail_plans_recipes">рецептов</string>
+  <string name="activity_blocked_detail_plans_users">участников</string>
+  <string name="activity_blocked_detail_plans_motivation">Весьма мотивирующий текст, который поднимет в человеке веру в себя, свои возможности.</string>
+
+  <string name="activity_blocked_recipe_0_kcal">0 ккал на порцию</string>
+  <string name="value_00">00</string>
+
+  <string name="activity_detail_saved_food_def_value">activity_detail_food_0_gram</string>
+  
+  <string name="activity_plan_recipes_0_kcal">0 ккал на порцию</string>
+  <string name="activity_plan_recipes_method">Способ приготовления</string>
 </resources>

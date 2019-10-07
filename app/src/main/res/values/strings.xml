@@ -11,6 +11,7 @@
   <string name="breakfast">Завтрак</string>
   <string name="lunch">Обед</string>
   <string name="dinner">Ужин</string>
+  <string name="snack">Перекус</string>
   <!--food_template-->
   <string name="subTestText">Попробуйте 7 дней бесплатно\n Далее 199 р. / месяц</string>
   <string name="individualPlanTxt">Вы достигнете своей цели уже через месяц, получив доступ к уникальным статьям о здоровом питании и сотни рецептов</string>
@@ -540,11 +541,62 @@
   <string name="Kilojoule">Килоджоули</string>
   <string name="kJ">кДж</string>
   <string name="Calories">Калории</string>
+  <string name="Calories_2">Калорий</string>
 
   <string name="activity_item_plans_def_value">00</string>
   <string name="activity_list_and_search_searсh">\u0020\u0020\u0020\u0020\u0020\u0020\u0020Поиск</string>
 
   <string name="activity_main_new_burnt">0\nсожжено</string>
   <string name="activity_main_new_daily_rate">Ежедневная норма =</string>
+
+  <string name="activity_new_intro_next">далее</string>
+
+  <string name="activity_profile_profile">Профиль</string>
+  <string name="activity_profile_week">Неделя</string>
+  <string name="activity_profile_month">Месяц</string>
+  <string name="activity_profile_year">Год</string>
+  <string name="activity_profile_names">Иван Иванов</string>
+  <string name="activity_profile_235_g">235 г</string>
+  <string name="activity_profile_60_g">60 г</string>
+  <string name="activity_profile_daily_rate">Ежедневная норма -\u0020</string>
+  <string name="activity_profile_plan">План питания -\u0020</string>
+  <string name="activity_profile_standard">стандартный</string>
+  <string name="activity_profile_1800_kcal">1800 ккал</string>
+  <string name="activity_profile_protein">белков</string>
+  <string name="activity_profile_carbohydrates">углеводов</string>
+  <string name="activity_profile_fats">жиров</string>
+  <string name="activity_profile_reports">Отчеты</string>
+  <string name="activity_profile_2019">2019</string>
+  <string name="activity_profile_date">10.06 &#8211; 17.06</string>
+  <string name="activity_profile_future_value">Будущие значения</string>
+  <string name="activity_profile_current_value">Ваше значение</string>
+
+  <string name="activity_profile_settings_settings">Настройки</string>
+
+  <string name="activity_promo_form_enter_code">Ввести промокод</string>
+  <string name="activity_promo_form_confirm">подтвердить</string>
+
+  <string name="adding_recipe_menu_close">Close</string>
+
+  <string name="alert_dialog_buy_sub_info_congratulations">Поздравляем!</string>
+  <string name="alert_dialog_buy_sub_info_txt">Теперь вы можете пользоваться всеми преимуществами Premium аккаунта</string>
+
+  <string name="alert_dialog_change_food_in_template_already">Этот продукт уже есть в вашем списке.</string>
+  <string name="alert_dialog_change_food_in_template_change_request">Вы хотите изменить вес выбранного продукта?</string>
+  <string name="alert_dialog_change_food_in_template_change">Изменить</string>
+  <string name="alert_dialog_change_food_in_template_cancel">Отменить</string>
+
+
+  <string name="alert_dialog_choice_difficulty_level_complexity">Сложность</string>
+  <string name="alert_dialog_choice_difficulty_level_information">Этот показатель в любой момент можно поменять в настройках</string>
+
+  <string name="alert_dialog_confirm_question">Вы уверены, что хотите удалить \nвыбранные элементы?</string>
+  <string name="alert_dialog_confirm_cancel">Отменить</string>
+  <string name="alert_dialog_confirm_delete">Удалить</string>
+
+  <string name="alert_dialog_from_claim_condition">Мин. 10 символов</string>
+  <string name="alert_dialog_from_claim_send">Отправить</string>
+  <string name="alert_dialog_from_claim_cancel">Cancel</string>
+  <string name="alert_dialog_from_claim_describe">Опишите проблему</string>
 
 </resources>
