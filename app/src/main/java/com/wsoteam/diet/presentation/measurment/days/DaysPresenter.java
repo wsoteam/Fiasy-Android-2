@@ -191,7 +191,9 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
         calendar = DateAndTime.dropTime(calendar);
         long[] weekInterval = new long[7];
         int week = calendar.get(Calendar.WEEK_OF_YEAR);
-        calendar.set(Calendar.WEEK_OF_YEAR, week + position);
+        int diff = week + position;
+        calendar.set(Calendar.WEEK_OF_YEAR, diff);
+        int dd = calendar.get(Calendar.WEEK_OF_YEAR); // without this not work setUp week of year, lol
         calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
         for (int i = 0; i < 7; i++) {
             weekInterval[i] = calendar.getTimeInMillis() + oneDay * i;
@@ -223,4 +225,5 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
     public double getCurrentWeight() {
         return UserDataHolder.getUserData().getProfile().getWeight();
     }
+
 }
