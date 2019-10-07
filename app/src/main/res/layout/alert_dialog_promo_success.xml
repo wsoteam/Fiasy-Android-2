@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Поздравляем!"
+            android:text="@string/alert_dialog_promo_success_congratulations"
             android:fontFamily="@font/roboto_medium"
             android:textSize="24sp"
             android:textColor="#c0000000"
@@ -38,7 +38,7 @@
             android:fontFamily="@font/roboto_medium"
             android:layout_marginTop="12dp"
             android:layout_gravity="center"
-            android:text="Теперь вы можете пользоваться всеми \nпреимуществами Premium аккаунта"/>
+            android:text="@string/alert_dialog_promo_success_information"/>
 
         <Button
             android:id="@+id/btnOk"
@@ -52,7 +52,7 @@
             android:fontFamily="@font/roboto_bold"
             android:paddingLeft="46dp"
             android:paddingRight="46dp"
-            android:text="приступить"
+            android:text="@string/alert_dialog_promo_success_proceed"
             android:textColor="@color/white"
             android:textSize="14sp" />
 

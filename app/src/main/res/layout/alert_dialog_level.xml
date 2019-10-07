@@ -16,7 +16,7 @@
         android:paddingTop="16dp"
         android:paddingRight="8dp"
         android:paddingBottom="16dp"
-        android:text="Физическая активность"
+        android:text="@string/alert_dialog_level_title"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="20sp"

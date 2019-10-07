@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivMain"
         style="@style/TextAppearance.AppCompat.Title"
-        android:text="Зарегистрироваться с\nпомощью"/>
+        android:text="@string/fragment_auth_first_reg_with"/>
 
     <ImageView
         android:id="@+id/auth_strategy_facebook"
@@ -78,7 +78,7 @@
             android:textColor="#61000000"
             android:textSize="14sp"
             android:textStyle="normal"
-            android:text="или"
+            android:text="@string/fragment_auth_first_or"
             />
 
         <View
@@ -99,7 +99,7 @@
         android:background="@drawable/new_auth_button_background"
         android:elevation="3dp"
         android:gravity="center"
-        android:text="регистрация по email"
+        android:text="@string/fragment_auth_first_email"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textStyle="bold"

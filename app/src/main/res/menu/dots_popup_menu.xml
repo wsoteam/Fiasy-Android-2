@@ -4,7 +4,7 @@
     <group android:id="@+id/menugroup1">
         <item
             android:id="@+id/add_food_dots"
-            android:title="Добавить еду" />
+            android:title="@string/dots_popup_menu_eating" />
         <!--<item
             android:id="@+id/user_note_dots"
             android:title="Пользовательская запись" />-->

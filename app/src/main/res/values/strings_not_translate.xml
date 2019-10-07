@@ -171,4 +171,14 @@
   
   <string name="activity_plan_recipes_0_kcal">0 ккал на порцию</string>
   <string name="activity_plan_recipes_method">Способ приготовления</string>
+
+  <string name="fragment_adding_recipe_result_description">Описание рецепта</string>
+  <string name="fragment_adding_recipe_result_name">Название рецепта</string>
+  <string name="fragment_adding_recipe_result_time">Время приготовления (мин.)</string>
+  <string name="fragment_adding_recipe_result_complexity">Сложность</string>
+
+  <string name="fragment_current_day_plan_days">День 0/0</string>
+
+
+
 </resources>

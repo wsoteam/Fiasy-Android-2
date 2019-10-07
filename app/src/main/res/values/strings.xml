@@ -599,4 +599,68 @@
   <string name="alert_dialog_from_claim_cancel">Cancel</string>
   <string name="alert_dialog_from_claim_describe">Опишите проблему</string>
 
+  <string name="alert_dialog_grade_if_like">Если вам нравится наше приложение, \nпоставьте оценку и напишите свой отзыв.</string>
+  <string name="alert_dialog_grade_review">Отзыв</string>
+  <string name="alert_dialog_grade_thx">Спасибо за оценку!</string>
+  <string name="alert_dialog_grade_estimate">Оценить</string>
+
+  <string name="alert_dialog_level_title">Физическая активность</string>
+
+  <string name="alert_dialog_plan_joined_done">Готово!</string>
+  <string name="alert_dialog_plan_joined_ok">Вы присоединились</string>
+
+  <string name="alert_dialog_promo_success_congratulations">Поздравляем!</string>
+  <string name="alert_dialog_promo_success_information">Теперь вы можете пользоваться всеми \nпреимуществами Premium аккаунта</string>
+  <string name="alert_dialog_promo_success_proceed">приступить</string>
+  
+  <string name="alert_dialog_success_add_food_added">Продукт добавлен</string>
+
+  <string name="bottom_navigation_panel_ok">OK</string>
+  
+  <string name="bottom_sheet_need_account">Для продолжения вам \nпонадобится аккаунт в Fiasy</string>
+  <string name="bottom_sheet_reg_type">Регистрация по телефону или почте</string>
+
+  <string name="cards_fragment_subscription_start_trial">Начать пробный период</string>
+  <string name="cards_fragment_subscription_info">Получите полный доступ \n к эксклюзивным статьям и рецептам</string>
+
+  <string name="checkable_card_view_description">Description</string>
+  
+  <string name="create_template_menu_close">Close</string>
+  
+  <string name="detail_activity_question">Вопрос</string>
+
+  <string name="detail_plans_day_item_day_13">День 13</string>
+
+  <string name="detail_plans_recipe_item_recipe_added">Рецепт добавлен</string>
+  <string name="detail_plans_recipe_item_n_kcal">175 ккал\u0020</string>
+  <string name="detail_plans_recipe_item_some_name">Салат с оливками, авокадо и брынзой</string>
+
+  <string name="diary_recipe_plans_added">Вы занесли в дневник:</string>
+
+  <string name="dots_popup_menu_eating">Добавить еду</string>
+
+  <string name="food_item_for_template_name">Name</string>
+  <string name="food_item_for_template_kcal">Kcal</string>
+  <string name="food_item_for_template_weight">Вес</string>
+  <string name="food_item_for_template_b">B</string>
+  <string name="food_item_for_template_g">G</string>
+  <string name="food_item_for_template_u">U</string>
+
+  <string name="food_popup_menu_delete">Удалить</string>
+  <string name="food_popup_menu_change">Редактировать</string>
+
+  <string name="fragment_adding_recipe_instructions_write_instructions">Пожалуйста, записывайте инструкцию по приготовлению по пунктам.</string>
+  
+  <string name="fragment_auth_first_reg_with">Зарегистрироваться с\nпомощью</string>
+  <string name="fragment_auth_first_or">или</string>
+  <string name="fragment_auth_first_email">регистрация по email</string>
+  
+  <string name="fragment_auth_login_sign_in">Войти</string>
+  
+  <string name="fragment_auth_signup_reg">Регистрация</string>
+  
+
+  
+  
+  
 </resources>
