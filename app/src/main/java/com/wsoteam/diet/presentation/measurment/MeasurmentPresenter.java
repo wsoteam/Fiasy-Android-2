@@ -22,6 +22,9 @@ import java.util.Map;
 
 @InjectViewState
 public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
+    private final int NEVER_SAVE = 3000000;
+    private final int DEFAULT_MEAS = 100;
+
     private Context context;
     private Calendar calendar;
     private long currentTime;
@@ -36,7 +39,6 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
     private HashMap<String, Chest> listChests;
     private HashMap<String, Waist> listWaist;
     private HashMap<String, Hips> listHips;
-    private final int NEVER_SAVE = 3000000;
 
 
     public MeasurmentPresenter() {
@@ -218,7 +220,7 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
         if (lastChest != null) {
             return lastChest;
         }else {
-            return new Chest();
+            return new Chest("", 0, DEFAULT_MEAS);
         }
     }
 
@@ -226,7 +228,7 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
         if (lastWaist != null) {
             return lastWaist;
         }else {
-            return new Waist();
+            return new Waist("", 0, DEFAULT_MEAS);
         }
     }
 
@@ -234,7 +236,7 @@ public class MeasurmentPresenter extends MvpPresenter<MeasurmentView> {
         if (lastHips != null) {
             return lastHips;
         }else {
-            return new Hips();
+            return new Hips("", 0, DEFAULT_MEAS);
         }
     }
 }
