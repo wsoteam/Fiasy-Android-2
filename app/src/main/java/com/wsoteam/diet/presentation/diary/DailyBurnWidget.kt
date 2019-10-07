@@ -6,6 +6,7 @@ import android.text.style.ImageSpan
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.UserDataHolder
@@ -18,10 +19,6 @@ import com.wsoteam.diet.views.ExperienceProgressView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.util.Calendar
-import java.util.Calendar.DAY_OF_MONTH
-import java.util.Calendar.MONTH
-import java.util.Calendar.YEAR
 
 class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
 
@@ -36,6 +33,19 @@ class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
   private val proteinsView: ExperienceProgressView = itemView.findViewById(R.id.progress_protein)
 
   private val disposables = CompositeDisposable()
+  private val dateObserver = Observer<Any> {
+    disposables.clear()
+
+    updateProgress(MealsDetailedResult(
+        calories = 0,
+        fats = 0,
+        proteins = 0,
+        carbons = 0,
+        meals = emptyList()
+    ))
+
+    showPlanForCurrentDay()
+  }
 
   override fun onBind(parent: RecyclerView, position: Int) {
     UserDataHolder.getUserData()?.profile?.let { profile ->
@@ -50,11 +60,13 @@ class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
       proteinsView.progressView.max = profile.maxProt
     }
 
-    showPlanForDate(Calendar.getInstance())
+    showPlanForCurrentDay()
   }
 
-  private fun showPlanForDate(calendar: Calendar) {
-    disposables.add(Meals.all(calendar[DAY_OF_MONTH], calendar[MONTH], calendar[YEAR])
+  private fun showPlanForCurrentDay() {
+    val date = DiaryViewModel.currentDate
+
+    disposables.add(Meals.all(date.day, date.month, date.year)
       .reduce(MealsDetailedResult(0, 0, 0, 0, emptyList())) { l, r ->
         MealsDetailedResult(
             calories = l.calories + r.calories,
@@ -79,7 +91,13 @@ class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
 
     progressView.progress = progress.calories
 
-    val burned = SpannableString("${DiaryActivitiesSource.burned}  ")
+    val burnedCals = if (DiaryViewModel.isToday) {
+      DiaryActivitiesSource.burned
+    } else {
+      0
+    }
+
+    val burned = SpannableString("$burnedCals  ")
     val icon = context.getVectorIcon(R.drawable.ic_calories_burned_fire)
     icon.setBounds(0, 0, dp(context, 12f), dp(context, 12f))
 
@@ -90,13 +108,18 @@ class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
     burnedCaaloriesView.text = burned
 
     leftCaloriesView.text =
-      (progressView.max - progress.calories + DiaryActivitiesSource.burned).toString()
+      (progressView.max - progress.calories + burnedCals).toString()
+  }
+
+  override fun onAttached(parent: RecyclerView) {
+    super.onAttached(parent)
+    DiaryViewModel.selectedDate.observeForever(dateObserver)
   }
 
   override fun onDetached(parent: RecyclerView) {
     super.onDetached(parent)
-
     disposables.clear()
+    DiaryViewModel.selectedDate.removeObserver(dateObserver)
   }
 
 }

@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.wsoteam.diet.R
 import com.wsoteam.diet.R.string
+import com.wsoteam.diet.presentation.diary.DiaryViewModel
 import com.wsoteam.diet.utils.RichTextUtils.RichText
 import com.wsoteam.diet.utils.getVectorIcon
 import com.wsoteam.diet.utils.tint
@@ -31,7 +32,7 @@ class ActivityWidget(context: Context) : CardView(context) {
 
   private val disposables = CompositeDisposable()
   private val myActivitySource = DiaryActivitiesSource
-  private val changesObserver = Observer<Int> {
+  private val changesObserver = Observer<Any> {
     reloadLastActivities()
   }
 
@@ -79,6 +80,7 @@ class ActivityWidget(context: Context) : CardView(context) {
   override fun onAttachedToWindow() {
     super.onAttachedToWindow()
     ActivitiesSyncedSource.changesLive.observeForever(changesObserver)
+    DiaryViewModel.selectedDate.observeForever(changesObserver)
 
     reloadLastActivities()
   }
@@ -145,6 +147,7 @@ class ActivityWidget(context: Context) : CardView(context) {
   override fun onDetachedFromWindow() {
     super.onDetachedFromWindow()
     ActivitiesSyncedSource.changesLive.removeObserver(changesObserver)
+    DiaryViewModel.selectedDate.removeObserver(changesObserver)
 
     disposables.clear()
   }

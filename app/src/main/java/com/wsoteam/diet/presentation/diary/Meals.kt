@@ -17,15 +17,12 @@ object Meals {
       return Flowable.fromArray(meals)
         .flatMap { all -> Flowable.fromIterable(all) }
         .map { type ->
-          type.map { (key, value) ->
-            val meal = value as Eating
-
-            if (meal.day == day && meal.month == month && meal.year == year) {
+          type.filter { (key, meal) -> meal.day == day && meal.month == month && meal.year == year }
+            .map { (key, value) ->
+              val meal = value as Eating
               meal.urlOfImages = key.toString()
+              meal
             }
-
-            value
-          }
         }
         .map { meals ->
           var calories = 0

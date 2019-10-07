@@ -157,12 +157,12 @@ public class UserActivityFragment extends DialogFragment implements
     sources.put(R.string.user_activity_section_favorite,
         new FavoriteSource());
 
-    //sources.put(R.string.user_activity_section_defaults,
-    //    new AssetsSource(getResources().getAssets()));
+    sources.put(R.string.user_activity_section_defaults,
+        new ExercisesSource.AssetsSource(getResources().getAssets()));
 
     adapter.createSection(R.string.user_activity_section_my);
     adapter.createSection(R.string.user_activity_section_favorite);
-    //adapter.createSection(R.string.user_activity_section_defaults);
+    adapter.createSection(R.string.user_activity_section_defaults);
 
     fetchSources();
   }

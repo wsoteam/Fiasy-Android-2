@@ -7,7 +7,6 @@ import android.text.style.ImageSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.view.ViewTreeObserver.OnPreDrawListener
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -15,11 +14,14 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.recyclerview.widget.RecyclerView.State
 import com.wsoteam.diet.R
+import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
 import com.wsoteam.diet.utils.RichTextUtils.replaceWithIcon
 import com.wsoteam.diet.utils.dp
 import com.wsoteam.diet.utils.getVectorIcon
 import com.wsoteam.diet.views.CompactCalendarView
-import kotlinx.android.synthetic.main.activity_main_new.view.view
+import com.wsoteam.diet.views.CompactCalendarView.CompactCalendarViewListener
+import java.util.Calendar
+import java.util.Date
 
 class DiaryFragment : Fragment() {
 
@@ -70,7 +72,7 @@ class DiaryFragment : Fragment() {
 
     container = view.findViewById(R.id.container)
 
-    container.addItemDecoration(object: ItemDecoration(){
+    container.addItemDecoration(object : ItemDecoration() {
       val spaceHeight = dp(requireContext(), 16f)
 
       override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: State) {
@@ -81,7 +83,23 @@ class DiaryFragment : Fragment() {
     container.adapter = WidgetsAdapter()
 
     calendarView = view.findViewById(R.id.calendar)
-    calendarView.viewTreeObserver.addOnPreDrawListener(object: OnPreDrawListener{
+    calendarView.setListener(object : CompactCalendarViewListener {
+      override fun onMonthScroll(firstDayOfNewMonth: Date) {
+
+      }
+
+      override fun onDayClick(dateClicked: Date) {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = dateClicked.time
+
+        DiaryViewModel.currentDate = DiaryDay(
+            calendar[Calendar.DAY_OF_MONTH],
+            calendar[Calendar.MONTH],
+            calendar[Calendar.YEAR]
+        )
+      }
+    })
+    calendarView.viewTreeObserver.addOnPreDrawListener(object : OnPreDrawListener {
       override fun onPreDraw(): Boolean {
         calendarView.viewTreeObserver.removeOnPreDrawListener(this)
         calendarView.translationY = -1f * calendarView.height
