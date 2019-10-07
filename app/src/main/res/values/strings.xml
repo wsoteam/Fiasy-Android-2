@@ -846,7 +846,7 @@
     <string name="medium_weight">средний вес за неделю</string>
     <string name="meas_gramm">г</string>
     <string name="meas_title_bottom">Размеры (см)</string>
-    <string name="propose_enter_data">Вы еще не заносили данные</string>
+    <string name="propose_enter_data">Вы еще не вносили данные</string>
     <string name="meas_chest">Грудь</string>
     <string name="meas_add_meas">Добавить</string>
 
