@@ -65,8 +65,8 @@ public class DaysPresenter extends MvpPresenter<DaysView> {
         calendar = DateAndTime.dropTime(calendar);
         long currentTimeInMillis = calendar.getTimeInMillis();
         if (currentTimeInMillis == weight.getTimeInMillis()) {
-            BodyCalculates.saveWeight(weight.getWeight(), context);
             getViewState().showUpdateWeightToast();
+            BodyCalculates.saveWeight(weight.getWeight(), context);
         }
     }
 

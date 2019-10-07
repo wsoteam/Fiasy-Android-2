@@ -37,6 +37,8 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
   private static final String POSITION = "POSITION";
   private static final String EMPTY_WEEK = "0.0";
   private static final String EMPTY_WEEK_TEXT = "--";
+
+  private Animation animation;
   @BindView(R.id.tvMonday) TextView tvMonday;
   @BindView(R.id.tvWednesday) TextView tvWednesday;
   @BindView(R.id.tvTuesday) TextView tvTuesday;
@@ -98,6 +100,7 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     tvMediumWeight = getActivity().findViewById(R.id.tvMediumWeight);
     daysPresenter = new DaysPresenter(getActivity());
     daysPresenter.attachView(this);
+    animation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_meas_update);
     return view;
   }
 
@@ -306,7 +309,6 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
 
   @Override
   public void showUpdateWeightToast() {
-    Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_meas_update);
     Toast updateToast = new Toast(getActivity());
     updateToast.setView(
         LayoutInflater.from(getActivity()).inflate(R.layout.toast_meas_update, null));

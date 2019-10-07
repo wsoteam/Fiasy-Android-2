@@ -35,20 +35,21 @@
             android:id="@+id/textView164"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginEnd="12dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="12dp"
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
             android:text="Значение текущего веса \nобновлено"
             android:textColor="#8a000000"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/imageView60"
-            app:layout_constraintStart_toStartOf="@+id/imageView60"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView60"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
