@@ -64,8 +64,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif"
-        android:text="Вы достигли успеха?
-поделитесь результатими с друзьями:"
+        android:text="@string/plans_footer_item_share"
         android:textAlignment="center"
         android:textColor="#212121"
         android:textSize="14sp"
@@ -84,8 +83,7 @@
         android:layout_marginTop="32dp"
         android:fontFamily="sans-serif-medium"
         android:lineSpacingExtra="9.2sp"
-        android:text="Выша диета закончилась!
- Поздравляем!"
+        android:text="@string/plans_footer_item_cong"
         android:textAlignment="center"
         android:textColor="#212121"
         android:textSize="20sp"
@@ -104,7 +102,7 @@
         android:layout_marginStart="38dp"
         android:layout_marginTop="32dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Подобрать другой план питания"
+        android:text="@string/plans_footer_item_new_plan"
         android:textAlignment="center"
         android:textColor="@color/pumpkin_orange"
         android:textSize="20sp"

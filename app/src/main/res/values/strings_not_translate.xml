@@ -179,6 +179,18 @@
 
   <string name="fragment_current_day_plan_days">День 0/0</string>
 
+  <string name="item_food_template_name">name</string>
+  <string name="item_food_template_count">0 food</string>
+
+  <string name="main_detail_plans_recipe_item_added">Рецепт добавлен</string>
+  <string name="main_detail_plans_recipe_item_175_kcal">175 ккал </string>
+  <string name="main_detail_plans_recipe_item_some_name">Салат с оливками, авокадо и брынзой</string>
+
+  <string name="plans_header_item_n_recipes">324 рецепта</string>
+  <string name="plans_header_item_n_days">28 дней</string>
+  <string name="plans_header_item_n_day_of_x">0 день из 28</string>
+
+
 
 
 </resources>

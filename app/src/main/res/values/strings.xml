@@ -658,9 +658,89 @@
   <string name="fragment_auth_login_sign_in">Войти</string>
   
   <string name="fragment_auth_signup_reg">Регистрация</string>
-  
 
-  
-  
+  <string name="fragment_custom_foods_favorite">Избранное</string>
+  <string name="fragment_custom_foods_info">В этом разделе будут храниться \nпонравившиеся или сохраненные вами \nрецепты и продукты</string>
+  <string name="fragment_custom_foods_add">Добавить продукт</string>
+
+  <string name="fragment_empty_sorry">Извините, данный раздел находится в разработке.</string>
+  <string name="fragment_empty_soon">Еще чуть-чуть и вам откроется кладезь полезной информации :)</string>
+
+  <string name="fragment_favorites_favorite">Избранное</string>
+  <string name="fragment_favorites_info">В этом разделе будут храниться \nпонравившиеся или сохраненные вами \nрецепты и продукты</string>
+  <string name="fragment_favorites_add">Добавить продукт</string>
+
+  <string name="fragment_individual_plan_0_g">0 г</string>
+
+  <string name="fragment_list_articles_not_result">Результаты не найдены</string>
+  <string name="fragment_list_articles_try_now">Попробуйте еще раз </string>
+
+  <string name="fragment_search_favorite">Избранное</string>
+  <string name="fragment_search_info">В этом разделе будут храниться \nпонравившиеся или сохраненные вами \nрецепты и продукты</string>
+
+  <string name="fragment_we_offer_txt">Мы предлагаем вам:</string>
+  <string name="fragment_we_offer_advice">Множество полезных советов по нутрициологии и  здоровому образу жизни</string>
+  <string name="fragment_we_offer_recipes">Доступ к сотням рецептов, собранных согласно вашим личным предпочтениям</string>
+
+  <string name="group_article_item_all">Все\u0020</string>
+
+  <string name="help_activity_title">Помощь</string>
+
+  <string name="item_rv_list_of_search_response_brand">brand</string>
+
+  <string name="item_vertical_browse_plans_name">Название диеты</string>
+
+  <string name="ms_item_eating_list_breakfast">Завтрак</string>
+  <string name="ms_item_eating_list_count">2 шт.</string>
+  <string name="ms_item_eating_list_add">Добавить</string>
+  <string name="ms_item_eating_list_recommendation">Рекомендуется 475 - 855 ккал</string>
+  <string name="ms_item_eating_list_fats">Fats</string>
+  <string name="ms_item_eating_list_carbo">Carbo</string>
+  <string name="ms_item_eating_list_kcal">Kcal</string>
+  <string name="ms_item_eating_list_prot">Prot</string>
+  <string name="ms_item_eating_list_protein">Белки</string>
+  <string name="ms_item_eating_list_fats2">Жиры</string>
+  <string name="ms_item_eating_list_carbo2">Углеводы</string>
+  <string name="ms_item_eating_list_kcal2">Ккал</string>
+  <string name="ms_item_eating_list_add_meal">Занесите обед сейчас и достигните своей цели быстрее</string>
+
+  <string name="plans_footer_item_share">Вы достигли успеха?
+поделитесь результатими с друзьями:</string>
+  <string name="plans_footer_item_cong">Выша диета закончилась!
+ Поздравляем!</string>
+  <string name="plans_footer_item_new_plan">Подобрать другой план питания</string>
+
+  <string name="popup_search_food_create_food">Создать продукт</string>
+  <string name="popup_search_food_create_template">Создать шаблон</string>
+  <string name="popup_search_food_create_recipe">Создать рецепт</string>
+
+  <string name="premium_norm_prem">PREMIUM</string>
+  <string name="premium_norm_for_change">Чтобы изменить КБЖУ вы должны купить</string>
+  <string name="premium_norm_set_data">Задать свою норму КБЖУ</string>
+  <string name="premium_norm_calories">Калории</string>
+  <string name="premium_norm_2000">2000</string>
+  <string name="premium_norm_protein">Белки</string>
+  <string name="premium_norm_40">40</string>
+  <string name="premium_norm_carbo">Углеводы</string>
+  <string name="premium_norm_fats">Жиры</string>
+  <string name="premium_norm_days_norm">Дневная норма КБЖУ, рассчитанная по формуле \nМиффлина - Сан Жеора</string>
+  <string name="premium_norm_def_value">стандартные значения</string>
+  <string name="premium_norm_if_change">Если вы меняли значение КБЖУ, то вы всегда можете \nвернуться к стандартным значениям</string>
+
+  <string name="recipe_menu_share">Share</string>
+  <string name="recipe_menu_favorites">Favorite</string>
+
+  <string name="recipe_group_item_all_recipe">Посмотреть все рецепты\u0020\u0020</string>
+
+  <string name="successful_alert_dialog_added">Продукт добавлен</string>
+
+  <string name="tab_lat_favorites_name">Избранное</string>
+  <string name="tab_lat_recipes_name">Рецепты</string>
+  <string name="tab_lat_search_name">Поиск</string>
+  <string name="tab_lat_template_name">Шаблоны</string>
+
+  <string name="template_add_food_add">Добавить продукт</string>
+
+  <string name="toolbar_menu_search">Search</string>
   
 </resources>

@@ -10,7 +10,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="Шаблоны"
+        android:text="@string/tab_lat_template_name"
         android:textColor="@color/white"
         android:textSize="14sp" />
 

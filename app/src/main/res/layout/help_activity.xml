@@ -21,7 +21,7 @@
         android:layout_marginStart="32dp"
         android:elevation="10dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="Помощь"
+        android:text="@string/help_activity_title"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/ibBack"
         app:layout_constraintStart_toEndOf="@+id/ibBack"
