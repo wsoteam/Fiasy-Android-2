@@ -1,25 +1,11 @@
 package com.wsoteam.diet.common.Analytics;
 
 import android.content.Context;
-import android.util.Log;
-
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Identify;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Sync.UserDataHolder;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import io.intercom.android.sdk.Intercom;
-import io.intercom.android.sdk.UserAttributes;
-import io.intercom.android.sdk.identity.Registration;
 
 public class UserProperty {
     public static final String registration = "registration";
@@ -143,46 +129,18 @@ public class UserProperty {
                 .set(name_const, name)
                 .set(user_id, id);
         Amplitude.getInstance().identify(identify);
-
-        UserAttributes userAttributes = new UserAttributes.Builder()
-                .withCustomAttribute(q_male_status, sex)
-                .withCustomAttribute(q_height_status, Integer.parseInt(height))
-                .withCustomAttribute(q_weight_status, Double.parseDouble(weight))
-                .withCustomAttribute(q_age_status, Integer.parseInt(age))
-                .withCustomAttribute(q_active_status, active)
-                .withCustomAttribute(q_goal_status, goal)
-                .withCustomAttribute(calorie, Integer.parseInt(kcal))
-                .withCustomAttribute(proteins, Integer.parseInt(prot))
-                .withCustomAttribute(fats, Integer.parseInt(fat))
-                .withCustomAttribute(сarbohydrates, Integer.parseInt(carbo))
-                .withCustomAttribute(name_const, name)
-                .withCustomAttribute(user_id, id)
-                .build();
-        Intercom.client().updateUser(userAttributes);
     }
 
     public static void setPremStatus(String status) {
         Identify identify = new Identify()
                 .set(premium_status, status);
         Amplitude.getInstance().identify(identify);
-
-        //analLogIn();
-        UserAttributes userAttributes = new UserAttributes.Builder()
-                .withCustomAttribute(premium_status, status)
-                .build();
-        Intercom.client().updateUser(userAttributes);
     }
 
     public static void setUserProvider(String provider) {
         Identify identify = new Identify()
                 .set(registration, provider);
         Amplitude.getInstance().identify(identify);
-
-        //analLogIn();
-        UserAttributes userAttributes = new UserAttributes.Builder()
-                .withCustomAttribute(registration, provider)
-                .build();
-        Intercom.client().updateUser(userAttributes);
     }
 
     public static void setDate(String day, String week, String month) {
@@ -191,32 +149,11 @@ public class UserProperty {
                 .set(first_week, week)
                 .set(first_month, month);
         Amplitude.getInstance().identify(identify);
-
-        //analLogIn();
-        UserAttributes userAttributes = new UserAttributes.Builder()
-                .withCustomAttribute(first_day, day)
-                .withCustomAttribute(first_week, week)
-                .withCustomAttribute(first_month, month)
-                .build();
-        Intercom.client().updateUser(userAttributes);
     }
 
     private static void analLogIn() {
         Identify identify = new Identify()
                 .set(EMAIL, FirebaseAuth.getInstance().getCurrentUser().getEmail());
         Amplitude.getInstance().identify(identify);
-
-        Registration registration = Registration.create().withUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        Intercom.client().registerIdentifiedUser(registration);
-        Intercom.client().handlePushMessage();
-        try {
-            UserAttributes userAttributes = new UserAttributes.Builder()
-                    .withName(UserDataHolder.getUserData().getProfile().getFirstName())
-                    .withEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail())
-                    .build();
-            Intercom.client().updateUser(userAttributes);
-        } catch (Exception e) {
-
-        }
     }
 }

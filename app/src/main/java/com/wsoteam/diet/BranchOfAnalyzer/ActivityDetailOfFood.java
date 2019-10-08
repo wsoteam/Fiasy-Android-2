@@ -4,12 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -19,7 +13,13 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.AmplitudaEvents;
@@ -39,17 +39,9 @@ import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
-
 import java.util.Calendar;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-
-import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import io.intercom.android.sdk.Intercom;
 
 public class ActivityDetailOfFood extends AppCompatActivity {
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
@@ -438,7 +430,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     private void shareFood(Food foodItem) {
         Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_SHARE);
-        Intercom.client().logEvent(Events.PRODUCT_PAGE_SHARE);
         String forSend;
         if (foodItem.getBrand() == null) {
             forSend = foodItem.getName()
@@ -457,7 +448,6 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     private void showPremiumScreen() {
         Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_MICRO);
-        Intercom.client().logEvent(Events.PRODUCT_PAGE_MICRO);
         Intent intent = new Intent(ActivityDetailOfFood.this, ActivitySubscription.class);
         Box box = new Box(AmplitudaEvents.view_prem_elements, EventProperties.trial_from_elements, false,
                 true, null, false);

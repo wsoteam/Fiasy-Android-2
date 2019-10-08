@@ -2,8 +2,6 @@ package com.wsoteam.diet.MainScreen;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,25 +11,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import com.amplitude.api.AmplitudeClient;
+import com.amplitude.api.Amplitude;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-
-import com.amplitude.api.Amplitude;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,11 +38,9 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietModule;
 import com.wsoteam.diet.DietPlans.POJO.DietPlansHolder;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
-import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodDB;
-import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
@@ -59,20 +48,12 @@ import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipesHolder;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.common.Analytics.EventProperties;
-import com.wsoteam.diet.common.promo.Generator;
-import com.wsoteam.diet.common.remote.POJO.StoreVersion;
-import com.wsoteam.diet.common.remote.UpdateChecker;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
+import com.wsoteam.diet.common.remote.UpdateChecker;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
-import com.wsoteam.diet.common.Analytics.Events;
-import com.wsoteam.diet.presentation.promo.PromoFormActivity;
-
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-
-import io.intercom.android.sdk.Intercom;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -107,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.bnv_main_articles:
                     Amplitude.getInstance().logEvent(Events.CHOOSE_ARTICLES);
-                    Intercom.client().logEvent(Events.CHOOSE_ARTICLES);
                     box.setComeFrom(AmplitudaEvents.view_prem_content);
                     box.setBuyFrom(EventProperties.trial_from_articles);
                     isMainFragment = false;
@@ -124,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.bnv_main_profile:
                     Amplitude.getInstance().logEvent(Events.VIEW_PROFILE);
-                    Intercom.client().logEvent(Events.VIEW_PROFILE);
                     isMainFragment = false;
                     transaction.replace(R.id.flFragmentContainer, new ProfileFragment()).commit();
                     window.setStatusBarColor(Color.parseColor("#AE6A23"));
