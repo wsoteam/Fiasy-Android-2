@@ -209,7 +209,7 @@ public class SearchFoodActivity extends AppCompatActivity {
     private void speak() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH); // намерение для вызова формы обработки речи (ОР)
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM); // сюда он слушает и запоминает
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Говорите!");
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.search_food_activity_say));
         startActivityForResult(intent, 1234); // вызываем активность ОР
     }
 
@@ -269,7 +269,7 @@ public class SearchFoodActivity extends AppCompatActivity {
                             break;
                         case R.id.btnChange:
                             Intent intent = new Intent(SearchFoodActivity.this, ActivityDetailFood.class);
-                            intent.putExtra(Config.DETAIL_FOOD_BTN_NAME, "Изменить");
+                            intent.putExtra(Config.DETAIL_FOOD_BTN_NAME, getString(R.string.search_food_activity_change));
                             intent.putExtra(Config.INTENT_DETAIL_FOOD, FoodConverter.convertResultToFood(itemAdapter.foods.get(getAdapterPosition())));
                             startActivityForResult(intent, 45);
                             alertDialog.dismiss();
@@ -289,15 +289,21 @@ public class SearchFoodActivity extends AppCompatActivity {
 
         public void bind(Result food) {
             tvNameOfFood.setText(food.getName());
-            tvCalories.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
+            //tvCalories.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
+            tvCalories.setText(String.format(getString(R.string.n_KCal),
+                Math.round(food.getCalories() * 100)));
+
             if (food.isLiquid()) {
-                tvWeight.setText("Вес: 100мл");
+                tvWeight.setText(getString(R.string.search_food_activity_weight_ml));
             } else {
-                tvWeight.setText("Вес: 100г");
+                tvWeight.setText(getString(R.string.search_food_activity_weight_g));
             }
-            tvProt.setText("Б. " + String.valueOf(Math.round(food.getProteins() * 100)));
-            tvFats.setText("Ж. " + String.valueOf(Math.round(food.getFats() * 100)));
-            tvCarbo.setText("У. " + String.valueOf(Math.round(food.getCarbohydrates() * 100)));
+            //tvProt.setText("Б. " + String.valueOf(Math.round(food.getProteins() * 100)));
+            //tvFats.setText("Ж. " + String.valueOf(Math.round(food.getFats() * 100)));
+            //tvCarbo.setText("У. " + String.valueOf(Math.round(food.getCarbohydrates() * 100)));
+            tvProt.setText(String.format(getString(R.string.search_food_activity_prot), Math.round(food.getProteins() * 100)));
+            tvFats.setText(String.format(getString(R.string.search_food_activity_fat), Math.round(food.getFats() * 100)));
+            tvCarbo.setText(String.format(getString(R.string.search_food_activity_carbo), Math.round(food.getCarbohydrates() * 100)));
             if (food.getBrand() != null && !food.getBrand().getName().equals("")) {
                 tvBrand.setVisibility(View.VISIBLE);
                 tvBrand.setText(food.getBrand().getName());

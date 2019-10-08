@@ -190,6 +190,51 @@
   <string name="plans_header_item_n_days">28 дней</string>
   <string name="plans_header_item_n_day_of_x">0 день из 28</string>
 
+  <string name="vertical_detail_plan_adapter_not_selected">Вы ничего не выбрали</string>
+  <string name="vertical_detail_plan_adapter_in_diary">Вы занесли в дневник:\u0020</string>
+  <string name="vertical_detail_plan_adapter_day">День %d</string>
+  <string name="vertical_detail_plan_adapter_day_of_days">%d день из %d</string>
+
+  <plurals name="recipe_count">
+    <item quantity="one">%d рецепт</item>
+    <item quantity="few">%d рецепта</item>
+    <item quantity="many">%d рецептов</item>
+    <item quantity="other">%d рецептов</item>
+  </plurals>
+
+  <plurals name="day_count">
+    <item quantity="one">%d день</item>
+    <item quantity="few">%d дня</item>
+    <item quantity="many">%d дней</item>
+    <item quantity="other">%d дней</item>
+  </plurals>
+
+  <plurals name="day_plurals">
+    <item quantity="one">день</item>
+    <item quantity="few">дня</item>
+    <item quantity="many">дней</item>
+    <item quantity="other">дней</item>
+  </plurals>
+
+  <plurals name="recipe_plurals">
+    <item quantity="one">рецепт</item>
+    <item quantity="few">рецепта</item>
+    <item quantity="many">рецептов</item>
+    <item quantity="other">рецептов</item>
+  </plurals>
+
+  <plurals name="foods_count">
+    <item quantity="one">%d продукт</item>
+    <item quantity="few">%d продукта</item>
+    <item quantity="many">%d продуктов</item>
+    <item quantity="other">%d продуктов</item>
+  </plurals>
+
+
+  <string name="space">\u0020</string>
+
+  <string name="join_strings">%s %s</string>
+
 
 
 

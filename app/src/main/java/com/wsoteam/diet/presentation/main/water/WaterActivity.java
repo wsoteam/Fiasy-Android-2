@@ -68,7 +68,8 @@ public class WaterActivity extends BaseActivity implements WaterView {
   }
 
   private void calculateWaterX() {
-    tvWater.setText(((float) pbWater.getProgress() * PROGRESS_STEP + 1.5) + " л");
+    tvWater.setText(String.format(getString(R.string.main_screen_menu_water_count),
+        (float) pbWater.getProgress() * PROGRESS_STEP + 1.5));
   }
 
   private void setDefaultProgress() {

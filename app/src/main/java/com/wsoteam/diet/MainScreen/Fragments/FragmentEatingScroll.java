@@ -215,13 +215,13 @@ public class FragmentEatingScroll extends Fragment {
             apCollapsingKcal.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories));
 //            tvCaloriesDone.setText(spanText(R.string.main_screen_topbar_kcal_done, String.valueOf(kcal), R.color.main_calories_done));
 //            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_left, String.valueOf(leftKCal), R.color.main_calories_left));
-            tvCaloriesNeed.setText(String.valueOf(apCollapsingKcal.getMax()) + " ккал");
+            tvCaloriesNeed.setText(String.format(getString(R.string.format_int_kcal), apCollapsingKcal.getMax()));
             btnNotification.setVisibility(View.GONE);
         } else {
             apCollapsingKcal.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
 //            tvCaloriesDone.setText(spanText(R.string.main_screen_topbar_kcal_done, String.valueOf(kcal), R.color.main_calories_done_over));
 //            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_over, "+" + Math.abs(leftKCal), R.color.main_calories_left_over));
-            tvCaloriesNeed.setText(String.valueOf(apCollapsingKcal.getMax()) + " ккал");
+            tvCaloriesNeed.setText(String.format(getString(R.string.format_int_kcal), apCollapsingKcal.getMax()));
             btnNotification.setVisibility(View.VISIBLE);
         }
 

@@ -168,7 +168,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     private void setCPFC() {
         int sumKcal = 0, sumProt = 0, sumFats = 0, sumCarbo = 0;
 
-        tvCount.setText(String.valueOf(eatingGroup.size()) + " шт.");
+        tvCount.setText(String.format(context.getString(R.string.n_item), eatingGroup.size()));
 
         if (eatingGroup.size() > 0) {
             for (int i = 0; i < eatingGroup.size(); i++) {
@@ -180,9 +180,9 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
             //layoutCommonInfo.setVisibility(View.VISIBLE);
             tvSumOfKcal.setText(String.valueOf(sumKcal));
 
-            tvSumProt.setText(String.valueOf(sumProt) + " г");
-            tvSumFats.setText(String.valueOf(sumFats) + " г");
-            tvSumCarbo.setText(String.valueOf(sumCarbo) + " г");
+            tvSumProt.setText(String.format(context.getString(R.string.n_g), sumProt));
+            tvSumFats.setText(String.format(context.getString(R.string.n_g), sumFats));
+            tvSumCarbo.setText(String.format(context.getString(R.string.n_g), sumCarbo));
         } else {
             //layoutCommonInfo.setVisibility(View.GONE);
             //tvRecommendation.setVisibility(View.VISIBLE);

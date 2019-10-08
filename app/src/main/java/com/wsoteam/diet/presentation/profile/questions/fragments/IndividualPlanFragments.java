@@ -60,9 +60,9 @@ public class IndividualPlanFragments extends Fragment {
       return;
     }
     tvCalories.setText(String.valueOf(profile.getMaxKcal()));
-    tvProtein.setText(profile.getMaxProt() + " г");
-    tvFat.setText(profile.getMaxFat() + " г");
-    tvCarbo.setText(profile.getMaxCarbo() + " г");
+    tvProtein.setText(String.format(getString(R.string.n_g), profile.getMaxProt()));
+    tvFat.setText(String.format(getString(R.string.n_g), profile.getMaxFat()));
+    tvCarbo.setText(String.format(getString(R.string.n_g), profile.getMaxCarbo()));
 
     if (profile.isFemale()){
       ivMan.setVisibility(View.INVISIBLE);

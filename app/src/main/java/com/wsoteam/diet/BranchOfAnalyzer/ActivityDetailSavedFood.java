@@ -97,9 +97,9 @@ public class ActivityDetailSavedFood extends AppCompatActivity {
 
     private void bindFields() {
         tvTitle.setText(foodItem.getName());
-        tvFats.setText(String.valueOf(Math.round(fats * 100)) + " г");
-        tvCarbohydrates.setText(String.valueOf(Math.round(carbo * 100)) + " г");
-        tvProteins.setText(String.valueOf(Math.round(proteins * 100)) + " г");
+        tvTitle.setText(String.format(getString(R.string.n_g), Math.round(fats * 100)));
+        tvCarbohydrates.setText(String.format(getString(R.string.n_g), Math.round(carbo * 100)));
+        tvProteins.setText(String.format(getString(R.string.n_g), Math.round(proteins * 100)));
     }
 
     private void savePortion(int idOfEating) {

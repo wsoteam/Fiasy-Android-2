@@ -15,7 +15,6 @@ import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.DietPlans.POJO.DietsList;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.helper.NounsDeclension;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import java.util.LinkedList;
 import java.util.List;
@@ -110,8 +109,9 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
 
     public void bind(DietPlan dietPlan) {
       tvName.setText(dietPlan.getName());
-      tvTime.setText(dietPlan.getCountDays() +
-          NounsDeclension.check(dietPlan.getCountDays(), " день", " дня", " дней"));
+      //tvTime.setText(dietPlan.getCountDays() +
+      //    NounsDeclension.check(dietPlan.getCountDays(), " день", " дня", " дней"));
+      tvTime.setText(context.getResources().getQuantityString(R.plurals.day_count, dietPlan.getCountDays(), dietPlan.getCountDays()));
       Glide.with(context)
           .load(dietPlan.getUrlImage())
           .into(imageView);

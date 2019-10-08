@@ -53,7 +53,7 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
 
     if (water != null) {
       waterStepView.setStepNum((int) (water.getWaterCount() / waterStep), water.getWaterCount() < WATER_MAX);
-      tvEatingReminder.setText(water.getWaterCount() + " л.");
+      tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), water.getWaterCount()));
       cache.set(water.getUrlOfImages());
 
       if (UserDataHolder.getUserData() != null
@@ -62,7 +62,7 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
         achievement(water.getWaterCount() >= maxWater);
       }
     } else {
-      tvEatingReminder.setText("0.0 л.");
+      tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), 0.0f));
     }
 
 
