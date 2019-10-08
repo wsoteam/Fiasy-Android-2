@@ -770,4 +770,490 @@
     <item>Тяжелая физическая работа или ежедневные интенсивные тренировки по 2 раза в день</item>
   </string-array>
 
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////
+  <string name="unboarding_welcome">Welcome to</string>
+  <string name="unboarding_first_screen">Lots of scientific articles about healthy eating</string>
+  <string name="unboarding_second_screen">Everyday healthy recipes</string>
+  <string name="unboarding_third_screen">Everyday healthy recipes</string>
+  <string name="unboarding_skeep">Skip</string>
+  <string name="unboarding_next">MORE</string>
+
+  <!-- Authorization Screen -->
+  <string name="or">OR</string>
+  <string name="signIn">LOG IN</string>
+  <string name="authorization_with">SIGN UP WITH</string>
+  <string name="account_available">Already have an account?</string>
+  <string name="registration_by_mail">SIGN UP VIA EMAIL</string>
+
+  <!-- Sign In Screen -->
+  <string name="signIn_title">Log in</string>
+  <string name="login">Login</string>
+  <string name="password">Password</string>
+  <string name="restore">Recover password</string>
+  <string name="forgot_password">Forgot your password?</string>
+  <string name="or_signIn_by">or log in with</string>
+
+  <!-- Sign Up Screen -->
+  <string name="signUp_title">Sign up</string>
+  <string name="write_email">Enter email address</string>
+  <string name="write_password">Enter password</string>
+  <string name="repeat_password">Re-enter password</string>
+  <string name="simple_password_error">The password is too weak.</string>
+  <string name="password_dont_match">The passwords do not match.</string>
+  <string name="agree_with_conditions">I agree to the Terms and Conditions.</string>
+  <string name="privacy_policy">Privacy Policy</string>
+
+  <!-- Reset Password Screen -->
+  <string name="reset_send">SUBMIT</string>
+  <string name="reset_close_screen">Close the form?</string>
+  <string name="reset_close_title">Close</string>
+  <string name="reset_close_continue">Continue</string>
+  <string name="reset_close_description">If you close the form, you will not be able to restore your password.</string>
+  <string name="wrong_mail_error">Invalid email address format</string>
+  <string name="reset_password_title">Reset password</string>
+  <string name="we_send_email">We have sent an email to your inbox.</string>
+  <string name="enter_mail_description">Enter email address to reset password.</string>
+
+  <!-- Interrogation Screen -->
+  <string name="select_your_gender">Choose your gender</string>
+  <string name="selected_man">You have chosen male</string>
+  <string name="selected_woman">You have chosen female</string>
+  <string name="select_your_growth">Choose your height</string>
+  <string name="growth_unit">cm</string>
+  <string name="weight_unit">kg</string>
+  <string name="mifflin_formula">We use the Mifflin-St Jeor equation for the purposes of the calculation, which the American Dietetic Association (ADA) confirmed to be more accurate in 2005.</string>
+  <string name="select_your_weight">Choose your weight</string>
+  <string name="select_your_date_of_birth">Choose you date of birth</string>
+  <string name="select_your_activity">Choose your activity level</string>
+  <string name="first_activity">Minimal exercise</string>
+  <string name="second_activity">Light exercise over the course of the day</string>
+  <string name="third_activity">I exercise 2–4 times a week (or do work that requires moderate physical exertion).</string>
+  <string name="fourth_activity">I exercise intensely 4–5 times a week.</string>
+  <string name="five_activity">I exercise intensely every day.</string>
+  <string name="six_activity">I exercise twice a day, 5–7 days a week.</string>
+  <string name="seven_activity">My job is physically intense, or I exercise intensely twice a day, every day.</string>
+  <string name="select_your_target">Choose your goal</string>
+  <string name="first_target">Stay in shape</string>
+  <string name="second_target">Lose weight</string>
+  <string name="third_target">Build muscle mass</string>
+  <string name="fourth_target">Maintain musculature and burn fat</string>
+
+  <!-- Interrogation Finish Screen -->
+  <string name="wait_a_while">Just a moment</string>
+  <string name="wait_a_while_description">Your personalized diet is being calculated.</string>
+  <string name="plan_calculated">Your personalized diet has been calculated.</string>
+  <string name="recommended_rate">Recommended intake</string>
+  <string name="calories_unit">kcal</string>
+  <string name="grams_unit">g</string>
+  <string name="protein">protein</string>
+  <string name="fat">fat</string>
+  <string name="carbohydrates">carbohydrates</string>
+  <string name="in_a_month">in just a month</string>
+  <string name="first_piece_description">You will reach your goal</string>
+  <string name="second_piece_description">and gain access to unique articles about healthy eating and hundreds of recipes.</string>
+
+  <!-- Premium Screen -->
+  <string name="reach_goal_faster">Reach your goal more quickly</string>
+  <string name="everyday_recipes">Everyday recipes</string>
+  <string name="science_articles">Useful scientific articles</string>
+  <string name="trace_elements_in_recipes">Micro-nutrients in foods and recipes</string>
+  <string name="_try">Try it out</string>
+  <string name="count_day_trial">for free for seven days</string>
+  <string name="amount_per_month">After that, it\'s just 199 rubles a month.</string>
+  <string name="connect_premium">ACTIVATE PREMIUM ACCOUNT</string>
+  <string name="terms_and_conditions">Terms and Conditions</string>
+  <string name="payment_description">Payment will be charged to your Apple ID account once the purchase is confirmed. The subscription will be renewed automatically unless it is canceled at least 24 hours prior to the end of the current subscription period. The payment for renewing the subscription will be charged to your account up to 24 prior to the end of the current subscription period. You can manage your subscriptions and cancel them in the settings of your App Store account after purchase.</string>
+
+  <!-- Premium purchase success Screen -->
+  <string name="congratulations">Congratulations</string>
+  <string name="premium_courage_description">You now have access to all the benefits of a Premium Account.</string>
+
+  <!-- Profile Screen -->
+  <string name="profile_title">Profile</string>
+  <string name="your_name">Your name</string>
+  <string name="daily_goal">Daily goal</string>
+  <string name="nutrition_plan">Diet</string>
+  <string name="standard">standard</string>
+  <string name="week">week</string>
+  <string name="month">month</string>
+  <string name="year">year</string>
+  <string name="reports999">Reports</string>
+  <string name="daily_rate">Daily intake</string>
+  <string name="your_performance">Your performance</string>
+  <string name="monday">Mon</string>
+  <string name="tuesday">Tue</string>
+  <string name="wednesday">Wed</string>
+  <string name="thursday">Thu</string>
+  <string name="friday">Fri</string>
+  <string name="saturday">Sat</string>
+  <string name="sunday">Sun</string>
+  <string name="january">January</string>
+  <string name="february">February</string>
+  <string name="march">March</string>
+  <string name="april">April</string>
+  <string name="may">May</string>
+  <string name="june">June</string>
+  <string name="july">July</string>
+  <string name="august">August</string>
+  <string name="september">September</string>
+  <string name="october">October</string>
+  <string name="november">November</string>
+  <string name="december">December</string>
+
+  <!-- Setting Screen -->
+  <string name="premium_account">Premium Account</string>
+  <string name="promotional_codes">Promo codes</string>
+  <string name="personal_data999">Personal information</string>
+  <string name="calorie_intake">Calorie intake</string>
+  <string name="exit">Logout</string>
+  <string name="log_off">Log out</string>
+  <string name="cancel">Cancel</string>
+
+  <!-- Promotional Code Screen -->
+  <string name="promotional_navigation">Promo codes</string>
+  <string name="promotional_title">Adding promo codes</string>
+  <string name="promotional_description">Promo codes can award you with a discount on the app or let you use it for free.</string>
+  <string name="enter_promotional_code">Enter promo code</string>
+  <string name="enter_your_promotional_code">Enter your promo code</string>
+  <string name="active_promode">ACTIVATE PROMO CODE</string>
+  <string name="invalid_promotional_code_error">Invalid promo code</string>
+
+  <!-- Personal Data Screen -->
+  <string name="personal_data_navigation">Personal information</string>
+  <string name="done">Done</string>
+  <string name="name">First name</string>
+  <string name="surname">Last name</string>
+  <string name="email">Email address</string>
+
+  <!-- Calorie Intake Screen -->
+  <string name="calorie_intake_navigation">Calorie intake</string>
+  <string name="gender">Gender</string>
+  <string name="growth">Height</string>
+  <string name="weight">Weight</string>
+  <string name="age">Age</string>
+  <string name="activity">Activity</string>
+  <string name="target">Goal</string>
+  <string name="set_your_norm_title">Set your CPFC intake</string>
+  <string name="set_your_norm_description">To change your CPFC, buy</string>
+  <string name="protein_intake">Protein</string>
+  <string name="carbohydrates_intake">Carbohydrates</string>
+  <string name="fats_intake">Fat</string>
+  <string name="day_norm_intake_description">Daily CPFC intake based on the Mifflin-St Jeor equation</string>
+  <string name="default_intake">DEFAULT INTAKE</string>
+  <string name="default_description_intake">If you change your CPFC intake, you can always go back to the default value</string>
+
+  <!-- Diary Screen -->
+  <string name="diary_title">Journal</string>
+  <string name="diary_daily_rate">Daily rate</string>
+  <string name="eaten_up">Eaten</string>
+  <string name="burnt">Burned</string>
+  <string name="left">Remaining</string>
+  <string name="water">Water</string>
+  <string name="water_unit">l</string>
+  <string name="norm_established_first">Intake set to</string>
+  <string name="norm_established_second">To change this value, tap</string>
+  <string name="breakfast999">Breakfast</string>
+  <string name="lunch999">Lunch</string>
+  <string name="dinner999">Dinner</string>
+  <string name="snack999">Snack</string>
+  <string name="all">All</string>
+  <string name="water_settings">Water settings</string>
+
+  <!-- Water Screen -->
+  <string name="benefit_water_title">Benefits of water</string>
+  <string name="benefit_water_description_first">Moisturizes your skin and makes it more supple.</string>
+  <string name="benefit_water_description_second">Delivers nutrients to cells, thus preventing them from starving and dying.</string>
+  <string name="benefit_water_description_third">Helps you lose weight by improving your metabolism.</string>
+  <string name="general">General</string>
+  <string name="liter">liters</string>
+  <string name="your_daily_rate">Your daily intake</string>
+  <string name="make_default">Set to default</string>
+
+  <!-- Activity Screen -->
+  <string name="activity_navigation">Activity</string>
+  <string name="my_activity">My activities</string>
+  <string name="search">Search</string>
+  <string name="empty_my_activity_first">You haven\'t added any activities yet. To add an activity, tap</string>
+  <string name="empty_my_activity_second">tap ➕</string>
+  <string name="favorites">Favorites</string>
+  <string name="empty_favorites">You haven\'t added any activities to your favorites yet. To add an activity, swipe left and tap the heart.</string>
+  <string name="standard_activities">Standard activities</string>
+  <string name="add_activitie">Add activity</string>
+  <string name="add_name_activitie">Enter the name of the activity</string>
+  <string name="training_time">Exercise duration</string>
+  <string name="training_time_description">Drag the slider to select the amount of time you spent on this activity.</string>
+  <string name="minutes">minutes</string>
+  <string name="calories_count">Calories</string>
+  <string name="calories_count_description">Enter the number of calories you burned or think you burned.</string>
+  <string name="calories999">calories</string>
+  <string name="attention">Please note:</string>
+  <string name="attention_description">Entering an activity incorrectly could cause the data about your daily CPFC intake to be displayed inaccurately.</string>
+  <string name="calories_spent">Calories burned</string>
+  <string name="_for">for</string>
+  <string name="move_slider">Drag the slider to change the amount of time</string>
+  <string name="add_to_diary">Add to journal</string>
+
+  <!-- Search Product Screen -->
+  <string name="search_empty">Results not found. Try again or create your own food.</string>
+
+  <!-- My Product List Screen -->
+  <string name="add_product">Add food</string>
+  <string name="product_not_found">Food not found</string>
+  <string name="product_list_empty">Liked or saved recipes and foods will be stored in this section.</string>
+
+  <!-- My Recipes List Screen -->
+  <string name="add_recipes">Add recipe</string>
+  <string name="recipes_not_found">Recipe not found</string>
+  <string name="recipes_list_empty">Here you can create and save a set of foods you eat every day at certain meals.</string>
+  <string name="create_product">Create food</string>
+  <string name="create_recipes">Create recipe</string>
+
+  <!-- Recipe Creation Screen -->
+  <string name="recipes_name">Recipe name</string>
+  <string name="recipes_image">Image of dish</string>
+  <string name="download">Upload</string>
+  <string name="gallery">Gallery</string>
+  <string name="photo">Photo</string>
+  <string name="time_for_preparing">Cooking time</string>
+  <string name="min">min</string>
+  <string name="complexity">Difficulty</string>
+  <string name="choose_complexity">Choose a difficulty level</string>
+  <string name="easy">Easy</string>
+  <string name="medium">Medium</string>
+  <string name="somplex">Hard</string>
+  <string name="all_users_can_see">Visible to all users</string>
+  <string name="all_users_can_see_description">Recipes and foods you create and add to the database may be accessible to other users. Please try to fill in the form above as accurately and completely as possible.</string>
+  <string name="ingredients_for_serving">Ingredients for one serving</string>
+  <string name="instruction">Instructions</string>
+  <string name="add_instruction">Add instructions</string>
+  <string name="instruction_description">Please write step-by-step instructions for preparing the dish</string>
+  <string name="recipes_info">Recipe info</string>
+  <string name="ingredients">Ingredients</string>
+  <string name="verification_of_information">Info verification</string>
+
+  <!-- Product Creation Screen -->
+  <string name="brand_manufacturer">Brand/manufacturer</string>
+  <string name="product_name">Food name</string>
+  <string name="barcode999">Barcode</string>
+  <string name="barcode_scanning">Scanning barcode</string>
+  <string name="barcode_scanning_description">Place the barcode within the scanning window. The search will begin automatically.</string>
+  <string name="product_calories">Calorie content</string>
+  <string name="nutrients">Nutrients per 100 g</string>
+  <string name="sellulose">Cellulose</string>
+  <string name="sugar">Sugar</string>
+  <string name="saturated_fat">Saturated fat</string>
+  <string name="monounsaturated_fat">Monounsaturated fat</string>
+  <string name="polyunsaturated_fats">Polyunsaturated fat</string>
+  <string name="cholesterol">Cholesterol</string>
+  <string name="sodium">Sodium</string>
+  <string name="potassium">Potassium</string>
+  <string name="product_info999">Food info</string>
+  <string name="nutritional_value">Nutritional value per 100 g</string>
+  <string name="product_added_to_your_products">Your food has been added to My Foods</string>
+
+  <!-- Product Details Screen -->
+  <string name="product_calculation">Food info</string>
+  <string name="product_weighs">The food weighs</string>
+  <string name="product_add_nutrients">Nutrients per</string>
+  <string name="report_bug">Report an error</string>
+
+  <!-- Recipe Details Screen -->
+  <string name="servings">servings</string>
+  <string name="ingredients_on">Ingredients per</string>
+  <string name="sooking_method">Cooking method</string>
+  <string name="recipe_added">Recipe added</string>
+
+  <!-- Default Activity  List -->
+  <string name="aikido">Aikido</string>
+  <string name="aqua_run">Aquajogging</string>
+  <string name="water_aerobics">Water aerobics</string>
+  <string name="mountaineering">Mountain climbing</string>
+  <string name="american_football">Football</string>
+  <string name="army_press">Army bench press</string>
+  <string name="aerobics_high_load">Aerobics, high intensity</string>
+  <string name="aerobics_medium_load">Aerobics, medium intensity</string>
+  <string name="badminton_high_load">Badminton, high intensity</string>
+  <string name="badminton_medium_load">Badminton, medium intensity</string>
+  <string name="basketball_high_load">Basketball, high intensity</string>
+  <string name="basketball_medium_load">Basketball, medium intensity</string>
+  <string name="run_11_3_km_h">Running, 11.3 kph</string>
+  <string name="run_12_1_km_h">Running, 12.1 kph</string>
+  <string name="run_12_9_km_h">Running, 12.9 kph</string>
+  <string name="run_14_5_km_h">Running, 14.5 kph</string>
+  <string name="run_16_09_km_h">Running, 16.09 kph</string>
+  <string name="run_17_7_km_h">Running, 17.7 kph</string>
+  <string name="run_6_4_km_h">Running, 6.4 kph</string>
+  <string name="run_8_km_h">Running, 8 kph</string>
+  <string name="run_9_7_km_h">Running, 9.7 kph</string>
+  <string name="running_up_the_stairs">Running up the stairs</string>
+  <string name="sross_country_running">Cross-country running</string>
+  <string name="sand_running">Running on sand</string>
+  <string name="jogging">Jogging</string>
+  <string name="treadmill">Treadmill</string>
+  <string name="baseball">Baseball</string>
+  <string name="biathlon">Biathlon</string>
+  <string name="bikram_yoga">Bikram yoga</string>
+  <string name="billiards">Billiards</string>
+  <string name="arm_curlbiceps">Bicep curls</string>
+  <string name="body_step">Body step</string>
+  <string name="martial_arts">Martial arts</string>
+  <string name="boxing">Boxing</string>
+  <string name="boxing_high_load">Boxing, high intensity</string>
+  <string name="boxing_training">Boxing, practice</string>
+  <string name="boxing_punching_bag">Boxing, punching bag</string>
+  <string name="bowling">Bowling</string>
+  <string name="quick_run_up_stairs">Running quickly up the stairs</string>
+  <string name="brisk_walking_6_5_km_h">Brisk walking, 6.5 kph</string>
+  <string name="wakeboarding">Wakeboarding</string>
+  <string name="bicycle_aerobics_high_load">Spinning, high intensity</string>
+  <string name="bicycle_aerobics_medium_load">Spinning, medium intensity</string>
+  <string name="cycling_high_load">Cycling, high intensity</string>
+  <string name="cycling_medium_load">Cycling, medium intensity</string>
+  <string name="horseback_riding">Horseback riding</string>
+  <string name="horseback_riding_dressage">Horseback riding, Dressage</string>
+  <string name="horse_riding_gallop">Horseback riding, galloping</string>
+  <string name="horse_riding_obstacles">Horseback riding, obstacles</string>
+  <string name="horse_riding_lynx">Horseback riding, trotting</string>
+  <string name="windsurfing">Windsurfing</string>
+  <string name="water_gymnastics">Water gymnastics</string>
+  <string name="water_polo">Water polo</string>
+  <string name="volleyball_high_load">Volleyball, high intensity</string>
+  <string name="volleyball_light_load">Volleyball, low intensity</string>
+  <string name="handball">Handball</string>
+  <string name="gymnastics">Gymnastics</string>
+  <string name="gymnastics_intensive">Gymnastics, intense</string>
+  <string name="gymnastics_average_load">Gymnastics, medium intensity</string>
+  <string name="kettlebell_training">Kettlebell training</string>
+  <string name="laundry_ironing">Ironing clothes</string>
+  <string name="golf_normal">Gold (regular)</string>
+  <string name="alpine_skiing_high_load">Downhill skiing, low intensity</string>
+  <string name="alpine_skiing_medium_load">Downhill skiing, medium intensity</string>
+  <string name="alpine_skiing_moderate_load">Downhill skiing, moderate intensity</string>
+  <string name="kayaking">Kayaking</string>
+  <string name="canoeing">Canoeing</string>
+  <string name="rowing_high_load">Rowing, high intensity</string>
+  <string name="rowing_low_load">Rowing, low intensity</string>
+  <string name="rowing_medium_load">Rowing, medium intensity</string>
+  <string name="diving">Diving</string>
+  <string name="scuba_diving">SCUBA diving</string>
+  <string name="judo">Judo</string>
+  <string name="bench_press">Bench press</string>
+  <string name="leg_press">Leg press</string>
+  <string name="winter_kiting">Winter kiting</string>
+  <string name="zumba">Zumba</string>
+  <string name="drumming">Drumming</string>
+  <string name="intense_walk">Speed-walking</string>
+  <string name="hiit_interval_training">HIIT interval training, high intensity</string>
+  <string name="yoga">Yoga</string>
+  <string name="kitesurfing">Kitesurfing</string>
+  <string name="karate">Karate</string>
+  <string name="cardiovascular_equipment">Cardio equipment</string>
+  <string name="cross_country_skiing">Cross-country skiing</string>
+  <string name="riding_bicycle">Cycling</string>
+  <string name="water_skiing">Waterskiing</string>
+  <string name="mountain_biking">Mountain biking</string>
+  <string name="skating">Ice skating</string>
+  <string name="ice_skating_high_load">Ice skating, high intensity</string>
+  <string name="cross_country_skiing_high_load">Cross-country skiing, high intensity</string>
+  <string name="cross_country_skiing_moderate_exercise">Cross-country skiing, moderate intensity</string>
+  <string name="skiing_medium_load">Skiing, medium intensity</string>
+  <string name="roller_skating">Roller skating</string>
+  <string name="in_line_skiing">In-line skating</string>
+  <string name="scooter_riding">Riding a scooter</string>
+  <string name="sledging">Sledding</string>
+  <string name="skateboarding">Skateboarding</string>
+  <string name="snowboarding">Snowboarding</string>
+  <string name="press_swing">Crunches</string>
+  <string name="curling">Curling</string>
+  <string name="kickboxing">Kickboxing</string>
+  <string name="digging_the_earth">Digging</string>
+  <string name="mowing_grass">Moving the lawn</string>
+  <string name="cross_skating">Cross-skating</string>
+  <string name="sross_trainer">Cross trainer</string>
+  <string name="srossfit">Crossfit</string>
+  <string name="sircular_training">Circular training</string>
+  <string name="hoop_torsion">Working out with a hula hoop</string>
+  <string name="bodybuilding">Bodybuilding</string>
+  <string name="lacrosse">Lacrosse</string>
+  <string name="portion">Slow walking, 4.5 kph</string>
+  <string name="slow_walking_4_5_km_h">Slow walking, 4.5 kph</string>
+  <string name="window_cleaning">Washing windows</string>
+  <string name="motocross">Motocross</string>
+  <string name="car_wash">Washing a car</string>
+  <string name="slopes">Dips</string>
+  <string name="table_tennis">Table tennis</string>
+  <string name="push_ups">Pushups</string>
+  <string name="powerlifting">Powerlifting</string>
+  <string name="hiking">Hiking</string>
+  <string name="hiking_with_backpack_">Hiking with backpack</string>
+  <string name="pilates">Pilates</string>
+  <string name="butterfly_swimming">Swimming, butterfly</string>
+  <string name="breaststroke">Swimming, breaststroke</string>
+  <string name="backstroke">Swimming, backstroke</string>
+  <string name="sailing">Sailing</string>
+  <string name="snorkeling">Snorkeling</string>
+  <string name="swimming_high_load">Swimming, high intensity</string>
+  <string name="swimming_low_load">Swimming, low intensity</string>
+  <string name="swimming_free">Swimming, freestyle</string>
+  <string name="swimming_medium_load">Swimming, medium intensity</string>
+  <string name="lying_hips">Hip lifts from a lying position</string>
+  <string name="pull_ups">Pull-ups</string>
+  <string name="climbing_stairs">Stair climbing</string>
+  <string name="polo">Polo</string>
+  <string name="obstacle_course">Obstacle course</string>
+  <string name="squat_on_one_leg">One-legged squats</string>
+  <string name="shoulder_squat">Shoulder squats</string>
+  <string name="stroll">Walking</string>
+  <string name="walking_in_no_hurry">Walking, slow</string>
+  <string name="walk_through_the_woods">Walking in the woods</string>
+  <string name="professional_football">Professional soccer</string>
+  <string name="long_jump">Long jump</string>
+  <string name="trampoline_amateur">Trampoline jumping, amateur</string>
+  <string name="rope_jumping">Rope jumping</string>
+  <string name="vacuuming">Vacuuming</string>
+  <string name="work_with_a_rake">Raking</string>
+  <string name="stretching">Stretching</string>
+  <string name="rugby">Rugby</string>
+  <string name="gardening">Gardening</string>
+  <string name="salsa">Salsa</string>
+  <string name="sex">Sex</string>
+  <string name="surfing">Surfing</string>
+  <string name="power_yoga">Power yoga</string>
+  <string name="power_training">Power training</string>
+  <string name="strength_exercises">Strength exercises</string>
+  <string name="synchronized_swimming">Synchronized swimming</string>
+  <string name="rock_climbing">Rock climbing</string>
+  <string name="nordic_walking">Nordic walking</string>
+  <string name="twisting">Twists</string>
+  <string name="mixed_martial_arts">Mixed martial arts</string>
+  <string name="orienteering">Orienteering</string>
+  <string name="deadlift">Deadlifts</string>
+  <string name="step">Step aerobics</string>
+  <string name="step_platform">Step platform</string>
+  <string name="pan">Tabata training</string>
+  <string name="thai_boxing">Thai boxing</string>
+  <string name="dance_aerobics">Dance aerobics</string>
+  <string name="dancing">Dancing</string>
+  <string name="pole_dancing">Pole dancing</string>
+  <string name="twist">Dancing, twist</string>
+  <string name="tennis">Tennis</string>
+  <string name="cleaning">Housecleaning</string>
+  <string name="snow_removal_with_shovel">Shoveling snow</string>
+  <string name="burpee_exercise">Burpees</string>
+  <string name="exercise_plank">Plank</string>
+  <string name="exercise_lunges">Lunges</string>
+  <string name="fencing">Fencing</string>
+  <string name="frisbee">Frisbee</string>
+  <string name="football">Soccer</string>
+  <string name="walking_up_the_stairs">Walking up the stairs</string>
+  <string name="indoor_walking">Walking inside a building</string>
+  <string name="walking_5_km_h">Walking, 5 kph</string>
+  <string name="hockey">Hockey</string>
+  <string name="stick_walking">Walking with sticks</string>
+  <string name="shopping">Shopping</string>
+  <string name="elliptical_trainer_high_load">Elliptical machine, high intensity</string>
+  <string name="elliptical_trainer_medium_load">Elliptical machine, medium intensity</string>
+  <string name="elliptical_trainer_low_load">Elliptical machine, low intensity</string>
+
 </resources>
