@@ -26,6 +26,7 @@ import com.wsoteam.diet.presentation.measurment.POJO.Chest;
 import com.wsoteam.diet.presentation.measurment.POJO.Hips;
 import com.wsoteam.diet.presentation.measurment.POJO.Meas;
 import com.wsoteam.diet.presentation.measurment.POJO.Waist;
+import com.wsoteam.diet.presentation.measurment.adapter.DaysAdapter;
 import com.wsoteam.diet.presentation.measurment.days.DaysFragment;
 import com.wsoteam.diet.presentation.measurment.dialogs.MeasCallback;
 import com.wsoteam.diet.presentation.measurment.dialogs.MeasDialog;
@@ -58,6 +59,7 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
   @BindView(R.id.ivRefreshHips) ImageView ivRefreshHips;
   @BindView(R.id.tvTicker) TextView tvTicker;
   private int position = 0;
+  private DaysAdapter adapter;
 
 
   @Override
@@ -157,10 +159,10 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
     super.onCreate(savedInstanceState);
     setContentView(R.layout.measurment_activity);
     ButterKnife.bind(this);
-    bindViewPager();
     setUIAccordingPrem();
     presenter = new MeasurmentPresenter(this);
     presenter.attachView(this);
+    bindViewPager();
   }
 
   private void setUIAccordingPrem() {
@@ -189,18 +191,8 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
   }
 
   private void bindViewPager() {
-    vpDays.addOnPageChangeListener(viewPagerListener);
-    vpDays.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-      @Override
-      public Fragment getItem(int position) {
-        return DaysFragment.newInstance(position - MEDIUM_DATE_LINE);
-      }
-
-      @Override
-      public int getCount() {
-        return SIZE_DATE_LINE;
-      }
-    });
+    adapter = new DaysAdapter(getSupportFragmentManager());
+    vpDays.setAdapter(adapter);
     vpDays.setCurrentItem(MEDIUM_DATE_LINE);
   }
 
