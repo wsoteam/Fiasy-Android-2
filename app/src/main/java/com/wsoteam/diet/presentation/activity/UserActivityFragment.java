@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.utils.Metrics;
+import com.wsoteam.diet.utils.ViewsExtKt;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -262,6 +263,10 @@ public class UserActivityFragment extends DialogFragment implements
   }
 
   private void requestCreateCustomActivity() {
+    if (getView() != null) {
+      ViewsExtKt.hideKeyboard(getView());
+    }
+
     final CreateUserActivityFragment target = new CreateUserActivityFragment();
     target.setTargetFragment(this, CREATE_CUSTOM_ACTIVITY);
 
@@ -273,6 +278,10 @@ public class UserActivityFragment extends DialogFragment implements
   }
 
   private void requestAddUserActivity(@Nullable ActivityModel exercise, boolean edit) {
+    if (getView() != null) {
+      ViewsExtKt.hideKeyboard(getView());
+    }
+
     final EditUserActivityFragment f = new EditUserActivityFragment();
     f.setTargetFragment(this, !edit ? ADD_ACTIVITY_2_DIARY : CREATE_CUSTOM_ACTIVITY);
     f.setSelected(exercise);

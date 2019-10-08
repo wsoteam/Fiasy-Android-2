@@ -29,6 +29,7 @@ import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.utils.Metrics;
 import com.wsoteam.diet.utils.RichTextUtils;
+import com.wsoteam.diet.utils.ViewsExtKt;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -573,6 +574,8 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
       view.searchView.addTextChangedListener(searchWatcher);
       view.searchView.setOnEditorActionListener((v, actionId, event) -> {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+          ViewsExtKt.hideKeyboard(v);
+
           searchListener.onSearch(v.getText().toString());
           return true;
         }

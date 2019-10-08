@@ -109,7 +109,7 @@ class EditUserActivityFragment : DialogFragment() {
     if (VERSION.SDK_INT >= VERSION_CODES.O) {
       exerciseDuration.min = 1
     }
-    exerciseDuration.max = 360
+    exerciseDuration.max = 120
     exerciseDuration.progress = (selected?.duration ?: 30)
 
     exerciseDuration.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
