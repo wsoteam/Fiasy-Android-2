@@ -12,6 +12,24 @@
         <attr name="max" format="reference|integer" />
     </declare-styleable>
 
+    <declare-styleable name="CompactCalendarView">
+        <attr name="compactCalendarTextSize" format="dimension"/>
+        <attr name="compactCalendarBackgroundColor" format="color"/>
+        <attr name="compactCalendarCurrentDayBackgroundColor" format="color"/>
+        <attr name="compactCalendarCurrentDayTextColor" format="color"/>
+        <attr name="compactCalendarCurrentSelectedDayBackgroundColor" format="color"/>
+        <attr name="compactCalendarCurrentSelectedDayTextColor" format="color"/>
+        <attr name="compactCalendarTextColor" format="color"/>
+        <attr name="compactCalendarMultiEventIndicatorColor" format="color"/>
+        <attr name="compactCalendarTargetHeight" format="dimension"/>
+        <attr name="compactCalendarEventIndicatorStyle"/>
+        <attr name="compactCalendarCurrentDayIndicatorStyle"/>
+        <attr name="compactCalendarCurrentSelectedDayIndicatorStyle"/>
+        <attr name="compactCalendarDisplayOtherMonthDays" format="boolean"/>
+        <attr name="compactCalendarShouldSelectFirstDayOfMonthOnScroll" format="boolean"/>
+        <attr name="compactCalendarOtherMonthDaysTextColor" format="color"/>
+    </declare-styleable>
+
     <declare-styleable name="NumberPickerView">
         <!--set number of item displayed, default is 3-->
         <attr name="npv_ShownCount" format="reference|integer" />

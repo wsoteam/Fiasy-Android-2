@@ -8,9 +8,11 @@ import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.DynamicDrawableSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,9 +25,11 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
+import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.utils.Metrics;
 import com.wsoteam.diet.utils.RichTextUtils;
+import com.wsoteam.diet.utils.ViewsExtKt;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -187,12 +191,17 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     final int offset = headers + getSectionOffset(section);
     final int currentSize = section.total();
 
-    section.expanded = true;
     section.items.clear();
+    section.expanded = true;
 
     final int diff = currentSize - section.total();
 
     total -= diff;
+
+    if (BuildConfig.DEBUG) {
+      Log.d("ActivitiesList", String.format("section_cleared = %d, total = %d", diff, total));
+    }
+
     notifyItemChanged(offset);
     notifyItemRangeRemoved(offset + 1, diff);
   }
@@ -266,6 +275,12 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
       final int diff = currentSize - section.total();
 
       total -= diff;
+
+      if (BuildConfig.DEBUG) {
+        Log.d("ActivitiesList", String.format("section=%s, offset=%d, collapsed = %d, total = %d",
+            getContext().getString(sectionId), offset, diff, total));
+      }
+
       notifyItemChanged(offset);
       notifyItemRangeRemoved(offset + 1, diff);
     }
@@ -282,6 +297,12 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
       final int diff = section.total() - currentSize;
 
       total += diff;
+
+      if (BuildConfig.DEBUG) {
+        Log.d("ActivitiesList", String.format("section=%s, expanded=%d, offset=%d, total=%d",
+            getContext().getString(sectionId), diff, offset, total));
+      }
+
       notifyItemChanged(offset);
       notifyItemRangeInserted(offset + 1, diff);
     }
@@ -305,16 +326,21 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
           "section with id #" + Integer.toHexString(sectionId) + " not found");
     }
 
-    final int added = items.size() - section.items.size();
+    final int currentSize = section.total();
 
-    final int index = headers + getSectionOffset(section);
+    final int offset = headers + getSectionOffset(section);
+
     section.expanded = true;
     section.items.clear();
     section.items.addAll(items);
 
-    total += added;
+    final int diff = currentSize - section.total();
 
-    notifyItemChanged(index);
+    total -= diff;
+
+    notifyItemChanged(offset);
+
+    final int index = offset + 1;
 
     difference.dispatchUpdatesTo(new ListUpdateCallback() {
       @Override public void onInserted(int position, int count) {
@@ -368,7 +394,10 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
   public void addItems(@StringRes int sectionId, @NonNull List<ActivityModel> items,
       int pushIndex) {
+
     if (items.isEmpty()) {
+      Log.d("ActivitiesList", String.format("section=%s, nothing changed",
+          getContext().getResources().getString(sectionId)));
       return;
     }
 
@@ -380,7 +409,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     final int index = headers + getSectionOffset(section);
-    final int size = section.total();
+    final int oldSize = section.total();
 
     final boolean prepend = pushIndex >= 0;
 
@@ -391,20 +420,31 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     int headers = 0;
 
     if (section.items.isEmpty()) {
-      headers = size - 1; // total items - section header => gives headers size
+      headers = oldSize - 1; // total items - section header => gives headers size
     }
 
     section.items.addAll(pushIndex, items);
-    total += items.size() - headers;
+
+    if (!section.expanded) {
+      Log.d("ActivitiesList", "section=%s, collapsed, skipping");
+      return;
+    }
+
+    total += section.total() - oldSize;
 
     if (headers > 0) {
       notifyItemRangeRemoved(index + 1, headers);
     }
 
+    if (BuildConfig.DEBUG) {
+      Log.d("ActivitiesList", String.format("section=%s, items_added=%d, total=%d",
+          getContext().getResources().getString(sectionId), items.size(), total));
+    }
+
     if (prepend) {
       notifyItemRangeInserted(index + 1, items.size());
     } else {
-      notifyItemRangeInserted(index + (size - headers), items.size());
+      notifyItemRangeInserted(index + (oldSize - headers), items.size());
     }
   }
 
@@ -532,6 +572,15 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     if (holder instanceof SearchView) {
       final SearchView view = ((SearchView) holder);
       view.searchView.addTextChangedListener(searchWatcher);
+      view.searchView.setOnEditorActionListener((v, actionId, event) -> {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+          ViewsExtKt.hideKeyboard(v);
+
+          searchListener.onSearch(v.getText().toString());
+          return true;
+        }
+        return false;
+      });
     }
   }
 
@@ -548,6 +597,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     if (holder instanceof SearchView) {
       final SearchView view = ((SearchView) holder);
       view.searchView.removeTextChangedListener(searchWatcher);
+      view.searchView.setOnEditorActionListener(null);
     }
   }
 

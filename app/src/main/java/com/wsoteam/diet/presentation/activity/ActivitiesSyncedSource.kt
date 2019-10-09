@@ -7,7 +7,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.wsoteam.diet.Config
+import com.wsoteam.diet.presentation.diary.DiaryViewModel
 import com.wsoteam.diet.utils.RxFirebase
+import com.wsoteam.diet.utils.valueOf
 import io.reactivex.Flowable
 import io.reactivex.Single
 import java.lang.IllegalArgumentException
@@ -52,7 +54,9 @@ open class ActivitiesSyncedSource(val source: ActivitySource) : ExercisesSource(
   }
 
   override fun all(): Single<List<ActivityModel>> {
-    return RxFirebase.from(database.limitToFirst(50))
+    val date = DiaryViewModel.currentDate
+
+    return RxFirebase.from(database)
       .flatMap<DataSnapshot> data@{ snapshot ->
         if (snapshot.childrenCount == 0L) {
           return@data Flowable.fromIterable(Collections.emptyList())
@@ -61,6 +65,11 @@ open class ActivitiesSyncedSource(val source: ActivitySource) : ExercisesSource(
         }
       }
       .filter { snapshot -> snapshot.hasChildren() }
+      .filter { snapshot ->
+        snapshot.valueOf<Int>("day") == date.day
+            && snapshot.valueOf<Int>("month") == date.month
+            && snapshot.valueOf<Int>("year") == date.year
+      }
       .map { snapshot -> deserialize(snapshot) }
       .filter { e -> if (filterFavorites) e.favorite else !e.favorite }
       .toSortedList { left, right -> right.`when`.compareTo((left.`when`)) }

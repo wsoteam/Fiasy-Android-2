@@ -1,16 +1,32 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+  <!-- Default screen margins, per the Android Design guidelines. -->
+  <dimen name="activity_horizontal_margin">16dp</dimen>
+  <dimen name="activity_vertical_margin">16dp</dimen>
+  <dimen name="nav_header_vertical_spacing">8dp</dimen>
+  <dimen name="nav_header_height">176dp</dimen>
+  <dimen name="fab_margin">16dp</dimen>
 
   <dimen name="card_height">125dp</dimen>
-    <dimen name="card_width">100dp</dimen>
+  <dimen name="card_width">100dp</dimen>
 
+
+  <dimen name="icon_top_margin">24dp</dimen>
+  <dimen name="icon_bottom_margin">24dp</dimen>
+  <dimen name="title_bottom_margin">16dp</dimen>
+  <dimen name="field_width_standard">160dp</dimen>
+
+  <dimen name="icon_size">20dp</dimen>
 
   <!-- Action Bar -->
+  <dimen name="ab_padding_top">15dp</dimen>
 
   <dimen name="water_thumb_size">22dp</dimen>
+  <dimen name="water_thumb_text_size">16sp</dimen>
 
   <!-- Wheel -->
-    <dimen name="WheelItemTextSize">24sp</dimen>
-    <dimen name="WheelItemSpace">12dp</dimen>
-    <dimen name="WheelIndicatorSize">2dp</dimen>
+  <dimen name="WheelItemTextSize">24sp</dimen>
+  <dimen name="WheelItemSpace">12dp</dimen>
+  <dimen name="WheelIndicatorSize">2dp</dimen>
+  <dimen name="WheelMargins">8dp</dimen>
+  <dimen name="diary_calendar_height">240dp</dimen>
 </resources>

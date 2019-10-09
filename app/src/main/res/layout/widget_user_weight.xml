@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:cardCornerRadius="16dp"
+    app:cardBackgroundColor="@color/cardview_light_background"
+    >
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingTop="10dp"
+      android:paddingBottom="10dp"
+      android:paddingLeft="16dp"
+      android:paddingRight="16dp"
+      android:orientation="vertical">
+
+    <TextView
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#d9424242"
+        android:text="@string/widget_weight_title"
+        />
+
+    <TextView
+        android:id="@+id/weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="36sp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
+        android:textColor="#d9424242"
+        android:lineSpacingExtra="16sp"
+        android:layout_gravity="center"
+        tools:text="75.4 кг"
+        />
+
+    <TextView
+        android:id="@+id/last_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
+        android:textColor="#80424242"
+        android:lineSpacingExtra="7sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="Не изменялось с момента регистрации"
+        />
+
+    <TextView
+        android:id="@+id/action_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
+        android:textColor="@color/orange"
+        android:lineSpacingExtra="8sp"
+        android:layout_gravity="center"
+        android:paddingTop="4dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp"
+        android:text="@string/action_refresh"
+        />
+  </LinearLayout>
+</androidx.cardview.widget.CardView>

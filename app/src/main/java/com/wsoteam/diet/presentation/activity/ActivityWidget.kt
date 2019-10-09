@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.wsoteam.diet.R
 import com.wsoteam.diet.R.string
+import com.wsoteam.diet.presentation.diary.DiaryViewModel
 import com.wsoteam.diet.utils.RichTextUtils.RichText
 import com.wsoteam.diet.utils.getVectorIcon
 import com.wsoteam.diet.utils.tint
@@ -31,7 +32,7 @@ class ActivityWidget(context: Context) : CardView(context) {
 
   private val disposables = CompositeDisposable()
   private val myActivitySource = DiaryActivitiesSource
-  private val changesObserver = Observer<Int> {
+  private val changesObserver = Observer<Any> {
     reloadLastActivities()
   }
 
@@ -46,11 +47,7 @@ class ActivityWidget(context: Context) : CardView(context) {
 
     val addAction = RichText(context.getString(string.action_add))
       .onClick {
-        val fragment = EditUserActivityFragment()
-        fragment.diaryMode = true
-        fragment.editMode = false
-
-        display(fragment)
+        display(UserActivityFragment())
       }
       .colorRes(context, R.color.orange)
       .textScale(1.2f)
@@ -66,11 +63,7 @@ class ActivityWidget(context: Context) : CardView(context) {
         d.tint(context, R.color.orange), null)
 
     actionShowAll.setOnClickListener {
-      (it.context as FragmentActivity).supportFragmentManager
-        .beginTransaction()
-        .add(android.R.id.content, UserActivityFragment(), UserActivityFragment::class.simpleName)
-        .addToBackStack(null)
-        .commitAllowingStateLoss()
+      display(UserActivityFragment())
     }
   }
 
@@ -87,6 +80,7 @@ class ActivityWidget(context: Context) : CardView(context) {
   override fun onAttachedToWindow() {
     super.onAttachedToWindow()
     ActivitiesSyncedSource.changesLive.observeForever(changesObserver)
+    DiaryViewModel.selectedDate.observeForever(changesObserver)
 
     reloadLastActivities()
   }
@@ -146,12 +140,14 @@ class ActivityWidget(context: Context) : CardView(context) {
     activity.supportFragmentManager
       .beginTransaction()
       .add(android.R.id.content, target, target::class.simpleName)
+      .addToBackStack(null)
       .commitAllowingStateLoss()
   }
 
   override fun onDetachedFromWindow() {
     super.onDetachedFromWindow()
     ActivitiesSyncedSource.changesLive.removeObserver(changesObserver)
+    DiaryViewModel.selectedDate.removeObserver(changesObserver)
 
     disposables.clear()
   }

@@ -46,6 +46,9 @@
         android:layout_below="@id/activity_poster"
         android:textColor="@color/orange1"
         android:textSize="24sp"
+        android:singleLine="true"
+        android:lines="1"
+        android:maxLines="1"
         android:maxLength="100"
         tools:text="Танцы"
         />
@@ -152,6 +155,7 @@
         android:fontFamily="@font/roboto_medium"
         android:textSize="20sp"
         android:inputType="numberSigned"
+        android:digits="123456789"
         android:textColor="@color/orange1"
         android:layout_below="@id/activity_ccal_description"
         android:maxLength="12"
@@ -164,7 +168,7 @@
         android:layout_below="@id/activity_ccal"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
-        android:text="@string/add_user_activity_done_button"
+        android:text="@string/action_done"
         />
 
     <TextView
