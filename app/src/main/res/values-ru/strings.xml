@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- Unboarding Screen -->
-
-
   <string name="unboarding_welcome">Добро пожаловать в</string>
   <string name="unboarding_first_screen">Множество научных статей о правильном питании</string>
   <string name="unboarding_second_screen">Полезные рецепты на каждый день</string>
@@ -11,122 +9,65 @@
   <string name="unboarding_next">ДАЛЕЕ</string>
 
   <!-- Authorization Screen -->
-
-
   <string name="or">ИЛИ</string>
-
-  <string name="signIn">ВОЙТИ</string>
-
-  <string name="authorization_with">ЗАРЕГИСТРИРОВАТЬСЯ С ПОМОЩЬЮ</string>
-
+  <string name="signIn">Войти</string>
+  <string name="authorization_with">Зарегистрироваться \nс помощью</string>
   <string name="account_available">Уже есть аккаунт?</string>
-
   <string name="registration_by_mail">РЕГИСТРАЦИЯ ПО EMAIL</string>
 
   <!-- Sign In Screen -->
-
-
   <string name="signIn_title">Войти</string>
-
   <string name="login">Логин</string>
-
   <string name="password">Пароль</string>
-
   <string name="restore">Восстановить</string>
-
   <string name="forgot_password">Забыли пароль?</string>
-
   <string name="or_signIn_by">или войти с помощью</string>
 
   <!-- Sign Up Screen -->
-
-
-  <string name="signUp_title">Регистрация</string>
-
+  <string name="signUp_title">Зарегистрироваться</string>
   <string name="write_email">Введите Email</string>
-
   <string name="write_password">Введите пароль</string>
-
-  <string name="repeat_password">Введите повторно пароль</string>
-
+  <string name="repeat_password">Повторите пароль</string>
   <string name="simple_password_error">Пароль слишком простой</string>
-
   <string name="password_dont_match">Не совпадают пароли</string>
-
   <string name="agree_with_conditions">я согласен с условиями</string>
-
-  <string name="privacy_policy">политикой конфидециальности</string>
+  <string name="privacy_policy">политики конфидециальности</string>
 
   <!-- Reset Password Screen -->
-
-
   <string name="reset_send">ОТПРАВИТЬ</string>
-
   <string name="reset_close_screen">Закрыть форму?</string>
-
   <string name="reset_close_title">Закрыть</string>
-
   <string name="reset_close_continue">Продолжить</string>
-
   <string name="reset_close_description">Закрывая форму, вы не сожете восстановить пароль</string>
-
   <string name="wrong_mail_error">Неверный формат почты</string>
-
   <string name="reset_password_title">Восстановить пароль</string>
-
   <string name="we_send_email">Мы отправим вам письмо на почту</string>
-
   <string name="enter_mail_description">Введите Email для восстановления</string>
 
   <!-- Interrogation Screen -->
-
-
   <string name="select_your_gender">Выберите ваш пол</string>
-
   <string name="selected_man">Вы выбрали мужчину</string>
-
   <string name="selected_woman">Вы выбрали женщину</string>
-
   <string name="select_your_growth">Выберите ваш рост</string>
-
   <string name="growth_unit">см</string>
-
   <string name="weight_unit">кг</string>
-
   <string name="mifflin_formula">Для расчета мы используем формулу Миффлина-Сан-Жеора, которую в 2005 году подтвердила Американская Диетическая Ассоциация (АДА), что она является более точной.</string>
-
   <string name="select_your_weight">Выберите ваш вес</string>
-
   <string name="select_your_date_of_birth">Выберите дату рождения</string>
-
   <string name="select_your_activity">Выберите свою активность</string>
-
   <string name="first_activity">Минимальная нагрузка</string>
-
   <string name="second_activity">Легкая физическая нагрузка в течении дня</string>
-
   <string name="third_activity">Тренировки 2-4 раза в неделю (или работа средней тяжести)</string>
-
   <string name="fourth_activity">Интенсивные тренировки 4-5 раз в неделю</string>
-
   <string name="five_activity">Ежедневные интенсивные тренировки</string>
-
   <string name="six_activity">Тренировки 5-7 раз в неделю, по два раза в день</string>
-
   <string name="seven_activity">Тяжелая физическая работа или ежедневные интенсивные тренировки по 2 раза в день</string>
-
   <string name="select_your_target">Выберите свою цель</string>
-
   <string name="first_target">Поддержания тела в форме</string>
-
   <string name="second_target">Похудение</string>
-
   <string name="third_target">Набор мышечной массы</string>
-
   <string name="fourth_target">Сохранение мышц и сжигание жира</string>
-
   <!-- Interrogation Finish Screen -->
-
 
   <string name="wait_a_while">Подождите немного</string>
 

@@ -15,15 +15,15 @@
       />
 
   <TextView
-      style="@style/TextAppearance.AppCompat.Title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginLeft="16dp"
-      android:layout_marginTop="16dp"
       android:layout_marginRight="16dp"
-      android:text="@string/fragment_auth_signup_reg"
+      android:layout_marginTop="16dp"
+      android:text="@string/signUp_title"
       android:textColor="@color/orange"
       android:textSize="24sp"
+      style="@style/TextAppearance.AppCompat.Title"
       />
 
   <com.google.android.material.textfield.TextInputLayout
@@ -36,9 +36,9 @@
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_email_hint"
-        android:maxLength="64"
+        android:hint="@string/write_email"
         android:inputType="textEmailAddress|textPersonName"
+        android:maxLength="64"
         />
 
   </com.google.android.material.textfield.TextInputLayout>
@@ -55,7 +55,7 @@
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/auth_password_hint"
+        android:hint="@string/password"
         android:inputType="textPassword"
         />
 
@@ -74,7 +74,7 @@
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/repeat_password_hint"
+        android:hint="@string/repeat_password"
         android:inputType="textPassword"
         />
 
@@ -96,10 +96,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/action_sign_up"
+        android:text="@string/signUp_title"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
         />
 
   </androidx.cardview.widget.CardView>
@@ -108,24 +108,24 @@
       android:id="@+id/privacyPolicy"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:maxWidth="222dp"
-      android:text="@string/auth_forgot_your_password"
-      style="@style/TextAppearance.AppCompat.Body1"
-      android:textColor="#80000000"
-      android:gravity="center"
       android:layout_gravity="center"
       android:layout_marginTop="12dp"
+      android:gravity="center"
+      android:maxWidth="222dp"
+      android:text="@string/forgot_password"
+      android:textColor="#80000000"
+      style="@style/TextAppearance.AppCompat.Body1"
       />
 
   <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textSize="16sp"
-      android:textStyle="bold"
-      android:textColor="#80000000"
-      android:text="@string/auth_sign_up_alternatives"
       android:layout_gravity="center"
       android:layout_marginTop="64dp"
+      android:text="@string/or_signIn_by"
+      android:textColor="#80000000"
+      android:textSize="16sp"
+      android:textStyle="bold"
       />
 
   <LinearLayout

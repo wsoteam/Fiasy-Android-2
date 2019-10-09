@@ -42,14 +42,14 @@ public class AuthFirstFragment extends AuthStrategyFragment {
     privacyPolicyView.setText(concat(getString(R.string.privacy_policy_title), "\n",
         actionOpenPrivacyPolicy.text()));
 
-    final RichText actionSignIn = new RichText(getString(R.string.action_sign_in_label))
+    final RichText actionSignIn = new RichText(getString(R.string.signIn))
         .onClick(v -> signIn())
         .textScale(1.2f)
         .colorRes(requireContext(), R.color.orange);
 
     final TextView signInView = view.findViewById(R.id.signIn);
     signInView.setMovementMethod(LinkMovementMethod.getInstance());
-    signInView.setText(concat(getString(R.string.sign_in_already_have_account), " ",
+    signInView.setText(concat(getString(R.string.account_available), " ",
         actionSignIn.text()));
 
     view.findViewById(R.id.signUp).setOnClickListener(v -> signUp());

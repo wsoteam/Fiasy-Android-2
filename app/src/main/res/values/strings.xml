@@ -346,7 +346,6 @@
   <string name="sign_up_privacy_policy_title" translatable="false">я согласен с условиями </string>
   <string name="sign_up_privacy_policy_link_span_text" translatable="false">политики конфиндециальности</string>
   <string name="sign_in_already_have_account" translatable="false">У вас уже есть аккаунт?</string>
-  <string name="action_sign_in_label" translatable="false">Войти</string>
   <string name="auth_login_hint" translatable="false">Логин</string>
   <string name="auth_password_hint" translatable="false">Пароль</string>
   <string name="auth_forgot_your_password" translatable="false">Забыли пароль?</string>
@@ -386,7 +385,6 @@
   <string name="profile_female" translatable="false">Женский</string>
   <string name="profile_male" translatable="false">Мужской</string>
   <string name="activity_save" translatable="false">сохранить</string>
-  <string name="personal_data">Личные данные</string>
   <string name="update_message" translatable="false">Вышла новая версия приложения!  \nОбновите приложение в Google Play</string>
   <string name="go_update" translatable="false">Обновить</string>
   <string name="update_title" translatable="false">Обновление!</string>
@@ -553,7 +551,6 @@
   <string name="food_popup_menu_change" translatable="false">Редактировать</string>
   <string name="fragment_adding_recipe_instructions_write_instructions" translatable="false">Пожалуйста, записывайте инструкцию по приготовлению по пунктам.</string>
 
-  <string name="fragment_auth_first_reg_with" translatable="false">Зарегистрироваться с\nпомощью</string>
 
   <string name="fragment_auth_first_or" translatable="false">или</string>
 
@@ -904,7 +901,7 @@
   <!-- Setting Screen -->
   <string name="premium_account">Premium Account</string>
   <string name="promotional_codes">Promo codes</string>
-  <string name="personal_data999" translatable="false">Personal information</string>
+  <string name="personal_data">Personal information</string>
   <string name="calorie_intake">Calorie intake</string>
   <string name="exit">Logout</string>
   <string name="log_off">Log out</string>

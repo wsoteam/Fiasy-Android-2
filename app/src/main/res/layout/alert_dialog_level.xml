@@ -52,7 +52,8 @@
                     android:id="@+id/rbLevelLoadNone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/level_none"/>
+                    android:text="@string/first_activity"
+                    />
 
                 <TextView
                     android:id="@+id/tv_level_none"

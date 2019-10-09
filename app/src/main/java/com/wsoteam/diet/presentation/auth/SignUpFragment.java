@@ -37,14 +37,14 @@ public class SignUpFragment extends SignInFragment {
 
     if (privacyView != null) {
       final RichTextUtils.RichText actionOpenPrivacyPolicy =
-          new RichTextUtils.RichText(getString(R.string.sign_up_privacy_policy_link_span_text))
+          new RichTextUtils.RichText(getString(R.string.privacy_policy))
               .colorRes(requireContext(), R.color.blue)
               .underline()
               .onClick(v -> IntentUtils.openWebLink(v.getContext(),
                   "http://fiasy.com/PrivacyPolice.html"));
 
       privacyView.setMovementMethod(LinkMovementMethod.getInstance());
-      privacyView.setText(concat(getString(R.string.sign_up_privacy_policy_title), " ",
+      privacyView.setText(concat(getString(R.string.agree_with_conditions), " ",
           actionOpenPrivacyPolicy.text()));
     }
   }
@@ -57,10 +57,10 @@ public class SignUpFragment extends SignInFragment {
     }
 
     if (error instanceof FirebaseAuthWeakPasswordException) {
-      setInputException(R.id.password, getString(R.string.auth_user_set_weak_password));
+      setInputException(R.id.password, getString(R.string.simple_password_error));
       //Events.logRegistrationError(EventProperties.invalid_password);
     } else if (error instanceof FirebaseAuthInvalidCredentialsException) {
-      setInputException(R.id.username, getString(R.string.auth_user_mailformed));
+      setInputException(R.id.username, getString(R.string.write_email));
       //Events.logRegistrationError(EventProperties.invalid_email);
     } else if (error instanceof FirebaseAuthUserCollisionException) {
       setInputException(R.id.username, getString(R.string.auth_user_using_existing_account));
@@ -88,7 +88,7 @@ public class SignUpFragment extends SignInFragment {
           if (prev != null && !prev.equals(current)) {
 
             if (displayError) {
-              target.setError(getString(R.string.constraint_error_passwords_must_match));
+              target.setError(getString(R.string.password_dont_match));
               //Events.logRegistrationError(EventProperties.invalid_password);
             }
 

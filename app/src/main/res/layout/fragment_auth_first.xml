@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivMain"
         style="@style/TextAppearance.AppCompat.Title"
-        android:text="@string/fragment_auth_first_reg_with"/>
+        android:text="@string/authorization_with"/>
 
     <ImageView
         android:id="@+id/auth_strategy_facebook"
@@ -75,10 +75,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
+            android:text="@string/or"
             android:textColor="#61000000"
             android:textSize="14sp"
             android:textStyle="normal"
-            android:text="@string/fragment_auth_first_or"
             />
 
         <View
@@ -99,25 +99,27 @@
         android:background="@drawable/new_auth_button_background"
         android:elevation="3dp"
         android:gravity="center"
-        android:text="@string/fragment_auth_first_email"
+        android:text="@string/registration_by_mail"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/or_helper"/>
+        app:layout_constraintTop_toBottomOf="@+id/or_helper"
+        />
 
     <TextView
         android:id="@+id/signIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/sign_in_already_have_account"
+        android:text="@string/account_available"
         android:textColor="@color/gray_light2"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUp"/>
+        app:layout_constraintTop_toBottomOf="@+id/signUp"
+        />
 
 
     <TextView

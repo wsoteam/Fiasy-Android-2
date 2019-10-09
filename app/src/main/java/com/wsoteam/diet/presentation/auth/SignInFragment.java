@@ -39,7 +39,7 @@ public class SignInFragment extends AuthStrategyFragment {
   static {
     formValidators.put(R.id.username, Arrays.asList(
         new MinLengthValidation(R.string.constraint_error_username_min_length, 5),
-        new EmailValidation(R.string.constraint_error_username_email)
+        new EmailValidation(R.string.write_email)
     ));
 
     formValidators.put(R.id.password, Arrays.asList(
@@ -106,8 +106,8 @@ public class SignInFragment extends AuthStrategyFragment {
     final TextView forgetPassword = view.findViewById(R.id.forget_password);
 
     if (forgetPassword != null) {
-      forgetPassword.setText(TextUtils.concat(getString(R.string.auth_forgot_your_password), " ",
-          new RichText(getString(R.string.auth_restore_your_password))
+      forgetPassword.setText(TextUtils.concat(getString(R.string.forgot_password), " ",
+          new RichText(getString(R.string.restore))
               .colorRes(requireContext(), R.color.orange)
               .onClick(v -> restorePassword())
               .text()));
