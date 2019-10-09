@@ -57,7 +57,7 @@ public class QuestionsPresenter extends BasePresenter<QuestionsView> {
                             Double.parseDouble(weight), 0,
                             activity, "", 0, 0, 0,
                             0, 0, diff, day, month, year);
-                    Profile profileFinal = BodyCalculates.calculateNew(context, profile);
+                    Profile profileFinal = BodyCalculates.calculateNew(context, profile, true);
                     getViewState().saveProfile(profileFinal);
                     getViewState().showMessage(context.getString(R.string.profile_saved));
                 } else {

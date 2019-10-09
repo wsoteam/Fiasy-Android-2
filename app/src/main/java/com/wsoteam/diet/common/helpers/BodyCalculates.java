@@ -51,7 +51,7 @@ public class BodyCalculates {
                         sportActivity, "", 0, 0, 0,
                         0, 0, dif_level, day, month, year);
 
-        return calculateNew(context, profile);
+        return calculateNew(context, profile, true);
     }
 
     public static Profile calculate(Context context, String height, String weight, String age, String sex, String activity, String goal) {
@@ -63,7 +63,7 @@ public class BodyCalculates {
         profile.setExerciseStress(convertToOldActivity(context, activity));
         profile.setDifficultyLevel(convertToOldGoal(context, goal));
 
-        return calculateNew(context, profile);
+        return calculateNew(context, profile, true);
     }
 
     public static String convertToOldGoal(Context context, String goal) {
@@ -135,7 +135,7 @@ public class BodyCalculates {
         return choisedGoal;
     }
 
-    public static Profile calculateNew(Context context, Profile profile) {
+    public static Profile calculateNew(Context context, Profile profile, boolean isNeedCreateMeasurment) {
 
         double BMR, KFA = 0, result, target = 0, FPCindex;
         double fat, protein, carbohydrate;
@@ -210,7 +210,9 @@ public class BodyCalculates {
         profile.setMaxCarbo((int) carbohydrate);
         profile.setMaxWater(maxWater);
 
-        createWeightMeas(profile.getWeight());
+        if (isNeedCreateMeasurment) {
+            createWeightMeas(profile.getWeight());
+        }
         return profile;
     }
 
@@ -241,7 +243,7 @@ public class BodyCalculates {
         int userCarbo = profile.getMaxCarbo();
 
 
-        Profile profileDefaultMainParams = BodyCalculates.calculateNew(context, cloneProfile(profile));
+        Profile profileDefaultMainParams = BodyCalculates.calculateNew(context, cloneProfile(profile), false);
 
         if (userKcal == profileDefaultMainParams.getMaxKcal()
                 && userProt == profileDefaultMainParams.getMaxProt()
@@ -257,7 +259,7 @@ public class BodyCalculates {
         Profile profile = UserDataHolder.getUserData().getProfile();
         if (isDefaultParams(context)){
             profile.setWeight(weight);
-            profile = calculateNew(context, profile);
+            profile = calculateNew(context, profile, true);
         }else {
             profile.setWeight(weight);
         }

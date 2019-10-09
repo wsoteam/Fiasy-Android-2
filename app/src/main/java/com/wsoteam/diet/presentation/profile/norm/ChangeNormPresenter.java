@@ -70,7 +70,7 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
     }
 
     public void dropParams() {
-        Profile profileDefaultMainParams = BodyCalculates.calculateNew(context, BodyCalculates.cloneProfile(UserDataHolder.getUserData().getProfile()));
+        Profile profileDefaultMainParams = BodyCalculates.calculateNew(context, BodyCalculates.cloneProfile(UserDataHolder.getUserData().getProfile()), true);
 
         getViewState().setDefaultPremParams(String.valueOf(profileDefaultMainParams.getMaxKcal()), String.valueOf(profileDefaultMainParams.getMaxFat()),
                 String.valueOf(profileDefaultMainParams.getMaxCarbo()), String.valueOf(profileDefaultMainParams.getMaxProt()));
