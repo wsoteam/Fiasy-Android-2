@@ -41,7 +41,7 @@ public class SignUpFragment extends SignInFragment {
               .colorRes(requireContext(), R.color.blue)
               .underline()
               .onClick(v -> IntentUtils.openWebLink(v.getContext(),
-                  "http://fiasy.com/PrivacyPolice.html"));
+                  getString(R.string.url_privacy_police)));
 
       privacyView.setMovementMethod(LinkMovementMethod.getInstance());
       privacyView.setText(concat(getString(R.string.agree_with_conditions), " ",

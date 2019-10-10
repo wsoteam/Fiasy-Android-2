@@ -1,6 +1,37 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
 
+
+
+
+ // Авторизация
+  <string name="privacy_policy_title" translatable="false">Ознакомиться с условиями</string>
+  <string name="welcome" translatable="false">Добро пожаловать :)</string>
+  <string name="hello" translatable="false">Привет,\u0020</string>
+  <string name="auth_user_using_existing_account" translatable="false">Пользователь с таким email уже существует</string>
+  <string name="session_expired" translatable="false">Сессия подключения просрочена</string>
+  <string name="auth_user_not_found" translatable="false">Пользователь не найден</string>
+  <string name="no_internet" translatable="false">Нет подключения к интернету :(</string>
+  <string name="failed_logIn" translatable="false">Не удалось войти</string>
+  <string name="constraint_error_username_min_length" translatable="false">Минимальная длина логина 5 символов</string>
+  <string name="constraint_error_password_min_length" translatable="false">Минимальная длина пароля 6 символов</string>
+  <string name="auth_user_password_missmatch" translatable="false">Неверный пароль</string>
+  <string name="auth_user_email_missmatch" translatable="false">Неверный email</string>
+  <string name="auth_wrong_credentials" translatable="false">Проверьте введённые данные</string>
+  <string name="auth_in_use_email" translatable="false">email уже используется!</string>
+  <string name="auth_wrong_email" translatable="false">Проверьте введенный email!</string>
+  <string name="forgot_pass_check_email" translatable="false">Проверьте вашу почту!</string>
+  <string name="forgot_pass_wrong_user" translatable="false">Пользователь не найден</string>
+  <string name="auth_pass_with_space" translatable="false">Пароль не должен содержать пробелы</string>
+  <string name="auth_state_logging_in" translatable="false">Авторизуем</string>
+  <string name="privacy_policy_link_span_text" translatable="false">Политики конфиндециальности</string>
+
+  // Опросник
+
+
+
+  
+////////////////////////////////////////////////////////////////////////////////////////////////
   <plurals name="daysAtRow">
     <item quantity="one">%d день подряд ведется запись</item>
     <item quantity="few">%d дня подряд ведется запись</item>
@@ -99,22 +130,21 @@
   <string name="dialog_load_title" translatable="false">Загрузка</string>
   <string name="dialog_load_content" translatable="false">Пожалуйста подождите</string>
 
-  <string name="auth_empty_email" translatable="false">Пропущен email!</string>
-  <string name="auth_wrong_email" translatable="false">Проверьте введенный email!</string>
-  <string name="auth_in_use_email" translatable="false">email уже используется!</string>
-  <string name="auth_empty_pass" translatable="false">Пропущен пароль!</string>
-  <string name="auth_easy_pass" translatable="false">Слишком простой пароль!</string>
+<!--  <string name="auth_empty_email" translatable="false">Пропущен email!</string>-->
 
-  <string name="auth_pass_with_space" translatable="false">Пароль не должен содержать пробелы</string>
-  <string name="auth_wrong_credentials" translatable="false">Проверьте введённые данные</string>
+<!--  <string name="auth_empty_pass" translatable="false">Пропущен пароль!</string>-->
+<!--  <string name="auth_easy_pass" translatable="false">Слишком простой пароль!</string>-->
+
+
+
 
   <string name="auth_phone_wrong_number" translatable="false">Проверьте введенный номер!</string>
   <string name="auth_phone_wrong_code" translatable="false">Проверьте введенный код!</string>
 
 
   <!--alert_dialog_buy_info-->
-  <string name="forgot_pass_check_email" translatable="false">Проверьте вашу почту!</string>
-  <string name="forgot_pass_wrong_user" translatable="false">Пользователь не найден</string>
+
+
 
   <string name="alert_buy_info_btn" translatable="false">Продолжить</string>
 
@@ -147,10 +177,9 @@
   <string name="auth_main_et_hint_email" translatable="false">Введите email</string>
   <string name="auth_main_et_hint_pass" translatable="false">Введите пароль</string>
   <string name="auth_main_et_hint_pass_dub" translatable="false">Повторите пароль</string>
-  <string name="auth_main_btn_signin" translatable="false">Войти</string>
   <string name="auth_main_create" translatable="false">Регистрация</string>
-  <string name="auth_main_pass_not_match" translatable="false">Пароли не совпадают</string>
-  <string name="auth_main_btn_create" translatable="false">Зарегистрироваться</string>
+<!--  <string name="auth_main_pass_not_match" translatable="false">Пароли не совпадают</string>-->
+<!--  <string name="auth_main_btn_create" translatable="false">Зарегистрироваться</string>-->
   <string name="auth_main_btn_send_pass" translatable="false">Отправить пароль</string>
   <string name="auth_main_tv_respasss" translatable="false">Забыли пароль?</string>
 
@@ -341,32 +370,28 @@
   <string name="error_name" translatable="false">Введите название продукта</string>
   <string name="edit_food_completed" translatable="false">Продукт изменен</string>
   <string name="reports">Отчеты</string>
-  <string name="privacy_policy_title" translatable="false">Ознакомиться с условиями</string>
-  <string name="privacy_policy_link_span_text" translatable="false">Политики конфиндециальности</string>
+ 
+
   <string name="sign_up_privacy_policy_title" translatable="false">я согласен с условиями </string>
   <string name="sign_up_privacy_policy_link_span_text" translatable="false">политики конфиндециальности</string>
   <string name="sign_in_already_have_account" translatable="false">У вас уже есть аккаунт?</string>
-  <string name="auth_login_hint" translatable="false">Логин</string>
-  <string name="auth_password_hint" translatable="false">Пароль</string>
-  <string name="auth_forgot_your_password" translatable="false">Забыли пароль?</string>
+<!--  <string name="auth_login_hint" translatable="false">Логин</string>-->
+<!--  <string name="auth_password_hint" translatable="false">Пароль</string>-->
+<!--  <string name="auth_forgot_your_password" translatable="false">Забыли пароль?</string>-->
   <string name="auth_restore_your_password" translatable="false">Восстановить</string>
-  <string name="auth_sign_in_alternatives" translatable="false">Или войти с помощью</string>
+<!--  <string name="auth_sign_in_alternatives" translatable="false">Или войти с помощью</string>-->
   <string name="auth_sign_up_alternatives" translatable="false">Или зарегистрируйтесь с помощью</string>
-  <string name="constraint_error_username_min_length" translatable="false">Минимальная длина логина 5 символов</string>
-  <string name="constraint_error_password_min_length" translatable="false">Минимальная длина пароля 6 символов</string>
+
   <string name="constraint_error_username_email" translatable="false">Введите email</string>
   <string name="enter_email_hint" translatable="false">Введите email</string>
   <string name="repeat_password_hint" translatable="false">Повторите пароль</string>
   <string name="constraint_error_passwords_must_match" translatable="false">Пароли должны совпадать</string>
-  <string name="auth_state_logging_in" translatable="false">Авторизуем</string>
-  <string name="auth_user_not_found" translatable="false">Пользователь не найден</string>
-  <string name="auth_user_password_missmatch" translatable="false">Неверный пароль</string>
-  <string name="auth_user_email_missmatch" translatable="false">Неверный email</string>
+
+
+
   <string name="auth_user_set_weak_password" translatable="false">Пароль слишком слабый, добавьте дополнительные знаки</string>
 
   <string name="auth_user_mailformed" translatable="false">Укажите свой email</string>
-
-  <string name="auth_user_using_existing_account" translatable="false">Пользователь с таким email уже существует</string>
 
 
   <string name="action_sign_up" translatable="false">Зарегистрироваться</string>

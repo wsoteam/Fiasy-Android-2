@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////
   <!-- Unboarding Screen -->
   <string name="unboarding_welcome">Добро пожаловать в</string>
   <string name="unboarding_first_screen">Множество научных статей о правильном питании</string>

@@ -104,7 +104,7 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
                             // if user enters wrong email.
                             catch (FirebaseAuthWeakPasswordException weakPassword) {
                                 Log.d(TAG, "onComplete: weak_password");
-                                getViewState().showMessage(context.getString(R.string.auth_easy_pass));
+                                getViewState().showMessage(context.getString(R.string.simple_password_error));
                             }
                             // if user enters wrong password.
                             catch (FirebaseAuthInvalidCredentialsException malformedEmail) {
@@ -122,7 +122,7 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
 
     void resetPassword(String email) {
         if (TextUtils.isEmpty(email)) {
-            getViewState().showMessage(context.getString(R.string.auth_empty_email));
+            getViewState().showMessage(context.getString(R.string.write_email));
             return;
         }
         if (!Valid.isValidEmail(email)) {
@@ -151,14 +151,14 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
     private boolean checkCredentials(String email, String password) {
         Log.d(TAG, "signIn:" + email);
         if (TextUtils.isEmpty(email)) {
-            getViewState().showMessage(context.getString(R.string.auth_empty_email));
+            getViewState().showMessage(context.getString(R.string.write_email));
             Log.d(TAG, "signIn: fail valid");
             return false;
         } else if (!Valid.isValidEmail(email)) {
             getViewState().showMessage(context.getString(R.string.auth_wrong_email));
             return false;
         } else if (TextUtils.isEmpty(password)) {
-            getViewState().showMessage(context.getString(R.string.auth_empty_pass));
+            getViewState().showMessage(context.getString(R.string.write_password));
             return false;
         } else if (password.contains(" ")) {
             getViewState().showMessage(context.getString(R.string.auth_pass_with_space));

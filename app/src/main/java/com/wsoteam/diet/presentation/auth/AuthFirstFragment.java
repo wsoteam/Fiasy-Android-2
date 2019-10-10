@@ -34,7 +34,7 @@ public class AuthFirstFragment extends AuthStrategyFragment {
     final RichText actionOpenPrivacyPolicy =
         new RichText(getString(R.string.privacy_policy_link_span_text))
             .underline()
-            .onClick(v -> IntentUtils.openWebLink(v.getContext(), "http://fiasy.com/PrivacyPolice"))
+            .onClick(v -> IntentUtils.openWebLink(v.getContext(), getString(R.string.url_privacy_police)))
             .color(0xa63a3a3a);
 
     final TextView privacyPolicyView = view.findViewById(R.id.privacyPolicy);

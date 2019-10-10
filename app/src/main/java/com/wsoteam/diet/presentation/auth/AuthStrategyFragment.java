@@ -110,9 +110,9 @@ public abstract class AuthStrategyFragment extends Fragment {
         notification.setProgressVisible(false, true);
 
         if (TextUtils.isEmpty(user.getDisplayName())) {
-            notification.setText("Добро пожаловать :)");
+            notification.setText(getString(R.string.welcome));
         } else {
-            notification.setText(TextUtils.concat("Привет, ", new RichText(user.getDisplayName())
+            notification.setText(TextUtils.concat(getString(R.string.hello), new RichText(user.getDisplayName())
                     .bold()
                     .text()));
         }
@@ -183,13 +183,13 @@ public abstract class AuthStrategyFragment extends Fragment {
         if (error instanceof FirebaseAuthUserCollisionException) {
             notification.setText(getString(R.string.auth_user_using_existing_account));
         } else if (error instanceof FirebaseAuthInvalidCredentialsException) {
-            notification.setText("Сессия подключения просрочена");
+            notification.setText(getString(R.string.session_expired));
         } else if (error instanceof FirebaseAuthInvalidUserException) {
             notification.setText(getString(R.string.auth_user_not_found));
         } else if (error instanceof IOException) {
-            notification.setText("Нет подключения к интернету :(");
+            notification.setText(getString(R.string.no_internet));
         } else {
-            notification.setText("Не удалось войти");
+            notification.setText(getString(R.string.failed_logIn));
         }
 
         notification.show(getView(), InAppNotification.DURATION_LONG);

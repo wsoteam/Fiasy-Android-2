@@ -227,7 +227,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="70dp"
             android:background="@drawable/auth_button_bg"
-            android:text="@string/auth_main_btn_signin"
+            android:text="@string/signIn_title"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
