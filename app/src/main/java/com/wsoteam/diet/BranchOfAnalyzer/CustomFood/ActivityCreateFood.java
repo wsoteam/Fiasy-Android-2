@@ -92,7 +92,7 @@ public class ActivityCreateFood extends AppCompatActivity {
             btnForward.setText(getString(R.string.ok_forward));
         }
         if (i == FRAGMENT_OUTLAY && btnForward.getText().toString().equals(getString(R.string.ok_forward))) {
-            btnForward.setText(getString(R.string.forward_btn));
+            btnForward.setText(getString(R.string.next2));
         }
         if (i == FRAGMENT_MAIN && btnBack.getVisibility() == View.VISIBLE) {
             btnBack.setVisibility(View.GONE);

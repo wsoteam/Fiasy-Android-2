@@ -29,8 +29,8 @@
 
   <!--  plan main screen-->
   <string name="btnAddTemplate" translatable="false">Создать шаблон</string>
-  <string name="individualPlan" translatable="false">Индивидуальный план рассчитан</string>
-  <string name="recNorm" translatable="false">Рекомендуемая норма</string>
+<!--  <string name="individualPlan" translatable="false">Индивидуальный план рассчитан</string>-->
+<!--  <string name="recNorm" translatable="false">Рекомендуемая норма</string>-->
   <string name="plan_start_text" translatable="false">Не знаете с чего начать? Попробуйте планы питания от нашего штатного диетолога.</string>
   <string name="plan_profile_txt" translatable="false">План питания - %s</string>
   <string name="view_plans" translatable="false">Посмотреть планы питания</string>

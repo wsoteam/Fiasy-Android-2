@@ -28,10 +28,19 @@
 
   // Опросник
 
-
+  <!--Calculating Brok-->
+  <string name="sex_male" translatable="false">Мужской</string>
+  <string name="sex_female" translatable="false">Женский</string>
+  <string name="onboard_height_title" translatable="false">Рассчитаем твою норму</string>
+  <string name="onboard_weight_title" translatable="false">Рассчитаем твою норму</string>
+  <string name="onboard_birthday_title" translatable="false">Когда ваш день рождения?</string>
+  <string name="onboard_activity_title" translatable="false">Отлично!</string>
 
   
 ////////////////////////////////////////////////////////////////////////////////////////////////
+  <string name="onboard_weight_pattern">%d kg</string>
+  <string name="onboard_height_pattern">%d cm</string>
+
   <plurals name="daysAtRow">
     <item quantity="one">%d день подряд ведется запись</item>
     <item quantity="few">%d дня подряд ведется запись</item>
@@ -45,7 +54,7 @@
   <string name="snack">Перекус</string>
   <!--food_template-->
   <string name="subTestText" translatable="false">Попробуйте 7 дней бесплатно\n Далее 199 р. / месяц</string>
-  <string name="individualPlanTxt" translatable="false">Вы достигнете своей цели уже через месяц, получив доступ к уникальным статьям о здоровом питании и сотни рецептов</string>
+
   <string name="Premium" translatable="false">Premium</string>
   <string name="premium" translatable="false">premium</string>
   <string name="nameTemplate" translatable="false">Название шаблона</string>
@@ -84,34 +93,33 @@
 
   <string name="intro_text_2" translatable="false">Полезные рецепты на каждый день</string>
   <string name="intro_text_3" translatable="false">Удобно отслеживать свои достижения</string>
-  <string name="onboard_sex_title" translatable="false">Выберите ваш пол</string>
-  <string name="onboard_purpose_title" translatable="false">Выберите свою цель</string>
-  <string name="onboard_purpose_normal_text" translatable="false">Поддержания тела в\nформе</string>
-  <string name="onboard_purpose_loose_weight_text" translatable="false">Похудение</string>
-  <string name="onboard_purpose_muscle_text" translatable="false">Набор мышечной\nмассы</string>
-  <string name="onboard_purpose_save_text" translatable="false">Сохранение мышц и\nсжигание жира</string>
-  <string name="onboard_birthday_title" translatable="false">Когда ваш день рождения?</string>
-  <string name="onboard_birthday_text" translatable="false">Выберите дату\nвашего рождения</string>
-  <string name="onboard_activity_title" translatable="false">Отлично!</string>
-  <string name="onboard_activity_subtitle" translatable="false">Выбери свою активность</string>
-  <string name="onboard_activity_level_none" translatable="false">Минимальная\nнагрузка</string>
-  <string name="onboard_activity_level_easy" translatable="false">Легкая физическая\nнагрузка в течении дня</string>
-  <string name="onboard_activity_level_medium" translatable="false">Тренировки 2–4 раза в\nнеделю (или работа\nсредней тяжести)</string>
-  <string name="onboard_activity_level_hard" translatable="false">Интенсивные\nтренировки 4–5 раз в\nнеделю</string>
-  <string name="onboard_activity_level_hard_up" translatable="false">Ежедневные интенсивные\nтренировки</string>
-  <string name="onboard_activity_level_super" translatable="false">Тренировки 5–7 раз\nв неделю по два\nраза в день</string>
-  <string name="onboard_activity_level_super_up" translatable="false">Тяжелая физическая работа или\nежедневные интенсивные тренировки\nпо 2 раза в день</string>
-  <string name="onboard_height_title" translatable="false">Рассчитаем твою норму</string>
-  <string name="onboard_height_text" translatable="false">Для расчета мы используем формулу Миффлина-Сан-Жеора, которую в 2005 году подтвердила Американская Диетическая Ассоциация (АДА), что она является более точной.</string>
-  <string name="onboard_height_pattern" translatable="false">%d см</string>
-  <string name="onboard_weight_title" translatable="false">Рассчитаем твою норму</string>
-  <string name="onboard_weight_text" translatable="false">Для расчета мы используем формулу Миффлина-Сан-Жеора, которую в 2005 году подтвердила Американская Диетическая Ассоциация (АДА), что она является более точной.</string>
-  <string name="onboard_weight_choose_weight" translatable="false">Выберите свой вес</string>
-  <string name="onboard_weight_pattern" translatable="false">%d кг</string>
+<!--  <string name="onboard_purpose_title" translatable="false">Выберите свою цель</string>-->
+<!--  <string name="onboard_purpose_normal_text" translatable="false">Поддержания тела в\nформе</string>-->
+<!--  <string name="onboard_purpose_loose_weight_text" translatable="false">Похудение</string>-->
+<!--  <string name="onboard_purpose_muscle_text" translatable="false">Набор мышечной\nмассы</string>-->
+<!--  <string name="onboard_purpose_save_text" translatable="false">Сохранение мышц и\nсжигание жира</string>-->
+
+<!--  <string name="onboard_birthday_text" translatable="false">Выберите дату\nвашего рождения</string>-->
+
+<!--  <string name="onboard_activity_subtitle" translatable="false">Выбери свою активность</string>-->
+<!--  <string name="onboard_activity_level_none" translatable="false">Минимальная\nнагрузка</string>-->
+<!--  <string name="onboard_activity_level_easy" translatable="false">Легкая физическая\nнагрузка в течении дня</string>-->
+<!--  <string name="onboard_activity_level_medium" translatable="false">Тренировки 2–4 раза в\nнеделю (или работа\nсредней тяжести)</string>-->
+<!--  <string name="onboard_activity_level_hard" translatable="false">Интенсивные\nтренировки 4–5 раз в\nнеделю</string>-->
+<!--  <string name="onboard_activity_level_hard_up" translatable="false">Ежедневные интенсивные\nтренировки</string>-->
+<!--  <string name="onboard_activity_level_super" translatable="false">Тренировки 5–7 раз\nв неделю по два\nраза в день</string>-->
+<!--  <string name="onboard_activity_level_super_up" translatable="false">Тяжелая физическая работа или\nежедневные интенсивные тренировки\nпо 2 раза в день</string>-->
+
+<!--  <string name="onboard_height_text" translatable="false">Для расчета мы используем формулу Миффлина-Сан-Жеора, которую в 2005 году подтвердила Американская Диетическая Ассоциация (АДА), что она является более точной.</string>-->
+
+
+<!--  <string name="onboard_weight_text" translatable="false">Для расчета мы используем формулу Миффлина-Сан-Жеора, которую в 2005 году подтвердила Американская Диетическая Ассоциация (АДА), что она является более точной.</string>-->
+<!--  <string name="onboard_weight_choose_weight" translatable="false">Выберите свой вес</string>-->
+
 
   <!--Add Measurements Activity-->
-  <string name="onboard_calculation_title" translatable="false">Подождите немного…</string>
-  <string name="onboard_calculation_subtitle" translatable="false">Идет расчет индивидуального плана питания</string>
+<!--  <string name="onboard_calculation_title" translatable="false">Подождите немного…</string>-->
+<!--  <string name="onboard_calculation_subtitle" translatable="false">Идет расчет индивидуального плана питания</string>-->
 
   <!--edit profile full-->
 
@@ -220,10 +228,6 @@
   <string name="policy_title" translatable="false">Privacy Policy &amp; Terms of Service</string>
 
 
-  <!--Calculating Brok-->
-  <string name="sex_male" translatable="false">Мужской</string>
-  <string name="sex_female" translatable="false">Женский</string>
-
   <!--Calculating Lorenc-->
 
 
@@ -299,7 +303,7 @@
   <string name="g" translatable="false">г</string>
   <string name="gram" translatable="false">грамм</string>
 
-  <string name="kcal" translatable="false">Ккал</string>
+
   <string name="input_weight_of_eating" translatable="false">Введите вес порции</string>
   <string name="dif_level_easy" translatable="false">Легкая</string>
   <string name="dif_level_normal" translatable="false">Средняя</string>
@@ -332,7 +336,7 @@
 
   <string name="add_custom_food_toolbar" translatable="false">Добавить продукт</string>
   <string name="back" translatable="false">назад</string>
-  <string name="forward" translatable="false">далее</string>
+
 
   <string name="brand" translatable="false">Марка/производитель</string>
   <string name="food_name" translatable="false">Название продукта</string>
@@ -361,7 +365,6 @@
   <string name="product_info">Пищевая ценность на 100 г</string>
   <string name="error_toast" translatable="false">Проверьте введенные данные</string>
   <string name="ok_forward" translatable="false">ок</string>
-  <string name="forward_btn" translatable="false">далее</string>
   <string name="prot" translatable="false">Белки (г)</string>
   <string name="food_saved" translatable="false">Продукт сохранен в разделе избранное/свои продукты </string>
   <string name="own_food" translatable="false">свои продукты</string>
@@ -476,7 +479,6 @@
   <string name="activity_list_and_search_searсh" translatable="false">\u0020\u0020\u0020\u0020\u0020\u0020\u0020Поиск</string>
   <string name="activity_main_new_burnt" translatable="false">0\nсожжено</string>
   <string name="activity_main_new_daily_rate" translatable="false">Ежедневная норма =</string>
-  <string name="activity_new_intro_next" translatable="false">далее</string>
   <string name="activity_profile_profile" translatable="false">Профиль</string>
   <string name="activity_profile_week" translatable="false">Неделя</string>
   <string name="activity_profile_month" translatable="false">Месяц</string>
@@ -688,7 +690,7 @@
 
   <string name="n_item" translatable="false">%d шт.</string>
   <string name="n_KCal" translatable="false">%d Ккал</string>
-  <string name="n_g" translatable="false">%d г</string>
+  <string name="n_g">%d g</string>
   <string name="n_mg" translatable="false">%d мг</string>
   <string name="n_kk" translatable="false">%d кк</string>
   <string name="user_recipe_activity_for_portion" translatable="false">%d ккал на порцию</string>
@@ -729,20 +731,22 @@
   </string-array>
 
 
+
   <string-array name="monthList">
-    <item>Январь</item>
-    <item>Февраль</item>
-    <item>Март</item>
-    <item>Апрель</item>
-    <item>Май</item>
-    <item>Июнь</item>
-    <item>Июль</item>
-    <item>Август</item>
-    <item>Сентябрь</item>
-    <item>Октябрь</item>
-    <item>Ноябрь</item>
-    <item>Декабрь</item>
+    <item>January</item>
+    <item>February</item>
+    <item>March</item>
+    <item>April</item>
+    <item>May</item>
+    <item>June</item>
+    <item>July</item>
+    <item>August</item>
+    <item>September</item>
+    <item>October</item>
+    <item>November</item>
+    <item>December</item>
   </string-array>
+
   <string-array name="eatingList">
     <item>Завтрак</item>
     <item>Обед</item>
@@ -799,7 +803,8 @@
   <string name="unboarding_second_screen">Everyday healthy recipes</string>
   <string name="unboarding_third_screen">Everyday healthy recipes</string>
   <string name="unboarding_skeep">Skip</string>
-  <string name="unboarding_next">MORE</string>
+  <string name="next">NEXT</string>
+  <string name="next2">next</string>
 
   <!-- Authorization Screen -->
   <string name="or">OR</string>
@@ -874,6 +879,8 @@
   <string name="in_a_month">in just a month</string>
   <string name="first_piece_description">You will reach your goal</string>
   <string name="second_piece_description">and gain access to unique articles about healthy eating and hundreds of recipes.</string>
+
+
 
   <!-- Premium Screen -->
   <string name="reach_goal_faster">Reach your goal more quickly</string>

@@ -2,15 +2,14 @@
 <resources>
 
 
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////
   <!-- Unboarding Screen -->
   <string name="unboarding_welcome">Добро пожаловать в</string>
   <string name="unboarding_first_screen">Множество научных статей о правильном питании</string>
   <string name="unboarding_second_screen">Полезные рецепты на каждый день</string>
   <string name="unboarding_third_screen">Полезные рецепты на каждый день</string>
   <string name="unboarding_skeep">Пропустить</string>
-  <string name="unboarding_next">ДАЛЕЕ</string>
+  <string name="next">ДАЛЕЕ</string>
+  <string name="next2">далее</string>
 
   <!-- Authorization Screen -->
   <string name="or">ИЛИ</string>
@@ -74,27 +73,23 @@
   <!-- Interrogation Finish Screen -->
 
   <string name="wait_a_while">Подождите немного</string>
-
   <string name="wait_a_while_description">Идет расчет индивидуального плана питания</string>
-
   <string name="plan_calculated">Индивидуальный план рассчитан</string>
-
   <string name="recommended_rate">Рекомендуемая норма</string>
 
   <string name="calories_unit">ккал</string>
 
   <string name="grams_unit">г</string>
+  <string name="n_g">%d г</string>
 
   <string name="protein">белки</string>
-
   <string name="fat">жиры</string>
-
   <string name="carbohydrates">углеводов</string>
 
-  <string name="in_a_month">уже через месяц</string>
+
 
   <string name="first_piece_description">Вы достигнете своей цели</string>
-
+  <string name="in_a_month">уже через месяц</string>
   <string name="second_piece_description">получив доступ к уникальным статьям о здоровом питании и сотни рецептов</string>
 
   <!-- Premium Screen -->
@@ -884,5 +879,23 @@
   <string name="elliptical_trainer_medium_load">Эллиптический тренажер, средняя нагрузка</string>
 
   <string name="elliptical_trainer_low_load">Эллиптический тренажер, низкая нагрузка</string>
+
+  <string-array name="monthList">
+    <item>Январь</item>
+    <item>Февраль</item>
+    <item>Март</item>
+    <item>Апрель</item>
+    <item>Май</item>
+    <item>Июнь</item>
+    <item>Июль</item>
+    <item>Август</item>
+    <item>Сентябрь</item>
+    <item>Октябрь</item>
+    <item>Ноябрь</item>
+    <item>Декабрь</item>
+  </string-array>
+
+  <string name="onboard_weight_pattern">%d кг</string>
+  <string name="onboard_height_pattern">%d см</string>
 
 </resources>

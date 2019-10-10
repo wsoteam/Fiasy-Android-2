@@ -33,7 +33,7 @@ import android.view.View;
 import com.wsoteam.diet.R;
 
 final class VerticalRulerView extends View {
-    private static final String CM_APPEND = " см";
+    private final String CM_APPEND = " " + getContext().getString(R.string.growth_unit);
     private int mViewWidth;
     private Paint mIndicatorPaint;
     private Paint mLongIndicatorPaint;

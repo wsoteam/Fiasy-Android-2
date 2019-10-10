@@ -114,7 +114,7 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerV
       //tvCalories.setText(
           //recipeItem.getCalories() + " " + context.getResources().getString(R.string.kcal));
       tvCalories.setText(String.format(context.getString(R.string.join_strings),
-          String.valueOf(recipeItem.getCalories()), context.getString(R.string.kcal)));
+          String.valueOf(recipeItem.getCalories()), context.getString(R.string.calories_unit)));
 
       if (isCurrentDay && recipeItem.isAddedInDiaryFromPlan()) {
         Glide.with(context)

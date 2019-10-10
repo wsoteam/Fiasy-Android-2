@@ -134,7 +134,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                         calculateMainParameters(charSequence);
                     } else {
                         tvCalculateProtein.setText("0 " + getString(R.string.g));
-                        tvCalculateKcal.setText("0 " + getString(R.string.kcal));
+                        tvCalculateKcal.setText("0 " + getString(R.string.calories_unit));
                         tvCalculateCarbohydrates.setText("0 " + getString(R.string.g));
                         tvCalculateFat.setText("0 " + getString(R.string.g));
                     }
@@ -365,7 +365,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
         double portion = Double.parseDouble(stringPortion.toString());
 
         tvCalculateProtein.setText(String.valueOf(Math.round(portion * foodItem.getProteins())) + " " + getString(R.string.g));
-        tvCalculateKcal.setText(String.valueOf(Math.round(portion * foodItem.getCalories())) + " " + getString(R.string.kcal));
+        tvCalculateKcal.setText(String.valueOf(Math.round(portion * foodItem.getCalories())) + " " + getString(R.string.calories_unit));
         tvCalculateCarbohydrates.setText(String.valueOf(Math.round(portion * foodItem.getCarbohydrates())) + " " + getString(R.string.g));
         tvCalculateFat.setText(String.valueOf(Math.round(portion * foodItem.getFats())) + " " + getString(R.string.g));
     }

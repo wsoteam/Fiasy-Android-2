@@ -20,6 +20,9 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity;
+import com.wsoteam.diet.utils.RichTextUtils;
+
+import static android.text.TextUtils.concat;
 
 public class IndividualPlanFragments extends Fragment {
 
@@ -43,11 +46,10 @@ public class IndividualPlanFragments extends Fragment {
     View view = inflater.inflate(R.layout.fragment_individual_plan, container, false);
     ButterKnife.bind(this, view);
 
-    Spannable wordtoSpan = new SpannableString(getString(R.string.individualPlanTxt));
-    wordtoSpan.setSpan(new ForegroundColorSpan(Color.parseColor("#ef7d02")), 25, 40,
-        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    tvTxt.setText(wordtoSpan);
-
+    final RichTextUtils.RichText txt = new RichTextUtils.RichText(getString(R.string.in_a_month))
+        .color(Color.parseColor("#ef7d02"));
+      tvTxt.setText(concat(getString(R.string.first_piece_description), " ", txt.text(), " ",
+          getString(R.string.second_piece_description)));
     profile = (Profile) getActivity().getIntent().getSerializableExtra(Config.INTENT_PROFILE);
 
     setData(profile);
