@@ -80,15 +80,16 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
         tvWaistValue.setText(getPaintedString(lastWaist, waistValueDiff, isOldWaist));
         handleRefreshView(ivRefreshWaist, isOldWaist);
       }
-      if (lastChest == null && lastWaist == null && lastHips == null) {
-        tvTicker.setText(getResources().getString(R.string.propose_enter_data));
-      } else {
-        setTicker(mainTimeDiff);
-      }
     } else {
       tvChestValue.setText("");
       tvWaistValue.setText("");
       tvHipsValue.setText("");
+    }
+
+    if (lastChest == null && lastWaist == null && lastHips == null) {
+      tvTicker.setText(getResources().getString(R.string.propose_enter_data));
+    } else {
+      setTicker(mainTimeDiff);
     }
   }
 
