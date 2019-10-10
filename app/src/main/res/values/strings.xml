@@ -857,6 +857,21 @@
     <string name="meas_last_refresh_today">сегодня</string>
     <string name="meas_history_title">История измерений</string>
     <string name="meas_update_weight">Значение текущего веса обновлено</string>
+  <string name="meas_weight_tap">Вес</string>
+    <string name="meas_waist_tap">Талия</string>
+    <string name="meas_chest_tap">Грудь</string>
+    <string name="meas_hips_tap">Бедра</string>
+    <string name="meas_empty_history">Вы еще не заносили свои параметры</string>
+    <string name="meas_alert_k">ok</string>
+    <string name="meas_alert_cancel">отменить</string>
+    <string name="meas_day_monday">пн</string>
+    <string name="meas_day_tuesday">вт</string>
+    <string name="meas_day_wednesday">ср</string>
+    <string name="meas_day_thursday">чт</string>
+    <string name="meas_day_friday">пт</string>
+    <string name="meas_day_saturday">сб</string>
+    <string name="meas_day_sunday">вс</string>
+    <string name="meas_toast_update">Значение текущего веса  \nобновлено</string>
     <string-array name="settings_items">
         <item>Premium аккаунт</item>
         <!--<item>Еда и аллергия</item>-->

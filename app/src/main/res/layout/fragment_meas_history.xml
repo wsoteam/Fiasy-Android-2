@@ -28,7 +28,7 @@
         android:fontFamily="@font/roboto"
         android:textColor="#8a000000"
         android:visibility="gone"
-        android:text="Вы еще не заносили свои параметры"
+        android:text="@string/meas_empty_history"
         app:layout_constraintEnd_toEndOf="@+id/ivEmptyState"
         app:layout_constraintStart_toStartOf="@+id/ivEmptyState"
         app:layout_constraintTop_toBottomOf="@+id/ivEmptyState" />
