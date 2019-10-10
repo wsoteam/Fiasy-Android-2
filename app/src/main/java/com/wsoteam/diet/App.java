@@ -12,6 +12,7 @@ import com.amplitude.api.Amplitude;
 import com.bugsee.library.Bugsee;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
+import com.onesignal.OneSignal;
 import com.orm.SugarContext;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
 
@@ -48,6 +49,12 @@ public class App extends MultiDexApplication {
         Intercom.initialize(this, "android_sdk-bceadc40bc17510359f5ad43a72281735676eea2", "dr8zfmz4");
         instance = this;
         foodDatabase = Room.databaseBuilder(this, FoodDatabase.class, "foodDB.db").build();
+
+        // OneSignal Initialization
+        OneSignal.startInit(this)
+            .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+            .unsubscribeWhenNotificationsAreDisabled(true)
+            .init();
 
         //SetUserProperties.setUserProperties(Adjust.getAttribution());
     }

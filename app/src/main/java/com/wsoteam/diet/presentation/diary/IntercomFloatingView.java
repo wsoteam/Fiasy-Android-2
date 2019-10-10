@@ -9,6 +9,7 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import androidx.annotation.Nullable;
@@ -24,11 +25,12 @@ public class IntercomFloatingView extends View {
   private final PointF downPoint = new PointF();
 
   private final RectF floatingActionBounds = new RectF();
-  private final ObjectAnimator animator;
-  //
-  //public IntercomFloatingView(Context context) {
-  //  super(context);
-  //}
+  private ObjectAnimator animator;
+  private boolean expanded = false;
+
+  public IntercomFloatingView(Context context) {
+    this(context, null);
+  }
 
   public IntercomFloatingView(Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
@@ -41,30 +43,42 @@ public class IntercomFloatingView extends View {
     paint.setStyle(Paint.Style.FILL);
     paint.setColor(ContextCompat.getColor(context, R.color.orange));
 
-    animator = new ObjectAnimator();
-    animator.setTarget(this);
-    animator.setPropertyName("changeBounds");
-
     setOnClickListener(v -> {
-      if (animator.isRunning()) {
+      if (animator != null && animator.isRunning()) {
         animator.cancel();
       }
 
-      animator.setObjectValues(
-          new Rect((int) floatingActionBounds.left,
-              (int) floatingActionBounds.top,
-              (int) floatingActionBounds.right,
-              (int) floatingActionBounds.bottom),
-          new Rect(0, 0, getWidth(), getHeight())
-      );
-      animator.setEvaluator(new RectEvaluator());
-      animator.setDuration(300);
+      final Rect from = new Rect((int) floatingActionBounds.left,
+          (int) floatingActionBounds.top,
+          (int) floatingActionBounds.right,
+          (int) floatingActionBounds.bottom);
 
+      final double size = Math.hypot(getWidth(), getHeight());
+      final Rect to = new Rect();
+
+      if (!expanded) {
+        to.set(0, 0, (int) size, (int) size);
+        to.offsetTo(-getWidth() / 2, -getHeight() / 2);
+        expanded = true;
+      } else {
+        to.set(0, 0, w, h);
+        to.offsetTo(
+            (int) (getWidth() - w * 0.5f),
+            getHeight() - h - Metrics.dp(getContext(), 24)
+        );
+        expanded = false;
+      }
+
+      animator = ObjectAnimator.ofObject(this, "changeBounds",
+          new RectEvaluator(), from, to);
+      animator.setDuration(300);
       animator.start();
     });
   }
 
-  void changeBounds(Rect rect) {
+  public void setChangeBounds(Rect rect) {
+    Log.d("Lol", "Lol=" + rect);
+
     floatingActionBounds.set(rect.left, rect.top, rect.right, rect.bottom);
     invalidate();
   }
@@ -81,10 +95,12 @@ public class IntercomFloatingView extends View {
   @Override protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
     super.onLayout(changed, left, top, right, bottom);
 
-    floatingActionBounds.offsetTo(
-        (right - left) - floatingActionBounds.width() * 0.5f,
-        (bottom - top) - floatingActionBounds.height() - Metrics.dp(getContext(), 24)
-    );
+    if (!expanded) {
+      floatingActionBounds.offsetTo(
+          (right - left) - floatingActionBounds.width() * 0.5f,
+          (bottom - top) - floatingActionBounds.height() - Metrics.dp(getContext(), 24)
+      );
+    }
   }
 
   @Override public boolean onTouchEvent(MotionEvent event) {
@@ -96,7 +112,7 @@ public class IntercomFloatingView extends View {
 
   @Override protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
-
+    Log.d("Lol", "drawing=" + floatingActionBounds);
     canvas.drawOval(floatingActionBounds, paint);
   }
 }
