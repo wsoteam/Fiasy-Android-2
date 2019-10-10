@@ -299,22 +299,13 @@
   <string name="water_settings">Настройки воды</string>
 
   <!-- Water Screen -->
-
-
   <string name="benefit_water_title">Польза воды</string>
-
   <string name="benefit_water_description_first">Снабжает кожу влагой и делает её упругой и эластичной</string>
-
   <string name="benefit_water_description_second">Поставляет полезные вещества клеткам, не допуская тем самым их голодание и гибель</string>
-
   <string name="benefit_water_description_third">Способствует похудению путём улучшения процессов обмена веществ</string>
-
   <string name="general">Общее</string>
-
   <string name="liter">литра</string>
-
   <string name="your_daily_rate">Ваша норма на каждый день</string>
-
   <string name="make_default">Сделать по умолчанию</string>
 
   <!-- Activity Screen -->
@@ -898,4 +889,11 @@
   <string name="onboard_weight_pattern">%d кг</string>
   <string name="onboard_height_pattern">%d см</string>
 
+  <string name="bnv_main_diary">Дневник</string>
+  <string name="bnv_main_articles">Статьи</string>
+  <string name="bnv_main_plan">Планы</string>
+  <string name="bnv_main_recipes">Рецепты</string>
+  <string name="bnv_main_profile">Профиль</string>
+
+  <string name="main_screen_menu_water_count">%.2f л</string>
 </resources>

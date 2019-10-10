@@ -27,8 +27,6 @@
   <string name="privacy_policy_link_span_text" translatable="false">Политики конфиндециальности</string>
 
   // Опросник
-
-  <!--Calculating Brok-->
   <string name="sex_male" translatable="false">Мужской</string>
   <string name="sex_female" translatable="false">Женский</string>
   <string name="onboard_height_title" translatable="false">Рассчитаем твою норму</string>
@@ -36,7 +34,17 @@
   <string name="onboard_birthday_title" translatable="false">Когда ваш день рождения?</string>
   <string name="onboard_activity_title" translatable="false">Отлично!</string>
 
-  
+  // Вода
+  <string name="water_achievement_title_2" translatable="false">Поздравляем!</string>
+  <string name="water_achievement_txt_2" translatable="false">Вы выпили ежеденевную норму воды! Продолжайте в том же духе!</string>
+
+
+
+  <string name="bnv_main_diary">Journal</string>
+  <string name="bnv_main_articles">Articles</string>
+  <string name="bnv_main_plan">Plans</string>
+  <string name="bnv_main_recipes">Recipes</string>
+  <string name="bnv_main_profile">Profile</string>
 ////////////////////////////////////////////////////////////////////////////////////////////////
   <string name="onboard_weight_pattern">%d kg</string>
   <string name="onboard_height_pattern">%d cm</string>
@@ -282,22 +290,21 @@
   <string name="main_screen_dinner" translatable="false">Ужин</string>
   <string name="main_screen_snack" translatable="false">Перекус</string>
   <string name="main_screen_water" translatable="false">Вода</string>
-  <string name="main_screen_menu_water" translatable="false">Настройки для воды</string>
-  <string name="main_screen_menu_water_count" translatable="false">%.2f л</string>
+<!--  <string name="main_screen_menu_water" translatable="false">Настройки для воды</string>-->
+  <string name="main_screen_menu_water_count">%.2f L</string>
 
   <string name="water_screen_toolbar_title" translatable="false">Вода</string>
-  <string name="water_screen_title" translatable="false">Польза воды</string>
-  <string name="water_screen_fact1" translatable="false">Снабжает кожу влагой и делает её упругой и эластичной.</string>
-  <string name="water_screen_fact2" translatable="false">Поставляет полезные вещества клеткам, не допуская тем самым их голодание и гибель.</string>
-  <string name="water_screen_fact3" translatable="false">Способствует похудению путём улучшения процессов обмена веществ.</string>
+<!--  <string name="water_screen_title" translatable="false">Польза воды</string>-->
+<!--  <string name="water_screen_fact1" translatable="false">Снабжает кожу влагой и делает её упругой и эластичной.</string>-->
+<!--  <string name="water_screen_fact2" translatable="false">Поставляет полезные вещества клеткам, не допуская тем самым их голодание и гибель.</string>-->
+<!--  <string name="water_screen_fact3" translatable="false">Способствует похудению путём улучшения процессов обмена веществ.</string>-->
 
-  <string name="water_screen_water_need_title" translatable="false">Общее</string>
-  <string name="water_screen_water_normal" translatable="false">Ваша норма на каждый день</string>
-  <string name="water_screen_water_1_0" translatable="false">1.0 л</string>
-  <string name="water_screen_water_default" translatable="false">Сделать по умолчанию</string>
+<!--  <string name="water_screen_water_need_title" translatable="false">Общее</string>-->
+<!--  <string name="water_screen_water_normal" translatable="false">Ваша норма на каждый день</string>-->
+<!--  <string name="water_screen_water_1_0" translatable="false">1.0 л</string>-->
+<!--  <string name="water_screen_water_default" translatable="false">Сделать по умолчанию</string>-->
 
-  <string name="water_achievement_title_2" translatable="false">Поздравляем!</string>
-  <string name="water_achievement_txt_2" translatable="false">Вы выпили ежеденевную норму воды! Продолжайте в том же духе!</string>
+
 
 
   <string name="g" translatable="false">г</string>
@@ -316,11 +323,7 @@
   <string name="profile_saved" translatable="false">Профиль сохранен</string>
 
   <string name="auth_first_description" translatable="false">Правильное питание - это \nнеотъемлемая часть здорового образа \nжизни.</string>
-  <string name="bnv_main_diary" translatable="false">Дневник</string>
-  <string name="bnv_main_articles" translatable="false">Статьи</string>
-  <string name="bnv_main_plan" translatable="false">Планы</string>
-  <string name="bnv_main_recipes" translatable="false">Рецепты</string>
-  <string name="bnv_main_profile" translatable="false">Профиль</string>
+
 
 
   <!--List of main max params in profile-->
