@@ -829,6 +829,7 @@
     <string name="eating_trigger">Питание</string>
 
     <string name="enter_multi_params">Введите данные</string>
+    <string name="activity_parent_search_hint">Поиск по базе продуктов</string>
 
 
     <string-array name="settings_items">
@@ -1075,6 +1076,23 @@
 
     <!--food_template-->
     <string-array name="activities">
+        <item>Минимальная нагрузка</item>
+        <item>Легкая физическая нагрузка в течении дня</item>
+        <item>Тренировки 2-4 раза в неделю (или работа средней тяжести)</item>
+        <item>Интенсивные тренировки 4-5 раз в неделю</item>
+        <item>Ежедневные интенсивные тренировки</item>
+        <item>Тренировки 5-7 раз в неделю по два раза в день</item>
+        <item>Тяжелая физическая работа или ежедневные интенсивные тренировки по 2 раза в день</item>
+    </string-array>
+
+    <integer-array name="sections_images">
+        <item>@drawable/ic_left_sections_favorites</item>
+        <item>@drawable/ic_left_sections_template</item>
+        <item>@drawable/ic_left_sections_dish</item>
+        <item>@drawable/ic_left_sections_food</item>
+    </integer-array>
+
+    <string-array name="sections_names">
         <item>Минимальная нагрузка</item>
         <item>Легкая физическая нагрузка в течении дня</item>
         <item>Тренировки 2-4 раза в неделю (или работа средней тяжести)</item>
