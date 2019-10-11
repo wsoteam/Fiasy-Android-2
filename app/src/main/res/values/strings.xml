@@ -872,6 +872,9 @@
     <string name="meas_day_saturday">сб</string>
     <string name="meas_day_sunday">вс</string>
     <string name="meas_toast_update">Значение текущего веса  \nобновлено</string>
+  <string name="meas_future_day">Этот день еще  \nне наступил</string>
+    <string name="meas_info_toast">Узнать подробнее о \nзначении среднего \nвеса</string>
+    <string name="open_meas_info"><u>Узнать</u></string>
     <string-array name="settings_items">
         <item>Premium аккаунт</item>
         <!--<item>Еда и аллергия</item>-->

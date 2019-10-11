@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -18,10 +21,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.google.android.material.snackbar.Snackbar;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.views.coordinator.Coordinator;
 import com.wsoteam.diet.presentation.measurment.POJO.Chest;
 import com.wsoteam.diet.presentation.measurment.POJO.Hips;
 import com.wsoteam.diet.presentation.measurment.POJO.Meas;
@@ -58,6 +63,7 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
   @BindView(R.id.ivRefreshHips) ImageView ivRefreshHips;
   @BindView(R.id.tvTicker) TextView tvTicker;
   private int position = 0;
+  private Toast infoToast;
 
 
   @Override
@@ -208,7 +214,7 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
   @OnClick({
       R.id.ibGraphs, R.id.ibBack, R.id.tvMediumWeight, R.id.imbtnLeft, R.id.imbtnRight,
       R.id.btnPremChest, R.id.btnPremWaist, R.id.btnPremHips,
-      R.id.clChest, R.id.clWaist, R.id.clHips
+      R.id.clChest, R.id.clWaist, R.id.clHips, R.id.ivInfo
   })
   public void onViewClicked(View view) {
     switch (view.getId()) {
@@ -244,7 +250,22 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
           showHipsAlert();
         }
         break;
+      case R.id.ivInfo:
+        showInfoToast(view);
+        break;
     }
+  }
+
+  private void showInfoToast(View v) {
+    Snackbar.make(LayoutInflater.from(this).inflate(R.layout.toast_meas_info, null), "", Snackbar.LENGTH_SHORT).show();
+    /*infoToast = new Toast(this);
+    infoToast.setView(LayoutInflater.from(this).inflate(R.layout.toast_meas_info, null));
+    infoToast.setDuration(Toast.LENGTH_LONG);
+    int[] coordinates = Coordinator.getBottomInfo(infoToast.getView(), v);
+    infoToast.setGravity(Gravity.TOP | Gravity.LEFT, coordinates[0], coordinates[1]);
+    TextView openInfoScreen = infoToast.getView().findViewById(R.id.tvOpenInfo);
+
+    infoToast.show();*/
   }
 
   private void showChestAlert() {

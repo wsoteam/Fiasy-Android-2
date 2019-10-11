@@ -31,7 +31,7 @@
             android:gravity="start"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="9dp"
-            android:text="Этот день еще \nне наступил"
+            android:text="@string/meas_future_day"
             android:textColor="#8a000000"
             android:textSize="12sp" />
 

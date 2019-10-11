@@ -2,7 +2,6 @@ package com.wsoteam.diet.presentation.measurment.days;
 
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
-import com.wsoteam.diet.BranchOfExercises.ActivitiesProgramm.ActivityWithTiles;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.views.coordinator.Coordinator;
 import com.wsoteam.diet.presentation.measurment.ConfigMeasurment;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 import com.wsoteam.diet.presentation.measurment.dialogs.WeightCallback;
@@ -187,40 +186,10 @@ public class DaysFragment extends MvpAppCompatFragment implements DaysView {
     if (lockToast != null) {
       lockToast.cancel();
     }
-    int xOffset = 0;
-    int yOffset = 0;
-    Rect gvr = new Rect();
-
-    View parent = (View) v.getParent();
-    int parentHeight = parent.getHeight();
-
-    if (v.getGlobalVisibleRect(gvr)) {
-      View root = v.getRootView();
-
-      int halfWidth = root.getRight() / 2;
-      int halfHeight = root.getBottom() / 2;
-
-      int parentCenterX = ((gvr.right - gvr.left) / 2) + gvr.left;
-
-      int parentCenterY = ((gvr.bottom - gvr.top) / 2) + gvr.top;
-
-      if (parentCenterY <= halfHeight) {
-        yOffset = -(halfHeight - parentCenterY) - parentHeight;
-      } else {
-        yOffset = (parentCenterY - halfHeight) - parentHeight;
-      }
-
-      if (parentCenterX < halfWidth) {
-        xOffset = -(halfWidth - parentCenterX);
-      }
-
-      if (parentCenterX >= halfWidth) {
-        xOffset = parentCenterX - halfWidth;
-      }
-    }
+    int[] coordinates = Coordinator.getTopXY(v);
     lockToast = new Toast(getActivity());
     lockToast.setView(LayoutInflater.from(getActivity()).inflate(R.layout.toast_lock_adding, null));
-    lockToast.setGravity(Gravity.CENTER, xOffset, yOffset);
+    lockToast.setGravity(Gravity.CENTER, coordinates[0], coordinates[1]);
     lockToast.show();
   }
 
