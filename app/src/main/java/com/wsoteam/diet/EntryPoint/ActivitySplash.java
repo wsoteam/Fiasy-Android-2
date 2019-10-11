@@ -14,6 +14,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -60,6 +61,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.wsoteam.diet.Sync.WorkWithFirebaseDB.getUserData;
 
 public class ActivitySplash extends BaseActivity {
@@ -67,6 +69,7 @@ public class ActivitySplash extends BaseActivity {
 
   private BillingClient mBillingClient;
   private View noticeContainer;
+  private View retryFrame;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,19 +84,45 @@ public class ActivitySplash extends BaseActivity {
 
       findViewById(R.id.root).setBackground(new SplashBackground());
 
+      retryFrame = findViewById(R.id.retry_frame);
+      retryFrame.setVisibility(View.GONE);
+      retryFrame.setOnClickListener(v -> {
+        if (checkUserNetworkAvailable()) {
+          checkRegistrationAndRun();
+
+          Toast.makeText(v.getContext(),
+              "Так интенрнет появился, пробуем снова", LENGTH_SHORT).show();
+        }
+      });
+
       noticeContainer = findViewById(R.id.notice_container);
       noticeContainer.setVisibility(View.GONE);
-
-      if (!hasNetwork()) {
-        noticeContainer.setVisibility(View.VISIBLE);
-      }
     }
 
     //FacebookSdk.sdkInitialize(getApplicationContext());
     //AppEventsLogger.activateApp(getApplicationContext());
 
     checkFirstLaunch();
-    checkRegistrationAndRun();
+
+    if (checkUserNetworkAvailable()) {
+      checkRegistrationAndRun();
+    }
+  }
+
+  private boolean checkUserNetworkAvailable() {
+    if (retryFrame == null) {
+      return true;
+    }
+
+    if (!hasNetwork()) {
+      retryFrame.setVisibility(View.VISIBLE);
+      noticeContainer.setVisibility(View.VISIBLE);
+      return false;
+    } else {
+      retryFrame.setVisibility(View.GONE);
+      noticeContainer.setVisibility(View.GONE);
+      return true;
+    }
   }
 
   private boolean hasNetwork() {
@@ -101,7 +130,7 @@ public class ActivitySplash extends BaseActivity {
         ContextCompat.getSystemService(this, ConnectivityManager.class)
             .getActiveNetworkInfo();
 
-    return activeNetwork.isConnected();
+    return activeNetwork != null && activeNetwork.isConnected();
   }
 
   private void showLoadingScreen() {

@@ -41,7 +41,7 @@ public interface InputValidation {
     }
 
     @Override protected boolean checkValid(EditText input) {
-      return input.length() > allowedMinimum;
+      return input.length() >= allowedMinimum;
     }
   }
 

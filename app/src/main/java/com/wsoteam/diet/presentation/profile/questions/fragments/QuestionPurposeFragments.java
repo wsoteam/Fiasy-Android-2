@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.profile.questions.fragments;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,6 +34,22 @@ public class QuestionPurposeFragments extends Fragment {
   @BindView(R.id.btnNext)
   View nextButton;
 
+  private View selectedPurpose;
+
+  private static final int[] female = {
+      R.drawable.question_female_purpose_1,
+      R.drawable.question_female_purpose_2,
+      R.drawable.question_female_purpose_1,// todo,R.drawable.question_female_purpose_3,
+      R.drawable.question_female_purpose_4,
+  };
+
+  private static final int[] male = {
+      R.drawable.question_male_purpose_1,
+      R.drawable.question_male_purpose_2,
+      R.drawable.question_male_purpose_3,
+      R.drawable.question_male_purpose_4,
+  };
+
   public static QuestionPurposeFragments newInstance() {
     return new QuestionPurposeFragments();
   }
@@ -46,9 +65,30 @@ public class QuestionPurposeFragments extends Fragment {
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     nextButton.setEnabled(getCheckedId() >= 0);
+
+    final boolean isFemale = getActivity()
+        .getSharedPreferences(Config.ONBOARD_PROFILE, MODE_PRIVATE)
+        .getBoolean(Config.ONBOARD_PROFILE_SEX, true);
+
+    final Resources r = getResources();
+
+    final View[] views = {
+        cbLooseWeight,
+        cbNormal,
+        cbMuscle,
+        cbSave
+    };
+
+    for (int i = 0; i < views.length; i++) {
+      final int targetId = isFemale ? female[i] : male[i];
+      final VectorDrawableCompat d = VectorDrawableCompat
+          .create(r, targetId, requireContext().getTheme());
+
+      views[i].setBackground(d);
+    }
   }
 
-  public int getCheckedId(){
+  public int getCheckedId() {
     int position = -1;
 
     if (cbNormal.isChecked()) {
@@ -82,6 +122,9 @@ public class QuestionPurposeFragments extends Fragment {
 
   @OnClick({ R.id.cbNormal, R.id.cbLooseWeight, R.id.cbMuscle, R.id.cbSave })
   public void onClick(View view) {
+    // uncheck current
+    setSelectedPurposeTint(R.color.purpose_icon_normal);
+
     cbNormal.setChecked(false);
     cbLooseWeight.setChecked(false);
     cbMuscle.setChecked(false);
@@ -102,7 +145,20 @@ public class QuestionPurposeFragments extends Fragment {
         break;
     }
 
+    // check new one
+    selectedPurpose = view;
+    setSelectedPurposeTint(R.color.purpose_icon_selected);
+
     nextButton.setEnabled(getCheckedId() >= 0);
+  }
+
+  private void setSelectedPurposeTint(int tintColor) {
+    if (selectedPurpose != null) {
+      VectorDrawableCompat d = (VectorDrawableCompat) selectedPurpose.getBackground();
+      d.setTint(ContextCompat.getColor(requireContext(), tintColor));
+
+      selectedPurpose.invalidateDrawable(d);
+    }
   }
 
   private String getDiffLevel(int position) {

@@ -58,6 +58,9 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
     Profile profileFinal =
         BodyCalculates.calculate(this, weight, height, age, isFemale, activity, diff);
 
+    profileFinal.setFirstName(sp.getString(Config.ONBOARD_PROFILE_NAME,
+        BodyCalculates.DEFAULT_FIRST_NAME));
+
     if (getSharedPreferences(Config.IS_NEED_SHOW_ONBOARD, MODE_PRIVATE).getBoolean(
         Config.IS_NEED_SHOW_ONBOARD, false)) {
       isNeedShowOnboard = true;

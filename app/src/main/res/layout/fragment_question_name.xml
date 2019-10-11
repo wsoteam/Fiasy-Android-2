@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+  <TextView
+      android:id="@+id/title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_gravity="center"
+      android:layout_marginTop="16dp"
+      android:fontFamily="sans-serif-medium"
+      android:gravity="center"
+      android:lineSpacingExtra="4dp"
+      android:text="Давайте знакомиться.\nКак вас зовут?"
+      android:textColor="#de2b2b2b"
+      android:textSize="20sp"
+      android:textStyle="normal"
+      />
+
+  <ImageView
+      android:id="@+id/question_image"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/title"
+      android:layout_centerHorizontal="true"
+      android:layout_gravity="center"
+      android:layout_marginTop="48dp"
+      app:srcCompat="@drawable/question_1_name_smile"
+      />
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/user_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/question_image"
+      android:layout_marginTop="30dp"
+      android:hint="Введите ваше имя"
+      android:paddingLeft="16dp"
+      android:paddingRight="16dp"
+      >
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <Button
+      android:id="@+id/btnNext"
+      style="@style/Question.NextButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:enabled="false"
+      />
+
+</RelativeLayout>

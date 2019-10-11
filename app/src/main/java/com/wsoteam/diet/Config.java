@@ -56,6 +56,7 @@ public class Config {
     public static final String ONBOARD_PROFILE = "ONBOARD_PROFILE";
     public static final String ONBOARD_PROFILE_SEX = "ONBOARD_PROFILE_SEX";
     public static final String ONBOARD_PROFILE_HEIGHT = "ONBOARD_PROFILE_HEIGHT";
+    public static final String ONBOARD_PROFILE_NAME= "ONBOARD_PROFILE_NAME";
     public static final String ONBOARD_PROFILE_WEIGHT = "ONBOARD_PROFILE_WEIGHT";
     public static final String ONBOARD_PROFILE_YEARS = "ONBOARD_PROFILE_YEARS";
     public static final String ONBOARD_PROFILE_ACTIVITY = "ONBOARD_PROFILE_ACTIVITY";

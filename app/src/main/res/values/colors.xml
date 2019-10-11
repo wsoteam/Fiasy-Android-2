@@ -222,6 +222,9 @@
   <color name="highlight_line_color">#80aeb3c0</color>
   <color name="linear_line_color">#80EB5757</color>
 
+  <color name="purpose_icon_normal">#b3b3b3</color>
+  <color name="purpose_icon_selected">#ef7d02</color>
+
   <color name="auth_enter_background_color_disabled">#acacac</color>
   <color name="auth_enter_background_color_enabled">@color/orange</color>
 
