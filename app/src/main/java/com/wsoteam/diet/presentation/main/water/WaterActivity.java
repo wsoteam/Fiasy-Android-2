@@ -40,7 +40,7 @@ public class WaterActivity extends BaseActivity implements WaterView {
 
     cardTitle.setBackgroundResource(R.drawable.water_bottom_corner);
 
-    toolbar.setTitle(R.string.water_screen_toolbar_title);
+    toolbar.setTitle(R.string.water);
     setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     getSupportActionBar().setDisplayShowHomeEnabled(true);

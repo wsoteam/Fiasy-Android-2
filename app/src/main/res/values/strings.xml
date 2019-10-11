@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-
-
+  <string name="format_int_kcal">%d kcal</string>
+  <string name="main_screen_topbar_string">%d из %d г</string>
 
 
 
@@ -45,6 +45,8 @@
   <string name="bnv_main_plan">Plans</string>
   <string name="bnv_main_recipes">Recipes</string>
   <string name="bnv_main_profile">Profile</string>
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
   <string name="onboard_weight_pattern">%d kg</string>
   <string name="onboard_height_pattern">%d cm</string>
@@ -56,10 +58,6 @@
     <item quantity="other">%d дней подряд ведется запись</item>
   </plurals>
 
-  <string name="breakfast">Завтрак</string>
-  <string name="lunch">Обед</string>
-  <string name="dinner">Ужин</string>
-  <string name="snack">Перекус</string>
   <!--food_template-->
   <string name="subTestText" translatable="false">Попробуйте 7 дней бесплатно\n Далее 199 р. / месяц</string>
 
@@ -101,35 +99,7 @@
 
   <string name="intro_text_2" translatable="false">Полезные рецепты на каждый день</string>
   <string name="intro_text_3" translatable="false">Удобно отслеживать свои достижения</string>
-<!--  <string name="onboard_purpose_title" translatable="false">Выберите свою цель</string>-->
-<!--  <string name="onboard_purpose_normal_text" translatable="false">Поддержания тела в\nформе</string>-->
-<!--  <string name="onboard_purpose_loose_weight_text" translatable="false">Похудение</string>-->
-<!--  <string name="onboard_purpose_muscle_text" translatable="false">Набор мышечной\nмассы</string>-->
-<!--  <string name="onboard_purpose_save_text" translatable="false">Сохранение мышц и\nсжигание жира</string>-->
 
-<!--  <string name="onboard_birthday_text" translatable="false">Выберите дату\nвашего рождения</string>-->
-
-<!--  <string name="onboard_activity_subtitle" translatable="false">Выбери свою активность</string>-->
-<!--  <string name="onboard_activity_level_none" translatable="false">Минимальная\nнагрузка</string>-->
-<!--  <string name="onboard_activity_level_easy" translatable="false">Легкая физическая\nнагрузка в течении дня</string>-->
-<!--  <string name="onboard_activity_level_medium" translatable="false">Тренировки 2–4 раза в\nнеделю (или работа\nсредней тяжести)</string>-->
-<!--  <string name="onboard_activity_level_hard" translatable="false">Интенсивные\nтренировки 4–5 раз в\nнеделю</string>-->
-<!--  <string name="onboard_activity_level_hard_up" translatable="false">Ежедневные интенсивные\nтренировки</string>-->
-<!--  <string name="onboard_activity_level_super" translatable="false">Тренировки 5–7 раз\nв неделю по два\nраза в день</string>-->
-<!--  <string name="onboard_activity_level_super_up" translatable="false">Тяжелая физическая работа или\nежедневные интенсивные тренировки\nпо 2 раза в день</string>-->
-
-<!--  <string name="onboard_height_text" translatable="false">Для расчета мы используем формулу Миффлина-Сан-Жеора, которую в 2005 году подтвердила Американская Диетическая Ассоциация (АДА), что она является более точной.</string>-->
-
-
-<!--  <string name="onboard_weight_text" translatable="false">Для расчета мы используем формулу Миффлина-Сан-Жеора, которую в 2005 году подтвердила Американская Диетическая Ассоциация (АДА), что она является более точной.</string>-->
-<!--  <string name="onboard_weight_choose_weight" translatable="false">Выберите свой вес</string>-->
-
-
-  <!--Add Measurements Activity-->
-<!--  <string name="onboard_calculation_title" translatable="false">Подождите немного…</string>-->
-<!--  <string name="onboard_calculation_subtitle" translatable="false">Идет расчет индивидуального плана питания</string>-->
-
-  <!--edit profile full-->
 
   <!--activity forgot password-->
   <string name="btn_forgot_password" translatable="false">Отправить</string>
@@ -145,13 +115,6 @@
 
   <string name="dialog_load_title" translatable="false">Загрузка</string>
   <string name="dialog_load_content" translatable="false">Пожалуйста подождите</string>
-
-<!--  <string name="auth_empty_email" translatable="false">Пропущен email!</string>-->
-
-<!--  <string name="auth_empty_pass" translatable="false">Пропущен пароль!</string>-->
-<!--  <string name="auth_easy_pass" translatable="false">Слишком простой пароль!</string>-->
-
-
 
 
   <string name="auth_phone_wrong_number" translatable="false">Проверьте введенный номер!</string>
@@ -194,8 +157,6 @@
   <string name="auth_main_et_hint_pass" translatable="false">Введите пароль</string>
   <string name="auth_main_et_hint_pass_dub" translatable="false">Повторите пароль</string>
   <string name="auth_main_create" translatable="false">Регистрация</string>
-<!--  <string name="auth_main_pass_not_match" translatable="false">Пароли не совпадают</string>-->
-<!--  <string name="auth_main_btn_create" translatable="false">Зарегистрироваться</string>-->
   <string name="auth_main_btn_send_pass" translatable="false">Отправить пароль</string>
   <string name="auth_main_tv_respasss" translatable="false">Забыли пароль?</string>
 
@@ -272,39 +233,10 @@
   <string name="spk_check_your_height" translatable="false">Проверьте введенный рост</string>
   <string name="spk_check_weight" translatable="false">Проверьте введенный вес</string>
 
-
-  <string name="main_screen_topbar_string" translatable="false">%d из %d г</string>
   <string name="main_screen_topbar_kcal_over_notification" translatable="false">Хотим вас\nпредупредить, что\nпревышение калорий\nможет привести к\nнулевому результату</string>
 
-  <!--Main screen-->
-  <string name="main_screen_topbar_left" translatable="false">%s ккал</string>
-  <string name="main_screen_topbar_calories" translatable="false">Съедено</string>
-  <string name="main_screen_topbar_calories_left" translatable="false">Осталось</string>
-  <string name="main_screen_topbar_prot" translatable="false">Белки</string>
-  <string name="main_screen_topbar_fat" translatable="false">Жиры</string>
-  <string name="main_screen_topbar_carbo" translatable="false">Углеводы</string>
 
-  <string name="main_screen_breakfast" translatable="false">Завтрак</string>
-
-  <string name="main_screen_lunch" translatable="false">Обед</string>
-  <string name="main_screen_dinner" translatable="false">Ужин</string>
-  <string name="main_screen_snack" translatable="false">Перекус</string>
-  <string name="main_screen_water" translatable="false">Вода</string>
-<!--  <string name="main_screen_menu_water" translatable="false">Настройки для воды</string>-->
   <string name="main_screen_menu_water_count">%.2f L</string>
-
-  <string name="water_screen_toolbar_title" translatable="false">Вода</string>
-<!--  <string name="water_screen_title" translatable="false">Польза воды</string>-->
-<!--  <string name="water_screen_fact1" translatable="false">Снабжает кожу влагой и делает её упругой и эластичной.</string>-->
-<!--  <string name="water_screen_fact2" translatable="false">Поставляет полезные вещества клеткам, не допуская тем самым их голодание и гибель.</string>-->
-<!--  <string name="water_screen_fact3" translatable="false">Способствует похудению путём улучшения процессов обмена веществ.</string>-->
-
-<!--  <string name="water_screen_water_need_title" translatable="false">Общее</string>-->
-<!--  <string name="water_screen_water_normal" translatable="false">Ваша норма на каждый день</string>-->
-<!--  <string name="water_screen_water_1_0" translatable="false">1.0 л</string>-->
-<!--  <string name="water_screen_water_default" translatable="false">Сделать по умолчанию</string>-->
-
-
 
 
   <string name="g" translatable="false">г</string>
@@ -381,11 +313,7 @@
   <string name="sign_up_privacy_policy_title" translatable="false">я согласен с условиями </string>
   <string name="sign_up_privacy_policy_link_span_text" translatable="false">политики конфиндециальности</string>
   <string name="sign_in_already_have_account" translatable="false">У вас уже есть аккаунт?</string>
-<!--  <string name="auth_login_hint" translatable="false">Логин</string>-->
-<!--  <string name="auth_password_hint" translatable="false">Пароль</string>-->
-<!--  <string name="auth_forgot_your_password" translatable="false">Забыли пароль?</string>-->
   <string name="auth_restore_your_password" translatable="false">Восстановить</string>
-<!--  <string name="auth_sign_in_alternatives" translatable="false">Или войти с помощью</string>-->
   <string name="auth_sign_up_alternatives" translatable="false">Или зарегистрируйтесь с помощью</string>
 
   <string name="constraint_error_username_email" translatable="false">Введите email</string>
@@ -462,12 +390,9 @@
   <string name="activity_detail_of_food_add_in_diary" translatable="false">добавить в дневник</string>
   <string name="activity_detail_saved_food" translatable="false">Состав продукта</string>
   <string name="activity_detail_saved_food_other" translatable="false">Другое</string>
-  <string name="Proteins" translatable="false">Белки</string>
-  <string name="Fats" translatable="false">Жиры</string>
   <string name="Cholesterol" translatable="false">Холестерин</string>
   <string name="Sodium" translatable="false">Натрий</string>
   <string name="Potassium" translatable="false">Калий</string>
-  <string name="Carbohydrates" translatable="false">Углеводы</string>
   <string name="Cellulose" translatable="false">Клетчатка</string>
   <string name="Sugar" translatable="false">Сахар</string>
   <string name="Saturated" translatable="false">Насыщенные</string>
@@ -481,7 +406,7 @@
   <string name="activity_item_plans_def_value" translatable="false">00</string>
   <string name="activity_list_and_search_searсh" translatable="false">\u0020\u0020\u0020\u0020\u0020\u0020\u0020Поиск</string>
   <string name="activity_main_new_burnt" translatable="false">0\nсожжено</string>
-  <string name="activity_main_new_daily_rate" translatable="false">Ежедневная норма =</string>
+<!--  <string name="activity_main_new_daily_rate" translatable="false">Ежедневная норма =</string>-->
   <string name="activity_profile_profile" translatable="false">Профиль</string>
   <string name="activity_profile_week" translatable="false">Неделя</string>
   <string name="activity_profile_month" translatable="false">Месяц</string>
@@ -564,7 +489,6 @@
   <string name="detail_plans_recipe_item_some_name" translatable="false">Салат с оливками, авокадо и брынзой</string>
 
   <string name="diary_recipe_plans_added" translatable="false">Вы занесли в дневник:</string>
-  <string name="dots_popup_menu_eating" translatable="false">Добавить еду</string>
 
   <string name="food_item_for_template_name" translatable="false">Name</string>
   <string name="food_item_for_template_kcal" translatable="false">Kcal</string>
@@ -617,7 +541,7 @@
 
   <string name="item_vertical_browse_plans_name" translatable="false">Название диеты</string>
 
-  <string name="ms_item_eating_list_breakfast" translatable="false">Завтрак</string>
+<!--  <string name="ms_item_eating_list_breakfast" translatable="false">Завтрак</string>-->
   <string name="ms_item_eating_list_count" translatable="false">2 шт.</string>
 
   <string name="ms_item_eating_list_add" translatable="false">Добавить</string>
@@ -629,11 +553,6 @@
 
   <string name="ms_item_eating_list_prot" translatable="false">Prot</string>
 
-  <string name="ms_item_eating_list_protein" translatable="false">Белки</string>
-
-  <string name="ms_item_eating_list_fats2" translatable="false">Жиры</string>
-
-  <string name="ms_item_eating_list_carbo2" translatable="false">Углеводы</string>
 
   <string name="ms_item_eating_list_kcal2" translatable="false">Ккал</string>
   <string name="ms_item_eating_list_add_meal" translatable="false">Занесите обед сейчас и достигните своей цели быстрее</string>
@@ -651,11 +570,9 @@
   <string name="premium_norm_calories" translatable="false">Калории</string>
   <string name="premium_norm_2000" translatable="false">2000</string>
 
-  <string name="premium_norm_protein" translatable="false">Белки</string>
-  <string name="premium_norm_40" translatable="false">40</string>
-  <string name="premium_norm_carbo" translatable="false">Углеводы</string>
 
-  <string name="premium_norm_fats" translatable="false">Жиры</string>
+  <string name="premium_norm_40" translatable="false">40</string>
+
   <string name="premium_norm_days_norm" translatable="false">Дневная норма КБЖУ, рассчитанная по формуле \nМиффлина - Сан Жеора</string>
   <string name="premium_norm_def_value" translatable="false">стандартные значения</string>
 
@@ -670,7 +587,7 @@
   <string name="tab_lat_template_name" translatable="false">Шаблоны</string>
   <string name="template_add_food_add" translatable="false">Добавить продукт</string>
   <string name="toolbar_menu_search" translatable="false">Search</string>
-  <string name="format_int_kcal" translatable="false">%d ккал</string>
+
 
   <string name="search_food_activity_say" translatable="false">Говорите!</string>
   <string name="search_food_activity_change" translatable="false">Изменить</string>
@@ -985,10 +902,10 @@
   <string name="water_unit">l</string>
   <string name="norm_established_first">Intake set to</string>
   <string name="norm_established_second">To change this value, tap</string>
-  <string name="breakfast999" translatable="false">Breakfast</string>
-  <string name="lunch999" translatable="false">Lunch</string>
-  <string name="dinner999" translatable="false">Dinner</string>
-  <string name="snack999" translatable="false">Snack</string>
+  <string name="breakfast">Breakfast</string>
+  <string name="lunch">Lunch</string>
+  <string name="dinner">Dinner</string>
+  <string name="snack">Snack</string>
   <string name="all">All</string>
   <string name="water_settings">Water settings</string>
 

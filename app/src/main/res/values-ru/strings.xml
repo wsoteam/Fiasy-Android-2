@@ -254,9 +254,7 @@
   <string name="set_your_norm_description">Чтобы изменить КБЖУ вы должны купить</string>
 
   <string name="protein_intake">Белки</string>
-
   <string name="carbohydrates_intake">Углеводы</string>
-
   <string name="fats_intake">Жиры</string>
 
   <string name="day_norm_intake_description">Дневная норма КБЖУ, рассчитанная по формуле Миффлина - Сан Жеора</string>
@@ -266,39 +264,25 @@
   <string name="default_description_intake">Если вы меняли значение КБЖУ, то вы всегда можете вернуться к стандартным значеним</string>
 
   <!-- Diary Screen -->
-
-
   <string name="diary_title">Дневник</string>
-
   <string name="diary_daily_rate">Ежедневная норма</string>
-
   <string name="eaten_up">Съедено</string>
-
   <string name="burnt">Сожжено</string>
-
   <string name="left">Осталось</string>
-
-  <string name="water">Вода</string>
-
   <string name="water_unit">л</string>
-
   <string name="norm_established_first">Норма установлена на</string>
-
   <string name="norm_established_second">Чтобы изменить это значение нажмите</string>
-
   <string name="breakfast">Завтрак</string>
-
   <string name="lunch">Обед</string>
-
   <string name="dinner">Ужин</string>
-
   <string name="snack">Перекус</string>
-
+  <string name="water">Вода</string>
   <string name="all">Все</string>
 
-  <string name="water_settings">Настройки воды</string>
+
 
   <!-- Water Screen -->
+  <string name="water_settings">Настройки воды</string>
   <string name="benefit_water_title">Польза воды</string>
   <string name="benefit_water_description_first">Снабжает кожу влагой и делает её упругой и эластичной</string>
   <string name="benefit_water_description_second">Поставляет полезные вещества клеткам, не допуская тем самым их голодание и гибель</string>
@@ -896,4 +880,6 @@
   <string name="bnv_main_profile">Профиль</string>
 
   <string name="main_screen_menu_water_count">%.2f л</string>
+  <string name="format_int_kcal">%d ккал</string>
+  <string name="main_screen_topbar_string">%d из %d г</string>
 </resources>
