@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.R;
 
@@ -27,7 +28,7 @@ public class SectionViewHolder extends RecyclerView.ViewHolder implements View.O
   }
 
   public void bind(String name, int resourceId, ISections iSections) {
-    Picasso.get().load(resourceId).into(ivLeft);
+    Glide.with(itemView).load(resourceId).into(ivLeft);
     tvName.setText(name);
     callback = iSections;
   }
