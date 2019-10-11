@@ -875,7 +875,8 @@
   <string name="meas_future_day">Этот день еще  \nне наступил</string>
     <string name="meas_info_toast">Узнать подробнее о \nзначении среднего \nвеса</string>
     <string name="open_meas_info"><u>Узнать</u></string>
-    <string-array name="settings_items">
+  <string name="meas_help">Помощь</string>
+  <string-array name="settings_items">
         <item>Premium аккаунт</item>
         <!--<item>Еда и аллергия</item>-->
         <item>Промокоды</item>

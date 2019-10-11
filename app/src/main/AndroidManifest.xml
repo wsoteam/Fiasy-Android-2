@@ -12,6 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".presentation.measurment.help.HelpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DetailFood"/>
         <activity android:name=".presentation.measurment.history.HistoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MeasurmentsStyle"/>

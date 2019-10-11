@@ -3,30 +3,32 @@ package com.wsoteam.diet.presentation.measurment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import android.widget.Toast;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.google.android.material.snackbar.Snackbar;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.common.views.coordinator.Coordinator;
 import com.wsoteam.diet.presentation.measurment.POJO.Chest;
 import com.wsoteam.diet.presentation.measurment.POJO.Hips;
 import com.wsoteam.diet.presentation.measurment.POJO.Meas;
@@ -34,18 +36,14 @@ import com.wsoteam.diet.presentation.measurment.POJO.Waist;
 import com.wsoteam.diet.presentation.measurment.days.DaysFragment;
 import com.wsoteam.diet.presentation.measurment.dialogs.MeasCallback;
 import com.wsoteam.diet.presentation.measurment.dialogs.MeasDialog;
+import com.wsoteam.diet.presentation.measurment.help.HelpActivity;
 import com.wsoteam.diet.presentation.measurment.history.HistoryActivity;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MeasurmentActivity extends MvpAppCompatActivity implements MeasurmentView {
 
   private final int REFRESH_TIME_LIMIT = 7;
   private final int SIZE_DATE_LINE = 4001;
   private final int MEDIUM_DATE_LINE = 2001;
-
 
   @InjectPresenter
   MeasurmentPresenter presenter;
@@ -62,9 +60,9 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
   @BindView(R.id.ivRefreshWaist) ImageView ivRefreshWaist;
   @BindView(R.id.ivRefreshHips) ImageView ivRefreshHips;
   @BindView(R.id.tvTicker) TextView tvTicker;
+  @BindView(R.id.cvPseudoToast) CardView cvPseudoToast;
   private int position = 0;
-  private Toast infoToast;
-
+  private Animation show, hide;
 
   @Override
   public void updateUI(Chest lastChest, Waist lastWaist, Hips lastHips, int chestTimeDiff,
@@ -168,6 +166,12 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
     setUIAccordingPrem();
     presenter = new MeasurmentPresenter(this);
     presenter.attachView(this);
+    loadAnimations();
+  }
+
+  private void loadAnimations() {
+    show = AnimationUtils.loadAnimation(this, R.anim.anim_from_right);
+    hide = AnimationUtils.loadAnimation(this, R.anim.anim_to_right);
   }
 
   private void setUIAccordingPrem() {
@@ -214,7 +218,7 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
   @OnClick({
       R.id.ibGraphs, R.id.ibBack, R.id.tvMediumWeight, R.id.imbtnLeft, R.id.imbtnRight,
       R.id.btnPremChest, R.id.btnPremWaist, R.id.btnPremHips,
-      R.id.clChest, R.id.clWaist, R.id.clHips, R.id.ivInfo
+      R.id.clChest, R.id.clWaist, R.id.clHips, R.id.ivInfo, R.id.tvOpenInfo
   })
   public void onViewClicked(View view) {
     switch (view.getId()) {
@@ -251,21 +255,46 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
         }
         break;
       case R.id.ivInfo:
-        showInfoToast(view);
+        if (cvPseudoToast.getAnimation() == null) {
+          handlePseudoToast();
+        }
+        break;
+      case R.id.tvOpenInfo:
+        startActivity(new Intent(MeasurmentActivity.this, HelpActivity.class));
         break;
     }
   }
 
-  private void showInfoToast(View v) {
-    Snackbar.make(LayoutInflater.from(this).inflate(R.layout.toast_meas_info, null), "", Snackbar.LENGTH_SHORT).show();
-    /*infoToast = new Toast(this);
-    infoToast.setView(LayoutInflater.from(this).inflate(R.layout.toast_meas_info, null));
-    infoToast.setDuration(Toast.LENGTH_LONG);
-    int[] coordinates = Coordinator.getBottomInfo(infoToast.getView(), v);
-    infoToast.setGravity(Gravity.TOP | Gravity.LEFT, coordinates[0], coordinates[1]);
-    TextView openInfoScreen = infoToast.getView().findViewById(R.id.tvOpenInfo);
+  private void handlePseudoToast() {
+    if (cvPseudoToast.getVisibility() == View.VISIBLE){
+      hidePseudoToast();
+    }else {
+      showPseudoToast();
+    }
+  }
 
-    infoToast.show();*/
+  private void hidePseudoToast() {
+    cvPseudoToast.setAnimation(hide);
+    cvPseudoToast.setVisibility(View.GONE);
+    loadAnimations();
+  }
+
+  private void showPseudoToast() {
+    cvPseudoToast.setVisibility(View.VISIBLE);
+    cvPseudoToast.setAnimation(show);
+    new CountDownTimer(3000, 3000) {
+      @Override
+      public void onTick(long millisUntilFinished) {
+
+      }
+
+      @Override
+      public void onFinish() {
+        if (cvPseudoToast.getVisibility() == View.VISIBLE){
+          hidePseudoToast();
+        }
+      }
+    }.start();
   }
 
   private void showChestAlert() {
