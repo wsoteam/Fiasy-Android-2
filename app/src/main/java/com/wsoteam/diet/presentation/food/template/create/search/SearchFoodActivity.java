@@ -48,6 +48,8 @@ import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+import static android.text.TextUtils.concat;
+
 public class SearchFoodActivity extends AppCompatActivity {
 
     @BindView(R.id.edtActivityListAndSearchCollapsingSearchField) EditText edtSearchField;
@@ -81,7 +83,7 @@ public class SearchFoodActivity extends AppCompatActivity {
         updateUI();
         foodList = FoodTemplateHolder.get();
 
-
+        edtSearchField.setHint(concat("       ",getString(R.string.search)));
         edtSearchField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

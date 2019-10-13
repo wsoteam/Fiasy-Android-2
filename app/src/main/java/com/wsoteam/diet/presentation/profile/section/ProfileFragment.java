@@ -62,6 +62,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.text.TextUtils.concat;
+
 public class ProfileFragment extends MvpAppCompatFragment implements ProfileView {
     @BindView(R.id.ibSettings)
     ImageButton ibProfileEdit;
@@ -260,9 +262,9 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         tvCarboCount.setText(String.format(getString(R.string.n_g), profile.getMaxCarbo()));
         tvFatCount.setText(String.format(getString(R.string.n_g), profile.getMaxFat()));
         tvProtCount.setText(String.format(getString(R.string.n_g), profile.getMaxProt()));
-        tvPlanName.setText(plan != null ? String.format(getString(R.string.plan_profile_txt), plan.getName()) : "");
+        tvPlanName.setText(plan != null ? concat(getString(R.string.nutrition_plan), " - ", plan.getName()) : "");
         if (profile.getFirstName().equals("default")) {
-            tvUserName.setText(getString(R.string.check_your_name));
+            tvUserName.setText(getString(R.string.your_name));
         } else {
             tvUserName.setText(String.format(getString(R.string.join_strings), profile.getFirstName(), profile.getLastName()));
         }

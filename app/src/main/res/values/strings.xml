@@ -80,6 +80,109 @@
   <string name="bnv_main_recipes">Recipes</string>
   <string name="bnv_main_profile">Profile</string>
 
+  // Планы питания
+  <string name="plans" translatable="false">Планы питания</string>
+  <string name="plan" translatable="false">План питания</string>
+  <string name="activity_blocked_detail_plans_recipes" translatable="false">рецептов</string>
+  <string name="activity_blocked_detail_plans_users" translatable="false">участников</string>
+  <string name="activity_blocked_detail_plans_motivation" translatable="false">Весьма мотивирующий текст, который поднимет в человеке веру в себя, свои возможности.</string>
+
+  <string name="activity_blocked_recipe_0_kcal" translatable="false">0 ккал на порцию</string>
+  <string name="value_00" translatable="false">00</string>
+  <string name="leavePlan" translatable="false">Выйти из диеты</string>
+  <string name="sharePlan" translatable="false">Подельтися</string>
+  <string name="load_recipe_plan_up" translatable="false">Загрузить предыдущие</string>
+  <string name="load_recipe_plan_down" translatable="false">Загрузить следующие</string>
+  <string name="days" translatable="false">дней</string>
+  <string name="join" translatable="false">Присоединиться</string>
+  <string name="add" translatable="false">Добавить</string>
+
+  <string name="activity_detail_saved_food_def_value" translatable="false">activity_detail_food_0_gram</string>
+
+  <string name="activity_plan_recipes_0_kcal" translatable="false">0 ккал на порцию</string>
+  <string name="activity_plan_recipes_method" translatable="false">Способ приготовления</string>
+
+  <string name="fragment_adding_recipe_result_description" translatable="false">Описание рецепта</string>
+  <string name="fragment_adding_recipe_result_name" translatable="false">Название рецепта</string>
+  <string name="fragment_adding_recipe_result_time" translatable="false">Время приготовления (мин.)</string>
+  <string name="fragment_adding_recipe_result_complexity" translatable="false">Сложность</string>
+
+  <string name="fragment_current_day_plan_days" translatable="false">День 0/0</string>
+
+  <string name="item_food_template_name" translatable="false">name</string>
+  <string name="item_food_template_count" translatable="false">0 food</string>
+
+  <string name="main_detail_plans_recipe_item_added" translatable="false">Рецепт добавлен</string>
+  <string name="main_detail_plans_recipe_item_175_kcal" translatable="false">175 ккал </string>
+  <string name="main_detail_plans_recipe_item_some_name" translatable="false">Салат с оливками, авокадо и брынзой</string>
+
+  <string name="plans_header_item_n_recipes" translatable="false">324 рецепта</string>
+  <string name="plans_header_item_n_days" translatable="false">28 дней</string>
+  <string name="plans_header_item_n_day_of_x" translatable="false">0 день из 28</string>
+
+  <string name="vertical_detail_plan_adapter_not_selected" translatable="false">Вы ничего не выбрали</string>
+  <string name="vertical_detail_plan_adapter_in_diary" translatable="false">Вы занесли в дневник:\u0020</string>
+  <string name="vertical_detail_plan_adapter_day" translatable="false">День %d</string>
+  <string name="vertical_detail_plan_adapter_day_of_days" translatable="false">%d день из %d</string>
+
+  <plurals name="recipe_count">
+    <item quantity="one">%d рецепт</item>
+    <item quantity="few">%d рецепта</item>
+    <item quantity="many">%d рецептов</item>
+    <item quantity="other">%d рецептов</item>
+  </plurals>
+
+  <plurals name="day_count">
+    <item quantity="one">%d день</item>
+    <item quantity="few">%d дня</item>
+    <item quantity="many">%d дней</item>
+    <item quantity="other">%d дней</item>
+  </plurals>
+
+  <plurals name="day_plurals">
+    <item quantity="one">день</item>
+    <item quantity="few">дня</item>
+    <item quantity="many">дней</item>
+    <item quantity="other">дней</item>
+  </plurals>
+
+  <plurals name="recipe_plurals">
+    <item quantity="one">рецепт</item>
+    <item quantity="few">рецепта</item>
+    <item quantity="many">рецептов</item>
+    <item quantity="other">рецептов</item>
+  </plurals>
+
+  <plurals name="foods_count">
+    <item quantity="one">%d продукт</item>
+    <item quantity="few">%d продукта</item>
+    <item quantity="many">%d продуктов</item>
+    <item quantity="other">%d продуктов</item>
+  </plurals>
+
+
+  // Добавление продуктов в дневник
+  <string-array name="eatingList">
+    <item>Завтрак</item>
+    <item>Обед</item>
+    <item>Ужин</item>
+    <item>Перекус</item>
+  </string-array>
+
+  <string name="favoriteRecipe" translatable="false">Понравившиеся</string>
+  <string name="own_food" translatable="false">свои продукты</string>
+  <!--  plan main screen-->
+  <string name="btnAddTemplate" translatable="false">Создать шаблон</string>
+  <string name="plan_start_text" translatable="false">Не знаете с чего начать? Попробуйте планы питания от нашего штатного диетолога.</string>
+  <string name="view_plans" translatable="false">Посмотреть планы питания</string>
+  <string name="view_other_plans" translatable="false">Подобрать другой план питания</string>
+  <string name="plan_end_text" translatable="false">Ваша диета закончилась. Поздравляем!</string>
+  <string name="titleShareDialogPlan" translatable="false">Поделиться планом питания</string>
+  <string name="btnCancel" translatable="false">Отменить</string>
+  <string name="btnChange" translatable="false">Поменять</string>
+  <string name="tvInfo" translatable="false">Вы хотите сменить план питания? \nВаш план питания “%s” будет закрыт.</string>
+  <string name="planDays" translatable="false">День %d/%d</string>
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
   <string name="onboard_weight_pattern">%d kg</string>
@@ -106,7 +209,7 @@
 
   <!--adding recipe-->
   <string name="templates" translatable="false">Шаблоны</string>
-  <string name="templateDescription" translatable="false">Здесь вы можете создать и сохранить набор продуктов, который употребляете ежедневно в определенный прием пищи</string>
+<!--  <string name="templateDescription" translatable="false">Здесь вы можете создать и сохранить набор продуктов, который употребляете ежедневно в определенный прием пищи</string>-->
 
 
   <!--Menu-->
@@ -297,7 +400,7 @@
 
 
   <string name="check_your_email" translatable="false">Неправильный формат</string>
-  <string name="marker_kcal" translatable="false">ккал</string>
+<!--  <string name="marker_kcal" translatable="false">ккал</string>-->
 
   <string name="text_start_search" translatable="false">Начните вводить в строку поиска \nназвание продукта</string>
   <string name="title_no_find_food" translatable="false">Результаты не найдены</string>
@@ -336,9 +439,9 @@
   <string name="ok_forward" translatable="false">ок</string>
   <string name="prot" translatable="false">Белки (г)</string>
   <string name="food_saved" translatable="false">Продукт сохранен в разделе избранное/свои продукты </string>
-  <string name="own_food" translatable="false">свои продукты</string>
+
   <string name="add_food" translatable="false">Добавить продукт</string>
-  <string name="create_user_food" translatable="false">Создать продукт</string>
+<!--  <string name="create_user_food" translatable="false">Создать продукт</string>-->
   <string name="error_name" translatable="false">Введите название продукта</string>
   <string name="edit_food_completed" translatable="false">Продукт изменен</string>
 
@@ -366,13 +469,6 @@
   <string name="skip" translatable="false">Пропустить</string>
   <string name="personal_diary" translatable="false">Создаём ваш персональный дневник питания</string>
 
-<!--  <string name="change_sex" translatable="false">Пол</string>-->
-<!--  <string name="change_height" translatable="false">Рост</string>-->
-<!--  <string name="change_norm" translatable="false">Норма калорий</string>-->
-<!--  <string name="change_weight" translatable="false">Вес</string>-->
-<!--  <string name="change_age" translatable="false">Возраст</string>-->
-<!--  <string name="change_activity" translatable="false">Активность</string>-->
-<!--  <string name="change_goal" translatable="false">Цель</string>-->
 
   <string name="update_message" translatable="false">Вышла новая версия приложения!  \nОбновите приложение в Google Play</string>
   <string name="go_update" translatable="false">Обновить</string>
@@ -386,15 +482,6 @@
   <string name="about_activity_surname_hint" translatable="false">Фамилия</string>
 
   <string name="about_activity_email_hint" translatable="false">Почта</string>
-
-<!--  <string name="activity_change_norm_example_gender" translatable="false">Мужской</string>-->
-<!--  <string name="activity_change_norm_example_height" translatable="false">180 см</string>-->
-<!--  <string name="activity_change_norm_example_weight" translatable="false">75 кг</string>-->
-<!--  <string name="activity_change_norm_example_age" translatable="false">25 лет</string>-->
-<!--  <string name="activity_change_norm_example_training" translatable="false">Ежедневные интенсивные тренировки</string>-->
-
-
-<!--  <string name="activity_change_norm_example_target" translatable="false">Сохранение мышц и сжигание жира</string>-->
 
   <string name="activity_create_food_main_information" translatable="false">Основная информация</string>
 
@@ -434,15 +521,12 @@
   <string name="Calories" translatable="false">Калории</string>
   <string name="Calories_2" translatable="false">Калорий</string>
   <string name="activity_item_plans_def_value" translatable="false">00</string>
-  <string name="activity_list_and_search_searсh" translatable="false">\u0020\u0020\u0020\u0020\u0020\u0020\u0020Поиск</string>
   <string name="activity_main_new_burnt" translatable="false">0\nсожжено</string>
   <string name="activity_profile_names" translatable="false">Иван Иванов</string>
   <string name="activity_profile_235_g" translatable="false">235 г</string>
 
   <string name="activity_profile_60_g" translatable="false">60 г</string>
-<!--  <string name="activity_profile_daily_rate" translatable="false">Ежедневная норма -\u0020</string>-->
 
-  <string name="activity_profile_plan" translatable="false">План питания -\u0020</string>
   <string name="activity_profile_standard" translatable="false">стандартный</string>
 
   <string name="activity_profile_1800_kcal" translatable="false">1800 ккал</string>
@@ -518,9 +602,7 @@
   <string name="food_item_for_template_weight" translatable="false">Вес</string>
 
   <string name="food_item_for_template_b" translatable="false">B</string>
-
   <string name="food_item_for_template_g" translatable="false">G</string>
-
   <string name="food_item_for_template_u" translatable="false">U</string>
 
   <string name="food_popup_menu_delete" translatable="false">Удалить</string>
@@ -540,18 +622,18 @@
   <string name="fragment_empty_sorry" translatable="false">Извините, данный раздел находится в разработке.</string>
   <string name="fragment_empty_soon" translatable="false">Еще чуть-чуть и вам откроется кладезь полезной информации :)</string>
 
-  <string name="fragment_favorites_favorite" translatable="false">Избранное</string>
+<!--  <string name="fragment_favorites_favorite" translatable="false">Избранное</string>-->
 
-  <string name="fragment_favorites_info" translatable="false">В этом разделе будут храниться \nпонравившиеся или сохраненные вами \nрецепты и продукты</string>
-  <string name="fragment_favorites_add" translatable="false">Добавить продукт</string>
+<!--  <string name="fragment_favorites_info" translatable="false">В этом разделе будут храниться \nпонравившиеся или сохраненные вами \nрецепты и продукты</string>-->
+<!--  <string name="fragment_favorites_add" translatable="false">Добавить продукт</string>-->
   <string name="fragment_individual_plan_0_g" translatable="false">0 г</string>
 
   <string name="fragment_list_articles_not_result" translatable="false">Результаты не найдены</string>
 
   <string name="fragment_list_articles_try_now" translatable="false">Попробуйте еще раз </string>
 
-  <string name="fragment_search_favorite" translatable="false">Избранное</string>
-  <string name="fragment_search_info" translatable="false">В этом разделе будут храниться \nпонравившиеся или сохраненные вами \nрецепты и продукты</string>
+<!--  <string name="fragment_search_favorite" translatable="false">Избранное</string>-->
+<!--  <string name="fragment_search_info" translatable="false">В этом разделе будут храниться \nпонравившиеся или сохраненные вами \nрецепты и продукты</string>-->
   <string name="fragment_we_offer_txt" translatable="false">Мы предлагаем вам:</string>
 
   <string name="fragment_we_offer_advice" translatable="false">Множество полезных советов по нутрициологии и  здоровому образу жизни</string>
@@ -563,7 +645,7 @@
 
   <string name="item_vertical_browse_plans_name" translatable="false">Название диеты</string>
 
-<!--  <string name="ms_item_eating_list_breakfast" translatable="false">Завтрак</string>-->
+
   <string name="ms_item_eating_list_count" translatable="false">2 шт.</string>
 
   <string name="ms_item_eating_list_add" translatable="false">Добавить</string>
@@ -587,18 +669,13 @@
   <string name="popup_search_food_create_template" translatable="false">Создать шаблон</string>
   <string name="popup_search_food_create_recipe" translatable="false">Создать рецепт</string>
   <string name="premium_norm_prem" translatable="false">PREMIUM</string>
-<!--  <string name="premium_norm_for_change" translatable="false">Чтобы изменить КБЖУ вы должны купить</string>-->
-<!--  <string name="premium_norm_set_data" translatable="false">Задать свою норму КБЖУ</string>-->
   <string name="premium_norm_calories" translatable="false">Калории</string>
   <string name="premium_norm_2000" translatable="false">2000</string>
 
 
   <string name="premium_norm_40" translatable="false">40</string>
 
-<!--  <string name="premium_norm_days_norm" translatable="false">Дневная норма КБЖУ, рассчитанная по формуле \nМиффлина - Сан Жеора</string>-->
-<!--  <string name="premium_norm_def_value" translatable="false">стандартные значения</string>-->
 
-<!--  <string name="premium_norm_if_change" translatable="false">Если вы меняли значение КБЖУ, то вы всегда можете \nвернуться к стандартным значениям</string>-->
   <string name="recipe_menu_share" translatable="false">Share</string>
   <string name="recipe_menu_favorites" translatable="false">Favorite</string>
   <string name="recipe_group_item_all_recipe" translatable="false">Посмотреть все рецепты\u0020\u0020</string>
@@ -653,12 +730,7 @@
   </string-array>
 
 
-  <string-array name="eatingList">
-    <item>Завтрак</item>
-    <item>Обед</item>
-    <item>Ужин</item>
-    <item>Перекус</item>
-  </string-array>
+
   <string-array name="fragment_names">
     <item>Добавить продукт</item>
     <item>Пищевая ценность на 100 г</item>
