@@ -46,6 +46,33 @@
   <string name="activity_profile_future_value" translatable="false">Будущие значения</string>
   <string name="activity_profile_current_value" translatable="false">Ваше значение</string>
   <string name="activity_profile_settings_settings" translatable="false">Настройки</string>
+  <string name="profile_female" translatable="false">Женский</string>
+  <string name="profile_male" translatable="false">Мужской</string>
+  <string name="save" translatable="false">сохранить</string>
+  <string name="prem_title_settings" translatable="false">Улучши свои показатели!</string>
+  <string name="text_prem_settings" translatable="false">Эксклюзивные статьи от ведущих \nдиетологов и спортсменов, а так же \nмножество рецептов!</string>
+  <string name="btn_settings_prem" translatable="false">стать лучше</string>
+  <string-array name="settings_items">
+    <item>Premium аккаунт</item>
+    <!--<item>Еда и аллергия</item>-->
+    <item>Промокоды</item>
+    <item>Личные данные</item>
+    <item>Норма калорий</item>
+    <!--<item>Уведомления</item>
+    <item>Цель</item>-->
+    <item>Помощь</item>
+    <item>Выход</item>
+  </string-array>
+  <string-array name="settings_items_prem">
+    <!--<item>Еда и аллергия</item>-->
+    <item>Промокоды</item>
+    <item>Личные данные</item>
+    <item>Норма калорий</item>
+    <!--<item>Уведомления</item>
+    <item>Цель</item>-->
+    <item>Помощь</item>
+    <item>Выход</item>
+  </string-array>
 
   <string name="bnv_main_diary">Journal</string>
   <string name="bnv_main_articles">Articles</string>
@@ -338,19 +365,15 @@
   <string name="action_sign_up" translatable="false">Зарегистрироваться</string>
   <string name="skip" translatable="false">Пропустить</string>
   <string name="personal_diary" translatable="false">Создаём ваш персональный дневник питания</string>
-  <string name="prem_title_settings" translatable="false">Улучши свои показатели!</string>
-  <string name="text_prem_settings" translatable="false">Эксклюзивные статьи от ведущих \nдиетологов и спортсменов, а так же \nмножество рецептов!</string>
-  <string name="btn_settings_prem" translatable="false">стать лучше</string>
-  <string name="change_sex" translatable="false">Пол</string>
-  <string name="change_height" translatable="false">Рост</string>
-  <string name="change_norm" translatable="false">Норма калорий</string>
-  <string name="change_weight" translatable="false">Вес</string>
-  <string name="change_age" translatable="false">Возраст</string>
-  <string name="change_activity" translatable="false">Активность</string>
-  <string name="change_goal" translatable="false">Цель</string>
-  <string name="profile_female" translatable="false">Женский</string>
-  <string name="profile_male" translatable="false">Мужской</string>
-  <string name="activity_save" translatable="false">сохранить</string>
+
+<!--  <string name="change_sex" translatable="false">Пол</string>-->
+<!--  <string name="change_height" translatable="false">Рост</string>-->
+<!--  <string name="change_norm" translatable="false">Норма калорий</string>-->
+<!--  <string name="change_weight" translatable="false">Вес</string>-->
+<!--  <string name="change_age" translatable="false">Возраст</string>-->
+<!--  <string name="change_activity" translatable="false">Активность</string>-->
+<!--  <string name="change_goal" translatable="false">Цель</string>-->
+
   <string name="update_message" translatable="false">Вышла новая версия приложения!  \nОбновите приложение в Google Play</string>
   <string name="go_update" translatable="false">Обновить</string>
   <string name="update_title" translatable="false">Обновление!</string>
@@ -364,14 +387,14 @@
 
   <string name="about_activity_email_hint" translatable="false">Почта</string>
 
-  <string name="activity_change_norm_example_gender" translatable="false">Мужской</string>
-  <string name="activity_change_norm_example_height" translatable="false">180 см</string>
-  <string name="activity_change_norm_example_weight" translatable="false">75 кг</string>
-  <string name="activity_change_norm_example_age" translatable="false">25 лет</string>
-  <string name="activity_change_norm_example_training" translatable="false">Ежедневные интенсивные тренировки</string>
+<!--  <string name="activity_change_norm_example_gender" translatable="false">Мужской</string>-->
+<!--  <string name="activity_change_norm_example_height" translatable="false">180 см</string>-->
+<!--  <string name="activity_change_norm_example_weight" translatable="false">75 кг</string>-->
+<!--  <string name="activity_change_norm_example_age" translatable="false">25 лет</string>-->
+<!--  <string name="activity_change_norm_example_training" translatable="false">Ежедневные интенсивные тренировки</string>-->
 
 
-  <string name="activity_change_norm_example_target" translatable="false">Сохранение мышц и сжигание жира</string>
+<!--  <string name="activity_change_norm_example_target" translatable="false">Сохранение мышц и сжигание жира</string>-->
 
   <string name="activity_create_food_main_information" translatable="false">Основная информация</string>
 
@@ -386,7 +409,7 @@
   <string name="activity_detail_food_0_gram" translatable="false">0 г</string>
   <string name="activity_detail_food_3_3_g" translatable="false">3.3 г</string>
   <string name="activity_detail_food_add" translatable="false">добавить</string>
-  <string name="activity_detail_food_save" translatable="false">сохранить</string>
+
   <string name="activity_detail_food_nutrients" translatable="false">Питательные вещества</string>
   <string name="activity_detail_food_to_100_g" translatable="false">на 100 г\u0020</string>
 
@@ -430,7 +453,7 @@
   <string name="activity_profile_date" translatable="false">10.06 &#8211; 17.06</string>
 
 
-  <string name="activity_promo_form_enter_code" translatable="false">Ввести промокод</string>
+
   <string name="activity_promo_form_confirm" translatable="false">подтвердить</string>
   <string name="adding_recipe_menu_close" translatable="false">Close</string>
   <string name="alert_dialog_buy_sub_info_congratulations" translatable="false">Поздравляем!</string>
@@ -564,18 +587,18 @@
   <string name="popup_search_food_create_template" translatable="false">Создать шаблон</string>
   <string name="popup_search_food_create_recipe" translatable="false">Создать рецепт</string>
   <string name="premium_norm_prem" translatable="false">PREMIUM</string>
-  <string name="premium_norm_for_change" translatable="false">Чтобы изменить КБЖУ вы должны купить</string>
-  <string name="premium_norm_set_data" translatable="false">Задать свою норму КБЖУ</string>
+<!--  <string name="premium_norm_for_change" translatable="false">Чтобы изменить КБЖУ вы должны купить</string>-->
+<!--  <string name="premium_norm_set_data" translatable="false">Задать свою норму КБЖУ</string>-->
   <string name="premium_norm_calories" translatable="false">Калории</string>
   <string name="premium_norm_2000" translatable="false">2000</string>
 
 
   <string name="premium_norm_40" translatable="false">40</string>
 
-  <string name="premium_norm_days_norm" translatable="false">Дневная норма КБЖУ, рассчитанная по формуле \nМиффлина - Сан Жеора</string>
-  <string name="premium_norm_def_value" translatable="false">стандартные значения</string>
+<!--  <string name="premium_norm_days_norm" translatable="false">Дневная норма КБЖУ, рассчитанная по формуле \nМиффлина - Сан Жеора</string>-->
+<!--  <string name="premium_norm_def_value" translatable="false">стандартные значения</string>-->
 
-  <string name="premium_norm_if_change" translatable="false">Если вы меняли значение КБЖУ, то вы всегда можете \nвернуться к стандартным значениям</string>
+<!--  <string name="premium_norm_if_change" translatable="false">Если вы меняли значение КБЖУ, то вы всегда можете \nвернуться к стандартным значениям</string>-->
   <string name="recipe_menu_share" translatable="false">Share</string>
   <string name="recipe_menu_favorites" translatable="false">Favorite</string>
   <string name="recipe_group_item_all_recipe" translatable="false">Посмотреть все рецепты\u0020\u0020</string>
@@ -615,27 +638,7 @@
   <string name="user_recipe_activity_for_portion" translatable="false">%d ккал на порцию</string>
   <string name="detail_food_activity_percent" translatable="false">\u0020Ккал. Узнайте % микроэлементов в продукте в дневнике питания Fiasy \n</string>
 
-  <string-array name="settings_items">
-    <item>Premium аккаунт</item>
-    <!--<item>Еда и аллергия</item>-->
-    <item>Промокоды</item>
-    <item>Личные данные</item>
-    <item>Норма калорий</item>
-    <!--<item>Уведомления</item>
-<item>Цель</item>-->
-    <item>Помощь</item>
-    <item>Выход</item>
-  </string-array>
-  <string-array name="settings_items_prem">
-    <!--<item>Еда и аллергия</item>-->
-    <item>Промокоды</item>
-    <item>Личные данные</item>
-    <item>Норма калорий</item>
-    <!--<item>Уведомления</item>
-<item>Цель</item>-->
-    <item>Помощь</item>
-    <item>Выход</item>
-  </string-array>
+
 
   <string-array name="recipeComplexity">
     <item>Легкий</item>

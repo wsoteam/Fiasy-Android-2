@@ -35,7 +35,7 @@ public class GoalFragment extends QuestionPurposeFragments {
         super.onResume();
         changeGoal(choisePosition(getArguments().getString(GOAL_TAG)));
         btnSave.setEnabled(true);
-        btnSave.setText(getActivity().getResources().getString(R.string.activity_save));
+        btnSave.setText(getActivity().getResources().getString(R.string.save));
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

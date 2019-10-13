@@ -15,7 +15,7 @@
         android:layout_marginBottom="8dp"
         android:elevation="9dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="@string/activity_promo_form_enter_code"
+        android:text="@string/enter_promotional_code"
         android:textColor="#ef7d02"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView13"
@@ -58,13 +58,14 @@
         android:fontFamily="@font/roboto_bold"
         android:paddingLeft="46dp"
         android:paddingRight="46dp"
-        android:text="@string/activity_promo_form_confirm"
+        android:text="@string/active_promode"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilPromo" />
+        app:layout_constraintTop_toBottomOf="@+id/tilPromo"
+        />
 
     <ImageView
         android:id="@+id/imageView59"

@@ -45,7 +45,7 @@ public class PromoFormActivity extends MvpAppCompatActivity implements PromoForm
 
         presenter = new PromoFormPresenter(this);
         presenter.attachView(this);
-        tilPromo.setError("Введите промокод");
+        tilPromo.setError(getString(R.string.enter_your_promotional_code));
         tilPromo.setErrorTextColor(getResources().getColorStateList(R.color.hint_promo));
     }
 
@@ -79,13 +79,13 @@ public class PromoFormActivity extends MvpAppCompatActivity implements PromoForm
         isError = true;
         tilPromo.setErrorEnabled(true);
         tilPromo.setErrorTextColor(getResources().getColorStateList(R.color.hint_error));
-        tilPromo.setError("Промокод введен не верно");
+        tilPromo.setError(getString(R.string.invalid_promotional_code_error));
     }
 
     private void hideError() {
         isError = false;
         tilPromo.setErrorTextColor(getResources().getColorStateList(R.color.hint_promo));
-        tilPromo.setError("Введите промокод");
+        tilPromo.setError(getString(R.string.enter_your_promotional_code));
     }
 
     @OnClick({R.id.ibBack, R.id.btnSendPromo})
