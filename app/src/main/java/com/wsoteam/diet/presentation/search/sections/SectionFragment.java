@@ -1,4 +1,4 @@
-package com.wsoteam.diet.presentation.search;
+package com.wsoteam.diet.presentation.search.sections;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -21,11 +21,14 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.search.results.ResultsFragment;
+import com.wsoteam.diet.presentation.search.sections.SectionFragment;
 import java.util.ArrayList;
 
 public class ParentActivity extends AppCompatActivity {
@@ -37,13 +40,16 @@ public class ParentActivity extends AppCompatActivity {
       ibCancel;
   public int spinnerId = 0;
   private boolean isCanSpeak = true;
+  private FragmentManager fragmentManager;
+  private final String BS_TAG = "BS_TAG";
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_parent);
     ButterKnife.bind(this);
     bindSpinnerChoiceEating();
-    getSupportFragmentManager().beginTransaction()
+    fragmentManager = getSupportFragmentManager();
+    fragmentManager.beginTransaction()
         .replace(R.id.searchFragmentContainer, new SectionFragment())
         .commit();
 
@@ -56,6 +62,12 @@ public class ParentActivity extends AppCompatActivity {
       @Override
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         changeSpeakButton(charSequence);
+        if (fragmentManager.getBackStackEntryCount() == 0) {
+          fragmentManager.beginTransaction()
+              .replace(R.id.searchFragmentContainer, new ResultsFragment())
+              .addToBackStack(BS_TAG)
+              .commit();
+        }
       }
 
       @Override
