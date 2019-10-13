@@ -329,8 +329,11 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
       colors[j] = getColor(monthIntervals[i]);
     }
     calendar.setTimeInMillis(monthIntervals[0]);
-    String nameMonth =
-        context.getResources().getStringArray(R.array.names_months)[calendar.get(Calendar.MONTH)];
+
+    SimpleDateFormat dateFormat = new SimpleDateFormat( "LLLL", Locale.getDefault());
+    String nameMonth = dateFormat.format(calendar.getTime());
+    nameMonth = nameMonth.substring(0,1).toUpperCase() + nameMonth.substring(1).toLowerCase();
+
     getViewState().drawMonthGraphs(pairs, colors, nameMonth,
         String.valueOf(calendar.get(Calendar.YEAR)), getNamesMonthIntervals(monthIntervals));
   }

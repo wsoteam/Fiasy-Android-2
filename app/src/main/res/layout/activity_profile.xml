@@ -40,7 +40,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="@string/activity_profile_profile"
+        android:text="@string/profile_title"
         android:elevation="9dp"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -122,7 +122,7 @@
                 android:checked="true"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
-                android:text="@string/activity_profile_week"
+                android:text="@string/week"
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/radio_flat_text_selector"
@@ -136,7 +136,7 @@
                 android:button="@android:color/transparent"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
-                android:text="@string/activity_profile_month"
+                android:text="@string/month"
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/radio_flat_text_selector"
@@ -151,7 +151,7 @@
                 android:button="@android:color/transparent"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
-                android:text="@string/activity_profile_year"
+                android:text="@string/year"
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/radio_flat_text_selector"
@@ -231,11 +231,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/activity_profile_daily_rate"
+            android:text="@string/diary_daily_rate"
             android:textColor="#d9424242"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tvUserName"
-            app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+            app:layout_constraintTop_toBottomOf="@+id/tvUserName"
+            />
 
 
         <TextView
@@ -276,15 +277,16 @@
             android:textColor="#f2994a"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView87"
-            app:layout_constraintStart_toEndOf="@+id/textView87"
-            app:layout_constraintTop_toTopOf="@+id/textView87" />
-
+            app:layout_constraintStart_toEndOf="@+id/textViewHyphen"
+            app:layout_constraintTop_toTopOf="@+id/textView87"
+            app:layout_constraintVertical_bias="0.0"
+            />
         <TextView
             android:id="@+id/tvLabelProt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/activity_profile_protein"
+            android:text="@string/protein"
             android:textColor="#80424242"
             android:textSize="16sp"
             android:visibility="gone"
@@ -297,7 +299,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/activity_profile_carbohydrates"
+            android:text="@string/carbohydrates"
             android:textColor="#80424242"
             android:textSize="16sp"
             android:visibility="gone"
@@ -310,7 +312,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/activity_profile_fats"
+            android:text="@string/fat"
             android:textColor="#80424242"
             android:textSize="16sp"
             android:visibility="gone"
@@ -325,7 +327,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="41dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/activity_profile_reports"
+            android:text="@string/reports"
             android:textColor="#d9424242"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -459,6 +461,18 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView146"
             app:layout_constraintEnd_toStartOf="@+id/textView146"
             app:layout_constraintTop_toTopOf="@+id/textView146" />
+        <TextView
+            android:id="@+id/textViewHyphen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text=" - "
+            android:textColor="#d9424242"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView87"
+            app:layout_constraintStart_toEndOf="@+id/textView87"
+            app:layout_constraintTop_toTopOf="@+id/textView87"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

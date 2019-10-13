@@ -38,7 +38,14 @@
   <string name="water_achievement_title_2" translatable="false">Поздравляем!</string>
   <string name="water_achievement_txt_2" translatable="false">Вы выпили ежеденевную норму воды! Продолжайте в том же духе!</string>
 
+  // Алерт оцените приложение
+  <string name="alert_dialog_grade_if_like" translatable="false">Если вам нравится наше приложение, \nпоставьте оценку и напишите свой отзыв.</string>
 
+  // Профиль
+  <string name="check_your_name" translatable="false">Введите Ваше имя</string>
+  <string name="activity_profile_future_value" translatable="false">Будущие значения</string>
+  <string name="activity_profile_current_value" translatable="false">Ваше значение</string>
+  <string name="activity_profile_settings_settings" translatable="false">Настройки</string>
 
   <string name="bnv_main_diary">Journal</string>
   <string name="bnv_main_articles">Articles</string>
@@ -261,7 +268,7 @@
   <!--List of main max params in profile-->
 
 
-  <string name="check_your_name" translatable="false">Введите Ваше имя</string>
+
   <string name="check_your_email" translatable="false">Неправильный формат</string>
   <string name="marker_kcal" translatable="false">ккал</string>
 
@@ -307,7 +314,7 @@
   <string name="create_user_food" translatable="false">Создать продукт</string>
   <string name="error_name" translatable="false">Введите название продукта</string>
   <string name="edit_food_completed" translatable="false">Продукт изменен</string>
-  <string name="reports">Отчеты</string>
+
  
 
   <string name="sign_up_privacy_policy_title" translatable="false">я согласен с условиями </string>
@@ -406,31 +413,23 @@
   <string name="activity_item_plans_def_value" translatable="false">00</string>
   <string name="activity_list_and_search_searсh" translatable="false">\u0020\u0020\u0020\u0020\u0020\u0020\u0020Поиск</string>
   <string name="activity_main_new_burnt" translatable="false">0\nсожжено</string>
-<!--  <string name="activity_main_new_daily_rate" translatable="false">Ежедневная норма =</string>-->
-  <string name="activity_profile_profile" translatable="false">Профиль</string>
-  <string name="activity_profile_week" translatable="false">Неделя</string>
-  <string name="activity_profile_month" translatable="false">Месяц</string>
-  <string name="activity_profile_year" translatable="false">Год</string>
   <string name="activity_profile_names" translatable="false">Иван Иванов</string>
   <string name="activity_profile_235_g" translatable="false">235 г</string>
 
   <string name="activity_profile_60_g" translatable="false">60 г</string>
-  <string name="activity_profile_daily_rate" translatable="false">Ежедневная норма -\u0020</string>
+<!--  <string name="activity_profile_daily_rate" translatable="false">Ежедневная норма -\u0020</string>-->
 
   <string name="activity_profile_plan" translatable="false">План питания -\u0020</string>
   <string name="activity_profile_standard" translatable="false">стандартный</string>
 
   <string name="activity_profile_1800_kcal" translatable="false">1800 ккал</string>
 
-  <string name="activity_profile_protein" translatable="false">белков</string>
-  <string name="activity_profile_carbohydrates" translatable="false">углеводов</string>
-  <string name="activity_profile_fats" translatable="false">жиров</string>
-  <string name="activity_profile_reports" translatable="false">Отчеты</string>
+
+
   <string name="activity_profile_2019" translatable="false">2019</string>
   <string name="activity_profile_date" translatable="false">10.06 &#8211; 17.06</string>
-  <string name="activity_profile_future_value" translatable="false">Будущие значения</string>
-  <string name="activity_profile_current_value" translatable="false">Ваше значение</string>
-  <string name="activity_profile_settings_settings" translatable="false">Настройки</string>
+
+
   <string name="activity_promo_form_enter_code" translatable="false">Ввести промокод</string>
   <string name="activity_promo_form_confirm" translatable="false">подтвердить</string>
   <string name="adding_recipe_menu_close" translatable="false">Close</string>
@@ -454,7 +453,7 @@
 
   <string name="alert_dialog_from_claim_cancel" translatable="false">Cancel</string>
   <string name="alert_dialog_from_claim_describe" translatable="false">Опишите проблему</string>
-  <string name="alert_dialog_grade_if_like" translatable="false">Если вам нравится наше приложение, \nпоставьте оценку и напишите свой отзыв.</string>
+
   <string name="alert_dialog_grade_review" translatable="false">Отзыв</string>
 
 
@@ -651,22 +650,6 @@
   </string-array>
 
 
-
-  <string-array name="monthList">
-    <item>January</item>
-    <item>February</item>
-    <item>March</item>
-    <item>April</item>
-    <item>May</item>
-    <item>June</item>
-    <item>July</item>
-    <item>August</item>
-    <item>September</item>
-    <item>October</item>
-    <item>November</item>
-    <item>December</item>
-  </string-array>
-
   <string-array name="eatingList">
     <item>Завтрак</item>
     <item>Обед</item>
@@ -685,20 +668,7 @@
     <item>Необязательная информация</item>
     <item>Завершение</item>
   </string-array>
-  <string-array name="names_months">
-    <item>Январь</item>
-    <item>Февраль</item>
-    <item>Март</item>
-    <item>Апрель</item>
-    <item>Май</item>
-    <item>Июнь</item>
-    <item>Июль</item>
-    <item>Август</item>
-    <item>Сентябрь</item>
-    <item>Октябрь</item>
-    <item>Ноябрь</item>
-    <item>Декабрь</item>
-  </string-array>
+
   <string-array name="goals">
     <item>Поддержания тела в форме</item>
     <item>Похудение</item>
@@ -827,7 +797,7 @@
   <string name="week">week</string>
   <string name="month">month</string>
   <string name="year">year</string>
-  <string name="reports999" translatable="false">Reports</string>
+  <string name="reports">Reports</string>
   <string name="daily_rate">Daily intake</string>
   <string name="your_performance">Your performance</string>
   <string name="monday">Mon</string>
