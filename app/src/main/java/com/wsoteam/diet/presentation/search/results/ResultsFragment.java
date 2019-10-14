@@ -63,7 +63,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
   private void updateUI() {
     List<Result> foods = new ArrayList<>();
-    itemAdapter = new ResultAdapter(getActivity(), foods);
+    itemAdapter = new ResultAdapter(foods);
     rvBlocks.setLayoutManager(new LinearLayoutManager(getContext()));
     rvBlocks.setAdapter(itemAdapter);
   }
@@ -103,7 +103,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     if (rvBlocks == null) {
       return;
     }
-    rvBlocks.setAdapter(itemAdapter = new ResultAdapter(getActivity(), t));
+    rvBlocks.setAdapter(itemAdapter = new ResultAdapter(t));
     if (t.size() > 0) {
       hideMessageUI();
     } else {

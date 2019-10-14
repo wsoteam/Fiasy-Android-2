@@ -9,12 +9,10 @@ import com.wsoteam.diet.common.networking.food.POJO.Result;
 import java.util.List;
 
 public class ResultAdapter extends RecyclerView.Adapter<ResultViewHolder> {
-  private Context context;
   private List<Result> foods;
 
-  public ResultAdapter(Context context,
+  public ResultAdapter(
       List<Result> foods) {
-    this.context = context;
     this.foods = foods;
   }
 
@@ -25,7 +23,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultViewHolder> {
   }
 
   @Override public void onBindViewHolder(@NonNull ResultViewHolder holder, int position) {
-      holder.bind(foods.get(position));
+    holder.bind(foods.get(position));
   }
 
   @Override public int getItemCount() {
