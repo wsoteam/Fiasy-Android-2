@@ -62,7 +62,7 @@
         android:layout_height="30dp"
         android:layout_marginEnd="8dp"
         android:background="@color/transparent"
-        android:text="@string/bottom_navigation_panel_ok"
+        android:text="@android:string/ok"
         android:textColor="@android:color/white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

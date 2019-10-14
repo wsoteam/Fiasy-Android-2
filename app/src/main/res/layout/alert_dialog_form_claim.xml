@@ -32,7 +32,7 @@
             android:layout_marginBottom="16dp"
             android:background="@color/transparent"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/alert_dialog_from_claim_send"
+            android:text="@string/reset_send"
             android:textColor="@color/button_claim_inactive"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"

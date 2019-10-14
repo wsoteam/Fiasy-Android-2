@@ -260,7 +260,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/activity_profile_standard"
+            android:text="@string/standard"
             android:textColor="#d9424242"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"

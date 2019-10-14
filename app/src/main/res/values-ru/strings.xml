@@ -34,7 +34,7 @@
   <string name="simple_password_error">Пароль слишком простой</string>
   <string name="password_dont_match">Не совпадают пароли</string>
   <string name="agree_with_conditions">я согласен с условиями</string>
-  <string name="privacy_policy">политики конфидециальности</string>
+  <string name="privacy_policy">Политики конфидециальности</string>
 
   <!-- Reset Password Screen -->
   <string name="reset_send">ОТПРАВИТЬ</string>

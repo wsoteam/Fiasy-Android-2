@@ -10,7 +10,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="@string/tab_lat_search_name"
+        android:text="@string/search"
         android:textColor="@color/white"
         android:textSize="14sp" />
 

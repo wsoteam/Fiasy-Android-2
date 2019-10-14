@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="64dp"
-            android:text="@string/onboarding_main_pp"
+            android:text="@string/terms_and_conditions"
             android:textColor="#51000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static android.text.TextUtils.concat;
+
 public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
@@ -365,10 +367,13 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
       this.listener = listener;
       tvName.setText(dietPlan.getName());
-      tvRecipes.setText(mContext.getResources().getQuantityString(
-          R.plurals.recipe_count, dietPlan.getCountDays(), dietPlan.getCountDays()));
-      tvTime.setText(mContext.getResources().getQuantityString(
-          R.plurals.day_count, dietPlan.getCountDays(), dietPlan.getCountDays()));
+      //tvRecipes.setText(mContext.getResources().getQuantityString(R.plurals.recipe_count, dietPlan.getCountDays(), dietPlan.getCountDays()));
+      tvRecipes.setText(concat(
+          String.valueOf(dietPlan.getCountDays()), " ",
+          mContext.getResources().getQuantityString(R.plurals.recipe_plurals, dietPlan.getCountDays())));
+      tvTime.setText(concat(String.valueOf(dietPlan.getCountDays()), " ",
+          mContext.getResources().getQuantityString(
+              R.plurals.day_plurals, dietPlan.getCountDays())));
       Glide.with(mContext).load(dietPlan.getUrlImage()).into(imageView);
 
       if (isCurrentPlan){

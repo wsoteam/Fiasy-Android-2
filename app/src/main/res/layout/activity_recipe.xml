@@ -618,7 +618,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/roboto_light"
-                        android:text="@string/tvPotassium"
+                        android:text="@string/potassium"
                         android:textColor="@android:color/black"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"

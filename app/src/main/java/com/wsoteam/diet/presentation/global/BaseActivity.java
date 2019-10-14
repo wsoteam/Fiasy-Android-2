@@ -27,7 +27,7 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
     private MaterialDialog initMaterialDialog() {
         MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
                 .title(R.string.dialog_load_title)
-                .content(R.string.dialog_load_content)
+                .content(R.string.wait_a_while)
                 .progress(true, 0);
         return builder.build();
     }
