@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.search.results.ResultsFragment;
+import com.wsoteam.diet.presentation.search.results.ResultsView;
 import com.wsoteam.diet.presentation.search.sections.SectionFragment;
 import java.util.ArrayList;
 
@@ -80,6 +82,10 @@ public class ParentActivity extends AppCompatActivity {
       @Override
       public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+          if (fragmentManager.findFragmentById(R.id.searchFragmentContainer) instanceof ResultsView){
+            Log.e("LOL", "dfgdfgdfg");
+            ((ResultsView) fragmentManager.findFragmentById(R.id.searchFragmentContainer)).sendSearchQuery(edtSearch.getText().toString().replaceAll("\\s+", " "));
+          }
           /*((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
               sendString(edtSearch.getText().toString().replaceAll("\\s+", " "));*/
           edtSearch.clearFocus();
@@ -138,8 +144,9 @@ public class ParentActivity extends AppCompatActivity {
     if (requestCode == 1234 && resultCode == RESULT_OK) {
       ArrayList<String> commandList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
       edtSearch.setText(commandList.get(0));
-      /*((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
-          sendString(edtSearch.getText().toString().replaceAll("\\s+", " "));*/
+      if (fragmentManager.findFragmentById(R.id.searchFragmentContainer) instanceof ResultsView){
+        ((ResultsView) fragmentManager.findFragmentById(R.id.searchFragmentContainer)).sendSearchQuery(edtSearch.getText().toString().replaceAll("\\s+", " "));
+      }
       edtSearch.clearFocus();
     }
     super.onActivityResult(requestCode, resultCode, data);

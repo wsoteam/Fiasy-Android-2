@@ -9,19 +9,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.arellomobile.mvp.MvpAppCompatFragment;
-import com.bumptech.glide.Glide;
-import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentSearch;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
+import com.wsoteam.diet.presentation.search.results.controllers.ResultAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResultsFragment extends MvpAppCompatFragment implements ResultsView {
@@ -35,6 +37,17 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
   private String searchString = "";
   private int RESPONSE_LIMIT = 100;
+  private ResultAdapter itemAdapter;
+
+  @Override public void sendClearSearchField() {
+
+  }
+
+  @Override public void sendSearchQuery(String query) {
+    search(searchString.trim());
+    Events.logSearch(searchString);
+    searchString = query;
+  }
 
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -43,15 +56,16 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     unbinder = ButterKnife.bind(this, view);
     presenter = new ResultsPresenter();
     presenter.attachView(this);
+    updateUI();
     showStartUI();
     return view;
   }
 
   private void updateUI() {
-    /*List<Result> foods = new ArrayList<>();
-    itemAdapter = new FragmentSearch.ItemAdapter(foods);
-    rvListOfSearchResponse.setLayoutManager(new LinearLayoutManager(getContext()));
-    rvListOfSearchResponse.setAdapter(itemAdapter);*/
+    List<Result> foods = new ArrayList<>();
+    itemAdapter = new ResultAdapter(getActivity(), foods);
+    rvBlocks.setLayoutManager(new LinearLayoutManager(getContext()));
+    rvBlocks.setAdapter(itemAdapter);
   }
 
   private void hideMessageUI() {
@@ -86,10 +100,10 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   }
 
   private void refreshAdapter(List<Result> t) {
-    if (rvListOfSearchResponse == null) {
+    if (rvBlocks == null) {
       return;
     }
-    rvListOfSearchResponse.setAdapter(itemAdapter = new FragmentSearch.ItemAdapter(t));
+    rvBlocks.setAdapter(itemAdapter = new ResultAdapter(getActivity(), t));
     if (t.size() > 0) {
       hideMessageUI();
     } else {
