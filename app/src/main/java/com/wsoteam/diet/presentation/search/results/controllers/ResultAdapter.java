@@ -20,7 +20,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultViewHolder> {
 
   @NonNull @Override
   public ResultViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    LayoutInflater layoutInflater = LayoutInflater.from(context);
+    LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
     return new ResultViewHolder(layoutInflater, parent);
   }
 
