@@ -830,6 +830,8 @@
 
     <string name="enter_multi_params">Введите данные</string>
     <string name="activity_parent_search_hint">Поиск по базе продуктов</string>
+  <string name="empty_search_title">Результаты не найдены</string>
+    <string name="search_text_empty">Попробуйте еще раз или создайте \nсвой продукт</string>
 
 
     <string-array name="settings_items">

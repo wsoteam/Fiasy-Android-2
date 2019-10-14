@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_search_point" />
-                            <entry key="sourceFile" value="C:\Users\wadim\Desktop\icons_point.svg" />
+                            <entry key="outputName" value="empty_search" />
+                            <entry key="sourceFile" value="C:\Users\wadim\Desktop\loose.svg" />
                           </map>
                         </option>
                       </PersistentState>

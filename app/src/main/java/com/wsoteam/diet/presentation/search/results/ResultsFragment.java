@@ -4,9 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.arellomobile.mvp.MvpAppCompatFragment;
@@ -18,12 +22,16 @@ import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ResultsFragment extends MvpAppCompatFragment implements ResultsView {
   ResultsPresenter presenter;
   Unbinder unbinder;
+  @BindView(R.id.rvBlocks) RecyclerView rvBlocks;
+  @BindView(R.id.ivSearchImage) ImageView ivSearchImage;
+  @BindView(R.id.tvTitleEmptySearch) TextView tvTitleEmptySearch;
+  @BindView(R.id.tvTextEmptySearch) TextView tvTextEmptySearch;
+  @BindView(R.id.btnAddCustomFood) Button btnAddCustomFood;
   private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
   private String searchString = "";
   private int RESPONSE_LIMIT = 100;
@@ -35,8 +43,10 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     unbinder = ButterKnife.bind(this, view);
     presenter = new ResultsPresenter();
     presenter.attachView(this);
+    showStartUI();
     return view;
   }
+
   private void updateUI() {
     /*List<Result> foods = new ArrayList<>();
     itemAdapter = new FragmentSearch.ItemAdapter(foods);
@@ -45,27 +55,20 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   }
 
   private void hideMessageUI() {
-    /*ivSearchImage.setVisibility(View.GONE);
-    tvTextAddFavorite.setVisibility(View.GONE);
-    tvTitleFavoriteAdd.setVisibility(View.GONE);
-    btnAddFavorite.setVisibility(View.GONE);*/
+    ivSearchImage.setVisibility(View.GONE);
+    tvTitleEmptySearch.setVisibility(View.GONE);
+    tvTextEmptySearch.setVisibility(View.GONE);
+    btnAddCustomFood.setVisibility(View.GONE);
   }
 
   private void showNoFind() {
-    /*Glide.with(getActivity()).load(R.drawable.ic_no_find).into(ivSearchImage);
-    tvTitleFavoriteAdd.setText(getActivity().getResources().getString(R.string.title_no_find_food));
-    tvTextAddFavorite.setText(getActivity().getResources().getString(R.string.text_no_find_food));
     ivSearchImage.setVisibility(View.VISIBLE);
-    tvTextAddFavorite.setVisibility(View.VISIBLE);
-    tvTitleFavoriteAdd.setVisibility(View.VISIBLE);
-    btnAddFavorite.setVisibility(View.VISIBLE);*/
+    tvTitleEmptySearch.setVisibility(View.VISIBLE);
+    tvTextEmptySearch.setVisibility(View.VISIBLE);
+    btnAddCustomFood.setVisibility(View.VISIBLE);
   }
 
   private void showStartUI() {
-    /*Glide.with(getActivity()).load(R.drawable.ic_start_search).into(ivSearchImage);
-    tvTextAddFavorite.setText(getActivity().getResources().getString(R.string.text_start_search));
-    ivSearchImage.setVisibility(View.VISIBLE);
-    tvTextAddFavorite.setVisibility(View.VISIBLE);*/
   }
 
   @Override
