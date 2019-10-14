@@ -19,6 +19,8 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
+import com.wsoteam.diet.common.networking.food.HeaderObj;
+import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 import com.wsoteam.diet.presentation.search.results.controllers.ResultAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -62,7 +64,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   }
 
   private void updateUI() {
-    List<Result> foods = new ArrayList<>();
+    List<ISearchResult> foods = new ArrayList<>();
     itemAdapter = new ResultAdapter(foods);
     rvBlocks.setLayoutManager(new LinearLayoutManager(getContext()));
     rvBlocks.setAdapter(itemAdapter);
@@ -103,11 +105,20 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     if (rvBlocks == null) {
       return;
     }
-    rvBlocks.setAdapter(itemAdapter = new ResultAdapter(t));
+    rvBlocks.setAdapter(itemAdapter = new ResultAdapter(createHeadersArray(t)));
     if (t.size() > 0) {
       hideMessageUI();
     } else {
       showNoFind();
     }
+  }
+
+  private List<ISearchResult> createHeadersArray(List<Result> t) {
+    List<ISearchResult> iSearchResults = new ArrayList<>();
+    iSearchResults.add(new HeaderObj("kek"));
+    for (int i = 0; i < t.size(); i++) {
+      iSearchResults.add(t.get(i));
+    }
+    return iSearchResults;
   }
 }
