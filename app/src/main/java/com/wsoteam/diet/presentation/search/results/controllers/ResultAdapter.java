@@ -53,7 +53,6 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   }
 
   @Override public int getItemCount() {
-    Log.e("LOL", String.valueOf(foods.size()));
     return foods.size();
   }
 
@@ -61,10 +60,11 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     if (foods.get(position) instanceof HeaderObj) {
       return HEADER_TYPE;
     } else if (foods.get(position) instanceof Result) {
-      if (((Result)foods.get(position)).getMeasurementUnits() != null || ((Result)foods.get(position)).getMeasurementUnits().size() > 0){
-        return EXPANDABLE_TYPE;
-      }else {
+      if (((Result)foods.get(position)).getMeasurementUnits() == null || ((Result)foods.get(position)).getMeasurementUnits().size() < 1){
         return ITEM_TYPE;
+      }else {
+        Log.e("LOL", "kekkekeke");
+        return EXPANDABLE_TYPE;
       }
     } else {
       return -1;

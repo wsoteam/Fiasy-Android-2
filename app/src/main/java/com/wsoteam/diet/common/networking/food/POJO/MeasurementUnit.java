@@ -1,8 +1,19 @@
 package com.wsoteam.diet.common.networking.food.POJO;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import java.util.HashMap;
+import java.util.Map;
+
 public class MeasurementUnit {
+  @SerializedName("id")
+  @Expose
   private int id;
+  @SerializedName("name")
+  @Expose
   private String name;
+  @SerializedName("amount")
+  @Expose
   private int amount;
 
   public int getId() {
@@ -13,6 +24,11 @@ public class MeasurementUnit {
     this.id = id;
   }
 
+  public MeasurementUnit withId(int id) {
+    this.id = id;
+    return this;
+  }
+
   public String getName() {
     return name;
   }
@@ -21,11 +37,21 @@ public class MeasurementUnit {
     this.name = name;
   }
 
+  public MeasurementUnit withName(String name) {
+    this.name = name;
+    return this;
+  }
+
   public int getAmount() {
     return amount;
   }
 
   public void setAmount(int amount) {
     this.amount = amount;
+  }
+
+  public MeasurementUnit withAmount(int amount) {
+    this.amount = amount;
+    return this;
   }
 }

@@ -1,7 +1,11 @@
 
 package com.wsoteam.diet.common.networking.food.POJO;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.squareup.moshi.Json;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +33,8 @@ public class Result implements ISearchResult {
     private double pottasium;
     private Category category;
     private Brand brand;
+    @SerializedName("measurement_units")
+    @Expose
     private List<MeasurementUnit> measurementUnits = null;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -204,9 +210,13 @@ public class Result implements ISearchResult {
         return measurementUnits;
     }
 
-    public void setMeasurementUnits(
-        List<MeasurementUnit> measurementUnits) {
+    public void setMeasurementUnits(List<MeasurementUnit> measurementUnits) {
         this.measurementUnits = measurementUnits;
+    }
+
+    public Result withMeasurementUnits(List<MeasurementUnit> measurementUnits) {
+        this.measurementUnits = measurementUnits;
+        return this;
     }
 
     public Map<String, Object> getAdditionalProperties() {
