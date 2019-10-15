@@ -29,7 +29,7 @@ public class Result implements ISearchResult {
     private double pottasium;
     private Category category;
     private Brand brand;
-    private List<Object> measurementUnits = null;
+    private List<MeasurementUnit> measurementUnits = null;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public int getId() {
@@ -200,11 +200,12 @@ public class Result implements ISearchResult {
         this.brand = brand;
     }
 
-    public List<Object> getMeasurementUnits() {
+    public List<MeasurementUnit> getMeasurementUnits() {
         return measurementUnits;
     }
 
-    public void setMeasurementUnits(List<Object> measurementUnits) {
+    public void setMeasurementUnits(
+        List<MeasurementUnit> measurementUnits) {
         this.measurementUnits = measurementUnits;
     }
 

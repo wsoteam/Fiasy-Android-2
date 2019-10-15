@@ -15,6 +15,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private List<ISearchResult> foods;
   private final int HEADER_TYPE = 0;
   private final int ITEM_TYPE = 1;
+  private final int EXPANDABLE_TYPE = 2;
   private Context context;
 
   public ResultAdapter(List<ISearchResult> foods, Context context) {
@@ -30,6 +31,8 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return new HeaderViewHolder(layoutInflater, parent);
       case ITEM_TYPE:
         return new ResultViewHolder(layoutInflater, parent);
+      case EXPANDABLE_TYPE:
+        return new HierarchyVH(layoutInflater, parent);
       default:
         throw new IllegalArgumentException("Invalid view type");
     }
@@ -43,6 +46,9 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
       case ITEM_TYPE:
         ((ResultViewHolder) holder).bind((Result) foods.get(position));
         break;
+      case EXPANDABLE_TYPE:
+        ((HierarchyVH) holder).bind((Result) foods.get(position));
+        break;
     }
   }
 
@@ -55,7 +61,11 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     if (foods.get(position) instanceof HeaderObj) {
       return HEADER_TYPE;
     } else if (foods.get(position) instanceof Result) {
-      return ITEM_TYPE;
+      if (((Result)foods.get(position)).getMeasurementUnits() != null || ((Result)foods.get(position)).getMeasurementUnits().size() > 0){
+        return EXPANDABLE_TYPE;
+      }else {
+        return ITEM_TYPE;
+      }
     } else {
       return -1;
     }
