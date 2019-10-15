@@ -19,7 +19,7 @@ public class ResultViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.ivSelect) ImageView ivSelect;
 
   public ResultViewHolder(@NonNull LayoutInflater layoutInflater, ViewGroup viewGroup) {
-    super(layoutInflater.inflate(R.layout.item_search_header, viewGroup, false));
+    super(layoutInflater.inflate(R.layout.item_search_result, viewGroup, false));
     ButterKnife.bind(this, itemView);
   }
 

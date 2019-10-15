@@ -65,7 +65,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
   private void updateUI() {
     List<ISearchResult> foods = new ArrayList<>();
-    itemAdapter = new ResultAdapter(foods);
+    itemAdapter = new ResultAdapter(foods, getActivity());
     rvBlocks.setLayoutManager(new LinearLayoutManager(getContext()));
     rvBlocks.setAdapter(itemAdapter);
   }
@@ -105,7 +105,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     if (rvBlocks == null) {
       return;
     }
-    rvBlocks.setAdapter(itemAdapter = new ResultAdapter(createHeadersArray(t)));
+    rvBlocks.setAdapter(itemAdapter = new ResultAdapter(createHeadersArray(t), getActivity()));
     if (t.size() > 0) {
       hideMessageUI();
     } else {
@@ -115,7 +115,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
   private List<ISearchResult> createHeadersArray(List<Result> t) {
     List<ISearchResult> iSearchResults = new ArrayList<>();
-    iSearchResults.add(new HeaderObj("kek"));
+    iSearchResults.add(new HeaderObj("kek", true));
     for (int i = 0; i < t.size(); i++) {
       iSearchResults.add(t.get(i));
     }
