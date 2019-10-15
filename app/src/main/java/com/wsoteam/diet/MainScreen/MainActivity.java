@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.bnv_main_diary:
                     isMainFragment = true;
-                    transaction.replace(R.id.flFragmentContainer, new FragmentDiary()).commit();
+                    transaction.replace(R.id.flFragmentContainer, new DiaryFragment()).commit();
                     window.setStatusBarColor(Color.parseColor("#AE6A23"));
                     return true;
                 case R.id.bnv_main_articles:
@@ -294,7 +294,8 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         } else {
             isMainFragment = true;
-            getSupportFragmentManager().beginTransaction().replace(R.id.flFragmentContainer, new FragmentDiary()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.flFragmentContainer,
+                new DiaryFragment()).commit();
             window.setStatusBarColor(Color.parseColor("#AE6A23"));
             bnvMain.setSelectedItemId(R.id.bnv_main_diary);
         }

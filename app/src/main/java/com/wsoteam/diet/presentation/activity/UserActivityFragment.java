@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -78,6 +79,11 @@ public class UserActivityFragment extends DialogFragment implements
       @Override
       public void onSectionClick(ActivitiesAdapter.HeaderView view, int sectionId) {
         adapter.toggleSection(sectionId);
+
+        PreferenceManager.getDefaultSharedPreferences(requireContext())
+            .edit()
+            .putBoolean("section_expanded_" + sectionId, adapter.isExpanded(sectionId))
+            .apply();
       }
 
       @Override
@@ -161,9 +167,20 @@ public class UserActivityFragment extends DialogFragment implements
     sources.put(R.string.user_activity_section_defaults,
         new ExercisesSource.AssetsSource(getResources().getAssets()));
 
-    adapter.createSection(R.string.user_activity_section_my);
-    adapter.createSection(R.string.user_activity_section_favorite);
-    adapter.createSection(R.string.user_activity_section_defaults);
+    int[] sections = {
+        R.string.user_activity_section_my,
+        R.string.user_activity_section_favorite,
+        R.string.user_activity_section_defaults,
+    };
+
+    for (int i = 0; i < sections.length; i++) {
+      final int sectionId = sections[i];
+
+      final boolean expanded = PreferenceManager.getDefaultSharedPreferences(requireContext())
+          .getBoolean("section_expanded_" + sectionId, true);
+
+      adapter.createSection(sectionId, expanded);
+    }
 
     fetchSources();
   }
@@ -226,7 +243,13 @@ public class UserActivityFragment extends DialogFragment implements
                   exercises -> {
                     adapter.clearSection(sourceId);
                     adapter.addItems(sourceId, exercises);
-                    adapter.expand(sourceId);
+
+                    final boolean expanded = PreferenceManager.getDefaultSharedPreferences(requireContext())
+                        .getBoolean("section_expanded_" + sourceId, true);
+
+                    if (expanded) {
+                      adapter.expand(sourceId);
+                    }
                   }
               )
       );

@@ -5,6 +5,7 @@ import io.reactivex.Single
 
 class FavoriteSource : ActivitiesSyncedSource(CUSTOM) {
   override var filterFavorites = true
+  override var filterByDate: Boolean = false
 
   override fun add(exercise: ActivityModel): Single<ActivityModel> {
     exercise as UserActivityExercise

@@ -125,12 +125,6 @@
         android:screenOrientation="portrait"
         android:theme="@style/Menu" />
     <activity
-        android:name=".Onboard.TotalAmountActivity"
-        android:theme="@style/TotalAmount" />
-    <activity
-        android:name=".Onboard.SleepActivity"
-        android:theme="@style/SleepActivity" />
-    <activity
         android:name=".Recipes.v1.ItemActivity"
         android:screenOrientation="portrait"
         android:theme="@style/Menu" />
@@ -156,9 +150,9 @@
         android:theme="@style/AppThemePolicy" />
     <activity
         android:name=".InApp.ActivitySubscription"
-        android:screenOrientation="portrait"
         android:exported="true"
         android:hardwareAccelerated="true"
+        android:screenOrientation="portrait"
         android:theme="@style/PremiumActivity" />
     <activity
         android:name=".presentation.auth.main.MainAuthActivity"
@@ -199,10 +193,6 @@
       </intent-filter>
     </activity>
 
-    <activity
-        android:name=".BranchOfCalculating.ActivityListOfCalculating"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
 
     <activity
         android:name=".MainScreen.MainActivity"
@@ -217,38 +207,6 @@
           android:name="android.app.searchable"
           android:resource="@xml/searchable" />
     </activity>
-    <activity
-        android:name=".BranchOfCalculating.ActivityCalculatorBrok"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfCalculating.ActivityCalculatorLorenc"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfCalculating.ActivityCalculatorIMT"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfRecipes.ActivityRecipes"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfRecipes.ActivityGroupsOfRecipes"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-
-    <activity
-        android:name=".BranchOfDiary.ActivityAddData"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchOfDiary.ActivityListOfDiary"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme2" />
-    <activity
-        android:name=".BranchOfCalculating.ActivityCalculatorSPK"
-        android:theme="@style/AppTheme.NoActionBar" />
     <activity
         android:name=".BranchOfExercises.Activities.MainActivity"
         android:screenOrientation="portrait"
@@ -286,18 +244,6 @@
         android:screenOrientation="portrait"
         android:theme="@style/DetailFood" />
     <activity
-        android:name=".presentation.profile.edit.EditProfileActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/EditProfile" />
-    <activity
-        android:name=".BranchProfile.ActivityHelp"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".BranchProfile.ActivityEditCompletedProfile"
-        android:screenOrientation="portrait"
-        android:theme="@style/EditProfile" />
-      <activity
         android:name=".BranchOfAnalyzer.ActivityDetailSavedFood"
         android:screenOrientation="portrait"
         android:theme="@style/DetailFood" />
@@ -309,6 +255,7 @@
     <activity
         android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
         android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
     <meta-data
         android:name="com.facebook.sdk.ApplicationId"
         android:value="@string/facebook_app_id" />

@@ -12,7 +12,6 @@ import com.wsoteam.diet.utils.RxFirebase
 import com.wsoteam.diet.utils.valueOf
 import io.reactivex.Flowable
 import io.reactivex.Single
-import java.lang.IllegalArgumentException
 import java.util.Collections
 
 open class ActivitiesSyncedSource(val source: ActivitySource) : ExercisesSource() {
@@ -40,6 +39,7 @@ open class ActivitiesSyncedSource(val source: ActivitySource) : ExercisesSource(
 
   protected val database: DatabaseReference
   protected open var filterFavorites = false
+  protected open var filterByDate = false
 
   init {
     val uid = FirebaseAuth.getInstance().uid
@@ -66,15 +66,16 @@ open class ActivitiesSyncedSource(val source: ActivitySource) : ExercisesSource(
       }
       .filter { snapshot -> snapshot.hasChildren() }
       .filter { snapshot ->
-        snapshot.valueOf<Int>("day") == date.day
-            && snapshot.valueOf<Int>("month") == date.month
-            && snapshot.valueOf<Int>("year") == date.year
+        if (!filterByDate) true else {
+          snapshot.valueOf<Int>("day") == date.day
+              && snapshot.valueOf<Int>("month") == date.month
+              && snapshot.valueOf<Int>("year") == date.year
+        }
       }
       .map { snapshot -> deserialize(snapshot) }
       .filter { e -> if (filterFavorites) e.favorite else !e.favorite }
       .toSortedList { left, right -> right.`when`.compareTo((left.`when`)) }
   }
-
 
   override fun edit(exercise: ActivityModel): Single<ActivityModel> {
     return RxFirebase.completable(database.child(exercise.id).updateChildren(exercise.serialize()))

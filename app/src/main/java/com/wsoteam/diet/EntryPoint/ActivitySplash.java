@@ -1,5 +1,6 @@
 package com.wsoteam.diet.EntryPoint;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -15,7 +16,6 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import com.adjust.sdk.Adjust;
@@ -25,18 +25,16 @@ import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
-import com.facebook.login.LoginManager;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.Amplitude.SetUserProperties;
+import com.wsoteam.diet.App;
+import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.InApp.IDs;
@@ -56,7 +54,16 @@ import com.wsoteam.diet.presentation.auth.AuthStrategy;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
+import com.wsoteam.diet.utils.RxFirebase;
+import com.wsoteam.diet.utils.UserNotAuthorized;
 import com.wsoteam.diet.views.SplashBackground;
+import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
+import io.reactivex.SingleOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -71,9 +78,12 @@ public class ActivitySplash extends BaseActivity {
   private View noticeContainer;
   private View retryFrame;
 
+  private final CompositeDisposable disposables = new CompositeDisposable();
+
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
     if (getSharedPreferences(Config.IS_NEED_SHOW_LOADING_SPLASH, MODE_PRIVATE).getBoolean(
         Config.IS_NEED_SHOW_LOADING_SPLASH, false)) {
       showLoadingScreen();
@@ -99,8 +109,13 @@ public class ActivitySplash extends BaseActivity {
       noticeContainer.setVisibility(View.GONE);
     }
 
-    //FacebookSdk.sdkInitialize(getApplicationContext());
-    //AppEventsLogger.activateApp(getApplicationContext());
+    if (BuildConfig.DEBUG) {
+      Log.d("ActivitySplash", "Inflated in " + (System.currentTimeMillis() - App.instance.now));
+    }
+  }
+
+  @Override protected void onStart() {
+    super.onStart();
 
     checkFirstLaunch();
 
@@ -135,10 +150,12 @@ public class ActivitySplash extends BaseActivity {
 
   private void showLoadingScreen() {
     setContentView(R.layout.activity_questions_calculations);
-    ImageView loader = findViewById(R.id.loader);
-    TextView tvSubTitle = findViewById(R.id.tvSubTitle);
+
+    final ImageView loader = findViewById(R.id.loader);
+    final TextView tvSubTitle = findViewById(R.id.tvSubTitle);
     tvSubTitle.setText(getString(R.string.personal_diary));
-    RotateAnimation rotate =
+
+    final RotateAnimation rotate =
         new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
             0.5f);
     rotate.setDuration(1000);
@@ -150,56 +167,43 @@ public class ActivitySplash extends BaseActivity {
   }
 
   private void checkRegistrationAndRun() {
-    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    if (user != null) {
-      try {
-        SetUserProperties.setUserProperties(Adjust.getAttribution());
-        setTrackInfoInDatabase(Adjust.getAttribution());
-      } catch (Exception e) {
+    final Disposable d = Single.create(new SetupUserProperties(getApplicationContext()))
+        .flatMap(firebaseUser -> {
+          FirebaseDatabase database = FirebaseDatabase.getInstance();
+          DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+              child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-      }
-      FirebaseAnalytics.getInstance(this)
-          .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
-      FirebaseDatabase database = FirebaseDatabase.getInstance();
-      DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
-          child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+          return RxFirebase.just(myRef)
+              .flatMap(dataSnapshot -> {
+                final UserData user = getUserData(dataSnapshot);
 
-      checkUser(myRef, true);
-    } else {
-      onUserNotAuthorized();
-    }
-  }
+                if (user == null) {
+                  return Single.error(new UserNotAuthorized());
+                } else {
+                  return Single.just(user);
+                }
+              });
+        })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        //.delay(15000, TimeUnit.MILLISECONDS)
+        .subscribe(
+            user -> {
+              new UserDataHolder().bindObjectWithHolder(user);
 
-  private void checkUser(DatabaseReference myRef, boolean deeper) {
-    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-      @Override
-      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        final UserData user = getUserData(dataSnapshot);
+              setUserProperties(user.getProfile());
 
-        if (user == null) {
-          if (deeper) {
-            checkUser(myRef, false);
-          } else {
-            AuthStrategy.signOut(ActivitySplash.this);
-          }
-          return;
-        }
+              onSignedIn();
+            },
 
-        new UserDataHolder().bindObjectWithHolder(user);
+            error -> {
+              AuthStrategy.signOut(ActivitySplash.this);
 
-        setUserProperties(UserDataHolder.getUserData().getProfile());
-        onSignedIn();
-      }
+              onUserNotAuthorized();
+            }
+        );
 
-      @Override
-      public void onCancelled(@NonNull DatabaseError databaseError) {
-        FirebaseAuth.getInstance().signOut();
-        LoginManager.getInstance().logOut();
-        UserDataHolder.clearObject();
-
-        onUserNotAuthorized();
-      }
-    });
+    disposables.add(d);
   }
 
   private void setUserProperties(Profile profile) {
@@ -285,19 +289,6 @@ public class ActivitySplash extends BaseActivity {
   private void openMainScreen() {
     startActivity(new Intent(this, MainActivity.class));
     finish();
-  }
-
-  private void setTrackInfoInDatabase(AdjustAttribution aa) {
-    TrackInfo trackInfo = new TrackInfo();
-    trackInfo.setTt(aa.trackerToken);
-    trackInfo.setTn(aa.trackerName);
-    trackInfo.setNet(aa.network);
-    trackInfo.setCam(aa.campaign);
-    trackInfo.setCre(aa.creative);
-    trackInfo.setCl(aa.clickLabel);
-    trackInfo.setAdid(aa.adid);
-    trackInfo.setAdg(aa.adgroup);
-    WorkWithFirebaseDB.setTrackInfo(trackInfo);
   }
 
   private void checkBilling() {
@@ -404,6 +395,8 @@ public class ActivitySplash extends BaseActivity {
   private void checkFirstLaunch() {
     SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
 
+    App.getInstance().setupOnDemand();
+
     if (!sharedPreferences.getBoolean(TAG_FIRST_RUN, false)) {
       Calendar calendar = Calendar.getInstance();
       String day = String.valueOf(calendar.get(Calendar.DAY_OF_YEAR));
@@ -441,6 +434,52 @@ public class ActivitySplash extends BaseActivity {
     getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE).edit()
         .putBoolean(Config.STATE_BILLING, isPremUser)
         .apply();
+  }
+
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    disposables.clear();
+  }
+
+  public static class SetupUserProperties implements SingleOnSubscribe<FirebaseUser> {
+
+    private final Context context;
+
+    public SetupUserProperties(Context context) {
+      this.context = context;
+    }
+
+    @Override public void subscribe(SingleEmitter<FirebaseUser> emitter) throws Exception {
+      final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+      if (user != null) {
+        try {
+          SetUserProperties.setUserProperties(Adjust.getAttribution());
+          setTrackInfoInDatabase(Adjust.getAttribution());
+        } catch (Exception e) {
+
+        }
+        FirebaseAnalytics.getInstance(context)
+            .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
+
+        emitter.onSuccess(user);
+      } else {
+        emitter.onError(new UserNotAuthorized());
+      }
+    }
+
+    private void setTrackInfoInDatabase(AdjustAttribution aa) {
+      TrackInfo trackInfo = new TrackInfo();
+      trackInfo.setTt(aa.trackerToken);
+      trackInfo.setTn(aa.trackerName);
+      trackInfo.setNet(aa.network);
+      trackInfo.setCam(aa.campaign);
+      trackInfo.setCre(aa.creative);
+      trackInfo.setCl(aa.clickLabel);
+      trackInfo.setAdid(aa.adid);
+      trackInfo.setAdg(aa.adgroup);
+
+      WorkWithFirebaseDB.setTrackInfo(trackInfo);
+    }
   }
 
   public class FalseWait extends AsyncTask<Void, Void, Void> {

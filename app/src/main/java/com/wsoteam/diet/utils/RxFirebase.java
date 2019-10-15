@@ -33,6 +33,10 @@ public class RxFirebase {
     return Flowable.create(new QueryObserver(query), BackpressureStrategy.LATEST);
   }
 
+  public static Single<DataSnapshot> just(Query query) {
+    return Single.create(new SingleRefTask(query));
+  }
+
   private static class QueryObserver
       implements FlowableOnSubscribe<DataSnapshot>, ValueEventListener {
     private final Query query;
@@ -100,6 +104,29 @@ public class RxFirebase {
           } else {
             observer.tryOnError(task.getException());
           }
+        }
+      });
+    }
+  }
+
+  public static class SingleRefTask implements SingleOnSubscribe<DataSnapshot> {
+
+    private final Query query;
+
+    public SingleRefTask(Query query) {
+      this.query = query;
+    }
+
+    @Override public void subscribe(SingleEmitter<DataSnapshot> observer) {
+      query.addValueEventListener(new ValueEventListener() {
+        @Override public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+          observer.onSuccess(dataSnapshot);
+          query.removeEventListener(this);
+        }
+
+        @Override public void onCancelled(@NonNull DatabaseError databaseError) {
+          observer.tryOnError(databaseError.toException());
+          query.removeEventListener(this);
         }
       });
     }

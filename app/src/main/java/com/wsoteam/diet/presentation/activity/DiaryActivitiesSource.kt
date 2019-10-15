@@ -26,6 +26,8 @@ object DiaryActivitiesSource : ActivitiesSyncedSource(DIARY) {
       return preferences.getInt("today_activity_burn", 0)
     }
 
+  override var filterByDate: Boolean = true
+
   private fun calculateBurnedToday(): Function<ActivityModel, Single<ActivityModel>> {
     return Function { model ->
       val editor = preferences.edit()

@@ -3,6 +3,7 @@ package com.wsoteam.diet.presentation.activity
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.Selection
 import android.text.SpannableString
 import android.text.TextUtils
@@ -68,11 +69,14 @@ class CreateUserActivityFragment : DialogFragment() {
         return@setOnClickListener
       }
 
+      val calories = exerciseEfficiency.text.substring(0, exerciseEfficiency.text.indexOf(" "))
+        .toIntOrNull() ?: 10
+
       val activity = UserActivityExercise(
           "request-generate",
           exerciseName.text.toString(),
           System.currentTimeMillis(),
-          selected.calories,
+          calories,
           selected.duration
       )
 

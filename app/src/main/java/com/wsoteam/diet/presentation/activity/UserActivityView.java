@@ -8,9 +8,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Sync.POJO.UserData;
-import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.utils.DateUtils;
+import com.wsoteam.diet.utils.FiasyDateUtils;
 
 public class UserActivityView extends RecyclerView.ViewHolder {
 
@@ -38,7 +36,7 @@ public class UserActivityView extends RecyclerView.ViewHolder {
 
   public void bind(ActivityModel item) {
     title.setText(item.getTitle());
-    duration.setText(DateUtils.formatElapsedTime(duration.getContext(), item.getDuration() * 60));
+    duration.setText(FiasyDateUtils.formatElapsedTime(duration.getContext(), item.getDuration() * 60));
 
     effectiveness.setText(effectiveness.getContext()
         .getString(R.string.user_activity_burned, item.getCalories()));

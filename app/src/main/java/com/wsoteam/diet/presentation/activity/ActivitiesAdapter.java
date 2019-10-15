@@ -154,11 +154,16 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
   }
 
   public void createSection(@StringRes int id) {
+    createSection(id, true);
+  }
+
+  public void createSection(@StringRes int id, boolean expanded) {
     if (sections.containsKey(id)) {
       return;
     }
 
     final Section newSection = new Section(id);
+    newSection.expanded = expanded;
 
     if (head == null) {
       head = newSection;

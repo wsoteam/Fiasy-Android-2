@@ -11,6 +11,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.utils.RxFirebase;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -27,6 +28,7 @@ public abstract class AuthStrategy {
     FirebaseAuth.getInstance().signOut();
     LoginManager.getInstance().logOut();
     GoogleAuthStrategy.signOut(context);
+    UserDataHolder.clearObject();
   }
 
   public AuthStrategy(Fragment fragment) {

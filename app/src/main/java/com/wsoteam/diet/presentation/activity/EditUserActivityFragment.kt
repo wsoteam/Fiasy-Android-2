@@ -14,12 +14,13 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.R
-import com.wsoteam.diet.Sync.UserDataHolder
-import com.wsoteam.diet.utils.DateUtils
+import com.wsoteam.diet.presentation.diary.DiaryViewModel
+import com.wsoteam.diet.utils.FiasyDateUtils
 import com.wsoteam.diet.utils.RichTextUtils.RichText
 import com.wsoteam.diet.utils.argument
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.Calendar
 
 class EditUserActivityFragment : DialogFragment() {
 
@@ -67,7 +68,7 @@ class EditUserActivityFragment : DialogFragment() {
         else -> DiaryActivityExercise(
             id = selected.id,
             title = selected.title,
-            `when` = if (editMode == true) selected.`when` else  System.currentTimeMillis(),
+            `when` = if (editMode == true) selected.`when` else getTodayTimestamp(),
             calories = getBurnedCalories(),
             duration = exerciseDuration.progress
         )
@@ -143,6 +144,20 @@ class EditUserActivityFragment : DialogFragment() {
     }
   }
 
+  fun getTodayTimestamp(): Long {
+    return if (DiaryViewModel.isToday) {
+      System.currentTimeMillis()
+    } else {
+      Calendar.getInstance().let {
+        it.set(Calendar.DAY_OF_MONTH, DiaryViewModel.currentDate.day)
+        it.set(Calendar.MONTH, DiaryViewModel.currentDate.month)
+        it.set(Calendar.YEAR, DiaryViewModel.currentDate.year)
+
+        it.timeInMillis
+      }
+    }
+  }
+
   private fun onExerciseSelected(exercise: ActivityModel) {
     selected = exercise
 
@@ -171,7 +186,7 @@ class EditUserActivityFragment : DialogFragment() {
   private fun setEfficiency(duration: Int, burned: Int) {
     exerciseDuration.progress = duration
 
-    val pluralDuration = DateUtils.formatElapsedTime(context, (duration * 60).toLong())
+    val pluralDuration = FiasyDateUtils.formatElapsedTime(context, (duration * 60).toLong())
 
     val exerciseTemplate =
       getString(R.string.add_user_activity_duration_hint, pluralDuration)
@@ -181,7 +196,8 @@ class EditUserActivityFragment : DialogFragment() {
       .bold()
       .text()
 
-    exerciseEfficiency.text = TextUtils.concat(getString(R.string.add_user_activity_burned_hint), " ",
-        burned, "\n", exerciseTemplate)
+    exerciseEfficiency.text =
+      TextUtils.concat(getString(R.string.add_user_activity_burned_hint), " ",
+          burned, "\n", exerciseTemplate)
   }
 }
