@@ -834,9 +834,10 @@
     <string name="search_text_empty">Попробуйте еще раз или создайте \nсвой продукт</string>
     <string name="srch_ml">мл</string>
     <string name="srch_gramm">г</string>
+  <string name="srch_add_to_basket">Добавить</string>
 
 
-    <string-array name="settings_items">
+  <string-array name="settings_items">
         <item>Premium аккаунт</item>
         <!--<item>Еда и аллергия</item>-->
         <item>Промокоды</item>

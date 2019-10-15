@@ -1,7 +1,6 @@
 package com.wsoteam.diet.presentation.search.results;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.wsoteam.diet.R;
@@ -37,6 +38,8 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   @BindView(R.id.tvTitleEmptySearch) TextView tvTitleEmptySearch;
   @BindView(R.id.tvTextEmptySearch) TextView tvTextEmptySearch;
   @BindView(R.id.btnAddCustomFood) Button btnAddCustomFood;
+  @BindView(R.id.tvCounter) TextView tvCounter;
+  @BindView(R.id.cvBasket) CardView cvBasket;
   private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
   private String searchString = "";
   private int RESPONSE_LIMIT = 100;
@@ -121,5 +124,17 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
       iSearchResults.add(t.get(i));
     }
     return iSearchResults;
+  }
+
+  @OnClick({ R.id.btnAddCustomFood, R.id.tvCounter, R.id.tvAddToBasket })
+  public void onViewClicked(View view) {
+    switch (view.getId()) {
+      case R.id.btnAddCustomFood:
+        break;
+      case R.id.tvCounter:
+        break;
+      case R.id.tvAddToBasket:
+        break;
+    }
   }
 }

@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-  <androidx.recyclerview.widget.RecyclerView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-    android:id="@+id/rvBlocks"/>
+  <Button
+      android:id="@+id/btnAddCustomFood"
+      android:layout_width="wrap_content"
+      android:layout_height="44dp"
+      android:layout_marginTop="96dp"
+      android:background="@drawable/btn_add_custom_food"
+      android:fontFamily="@font/roboto_bold"
+      android:paddingLeft="46dp"
+      android:paddingRight="46dp"
+      android:text="@string/create_user_food"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="@+id/tvTextEmptySearch"
+      app:layout_constraintStart_toStartOf="@+id/tvTextEmptySearch"
+      app:layout_constraintTop_toBottomOf="@+id/tvTextEmptySearch"
+      />
 
   <ImageView
       android:id="@+id/ivSearchImage"
@@ -17,26 +31,11 @@
       android:layout_marginEnd="8dp"
       android:layout_marginStart="8dp"
       android:layout_marginTop="60dp"
-      app:layout_constraintEnd_toEndOf="parent"
       android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:srcCompat="@drawable/empty_search"
-      />
-
-  <TextView
-      android:id="@+id/tvTitleEmptySearch"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="54dp"
-      android:fontFamily="@font/roboto_medium"
-      android:text="@string/empty_search_title"
-      android:textColor="#c0000000"
-      android:textSize="20sp"
-      android:visibility="gone"
-      app:layout_constraintEnd_toEndOf="@+id/ivSearchImage"
-      app:layout_constraintStart_toStartOf="@+id/ivSearchImage"
-      app:layout_constraintTop_toBottomOf="@+id/ivSearchImage"
       />
 
   <TextView
@@ -54,21 +53,69 @@
       app:layout_constraintTop_toBottomOf="@+id/tvTitleEmptySearch"
       />
 
-  <Button
-      android:id="@+id/btnAddCustomFood"
+  <TextView
+      android:id="@+id/tvTitleEmptySearch"
       android:layout_width="wrap_content"
-      android:layout_height="44dp"
-      android:layout_marginTop="96dp"
-      android:background="@drawable/btn_add_custom_food"
-      android:fontFamily="@font/roboto_bold"
-      android:paddingLeft="46dp"
-      android:paddingRight="46dp"
-      android:text="@string/create_user_food"
-      android:textColor="@color/white"
-      android:textSize="14sp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="54dp"
+      android:fontFamily="@font/roboto_medium"
+      android:text="@string/empty_search_title"
+      android:textColor="#c0000000"
+      android:textSize="20sp"
       android:visibility="gone"
-      app:layout_constraintEnd_toEndOf="@+id/tvTextEmptySearch"
-      app:layout_constraintStart_toStartOf="@+id/tvTextEmptySearch"
-      app:layout_constraintTop_toBottomOf="@+id/tvTextEmptySearch" />
+      app:layout_constraintEnd_toEndOf="@+id/ivSearchImage"
+      app:layout_constraintStart_toStartOf="@+id/ivSearchImage"
+      app:layout_constraintTop_toBottomOf="@+id/ivSearchImage"
+      />
+
+  <androidx.cardview.widget.CardView
+      android:id="@+id/cvBasket"
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:cardElevation="3dp"
+      >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+      <TextView
+          android:id="@+id/tvCounter"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginStart="16dp"
+          android:drawableLeft="@drawable/srch_right_basket"
+          android:drawablePadding="8dp"
+          android:fontFamily="@font/roboto_medium"
+          android:text="TextView"
+          android:textColor="#8a000000"
+          />
+
+      <TextView
+          android:id="@+id/tvAddToBasket"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="end|center_vertical"
+          android:layout_marginEnd="16dp"
+          android:fontFamily="@font/roboto_bold"
+          android:text="@string/srch_add_to_basket"
+          android:textColor="#ef7d02"
+          android:textSize="18sp"
+          />
+
+    </FrameLayout>
+
+  </androidx.cardview.widget.CardView>
+
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rvBlocks"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
