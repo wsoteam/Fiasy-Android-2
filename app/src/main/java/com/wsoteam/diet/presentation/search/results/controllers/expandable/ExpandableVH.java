@@ -38,6 +38,6 @@ public class ExpandableVH extends RecyclerView.ViewHolder {
     }else {
       unit = itemView.getResources().getString(R.string.srch_gramm);
     }
-    return " " + String.valueOf(amount) + " " + unit + ")";
+    return " " + String.valueOf(amount) + " " + unit;
   }
 }

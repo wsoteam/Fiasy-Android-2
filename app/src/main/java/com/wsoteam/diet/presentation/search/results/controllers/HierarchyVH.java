@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.search.results.controllers;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,6 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 import com.wsoteam.diet.presentation.search.results.controllers.expandable.ExpandableAdapter;
@@ -31,7 +35,10 @@ public class HierarchyVH extends RecyclerView.ViewHolder {
     if (result.getBrand() != null && !result.getBrand().getName().equals("")) {
       tvTitle.append(" (" + result.getBrand().getName() + ")");
     }
-    tvKcal.setText(String.valueOf(Math.round(result.getCalories() * 100)) + " " + itemView.getContext().getResources().getString(R.string.marker_kcal));
+    tvKcal.setText(
+        String.valueOf(Math.round(result.getCalories() * 100)) + " " + itemView.getContext()
+            .getResources()
+            .getString(R.string.marker_kcal));
     tvKcal.setText(getKcalInterval(result));
     tvPortion.setText(getPortionsInterval(result));
     rvExpList.setAdapter(new ExpandableAdapter(result));
@@ -39,15 +46,23 @@ public class HierarchyVH extends RecyclerView.ViewHolder {
 
   private String getPortionsInterval(Result result) {
     String unit;
-    if (result.isLiquid()){
+    if (result.isLiquid()) {
       unit = itemView.getResources().getString(R.string.srch_ml);
-    }else {
+    } else {
       unit = itemView.getResources().getString(R.string.srch_gramm);
     }
     int size = result.getMeasurementUnits().size();
     int firstPortion = result.getMeasurementUnits().get(0).getAmount();
-    int lastPortion = result.getMeasurementUnits().get(result.getMeasurementUnits().size() - 1).getAmount();
-    return itemView.getResources().getQuantityString(R.plurals.srch_portions, size, size) + " (" + String.valueOf(firstPortion) + " - " + String.valueOf(lastPortion) + " " + unit;
+    int lastPortion =
+        result.getMeasurementUnits().get(result.getMeasurementUnits().size() - 1).getAmount();
+    return itemView.getResources().getQuantityString(R.plurals.srch_portions, size, size)
+        + " ("
+        + String.valueOf(firstPortion)
+        + " - "
+        + String.valueOf(lastPortion)
+        + " "
+        + unit
+        + ")";
   }
 
   private String getKcalInterval(Result result) {
@@ -61,5 +76,15 @@ public class HierarchyVH extends RecyclerView.ViewHolder {
         + String.valueOf(lastKcal)
         + " "
         + itemView.getContext().getResources().getString(R.string.marker_kcal);
+  }
+
+  @OnClick(R.id.ivOpenList) public void onViewClicked() {
+    if (rvExpList.getVisibility() == View.GONE){
+      Glide.with(itemView.getContext()).load(R.drawable.srch_arrow_up).into(ivOpenList);
+      rvExpList.setVisibility(View.VISIBLE);
+    }else {
+      Glide.with(itemView.getContext()).load(R.drawable.srch_arrow_down).into(ivOpenList);
+      rvExpList.setVisibility(View.GONE);
+    }
   }
 }

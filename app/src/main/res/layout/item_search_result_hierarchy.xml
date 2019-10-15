@@ -3,8 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
+  <ImageView
+      android:id="@+id/imageView60"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="@+id/tvPortion"
+      app:layout_constraintStart_toEndOf="@+id/tvPortion"
+      app:layout_constraintTop_toTopOf="@+id/tvPortion"
+      app:srcCompat="@drawable/ic_search_point"
+      />
+  <ImageView
+      android:id="@+id/ivOpenList"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="24dp"
+      android:background="?selectableItemBackground"
+      android:padding="8dp"
+      app:layout_constraintBottom_toBottomOf="@+id/tvKcal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/srch_arrow_down"
+      />
+  <TextView
+      android:id="@+id/tvKcal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/roboto"
+      android:text="TextView"
+      android:textColor="#c0000000"
+      android:textSize="14sp"
+      app:layout_constraintBottom_toBottomOf="@+id/tvPortion"
+      app:layout_constraintStart_toEndOf="@+id/imageView60"
+      app:layout_constraintTop_toTopOf="@+id/tvPortion"
+      />
   <TextView
       android:id="@+id/tvTitle"
       android:layout_width="0dp"
@@ -19,6 +53,8 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
+
+
   <TextView
       android:id="@+id/tvPortion"
       android:layout_width="wrap_content"
@@ -31,45 +67,6 @@
       app:layout_constraintStart_toStartOf="@+id/tvTitle"
       app:layout_constraintTop_toBottomOf="@+id/tvTitle"
       />
-  <TextView
-      android:id="@+id/tvKcal"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:fontFamily="@font/roboto"
-      android:text="TextView"
-      android:textColor="#c0000000"
-      android:textSize="14sp"
-      app:layout_constraintBottom_toBottomOf="@+id/tvPortion"
-      app:layout_constraintStart_toEndOf="@+id/imageView60"
-      app:layout_constraintTop_toTopOf="@+id/tvPortion"
-      />
-  <ImageView
-      android:id="@+id/imageView60"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      app:layout_constraintBottom_toBottomOf="@+id/tvPortion"
-      app:layout_constraintStart_toEndOf="@+id/tvPortion"
-      app:layout_constraintTop_toTopOf="@+id/tvPortion"
-      app:srcCompat="@drawable/ic_search_point"
-      />
-
-
-  <ImageView
-      android:id="@+id/ivOpenList"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
-      app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="@+id/tvTitle"
-      app:srcCompat="@drawable/ic_search_item_inactive"
-      />
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/rvExpList"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:layout_constraintTop_toBottomOf="@+id/tvPortion"
-      />
   <View
       android:id="@+id/divider43"
       android:layout_width="match_parent"
@@ -80,5 +77,13 @@
       app:layout_constraintTop_toBottomOf="@+id/rvExpList"
       app:layout_constraintVertical_bias="0.0"
       tools:layout_editor_absoluteX="-10dp"
+      />
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rvExpList"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:visibility="gone"
+      app:layout_constraintTop_toBottomOf="@+id/tvPortion"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>
