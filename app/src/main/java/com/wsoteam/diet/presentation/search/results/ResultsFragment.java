@@ -95,7 +95,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
   private void search(String searchString) {
     foodResultAPI
-        .getResponse(RESPONSE_LIMIT, 0, searchString)
+        .getResponse(RESPONSE_LIMIT, 30, "Хлеб Тостовый")
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(t -> refreshAdapter(t.getResults()), Throwable::printStackTrace);

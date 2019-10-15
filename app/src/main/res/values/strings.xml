@@ -832,6 +832,8 @@
     <string name="activity_parent_search_hint">Поиск по базе продуктов</string>
   <string name="empty_search_title">Результаты не найдены</string>
     <string name="search_text_empty">Попробуйте еще раз или создайте \nсвой продукт</string>
+    <string name="srch_ml">мл</string>
+    <string name="srch_gramm">г</string>
 
 
     <string-array name="settings_items">
@@ -1100,4 +1102,13 @@
         <item>Мои блюда</item>
         <item>Мои продукты</item>
     </string-array>
+
+    <plurals name="srch_portions">
+        <item quantity="zero"></item>
+        <item quantity="one">%d порция</item>
+        <item quantity="two">%d порции</item>
+        <item quantity="few">%d порции</item>
+        <item quantity="many">%d порций</item>
+        <item quantity="other">%d порций</item>
+    </plurals>
 </resources>

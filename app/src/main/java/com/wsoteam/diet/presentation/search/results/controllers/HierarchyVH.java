@@ -11,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
+import com.wsoteam.diet.presentation.search.results.controllers.expandable.ExpandableAdapter;
 
 public class HierarchyVH extends RecyclerView.ViewHolder {
   @BindView(R.id.tvTitle) TextView tvTitle;
@@ -33,13 +34,20 @@ public class HierarchyVH extends RecyclerView.ViewHolder {
     tvKcal.setText(String.valueOf(Math.round(result.getCalories() * 100)) + " " + itemView.getContext().getResources().getString(R.string.marker_kcal));
     tvKcal.setText(getKcalInterval(result));
     tvPortion.setText(getPortionsInterval(result));
+    rvExpList.setAdapter(new ExpandableAdapter(result));
   }
 
   private String getPortionsInterval(Result result) {
+    String unit;
+    if (result.isLiquid()){
+      unit = itemView.getResources().getString(R.string.srch_ml);
+    }else {
+      unit = itemView.getResources().getString(R.string.srch_gramm);
+    }
     int size = result.getMeasurementUnits().size();
     int firstPortion = result.getMeasurementUnits().get(0).getAmount();
     int lastPortion = result.getMeasurementUnits().get(result.getMeasurementUnits().size() - 1).getAmount();
-    return String.valueOf(size) + " " + itemView.getContext().getResources().getString(R.string.srch_portion)
+    return itemView.getResources().getQuantityString(R.plurals.srch_portions, size, size) + " (" + String.valueOf(firstPortion) + " - " + String.valueOf(lastPortion) + " " + unit;
   }
 
   private String getKcalInterval(Result result) {

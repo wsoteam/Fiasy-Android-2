@@ -19,4 +19,25 @@ public class ExpandableVH extends RecyclerView.ViewHolder {
     super(layoutInflater.inflate(R.layout.item_search_result_exp, parent, false));
     ButterKnife.bind(this, itemView);
   }
+
+  public void bind(String name, int amount, double calories, boolean liquid) {
+    tvTitle.setText(name);
+    tvTitle.append(convertToString(amount, liquid));
+    tvKcal.setText(getKcal(amount, calories));
+  }
+
+  private String getKcal(int amount, double calories) {
+    long kcal = Math.round(amount * calories);
+    return String.valueOf(kcal) + " " + itemView.getContext().getResources().getString(R.string.marker_kcal);
+  }
+
+  private String convertToString(int amount, boolean isLiquid) {
+    String unit;
+    if (isLiquid){
+      unit = itemView.getResources().getString(R.string.srch_ml);
+    }else {
+      unit = itemView.getResources().getString(R.string.srch_gramm);
+    }
+    return " " + String.valueOf(amount) + " " + unit;
+  }
 }
