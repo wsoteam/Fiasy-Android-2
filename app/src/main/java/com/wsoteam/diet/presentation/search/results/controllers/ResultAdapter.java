@@ -28,10 +28,13 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private final int ITEM_TYPE = 1;
   private final int EXPANDABLE_TYPE = 2;
   private Context context;
+  private List<BasketEntity> savedFood;
 
-  public ResultAdapter(List<ISearchResult> foods, Context context) {
+  public ResultAdapter(List<ISearchResult> foods, Context context, List<BasketEntity> savedFood) {
     this.foods = foods;
     this.context = context;
+    this.savedFood = savedFood;
+    Log.e("LOL", String.valueOf(savedFood.size()));
   }
 
   @NonNull @Override

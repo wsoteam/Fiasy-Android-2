@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.wsoteam.diet.App;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
@@ -24,7 +25,10 @@ import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
+import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
+import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import com.wsoteam.diet.presentation.search.results.controllers.ResultAdapter;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
@@ -44,6 +48,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   private String searchString = "";
   private int RESPONSE_LIMIT = 100;
   private ResultAdapter itemAdapter;
+  private BasketDAO basketDAO = App.getInstance().getFoodDatabase().basketDAO();
 
   @Override public void sendClearSearchField() {
 
@@ -69,7 +74,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
   private void updateUI() {
     List<ISearchResult> foods = new ArrayList<>();
-    itemAdapter = new ResultAdapter(foods, getActivity());
+    itemAdapter = new ResultAdapter(foods, getActivity(), new ArrayList<BasketEntity>());
     rvBlocks.setLayoutManager(new LinearLayoutManager(getContext()));
     rvBlocks.setAdapter(itemAdapter);
   }
@@ -105,16 +110,28 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
         .subscribe(t -> refreshAdapter(t.getResults()), Throwable::printStackTrace);
   }
 
-  private void refreshAdapter(List<Result> t) {
-    if (rvBlocks == null) {
-      return;
-    }
-    rvBlocks.setAdapter(itemAdapter = new ResultAdapter(createHeadersArray(t), getActivity()));
-    if (t.size() > 0) {
+  private void refreshAdapter(List<Result> list) {
+    Single.fromCallable(() -> {
+      List<BasketEntity> savedItems = getSavedItems();
+      return savedItems;
+    })
+        .subscribeOn(Schedulers.computation())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(t -> updateAdapter(list, t), Throwable::printStackTrace);
+    if (list.size() > 0) {
       hideMessageUI();
     } else {
       showNoFind();
     }
+  }
+
+  private List<BasketEntity> getSavedItems() {
+    List<BasketEntity> entities = basketDAO.getAll();
+    return entities;
+  }
+
+  private void updateAdapter(List<Result> t, List<BasketEntity> basketEntities) {
+    rvBlocks.setAdapter(itemAdapter = new ResultAdapter(createHeadersArray(t), getActivity(), basketEntities));
   }
 
   private List<ISearchResult> createHeadersArray(List<Result> t) {
