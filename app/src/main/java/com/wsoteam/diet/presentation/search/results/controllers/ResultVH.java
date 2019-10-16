@@ -39,7 +39,7 @@ public class ResultVH extends RecyclerView.ViewHolder {
 
   @OnCheckedChanged(R.id.tbSelect) public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
     if (b){
-      clickListener.click(getAdapterPosition());
+      clickListener.click(getAdapterPosition(), b);
     }
   }
 }

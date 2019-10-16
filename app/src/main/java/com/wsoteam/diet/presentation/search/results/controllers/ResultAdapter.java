@@ -14,7 +14,13 @@ import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
+import io.reactivex.schedulers.Schedulers;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   private List<ISearchResult> foods;
@@ -50,8 +56,12 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         break;
       case ITEM_TYPE:
         ((ResultVH) holder).bind((Result) foods.get(position), new ClickListener() {
-          @Override public void click(int position) {
-              saveInBasket(position);
+          @Override public void click(int position, boolean isNeedSave) {
+            if (isNeedSave) {
+              save(position);
+            } else {
+              delete(position);
+            }
           }
         });
         break;
@@ -61,10 +71,19 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
   }
 
-  private void saveInBasket(int position) {
-    BasketDAO basketDAO = App.getInstance().getFoodDatabase().basketDAO();
-    basketDAO.insert(new BasketEntity((Result) foods.get(position), 100, 0));
-    Toast.makeText(context, "saved", Toast.LENGTH_SHORT).show();
+  private void delete(int position) {
+  }
+
+  private void save(int position) {
+    Completable.fromAction(new Action() {
+      @Override
+      public void run() throws Exception {
+        BasketDAO basketDAO = App.getInstance().getFoodDatabase().basketDAO();
+        basketDAO.insert(new BasketEntity((Result) foods.get(position), 100, 0));
+      }
+    }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe();
   }
 
   @Override public int getItemCount() {
