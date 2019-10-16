@@ -21,14 +21,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.amplitude.api.Amplitude;
-import com.bumptech.glide.Glide;
-import com.wsoteam.diet.AmplitudaEvents;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
@@ -164,7 +163,7 @@ public class UsersRecipesActivity extends AppCompatActivity implements Toolbar.O
             url = "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
         }
 
-        Glide.with(this).load(url).into(ivHead);
+        Picasso.get().load(url).into(ivHead);
 
     }
 
@@ -262,6 +261,7 @@ public class UsersRecipesActivity extends AppCompatActivity implements Toolbar.O
                         addSnack(new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
                 break;
         }
+        Events.logAddCustomRecipe(name);
         AlertDialog alertDialog = AddFoodDialog.createChoiseEatingAlertDialog(this);
         alertDialog.show();
         getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).edit().putBoolean(Config.IS_ADDED_FOOD, true).commit();

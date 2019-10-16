@@ -119,13 +119,15 @@
                                     android:id="@+id/tvCaloriesNeed"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
                                     android:fontFamily="@font/roboto_bold"
                                     android:gravity="center"
                                     android:text="@string/main_screen_topbar_left"
                                     android:textColor="#f2812d"
                                     android:textSize="20sp"
-                                    app:layout_constraintStart_toStartOf="@+id/textView132"
-                                    app:layout_constraintTop_toBottomOf="@+id/textView132"
+                                    app:layout_constraintBottom_toBottomOf="@+id/textView132"
+                                    app:layout_constraintStart_toEndOf="@+id/textView132"
+                                    app:layout_constraintTop_toTopOf="@+id/textView132"
                                     tools:text="@string/main_screen_topbar_left" />
 
                                 <androidx.appcompat.widget.AppCompatImageView
@@ -159,7 +161,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="5dp"
-                                    android:layout_marginTop="8dp"
+                                    android:layout_marginTop="16dp"
                                     android:fontFamily="@font/roboto"
                                     android:text="@string/main_screen_topbar_calories"
                                     android:textColor="#8a000000"
@@ -178,7 +180,7 @@
                                     android:textColor="#8a000000"
                                     android:textSize="14sp"
                                     app:layout_constraintEnd_toEndOf="@+id/pbCalories"
-                                    app:layout_constraintTop_toBottomOf="@+id/divider31" />
+                                    app:layout_constraintTop_toTopOf="@+id/tvDoneText" />
 
                                 <TextView
                                     android:id="@+id/tvCaloriesDone"
@@ -258,6 +260,7 @@
                                     android:fontFamily="@font/roboto_medium"
                                     android:lineSpacingExtra="7sp"
                                     android:text="@string/reports"
+                                    android:visibility="gone"
                                     android:textColor="#ef7d02"
                                     app:layout_constraintBottom_toBottomOf="@+id/textView132"
                                     app:layout_constraintEnd_toEndOf="parent"

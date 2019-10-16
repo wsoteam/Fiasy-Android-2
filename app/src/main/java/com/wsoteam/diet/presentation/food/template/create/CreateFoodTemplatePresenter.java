@@ -70,7 +70,7 @@ public class CreateFoodTemplatePresenter extends BasePresenter<CreateFoodTemplat
                 WorkWithFirebaseDB.editFoodTemplate(foodTemplate.getKey(), foodTemplate);
 
             }else {
-                Events.logCreateTemplate(stringExtra, foodTemplate.getEating());
+                Events.logCreateTemplate(stringExtra, foodTemplate.getEating(), foodTemplate.getFoodList());
                 WorkWithFirebaseDB.addFoodTemplate(foodTemplate);
             }
             getViewState().showMessage("Сохранено в раздел Шаблоны");

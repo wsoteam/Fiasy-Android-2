@@ -16,7 +16,8 @@ class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
       R.layout.widget_daily_calories,
       R.layout.fragment_current_day_plan,
       R.layout.widget_user_activities,
-      R.layout.widget_user_weight
+      R.layout.widget_user_weight,
+      R.layout.ms_item_water_list
   )
 
   protected fun requestParent(): RecyclerView =
@@ -30,10 +31,11 @@ class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
     val root = parent.inflate(viewType, false)
 
     return when (viewType) {
-      R.layout.fragment_current_day_plan -> MealPlanWidget(root)
+      R.layout.fragment_current_day_plan -> MealPlanWidgetKt(root)
       R.layout.widget_daily_calories -> DailyBurnWidget(root)
       R.layout.widget_user_weight -> UserWeightWidget(root)
       R.layout.widget_user_activities -> DiaryActivityWidget(root)
+      R.layout.ms_item_water_list -> WaterWidget(root)
 
       else -> throw IllegalArgumentException("$viewType unknown")
     }

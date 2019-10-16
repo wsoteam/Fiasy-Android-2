@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.BranchOfExercises.ActivitiesPartOfBody.ActivityListOfExGroups;
 import com.wsoteam.diet.BranchOfExercises.ObjectHolder;
 import com.wsoteam.diet.POJOSExercises.AllPartOfBody;
@@ -63,7 +63,7 @@ public class FragmentPartsOfBody extends Fragment {
         }
 
         public void bind(PartOfBody partOfBody) {
-            Glide.with(getActivity()).load(partOfBody.getUrl_of_image()).into(ivBackground);
+            Picasso.get().load(partOfBody.getUrl_of_image()).into(ivBackground);
             Log.d("DDD", partOfBody.getUrl_of_image());
             tvNameOfPartOfBody.setText(partOfBody.getName());
         }

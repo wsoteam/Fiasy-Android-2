@@ -82,10 +82,12 @@ public class EventProperties {
     public static final String product_from = "product_from";
     public static final String product_from_button = "button";
     public static final String product_from_plus = "plus";
+    public static final String product_id = "product_id";
 
     public static final String recipe_from = "recipe_from";
     public static final String recipe_from_button = "button";
     public static final String recipe_from_plus = "plus";
+    public static final String recipe_id = "product_id";
 
     public static final String template_from = "template_from";
     public static final String template_from_button = "button";
@@ -96,6 +98,7 @@ public class EventProperties {
     public static final String template_intake_lunch = "lunch";
     public static final String template_intake_dinner = "dinner";
     public static final String template_intake_snack = "snack";
+    public static final String product_inside = "product_inside";
 
 
     //Recipe
@@ -139,6 +142,7 @@ public class EventProperties {
 
     public static final String push_button_from = "from";
 
+
     public static final String trial_error = "trial_error";
     public static final String trial_error_back_or_canceled = "back_or_canceled";
     public static final String trial_error_service_unvailable = "service_unvailable";
@@ -148,4 +152,16 @@ public class EventProperties {
     public static final String trial_error_error = "error";
     public static final String trial_error_already_owned = "already_owned";
     public static final String trial_error_not_owned = "not_owned";
+
+    //Diary
+    public static final String add_intake = "add_intake";
+    public static final String add_intake_breakfast = "breakfast";
+    public static final String add_intake_lunch = "lunch";
+    public static final String add_intake_dinner = "dinner";
+    public static final String add_intake_snack = "snack";
+
+    //Search
+    public static final String search_item = "search_item";
+    public static final String custom_product_id = "product_id";
+    public static final String recipe_id_add = "recipe_id";
 }

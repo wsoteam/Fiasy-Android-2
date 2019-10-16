@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
+import com.wsoteam.diet.common.backward.OldFavoriteConverter;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -39,6 +40,7 @@ public class AsyncWriteFoodDB extends AsyncTask<Context, Void, Void> {
             outputStream.flush();
             outputStream.close();
             myInput.close();
+            OldFavoriteConverter.run();
             Log.d(TAG, "DB rewrited");
         } catch (IOException e) {
             Log.d(TAG, e.toString());

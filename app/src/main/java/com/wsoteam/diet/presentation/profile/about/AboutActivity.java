@@ -11,21 +11,24 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+
 import androidx.annotation.Nullable;
+
 import com.google.android.material.textfield.TextInputLayout;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AlertDialog;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
-import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 
@@ -52,24 +55,12 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
     EditText edtSecondName;
     @BindView(R.id.edtEmail)
     EditText edtEmail;
-    @BindView(R.id.edtAge)
-    EditText edtAge;
-    @BindView(R.id.edtWeight)
-    EditText edtWeight;
-    @BindView(R.id.edtHeight)
-    EditText edtHeight;
     @BindView(R.id.tilName)
     TextInputLayout tilName;
     @BindView(R.id.tilSecondName)
     TextInputLayout tilSecondName;
     @BindView(R.id.tilEmail)
     TextInputLayout tilEmail;
-    @BindView(R.id.tilAge)
-    TextInputLayout tilAge;
-    @BindView(R.id.tilWeight)
-    TextInputLayout tilWeight;
-    @BindView(R.id.tilHeight)
-    TextInputLayout tilHeight;
 
     AboutPresenter aboutPresenter;
 
@@ -103,21 +94,6 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         checkTextInputLayout(tilEmail);
     }
 
-    @OnTextChanged(value = R.id.edtAge, callback = OnTextChanged.Callback.TEXT_CHANGED)
-    public void ageChanged(CharSequence text) {
-        checkTextInputLayout(tilAge);
-    }
-
-    @OnTextChanged(value = R.id.edtWeight, callback = OnTextChanged.Callback.TEXT_CHANGED)
-    public void weightChanged(CharSequence text) {
-        checkTextInputLayout(tilWeight);
-    }
-
-    @OnTextChanged(value = R.id.edtHeight, callback = OnTextChanged.Callback.TEXT_CHANGED)
-    public void heightChanged(CharSequence text) {
-        checkTextInputLayout(tilHeight);
-    }
-
     private void checkTextInputLayout(TextInputLayout currentTextInputLayout) {
         if (currentTextInputLayout.getError() != null) {
             currentTextInputLayout.setError("");
@@ -132,27 +108,24 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         if (profile.getLastName() != null && !profile.getLastName().equals("default")) {
             edtSecondName.setText(profile.getLastName());
         }
-        if (profile.getEmail() != null) {
-            edtEmail.setText(profile.getEmail());
-        }
-        edtAge.setText(String.valueOf(profile.getAge()));
-        edtWeight.setText(String.valueOf(profile.getWeight()));
-        edtHeight.setText(String.valueOf(profile.getHeight()));
         if (FirebaseAuth.getInstance().getCurrentUser().getEmail() != null) {
             edtEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         }
+        if (profile.getEmail() != null) {
+            edtEmail.setText(profile.getEmail());
+        }
         if (profile.getPhotoUrl() != null && !profile.getPhotoUrl().equals("default")) {
-            Glide.with(this).load(profile.getPhotoUrl()).into(civProfile);
+            Picasso.get().load(profile.getPhotoUrl()).into(civProfile);
         } else {
             if (profile.isFemale()) {
-                Glide.with(this).load(R.drawable.female_avatar).into(civProfile);
+                Picasso.get().load(R.drawable.female_avatar).into(civProfile);
             } else {
-                Glide.with(this).load(R.drawable.male_avatar).into(civProfile);
+                Picasso.get().load(R.drawable.male_avatar).into(civProfile);
             }
         }
     }
 
-    @OnClick({R.id.ibBack, R.id.ibMakeImage, R.id.tvSave})
+    @OnClick({R.id.ibBack, R.id.ibMakeImage, R.id.ibSave})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibBack:
@@ -161,12 +134,10 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
             case R.id.ibMakeImage:
                 callCamera();
                 break;
-            case R.id.tvSave:
+            case R.id.ibSave:
                 if (checkInputData()) {
                     if (aboutPresenter.calculateAndSave(edtName.getText().toString(),
-                            edtSecondName.getText().toString(),
-                            edtHeight.getText().toString(), edtWeight.getText().toString(),
-                            edtAge.getText().toString(), edtEmail.getText().toString())) {
+                            edtSecondName.getText().toString(), edtEmail.getText().toString())) {
                         Toast.makeText(this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
                         finish();
                     }
@@ -178,36 +149,10 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
     private boolean checkInputData() {
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         if (!edtName.getText().toString().equals("") && !edtName.getText().toString().replaceAll("\\s+", " ").equals(" ")) {
-            if (!edtSecondName.getText().toString().equals("") && !edtSecondName.getText().toString().replaceAll("\\s+", " ").equals(" ")) {
-                if (!edtAge.getText().toString().equals("")
-                        && Integer.parseInt(edtAge.getText().toString()) >= 9
-                        && Integer.parseInt(edtAge.getText().toString()) <= 200) {
-                    if (!edtHeight.getText().toString().equals("")
-                            && Integer.parseInt(edtHeight.getText().toString()) >= 100
-                            && Integer.parseInt(edtHeight.getText().toString()) <= 300) {
-                        if (!edtWeight.getText().toString().equals("")
-                                && Double.parseDouble(edtWeight.getText().toString()) >= 30
-                                && Double.parseDouble(edtWeight.getText().toString()) <= 300) {
-                            if (edtEmail.getText().toString().matches(emailPattern)) {
-                                return true;
-                            } else {
-                                tilEmail.setError(getString(R.string.check_your_email));
-                                return false;
-                            }
-                        } else {
-                            tilWeight.setError(getString(R.string.spk_check_weight));
-                            return false;
-                        }
-                    } else {
-                        tilHeight.setError(getString(R.string.spk_check_your_height));
-                        return false;
-                    }
-                } else {
-                    tilAge.setError(getString(R.string.spk_check_your_age));
-                    return false;
-                }
+            if (edtEmail.getText().toString().matches(emailPattern)) {
+                return true;
             } else {
-                tilSecondName.setError(getString(R.string.spk_check_your_second_name));
+                tilEmail.setError(getString(R.string.check_your_email));
                 return false;
             }
         } else {
@@ -259,10 +204,12 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
             Log.e("LOL", "result ok");
             try {
                 aboutPresenter.uploadPhoto((Bitmap) data.getExtras().get("data"));
-                Glide.with(this).load((Bitmap) data.getExtras().get("data")).into(civProfile);
+                //Glide.with(this).load((Bitmap) data.getExtras().get("data")).into(civProfile);
+                civProfile.setImageBitmap((Bitmap) data.getExtras().get("data"));
+                //TODO check
                 Log.e("LOL", data.getExtras().toString());
                 Log.e("LOL", FirebaseAuth.getInstance().getUid());
-            }catch (Exception e){
+            } catch (Exception e) {
                 Log.e("LOL", e.getMessage());
             }
         } else if (requestCode == GALLERY_PICTURE && resultCode == Activity.RESULT_OK) {
@@ -280,7 +227,9 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
                     matrix.postRotate(270);
                 }
                 bitmap = Bitmap.createBitmap(bitmap, 0, 0, IMAGE_WIDTH, IMAGE_HEIGHT, matrix, true);
-                Glide.with(this).load(bitmap).into(civProfile);
+                //Glide.with(this).load(bitmap).into(civProfile);
+                civProfile.setImageBitmap(bitmap);
+                //TODO check
                 aboutPresenter.uploadPhoto(bitmap);
             } catch (Exception ex) {
                 Log.e("LOL", ex.getMessage());
@@ -302,20 +251,5 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         }
 
         return result;
-    }
-
-    public boolean hasImageCaptureBug() {
-        // list of known devices that have the bug
-        ArrayList<String> devices = new ArrayList<String>();
-        devices.add("android-devphone1/dream_devphone/dream");
-        devices.add("generic/sdk/generic");
-        devices.add("vodafone/vfpioneer/sapphire");
-        devices.add("tmobile/kila/dream");
-        devices.add("verizon/voles/sholes");
-        devices.add("google_ion/google_ion/sapphire");
-
-        return devices.contains(android.os.Build.BRAND + "/" + android.os.Build.PRODUCT + "/"
-                + android.os.Build.DEVICE);
-
     }
 }

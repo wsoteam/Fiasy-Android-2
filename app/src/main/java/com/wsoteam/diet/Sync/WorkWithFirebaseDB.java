@@ -125,11 +125,28 @@ public class WorkWithFirebaseDB {
         myRef.push().setValue(snack);
     }
 
-    public static void addWater(Water water) {
+    public static String addWater(Water water) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
-                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("water");
-        myRef.push().setValue(water);
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("waters");
+        String key =  myRef.push().getKey();
+        myRef.child(key).setValue(water);
+        return key;
+    }
+
+    public static void updateWater(String key, float water) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+            child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("waters").child(key)
+            .child("waterCount");
+        myRef.setValue(water);
+    }
+
+    public static void setMaxWater(float maxWater){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+            child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("profile").child("maxWater");
+        myRef.setValue(maxWater);
     }
 
     public static void putProfileValue(Profile profile) {
@@ -240,6 +257,14 @@ public class WorkWithFirebaseDB {
         myRef.child(key).setValue(food);
         return key;
     }
+
+    public static void rewriteFoodFavorite(FavoriteFood food) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodFavorites");
+        myRef.child(food.getKey()).setValue(food);
+    }
+
 
     public static void deleteFavorite(String key) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();

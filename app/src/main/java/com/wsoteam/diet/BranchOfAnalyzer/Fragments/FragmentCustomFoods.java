@@ -11,6 +11,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.Const;
@@ -66,8 +68,14 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void sendClearSearchField() {
+
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
         customFoods = getCustomFoods();
         updateUI();
     }
@@ -99,7 +107,7 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
     }
 
     private void showNoFind() {
-        Glide.with(getActivity()).load(R.drawable.ic_no_find).into(ivAddFavorite);
+        Picasso.get().load(R.drawable.ic_no_find).into(ivAddFavorite);
         tvTitleFavoriteAdd.setText(getActivity().getResources().getString(R.string.title_no_find_food));
         tvTextAddFavorite.setText(getActivity().getResources().getString(R.string.text_no_find_food));
         ivAddFavorite.setVisibility(View.VISIBLE);

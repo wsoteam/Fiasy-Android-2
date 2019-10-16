@@ -15,6 +15,8 @@ public class IDs {
     public static final String ID_TRACK_YEAR_SUB = "sub_year_trial ";
     public static final String ID_ONE_WEEK = "one_week";
     public static final String ID_ONE_YEAR = "premium_one_year_2490";
+    public static final String ID_THREE_MONTHS = "three_months";
+    public static final String ID_ONE_MONTHS = "one_montn_sub";
 
 
     public static final int PAYMENT_STATE_WAIT = 0;

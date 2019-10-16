@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
@@ -24,10 +24,8 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.common.Analytics.Events;
 
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +65,10 @@ public class FragmentSearch extends Fragment implements TabsFragment {
         }
     }
 
+    @Override public void sendClearSearchField() {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -85,7 +87,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     }
 
     private void showNoFind() {
-        Glide.with(getActivity()).load(R.drawable.ic_no_find).into(ivSearchImage);
+        Picasso.get().load(R.drawable.ic_no_find).into(ivSearchImage);
         tvTitleFavoriteAdd.setText(getActivity().getResources().getString(R.string.title_no_find_food));
         tvTextAddFavorite.setText(getActivity().getResources().getString(R.string.text_no_find_food));
         ivSearchImage.setVisibility(View.VISIBLE);
@@ -95,7 +97,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     }
 
     private void showStartUI() {
-        Glide.with(getActivity()).load(R.drawable.ic_start_search).into(ivSearchImage);
+        Picasso.get().load(R.drawable.ic_start_search).into(ivSearchImage);
         tvTextAddFavorite.setText(getActivity().getResources().getString(R.string.text_start_search));
         ivSearchImage.setVisibility(View.VISIBLE);
         tvTextAddFavorite.setVisibility(View.VISIBLE);

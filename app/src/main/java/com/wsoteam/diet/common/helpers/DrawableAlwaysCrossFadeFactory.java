@@ -1,3 +1,4 @@
+/*
 package com.wsoteam.diet.common.helpers;
 
 import android.graphics.drawable.Drawable;
@@ -15,3 +16,4 @@ public class DrawableAlwaysCrossFadeFactory implements TransitionFactory<Drawabl
         return resourceTransition;
     }
 }
+*/

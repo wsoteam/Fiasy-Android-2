@@ -17,12 +17,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.BranchOfExercises.ObjectHolder;
 import com.wsoteam.diet.POJOSExercises.ArrayOfTiles;
 import com.wsoteam.diet.POJOSExercises.ObjectLocalDatabase;
@@ -129,11 +128,12 @@ public class ActivityWithTiles extends AppCompatActivity {
 
         public void bind(Tile tile, int size) {
             text.setText(tile.getTitle());
-            Glide.with(ActivityWithTiles.this)
-                    .load(tile.getUrl_of_image())
-                    .apply(new RequestOptions()
-                            .placeholder(R.drawable.ex_ic_loading_tile))
-                    .into(topImage);
+            //Glide.with(ActivityWithTiles.this)
+            //        .load(tile.getUrl_of_image())
+            //        .apply(new RequestOptions()
+            //                .placeholder(R.drawable.ex_ic_loading_tile))
+            //        .into(topImage);
+            Picasso.get().load(tile.getUrl_of_image()).centerCrop().into(topImage);
 
         }
     }

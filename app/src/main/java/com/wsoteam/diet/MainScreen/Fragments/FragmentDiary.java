@@ -71,7 +71,6 @@ public class FragmentDiary extends Fragment
   @BindView(R.id.collapsingToolbarLayout) CollapsingToolbarLayout collapsingToolbarLayout;
   @BindView(R.id.vpEatingTimeLine) ViewPager vpEatingTimeLine;
   @BindView(R.id.llSum) LinearLayout llSum;
-  @BindView(R.id.llHead) ConstraintLayout llHead;
   @BindView(R.id.datePicker) HorizontalPicker datePicker;
   @BindView(R.id.btnNotification) ImageView btnNotification;
   @BindView(R.id.flCurrentDayPlan) FrameLayout containerCurrentDayPlan;
@@ -80,7 +79,6 @@ public class FragmentDiary extends Fragment
   private SharedPreferences countOfRun;
   private AlertDialog alertDialogBuyInfo;
   private LinearLayout.LayoutParams layoutParams;
-  private Window window;
   private FragmentTransaction transaction;
   private BottomNavigationView bnvMain;
 
@@ -142,16 +140,7 @@ public class FragmentDiary extends Fragment
     transaction = getChildFragmentManager().beginTransaction();
     transaction.add(R.id.flCurrentDayPlan, currentDayPlanFragment).commit();
 
-    layoutParams = (LinearLayout.LayoutParams) llHead.getLayoutParams();
     bnvMain = getActivity().findViewById(R.id.bnv_main);
-
-    mainappbar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
-      float diff = (float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange();
-      llHead.setAlpha(diff);
-      float offset = (diff * 81) - 81;
-      layoutParams.topMargin = convertDpToPx((int) offset);
-      llHead.setLayoutParams(layoutParams);
-    });
 
     WorkWithFirebaseDB.setFirebaseStateListener();
 
@@ -187,12 +176,6 @@ public class FragmentDiary extends Fragment
     datePicker.setBackgroundColor(Color.TRANSPARENT);
 
     return mainView;
-  }
-
-  private int convertDpToPx(int dp) {
-    float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-        llHead.getResources().getDisplayMetrics());
-    return Math.round(pixels);
   }
 
   private void bindViewPager() {
@@ -243,11 +226,8 @@ public class FragmentDiary extends Fragment
 
     if (currentDayPlanFragment != null) {
       currentDayPlanFragment.showRecipesForDate(dateSelected.getMillis());
-      //Log.d("kkk", "onPageSelected: 0 " + datePicker.getDrawingTime());
-      //Log.d("kkk", "onPageSelected: 1 " + new Date().getTime());
     }
 
-    //Log.d("kkk", "onDateSelected: " + dateSelected.getMillis());
   }
 
   @Override

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,9 +52,10 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
   @BindView(R.id.tabs) TabLayout tabLayout;
   @BindView(R.id.clRecipes) ConstraintLayout activePlan;
   @BindView(R.id.clNotActivePlan) ConstraintLayout notActivePlan;
-  @BindView(R.id.clFinishPlan) ConstraintLayout finishPlan;
+  @BindView(R.id.cvFinishPlan) CardView finishPlan;
   @BindView(R.id.tvPlanName) TextView planName;
   @BindView(R.id.textView154) TextView dayTextView;
+  @BindView(R.id.titleFinishPlan) TextView titleFinishPlan;
 
   private LinearLayoutManager layoutManager;
   private CurrentDayPlanAdapter adapter;
@@ -82,7 +84,8 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
 
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setAdapter(adapter);
-    initData(UserDataHolder.getUserData().getPlan());
+    initData(UserDataHolder.getUserData() != null ?
+        UserDataHolder.getUserData().getPlan() : null);
     return view;
   }
 
@@ -98,9 +101,9 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
 
   View.OnClickListener planListener = new View.OnClickListener() {
     @Override public void onClick(View v) {
-     Intent intent = new Intent(getContext(), DetailPlansActivity.class);
-     intent.putExtra(Config.DIETS_PLAN_INTENT, UserDataHolder.getUserData().getPlan());
-    startActivity(intent);
+      Intent intent = new Intent(getContext(), DetailPlansActivity.class);
+      intent.putExtra(Config.DIETS_PLAN_INTENT, UserDataHolder.getUserData().getPlan());
+      startActivity(intent);
     }
   };
 
@@ -113,6 +116,7 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
         activePlan.setVisibility(View.GONE);
         notActivePlan.setVisibility(View.GONE);
         finishPlan.setVisibility(View.VISIBLE);
+        titleFinishPlan.setText("\"" + plan.getName() + "\"");
       }else {
 
         activePlan.setVisibility(View.VISIBLE);
@@ -212,6 +216,15 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
     WorkWithFirebaseDB.leaveDietPlan();
     UserDataHolder.getUserData().setPlan(null);
     getActivity().startActivity(new Intent(getContext(), BrowsePlansActivity.class));
+  }
+
+  @OnClick(R.id.ivClosePlan)
+  void clickedClose(){
+    WorkWithFirebaseDB.leaveDietPlan();
+    UserDataHolder.getUserData().setPlan(null);
+    activePlan.setVisibility(View.GONE);
+    notActivePlan.setVisibility(View.GONE);
+    finishPlan.setVisibility(View.GONE);
   }
 
   @OnClick(R.id.tvViewPlans)

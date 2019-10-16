@@ -16,8 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import com.amplitude.api.Amplitude;
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.ClaimForm;
@@ -32,11 +31,9 @@ import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -170,7 +167,7 @@ public class DetailFoodActivity extends AppCompatActivity {
                 if (((FavoriteFood) pair.getValue()).getFullInfo().equals(foodItem.getFullInfo())) {
                     currentFavorite = (FavoriteFood) pair.getValue();
                     isFavorite = true;
-                    Glide.with(this).load(R.drawable.ic_fill_favorite).into(ibAddFavorite);
+                    Picasso.get().load(R.drawable.ic_fill_favorite).into(ibAddFavorite);
                 }
             }
 
@@ -344,11 +341,11 @@ public class DetailFoodActivity extends AppCompatActivity {
             case R.id.ibAddFavorite:
                 if (isFavorite) {
                     isFavorite = false;
-                    Glide.with(this).load(R.drawable.ic_empty_favorite).into(ibAddFavorite);
+                    Picasso.get().load(R.drawable.ic_empty_favorite).into(ibAddFavorite);
                     WorkWithFirebaseDB.deleteFavorite(currentFavorite.getKey());
                 } else {
                     isFavorite = true;
-                    Glide.with(this).load(R.drawable.ic_fill_favorite).into(ibAddFavorite);
+                    Picasso.get().load(R.drawable.ic_fill_favorite).into(ibAddFavorite);
                     currentFavorite = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), addFavorite());
                 }
                 break;

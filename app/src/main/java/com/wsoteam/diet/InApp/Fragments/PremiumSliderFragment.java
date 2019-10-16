@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.R;
 
 import butterknife.BindView;
@@ -54,7 +54,7 @@ public class PremiumSliderFragment extends Fragment {
     }
 
     private void fillViews(int position) {
-        Glide.with(getActivity()).load(drawablesForSlider[position]).into(ivPremImage);
+        Picasso.get().load(drawablesForSlider[position]).into(ivPremImage);
         tvPremOnboardingText.setText(arrayOfTexts[position]);
     }
 

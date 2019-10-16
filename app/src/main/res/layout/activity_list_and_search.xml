@@ -81,13 +81,13 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView3"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
-                    app:cardCornerRadius="5dp"
+                    app:cardCornerRadius="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -113,6 +113,9 @@
                             android:drawableLeft="@drawable/ic_search"
                             android:drawablePadding="4dp"
                             android:maxLines="1"
+                            android:fontFamily="@font/roboto"
+                            android:hint="       Поиск"
+                            android:imeOptions="actionSearch"
                             android:singleLine="true"
                             android:textColor="@color/black"
                             android:textColorHint="@color/light_gray" />

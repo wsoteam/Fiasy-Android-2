@@ -1,3 +1,4 @@
+/*
 package com.wsoteam.diet.blur;
 
 import android.content.Context;
@@ -81,3 +82,4 @@ public class BlurTransformation extends BitmapTransformation {
     messageDigest.update((ID + radius + sampling).getBytes(CHARSET));
   }
 }
+*/

@@ -11,11 +11,9 @@ import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.common.helpers.DrawableAlwaysCrossFadeFactory;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 
 import butterknife.BindView;
@@ -61,7 +59,7 @@ public class QuestionActivityFragments extends Fragment {
         return view;
     }
 
-    private void changeProgress(int progress) {
+    protected void changeProgress(int progress) {
         String text = getString(R.string.onboard_activity_level_none);
         int imageResource = R.drawable.ic_activity0;
         switch (progress) {
@@ -94,10 +92,12 @@ public class QuestionActivityFragments extends Fragment {
                 text = getString(R.string.onboard_activity_level_super_up);
                 break;
         }
-        Glide.with(QuestionActivityFragments.this)
-                .load(imageResource)
-                .transition(DrawableTransitionOptions.with(new DrawableAlwaysCrossFadeFactory()))
-                .into(ivImage);
+        //Glide.with(QuestionActivityFragments.this)
+        //        .load(imageResource)
+        //        .transition(DrawableTransitionOptions.with(new DrawableAlwaysCrossFadeFactory()))
+        //        .into(ivImage);
+        //TODO check
+        Picasso.get().load(imageResource).into(ivImage);
         tvActivity.setText(text);
     }
 

@@ -11,9 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DecodeFormat;
-import com.bumptech.glide.request.RequestOptions;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.intro_tut.IntroSlidesAdapter.Slide;
 
@@ -53,12 +51,16 @@ public class IntroSlideFragment extends Fragment {
       throw new IllegalStateException("");
     }
 
-    Glide.with(view)
+    //Glide.with(view)
+    //    .load(slide.image())
+    //    .apply(new RequestOptions()
+    //        .skipMemoryCache(true)
+    //        .format(DecodeFormat.PREFER_RGB_565)
+    //        .centerInside())
+    //    .into(slideImageView);
+  //TODO check
+    Picasso.get()
         .load(slide.image())
-        .apply(new RequestOptions()
-            .skipMemoryCache(true)
-            .format(DecodeFormat.PREFER_RGB_565)
-            .centerInside())
         .into(slideImageView);
 
     slideTitleView.setText(slide.title());

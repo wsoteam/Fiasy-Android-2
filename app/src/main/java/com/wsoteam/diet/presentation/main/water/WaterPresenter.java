@@ -1,58 +1,39 @@
 package com.wsoteam.diet.presentation.main.water;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.widget.SeekBar;
-import android.widget.TextView;
-
 import com.arellomobile.mvp.InjectViewState;
-import com.wsoteam.diet.Config;
-import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.global.BasePresenter;
 
-import ru.terrakok.cicerone.Router;
 
-import static android.content.Context.MODE_PRIVATE;
 
 @InjectViewState
 public class WaterPresenter extends BasePresenter<WaterView> {
 
-    private Router router;
-    private Context context;
-    private SharedPreferences sharedPreferences;
 
-    public WaterPresenter(Context context, Router router) {
-        this.context = context;
-        this.router = router;
-        sharedPreferences = context.getSharedPreferences(Config.WATER_SETTINGS, MODE_PRIVATE);
+    public WaterPresenter() {
+
     }
 
-    float calcXPosition(SeekBar seekBar, int progress, TextView tvWater) {
-        double percent = progress / (double) seekBar.getMax();
-        int offset = seekBar.getThumbOffset();
-        int val = (int) Math.round(percent * (seekBar.getWidth() - 2 * offset));
-        return offset + seekBar.getX() + val - Math.round(percent * offset) - Math.round(percent * tvWater.getWidth() / 3);
+    float getUsersMaxWater() {
+        if (UserDataHolder.getUserData() != null
+            && UserDataHolder.getUserData().getProfile() != null
+            && UserDataHolder.getUserData().getProfile().getMaxWater() >= 1.5
+            && UserDataHolder.getUserData().getProfile().getMaxWater() <= 3) {
+            return UserDataHolder.getUserData().getProfile().getMaxWater();
+        } else {
+            return 2f;
+        }
     }
 
-    void saveWaterParameters(boolean isGlassChecked, int waterCount, boolean isNotificationChecked) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(Config.WATER_REMINDER, isNotificationChecked);
-        editor.putBoolean(Config.WATER_PACK, isGlassChecked);
-        editor.putInt(Config.MAX_WATER_COUNT_STEP, waterCount);
-        editor.apply();
-        getViewState().showMessage(context.getString(R.string.water_screen_settings_saved));
-        getViewState().settingSaved();
+    void saveUsersMaxWater(float water){
+        WorkWithFirebaseDB.setMaxWater(water);
+        if (UserDataHolder.getUserData() != null
+            && UserDataHolder.getUserData().getProfile() != null
+            && UserDataHolder.getUserData().getProfile().getMaxWater() >= 1.5
+            && UserDataHolder.getUserData().getProfile().getMaxWater() <= 3) {
+            UserDataHolder.getUserData().getProfile().setMaxWater(water);
+        }
     }
 
-    boolean getWaterPackParameter() {
-        return sharedPreferences.getBoolean(Config.WATER_PACK, true);
-    }
-
-    boolean getWaterNotificationParameter() {
-        return sharedPreferences.getBoolean(Config.WATER_REMINDER, true);
-    }
-
-    int getWaterProgressStepParameter() {
-        return sharedPreferences.getInt(Config.MAX_WATER_COUNT_STEP, 0);
-    }
 }

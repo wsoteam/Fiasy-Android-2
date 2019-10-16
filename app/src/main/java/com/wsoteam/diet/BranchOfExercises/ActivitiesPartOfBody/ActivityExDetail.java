@@ -8,10 +8,10 @@ import android.text.Html;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.POJOSExercises.Ex;
 import com.wsoteam.diet.R;
 
@@ -50,8 +50,8 @@ public class ActivityExDetail extends AppCompatActivity {
         detail = findViewById(R.id.ex_tvDetailText);
         main_chips = findViewById(R.id.ex_tvDetailChips);
 
-        Glide.with(this).load(ex.getImg_url()).into(imageView);
-        Glide.with(this).load(ex.getUrl_of_logo()).into(imageViewBackHead);
+        Picasso.get().load(ex.getImg_url()).into(imageView);
+        Picasso.get().load(ex.getUrl_of_logo()).into(imageViewBackHead);
 
         title.setText(ex.getTitle());
         basic_muscle.setText(ex.getBasic_muscle());

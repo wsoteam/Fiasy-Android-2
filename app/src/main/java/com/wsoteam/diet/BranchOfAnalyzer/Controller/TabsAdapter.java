@@ -1,5 +1,9 @@
 package com.wsoteam.diet.BranchOfAnalyzer.Controller;
 
+import android.util.Log;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -17,7 +21,11 @@ public class TabsAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int i) {
         return fragments.get(i);
+    }
 
+    @Override
+    public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        super.setPrimaryItem(container, position, object);
     }
 
     @Override

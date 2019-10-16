@@ -15,6 +15,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -221,7 +222,8 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> {
   void bindFields() {
     if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
       profile = UserDataHolder.getUserData().getProfile();
-      getViewState().fillViewsIfProfileNotNull(profile);
+      DietPlan plan = UserDataHolder.getUserData().getPlan();
+      getViewState().fillViewsIfProfileNotNull(profile, plan);
     }
   }
 

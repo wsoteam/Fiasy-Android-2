@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.diary
 
 import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.model.Eating
+import com.wsoteam.diet.model.Water
 import io.reactivex.Flowable
 
 object Meals {
@@ -12,7 +13,7 @@ object Meals {
   fun all(day: Int, month: Int, year: Int): Flowable<MealsDetailedResult> {
     UserDataHolder.getUserData()?.let {
       val meals =
-        arrayOf(it.breakfasts, it.lunches, it.dinners, it.snacks, it.water).filterNotNull()
+        arrayOf(it.breakfasts, it.lunches, it.dinners, it.snacks, it.waters).filterNotNull()
 
       return Flowable.fromArray(meals)
         .flatMap { all -> Flowable.fromIterable(all) }
@@ -42,6 +43,23 @@ object Meals {
     }
 
     return Flowable.empty()
+  }
+
+  fun water(day: Int, month: Int, year: Int): Flowable<Water> {
+    UserDataHolder.getUserData()
+        ?.waters?.let { mapWater ->
+
+      mapWater.keys.forEach { key ->
+        if (mapWater[key]?.day == day
+            && mapWater[key]?.month == month
+            && mapWater[key]?.year == year
+        ) {
+          mapWater[key]?.key = key
+          return Flowable.fromArray(mapWater[key])
+        }
+      }
+    }
+    return Flowable.fromArray(Water(day, month, year, 0f))
   }
 
   data class MealsDetailedResult(

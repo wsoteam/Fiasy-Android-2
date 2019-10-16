@@ -222,7 +222,7 @@
             app:layout_constraintEnd_toStartOf="@+id/tvCarboCount"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView150"
+            app:layout_constraintTop_toBottomOf="@+id/tvPlan"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
@@ -231,7 +231,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="Ежедневная цель - "
+            android:text="Ежедневная норма - "
             android:textColor="#d9424242"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tvUserName"
@@ -247,20 +247,25 @@
             android:text="План питания - "
             android:textColor="#d9424242"
             android:textSize="14sp"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/textView87"
-            app:layout_constraintTop_toBottomOf="@+id/textView87" />
+            app:layout_constraintTop_toBottomOf="@+id/textView87"
+            />
 
         <TextView
-            android:id="@+id/textView150"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvPlan"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_medium"
             android:text="стандартный"
             android:textColor="#d9424242"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView132"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView132"
-            app:layout_constraintTop_toTopOf="@+id/textView132" />
+            app:layout_constraintTop_toTopOf="@+id/textView132"
+            />
 
         <TextView
             android:id="@+id/tvKcalMax"
@@ -279,7 +284,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
-            android:text="белка"
+            android:text="белков"
             android:textColor="#80424242"
             android:textSize="16sp"
             android:visibility="gone"
