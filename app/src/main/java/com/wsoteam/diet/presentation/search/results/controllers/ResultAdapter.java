@@ -4,11 +4,16 @@ import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.wsoteam.diet.App;
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
+import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
+import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import java.util.List;
 
 public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -44,12 +49,22 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((HeaderVH) holder).bind((HeaderObj) foods.get(position));
         break;
       case ITEM_TYPE:
-        ((ResultVH) holder).bind((Result) foods.get(position));
+        ((ResultVH) holder).bind((Result) foods.get(position), new ClickListener() {
+          @Override public void click(int position) {
+              saveInBasket(position);
+          }
+        });
         break;
       case EXPANDABLE_TYPE:
         ((HierarchyVH) holder).bind((Result) foods.get(position));
         break;
     }
+  }
+
+  private void saveInBasket(int position) {
+    BasketDAO basketDAO = App.getInstance().getFoodDatabase().basketDAO();
+    basketDAO.insert(new BasketEntity((Result) foods.get(position), 100, 0));
+    Toast.makeText(context, "saved", Toast.LENGTH_SHORT).show();
   }
 
   @Override public int getItemCount() {
@@ -60,9 +75,10 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     if (foods.get(position) instanceof HeaderObj) {
       return HEADER_TYPE;
     } else if (foods.get(position) instanceof Result) {
-      if (((Result)foods.get(position)).getMeasurementUnits() == null || ((Result)foods.get(position)).getMeasurementUnits().size() < 1){
+      if (((Result) foods.get(position)).getMeasurementUnits() == null
+          || ((Result) foods.get(position)).getMeasurementUnits().size() < 1) {
         return ITEM_TYPE;
-      }else {
+      } else {
         Log.e("LOL", "kekkekeke");
         return EXPANDABLE_TYPE;
       }
