@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 
+import android.text.TextUtils;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -114,7 +115,9 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         if (profile.getEmail() != null) {
             edtEmail.setText(profile.getEmail());
         }
-        if (profile.getPhotoUrl() != null && !profile.getPhotoUrl().equals("default")) {
+        if (profile.getPhotoUrl() != null && !profile.getPhotoUrl().equals("default")
+            && !TextUtils.isEmpty(profile.getPhotoUrl())) {
+
             Picasso.get().load(profile.getPhotoUrl()).into(civProfile);
         } else {
             if (profile.isFemale()) {

@@ -664,6 +664,7 @@
   <string name="user_activity_time_elapsed_wh_wm">%dч</string>
   <string name="user_activity_burned">%d ккал</string>
   <string name="action_add">Добавить</string>
+  <string name="action_done">Готово</string>
   <string name="action_add_to_favorite">Добавить в избранное</string>
   <string name="add_user_activity_done_button">Добавить в дневник</string>
   <string name="add_user_activity_burned_hint">Потрачено калорий</string>

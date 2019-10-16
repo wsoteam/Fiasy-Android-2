@@ -66,31 +66,20 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
                 .getBoolean(Config.STATE_BILLING, false) || PremiumCloseStateSingleton.getInstance().isClosePremium()) {
             cvPremium.setVisibility(View.GONE);
         }
-        ibPremClose.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                PremiumCloseStateSingleton.getInstance().setClosePremium(true);
-                return false;
-            }
+        ibPremClose.setOnTouchListener((view, motionEvent) -> {
+            PremiumCloseStateSingleton.getInstance().setClosePremium(true);
+            return false;
         });
-        ibBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-        btnSettingsPrem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ProfileSettingsActivity.this, ActivitySubscription.class);
-                Box box = new Box();
-                box.setComeFrom(AmplitudaEvents.view_prem_settings);
-                box.setBuyFrom(EventProperties.trial_from_settings);
-                box.setOpenFromPremPart(true);
-                box.setOpenFromIntrodaction(false);
-                intent.putExtra(Config.TAG_BOX, box);
-                startActivity(intent);
-            }
+        ibBack.setOnClickListener(view -> onBackPressed());
+        btnSettingsPrem.setOnClickListener(view -> {
+            Intent intent = new Intent(ProfileSettingsActivity.this, ActivitySubscription.class);
+            Box box = new Box();
+            box.setComeFrom(AmplitudaEvents.view_prem_settings);
+            box.setBuyFrom(EventProperties.trial_from_settings);
+            box.setOpenFromPremPart(true);
+            box.setOpenFromIntrodaction(false);
+            intent.putExtra(Config.TAG_BOX, box);
+            startActivity(intent);
         });
     }
 }

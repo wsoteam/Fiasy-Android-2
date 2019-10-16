@@ -3,7 +3,6 @@ package com.wsoteam.diet.presentation.diary
 import android.graphics.Rect
 import android.os.Bundle
 import android.text.TextUtils
-import android.text.style.ImageSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView.State
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
 import com.wsoteam.diet.utils.FiasyDateUtils
+import com.wsoteam.diet.utils.ImageSpan
 import com.wsoteam.diet.utils.RichTextUtils.replaceWithIcon
 import com.wsoteam.diet.utils.dp
 import com.wsoteam.diet.utils.getVectorIcon
@@ -50,13 +50,7 @@ class DiaryFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    val dropdownIcon = requireContext().getVectorIcon(R.drawable.ic_arrow_drop_down_white_24dp)
-    dropdownIcon.setBounds(0, 0, dp(requireContext(), 14f), dp(requireContext(), 14f))
-
-    val dropdownSpan = ImageSpan(dropdownIcon, ImageSpan.ALIGN_BASELINE)
-
     toolbar = view.findViewById(R.id.toolbar)
-    toolbar.title = TextUtils.concat(toolbar.title, " ", replaceWithIcon(" ", dropdownSpan))
     toolbar.setOnClickListener { toggleCalendar() }
 
     container = view.findViewById(R.id.container)
@@ -78,6 +72,7 @@ class DiaryFragment : Fragment() {
         calendar.set(Calendar.MONTH, firstDayOfNewMonth.month)
 
         toolbar.title = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
+        updateTitleExpandStateIcon()
       }
 
       override fun onDayClick(dateClicked: Date) {
@@ -130,6 +125,7 @@ class DiaryFragment : Fragment() {
       calendar.timeInMillis = System.currentTimeMillis()
 
       toolbar.title = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
+      updateTitleExpandStateIcon()
     }
   }
 
@@ -147,6 +143,21 @@ class DiaryFragment : Fragment() {
 
       toolbar.title = formatter.format(calendar.timeInMillis)
     }
+
+    updateTitleExpandStateIcon()
+  }
+
+  private fun updateTitleExpandStateIcon() {
+    val targetDrawable = if (!isCalendarExpanded)
+      R.drawable.ic_arrow_drop_down_white_24dp
+    else
+      R.drawable.ic_arrow_drop_up_white_24dp
+
+    val dropdownIcon = requireContext().getVectorIcon(targetDrawable)
+    dropdownIcon.setBounds(0, 0, dp(requireContext(), 16f), dp(requireContext(), 16f))
+
+    val dropdownSpan = ImageSpan(dropdownIcon, ImageSpan.ALIGN_BASELINE)
+    toolbar.title = TextUtils.concat(toolbar.title, " ", replaceWithIcon(" ", dropdownSpan))
   }
 
 }

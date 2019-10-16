@@ -16,6 +16,8 @@ import com.wsoteam.diet.R.string
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity
 import com.wsoteam.diet.utils.InputValidation
 import com.wsoteam.diet.utils.InputValidation.MinLengthValidation
+import com.wsoteam.diet.utils.ViewUtils
+import com.wsoteam.diet.utils.hideKeyboard
 
 class QuestionNameFragments : Fragment() {
 
@@ -61,6 +63,7 @@ class QuestionNameFragments : Fragment() {
       .putString(Config.ONBOARD_PROFILE_NAME, usernameView.editText?.text?.toString() ?: "")
       .apply()
 
+    view?.hideKeyboard()
     (requireActivity() as QuestionsActivity).nextQuestion()
   }
 

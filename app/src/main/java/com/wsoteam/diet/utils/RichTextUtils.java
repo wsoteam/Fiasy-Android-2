@@ -97,6 +97,12 @@ public class RichTextUtils {
     return editable;
   }
 
+  public static Spannable replaceWithIcon(CharSequence text, DynamicDrawableSpan span){
+    Spannable editable = edit(text);
+    editable.setSpan(span, 0, text.length(), 0);
+    return editable;
+  }
+
   public static Spannable setTextColor(@NonNull CharSequence text, @
       NonNull Context context,
       @ColorRes int colorRes) {

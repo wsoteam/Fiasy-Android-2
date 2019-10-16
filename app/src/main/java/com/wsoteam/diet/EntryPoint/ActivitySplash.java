@@ -250,8 +250,14 @@ public class ActivitySplash extends BaseActivity {
       } else {
         sex = UserProperty.q_male_status_male;
       }
+
       UserProperty.setUserProperties(sex, height, weight, age, active, goal,
-          FirebaseAuth.getInstance().getCurrentUser().getUid());
+          FirebaseAuth.getInstance().getCurrentUser().getUid(),
+          String.valueOf(profile.getMaxKcal()),
+          String.valueOf(profile.getMaxProt()),
+          String.valueOf(profile.getMaxFat()),
+          String.valueOf(profile.getMaxCarbo()));
+
       UserProperty.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
     } catch (Exception ex) {
       Log.e("LOL", ex.getLocalizedMessage());
@@ -498,7 +504,7 @@ public class ActivitySplash extends BaseActivity {
       super.onPostExecute(aVoid);
       getSharedPreferences(Config.IS_NEED_SHOW_LOADING_SPLASH, MODE_PRIVATE).edit()
           .putBoolean(Config.IS_NEED_SHOW_LOADING_SPLASH, false)
-          .commit();
+          .apply();
       openMainScreen();
     }
   }

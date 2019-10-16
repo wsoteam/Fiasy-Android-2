@@ -135,7 +135,7 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
         goal = UserProperty.q_goal_status2;
       } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_hard))) {
         goal = UserProperty.q_goal_status3;
-      } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_hard_up))) {
+      } else if (userGoal.equalsIgnoreCase( getResources().getString(R.string.dif_level_hard_up))) {
         goal = UserProperty.q_goal_status4;
       }
 
@@ -144,8 +144,14 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
       } else {
         sex = UserProperty.q_male_status_male;
       }
+
       UserProperty.setUserProperties(sex, height, weight, age, active, goal,
-              FirebaseAuth.getInstance().getCurrentUser().getUid());
+          FirebaseAuth.getInstance().getCurrentUser().getUid(),
+          String.valueOf(profile.getMaxKcal()),
+          String.valueOf(profile.getMaxProt()),
+          String.valueOf(profile.getMaxFat()),
+          String.valueOf(profile.getMaxCarbo()));
+
       UserProperty.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
     } catch (Exception ex) {
       Log.e("LOL", ex.getLocalizedMessage());

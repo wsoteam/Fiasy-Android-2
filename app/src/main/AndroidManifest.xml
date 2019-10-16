@@ -313,23 +313,32 @@
     <activity
         android:name=".presentation.profile.settings.ProfileSettingsActivity"
         android:screenOrientation="portrait"
-        android:theme="@style/DetailFood" />
-
+        android:theme="@style/ProfileActivity" />
     <activity
         android:name=".presentation.profile.about.AboutActivity"
         android:screenOrientation="portrait"
-        android:theme="@style/DetailFood"
+        android:theme="@style/ChangeNorm"
         android:windowSoftInputMode="adjustPan" />
-
     <activity
         android:name=".presentation.profile.help.HelpActivity"
         android:screenOrientation="portrait"
         android:theme="@style/DetailFood" />
-
     <activity
         android:name=".presentation.profile.help.detail.DetailActivity"
         android:screenOrientation="portrait"
         android:theme="@style/DetailFood" />
+
+    <activity
+        android:name=".presentation.profile.norm.choise.activity.ActivActivity"
+        android:theme="@style/ChangeGoalActivity" />
+    <activity
+        android:name=".presentation.profile.norm.choise.goal.GoalActivity"
+        android:theme="@style/ChangeGoalActivity" />
+    <activity
+        android:name=".presentation.profile.norm.ChangeNormActivity"
+        android:theme="@style/ChangeNorm"
+        android:windowSoftInputMode="adjustPan" />
+
   </application>
 
 </manifest>
