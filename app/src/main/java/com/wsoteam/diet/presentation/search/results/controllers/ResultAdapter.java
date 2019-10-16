@@ -29,11 +29,13 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private final int EXPANDABLE_TYPE = 2;
   private Context context;
   private List<BasketEntity> savedFood;
+  BasketDAO basketDAO;
 
   public ResultAdapter(List<ISearchResult> foods, Context context, List<BasketEntity> savedFood) {
     this.foods = foods;
     this.context = context;
     this.savedFood = savedFood;
+    basketDAO = App.getInstance().getFoodDatabase().basketDAO();
   }
 
   @NonNull @Override
@@ -57,15 +59,16 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((HeaderVH) holder).bind((HeaderObj) foods.get(position));
         break;
       case ITEM_TYPE:
-        ((ResultVH) holder).bind((Result) foods.get(position), getSaveStatus((Result) foods.get(position)), new ClickListener() {
-          @Override public void click(int position, boolean isNeedSave) {
-            if (isNeedSave) {
-              save(position);
-            } else {
-              delete(position);
-            }
-          }
-        });
+        ((ResultVH) holder).bind((Result) foods.get(position),
+            getSaveStatus((Result) foods.get(position)), new ClickListener() {
+              @Override public void click(int position, boolean isNeedSave) {
+                if (isNeedSave) {
+                  save(position);
+                } else {
+                  delete(position);
+                }
+              }
+            });
         break;
       case EXPANDABLE_TYPE:
         ((HierarchyVH) holder).bind((Result) foods.get(position));
@@ -76,7 +79,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private boolean getSaveStatus(Result result) {
     boolean isSaved = false;
     for (int i = 0; i < savedFood.size(); i++) {
-      if (result.getId() == savedFood.get(i).getServerId()){
+      if (result.getId() == savedFood.get(i).getId()) {
         isSaved = true;
         break;
       }
@@ -85,13 +88,31 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   }
 
   private void delete(int position) {
+    Completable.fromAction(new Action() {
+      @Override
+      public void run() throws Exception {
+        basketDAO.deleteById(((Result)foods.get(position)).getId());
+      }
+    }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe();
+  }
+
+  private BasketEntity getEntity(int position) {
+    BasketEntity basketEntity = new BasketEntity();
+    for (int i = 0; i < savedFood.size(); i++) {
+      if (savedFood.get(i).getId() == ((Result) foods.get(position)).getId()){
+        basketEntity = new BasketEntity((Result) foods.get(position), 100, 0);
+        break;
+      }
+    }
+    return basketEntity;
   }
 
   private void save(int position) {
     Completable.fromAction(new Action() {
       @Override
       public void run() throws Exception {
-        BasketDAO basketDAO = App.getInstance().getFoodDatabase().basketDAO();
         basketDAO.insert(new BasketEntity((Result) foods.get(position), 100, 0));
       }
     }).subscribeOn(Schedulers.io())

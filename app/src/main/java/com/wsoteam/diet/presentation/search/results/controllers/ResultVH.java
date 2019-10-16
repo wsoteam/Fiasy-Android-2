@@ -35,12 +35,12 @@ public class ResultVH extends RecyclerView.ViewHolder {
     if (food.getBrand() != null && !food.getBrand().getName().equals("")) {
       tvTitle.append(" (" + food.getBrand().getName() + ")");
     }
+    tbSelect.setOnCheckedChangeListener(null);
     tbSelect.setChecked(isChecked);
-  }
-
-  @OnCheckedChanged(R.id.tbSelect) public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-    if (b){
-      clickListener.click(getAdapterPosition(), b);
-    }
+    tbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      @Override public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        clickListener.click(getAdapterPosition(), b);
+      }
+    });
   }
 }

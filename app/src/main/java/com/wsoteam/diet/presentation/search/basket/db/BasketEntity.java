@@ -6,8 +6,8 @@ import com.wsoteam.diet.common.networking.food.POJO.Result;
 
 @Entity
 public class BasketEntity {
-  @PrimaryKey private long id;
-  private int serverId;
+  @PrimaryKey
+  private long id;
   private String name;
   private String brand;
   private boolean isLiquid;
@@ -37,7 +37,7 @@ public class BasketEntity {
   }
 
   public BasketEntity(Result result, int weight, int customPortion, int eatingType) {
-    serverId = result.getId();
+    id = Long.valueOf(result.getId());
     name = result.getName();
     if (result.getBrand() != null) {
       brand = result.getBrand().getName();
@@ -63,7 +63,7 @@ public class BasketEntity {
   }
 
   public BasketEntity(Result result, int weight, int eatingType) {
-    serverId = result.getId();
+    id = Long.valueOf(result.getId());
     name = result.getName();
     if (result.getBrand() != null) {
       brand = result.getBrand().getName();
@@ -94,14 +94,6 @@ public class BasketEntity {
 
   public void setId(long id) {
     this.id = id;
-  }
-
-  public int getServerId() {
-    return serverId;
-  }
-
-  public void setServerId(int serverId) {
-    this.serverId = serverId;
   }
 
   public String getName() {
