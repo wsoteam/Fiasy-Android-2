@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.main.water.WaterActivity;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
@@ -197,6 +198,7 @@ public class BodyCalculates {
 
     //Log.d(TAG, "calculateNew: maxFat = " + fat + " maxProtein = " + protein + " maxCarbo = " + carbohydrate);
 
+    profile.setMaxWater(WaterActivity.DEFAULT_NORMA);
     profile.setWaterCount(maxWater);
     profile.setMaxKcal((int)result);
     profile.setMaxFat((int) fat);
