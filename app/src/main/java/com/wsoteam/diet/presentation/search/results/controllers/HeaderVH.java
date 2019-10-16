@@ -12,11 +12,11 @@ import butterknife.ButterKnife;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 
-public class HeaderViewHolder extends RecyclerView.ViewHolder {
+public class HeaderVH extends RecyclerView.ViewHolder {
   @BindView(R.id.tvTitle) TextView tvTitle;
   @BindView(R.id.ivLastFood) ImageView ivLastFood;
 
-  public HeaderViewHolder(@NonNull LayoutInflater layoutInflater, ViewGroup parent) {
+  public HeaderVH(@NonNull LayoutInflater layoutInflater, ViewGroup parent) {
     super(layoutInflater.inflate(R.layout.item_search_header, parent, false));
     ButterKnife.bind(this, itemView);
   }

@@ -1,7 +1,6 @@
-package com.wsoteam.diet.presentation.search.results.controllers;
+package com.wsoteam.diet.presentation.search.basket.controller;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,13 +11,13 @@ import butterknife.ButterKnife;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 
-public class ResultViewHolder extends RecyclerView.ViewHolder {
+public class BasketItemVH extends RecyclerView.ViewHolder {
   @BindView(R.id.tvTitle) TextView tvTitle;
   @BindView(R.id.tvPortion) TextView tvPortion;
   @BindView(R.id.tvKcal) TextView tvKcal;
   @BindView(R.id.ivSelect) ImageView ivSelect;
 
-  public ResultViewHolder(@NonNull LayoutInflater layoutInflater, ViewGroup viewGroup) {
+  public BasketItemVH(@NonNull LayoutInflater layoutInflater, ViewGroup viewGroup) {
     super(layoutInflater.inflate(R.layout.item_search_result, viewGroup, false));
     ButterKnife.bind(this, itemView);
   }
