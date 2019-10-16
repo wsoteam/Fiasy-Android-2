@@ -253,10 +253,10 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
     @Override
     public void fillViewsIfProfileNotNull(Profile profile, DietPlan plan) {
-        tvKcalMax.setText(String.valueOf(profile.getMaxKcal()) + " ккал");
-        tvCarboCount.setText(String.valueOf(profile.getMaxCarbo()) + " г");
-        tvFatCount.setText(String.valueOf(profile.getMaxFat()) + " г");
-        tvProtCount.setText(String.valueOf(profile.getMaxProt()) + " г");
+        tvKcalMax.setText(profile.getMaxKcal() + " ккал");
+        tvCarboCount.setText(profile.getMaxCarbo() + " г");
+        tvFatCount.setText(profile.getMaxFat() + " г");
+        tvProtCount.setText(profile.getMaxProt() + " г");
         if (profile.getFirstName().equals("default")) {
             tvUserName.setText("Введите Ваше имя");
         } else {
