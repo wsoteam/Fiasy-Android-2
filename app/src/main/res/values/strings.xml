@@ -835,6 +835,7 @@
     <string name="srch_ml">мл</string>
     <string name="srch_gramm">г</string>
   <string name="srch_add_to_basket">Добавить</string>
+  <string name="srch_basket_title">Выбранные продукты</string>
 
 
   <string-array name="settings_items">
