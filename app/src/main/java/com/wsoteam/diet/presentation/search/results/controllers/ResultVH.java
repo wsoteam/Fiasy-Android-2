@@ -27,7 +27,7 @@ public class ResultVH extends RecyclerView.ViewHolder {
     ButterKnife.bind(this, itemView);
   }
 
-  public void bind(Result food,
+  public void bind(Result food, boolean isChecked,
       ClickListener clickListener) {
     this.clickListener = clickListener;
     tvTitle.setText(food.getName());
@@ -35,6 +35,7 @@ public class ResultVH extends RecyclerView.ViewHolder {
     if (food.getBrand() != null && !food.getBrand().getName().equals("")) {
       tvTitle.append(" (" + food.getBrand().getName() + ")");
     }
+    tbSelect.setChecked(isChecked);
   }
 
   @OnCheckedChanged(R.id.tbSelect) public void onCheckedChanged(CompoundButton compoundButton, boolean b) {

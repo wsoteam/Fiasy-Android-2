@@ -34,7 +34,6 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     this.foods = foods;
     this.context = context;
     this.savedFood = savedFood;
-    Log.e("LOL", String.valueOf(savedFood.size()));
   }
 
   @NonNull @Override
@@ -58,7 +57,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((HeaderVH) holder).bind((HeaderObj) foods.get(position));
         break;
       case ITEM_TYPE:
-        ((ResultVH) holder).bind((Result) foods.get(position), new ClickListener() {
+        ((ResultVH) holder).bind((Result) foods.get(position), getSaveStatus((Result) foods.get(position)), new ClickListener() {
           @Override public void click(int position, boolean isNeedSave) {
             if (isNeedSave) {
               save(position);
@@ -72,6 +71,17 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((HierarchyVH) holder).bind((Result) foods.get(position));
         break;
     }
+  }
+
+  private boolean getSaveStatus(Result result) {
+    boolean isSaved = false;
+    for (int i = 0; i < savedFood.size(); i++) {
+      if (result.getId() == savedFood.get(i).getServerId()){
+        isSaved = true;
+        break;
+      }
+    }
+    return isSaved;
   }
 
   private void delete(int position) {
@@ -101,7 +111,6 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
           || ((Result) foods.get(position)).getMeasurementUnits().size() < 1) {
         return ITEM_TYPE;
       } else {
-        Log.e("LOL", "kekkekeke");
         return EXPANDABLE_TYPE;
       }
     } else {
