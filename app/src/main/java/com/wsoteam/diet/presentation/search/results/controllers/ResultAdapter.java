@@ -29,13 +29,15 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private final int EXPANDABLE_TYPE = 2;
   private Context context;
   private List<BasketEntity> savedFood;
-  BasketDAO basketDAO;
+  private BasketDAO basketDAO;
+  private BasketUpdater basketUpdater;
 
-  public ResultAdapter(List<ISearchResult> foods, Context context, List<BasketEntity> savedFood) {
+  public ResultAdapter(List<ISearchResult> foods, Context context, List<BasketEntity> savedFood, BasketUpdater basketUpdater) {
     this.foods = foods;
     this.context = context;
     this.savedFood = savedFood;
     basketDAO = App.getInstance().getFoodDatabase().basketDAO();
+    this.basketUpdater = basketUpdater;
   }
 
   @NonNull @Override
@@ -91,33 +93,42 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     Completable.fromAction(new Action() {
       @Override
       public void run() throws Exception {
-        basketDAO.deleteById(((Result)foods.get(position)).getId());
+        BasketEntity basketEntity = new BasketEntity((Result) foods.get(position), 100, 0);
+        basketDAO.delete(basketEntity);
+        removeItem(basketEntity);
       }
     }).subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe();
   }
 
-  private BasketEntity getEntity(int position) {
-    BasketEntity basketEntity = new BasketEntity();
+  private void removeItem(BasketEntity basketEntity) {
     for (int i = 0; i < savedFood.size(); i++) {
-      if (savedFood.get(i).getId() == ((Result) foods.get(position)).getId()){
-        basketEntity = new BasketEntity((Result) foods.get(position), 100, 0);
+      if (savedFood.get(i).getId() == basketEntity.getId()){
+        savedFood.remove(i);
         break;
       }
     }
-    return basketEntity;
+    basketUpdater.getCurrentSize(savedFood.size());
   }
+
 
   private void save(int position) {
     Completable.fromAction(new Action() {
       @Override
       public void run() throws Exception {
-        basketDAO.insert(new BasketEntity((Result) foods.get(position), 100, 0));
+        BasketEntity basketEntity = new BasketEntity((Result) foods.get(position), 100, 0);
+        basketDAO.insert(basketEntity);
+        addNewItem(basketEntity);
       }
     }).subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe();
+  }
+
+  private void addNewItem(BasketEntity basketEntity) {
+    savedFood.add(basketEntity);
+    basketUpdater.getCurrentSize(savedFood.size());
   }
 
   @Override public int getItemCount() {

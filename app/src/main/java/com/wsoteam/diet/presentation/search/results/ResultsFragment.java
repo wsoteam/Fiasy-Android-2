@@ -27,6 +27,7 @@ import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
+import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater;
 import com.wsoteam.diet.presentation.search.results.controllers.ResultAdapter;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -74,9 +75,25 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
   private void updateUI() {
     List<ISearchResult> foods = new ArrayList<>();
-    itemAdapter = new ResultAdapter(foods, getActivity(), new ArrayList<BasketEntity>());
+    itemAdapter = new ResultAdapter(foods, getActivity(), new ArrayList<BasketEntity>(),
+        new BasketUpdater() {
+          @Override public void getCurrentSize(int size) {
+            updateBasket(size);
+          }
+        });
     rvBlocks.setLayoutManager(new LinearLayoutManager(getContext()));
     rvBlocks.setAdapter(itemAdapter);
+  }
+
+  private void updateBasket(int size) {
+    if (size > 0) {
+      if (cvBasket.getVisibility() == View.GONE) {
+        cvBasket.setVisibility(View.VISIBLE);
+      }
+      tvCounter.setText(String.valueOf(size));
+    } else if (cvBasket.getVisibility() == View.VISIBLE) {
+      cvBasket.setVisibility(View.GONE);
+    }
   }
 
   private void hideMessageUI() {
@@ -131,7 +148,12 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   }
 
   private void updateAdapter(List<Result> t, List<BasketEntity> basketEntities) {
-    rvBlocks.setAdapter(itemAdapter = new ResultAdapter(createHeadersArray(t), getActivity(), basketEntities));
+    rvBlocks.setAdapter(itemAdapter = new ResultAdapter(createHeadersArray(t), getActivity(),
+        basketEntities, new BasketUpdater() {
+      @Override public void getCurrentSize(int size) {
+        updateBasket(size);
+      }
+    }));
   }
 
   private List<ISearchResult> createHeadersArray(List<Result> t) {
