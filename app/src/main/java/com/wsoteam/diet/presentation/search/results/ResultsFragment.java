@@ -1,8 +1,12 @@
 package com.wsoteam.diet.presentation.search.results;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,9 +102,14 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     }
   }
 
-  private String getPaintedString(int size) {
-    getActivity().getResources().getString(R.string.srch_basket_card);
-    Spannable spannable = new SpannableString();
+  private Spannable getPaintedString(int size) {
+    String string = getActivity().getResources().getString(R.string.srch_basket_card, size);
+    int positionPaint = string.indexOf(" ") + 1;
+    Spannable spannable = new SpannableString(string);
+    spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.srch_painted_string)), positionPaint,
+        string.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    spannable.setSpan(new UnderlineSpan(), 0, string.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    return spannable;
   }
 
   private void hideMessageUI() {
