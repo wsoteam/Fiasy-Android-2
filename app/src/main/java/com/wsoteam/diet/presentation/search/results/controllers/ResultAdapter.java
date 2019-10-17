@@ -70,7 +70,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((ResultVH) holder).bind((Result) foods.get(position),
             getSaveStatus((Result) foods.get(position)), new ClickListener() {
               @Override public void click(int position, boolean isNeedSave) {
-                BasketEntity basketEntity = new BasketEntity((Result) foods.get(position), 100, 0);
+                BasketEntity basketEntity = new BasketEntity((Result) foods.get(position), 100, 0, -1);
                 if (isNeedSave) {
                   save(basketEntity);
                 } else {
@@ -108,7 +108,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     Completable.fromAction(new Action() {
       @Override
       public void run() throws Exception {
-        basketDAO.delete(basketEntity);
+        basketDAO.deleteById(basketEntity.getServerId(), basketEntity.getDeepId());
       }
     }).subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -129,7 +129,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
   private void removeItem(BasketEntity basketEntity) {
     for (int i = 0; i < savedFood.size(); i++) {
-      if (savedFood.get(i).getId() == basketEntity.getId()) {
+      if (savedFood.get(i).getServerId() == basketEntity.getServerId() && savedFood.get(i).getDeepId() == basketEntity.getDeepId()) {
         savedFood.remove(i);
         break;
       }

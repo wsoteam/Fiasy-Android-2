@@ -6,8 +6,10 @@ import com.wsoteam.diet.common.networking.food.POJO.Result;
 
 @Entity
 public class BasketEntity {
-  @PrimaryKey
+  @PrimaryKey(autoGenerate = true)
   private long id;
+  private int serverId;
+  private int deepId;
   private String name;
   private String brand;
   private boolean isLiquid;
@@ -36,8 +38,7 @@ public class BasketEntity {
   public BasketEntity() {
   }
 
-  public BasketEntity(Result result, int weight, int customPortion, int eatingType) {
-    id = Long.valueOf(result.getId());
+  public BasketEntity(Result result, int weight, int customPortion, int eatingType, int deepId) {
     name = result.getName();
     if (result.getBrand() != null) {
       brand = result.getBrand().getName();
@@ -60,10 +61,11 @@ public class BasketEntity {
     isCustomPortion = true;
     this.customPortion = customPortion;
     this.eatingType = eatingType;
+    serverId = result.getId();
+    this.deepId = deepId;
   }
 
-  public BasketEntity(Result result, int weight, int eatingType) {
-    id = Long.valueOf(result.getId());
+  public BasketEntity(Result result, int weight, int eatingType, int deepId) {
     name = result.getName();
     if (result.getBrand() != null) {
       brand = result.getBrand().getName();
@@ -86,14 +88,28 @@ public class BasketEntity {
     isCustomPortion = false;
     customPortion = -1;
     this.eatingType = eatingType;
+    serverId = result.getId();
+    this.deepId = deepId;
+  }
+
+  public int getServerId() {
+    return serverId;
+  }
+
+  public void setServerId(int serverId) {
+    this.serverId = serverId;
+  }
+
+  public int getDeepId() {
+    return deepId;
+  }
+
+  public void setDeepId(int deepId) {
+    this.deepId = deepId;
   }
 
   public long getId() {
     return id;
-  }
-
-  public void setId(long id) {
-    this.id = id;
   }
 
   public String getName() {

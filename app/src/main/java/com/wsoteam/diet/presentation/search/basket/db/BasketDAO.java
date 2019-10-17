@@ -16,8 +16,8 @@ public interface BasketDAO {
   List<BasketEntity> getAll();
 
 
-  @Query("DELETE FROM basketentity WHERE id = :id")
-  void deleteById(long id);
+  @Query("DELETE FROM basketentity WHERE serverId = :id AND deepId = :deepId")
+  void deleteById(int id, int deepId);
 
   @Delete
   void delete(BasketEntity food);
