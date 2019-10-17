@@ -60,12 +60,14 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
 
     @Override
     public void onBindViewHolder(@NonNull GroupsAdapter.GroupsViewHolder holder, int position) {
+        Log.d("kkk", "onBindViewHolder: " + position);
         holder.bind(position);
     }
 
     @Override
     public int getItemCount() {
-        return groupsRecipes.size();
+        if (groupsRecipes != null) return groupsRecipes.size();
+        else return 0;
     }
 
 

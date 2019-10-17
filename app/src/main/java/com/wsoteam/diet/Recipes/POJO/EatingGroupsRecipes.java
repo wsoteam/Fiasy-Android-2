@@ -59,10 +59,10 @@ public class EatingGroupsRecipes implements GroupsRecipes {
         listDinner.setListrecipes(dinner);
         listSnack.setListrecipes(snack);
 
-        listRecipesGroups.add(listBreakfast);
-        listRecipesGroups.add(listLunch);
-        listRecipesGroups.add(listDinner);
-        listRecipesGroups.add(listSnack);
+        if (breakfast.size() > 0) listRecipesGroups.add(listBreakfast);
+        if (lunch.size() > 0) listRecipesGroups.add(listLunch);
+        if (dinner.size() > 0) listRecipesGroups.add(listDinner);
+        if (snack.size() > 0) listRecipesGroups.add(listSnack);
     }
 
     private void select(RecipeItem recipe,

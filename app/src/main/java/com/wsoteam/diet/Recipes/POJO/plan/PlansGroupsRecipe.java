@@ -1,8 +1,10 @@
 package com.wsoteam.diet.Recipes.POJO.plan;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
+import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -36,32 +39,30 @@ public class PlansGroupsRecipe implements GroupsRecipes {
     List<RecipeItem> dinner;
     List<RecipeItem> snack;
 
-    public PlansGroupsRecipe(ListRecipes listRecipes, DietPlan plan) {
+    public PlansGroupsRecipe(ListRecipes listRecipes, DietPlan plan, Context context) {
 
 
         int days = plan.getCountDays();
         listRecipesGroups = new ArrayList<>();
 
-        ListRecipes listBreakfast = new ListRecipes("Завтрак");
         breakfast = new ArrayList<>();
-
-        ListRecipes listLunch = new ListRecipes("Обед");
-        lunch = new ArrayList<>();
-
-        ListRecipes listDinner = new ListRecipes("Ужин");
-        dinner = new ArrayList<>();
-
-        ListRecipes listSnack = new ListRecipes("Перекус");
-        snack = new ArrayList<>();
-
+        ListRecipes listBreakfast = new ListRecipes(context.getString(R.string.breakfast));
         listBreakfast.setListrecipes(breakfast);
-        listLunch.setListrecipes(lunch);
-        listDinner.setListrecipes(dinner);
-        listSnack.setListrecipes(snack);
-
         listRecipesGroups.add(listBreakfast);
+
+        lunch = new ArrayList<>();
+        ListRecipes listLunch = new ListRecipes(context.getString(R.string.lunch));
+        listLunch.setListrecipes(lunch);
         listRecipesGroups.add(listLunch);
+
+        dinner = new ArrayList<>();
+        ListRecipes listDinner = new ListRecipes(context.getString(R.string.dinner));
+        listDinner.setListrecipes(dinner);
         listRecipesGroups.add(listDinner);
+
+        snack = new ArrayList<>();
+        ListRecipes listSnack = new ListRecipes(context.getString(R.string.snack));
+        listSnack.setListrecipes(snack);
         listRecipesGroups.add(listSnack);
 
 
@@ -69,7 +70,7 @@ public class PlansGroupsRecipe implements GroupsRecipes {
              listRecipes.getListrecipes()) {
 
             if (recipe.getName().equals("name")){
-                Log.d("kkk", "PlansGroupsRecipe: default name");
+                //Log.d("kkk", "PlansGroupsRecipe: default name");
                 continue;
             }
 
@@ -96,14 +97,20 @@ public class PlansGroupsRecipe implements GroupsRecipes {
         Collections.shuffle(snack);
 
         recipeForDays = new ArrayList<>();
-        buffer = new HashSet<>();
-        int bufIndex = 0;
-        for (int i = 0; i < days; i++, bufIndex++){
-            if (bufIndex > 0){
-                buffer = new HashSet<>();
-                bufIndex = 0;
+        if (Locale.getDefault().getLanguage().equals("ru")) {
+            buffer = new HashSet<>();
+            int bufIndex = 0;
+            for (int i = 0; i < days; i++, bufIndex++) {
+                if (bufIndex > 0) {
+                    buffer = new HashSet<>();
+                    bufIndex = 0;
+                }
+                recipeForDays.add(selectRecipe(buffer));
             }
-            recipeForDays.add(selectRecipe(buffer));
+        } else {
+            for (int i = 0; i < days; i++) {
+                recipeForDays.add(selectRecipe(listRecipes));
+            }
         }
 
         recipeItemSet = new HashSet<>();
@@ -113,6 +120,22 @@ public class PlansGroupsRecipe implements GroupsRecipes {
         }
 
     }
+
+    RecipeForDay selectRecipe(ListRecipes listRecipes){
+
+        RecipeForDay forDay = new RecipeForDay();
+        Collections.shuffle(listRecipes.getListrecipes());
+        forDay.setBreakfast(listRecipes.getListrecipes().subList(0, 3));
+        Collections.shuffle(listRecipes.getListrecipes());
+        forDay.setLunch(listRecipes.getListrecipes().subList(0, 3));
+        Collections.shuffle(listRecipes.getListrecipes());
+        forDay.setDinner(listRecipes.getListrecipes().subList(0, 3));
+        Collections.shuffle(listRecipes.getListrecipes());
+        forDay.setSnack(listRecipes.getListrecipes().subList(0, 3));
+
+        return forDay;
+    }
+
 
     RecipeForDay selectRecipe(Set<RecipeItem> buffer){
         List<RecipeItem> breakfast = new ArrayList<>();
