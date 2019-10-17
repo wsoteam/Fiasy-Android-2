@@ -36,12 +36,14 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private BasketDAO basketDAO;
   private BasketUpdater basketUpdater;
 
-  public ResultAdapter(List<ISearchResult> foods, Context context, List<BasketEntity> savedFood, BasketUpdater basketUpdater) {
+  public ResultAdapter(List<ISearchResult> foods, Context context, List<BasketEntity> savedFood,
+      BasketUpdater basketUpdater) {
     this.foods = foods;
     this.context = context;
     basketDAO = App.getInstance().getFoodDatabase().basketDAO();
     this.basketUpdater = basketUpdater;
     this.savedFood = savedFood;
+    basketUpdater.getCurrentSize(savedFood.size());
   }
 
   @NonNull @Override
@@ -119,14 +121,13 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
   private void removeItem(BasketEntity basketEntity) {
     for (int i = 0; i < savedFood.size(); i++) {
-      if (savedFood.get(i).getId() == basketEntity.getId()){
+      if (savedFood.get(i).getId() == basketEntity.getId()) {
         savedFood.remove(i);
         break;
       }
     }
     basketUpdater.getCurrentSize(savedFood.size());
   }
-
 
   private void save(BasketEntity basketEntity) {
     Completable.fromAction(new Action() {

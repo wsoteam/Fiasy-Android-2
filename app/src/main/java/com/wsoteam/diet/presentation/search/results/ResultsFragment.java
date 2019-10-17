@@ -1,6 +1,8 @@
 package com.wsoteam.diet.presentation.search.results;
 
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,10 +92,15 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
       if (cvBasket.getVisibility() == View.GONE) {
         cvBasket.setVisibility(View.VISIBLE);
       }
-      tvCounter.setText(String.valueOf(size));
+      tvCounter.setText(getPaintedString(size));
     } else if (cvBasket.getVisibility() == View.VISIBLE) {
       cvBasket.setVisibility(View.GONE);
     }
+  }
+
+  private String getPaintedString(int size) {
+    getActivity().getResources().getString(R.string.srch_basket_card);
+    Spannable spannable = new SpannableString();
   }
 
   private void hideMessageUI() {
