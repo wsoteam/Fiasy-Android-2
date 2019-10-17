@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -14,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.search.basket.controller.BasketAdapter;
@@ -31,7 +31,6 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
   private BasketAdapter adapter;
   private Animation hide, show;
 
-
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_basket);
@@ -41,8 +40,6 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
     rvBasket.setLayoutManager(new LinearLayoutManager(this));
     presenter.getBasketLists();
     loadAnimations();
-    undoCard.setVisibility(View.VISIBLE);
-    undoCard.setAnimation(show);
   }
 
   private void loadAnimations() {
@@ -50,12 +47,35 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
     show = AnimationUtils.loadAnimation(this, R.anim.anim_show_undo);
   }
 
+  private void hideUndo() {
+    if (undoCard.getAnimation() == null && undoCard.getVisibility() == View.VISIBLE) {
+      undoCard.setAnimation(hide);
+      undoCard.setVisibility(View.GONE);
+    }
+  }
+
+  private void showUndo() {
+    if (undoCard.getAnimation() == null && undoCard.getVisibility() == View.GONE) {
+      undoCard.setAnimation(show);
+      undoCard.setVisibility(View.VISIBLE);
+    }
+  }
+
   @Override public void getSortedData(List<List<BasketEntity>> allFood) {
-    adapter = new BasketAdapter(allFood, getResources().getStringArray(R.array.srch_eating), new BasketUpdater(){
-      @Override public void getCurrentSize(int size) {
-        updateBasket(size);
-      }
-    });
+    adapter = new BasketAdapter(allFood, getResources().getStringArray(R.array.srch_eating),
+        new BasketUpdater() {
+          @Override public void getCurrentSize(int size) {
+            updateBasket(size);
+          }
+
+          @Override public void handleUndoCard(boolean isShow) {
+            if (isShow) {
+              showUndo();
+            } else {
+              hideUndo();
+            }
+          }
+        });
     rvBasket.setAdapter(adapter);
   }
 
@@ -74,8 +94,17 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
     String string = getResources().getString(R.string.srch_basket_card, size);
     int positionPaint = string.indexOf(" ") + 1;
     Spannable spannable = new SpannableString(string);
-    spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.srch_painted_string)), positionPaint,
+    spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.srch_painted_string)),
+        positionPaint,
         string.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     return spannable;
+  }
+
+  @OnClick({ R.id.cancel }) public void onViewClicked(View view) {
+    switch (view.getId()) {
+      case R.id.cancel:
+        adapter.cancelRemove();
+        break;
+    }
   }
 }

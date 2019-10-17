@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.search.basket.controller;
 
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
+import com.wsoteam.diet.presentation.search.basket.IBasket;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater;
@@ -20,7 +22,8 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
+    IBasket {
   private List<ISearchResult> adapterFoods;
   private final int HEADER_TYPE = 0;
   private final int ITEM_TYPE = 1;
@@ -28,6 +31,12 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private String[] namesSections;
   private BasketUpdater basketUpdater;
   private BasketDAO basketDAO;
+  private CountDownTimer downTimer;
+  private boolean isCanceledRemove;
+
+  @Override public void cancelRemove() {
+    isCanceledRemove = true;
+  }
 
   public BasketAdapter(List<List<BasketEntity>> allFood, String[] namesSections,
       BasketUpdater basketUpdater) {
@@ -75,12 +84,42 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             new ClickListener() {
               @Override public void click(int position, boolean isNeedSave) {
                 if (!isNeedSave) {
-                  deleteItem((BasketEntity) adapterFoods.get(position));
+                  runCountdown((BasketEntity) adapterFoods.get(position));
                 }
               }
             });
         break;
     }
+  }
+
+  private void runCountdown(BasketEntity basketEntity) {
+    if (downTimer != null){
+      downTimer.onFinish();
+    }else {
+      basketUpdater.handleUndoCard(true);
+    }
+    int position = removeItem(basketEntity);
+    isCanceledRemove = false;
+    downTimer  = new CountDownTimer(500, 10) {
+      @Override
+      public void onTick(long millisUntilFinished) {
+        if (isCanceledRemove){
+          returnRemovedItem(basketEntity, position);
+          basketUpdater.handleUndoCard(false);
+          cancel();
+        }
+      }
+
+      @Override
+      public void onFinish() {
+        deleteItem(basketEntity);
+      }
+    }.start();
+  }
+
+  private void returnRemovedItem(BasketEntity basketEntity, int position) {
+    adapterFoods.add(position, basketEntity);
+    notifyItemInserted(position);
   }
 
   private void deleteItem(BasketEntity basketEntity) {
@@ -91,23 +130,18 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
       }
     }).subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new CompletableObserver() {
-          @Override public void onSubscribe(Disposable d) {
-
-          }
-
-          @Override public void onComplete() {
-            removeItem(basketEntity);
-          }
-
-          @Override public void onError(Throwable e) {
-
-          }
-        });
+        .subscribe();
   }
 
-  private void removeItem(BasketEntity basketEntity) {
-    int position = 0;
+  private int removeItem(BasketEntity basketEntity) {
+    int position = getPosition(basketEntity);
+    notifyItemRemoved(position);
+    basketUpdater.getCurrentSize(getRealSize());
+    return position;
+  }
+
+  private int getPosition(BasketEntity basketEntity) {
+    int position = -1;
     for (int i = 0; i < adapterFoods.size(); i++) {
       if (adapterFoods.get(i) instanceof BasketEntity) {
         if (((BasketEntity )adapterFoods.get(i)).getServerId() == basketEntity.getServerId()
@@ -118,8 +152,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
       }
     }
-    notifyItemRemoved(position);
-    basketUpdater.getCurrentSize(getRealSize());
+    return position;
   }
 
   private int getRealSize() {
