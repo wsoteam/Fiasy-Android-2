@@ -4,10 +4,19 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.wsoteam.diet.App;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
-import com.wsoteam.diet.common.networking.food.POJO.Result;
+import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
+import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater;
+import com.wsoteam.diet.presentation.search.results.controllers.ClickListener;
+import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +26,18 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private final int ITEM_TYPE = 1;
   private List<List<BasketEntity>> allFood;
   private String[] namesSections;
+  private BasketUpdater basketUpdater;
+  private BasketDAO basketDAO;
 
-  public BasketAdapter(List<List<BasketEntity>> allFood, String[] namesSections) {
+  public BasketAdapter(List<List<BasketEntity>> allFood, String[] namesSections,
+      BasketUpdater basketUpdater) {
+    this.basketUpdater = basketUpdater;
     this.allFood = allFood;
     this.namesSections = namesSections;
+    this.basketUpdater = basketUpdater;
     formGlobalList();
+    basketUpdater.getCurrentSize(getRealSize());
+    basketDAO = App.getInstance().getFoodDatabase().basketDAO();
   }
 
   private void formGlobalList() {
@@ -55,9 +71,65 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((BasketHeaderVH) holder).bind((HeaderObj) adapterFoods.get(position));
         break;
       case ITEM_TYPE:
-        ((BasketItemVH) holder).bind((BasketEntity) adapterFoods.get(position));
+        ((BasketItemVH) holder).bind((BasketEntity) adapterFoods.get(position),
+            new ClickListener() {
+              @Override public void click(int position, boolean isNeedSave) {
+                if (!isNeedSave) {
+                  deleteItem((BasketEntity) adapterFoods.get(position));
+                }
+              }
+            });
         break;
     }
+  }
+
+  private void deleteItem(BasketEntity basketEntity) {
+    Completable.fromAction(new Action() {
+      @Override
+      public void run() throws Exception {
+        basketDAO.deleteById(basketEntity.getServerId(), basketEntity.getDeepId());
+      }
+    }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new CompletableObserver() {
+          @Override public void onSubscribe(Disposable d) {
+
+          }
+
+          @Override public void onComplete() {
+            removeItem(basketEntity);
+          }
+
+          @Override public void onError(Throwable e) {
+
+          }
+        });
+  }
+
+  private void removeItem(BasketEntity basketEntity) {
+    int position = 0;
+    for (int i = 0; i < adapterFoods.size(); i++) {
+      if (adapterFoods.get(i) instanceof BasketEntity) {
+        if (((BasketEntity )adapterFoods.get(i)).getServerId() == basketEntity.getServerId()
+            && ((BasketEntity) adapterFoods.get(i)).getDeepId() == basketEntity.getDeepId()) {
+          adapterFoods.remove(i);
+          position = i;
+          break;
+        }
+      }
+    }
+    notifyItemRemoved(position);
+    basketUpdater.getCurrentSize(getRealSize());
+  }
+
+  private int getRealSize() {
+    int counter = 0;
+    for (int i = 0; i < adapterFoods.size(); i++) {
+      if (adapterFoods.get(i) instanceof BasketEntity){
+        counter++;
+      }
+    }
+    return counter;
   }
 
   @Override public int getItemCount() {

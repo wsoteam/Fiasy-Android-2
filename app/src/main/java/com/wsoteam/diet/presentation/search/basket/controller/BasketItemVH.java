@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.search.basket.controller;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -11,6 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
+import com.wsoteam.diet.presentation.search.results.controllers.ClickListener;
 
 public class BasketItemVH extends RecyclerView.ViewHolder {
   @BindView(R.id.tvTitle) TextView tvTitle;
@@ -23,11 +25,17 @@ public class BasketItemVH extends RecyclerView.ViewHolder {
     ButterKnife.bind(this, itemView);
   }
 
-  public void bind(BasketEntity food) {
+  public void bind(BasketEntity food, ClickListener listener) {
     tvTitle.setText(food.getName());
+    tbSelect.setChecked(true);
     tvKcal.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
     if (food.getBrand() != null && !food.getBrand().equals("")) {
       tvTitle.append(" (" + food.getBrand() + ")");
     }
+    tbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      @Override public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        listener.click(getAdapterPosition(), b);
+      }
+    });
   }
 }
