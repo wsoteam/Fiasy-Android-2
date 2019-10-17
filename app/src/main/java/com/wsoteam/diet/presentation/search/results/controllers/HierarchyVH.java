@@ -30,7 +30,7 @@ public class HierarchyVH extends RecyclerView.ViewHolder {
     rvExpList.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
   }
 
-  public void bind(Result result) {
+  public void bind(Result result, ExpandableClickListener listener) {
     tvTitle.setText(result.getName());
     if (result.getBrand() != null && !result.getBrand().getName().equals("")) {
       tvTitle.append(" (" + result.getBrand().getName() + ")");
@@ -41,7 +41,7 @@ public class HierarchyVH extends RecyclerView.ViewHolder {
             .getString(R.string.marker_kcal));
     tvKcal.setText(getKcalInterval(result));
     tvPortion.setText(getPortionsInterval(result));
-    rvExpList.setAdapter(new ExpandableAdapter(result));
+    rvExpList.setAdapter(new ExpandableAdapter(result, listener));
   }
 
   private String getPortionsInterval(Result result) {

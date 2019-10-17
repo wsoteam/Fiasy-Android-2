@@ -80,7 +80,15 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
         break;
       case EXPANDABLE_TYPE:
-        ((HierarchyVH) holder).bind((Result) foods.get(position));
+        ((HierarchyVH) holder).bind((Result) foods.get(position), new ExpandableClickListener(){
+          @Override public void click(BasketEntity basketEntity, boolean isNeedSave) {
+            if (isNeedSave) {
+              save(basketEntity);
+            } else {
+              delete(basketEntity);
+            }
+          }
+        });
         break;
     }
   }

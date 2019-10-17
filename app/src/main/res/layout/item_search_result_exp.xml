@@ -9,13 +9,13 @@
       android:id="@+id/tvTitle"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
+      android:layout_marginEnd="8dp"
       android:layout_marginStart="32dp"
       android:layout_marginTop="8dp"
       android:fontFamily="@font/roboto_medium"
       android:text="TextView"
       android:textColor="#c0000000"
-      app:layout_constraintEnd_toStartOf="@+id/ivSelect"
+      app:layout_constraintEnd_toStartOf="@+id/tbSelect"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
@@ -35,14 +35,16 @@
       />
 
 
-  <ImageView
-      android:id="@+id/ivSelect"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+  <ToggleButton
+      android:id="@+id/tbSelect"
+      android:layout_width="42dp"
+      android:layout_height="42dp"
       android:layout_marginEnd="16dp"
+      android:background="@drawable/selector_add_basket"
+      android:textOff=""
+      android:textOn=""
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:srcCompat="@drawable/ic_search_item_inactive"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>
