@@ -1114,4 +1114,11 @@
         <item quantity="many">%d порций</item>
         <item quantity="other">%d порций</item>
     </plurals>
+
+    <string-array name="srch_eating">
+        <item>Завтрак</item>
+        <item>Обед</item>
+        <item>Ужин</item>
+        <item>Перекус</item>
+    </string-array>
 </resources>

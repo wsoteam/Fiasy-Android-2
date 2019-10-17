@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.search.results;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -31,6 +32,7 @@ import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
+import com.wsoteam.diet.presentation.search.basket.BasketActivity;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater;
@@ -187,6 +189,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
       case R.id.btnAddCustomFood:
         break;
       case R.id.tvCounter:
+        startActivity(new Intent(getActivity(), BasketActivity.class));
         break;
       case R.id.tvAddToBasket:
         break;

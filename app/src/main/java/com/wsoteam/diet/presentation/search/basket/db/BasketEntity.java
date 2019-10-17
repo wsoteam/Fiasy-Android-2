@@ -2,10 +2,11 @@ package com.wsoteam.diet.presentation.search.basket.db;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 
 @Entity
-public class BasketEntity {
+public class BasketEntity implements ISearchResult {
   @PrimaryKey(autoGenerate = true)
   private long id;
   private int serverId;
