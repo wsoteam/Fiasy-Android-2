@@ -23,6 +23,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -80,7 +81,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
         break;
       case EXPANDABLE_TYPE:
-        ((HierarchyVH) holder).bind((Result) foods.get(position), new ExpandableClickListener(){
+        ((HierarchyVH) holder).bind((Result) foods.get(position), getSavedDeepIds((Result) foods.get(position)), new ExpandableClickListener(){
           @Override public void click(BasketEntity basketEntity, boolean isNeedSave) {
             if (isNeedSave) {
               save(basketEntity);
@@ -96,12 +97,23 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private boolean getSaveStatus(Result result) {
     boolean isSaved = false;
     for (int i = 0; i < savedFood.size(); i++) {
-      if (result.getId() == savedFood.get(i).getId()) {
+      if (result.getId() == savedFood.get(i).getServerId()) {
         isSaved = true;
         break;
       }
     }
     return isSaved;
+  }
+
+  private List<Integer> getSavedDeepIds(Result result) {
+    List<Integer> savedDeepIds = new ArrayList<>();
+
+    for (int i = 0; i < savedFood.size(); i++) {
+      if (result.getId() == savedFood.get(i).getServerId()) {
+        savedDeepIds.add(savedFood.get(i).getDeepId());
+      }
+    }
+    return savedDeepIds;
   }
 
   private void delete(BasketEntity basketEntity) {

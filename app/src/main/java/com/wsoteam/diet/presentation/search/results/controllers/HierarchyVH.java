@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 import com.wsoteam.diet.presentation.search.results.controllers.expandable.ExpandableAdapter;
+import java.util.List;
 
 public class HierarchyVH extends RecyclerView.ViewHolder {
   @BindView(R.id.tvTitle) TextView tvTitle;
@@ -30,7 +31,7 @@ public class HierarchyVH extends RecyclerView.ViewHolder {
     rvExpList.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
   }
 
-  public void bind(Result result, ExpandableClickListener listener) {
+  public void bind(Result result, List<Integer> savedDeepIds,  ExpandableClickListener listener) {
     tvTitle.setText(result.getName());
     if (result.getBrand() != null && !result.getBrand().getName().equals("")) {
       tvTitle.append(" (" + result.getBrand().getName() + ")");
@@ -41,7 +42,7 @@ public class HierarchyVH extends RecyclerView.ViewHolder {
             .getString(R.string.marker_kcal));
     tvKcal.setText(getKcalInterval(result));
     tvPortion.setText(getPortionsInterval(result));
-    rvExpList.setAdapter(new ExpandableAdapter(result, listener));
+    rvExpList.setAdapter(new ExpandableAdapter(result, listener, savedDeepIds));
   }
 
   private String getPortionsInterval(Result result) {
