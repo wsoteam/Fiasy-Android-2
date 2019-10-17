@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
@@ -15,8 +16,11 @@ import com.wsoteam.diet.common.networking.food.POJO.Result;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 import java.util.List;
@@ -35,9 +39,9 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   public ResultAdapter(List<ISearchResult> foods, Context context, List<BasketEntity> savedFood, BasketUpdater basketUpdater) {
     this.foods = foods;
     this.context = context;
-    this.savedFood = savedFood;
     basketDAO = App.getInstance().getFoodDatabase().basketDAO();
     this.basketUpdater = basketUpdater;
+    this.savedFood = savedFood;
   }
 
   @NonNull @Override
@@ -64,10 +68,11 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((ResultVH) holder).bind((Result) foods.get(position),
             getSaveStatus((Result) foods.get(position)), new ClickListener() {
               @Override public void click(int position, boolean isNeedSave) {
+                BasketEntity basketEntity = new BasketEntity((Result) foods.get(position), 100, 0);
                 if (isNeedSave) {
-                  save(position);
+                  save(basketEntity);
                 } else {
-                  delete(position);
+                  delete(basketEntity);
                 }
               }
             });
@@ -89,17 +94,27 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     return isSaved;
   }
 
-  private void delete(int position) {
+  private void delete(BasketEntity basketEntity) {
     Completable.fromAction(new Action() {
       @Override
       public void run() throws Exception {
-        BasketEntity basketEntity = new BasketEntity((Result) foods.get(position), 100, 0);
         basketDAO.delete(basketEntity);
-        removeItem(basketEntity);
       }
     }).subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe();
+        .subscribe(new CompletableObserver() {
+          @Override public void onSubscribe(Disposable d) {
+
+          }
+
+          @Override public void onComplete() {
+            removeItem(basketEntity);
+          }
+
+          @Override public void onError(Throwable e) {
+
+          }
+        });
   }
 
   private void removeItem(BasketEntity basketEntity) {
@@ -113,17 +128,27 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   }
 
 
-  private void save(int position) {
+  private void save(BasketEntity basketEntity) {
     Completable.fromAction(new Action() {
       @Override
       public void run() throws Exception {
-        BasketEntity basketEntity = new BasketEntity((Result) foods.get(position), 100, 0);
         basketDAO.insert(basketEntity);
-        addNewItem(basketEntity);
       }
     }).subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe();
+        .subscribe(new CompletableObserver() {
+          @Override public void onSubscribe(Disposable d) {
+
+          }
+
+          @Override public void onComplete() {
+            addNewItem(basketEntity);
+          }
+
+          @Override public void onError(Throwable e) {
+
+          }
+        });
   }
 
   private void addNewItem(BasketEntity basketEntity) {
