@@ -6,6 +6,8 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,9 +24,12 @@ import java.util.List;
 public class BasketActivity extends MvpAppCompatActivity implements BasketView {
   @BindView(R.id.rvBasket) RecyclerView rvBasket;
   @BindView(R.id.tvCounter) TextView tvCounter;
+  @BindView(R.id.undoCard) CardView undoCard;
+  @BindView(R.id.cancel) TextView cancel;
   @BindView(R.id.cvBasket) CardView cvBasket;
   private BasketPresenter presenter;
   private BasketAdapter adapter;
+  private Animation hide, show;
 
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,14 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
     presenter.attachView(this);
     rvBasket.setLayoutManager(new LinearLayoutManager(this));
     presenter.getBasketLists();
+    loadAnimations();
+    undoCard.setVisibility(View.VISIBLE);
+    undoCard.setAnimation(show);
+  }
+
+  private void loadAnimations() {
+    hide = AnimationUtils.loadAnimation(this, R.anim.anim_hide_undo);
+    show = AnimationUtils.loadAnimation(this, R.anim.anim_show_undo);
   }
 
   @Override public void getSortedData(List<List<BasketEntity>> allFood) {

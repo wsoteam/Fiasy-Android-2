@@ -9,7 +9,7 @@
   <ImageView
       android:id="@+id/imageView13"
       android:layout_width="match_parent"
-      android:layout_height="90dp"
+      android:layout_height="84dp"
       android:background="@color/white"
       android:elevation="8dp"
       app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +21,6 @@
       android:id="@+id/ibBack"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="16dp"
       android:background="@drawable/filter_state"
       android:elevation="9dp"
       android:padding="16dp"
@@ -61,6 +60,16 @@
       layout="@layout/view_card_basket"
       android:layout_width="match_parent"
       android:layout_height="50dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+
+  <include
+      layout="@layout/view_undo_remove"
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
