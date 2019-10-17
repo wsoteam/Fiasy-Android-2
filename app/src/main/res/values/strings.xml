@@ -837,9 +837,11 @@
   <string name="srch_add_to_basket">Добавить</string>
   <string name="srch_basket_title">Выбранные продукты</string>
     <string name="srch_basket_card"><u>Выбрано: %d</u></string>
+    <string name="srch_delete_undo_title">Продукт удален из списка</string>
+    <string name="srch_cancel">Отмена</string>
 
 
-  <string-array name="settings_items">
+    <string-array name="settings_items">
         <item>Premium аккаунт</item>
         <!--<item>Еда и аллергия</item>-->
         <item>Промокоды</item>

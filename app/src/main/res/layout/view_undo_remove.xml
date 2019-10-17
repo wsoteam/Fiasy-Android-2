@@ -1,0 +1,45 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvBasket"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_margin="2dp"
+    app:cardElevation="5dp"
+    >
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="#b3b3b3"
+      >
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="12dp"
+        android:drawableLeft="@drawable/srch_undo_delete"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/srch_delete_undo_title"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        />
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginEnd="16dp"
+        android:drawableLeft="@drawable/srch_back_delete"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/srch_cancel"
+        android:textColor="#fcff82"
+        android:textSize="14sp"
+        />
+
+  </FrameLayout>
+
+</androidx.cardview.widget.CardView>
