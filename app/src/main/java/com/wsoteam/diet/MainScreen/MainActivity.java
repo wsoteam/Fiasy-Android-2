@@ -54,7 +54,7 @@ import com.wsoteam.diet.common.remote.UpdateChecker;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import java.util.Calendar;
-
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.flFragmentContainer) FrameLayout flFragmentContainer;
@@ -206,14 +206,29 @@ public class MainActivity extends AppCompatActivity {
     private void loadRecipes() {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("RECIPES_PLANS_NEW");
+        DatabaseReference myRef;
+        switch (Locale.getDefault().getLanguage().toUpperCase()){
+            case "EN":
+            case "ES":
+            case "PT":
+            case "DE":{
+                myRef = database.getReference(Locale.getDefault().getLanguage().toUpperCase() + "/recipes");
+                break;
+            }
+            case "RU":{
+                myRef = database.getReference("RECIPES_PLANS_NEW");
+                break;
+            }
+            default:{
+                myRef = database.getReference("EN/recipes");
+            }
+        }
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 ListRecipes groupsRecipes = dataSnapshot.getValue(ListRecipes.class);
-
                 RecipesHolder.bind(groupsRecipes);
 
                 EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes);

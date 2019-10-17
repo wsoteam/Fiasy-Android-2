@@ -3,7 +3,359 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@+id/tvGroupName"
+        >
+
+        <!-- Enclosing box to layout the two groups.-->
+        <LinearLayout
+            android:id="@+id/group_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:paddingLeft="9dp"
+            android:paddingRight="9dp"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvRecipe1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
+                app:cardUseCompatPadding="true"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="150dp"
+                    android:layout_height="180dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/imageRecipe1"
+                        android:layout_width="0dp"
+                        android:layout_height="130dp"
+                        android:scaleType="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:srcCompat="@tools:sample/avatars[2]"
+                        />
+
+                    <TextView
+                        android:id="@+id/textRecipe1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/roboto"
+                        android:lines="2"
+                        android:singleLine="false"
+                        android:textAlignment="textStart"
+                        android:textColor="#000"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageRecipe1"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvRecipeKK1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/tvKkal0"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textRecipe1"
+                        app:layout_constraintVertical_bias="0.0"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvRecipe2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
+                app:cardUseCompatPadding="true"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="150dp"
+                    android:layout_height="180dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/imageRecipe2"
+                        android:layout_width="0dp"
+                        android:layout_height="130dp"
+                        android:scaleType="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:srcCompat="@tools:sample/avatars[2]"
+                        />
+
+                    <TextView
+                        android:id="@+id/textRecipe2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/roboto"
+                        android:lines="2"
+                        android:singleLine="false"
+                        android:textAlignment="textStart"
+                        android:textColor="#000"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageRecipe2"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvRecipeKK2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/tvKkal0"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textRecipe2"
+                        app:layout_constraintVertical_bias="0.0"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvRecipe3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
+                app:cardUseCompatPadding="true"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="150dp"
+                    android:layout_height="180dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/imageRecipe3"
+                        android:layout_width="0dp"
+                        android:layout_height="130dp"
+                        android:scaleType="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:srcCompat="@tools:sample/avatars[2]"
+                        />
+
+                    <TextView
+                        android:id="@+id/textRecipe3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/roboto"
+                        android:lines="2"
+                        android:singleLine="false"
+                        android:textAlignment="textStart"
+                        android:textColor="#000"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageRecipe3"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvRecipeKK3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/tvKkal0"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textRecipe3"
+                        app:layout_constraintVertical_bias="0.0"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvRecipe4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
+                app:cardUseCompatPadding="true"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="150dp"
+                    android:layout_height="180dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/imageRecipe4"
+                        android:layout_width="0dp"
+                        android:layout_height="130dp"
+                        android:scaleType="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:srcCompat="@tools:sample/avatars[2]"
+                        />
+
+                    <TextView
+                        android:id="@+id/textRecipe4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/roboto"
+                        android:lines="2"
+                        android:singleLine="false"
+                        android:textAlignment="textStart"
+                        android:textColor="#000"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageRecipe4"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvRecipeKK4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/tvKkal0"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textRecipe4"
+                        app:layout_constraintVertical_bias="0.0"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvRecipe5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
+                app:cardUseCompatPadding="true"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="150dp"
+                    android:layout_height="180dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/imageRecipe5"
+                        android:layout_width="0dp"
+                        android:layout_height="130dp"
+                        android:scaleType="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:srcCompat="@tools:sample/avatars[2]"
+                        />
+
+                    <TextView
+                        android:id="@+id/textRecipe5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/roboto"
+                        android:lines="2"
+                        android:singleLine="false"
+                        android:textAlignment="textStart"
+                        android:textColor="#000"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageRecipe5"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvRecipeKK5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/tvKkal0"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textRecipe5"
+                        app:layout_constraintVertical_bias="0.0"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/tvAllRecipes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:drawableRight="@drawable/recipes_arrow"
+        android:fontFamily="@font/roboto"
+        android:text="Посмотреть все рецепты  "
+        android:textColor="#EF7D02"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvGroupName"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/tvGroupName"
@@ -14,328 +366,11 @@
         android:fontFamily="@font/roboto"
         android:text="TextView"
         android:textColor="@android:color/black"
+        app:layout_constraintEnd_toStartOf="@+id/tvAllRecipes"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvAllRecipes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:drawableRight="@drawable/recipes_arrow"
-        android:fontFamily="@font/roboto"
-        android:text="Посмотреть все рецепты  "
-        android:textColor="#EF7D02"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tvGroupName"
-        android:scrollbars="none">
-
-        <!-- Enclosing box to layout the two groups.-->
-        <LinearLayout
-            android:id="@+id/group_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="9dp"
-            android:paddingLeft="9dp"
-            android:paddingBottom="20dp"
-            android:orientation="horizontal">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvRecipe1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="5dp"
-                app:cardUseCompatPadding="true">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="150dp"
-                    android:layout_height="180dp">
-
-                    <ImageView
-                        android:id="@+id/imageRecipe1"
-                        android:layout_width="0dp"
-                        android:layout_height="130dp"
-                        android:scaleType="center"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:srcCompat="@tools:sample/avatars[2]" />
-
-                    <TextView
-                        android:id="@+id/textRecipe1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/roboto"
-                        android:lines="2"
-                        android:singleLine="false"
-                        android:textAlignment="textStart"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageRecipe1" />
-
-                    <TextView
-                        android:id="@+id/tvRecipeKK1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:fontFamily="@font/roboto"
-                        android:text="@string/tvKkal0"
-                        android:textColor="@android:color/black"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textRecipe1"
-                        app:layout_constraintVertical_bias="0.0" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvRecipe2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="5dp"
-                app:cardUseCompatPadding="true">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="150dp"
-                    android:layout_height="180dp">
-
-                    <ImageView
-                        android:id="@+id/imageRecipe2"
-                        android:layout_width="0dp"
-                        android:layout_height="130dp"
-                        android:scaleType="center"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:srcCompat="@tools:sample/avatars[2]" />
-
-                    <TextView
-                        android:id="@+id/textRecipe2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/roboto"
-                        android:lines="2"
-                        android:singleLine="false"
-                        android:textAlignment="textStart"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageRecipe2" />
-
-                    <TextView
-                        android:id="@+id/tvRecipeKK2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:fontFamily="@font/roboto"
-                        android:text="@string/tvKkal0"
-                        android:textColor="@android:color/black"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textRecipe2"
-                        app:layout_constraintVertical_bias="0.0" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvRecipe3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="5dp"
-                app:cardUseCompatPadding="true">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="150dp"
-                    android:layout_height="180dp">
-
-                    <ImageView
-                        android:id="@+id/imageRecipe3"
-                        android:layout_width="0dp"
-                        android:layout_height="130dp"
-                        android:scaleType="center"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:srcCompat="@tools:sample/avatars[2]" />
-
-                    <TextView
-                        android:id="@+id/textRecipe3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/roboto"
-                        android:lines="2"
-                        android:singleLine="false"
-                        android:textAlignment="textStart"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageRecipe3" />
-
-                    <TextView
-                        android:id="@+id/tvRecipeKK3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:fontFamily="@font/roboto"
-                        android:text="@string/tvKkal0"
-                        android:textColor="@android:color/black"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textRecipe3"
-                        app:layout_constraintVertical_bias="0.0" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvRecipe4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="5dp"
-                app:cardUseCompatPadding="true">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="150dp"
-                    android:layout_height="180dp">
-
-                    <ImageView
-                        android:id="@+id/imageRecipe4"
-                        android:layout_width="0dp"
-                        android:layout_height="130dp"
-                        android:scaleType="center"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:srcCompat="@tools:sample/avatars[2]" />
-
-                    <TextView
-                        android:id="@+id/textRecipe4"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/roboto"
-                        android:lines="2"
-                        android:singleLine="false"
-                        android:textAlignment="textStart"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageRecipe4" />
-
-                    <TextView
-                        android:id="@+id/tvRecipeKK4"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:fontFamily="@font/roboto"
-                        android:text="@string/tvKkal0"
-                        android:textColor="@android:color/black"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textRecipe4"
-                        app:layout_constraintVertical_bias="0.0" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvRecipe5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="5dp"
-                app:cardUseCompatPadding="true">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="150dp"
-                    android:layout_height="180dp">
-
-                    <ImageView
-                        android:id="@+id/imageRecipe5"
-                        android:layout_width="0dp"
-                        android:layout_height="130dp"
-                        android:scaleType="center"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:srcCompat="@tools:sample/avatars[2]" />
-
-                    <TextView
-                        android:id="@+id/textRecipe5"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/roboto"
-                        android:lines="2"
-                        android:singleLine="false"
-                        android:textAlignment="textStart"
-                        android:textColor="#000"
-                        android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageRecipe5" />
-
-                    <TextView
-                        android:id="@+id/tvRecipeKK5"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:fontFamily="@font/roboto"
-                        android:text="@string/tvKkal0"
-                        android:textColor="@android:color/black"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textRecipe5"
-                        app:layout_constraintVertical_bias="0.0" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </HorizontalScrollView>
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

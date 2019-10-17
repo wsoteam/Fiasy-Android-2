@@ -156,6 +156,15 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
 
         void bind(int listIndex) {
 
+            if (groupsRecipes.get(listIndex).getListrecipes() == null
+                || groupsRecipes.get(listIndex).getListrecipes().size() == 0){
+
+                itemView.setVisibility(View.GONE);
+                return;
+            } else {
+                itemView.setVisibility(View.VISIBLE);
+            }
+
             tvTitle.setText(groupsRecipes.get(listIndex).getName());
             int bais = getAdapterPosition() * 5;
 
