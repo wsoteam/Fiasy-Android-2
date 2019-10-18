@@ -1123,4 +1123,8 @@
         <item>Ужин</item>
         <item>Перекус</item>
     </string-array>
+    
+    <string name="srch_default_portion">100 г</string>
+    <string name="srch_liquid">%d мл</string>
+    <string name="srch_not_liquid">%d г</string>
 </resources>

@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
@@ -71,7 +72,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((ResultVH) holder).bind((Result) foods.get(position),
             getSaveStatus((Result) foods.get(position)), new ClickListener() {
               @Override public void click(int position, boolean isNeedSave) {
-                BasketEntity basketEntity = new BasketEntity((Result) foods.get(position), 100, 0, -1);
+                BasketEntity basketEntity = new BasketEntity((Result) foods.get(position), Config.DEFAULT_PORTION, 0, -1);
                 if (isNeedSave) {
                   save(basketEntity);
                 } else {

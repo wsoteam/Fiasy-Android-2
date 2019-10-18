@@ -115,5 +115,8 @@ public class Config {
 
     public static final String IS_NEED_SHOW_LOADING_SPLASH = "IS_NEED_SHOW_LOADING_SPLASH";
 
+    //NEW SEARCH
+    public static final int DEFAULT_PORTION = 100;
+
 
 }

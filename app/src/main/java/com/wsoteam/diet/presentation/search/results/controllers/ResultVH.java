@@ -31,6 +31,7 @@ public class ResultVH extends RecyclerView.ViewHolder {
       ClickListener clickListener) {
     this.clickListener = clickListener;
     tvTitle.setText(food.getName());
+    tvPortion.setText(itemView.getResources().getString(R.string.srch_default_portion));
     tvKcal.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
     if (food.getBrand() != null && !food.getBrand().getName().equals("")) {
       tvTitle.append(" (" + food.getBrand().getName() + ")");

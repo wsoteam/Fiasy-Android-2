@@ -29,41 +29,9 @@ public class BasketEntity implements ISearchResult {
   private double cellulose;
   private double sodium;
   private double pottassium;
-
-  private boolean isCustomPortion;
-  //if custom portion, else - -1
-  private int customPortion;
-  //Dinner - 0, Lunch - 1, Dinner - 2, Snack - 3
   private int eatingType;
 
   public BasketEntity() {
-  }
-
-  public BasketEntity(Result result, int weight, int customPortion, int eatingType, int deepId) {
-    name = result.getName();
-    if (result.getBrand() != null) {
-      brand = result.getBrand().getName();
-    }
-    this.weight = weight;
-    isLiquid = result.isLiquid();
-    kilojoules = result.getKilojoules() * weight;
-    calories = result.getCalories() * weight;
-    proteins = result.getProteins() * weight;
-    carbohydrates = result.getCarbohydrates() + weight;
-    sugar = result.getSugar() * weight;
-    fats = result.getFats() * weight;
-    saturatedFats = result.getSaturatedFats() * weight;
-    monoUnSaturatedFats = result.getMonounsaturatedFats() * weight;
-    polyUnSaturatedFats = result.getPolyunsaturatedFats() * weight;
-    cholesterol = result.getCholesterol() * weight;
-    cellulose = result.getCellulose() * weight;
-    sodium = result.getSodium() * weight;
-    pottassium = result.getPottasium() * weight;
-    isCustomPortion = true;
-    this.customPortion = customPortion;
-    this.eatingType = eatingType;
-    serverId = result.getId();
-    this.deepId = deepId;
   }
 
   public BasketEntity(Result result, int weight, int eatingType, int deepId) {
@@ -73,21 +41,19 @@ public class BasketEntity implements ISearchResult {
     }
     this.weight = weight;
     isLiquid = result.isLiquid();
-    kilojoules = result.getKilojoules() * weight;
-    calories = result.getCalories() * weight;
-    proteins = result.getProteins() * weight;
-    carbohydrates = result.getCarbohydrates() + weight;
-    sugar = result.getSugar() * weight;
-    fats = result.getFats() * weight;
-    saturatedFats = result.getSaturatedFats() * weight;
-    monoUnSaturatedFats = result.getMonounsaturatedFats() * weight;
-    polyUnSaturatedFats = result.getPolyunsaturatedFats() * weight;
-    cholesterol = result.getCholesterol() * weight;
-    cellulose = result.getCellulose() * weight;
-    sodium = result.getSodium() * weight;
-    pottassium = result.getPottasium() * weight;
-    isCustomPortion = false;
-    customPortion = -1;
+    kilojoules = result.getKilojoules();
+    calories = result.getCalories();
+    proteins = result.getProteins();
+    carbohydrates = result.getCarbohydrates();
+    sugar = result.getSugar();
+    fats = result.getFats();
+    saturatedFats = result.getSaturatedFats();
+    monoUnSaturatedFats = result.getMonounsaturatedFats();
+    polyUnSaturatedFats = result.getPolyunsaturatedFats();
+    cholesterol = result.getCholesterol();
+    cellulose = result.getCellulose();
+    sodium = result.getSodium();
+    pottassium = result.getPottasium();
     this.eatingType = eatingType;
     serverId = result.getId();
     this.deepId = deepId;
@@ -253,21 +219,6 @@ public class BasketEntity implements ISearchResult {
     this.pottassium = pottassium;
   }
 
-  public boolean isCustomPortion() {
-    return isCustomPortion;
-  }
-
-  public void setCustomPortion(boolean customPortion) {
-    isCustomPortion = customPortion;
-  }
-
-  public int getCustomPortion() {
-    return customPortion;
-  }
-
-  public void setCustomPortion(int customPortion) {
-    this.customPortion = customPortion;
-  }
 
   public int getEatingType() {
     return eatingType;

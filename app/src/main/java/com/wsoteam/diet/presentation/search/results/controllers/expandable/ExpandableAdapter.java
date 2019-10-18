@@ -32,12 +32,12 @@ public class ExpandableAdapter extends RecyclerView.Adapter<ExpandableVH> {
     holder.bind(result.getName(), result.getMeasurementUnits().get(position).getAmount(),
         result.getCalories(), result.isLiquid(), getSaveStatus(position), new ClickListener() {
           @Override public void click(int position, boolean isNeedSave) {
-            listener.click(createNewResult(position), isNeedSave);
+            listener.click(createNewFood(position), isNeedSave);
           }
         });
   }
 
-  private BasketEntity createNewResult(int position) {
+  private BasketEntity createNewFood(int position) {
     BasketEntity basketEntity =
         new BasketEntity(result, result.getMeasurementUnits().get(position).getAmount(), 0,
             position);

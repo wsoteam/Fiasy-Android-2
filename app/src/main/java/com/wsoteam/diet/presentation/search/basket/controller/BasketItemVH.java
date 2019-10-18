@@ -28,9 +28,14 @@ public class BasketItemVH extends RecyclerView.ViewHolder {
   public void bind(BasketEntity food, ClickListener listener) {
     tvTitle.setText(food.getName());
     tbSelect.setChecked(true);
-    tvKcal.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
+    tvKcal.setText(String.valueOf(Math.round(food.getCalories() * food.getWeight())) + " " + itemView.getResources().getString(R.string.tvKkal));
     if (food.getBrand() != null && !food.getBrand().equals("")) {
       tvTitle.append(" (" + food.getBrand() + ")");
+    }
+    if (food.isLiquid()){
+      tvPortion.setText(itemView.getResources().getString(R.string.srch_liquid, food.getWeight()));
+    }else {
+      tvPortion.setText(itemView.getResources().getString(R.string.srch_not_liquid, food.getWeight()));
     }
     tbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(CompoundButton compoundButton, boolean b) {

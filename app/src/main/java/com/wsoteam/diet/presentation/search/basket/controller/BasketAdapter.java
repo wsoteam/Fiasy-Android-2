@@ -107,7 +107,6 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
       isHasNextItem = true;
       downTimer.onFinish();
     }else {
-      Log.e("LOL", "counter null");
       basketUpdater.handleUndoCard(true);
     }
     downTimer  = new CountDownTimer(3000, 100) {
