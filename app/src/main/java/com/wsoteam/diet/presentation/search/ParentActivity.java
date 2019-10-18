@@ -106,7 +106,7 @@ public class ParentActivity extends AppCompatActivity {
     adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search);
     spnEatingList.setAdapter(adapter);
     spnEatingList.setSelection(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
-    //spinnerId = spinner.getSelectedItemPosition();
+    spinnerId = spnEatingList.getSelectedItemPosition();
     spnEatingList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

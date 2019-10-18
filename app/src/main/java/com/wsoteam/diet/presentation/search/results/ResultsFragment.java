@@ -11,6 +11,8 @@ import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.wsoteam.diet.App;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
@@ -32,6 +35,7 @@ import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
+import com.wsoteam.diet.presentation.search.ParentActivity;
 import com.wsoteam.diet.presentation.search.basket.BasketActivity;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
@@ -76,8 +80,8 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     unbinder = ButterKnife.bind(this, view);
     presenter = new ResultsPresenter();
     presenter.attachView(this);
+    rvBlocks.setLayoutManager(new LinearLayoutManager(getContext()));
     updateUI();
-    showStartUI();
     return view;
   }
 
@@ -91,6 +95,10 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
           @Override public void handleUndoCard(boolean isShow) {
 
+          }
+
+          @Override public int getCurrentEating() {
+            return 0;
           }
         });
     rvBlocks.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -179,6 +187,10 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
       @Override public void handleUndoCard(boolean isShow) {
 
       }
+
+      @Override public int getCurrentEating() {
+        return ((ParentActivity) getActivity()).spinnerId;
+      }
     }));
   }
 
@@ -203,4 +215,5 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
         break;
     }
   }
+
 }

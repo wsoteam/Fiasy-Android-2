@@ -24,7 +24,7 @@ import java.util.List;
 public class BasketActivity extends MvpAppCompatActivity implements BasketView {
   @BindView(R.id.rvBasket) RecyclerView rvBasket;
   @BindView(R.id.tvCounter) TextView tvCounter;
-  @BindView(R.id.undoCard) CardView undoCard;
+  BindView(R.id.undoCard) CardView undoCard;
   @BindView(R.id.cancel) TextView cancel;
   @BindView(R.id.cvBasket) CardView cvBasket;
   private BasketPresenter presenter;
@@ -75,6 +75,10 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
               hideUndo();
             }
             loadAnimations();
+          }
+
+          @Override public int getCurrentEating() {
+            return 0;
           }
         });
     rvBasket.setAdapter(adapter);

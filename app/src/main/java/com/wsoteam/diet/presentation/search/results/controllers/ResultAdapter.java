@@ -72,7 +72,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((ResultVH) holder).bind((Result) foods.get(position),
             getSaveStatus((Result) foods.get(position)), new ClickListener() {
               @Override public void click(int position, boolean isNeedSave) {
-                BasketEntity basketEntity = new BasketEntity((Result) foods.get(position), Config.DEFAULT_PORTION, 0, -1);
+                BasketEntity basketEntity = new BasketEntity((Result) foods.get(position), Config.DEFAULT_PORTION, basketUpdater.getCurrentEating(), -1);
                 if (isNeedSave) {
                   save(basketEntity);
                 } else {
@@ -84,6 +84,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
       case EXPANDABLE_TYPE:
         ((HierarchyVH) holder).bind((Result) foods.get(position), getSavedDeepIds((Result) foods.get(position)), new ExpandableClickListener(){
           @Override public void click(BasketEntity basketEntity, boolean isNeedSave) {
+            basketEntity.setEatingType(basketUpdater.getCurrentEating());
             if (isNeedSave) {
               save(basketEntity);
             } else {
