@@ -43,6 +43,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     if (downTimer != null){
       downTimer.cancel();
     }
+    downTimer = null;
   }
 
   public BasketAdapter(List<List<BasketEntity>> allFood, String[] namesSections,
@@ -106,6 +107,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
       isHasNextItem = true;
       downTimer.onFinish();
     }else {
+      Log.e("LOL", "counter null");
       basketUpdater.handleUndoCard(true);
     }
     downTimer  = new CountDownTimer(3000, 100) {
@@ -116,12 +118,12 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
       @Override
       public void onFinish() {
         deleteItem(basketEntity);
-        Log.e("LOL", "FIN");
         if (!isHasNextItem){
           basketUpdater.handleUndoCard(false);
         }else {
           isHasNextItem = false;
         }
+        downTimer = null;
       }
     }.start();
   }
