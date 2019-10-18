@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -41,6 +43,22 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
     rvBasket.setLayoutManager(new LinearLayoutManager(this));
     presenter.getBasketLists();
     loadAnimations();
+    ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+        ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.END | ItemTouchHelper.START,
+        0) {
+      @Override public boolean onMove(@NonNull RecyclerView recyclerView,
+          @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+        int from = viewHolder.getAdapterPosition();
+        int to = target.getAdapterPosition();
+        adapter.notifyItemMoved(from, to);
+        return false;
+      }
+
+      @Override public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+      }
+    });
+    itemTouchHelper.attachToRecyclerView(rvBasket);
   }
 
   private void loadAnimations() {
