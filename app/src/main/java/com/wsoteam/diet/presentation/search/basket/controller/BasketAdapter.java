@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.search.basket.controller;
 
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -32,10 +33,16 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private BasketUpdater basketUpdater;
   private BasketDAO basketDAO;
   private CountDownTimer downTimer;
-  private boolean isCanceledRemove;
+  private BasketEntity deleteEntity;
+  private int deletePosition;
+  private boolean isHasNextItem = false;
 
   @Override public void cancelRemove() {
-    isCanceledRemove = true;
+    returnRemovedItem(deleteEntity, deletePosition);
+    basketUpdater.handleUndoCard(false);
+    if (downTimer != null){
+      downTimer.cancel();
+    }
   }
 
   public BasketAdapter(List<List<BasketEntity>> allFood, String[] namesSections,
@@ -84,7 +91,9 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             new ClickListener() {
               @Override public void click(int position, boolean isNeedSave) {
                 if (!isNeedSave) {
-                  runCountdown((BasketEntity) adapterFoods.get(position));
+                  deleteEntity = (BasketEntity) adapterFoods.get(position);
+                  deletePosition = removeItem(deleteEntity);
+                  runCountdown(deleteEntity);
                 }
               }
             });
@@ -94,25 +103,25 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
   private void runCountdown(BasketEntity basketEntity) {
     if (downTimer != null){
+      isHasNextItem = true;
       downTimer.onFinish();
     }else {
       basketUpdater.handleUndoCard(true);
     }
-    int position = removeItem(basketEntity);
-    isCanceledRemove = false;
-    downTimer  = new CountDownTimer(500, 10) {
+    downTimer  = new CountDownTimer(3000, 100) {
       @Override
       public void onTick(long millisUntilFinished) {
-        if (isCanceledRemove){
-          returnRemovedItem(basketEntity, position);
-          basketUpdater.handleUndoCard(false);
-          cancel();
-        }
       }
 
       @Override
       public void onFinish() {
         deleteItem(basketEntity);
+        Log.e("LOL", "FIN");
+        if (!isHasNextItem){
+          basketUpdater.handleUndoCard(false);
+        }else {
+          isHasNextItem = false;
+        }
       }
     }.start();
   }

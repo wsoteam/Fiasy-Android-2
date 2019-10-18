@@ -74,6 +74,7 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
             } else {
               hideUndo();
             }
+            loadAnimations();
           }
         });
     rvBasket.setAdapter(adapter);

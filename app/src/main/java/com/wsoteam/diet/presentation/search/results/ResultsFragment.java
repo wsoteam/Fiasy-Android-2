@@ -88,6 +88,10 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
           @Override public void getCurrentSize(int size) {
             updateBasket(size);
           }
+
+          @Override public void handleUndoCard(boolean isShow) {
+
+          }
         });
     rvBlocks.setLayoutManager(new LinearLayoutManager(getContext()));
     rvBlocks.setAdapter(itemAdapter);
@@ -170,6 +174,10 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
         basketEntities, new BasketUpdater() {
       @Override public void getCurrentSize(int size) {
         updateBasket(size);
+      }
+
+      @Override public void handleUndoCard(boolean isShow) {
+
       }
     }));
   }
