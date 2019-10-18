@@ -131,6 +131,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private void returnRemovedItem(BasketEntity basketEntity, int position) {
     adapterFoods.add(position, basketEntity);
     notifyItemInserted(position);
+    basketUpdater.getCurrentSize(getRealSize());
   }
 
   private void deleteItem(BasketEntity basketEntity) {
