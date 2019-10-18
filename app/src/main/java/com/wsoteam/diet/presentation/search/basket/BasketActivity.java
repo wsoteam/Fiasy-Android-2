@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +25,7 @@ import java.util.List;
 public class BasketActivity extends MvpAppCompatActivity implements BasketView {
   @BindView(R.id.rvBasket) RecyclerView rvBasket;
   @BindView(R.id.tvCounter) TextView tvCounter;
-  BindView(R.id.undoCard) CardView undoCard;
+  @BindView(R.id.undoCard) CardView undoCard;
   @BindView(R.id.cancel) TextView cancel;
   @BindView(R.id.cvBasket) CardView cvBasket;
   private BasketPresenter presenter;

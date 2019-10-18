@@ -49,7 +49,8 @@
       android:id="@+id/rvBasket"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      app:layout_constraintBottom_toTopOf="parent"
+      android:layout_marginBottom="50dp"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/imageView13"
@@ -57,7 +58,6 @@
 
   <include
       layout="@layout/view_card_basket"
-      android:id="@+id/include2"
       android:layout_width="match_parent"
       android:layout_height="50dp"
       app:layout_constraintBottom_toBottomOf="parent"
@@ -67,7 +67,6 @@
 
   <include
       layout="@layout/view_undo_remove"
-      android:id="@+id/include"
       android:layout_width="match_parent"
       android:visibility="gone"
       android:layout_height="50dp"
