@@ -4,10 +4,14 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -34,7 +38,7 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
   @BindView(R.id.cvBasket) CardView cvBasket;
   private BasketPresenter presenter;
   private BasketAdapter adapter;
-  private Animation hide, show;
+  private Animation hide, show, finalSave;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -44,6 +48,7 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
     presenter.attachView(this);
     rvBasket.setLayoutManager(new LinearLayoutManager(this));
     presenter.getBasketLists();
+    finalSave = AnimationUtils.loadAnimation(this, R.anim.anim_meas_update);
     loadAnimations();
     ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
         ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.END | ItemTouchHelper.START,
@@ -148,7 +153,16 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
         break;
       case R.id.tvAddToBasket:
         adapter.saveFood();
+        runCountdown();
         break;
     }
+  }
+
+  private void runCountdown() {
+    Toast toast = new Toast(this);
+    toast.setView(LayoutInflater.from(this).inflate(R.layout.toast_meas_update, null));
+    toast.setGravity(Gravity.CENTER, 0, 0);
+    toast.setDuration(Toast.LENGTH_SHORT);
+    Toast.LENGTH_LONG
   }
 }

@@ -25,4 +25,5 @@ public interface BasketDAO {
 
   @Delete
   void delete(BasketEntity food);
+
 }
