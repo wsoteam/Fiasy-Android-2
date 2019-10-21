@@ -20,6 +20,8 @@ import butterknife.OnClick;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.search.basket.controller.BasketAdapter;
+import com.wsoteam.diet.presentation.search.basket.controller.BasketHeaderVH;
+import com.wsoteam.diet.presentation.search.basket.controller.BasketItemVH;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater;
 import java.util.List;
@@ -48,10 +50,19 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
         0) {
       @Override public boolean onMove(@NonNull RecyclerView recyclerView,
           @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-        int from = viewHolder.getAdapterPosition();
-        int to = target.getAdapterPosition();
-        adapter.moveItem(from, to);
-        return false;
+          int from = viewHolder.getAdapterPosition();
+          int to = target.getAdapterPosition();
+          adapter.moveItem(from, to);
+          return false;
+      }
+
+      @Override public int getMovementFlags(@NonNull RecyclerView recyclerView,
+          @NonNull RecyclerView.ViewHolder viewHolder) {
+        if (viewHolder instanceof BasketHeaderVH){
+          return 0;
+        }else {
+          return super.getMovementFlags(recyclerView, viewHolder);
+        }
       }
 
       @Override public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {

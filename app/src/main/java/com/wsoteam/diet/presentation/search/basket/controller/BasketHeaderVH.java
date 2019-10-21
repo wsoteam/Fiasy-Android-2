@@ -19,6 +19,7 @@ public class BasketHeaderVH extends RecyclerView.ViewHolder {
   public BasketHeaderVH(@NonNull LayoutInflater layoutInflater, ViewGroup parent) {
     super(layoutInflater.inflate(R.layout.item_search_header, parent, false));
     ButterKnife.bind(this, itemView);
+    itemView.setLongClickable(false);
   }
 
   public void bind(HeaderObj header) {

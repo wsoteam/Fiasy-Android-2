@@ -38,6 +38,8 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private int deletePosition;
   private boolean isHasNextItem = false;
 
+
+
   @Override public void cancelRemove() {
     returnRemovedItem(deleteEntity, deletePosition);
     basketUpdater.handleUndoCard(false);
