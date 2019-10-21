@@ -50,7 +50,7 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
           @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
         int from = viewHolder.getAdapterPosition();
         int to = target.getAdapterPosition();
-        adapter.notifyItemMoved(from, to);
+        adapter.moveItem(from, to);
         return false;
       }
 

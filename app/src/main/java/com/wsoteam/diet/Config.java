@@ -117,6 +117,10 @@ public class Config {
 
     //NEW SEARCH
     public static final int DEFAULT_PORTION = 100;
+    public static final int BREAKFAST = 0;
+    public static final int LUNCH = 1;
+    public static final int DINNER = 2;
+    public static final int SNACK = 3;
 
 
 }

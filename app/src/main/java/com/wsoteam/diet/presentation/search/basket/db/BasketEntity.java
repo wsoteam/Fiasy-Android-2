@@ -227,4 +227,30 @@ public class BasketEntity implements ISearchResult {
   public void setEatingType(int eatingType) {
     this.eatingType = eatingType;
   }
+
+  @Override public String toString() {
+    return "BasketEntity{" +
+        "id=" + id +
+        ", serverId=" + serverId +
+        ", deepId=" + deepId +
+        ", name='" + name + '\'' +
+        ", brand='" + brand + '\'' +
+        ", isLiquid=" + isLiquid +
+        ", weight=" + weight +
+        ", kilojoules=" + kilojoules +
+        ", calories=" + calories +
+        ", proteins=" + proteins +
+        ", carbohydrates=" + carbohydrates +
+        ", sugar=" + sugar +
+        ", fats=" + fats +
+        ", saturatedFats=" + saturatedFats +
+        ", monoUnSaturatedFats=" + monoUnSaturatedFats +
+        ", polyUnSaturatedFats=" + polyUnSaturatedFats +
+        ", cholesterol=" + cholesterol +
+        ", cellulose=" + cellulose +
+        ", sodium=" + sodium +
+        ", pottassium=" + pottassium +
+        ", eatingType=" + eatingType +
+        '}';
+  }
 }

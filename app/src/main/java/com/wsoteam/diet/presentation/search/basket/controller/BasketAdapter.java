@@ -21,6 +21,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
@@ -46,6 +47,23 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     downTimer = null;
   }
 
+  @Override public void moveItem(int from, int to) {
+    Collections.swap(adapterFoods, from, to);
+    setEatingType(to);
+    reWrite((BasketEntity) adapterFoods.get(to));
+    notifyItemMoved(from, to);
+  }
+
+  private void setEatingType(int to) {
+    for (int i = to; i >= 0; i--) {
+      if (adapterFoods.get(i) instanceof HeaderObj){
+        int type = ((HeaderObj) adapterFoods.get(i)).getType();
+        ((BasketEntity) adapterFoods.get(to)).setEatingType(type);
+        break;
+      }
+    }
+  }
+
   public BasketAdapter(List<List<BasketEntity>> allFood, String[] namesSections,
       BasketUpdater basketUpdater) {
     this.basketUpdater = basketUpdater;
@@ -61,7 +79,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     adapterFoods = new ArrayList<>();
     for (int i = 0; i < allFood.size(); i++) {
       if (allFood.get(i).size() > 0) {
-        adapterFoods.add(new HeaderObj(namesSections[i], false));
+        adapterFoods.add(new HeaderObj(i, namesSections[i], false));
         for (int j = 0; j < allFood.get(i).size(); j++) {
           adapterFoods.add(allFood.get(i).get(j));
         }
@@ -131,6 +149,30 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     adapterFoods.add(position, basketEntity);
     notifyItemInserted(position);
     basketUpdater.getCurrentSize(getRealSize());
+  }
+
+  private void reWrite(BasketEntity basketEntity) {
+    Completable.fromAction(new Action() {
+      @Override
+      public void run() throws Exception {
+        Log.e("LOL", basketEntity.toString());
+        basketDAO.replace(basketEntity);
+      }
+    }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new CompletableObserver() {
+          @Override public void onSubscribe(Disposable d) {
+
+          }
+
+          @Override public void onComplete() {
+            Log.e("LOL", "COMPLETE");
+          }
+
+          @Override public void onError(Throwable e) {
+            Log.e("LOL", e.getMessage());
+          }
+        });
   }
 
   private void deleteItem(BasketEntity basketEntity) {
