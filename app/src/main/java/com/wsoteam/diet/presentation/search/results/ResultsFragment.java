@@ -3,19 +3,24 @@ package com.wsoteam.diet.presentation.search.results;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -62,6 +67,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   private int RESPONSE_LIMIT = 100;
   private ResultAdapter itemAdapter;
   private BasketDAO basketDAO = App.getInstance().getFoodDatabase().basketDAO();
+  private Animation finalSave;
 
   @Override public void sendClearSearchField() {
 
@@ -81,6 +87,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     presenter = new ResultsPresenter();
     presenter.attachView(this);
     rvBlocks.setLayoutManager(new LinearLayoutManager(getContext()));
+    finalSave = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_meas_update);
     updateUI();
     return view;
   }
@@ -212,8 +219,31 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
         startActivity(new Intent(getActivity(), BasketActivity.class));
         break;
       case R.id.tvAddToBasket:
+        itemAdapter.save();
+        runCountdown();
         break;
     }
+  }
+
+  private void runCountdown() {
+    Toast toast = new Toast(getActivity());
+    toast.setView(LayoutInflater.from(getActivity()).inflate(R.layout.toast_meas_update, null));
+    toast.setGravity(Gravity.CENTER, 0, 0);
+    toast.setDuration(Toast.LENGTH_SHORT);
+    TextView title = toast.getView().findViewById(R.id.title);
+    ImageView ellipse = toast.getView().findViewById(R.id.ivEllipse);
+    title.setText(getResources().getString(R.string.srch_save_list));
+    ellipse.setAnimation(finalSave);
+    toast.show();
+    CountDownTimer timer = new CountDownTimer(2000, 100) {
+      @Override public void onTick(long l) {
+
+      }
+
+      @Override public void onFinish() {
+        getActivity().finish();
+      }
+    }.start();
   }
 
 }

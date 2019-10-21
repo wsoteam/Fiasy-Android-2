@@ -39,7 +39,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private boolean isHasNextItem = false;
 
   @Override public void saveFood() {
-    InDiary.saveList(adapterFoods);
+    InDiary.saveMixedList(adapterFoods);
     clearDB();
   }
 

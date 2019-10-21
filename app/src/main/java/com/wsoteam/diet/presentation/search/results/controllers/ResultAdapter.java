@@ -1,16 +1,13 @@
 package com.wsoteam.diet.presentation.search.results.controllers;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.App;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.common.diary.InDiary;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
@@ -18,17 +15,14 @@ import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
-import io.reactivex.Flowable;
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
-public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements IResult  {
   private List<ISearchResult> foods;
   private final int HEADER_TYPE = 0;
   private final int ITEM_TYPE = 1;
@@ -37,6 +31,23 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private List<BasketEntity> savedFood;
   private BasketDAO basketDAO;
   private BasketUpdater basketUpdater;
+
+  @Override public void save() {
+    InDiary.saveClearList(savedFood);
+    clearDB();
+    savedFood = new ArrayList<>();
+  }
+
+  private void clearDB() {
+    Completable.fromAction(new Action() {
+      @Override
+      public void run() throws Exception {
+        basketDAO.deleteAll();
+      }
+    }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe();
+  }
 
   public ResultAdapter(List<ISearchResult> foods, Context context, List<BasketEntity> savedFood,
       BasketUpdater basketUpdater) {

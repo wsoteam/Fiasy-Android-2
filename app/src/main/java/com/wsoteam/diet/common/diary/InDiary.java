@@ -17,11 +17,17 @@ public class InDiary {
   public static final int DINNER = 2;
   public static final int SNACK = 3;
 
-  public static void saveList(List<ISearchResult> foods){
+  public static void saveMixedList(List<ISearchResult> foods) {
     for (int i = 0; i < foods.size(); i++) {
-      if (foods.get(i) instanceof BasketEntity){
+      if (foods.get(i) instanceof BasketEntity) {
         saveItem((BasketEntity) foods.get(i));
       }
+    }
+  }
+
+  public static void saveClearList(List<BasketEntity> foods) {
+    for (int i = 0; i < foods.size(); i++) {
+      saveItem(foods.get(i));
     }
   }
 
@@ -31,18 +37,22 @@ public class InDiary {
     int month = calendar.get(Calendar.MONDAY);
     int year = calendar.get(Calendar.YEAR);
 
-    switch (basketEntity.getEatingType()){
-      case BREAKFAST: WorkWithFirebaseDB.
-          addBreakfast(new Breakfast(basketEntity, day, month, year, 0));
-      break;
-      case LUNCH: WorkWithFirebaseDB.
-          addLunch(new Lunch(basketEntity, day, month, year, 0));
+    switch (basketEntity.getEatingType()) {
+      case BREAKFAST:
+        WorkWithFirebaseDB.
+            addBreakfast(new Breakfast(basketEntity, day, month, year, 0));
         break;
-      case DINNER: WorkWithFirebaseDB.
-          addDinner(new Dinner(basketEntity, day, month, year, 0));
+      case LUNCH:
+        WorkWithFirebaseDB.
+            addLunch(new Lunch(basketEntity, day, month, year, 0));
         break;
-      case SNACK: WorkWithFirebaseDB.
-          addSnack(new Snack(basketEntity, day, month, year, 0));
+      case DINNER:
+        WorkWithFirebaseDB.
+            addDinner(new Dinner(basketEntity, day, month, year, 0));
+        break;
+      case SNACK:
+        WorkWithFirebaseDB.
+            addSnack(new Snack(basketEntity, day, month, year, 0));
         break;
     }
   }
