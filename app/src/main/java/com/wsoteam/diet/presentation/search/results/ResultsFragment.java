@@ -44,6 +44,8 @@ import com.wsoteam.diet.presentation.search.ParentActivity;
 import com.wsoteam.diet.presentation.search.basket.BasketActivity;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
+import com.wsoteam.diet.presentation.search.basket.db.HistoryDAO;
+import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity;
 import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater;
 import com.wsoteam.diet.presentation.search.results.controllers.ResultAdapter;
 import io.reactivex.Single;
@@ -67,6 +69,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   private int RESPONSE_LIMIT = 100;
   private ResultAdapter itemAdapter;
   private BasketDAO basketDAO = App.getInstance().getFoodDatabase().basketDAO();
+  private HistoryDAO historyDAO = App.getInstance().getFoodDatabase().historyDAO();
   private Animation finalSave;
 
   @Override public void sendClearSearchField() {
@@ -147,7 +150,14 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     btnAddCustomFood.setVisibility(View.VISIBLE);
   }
 
-  private void showStartUI() {
+  private void showHistory() {
+    Single.fromCallable(() -> {
+      List<HistoryEntity> savedItems = getLastItems();
+      return savedItems;
+    })
+        .subscribeOn(Schedulers.computation())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(t -> updateAdapter(t, new ArrayList<>()), Throwable::printStackTrace);
   }
 
   @Override
@@ -181,6 +191,11 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
   private List<BasketEntity> getSavedItems() {
     List<BasketEntity> entities = basketDAO.getAll();
+    return entities;
+  }
+
+  private List<HistoryEntity> getLastItems() {
+    List<HistoryEntity> entities = historyDAO.getAll();
     return entities;
   }
 
