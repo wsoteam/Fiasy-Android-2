@@ -50,10 +50,14 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
         0) {
       @Override public boolean onMove(@NonNull RecyclerView recyclerView,
           @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+        if (target.getAdapterPosition() > 0) {
           int from = viewHolder.getAdapterPosition();
           int to = target.getAdapterPosition();
           adapter.moveItem(from, to);
           return false;
+        }else {
+          return true;
+        }
       }
 
       @Override public int getMovementFlags(@NonNull RecyclerView recyclerView,
@@ -64,6 +68,8 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
           return super.getMovementFlags(recyclerView, viewHolder);
         }
       }
+
+
 
       @Override public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
