@@ -141,10 +141,13 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
     return spannable;
   }
 
-  @OnClick({ R.id.cancel }) public void onViewClicked(View view) {
+  @OnClick({ R.id.cancel, R.id.tvAddToBasket }) public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.cancel:
         adapter.cancelRemove();
+        break;
+      case R.id.tvAddToBasket:
+        adapter.saveFood();
         break;
     }
   }

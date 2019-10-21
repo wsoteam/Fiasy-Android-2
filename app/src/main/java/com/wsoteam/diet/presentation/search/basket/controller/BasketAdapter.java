@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.App;
+import com.wsoteam.diet.common.diary.InDiary;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
-import com.wsoteam.diet.presentation.search.basket.IBasket;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater;
@@ -38,7 +38,9 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private int deletePosition;
   private boolean isHasNextItem = false;
 
-
+  @Override public void saveFood() {
+    InDiary.saveList(adapterFoods);
+  }
 
   @Override public void cancelRemove() {
     returnRemovedItem(deleteEntity, deletePosition);
