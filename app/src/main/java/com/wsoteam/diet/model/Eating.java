@@ -1,10 +1,8 @@
 package com.wsoteam.diet.model;
 
-import com.orm.SugarRecord;
-
 import java.io.Serializable;
 
-public class Eating extends SugarRecord implements Serializable {
+public class Eating implements Serializable {
     private String name;
     private String urlOfImages;
 
@@ -19,10 +17,63 @@ public class Eating extends SugarRecord implements Serializable {
     private int month;
     private int year;
 
+    //21.10.2019 changes
+    private int serverId;
+    private int deepId;
+
+    private String brand;
+    private boolean isLiquid;
+
+    private double kilojoules;
+    private double sugar;
+    private double saturatedFats;
+    private double monoUnSaturatedFats;
+    private double polyUnSaturatedFats;
+    private double cholesterol;
+    private double cellulose;
+    private double sodium;
+    private double pottassium;
+
+    //0 - normal food
+    private int type;
+
     public Eating() {
     }
 
-    public Eating(String name, String urlOfImages, int calories, int carbohydrates, int protein, int fat, int weight, int day, int month, int year) {
+    public Eating(String name, String urlOfImages, int calories, int carbohydrates, int protein,
+        int fat, int weight, int day, int month, int year, int serverId, int deepId,
+        String brand, boolean isLiquid, double kilojoules, double sugar, double saturatedFats,
+        double monoUnSaturatedFats, double polyUnSaturatedFats, double cholesterol,
+        double cellulose,
+        double sodium, double pottassium, int type) {
+        this.name = name;
+        this.urlOfImages = urlOfImages;
+        this.calories = calories;
+        this.carbohydrates = carbohydrates;
+        this.protein = protein;
+        this.fat = fat;
+        this.weight = weight;
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        this.serverId = serverId;
+        this.deepId = deepId;
+        this.brand = brand;
+        this.isLiquid = isLiquid;
+        this.kilojoules = kilojoules;
+        this.sugar = sugar;
+        this.saturatedFats = saturatedFats;
+        this.monoUnSaturatedFats = monoUnSaturatedFats;
+        this.polyUnSaturatedFats = polyUnSaturatedFats;
+        this.cholesterol = cholesterol;
+        this.cellulose = cellulose;
+        this.sodium = sodium;
+        this.pottassium = pottassium;
+        this.type = type;
+    }
+
+    public Eating(String name, String urlOfImages, int calories, int carbohydrates, int protein,
+        int fat, int weight, int day, int month, int year) {
         this.name = name;
         this.urlOfImages = urlOfImages;
         this.calories = calories;
@@ -34,6 +85,8 @@ public class Eating extends SugarRecord implements Serializable {
         this.month = month;
         this.year = year;
     }
+
+
 
     public String getName() {
         return name;
@@ -113,5 +166,117 @@ public class Eating extends SugarRecord implements Serializable {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public int getServerId() {
+        return serverId;
+    }
+
+    public void setServerId(int serverId) {
+        this.serverId = serverId;
+    }
+
+    public int getDeepId() {
+        return deepId;
+    }
+
+    public void setDeepId(int deepId) {
+        this.deepId = deepId;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public boolean isLiquid() {
+        return isLiquid;
+    }
+
+    public void setLiquid(boolean liquid) {
+        isLiquid = liquid;
+    }
+
+    public double getKilojoules() {
+        return kilojoules;
+    }
+
+    public void setKilojoules(double kilojoules) {
+        this.kilojoules = kilojoules;
+    }
+
+    public double getSugar() {
+        return sugar;
+    }
+
+    public void setSugar(double sugar) {
+        this.sugar = sugar;
+    }
+
+    public double getSaturatedFats() {
+        return saturatedFats;
+    }
+
+    public void setSaturatedFats(double saturatedFats) {
+        this.saturatedFats = saturatedFats;
+    }
+
+    public double getMonoUnSaturatedFats() {
+        return monoUnSaturatedFats;
+    }
+
+    public void setMonoUnSaturatedFats(double monoUnSaturatedFats) {
+        this.monoUnSaturatedFats = monoUnSaturatedFats;
+    }
+
+    public double getPolyUnSaturatedFats() {
+        return polyUnSaturatedFats;
+    }
+
+    public void setPolyUnSaturatedFats(double polyUnSaturatedFats) {
+        this.polyUnSaturatedFats = polyUnSaturatedFats;
+    }
+
+    public double getCholesterol() {
+        return cholesterol;
+    }
+
+    public void setCholesterol(double cholesterol) {
+        this.cholesterol = cholesterol;
+    }
+
+    public double getCellulose() {
+        return cellulose;
+    }
+
+    public void setCellulose(double cellulose) {
+        this.cellulose = cellulose;
+    }
+
+    public double getSodium() {
+        return sodium;
+    }
+
+    public void setSodium(double sodium) {
+        this.sodium = sodium;
+    }
+
+    public double getPottassium() {
+        return pottassium;
+    }
+
+    public void setPottassium(double pottassium) {
+        this.pottassium = pottassium;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }
