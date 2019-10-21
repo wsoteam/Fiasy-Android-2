@@ -28,21 +28,21 @@ public class InDiary {
   private static void saveItem(BasketEntity basketEntity) {
     Calendar calendar = Calendar.getInstance();
     int day = calendar.get(Calendar.DAY_OF_MONTH);
-    int month = calendar.get(Calendar.MONDAY) - 1;
+    int month = calendar.get(Calendar.MONDAY);
     int year = calendar.get(Calendar.YEAR);
-    Eating eating = new Eating(basketEntity, day, month, year, 0);
+
     switch (basketEntity.getEatingType()){
       case BREAKFAST: WorkWithFirebaseDB.
-          addBreakfast((Breakfast) eating);
+          addBreakfast(new Breakfast(basketEntity, day, month, year, 0));
       break;
       case LUNCH: WorkWithFirebaseDB.
-          addLunch((Lunch) eating);
+          addLunch(new Lunch(basketEntity, day, month, year, 0));
         break;
       case DINNER: WorkWithFirebaseDB.
-          addDinner((Dinner) eating);
+          addDinner(new Dinner(basketEntity, day, month, year, 0));
         break;
       case SNACK: WorkWithFirebaseDB.
-          addSnack((Snack) eating);
+          addSnack(new Snack(basketEntity, day, month, year, 0));
         break;
     }
   }

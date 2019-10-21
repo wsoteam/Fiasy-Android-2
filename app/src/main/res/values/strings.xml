@@ -1128,4 +1128,5 @@
     <string name="srch_liquid">%d мл</string>
     <string name="srch_not_liquid">%d г</string>
     <string name="meas_toast_update">Значение текущего веса  \nобновлено</string>
+    <string name="srch_save_list">Добавлено в дневник</string>
 </resources>

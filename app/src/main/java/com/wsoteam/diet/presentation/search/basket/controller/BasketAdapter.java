@@ -39,18 +39,19 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private boolean isHasNextItem = false;
 
   @Override public void saveFood() {
-    //InDiary.saveList(adapterFoods);
-    //clear bd
-    downTimer  = new CountDownTimer(5000, 100) {
-      @Override
-      public void onTick(long millisUntilFinished) {
-      }
+    InDiary.saveList(adapterFoods);
+    clearDB();
+  }
 
+  private void clearDB() {
+    Completable.fromAction(new Action() {
       @Override
-      public void onFinish() {
-
+      public void run() throws Exception {
+        basketDAO.deleteAll();
       }
-    }.start();
+    }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe();
   }
 
   @Override public void cancelRemove() {

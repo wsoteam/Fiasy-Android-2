@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.search.basket;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -163,6 +165,19 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
     toast.setView(LayoutInflater.from(this).inflate(R.layout.toast_meas_update, null));
     toast.setGravity(Gravity.CENTER, 0, 0);
     toast.setDuration(Toast.LENGTH_SHORT);
-    Toast.LENGTH_LONG
+    TextView title = toast.getView().findViewById(R.id.title);
+    ImageView ellipse = toast.getView().findViewById(R.id.ivEllipse);
+    title.setText(getResources().getString(R.string.srch_save_list));
+    ellipse.setAnimation(finalSave);
+    toast.show();
+    CountDownTimer timer = new CountDownTimer(2000, 100) {
+      @Override public void onTick(long l) {
+
+      }
+
+      @Override public void onFinish() {
+        finish();
+      }
+    }.start();
   }
 }
