@@ -46,7 +46,8 @@ public class ResultVH extends RecyclerView.ViewHolder {
     });
   }
 
-  public void bindHistoryEntity(HistoryEntity historyEntity, boolean isChecked, ClickListener listener) {this.clickListener = clickListener;
+  public void bindHistoryEntity(HistoryEntity historyEntity, boolean isChecked, ClickListener clickListener) {
+    this.clickListener = clickListener;
     tvTitle.setText(historyEntity.getName());
     if (historyEntity.isLiquid()){
       tvPortion.setText(String.valueOf(historyEntity.getWeight()) + " " + itemView.getResources().getString(R.string.srch_ml));

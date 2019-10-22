@@ -103,9 +103,8 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((ResultVH) holder).bindHistoryEntity((HistoryEntity) foods.get(position),
             false, new ClickListener() {
               @Override public void click(int position, boolean isNeedSave) {
-                BasketEntity basketEntity =
-                    new BasketEntity((Result) foods.get(position), Config.DEFAULT_PORTION,
-                        basketUpdater.getCurrentEating(), -1);
+                BasketEntity basketEntity = (BasketEntity) foods.get(position);
+                basketEntity.setEatingType(basketUpdater.getCurrentEating());
                 if (isNeedSave) {
                   save(basketEntity);
                 } else {
