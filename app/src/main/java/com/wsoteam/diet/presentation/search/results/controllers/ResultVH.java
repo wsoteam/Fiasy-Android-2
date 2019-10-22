@@ -14,6 +14,7 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
+import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity;
 
 public class ResultVH extends RecyclerView.ViewHolder {
   @BindView(R.id.tvTitle) TextView tvTitle;
@@ -35,6 +36,26 @@ public class ResultVH extends RecyclerView.ViewHolder {
     tvKcal.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
     if (food.getBrand() != null && !food.getBrand().getName().equals("")) {
       tvTitle.append(" (" + food.getBrand().getName() + ")");
+    }
+    tbSelect.setOnCheckedChangeListener(null);
+    tbSelect.setChecked(isChecked);
+    tbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      @Override public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        clickListener.click(getAdapterPosition(), b);
+      }
+    });
+  }
+
+  public void bindHistoryEntity(HistoryEntity historyEntity, boolean isChecked, ClickListener listener) {this.clickListener = clickListener;
+    tvTitle.setText(historyEntity.getName());
+    if (historyEntity.isLiquid()){
+      tvPortion.setText(String.valueOf(historyEntity.getWeight()) + " " + itemView.getResources().getString(R.string.srch_ml));
+    }else {
+      tvPortion.setText(String.valueOf(historyEntity.getWeight()) + " " + itemView.getResources().getString(R.string.srch_gramm));
+    }
+    tvKcal.setText(String.valueOf(Math.round(historyEntity.getCalories() * historyEntity.getWeight())) + " Ккал");
+    if (historyEntity.getBrand().equals("")) {
+      tvTitle.append(" (" + historyEntity.getBrand() + ")");
     }
     tbSelect.setOnCheckedChangeListener(null);
     tbSelect.setChecked(isChecked);

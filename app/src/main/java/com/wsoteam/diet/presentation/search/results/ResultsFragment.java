@@ -39,10 +39,13 @@ import com.wsoteam.diet.presentation.search.ParentActivity;
 import com.wsoteam.diet.presentation.search.basket.BasketActivity;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
+import com.wsoteam.diet.presentation.search.basket.db.HistoryDAO;
+import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity;
 import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater;
 import com.wsoteam.diet.presentation.search.results.controllers.ResultAdapter;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +65,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   private int RESPONSE_LIMIT = 100;
   private ResultAdapter itemAdapter;
   private BasketDAO basketDAO = App.getInstance().getFoodDatabase().basketDAO();
+  private HistoryDAO historyDAO = App.getInstance().getFoodDatabase().historyDAO();
   private Animation finalSave;
 
   @Override public void sendClearSearchField() {
@@ -81,9 +85,9 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     unbinder = ButterKnife.bind(this, view);
     presenter = new ResultsPresenter();
     presenter.attachView(this);
-    rvBlocks.setLayoutManager(new LinearLayoutManager(getContext()));
     finalSave = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_meas_update);
     updateUI();
+    showHistory();
     return view;
   }
 
@@ -143,7 +147,22 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   }
 
   private void showHistory() {
-
+    Single.fromCallable(() -> {
+      List<HistoryEntity> historyEntities = getHistoryItems();
+      return historyEntities;
+    }).map(new Function<List<HistoryEntity>, List<ISearchResult>>() {
+      @Override public List<ISearchResult> apply(List<HistoryEntity> historyEntities)
+          throws Exception {
+        List<ISearchResult> list = new ArrayList<>();
+        for (int i = 0; i < historyEntities.size(); i++) {
+          list.add(historyEntities.get(i));
+        }
+        return list;
+      }
+    })
+        .subscribeOn(Schedulers.computation())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(t -> updateAdapter(t, new ArrayList<>()), Throwable::printStackTrace);
   }
 
   @Override
@@ -157,10 +176,18 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
         .getResponse(RESPONSE_LIMIT, 30, "Хлеб Тостовый")
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(t -> refreshAdapter(t.getResults()), Throwable::printStackTrace);
+        .subscribe(t -> refreshAdapter(toISearchResult(t.getResults())), Throwable::printStackTrace);
   }
 
-  private void refreshAdapter(List<Result> list) {
+  private List<ISearchResult> toISearchResult(List<Result> results) {
+    List<ISearchResult> list = new ArrayList<>();
+    for (int i = 0; i < results.size(); i++) {
+      list.add(results.get(i));
+    }
+    return list;
+  }
+
+  private void refreshAdapter(List<ISearchResult> list) {
     Single.fromCallable(() -> {
       List<BasketEntity> savedItems = getSavedItems();
       return savedItems;
@@ -180,7 +207,12 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     return entities;
   }
 
-  private void updateAdapter(List<Result> t, List<BasketEntity> basketEntities) {
+  private List<HistoryEntity> getHistoryItems() {
+    List<HistoryEntity> entities = historyDAO.getAll();
+    return entities;
+  }
+
+  private void updateAdapter(List<ISearchResult> t, List<BasketEntity> basketEntities) {
     rvBlocks.setAdapter(itemAdapter = new ResultAdapter(createHeadersArray(t), getActivity(),
         basketEntities, new BasketUpdater() {
       @Override public void getCurrentSize(int size) {
@@ -197,9 +229,13 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     }));
   }
 
-  private List<ISearchResult> createHeadersArray(List<Result> t) {
+  private List<ISearchResult> createHeadersArray(List<ISearchResult> t) {
     List<ISearchResult> iSearchResults = new ArrayList<>();
-    iSearchResults.add(new HeaderObj("kek", true));
+    if (t.get(0) instanceof HistoryEntity) {
+      iSearchResults.add(new HeaderObj("Последние добавленные", true));
+    }else {
+      iSearchResults.add(new HeaderObj("Результаты поиска", false));
+    }
     for (int i = 0; i < t.size(); i++) {
       iSearchResults.add(t.get(i));
     }

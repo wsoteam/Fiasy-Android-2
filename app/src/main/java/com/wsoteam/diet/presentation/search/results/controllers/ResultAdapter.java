@@ -13,8 +13,10 @@ import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
+import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity;
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
+import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
@@ -22,11 +24,13 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements IResult  {
+public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+    implements IResult {
   private List<ISearchResult> foods;
   private final int HEADER_TYPE = 0;
   private final int ITEM_TYPE = 1;
   private final int EXPANDABLE_TYPE = 2;
+  private final int HISTORY_TYPE = 3;
   private Context context;
   private List<BasketEntity> savedFood;
   private BasketDAO basketDAO;
@@ -36,7 +40,6 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     InDiary.saveClearList(savedFood);
     clearDB();
     savedFood = new ArrayList<>();
-
   }
 
   private void clearDB() {
@@ -66,6 +69,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     switch (viewType) {
       case HEADER_TYPE:
         return new HeaderVH(layoutInflater, parent);
+      case HISTORY_TYPE:
       case ITEM_TYPE:
         return new ResultVH(layoutInflater, parent);
       case EXPANDABLE_TYPE:
@@ -84,7 +88,24 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((ResultVH) holder).bind((Result) foods.get(position),
             getSaveStatus((Result) foods.get(position)), new ClickListener() {
               @Override public void click(int position, boolean isNeedSave) {
-                BasketEntity basketEntity = new BasketEntity((Result) foods.get(position), Config.DEFAULT_PORTION, basketUpdater.getCurrentEating(), -1);
+                BasketEntity basketEntity =
+                    new BasketEntity((Result) foods.get(position), Config.DEFAULT_PORTION,
+                        basketUpdater.getCurrentEating(), -1);
+                if (isNeedSave) {
+                  save(basketEntity);
+                } else {
+                  delete(basketEntity);
+                }
+              }
+            });
+        break;
+      case HISTORY_TYPE:
+        ((ResultVH) holder).bindHistoryEntity((HistoryEntity) foods.get(position),
+            false, new ClickListener() {
+              @Override public void click(int position, boolean isNeedSave) {
+                BasketEntity basketEntity =
+                    new BasketEntity((Result) foods.get(position), Config.DEFAULT_PORTION,
+                        basketUpdater.getCurrentEating(), -1);
                 if (isNeedSave) {
                   save(basketEntity);
                 } else {
@@ -94,16 +115,17 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
         break;
       case EXPANDABLE_TYPE:
-        ((HierarchyVH) holder).bind((Result) foods.get(position), getSavedDeepIds((Result) foods.get(position)), new ExpandableClickListener(){
-          @Override public void click(BasketEntity basketEntity, boolean isNeedSave) {
-            basketEntity.setEatingType(basketUpdater.getCurrentEating());
-            if (isNeedSave) {
-              save(basketEntity);
-            } else {
-              delete(basketEntity);
-            }
-          }
-        });
+        ((HierarchyVH) holder).bind((Result) foods.get(position),
+            getSavedDeepIds((Result) foods.get(position)), new ExpandableClickListener() {
+              @Override public void click(BasketEntity basketEntity, boolean isNeedSave) {
+                basketEntity.setEatingType(basketUpdater.getCurrentEating());
+                if (isNeedSave) {
+                  save(basketEntity);
+                } else {
+                  delete(basketEntity);
+                }
+              }
+            });
         break;
     }
   }
@@ -155,7 +177,8 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
   private void removeItem(BasketEntity basketEntity) {
     for (int i = 0; i < savedFood.size(); i++) {
-      if (savedFood.get(i).getServerId() == basketEntity.getServerId() && savedFood.get(i).getDeepId() == basketEntity.getDeepId()) {
+      if (savedFood.get(i).getServerId() == basketEntity.getServerId()
+          && savedFood.get(i).getDeepId() == basketEntity.getDeepId()) {
         savedFood.remove(i);
         break;
       }
@@ -196,7 +219,9 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   }
 
   @Override public int getItemViewType(int position) {
-    if (foods.get(position) instanceof HeaderObj) {
+    if (foods.get(position) instanceof HistoryEntity) {
+      return HISTORY_TYPE;
+    } else if (foods.get(position) instanceof HeaderObj) {
       return HEADER_TYPE;
     } else if (foods.get(position) instanceof Result) {
       if (((Result) foods.get(position)).getMeasurementUnits() == null
