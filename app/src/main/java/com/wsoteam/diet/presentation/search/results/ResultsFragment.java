@@ -1,13 +1,11 @@
 package com.wsoteam.diet.presentation.search.results;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,7 +28,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.wsoteam.diet.App;
-import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
@@ -44,8 +39,6 @@ import com.wsoteam.diet.presentation.search.ParentActivity;
 import com.wsoteam.diet.presentation.search.basket.BasketActivity;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
-import com.wsoteam.diet.presentation.search.basket.db.HistoryDAO;
-import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity;
 import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater;
 import com.wsoteam.diet.presentation.search.results.controllers.ResultAdapter;
 import io.reactivex.Single;
@@ -69,7 +62,6 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   private int RESPONSE_LIMIT = 100;
   private ResultAdapter itemAdapter;
   private BasketDAO basketDAO = App.getInstance().getFoodDatabase().basketDAO();
-  private HistoryDAO historyDAO = App.getInstance().getFoodDatabase().historyDAO();
   private Animation finalSave;
 
   @Override public void sendClearSearchField() {
@@ -151,13 +143,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   }
 
   private void showHistory() {
-    Single.fromCallable(() -> {
-      List<HistoryEntity> savedItems = getLastItems();
-      return savedItems;
-    })
-        .subscribeOn(Schedulers.computation())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(t -> updateAdapter(t, new ArrayList<>()), Throwable::printStackTrace);
+
   }
 
   @Override
@@ -191,11 +177,6 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
   private List<BasketEntity> getSavedItems() {
     List<BasketEntity> entities = basketDAO.getAll();
-    return entities;
-  }
-
-  private List<HistoryEntity> getLastItems() {
-    List<HistoryEntity> entities = historyDAO.getAll();
     return entities;
   }
 
