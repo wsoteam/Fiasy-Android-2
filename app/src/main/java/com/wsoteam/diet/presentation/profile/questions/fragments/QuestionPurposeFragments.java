@@ -39,7 +39,7 @@ public class QuestionPurposeFragments extends Fragment {
   private static final int[] female = {
       R.drawable.question_female_purpose_1,
       R.drawable.question_female_purpose_2,
-      R.drawable.question_female_purpose_1,// todo,R.drawable.question_female_purpose_3,
+      R.drawable.question_female_purpose_3,
       R.drawable.question_female_purpose_4,
   };
 

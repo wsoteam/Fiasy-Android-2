@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
@@ -97,7 +98,10 @@ public class QuestionActivityFragments extends Fragment {
         //        .transition(DrawableTransitionOptions.with(new DrawableAlwaysCrossFadeFactory()))
         //        .into(ivImage);
         //TODO check
-        Picasso.get().load(imageResource).into(ivImage);
+        //Picasso.get().load(imageResource).into(ivImage);
+        ivImage.setImageDrawable(
+            VectorDrawableCompat.create(getResources(), imageResource, requireActivity().getTheme())
+        );
         tvActivity.setText(text);
     }
 

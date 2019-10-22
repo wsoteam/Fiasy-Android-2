@@ -5,9 +5,11 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -28,6 +30,7 @@ import com.wsoteam.diet.utils.InputValidation;
 import com.wsoteam.diet.utils.InputValidation.EmailValidation;
 import com.wsoteam.diet.utils.InputValidation.MinLengthValidation;
 import com.wsoteam.diet.utils.RichTextUtils.RichText;
+import com.wsoteam.diet.utils.ViewsExtKt;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -98,6 +101,14 @@ public class SignInFragment extends AuthStrategyFragment {
 
       formInputs.add(target);
 
+      target.getEditText().setOnEditorActionListener((v, actionId, event) -> {
+        if(actionId == EditorInfo.IME_ACTION_DONE){
+          ViewsExtKt.hideKeyboard(v);
+          return true;
+        } else {
+          return false;
+        }
+      });
       target.getEditText().addTextChangedListener(validateOnChange);
     }
 

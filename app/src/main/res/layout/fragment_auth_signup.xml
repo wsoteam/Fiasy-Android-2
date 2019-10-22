@@ -37,8 +37,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/enter_email_hint"
+        android:singleLine="true"
+        android:lines="1"
         android:maxLength="64"
         android:inputType="textEmailAddress|textPersonName"
+        android:imeOptions="actionDone"
         />
 
   </com.google.android.material.textfield.TextInputLayout>
@@ -57,6 +60,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/auth_password_hint"
         android:inputType="textPassword"
+        android:imeOptions="actionDone"
         />
 
   </com.google.android.material.textfield.TextInputLayout>

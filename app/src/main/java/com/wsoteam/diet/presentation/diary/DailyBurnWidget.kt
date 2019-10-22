@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.UserDataHolder
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.presentation.activity.DiaryActivitiesSource
 import com.wsoteam.diet.presentation.diary.Meals.MealsDetailedResult
 import com.wsoteam.diet.utils.RichTextUtils
@@ -74,7 +75,7 @@ open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView)
   private fun showPlanForCurrentDay() {
     val date = DiaryViewModel.currentDate
 
-    disposables.add(Meals.all(date.day, date.month, date.year)
+    disposables.add(Meals.detailed(date.day, date.month, date.year)
       .reduce(MealsDetailedResult(0, 0, 0, 0, emptyList())) { l, r ->
         MealsDetailedResult(
             calories = l.calories + r.calories,
@@ -121,15 +122,18 @@ open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView)
     super.onAttached(parent)
 
     DiaryViewModel.selectedDate.observeForever(dateObserver)
+    WorkWithFirebaseDB.liveUpdates().observeForever(dateObserver)
     DiaryActivitiesSource.burnedLive.observeForever(activityObserver)
   }
 
   override fun onDetached(parent: RecyclerView) {
     super.onDetached(parent)
-    disposables.clear()
 
     DiaryViewModel.selectedDate.removeObserver(dateObserver)
+    WorkWithFirebaseDB.liveUpdates().removeObserver(dateObserver)
     DiaryActivitiesSource.burnedLive.removeObserver(activityObserver)
+
+    disposables.clear()
   }
 
 }

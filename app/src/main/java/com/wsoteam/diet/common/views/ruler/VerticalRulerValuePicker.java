@@ -98,7 +98,7 @@ public final class VerticalRulerValuePicker extends FrameLayout implements Obser
 
     private void init(@Nullable AttributeSet attributeSet) {
 
-        //Add all the children
+        //Add detailed the children
         addChildViews();
 
         if (attributeSet != null) {

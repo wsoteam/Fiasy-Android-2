@@ -315,7 +315,7 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datepicker, int year, int month, int day) {
-                        //this condition is necessary to work properly on all android versions
+                        //this condition is necessary to work properly on detailed android versions
 //                        if(view.isShown()){
                         savePortion(idOfEating, recipeItem, year, month, day);
 //                        }

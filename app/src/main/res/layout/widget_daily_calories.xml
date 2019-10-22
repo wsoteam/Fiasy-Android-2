@@ -61,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title"
         app:layout_constraintLeft_toRightOf="@id/progress_hint_2"
         app:layout_constraintRight_toLeftOf="@id/progress_hint_4"
-        android:text="Соженно"
+        android:text="Сожжено"
         style="@style/DailyBurnedLabel"
         />
     <TextView

@@ -45,7 +45,7 @@
         android:hint="@string/add_user_activity_hint"
         android:layout_below="@id/activity_poster"
         android:textColor="@color/orange1"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:inputType="textMultiLine|textCapSentences"
         android:lines="3"
         android:minLines="1"
@@ -81,7 +81,7 @@
         android:textSize="14sp"
         android:fontFamily="@font/roboto_medium"
         android:gravity="left"
-        android:text="Передвигая ползунком, выбирите то количество времени, которое вы потратили на актинвость"
+        android:text="Передвигая ползунком, выберите то количество времени, которое вы потратили на актинвость"
         style="@style/TextAppearance.AppCompat.Caption"
         />
 
@@ -155,7 +155,7 @@
         android:fontFamily="@font/roboto_medium"
         android:textSize="20sp"
         android:inputType="numberSigned"
-        android:digits="123456789"
+        android:digits="1234567890"
         android:textColor="@color/orange1"
         android:layout_below="@id/activity_ccal_description"
         android:maxLength="12"

@@ -153,7 +153,7 @@ class ExtendedBufferedReader extends BufferedReader  {
   }
  
  /**
-  * Reads all characters up to (but not including) the given character.
+  * Reads detailed characters up to (but not including) the given character.
   * 
   * @param c the character to read up to
   * @return the string up to the character <code>c</code>
@@ -255,7 +255,7 @@ class ExtendedBufferedReader extends BufferedReader  {
   }
   
   /**
-   * Skips all chars in the input until (but excluding) the given char
+   * Skips detailed chars in the input until (but excluding) the given char
    * 
    * @return counter
    * @throws IOException If there is a low-level I/O error.

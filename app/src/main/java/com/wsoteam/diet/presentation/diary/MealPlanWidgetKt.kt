@@ -1,10 +1,14 @@
 package com.wsoteam.diet.presentation.diary
 
+import android.content.Context.MODE_PRIVATE
+import android.content.Intent
 import android.os.CountDownTimer
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
@@ -24,17 +28,15 @@ import com.wsoteam.diet.model.Lunch
 import com.wsoteam.diet.model.Snack
 import com.wsoteam.diet.presentation.global.Screens
 import com.wsoteam.diet.presentation.plans.DateHelper
-import com.wsoteam.diet.presentation.plans.detail.day.CurrentDayPlanAdapter
-import java.util.Calendar
-import java.util.concurrent.TimeUnit
-
-import android.content.Context.MODE_PRIVATE
-import android.content.Intent
-import android.widget.ImageView
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansActivity
 import com.wsoteam.diet.presentation.plans.detail.DetailPlansActivity
+import com.wsoteam.diet.presentation.plans.detail.day.CurrentDayPlanAdapter
+import java.util.Calendar
+import java.util.Date
+import java.util.concurrent.TimeUnit
 
-class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView), TabLayout.BaseOnTabSelectedListener<Tab> {
+class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
+  TabLayout.BaseOnTabSelectedListener<Tab> {
 
   private val recyclerView: RecyclerView = itemView.findViewById(R.id.recycler)
   private val tabLayout: TabLayout = itemView.findViewById(R.id.tabs)
@@ -50,12 +52,17 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView), Ta
 
   private var day: Int = 0
   private var daysPicked: Int = 0
-  private var dateForShowRecipe: Long = 0
   private val adapter = CurrentDayPlanAdapter()
   private val layoutManager = LinearLayoutManager(context)
   private var recipeForDay: RecipeForDay? = null
   private var updateCallback: UpdateCallback? = null
   private var currentTask: CountDownTimer? = null
+
+  private val planObserver = Observer<Int> { id ->
+    if ((id ?: -1) == WorkWithFirebaseDB.PLAN_UPDATED) {
+      checkStatus()
+    }
+  }
 
   init {
     tabLayout.addOnTabSelectedListener(this)
@@ -63,7 +70,7 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView), Ta
     recyclerView.layoutManager = layoutManager
     recyclerView.adapter = adapter
 
-    adapter.SetOnItemClickListener(object : CurrentDayPlanAdapter.OnItemClickListener{
+    adapter.SetOnItemClickListener(object : CurrentDayPlanAdapter.OnItemClickListener {
       override fun onItemClick(
         recipeItem: RecipeItem?,
         days: String?,
@@ -85,7 +92,7 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView), Ta
         recipeNumber: String
       ) {
         savePortion(recipeItem, day, meal, recipeNumber)
-          updateCallback?.update()
+        updateCallback?.update()
       }
     })
 
@@ -98,12 +105,10 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView), Ta
     viewPlans.setOnClickListener {
       context.startActivity(Intent(context, BrowsePlansActivity::class.java))
     }
+
     closePlansWindw.setOnClickListener {
       WorkWithFirebaseDB.leaveDietPlan()
       UserDataHolder.getUserData()?.plan = null
-      activePlan.visibility = View.GONE
-      notActivePlan.visibility = View.GONE
-      finishPlan.visibility = View.GONE
     }
     viewOtherPlans.setOnClickListener {
       WorkWithFirebaseDB.leaveDietPlan()
@@ -112,16 +117,27 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView), Ta
     }
   }
 
-  override fun onBind(parent: RecyclerView, position: Int) {
-    super.onBind(parent, position)
-    val calendar = Calendar.getInstance()
-//    calendar.add(Calendar.DAY_OF_WEEK, 1)
-    checkStatus(calendar)
+  override fun onAttached(parent: RecyclerView) {
+    super.onAttached(parent)
+
+    WorkWithFirebaseDB.liveUpdates().observeForever(planObserver)
   }
 
-  private fun checkStatus(calendar: Calendar) {
+  override fun onDetached(parent: RecyclerView) {
+    super.onDetached(parent)
 
-    val currentDate = calendar.time
+    WorkWithFirebaseDB.liveUpdates().removeObserver(planObserver)
+  }
+
+  override fun onBind(parent: RecyclerView, position: Int) {
+    super.onBind(parent, position)
+
+    checkStatus()
+  }
+
+  private fun checkStatus() {
+    val currentDate = DiaryViewModel.currentDate.calendar.time
+
     UserDataHolder.getUserData()?.plan?.let { plan ->
 
       val startDay: Calendar = Calendar.getInstance()
@@ -159,7 +175,7 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView), Ta
     notActivePlan()
   }
 
-  private fun showRecipe(plan: DietPlan, day: Int){
+  private fun showRecipe(plan: DietPlan, day: Int) {
     activePlan.visibility = View.VISIBLE
     notActivePlan.visibility = View.GONE
     finishPlan.visibility = View.GONE
@@ -174,14 +190,14 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView), Ta
     onTabSelected(tabLayout.getTabAt(tabLayout.selectedTabPosition))
   }
 
-  private fun notActivePlan(){
+  private fun notActivePlan() {
     activePlan.visibility = View.GONE
     notActivePlan.visibility = View.VISIBLE
     finishPlan.visibility = View.GONE
     recipeForDay = null
   }
 
-  private fun finishPlan(plan: DietPlan){
+  private fun finishPlan(plan: DietPlan) {
     activePlan.visibility = View.GONE
     notActivePlan.visibility = View.GONE
     finishPlan.visibility = View.VISIBLE
@@ -189,7 +205,7 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView), Ta
     recipeForDay = null
   }
 
-  private fun hideAll(){
+  private fun hideAll() {
     activePlan.visibility = View.GONE
     notActivePlan.visibility = View.GONE
     finishPlan.visibility = View.GONE
@@ -240,7 +256,7 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView), Ta
           Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year)
         WorkWithFirebaseDB.addBreakfast(breakfast)
         UserDataHolder.getUserData()
-            .breakfasts[System.currentTimeMillis().toString() + ""] = breakfast
+          .breakfasts[System.currentTimeMillis().toString() + ""] = breakfast
       }
       "lunch" -> {
         val lunch = Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year)
@@ -265,9 +281,9 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView), Ta
     alertDialog.show()
 
     context.getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE)
-        .edit()
-        .putBoolean(Config.IS_ADDED_FOOD, true)
-        .apply()
+      .edit()
+      .putBoolean(Config.IS_ADDED_FOOD, true)
+      .apply()
 
     currentTask = object : CountDownTimer(800, 100) {
       override fun onTick(millisUntilFinished: Long) {

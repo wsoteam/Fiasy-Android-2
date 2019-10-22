@@ -45,6 +45,7 @@ import java.util.concurrent.ExecutionException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import kotlin.collections.CollectionsKt;
 
 public class FragmentEatingScroll extends Fragment {
     private static final String TAG_OF_BUNDLE = "FragmentEatingScroll";
@@ -156,7 +157,8 @@ public class FragmentEatingScroll extends Fragment {
         unbinder.unbind();
     }
 
-    private String setDateTitle(int day, int month, int year) {
+    @Deprecated
+    public static String setDateTitle(int day, int month, int year) {
         String dayInString, monthInString, yearInString;
 
         if (day < 10) {
@@ -194,6 +196,7 @@ public class FragmentEatingScroll extends Fragment {
     }
 
     private void setMainParamsInBars(List<List<Eating>> lists) {
+        lists = lists == null ? CollectionsKt.emptyList() : lists;
         int kcal = 0, fat = 0, prot = 0, carbo = 0, leftKCal = 0;
 
         for (int i = 0; i < lists.size(); i++) {

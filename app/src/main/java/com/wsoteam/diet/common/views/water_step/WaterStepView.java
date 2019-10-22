@@ -101,7 +101,6 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
     }
 
     private void redrawView(int count, boolean addMore) {
-
       currentProgress = count;
 
         if (rlContainer.getChildCount() > 1) {

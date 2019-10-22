@@ -50,6 +50,12 @@ public class App extends MultiDexApplication {
             .unsubscribeWhenNotificationsAreDisabled(true)
             .init();
 
+        Amplitude.getInstance().trackSessionEvents(true);
+        Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
+            .enableForegroundTracking(this);
+
+        Intercom.initialize(this, "android_sdk-bceadc40bc17510359f5ad43a72281735676eea2", "dr8zfmz4");
+
         //SetUserProperties.setUserProperties(Adjust.getAttribution());
     }
 
@@ -62,11 +68,6 @@ public class App extends MultiDexApplication {
 
             Adjust.onCreate(new AdjustConfig(this, app_token, ENVIRONMENT_PRODUCTION));
             registerActivityLifecycleCallbacks(new AdjustLifecycleCallbacks());
-
-            Amplitude.getInstance().trackSessionEvents(true);
-            Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
-                .enableForegroundTracking(this);
-            Intercom.initialize(this, "android_sdk-bceadc40bc17510359f5ad43a72281735676eea2", "dr8zfmz4");
         }
     }
 

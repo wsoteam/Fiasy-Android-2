@@ -98,7 +98,7 @@ public final class RulerValuePicker extends FrameLayout implements ObservableHor
 
     private void init(@Nullable AttributeSet attributeSet) {
 
-        //Add all the children
+        //Add detailed the children
         addChildViews();
 
         if (attributeSet != null) {

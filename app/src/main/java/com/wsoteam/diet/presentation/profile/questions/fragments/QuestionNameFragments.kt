@@ -16,7 +16,6 @@ import com.wsoteam.diet.R.string
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity
 import com.wsoteam.diet.utils.InputValidation
 import com.wsoteam.diet.utils.InputValidation.MinLengthValidation
-import com.wsoteam.diet.utils.ViewUtils
 import com.wsoteam.diet.utils.hideKeyboard
 
 class QuestionNameFragments : Fragment() {
@@ -50,11 +49,20 @@ class QuestionNameFragments : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    usernameView = view.findViewById(R.id.user_name)
-    usernameView.editText?.addTextChangedListener(textWatcher)
+    val prefs = requireActivity().getSharedPreferences(Config.ONBOARD_PROFILE, MODE_PRIVATE)
+
+    view.setOnTouchListener { v, e ->
+      v.hideKeyboard()
+
+      /* return */ true
+    }
 
     doneButton = view.findViewById(R.id.btnNext)
     doneButton.setOnClickListener { nextQuestion() }
+
+    usernameView = view.findViewById(R.id.user_name)
+    usernameView.editText?.addTextChangedListener(textWatcher)
+    usernameView.editText?.setText(prefs.getString(Config.ONBOARD_PROFILE_NAME, ""))
   }
 
   fun nextQuestion() {

@@ -161,10 +161,12 @@ public class MainActivity extends AppCompatActivity {
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
-        getSupportFragmentManager()
-            .beginTransaction()
-            .add(R.id.flFragmentContainer, new DiaryFragment())
-            .commit();
+        if (getSupportFragmentManager().findFragmentByTag("diary") == null) {
+            getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.flFragmentContainer, new DiaryFragment(), "diary")
+                .commit();
+        }
 
         //checkForcedGrade();
         IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());

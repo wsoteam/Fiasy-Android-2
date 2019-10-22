@@ -2,18 +2,19 @@ package com.wsoteam.diet.presentation.diary
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.common.views.water_step.WaterStepView
 import com.wsoteam.diet.model.Water
+import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
 import com.wsoteam.diet.presentation.main.water.WaterActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -22,7 +23,6 @@ import java.util.Calendar
 import java.util.Calendar.DAY_OF_MONTH
 import java.util.Calendar.MONTH
 import java.util.Calendar.YEAR
-import java.util.Calendar.getInstance
 
 class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
   private val stepView: WaterStepView = itemView.findViewById(R.id.waterStepView)
@@ -35,18 +35,26 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
   private val disposables = CompositeDisposable()
   private var water: Water? = null
 
+  private val dateObserver = Observer<DiaryDay> { date ->
+    if (date != null) {
+      showWaterForDate(date.calendar)
+    }
+  }
+
   init {
     stepView.setMaxProgress((waterMaxValue / waterStep).toInt())
   }
 
   override fun onAttached(parent: RecyclerView) {
     super.onAttached(parent)
+    DiaryViewModel.selectedDate.observeForever(dateObserver)
+
     stepView.setMaxProgress((waterMaxValue / waterStep).toInt())
     stepView.setOnWaterClickListener { progress ->
+      water?.apply {
+        waterCount = progress * waterStep
 
-      water?.let {
-        it.waterCount = progress * waterStep
-        updateUi(it)
+        updateUi(this)
       }
 
       if (water?.key == null) {
@@ -63,26 +71,26 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
 
   override fun onDetached(parent: RecyclerView) {
     super.onDetached(parent)
+    DiaryViewModel.selectedDate.removeObserver(dateObserver)
+
     disposables.clear()
     stepView.setOnWaterClickListener(null)
   }
 
-  override fun onBind(
-    parent: RecyclerView,
-    position: Int
-  ) {
+  override fun onBind(parent: RecyclerView, position: Int) {
     super.onBind(parent, position)
-    showWaterForDate(getInstance())
+
+    showWaterForDate(DiaryViewModel.currentDate.calendar)
   }
 
   private fun showWaterForDate(calendar: Calendar) {
     disposables.add(Meals.water(calendar[DAY_OF_MONTH], calendar[MONTH] + 1, calendar[YEAR])
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(
-            { updateProgress(it) },
-            { error -> error.printStackTrace() }
-        ))
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribe(
+          { updateProgress(it) },
+          { error -> error.printStackTrace() }
+      ))
   }
 
   private fun updateProgress(water: Water) {
@@ -91,7 +99,7 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
     updateUi(water)
   }
 
-  private fun updateUi(water: Water){
+  private fun updateUi(water: Water) {
     waterReminder.text = String.format(
         itemView.context.getString(R.string.main_screen_menu_water_count), water.waterCount
     )
@@ -102,10 +110,7 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
     }
   }
 
-  private fun createPopupMenu(
-    context: Context,
-    button: ImageButton
-  ) {
+  private fun createPopupMenu(context: Context, button: ImageButton) {
     val popupMenu = PopupMenu(context, button)
     popupMenu.inflate(R.menu.dots_popup_menu_water)
     popupMenu.show()
@@ -116,6 +121,5 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
       false
     }
   }
-
 
 }

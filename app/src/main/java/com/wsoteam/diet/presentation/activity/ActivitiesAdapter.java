@@ -718,7 +718,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 .text()));
       } else {
         emptyView.setText(TextUtils.concat("Вы пока не добавили активность в избранное. "
-                + "Чтобы добавить нажмите на",
+                + "Чтобы добавить",
             new RichTextUtils.RichText(TextUtils.concat("\nнажмите на ", iconChar))
                 .colorRes(itemView.getContext(), R.color.orange)
                 .text()));

@@ -70,7 +70,6 @@ object DiaryActivitiesSource : ActivitiesSyncedSource(DIARY) {
             .apply()
 
           burnedObserver.postValue(burned)
-          Log.d("DiaryActivities", "burned today=$burned")
         }
         .map { model }
     }
