@@ -8,6 +8,8 @@ import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
+import com.wsoteam.diet.presentation.search.basket.db.HistoryDAO;
+import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Action;
@@ -20,7 +22,6 @@ public class InDiary {
   public static final int LUNCH = 1;
   public static final int DINNER = 2;
   public static final int SNACK = 3;
-  public static final int LAST_ELEMENT = 9;
 
   public static void saveMixedList(List<ISearchResult> foods) {
     for (int i = 0; i < foods.size(); i++) {
@@ -28,6 +29,7 @@ public class InDiary {
         saveItem((BasketEntity) foods.get(i));
       }
     }
+    updateHistoryList();
   }
 
 
@@ -35,6 +37,7 @@ public class InDiary {
     for (int i = 0; i < foods.size(); i++) {
       saveItem(foods.get(i));
     }
+    updateHistoryList();
   }
 
   private static void saveItem(BasketEntity basketEntity) {
@@ -61,5 +64,32 @@ public class InDiary {
             addSnack(new Snack(basketEntity, day, month, year, 0));
         break;
     }
+
+    Completable.fromAction(new Action() {
+      @Override
+      public void run() throws Exception {
+        App.getInstance().getFoodDatabase().historyDAO().insert(new HistoryEntity(basketEntity));
+      }
+    }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe();
+  }
+
+  private static void updateHistoryList() {
+    Completable.fromAction(new Action() {
+      @Override
+      public void run() throws Exception {
+        int counter = 0;
+        HistoryDAO dao = App.getInstance().getFoodDatabase().historyDAO();
+        List<HistoryEntity> historyEntities = dao.getAll();
+        dao.deleteAll();
+        for (int i = historyEntities.size() - 1; i >= 0 && counter < 11; i--) {
+          dao.insert(historyEntities.get(i));
+          counter ++;
+        }
+      }
+    }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe();
   }
 }
