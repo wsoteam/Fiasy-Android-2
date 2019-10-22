@@ -151,11 +151,12 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
       List<HistoryEntity> historyEntities = getHistoryItems();
       return historyEntities;
     }).map(new Function<List<HistoryEntity>, List<ISearchResult>>() {
-      @Override public List<ISearchResult> apply(List<HistoryEntity> historyEntities)
-          throws Exception {
+      @Override public List<ISearchResult> apply(List<HistoryEntity> historyEntities) {
         List<ISearchResult> list = new ArrayList<>();
-        for (int i = 0; i < historyEntities.size(); i++) {
-          list.add(historyEntities.get(i));
+        if (historyEntities.size() > 0) {
+          for (int i = 0; i < historyEntities.size(); i++) {
+            list.add(historyEntities.get(i));
+          }
         }
         return list;
       }
@@ -231,14 +232,17 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
   private List<ISearchResult> createHeadersArray(List<ISearchResult> t) {
     List<ISearchResult> iSearchResults = new ArrayList<>();
-    if (t.get(0) instanceof HistoryEntity) {
-      iSearchResults.add(new HeaderObj("Последние добавленные", true));
-    }else {
-      iSearchResults.add(new HeaderObj("Результаты поиска", false));
+    if (t.size() > 0) {
+      if (t.get(0) instanceof HistoryEntity) {
+        iSearchResults.add(new HeaderObj("Последние добавленные", true));
+      } else {
+        iSearchResults.add(new HeaderObj("Результаты поиска", false));
+      }
     }
     for (int i = 0; i < t.size(); i++) {
       iSearchResults.add(t.get(i));
     }
+
     return iSearchResults;
   }
 

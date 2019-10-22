@@ -83,9 +83,12 @@ public class InDiary {
         HistoryDAO dao = App.getInstance().getFoodDatabase().historyDAO();
         List<HistoryEntity> historyEntities = dao.getAll();
         dao.deleteAll();
-        for (int i = historyEntities.size() - 1; i >= 0 && counter < 11; i--) {
+        for (int i = historyEntities.size() - 1; i >= 0; i--) {
           dao.insert(historyEntities.get(i));
           counter ++;
+          if (counter > 10){
+            break;
+          }
         }
       }
     }).subscribeOn(Schedulers.io())
