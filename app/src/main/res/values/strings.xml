@@ -1129,4 +1129,7 @@
     <string name="srch_not_liquid">%d г</string>
     <string name="meas_toast_update">Значение текущего веса  \nобновлено</string>
     <string name="srch_save_list">Добавлено в дневник</string>
+  <string name="srch_history_header">Последние добавленные</string>
+    <string name="srch_search_results">Результаты поиска</string>
+    <string name="srch_empty_history">Начните вводить в строку поиска название \nпродукта</string>
 </resources>

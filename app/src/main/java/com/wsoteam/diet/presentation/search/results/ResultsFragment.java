@@ -27,6 +27,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.Events;
@@ -44,7 +46,9 @@ import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity;
 import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater;
 import com.wsoteam.diet.presentation.search.results.controllers.ResultAdapter;
 import io.reactivex.Single;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
@@ -139,7 +143,16 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     btnAddCustomFood.setVisibility(View.GONE);
   }
 
+  private void showNoHistory() {
+    Glide.with(getActivity()).load(R.drawable.scrh_first_search).into(ivSearchImage);
+    tvTextEmptySearch.setText(getResources().getString(R.string.srch_empty_history));
+    ivSearchImage.setVisibility(View.VISIBLE);
+    tvTextEmptySearch.setVisibility(View.VISIBLE);
+  }
+
   private void showNoFind() {
+    Glide.with(getActivity()).load(R.drawable.empty_search).into(ivSearchImage);
+    tvTextEmptySearch.setText(getResources().getString(R.string.search_text_empty));
     ivSearchImage.setVisibility(View.VISIBLE);
     tvTitleEmptySearch.setVisibility(View.VISIBLE);
     tvTextEmptySearch.setVisibility(View.VISIBLE);
@@ -153,17 +166,32 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     }).map(new Function<List<HistoryEntity>, List<ISearchResult>>() {
       @Override public List<ISearchResult> apply(List<HistoryEntity> historyEntities) {
         List<ISearchResult> list = new ArrayList<>();
-        if (historyEntities.size() > 0) {
           for (int i = 0; i < historyEntities.size(); i++) {
             list.add(historyEntities.get(i));
           }
-        }
         return list;
       }
     })
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(t -> updateAdapter(t, new ArrayList<>()), Throwable::printStackTrace);
+        .subscribe(new SingleObserver<List<ISearchResult>>() {
+          @Override public void onSubscribe(Disposable d) {
+
+          }
+
+          @Override public void onSuccess(List<ISearchResult> iSearchResults) {
+            if (iSearchResults.size() > 0){
+              updateAdapter(iSearchResults, new ArrayList<>());
+            }else {
+              showNoHistory();
+            }
+          }
+
+          @Override public void onError(Throwable e) {
+
+          }
+        });
+
   }
 
   @Override
@@ -174,7 +202,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
   private void search(String searchString) {
     foodResultAPI
-        .getResponse(RESPONSE_LIMIT, 30, "Хлеб Тостовый")
+        .getResponse(RESPONSE_LIMIT, RESPONSE_LIMIT, searchString)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(t -> refreshAdapter(toISearchResult(t.getResults())), Throwable::printStackTrace);
@@ -229,14 +257,14 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
       }
     }));
   }
-
+//scrh_first_search
   private List<ISearchResult> createHeadersArray(List<ISearchResult> t) {
     List<ISearchResult> iSearchResults = new ArrayList<>();
     if (t.size() > 0) {
       if (t.get(0) instanceof HistoryEntity) {
-        iSearchResults.add(new HeaderObj("Последние добавленные", true));
+        iSearchResults.add(new HeaderObj(getResources().getString(R.string.srch_history_header), true));
       } else {
-        iSearchResults.add(new HeaderObj("Результаты поиска", false));
+        iSearchResults.add(new HeaderObj(getResources().getString(R.string.srch_search_results), false));
       }
     }
     for (int i = 0; i < t.size(); i++) {
