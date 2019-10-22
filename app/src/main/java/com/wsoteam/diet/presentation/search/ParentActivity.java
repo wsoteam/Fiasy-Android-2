@@ -25,7 +25,9 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
+import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.search.results.ResultsFragment;
@@ -181,5 +183,30 @@ public class ParentActivity extends AppCompatActivity {
         return false;
       }
     });
+  }
+
+  @OnClick({R.id.ibActivityListAndSearchCollapsingCancelButton, R.id.ivBack, R.id.ibStartAction})
+  public void onViewClicked(View view) {
+    switch (view.getId()) {
+      case R.id.ibActivityListAndSearchCollapsingCancelButton:
+        if (isCanSpeak) {
+          speak();
+        } else {
+          edtSearch.setText("");
+          /*((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
+              sendClearSearchField();*/
+          //call clear and show history
+          edtSearch.clearFocus();
+          InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+          inputManager.hideSoftInputFromWindow(edtSearch.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        break;
+      case R.id.ivBack:
+        onBackPressed();
+        break;
+      case R.id.ibStartAction:
+        createPopUp();
+        break;
+    }
   }
 }
