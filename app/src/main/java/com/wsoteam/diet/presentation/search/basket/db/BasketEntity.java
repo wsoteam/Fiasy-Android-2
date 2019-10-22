@@ -34,6 +34,35 @@ public class BasketEntity implements ISearchResult {
   public BasketEntity() {
   }
 
+  public BasketEntity(int serverId, int deepId, String name, String brand,
+      boolean isLiquid,
+      int weight, double kilojoules, double calories, double proteins, double carbohydrates,
+      double sugar, double fats, double saturatedFats, double monoUnSaturatedFats,
+      double polyUnSaturatedFats, double cholesterol, double cellulose, double sodium,
+      double pottassium, int eatingType) {
+    this.serverId = serverId;
+    this.deepId = deepId;
+    this.name = name;
+    this.brand = brand;
+    this.isLiquid = isLiquid;
+    this.weight = weight;
+    this.kilojoules = kilojoules;
+    this.calories = calories;
+    this.proteins = proteins;
+    this.carbohydrates = carbohydrates;
+    this.sugar = sugar;
+    this.fats = fats;
+    this.saturatedFats = saturatedFats;
+    this.monoUnSaturatedFats = monoUnSaturatedFats;
+    this.polyUnSaturatedFats = polyUnSaturatedFats;
+    this.cholesterol = cholesterol;
+    this.cellulose = cellulose;
+    this.sodium = sodium;
+    this.pottassium = pottassium;
+    this.eatingType = eatingType;
+  }
+
+
   public BasketEntity(Result result, int weight, int eatingType, int deepId) {
     name = result.getName();
     if (result.getBrand() != null) {

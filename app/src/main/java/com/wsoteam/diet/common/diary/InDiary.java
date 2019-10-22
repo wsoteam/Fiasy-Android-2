@@ -29,7 +29,7 @@ public class InDiary {
       }
     }
   }
-  
+
 
   public static void saveClearList(List<BasketEntity> foods) {
     for (int i = 0; i < foods.size(); i++) {
