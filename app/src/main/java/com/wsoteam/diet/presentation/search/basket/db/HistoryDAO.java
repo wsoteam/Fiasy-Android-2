@@ -10,6 +10,9 @@ public interface HistoryDAO {
   @Insert
   void insert(HistoryEntity historyEntity);
 
+  @Insert
+  void insertMany(List<HistoryEntity> historyEntities);
+
   @Query("select * from HistoryEntity")
   List<HistoryEntity> getAll();
 

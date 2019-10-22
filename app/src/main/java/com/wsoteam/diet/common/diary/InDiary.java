@@ -14,6 +14,7 @@ import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -22,22 +23,27 @@ public class InDiary {
   public static final int LUNCH = 1;
   public static final int DINNER = 2;
   public static final int SNACK = 3;
+  public static final int SIZE = 10;
 
   public static void saveMixedList(List<ISearchResult> foods) {
+    List<HistoryEntity> forSave = new ArrayList<>();
     for (int i = 0; i < foods.size(); i++) {
       if (foods.get(i) instanceof BasketEntity) {
+        forSave.add(new HistoryEntity((BasketEntity)foods.get(i)));
         saveItem((BasketEntity) foods.get(i));
       }
     }
-    updateHistoryList();
+    updateHistoryList(forSave);
   }
 
 
   public static void saveClearList(List<BasketEntity> foods) {
+    List<HistoryEntity> forSave = new ArrayList<>();
     for (int i = 0; i < foods.size(); i++) {
+      forSave.add(new HistoryEntity(foods.get(i)));
       saveItem(foods.get(i));
     }
-    updateHistoryList();
+    updateHistoryList(forSave);
   }
 
   private static void saveItem(BasketEntity basketEntity) {
@@ -64,35 +70,29 @@ public class InDiary {
             addSnack(new Snack(basketEntity, day, month, year, 0));
         break;
     }
+  }
 
+  private static void updateHistoryList(List<HistoryEntity> forSave) {
     Completable.fromAction(new Action() {
       @Override
       public void run() throws Exception {
-        App.getInstance().getFoodDatabase().historyDAO().insert(new HistoryEntity(basketEntity));
+        HistoryDAO dao = App.getInstance().getFoodDatabase().historyDAO();
+        List<HistoryEntity> historyEntities = dao.getAll();
+        dao.deleteAll();
+        historyEntities.addAll(forSave);
+        historyEntities = cut(historyEntities, SIZE);
+        dao.insertMany(historyEntities);
       }
     }).subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe();
   }
 
-  private static void updateHistoryList() {
-    Completable.fromAction(new Action() {
-      @Override
-      public void run() throws Exception {
-        int counter = 0;
-        HistoryDAO dao = App.getInstance().getFoodDatabase().historyDAO();
-        List<HistoryEntity> historyEntities = dao.getAll();
-        dao.deleteAll();
-        for (int i = historyEntities.size() - 1; i >= 0; i--) {
-          dao.insert(historyEntities.get(i));
-          counter ++;
-          if (counter > 10){
-            break;
-          }
-        }
-      }
-    }).subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe();
+  private static List<HistoryEntity> cut(List<HistoryEntity> historyEntities, int size) {
+    if (historyEntities.size() < size){
+      return historyEntities;
+    }else {
+      return historyEntities.subList(historyEntities.size() - size - 1, historyEntities.size() - 1);
+    }
   }
 }
