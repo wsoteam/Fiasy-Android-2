@@ -1,4 +1,4 @@
-package com.wsoteam.diet.presentation.search.controller;
+package com.wsoteam.diet.presentation.search.sections.controller;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.R;
 
 public class SectionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

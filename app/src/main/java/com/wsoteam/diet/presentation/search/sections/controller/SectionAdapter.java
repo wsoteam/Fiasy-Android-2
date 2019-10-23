@@ -1,4 +1,4 @@
-package com.wsoteam.diet.presentation.search.controller;
+package com.wsoteam.diet.presentation.search.sections.controller;
 
 import android.content.Context;
 import android.content.res.TypedArray;

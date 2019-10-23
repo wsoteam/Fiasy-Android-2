@@ -60,9 +60,7 @@ public class ParentActivity extends AppCompatActivity {
 
     edtSearch.setOnTouchListener(new View.OnTouchListener() {
       @Override public boolean onTouch(View view, MotionEvent motionEvent) {
-        Log.e("LOL", "click");
         if (fragmentManager.getBackStackEntryCount() == 0) {
-          Log.e("LOL", "enrty");
           fragmentManager.beginTransaction()
               .replace(R.id.searchFragmentContainer, new ResultsFragment())
               .addToBackStack(BS_TAG)

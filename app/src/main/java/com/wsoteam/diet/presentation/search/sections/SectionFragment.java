@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.presentation.search.controller.SectionAdapter;
+import com.wsoteam.diet.presentation.search.sections.controller.SectionAdapter;
 
 public class SectionFragment extends Fragment {
   @BindView(R.id.rvSections) RecyclerView rvSections;
