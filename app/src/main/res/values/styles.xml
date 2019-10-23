@@ -54,8 +54,8 @@
     </style>
 
     <style name="AnalyzerTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/head_analyzer_search</item>
+        <item name="colorPrimary">@color/head_detail_food</item>
+        <item name="colorPrimaryDark">@color/head_detail_food</item>
         <item name="colorAccent">@color/head_detail_food</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
