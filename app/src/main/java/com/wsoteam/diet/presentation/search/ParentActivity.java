@@ -6,6 +6,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -89,6 +91,23 @@ public class ParentActivity extends AppCompatActivity {
           return true;
         }
         return false;
+      }
+    });
+
+    edtSearch.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+      }
+
+      @Override
+      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        changeSpeakButton(charSequence);
+      }
+
+      @Override
+      public void afterTextChanged(Editable editable) {
+
       }
     });
   }
