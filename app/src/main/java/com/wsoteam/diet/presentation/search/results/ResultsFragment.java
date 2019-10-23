@@ -73,6 +73,10 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   private HistoryDAO historyDAO = App.getInstance().getFoodDatabase().historyDAO();
   private Animation finalSave;
 
+  @Override public boolean isHasBasket() {
+    return cvBasket.getVisibility() == View.VISIBLE;
+  }
+
   @Override public void sendClearSearchField() {
 
   }

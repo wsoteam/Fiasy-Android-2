@@ -2,10 +2,13 @@ package com.wsoteam.diet.presentation.search;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.FragmentManager;
@@ -220,8 +224,25 @@ public class ParentActivity extends AppCompatActivity {
   }
 
   @Override public void onBackPressed() {
-    super.onBackPressed();
     edtSearch.setText("");
     edtSearch.clearFocus();
+    if (fragmentManager.getBackStackEntryCount() > 0 && fragmentManager.findFragmentById(R.id.searchFragmentContainer) instanceof ResultsFragment && ((ResultsFragment) fragmentManager.findFragmentById(R.id.searchFragmentContainer)).isHasBasket()){
+      askExit();
+    }else {
+      super.onBackPressed();
+    }
+  }
+
+  private void askExit() {
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    AlertDialog alertDialog = builder.create();
+    LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    View view = layoutInflater.inflate(R.layout.alert_dialog_update, null);
+
+
+
+    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+    alertDialog.setView(view);
+    alertDialog.show();
   }
 }
