@@ -55,7 +55,7 @@ public class ResultVH extends RecyclerView.ViewHolder {
       tvPortion.setText(String.valueOf(historyEntity.getWeight()) + " " + itemView.getResources().getString(R.string.srch_gramm));
     }
     tvKcal.setText(String.valueOf(Math.round(historyEntity.getCalories() * historyEntity.getWeight())) + " Ккал");
-    if (historyEntity.getBrand().equals("")) {
+    if (!historyEntity.getBrand().equals("")) {
       tvTitle.append(" (" + historyEntity.getBrand() + ")");
     }
     tbSelect.setOnCheckedChangeListener(null);
