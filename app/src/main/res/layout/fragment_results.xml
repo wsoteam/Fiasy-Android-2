@@ -73,6 +73,8 @@
       android:id="@+id/rvBlocks"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:layout_marginBottom="50dp"
+      app:layout_constraintBottom_toBottomOf="parent"
       />
 
 
