@@ -57,7 +57,7 @@ public class ParentActivity extends AppCompatActivity {
         .replace(R.id.searchFragmentContainer, new SectionFragment())
         .commit();
 
-    edtSearch.addTextChangedListener(new TextWatcher() {
+    /*edtSearch.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -78,7 +78,7 @@ public class ParentActivity extends AppCompatActivity {
       public void afterTextChanged(Editable editable) {
 
       }
-    });
+    });*/
 
     edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
       @Override
@@ -207,6 +207,13 @@ public class ParentActivity extends AppCompatActivity {
       case R.id.ibStartAction:
         createPopUp();
         break;
+    }
+  }
+
+  @Override public void onBackPressed() {
+    super.onBackPressed();
+    if (fragmentManager.getBackStackEntryCount() != 0) {
+      edtSearch.setText("");
     }
   }
 }
