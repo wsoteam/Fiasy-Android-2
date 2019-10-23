@@ -30,6 +30,7 @@ import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.App;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
@@ -282,10 +283,10 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
       case R.id.btnAddCustomFood:
         break;
       case R.id.tvCounter:
-        startActivity(new Intent(getActivity(), BasketActivity.class));
+        startActivity(new Intent(getActivity(), BasketActivity.class).putExtra(Config.INTENT_DATE_FOR_SAVE, getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE)));
         break;
       case R.id.tvAddToBasket:
-        itemAdapter.save();
+        itemAdapter.save(getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
         runCountdown();
         break;
     }

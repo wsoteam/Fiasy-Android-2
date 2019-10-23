@@ -38,8 +38,8 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private int deletePosition;
   private boolean isHasNextItem = false;
 
-  @Override public void saveFood() {
-    FoodWork.saveMixedList(adapterFoods);
+  @Override public void saveFood(String date) {
+    FoodWork.saveMixedList(adapterFoods, date);
     clearDB();
   }
 

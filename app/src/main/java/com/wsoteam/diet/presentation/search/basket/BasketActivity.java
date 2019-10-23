@@ -165,7 +165,7 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
         break;
       case R.id.tvAddToBasket:
         deleteContinueMark();
-        adapter.saveFood();
+        adapter.saveFood(getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
         runCountdown();
         break;
     }

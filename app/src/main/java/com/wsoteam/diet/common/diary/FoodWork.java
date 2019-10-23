@@ -26,23 +26,31 @@ public class FoodWork {
   public static final int SNACK = 3;
   public static final int SIZE = 10;
 
-  public static void saveMixedList(List<ISearchResult> foods) {
+  public static void saveMixedList(List<ISearchResult> foods, String date) {
+    String[] arrayOfNumbersForDate = date.split("\\.");
+    int day = Integer.parseInt(arrayOfNumbersForDate[0]);
+    int month = Integer.parseInt(arrayOfNumbersForDate[1]) - 1;
+    int year = Integer.parseInt(arrayOfNumbersForDate[2]);
     List<HistoryEntity> forSave = new ArrayList<>();
     for (int i = 0; i < foods.size(); i++) {
       if (foods.get(i) instanceof BasketEntity) {
         forSave.add(new HistoryEntity((BasketEntity)foods.get(i)));
-        saveItem((BasketEntity) foods.get(i));
+        saveItem((BasketEntity) foods.get(i), day, month, year);
       }
     }
     updateHistoryList(forSave);
   }
 
 
-  public static void saveClearList(List<BasketEntity> foods) {
+  public static void saveClearList(List<BasketEntity> foods, String date) {
+    String[] arrayOfNumbersForDate = date.split("\\.");
+    int day = Integer.parseInt(arrayOfNumbersForDate[0]);
+    int month = Integer.parseInt(arrayOfNumbersForDate[1]) - 1;
+    int year = Integer.parseInt(arrayOfNumbersForDate[2]);
     List<HistoryEntity> forSave = new ArrayList<>();
     for (int i = 0; i < foods.size(); i++) {
       forSave.add(new HistoryEntity(foods.get(i)));
-      saveItem(foods.get(i));
+      saveItem(foods.get(i), day, month, year);
     }
     updateHistoryList(forSave);
   }
@@ -59,12 +67,7 @@ public class FoodWork {
         .subscribe();
   }
 
-  private static void saveItem(BasketEntity basketEntity) {
-    Calendar calendar = Calendar.getInstance();
-    int day = calendar.get(Calendar.DAY_OF_MONTH);
-    int month = calendar.get(Calendar.MONDAY);
-    int year = calendar.get(Calendar.YEAR);
-
+  private static void saveItem(BasketEntity basketEntity, int day, int month, int year) {
     switch (basketEntity.getEatingType()) {
       case BREAKFAST:
         WorkWithFirebaseDB.

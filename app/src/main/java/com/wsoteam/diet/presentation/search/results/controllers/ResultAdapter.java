@@ -35,8 +35,8 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private BasketDAO basketDAO;
   private BasketUpdater basketUpdater;
 
-  @Override public void save() {
-    FoodWork.saveClearList(savedFood);
+  @Override public void save(String date) {
+    FoodWork.saveClearList(savedFood, date);
     clearDB();
     savedFood = new ArrayList<>();
   }
