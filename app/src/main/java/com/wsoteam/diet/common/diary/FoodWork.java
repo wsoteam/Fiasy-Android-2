@@ -7,6 +7,7 @@ import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
+import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import com.wsoteam.diet.presentation.search.basket.db.HistoryDAO;
 import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class InDiary {
+public class FoodWork {
   public static final int BREAKFAST = 0;
   public static final int LUNCH = 1;
   public static final int DINNER = 2;
@@ -44,6 +45,18 @@ public class InDiary {
       saveItem(foods.get(i));
     }
     updateHistoryList(forSave);
+  }
+
+  public static void clearBasket(){
+    Completable.fromAction(new Action() {
+      @Override
+      public void run() throws Exception {
+        BasketDAO dao = App.getInstance().getFoodDatabase().basketDAO();
+        dao.deleteAll();
+      }
+    }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe();
   }
 
   private static void saveItem(BasketEntity basketEntity) {

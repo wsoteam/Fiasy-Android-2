@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.common.diary.InDiary;
+import com.wsoteam.diet.common.diary.FoodWork;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
@@ -16,7 +16,6 @@ import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity;
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
-import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
@@ -37,7 +36,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private BasketUpdater basketUpdater;
 
   @Override public void save() {
-    InDiary.saveClearList(savedFood);
+    FoodWork.saveClearList(savedFood);
     clearDB();
     savedFood = new ArrayList<>();
   }

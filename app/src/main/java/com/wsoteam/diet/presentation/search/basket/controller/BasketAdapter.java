@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.App;
-import com.wsoteam.diet.common.diary.InDiary;
+import com.wsoteam.diet.common.diary.FoodWork;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
@@ -39,7 +39,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private boolean isHasNextItem = false;
 
   @Override public void saveFood() {
-    InDiary.saveMixedList(adapterFoods);
+    FoodWork.saveMixedList(adapterFoods);
     clearDB();
   }
 

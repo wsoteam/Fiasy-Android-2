@@ -24,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.search.basket.controller.BasketAdapter;
 import com.wsoteam.diet.presentation.search.basket.controller.BasketHeaderVH;
@@ -45,6 +46,7 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_basket);
+    setContinueMark();
     ButterKnife.bind(this);
     presenter = new BasketPresenter(this);
     presenter.attachView(this);
@@ -83,6 +85,14 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
       }
     });
     itemTouchHelper.attachToRecyclerView(rvBasket);
+  }
+
+  private void deleteContinueMark() {
+    getSharedPreferences(Config.BASKET_CONTINUE, MODE_PRIVATE).edit().putBoolean(Config.BASKET_CONTINUE, false).commit();
+  }
+
+  private void setContinueMark() {
+    getSharedPreferences(Config.BASKET_CONTINUE, MODE_PRIVATE).edit().putBoolean(Config.BASKET_CONTINUE, true).commit();
   }
 
   private void loadAnimations() {
@@ -154,6 +164,7 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
         adapter.cancelRemove();
         break;
       case R.id.tvAddToBasket:
+        deleteContinueMark();
         adapter.saveFood();
         runCountdown();
         break;

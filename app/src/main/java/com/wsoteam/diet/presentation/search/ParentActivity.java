@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -28,9 +26,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
-import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.diary.FoodWork;
 import com.wsoteam.diet.presentation.search.results.ResultsFragment;
 import com.wsoteam.diet.presentation.search.results.ResultsView;
 import com.wsoteam.diet.presentation.search.sections.SectionFragment;
@@ -51,13 +49,10 @@ public class ParentActivity extends AppCompatActivity {
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_parent);
+    FoodWork.clearBasket();
     ButterKnife.bind(this);
     bindSpinnerChoiceEating();
     fragmentManager = getSupportFragmentManager();
-    fragmentManager.beginTransaction()
-        .replace(R.id.searchFragmentContainer, new SectionFragment())
-        .commit();
-
     edtSearch.setOnTouchListener(new View.OnTouchListener() {
       @Override public boolean onTouch(View view, MotionEvent motionEvent) {
         if (fragmentManager.getBackStackEntryCount() == 0) {
@@ -92,6 +87,21 @@ public class ParentActivity extends AppCompatActivity {
         return false;
       }
     });
+  }
+
+  @Override protected void onStart() {
+    super.onStart();
+    if (!isNeedContinue()) {
+      fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+      fragmentManager.beginTransaction()
+          .replace(R.id.searchFragmentContainer, new SectionFragment())
+          .commit();
+      FoodWork.clearBasket();
+    }
+  }
+
+  private boolean isNeedContinue() {
+    return getSharedPreferences(Config.BASKET_CONTINUE, MODE_PRIVATE).getBoolean(Config.BASKET_CONTINUE, false);
   }
 
   private void bindSpinnerChoiceEating() {

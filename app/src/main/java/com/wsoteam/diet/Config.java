@@ -121,6 +121,7 @@ public class Config {
     public static final int LUNCH = 1;
     public static final int DINNER = 2;
     public static final int SNACK = 3;
+    public static final String BASKET_CONTINUE = "BASKET_CONTINUE";
 
 
 }
