@@ -5,5 +5,4 @@ import com.arellomobile.mvp.MvpView;
 public interface ResultsView extends MvpView {
   void sendClearSearchField();
   void sendSearchQuery(String query);
-  boolean isHasBasket();
 }

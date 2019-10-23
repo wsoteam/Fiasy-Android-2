@@ -226,11 +226,15 @@ public class ParentActivity extends AppCompatActivity {
   @Override public void onBackPressed() {
     edtSearch.setText("");
     edtSearch.clearFocus();
-    if (fragmentManager.getBackStackEntryCount() > 0 && fragmentManager.findFragmentById(R.id.searchFragmentContainer) instanceof ResultsFragment && ((ResultsFragment) fragmentManager.findFragmentById(R.id.searchFragmentContainer)).isHasBasket()){
+    if (fragmentManager.getBackStackEntryCount() > 0 && fragmentManager.findFragmentById(R.id.searchFragmentContainer) instanceof ResultsFragment && isVisibleBasket()){
       askExit();
     }else {
       super.onBackPressed();
     }
+  }
+
+  private boolean isVisibleBasket() {
+    return ((ResultsFragment) fragmentManager.findFragmentById(R.id.searchFragmentContainer)).getView().findViewById(R.id.cvBasket).getVisibility() == View.VISIBLE;
   }
 
   private void askExit() {
