@@ -52,6 +52,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ResultsFragment extends MvpAppCompatFragment implements ResultsView {
@@ -169,6 +170,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
           for (int i = 0; i < historyEntities.size(); i++) {
             list.add(historyEntities.get(i));
           }
+        Collections.reverse(list);
         return list;
       }
     })
