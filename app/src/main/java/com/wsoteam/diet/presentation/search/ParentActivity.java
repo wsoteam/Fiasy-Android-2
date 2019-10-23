@@ -237,8 +237,21 @@ public class ParentActivity extends AppCompatActivity {
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
     AlertDialog alertDialog = builder.create();
     LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    View view = layoutInflater.inflate(R.layout.alert_dialog_update, null);
+    View view = layoutInflater.inflate(R.layout.alert_dialog_basket_exit, null);
+    TextView tvCancel = view.findViewById(R.id.tvCancel);
+    TextView tvExit = view.findViewById(R.id.tvExit);
 
+    tvCancel.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View view) {
+        alertDialog.cancel();
+      }
+    });
+    tvExit.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View view) {
+        alertDialog.cancel();
+        ParentActivity.super.onBackPressed();
+      }
+    });
 
 
     alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
