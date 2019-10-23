@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -57,36 +58,29 @@ public class ParentActivity extends AppCompatActivity {
         .replace(R.id.searchFragmentContainer, new SectionFragment())
         .commit();
 
-    /*edtSearch.addTextChangedListener(new TextWatcher() {
-      @Override
-      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-      }
-
-      @Override
-      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        changeSpeakButton(charSequence);
+    edtSearch.setOnTouchListener(new View.OnTouchListener() {
+      @Override public boolean onTouch(View view, MotionEvent motionEvent) {
+        Log.e("LOL", "click");
         if (fragmentManager.getBackStackEntryCount() == 0) {
+          Log.e("LOL", "enrty");
           fragmentManager.beginTransaction()
               .replace(R.id.searchFragmentContainer, new ResultsFragment())
               .addToBackStack(BS_TAG)
               .commit();
         }
+        return false;
       }
-
-      @Override
-      public void afterTextChanged(Editable editable) {
-
-      }
-    });*/
+    });
 
     edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
       @Override
       public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-          if (fragmentManager.findFragmentById(R.id.searchFragmentContainer) instanceof ResultsView){
-            Log.e("LOL", "dfgdfgdfg");
-            ((ResultsView) fragmentManager.findFragmentById(R.id.searchFragmentContainer)).sendSearchQuery(edtSearch.getText().toString().replaceAll("\\s+", " "));
+          if (fragmentManager.findFragmentById(
+              R.id.searchFragmentContainer) instanceof ResultsView) {
+            ((ResultsView) fragmentManager.findFragmentById(
+                R.id.searchFragmentContainer)).sendSearchQuery(
+                edtSearch.getText().toString().replaceAll("\\s+", " "));
           }
           /*((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
               sendString(edtSearch.getText().toString().replaceAll("\\s+", " "));*/
@@ -146,8 +140,10 @@ public class ParentActivity extends AppCompatActivity {
     if (requestCode == 1234 && resultCode == RESULT_OK) {
       ArrayList<String> commandList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
       edtSearch.setText(commandList.get(0));
-      if (fragmentManager.findFragmentById(R.id.searchFragmentContainer) instanceof ResultsView){
-        ((ResultsView) fragmentManager.findFragmentById(R.id.searchFragmentContainer)).sendSearchQuery(edtSearch.getText().toString().replaceAll("\\s+", " "));
+      if (fragmentManager.findFragmentById(R.id.searchFragmentContainer) instanceof ResultsView) {
+        ((ResultsView) fragmentManager.findFragmentById(
+            R.id.searchFragmentContainer)).sendSearchQuery(
+            edtSearch.getText().toString().replaceAll("\\s+", " "));
       }
       edtSearch.clearFocus();
     }
@@ -185,7 +181,9 @@ public class ParentActivity extends AppCompatActivity {
     });
   }
 
-  @OnClick({R.id.ibActivityListAndSearchCollapsingCancelButton, R.id.ivBack, R.id.ibStartAction})
+  @OnClick({
+      R.id.ibActivityListAndSearchCollapsingCancelButton, R.id.ivBack, R.id.ibStartAction
+  })
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.ibActivityListAndSearchCollapsingCancelButton:
@@ -197,13 +195,16 @@ public class ParentActivity extends AppCompatActivity {
               sendClearSearchField();*/
           //call clear and show history
           edtSearch.clearFocus();
-          InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-          inputManager.hideSoftInputFromWindow(edtSearch.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+          InputMethodManager inputManager =
+              (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+          inputManager.hideSoftInputFromWindow(edtSearch.getWindowToken(),
+              InputMethodManager.HIDE_NOT_ALWAYS);
         }
         break;
       case R.id.ivBack:
         onBackPressed();
         break;
+
       case R.id.ibStartAction:
         createPopUp();
         break;
@@ -212,8 +213,7 @@ public class ParentActivity extends AppCompatActivity {
 
   @Override public void onBackPressed() {
     super.onBackPressed();
-    if (fragmentManager.getBackStackEntryCount() != 0) {
-      edtSearch.setText("");
-    }
+    edtSearch.setText("");
+    edtSearch.clearFocus();
   }
 }
