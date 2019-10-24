@@ -41,6 +41,12 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
     }
   }
 
+  private val waterChangesObserver = Observer<Int> { id ->
+    if (id == WorkWithFirebaseDB.EATING_UPDATED) {
+      showWaterForDate(DiaryViewModel.currentDate.calendar)
+    }
+  }
+
   init {
     stepView.setMaxProgress((waterMaxValue / waterStep).toInt())
   }
@@ -48,6 +54,7 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
   override fun onAttached(parent: RecyclerView) {
     super.onAttached(parent)
     DiaryViewModel.selectedDate.observeForever(dateObserver)
+    WorkWithFirebaseDB.liveUpdates().observeForever(waterChangesObserver)
 
     stepView.setMaxProgress((waterMaxValue / waterStep).toInt())
     stepView.setOnWaterClickListener { progress ->
@@ -72,6 +79,7 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
   override fun onDetached(parent: RecyclerView) {
     super.onDetached(parent)
     DiaryViewModel.selectedDate.removeObserver(dateObserver)
+    WorkWithFirebaseDB.liveUpdates().removeObserver(waterChangesObserver)
 
     disposables.clear()
     stepView.setOnWaterClickListener(null)

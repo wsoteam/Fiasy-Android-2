@@ -1,7 +1,9 @@
 package com.wsoteam.diet.POJOProfile;
 
+import androidx.room.util.StringUtil;
 import com.orm.SugarRecord;
 import java.io.Serializable;
+import kotlin.text.StringsKt;
 
 public class Profile extends SugarRecord implements Serializable {
     private String firstName;
@@ -157,7 +159,7 @@ public class Profile extends SugarRecord implements Serializable {
     }
 
     public String getFirstName() {
-        return firstName;
+        return (String) StringsKt.trim(firstName);
     }
 
     public void setFirstName(String firstName) {
@@ -165,7 +167,7 @@ public class Profile extends SugarRecord implements Serializable {
     }
 
     public String getLastName() {
-        return lastName;
+        return (String) StringsKt.trim(lastName);
     }
 
     public void setLastName(String lastName) {

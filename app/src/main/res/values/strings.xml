@@ -61,7 +61,7 @@
   <string name="recipes">Рецепты</string>
   <string name="alertDialogSuccess">Рецепт сохранен</string>
   <string name="instructions">Инструкции</string>
-  <string name="ingredients">Ингридиенты</string>
+  <string name="ingredients">Ингредиенты</string>
   <string name="addingRecipePortionV">Вес:</string>
   <string name="addingRecipeAddInstruction">Добавить шаг</string>
   <string name="addingRecipeAddIngredient">Добавить ингридиент</string>
@@ -81,7 +81,7 @@
   <string name="tvTitleArticleFragment">Полезные статьи</string>
   <string name="titleShareDialogRecipe">Поделится рецептом</string>
   <string name="tvItemPlanTime">Время готовки:</string>
-  <string name="tvItemPlanIngredients">Ингридиенты:</string>
+  <string name="tvItemPlanIngredients">Ингредиенты:</string>
   <string name="tvRecipeInrgidientCount">на 1 порцию</string>
   <string name="tvItemPlanMinute">минут</string>
   <string name="tvNourishment">Питательные вещества</string>

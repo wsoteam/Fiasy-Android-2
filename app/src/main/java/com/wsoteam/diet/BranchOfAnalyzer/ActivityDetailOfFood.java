@@ -38,6 +38,7 @@ import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
 
+import com.wsoteam.diet.utils.DrawableUtilsKt;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Map;
@@ -418,11 +419,13 @@ public class ActivityDetailOfFood extends AppCompatActivity {
             case R.id.ibAddFavorite:
                 if (isFavorite) {
                     isFavorite = false;
-                    Picasso.get().load(R.drawable.ic_empty_favorite).into(ibAddFavorite);
+                    ibAddFavorite.setImageDrawable(DrawableUtilsKt
+                        .getVectorIcon(this, R.drawable.ic_empty_favorite));
                     WorkWithFirebaseDB.deleteFavorite(currentFavorite.getKey());
                 } else {
                     isFavorite = true;
-                    Picasso.get().load(R.drawable.ic_fill_favorite).into(ibAddFavorite);
+                    ibAddFavorite.setImageDrawable(DrawableUtilsKt
+                        .getVectorIcon(this, R.drawable.ic_fill_favorite));
                     currentFavorite = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), addFavorite());
                 }
                 break;

@@ -222,7 +222,9 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
         }
 
         public void bind(Food food) {
-            tvNameOfFood.setText(food.getFullInfo().replace("()", ""));
+            if (food.getFullInfo() != null) {
+                tvNameOfFood.setText(food.getFullInfo().replace("()", ""));
+            }
             tvCalories.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
             if (food.isLiquid()) {
                 tvWeight.setText("Вес: 100мл");

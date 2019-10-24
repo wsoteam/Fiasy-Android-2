@@ -49,7 +49,7 @@ class DiaryViewModel : ViewModel() {
       get() {
         val calendar = Calendar.getInstance()
         calendar[Calendar.DAY_OF_MONTH] = day
-        calendar[Calendar.MONTH] = day
+        calendar[Calendar.MONTH] = month
         calendar[Calendar.YEAR] = year
         return calendar
       }

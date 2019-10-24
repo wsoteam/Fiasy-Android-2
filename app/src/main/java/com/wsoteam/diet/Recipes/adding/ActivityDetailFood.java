@@ -28,6 +28,7 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 
+import com.wsoteam.diet.utils.DrawableUtilsKt;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -149,7 +150,9 @@ public class ActivityDetailFood extends AppCompatActivity {
             Iterator iterator = UserDataHolder.getUserData().getFoodFavorites().entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry pair = (Map.Entry) iterator.next();
-                if (((FavoriteFood) pair.getValue()).getFullInfo().equals(foodItem.getFullInfo())) {
+                final String fullInfo = ((FavoriteFood) pair.getValue()).getFullInfo();
+
+                if (fullInfo != null && fullInfo.equals(foodItem.getFullInfo())) {
                     currentFavorite = (FavoriteFood) pair.getValue();
                     isFavorite = true;
                     Picasso.get().load(R.drawable.ic_fill_favorite).into(ibAddFavorite);
@@ -301,46 +304,32 @@ public class ActivityDetailFood extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.btnPremCell:
-                showPremiumScreen();
-                break;
+            case R.id.btnPremPot:
+            case R.id.btnPremSaturated:
+            case R.id.btnPremPolyUnSaturated:
+            case R.id.btnPremSod:
+            case R.id.btnPremSugar:
+            case R.id.btnPremMonoUnSaturated:
             case R.id.btnPremCholy:
                 showPremiumScreen();
                 break;
-            case R.id.btnPremMonoUnSaturated:
-                showPremiumScreen();
-                break;
-            case R.id.btnPremPolyUnSaturated:
-                showPremiumScreen();
-                break;
-            case R.id.btnPremPot:
-                showPremiumScreen();
-                break;
-            case R.id.btnPremSaturated:
-                showPremiumScreen();
-                break;
-            case R.id.btnPremSod:
-                showPremiumScreen();
-                break;
-            case R.id.btnPremSugar:
-                showPremiumScreen();
-                break;
             case R.id.tvSendClaim:
+            case R.id.ibSendClaim:
                 ClaimForm.createChoiseEatingAlertDialog(this, foodItem);
                 break;
             case R.id.ibShareFood:
                 shareFood(foodItem);
                 break;
-            case R.id.ibSendClaim:
-                ClaimForm.createChoiseEatingAlertDialog(this, foodItem);
-                break;
             case R.id.ibAddFavorite:
                 if (isFavorite) {
                     isFavorite = false;
-                    Picasso.get().load(R.drawable.ic_empty_favorite).into(ibAddFavorite);
+                    ibAddFavorite.setImageDrawable(DrawableUtilsKt
+                        .getVectorIcon(this, R.drawable.ic_empty_favorite));
                     WorkWithFirebaseDB.deleteFavorite(currentFavorite.getKey());
                 } else {
                     isFavorite = true;
-                    Picasso.get().load(R.drawable.ic_fill_favorite).into(ibAddFavorite);
+                    ibAddFavorite.setImageDrawable(DrawableUtilsKt
+                        .getVectorIcon(this, R.drawable.ic_fill_favorite));
                     currentFavorite = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), addFavorite());
                 }
                 break;

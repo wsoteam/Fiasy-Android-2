@@ -131,7 +131,7 @@
                     android:text="@string/ingredients"
                     android:textColor="@color/b_color"
                     android:textSize="18sp"
-                    tools:text="Ингридиенты" />
+                    tools:text="Ингредиенты" />
 
                 <LinearLayout
                     android:id="@+id/ingredientsLayoutIn"

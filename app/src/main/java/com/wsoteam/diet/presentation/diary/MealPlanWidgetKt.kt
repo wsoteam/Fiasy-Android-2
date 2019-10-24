@@ -26,13 +26,13 @@ import com.wsoteam.diet.model.Breakfast
 import com.wsoteam.diet.model.Dinner
 import com.wsoteam.diet.model.Lunch
 import com.wsoteam.diet.model.Snack
+import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
 import com.wsoteam.diet.presentation.global.Screens
 import com.wsoteam.diet.presentation.plans.DateHelper
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansActivity
 import com.wsoteam.diet.presentation.plans.detail.DetailPlansActivity
 import com.wsoteam.diet.presentation.plans.detail.day.CurrentDayPlanAdapter
 import java.util.Calendar
-import java.util.Date
 import java.util.concurrent.TimeUnit
 
 class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
@@ -57,6 +57,10 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
   private var recipeForDay: RecipeForDay? = null
   private var updateCallback: UpdateCallback? = null
   private var currentTask: CountDownTimer? = null
+
+  private val calendarChangesObserver = Observer<DiaryDay> {
+    checkStatus()
+  }
 
   private val planObserver = Observer<Int> { id ->
     if ((id ?: -1) == WorkWithFirebaseDB.PLAN_UPDATED) {
@@ -121,12 +125,14 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
     super.onAttached(parent)
 
     WorkWithFirebaseDB.liveUpdates().observeForever(planObserver)
+    DiaryViewModel.selectedDate.observeForever(calendarChangesObserver)
   }
 
   override fun onDetached(parent: RecyclerView) {
     super.onDetached(parent)
 
     WorkWithFirebaseDB.liveUpdates().removeObserver(planObserver)
+    DiaryViewModel.selectedDate.removeObserver(calendarChangesObserver)
   }
 
   override fun onBind(parent: RecyclerView, position: Int) {
@@ -152,6 +158,13 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
           TimeUnit.MILLISECONDS
       ).toInt()
 
+      if (!DiaryViewModel.isToday) {
+        if (currentDate.before(startDay.time) || currentDate.after(endDay.time)) {
+          hideAll()
+          return
+        }
+      }
+
       if (currentDate.before(startDay.time)) {
         notActivePlan()
         return
@@ -172,7 +185,11 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
 
     }
 
-    notActivePlan()
+    if (DiaryViewModel.isToday) {
+      notActivePlan()
+    } else {
+      hideAll()
+    }
   }
 
   private fun showRecipe(plan: DietPlan, day: Int) {

@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.util.Log;
@@ -18,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -257,11 +260,19 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         tvCarboCount.setText(profile.getMaxCarbo() + " г");
         tvFatCount.setText(profile.getMaxFat() + " г");
         tvProtCount.setText(profile.getMaxProt() + " г");
-        if (profile.getFirstName().equals("default")) {
+
+        if (TextUtils.isEmpty(profile.getFirstName())
+            || profile.getFirstName().toLowerCase().equals("default")) {
+
             tvUserName.setText("Введите Ваше имя");
         } else {
-            tvUserName.setText(profile.getFirstName() + " " + profile.getLastName());
+            if (profile.getLastName().toLowerCase().equals("default")) {
+                tvUserName.setText(profile.getFirstName());
+            } else {
+                tvUserName.setText(profile.getFirstName() + " " + profile.getLastName());
+            }
         }
+
         setPhoto(profile);
     }
 
@@ -300,15 +311,21 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
     private void setPhoto(Profile profile) {
         if (profile.getPhotoUrl() != null
-                && !profile.getPhotoUrl().equals("default")
+                && !profile.getPhotoUrl().toLowerCase().equals("default")
                 && !profile.getPhotoUrl().equals("")) {
             Picasso.get().load(profile.getPhotoUrl()).into(civProfile);
         } else {
+            final Drawable d;
+
             if (profile.isFemale()) {
-                Picasso.get().load(R.drawable.female_avatar).into(civProfile);
+                d = VectorDrawableCompat.create(getResources(), R.drawable.female_avatar,
+                    getContext().getTheme());
             } else {
-                Picasso.get().load(R.drawable.male_avatar).into(civProfile);
+                d = VectorDrawableCompat.create(getResources(), R.drawable.male_avatar,
+                    getContext().getTheme());
             }
+
+            civProfile.setImageDrawable(d);
         }
     }
 
@@ -383,7 +400,9 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
             isOpen = false;
 
-            Picasso.get().load(R.drawable.ic_open_detail_profile).into(ibExpandable);
+            ibExpandable.setImageDrawable(VectorDrawableCompat.create(getResources(),
+                R.drawable.ic_close_detail_profile,
+                getContext().getTheme()));
         } else {
             ViewUtils.apply(getView(), new int[]{
                 R.id.tvCarboCount, R.id.tvFatCount, R.id.tvProtCount, R.id.tvLabelProt, R.id.tvLabelCarbo,
@@ -392,7 +411,9 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
             isOpen = true;
 
-            Picasso.get().load(R.drawable.ic_close_detail_profile).into(ibExpandable);
+            ibExpandable.setImageDrawable(VectorDrawableCompat.create(getResources(),
+                R.drawable.ic_open_detail_profile,
+                getContext().getTheme()));
         }
     }
 

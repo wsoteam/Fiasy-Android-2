@@ -36,6 +36,7 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 
+import com.wsoteam.diet.utils.DrawableUtilsKt;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -107,7 +108,8 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
     }
 
     private void showNoFind() {
-        Picasso.get().load(R.drawable.ic_no_find).into(ivAddFavorite);
+        ivAddFavorite.setImageDrawable(DrawableUtilsKt.getVectorIcon(requireContext(), R.drawable.ic_no_find));
+
         tvTitleFavoriteAdd.setText(getActivity().getResources().getString(R.string.title_no_find_food));
         tvTextAddFavorite.setText(getActivity().getResources().getString(R.string.text_no_find_food));
         ivAddFavorite.setVisibility(View.VISIBLE);
@@ -159,7 +161,8 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
 
     private List<CustomFood> getCustomFoods() {
         List<CustomFood> customFoods = new ArrayList<>();
-        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getCustomFoods() != null) {
+        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().
+            getCustomFoods() != null) {
             Iterator iterator = UserDataHolder.getUserData().getCustomFoods().entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry pair = (Map.Entry) iterator.next();
@@ -181,8 +184,6 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imbAddFood:
-                startActivity(new Intent(getActivity(), ActivityCreateFood.class).putExtra(EventProperties.product_from, EventProperties.product_from_button));
-                break;
             case R.id.btnAddFavorite:
                 startActivity(new Intent(getActivity(), ActivityCreateFood.class).putExtra(EventProperties.product_from, EventProperties.product_from_button));
                 break;
@@ -194,6 +195,7 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
         @BindView(R.id.tvNameOfFood) TextView tvNameOfFood;
         @BindView(R.id.tvCalories) TextView tvCalories;
         @BindView(R.id.tvWeight) TextView tvWeight;
+        @BindView(R.id.tvBrand) TextView tvBrand;
         @BindView(R.id.tvProt) TextView tvProt;
         @BindView(R.id.tvFats) TextView tvFats;
         @BindView(R.id.tvCarbo) TextView tvCarbo;
@@ -293,6 +295,7 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
         }
 
         public void bind(CustomFood customFood) {
+            tvBrand.setText(customFood.getBrand());
             tvNameOfFood.setText(customFood.getName());
             tvCalories.setText(String.valueOf(Math.round(customFood.getCalories() * 100)) + " Ккал");
             tvWeight.setText("Вес: 100г");

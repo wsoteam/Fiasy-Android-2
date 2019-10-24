@@ -147,7 +147,7 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
             }
         }
 
-        void bind(int position) {
+        void    bind(int position) {
             imageView.setImageResource(getImgID(templateList.get(position).getEating()));
             tvName.setText(templateList.get(position).getName());
             tvEating.setText(templateList.get(position).getEating().toLowerCase());

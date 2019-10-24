@@ -16,6 +16,7 @@ import com.onesignal.OneSignal;
 import com.orm.SugarContext;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
 
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import io.intercom.android.sdk.Intercom;
 
 import static com.adjust.sdk.AdjustConfig.ENVIRONMENT_PRODUCTION;
@@ -41,6 +42,8 @@ public class App extends MultiDexApplication {
 
         FirebaseApp.initializeApp(getApplicationContext());
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+        WorkWithFirebaseDB.setFirebaseStateListener();
 
         instance = this;
 

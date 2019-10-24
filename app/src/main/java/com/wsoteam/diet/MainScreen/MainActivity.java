@@ -80,50 +80,54 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            transaction = getSupportFragmentManager().beginTransaction();
-            window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            Box box = new Box();
-            box.setSubscribe(false);
-            box.setOpenFromPremPart(true);
-            box.setOpenFromIntrodaction(false);
-
-            getSupportFragmentManager().popBackStack(Config.RECIPE_BACK_STACK, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-            switch (item.getItemId()) {
-                case R.id.bnv_main_diary:
-                    isMainFragment = true;
-                    transaction.replace(R.id.flFragmentContainer, new DiaryFragment()).commit();
-                    window.setStatusBarColor(Color.parseColor("#AE6A23"));
-                    return true;
-                case R.id.bnv_main_articles:
-                    Amplitude.getInstance().logEvent(Events.CHOOSE_ARTICLES);
-                    Intercom.client().logEvent(Events.CHOOSE_ARTICLES);
-                    box.setComeFrom(AmplitudaEvents.view_prem_content);
-                    box.setBuyFrom(EventProperties.trial_from_articles);
-                    isMainFragment = false;
-                    window.setStatusBarColor(Color.parseColor("#747d3b"));
-                    transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();
-                    return true;
-                case R.id.bnv_main_trainer:
-                    isMainFragment = false;
-                    transaction.replace(R.id.flFragmentContainer, new BrowsePlansFragment()).commit();
-                    return true;
-                case R.id.bnv_main_recipes:
-                    isMainFragment = false;
-                    transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
-                    return true;
-                case R.id.bnv_main_profile:
-                    Amplitude.getInstance().logEvent(Events.VIEW_PROFILE);
-                    Intercom.client().logEvent(Events.VIEW_PROFILE);
-                    isMainFragment = false;
-                    transaction.replace(R.id.flFragmentContainer, new ProfileFragment()).commit();
-                    window.setStatusBarColor(Color.parseColor("#AE6A23"));
-                    return true;
-            }
-            return false;
+            return setActiveTab(item.getItemId());
         }
     };
+
+    private boolean setActiveTab(int id){
+        transaction = getSupportFragmentManager().beginTransaction();
+        window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        Box box = new Box();
+        box.setSubscribe(false);
+        box.setOpenFromPremPart(true);
+        box.setOpenFromIntrodaction(false);
+
+        getSupportFragmentManager().popBackStack(Config.RECIPE_BACK_STACK, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+        switch (id) {
+            case R.id.bnv_main_diary:
+                isMainFragment = true;
+                transaction.replace(R.id.flFragmentContainer, new DiaryFragment()).commit();
+                window.setStatusBarColor(Color.parseColor("#AE6A23"));
+                return true;
+            case R.id.bnv_main_articles:
+                Amplitude.getInstance().logEvent(Events.CHOOSE_ARTICLES);
+                Intercom.client().logEvent(Events.CHOOSE_ARTICLES);
+                box.setComeFrom(AmplitudaEvents.view_prem_content);
+                box.setBuyFrom(EventProperties.trial_from_articles);
+                isMainFragment = false;
+                window.setStatusBarColor(Color.parseColor("#747d3b"));
+                transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();
+                return true;
+            case R.id.bnv_main_trainer:
+                isMainFragment = false;
+                transaction.replace(R.id.flFragmentContainer, new BrowsePlansFragment()).commit();
+                return true;
+            case R.id.bnv_main_recipes:
+                isMainFragment = false;
+                transaction.replace(R.id.flFragmentContainer, new GroupsFragment()).commit();
+                return true;
+            case R.id.bnv_main_profile:
+                Amplitude.getInstance().logEvent(Events.VIEW_PROFILE);
+                Intercom.client().logEvent(Events.VIEW_PROFILE);
+                isMainFragment = false;
+                transaction.replace(R.id.flFragmentContainer, new ProfileFragment()).commit();
+                window.setStatusBarColor(Color.parseColor("#AE6A23"));
+                return true;
+        }
+        return false;
+    }
 
     private String getABVersion() {
         return getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).getString(ABConfig.KEY_FOR_SAVE_STATE, "default");
@@ -297,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             isMainFragment = true;
             getSupportFragmentManager().beginTransaction().replace(R.id.flFragmentContainer,
-                new DiaryFragment()).commit();
+                new DiaryFragment()).commitNowAllowingStateLoss();
             window.setStatusBarColor(Color.parseColor("#AE6A23"));
             bnvMain.setSelectedItemId(R.id.bnv_main_diary);
         }

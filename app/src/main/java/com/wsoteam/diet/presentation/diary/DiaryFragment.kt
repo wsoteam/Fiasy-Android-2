@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.recyclerview.widget.RecyclerView.State
 import com.wsoteam.diet.R
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
 import com.wsoteam.diet.utils.FiasyDateUtils
 import com.wsoteam.diet.utils.ImageSpan
@@ -29,7 +30,8 @@ import java.util.Locale
 class DiaryFragment : Fragment() {
 
   companion object {
-    private val formatter = SimpleDateFormat("MMMM, EEEE dd", Locale.getDefault())
+    private val formatterFullStyle = SimpleDateFormat("LLLL, EEEE dd", Locale.getDefault())
+    private val formatterMonth = SimpleDateFormat("LLLL", Locale.getDefault())
   }
 
   private val calendar = Calendar.getInstance()
@@ -71,7 +73,7 @@ class DiaryFragment : Fragment() {
         calendar.set(Calendar.DAY_OF_MONTH, 1)
         calendar.set(Calendar.MONTH, firstDayOfNewMonth.month)
 
-        toolbar.title = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
+        toolbar.title = formatterMonth.format(calendar.timeInMillis)
         updateTitleExpandStateIcon()
       }
 
@@ -124,7 +126,7 @@ class DiaryFragment : Fragment() {
     } else {
       calendar.timeInMillis = System.currentTimeMillis()
 
-      toolbar.title = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
+      toolbar.title = formatterMonth.format(calendar.timeInMillis)
       updateTitleExpandStateIcon()
     }
   }
@@ -141,7 +143,7 @@ class DiaryFragment : Fragment() {
       calendar.set(Calendar.YEAR, target.year)
       calendar.set(Calendar.DAY_OF_MONTH, target.day)
 
-      toolbar.title = formatter.format(calendar.timeInMillis)
+      toolbar.title = formatterFullStyle.format(calendar.timeInMillis)
     }
 
     updateTitleExpandStateIcon()

@@ -19,7 +19,7 @@ class UserWeightWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView), On
   }
 
   fun updateWeight() {
-    UserDataHolder.getUserData().profile?.let {
+    UserDataHolder.getUserData()?.profile?.let {
       weightLabel.text = "${it.weight} кг"
     }
   }
