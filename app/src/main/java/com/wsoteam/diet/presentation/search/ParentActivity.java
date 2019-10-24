@@ -35,9 +35,15 @@ import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.diary.FoodWork;
+import com.wsoteam.diet.common.networking.food.FoodResultAPI;
+import com.wsoteam.diet.common.networking.food.FoodSearch;
+import com.wsoteam.diet.common.networking.food.suggest.Option;
+import com.wsoteam.diet.common.networking.food.suggest.Suggest;
 import com.wsoteam.diet.presentation.search.results.ResultsFragment;
 import com.wsoteam.diet.presentation.search.results.ResultsView;
 import com.wsoteam.diet.presentation.search.sections.SectionFragment;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 
 public class ParentActivity extends AppCompatActivity {
@@ -51,6 +57,7 @@ public class ParentActivity extends AppCompatActivity {
   private boolean isCanSpeak = true;
   private FragmentManager fragmentManager;
   private final String BS_TAG = "BS_TAG";
+  private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -59,6 +66,7 @@ public class ParentActivity extends AppCompatActivity {
     ButterKnife.bind(this);
     bindSpinnerChoiceEating();
     fragmentManager = getSupportFragmentManager();
+    testGetSug();
     edtSearch.setOnTouchListener(new View.OnTouchListener() {
       @Override public boolean onTouch(View view, MotionEvent motionEvent) {
         if (fragmentManager.getBackStackEntryCount() == 0) {
@@ -110,6 +118,20 @@ public class ParentActivity extends AppCompatActivity {
 
       }
     });
+  }
+
+  private void testGetSug() {
+    foodResultAPI
+        .getSuggestions("хле")
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(t -> showKekesi(t), Throwable::printStackTrace);
+  }
+
+  private void showKekesi(Suggest t) {
+    for (Option option : t.getNameSuggestCompletion().get(0).getOptions()) {
+      Log.e("LOL", option.getSource().getCategory().getName());
+    }
   }
 
   @Override protected void onStart() {

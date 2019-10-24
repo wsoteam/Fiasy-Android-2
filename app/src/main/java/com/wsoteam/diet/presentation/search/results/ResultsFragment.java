@@ -7,6 +7,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,8 @@ import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
+import com.wsoteam.diet.common.networking.food.suggest.Option;
+import com.wsoteam.diet.common.networking.food.suggest.Suggest;
 import com.wsoteam.diet.presentation.search.ParentActivity;
 import com.wsoteam.diet.presentation.search.basket.BasketActivity;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
@@ -95,7 +98,22 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     finalSave = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_meas_update);
     updateUI();
     showHistory();
+    testGetSug();
     return view;
+  }
+
+  private void testGetSug() {
+    foodResultAPI
+        .getSuggestions("хле")
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(t -> showKekesi(t), Throwable::printStackTrace);
+  }
+
+  private void showKekesi(Suggest t) {
+    for (Option option : t.getNameSuggestCompletion().get(0).getOptions()) {
+      Log.e("LOL", option.getText());
+    }
   }
 
   private void updateUI() {
