@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.common.diary.FoodWork;
+import com.wsoteam.diet.common.networking.food.FoodResultAPI;
+import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
@@ -34,6 +36,14 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private List<BasketEntity> savedFood;
   private BasketDAO basketDAO;
   private BasketUpdater basketUpdater;
+  private int currentPaginationTrigger = 0;
+  private int countPaginations = 0;
+  private String searchString = "";
+  private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
+
+  @Override public void sendSearchString(String searchString) {
+    this.searchString = searchString;
+  }
 
   @Override public void save(String date) {
     FoodWork.saveClearList(savedFood, date);
@@ -78,12 +88,28 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
   }
 
+  private void loadNextPortion(int offset){
+    foodResultAPI
+        .getResponse(Config.SEARCH_RESPONSE_LIMIT, offset, searchString)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
+  }
+
+  private void addItems(List<Result> results) {
+    for (int i = 0; i < results.size(); i++) {
+      foods.add(results.get(i));
+    }
+    notifyDataSetChanged();
+  }
+
   @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
     switch (holder.getItemViewType()) {
       case HEADER_TYPE:
         ((HeaderVH) holder).bind((HeaderObj) foods.get(position));
         break;
       case ITEM_TYPE:
+        onPagination(position);
         ((ResultVH) holder).bind((Result) foods.get(position),
             getSaveStatus((Result) foods.get(position)), new ClickListener() {
               @Override public void click(int position, boolean isNeedSave) {
@@ -113,6 +139,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
         break;
       case EXPANDABLE_TYPE:
+        onPagination(position);
         ((HierarchyVH) holder).bind((Result) foods.get(position),
             getSavedDeepIds((Result) foods.get(position)), new ExpandableClickListener() {
               @Override public void click(BasketEntity basketEntity, boolean isNeedSave) {
@@ -125,6 +152,14 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
               }
             });
         break;
+    }
+  }
+
+  private void onPagination(int position) {
+    if (position == currentPaginationTrigger){
+      currentPaginationTrigger += Config.SEARCH_RESPONSE_LIMIT - 1;
+      countPaginations += 1;
+      loadNextPortion(countPaginations * Config.SEARCH_RESPONSE_LIMIT);
     }
   }
 

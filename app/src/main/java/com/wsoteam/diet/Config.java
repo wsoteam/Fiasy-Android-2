@@ -122,6 +122,7 @@ public class Config {
     public static final int DINNER = 2;
     public static final int SNACK = 3;
     public static final String BASKET_CONTINUE = "BASKET_CONTINUE";
+    public static final int SEARCH_RESPONSE_LIMIT= 50;
 
 
 }

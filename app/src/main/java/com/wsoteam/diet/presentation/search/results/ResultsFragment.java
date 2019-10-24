@@ -82,6 +82,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     search(searchString.trim());
     Events.logSearch(searchString);
     searchString = query;
+    itemAdapter.sendSearchString(query);
   }
 
   @Nullable @Override
@@ -260,7 +261,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
       }
     }));
   }
-//scrh_first_search
+
   private List<ISearchResult> createHeadersArray(List<ISearchResult> t) {
     List<ISearchResult> iSearchResults = new ArrayList<>();
     if (t.size() > 0) {
