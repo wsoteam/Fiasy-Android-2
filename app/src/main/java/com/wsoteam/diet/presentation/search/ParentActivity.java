@@ -66,7 +66,6 @@ public class ParentActivity extends AppCompatActivity {
     ButterKnife.bind(this);
     bindSpinnerChoiceEating();
     fragmentManager = getSupportFragmentManager();
-    testGetSug();
     edtSearch.setOnTouchListener(new View.OnTouchListener() {
       @Override public boolean onTouch(View view, MotionEvent motionEvent) {
         if (fragmentManager.getBackStackEntryCount() == 0) {
@@ -118,20 +117,6 @@ public class ParentActivity extends AppCompatActivity {
 
       }
     });
-  }
-
-  private void testGetSug() {
-    foodResultAPI
-        .getSuggestions("хле")
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(t -> showKekesi(t), Throwable::printStackTrace);
-  }
-
-  private void showKekesi(Suggest t) {
-    for (Option option : t.getNameSuggestCompletion().get(0).getOptions()) {
-      Log.e("LOL", option.getSource().getCategory().getName());
-    }
   }
 
   @Override protected void onStart() {

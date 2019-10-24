@@ -28,8 +28,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_mic_black_24dp" />
-                            <entry key="sourceFile" value="C:\Users\wadim\Desktop\icon_cross (1).svg" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="srch_right_suggest" />
+                            <entry key="sourceFile" value="C:\Users\wadim\Desktop\group_34.svg" />
                           </map>
                         </option>
                       </PersistentState>
