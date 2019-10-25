@@ -19,6 +19,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
       android:layout_marginEnd="37dp"
+      android:text="TTTTTTTTTTTTT"
       android:layout_marginStart="52dp"
       android:fontFamily="@font/roboto_medium"
       android:textColor="#c0000000"
@@ -30,5 +31,12 @@
     android:layout_marginEnd="16dp"
       android:layout_gravity="center_vertical|right"
     android:src="@drawable/srch_right_suggest"/>
+  <View
+      android:id="@+id/divider"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="?android:attr/listDivider"
+      android:layout_gravity="bottom"
+      />
 
 </FrameLayout>

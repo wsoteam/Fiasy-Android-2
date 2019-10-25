@@ -9,6 +9,6 @@ import com.wsoteam.diet.R;
 
 public class SuggestVH extends RecyclerView.ViewHolder {
   public SuggestVH(@NonNull LayoutInflater layoutInflater, ViewGroup viewGroup) {
-    super(layoutInflater.inflate(R.layout.view_suggest_item));
+    super(layoutInflater.inflate(R.layout.view_suggest_item, viewGroup, false));
   }
 }

@@ -110,6 +110,14 @@ public class ParentActivity extends AppCompatActivity {
       @Override
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         changeSpeakButton(charSequence);
+        if (charSequence.length() > 0){
+          if (fragmentManager.findFragmentById(
+              R.id.searchFragmentContainer) instanceof ResultsView) {
+            ((ResultsView) fragmentManager.findFragmentById(
+                R.id.searchFragmentContainer)).updateSearchField(
+                charSequence.toString().replaceAll("\\s+", " "));
+          }
+        }
       }
 
       @Override

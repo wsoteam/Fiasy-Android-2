@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,7 @@ import com.wsoteam.diet.presentation.search.basket.db.HistoryDAO;
 import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity;
 import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater;
 import com.wsoteam.diet.presentation.search.results.controllers.ResultAdapter;
+import com.wsoteam.diet.presentation.search.results.controllers.suggestions.SuggestAdapter;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -69,19 +71,47 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   @BindView(R.id.btnAddCustomFood) Button btnAddCustomFood;
   @BindView(R.id.tvCounter) TextView tvCounter;
   @BindView(R.id.cvBasket) CardView cvBasket;
+
+  @BindView(R.id.rvSuggestionsList) RecyclerView rvSuggestionsList;
+  @BindView(R.id.flSuggestParent) FrameLayout flSuggestParent;
   private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
   private String searchString = "";
-  private int RESPONSE_LIMIT = 100;
   private ResultAdapter itemAdapter;
   private BasketDAO basketDAO = App.getInstance().getFoodDatabase().basketDAO();
   private HistoryDAO historyDAO = App.getInstance().getFoodDatabase().historyDAO();
   private Animation finalSave;
+
+  @Override public void updateSearchField(String currentString) {
+    showSuggestions(currentString);
+  }
+
+  private void showSuggestions(String currentString) {
+    showSuggestView();
+    foodResultAPI
+        .getSuggestions(currentString)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(t -> updateSuggestions(t), Throwable::printStackTrace);
+  }
+
+  private void showSuggestView() {
+    if (flSuggestParent.getVisibility() == View.GONE){
+      flSuggestParent.setVisibility(View.VISIBLE);
+    }
+  }
+
+  private void hideSuggestView() {
+    if (flSuggestParent.getVisibility() == View.VISIBLE){
+      flSuggestParent.setVisibility(View.GONE);
+    }
+  }
 
   @Override public void sendClearSearchField() {
 
   }
 
   @Override public void sendSearchQuery(String query) {
+    hideSuggestView();
     search(searchString.trim());
     Events.logSearch(searchString);
     searchString = query;
@@ -98,22 +128,13 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     finalSave = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_meas_update);
     updateUI();
     showHistory();
-    testGetSug();
     return view;
   }
 
-  private void testGetSug() {
-    foodResultAPI
-        .getSuggestions("хле")
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(t -> showKekesi(t), Throwable::printStackTrace);
-  }
 
-  private void showKekesi(Suggest t) {
-    for (Option option : t.getNameSuggestCompletion().get(0).getOptions()) {
-      Log.e("LOL", option.getText());
-    }
+  private void updateSuggestions(Suggest t) {
+    rvSuggestionsList.setLayoutManager(new LinearLayoutManager(getActivity()));
+    rvSuggestionsList.setAdapter(new SuggestAdapter(new ArrayList<>()));
   }
 
   private void updateUI() {
@@ -224,7 +245,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
   private void search(String searchString) {
     foodResultAPI
-        .getResponse(RESPONSE_LIMIT, RESPONSE_LIMIT, searchString)
+        .getResponse(Config.SEARCH_RESPONSE_LIMIT, Config.SEARCH_RESPONSE_LIMIT, searchString)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(t -> refreshAdapter(toISearchResult(t.getResults())), Throwable::printStackTrace);

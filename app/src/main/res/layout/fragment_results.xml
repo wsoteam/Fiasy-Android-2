@@ -7,6 +7,12 @@
     android:background="@color/white"
     >
 
+  <include
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      layout="@layout/view_suggestions"
+      />
+
   <Button
       android:id="@+id/btnAddCustomFood"
       android:layout_width="wrap_content"
