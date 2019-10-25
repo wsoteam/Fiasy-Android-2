@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.search.results;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -7,13 +8,13 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -30,7 +32,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
@@ -40,7 +41,6 @@ import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
-import com.wsoteam.diet.common.networking.food.suggest.Option;
 import com.wsoteam.diet.common.networking.food.suggest.Suggest;
 import com.wsoteam.diet.presentation.search.ParentActivity;
 import com.wsoteam.diet.presentation.search.basket.BasketActivity;
@@ -50,6 +50,7 @@ import com.wsoteam.diet.presentation.search.basket.db.HistoryDAO;
 import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity;
 import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater;
 import com.wsoteam.diet.presentation.search.results.controllers.ResultAdapter;
+import com.wsoteam.diet.presentation.search.results.controllers.suggestions.ISuggest;
 import com.wsoteam.diet.presentation.search.results.controllers.suggestions.SuggestAdapter;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
@@ -74,6 +75,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
   @BindView(R.id.rvSuggestionsList) RecyclerView rvSuggestionsList;
   @BindView(R.id.flSuggestParent) FrameLayout flSuggestParent;
+  @BindView(R.id.clRoot) ConstraintLayout clRoot;
   private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
   private String searchString = "";
   private ResultAdapter itemAdapter;
@@ -82,8 +84,8 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   private Animation finalSave;
 
   @Override public void updateSearchField(String currentString) {
-    if (currentString.length() == 0 && flSuggestParent.getVisibility() == View.VISIBLE) {
-      flSuggestParent.setVisibility(View.GONE);
+    if (currentString.length() == 0) {
+      hideSuggestView();
     } else {
       showSuggestions(currentString);
     }
@@ -137,7 +139,19 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
   private void updateSuggestions(Suggest t, String currentString) {
     rvSuggestionsList.setLayoutManager(new LinearLayoutManager(getActivity()));
-    rvSuggestionsList.setAdapter(new SuggestAdapter(t, currentString));
+    rvSuggestionsList.setAdapter(new SuggestAdapter(t, currentString, new ISuggest() {
+      @Override public void choiceSuggest(String suggestName) {
+        ((ParentActivity) getActivity()).edtSearch.setText(suggestName);
+        ((ParentActivity) getActivity()).edtSearch.clearFocus();
+
+        InputMethodManager inputManager =
+            (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(clRoot.getWindowToken(),
+            InputMethodManager.HIDE_NOT_ALWAYS);
+
+        sendSearchQuery(suggestName);
+      }
+    }));
   }
 
   private void updateUI() {

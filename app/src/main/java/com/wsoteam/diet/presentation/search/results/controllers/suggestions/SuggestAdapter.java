@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.common.networking.food.suggest.Option;
 import com.wsoteam.diet.common.networking.food.suggest.Suggest;
+import com.wsoteam.diet.presentation.search.IClick;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +15,13 @@ public class SuggestAdapter extends RecyclerView.Adapter<SuggestVH> {
   private List<String> suggestionsNames;
   private String query;
   private final int MAX_SUGGEST_SIZE = 5;
+  private ISuggest iSuggest;
 
-  public SuggestAdapter(Suggest suggestObject, String query) {
+  public SuggestAdapter(Suggest suggestObject, String query, ISuggest iSuggest) {
     this.query = query;
     options = suggestObject.getNameSuggestCompletion().get(0).getOptions();
     deleteOverlap();
+    this.iSuggest = iSuggest;
   }
 
   private void deleteOverlap() {
@@ -44,7 +47,11 @@ public class SuggestAdapter extends RecyclerView.Adapter<SuggestVH> {
   }
 
   @Override public void onBindViewHolder(@NonNull SuggestVH holder, int position) {
-      holder.bind(suggestionsNames.get(position), query);
+      holder.bind(suggestionsNames.get(position), query, new IClick(){
+        @Override public void click(int position) {
+          iSuggest.choiceSuggest(suggestionsNames.get(position));
+        }
+      });
   }
 
   @Override public int getItemCount() {
