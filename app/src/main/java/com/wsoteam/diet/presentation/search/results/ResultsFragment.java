@@ -91,7 +91,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
         .getSuggestions(currentString)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(t -> updateSuggestions(t), Throwable::printStackTrace);
+        .subscribe(t -> updateSuggestions(t, currentString), Throwable::printStackTrace);
   }
 
   private void showSuggestView() {
@@ -132,9 +132,9 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   }
 
 
-  private void updateSuggestions(Suggest t) {
+  private void updateSuggestions(Suggest t, String currentString) {
     rvSuggestionsList.setLayoutManager(new LinearLayoutManager(getActivity()));
-    rvSuggestionsList.setAdapter(new SuggestAdapter(new ArrayList<>()));
+    rvSuggestionsList.setAdapter(new SuggestAdapter(t, currentString));
   }
 
   private void updateUI() {

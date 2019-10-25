@@ -236,5 +236,6 @@
 
   <color name="water_blue">#2d9cdb</color>
   <color name="srch_painted_string">#ef7d02</color>
+  <color name="srch_suggest_painted_string">#f49231</color>
 
 </resources>
