@@ -130,6 +130,7 @@ public class ParentActivity extends AppCompatActivity {
   @Override protected void onStart() {
     super.onStart();
     if (!isNeedContinue()) {
+      edtSearch.setText("");
       fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
       fragmentManager.beginTransaction()
           .replace(R.id.searchFragmentContainer, new SectionFragment())
