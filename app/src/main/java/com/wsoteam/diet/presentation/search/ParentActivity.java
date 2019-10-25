@@ -110,13 +110,11 @@ public class ParentActivity extends AppCompatActivity {
       @Override
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         changeSpeakButton(charSequence);
-        if (charSequence.length() > 0){
-          if (fragmentManager.findFragmentById(
-              R.id.searchFragmentContainer) instanceof ResultsView) {
-            ((ResultsView) fragmentManager.findFragmentById(
-                R.id.searchFragmentContainer)).updateSearchField(
-                charSequence.toString().replaceAll("\\s+", " "));
-          }
+        if (fragmentManager.findFragmentById(
+            R.id.searchFragmentContainer) instanceof ResultsView) {
+          ((ResultsView) fragmentManager.findFragmentById(
+              R.id.searchFragmentContainer)).updateSearchField(
+              charSequence.toString().replaceAll("\\s+", " "));
         }
       }
 
@@ -139,7 +137,8 @@ public class ParentActivity extends AppCompatActivity {
   }
 
   private boolean isNeedContinue() {
-    return getSharedPreferences(Config.BASKET_CONTINUE, MODE_PRIVATE).getBoolean(Config.BASKET_CONTINUE, false);
+    return getSharedPreferences(Config.BASKET_CONTINUE, MODE_PRIVATE).getBoolean(
+        Config.BASKET_CONTINUE, false);
   }
 
   private void bindSpinnerChoiceEating() {
@@ -260,21 +259,25 @@ public class ParentActivity extends AppCompatActivity {
   @Override public void onBackPressed() {
     edtSearch.setText("");
     edtSearch.clearFocus();
-    if (fragmentManager.getBackStackEntryCount() > 0 && fragmentManager.findFragmentById(R.id.searchFragmentContainer) instanceof ResultsFragment && isVisibleBasket()){
+    if (fragmentManager.getBackStackEntryCount() > 0 && fragmentManager.findFragmentById(
+        R.id.searchFragmentContainer) instanceof ResultsFragment && isVisibleBasket()) {
       askExit();
-    }else {
+    } else {
       super.onBackPressed();
     }
   }
 
   private boolean isVisibleBasket() {
-    return ((ResultsFragment) fragmentManager.findFragmentById(R.id.searchFragmentContainer)).getView().findViewById(R.id.cvBasket).getVisibility() == View.VISIBLE;
+    return ((ResultsFragment) fragmentManager.findFragmentById(
+        R.id.searchFragmentContainer)).getView().findViewById(R.id.cvBasket).getVisibility()
+        == View.VISIBLE;
   }
 
   private void askExit() {
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
     AlertDialog alertDialog = builder.create();
-    LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    LayoutInflater layoutInflater =
+        (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     View view = layoutInflater.inflate(R.layout.alert_dialog_basket_exit, null);
     TextView tvCancel = view.findViewById(R.id.tvCancel);
     TextView tvExit = view.findViewById(R.id.tvExit);
@@ -290,7 +293,6 @@ public class ParentActivity extends AppCompatActivity {
         ParentActivity.super.onBackPressed();
       }
     });
-
 
     alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
     alertDialog.setView(view);

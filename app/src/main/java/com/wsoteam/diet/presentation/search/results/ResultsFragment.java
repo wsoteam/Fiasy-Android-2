@@ -82,7 +82,11 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   private Animation finalSave;
 
   @Override public void updateSearchField(String currentString) {
-    showSuggestions(currentString);
+    if (currentString.length() == 0 && flSuggestParent.getVisibility() == View.VISIBLE) {
+      flSuggestParent.setVisibility(View.GONE);
+    } else {
+      showSuggestions(currentString);
+    }
   }
 
   private void showSuggestions(String currentString) {
@@ -95,13 +99,13 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   }
 
   private void showSuggestView() {
-    if (flSuggestParent.getVisibility() == View.GONE){
+    if (flSuggestParent.getVisibility() == View.GONE) {
       flSuggestParent.setVisibility(View.VISIBLE);
     }
   }
 
   private void hideSuggestView() {
-    if (flSuggestParent.getVisibility() == View.VISIBLE){
+    if (flSuggestParent.getVisibility() == View.VISIBLE) {
       flSuggestParent.setVisibility(View.GONE);
     }
   }
@@ -130,7 +134,6 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     showHistory();
     return view;
   }
-
 
   private void updateSuggestions(Suggest t, String currentString) {
     rvSuggestionsList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -172,7 +175,8 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     String string = getActivity().getResources().getString(R.string.srch_basket_card, size);
     int positionPaint = string.indexOf(" ") + 1;
     Spannable spannable = new SpannableString(string);
-    spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.srch_painted_string)), positionPaint,
+    spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.srch_painted_string)),
+        positionPaint,
         string.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     spannable.setSpan(new UnderlineSpan(), 0, string.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     return spannable;
@@ -208,9 +212,9 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     }).map(new Function<List<HistoryEntity>, List<ISearchResult>>() {
       @Override public List<ISearchResult> apply(List<HistoryEntity> historyEntities) {
         List<ISearchResult> list = new ArrayList<>();
-          for (int i = 0; i < historyEntities.size(); i++) {
-            list.add(historyEntities.get(i));
-          }
+        for (int i = 0; i < historyEntities.size(); i++) {
+          list.add(historyEntities.get(i));
+        }
         Collections.reverse(list);
         return list;
       }
@@ -223,9 +227,9 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
           }
 
           @Override public void onSuccess(List<ISearchResult> iSearchResults) {
-            if (iSearchResults.size() > 0){
+            if (iSearchResults.size() > 0) {
               updateAdapter(iSearchResults, new ArrayList<>());
-            }else {
+            } else {
               showNoHistory();
             }
           }
@@ -234,7 +238,6 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
           }
         });
-
   }
 
   @Override
@@ -248,7 +251,8 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
         .getResponse(Config.SEARCH_RESPONSE_LIMIT, Config.SEARCH_RESPONSE_LIMIT, searchString)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(t -> refreshAdapter(toISearchResult(t.getResults())), Throwable::printStackTrace);
+        .subscribe(t -> refreshAdapter(toISearchResult(t.getResults())),
+            Throwable::printStackTrace);
   }
 
   private List<ISearchResult> toISearchResult(List<Result> results) {
@@ -305,9 +309,11 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     List<ISearchResult> iSearchResults = new ArrayList<>();
     if (t.size() > 0) {
       if (t.get(0) instanceof HistoryEntity) {
-        iSearchResults.add(new HeaderObj(getResources().getString(R.string.srch_history_header), true));
+        iSearchResults.add(
+            new HeaderObj(getResources().getString(R.string.srch_history_header), true));
       } else {
-        iSearchResults.add(new HeaderObj(getResources().getString(R.string.srch_search_results), false));
+        iSearchResults.add(
+            new HeaderObj(getResources().getString(R.string.srch_search_results), false));
       }
     }
     for (int i = 0; i < t.size(); i++) {
@@ -323,7 +329,9 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
       case R.id.btnAddCustomFood:
         break;
       case R.id.tvCounter:
-        startActivity(new Intent(getActivity(), BasketActivity.class).putExtra(Config.INTENT_DATE_FOR_SAVE, getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE)));
+        startActivity(
+            new Intent(getActivity(), BasketActivity.class).putExtra(Config.INTENT_DATE_FOR_SAVE,
+                getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE)));
         break;
       case R.id.tvAddToBasket:
         itemAdapter.save(getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
@@ -352,5 +360,4 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
       }
     }.start();
   }
-
 }
