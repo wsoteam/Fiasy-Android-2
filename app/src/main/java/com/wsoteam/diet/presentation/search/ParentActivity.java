@@ -69,10 +69,7 @@ public class ParentActivity extends AppCompatActivity {
     edtSearch.setOnTouchListener(new View.OnTouchListener() {
       @Override public boolean onTouch(View view, MotionEvent motionEvent) {
         if (fragmentManager.getBackStackEntryCount() == 0) {
-          fragmentManager.beginTransaction()
-              .replace(R.id.searchFragmentContainer, new ResultsFragment())
-              .addToBackStack(BS_TAG)
-              .commit();
+          setSearchFragment();
         }
         return false;
       }
@@ -88,8 +85,6 @@ public class ParentActivity extends AppCompatActivity {
                 R.id.searchFragmentContainer)).sendSearchQuery(
                 edtSearch.getText().toString().replaceAll("\\s+", " "));
           }
-          /*((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
-              sendString(edtSearch.getText().toString().replaceAll("\\s+", " "));*/
           edtSearch.clearFocus();
           InputMethodManager inputManager =
               (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -123,6 +118,13 @@ public class ParentActivity extends AppCompatActivity {
 
       }
     });
+  }
+
+  private void setSearchFragment() {
+    fragmentManager.beginTransaction()
+        .replace(R.id.searchFragmentContainer, new ResultsFragment())
+        .addToBackStack(BS_TAG)
+        .commit();
   }
 
   @Override protected void onStart() {
@@ -185,11 +187,10 @@ public class ParentActivity extends AppCompatActivity {
     if (requestCode == 1234 && resultCode == RESULT_OK) {
       ArrayList<String> commandList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
       edtSearch.setText(commandList.get(0));
-      if (fragmentManager.findFragmentById(R.id.searchFragmentContainer) instanceof ResultsView) {
-        ((ResultsView) fragmentManager.findFragmentById(
-            R.id.searchFragmentContainer)).sendSearchQuery(
-            edtSearch.getText().toString().replaceAll("\\s+", " "));
-      }
+
+      ((ResultsFragment) fragmentManager.findFragmentById(
+          R.id.searchFragmentContainer)).sendSearchQuery(
+          edtSearch.getText().toString().replaceAll("\\s+", " "));
       edtSearch.clearFocus();
     }
     super.onActivityResult(requestCode, resultCode, data);
@@ -233,6 +234,9 @@ public class ParentActivity extends AppCompatActivity {
     switch (view.getId()) {
       case R.id.ibActivityListAndSearchCollapsingCancelButton:
         if (isCanSpeak) {
+          if (fragmentManager.getBackStackEntryCount() == 0){
+            setSearchFragment();
+          }
           speak();
         } else {
           edtSearch.setText("");
