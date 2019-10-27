@@ -3,6 +3,7 @@ package com.wsoteam.diet.presentation.diary
 import android.content.Context
 import android.content.Intent
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
@@ -26,7 +27,7 @@ import java.util.Calendar.YEAR
 
 class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
   private val stepView: WaterStepView = itemView.findViewById(R.id.waterStepView)
-  private val waterAchievement: CardView = itemView.findViewById(R.id.waterAchievement)
+  private val waterAchievement: FrameLayout = itemView.findViewById(R.id.waterAchievement)
   private val waterReminder: TextView = itemView.findViewById(R.id.tvEatingReminder)
   private val openWaterSettings: ImageButton = itemView.findViewById(R.id.ibtnOpenMenu)
 

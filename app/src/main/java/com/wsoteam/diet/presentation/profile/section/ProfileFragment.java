@@ -401,7 +401,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
             isOpen = false;
 
             ibExpandable.setImageDrawable(VectorDrawableCompat.create(getResources(),
-                R.drawable.ic_close_detail_profile,
+                R.drawable.ic_open_detail_profile,
                 getContext().getTheme()));
         } else {
             ViewUtils.apply(getView(), new int[]{
@@ -412,7 +412,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
             isOpen = true;
 
             ibExpandable.setImageDrawable(VectorDrawableCompat.create(getResources(),
-                R.drawable.ic_open_detail_profile,
+                R.drawable.ic_close_detail_profile,
                 getContext().getTheme()));
         }
     }

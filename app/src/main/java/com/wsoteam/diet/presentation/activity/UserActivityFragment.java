@@ -330,25 +330,21 @@ public class UserActivityFragment extends DialogFragment implements
 
     if (createCustomActivity) {
       if (edited) {
-        adapter.updateItemAt(R.string.user_activity_section_my, exercise);
-
         disposables.add(sources.get(R.string.user_activity_section_my)
             .edit(exercise)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                Functions.emptyConsumer(),
+                added -> adapter.updateItemAt(R.string.user_activity_section_my, added),
                 Throwable::printStackTrace
             ));
       } else {
-        adapter.addItem(R.string.user_activity_section_my, exercise);
-
         disposables.add(sources.get(R.string.user_activity_section_my)
             .add(exercise)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                Functions.emptyConsumer(),
+                added -> adapter.addItem(R.string.user_activity_section_my, added),
                 Throwable::printStackTrace
             ));
       }

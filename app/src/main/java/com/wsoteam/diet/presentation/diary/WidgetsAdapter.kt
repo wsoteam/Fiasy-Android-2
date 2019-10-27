@@ -3,10 +3,14 @@ package com.wsoteam.diet.presentation.diary
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams
+import android.widget.LinearLayout
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
 import com.wsoteam.diet.model.Eating
 import com.wsoteam.diet.presentation.activity.DiaryActivityWidget
+import com.wsoteam.diet.utils.dp
 import com.wsoteam.diet.utils.inflate
 
 class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
@@ -33,7 +37,14 @@ class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
     val root = parent.inflate(viewType, false)
 
     return when (viewType) {
-      R.layout.fragment_current_day_plan -> MealPlanWidgetKt(root)
+      R.layout.fragment_current_day_plan -> {
+        val container = CardView(parent.context)
+        container.radius = 1f * dp(parent.context, 16f)
+        container.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+        container.addView(root)
+
+        MealPlanWidgetKt(container)
+      }
       R.layout.widget_daily_calories -> DailyBurnWidget(root)
       R.layout.widget_user_weight -> UserWeightWidget(root)
       R.layout.widget_user_activities -> DiaryActivityWidget(root)

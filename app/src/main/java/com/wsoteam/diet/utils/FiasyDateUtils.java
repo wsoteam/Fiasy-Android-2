@@ -17,6 +17,14 @@ public class FiasyDateUtils {
         && date.getDay() == now.get(Calendar.DAY_OF_MONTH) - 1;
   }
 
+  public static boolean isTomorrow(DiaryViewModel.DiaryDay date) {
+    final Calendar now = Calendar.getInstance();
+
+    return date.getMonth() == now.get(Calendar.MONTH)
+        && date.getYear() == now.get(Calendar.YEAR)
+        && date.getDay() == now.get(Calendar.DAY_OF_MONTH) + 1;
+  }
+
   public static CharSequence formatDate(Context context, DiaryViewModel.DiaryDay date, int flags){
     final Calendar calendar = Calendar.getInstance();
     calendar.set(date.getYear(), date.getMonth(), date.getDay(), 0, 0);

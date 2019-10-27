@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.MainScreen.Controller.EatingAdapter
 import com.wsoteam.diet.MainScreen.Controller.UpdateCallback
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEatingScroll
+import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.model.Eating
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
@@ -16,7 +17,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class EatingsWidget(itemView: View) : WidgetView(itemView), UpdateCallback {
-  private val container: RecyclerView = itemView as RecyclerView
+  private val container: RecyclerView = itemView.findViewById(R.id.container)
   private val emptyMeals = listOf<List<Eating>>(
       emptyList(),
       emptyList(),

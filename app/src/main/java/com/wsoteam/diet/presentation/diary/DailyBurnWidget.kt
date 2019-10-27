@@ -6,6 +6,7 @@ import android.text.style.ImageSpan
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
@@ -104,18 +105,20 @@ open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView)
 
     val burnedCals = DiaryActivitiesSource.burned
 
-    val burned = SpannableString("$burnedCals  ")
-    val icon = context.getVectorIcon(R.drawable.ic_calories_burned_fire)
-    icon.setBounds(0, 0, dp(context, 12f), dp(context, 12f))
+    eatenCaloriesView.text = withIcon("${progress.calories}  ", R.drawable.ic_daily_eaten)
+    burnedCaaloriesView.text = withIcon("$burnedCals  ", R.drawable.ic_calories_burned_fire)
 
-    burned.setSpan(ImageSpan(icon, ImageSpan.ALIGN_BASELINE),
-        burned.length - 1, burned.length, 0)
+    leftCaloriesView.text = withIcon("${(progressView.max - progress.calories + burnedCals)}  ",
+        R.drawable.ic_daily_goal)
+  }
 
-    eatenCaloriesView.text = progress.calories.toString()
-    burnedCaaloriesView.text = burned
+  fun withIcon(text: CharSequence, @DrawableRes iconId: Int): SpannableString {
+    return SpannableString(text).apply {
+      val icon = context.getVectorIcon(iconId)
+      icon.setBounds(0, 0, dp(context, 12f), dp(context, 12f))
 
-    leftCaloriesView.text =
-      (progressView.max - progress.calories + burnedCals).toString()
+      setSpan(ImageSpan(icon, ImageSpan.ALIGN_BASELINE), length - 1, length, 0)
+    }
   }
 
   override fun onAttached(parent: RecyclerView) {

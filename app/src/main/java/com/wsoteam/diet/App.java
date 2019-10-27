@@ -3,6 +3,7 @@ package com.wsoteam.diet;
 import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.multidex.MultiDexApplication;
 import androidx.room.Room;
 
@@ -11,6 +12,8 @@ import com.adjust.sdk.AdjustConfig;
 import com.amplitude.api.Amplitude;
 import com.bugsee.library.Bugsee;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.onesignal.OneSignal;
 import com.orm.SugarContext;
@@ -43,7 +46,9 @@ public class App extends MultiDexApplication {
         FirebaseApp.initializeApp(getApplicationContext());
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-        WorkWithFirebaseDB.setFirebaseStateListener();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            WorkWithFirebaseDB.setFirebaseStateListener();
+        }
 
         instance = this;
 

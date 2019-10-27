@@ -28,5 +28,5 @@
   <dimen name="WheelItemSpace">12dp</dimen>
   <dimen name="WheelIndicatorSize">2dp</dimen>
   <dimen name="WheelMargins">8dp</dimen>
-  <dimen name="diary_calendar_height">240dp</dimen>
+  <dimen name="diary_calendar_height">220dp</dimen>
 </resources>

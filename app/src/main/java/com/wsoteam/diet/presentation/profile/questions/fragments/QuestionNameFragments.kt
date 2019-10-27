@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import butterknife.internal.DebouncingOnClickListener
 import com.google.android.material.textfield.TextInputLayout
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.R
@@ -58,7 +59,11 @@ class QuestionNameFragments : Fragment() {
     }
 
     doneButton = view.findViewById(R.id.btnNext)
-    doneButton.setOnClickListener { nextQuestion() }
+    doneButton.setOnClickListener(object: DebouncingOnClickListener(){
+      override fun doClick(v: View) {
+        nextQuestion()
+      }
+    })
 
     usernameView = view.findViewById(R.id.user_name)
     usernameView.editText?.addTextChangedListener(textWatcher)

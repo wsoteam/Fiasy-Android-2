@@ -13,6 +13,7 @@ import androidx.collection.SparseArrayCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -22,6 +23,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.UserProperty;
@@ -118,6 +120,8 @@ public abstract class AuthStrategyFragment extends Fragment {
         }
 
         notification.show(getView(), InAppNotification.DURATION_QUICK);
+
+        WorkWithFirebaseDB.setFirebaseStateListener();
 
         if (getActivity() != null) {
             final Activity activity = requireActivity();

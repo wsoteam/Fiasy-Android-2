@@ -23,6 +23,7 @@ import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
+import com.google.firebase.database.FirebaseDatabase
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.activity.ExercisesSource.AssetsSource
 import com.wsoteam.diet.utils.RichTextUtils.RichText
@@ -47,7 +48,6 @@ class CreateUserActivityFragment : DialogFragment() {
   private val durations = IntProgression.fromClosedRange(15, 60, 15)
 
   private lateinit var doneButton: View
-
   override fun onCreateView(inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?): View? {
@@ -145,7 +145,7 @@ class CreateUserActivityFragment : DialogFragment() {
         .inflate(R.layout.support_simple_spinner_dropdown_item, parent, false)
 
       target as TextView
-      target.text = getItem(position).title
+      target.text = getItem(position)?.title
 
       return target
     }

@@ -742,6 +742,7 @@ class CompactCalendarController {
         boolean isSameMonthAsCurrentCalendar = monthToDrawCalender.get(Calendar.MONTH) == currentCalender.get(Calendar.MONTH) &&
                                                monthToDrawCalender.get(Calendar.YEAR) == currentCalender.get(Calendar.YEAR);
         int todayDayOfMonth = todayCalender.get(Calendar.DAY_OF_MONTH);
+        int todayDayOfWeek = getDayOfWeek(todayCalender);
         boolean isAnimatingWithExpose = animationStatus == EXPOSE_CALENDAR_ANIMATION;
 
         int maximumMonthDay = monthToDrawCalender.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -774,12 +775,21 @@ class CompactCalendarController {
             if (dayRow == 0) {
                 // first row, so draw the first letter of the day
                 if (shouldDrawDaysHeader) {
+                    if (todayDayOfWeek == colDirection && isSameMonthAsToday && isSameYearAsToday) {
+                        dayPaint.setTypeface(Typeface.DEFAULT_BOLD);
+                        dayPaint.setFakeBoldText(true);
+                        dayPaint.setAlpha(255);
+                    } else {
+                        dayPaint.setTypeface(Typeface.DEFAULT);
+                        dayPaint.setFakeBoldText(false);
+                        dayPaint.setAlpha(140);
+                    }
+
                     dayPaint.setColor(calenderTextColor);
-                    dayPaint.setTypeface(Typeface.DEFAULT_BOLD);
                     dayPaint.setStyle(Paint.Style.FILL);
-                    dayPaint.setColor(calenderTextColor);
                     canvas.drawText(dayColumnNames[colDirection], xPosition, paddingHeight, dayPaint);
                     dayPaint.setTypeface(Typeface.DEFAULT);
+                    dayPaint.setAlpha(255);
                 }
             } else {
                 int day = ((dayRow - 1) * 7 + colDirection + 1) - firstDayOfMonth;
