@@ -508,4 +508,451 @@
   <string name="main_screen_menu_water_count">%.2f л</string>
   <string name="format_int_kcal">%d ккал</string>
   <string name="main_screen_topbar_string">%d из %d г</string>
+
+
+
+
+  // Авторизация
+  <string name="privacy_policy_title">Ознакомиться с условиями</string>
+  <string name="welcome">Добро пожаловать :)</string>
+  <string name="hello">Привет,\u0020</string>
+  <string name="auth_user_using_existing_account">Пользователь с таким email уже существует</string>
+  <string name="session_expired">Сессия подключения просрочена</string>
+  <string name="auth_user_not_found">Пользователь не найден</string>
+  <string name="no_internet">Нет подключения к интернету :(</string>
+  <string name="failed_logIn">Не удалось войти</string>
+  <string name="constraint_error_username_min_length">Минимальная длина логина 5 символов</string>
+  <string name="constraint_error_password_min_length">Минимальная длина пароля 6 символов</string>
+  <string name="auth_user_password_missmatch">Неверный пароль</string>
+  <string name="auth_user_email_missmatch">Неверный email</string>
+  <string name="auth_wrong_credentials">Проверьте введённые данные</string>
+  <string name="auth_in_use_email">email уже используется!</string>
+  <string name="auth_wrong_email">Проверьте введенный email!</string>
+  <string name="forgot_pass_check_email">Проверьте вашу почту!</string>
+  <string name="forgot_pass_wrong_user">Пользователь не найден</string>
+  <string name="auth_pass_with_space">Пароль не должен содержать пробелы</string>
+  <string name="auth_state_logging_in">Авторизуем</string>
+  <string name="privacy_policy_link_span_text">Политики конфиндециальности</string>
+
+  // Опросник
+  <string name="sex_male">Мужской</string>
+  <string name="sex_female">Женский</string>
+  <string name="onboard_height_title">Рассчитаем твою норму</string>
+  <string name="onboard_weight_title">Рассчитаем твою норму</string>
+  <string name="onboard_birthday_title">Когда ваш день рождения?</string>
+  <string name="onboard_activity_title">Отлично!</string>
+
+  // Вода
+  <string name="water_achievement_title_2">Поздравляем!</string>
+  <string name="water_achievement_txt_2">Вы выпили ежеденевную норму воды! Продолжайте в том же духе!</string>
+
+  // Алерт оцените приложение
+  <string name="alert_dialog_grade_if_like">Если вам нравится наше приложение, \nпоставьте оценку и напишите свой отзыв.</string>
+
+  // Профиль
+  <string name="check_your_name">Введите Ваше имя</string>
+  <string name="activity_profile_future_value">Будущие значения</string>
+  <string name="activity_profile_current_value">Ваше значение</string>
+  <string name="activity_profile_settings_settings">Настройки</string>
+  <string name="profile_female">Женский</string>
+  <string name="profile_male">Мужской</string>
+  <string name="save">сохранить</string>
+  <string name="prem_title_settings">Улучши свои показатели!</string>
+  <string name="text_prem_settings">Эксклюзивные статьи от ведущих \nдиетологов и спортсменов, а так же \nмножество рецептов!</string>
+  <string name="btn_settings_prem">стать лучше</string>
+  <string-array name="settings_items">
+    <item>Premium аккаунт</item>
+    <!--<item>Еда и аллергия</item>-->
+    <item>Промокоды</item>
+    <item>Личные данные</item>
+    <item>Норма калорий</item>
+    <!--<item>Уведомления</item>
+    <item>Цель</item>-->
+    <item>Помощь</item>
+    <item>Выход</item>
+  </string-array>
+  <string-array name="settings_items_prem">
+    <!--<item>Еда и аллергия</item>-->
+    <item>Промокоды</item>
+    <item>Личные данные</item>
+    <item>Норма калорий</item>
+    <!--<item>Уведомления</item>
+    <item>Цель</item>-->
+    <item>Помощь</item>
+    <item>Выход</item>
+  </string-array>
+
+
+
+  // Планы питания
+  <string name="plans">Планы питания</string>
+  <string name="plan">План питания</string>
+  <string name="activity_blocked_detail_plans_recipes">рецептов</string>
+  <string name="activity_blocked_detail_plans_users">участников</string>
+  <string name="activity_blocked_detail_plans_motivation">Весьма мотивирующий текст, который поднимет в человеке веру в себя, свои возможности.</string>
+
+  <string name="activity_blocked_recipe_0_kcal">0 ккал на порцию</string>
+  <string name="value_00">00</string>
+  <string name="leavePlan">Выйти из диеты</string>
+  <string name="sharePlan">Подельтися</string>
+  <string name="load_recipe_plan_up">Загрузить предыдущие</string>
+  <string name="load_recipe_plan_down">Загрузить следующие</string>
+  <string name="days">дней</string>
+  <string name="join">Присоединиться</string>
+  <string name="add">Добавить</string>
+
+  <string name="activity_detail_saved_food_def_value">activity_detail_food_0_gram</string>
+
+  <string name="activity_plan_recipes_0_kcal">0 ккал на порцию</string>
+  <string name="activity_plan_recipes_method">Способ приготовления</string>
+
+  <string name="fragment_adding_recipe_result_description">Описание рецепта</string>
+  <string name="fragment_adding_recipe_result_name">Название рецепта</string>
+  <string name="fragment_adding_recipe_result_time">Время приготовления (мин.)</string>
+  <string name="fragment_adding_recipe_result_complexity">Сложность</string>
+
+  <string name="fragment_current_day_plan_days">День 0/0</string>
+
+  <string name="item_food_template_name">name</string>
+  <string name="item_food_template_count">0 food</string>
+
+  <string name="main_detail_plans_recipe_item_added">Рецепт добавлен</string>
+  <string name="main_detail_plans_recipe_item_175_kcal">175 ккал </string>
+  <string name="main_detail_plans_recipe_item_some_name">Салат с оливками, авокадо и брынзой</string>
+
+  <string name="plans_header_item_n_recipes">324 рецепта</string>
+  <string name="plans_header_item_n_days">28 дней</string>
+  <string name="plans_header_item_n_day_of_x">0 день из 28</string>
+
+  <string name="vertical_detail_plan_adapter_not_selected">Вы ничего не выбрали</string>
+  <string name="vertical_detail_plan_adapter_in_diary">Вы занесли в дневник:\u0020</string>
+  <string name="vertical_detail_plan_adapter_day">День %d</string>
+  <string name="vertical_detail_plan_adapter_day_of_days">%d день из %d</string>
+
+
+
+  <plurals name="day_plurals">
+    <item quantity="one">день%d</item>
+    <item quantity="few">дня</item>
+    <item quantity="many">дней</item>
+    <item quantity="other">дней</item>
+  </plurals>
+
+  <plurals name="recipe_plurals">
+    <item quantity="one">рецепт%d</item>
+    <item quantity="few">рецепта</item>
+    <item quantity="many">рецептов</item>
+    <item quantity="other">рецептов</item>
+  </plurals>
+
+  <plurals name="foods_count">
+    <item quantity="one">%d продукт</item>
+    <item quantity="few">%d продукта</item>
+    <item quantity="many">%d продуктов</item>
+    <item quantity="other">%d продуктов</item>
+  </plurals>
+
+
+  // Добавление продуктов в дневник
+  <string-array name="eatingList">
+    <item>Завтрак</item>
+    <item>Обед</item>
+    <item>Ужин</item>
+    <item>Перекус</item>
+  </string-array>
+
+  <string name="favoriteRecipe">Понравившиеся</string>
+  <string name="own_food">свои продукты</string>
+  <!--  plan main screen-->
+  <string name="btnAddTemplate">Создать шаблон</string>
+  <string name="plan_start_text">Не знаете с чего начать? Попробуйте планы питания от нашего штатного диетолога.</string>
+  <string name="view_plans">Посмотреть планы питания</string>
+  <string name="view_other_plans">Подобрать другой план питания</string>
+  <string name="plan_end_text">Ваша диета закончилась. Поздравляем!</string>
+  <string name="titleShareDialogPlan">Поделиться планом питания</string>
+  <string name="btnCancel">Отменить</string>
+  <string name="btnChange">Поменять</string>
+  <string name="tvInfo">Вы хотите сменить план питания? \nВаш план питания “%s” будет закрыт.</string>
+  <string name="planDays">День %d/%d</string>
+
+  <plurals name="daysAtRow">
+    <item quantity="one">%d день подряд ведется запись</item>
+    <item quantity="few">%d дня подряд ведется запись</item>
+    <item quantity="many">%d дней подряд ведется запись</item>
+    <item quantity="other">%d дней подряд ведется запись</item>
+  </plurals>
+
+  <!--food_template-->
+  <string name="subTestText">Попробуйте 7 дней бесплатно\n Далее 199 р. / месяц</string>
+  <string name="nameTemplate">Название шаблона</string>
+  <string name="eatingTemplate">Категория:</string>
+  <string name="contextMenuDelete">Удалить</string>
+  <string name="contextMenuEdit">Редактировать</string>
+  <string name="addTemplate">Добавить шаблон</string>
+  <!--end_food_template-->
+
+  <!--adding recipe-->
+  <string name="templates">Шаблоны</string>
+
+  <!--Menu-->
+
+  <string name="tvGram">г</string>
+  <string name="tvMG">мг</string>
+  <string name="tvKkal">Ккал</string>
+
+  <!-- Опросник -->
+  <string name="tvKkal0">0 Ккал</string>
+  <string name="btnRecipeDiary">Добавить в дневник</string>
+  <!-- Опросник -->
+  <string name="btnRecipePrem">Обновление до Premium</string>
+  <string name="tvRecipePrem">Оформите подписку Premium - и вы \n
+                                будете получать рецепты, \n
+                                подобранные специально для Вас \n
+                                нашими диетологами.</string>
+
+  <string name="intro_title">Добро пожаловать в</string>
+  <string name="intro_text_1">Множество научных статей о правильном питании</string>
+  <string name="intro_text_2">Полезные рецепты на каждый день</string>
+  <string name="intro_text_3">Удобно отслеживать свои достижения</string>
+
+  <!--dialog-->
+  <string name="dialog_load_title">Загрузка</string>
+  <string name="auth_phone_wrong_number">Проверьте введенный номер!</string>
+  <string name="auth_phone_wrong_code">Проверьте введенный код!</string>
+
+  <!--ActivitySubscription-->
+  <string name="auth_gender_btn_m">М</string>
+  <string name="auth_gender_btn_f">Ж</string>
+
+  <!--exit alert dialog-->
+  <string name="subsc_btn_bay">обновить до premium</string>
+
+  <string name="policy_action_title">Политика конфиденциальности</string>
+
+  <!--Repeat count-->
+  <string name="repeat_none">Однократно</string>
+  <string name="repeat_hour">Каждый час</string>
+  <string name="repeat_two_hours">Каждые два часа</string>
+  <string name="repeat_three_hours">Каждые три часа</string>
+  <string name="repeat_four_hours">Каждые четыре часа</string>
+  <string name="repeat_day">Каждый день</string>
+  <string name="repeat_weak">Каждую неделю</string>
+
+
+  <string name="repeat_month">Каждый месяц</string>
+
+  <string name="spk_check_your_age">Проверьте Ваш возраст</string>
+  <string name="spk_check_your_height">Проверьте введенный рост</string>
+  <string name="spk_check_weight">Проверьте введенный вес</string>
+
+  <string name="main_screen_topbar_kcal_over_notification">Хотим вас\nпредупредить, что\nпревышение калорий\nможет привести к\nнулевому результату</string>
+
+  <string name="g">г</string>
+  <string name="gram">грамм</string>
+
+
+  <string name="input_weight_of_eating">Введите вес порции</string>
+
+
+  <string name="dif_level_hard_up">Похудение</string>
+  <string name="dif_easy_description">Идеально подходит для начинающих. Используется для поддержания веса</string>
+  <string name="dif_normal_description">Плавное похудение. Потеря веса без больших усилий</string>
+  <string name="dif_hard_description">Для достижения результатов быстрыми темпами, требуется большая сила воли</string>
+  <string name="profile_saved">Профиль сохранен</string>
+  <string name="auth_first_description">Правильное питание - это \nнеотъемлемая часть здорового образа \nжизни.</string>
+  <string name="text_start_search">Начните вводить в строку поиска \nназвание продукта</string>
+  <string name="title_no_find_food">Результаты не найдены</string>
+  <string name="text_no_find_food">Попробуйте еще раз или создайте свой \nпродукт</string>
+
+
+  <string name="back">назад</string>
+
+  <!--  <string name="check_box_text">Созданные вами и введенные в базу рецепты или продукты могут быть  доступны для других пользователей. Пожалуйста, постарайтесь  заполнить приведенную выше форму максимально точно и полно.</string>-->
+  <!--  <string name="calories">Калорийность (ккал)</string>-->
+  <string name="create_food_fats">Жиры (г)</string>
+  <string name="carbo">Углеводы (г)</string>
+  <string name="edtPottassium">Калий (мг)</string>
+  <string name="edtSodium">Натрий (мг)</string>
+
+  //ProfileSettings
+  <string name="edtCholesterol">Холестерин (мг)</string>
+  <string name="edtPolyUnSaturatedFats">Полиненасыщенные жиры (г)</string>
+  <string name="edtMonoUnSaturatedFats">Мононенасыщенные жиры (г)</string>
+
+  //Search
+  <string name="edtSaturatedFats">Насыщенные жиры (г)</string>
+  <string name="edtSugar">Сахар (г)</string>
+  <string name="edtCell">Клетчатка (г)</string>
+
+  //CustomFood
+  <string name="error_toast">Проверьте введенные данные</string>
+  <string name="prot">Белки (г)</string>
+  <string name="food_saved">Продукт сохранен в разделе избранное/свои продукты </string>
+  <string name="error_name">Введите название продукта</string>
+  <string name="edit_food_completed">Продукт изменен</string>
+
+  <string name="auth_restore_your_password">Восстановить</string>
+  <string name="auth_sign_up_alternatives">Или зарегистрируйтесь с помощью</string>
+  <string name="constraint_error_username_email">Введите email</string>
+  <string name="enter_email_hint">Введите email</string>
+  <string name="repeat_password_hint">Повторите пароль</string>
+  <string name="constraint_error_passwords_must_match">Пароли должны совпадать</string>
+
+
+
+  <string name="auth_user_set_weak_password">Пароль слишком слабый, добавьте дополнительные знаки</string>
+  <string name="personal_diary">Создаём ваш персональный дневник питания</string>
+  <string name="update_message">Вышла новая версия приложения!  \nОбновите приложение в Google Play</string>
+  <string name="go_update">Обновить</string>
+  <string name="update_title">Обновление!</string>
+  <string name="eating_trigger">Питание</string>
+  <string name="enter_multi_params">Введите данные</string>
+  <string name="activity_create_food_main_information">Основная информация</string>
+
+  <!--food_template-->
+  <string name="activity_create_food_template_section">Категория</string>
+
+  <string name="activity_detail_food_portion">Расчет порции</string>
+  <string name="activity_detail_food_0_kkal">0 Ккал</string>
+  <string name="activity_detail_food_0_gram">0 г</string>
+  <string name="activity_detail_food_3_3_g">3.3 г</string>
+  <string name="activity_detail_food_add">добавить</string>
+  <string name="activity_detail_food_nutrients">Питательные вещества</string>
+  <string name="activity_detail_food_to_100_g">на 100 г\u0020</string>
+
+
+  <string name="activity_detail_saved_food">Состав продукта</string>
+  <string name="activity_detail_saved_food_other">Другое</string>
+
+
+
+  <string name="Kilojoule">Килоджоули</string>
+  <string name="kJ">кДж</string>
+  <string name="Calories">Калории</string>
+
+  <string name="activity_main_new_burnt">0\nсожжено</string>
+  <string name="activity_profile_names">Иван Иванов</string>
+  <string name="activity_profile_235_g">235 г</string>
+  <string name="activity_profile_60_g">60 г</string>
+
+  <string name="activity_profile_1800_kcal">1800 ккал</string>
+  <string name="activity_promo_form_confirm">подтвердить</string>
+  <string name="alert_dialog_buy_sub_info_congratulations">Поздравляем!</string>
+
+  <string name="alert_dialog_change_food_in_template_already">Этот продукт уже есть в вашем списке.</string>
+  <string name="alert_dialog_change_food_in_template_change_request">Вы хотите изменить вес выбранного продукта?</string>
+  <string name="alert_dialog_change_food_in_template_change">Изменить</string>
+  <string name="alert_dialog_change_food_in_template_cancel">Отменить</string>
+
+  <string name="alert_dialog_choice_difficulty_level_information">Этот показатель в любой момент можно поменять в настройках</string>
+  <string name="alert_dialog_confirm_question">Вы уверены, что хотите удалить \nвыбранные элементы?</string>
+  <string name="alert_dialog_confirm_cancel">Отменить</string>
+  <string name="alert_dialog_confirm_delete">Удалить</string>
+  <string name="alert_dialog_from_claim_condition">Мин. 10 символов</string>
+
+  <string name="alert_dialog_from_claim_describe">Опишите проблему</string>
+  <string name="alert_dialog_grade_review">Отзыв</string>
+  <string name="alert_dialog_grade_thx">Спасибо за оценку!</string>
+  <string name="alert_dialog_grade_estimate">Оценить</string>
+  <string name="alert_dialog_level_title">Физическая активность</string>
+  <string name="alert_dialog_plan_joined_ok">Вы присоединились</string>
+  <string name="alert_dialog_promo_success_congratulations">Поздравляем!</string>
+
+  <string name="alert_dialog_promo_success_proceed">приступить</string>
+  <string name="alert_dialog_success_add_food_added">Продукт добавлен</string>
+
+  <string name="bottom_sheet_need_account">Для продолжения вам \nпонадобится аккаунт в Fiasy</string>
+  <string name="bottom_sheet_reg_type">Регистрация по телефону или почте</string>
+  <string name="cards_fragment_subscription_start_trial">Начать пробный период</string>
+  <string name="cards_fragment_subscription_info">Получите полный доступ \n к эксклюзивным статьям и рецептам</string>
+
+  <string name="detail_activity_question">Вопрос</string>
+  <string name="detail_plans_day_item_day_13">День 13</string>
+  <string name="detail_plans_recipe_item_recipe_added">Рецепт добавлен</string>
+  <string name="detail_plans_recipe_item_n_kcal">175 ккал\u0020</string>
+  <string name="detail_plans_recipe_item_some_name">Салат с оливками, авокадо и брынзой</string>
+  <string name="diary_recipe_plans_added">Вы занесли в дневник:</string>
+
+  <string name="food_popup_menu_delete">Удалить</string>
+  <string name="food_popup_menu_change">Редактировать</string>
+  <string name="fragment_adding_recipe_instructions_write_instructions">Пожалуйста, записывайте инструкцию по приготовлению по пунктам.</string>
+
+
+  <string name="fragment_auth_signup_reg">Регистрация</string>
+  <string name="fragment_custom_foods_favorite">Избранное</string>
+  <string name="fragment_custom_foods_info">В этом разделе будут храниться \nпонравившиеся или сохраненные вами \nрецепты и продукты</string>
+  <string name="fragment_custom_foods_add">Добавить продукт</string>
+  <string name="fragment_empty_sorry">Извините, данный раздел находится в разработке.</string>
+  <string name="fragment_empty_soon">Еще чуть-чуть и вам откроется кладезь полезной информации :)</string>
+  <string name="fragment_individual_plan_0_g">0 г</string>
+  <string name="fragment_list_articles_not_result">Результаты не найдены</string>
+  <string name="fragment_list_articles_try_now">Попробуйте еще раз </string>
+  <string name="fragment_we_offer_txt">Мы предлагаем вам:</string>
+  <string name="fragment_we_offer_advice">Множество полезных советов по нутрициологии и  здоровому образу жизни</string>
+  <string name="fragment_we_offer_recipes">Доступ к сотням рецептов, собранных согласно вашим личным предпочтениям</string>
+  <string name="group_article_item_all">Все\u0020</string>
+  <string name="help_activity_title">Помощь</string>
+
+  <string name="item_vertical_browse_plans_name">Название диеты</string>
+  <string name="ms_item_eating_list_count">2 шт.</string>
+  <string name="ms_item_eating_list_add">Добавить</string>
+  <string name="ms_item_eating_list_recommendation">Рекомендуется 475 - 855 ккал</string>
+
+  <string name="ms_item_eating_list_kcal2">Ккал</string>
+  <string name="ms_item_eating_list_add_meal">Занесите обед сейчас и достигните своей цели быстрее</string>
+  <string name="plans_footer_item_share">Вы достигли успеха?
+  поделитесь результатими с друзьями:</string>
+
+  <string name="plans_footer_item_cong">Выша диета закончилась!
+ Поздравляем!</string>
+  <string name="plans_footer_item_new_plan">Подобрать другой план питания</string>
+  <string name="popup_search_food_create_food">Создать продукт</string>
+  <string name="popup_search_food_create_template">Создать шаблон</string>
+  <string name="popup_search_food_create_recipe">Создать рецепт</string>
+
+  <string name="premium_norm_calories">Калории</string>
+
+  <string name="recipe_group_item_all_recipe">Посмотреть все рецепты\u0020\u0020</string>
+  <string name="successful_alert_dialog_added">Продукт добавлен</string>
+  <string name="tab_lat_favorites_name">Избранное</string>
+  <string name="tab_lat_recipes_name">Рецепты</string>
+  <string name="tab_lat_template_name">Шаблоны</string>
+  <string name="template_add_food_add">Добавить продукт</string>
+
+  <string name="search_food_activity_say">Говорите!</string>
+  <string name="search_food_activity_change">Изменить</string>
+  <string name="search_food_activity_weight_ml">Вес: 100мл</string>
+  <string name="search_food_activity_weight_g">Вес: 100г</string>
+  <string name="search_food_activity_prot">Б. %d</string>
+  <string name="search_food_activity_fat">Ж. %d</string>
+  <string name="search_food_activity_carbo">У. %d</string>
+  <string name="inside_view_holder_1_portion">1 порция</string>
+  <string name="inside_view_holder_weight">Вес: %dг</string>
+  <string name="weight_n_ml">Вес: %d мл</string>
+  <string name="weight_n_g">Вес: %d г</string>
+
+  <string name="n_item">%d шт.</string>
+  <string name="n_KCal">%d Ккал</string>
+
+  <string name="n_mg">%d мг</string>
+  <string name="n_kk">%d кк</string>
+  <string name="user_recipe_activity_for_portion">%d ккал на порцию</string>
+  <string name="detail_food_activity_percent">\u0020Ккал. Узнайте % микроэлементов в продукте в дневнике питания Fiasy \n</string>
+
+  <string-array name="recipeComplexity">
+    <item>Легкий</item>
+    <item>Средний</item>
+    <item>Сложный</item>
+  </string-array>
+  <string-array name="premium_slider_texts">
+    <item>Еще больше полезных статей на \nтему правильного питания. \nПодходите к похудению со \nзнанием дела.</item>
+    <item>Вы сможете просматривать \nкалорийность своего блюда в \nрежиме реального времени</item>
+    <item>Появится возможность \nзаписывать блюда в дневник \nпроизнося их вслух. Значительно \nэкономит ваше время</item>
+    <item>Персональные планы питания и \nтренировки. \nКвалифицированный тренер в \nвашем смартфоне.</item>
+  </string-array>
+
+  <string name="check_box_text">Созданные вами и введенные в базу рецепты или продукты могут быть  доступны для других пользователей. Пожалуйста, постарайтесь  заполнить приведенную выше форму максимально точно и полно.</string>
+  <string name="add_food">Добавить продукт</string>
+  <string name="Calories_2">Калорий</string>
+  <string name="alert_dialog_promo_success_information">Теперь вы можете пользоваться всеми \nпреимуществами Premium аккаунта</string>
 </resources>
