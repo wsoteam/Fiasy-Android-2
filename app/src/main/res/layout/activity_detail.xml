@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:focusable="true"
+      android:focusableInTouchMode="true">
+
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/gradient_for_detail_food"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spnFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBack"
+        app:layout_constraintStart_toEndOf="@+id/ivBack"
+        app:layout_constraintTop_toTopOf="@+id/ivBack" />
+
+    <ImageButton
+        android:id="@+id/ibShareFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/filter_state"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBack"
+        app:layout_constraintEnd_toStartOf="@+id/ibAddFavorite"
+        app:layout_constraintTop_toTopOf="@+id/ivBack"
+        app:srcCompat="@drawable/ic_share_food" />
+
+    <ImageButton
+        android:id="@+id/ibSendClaim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/filter_state"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ibAddFavorite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ibAddFavorite"
+        app:srcCompat="@drawable/ic_claim" />
+
+    <ImageButton
+        android:id="@+id/ibAddFavorite"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/filter_state"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ibShareFood"
+        app:layout_constraintEnd_toStartOf="@+id/ibSendClaim"
+        app:layout_constraintTop_toTopOf="@+id/ibShareFood"
+        app:srcCompat="@drawable/ic_empty_favorite" />
+
+    <TextView
+        android:id="@+id/tvActivityDetailOfFoodCollapsingTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="Test text"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivBack" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:src="@drawable/shape_calculate"
+        app:cardElevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBrand">
+
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvActivityDetailOfFoodCountOfFat2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="г"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/divider17"
+            app:layout_constraintEnd_toEndOf="@+id/divider17"
+            app:layout_constraintStart_toStartOf="@+id/divider17" />
+
+        <TextView
+            android:id="@+id/textView36"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/roboto"
+            android:text="Расчет порции"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto"
+            android:text="Белки"
+            android:textColor="@color/gray_text_detail_food"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvActivityDetailOfFoodCalculateProtein"
+            app:layout_constraintStart_toStartOf="@+id/tvActivityDetailOfFoodCalculateProtein"
+            app:layout_constraintTop_toBottomOf="@+id/tvActivityDetailOfFoodCalculateProtein" />
+
+        <TextView
+            android:id="@+id/textView34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto"
+            android:text="Жиры"
+            android:textColor="@color/gray_text_detail_food"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvActivityDetailOfFoodCalculateFat"
+            app:layout_constraintStart_toStartOf="@+id/tvActivityDetailOfFoodCalculateFat"
+            app:layout_constraintTop_toBottomOf="@+id/tvActivityDetailOfFoodCalculateFat" />
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto"
+            android:text="Углеводы"
+            android:textColor="@color/gray_text_detail_food"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvActivityDetailOfFoodCalculateCarbo"
+            app:layout_constraintStart_toStartOf="@+id/tvActivityDetailOfFoodCalculateCarbo"
+            app:layout_constraintTop_toBottomOf="@+id/tvActivityDetailOfFoodCalculateCarbo" />
+
+        <TextView
+            android:id="@+id/tvActivityDetailOfFoodCalculateKcal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="0 Ккал"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView36" />
+
+        <TextView
+            android:id="@+id/tvActivityDetailOfFoodCalculateFat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/roboto"
+            android:text="0 г"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvActivityDetailOfFoodCalculateCarbo"
+            app:layout_constraintEnd_toStartOf="@+id/tvActivityDetailOfFoodCalculateProtein"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvActivityDetailOfFoodCalculateCarbo"
+            app:layout_constraintTop_toTopOf="@+id/tvActivityDetailOfFoodCalculateCarbo" />
+
+        <TextView
+            android:id="@+id/tvActivityDetailOfFoodCalculateCarbo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/roboto"
+            android:text="0 г"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/tvActivityDetailOfFoodCalculateFat"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider16" />
+
+        <TextView
+            android:id="@+id/tvActivityDetailOfFoodCalculateProtein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/roboto"
+            android:text="0 г"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvActivityDetailOfFoodCalculateFat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvActivityDetailOfFoodCalculateFat"
+            app:layout_constraintTop_toTopOf="@+id/tvActivityDetailOfFoodCalculateFat" />
+
+        <EditText
+            android:id="@+id/edtActivityDetailOfFoodPortion"
+            android:layout_width="70dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="@color/edit_text_food"
+            android:fontFamily="@font/roboto_light"
+            android:hint=""
+            android:inputType="numberSigned"
+            android:maxLength="5"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/divider17"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvActivityDetailOfFoodCalculateKcal" />
+
+        <Button
+            android:id="@+id/btnSaveEating"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/btn_add_food"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="46dp"
+            android:paddingRight="46dp"
+            android:text="добавить в дневник"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+        <View
+            android:id="@+id/divider16"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtActivityDetailOfFoodPortion" />
+
+        <View
+            android:id="@+id/divider17"
+            android:layout_width="186dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="@+id/edtActivityDetailOfFoodPortion"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView6"
+        layout="@layout/view_elements"/>
+
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/detail_food_back" />
+
+    <TextView
+        android:id="@+id/tvSendClaim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/roboto_light_italic"
+        android:text="Сообщить об ошибке"
+        android:textColor="@color/text_claim"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView15" />
+
+    <TextView
+        android:id="@+id/tvBrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvActivityDetailOfFoodCollapsingTitle"
+        app:layout_constraintStart_toStartOf="@+id/tvActivityDetailOfFoodCollapsingTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvActivityDetailOfFoodCollapsingTitle" />
+
+    <View
+        android:id="@+id/divider18"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="@+id/tvSendClaim"
+        app:layout_constraintStart_toStartOf="@+id/tvSendClaim"
+        app:layout_constraintTop_toBottomOf="@+id/tvSendClaim" />
+
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+
+
+
+
+
+
+
