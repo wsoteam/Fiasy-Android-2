@@ -872,6 +872,9 @@
   <string name="srch_fats">Жиры</string>
   <string name="srch_carbohydrates">Углеводы</string>
   <string name="srch_proteins">Белки</string>
+  <string name="srch_prem_elements">Микроэлементы</string>
+  <string name="srch_text_prem">Хотите знать достаточно ли витаминов и \nминералов вы потребляете с пищей? Тогда \nприсоединяйтесь к PREMIUM версии.</string>
+  <string name="srch_connect_prem">подключить premium</string>
   <string-array name="settings_items">
     <item>Premium аккаунт</item>
     <!--<item>Еда и аллергия</item>-->

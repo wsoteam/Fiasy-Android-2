@@ -99,6 +99,17 @@
 
 
     <include
+        layout="@layout/view_lock_premium"
+        android:id="@+id/include3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSaveEating"
+        />
+
+    <include
         layout="@layout/view_elements"
         android:id="@+id/include2"
         android:layout_width="match_parent"
