@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
 
                 RecipesHolder.bind(groupsRecipes);
 
-                EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes);
+                EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes, getApplicationContext());
                 GroupsHolder groupsHolder = new GroupsHolder();
                 groupsHolder.bind(eatingGroupsRecipes);
 

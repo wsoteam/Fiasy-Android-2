@@ -262,12 +262,12 @@
   <string name="somplex">Сложная</string>
   <string name="all_users_can_see">Могут видеть все пользователи</string>
   <string name="all_users_can_see_description">Созданные вами и введенные в базу рецепты или продукты могут быть доступны для других пользователей. Пожалуйста, постарайтесь заполнить приведенную выше форму максимально точно и полно.</string>
-  <string name="ingredients_for_serving">Ингредиенты на 1 порцию</string>
+  <string name="ingredients_for_serving">1 порцию</string>
   <string name="instruction">Инструкция</string>
   <string name="add_instruction">Добавить инструкцию</string>
   <string name="instruction_description">Пожалуйста, записывайте инструкцию по приготовлению по пунктам</string>
   <string name="recipes_info">Информация о рецепте</string>
-  <string name="ingredients">Ингредиенты</string>
+  <string name="ingredients">Ингредиенты:</string>
   <string name="verification_of_information">Проверка информации</string>
 
   <!-- Product Creation Screen -->
@@ -957,4 +957,8 @@
   <string name="add_food">Добавить продукт</string>
   <string name="Calories_2">Калорий</string>
   <string name="alert_dialog_promo_success_information">Теперь вы можете пользоваться всеми \nпреимуществами Premium аккаунта</string>
+
+  <string name="tvItemPlanTime">Время готовки:</string>
+  <string name="tvSaturatedFats">Насыщеные</string>
+  <string name="tvUnSaturatedFats">Ненасыщеные</string>
 </resources>

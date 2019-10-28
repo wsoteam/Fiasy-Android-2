@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SectionArticles implements GroupsArticles {
 
-  List<ListArticles> sectionArticles;
+  private List<ListArticles> sectionArticles;
 
   public SectionArticles(List<Article> articles, Context context) {
 

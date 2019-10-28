@@ -59,21 +59,12 @@
   <string name="tvArticlePremText" translatable="false">Получите доступ к сотням полезных статей при подписке на premium.</string>
   <string name="tvTitleArticleFragment" translatable="false">Полезные статьи</string>
   <string name="titleShareDialogRecipe" translatable="false">Поделится рецептом</string>
-  <string name="tvItemPlanTime" translatable="false">Время готовки:</string>
-  <string name="tvItemPlanIngredients" translatable="false">Ингридиенты:</string>
-  <string name="tvRecipeInrgidientCount" translatable="false">на 1 порцию</string>
-  <string name="tvItemPlanMinute" translatable="false">минут</string>
-  <string name="tvNourishment" translatable="false">Питательные вещества</string>
-  <string name="tvOnePortion" translatable="false">на 1 порцию</string>
-  <string name="tvCarbohydrates" translatable="false">Углеводы</string>
-  <string name="tvCellulose" translatable="false">Клетчатка</string>
-  <string name="tvSugar" translatable="false">Сахар</string>
-  <string name="tvFat" translatable="false">Жиры</string>
-  <string name="tvSaturatedFats" translatable="false">Насыщеные</string>
-  <string name="tvUnSaturatedFats" translatable="false">Ненасыщеные</string>
-  <string name="tvProtein" translatable="false">Белки</string>
-  <string name="tvCholesterol" translatable="false">Холестерин</string>
-  <string name="tvSodium" translatable="false">Натрий</string>
+
+
+
+
+
+
 
 
   <!--Types of body-->

@@ -781,12 +781,12 @@ Share your accomplishments with friends:</string>
   <string name="somplex">Hard</string>
   <string name="all_users_can_see">Visible to all users</string>
   <string name="all_users_can_see_description">Recipes and foods you create and add to the database may be accessible to other users. Please try to fill in the form above as accurately and completely as possible.</string>
-  <string name="ingredients_for_serving">Ingredients for one serving</string>
+  <string name="ingredients_for_serving">for one serving</string>
   <string name="instruction">Instructions</string>
   <string name="add_instruction">Add instructions</string>
   <string name="instruction_description">Please write step-by-step instructions for preparing the dish</string>
   <string name="recipes_info">Recipe info</string>
-  <string name="ingredients">Ingredients</string>
+  <string name="ingredients">Ingredients:</string>
   <string name="verification_of_information">Info verification</string>
 
   <!-- Product Creation Screen -->
@@ -1015,6 +1015,9 @@ Share your accomplishments with friends:</string>
 
   <string name="section_eating">Nutrition</string>
   <string name="section_train">Training</string>
-  ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+  <string name="tvItemPlanTime">Cooking time:</string>
+  <string name="tvSaturatedFats">Saturated</string>
+  <string name="tvUnSaturatedFats">Unsaturated</string>
 </resources>
