@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.search.results.controllers;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -16,7 +17,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity;
 
-public class ResultVH extends RecyclerView.ViewHolder {
+public class ResultVH extends RecyclerView.ViewHolder implements View.OnClickListener {
   @BindView(R.id.tvTitle) TextView tvTitle;
   @BindView(R.id.tvPortion) TextView tvPortion;
   @BindView(R.id.tvKcal) TextView tvKcal;
@@ -26,6 +27,11 @@ public class ResultVH extends RecyclerView.ViewHolder {
   public ResultVH(@NonNull LayoutInflater layoutInflater, ViewGroup viewGroup) {
     super(layoutInflater.inflate(R.layout.item_search_result, viewGroup, false));
     ButterKnife.bind(this, itemView);
+    itemView.setOnClickListener(this);
+  }
+
+  @Override public void onClick(View view) {
+
   }
 
   public void bind(Result food, boolean isChecked,

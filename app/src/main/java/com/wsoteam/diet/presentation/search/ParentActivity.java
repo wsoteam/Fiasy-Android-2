@@ -3,12 +3,10 @@ package com.wsoteam.diet.presentation.search;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -37,13 +35,10 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.diary.FoodWork;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
-import com.wsoteam.diet.common.networking.food.suggest.Option;
-import com.wsoteam.diet.common.networking.food.suggest.Suggest;
+import com.wsoteam.diet.presentation.product.InfoActivity;
 import com.wsoteam.diet.presentation.search.results.ResultsFragment;
 import com.wsoteam.diet.presentation.search.results.ResultsView;
 import com.wsoteam.diet.presentation.search.sections.SectionFragment;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 
 public class ParentActivity extends AppCompatActivity {
@@ -64,6 +59,7 @@ public class ParentActivity extends AppCompatActivity {
     setContentView(R.layout.activity_parent);
     FoodWork.clearBasket();
     ButterKnife.bind(this);
+    startActivity(new Intent(this, InfoActivity.class));
     bindSpinnerChoiceEating();
     fragmentManager = getSupportFragmentManager();
     edtSearch.setOnTouchListener(new View.OnTouchListener() {
