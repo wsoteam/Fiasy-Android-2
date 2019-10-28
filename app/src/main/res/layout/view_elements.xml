@@ -1,0 +1,362 @@
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+  <TextView
+      android:id="@+id/textView55"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="32dp"
+      android:fontFamily="@font/roboto_medium"
+      android:text="@string/srch_elements_title"
+      android:textColor="#c0000000"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+
+  <TextView
+      android:id="@+id/textView60"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="12dp"
+      android:text="Углеводы"
+      android:fontFamily="@font/roboto_medium"
+      android:textColor="#c0000000"
+      android:textSize="14sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/divider44"
+      />
+
+  <TextView
+      android:id="@+id/tvLabelCellulose"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="12dp"
+      android:text="Клетчатка"
+      android:fontFamily="@font/roboto"
+      android:textColor="#c0000000"
+      android:textSize="14sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/textView60"
+      />
+
+    <TextView
+        android:id="@+id/tvLabelSugar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Сахар"
+        android:fontFamily="@font/roboto"
+        android:textColor="#c0000000"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/tvLabelCellulose"
+        app:layout_constraintTop_toBottomOf="@+id/tvLabelCellulose" />
+
+  <TextView
+      android:id="@+id/tvLabelFats"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="12dp"
+      android:fontFamily="@font/roboto_medium"
+      android:text="Жиры"
+      android:textColor="#c0000000"
+      android:textSize="14sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/divider45"
+      />
+
+  <TextView
+      android:id="@+id/tvLabelSaturated"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="12dp"
+      android:fontFamily="@font/roboto"
+      android:text="Насыщенные"
+      android:textColor="#c0000000"
+      android:textSize="14sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tvLabelFats"
+      />
+
+    <TextView
+        android:id="@+id/tvLabelMonoUnSaturated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Мононенасыщенные"
+        android:fontFamily="@font/roboto"
+        android:textColor="#c0000000"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/tvLabelSaturated"
+        app:layout_constraintTop_toBottomOf="@+id/tvLabelSaturated" />
+
+  <TextView
+      android:id="@+id/tvLabelPolyUnSaturated"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:fontFamily="@font/roboto"
+      android:text="Полиненасыщенные"
+      android:textColor="#c0000000"
+      android:textSize="14sp"
+      app:layout_constraintStart_toStartOf="@+id/tvLabelMonoUnSaturated"
+      app:layout_constraintTop_toBottomOf="@+id/tvLabelMonoUnSaturated"
+      />
+
+  <TextView
+      android:id="@+id/tvLabelProteins"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="12dp"
+      android:fontFamily="@font/roboto_medium"
+      android:text="Белки"
+      android:textColor="#c0000000"
+      android:textSize="14sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/divider46"
+      />
+
+  <TextView
+      android:id="@+id/tvLabelСholesterol"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="8dp"
+      android:fontFamily="@font/roboto"
+      android:text="Холестерин"
+      android:textColor="#c0000000"
+      android:textSize="14sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tvLabelProteins"
+      />
+
+  <TextView
+      android:id="@+id/tvLabelSodium"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:fontFamily="@font/roboto"
+      android:text="Натрий"
+      android:textColor="#c0000000"
+      android:textSize="14sp"
+      app:layout_constraintStart_toStartOf="@+id/tvLabelСholesterol"
+      app:layout_constraintTop_toBottomOf="@+id/tvLabelСholesterol"
+      />
+
+  <TextView
+      android:id="@+id/tvLabelPotassium"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:fontFamily="@font/roboto"
+      android:text="Калий"
+      android:textColor="#c0000000"
+      android:textSize="14sp"
+      app:layout_constraintStart_toStartOf="@+id/tvLabelSodium"
+      app:layout_constraintTop_toBottomOf="@+id/tvLabelSodium"
+      />
+
+    <TextView
+        android:id="@+id/tvCarbohydrates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="3.3 г"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="#c0000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView60"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView60" />
+
+    <TextView
+        android:id="@+id/tvCellulose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="3.3 г"
+        android:fontFamily="@font/roboto"
+        android:textColor="#c0000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLabelCellulose"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvLabelCellulose" />
+
+    <TextView
+        android:id="@+id/tvSugar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="3.3 г"
+        android:fontFamily="@font/roboto"
+        android:textColor="#c0000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLabelSugar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvLabelSugar" />
+
+
+    <TextView
+        android:id="@+id/tvFats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="3.3 г"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="#c0000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLabelFats"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvLabelFats" />
+
+    <TextView
+        android:id="@+id/tvProteins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="3.3 г"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="#c0000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLabelProteins"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvLabelProteins" />
+
+    <TextView
+        android:id="@+id/tvSaturated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="3.3 г"
+        android:fontFamily="@font/roboto"
+        android:textColor="#c0000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLabelSaturated"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvLabelSaturated" />
+
+    <TextView
+        android:id="@+id/tvСholesterol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="3.3 г"
+        android:fontFamily="@font/roboto"
+        android:textColor="#c0000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLabelСholesterol"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvLabelСholesterol" />
+
+    <TextView
+        android:id="@+id/tvSodium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="3.3 г"
+        android:fontFamily="@font/roboto"
+        android:textColor="#c0000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLabelSodium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvLabelSodium" />
+
+    <TextView
+        android:id="@+id/tvPotassium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="3.3 г"
+        android:fontFamily="@font/roboto"
+        android:textColor="#c0000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLabelPotassium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvLabelPotassium" />
+
+    <TextView
+        android:id="@+id/tvMonoUnSaturated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="3.3 г"
+        android:fontFamily="@font/roboto"
+        android:textColor="#c0000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLabelMonoUnSaturated"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvLabelMonoUnSaturated" />
+
+
+    <TextView
+        android:id="@+id/tvPolyUnSaturated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="3.3 г"
+        android:fontFamily="@font/roboto"
+        android:textColor="#c0000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLabelPolyUnSaturated"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvLabelPolyUnSaturated" />
+  <View
+      android:id="@+id/divider44"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginTop="20dp"
+      android:background="?android:attr/listDivider"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/textView55"
+      />
+  <View
+      android:id="@+id/divider45"
+      android:layout_width="0dp"
+      android:layout_height="1dp"
+      android:layout_marginTop="12dp"
+      android:background="?android:attr/listDivider"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tvLabelSugar"
+      />
+  <View
+      android:id="@+id/divider46"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginTop="12dp"
+      android:background="?android:attr/listDivider"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tvLabelPolyUnSaturated"
+      />
+  <View
+      android:id="@+id/divider47"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginTop="12dp"
+      android:background="?android:attr/listDivider"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tvLabelPotassium"
+      app:layout_constraintVertical_bias="0.0"
+      />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

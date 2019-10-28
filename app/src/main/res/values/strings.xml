@@ -1135,4 +1135,5 @@
   <string name="srch_basket_alet_text">Вы хотите вернуться назад без \nдобавления выбанных продуктов?</string>
     <string name="srch_cancel_basket">Отменить</string>
     <string name="srch_yes">Да</string>
+  <string name="srch_elements_title">Питательные вещества на</string>
 </resources>
