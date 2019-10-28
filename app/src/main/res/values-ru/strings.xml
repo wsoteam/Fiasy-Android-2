@@ -809,6 +809,8 @@
   <string name="enter_multi_params">Введите данные</string>
   <string name="activity_create_food_main_information">Основная информация</string>
 
+  <string name="section_eating">Питание</string>
+  <string name="section_train">Тренировки</string>
   <!--food_template-->
   <string name="activity_create_food_template_section">Категория</string>
 

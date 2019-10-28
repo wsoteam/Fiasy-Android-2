@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -120,7 +119,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
         public void onClick(View view) {
             isSubSection = false;
             recyclerView.setAdapter(verticalArticlesAdapter);
-            mToolbar.setTitle("Статьи");
+            mToolbar.setTitle(getString(R.string.bnv_main_articles));
             mToolbar.setNavigationIcon(null);
         }
     };
@@ -149,7 +148,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
         View view = inflater.inflate(R.layout.fragment_list_articles, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        mToolbar.setTitle("Статьи");
+        mToolbar.setTitle(getString(R.string.bnv_main_articles));
         mToolbar.inflateMenu(R.menu.toolbar_menu);
         mToolbar.setNavigationIcon(null);
         mToolbar.setNavigationOnClickListener(onClickListener);
@@ -164,7 +163,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
 
         if (ArticlesHolder.getListArticles() != null) {
 
-            sectionArticles = new SectionArticles(ArticlesHolder.getListArticles().getListArticles());
+            sectionArticles = new SectionArticles(ArticlesHolder.getListArticles().getListArticles(), getContext());
             verticalArticlesAdapter = new VerticalArticlesAdapter(sectionArticles.getGroups());
             verticalArticlesAdapter.SetOnItemClickListener(onItemClickListener);
 
@@ -224,7 +223,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
     public void update(Observable o, Object arg) {
         adapter =
                 new ListArticlesAdapter(ArticlesHolder.getListArticles().getListArticles(), clickListener);
-        sectionArticles = new SectionArticles(ArticlesHolder.getListArticles().getListArticles());
+        sectionArticles = new SectionArticles(ArticlesHolder.getListArticles().getListArticles(), getContext());
         verticalArticlesAdapter = new VerticalArticlesAdapter(sectionArticles.getGroups());
         recyclerView.setAdapter(verticalArticlesAdapter);
         ArticlesHolder.unsubscribe(this);

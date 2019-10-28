@@ -1013,7 +1013,8 @@ Share your accomplishments with friends:</string>
   <string name="elliptical_trainer_medium_load">Elliptical machine, medium intensity</string>
   <string name="elliptical_trainer_low_load">Elliptical machine, low intensity</string>
 
-
+  <string name="section_eating">Nutrition</string>
+  <string name="section_train">Training</string>
   ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 </resources>
