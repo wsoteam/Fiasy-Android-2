@@ -2,19 +2,12 @@ package com.wsoteam.diet.authHarvester;
 
 import android.content.Context;
 import android.util.Log;
-
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.authHarvester.POJO.AllUsers;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-
-import io.intercom.android.sdk.Intercom;
-import io.intercom.android.sdk.UserAttributes;
-import io.intercom.android.sdk.identity.Registration;
 
 public class IntercomHarvester {
 
@@ -53,13 +46,7 @@ public class IntercomHarvester {
     }
 
     private static void addUser(String email, String uid) {
-        Intercom.client().logout();
-        Registration registration = Registration.create().withUserId(uid);
-        Intercom.client().registerIdentifiedUser(registration);
-        UserAttributes userAttributes = new UserAttributes.Builder()
-                .withEmail(email)
-                .build();
-        Intercom.client().updateUser(userAttributes);
+
     }
 
     private static AllUsers getAllUsers(Context context) {

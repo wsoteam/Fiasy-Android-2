@@ -2,26 +2,22 @@ package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.amplitude.api.Amplitude;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailSavedFood;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.model.Eating;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import io.intercom.android.sdk.Intercom;
 
 public class InsideViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     @BindView(R.id.tvNameOfFood) TextView tvNameOfFood;

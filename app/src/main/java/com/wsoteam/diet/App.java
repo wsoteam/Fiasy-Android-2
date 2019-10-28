@@ -2,20 +2,17 @@ package com.wsoteam.diet;
 
 import android.app.Activity;
 import android.os.Bundle;
-
 import androidx.multidex.MultiDexApplication;
 import androidx.room.Room;
-
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
 import com.amplitude.api.Amplitude;
-//import com.bugsee.library.Bugsee;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orm.SugarContext;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
 
-import io.intercom.android.sdk.Intercom;
+//import com.bugsee.library.Bugsee;
 
 public class App extends MultiDexApplication {
     public static App instance;
@@ -44,7 +41,6 @@ public class App extends MultiDexApplication {
         Amplitude.getInstance().trackSessionEvents(true);
         Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
                 .enableForegroundTracking(this);
-        Intercom.initialize(this, "android_sdk-bceadc40bc17510359f5ad43a72281735676eea2", "dr8zfmz4");
         instance = this;
         foodDatabase = Room.databaseBuilder(this, FoodDatabase.class, "foodDB.db").build();
         //SetUserProperties.setUserProperties(Adjust.getAttribution());

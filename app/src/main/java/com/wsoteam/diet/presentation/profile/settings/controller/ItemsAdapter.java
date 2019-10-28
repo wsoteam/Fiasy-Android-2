@@ -6,11 +6,9 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
@@ -25,8 +23,6 @@ import com.wsoteam.diet.presentation.profile.about.AboutActivity;
 import com.wsoteam.diet.presentation.profile.help.HelpActivity;
 import com.wsoteam.diet.presentation.profile.norm.ChangeNormActivity;
 import com.wsoteam.diet.presentation.promo.PromoFormActivity;
-
-import io.intercom.android.sdk.Intercom;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
 
@@ -152,7 +148,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
     }
 
     private void exitUser() {
-        Intercom.client().logout();
         AuthStrategy.signOut(context);
         UserDataHolder.clearObject();
         Intent intent = new Intent(context, ActivitySplash.class).

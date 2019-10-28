@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +45,6 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.plans.detail.day.CurrentDayPlanFragment;
-import io.intercom.android.sdk.Intercom;
 import java.util.Calendar;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -282,7 +280,6 @@ public class FragmentDiary extends Fragment
       case R.id.fabAddEating:
                 /*AlertDialogChoiceEating.createChoiceEatingAlertDialog(getActivity(),
                         tvDateForMainScreen.getText().toString()).show();*/
-        Intercom.client().displayMessenger();
         Events.logOpenChat();
         break;
       case R.id.btnNotification:
