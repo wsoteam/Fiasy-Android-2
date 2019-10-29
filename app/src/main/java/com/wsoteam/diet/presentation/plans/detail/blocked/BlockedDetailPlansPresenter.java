@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.plans.detail.blocked;
 
 
 
+import android.content.Context;
 import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
@@ -19,15 +20,17 @@ public class BlockedDetailPlansPresenter extends BasePresenter<BlockedDetailPlan
 
     private DietPlan dietPlan;
     private Router router;
+    private Context context;
     PlansGroupsRecipe plansRecipe;
 
-    public BlockedDetailPlansPresenter(Router router) {
+    public BlockedDetailPlansPresenter(Router router, Context context) {
         this.router = router;
+        this.context = context;
     }
 
     void setDietPlan(DietPlan diet){
         this.dietPlan = diet;
-        plansRecipe = new PlansGroupsRecipe(RecipesHolder.get(), dietPlan);
+        plansRecipe = new PlansGroupsRecipe(RecipesHolder.get(), dietPlan, context);
         getViewState().showData(dietPlan);
         Events.logViewPlan(diet.getFlag());
     }

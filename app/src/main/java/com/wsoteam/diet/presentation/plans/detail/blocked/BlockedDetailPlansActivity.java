@@ -42,7 +42,7 @@ public class BlockedDetailPlansActivity extends BaseActivity implements BlockedD
 
     @ProvidePresenter
     BlockedDetailPlansPresenter providePresenter(){
-        return new BlockedDetailPlansPresenter(CiceroneModule.router());
+        return new BlockedDetailPlansPresenter(CiceroneModule.router(), getApplicationContext());
     }
 
     @Override

@@ -652,6 +652,13 @@
     <item quantity="other">%d продуктов</item>
   </plurals>
 
+  <plurals name="portion_plurals">
+    <item quantity="one">порция%d</item>
+    <item quantity="few">порции</item>
+    <item quantity="many">порций</item>
+    <item quantity="other">порций</item>
+  </plurals>
+
 
   // Добавление продуктов в дневник
   <string-array name="eatingList">
@@ -961,4 +968,7 @@
   <string name="tvItemPlanTime">Время готовки:</string>
   <string name="tvSaturatedFats">Насыщеные</string>
   <string name="tvUnSaturatedFats">Ненасыщеные</string>
+  <string name="myRecipe">Свои рецепты</string>
+
+
 </resources>

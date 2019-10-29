@@ -148,7 +148,7 @@
                     android:id="@+id/textView149"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/instructions"
+                    android:text="@string/instruction"
                     android:textSize="18sp"
                     android:paddingTop="10dp"
                     android:textColor="@color/b_color"

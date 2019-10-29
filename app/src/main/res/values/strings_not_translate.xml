@@ -35,34 +35,20 @@
 
   <string name="addingRecipeText" translatable="false">В этом разделе будут храниться созданные вами рецепты</string>
   <string name="favoriteRecipeText" translatable="false">В этом разделе будут храниться понравившиеся вам рецепты </string>
-  <string name="myRecipe" translatable="false">Свои рецепты</string>
-
-  <string name="recipes" translatable="false">Рецепты</string>
   <string name="alertDialogSuccess" translatable="false">Рецепт сохранен</string>
-  <string name="instructions" translatable="false">Инструкции</string>
-
   <string name="addingRecipePortionV" translatable="false">Вес:</string>
-  <string name="addingRecipeAddInstruction" translatable="false">Добавить шаг</string>
-  <string name="addingRecipeAddIngredient" translatable="false">Добавить ингридиент</string>
-  <string name="createRecipe" translatable="false">Создать рецепт</string>
-  <string name="btnBack" translatable="false">Назад</string>
-  <string name="btnNext" translatable="false">Далее</string>
-  <string name="addingRecipeName" translatable="false">Название блюда</string>
-
   <string name="addingRecipePortion" translatable="false">Количество порций (необязательно)</string>
-  <string name="addingRecipeTime" translatable="false">Время приготовления (мин.)</string>
-
-  <!--Item Plan Recipe-->
-  <string name="addingRecipeShare" translatable="false">Могут видеть все пользователи</string>
-  <string name="addingRecipeInfo" translatable="false">Созданные вами и введенные в базу рецепты или продукты могут быть доступны для других пользователей. Пожалуйста, постарайтесь заполнить приведенную выше форму максимально точно и полно.</string>
-  <string name="complexityRecipe" translatable="false">Сложность:</string>
   <string name="tvArticlePremText" translatable="false">Получите доступ к сотням полезных статей при подписке на premium.</string>
   <string name="tvTitleArticleFragment" translatable="false">Полезные статьи</string>
   <string name="titleShareDialogRecipe" translatable="false">Поделится рецептом</string>
 
 
-
-
+  <string name="addingRecipeAddInstruction" translatable="false">Добавить шаг</string>
+<string name="recipeSaved" translatable="false">Рецепт сохранен в разделе Рецепты/Свои рецепты</string>
+  <string name="errorNameRecipe" translatable="false">Введите название рецепта!</string>
+  <string name="errorTimeRecipe" translatable="false">Введите время нужное для готовки!</string>
+  <string name="errorIngrRecipe" translatable="false">Введите ингридиенты</string>
+  <string name="errorInstrReipe" translatable="false">Введите шаги приготовления</string>
 
 
 
