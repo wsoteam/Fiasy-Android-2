@@ -59,7 +59,7 @@ public class ParentActivity extends AppCompatActivity {
     setContentView(R.layout.activity_parent);
     FoodWork.clearBasket();
     ButterKnife.bind(this);
-    startActivity(new Intent(this, InfoActivity.class));
+    //startActivity(new Intent(this, InfoActivity.class));
     bindSpinnerChoiceEating();
     fragmentManager = getSupportFragmentManager();
     edtSearch.setOnTouchListener(new View.OnTouchListener() {

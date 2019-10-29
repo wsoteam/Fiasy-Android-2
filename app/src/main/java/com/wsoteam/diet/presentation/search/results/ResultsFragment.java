@@ -118,10 +118,10 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   }
 
   @Override public void sendSearchQuery(String query) {
+    searchString = query;
     hideSuggestView();
     search(searchString.trim());
     Events.logSearch(searchString);
-    searchString = query;
     itemAdapter.sendSearchString(query);
   }
 
