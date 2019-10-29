@@ -22,7 +22,6 @@ public class BlockedDetailPlansPresenter extends BasePresenter<BlockedDetailPlan
     private Router router;
     private Context context;
     PlansGroupsRecipe plansRecipe;
-    Context context;
 
     public BlockedDetailPlansPresenter(Router router, Context context) {
         this.router = router;

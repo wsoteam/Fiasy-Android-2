@@ -169,8 +169,8 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
             }
 
             tvTitle.setText(groupsRecipes.get(listIndex).getName());
-            int bais = getAdapterPosition() * 5;
-
+            //int bais = getAdapterPosition() * 5;
+            int bais = getAdapterPosition();
             int border = 5;
             int listSize = groupsRecipes.get(listIndex).getListrecipes().size();
             if (listSize < 5) {
