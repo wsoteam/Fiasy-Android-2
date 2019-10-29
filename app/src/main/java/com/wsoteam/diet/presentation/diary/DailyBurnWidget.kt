@@ -1,5 +1,9 @@
 package com.wsoteam.diet.presentation.diary
 
+import android.graphics.Color
+import android.graphics.drawable.ClipDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.LayerDrawable
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ImageSpan
@@ -7,6 +11,8 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
@@ -21,6 +27,8 @@ import com.wsoteam.diet.views.ExperienceProgressView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.lang.NullPointerException
+import kotlin.math.abs
 
 open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
   companion object {
@@ -32,6 +40,9 @@ open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView)
         meals = emptyList()
     )
   }
+
+  private lateinit var progressDrawable: Drawable
+  private val caloriesLeftHintLabel: TextView = itemView.findViewById(R.id.progress_hint_5)
 
   private val title: TextView = itemView.findViewById(R.id.title)
   private val eatenCaloriesView: TextView = itemView.findViewById(R.id.progress_label_eaten)
@@ -57,6 +68,18 @@ open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView)
     updateProgress(currentState)
   }
 
+  init {
+    (progressView.progressDrawable as? LayerDrawable)?.let {
+      progressDrawable = DrawableCompat.wrap(it.findDrawableByLayerId(android.R.id.progress))
+
+      it.setDrawableByLayerId(android.R.id.progress, progressDrawable)
+    }
+
+    if (!::progressDrawable.isInitialized) {
+      throw NullPointerException("couldn't find progress bar's -> progress drawable for tint")
+    }
+  }
+
   override fun onBind(parent: RecyclerView, position: Int) {
     UserDataHolder.getUserData()?.profile?.let { profile ->
       title.text = TextUtils.concat("Ежедневная норма = ",
@@ -65,8 +88,8 @@ open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView)
 
       progressView.max = profile.maxKcal
 
-      fatsView.progressView.max = profile.maxProt
-      carbonsView.progressView.max = profile.maxProt
+      fatsView.progressView.max = profile.maxFat
+      carbonsView.progressView.max = profile.maxCarbo
       proteinsView.progressView.max = profile.maxProt
     }
 
@@ -97,18 +120,36 @@ open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView)
   private fun updateProgress(progress: MealsDetailedResult) {
     currentState = progress
 
+    val burnedCals = DiaryActivitiesSource.burned
+
+    var todayProgress = progressView.max - progress.calories + burnedCals
+
     fatsView.progress = progress.fats
     carbonsView.progress = progress.carbons
     proteinsView.progress = progress.proteins
 
-    progressView.progress = progress.calories
-
-    val burnedCals = DiaryActivitiesSource.burned
+    progressView.progress = (progress.calories - burnedCals).coerceAtLeast(0)
 
     eatenCaloriesView.text = withIcon("${progress.calories}  ", R.drawable.ic_daily_eaten)
     burnedCaaloriesView.text = withIcon("$burnedCals  ", R.drawable.ic_calories_burned_fire)
 
-    leftCaloriesView.text = withIcon("${(progressView.max - progress.calories + burnedCals)}  ",
+    if (todayProgress < 0) {
+      todayProgress = abs(todayProgress)
+
+      caloriesLeftHintLabel.setText(R.string.daily_widget_calories_excess)
+    } else {
+      caloriesLeftHintLabel.setText(R.string.daily_widget_calories_left)
+    }
+
+    if (progressView.progress >= progressView.max) {
+      DrawableCompat.setTint(progressDrawable,
+          ContextCompat.getColor(context, R.color.daily_progress_achieved))
+    } else {
+      DrawableCompat.setTint(progressDrawable,
+          ContextCompat.getColor(context, R.color.daily_progress_wip))
+    }
+
+    leftCaloriesView.text = withIcon("$todayProgress  ",
         R.drawable.ic_daily_goal)
   }
 

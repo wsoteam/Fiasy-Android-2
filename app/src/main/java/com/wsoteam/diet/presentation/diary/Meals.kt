@@ -60,10 +60,10 @@ object Meals {
         var carbons = 0
 
         meals.forEach { meal ->
-          calories = meal.calories
-          fats = meal.fat
-          proteins = meal.protein
-          carbons = meal.carbohydrates
+          calories += meal.calories
+          fats += meal.fat
+          proteins += meal.protein
+          carbons += meal.carbohydrates
         }
 
         MealsDetailedResult(calories, fats, proteins, carbons, meals)

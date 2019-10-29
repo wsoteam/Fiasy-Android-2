@@ -186,7 +186,7 @@ public class ActivitySplash extends BaseActivity {
         })
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        //.delay(15000, TimeUnit.MILLISECONDS)
+        .delay(1500, TimeUnit.MILLISECONDS)
         .subscribe(
             user -> {
               new UserDataHolder().bindObjectWithHolder(user);

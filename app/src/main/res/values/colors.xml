@@ -13,6 +13,9 @@
   <color name="orange2">#FFB800</color>
   <color name="orange3">#FFF4BB</color>
 
+  <color name="daily_progress_achieved">#ef6e10</color>
+  <color name="daily_progress_wip">#ffba51</color>
+
   <color name="white">#FFFFFF</color>
   <color name="white_half_transparent">#A6FFFFFF</color>
   <color name="blue">#4a5bf1</color>

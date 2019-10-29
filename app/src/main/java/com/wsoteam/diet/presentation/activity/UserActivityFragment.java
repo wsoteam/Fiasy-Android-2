@@ -111,16 +111,14 @@ public class UserActivityFragment extends DialogFragment implements
 
           switch (item.getItemId()) {
             case R.id.action_make_favorite:
-              adapter.addItem(R.string.user_activity_section_favorite, target);
-
               if (sources.containsKey(R.string.user_activity_section_favorite)) {
                 disposables.add(sources.get(R.string.user_activity_section_favorite)
                     .add(target)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSuccess(e -> {
-                      Toast.makeText(requireContext(), "Добавлено в избранное", Toast.LENGTH_SHORT)
-                          .show();
+                      adapter.addItem(R.string.user_activity_section_favorite, e);
+                      Toast.makeText(requireContext(), "Добавлено в избранное", Toast.LENGTH_SHORT).show();
                     })
                     .subscribe());
               }

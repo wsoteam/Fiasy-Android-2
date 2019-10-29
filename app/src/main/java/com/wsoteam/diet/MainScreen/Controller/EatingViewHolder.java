@@ -2,10 +2,6 @@ package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,22 +10,23 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
-import com.wsoteam.diet.common.Analytics.Events;
-import com.wsoteam.diet.model.Eating;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
-
+import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.model.Eating;
+import com.wsoteam.diet.utils.DrawableUtilsKt;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class EatingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvTitleOfEatingCard)
@@ -133,9 +130,9 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         } else {
             ibtnOpenList.setOnClickListener(view -> {
                 if (!isButtonPressed) {
-                    Picasso.get().load(R.drawable.close_eating_list).into(ibtnOpenList);
+                    ibtnOpenList.setImageDrawable(DrawableUtilsKt.getVectorIcon(context, R.drawable.close_eating_list));
                 } else {
-                    Picasso.get().load(R.drawable.open_eating_list).into(ibtnOpenList);
+                    ibtnOpenList.setImageDrawable(DrawableUtilsKt.getVectorIcon(context, R.drawable.open_eating_list));
                 }
                 rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup,
                         context, !isButtonPressed, getAdapterPosition(), this::refreshUI).setUpdateCallback(updateCallback));
@@ -147,19 +144,19 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     private void setIconAndTime() {
         switch (getAdapterPosition()) {
             case BREAKFAST:
-                Picasso.get().load(R.drawable.breakfast_icon).into(ivEatingIcon);
+                //ivEatingIcon.setImageDrawable(DrawableUtilsKt.getVectorIcon(context, R.drawable.breakfast_icon));
                 endTime = BREAKFAST_TIME;
                 break;
             case LUNCH:
-                Picasso.get().load(R.drawable.lunch_icon).into(ivEatingIcon);
+                //ivEatingIcon.setImageDrawable(DrawableUtilsKt.getVectorIcon(context, R.drawable.lunch_icon));
                 endTime = LUNCH_TIME;
                 break;
             case DINNER:
-                Picasso.get().load(R.drawable.dinner_icon).into(ivEatingIcon);
+                //ivEatingIcon.setImageDrawable(DrawableUtilsKt.getVectorIcon(context, R.drawable.dinner_icon));
                 endTime = DINNER_TIME;
                 break;
             case SNACK:
-                Picasso.get().load(R.drawable.snack_icon).into(ivEatingIcon);
+                //ivEatingIcon.setImageDrawable(DrawableUtilsKt.getVectorIcon(context, R.drawable.snack_icon));
                 endTime = SNACK_TIME;
                 break;
         }

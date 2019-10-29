@@ -25,6 +25,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:textSize="20sp"
+        android:paddingBottom="16dp"
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal"
         android:textColor="#d9424242"
@@ -35,11 +36,10 @@
     <TextView
         android:id="@+id/progress_hint_1"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/progress_hint_2"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        android:text="Съедено"
+        android:text="@string/daily_widget_calories_eaten"
         android:gravity="left"
         style="@style/DailyBurnedLabel"
         />
@@ -61,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title"
         app:layout_constraintLeft_toRightOf="@id/progress_hint_2"
         app:layout_constraintRight_toLeftOf="@id/progress_hint_4"
-        android:text="Сожжено"
+        android:text="@string/daily_widget_calories_burned"
         style="@style/DailyBurnedLabel"
         />
     <TextView
@@ -82,7 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title"
         app:layout_constraintRight_toRightOf="parent"
         style="@style/DailyBurnedLabel"
-        android:text="Осталось"
+        android:text="@string/daily_widget_calories_left"
         />
 
     <ProgressBar

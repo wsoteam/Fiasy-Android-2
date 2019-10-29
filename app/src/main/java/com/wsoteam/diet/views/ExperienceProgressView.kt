@@ -2,13 +2,19 @@ package com.wsoteam.diet.views
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.LayerDrawable
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
+import androidx.core.graphics.drawable.DrawableCompat
 import com.wsoteam.diet.R
+import com.wsoteam.diet.R.color
 import com.wsoteam.diet.utils.RichTextUtils.RichText
 
 class ExperienceProgressView
@@ -19,6 +25,8 @@ class ExperienceProgressView
   val value: TextView
   val progressView: ProgressBar
 
+  private lateinit var progressDrawable: Drawable
+
   init {
     orientation = VERTICAL
 
@@ -27,6 +35,12 @@ class ExperienceProgressView
     label = findViewById(R.id.label)
     value = findViewById(R.id.value)
     progressView = findViewById(R.id.progress)
+
+    (progressView.progressDrawable as? LayerDrawable)?.let {
+      progressDrawable = DrawableCompat.wrap(it.findDrawableByLayerId(android.R.id.progress))
+
+      it.setDrawableByLayerId(android.R.id.progress, progressDrawable)
+    }
 
     val parsed = context.obtainStyledAttributes(attrs, R.styleable.ExperienceProgressView)
     try {
@@ -48,5 +62,11 @@ class ExperienceProgressView
         .bold()
         .color(Color.BLACK)
         .text(), " из ", this.progressView.max.toString())
+
+      if (value >= progressView.max) {
+        DrawableCompat.setTint(progressDrawable, getColor(context, color.daily_progress_achieved))
+      } else {
+        DrawableCompat.setTint(progressDrawable, getColor(context, color.daily_progress_wip))
+      }
     }
 }
