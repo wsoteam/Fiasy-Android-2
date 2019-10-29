@@ -12,6 +12,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/tvBrand"
     app:cardCornerRadius="24dp"
+    android:elevation="8dp"
     app:cardElevation="2dp"
     >
 
