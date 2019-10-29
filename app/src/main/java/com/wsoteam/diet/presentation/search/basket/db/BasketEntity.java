@@ -4,9 +4,10 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
+import java.io.Serializable;
 
 @Entity
-public class BasketEntity implements ISearchResult {
+public class BasketEntity implements ISearchResult, Serializable {
   @PrimaryKey(autoGenerate = true)
   private long id;
   private int serverId;

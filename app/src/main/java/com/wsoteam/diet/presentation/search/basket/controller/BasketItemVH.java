@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.search.basket.controller;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -14,18 +15,25 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import com.wsoteam.diet.presentation.search.results.controllers.ClickListener;
 
-public class BasketItemVH extends RecyclerView.ViewHolder {
+public class BasketItemVH extends RecyclerView.ViewHolder implements View.OnClickListener {
   @BindView(R.id.tvTitle) TextView tvTitle;
   @BindView(R.id.tvPortion) TextView tvPortion;
   @BindView(R.id.tvKcal) TextView tvKcal;
   @BindView(R.id.tbSelect) ToggleButton tbSelect;
+  private ClickListener listener;
 
   public BasketItemVH(@NonNull LayoutInflater layoutInflater, ViewGroup viewGroup) {
     super(layoutInflater.inflate(R.layout.item_search_result, viewGroup, false));
     ButterKnife.bind(this, itemView);
+    itemView.setOnClickListener(this);
+  }
+
+  @Override public void onClick(View view) {
+    listener.open(getAdapterPosition());
   }
 
   public void bind(BasketEntity food, ClickListener listener) {
+    this.listener = listener;
     tvTitle.setText(food.getName());
     tbSelect.setChecked(true);
     tvKcal.setText(String.valueOf(Math.round(food.getCalories() * food.getWeight())) + " " + itemView.getResources().getString(R.string.tvKkal));

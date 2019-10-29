@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.search.results.controllers.ClickListener;
 
-public class ExpandableVH extends RecyclerView.ViewHolder {
+public class ExpandableVH extends RecyclerView.ViewHolder implements View.OnClickListener {
   @BindView(R.id.tvTitle) TextView tvTitle;
   @BindView(R.id.tvKcal) TextView tvKcal;
   @BindView(R.id.tbSelect) ToggleButton select;
@@ -23,6 +23,11 @@ public class ExpandableVH extends RecyclerView.ViewHolder {
   public ExpandableVH(@NonNull LayoutInflater layoutInflater, ViewGroup parent) {
     super(layoutInflater.inflate(R.layout.item_search_result_exp, parent, false));
     ButterKnife.bind(this, itemView);
+    itemView.setOnClickListener(this);
+  }
+
+  @Override public void onClick(View view) {
+    listener.open(getAdapterPosition());
   }
 
   public void bind(String name, int amount, double calories, boolean liquid, boolean isChecked,

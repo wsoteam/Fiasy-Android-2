@@ -8,25 +8,116 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.amplitude.api.Amplitude
 import com.wsoteam.diet.AmplitudaEvents
 import com.wsoteam.diet.Authenticate.POJO.Box
+import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.InApp.ActivitySubscription
 import com.wsoteam.diet.R
+import com.wsoteam.diet.R.array
+import com.wsoteam.diet.R.layout
 import com.wsoteam.diet.common.Analytics.EventProperties
 import com.wsoteam.diet.common.Analytics.Events
-import kotlinx.android.synthetic.main.view_lock_premium.btnShowPrem
-import kotlinx.android.synthetic.main.view_lock_premium.cvLock
-import kotlinx.android.synthetic.main.view_lock_premium.tvPremText
+import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
+import kotlinx.android.synthetic.main.activity_detail.tvBrand
+import kotlinx.android.synthetic.main.activity_detail_of_food.spnFood
+import kotlinx.android.synthetic.main.detail_activity.tvTitle
+import kotlinx.android.synthetic.main.view_elements.*
+import kotlinx.android.synthetic.main.view_lock_premium.*
 
 class DetailActivity : AppCompatActivity(R.layout.activity_detail) {
+  private var basketEntity: BasketEntity = BasketEntity()
+  private val BREAKFAST_POSITION = 0
+  private val LUNCH_POSITION = 1
+  private val DINNER_POSITION = 2
+  private val SNACK_POSITION = 3
+  private val EMPTY_FIELD = -1
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     handlePremiumState()
-    paintPremText()
+    handleFood()
+  }
+
+  private fun handleFood() {
+    if (intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) is BasketEntity) {
+      basketEntity = intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) as BasketEntity
+      handleBasketEntity()
+    }
+  }
+
+  private fun handleBasketEntity() {
+    bindSpinnerChoiceEating()
+    bindBasketFields()
+  }
+
+  private fun bindBasketFields() {
+    tvTitle.text = basketEntity.name
+        .toUpperCase()
+    tvFats.text = Math.round(basketEntity.fats * 100).toString() + " г"
+    tvCarbohydrates.text = Math.round(basketEntity.carbohydrates * 100).toString() + " г"
+    tvProteins.text = Math.round(basketEntity.proteins * 100).toString() + " г"
+
+    if (basketEntity.brand != null && basketEntity.brand != "") {
+      tvBrand.text = "(" + basketEntity.brand + ")"
+    }
+
+    if (basketEntity.sugar != EMPTY_FIELD.toDouble()) {
+      tvLabelSugar.visibility = View.VISIBLE
+      tvSugar.visibility = View.VISIBLE
+      tvSugar.text = Math.round(basketEntity.sugar * 100).toString() + " г"
+    }
+    if (basketEntity.saturatedFats != EMPTY_FIELD.toDouble()) {
+      tvLabelSaturated.visibility = View.VISIBLE
+      tvSaturated.visibility = View.VISIBLE
+      tvSaturated.text = Math.round(basketEntity.saturatedFats * 100).toString() + " г"
+    }
+    if (basketEntity.monoUnSaturatedFats != EMPTY_FIELD.toDouble()) {
+      tvLabelMonoUnSaturated.visibility = View.VISIBLE
+      tvMonoUnSaturated.visibility = View.VISIBLE
+      tvMonoUnSaturated.text =
+        Math.round(basketEntity.monoUnSaturatedFats * 100).toString() + " г"
+
+    }
+    if (basketEntity.polyUnSaturatedFats != EMPTY_FIELD.toDouble()) {
+      tvLabelPolyUnSaturated.visibility = View.VISIBLE
+      tvPolyUnSaturated.visibility = View.VISIBLE
+      tvPolyUnSaturated.text =
+        Math.round(basketEntity.polyUnSaturatedFats * 100).toString() + " г"
+    }
+    if (basketEntity.cholesterol != EMPTY_FIELD.toDouble()) {
+      tvLabelСholesterol.visibility = View.VISIBLE
+      tvСholesterol.visibility = View.VISIBLE
+      tvСholesterol.text = Math.round(basketEntity.cholesterol * 100).toString() + " мг"
+    }
+    if (basketEntity.cellulose != EMPTY_FIELD.toDouble()) {
+      tvLabelCellulose.visibility = View.VISIBLE
+      tvCellulose.visibility = View.VISIBLE
+      tvCellulose.text = Math.round(basketEntity.cellulose * 100).toString() + " г"
+    }
+    if (basketEntity.sodium != EMPTY_FIELD.toDouble()) {
+      tvLabelSodium.visibility = View.VISIBLE
+      tvSodium.visibility = View.VISIBLE
+      tvSodium.text = Math.round(basketEntity.sodium * 100).toString() + " мг"
+    }
+    if (basketEntity.pottassium != EMPTY_FIELD.toDouble()) {
+      tvLabelPotassium.visibility = View.VISIBLE
+      tvPotassium.visibility = View.VISIBLE
+      tvPotassium.text = Math.round(basketEntity.pottassium * 100).toString() + " мг"
+    }
+  }
+
+  private fun bindSpinnerChoiceEating() {
+    val adapter = ArrayAdapter(
+        this,
+        layout.item_spinner_food_search, resources.getStringArray(array.eatingList)
+    )
+    adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search)
+    spnFood.setAdapter(adapter)
+    spnFood.setSelection(basketEntity.eatingType)
   }
 
   private fun handlePremiumState() {

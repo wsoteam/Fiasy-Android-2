@@ -34,6 +34,10 @@ public class ExpandableAdapter extends RecyclerView.Adapter<ExpandableVH> {
           @Override public void click(int position, boolean isNeedSave) {
             listener.click(createNewFood(position), isNeedSave);
           }
+
+          @Override public void open(int position) {
+            listener.open(createNewFood(position));
+          }
         });
   }
 

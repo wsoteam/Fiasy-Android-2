@@ -31,7 +31,7 @@ public class HierarchyVH extends RecyclerView.ViewHolder {
     rvExpList.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
   }
 
-  public void bind(Result result, List<Integer> savedDeepIds,  ExpandableClickListener listener) {
+  public void bind(Result result, List<Integer> savedDeepIds, ExpandableClickListener listener) {
     tvTitle.setText(result.getName());
     if (result.getBrand() != null && !result.getBrand().getName().equals("")) {
       tvTitle.append(" (" + result.getBrand().getName() + ")");
@@ -80,10 +80,10 @@ public class HierarchyVH extends RecyclerView.ViewHolder {
   }
 
   @OnClick(R.id.ivOpenList) public void onViewClicked() {
-    if (rvExpList.getVisibility() == View.GONE){
+    if (rvExpList.getVisibility() == View.GONE) {
       Glide.with(itemView.getContext()).load(R.drawable.srch_arrow_up).into(ivOpenList);
       rvExpList.setVisibility(View.VISIBLE);
-    }else {
+    } else {
       Glide.with(itemView.getContext()).load(R.drawable.srch_arrow_down).into(ivOpenList);
       rvExpList.setVisibility(View.GONE);
     }

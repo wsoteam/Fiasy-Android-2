@@ -31,7 +31,7 @@ public class ResultVH extends RecyclerView.ViewHolder implements View.OnClickLis
   }
 
   @Override public void onClick(View view) {
-
+    clickListener.open(getAdapterPosition());
   }
 
   public void bind(Result food, boolean isChecked,

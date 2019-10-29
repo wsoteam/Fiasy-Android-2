@@ -64,21 +64,19 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
           int to = target.getAdapterPosition();
           adapter.moveItem(from, to);
           return false;
-        }else {
+        } else {
           return true;
         }
       }
 
       @Override public int getMovementFlags(@NonNull RecyclerView recyclerView,
           @NonNull RecyclerView.ViewHolder viewHolder) {
-        if (viewHolder instanceof BasketHeaderVH){
+        if (viewHolder instanceof BasketHeaderVH) {
           return 0;
-        }else {
+        } else {
           return super.getMovementFlags(recyclerView, viewHolder);
         }
       }
-
-
 
       @Override public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
@@ -88,11 +86,15 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
   }
 
   private void deleteContinueMark() {
-    getSharedPreferences(Config.BASKET_CONTINUE, MODE_PRIVATE).edit().putBoolean(Config.BASKET_CONTINUE, false).commit();
+    getSharedPreferences(Config.BASKET_CONTINUE, MODE_PRIVATE).edit()
+        .putBoolean(Config.BASKET_CONTINUE, false)
+        .commit();
   }
 
   private void setContinueMark() {
-    getSharedPreferences(Config.BASKET_CONTINUE, MODE_PRIVATE).edit().putBoolean(Config.BASKET_CONTINUE, true).commit();
+    getSharedPreferences(Config.BASKET_CONTINUE, MODE_PRIVATE).edit()
+        .putBoolean(Config.BASKET_CONTINUE, true)
+        .commit();
   }
 
   private void loadAnimations() {
@@ -133,7 +135,7 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
           @Override public int getCurrentEating() {
             return 0;
           }
-        });
+        }, this);
     rvBasket.setAdapter(adapter);
   }
 

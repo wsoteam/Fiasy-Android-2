@@ -1,18 +1,21 @@
 package com.wsoteam.diet.presentation.search.results.controllers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.common.backward.FoodConverter;
 import com.wsoteam.diet.common.diary.FoodWork;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
+import com.wsoteam.diet.presentation.product.DetailActivity;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity;
@@ -88,7 +91,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
   }
 
-  private void loadNextPortion(int offset){
+  private void loadNextPortion(int offset) {
     foodResultAPI
         .getResponse(Config.SEARCH_RESPONSE_LIMIT, offset, searchString)
         .subscribeOn(Schedulers.io())
@@ -113,14 +116,16 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((ResultVH) holder).bind((Result) foods.get(position),
             getSaveStatus((Result) foods.get(position)), new ClickListener() {
               @Override public void click(int position, boolean isNeedSave) {
-                BasketEntity basketEntity =
-                    new BasketEntity((Result) foods.get(position), Config.DEFAULT_PORTION,
-                        basketUpdater.getCurrentEating(), -1);
+                BasketEntity basketEntity = createBasketEntity(position);
                 if (isNeedSave) {
                   save(basketEntity);
                 } else {
                   delete(basketEntity);
                 }
+              }
+
+              @Override public void open(int position) {
+                openDetailActivity(createBasketEntity(position));
               }
             });
         break;
@@ -128,13 +133,16 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((ResultVH) holder).bindHistoryEntity((HistoryEntity) foods.get(position),
             false, new ClickListener() {
               @Override public void click(int position, boolean isNeedSave) {
-                BasketEntity basketEntity = (BasketEntity) foods.get(position);
-                basketEntity.setEatingType(basketUpdater.getCurrentEating());
+                BasketEntity basketEntity = createBasketEntity(position);
                 if (isNeedSave) {
                   save(basketEntity);
                 } else {
                   delete(basketEntity);
                 }
+              }
+
+              @Override public void open(int position) {
+                openDetailActivity(createBasketEntity(position));
               }
             });
         break;
@@ -150,13 +158,29 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                   delete(basketEntity);
                 }
               }
+
+              @Override public void open(BasketEntity basketEntity) {
+                basketEntity.setEatingType(basketUpdater.getCurrentEating());
+                openDetailActivity(basketEntity);
+              }
             });
         break;
     }
   }
 
+  private void openDetailActivity(BasketEntity basketEntity) {
+    Intent intent = new Intent(new Intent(context, DetailActivity.class));
+    intent.putExtra(Config.INTENT_DETAIL_FOOD, basketEntity);
+    context.startActivity(intent);
+  }
+
+  private BasketEntity createBasketEntity(int position) {
+    return new BasketEntity((Result) foods.get(position), Config.DEFAULT_PORTION,
+        basketUpdater.getCurrentEating(), -1);
+  }
+
   private void onPagination(int position) {
-    if (position == currentPaginationTrigger){
+    if (position == currentPaginationTrigger) {
       currentPaginationTrigger += Config.SEARCH_RESPONSE_LIMIT - 1;
       countPaginations += 1;
       loadNextPortion(countPaginations * Config.SEARCH_RESPONSE_LIMIT);

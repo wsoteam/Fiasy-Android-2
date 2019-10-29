@@ -1,5 +1,7 @@
 package com.wsoteam.diet.presentation.search.basket.controller;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,9 +9,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.App;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.common.diary.FoodWork;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
+import com.wsoteam.diet.presentation.product.DetailActivity;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater;
@@ -37,6 +41,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private BasketEntity deleteEntity;
   private int deletePosition;
   private boolean isHasNextItem = false;
+  private Context context;
 
   @Override public void saveFood(String date) {
     FoodWork.saveMixedList(adapterFoods, date);
@@ -81,11 +86,12 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   }
 
   public BasketAdapter(List<List<BasketEntity>> allFood, String[] namesSections,
-      BasketUpdater basketUpdater) {
+      BasketUpdater basketUpdater, Context context) {
     this.basketUpdater = basketUpdater;
     this.allFood = allFood;
     this.namesSections = namesSections;
     this.basketUpdater = basketUpdater;
+    this.context = context;
     formGlobalList();
     basketUpdater.getCurrentSize(getRealSize());
     basketDAO = App.getInstance().getFoodDatabase().basketDAO();
@@ -131,9 +137,20 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                   runCountdown(deleteEntity);
                 }
               }
+
+              @Override public void open(int position) {
+                BasketEntity entity = (BasketEntity) adapterFoods.get(position);
+                openDetailScreen(entity);
+              }
             });
         break;
     }
+  }
+
+  private void openDetailScreen(BasketEntity entity) {
+    Intent intent = new Intent(new Intent(context, DetailActivity.class));
+    intent.putExtra(Config.INTENT_DETAIL_FOOD, entity);
+    context.startActivity(intent);
   }
 
   private void runCountdown(BasketEntity basketEntity) {
