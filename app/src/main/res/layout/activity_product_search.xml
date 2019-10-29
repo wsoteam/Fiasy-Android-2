@@ -61,7 +61,7 @@
                             android:drawableLeft="@drawable/ic_search"
                             android:drawablePadding="4dp"
                             ndroid:fontFamily="@font/roboto"
-                            android:hint="       Поиск"
+                            android:hint="@string/search"
                             android:imeOptions="actionSearch"
                             android:singleLine="true"
                             android:textColor="@color/black"

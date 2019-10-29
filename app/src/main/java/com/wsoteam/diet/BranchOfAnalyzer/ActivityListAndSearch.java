@@ -40,6 +40,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.text.TextUtils.concat;
+
 public class ActivityListAndSearch extends AppCompatActivity {
     @BindView(R.id.spnEatingList)
     Spinner spinner;
@@ -67,6 +69,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
         bindSpinnerChoiceEating();
         updateUI();
         getSupportFragmentManager().beginTransaction().add(R.id.searchFragmentContainer, new FragmentSearch()).commit();
+        edtSearchField.setHint(concat("       ",getString(R.string.search)));
         edtSearchField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

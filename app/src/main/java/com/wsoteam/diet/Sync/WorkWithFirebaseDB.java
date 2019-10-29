@@ -11,7 +11,6 @@ import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.wsoteam.diet.Activism.POJO.ActivismFirebaseObject;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.BranchOfAnalyzer.Const;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.CustomFood;
@@ -27,6 +26,8 @@ import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.POJO.WeightDiaryObject;
+import com.wsoteam.diet.common.promo.POJO.Promo;
+import com.wsoteam.diet.common.promo.POJO.UserPromo;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Eating;
@@ -285,12 +286,6 @@ public class WorkWithFirebaseDB {
         myRef.setValue(data);
     }
 
-    public static void saveActivism(ActivismFirebaseObject data) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("ACTIVISM");
-        myRef.setValue(data);
-    }
-
     public static void sendClaim(Claim claim) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Const.CLAIM_PATH);
@@ -462,5 +457,26 @@ public class WorkWithFirebaseDB {
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("foodTemplates")
                 .child(key).child("showFoods");
         myRef.setValue(visibility);
+    }
+
+    public static void setUserPromo(UserPromo userPromo){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("userPromo");
+        myRef.setValue(userPromo);
+    }
+
+    public static void setEmptyUserPromo(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("userPromo");
+        myRef.removeValue();
+    }
+
+    public static void changePromo(Promo promo){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(com.wsoteam.diet.common.promo.Config.promoStoragePath).
+                child(promo.getId());
+        myRef.setValue(promo);
     }
 }

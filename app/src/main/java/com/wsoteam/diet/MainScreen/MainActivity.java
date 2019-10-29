@@ -11,21 +11,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.amplitude.api.Amplitude;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-
-import com.amplitude.api.Amplitude;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,7 +43,6 @@ import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
 import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodDB;
-import com.wsoteam.diet.MainScreen.intercom.IntercomFactory;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
@@ -54,16 +50,14 @@ import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipesHolder;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.activity.UserActivityFragment;
 import com.wsoteam.diet.common.Analytics.SavedConst;
+import com.wsoteam.diet.common.remote.UpdateChecker;
 import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
-import com.wsoteam.diet.common.Analytics.Events;
-
 import java.util.Calendar;
-
-import io.intercom.android.sdk.Intercom;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -103,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.bnv_main_articles:
                 Amplitude.getInstance().logEvent(Events.CHOOSE_ARTICLES);
-                Intercom.client().logEvent(Events.CHOOSE_ARTICLES);
                 box.setComeFrom(AmplitudaEvents.view_prem_content);
                 box.setBuyFrom(EventProperties.trial_from_articles);
                 isMainFragment = false;
@@ -175,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
         //checkForcedGrade();
         IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
         new AsyncWriteFoodDB().execute(MainActivity.this);
-
         if (GroupsHolder.getGroupsRecipes() == null) {
             loadRecipes();
         }
@@ -188,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         logEvents();
+
     }
 
     private void logEvents() {
@@ -242,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
 
                 RecipesHolder.bind(groupsRecipes);
 
-                EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes);
+                EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes, getApplicationContext());
                 GroupsHolder groupsHolder = new GroupsHolder();
                 groupsHolder.bind(eatingGroupsRecipes);
 
@@ -277,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void loadDietPlans(){
+    private void loadDietPlans() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("PLANS");
 

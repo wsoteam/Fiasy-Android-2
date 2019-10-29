@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.text.TextUtils.concat;
 
 public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder> {
 
@@ -184,7 +185,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
                         .into(imageViewList.get(i));
 
                 textViewList.get(i).setText(name);
-                textViewsKK.get(i).setText(kk + " " + context.getResources().getString(R.string.tvKkal));
+                textViewsKK.get(i).setText(concat(String.valueOf(kk), " ", context.getString(R.string.tvKkal)));
             }
         }
         private boolean checkSubscribe() {

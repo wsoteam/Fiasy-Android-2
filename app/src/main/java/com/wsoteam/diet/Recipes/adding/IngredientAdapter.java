@@ -68,8 +68,8 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
         void bind(int position) {
 
             nameTextView.setText(foods.get(position).getName());
-            caloriesTextView.setText((int)foods.get(position).getCalories() + " Ккал");
-            weightTextView.setText((int)foods.get(position).getPortion() + " г");
+            caloriesTextView.setText(String.format(context.getString(R.string.n_KCal), (int)foods.get(position).getCalories()));
+            weightTextView.setText(String.format(context.getString(R.string.n_g), (int)foods.get(position).getPortion()));
         }
     }
 }

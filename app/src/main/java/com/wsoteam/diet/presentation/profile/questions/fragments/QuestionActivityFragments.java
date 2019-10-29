@@ -31,6 +31,7 @@ public class QuestionActivityFragments extends Fragment {
     TextView tvActivity;
     @BindView(R.id.ivImage)
     AppCompatImageView ivImage;
+    @BindView(R.id.btnNext) Button btnNext;
 
     public static QuestionActivityFragments newInstance() {
         return new QuestionActivityFragments();
@@ -60,37 +61,37 @@ public class QuestionActivityFragments extends Fragment {
         return view;
     }
 
-    protected void changeProgress(int progress) {
-        String text = getString(R.string.onboard_activity_level_none);
+    public void changeProgress(int progress) {
+        String text = getString(R.string.first_activity);
         int imageResource = R.drawable.ic_activity0;
         switch (progress) {
             case 0:
                 imageResource = R.drawable.ic_activity0;
-                text = getString(R.string.onboard_activity_level_none);
+                text = getString(R.string.first_activity);
                 break;
             case 1:
                 imageResource = R.drawable.ic_activity1;
-                text = getString(R.string.onboard_activity_level_easy);
+                text = getString(R.string.second_activity);
                 break;
             case 2:
                 imageResource = R.drawable.ic_activity2;
-                text = getString(R.string.onboard_activity_level_medium);
+                text = getString(R.string.third_activity);
                 break;
             case 3:
                 imageResource = R.drawable.ic_activity3;
-                text = getString(R.string.onboard_activity_level_hard);
+                text = getString(R.string.fourth_activity);
                 break;
             case 4:
                 imageResource = R.drawable.ic_activity4;
-                text = getString(R.string.onboard_activity_level_hard_up);
+                text = getString(R.string.five_activity);
                 break;
             case 5:
                 imageResource = R.drawable.ic_activity5;
-                text = getString(R.string.onboard_activity_level_super);
+                text = getString(R.string.six_activity);
                 break;
             case 6:
                 imageResource = R.drawable.ic_activity6;
-                text = getString(R.string.onboard_activity_level_super_up);
+                text = getString(R.string.seven_activity);
                 break;
         }
         //Glide.with(QuestionActivityFragments.this)

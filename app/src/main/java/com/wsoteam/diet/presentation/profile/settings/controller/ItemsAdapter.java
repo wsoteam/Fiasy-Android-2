@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +22,7 @@ import com.wsoteam.diet.presentation.auth.AuthStrategy;
 import com.wsoteam.diet.presentation.profile.about.AboutActivity;
 import com.wsoteam.diet.presentation.profile.help.HelpActivity;
 import com.wsoteam.diet.presentation.profile.norm.ChangeNormActivity;
+import com.wsoteam.diet.presentation.promo.PromoFormActivity;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
 
@@ -117,6 +117,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
             /*case FOOD:
                 Toast.makeText(context, "Раздел в разработке :(", Toast.LENGTH_SHORT).show();
                 break;*/
+            case PROMO:
+                context.startActivity(new Intent(context, PromoFormActivity.class));
+                break;
             case PERSONAL:
                 context.startActivity(new Intent(context, AboutActivity.class));
                 break;

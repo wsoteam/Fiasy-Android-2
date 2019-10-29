@@ -14,8 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amplitude.api.Amplitude;
-import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
@@ -66,17 +64,16 @@ public class ActivityDetailSavedFood extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().equals(" ")
-                        || charSequence.toString().equals("-")) {
-                    edtWeight.setText("0");
+                if (charSequence.toString().equals("-")) {
+                    edtWeight.setText("");
                 } else {
                     if (!edtWeight.getText().toString().equals("")) {
                         calculateMainParameters(charSequence);
                     } else {
-                        tvCalculateProtein.setText("0 " + getString(R.string.gramm));
-                        tvCalculateKcal.setText("0 " + getString(R.string.kcal));
-                        tvCalculateCarbohydrates.setText("0 " + getString(R.string.gramm));
-                        tvCalculateFat.setText("0 " + getString(R.string.gramm));
+                        tvCalculateProtein.setText("0 " + getString(R.string.g));
+                        tvCalculateKcal.setText("0 " + getString(R.string.calories_unit));
+                        tvCalculateCarbohydrates.setText("0 " + getString(R.string.g));
+                        tvCalculateFat.setText("0 " + getString(R.string.g));
                     }
                 }
             }
@@ -100,9 +97,9 @@ public class ActivityDetailSavedFood extends AppCompatActivity {
 
     private void bindFields() {
         tvTitle.setText(foodItem.getName());
-        tvFats.setText(String.valueOf(Math.round(fats * 100)) + " г");
-        tvCarbohydrates.setText(String.valueOf(Math.round(carbo * 100)) + " г");
-        tvProteins.setText(String.valueOf(Math.round(proteins * 100)) + " г");
+        tvTitle.setText(String.format(getString(R.string.n_g), Math.round(fats * 100)));
+        tvCarbohydrates.setText(String.format(getString(R.string.n_g), Math.round(carbo * 100)));
+        tvProteins.setText(String.format(getString(R.string.n_g), Math.round(proteins * 100)));
     }
 
     private void savePortion(int idOfEating) {
@@ -164,10 +161,10 @@ public class ActivityDetailSavedFood extends AppCompatActivity {
     private void calculateMainParameters(CharSequence stringPortion) {
         double portion = Double.parseDouble(stringPortion.toString());
 
-        tvCalculateProtein.setText(String.valueOf(Math.round(portion * proteins)) + " " + getString(R.string.gramm));
-        tvCalculateKcal.setText(String.valueOf(Math.round(portion * calories)) + " " + getString(R.string.kcal));
-        tvCalculateCarbohydrates.setText(String.valueOf(Math.round(portion * carbo)) + " " + getString(R.string.gramm));
-        tvCalculateFat.setText(String.valueOf(Math.round(portion * fats)) + " " + getString(R.string.gramm));
+        tvCalculateProtein.setText(String.valueOf(Math.round(portion * proteins)) + " " + getString(R.string.g));
+        tvCalculateKcal.setText(String.valueOf(Math.round(portion * calories)) + " " + getString(R.string.calories_unit));
+        tvCalculateCarbohydrates.setText(String.valueOf(Math.round(portion * carbo)) + " " + getString(R.string.g));
+        tvCalculateFat.setText(String.valueOf(Math.round(portion * fats)) + " " + getString(R.string.g));
 
     }
 

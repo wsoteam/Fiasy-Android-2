@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:fontFamily="sans-serif-medium"
-        android:text="@string/onboard_calculation_title"
+        android:text="@string/wait_a_while"
         android:textColor="#de2b2b2b"
         android:textSize="20sp"
         android:textStyle="normal"
@@ -31,7 +31,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="sans-serif"
-        android:text="@string/onboard_calculation_subtitle"
+        android:text="@string/wait_a_while_description"
         android:textColor="#de2b2b2b"
         android:textSize="16sp"
         android:textStyle="normal"
@@ -50,8 +50,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_loader"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvSubTitle"
+        app:layout_constraintVertical_bias="0.32999998"
+        app:srcCompat="@drawable/ic_loader"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

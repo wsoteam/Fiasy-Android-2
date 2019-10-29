@@ -20,26 +20,23 @@ import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.MainScreen.Fragments.FragmentEatingScroll;
 import com.wsoteam.diet.POJOProfile.FavoriteFood;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.common.backward.FoodConverter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.reactivex.Single;
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class FragmentFavorites extends Fragment implements TabsFragment {
 
@@ -50,9 +47,12 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
     @BindView(R.id.tvTitleFavoriteAdd) TextView tvTitleFavoriteAdd;
     @BindView(R.id.tvTextAddFavorite) TextView tvTextAddFavorite;
     @BindView(R.id.btnAddFavorite) Button btnAddFavorite;
-    private FoodDAO foodDAO = App.getInstance().getFoodDatabase().foodDAO();
     private ItemAdapter itemAdapter;
     private String searchString = "";
+
+    @Override
+    public void sendClearSearchField() {
+    }
 
     @Override
     public void sendString(String searchString) {
@@ -60,21 +60,19 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
         search(searchString);
     }
 
-    @Override public void sendClearSearchField() {
-
-    }
-
     private void search(String searchString) {
         if (foods.size() != 0) {
             List<Food> correctFoods = new ArrayList<>();
             for (int i = 0; i < foods.size(); i++) {
-                if (foods.get(i).getFullInfo().toLowerCase().contains(searchString.toLowerCase())) {
+                if (foods.get(i).getName().toLowerCase().contains(searchString.toLowerCase())) {
                     correctFoods.add(foods.get(i));
                 }
             }
             showResult(correctFoods);
         }
     }
+
+
 
     private void showResult(List<Food> correctFoods) {
         if (correctFoods.size() > 0) {
@@ -89,7 +87,7 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
     }
 
     private void showNoFind() {
-        Picasso.get().load(R.drawable.ic_no_find).into(ivAddFavorite);
+        Glide.with(getActivity()).load(R.drawable.ic_no_find).into(ivAddFavorite);
         tvTitleFavoriteAdd.setText(getActivity().getResources().getString(R.string.title_no_find_food));
         tvTextAddFavorite.setText(getActivity().getResources().getString(R.string.text_no_find_food));
         ivAddFavorite.setVisibility(View.VISIBLE);
@@ -120,27 +118,7 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
 
 
     private void findFavoritesInDb() {
-        Single.fromCallable(() -> {
-            List<Food> foods = getFavoriteFoods(getMarkers());
-            return foods;
-        })
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<List<Food>>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onSuccess(List<Food> foods) {
-                updateUI(foods);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-        });
+        updateUI(getFavorites());
     }
 
     private void updateUI(List<Food> foods) {
@@ -170,23 +148,15 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
         ivAddFavorite.setVisibility(View.VISIBLE);
     }
 
-    private List<Food> getFavoriteFoods(List<FavoriteFood> favoriteFoods) {
-        List<Food> foods = new ArrayList<>();
-        for (int i = 0; i < favoriteFoods.size(); i++) {
-            foods.add(foodDAO.getById(favoriteFoods.get(i).getId()));
-        }
-        return foods;
-    }
-
-    private List<FavoriteFood> getMarkers() {
-        List<FavoriteFood> favoriteFoods = new ArrayList<>();
+    private List<Food> getFavorites() {
+        List<Food> favoriteFoods = new ArrayList<>();
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getFoodFavorites() != null) {
             Iterator iterator = UserDataHolder.getUserData().getFoodFavorites().entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry pair = (Map.Entry) iterator.next();
                 FavoriteFood favoriteFood = (FavoriteFood) pair.getValue();
                 favoriteFood.setKey((String) pair.getKey());
-                favoriteFoods.add(favoriteFood);
+                favoriteFoods.add(FoodConverter.convertFavoriteToFood(favoriteFood));
             }
         }
         return favoriteFoods;
@@ -205,6 +175,7 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
         @BindView(R.id.tvProt) TextView tvProt;
         @BindView(R.id.tvFats) TextView tvFats;
         @BindView(R.id.tvCarbo) TextView tvCarbo;
+        @BindView(R.id.tvBrand) TextView tvBrand;
 
         public ItemHolder(LayoutInflater layoutInflater, ViewGroup viewGroup) {
             super(layoutInflater.inflate(R.layout.item_rv_list_of_search_response, viewGroup, false));
@@ -223,17 +194,23 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
 
         public void bind(Food food) {
             if (food.getFullInfo() != null) {
-                tvNameOfFood.setText(food.getFullInfo().replace("()", ""));
+              tvNameOfFood.setText(food.getName());
             }
-            tvCalories.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
+            tvCalories.setText(String.format(getString(R.string.n_KCal), Math.round(food.getCalories() * 100)));
             if (food.isLiquid()) {
-                tvWeight.setText("Вес: 100мл");
+                tvWeight.setText(getString(R.string.search_food_activity_weight_ml));
             } else {
-                tvWeight.setText("Вес: 100г");
+                tvWeight.setText(getString(R.string.search_food_activity_weight_g));
             }
-            tvProt.setText("Б. " + String.valueOf(Math.round(food.getProteins() * 100)));
-            tvFats.setText("Ж. " + String.valueOf(Math.round(food.getFats() * 100)));
-            tvCarbo.setText("У. " + String.valueOf(Math.round(food.getCarbohydrates() * 100)));
+            tvProt.setText(String.format(getString(R.string.search_food_activity_prot), Math.round(food.getProteins() * 100)));
+            tvFats.setText(String.format(getString(R.string.search_food_activity_fat), Math.round(food.getFats() * 100)));
+            tvCarbo.setText(String.format(getString(R.string.search_food_activity_carbo), Math.round(food.getCarbohydrates() * 100)));
+            if (!food.getBrand().equals("")) {
+                tvBrand.setVisibility(View.VISIBLE);
+                tvBrand.setText(food.getBrand());
+            }else {
+                tvBrand.setVisibility(View.GONE);
+            }
         }
     }
 

@@ -89,10 +89,10 @@ public class ActivityCreateFood extends AppCompatActivity {
         }
         tvSubtitle.setText(getResources().getStringArray(R.array.fragment_subtitles)[i]);
         if (i == FRAGMENT_RESULT) {
-            btnForward.setText(getString(R.string.ok_forward));
+            btnForward.setText(getString(R.string.ok));
         }
-        if (i == FRAGMENT_OUTLAY && btnForward.getText().toString().equals(getString(R.string.ok_forward))) {
-            btnForward.setText(getString(R.string.forward_btn));
+        if (i == FRAGMENT_OUTLAY && btnForward.getText().toString().equals(getString(R.string.ok))) {
+            btnForward.setText(getString(R.string.next2));
         }
         if (i == FRAGMENT_MAIN && btnBack.getVisibility() == View.VISIBLE) {
             btnBack.setVisibility(View.GONE);

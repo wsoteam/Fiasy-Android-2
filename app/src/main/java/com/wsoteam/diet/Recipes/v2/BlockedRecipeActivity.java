@@ -81,15 +81,10 @@ public class BlockedRecipeActivity extends AppCompatActivity  implements Toolbar
 
         mToolbar.setOnMenuItemClickListener(this);
         mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        mToolbar.setNavigationOnClickListener(view -> onBackPressed());
 
 
-        tvKkal.setText(recipeItem.getCalories() + " ккал на порцию");
+        tvKkal.setText(String.format(getString(R.string.user_recipe_activity_for_portion), recipeItem.getCalories()));
         tvName.setText(recipeItem.getName());
         tvTime.setText(String.valueOf(recipeItem.getTime()));
 

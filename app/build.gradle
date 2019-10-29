@@ -132,10 +132,6 @@ dependencies {
     implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 
-    implementation 'io.intercom.android:intercom-sdk-base-transitive:5.+'
-    implementation('io.intercom.android:intercom-sdk-fcm:5.+') {
-        exclude group: 'io.intercom.android', module: 'intercom-sdk-base'
-    }
     implementation 'androidx.room:room-runtime:2.1.0'
     annotationProcessor 'androidx.room:room-compiler:2.1.0'
 

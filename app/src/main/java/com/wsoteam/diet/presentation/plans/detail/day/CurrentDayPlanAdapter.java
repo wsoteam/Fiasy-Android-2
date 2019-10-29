@@ -30,7 +30,6 @@ public class CurrentDayPlanAdapter extends RecyclerView.Adapter {
   private boolean isCurrentDay;
 
   public void updateList(List<RecipeItem> recipeItems,boolean isCurrentDay, int day, String meal) {
-    Log.d("kkk", isCurrentDay + " -- " + day + " -- " + meal);
     this.recipeItems = recipeItems;
     this.isCurrentDay = isCurrentDay;
     this.day = day;
@@ -118,7 +117,8 @@ public class CurrentDayPlanAdapter extends RecyclerView.Adapter {
     void bind(RecipeItem recipeItem) {
 
       tvName.setText(recipeItem.getName());
-      tvCalories.setText(recipeItem.getCalories() + " " + context.getResources().getString(R.string.kcal));
+      tvCalories.setText(
+          recipeItem.getCalories() + " " + context.getResources().getString(R.string.calories_unit));
 
       if (recipeItem.isAddedInDiaryFromPlan()){
         Picasso.get()

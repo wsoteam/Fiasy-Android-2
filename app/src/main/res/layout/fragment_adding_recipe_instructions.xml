@@ -38,7 +38,7 @@
         android:layout_height="45dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        android:text="Пожалуйста, записывайте инструкцию по приготовлению по пунктам."
+        android:text="@string/fragment_adding_recipe_instructions_write_instructions"
         android:textAlignment="textStart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

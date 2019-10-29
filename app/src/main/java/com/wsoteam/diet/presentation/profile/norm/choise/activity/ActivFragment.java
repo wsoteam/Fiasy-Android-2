@@ -3,6 +3,7 @@ package com.wsoteam.diet.presentation.profile.norm.choise.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -45,7 +46,8 @@ public class ActivFragment extends QuestionActivityFragments {
                 intent.putExtra(Config.ACTIVITY_CHANGE_RESULT, pbActivity.getProgress());
                 getActivity().setResult(Activity.RESULT_OK, intent);
                 getActivity().finish();
-            });
+            }
+        });
     }
 
     private int choisePosition(String activity) {

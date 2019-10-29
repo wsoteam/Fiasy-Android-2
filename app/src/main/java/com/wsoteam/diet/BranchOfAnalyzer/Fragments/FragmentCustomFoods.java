@@ -297,11 +297,11 @@ public class FragmentCustomFoods extends Fragment implements TabsFragment {
         public void bind(CustomFood customFood) {
             tvBrand.setText(customFood.getBrand());
             tvNameOfFood.setText(customFood.getName());
-            tvCalories.setText(String.valueOf(Math.round(customFood.getCalories() * 100)) + " Ккал");
-            tvWeight.setText("Вес: 100г");
-            tvProt.setText("Б. " + String.valueOf(Math.round(customFood.getProteins() * 100)));
-            tvFats.setText("Ж. " + String.valueOf(Math.round(customFood.getFats() * 100)));
-            tvCarbo.setText("У. " + String.valueOf(Math.round(customFood.getCarbohydrates() * 100)));
+            tvCalories.setText(String.format(getString(R.string.n_KCal), Math.round(customFood.getCalories() * 100)));
+            tvWeight.setText(getString(R.string.search_food_activity_weight_g));
+            tvProt.setText(String.format(getString(R.string.search_food_activity_prot), Math.round(customFood.getProteins() * 100)));
+            tvFats.setText(String.format(getString(R.string.search_food_activity_fat), Math.round(customFood.getFats() * 100)));
+            tvCarbo.setText(String.format(getString(R.string.search_food_activity_carbo), Math.round(customFood.getCarbohydrates() * 100)));
             this.key = customFood.getKey();
         }
     }

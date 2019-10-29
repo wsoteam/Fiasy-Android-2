@@ -50,6 +50,7 @@ import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.UserProperty;
+import com.wsoteam.diet.common.promo.POJO.UserPromo;
 import com.wsoteam.diet.presentation.auth.AuthStrategy;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
@@ -191,8 +192,7 @@ public class ActivitySplash extends BaseActivity {
             user -> {
               new UserDataHolder().bindObjectWithHolder(user);
 
-              setUserProperties(user.getProfile());
-
+              UserProperty.setUserProperties(UserDataHolder.getUserData().getProfile(), ActivitySplash.this, false);
               onSignedIn();
             },
 
@@ -206,74 +206,16 @@ public class ActivitySplash extends BaseActivity {
     disposables.add(d);
   }
 
-  private void setUserProperties(Profile profile) {
-    try {
-      String goal = "", active = "", sex;
-      String userStressLevel = profile.getExerciseStress();
-      String userGoal = profile.getDifficultyLevel();
-
-      String age = String.valueOf(profile.getAge());
-      String weight = String.valueOf(profile.getWeight());
-      String height = String.valueOf(profile.getHeight());
-
-      if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_none))) {
-        active = UserProperty.q_active_status1;
-      } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_easy))) {
-        active = UserProperty.q_active_status2;
-      } else if (userStressLevel.equalsIgnoreCase(
-          getResources().getString(R.string.level_medium))) {
-        active = UserProperty.q_active_status3;
-      } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_hard))) {
-        active = UserProperty.q_active_status4;
-      } else if (userStressLevel.equalsIgnoreCase(
-          getResources().getString(R.string.level_up_hard))) {
-        active = UserProperty.q_active_status5;
-      } else if (userStressLevel.equalsIgnoreCase(getResources().getString(R.string.level_super))) {
-        active = UserProperty.q_active_status6;
-      } else if (userStressLevel.equalsIgnoreCase(
-          getResources().getString(R.string.level_up_super))) {
-        active = UserProperty.q_active_status7;
-      }
-
-      if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_easy))) {
-        goal = UserProperty.q_goal_status1;
-      } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_normal))) {
-        goal = UserProperty.q_goal_status2;
-      } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_hard))) {
-        goal = UserProperty.q_goal_status3;
-      } else if (userGoal.equalsIgnoreCase(getResources().getString(R.string.dif_level_hard_up))) {
-        goal = UserProperty.q_goal_status4;
-      }
-
-      if (profile.isFemale()) {
-        sex = UserProperty.q_male_status_female;
-      } else {
-        sex = UserProperty.q_male_status_male;
-      }
-
-      UserProperty.setUserProperties(sex, height, weight, age, active, goal,
-          FirebaseAuth.getInstance().getCurrentUser().getUid(),
-          String.valueOf(profile.getMaxKcal()),
-          String.valueOf(profile.getMaxProt()),
-          String.valueOf(profile.getMaxFat()),
-          String.valueOf(profile.getMaxCarbo()));
-
-      UserProperty.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-    } catch (Exception ex) {
-      Log.e("LOL", ex.getLocalizedMessage());
-    }
-  }
-
   private void onUserNotAuthorized() {
-    FirebaseAnalytics.getInstance(this)
-        .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
-    //startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
-    //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
-    //startActivity(new Intent(this, AfterQuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+      FirebaseAnalytics.getInstance(this)
+              .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.un_reg);
+      //startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
+      //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
+      //startActivity(new Intent(this, AfterQuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
 
-    startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
+  startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
 
-    finish();
+  finish();
   }
 
   private void onSignedIn() {
@@ -295,6 +237,35 @@ public class ActivitySplash extends BaseActivity {
   private void openMainScreen() {
     startActivity(new Intent(this, MainActivity.class));
     finish();
+  }
+
+  private void setTrackInfoInDatabase(AdjustAttribution aa) {
+      TrackInfo trackInfo = new TrackInfo();
+      trackInfo.setTt(aa.trackerToken);
+      trackInfo.setTn(aa.trackerName);
+      trackInfo.setNet(aa.network);
+      trackInfo.setCam(aa.campaign);
+      trackInfo.setCre(aa.creative);
+      trackInfo.setCl(aa.clickLabel);
+      trackInfo.setAdid(aa.adid);
+      trackInfo.setAdg(aa.adgroup);
+      WorkWithFirebaseDB.setTrackInfo(trackInfo);
+  }
+
+  private boolean isHasPromo() {
+      if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getUserPromo() != null) {
+          UserPromo userPromo = UserDataHolder.getUserData().getUserPromo();
+          long currentTime = Calendar.getInstance().getTimeInMillis();
+          if (currentTime <= userPromo.getStartActivated() + userPromo.getDuration()) {
+              return true;
+          } else {
+              WorkWithFirebaseDB.setEmptyUserPromo();
+              changePremStatus(false);
+              return false;
+          }
+      } else {
+          return false;
+      }
   }
 
   private void checkBilling() {

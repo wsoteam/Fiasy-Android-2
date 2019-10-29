@@ -91,7 +91,8 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
         recipeItem = (RecipeItem) getIntent().getSerializableExtra(Config.RECIPE_INTENT);
         Events.logViewRecipe(recipeItem.getName());
 
-        tvKkal.setText(recipeItem.getCalories() + " ккал на порцию");
+        //tvKkal.setText(recipeItem.getCalories() + " ккал на порцию");
+        tvKkal.setText(String.format(getString(R.string.user_recipe_activity_for_portion), recipeItem.getCalories()));
         tvName.setText(recipeItem.getName());
         tvTime.setText(String.valueOf(recipeItem.getTime()));
         tvCarbohydrates.setText(String.valueOf(recipeItem.getCarbohydrates()));
@@ -217,7 +218,6 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
                 return true;
             case R.id.mFavorites:
                 if (key == null) {
-                    Log.e("LOL", "fav");
                     Events.logAddFavoriteRecipe(recipeItem.getName());
                     key = WorkWithFirebaseDB.addFavoriteRecipe(recipeItem);
                     favoriteMenuItem.setIcon(R.drawable.icon_favorites_delete);
@@ -342,22 +342,22 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
             case BREAKFAST_POSITION:
                 WorkWithFirebaseDB.
                         addBreakfast(new Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
-                Events.logAddRecipeInDiary(EventProperties.recipe_intake_breakfast);
+                Events.logAddRecipeInDiary(EventProperties.recipe_intake_breakfast, name);
                 break;
             case LUNCH_POSITION:
                 WorkWithFirebaseDB.
                         addLunch(new Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
-                Events.logAddRecipeInDiary(EventProperties.recipe_intake_lunch);
+                Events.logAddRecipeInDiary(EventProperties.recipe_intake_lunch, name);
                 break;
             case DINNER_POSITION:
                 WorkWithFirebaseDB.
                         addDinner(new Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
-                Events.logAddRecipeInDiary(EventProperties.recipe_intake_dinner);
+                Events.logAddRecipeInDiary(EventProperties.recipe_intake_dinner, name);
                 break;
             case SNACK_POSITION:
                 WorkWithFirebaseDB.
                         addSnack(new Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year));
-                Events.logAddRecipeInDiary(EventProperties.recipe_intake_snack);
+                Events.logAddRecipeInDiary(EventProperties.recipe_intake_snack, name);
                 break;
         }
         AlertDialog alertDialog = AddFoodDialog.createChoiseEatingAlertDialog(this);

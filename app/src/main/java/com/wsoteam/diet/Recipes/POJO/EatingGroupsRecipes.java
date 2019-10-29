@@ -1,26 +1,28 @@
 package com.wsoteam.diet.Recipes.POJO;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.wsoteam.diet.R;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class EatingGroupsRecipes implements GroupsRecipes {
 
-    List<ListRecipes> listRecipesGroups;
+    private List<ListRecipes> listRecipesGroups;
     private int prev = -1;
     private boolean adding;
 
-    public EatingGroupsRecipes(ListRecipes listRecipes) {
+    public EatingGroupsRecipes(ListRecipes listRecipes, Context context) {
         listRecipesGroups = new ArrayList<>();
-        ListRecipes listBreakfast = new ListRecipes("Завтрак");
+        ListRecipes listBreakfast = new ListRecipes(context.getString(R.string.breakfast));
         List<RecipeItem> breakfast = new ArrayList<>();
-        ListRecipes listLunch = new ListRecipes("Обед");
+        ListRecipes listLunch = new ListRecipes(context.getString(R.string.lunch));
         List<RecipeItem> lunch = new ArrayList<>();
-        ListRecipes listDinner = new ListRecipes("Ужин");
+        ListRecipes listDinner = new ListRecipes(context.getString(R.string.dinner));
         List<RecipeItem> dinner = new ArrayList<>();
-        ListRecipes listSnack = new ListRecipes("Перекус");
+        ListRecipes listSnack = new ListRecipes(context.getString(R.string.snack));
         List<RecipeItem> snack = new ArrayList<>();
 
 
@@ -44,10 +46,6 @@ public class EatingGroupsRecipes implements GroupsRecipes {
         }
 
 
-        Log.d("recipeG", "breakfast: " + breakfast.size());
-        Log.d("recipeG", "lunch: " + lunch.size());
-        Log.d("recipeG", "dinner: " + dinner.size());
-        Log.d("recipeG", "snack: " + snack.size());
 
         Collections.shuffle(breakfast);
         Collections.shuffle(lunch);

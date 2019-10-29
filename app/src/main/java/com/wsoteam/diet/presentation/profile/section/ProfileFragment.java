@@ -63,6 +63,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.text.TextUtils.concat;
+
 public class ProfileFragment extends MvpAppCompatFragment implements ProfileView {
     @BindView(R.id.ibSettings)
     ImageButton ibProfileEdit;
@@ -78,6 +80,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     TextView tvFatCount;
     @BindView(R.id.tvProtCount)
     TextView tvProtCount;
+    @BindView(R.id.tvPlan)
+    TextView tvPlanName;
     private static final int CAMERA_REQUEST = 1888;
     Unbinder unbinder;
     ProfilePresenter profilePresenter;
@@ -256,21 +260,21 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
     @Override
     public void fillViewsIfProfileNotNull(Profile profile, DietPlan plan) {
-        tvKcalMax.setText(profile.getMaxKcal() + " ккал");
-        tvCarboCount.setText(profile.getMaxCarbo() + " г");
-        tvFatCount.setText(profile.getMaxFat() + " г");
-        tvProtCount.setText(profile.getMaxProt() + " г");
+        tvKcalMax.setText(String.format(getString(R.string.format_int_kcal), profile.getMaxKcal()));
+        tvCarboCount.setText(String.format(getString(R.string.n_g), profile.getMaxCarbo()));
+        tvFatCount.setText(String.format(getString(R.string.n_g), profile.getMaxFat()));
+        tvProtCount.setText(String.format(getString(R.string.n_g), profile.getMaxProt()));
+        tvPlanName.setText(plan != null ? concat(getString(R.string.nutrition_plan), " - ", plan.getName()) : "");
 
         if (TextUtils.isEmpty(profile.getFirstName())
-            || profile.getFirstName().toLowerCase().equals("default")) {
-
-            tvUserName.setText("Введите Ваше имя");
+          || profile.getFirstName().toLowerCase().equals("default")) {
+            tvUserName.setText(getString(R.string.your_name));
         } else {
-            if (profile.getLastName().toLowerCase().equals("default")) {
-                tvUserName.setText(profile.getFirstName());
-            } else {
-                tvUserName.setText(profile.getFirstName() + " " + profile.getLastName());
-            }
+          if (profile.getLastName().toLowerCase().equals("default")) {
+            tvUserName.setText(profile.getFirstName());
+          } else {
+            tvUserName.setText(profile.getFirstName() + " " + profile.getLastName());
+          }
         }
 
         setPhoto(profile);

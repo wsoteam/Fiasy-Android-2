@@ -80,7 +80,8 @@ public class UsersRecipesActivity extends AppCompatActivity implements Toolbar.O
         window.setStatusBarColor(Color.parseColor("#66000000"));
         recipeItem = (RecipeItem) getIntent().getSerializableExtra(Config.RECIPE_INTENT);
 
-        tvKkal.setText(recipeItem.getCalories() + " ккал на порцию");
+        tvKkal.setText(String.format(getString(R.string.user_recipe_activity_for_portion), recipeItem.getCalories()));
+        //tvKkal.setText(recipeItem.getCalories() + " ккал на порцию");
         tvName.setText(recipeItem.getName());
         tvTime.setText(String.valueOf(recipeItem.getTime()));
         tvCarbohydrates.setText(String.valueOf(recipeItem.getCarbohydrates()));

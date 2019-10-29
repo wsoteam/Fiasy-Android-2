@@ -100,7 +100,7 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
     }
 
 
-    tvKkal.setText(recipeItem.getCalories() + " ккал на порцию");
+    tvKkal.setText(String.format(getString(R.string.user_recipe_activity_for_portion), recipeItem.getCalories()));
     textViewCalories2.setText(String.valueOf(recipeItem.getCalories()));
     tvName.setText(recipeItem.getName());
     tvTime.setText(String.valueOf(recipeItem.getTime()));

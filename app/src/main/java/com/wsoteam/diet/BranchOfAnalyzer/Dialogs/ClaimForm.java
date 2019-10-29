@@ -1,16 +1,14 @@
 package com.wsoteam.diet.BranchOfAnalyzer.Dialogs;
 
 import android.content.Context;
-import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AlertDialog;
 import com.amplitude.api.Amplitude;
 import com.google.firebase.auth.FirebaseAuth;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOClaim.Claim;
@@ -18,10 +16,7 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.Events;
-
 import java.util.Calendar;
-
-import io.intercom.android.sdk.Intercom;
 
 public class ClaimForm {
     public static AlertDialog createChoiseEatingAlertDialog(Context context, Food food) {
@@ -74,7 +69,6 @@ public class ClaimForm {
                         && edtClaim.getText().toString().replaceAll("\\s+", " ").length() > MIN) {
                     WorkWithFirebaseDB.sendClaim(fillClaim(food, edtClaim.getText().toString()));
                     Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_BUGSEND);
-                    Intercom.client().logEvent(Events.PRODUCT_PAGE_BUGSEND);
                     Toast.makeText(context, "Жалоба отправлена. Спасибо!", Toast.LENGTH_SHORT).show();
                     alertDialog.cancel();
                 }

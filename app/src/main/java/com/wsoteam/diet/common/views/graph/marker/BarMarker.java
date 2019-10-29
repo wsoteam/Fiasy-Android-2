@@ -46,9 +46,9 @@ public class BarMarker extends MarkerView {
         }
         if (e instanceof CandleEntry) {
             CandleEntry ce = (CandleEntry) e;
-            tvTitle.setText("" + Utils.formatNumber(ce.getHigh(), 0, true) + " " + getContext().getString(R.string.marker_kcal));
+            tvTitle.setText("" + Utils.formatNumber(ce.getHigh(), 0, true) + " " + getContext().getString(R.string.calories_unit));
         } else {
-            tvTitle.setText("" + Utils.formatNumber(e.getY(), 0, true) + " " + getContext().getString(R.string.marker_kcal));
+            tvTitle.setText("" + Utils.formatNumber(e.getY(), 0, true) + " " + getContext().getString(R.string.calories_unit));
         }
         super.refreshContent(e, highlight);
     }

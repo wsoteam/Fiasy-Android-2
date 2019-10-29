@@ -50,7 +50,7 @@
                 android:background="#fff"
                 android:drawableLeft="@drawable/search_icon"
                 android:fontFamily="@font/roboto"
-                android:hint="@string/etSearch"
+                android:hint="@string/search"
                 android:inputType="textPersonName"
                 android:textSize="14sp"
                 tools:layout_editor_absoluteX="66dp"
