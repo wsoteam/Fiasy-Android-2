@@ -35,7 +35,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.diary.FoodWork;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
-import com.wsoteam.diet.presentation.product.InfoActivity;
+import com.wsoteam.diet.presentation.product.DetailActivity;
 import com.wsoteam.diet.presentation.search.results.ResultsFragment;
 import com.wsoteam.diet.presentation.search.results.ResultsView;
 import com.wsoteam.diet.presentation.search.sections.SectionFragment;
@@ -59,7 +59,7 @@ public class ParentActivity extends AppCompatActivity {
     setContentView(R.layout.activity_parent);
     FoodWork.clearBasket();
     ButterKnife.bind(this);
-    //startActivity(new Intent(this, InfoActivity.class));
+    startActivity(new Intent(this, DetailActivity.class));
     bindSpinnerChoiceEating();
     fragmentManager = getSupportFragmentManager();
     edtSearch.setOnTouchListener(new View.OnTouchListener() {

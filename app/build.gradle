@@ -2,6 +2,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
 android {
     compileSdkVersion 28
 
@@ -70,6 +73,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.palette:palette:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     implementation 'com.google.firebase:firebase-config:18.0.0'
     testImplementation 'junit:junit:4.12'
