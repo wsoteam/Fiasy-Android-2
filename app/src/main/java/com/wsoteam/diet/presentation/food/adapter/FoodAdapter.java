@@ -122,15 +122,17 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         public void bind(Food food) {
             double portion = food.getPortion();
             tvNameOfFood.setText(food.getName());
-            tvCalories.setText((int)(food.getCalories() * portion) + " Ккал");
+            tvCalories.setText(String.format(context.getString(R.string.n_KCal), (int)food.getCalories()));
             if (food.isLiquid()) {
-                tvWeight.setText("Вес: " + (int)portion + " мл");
+                //tvWeight.setText("Вес: " + (int)portion + " мл");
+                tvWeight.setText(String.format(context.getString(R.string.weight_n_ml), (int)portion));
             } else {
-                tvWeight.setText("Вес: " + (int)portion + " г");
+                //tvWeight.setText("Вес: " + (int)portion + " г");
+                tvWeight.setText(String.format(context.getString(R.string.weight_n_g), (int)portion));
             }
-            tvProt.setText("Б. " + String.valueOf(Math.round(food.getProteins() * portion)));
-            tvFats.setText("Ж. " + String.valueOf(Math.round(food.getFats() * portion)));
-            tvCarbo.setText("У. " + String.valueOf(Math.round(food.getCarbohydrates() * portion)));
+            tvProt.setText(String.format(context.getString(R.string.search_food_activity_prot), Math.round(food.getProteins() * portion)));
+            tvFats.setText(String.format(context.getString(R.string.search_food_activity_fat), Math.round(food.getFats() * portion)));
+            tvCarbo.setText(String.format(context.getString(R.string.search_food_activity_carbo), Math.round(food.getCarbohydrates() * portion)));
         }
 
     }

@@ -24,7 +24,6 @@ import butterknife.OnClick;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class WaterViewHolder extends RecyclerView.ViewHolder {
-  @BindView(R.id.tvTitleOfEatingCard) TextView tvTitleOfEatingCard;
   @BindView(R.id.ibtnOpenMenu) ImageButton ibtnOpenMenu;
   @BindView(R.id.tvEatingReminder) TextView tvEatingReminder;
   @BindView(R.id.waterStepView) WaterStepView waterStepView;
@@ -49,11 +48,10 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
   public void bind(Water water, Context context, String nameOfEatingGroup) {
     final int WATER_MAX = 5;
     AtomicReference<String> cache = new AtomicReference<String>();
-    tvTitleOfEatingCard.setText(nameOfEatingGroup);
 
     if (water != null) {
       waterStepView.setStepNum((int) (water.getWaterCount() / waterStep), water.getWaterCount() < WATER_MAX);
-      tvEatingReminder.setText(water.getWaterCount() + " л.");
+      tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), water.getWaterCount()));
       cache.set(water.getUrlOfImages());
 
       if (UserDataHolder.getUserData() != null
@@ -62,7 +60,7 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
         achievement(water.getWaterCount() >= maxWater);
       }
     } else {
-      tvEatingReminder.setText("0.0 л.");
+      tvEatingReminder.setText(String.format(context.getString(R.string.main_screen_menu_water_count), 0.0f));
     }
 
 

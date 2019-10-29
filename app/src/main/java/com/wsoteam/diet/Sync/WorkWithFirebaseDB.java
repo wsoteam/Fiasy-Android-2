@@ -9,7 +9,6 @@ import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.wsoteam.diet.Activism.POJO.ActivismFirebaseObject;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.BranchOfAnalyzer.Const;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.CustomFood;
@@ -238,12 +237,6 @@ public class WorkWithFirebaseDB {
     public static void saveListArticles(ListArticles data) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("ARTICLES");
-        myRef.setValue(data);
-    }
-
-    public static void saveActivism(ActivismFirebaseObject data) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("ACTIVISM");
         myRef.setValue(data);
     }
 

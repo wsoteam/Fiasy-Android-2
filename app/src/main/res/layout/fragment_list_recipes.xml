@@ -49,7 +49,7 @@
                 android:background="#fff"
                 android:drawableLeft="@drawable/search_icon"
                 android:fontFamily="@font/roboto"
-                android:hint="@string/etSearch"
+                android:hint="@string/search"
                 android:inputType="textPersonName"
                 android:textSize="14sp" />
         </androidx.cardview.widget.CardView>
@@ -64,7 +64,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto"
-        android:text="TextView"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="16sp"

@@ -54,7 +54,7 @@
         style="@style/Question.NextButton"
         android:layout_marginTop="12dp"
         android:fontFamily="sans-serif-medium"
-        android:text="далее"
+        android:text="@string/next2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabDots" />
@@ -67,7 +67,7 @@
         android:layout_marginBottom="8dp"
         android:fontFamily="sans-serif-medium"
         android:padding="4dp"
-        android:text="@string/skip"
+        android:text="@string/unboarding_skeep"
         android:textColor="#57000000"
         android:textSize="14sp"
         android:textStyle="normal"

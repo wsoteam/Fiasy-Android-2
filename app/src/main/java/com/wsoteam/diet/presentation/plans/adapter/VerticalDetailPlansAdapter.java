@@ -23,11 +23,12 @@ import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay;
-import com.wsoteam.diet.helper.NounsDeclension;
 import com.wsoteam.diet.presentation.plans.DateHelper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static android.text.TextUtils.concat;
 
 public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -304,7 +305,8 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       this.position = i;
       tabLayout.getTabAt(tabPosition).select();
       selectListRecipe(tabPosition);
-      tvDay.setText("День " + (i + 1));
+      tvDay.setText(String.format(mContext.getString(R.string.vertical_detail_plan_adapter_day), i + 1));
+      //tvDay.setText("День " + (i + 1));
     }
 
     @Override
@@ -365,15 +367,18 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
       this.listener = listener;
       tvName.setText(dietPlan.getName());
-      tvRecipes.setText(dietPlan.getRecipeCount() +
-          NounsDeclension.check(dietPlan.getRecipeCount(), " рецепт", " рецепта", " рецептов"));
-      tvTime.setText(dietPlan.getCountDays() +
-          NounsDeclension.check(dietPlan.getCountDays(), " день", " дня", " дней"));
+      //tvRecipes.setText(mContext.getResources().getQuantityString(R.plurals.recipe_count, dietPlan.getCountDays(), dietPlan.getCountDays()));
+      tvRecipes.setText(concat(
+          String.valueOf(dietPlan.getCountDays()), " ",
+          mContext.getResources().getQuantityString(R.plurals.recipe_plurals, dietPlan.getCountDays())));
+      tvTime.setText(concat(String.valueOf(dietPlan.getCountDays()), " ",
+          mContext.getResources().getQuantityString(
+              R.plurals.day_plurals, dietPlan.getCountDays())));
       Glide.with(mContext).load(dietPlan.getUrlImage()).into(imageView);
 
       if (isCurrentPlan){
         tvTimeCount.setVisibility(View.VISIBLE);
-        tvTimeCount.setText(String.format("%d день из %d",
+        tvTimeCount.setText(String.format(mContext.getString(R.string.vertical_detail_plan_adapter_day_of_days),
             day < dietPlan.getRecipeForDays().size() ? day + 1 : dietPlan.getRecipeForDays().size()
             , dietPlan.getCountDays()));
       }
@@ -460,7 +465,8 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public void bind(int position) {
-      tvDays.setText("День " + (position + 1));
+      tvDays.setText(String.format(mContext.getString(R.string.vertical_detail_plan_adapter_day), position + 1));
+      //tvDays.setText("День " + (position + 1));
       recipeContainer.removeAllViews();
 
       recipeItemList = new ArrayList<>();
@@ -471,7 +477,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
       if (recipeItemList.size() > 0) {
         tvDays.setTextColor(Color.parseColor("#8a000000"));
-        tvYouAdded.setText("Вы занесли в дневник: ");
+        tvYouAdded.setText(mContext.getString(R.string.vertical_detail_plan_adapter_in_diary));
         for (RecipeItem recipe :
             recipeItemList) {
           View view = LayoutInflater.from(mContext).inflate(R.layout.diary_recipe_plans_item, null);
@@ -479,12 +485,13 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
           TextView tvCalories = view.findViewById(R.id.tvCalories);
 
           tvName.setText(recipe.getName());
-          tvCalories.setText(recipe.getCalories() + " ккал");
+          tvCalories.setText(String.format(mContext.getString(R.string.format_int_kcal), recipe.getCalories()));
+          //tvCalories.setText(recipe.getCalories() + " ккал");
           recipeContainer.addView(view);
         }
       } else {
         tvDays.setTextColor(Color.parseColor("#8acc0808"));
-        tvYouAdded.setText("Вы ничего не выбрали");
+        tvYouAdded.setText(mContext.getString(R.string.vertical_detail_plan_adapter_not_selected));
       }
     }
 
@@ -505,7 +512,8 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
         TextView tvCalories = view.findViewById(R.id.tvCalories);
 
         tvName.setText(recipe.getName());
-        tvCalories.setText(recipe.getCalories() + " ккал");
+        tvCalories.setText(String.format(mContext.getString(R.string.format_int_kcal), recipe.getCalories()));
+        //tvCalories.setText(recipe.getCalories() + " ккал");
         linearLayout.addView(view);
       }
     }

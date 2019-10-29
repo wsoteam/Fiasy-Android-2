@@ -166,19 +166,19 @@ public class FragmentSearch extends Fragment implements TabsFragment {
 
         public void bind(Result food) {
             tvNameOfFood.setText(food.getName());
-            tvCalories.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
+            tvCalories.setText(String.format(getString(R.string.n_KCal), Math.round(food.getCalories() * 100)));
             try {
                 if (food.isLiquid()) {
-                    tvWeight.setText("Вес: 100 мл");
+                    tvWeight.setText(getString(R.string.search_food_activity_weight_ml));
                 } else {
-                    tvWeight.setText("Вес: 100 г");
+                    tvWeight.setText(getString(R.string.search_food_activity_weight_g));
                 }
             } catch (Exception e) {
-                tvWeight.setText("Вес: 100 г");
+                tvWeight.setText(getString(R.string.search_food_activity_weight_g));
             }
-            tvProt.setText("Б. " + String.valueOf(Math.round(food.getProteins() * 100)));
-            tvFats.setText("Ж. " + String.valueOf(Math.round(food.getFats() * 100)));
-            tvCarbo.setText("У. " + String.valueOf(Math.round(food.getCarbohydrates() * 100)));
+            tvProt.setText(String.format(getString(R.string.search_food_activity_prot), Math.round(food.getProteins() * 100)));
+            tvFats.setText(String.format(getString(R.string.search_food_activity_fat), Math.round(food.getFats() * 100)));
+            tvCarbo.setText(String.format(getString(R.string.search_food_activity_carbo), Math.round(food.getCarbohydrates() * 100)));
             if (food.getBrand() != null && !food.getBrand().getName().equals("")) {
                 tvBrand.setVisibility(View.VISIBLE);
                 tvBrand.setText(food.getBrand().getName());

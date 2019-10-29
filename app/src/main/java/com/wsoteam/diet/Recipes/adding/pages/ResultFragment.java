@@ -77,7 +77,7 @@ public class ResultFragment extends Fragment {
         TextView portionTextView = rowView.findViewById(R.id.tvIngredientPortion);
 
         nameTextView.setText(food.getName());
-        portionTextView.setText(String.valueOf((int) food.getPortion()) + " г");
+        portionTextView.setText(String.format(getString(R.string.n_g), (int)food.getPortion()));
         ingredientsLayout.addView(rowView);
     }
 

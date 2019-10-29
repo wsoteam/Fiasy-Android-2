@@ -93,7 +93,8 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
         recipeItem = (RecipeItem) getIntent().getSerializableExtra(Config.RECIPE_INTENT);
         Events.logViewRecipe(recipeItem.getName());
 
-        tvKkal.setText(recipeItem.getCalories() + " ккал на порцию");
+        //tvKkal.setText(recipeItem.getCalories() + " ккал на порцию");
+        tvKkal.setText(String.format(getString(R.string.user_recipe_activity_for_portion), recipeItem.getCalories()));
         tvName.setText(recipeItem.getName());
         tvTime.setText(String.valueOf(recipeItem.getTime()));
         tvCarbohydrates.setText(String.valueOf(recipeItem.getCarbohydrates()));
@@ -216,7 +217,6 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
                 return true;
             case R.id.mFavorites:
                 if (key == null) {
-                    Log.e("LOL", "fav");
                     Events.logAddFavoriteRecipe(recipeItem.getName());
                     key = WorkWithFirebaseDB.addFavoriteRecipe(recipeItem);
                     favoriteMenuItem.setIcon(R.drawable.icon_favorites_delete);

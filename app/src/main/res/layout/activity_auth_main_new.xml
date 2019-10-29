@@ -148,7 +148,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:ems="10"
-                android:hint="@string/auth_main_et_hint_email"
+                android:hint="@string/write_email"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/text_color_auth"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -173,7 +173,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:ems="10"
-                android:hint="@string/auth_main_et_hint_pass"
+                android:hint="@string/write_password"
                 android:inputType="textPassword"
                 android:textColor="@color/text_color_auth"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -198,7 +198,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:ems="10"
-                android:hint="@string/auth_main_et_hint_pass_dub"
+                android:hint="@string/repeat_password"
                 android:inputType="textPassword"
                 android:textColor="@color/text_color_auth"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -210,7 +210,7 @@
             android:layout_marginTop="40dp"
             android:fontFamily="sans-serif-light"
             android:letterSpacing="0.05"
-            android:text="@string/auth_main_tv_respasss"
+            android:text="@string/forgot_password"
             android:textColor="@color/black_gray"
             android:textSize="12sp"
             android:visibility="gone"
@@ -227,7 +227,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="70dp"
             android:background="@drawable/auth_button_bg"
-            android:text="@string/auth_main_btn_signin"
+            android:text="@string/signIn_title"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -42,7 +40,7 @@ public class ActivFragment extends QuestionActivityFragments {
         pbActivity.setProgress(choisePosition(activity));
         tvActivity = getView().findViewById(R.id.tvActivity);
         btnSave = getView().findViewById(R.id.btnNext);
-        btnSave.setText(getActivity().getResources().getString(R.string.activity_save));
+        btnSave.setText(getActivity().getResources().getString(R.string.save));
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

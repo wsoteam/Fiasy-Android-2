@@ -20,6 +20,7 @@ public class BlockedDetailPlansPresenter extends BasePresenter<BlockedDetailPlan
 
     private DietPlan dietPlan;
     private Router router;
+    private Context context;
     PlansGroupsRecipe plansRecipe;
     Context context;
 

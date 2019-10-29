@@ -24,7 +24,7 @@
         android:layout_marginRight="32dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/roboto_light"
-        android:text="Продукт добавлен"
+        android:text="@string/successful_alert_dialog_added"
         android:textColor="@color/black"
         android:textSize="14sp" />
 

@@ -62,6 +62,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.text.TextUtils.concat;
+
 public class ProfileFragment extends MvpAppCompatFragment implements ProfileView {
     @BindView(R.id.ibSettings)
     ImageButton ibProfileEdit;
@@ -256,15 +258,15 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
     @Override
     public void fillViewsIfProfileNotNull(Profile profile, DietPlan plan) {
-        tvKcalMax.setText(String.valueOf(profile.getMaxKcal()) + " ккал");
-        tvCarboCount.setText(String.valueOf(profile.getMaxCarbo()) + " г");
-        tvFatCount.setText(String.valueOf(profile.getMaxFat()) + " г");
-        tvProtCount.setText(String.valueOf(profile.getMaxProt()) + " г");
-        tvPlanName.setText(plan != null ? String.format(getString(R.string.plan_profile_txt), plan.getName()) : "");
+        tvKcalMax.setText(String.format(getString(R.string.format_int_kcal), profile.getMaxKcal()));
+        tvCarboCount.setText(String.format(getString(R.string.n_g), profile.getMaxCarbo()));
+        tvFatCount.setText(String.format(getString(R.string.n_g), profile.getMaxFat()));
+        tvProtCount.setText(String.format(getString(R.string.n_g), profile.getMaxProt()));
+        tvPlanName.setText(plan != null ? concat(getString(R.string.nutrition_plan), " - ", plan.getName()) : "");
         if (profile.getFirstName().equals("default")) {
-            tvUserName.setText("Введите Ваше имя");
+            tvUserName.setText(getString(R.string.your_name));
         } else {
-            tvUserName.setText(profile.getFirstName() + " " + profile.getLastName());
+            tvUserName.setText(String.format(getString(R.string.join_strings), profile.getFirstName(), profile.getLastName()));
         }
         setPhoto(profile);
     }

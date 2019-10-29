@@ -11,8 +11,8 @@ import java.util.List;
 
 public class IntroSlidesAdapter extends FragmentPagerAdapter {
   private List<Slide> slides = Arrays.asList(
-      new Slide(R.drawable.ic_intro_1, R.string.intro_text_1),
-      new Slide(R.drawable.ic_intro_2, R.string.intro_text_2),
+      new Slide(R.drawable.ic_intro_1, R.string.unboarding_first_screen),
+      new Slide(R.drawable.ic_intro_2, R.string.unboarding_second_screen),
       new Slide(R.drawable.ic_intro_3, R.string.intro_text_3)
   );
 

@@ -31,33 +31,37 @@
         android:id="@+id/tvTitleFavoriteAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto"
-        android:text="Избранное"
-        android:visibility="gone"
+        android:text="@string/favorites"
         android:textColor="@color/black"
         android:textSize="18sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivAddFavorite" />
+        app:layout_constraintTop_toBottomOf="@+id/ivAddFavorite"
+        tools:visibility="visible"
+        />
 
     <TextView
         android:id="@+id/tvTextAddFavorite"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto_light"
         android:gravity="center"
-        android:visibility="gone"
-        android:text="В этом разделе будут храниться \nпонравившиеся или сохраненные вами \nрецепты и продукты"
+        android:text="@string/product_list_empty"
         android:textColor="@color/black"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitleFavoriteAdd" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleFavoriteAdd"
+        tools:visibility="visible"
+        />
 
     <Button
         android:id="@+id/btnAddFavorite"
@@ -68,12 +72,14 @@
         android:fontFamily="@font/roboto_bold"
         android:paddingLeft="46dp"
         android:paddingRight="46dp"
-        android:text="Добавить продукт"
+        android:text="@string/add_product"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/tvTextAddFavorite"
         app:layout_constraintStart_toStartOf="@+id/tvTextAddFavorite"
-        app:layout_constraintTop_toBottomOf="@+id/tvTextAddFavorite" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTextAddFavorite"
+        tools:visibility="visible"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

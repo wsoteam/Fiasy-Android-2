@@ -48,7 +48,7 @@ public class WheelDatePicker extends LinearLayout implements WheelPicker.OnItemS
         mPickerDay.setOnItemSelectedListener(this);
 
         setMaximumWidthTextYear();
-        mPickerMonth.setMaximumWidthText("Сентябрь");
+        mPickerMonth.setMaximumWidthText(context.getString(R.string.september));
         mPickerDay.setMaximumWidthText("00");
 
         mYear = mPickerYear.getCurrentYear();

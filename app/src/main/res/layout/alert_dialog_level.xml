@@ -16,7 +16,7 @@
         android:paddingTop="16dp"
         android:paddingRight="8dp"
         android:paddingBottom="16dp"
-        android:text="Физическая активность"
+        android:text="@string/alert_dialog_level_title"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -52,7 +52,8 @@
                     android:id="@+id/rbLevelLoadNone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/level_none"/>
+                    android:text="@string/first_activity"
+                    />
 
                 <TextView
                     android:id="@+id/tv_level_none"

@@ -81,15 +81,15 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
         this.eating = eating;
         this.choiseEating = choiseEating;
         tvNameOfFood.setText(eating.getName());
-        tvCalories.setText(eating.getCalories() + " Ккал");
-        tvProt.setText("Б. " + eating.getProtein());
-        tvFats.setText("Ж. " + eating.getFat());
-        tvCarbo.setText("У. " + eating.getCarbohydrates());
+        tvCalories.setText(String.format(context.getString(R.string.n_KCal), eating.getCalories()));
+        tvProt.setText(String.format(context.getString(R.string.search_food_activity_prot), eating.getProtein()));
+        tvFats.setText(String.format(context.getString(R.string.search_food_activity_fat), eating.getFat()));
+        tvCarbo.setText(String.format(context.getString(R.string.search_food_activity_carbo), eating.getCarbohydrates()));
         if (eating.getWeight() == Config.RECIPE_EMPTY_WEIGHT) {
-            tvWeight.setText("1 порция");
+            tvWeight.setText(context.getString(R.string.inside_view_holder_1_portion));
             isRecipe = true;
         } else {
-            tvWeight.setText("Вес: " + eating.getWeight() + "г");
+            tvWeight.setText(String.format(context.getString(R.string.inside_view_holder_weight), eating.getWeight()));
             isRecipe = false;
         }
         this.insideHolderCallback = insideHolderCallback;

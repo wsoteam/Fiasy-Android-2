@@ -121,10 +121,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:fontFamily="@font/roboto"
-                android:hint="Имя"
+                android:hint="@string/name"
                 android:inputType="textCapSentences"
                 android:maxLength="50"
-                android:textColor="#d9424242" />
+                android:textColor="#d9424242"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -145,10 +146,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:fontFamily="@font/roboto"
-                android:hint="Фамилия"
+                android:hint="@string/surname"
                 android:inputType="textCapSentences"
                 android:maxLength="50"
-                android:textColor="#d9424242" />
+                android:textColor="#d9424242"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -168,10 +170,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:fontFamily="@font/roboto"
-                android:hint="Почта"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:maxLength="50"
-                android:textColor="#d9424242" />
+                android:textColor="#d9424242"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

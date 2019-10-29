@@ -34,7 +34,7 @@ import com.wsoteam.diet.R;
 
 final class RulerView extends View {
 
-    private static final String KG_APPEND = " кг";
+    private final String KG_APPEND = " " + getContext().getString(R.string.weight_unit);
     private int mViewHeight;
     private Paint mIndicatorPaint;
     private Paint mLongIndicatorPaint;

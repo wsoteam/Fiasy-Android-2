@@ -194,34 +194,6 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".BranchOfExercises.Activities.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityListOfExGroups"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityListOfEx"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BranchOfExercises.ActivitiesPartOfBody.ActivityExDetail"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BranchOfExercises.ActivitiesProgramm.ActivityListOfTraining"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BranchOfExercises.ActivitiesProgramm.ActivityWithTiles"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BranchOfExercises.ActivitiesArticles.ActivityDetailAcrticles"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".BranchOfAnalyzer.ActivityListAndSearch"
             android:screenOrientation="portrait"
             android:theme="@style/AnalyzerTheme" />

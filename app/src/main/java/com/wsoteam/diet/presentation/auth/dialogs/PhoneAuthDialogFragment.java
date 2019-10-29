@@ -57,7 +57,7 @@ public class PhoneAuthDialogFragment extends DialogFragment {
                         codeEditText.setEnabled(true);
                         phoneNumberEditText.setEnabled(false);
                         infoTextView.setText(R.string.auth_main_phone_text_set_code);
-                        okButton.setText(R.string.auth_main_phone_btn_sign_in);
+                        okButton.setText(R.string.signIn);
                         isSendCode = true;
                     } else {
                         Toast.makeText(getActivity(), getActivity().getString(R.string.auth_phone_wrong_number), Toast.LENGTH_SHORT).show();

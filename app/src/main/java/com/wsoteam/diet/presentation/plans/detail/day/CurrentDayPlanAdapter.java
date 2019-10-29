@@ -117,7 +117,7 @@ public class CurrentDayPlanAdapter extends RecyclerView.Adapter {
 
       tvName.setText(recipeItem.getName());
       tvCalories.setText(
-          recipeItem.getCalories() + " " + context.getResources().getString(R.string.kcal));
+          recipeItem.getCalories() + " " + context.getResources().getString(R.string.calories_unit));
 
       if (recipeItem.isAddedInDiaryFromPlan()){
         Glide.with(context)

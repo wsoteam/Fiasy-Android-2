@@ -24,7 +24,7 @@
         android:background="@color/transparent"
         android:drawableLeft="@drawable/ic_add"
         android:drawablePadding="20dp"
-        android:text="Добавить продукт"
+        android:text="@string/template_add_food_add"
         app:layout_constraintBottom_toTopOf="@+id/btnSave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

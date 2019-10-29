@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
                 ListRecipes groupsRecipes = dataSnapshot.getValue(ListRecipes.class);
                 RecipesHolder.bind(groupsRecipes);
 
-                EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes);
+                EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes, getApplicationContext());
                 GroupsHolder groupsHolder = new GroupsHolder();
                 groupsHolder.bind(eatingGroupsRecipes);
 

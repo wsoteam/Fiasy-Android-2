@@ -4,9 +4,9 @@
     <group android:id="@+id/menugroup1">
         <item
             android:id="@+id/delete_food"
-            android:title="Удалить"/>
+            android:title="@string/food_popup_menu_delete"/>
         <item
             android:id="@+id/edit_food"
-            android:title="Редактировать"/>
+            android:title="@string/food_popup_menu_change"/>
     </group>
 </menu>
