@@ -4,13 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Editable
 import android.text.SpannableString
+import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.amplitude.api.Amplitude
+import com.arellomobile.mvp.MvpAppCompatActivity
 import com.wsoteam.diet.AmplitudaEvents
 import com.wsoteam.diet.Authenticate.POJO.Box
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food
@@ -22,30 +25,71 @@ import com.wsoteam.diet.R.layout
 import com.wsoteam.diet.common.Analytics.EventProperties
 import com.wsoteam.diet.common.Analytics.Events
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
-import kotlinx.android.synthetic.main.activity_detail.tvBrand
-import kotlinx.android.synthetic.main.activity_detail_of_food.spnFood
-import kotlinx.android.synthetic.main.detail_activity.tvTitle
+import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.view_calculate_card.*
 import kotlinx.android.synthetic.main.view_elements.*
 import kotlinx.android.synthetic.main.view_lock_premium.*
 
-class DetailActivity : AppCompatActivity(R.layout.activity_detail) {
+class DetailActivity : MvpAppCompatActivity(), DetailView {
   private var basketEntity: BasketEntity = BasketEntity()
   private val BREAKFAST_POSITION = 0
   private val LUNCH_POSITION = 1
   private val DINNER_POSITION = 2
   private val SNACK_POSITION = 3
   private val EMPTY_FIELD = -1
+  private var basketPresenter = DetailBasketPresenter()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_detail)
     handlePremiumState()
     handleFood()
+
+    edtWeightCalculate.addTextChangedListener(object : TextWatcher {
+      override fun afterTextChanged(p0: Editable?) {
+
+      }
+
+      override fun beforeTextChanged(
+        p0: CharSequence?,
+        p1: Int,
+        p2: Int,
+        p3: Int
+      ) {
+
+      }
+
+      override fun onTextChanged(
+        p0: CharSequence?,
+        p1: Int,
+        p2: Int,
+        p3: Int
+      ) {
+        if (p0.toString() == "-") {
+          edtWeightCalculate.setText("")
+        } else {
+          if (edtWeightCalculate.text.toString() != "") {
+            calculateMainParameters(p0)
+          } else {
+            tvProtCalculate.text = "0 " + getString(R.string.gramm)
+            tvKcalCalculate.text = "0 " + getString(R.string.kcal)
+            tvCarboCalculate.text = "0 " + getString(R.string.gramm)
+            tvFatCalculate.text = "0 " + getString(R.string.gramm)
+          }
+        }
+      }
+    })
+  }
+
+  private fun calculateMainParameters(weight: CharSequence?) {
+      basketPresenter.calculate(basketEntity, weight)
   }
 
   private fun handleFood() {
     if (intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) is BasketEntity) {
       basketEntity = intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) as BasketEntity
       handleBasketEntity()
+      basketPresenter.attachView(this)
     }
   }
 
@@ -121,11 +165,11 @@ class DetailActivity : AppCompatActivity(R.layout.activity_detail) {
   }
 
   private fun handlePremiumState() {
-    if (isPremUser()) {
-      cvLock.visibility = View.GONE
+    if (!isPremUser()) {
+      include_lock_premium.visibility = View.GONE
     } else {
       paintPremText()
-      btnShowPrem.setOnClickListener { view -> showPremiumScreen() }
+      btnShowPrem.setOnClickListener { showPremiumScreen() }
     }
   }
 

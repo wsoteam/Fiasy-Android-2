@@ -101,7 +101,7 @@
 
     <include
         layout="@layout/view_lock_premium"
-        android:id="@+id/include3"
+        android:id="@+id/include_lock_premium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

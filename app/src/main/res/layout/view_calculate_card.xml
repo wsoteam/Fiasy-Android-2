@@ -23,7 +23,7 @@
       >
 
     <Spinner
-        android:id="@+id/spnFood"
+        android:id="@+id/spnPortions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -106,7 +106,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="2500"
+        android:text="0"
         android:textColor="#ef7d02"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/tvProtCalculate"
