@@ -109,7 +109,7 @@ public class PlansGroupsRecipe implements GroupsRecipes {
             }
         } else {
             for (int i = 0; i < days; i++) {
-                recipeForDays.add(selectRecipe(listRecipes));
+                recipeForDays.add(selectRecipe(listRecipes.getListrecipes(), plan.getFlag()));
             }
         }
 
@@ -121,20 +121,52 @@ public class PlansGroupsRecipe implements GroupsRecipes {
 
     }
 
-    RecipeForDay selectRecipe(ListRecipes listRecipes){
+  RecipeForDay selectRecipe( List<RecipeItem> recipes, String flag) {
 
-        RecipeForDay forDay = new RecipeForDay();
-        Collections.shuffle(listRecipes.getListrecipes());
-        forDay.setBreakfast(listRecipes.getListrecipes().subList(0, 3));
-        Collections.shuffle(listRecipes.getListrecipes());
-        forDay.setLunch(listRecipes.getListrecipes().subList(0, 3));
-        Collections.shuffle(listRecipes.getListrecipes());
-        forDay.setDinner(listRecipes.getListrecipes().subList(0, 3));
-        Collections.shuffle(listRecipes.getListrecipes());
-        forDay.setSnack(listRecipes.getListrecipes().subList(0, 3));
+    Set<RecipeItem> recipesSet = new HashSet<>();
 
-        return forDay;
+    Collections.shuffle(recipes);
+    RecipeForDay forDay = new RecipeForDay();
+
+    for (int i = 0, count = 0; i < recipes.size() && count < 3; i++) {
+      if (recipes.get(i).getBreakfast().contains(flag)) {
+        if (recipesSet.add(recipes.get(i))) count++;
+      }
     }
+
+    forDay.setBreakfast(new ArrayList<RecipeItem>(recipesSet));
+    recipesSet.clear();
+    Collections.shuffle(recipes);
+
+    for (int i = 0, count = 0; i < recipes.size() && count < 3; i++) {
+      if (recipes.get(i).getLunch().contains(flag)) {
+        if (recipesSet.add(recipes.get(i))) count++;
+      }
+    }
+
+    forDay.setLunch(new ArrayList<RecipeItem>(recipesSet));
+    recipesSet.clear();
+    Collections.shuffle(recipes);
+
+    for (int i = 0, count = 0; i < recipes.size() && count < 3; i++) {
+      if (recipes.get(i).getDinner().contains(flag)) {
+        if (recipesSet.add(recipes.get(i))) count++;
+      }
+    }
+
+    forDay.setDinner(new ArrayList<RecipeItem>(recipesSet));
+    recipesSet.clear();
+    Collections.shuffle(recipes);
+
+    for (int i = 0, count = 0; i < recipes.size() && count < 3; i++) {
+      if (recipes.get(i).getSnack().contains(flag)) {
+        if (recipesSet.add(recipes.get(i)))count++;
+      }
+    }
+
+    forDay.setSnack(new ArrayList<RecipeItem>(recipesSet));
+    return forDay;
+  }
 
 
     RecipeForDay selectRecipe(Set<RecipeItem> buffer){
