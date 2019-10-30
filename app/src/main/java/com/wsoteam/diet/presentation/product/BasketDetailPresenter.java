@@ -26,7 +26,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
 
 
 
-    void calculate(BasketEntity basketEntity, CharSequence weight){
+    void calculate(CharSequence weight){
         double portion = Double.parseDouble(weight.toString());
 
         String prot = String.valueOf(Math.round(portion * basketEntity.getProteins())) + " " + context.getResources().getString(R.string.gramm);
