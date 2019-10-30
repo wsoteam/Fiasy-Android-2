@@ -46,14 +46,7 @@
         <item quantity="other">%d дней подряд ведется запись</item>
     </plurals>
 
-    <plurals name="meas_days_ago">
-        <item quantity="zero"></item>
-        <item quantity="one">%d день назад</item>
-        <item quantity="two">%d дня назад</item>
-        <item quantity="few">%d дня назад</item>
-        <item quantity="many">%d дней назад</item>
-        <item quantity="other">%d дней назад</item>
-    </plurals>
+
     <string name="breakfast">Завтрак</string>
     <string name="lunch">Обед</string>
     <string name="dinner">Ужин</string>
@@ -837,6 +830,31 @@
 
     <string name="eating_trigger">Питание</string>
 
+//
+
+    <string-array name="names_months_meas">
+        <item>января</item>
+        <item>февраля</item>
+        <item>марта</item>
+        <item>апреля</item>
+        <item>мая</item>
+        <item>июня</item>
+        <item>июля</item>
+        <item>августа</item>
+        <item>сентября</item>
+        <item>октября</item>
+        <item>ноября</item>
+        <item>декабря</item>
+    </string-array>
+
+    <plurals name="meas_days_ago">
+        <item quantity="zero"></item>
+        <item quantity="one">%d день назад</item>
+        <item quantity="two">%d дня назад</item>
+        <item quantity="few">%d дня назад</item>
+        <item quantity="many">%d дней назад</item>
+        <item quantity="other">%d дней назад</item>
+    </plurals>
 
     <string name="enter_multi_params">Введите данные</string>
     <string name="meas_kg">кг</string>
@@ -881,6 +899,7 @@
     <string name="help_meas_second_title">Зачем это нужно?</string>
     <string name="help_meas_second_text">Вес может колебаться в зависимости от фазы менструального цикла у женщин или употребления продуктов способных удерживать жидкость в организме, поэтому взвешиваясь раз в неделю или даже месяц и ориентируясь на разницу в полученных цифрах, реальное изменение веса может оказаться замаскированным случайными факторами, вызвавшими отклонение веса, то есть показатели будут не точными.</string>
     <string name="help_meas_third_text">Отслеживайте средний вес за неделю, чтобы наглядно увидеть, как меняется ваш вес. Если делать замеры не регулярно, будет сложно увидеть прогресс. Обязательно делайте 2-х недельные перерывы на поддержание веса, после 4 недель диеты. Так ваш организм не будет испытывать сильного стресса. Снизиться вероятность вернуться к старым пищевым привычкам.</string>
+    //
     <string-array name="settings_items">
         <item>Premium аккаунт</item>
         <!--<item>Еда и аллергия</item>-->
@@ -1136,18 +1155,5 @@
         <item>Тяжелая физическая работа или ежедневные интенсивные тренировки по 2 раза в день</item>
     </string-array>
 
-    <string-array name="names_months_meas">
-        <item>января</item>
-        <item>февраля</item>
-        <item>марта</item>
-        <item>апреля</item>
-        <item>мая</item>
-        <item>июня</item>
-        <item>июля</item>
-        <item>августа</item>
-        <item>сентября</item>
-        <item>октября</item>
-        <item>ноября</item>
-        <item>декабря</item>
-    </string-array>
+
 </resources>
