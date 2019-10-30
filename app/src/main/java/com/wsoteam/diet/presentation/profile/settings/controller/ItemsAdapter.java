@@ -36,10 +36,16 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
     private int textColor;
     private int drawableArrow;
 
-    private final static int PREMIUM = 0, PERSONAL = 1, KCAL = 2,
-    //NOTIFICATIONS = 3,
-    //TARGET = 4,
-    HELP = 3, LOGOUT = 4;
+    private final int
+        PREMIUM = 0,
+        // FOOD = 1,
+        PROMO = 1,
+        PERSONAL = 2,
+        KCAL = 3,
+        //NOTIFICATIONS = 3,
+        //TARGET = 4,
+        HELP = 4,
+        LOGOUT = 5;
 
     public ItemsAdapter(Context context, boolean isNotPrem) {
         this.context = context;
@@ -47,11 +53,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
 
         if (isNotPrem) {
             names = context.getResources().getStringArray(R.array.settings_items);
-            ids = new int[] { PREMIUM, PERSONAL, HELP, LOGOUT };
+            ids = new int[] { PREMIUM, PROMO, PERSONAL, KCAL, HELP, LOGOUT };
             this.drawablesLeft = context.getResources().obtainTypedArray(R.array.left_drawables);
         } else {
             names = context.getResources().getStringArray(R.array.settings_items_prem);
-            ids = new int[] { PERSONAL, HELP, LOGOUT };
+            ids = new int[] { PROMO, PERSONAL, KCAL, HELP, LOGOUT };
             this.drawablesLeft = context.getResources().obtainTypedArray(R.array.left_drawables_prem);
         }
     }

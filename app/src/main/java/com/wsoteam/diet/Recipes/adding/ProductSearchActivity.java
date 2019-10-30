@@ -1,9 +1,7 @@
 package com.wsoteam.diet.Recipes.adding;
 
-
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
@@ -15,41 +13,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-import com.wsoteam.diet.App;
-import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentSearch;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.backward.FoodConverter;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
-
+import com.wsoteam.diet.utils.DrawableUtilsKt;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class ProductSearchActivity extends AppCompatActivity {
 
@@ -119,7 +106,8 @@ public class ProductSearchActivity extends AppCompatActivity {
     }
 
     private void showNoFind() {
-        Glide.with(this).load(R.drawable.ic_no_find).into(ivEmptyImage);
+        ivEmptyImage.setImageDrawable(DrawableUtilsKt.getVectorIcon(this,
+            R.drawable.ic_no_find));
         tvEmptyText.setText(getResources().getString(R.string.text_no_find_food));
         tvEmptyText.setVisibility(View.VISIBLE);
         ivEmptyImage.setVisibility(View.VISIBLE);
@@ -135,10 +123,10 @@ public class ProductSearchActivity extends AppCompatActivity {
     private void changeSpeakButton(CharSequence charSequence) {
         if (charSequence.length() > 0 && isCanSpeak) {
             isCanSpeak = false;
-            Glide.with(this).load(R.drawable.ic_cancel).into(ibSpeakAndClear);
+            ibSpeakAndClear.setImageDrawable(DrawableUtilsKt.getVectorIcon(this, R.drawable.ic_cancel));
         } else if (charSequence.length() == 0 && !isCanSpeak) {
             isCanSpeak = true;
-            Glide.with(this).load(R.drawable.ic_speak).into(ibSpeakAndClear);
+            ibSpeakAndClear.setImageDrawable(DrawableUtilsKt.getVectorIcon(this, R.drawable.ic_speak));
         }
     }
 

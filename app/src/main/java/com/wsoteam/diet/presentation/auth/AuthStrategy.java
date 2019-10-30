@@ -3,6 +3,7 @@ package com.wsoteam.diet.presentation.auth;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -11,6 +12,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.utils.RxFirebase;
 import io.reactivex.disposables.CompositeDisposable;
@@ -29,6 +31,26 @@ public abstract class AuthStrategy {
     LoginManager.getInstance().logOut();
     GoogleAuthStrategy.signOut(context);
     UserDataHolder.clearObject();
+
+    final String[] clearPrefs = new String[] {
+        Config.ONBOARD_PROFILE_ACTIVITY,
+        Config.ONBOARD_PROFILE_HEIGHT,
+        Config.ONBOARD_PROFILE_NAME,
+        Config.ONBOARD_PROFILE_SEX,
+        Config.ONBOARD_PROFILE_WEIGHT,
+        Config.ONBOARD_PROFILE_YEARS,
+        Config.ONBOARD_PROFILE_PURPOSE,
+    };
+
+    final SharedPreferences.Editor editor = context
+        .getSharedPreferences(Config.ONBOARD_PROFILE, Context.MODE_PRIVATE)
+        .edit();
+
+    for (String key : clearPrefs) {
+      editor.remove(key);
+    }
+
+    editor.apply();
   }
 
   public AuthStrategy(Fragment fragment) {

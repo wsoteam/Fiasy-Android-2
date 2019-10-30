@@ -145,4 +145,9 @@
 
         <attr name="notch_color" />
     </declare-styleable>
+
+    <declare-styleable name="TimerView">
+        <attr name="numberStyle" format="reference" />
+        <attr name="labelStyle" format="reference" />
+    </declare-styleable>
 </resources>

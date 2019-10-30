@@ -39,16 +39,10 @@ import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
-
 import com.wsoteam.diet.utils.DrawableUtilsKt;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Map;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import io.intercom.android.sdk.Intercom;
 
 public class ActivityDetailOfFood extends AppCompatActivity {
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
@@ -463,10 +457,10 @@ public class ActivityDetailOfFood extends AppCompatActivity {
     private String addFavorite() {
         Events.logAddFavorite(foodItem.getName());
         FavoriteFood favoriteFood = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), "empty", foodItem.getName(), foodItem.getBrand(),
-          foodItem.getPortion(), foodItem.isLiquid(), foodItem.getKilojoules(), foodItem.getCalories(), foodItem.getProteins(), foodItem.getCarbohydrates(),
-          foodItem.getSugar(), foodItem.getFats(), foodItem.getSaturatedFats(), foodItem.getMonoUnSaturatedFats(), foodItem.getPolyUnSaturatedFats(), foodItem.getCholesterol(),
+            foodItem.getPortion(), foodItem.isLiquid(), foodItem.getKilojoules(), foodItem.getCalories(), foodItem.getProteins(), foodItem.getCarbohydrates(),
+            foodItem.getSugar(), foodItem.getFats(), foodItem.getSaturatedFats(), foodItem.getMonoUnSaturatedFats(), foodItem.getPolyUnSaturatedFats(), foodItem.getCholesterol(),
+            foodItem.getCellulose(), foodItem.getSodium(), foodItem.getPottassium(), foodItem.getPercentCarbohydrates(), foodItem.getPercentFats(), foodItem.getPercentProteins());
         String key = WorkWithFirebaseDB.addFoodFavorite(favoriteFood);
         return key;
     }
-
 }

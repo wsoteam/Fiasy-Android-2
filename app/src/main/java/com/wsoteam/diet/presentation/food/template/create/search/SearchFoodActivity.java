@@ -1,6 +1,5 @@
 package com.wsoteam.diet.presentation.food.template.create.search;
 
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,17 +16,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
-import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplateHolder;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
@@ -37,16 +35,12 @@ import com.wsoteam.diet.common.networking.food.FoodResultAPI;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 import com.wsoteam.diet.presentation.food.template.create.detail.DetailFoodActivity;
-
+import com.wsoteam.diet.utils.DrawableUtilsKt;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 import static android.text.TextUtils.concat;
 
@@ -101,21 +95,19 @@ public class SearchFoodActivity extends AppCompatActivity {
             }
         });
 
-        edtSearchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    search(edtSearchField.getText().toString().replaceAll("\\s+", " "));
-                    return true;
-                }
-                return false;
+        edtSearchField.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                search(edtSearchField.getText().toString().replaceAll("\\s+", " "));
+                return true;
             }
+            return false;
         });
 
     }
 
     private void showNoFind() {
-        Glide.with(this).load(R.drawable.ic_no_find).into(ivEmptyImage);
+        ivEmptyImage.setImageDrawable(DrawableUtilsKt.getVectorIcon(this,
+            R.drawable.ic_no_find));
         tvEmptyText.setText(getResources().getString(R.string.text_no_find_food));
         ivEmptyImage.setVisibility(View.VISIBLE);
         tvEmptyText.setVisibility(View.VISIBLE);
@@ -129,23 +121,20 @@ public class SearchFoodActivity extends AppCompatActivity {
     private void changeSpeakButton(CharSequence charSequence) {
         if (charSequence.length() > 0 && isCanSpeak) {
             isCanSpeak = false;
-            Glide.with(this).load(R.drawable.ic_cancel).into(ibSpeakAndClear);
+            ibSpeakAndClear.setImageDrawable(DrawableUtilsKt.getVectorIcon(this, R.drawable.ic_cancel));
         } else if (charSequence.length() == 0 && !isCanSpeak) {
             isCanSpeak = true;
-            Glide.with(this).load(R.drawable.ic_speak).into(ibSpeakAndClear);
+            ibSpeakAndClear.setImageDrawable(DrawableUtilsKt.getVectorIcon(this, R.drawable.ic_speak));
         }
     }
 
     private boolean checkFood(Food food) {
-
-        for (Food f :
-                foodList) {
+        for (Food f : foodList) {
             if (f.getName().equals(food.getName())) {
                 return true;
             }
         }
         return false;
-
     }
 
 

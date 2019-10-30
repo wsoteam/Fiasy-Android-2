@@ -28,6 +28,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.common.backward.FoodConverter;
 
+import com.wsoteam.diet.utils.DrawableUtilsKt;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -87,7 +88,7 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
     }
 
     private void showNoFind() {
-        Glide.with(getActivity()).load(R.drawable.ic_no_find).into(ivAddFavorite);
+        ivAddFavorite.setImageDrawable(DrawableUtilsKt.getVectorIcon(requireContext(), R.drawable.ic_no_find));
         tvTitleFavoriteAdd.setText(getActivity().getResources().getString(R.string.title_no_find_food));
         tvTextAddFavorite.setText(getActivity().getResources().getString(R.string.text_no_find_food));
         ivAddFavorite.setVisibility(View.VISIBLE);

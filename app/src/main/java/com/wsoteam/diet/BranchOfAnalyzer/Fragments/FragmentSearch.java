@@ -2,27 +2,24 @@ package com.wsoteam.diet.BranchOfAnalyzer.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.EventLog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-import com.wsoteam.diet.App;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.ActivityCreateFood;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDAO;
 import com.wsoteam.diet.BranchOfAnalyzer.TabsFragment;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
@@ -30,18 +27,12 @@ import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.backward.FoodConverter;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
-import com.wsoteam.diet.common.networking.food.POJO.FoodResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+import com.wsoteam.diet.utils.DrawableUtilsKt;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FragmentSearch extends Fragment implements TabsFragment {
 
@@ -86,7 +77,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     }
 
     private void showNoFind() {
-        Glide.with(getActivity()).load(R.drawable.ic_no_find).into(ivSearchImage);
+        ivSearchImage.setImageDrawable(DrawableUtilsKt.getVectorIcon(requireContext(), R.drawable.ic_no_find));
         tvTitleFavoriteAdd.setText(getActivity().getResources().getString(R.string.title_no_find_food));
         tvTextAddFavorite.setText(getActivity().getResources().getString(R.string.text_no_find_food));
         ivSearchImage.setVisibility(View.VISIBLE);
@@ -96,7 +87,7 @@ public class FragmentSearch extends Fragment implements TabsFragment {
     }
 
     private void showStartUI() {
-        Glide.with(getActivity()).load(R.drawable.ic_start_search).into(ivSearchImage);
+        ivSearchImage.setImageDrawable(DrawableUtilsKt.getVectorIcon(requireContext(), R.drawable.ic_start_search));
         tvTextAddFavorite.setText(getActivity().getResources().getString(R.string.text_start_search));
         ivSearchImage.setVisibility(View.VISIBLE);
         tvTextAddFavorite.setVisibility(View.VISIBLE);

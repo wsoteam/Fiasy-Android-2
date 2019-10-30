@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
-        android:src="@drawable/undraw_track_and_field_33_qn"
+        app:srcCompat="@drawable/undraw_track_and_field_33_qn"
         android:layout_marginTop="8dp"
         />
 

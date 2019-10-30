@@ -29,6 +29,7 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.utils.DrawableUtilsKt;
 import java.util.Iterator;
 import java.util.Map;

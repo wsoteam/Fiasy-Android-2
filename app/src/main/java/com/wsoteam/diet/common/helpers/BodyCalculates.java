@@ -275,7 +275,7 @@ public class BodyCalculates {
 
 
         profile.setMaxWater(WaterActivity.DEFAULT_NORMA);
-        profile.setWaterCount(maxWater);
+        profile.setWaterCount(waterCount);
         profile.setMaxKcal((int)result);
         profile.setMaxFat((int) fat);
         profile.setMaxProt((int) protein);

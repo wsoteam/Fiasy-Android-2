@@ -20,7 +20,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.amplitude.api.Amplitude;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,13 +34,11 @@ import com.wsoteam.diet.Articles.ListArticlesFragment;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
 import com.wsoteam.diet.Articles.POJO.ListArticles;
 import com.wsoteam.diet.Authenticate.POJO.Box;
-import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietModule;
 import com.wsoteam.diet.DietPlans.POJO.DietPlansHolder;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
-import com.wsoteam.diet.MainScreen.Fragments.FragmentDiary;
 import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodDB;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
@@ -51,9 +48,7 @@ import com.wsoteam.diet.Recipes.POJO.RecipesHolder;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
-import com.wsoteam.diet.presentation.activity.UserActivityFragment;
 import com.wsoteam.diet.common.Analytics.SavedConst;
-import com.wsoteam.diet.common.remote.UpdateChecker;
 import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
@@ -113,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.bnv_main_profile:
                 Amplitude.getInstance().logEvent(Events.VIEW_PROFILE);
-                Intercom.client().logEvent(Events.VIEW_PROFILE);
                 isMainFragment = false;
                 transaction.replace(R.id.flFragmentContainer, new ProfileFragment()).commit();
                 window.setStatusBarColor(Color.parseColor("#AE6A23"));
@@ -166,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //checkForcedGrade();
-        IntercomFactory.login(FirebaseAuth.getInstance().getCurrentUser().getUid());
         new AsyncWriteFoodDB().execute(MainActivity.this);
         if (GroupsHolder.getGroupsRecipes() == null) {
             loadRecipes();

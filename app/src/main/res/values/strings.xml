@@ -87,7 +87,7 @@
   <string name="days">days</string>
   <string name="join">Join</string>
   <string name="add">Add</string>
-  <string name="activity_detail_saved_food_def_value">activity_detail_food_0_gram</string>
+  <string name="activity_detail_saved_food_def_value">@string/activity_detail_food_0_gram</string>
   <string name="activity_plan_recipes_0_kcal">0 kcal per serving</string>
   <string name="activity_plan_recipes_method">Cooking method</string>
   <string name="fragment_adding_recipe_result_description">Recipe description</string>
@@ -218,6 +218,7 @@
   <string name="enter_email_hint">Enter email address</string>
   <string name="repeat_password_hint">Re-enter password</string>
   <string name="constraint_error_passwords_must_match">The passwords must match</string>
+  <string name="constraint_error_user_profile_name_min_length">Минимальная длина логина 3 символов</string>
   <string name="auth_user_set_weak_password">The password is too weak: add more characters</string>
   <string name="personal_diary">Creating your personalized diet journal</string>
   <string name="update_message">A new version of the app has been released!  \nUpdate the app on Google Play</string>
@@ -1020,4 +1021,49 @@ Share your accomplishments with friends:</string>
   <string name="tvItemPlanTime">Cooking time:</string>
   <string name="tvSaturatedFats">Saturated</string>
   <string name="tvUnSaturatedFats">Unsaturated</string>
+
+  <string name="main_screen_topbar_left">%s ккал</string>
+  <string name="main_screen_topbar_calories">@string/daily_widget_calories_eaten</string>
+  <string name="main_screen_topbar_calories_left">@string/daily_widget_calories_burned</string>
+  <string name="main_screen_topbar_prot">Белки</string>
+  <string name="main_screen_topbar_fat">Жиры</string>
+  <string name="main_screen_topbar_carbo">Углеводы</string>
+
+  <string name="main_screen_water">Вода</string>
+
+  <string name="daily_widget_calories_left">Осталось</string>
+  <string name="daily_widget_calories_excess">Превышение</string>
+  <string name="daily_widget_calories_burned">Сожжено</string>
+  <string name="daily_widget_calories_eaten">Съедено</string>
+
+  <string name="user_activity_title">Активность</string>
+  <string name="user_activity_section_favorite">Избранное</string>
+  <string name="user_activity_section_my">Мои активности</string>
+  <string name="user_activity_section_defaults">Стандартные активности</string>
+  <string name="user_activity_time_elapsed">%d минут</string>
+  <string name="user_activity_time_elapsed_wh" formatted="false">%dч %d м</string>
+  <string name="user_activity_time_elapsed_wh_wm">%dч</string>
+  <string name="user_activity_burned">%d ккал</string>
+  <string name="action_add">Добавить</string>
+  <string name="action_done">Готово</string>
+  <string name="action_add_to_favorite">Добавить в избранное</string>
+  <string name="add_user_activity_done_button">Добавить в дневник</string>
+  <string name="add_user_activity_burned_hint">Потрачено калорий</string>
+  <string name="add_user_activity_duration_hint">за %s</string>
+  <string name="add_user_activity_burned">= %d ккал</string>
+  <string name="add_user_activity_warning">Неправильно добавленная активность, может показывать недостоверные данные по дневной норме КБЖУ</string>
+  <string name="add_user_activity_hint">Введите название активности</string>
+  <string name="widget_user_activity_title">Активности</string>
+  <string name="widget_user_activity_show_all">Все</string>
+  <string name="calendar_today">Сегодня</string>
+  <string name="widget_weight_title">Измерение тела</string>
+  <string name="action_refresh">Обновить</string>
+
+
+  <plurals name="duration_minutes">
+    <item quantity="one">минуту</item>
+    <item quantity="few">минуты</item>
+    <item quantity="many">минут</item>
+    <item quantity="other">минут</item>
+  </plurals>
 </resources>

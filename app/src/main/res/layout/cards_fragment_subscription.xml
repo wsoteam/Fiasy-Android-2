@@ -118,7 +118,7 @@
             <ImageView
                 android:id="@+id/ivCentral"
                 android:layout_width="match_parent"
-                android:src="@drawable/central_image_prem"
+                app:srcCompat="@drawable/central_image_prem"
                 android:scaleType="fitXY"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
@@ -137,7 +137,7 @@
             <ImageView
                 android:id="@+id/ivTopRight"
                 android:scaleType="fitXY"
-                android:src="@drawable/right_top_prem"
+                app:srcCompat="@drawable/right_top_prem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
@@ -157,7 +157,7 @@
             <ImageView
                 android:id="@+id/ivBottomRight"
                 android:scaleType="fitXY"
-                android:src="@drawable/right_bottom_prem"
+                app:srcCompat="@drawable/right_bottom_prem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
@@ -176,7 +176,7 @@
             <ImageView
                 android:id="@+id/ivBottomLeft"
                 android:scaleType="fitXY"
-                android:src="@drawable/left_bottom_prem"
+                app:srcCompat="@drawable/left_bottom_prem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
@@ -195,7 +195,7 @@
             <ImageView
                 android:id="@+id/ivTopLeft"
                 android:scaleType="fitXY"
-                android:src="@drawable/top_left_prem"
+                app:srcCompat="@drawable/top_left_prem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>

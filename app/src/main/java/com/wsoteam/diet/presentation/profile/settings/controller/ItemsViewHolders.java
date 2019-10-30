@@ -1,17 +1,15 @@
 package com.wsoteam.diet.presentation.profile.settings.controller;
 
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
-import com.wsoteam.diet.R;
-
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.squareup.picasso.Picasso;
+import com.wsoteam.diet.R;
+import com.wsoteam.diet.utils.DrawableUtilsKt;
 
 public class ItemsViewHolders extends RecyclerView.ViewHolder{
     @BindView(R.id.ivIconItem) ImageView ivIconItem;
@@ -29,7 +27,7 @@ public class ItemsViewHolders extends RecyclerView.ViewHolder{
         tvName.setText(name);
         tvName.setTextColor(color);
 
-        Picasso.get().load(drawable).into(ivIconItem);
+        ivIconItem.setImageDrawable(DrawableUtilsKt.getVectorIcon(itemView.getContext(), drawable));
 
         if (!isLogOut){
             Picasso.get().load(drawableArrow).into(ivArrow);

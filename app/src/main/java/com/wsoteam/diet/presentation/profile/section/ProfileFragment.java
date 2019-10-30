@@ -57,6 +57,7 @@ import com.wsoteam.diet.common.views.graph.formater.XYearFormatter;
 import com.wsoteam.diet.common.views.graph.marker.BarMarker;
 import com.wsoteam.diet.presentation.profile.settings.ProfileSettingsActivity;
 
+import com.wsoteam.diet.utils.DrawableUtilsKt;
 import com.wsoteam.diet.utils.ViewUtils;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -404,9 +405,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
             isOpen = false;
 
-            ibExpandable.setImageDrawable(VectorDrawableCompat.create(getResources(),
-                R.drawable.ic_open_detail_profile,
-                getContext().getTheme()));
+            ibExpandable.setImageDrawable(DrawableUtilsKt.getVectorIcon(getContext(),
+                R.drawable.ic_open_detail_profile));
         } else {
             ViewUtils.apply(getView(), new int[]{
                 R.id.tvCarboCount, R.id.tvFatCount, R.id.tvProtCount, R.id.tvLabelProt, R.id.tvLabelCarbo,
@@ -415,9 +415,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
             isOpen = true;
 
-            ibExpandable.setImageDrawable(VectorDrawableCompat.create(getResources(),
-                R.drawable.ic_close_detail_profile,
-                getContext().getTheme()));
+            ibExpandable.setImageDrawable(DrawableUtilsKt.getVectorIcon(getContext(),
+                R.drawable.ic_close_detail_profile));
         }
     }
 

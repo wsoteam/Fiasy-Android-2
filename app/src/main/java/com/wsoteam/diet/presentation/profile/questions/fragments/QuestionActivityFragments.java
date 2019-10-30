@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.profile.questions.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Button;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatSeekBar;

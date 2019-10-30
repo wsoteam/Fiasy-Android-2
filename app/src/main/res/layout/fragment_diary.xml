@@ -59,7 +59,7 @@
           android:id="@+id/drag_controller"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:src="@drawable/shape_drag_controller"
+          app:srcCompat="@drawable/shape_drag_controller"
           android:layout_gravity="center_horizontal"
           android:paddingBottom="24dp"
           />

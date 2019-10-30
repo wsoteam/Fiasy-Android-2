@@ -15,7 +15,7 @@
       android:padding="12dp"
       android:drawablePadding="16dp"
       android:background="@null"
-      android:hint="@string/etSearch"
+      android:hint="@string/search"
       android:textColorHint="#8E8E93"
       android:inputType="textAutoComplete"
       android:maxLines="1"

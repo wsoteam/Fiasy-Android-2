@@ -40,13 +40,12 @@ public class ActivFragment extends QuestionActivityFragments {
         pbActivity.setProgress(choisePosition(activity));
         tvActivity = getView().findViewById(R.id.tvActivity);
         btnSave = getView().findViewById(R.id.btnNext);
-        btnSave.setText(getActivity().getResources().getString(R.string.activity_save));
-        btnSave.setOnClickListener((View view) -> {
-                Intent intent = new Intent();
-                intent.putExtra(Config.ACTIVITY_CHANGE_RESULT, pbActivity.getProgress());
-                getActivity().setResult(Activity.RESULT_OK, intent);
-                getActivity().finish();
-            }
+        btnSave.setText(getActivity().getResources().getString(R.string.save));
+        btnSave.setOnClickListener(view -> {
+            Intent intent = new Intent();
+            intent.putExtra(Config.ACTIVITY_CHANGE_RESULT, pbActivity.getProgress());
+            getActivity().setResult(Activity.RESULT_OK, intent);
+            getActivity().finish();
         });
     }
 

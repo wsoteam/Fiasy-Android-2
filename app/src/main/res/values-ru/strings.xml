@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
+  <string name="app_name" translatable="false">Fiasy</string>
   <!-- Unboarding Screen -->
   <string name="unboarding_welcome">Добро пожаловать в</string>
   <string name="unboarding_first_screen">Множество научных статей о правильном питании</string>
@@ -150,7 +150,7 @@
   <string name="promotional_navigation">Промокоды</string>
   <string name="promotional_title">Добавление промокодов</string>
   <string name="promotional_description">Промокоды дают вам возможность\u0020\u0020использовать приложение со скидкой или получить подарок</string>
-  <string name="enter_promotional_code">Вести промокод</string>
+  <string name="enter_promotional_code">Ввести промокод</string>
   <string name="enter_your_promotional_code">Введите ваш промокод</string>
   <string name="active_promode">АКТИВИРОВАТЬ ПРОМОКОД</string>
   <string name="invalid_promotional_code_error">Неверный промокод</string>
@@ -544,7 +544,7 @@
 
   // Вода
   <string name="water_achievement_title_2">Поздравляем!</string>
-  <string name="water_achievement_txt_2">Вы выпили ежеденевную норму воды! Продолжайте в том же духе!</string>
+  <string name="water_achievement_txt_2">Вы выпили ежедневную норму воды! Продолжайте в том же духе!</string>
 
   // Алерт оцените приложение
   <string name="alert_dialog_grade_if_like">Если вам нравится наше приложение, \nпоставьте оценку и напишите свой отзыв.</string>
@@ -632,14 +632,14 @@
 
 
   <plurals name="day_plurals">
-    <item quantity="one">день%d</item>
+    <item quantity="one">день</item>
     <item quantity="few">дня</item>
     <item quantity="many">дней</item>
     <item quantity="other">дней</item>
   </plurals>
 
   <plurals name="recipe_plurals">
-    <item quantity="one">рецепт%d</item>
+    <item quantity="one">рецепт</item>
     <item quantity="few">рецепта</item>
     <item quantity="many">рецептов</item>
     <item quantity="other">рецептов</item>

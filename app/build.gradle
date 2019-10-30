@@ -19,6 +19,7 @@ android {
         multiDexEnabled true
         renderscriptTargetApi 27
         renderscriptSupportModeEnabled true
+        vectorDrawables.useSupportLibrary = true
 
         manifestPlaceholders = [
             onesignal_app_id: '9fda9c37-f81a-4fc2-b4a9-b6b5084445e7',

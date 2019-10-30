@@ -60,7 +60,7 @@
                 android:layout_width="105dp"
                 android:layout_height="117dp"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/settings_prem_main_ic"
+                app:srcCompat="@drawable/settings_prem_main_ic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
