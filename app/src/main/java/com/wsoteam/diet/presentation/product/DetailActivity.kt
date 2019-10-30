@@ -143,7 +143,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView {
         val adapter = ArrayAdapter(this, layout.item_spinner_food_search, resources.getStringArray(array.eatingList))
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search)
         spnFood.setAdapter(adapter)
-        spnFood.setSelection(basketEntity.eatingType)
+        //spnFood.setSelection(basketEntity.eatingType)
     }
 
     private fun handlePremiumState() {

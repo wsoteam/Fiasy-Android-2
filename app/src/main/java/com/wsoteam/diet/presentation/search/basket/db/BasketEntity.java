@@ -32,6 +32,9 @@ public class BasketEntity implements ISearchResult, Serializable {
   private double pottassium;
   private int eatingType;
 
+  private String namePortion;
+  private int sizePortion;
+
   public BasketEntity() {
   }
 
@@ -40,7 +43,7 @@ public class BasketEntity implements ISearchResult, Serializable {
       int weight, double kilojoules, double calories, double proteins, double carbohydrates,
       double sugar, double fats, double saturatedFats, double monoUnSaturatedFats,
       double polyUnSaturatedFats, double cholesterol, double cellulose, double sodium,
-      double pottassium, int eatingType) {
+      double pottassium, int eatingType, String namePortion, int sizePortion) {
     this.serverId = serverId;
     this.deepId = deepId;
     this.name = name;
@@ -61,6 +64,8 @@ public class BasketEntity implements ISearchResult, Serializable {
     this.sodium = sodium;
     this.pottassium = pottassium;
     this.eatingType = eatingType;
+    this.namePortion = namePortion;
+    this.sizePortion = sizePortion;
   }
 
 
@@ -256,6 +261,23 @@ public class BasketEntity implements ISearchResult, Serializable {
 
   public void setEatingType(int eatingType) {
     this.eatingType = eatingType;
+  }
+
+
+  public String getNamePortion() {
+    return namePortion;
+  }
+
+  public void setNamePortion(String namePortion) {
+    this.namePortion = namePortion;
+  }
+
+  public int getSizePortion() {
+    return sizePortion;
+  }
+
+  public void setSizePortion(int sizePortion) {
+    this.sizePortion = sizePortion;
   }
 
   @Override public String toString() {

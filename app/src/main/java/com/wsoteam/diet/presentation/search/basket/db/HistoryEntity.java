@@ -18,7 +18,7 @@ public class HistoryEntity extends BasketEntity implements ISearchResult {
         basketEntity.getSaturatedFats(), basketEntity.getMonoUnSaturatedFats(),
         basketEntity.getPolyUnSaturatedFats(),
         basketEntity.getCholesterol(), basketEntity.getCellulose(), basketEntity.getSodium(),
-        basketEntity.getPottassium(), basketEntity.getEatingType());
+        basketEntity.getPottassium(), basketEntity.getEatingType(), basketEntity.getNamePortion(), basketEntity.getSizePortion());
   }
 
   public HistoryEntity(Result result, int weight,
