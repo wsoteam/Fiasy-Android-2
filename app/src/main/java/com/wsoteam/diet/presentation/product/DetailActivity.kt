@@ -32,13 +32,12 @@ import kotlinx.android.synthetic.main.view_elements.*
 import kotlinx.android.synthetic.main.view_lock_premium.*
 
 class DetailActivity : MvpAppCompatActivity(), DetailView {
-    private var basketEntity: BasketEntity = BasketEntity()
     private val BREAKFAST_POSITION = 0
     private val LUNCH_POSITION = 1
     private val DINNER_POSITION = 2
     private val SNACK_POSITION = 3
     private val EMPTY_FIELD = -1
-    var basketPresenter = BasketDetailPresenter(this)
+    lateinit var basketPresenter : BasketDetailPresenter
 
     override fun refreshCalculate(kcal: String, proteins: String, carbo: String, fats: String) {
         tvKcalCalculate.text = kcal
@@ -50,7 +49,6 @@ class DetailActivity : MvpAppCompatActivity(), DetailView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-        basketPresenter.attachView(this)
         handlePremiumState()
         handleFood()
 
@@ -86,14 +84,19 @@ class DetailActivity : MvpAppCompatActivity(), DetailView {
 
     private fun handleFood() {
         if (intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) is BasketEntity) {
-            basketEntity = intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) as BasketEntity
-            handleBasketEntity()
+            basketPresenter = BasketDetailPresenter(this, intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) as BasketEntity)
+            basketPresenter.attachView(this)
+
         }
     }
 
     private fun handleBasketEntity() {
         bindSpinnerChoiceEating()
-        bindBasketFields()
+
+    }
+
+    override fun fillFields() {
+
     }
 
     private fun bindBasketFields() {

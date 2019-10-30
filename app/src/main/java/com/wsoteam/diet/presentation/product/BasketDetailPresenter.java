@@ -7,16 +7,26 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 
+import org.jetbrains.annotations.NotNull;
+
 @InjectViewState
 public class BasketDetailPresenter extends MvpPresenter<DetailView> {
     private Context context;
+    private BasketEntity basketEntity;
 
-    public BasketDetailPresenter(Context context) {
+    public BasketDetailPresenter(Context context, BasketEntity basketEntity) {
         this.context = context;
+        this.basketEntity = basketEntity;
     }
 
-    void calculate(BasketEntity basketEntity, CharSequence weight){
+    @Override
+    protected void onFirstViewAttach() {
 
+    }
+
+
+
+    void calculate(BasketEntity basketEntity, CharSequence weight){
         double portion = Double.parseDouble(weight.toString());
 
         String prot = String.valueOf(Math.round(portion * basketEntity.getProteins())) + " " + context.getResources().getString(R.string.gramm);
@@ -26,4 +36,5 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
 
         getViewState().refreshCalculate(kcal, prot, carbo, fats);
     }
+
 }
