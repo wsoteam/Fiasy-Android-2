@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.amplitude.api.Amplitude
 import com.arellomobile.mvp.MvpAppCompatActivity
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.wsoteam.diet.AmplitudaEvents
 import com.wsoteam.diet.Authenticate.POJO.Box
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food
@@ -37,11 +38,21 @@ class DetailActivity : MvpAppCompatActivity(), DetailView {
   private val DINNER_POSITION = 2
   private val SNACK_POSITION = 3
   private val EMPTY_FIELD = -1
-  private var basketPresenter = DetailBasketPresenter()
+  var basketPresenter = DetailBasketPresenter()
+
+  override fun refreshCalculate(
+    kcal: String,
+    proteins: String,
+    carbo: String,
+    fats: String
+  ) {
+
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_detail)
+    basketPresenter.attachView(this)
     handlePremiumState()
     handleFood()
 
@@ -82,14 +93,13 @@ class DetailActivity : MvpAppCompatActivity(), DetailView {
   }
 
   private fun calculateMainParameters(weight: CharSequence?) {
-      basketPresenter.calculate(basketEntity, weight)
+    basketPresenter.calculate(basketEntity, weight)
   }
 
   private fun handleFood() {
     if (intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) is BasketEntity) {
       basketEntity = intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) as BasketEntity
       handleBasketEntity()
-      basketPresenter.attachView(this)
     }
   }
 
