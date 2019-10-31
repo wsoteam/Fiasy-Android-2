@@ -15,6 +15,7 @@ import com.amplitude.api.Amplitude
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.wsoteam.diet.AmplitudaEvents
 import com.wsoteam.diet.Authenticate.POJO.Box
+import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.ClaimForm
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.InApp.ActivitySubscription
 import com.wsoteam.diet.R
@@ -28,7 +29,7 @@ import kotlinx.android.synthetic.main.view_calculate_card.*
 import kotlinx.android.synthetic.main.view_elements.*
 import kotlinx.android.synthetic.main.view_lock_premium.*
 
-class DetailActivity : MvpAppCompatActivity(), DetailView {
+class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener {
     private val BREAKFAST_POSITION = 0
     private val LUNCH_POSITION = 1
     private val DINNER_POSITION = 2
@@ -140,7 +141,6 @@ class DetailActivity : MvpAppCompatActivity(), DetailView {
         if (intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) is BasketEntity) {
             basketPresenter = BasketDetailPresenter(this, intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) as BasketEntity)
             basketPresenter.attachView(this)
-
         }
     }
 
@@ -199,5 +199,11 @@ class DetailActivity : MvpAppCompatActivity(), DetailView {
         )
         tvPremText.append(thirdPart)
         tvPremText.append(resources.getString(R.string.srch_text_prem_end))
+    }
+
+    override fun onClick(p0: View) {
+        when (p0.id){
+            R.id.tvSendClaim -> basketPresenter.showClaimAlert()
+        }
     }
 }

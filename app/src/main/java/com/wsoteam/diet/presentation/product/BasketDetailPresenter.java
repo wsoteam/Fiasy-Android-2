@@ -4,7 +4,9 @@ import android.content.Context;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.ClaimForm;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.product.claim.ClaimAlert;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 
 @InjectViewState
@@ -38,4 +40,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
         getViewState().refreshCalculate(kcal, prot, carbo, fats);
     }
 
+    public void showClaimAlert() {
+        ClaimAlert.create(context, basketEntity);
+    }
 }

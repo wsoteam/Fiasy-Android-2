@@ -139,6 +139,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="@font/roboto_light_italic"
         android:text="Сообщить об ошибке"
+        android:onClick="onClick"
         android:textColor="@color/text_claim"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
