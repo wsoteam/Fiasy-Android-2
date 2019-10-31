@@ -7,12 +7,11 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 
-import org.jetbrains.annotations.NotNull;
-
 @InjectViewState
 public class BasketDetailPresenter extends MvpPresenter<DetailView> {
     private Context context;
     private BasketEntity basketEntity;
+    private int sizePortion = 1;
 
     public BasketDetailPresenter(Context context, BasketEntity basketEntity) {
         this.context = context;
@@ -21,7 +20,9 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
 
     @Override
     protected void onFirstViewAttach() {
-
+        getViewState().fillFields(basketEntity.getName(), basketEntity.getFats(), basketEntity.getCarbohydrates(),
+                basketEntity.getProteins(), basketEntity.getBrand(), basketEntity.getSugar(), basketEntity.getSaturatedFats(),
+                basketEntity.getMonoUnSaturatedFats(), basketEntity.getPolyUnSaturatedFats(), basketEntity.getCholesterol(), basketEntity.getCellulose(), basketEntity.getSodium(), basketEntity.getPottassium());
     }
 
 
