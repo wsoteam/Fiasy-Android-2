@@ -174,7 +174,7 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
         passwordDubLayout.setVisibility(View.GONE);
         ppCheckBox.setVisibility(View.INVISIBLE);
         checkPPTextView.setVisibility(View.INVISIBLE);
-        signIn.setText(R.string.auth_main_btn_signin);
+        signIn.setText(R.string.signIn_title);
         rbSignIn.setChecked(true);
         forgotPass = false;
         createUser = false;
@@ -187,7 +187,7 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
         passwordLayout.setVisibility(View.GONE);
         ppCheckBox.setVisibility(View.INVISIBLE);
         checkPPTextView.setVisibility(View.INVISIBLE);
-        signIn.setText(R.string.auth_main_btn_send_pass);
+        signIn.setText(R.string.reset_password_title);
         forgotPass = true;
         createUser = false;
     }
@@ -198,7 +198,7 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
         passwordDubLayout.setVisibility(View.VISIBLE);
         ppCheckBox.setVisibility(View.VISIBLE);
         checkPPTextView.setVisibility(View.VISIBLE);
-        signIn.setText(R.string.auth_main_btn_create);
+        signIn.setText(R.string.signUp_title);
         rbReg.setChecked(true);
         forgotPass = false;
         createUser = true;
@@ -215,7 +215,7 @@ public class MainAuthActivity extends BaseActivity implements MainAuthView, Inst
                             presenter.createAccount(emailEditText.getText().toString(),
                                     passEditText.getText().toString());
                         else
-                            showMessage(getString(R.string.auth_main_pass_not_match));
+                            showMessage(getString(R.string.password_dont_match));
                     }
                 } else if (forgotPass) {
                     if (hasConnection(this))

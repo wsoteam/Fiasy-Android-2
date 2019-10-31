@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -76,6 +77,8 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
         viewPager.setAdapter(new QuestionsPagerAdapter(getSupportFragmentManager()));
         //viewPager.setAdapter(new AfterQuestionsPagerAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager, true);
+        tabLayout.clearOnTabSelectedListeners();
+
         btnBack.setOnClickListener(view -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1));
         Events.logMoveQuestions(EventProperties.question_male);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

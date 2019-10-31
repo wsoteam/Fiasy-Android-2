@@ -16,7 +16,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto"
-            android:text="@string/info"
+            android:text="@string/product_info"
             android:textColor="#f19027"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +39,7 @@
                 android:enabled="false"
                 android:focusable="false"
                 android:fontFamily="@font/roboto"
-                android:hint="@string/brand"
+                android:hint="@string/brand_manufacturer"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,7 +61,7 @@
                 android:fontFamily="@font/roboto"
                 android:enabled="false"
                 android:focusable="false"
-                android:hint="@string/food_name"
+                android:hint="@string/product_name"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 

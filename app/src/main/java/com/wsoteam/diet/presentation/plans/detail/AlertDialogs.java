@@ -34,8 +34,14 @@ public class AlertDialogs {
   Spannable wordtoSpan =
       new SpannableString(String.format(activity.getString(R.string.tvInfo), planName));
   int startColor = 50;
+  try {
+   startColor = activity.getString(R.string.tvInfo).split("%s")[0].length();
+  } catch (Exception e){
+   e.printStackTrace();
+  }
+
   wordtoSpan.setSpan(new ForegroundColorSpan(Color.parseColor("#de0067a1")), startColor,
-      startColor + planName.length() + 2,
+      startColor + planName.length(),
       Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
   infoTextView.setText(wordtoSpan);
   AlertDialog alertDialog = dialogBuilder.create();

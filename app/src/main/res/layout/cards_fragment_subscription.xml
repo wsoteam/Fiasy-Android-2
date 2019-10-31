@@ -18,7 +18,7 @@
             android:layout_marginTop="64dp"
             android:background="@drawable/shape_orange"
             android:fontFamily="@font/roboto_bold"
-            android:text="Начать пробный период"
+            android:text="@string/cards_fragment_subscription_start_trial"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="64dp"
-            android:text="@string/onboarding_main_pp"
+            android:text="@string/terms_and_conditions"
             android:textColor="#51000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +97,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
-            android:text="Получите полный доступ \n к эксклюзивным статьям и рецептам"
+            android:text="@string/cards_fragment_subscription_info"
             android:textColor="#59000000"
             android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -118,7 +118,7 @@
             <ImageView
                 android:id="@+id/ivCentral"
                 android:layout_width="match_parent"
-                android:src="@drawable/central_image_prem"
+                app:srcCompat="@drawable/central_image_prem"
                 android:scaleType="fitXY"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
@@ -137,7 +137,7 @@
             <ImageView
                 android:id="@+id/ivTopRight"
                 android:scaleType="fitXY"
-                android:src="@drawable/right_top_prem"
+                app:srcCompat="@drawable/right_top_prem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
@@ -157,7 +157,7 @@
             <ImageView
                 android:id="@+id/ivBottomRight"
                 android:scaleType="fitXY"
-                android:src="@drawable/right_bottom_prem"
+                app:srcCompat="@drawable/right_bottom_prem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
@@ -176,7 +176,7 @@
             <ImageView
                 android:id="@+id/ivBottomLeft"
                 android:scaleType="fitXY"
-                android:src="@drawable/left_bottom_prem"
+                app:srcCompat="@drawable/left_bottom_prem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
@@ -195,7 +195,7 @@
             <ImageView
                 android:id="@+id/ivTopLeft"
                 android:scaleType="fitXY"
-                android:src="@drawable/top_left_prem"
+                app:srcCompat="@drawable/top_left_prem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>

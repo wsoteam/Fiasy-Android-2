@@ -17,12 +17,12 @@
             android:layout_marginLeft="14dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/ic_main_promo_alert_success"/>
+            app:srcCompat="@drawable/ic_main_promo_alert_success"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Поздравляем!"
+            android:text="@string/alert_dialog_promo_success_congratulations"
             android:fontFamily="@font/roboto_medium"
             android:textSize="24sp"
             android:textColor="#c0000000"
@@ -32,13 +32,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/roboto_medium"
             android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/premium_courage_description"
+            android:textAlignment="center"
             android:textColor="#8a000000"
             android:textSize="14sp"
-            android:fontFamily="@font/roboto_medium"
-            android:layout_marginTop="12dp"
-            android:layout_gravity="center"
-            android:text="Теперь вы можете пользоваться всеми \nпреимуществами Premium аккаунта"/>
+            />
 
         <Button
             android:id="@+id/btnOk"
@@ -52,7 +56,7 @@
             android:fontFamily="@font/roboto_bold"
             android:paddingLeft="46dp"
             android:paddingRight="46dp"
-            android:text="приступить"
+            android:text="@string/alert_dialog_promo_success_proceed"
             android:textColor="@color/white"
             android:textSize="14sp" />
 

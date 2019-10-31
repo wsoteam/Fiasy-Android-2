@@ -15,8 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amplitude.api.Amplitude;
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.ClaimForm;
@@ -29,14 +28,12 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
-import com.wsoteam.diet.common.Analytics.UserProperty;
 
+import com.wsoteam.diet.utils.DrawableUtilsKt;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -126,10 +123,10 @@ public class ActivityDetailFood extends AppCompatActivity {
                     if (!edtWeight.getText().toString().equals("")) {
                         calculateMainParameters(charSequence);
                     } else {
-                        tvCalculateProtein.setText("0 " + getString(R.string.gramm));
-                        tvCalculateKcal.setText("0 " + getString(R.string.kcal));
-                        tvCalculateCarbohydrates.setText("0 " + getString(R.string.gramm));
-                        tvCalculateFat.setText("0 " + getString(R.string.gramm));
+                        tvCalculateProtein.setText("0 " + getString(R.string.g));
+                        tvCalculateKcal.setText("0 " + getString(R.string.calories_unit));
+                        tvCalculateCarbohydrates.setText("0 " + getString(R.string.g));
+                        tvCalculateFat.setText("0 " + getString(R.string.g));
                     }
                 }
             }
@@ -154,11 +151,12 @@ public class ActivityDetailFood extends AppCompatActivity {
             Iterator iterator = UserDataHolder.getUserData().getFoodFavorites().entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry pair = (Map.Entry) iterator.next();
-                if (((FavoriteFood) pair.getValue()).getName().equals(foodItem.getName()) && ((FavoriteFood) pair.getValue()).getBrand().equals(foodItem.getBrand())) {
+                final String fullInfo = ((FavoriteFood) pair.getValue()).getFullInfo();
+
+                if (fullInfo != null && fullInfo.equals(foodItem.getFullInfo())) {
                     currentFavorite = (FavoriteFood) pair.getValue();
                     isFavorite = true;
-                    Glide.with(this).load(R.drawable.ic_fill_favorite).into(ibAddFavorite);
-                    return;
+                    Picasso.get().load(R.drawable.ic_fill_favorite).into(ibAddFavorite);
                 }
             }
 
@@ -168,9 +166,9 @@ public class ActivityDetailFood extends AppCompatActivity {
 
     private void bindFields() {
         tvTitle.setText(foodItem.getName().toUpperCase());
-        tvFats.setText(String.valueOf(Math.round(foodItem.getFats() * 100)) + " г");
-        tvCarbohydrates.setText(String.valueOf(Math.round(foodItem.getCarbohydrates() * 100)) + " г");
-        tvProteins.setText(String.valueOf(Math.round(foodItem.getProteins() * 100)) + " г");
+        tvFats.setText(String.format(getString(R.string.n_g), Math.round(foodItem.getFats() * 100)));
+        tvCarbohydrates.setText(String.format(getString(R.string.n_g), Math.round(foodItem.getCarbohydrates() * 100)));
+        tvProteins.setText(String.format(getString(R.string.n_g), Math.round(foodItem.getProteins() * 100)));
         tvKcal.setText(String.valueOf(Math.round(foodItem.getCalories() * 100)));
         tvDj.setText(String.valueOf(Math.round(foodItem.getKilojoules() * 100)));
 
@@ -181,7 +179,7 @@ public class ActivityDetailFood extends AppCompatActivity {
         if (foodItem.getSugar() != EMPTY_FIELD) {
             tvLabelSugar.setVisibility(View.VISIBLE);
             tvSugar.setVisibility(View.VISIBLE);
-            tvSugar.setText(String.valueOf(Math.round(foodItem.getSugar() * 100)) + " г");
+            tvSugar.setText(String.format(getString(R.string.n_g), Math.round(foodItem.getSugar() * 100)));
             if (!isPremiumUser()) {
                 btnPremSugar.setVisibility(View.VISIBLE);
             }
@@ -189,7 +187,7 @@ public class ActivityDetailFood extends AppCompatActivity {
         if (foodItem.getSaturatedFats() != EMPTY_FIELD) {
             tvLabelSaturated.setVisibility(View.VISIBLE);
             tvSaturated.setVisibility(View.VISIBLE);
-            tvSaturated.setText(String.valueOf(Math.round(foodItem.getSaturatedFats() * 100)) + " г");
+            tvSaturated.setText(String.format(getString(R.string.n_g), Math.round(foodItem.getSaturatedFats() * 100)));
             if (!isPremiumUser()) {
                 btnPremSaturated.setVisibility(View.VISIBLE);
             }
@@ -197,7 +195,7 @@ public class ActivityDetailFood extends AppCompatActivity {
         if (foodItem.getMonoUnSaturatedFats() != EMPTY_FIELD) {
             tvLabelMonoUnSaturated.setVisibility(View.VISIBLE);
             tvMonoUnSaturated.setVisibility(View.VISIBLE);
-            tvMonoUnSaturated.setText(String.valueOf(Math.round(foodItem.getMonoUnSaturatedFats() * 100)) + " г");
+            tvMonoUnSaturated.setText(String.format(getString(R.string.n_g), Math.round(foodItem.getMonoUnSaturatedFats() * 100)));
             if (!isPremiumUser()) {
                 btnPremMonoUnSaturated.setVisibility(View.VISIBLE);
             }
@@ -205,7 +203,7 @@ public class ActivityDetailFood extends AppCompatActivity {
         if (foodItem.getPolyUnSaturatedFats() != EMPTY_FIELD) {
             tvLabelPolyUnSaturated.setVisibility(View.VISIBLE);
             tvPolyUnSaturated.setVisibility(View.VISIBLE);
-            tvPolyUnSaturated.setText(String.valueOf(Math.round(foodItem.getPolyUnSaturatedFats() * 100)) + " г");
+            tvPolyUnSaturated.setText(String.format(getString(R.string.n_g), Math.round(foodItem.getPolyUnSaturatedFats() * 100)));
             if (!isPremiumUser()) {
                 btnPremPolyUnSaturated.setVisibility(View.VISIBLE);
             }
@@ -213,7 +211,7 @@ public class ActivityDetailFood extends AppCompatActivity {
         if (foodItem.getCholesterol() != EMPTY_FIELD) {
             tvLabelСholesterol.setVisibility(View.VISIBLE);
             tvСholesterol.setVisibility(View.VISIBLE);
-            tvСholesterol.setText(String.valueOf(Math.round(foodItem.getCholesterol() * 100)) + " мг");
+            tvСholesterol.setText(String.format(getString(R.string.n_mg), Math.round(foodItem.getCholesterol() * 100)));
             if (!isPremiumUser()) {
                 btnPremCholy.setVisibility(View.VISIBLE);
             }
@@ -221,7 +219,7 @@ public class ActivityDetailFood extends AppCompatActivity {
         if (foodItem.getCellulose() != EMPTY_FIELD) {
             tvLabelCellulose.setVisibility(View.VISIBLE);
             tvCellulose.setVisibility(View.VISIBLE);
-            tvCellulose.setText(String.valueOf(Math.round(foodItem.getCellulose() * 100)) + " г");
+            tvCellulose.setText(String.format(getString(R.string.n_g), Math.round(foodItem.getCellulose() * 100)));
             if (!isPremiumUser()) {
                 btnPremCell.setVisibility(View.VISIBLE);
             }
@@ -229,7 +227,7 @@ public class ActivityDetailFood extends AppCompatActivity {
         if (foodItem.getSodium() != EMPTY_FIELD) {
             tvLabelSodium.setVisibility(View.VISIBLE);
             tvSodium.setVisibility(View.VISIBLE);
-            tvSodium.setText(String.valueOf(Math.round(foodItem.getSodium() * 100)) + " мг");
+            tvSodium.setText(String.format(getString(R.string.n_mg), Math.round(foodItem.getSodium() * 100)));
             if (!isPremiumUser()) {
                 btnPremSod.setVisibility(View.VISIBLE);
             }
@@ -237,7 +235,7 @@ public class ActivityDetailFood extends AppCompatActivity {
         if (foodItem.getPottassium() != EMPTY_FIELD) {
             tvLabelPotassium.setVisibility(View.VISIBLE);
             tvPotassium.setVisibility(View.VISIBLE);
-            tvPotassium.setText(String.valueOf(Math.round(foodItem.getPottassium() * 100)) + " мг");
+            tvPotassium.setText(String.format(getString(R.string.n_mg), Math.round(foodItem.getPottassium() * 100)));
             if (!isPremiumUser()) {
                 btnPremPot.setVisibility(View.VISIBLE);
             }
@@ -258,10 +256,10 @@ public class ActivityDetailFood extends AppCompatActivity {
     private void calculateMainParameters(CharSequence stringPortion) {
         double portion = Double.parseDouble(stringPortion.toString());
 
-        tvCalculateProtein.setText(String.valueOf(Math.round(portion * foodItem.getProteins())) + " " + getString(R.string.gramm));
-        tvCalculateKcal.setText(String.valueOf(Math.round(portion * foodItem.getCalories())) + " " + getString(R.string.kcal));
-        tvCalculateCarbohydrates.setText(String.valueOf(Math.round(portion * foodItem.getCarbohydrates())) + " " + getString(R.string.gramm));
-        tvCalculateFat.setText(String.valueOf(Math.round(portion * foodItem.getFats())) + " " + getString(R.string.gramm));
+        tvCalculateProtein.setText(String.valueOf(Math.round(portion * foodItem.getProteins())) + " " + getString(R.string.g));
+        tvCalculateKcal.setText(String.valueOf(Math.round(portion * foodItem.getCalories())) + " " + getString(R.string.calories_unit));
+        tvCalculateCarbohydrates.setText(String.valueOf(Math.round(portion * foodItem.getCarbohydrates())) + " " + getString(R.string.g));
+        tvCalculateFat.setText(String.valueOf(Math.round(portion * foodItem.getFats())) + " " + getString(R.string.g));
 
     }
 
@@ -307,46 +305,32 @@ public class ActivityDetailFood extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.btnPremCell:
-                showPremiumScreen();
-                break;
+            case R.id.btnPremPot:
+            case R.id.btnPremSaturated:
+            case R.id.btnPremPolyUnSaturated:
+            case R.id.btnPremSod:
+            case R.id.btnPremSugar:
+            case R.id.btnPremMonoUnSaturated:
             case R.id.btnPremCholy:
                 showPremiumScreen();
                 break;
-            case R.id.btnPremMonoUnSaturated:
-                showPremiumScreen();
-                break;
-            case R.id.btnPremPolyUnSaturated:
-                showPremiumScreen();
-                break;
-            case R.id.btnPremPot:
-                showPremiumScreen();
-                break;
-            case R.id.btnPremSaturated:
-                showPremiumScreen();
-                break;
-            case R.id.btnPremSod:
-                showPremiumScreen();
-                break;
-            case R.id.btnPremSugar:
-                showPremiumScreen();
-                break;
             case R.id.tvSendClaim:
+            case R.id.ibSendClaim:
                 ClaimForm.createChoiseEatingAlertDialog(this, foodItem);
                 break;
             case R.id.ibShareFood:
                 shareFood(foodItem);
                 break;
-            case R.id.ibSendClaim:
-                ClaimForm.createChoiseEatingAlertDialog(this, foodItem);
-                break;
             case R.id.ibAddFavorite:
                 if (isFavorite) {
                     isFavorite = false;
-                    Glide.with(this).load(R.drawable.ic_empty_favorite).into(ibAddFavorite);
+                    ibAddFavorite.setImageDrawable(DrawableUtilsKt
+                        .getVectorIcon(this, R.drawable.ic_empty_favorite));
                     WorkWithFirebaseDB.deleteFavorite(currentFavorite.getKey());
                 } else {
                     isFavorite = true;
-                    Glide.with(this).load(R.drawable.ic_fill_favorite).into(ibAddFavorite);
+                    ibAddFavorite.setImageDrawable(DrawableUtilsKt
+                        .getVectorIcon(this, R.drawable.ic_fill_favorite));
                     currentFavorite = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), addFavorite());
                 }
                 break;
@@ -357,12 +341,14 @@ public class ActivityDetailFood extends AppCompatActivity {
         String forSend;
         if (foodItem.getBrand() == null) {
             forSend = foodItem.getName()
-                    + String.valueOf(foodItem.getCalories() * 100) + " Ккал. Узнайте % микроэлементов в продукте" +
-                    " в дневнике питания Fiasy \n" + "https://play.google.com/store/apps/details?id=" + getPackageName();
+                    + (foodItem.getCalories() * 100)
+                + getString(R.string.detail_food_activity_percent)
+                + "https://play.google.com/store/apps/details?id=" + getPackageName();
         } else {
             forSend = foodItem.getName() + " (" + foodItem.getBrand() + ") - "
-                    + String.valueOf(foodItem.getCalories() * 100) + " Ккал. Узнайте % микроэлементов в продукте" +
-                    " в дневнике питания Fiasy \n" + "https://play.google.com/store/apps/details?id=" + getPackageName();
+                    + (foodItem.getCalories() * 100)
+                + getString(R.string.detail_food_activity_percent)
+                + "https://play.google.com/store/apps/details?id=" + getPackageName();
         }
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
@@ -379,13 +365,13 @@ public class ActivityDetailFood extends AppCompatActivity {
     }
 
     private String addFavorite() {
-        Events.logAddFavorite(foodItem.getName());
-        FavoriteFood favoriteFood = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), "empty", foodItem.getName(), foodItem.getBrand(),
-                foodItem.getPortion(), foodItem.isLiquid(), foodItem.getKilojoules(), foodItem.getCalories(), foodItem.getProteins(), foodItem.getCarbohydrates(),
-                foodItem.getSugar(), foodItem.getFats(), foodItem.getSaturatedFats(), foodItem.getMonoUnSaturatedFats(), foodItem.getPolyUnSaturatedFats(), foodItem.getCholesterol(),
-                foodItem.getCellulose(), foodItem.getSodium(), foodItem.getPottassium(), foodItem.getPercentCarbohydrates(), foodItem.getPercentFats(), foodItem.getPercentProteins());
-        String key = WorkWithFirebaseDB.addFoodFavorite(favoriteFood);
-        return key;
+      Events.logAddFavorite(foodItem.getName());
+      FavoriteFood favoriteFood = new FavoriteFood(foodItem.getId(), foodItem.getFullInfo(), "empty", foodItem.getName(), foodItem.getBrand(),
+          foodItem.getPortion(), foodItem.isLiquid(), foodItem.getKilojoules(), foodItem.getCalories(), foodItem.getProteins(), foodItem.getCarbohydrates(),
+          foodItem.getSugar(), foodItem.getFats(), foodItem.getSaturatedFats(), foodItem.getMonoUnSaturatedFats(), foodItem.getPolyUnSaturatedFats(), foodItem.getCholesterol(),
+          foodItem.getCellulose(), foodItem.getSodium(), foodItem.getPottassium(), foodItem.getPercentCarbohydrates(), foodItem.getPercentFats(), foodItem.getPercentProteins());
+      String key = WorkWithFirebaseDB.addFoodFavorite(favoriteFood);
+      return key;
     }
 
 }

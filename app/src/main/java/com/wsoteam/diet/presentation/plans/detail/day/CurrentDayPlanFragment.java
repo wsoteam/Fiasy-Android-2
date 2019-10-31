@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,7 +53,7 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
   @BindView(R.id.tabs) TabLayout tabLayout;
   @BindView(R.id.clRecipes) ConstraintLayout activePlan;
   @BindView(R.id.clNotActivePlan) ConstraintLayout notActivePlan;
-  @BindView(R.id.clFinishPlan) ConstraintLayout finishPlan;
+  @BindView(R.id.cvFinishPlan) CardView finishPlan;
   @BindView(R.id.tvPlanName) TextView planName;
   @BindView(R.id.textView154) TextView dayTextView;
 
@@ -101,9 +102,9 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
   View.OnClickListener planListener = new View.OnClickListener() {
     @Override public void onClick(View v) {
       //TODO тут открываются рецепты плана с виджета на главном экране
-     Intent intent = new Intent(getContext(), DetailPlansActivity.class);
-     intent.putExtra(Config.DIETS_PLAN_INTENT, UserDataHolder.getUserData().getPlan());
-    startActivity(intent);
+      Intent intent = new Intent(getContext(), DetailPlansActivity.class);
+      intent.putExtra(Config.DIETS_PLAN_INTENT, UserDataHolder.getUserData().getPlan());
+      startActivity(intent);
     }
   };
 

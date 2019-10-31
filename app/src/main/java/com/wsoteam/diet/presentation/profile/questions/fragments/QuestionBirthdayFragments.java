@@ -48,7 +48,7 @@ public class QuestionBirthdayFragments extends Fragment implements WheelDatePick
 
         wheelDate.setOnDateSelectedListener(this);
         wheelDate.setSelectedDay(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-        wheelDate.setSelectedYear(Calendar.getInstance().get(Calendar.YEAR) - diffs);
+        wheelDate.setSelectedYear(2000);
         wheelDate.setSelectedMonth(Calendar.getInstance().get(Calendar.MONTH) + 1);
         wheelDate.setYearEnd(Calendar.getInstance().get(Calendar.YEAR) - diffs);
         wheelDate.updateDate();

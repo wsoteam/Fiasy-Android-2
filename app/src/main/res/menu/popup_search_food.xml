@@ -7,15 +7,15 @@
             android:title="Пользовательская запись" />-->
         <item
             android:id="@+id/createFood"
-            android:title="Создать продукт" />
+            android:title="@string/popup_search_food_create_food" />
         <!--<item
             android:id="@+id/createEating"
             android:title="Создать прием пищи" />-->
         <item
             android:id="@+id/createTemplate"
-            android:title="Создать шаблон" />
+            android:title="@string/popup_search_food_create_template" />
         <item
             android:id="@+id/createRecipe"
-            android:title="Создать рецепт" />-->
+            android:title="@string/popup_search_food_create_recipe" />-->
     </group>
 </menu>

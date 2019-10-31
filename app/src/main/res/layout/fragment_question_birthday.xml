@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="sans-serif"
-        android:text="@string/onboard_birthday_text"
+        android:text="@string/select_your_date_of_birth"
         android:textColor="@color/confirm_text"
         android:textSize="14sp"
         android:textStyle="normal"
@@ -59,12 +59,13 @@
 
     <Button
         android:id="@+id/btnNext"
-        style="@style/Question.NextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/Question.NextButton"
         />
 
 

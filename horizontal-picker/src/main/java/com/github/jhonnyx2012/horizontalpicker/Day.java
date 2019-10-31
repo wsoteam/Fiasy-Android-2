@@ -21,7 +21,7 @@ public class Day {
     }
 
     public String getWeekDay() {
-        return date.toString("EEE", Locale.forLanguageTag("RU"));
+        return date.toString("E", Locale.getDefault());
     }
 
     public String getMonth() {
@@ -32,11 +32,11 @@ public class Day {
         if (!pattern.isEmpty())
             this.monthPattern = pattern;
 
-        return date.toString(monthPattern, Locale.forLanguageTag("RU"));
+        return date.toString(monthPattern, Locale.getDefault());
     }
 
     public String getNumericMonth() {
-        return date.toString("M", Locale.forLanguageTag("RU"));
+        return date.toString("M", Locale.getDefault());
     }
 
     public DateTime getDate() {

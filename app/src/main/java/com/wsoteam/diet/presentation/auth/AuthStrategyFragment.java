@@ -13,6 +13,7 @@ import androidx.collection.SparseArrayCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -22,6 +23,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.UserProperty;
@@ -40,7 +42,7 @@ public abstract class AuthStrategyFragment extends Fragment {
                 put(R.id.auth_strategy_google, GoogleAuthStrategy.class);
                 put(R.id.auth_strategy_facebook, FacebookAuthStrategy.class);
                 put(R.id.auth_strategy_login, EmailLoginAuthStrategy.class);
-                put(R.id.auth_strategy_reset, ResetPasswordAuthStrategy.class);
+                //put(R.id.auth_strategy_reset, ResetPasswordAuthStrategy.class);
             }};
 
     protected final Observer<AuthStrategy.AuthenticationResult> userObserver =
@@ -110,14 +112,16 @@ public abstract class AuthStrategyFragment extends Fragment {
         notification.setProgressVisible(false, true);
 
         if (TextUtils.isEmpty(user.getDisplayName())) {
-            notification.setText("Добро пожаловать :)");
+            notification.setText(getString(R.string.welcome));
         } else {
-            notification.setText(TextUtils.concat("Привет, ", new RichText(user.getDisplayName())
+            notification.setText(TextUtils.concat(getString(R.string.hello), new RichText(user.getDisplayName())
                     .bold()
                     .text()));
         }
 
         notification.show(getView(), InAppNotification.DURATION_QUICK);
+
+        WorkWithFirebaseDB.setFirebaseStateListener();
 
         if (getActivity() != null) {
             final Activity activity = requireActivity();
@@ -183,13 +187,13 @@ public abstract class AuthStrategyFragment extends Fragment {
         if (error instanceof FirebaseAuthUserCollisionException) {
             notification.setText(getString(R.string.auth_user_using_existing_account));
         } else if (error instanceof FirebaseAuthInvalidCredentialsException) {
-            notification.setText("Сессия подключения просрочена");
+            notification.setText(getString(R.string.session_expired));
         } else if (error instanceof FirebaseAuthInvalidUserException) {
             notification.setText(getString(R.string.auth_user_not_found));
         } else if (error instanceof IOException) {
-            notification.setText("Нет подключения к интернету :(");
+            notification.setText(getString(R.string.no_internet));
         } else {
-            notification.setText("Не удалось войти");
+            notification.setText(getString(R.string.failed_logIn));
         }
 
         notification.show(getView(), InAppNotification.DURATION_LONG);

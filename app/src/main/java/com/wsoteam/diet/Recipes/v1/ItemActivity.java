@@ -10,8 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.amplitude.api.Amplitude;
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
@@ -83,8 +82,7 @@ public class ItemActivity extends AppCompatActivity {
             });
         }
 
-        Glide
-                .with(this)
+        Picasso.get()
                 .load(itemRecipes.getUrl())
                 .into(imageView);
     }

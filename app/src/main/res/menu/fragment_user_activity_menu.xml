@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <item
+      android:id="@+id/action_add_user_activity"
+      android:title="Создать активность"
+      />
+
+  <item
+      android:id="@+id/action_add_external_sources"
+      android:title="Интеграции"
+      android:visible="false"
+      />
+
+</menu>

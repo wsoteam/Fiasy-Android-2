@@ -1,6 +1,7 @@
 package com.wsoteam.diet.Articles;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BlurMaskFilter;
 import androidx.core.text.HtmlCompat;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +14,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Articles.POJO.Article;
 import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
@@ -73,8 +75,7 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
     }
 
     private void setValue(Article article){
-        Glide.with(this).load(article.getImgUrl()).into(imgArticle);
-
+        loadImageWrapContent(imgArticle, article.getImgUrl());
         tvTitle.setText(Html.fromHtml(article.getTitle()));
         tvIntro.setText(Html.fromHtml(article.getIntroPart()));
 
@@ -103,5 +104,32 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
                 .density;
         return Math.round((float) dp * density);
     }
+
+    private void loadImageWrapContent(final ImageView imageView, String url){
+        Picasso.get()
+            .load(url)
+            .transform(new Transformation() {
+                @Override
+                public Bitmap transform(Bitmap source) {
+                    int targetWidth = imageView.getWidth();
+                    double aspectRatio = (double) source.getHeight() / (double) source.getWidth();
+                    int targetHeight = (int) (targetWidth * aspectRatio);
+                    if (targetHeight <=0 || targetWidth <=0) return source;
+                    Bitmap result = Bitmap.createScaledBitmap(source, targetWidth, targetHeight, false);
+                    if (result != source) {
+                        // Same bitmap is returned if sizes are the same
+                        source.recycle();
+                    }
+                    return result;
+                }
+
+                @Override
+                public String key() {
+                    return "key";
+                }
+            })
+            .into(imageView);
+    }
+
 
 }

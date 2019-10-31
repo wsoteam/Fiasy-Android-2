@@ -1,7 +1,6 @@
 package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -55,19 +54,19 @@ public class EatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         String nameOfGroup = "";
         switch (position) {
             case 0:
-                nameOfGroup = context.getString(R.string.main_screen_breakfast);
+                nameOfGroup = context.getString(R.string.breakfast);
                 break;
             case 1:
-                nameOfGroup = context.getString(R.string.main_screen_lunch);
+                nameOfGroup = context.getString(R.string.lunch);
                 break;
             case 2:
-                nameOfGroup = context.getString(R.string.main_screen_dinner);
+                nameOfGroup = context.getString(R.string.dinner);
                 break;
             case 3:
-                nameOfGroup = context.getString(R.string.main_screen_snack);
+                nameOfGroup = context.getString(R.string.snack);
                 break;
             case 4:
-                nameOfGroup = context.getString(R.string.main_screen_water);
+                nameOfGroup = context.getString(R.string.water);
                 break;
         }
 

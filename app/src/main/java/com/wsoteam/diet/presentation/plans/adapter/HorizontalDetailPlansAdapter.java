@@ -12,11 +12,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
-import com.wsoteam.diet.blur.BlurTransformation;
 import java.util.List;
 
 public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -111,17 +109,24 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerV
       this.recipeItem = recipeItem;
 
       tvName.setText(recipeItem.getName());
-      tvCalories.setText(
-          recipeItem.getCalories() + " " + context.getResources().getString(R.string.kcal));
+      //tvCalories.setText(
+          //recipeItem.getCalories() + " " + context.getResources().getString(R.string.kcal));
+      tvCalories.setText(String.format(context.getString(R.string.join_strings),
+          String.valueOf(recipeItem.getCalories()), context.getString(R.string.calories_unit)));
 
       if (isCurrentDay && recipeItem.isAddedInDiaryFromPlan()) {
-        Glide.with(context)
+        //Glide.with(context)
+        //    .load(recipeItem.getUrl())
+        //    .apply(RequestOptions.bitmapTransform(new BlurTransformation(10, 1)))
+        //    .into(imageView);
+        Picasso.get()
             .load(recipeItem.getUrl())
-            .apply(RequestOptions.bitmapTransform(new BlurTransformation(10, 1)))
+            .transform(new jp.wasabeef.picasso.transformations.BlurTransformation(context, 25, 1))
             .into(imageView);
+
         tvRecipeAdded.setVisibility(View.VISIBLE);
       } else {
-        Glide.with(context)
+        Picasso.get()
             .load(recipeItem.getUrl())
             .into(imageView);
         tvRecipeAdded.setVisibility(View.INVISIBLE);

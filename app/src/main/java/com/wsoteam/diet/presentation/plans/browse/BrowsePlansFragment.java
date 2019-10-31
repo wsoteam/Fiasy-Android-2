@@ -59,8 +59,11 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
 
         getActivity().getWindow().setStatusBarColor(Color.parseColor("#9E5203"));
         mToolbar.setTitle(getString(R.string.plans));
-        mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
-        mToolbar.setNavigationOnClickListener(navigationListener);
+
+        if (getArguments() != null && getArguments().getBoolean("addBackButton")) {
+            mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
+            mToolbar.setNavigationOnClickListener(navigationListener);
+        }
 
         adapter = new VerticalBrowsePlansAdapter(prepareList());
         adapter.SetOnItemClickListener(onItemClickListener);
@@ -78,8 +81,6 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
             listGroups.remove(0);
         }
 
-
-
         if (UserDataHolder.getUserData().getPlan() != null && UserDataHolder.getUserData().getPlan().getDaysAfterStart() <
             UserDataHolder.getUserData().getPlan().getCountDays()) {
             DietsList dietsList = new DietsList();
@@ -95,11 +96,7 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
         return listGroups;
     }
 
-    View.OnClickListener navigationListener = new View.OnClickListener() {
-        @Override public void onClick(View v) {
-            getActivity().onBackPressed();
-        }
-    };
+    private View.OnClickListener navigationListener = v -> getActivity().onBackPressed();
 
     HorizontalBrowsePlansAdapter.OnItemClickListener onItemClickListener = new HorizontalBrowsePlansAdapter.OnItemClickListener() {
         @Override

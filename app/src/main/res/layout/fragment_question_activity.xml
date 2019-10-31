@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-medium"
-        android:text="@string/onboard_activity_subtitle"
+        android:text="@string/select_your_activity"
         android:textColor="#de2b2b2b"
         android:textSize="20sp"
         android:textStyle="normal"
@@ -139,29 +139,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSubTitle"/>
 
-    <TextView
-        android:id="@+id/tvActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:fontFamily="sans-serif"
-        android:textColor="@color/water_text_black"
-        android:textSize="14sp"
-        android:textStyle="normal"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pbActivity"
-        tools:text="Минимальная нагрузка"/>
+  <TextView
+      android:id="@+id/tvActivity"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="32dp"
+      android:layout_marginStart="32dp"
+      android:layout_marginTop="50dp"
+      android:fontFamily="sans-serif"
+      android:gravity="center"
+      android:textAlignment="center"
+      android:textColor="@color/water_text_black"
+      android:textSize="14sp"
+      android:textStyle="normal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/pbActivity"
+      tools:text="@string/first_activity"
+      />
 
     <Button
         android:id="@+id/btnNext"
-        style="@style/Question.NextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/Question.NextButton"
         />
 
 

@@ -1,12 +1,10 @@
 package com.wsoteam.diet.presentation.profile.settings.controller;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,35 +24,40 @@ import com.wsoteam.diet.presentation.profile.help.HelpActivity;
 import com.wsoteam.diet.presentation.profile.norm.ChangeNormActivity;
 import com.wsoteam.diet.presentation.promo.PromoFormActivity;
 
-import io.intercom.android.sdk.Intercom;
-
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
 
-    Context context;
-    String[] names;
-    TypedArray drawablesLeft;
-    boolean isNotPrem;
-    boolean isLogOut;
-    int textColor;
-    int drawableArrow;
-    private final int PREMIUM = 0,
-    // FOOD = 1,
-    PROMO = 1,
-            PERSONAL = 2,
-            KCAL = 3,
-    //NOTIFICATIONS = 3,
-    //TARGET = 4,
-    HELP = 4,
-            LOGOUT = 5;
+    private final Context context;
+    private final int[] ids;
+    private final String[] names;
+
+    private final TypedArray drawablesLeft;
+    private final boolean isNotPrem;
+    private boolean isLogOut;
+    private int textColor;
+    private int drawableArrow;
+
+    private final int
+        PREMIUM = 0,
+        // FOOD = 1,
+        PROMO = 1,
+        PERSONAL = 2,
+        KCAL = 3,
+        //NOTIFICATIONS = 3,
+        //TARGET = 4,
+        HELP = 4,
+        LOGOUT = 5;
 
     public ItemsAdapter(Context context, boolean isNotPrem) {
         this.context = context;
         this.isNotPrem = isNotPrem;
+
         if (isNotPrem) {
             names = context.getResources().getStringArray(R.array.settings_items);
+            ids = new int[] { PREMIUM, PROMO, PERSONAL, KCAL, HELP, LOGOUT };
             this.drawablesLeft = context.getResources().obtainTypedArray(R.array.left_drawables);
         } else {
             names = context.getResources().getStringArray(R.array.settings_items_prem);
+            ids = new int[] { PROMO, PERSONAL, KCAL, HELP, LOGOUT };
             this.drawablesLeft = context.getResources().obtainTypedArray(R.array.left_drawables_prem);
         }
     }
@@ -64,6 +67,20 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
     public ItemsViewHolders onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         return new ItemsViewHolders(layoutInflater, viewGroup);
+    }
+
+    @Override public void onViewAttachedToWindow(@NonNull ItemsViewHolders holder) {
+      super.onViewAttachedToWindow(holder);
+
+      holder.itemView.setOnClickListener(v -> {
+        goToItemSettings(holder.getAdapterPosition());
+      });
+    }
+
+    @Override public void onViewDetachedFromWindow(@NonNull ItemsViewHolders holder) {
+      super.onViewDetachedFromWindow(holder);
+
+      holder.itemView.setOnClickListener(null);
     }
 
     @Override
@@ -83,27 +100,24 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
         } else {
             isLogOut = false;
         }
-        itemsViewHolders.bind(names[i], drawablesLeft.getResourceId(i, -1), textColor, drawableArrow, isNotPrem, isLogOut, new ClickCallback() {
-                    @Override
-                    public void clickItem(int position) {
-                        goToItemSettings(position);
-                    }
-                }
-        );
+        itemsViewHolders.bind(names[i], drawablesLeft.getResourceId(i, -1),
+            textColor, drawableArrow, isLogOut);
     }
 
     private void goToItemSettings(int position) {
-        if (!isNotPrem) position += 1;
-        Intent intent;
-        switch (position) {
+        int actionId = ids[position];
+
+        switch (actionId) {
             case PREMIUM:
-                intent = new Intent(context, ActivitySubscription.class);
-                Box box = new Box();
+                final Box box = new Box();
                 box.setComeFrom(AmplitudaEvents.view_prem_settings);
                 box.setBuyFrom(EventProperties.trial_from_settings);
                 box.setOpenFromPremPart(true);
                 box.setOpenFromIntrodaction(false);
+
+                final Intent intent = new Intent(context, ActivitySubscription.class);
                 intent.putExtra(Config.TAG_BOX, box);
+
                 context.startActivity(intent);
                 break;
             /*case FOOD:
@@ -129,30 +143,20 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
                 break;
             case LOGOUT:
                 Events.logLogout();
-                AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(context);
-                myAlertDialog.setTitle("Выход");
-                myAlertDialog.setMessage("Вы хотите выйти из учетной записи?");
 
-                myAlertDialog.setPositiveButton("Да",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                exitUser();
-                            }
-                        });
+                new AlertDialog.Builder(context)
+                  .setTitle("Выход")
+                  .setMessage("Вы хотите выйти из учетной записи?")
+                  .setPositiveButton("Да", (arg0, arg1) -> exitUser())
+                  .setNegativeButton("Нет", null)
+                  .show();
 
-                myAlertDialog.setNegativeButton("Нет",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                            }
-                        });
-                myAlertDialog.show();
                 break;
         }
 
     }
 
     private void exitUser() {
-        Intercom.client().logout();
         AuthStrategy.signOut(context);
         UserDataHolder.clearObject();
         Intent intent = new Intent(context, ActivitySplash.class).

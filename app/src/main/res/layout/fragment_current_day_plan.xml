@@ -54,7 +54,7 @@
         android:layout_marginStart="38dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto"
-        android:text="День 0/0"
+        android:text="@string/fragment_current_day_plan_days"
         android:textColor="@color/com_facebook_likeboxcountview_text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -187,67 +187,109 @@
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/clFinishPlan"
-      android:layout_width="0dp"
+  <androidx.cardview.widget.CardView
+      android:id="@+id/cvFinishPlan"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:visibility="visible"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:cardCornerRadius="10dp"
+      app:cardElevation="4dp"
       >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
 
-    <ImageView
-        android:id="@+id/imageView48"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPlanEnd"
-        app:srcCompat="@drawable/plan_main_screen_end_img"
-        />
-    <TextView
-        android:id="@+id/tvPlanEnd"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/plan"
-        android:textAlignment="center"
-        android:textColor="@color/com_facebook_likeboxcountview_text_color"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-    <TextView
-        android:id="@+id/textView156"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/plan_end_text"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView48"
-        />
-    <TextView
-        android:id="@+id/tvViewcOtherPlans"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/view_other_plans"
-        android:textColor="@color/pumpkin_orange"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView156"
-        />
+      <ImageView
+          android:id="@+id/imageView48"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="18dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/titleFinishPlan"
+          app:srcCompat="@drawable/plan_main_screen_end_img"
+          />
+      <ImageView
+          android:id="@+id/ivClosePlan"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:layout_marginTop="16dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:srcCompat="@drawable/ic_prem_close"
+          />
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+      <TextView
+          android:id="@+id/titleFinishPlan"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="18dp"
+          android:layout_marginStart="18dp"
+          android:layout_marginTop="4dp"
+          android:fontFamily="sans-serif-medium"
+          android:lineSpacingExtra="8sp"
+          android:textAlignment="textStart"
+          android:textColor="#f2994a"
+          android:textSize="16sp"
+          android:textStyle="normal"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/tvPlanEnd"
+          tools:text="“Низкоуглеводный”"
+          />
+      <TextView
+          android:id="@+id/textView156"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:text="@string/plan_end_text"
+          android:textAlignment="center"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/imageView48"
+          />
+      <TextView
+          android:id="@+id/tvViewcOtherPlans"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="16dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="16dp"
+          android:fontFamily="sans-serif-medium"
+          android:lineSpacingExtra="8sp"
+          android:text="@string/view_other_plans"
+          android:textColor="@color/pumpkin_orange"
+          android:textSize="16sp"
+          android:textStyle="normal"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView156"
+          />
+      <TextView
+          android:id="@+id/tvPlanEnd"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="18dp"
+          android:layout_marginTop="8dp"
+          android:text="@string/plan"
+          android:textAlignment="textStart"
+          android:textColor="@color/diets_plan_title"
+          android:textSize="18sp"
+          android:textStyle="bold"
+          app:layout_constraintEnd_toStartOf="@+id/ivClosePlan"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

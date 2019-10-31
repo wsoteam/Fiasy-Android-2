@@ -2,7 +2,11 @@ package com.wsoteam.diet.BranchOfAnalyzer.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
+import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityDetailOfFood;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
@@ -29,6 +28,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.common.backward.FoodConverter;
 
+import com.wsoteam.diet.utils.DrawableUtilsKt;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -88,14 +88,13 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
     }
 
     private void showNoFind() {
-        Glide.with(getActivity()).load(R.drawable.ic_no_find).into(ivAddFavorite);
+        ivAddFavorite.setImageDrawable(DrawableUtilsKt.getVectorIcon(requireContext(), R.drawable.ic_no_find));
         tvTitleFavoriteAdd.setText(getActivity().getResources().getString(R.string.title_no_find_food));
         tvTextAddFavorite.setText(getActivity().getResources().getString(R.string.text_no_find_food));
         ivAddFavorite.setVisibility(View.VISIBLE);
         tvTextAddFavorite.setVisibility(View.VISIBLE);
         tvTitleFavoriteAdd.setVisibility(View.VISIBLE);
     }
-
 
 
     @Override
@@ -195,16 +194,18 @@ public class FragmentFavorites extends Fragment implements TabsFragment {
         }
 
         public void bind(Food food) {
-            tvNameOfFood.setText(food.getName());
-            tvCalories.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
-            if (food.isLiquid()) {
-                tvWeight.setText("Вес: 100мл");
-            } else {
-                tvWeight.setText("Вес: 100г");
+            if (food.getFullInfo() != null) {
+              tvNameOfFood.setText(food.getName());
             }
-            tvProt.setText("Б. " + String.valueOf(Math.round(food.getProteins() * 100)));
-            tvFats.setText("Ж. " + String.valueOf(Math.round(food.getFats() * 100)));
-            tvCarbo.setText("У. " + String.valueOf(Math.round(food.getCarbohydrates() * 100)));
+            tvCalories.setText(String.format(getString(R.string.n_KCal), Math.round(food.getCalories() * 100)));
+            if (food.isLiquid()) {
+                tvWeight.setText(getString(R.string.search_food_activity_weight_ml));
+            } else {
+                tvWeight.setText(getString(R.string.search_food_activity_weight_g));
+            }
+            tvProt.setText(String.format(getString(R.string.search_food_activity_prot), Math.round(food.getProteins() * 100)));
+            tvFats.setText(String.format(getString(R.string.search_food_activity_fat), Math.round(food.getFats() * 100)));
+            tvCarbo.setText(String.format(getString(R.string.search_food_activity_carbo), Math.round(food.getCarbohydrates() * 100)));
             if (!food.getBrand().equals("")) {
                 tvBrand.setVisibility(View.VISIBLE);
                 tvBrand.setText(food.getBrand());

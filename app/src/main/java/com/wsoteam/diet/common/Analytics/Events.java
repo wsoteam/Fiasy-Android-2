@@ -1,20 +1,13 @@
 package com.wsoteam.diet.common.Analytics;
 
 import android.util.Log;
-
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Revenue;
 import com.android.billingclient.api.BillingClient;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
-
+import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import io.intercom.android.sdk.Intercom;
 
 public class Events {
 
@@ -118,12 +111,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(RECIPE_ADD_SUCCES, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.recipe_intake, eating);
-        eventData.put(EventProperties.recipe_id_add, nameRecipe);
-        eventData.put(EventProperties.diet_plans_choose, convertedNamePlan);
-        io.intercom.android.sdk.Intercom.client().logEvent(RECIPE_ADD_SUCCES, eventData);
     }
 
 
@@ -136,11 +123,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(VIEW_RECIPE, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.recipe_item, name);
-        eventData.put(EventProperties.diet_plans_choose, convertedNamePlan);
-        io.intercom.android.sdk.Intercom.client().logEvent(VIEW_RECIPE, eventData);
     }
 
 
@@ -153,11 +135,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(LEAVE_PLAN, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.diet_plans_choose, convertedNamePlan);
-        eventData.put(EventProperties.active_day, activeDays);
-        io.intercom.android.sdk.Intercom.client().logEvent(LEAVE_PLAN, eventData);
     }
 
     public static void logSetUserPropertyError(String message) {
@@ -171,7 +148,6 @@ public class Events {
 
     public static void logChangeGoal() {
         Amplitude.getInstance().logEvent(CHANGE_GOAL);
-        io.intercom.android.sdk.Intercom.client().logEvent(CHANGE_GOAL);
     }
 
 
@@ -184,11 +160,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(PLAN_COMPLETE, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.diet_plans_choose, convertedNamePlan);
-        eventData.put(EventProperties.recipe_added, countRecipes);
-        io.intercom.android.sdk.Intercom.client().logEvent(PLAN_COMPLETE, eventData);
     }
 
     public static void logAddPlanRecipe(String intake, String recipe, String from) {
@@ -200,12 +171,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ADD_PLAN_RECIPE_SUCCESS, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.plan_intake, intake);
-        eventData.put(EventProperties.recipe_id_plan, recipe);
-        eventData.put(EventProperties.plan_intake_from, from);
-        io.intercom.android.sdk.Intercom.client().logEvent(ADD_PLAN_RECIPE_SUCCESS, eventData);
     }
 
     public static void logConnectPlan(String namePlan, String watchPlan, int activeDays) {
@@ -218,12 +183,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CONNECT_PLAN_SUCCES, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.diet_plans_choose, convertedNamePlan);
-        eventData.put(EventProperties.watch_plan, watchPlan);
-        eventData.put(EventProperties.active_day, activeDays);
-        io.intercom.android.sdk.Intercom.client().logEvent(CONNECT_PLAN_SUCCES, eventData);
     }
 
 
@@ -282,20 +241,14 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CHOOSE_PLAN, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.diet_plans_choose, convertedNamePlan);
-        io.intercom.android.sdk.Intercom.client().logEvent(CHOOSE_PLAN, eventData);
     }
 
     public static void logViewArticlesDiet() {
         Amplitude.getInstance().logEvent(SELECT_DIET);
-        io.intercom.android.sdk.Intercom.client().logEvent(SELECT_DIET);
     }
 
     public static void logViewArticlesTraining() {
         Amplitude.getInstance().logEvent(SELECT_TRAINING);
-        io.intercom.android.sdk.Intercom.client().logEvent(SELECT_TRAINING);
     }
 
     public static void logAddCustomRecipe(String nameRecipe) {
@@ -305,10 +258,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ADD_CUSTOM_RECIPE, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.recipe_id_add, nameRecipe);
-        io.intercom.android.sdk.Intercom.client().logEvent(ADD_CUSTOM_RECIPE, eventData);
     }
 
     public static void logSearch(String nameFood) {
@@ -318,10 +267,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(SEARCH_SUCCESS, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.search_item, nameFood);
-        io.intercom.android.sdk.Intercom.client().logEvent(SEARCH_SUCCESS, eventData);
     }
 
     public static void logDiaryNext(int number) {
@@ -347,10 +292,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(DIARY_NEXT, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.add_intake, eating);
-        io.intercom.android.sdk.Intercom.client().logEvent(DIARY_NEXT, eventData);
     }
 
     public static void logTrackRevenue(double price) {
@@ -360,7 +301,6 @@ public class Events {
 
     public static void logPurchaseSuccess() {
         Amplitude.getInstance().logEvent(PURCHASE_SUCCESS);
-        io.intercom.android.sdk.Intercom.client().logEvent(PURCHASE_SUCCESS);
     }
 
     public static void logBillingError(int responseCode) {
@@ -398,30 +338,22 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(TRIAL_ERROR, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.trial_error, eventDecryption);
-        io.intercom.android.sdk.Intercom.client().logEvent(TRIAL_ERROR, eventData);
     }
 
     public static void logViewSettings() {
         Amplitude.getInstance().logEvent(VIEW_SETTINGS);
-        io.intercom.android.sdk.Intercom.client().logEvent(VIEW_SETTINGS);
     }
 
     public static void logBugSend() {
         Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_BUGSEND);
-        Intercom.client().logEvent(Events.PRODUCT_PAGE_BUGSEND);
     }
 
     public static void logDeleteFood() {
         Amplitude.getInstance().logEvent(DELETE_FOOD);
-        io.intercom.android.sdk.Intercom.client().logEvent(DELETE_FOOD);
     }
 
     public static void logEditFood() {
         Amplitude.getInstance().logEvent(EDIT_FOOD);
-        io.intercom.android.sdk.Intercom.client().logEvent(EDIT_FOOD);
     }
 
     public static void logPushButtonReg(String whichButton) {
@@ -432,10 +364,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(REGISTRATION_NEXT, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.enter_push_button, whichButton);
-        io.intercom.android.sdk.Intercom.client().logEvent(REGISTRATION_NEXT, eventData);
     }
 
 
@@ -446,10 +374,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ONBOARDING_SUCCESS, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.onboarding_success_from, how);
-        io.intercom.android.sdk.Intercom.client().logEvent(ONBOARDING_SUCCESS, eventData);
     }
 
     public static void logPushButton(String whichButton, String from) {
@@ -460,16 +384,10 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(PREMIUM_NEXT, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.push_button, whichButton);
-        eventData.put(EventProperties.push_button_from, from);
-        io.intercom.android.sdk.Intercom.client().logEvent(PREMIUM_NEXT, eventData);
     }
 
     public static void logOpenChat() {
         Amplitude.getInstance().logEvent(INTERCOM_CHAT);
-        io.intercom.android.sdk.Intercom.client().logEvent(INTERCOM_CHAT);
     }
 
 
@@ -481,11 +399,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(TRIAL_SUCCESS, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.trial_from, from);
-        eventData.put(EventProperties.auto_renewal, autoRenewing);
-        io.intercom.android.sdk.Intercom.client().logEvent(TRIAL_SUCCESS, eventData);
     }
 
     public static void logSetBuyError(String message) {
@@ -505,10 +418,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(VIEW_PRODUCT_PAGE, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.product_item, id);
-        io.intercom.android.sdk.Intercom.client().logEvent(VIEW_PRODUCT_PAGE, eventData);
     }
 
 
@@ -519,10 +428,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(PRODUCT_PAGE_FAVORITES, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.favorites, id);
-        io.intercom.android.sdk.Intercom.client().logEvent(PRODUCT_PAGE_FAVORITES, eventData);
     }
 
 
@@ -533,10 +438,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(FOOD_SEARCH, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.results, count);
-        io.intercom.android.sdk.Intercom.client().logEvent(FOOD_SEARCH, eventData);
     }
 
     public static void logCreateCustomFood(String from, String name) {
@@ -547,11 +448,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CUSTOM_PRODUCT_SUCCESS, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.product_from, from);
-        eventData.put(EventProperties.product_id, name);
-        io.intercom.android.sdk.Intercom.client().logEvent(CUSTOM_PRODUCT_SUCCESS, eventData);
     }
 
     public static void logViewArticle(String name) {
@@ -561,10 +457,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(VIEW_ARTICLES, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.articles_item, name);
-        io.intercom.android.sdk.Intercom.client().logEvent(VIEW_ARTICLES, eventData);
     }
 
     public static void logCreateRecipe(String from, String name) {
@@ -575,11 +467,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CUSTOM_RECIPE_SUCCESS, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.recipe_from, from);
-        eventData.put(EventProperties.recipe_id, name);
-        io.intercom.android.sdk.Intercom.client().logEvent(CUSTOM_RECIPE_SUCCESS, eventData);
     }
 
     public static void logCreateTemplate(String from, String template_intake, List<Food> foodList) {
@@ -595,12 +482,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CUSTOM_TEMPLATE_SUCCESS, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.template_from, from);
-        eventData.put(EventProperties.template_intake, template_intake);
-        eventData.put(EventProperties.product_inside, namesLine);
-        io.intercom.android.sdk.Intercom.client().logEvent(CUSTOM_TEMPLATE_SUCCESS, eventData);
     }
 
     public static void logAddFood(String food_intake, String food_category, String food_date, String food_item, int kcals, int weight) {
@@ -617,15 +498,6 @@ public class Events {
         }
 
         Amplitude.getInstance().logEvent(ADD_FOOD_SUCCESS, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.food_intake, food_intake);
-        eventData.put(EventProperties.food_category, food_category);
-        eventData.put(EventProperties.food_date, food_date);
-        eventData.put(EventProperties.food_item, food_item);
-        eventData.put(EventProperties.calorie_value, kcals);
-        eventData.put(EventProperties.product_weight, weight);
-        io.intercom.android.sdk.Intercom.client().logEvent(ADD_FOOD_SUCCESS, eventData);
     }
 
 
@@ -639,11 +511,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(VIEW_RECIPE, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.recipe_item, name);
-        eventData.put(EventProperties.diet_plans_choose, EventProperties.diet_plans_without);
-        io.intercom.android.sdk.Intercom.client().logEvent(VIEW_RECIPE, eventData);
     }
 
     public static void logAddFavoriteRecipe(String name) {
@@ -653,10 +520,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(RECIPE_FAVORITES, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.favorites_recipe, name);
-        io.intercom.android.sdk.Intercom.client().logEvent(RECIPE_FAVORITES, eventData);
     }
 
 
@@ -670,12 +533,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(RECIPE_ADD_SUCCES, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.recipe_intake, eating);
-        eventData.put(EventProperties.recipe_id_add, nameRecipe);
-        eventData.put(EventProperties.diet_plans_choose, EventProperties.diet_plans_without);
-        io.intercom.android.sdk.Intercom.client().logEvent(RECIPE_ADD_SUCCES, eventData);
     }
 
     public static void logChoiseRecipeCategory(String categoryName) {
@@ -685,10 +542,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(RECIPE_CATEGORY, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.recipe_category, categoryName);
-        io.intercom.android.sdk.Intercom.client().logEvent(RECIPE_CATEGORY, eventData);
     }
 
     public static void logMoveOnboard(int page) {
@@ -705,10 +558,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ONBOARING_NEXT, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.go_onboard, eventName);
-        io.intercom.android.sdk.Intercom.client().logEvent(ONBOARING_NEXT, eventData);
     }
 
     public static void logSkipOnboard(int page) {
@@ -721,20 +570,14 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ONBOARING_SKIP, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.skip_onboard, name);
-        io.intercom.android.sdk.Intercom.client().logEvent(ONBOARING_SKIP, eventData);
     }
 
     public static void logOpenPolitic() {
         Amplitude.getInstance().logEvent(REGISRTATION_PRIVACY);
-        io.intercom.android.sdk.Intercom.client().logEvent(REGISRTATION_PRIVACY);
     }
 
     public static void logRestorePassword() {
         Amplitude.getInstance().logEvent(RESEND_SUCCESS);
-        io.intercom.android.sdk.Intercom.client().logEvent(RESEND_SUCCESS);
     }
 
     public static void logRegistrationError(String error_type) {
@@ -744,10 +587,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(REGISTRATION_ERROR, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.error_type, error_type);
-        io.intercom.android.sdk.Intercom.client().logEvent(REGISTRATION_ERROR, eventData);
     }
 
     public static void logRegistration(String typeRegistration) {
@@ -757,10 +596,6 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(REGISTRATION_SUCCESS, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.registration, typeRegistration);
-        io.intercom.android.sdk.Intercom.client().logEvent(REGISTRATION_SUCCESS, eventData);
     }
 
     public static void logEnter(String typeEnter) {
@@ -770,15 +605,10 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ENTER_SUCCESS, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.registration, typeEnter);
-        io.intercom.android.sdk.Intercom.client().logEvent(ENTER_SUCCESS, eventData);
     }
 
     public static void logEnterError() {
         Amplitude.getInstance().logEvent(ENTER_ERROR);
-        io.intercom.android.sdk.Intercom.client().logEvent(ENTER_ERROR);
     }
 
     public static void logMoveQuestions(String page) {
@@ -788,14 +618,9 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(QUESTION_NEXT, eventProperties);
-
-        Map<String, Object> eventData = new HashMap<>();
-        eventData.put(EventProperties.question, page);
-        io.intercom.android.sdk.Intercom.client().logEvent(QUESTION_NEXT, eventData);
     }
 
     public static void logLogout() {
         Amplitude.getInstance().logEvent(PROFILE_LOGOUT);
-        io.intercom.android.sdk.Intercom.client().logEvent(PROFILE_LOGOUT);
     }
 }

@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 
+import android.text.TextUtils;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -26,10 +27,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
-import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 
@@ -115,13 +115,15 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         if (profile.getEmail() != null) {
             edtEmail.setText(profile.getEmail());
         }
-        if (profile.getPhotoUrl() != null && !profile.getPhotoUrl().equals("default")) {
-            Glide.with(this).load(profile.getPhotoUrl()).into(civProfile);
+        if (profile.getPhotoUrl() != null && !profile.getPhotoUrl().equals("default")
+            && !TextUtils.isEmpty(profile.getPhotoUrl())) {
+
+            Picasso.get().load(profile.getPhotoUrl()).into(civProfile);
         } else {
             if (profile.isFemale()) {
-                Glide.with(this).load(R.drawable.female_avatar).into(civProfile);
+                Picasso.get().load(R.drawable.female_avatar).into(civProfile);
             } else {
-                Glide.with(this).load(R.drawable.male_avatar).into(civProfile);
+                Picasso.get().load(R.drawable.male_avatar).into(civProfile);
             }
         }
     }
@@ -205,7 +207,9 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
             Log.e("LOL", "result ok");
             try {
                 aboutPresenter.uploadPhoto((Bitmap) data.getExtras().get("data"));
-                Glide.with(this).load((Bitmap) data.getExtras().get("data")).into(civProfile);
+                //Glide.with(this).load((Bitmap) data.getExtras().get("data")).into(civProfile);
+                civProfile.setImageBitmap((Bitmap) data.getExtras().get("data"));
+                //TODO check
                 Log.e("LOL", data.getExtras().toString());
                 Log.e("LOL", FirebaseAuth.getInstance().getUid());
             } catch (Exception e) {
@@ -226,7 +230,9 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
                     matrix.postRotate(270);
                 }
                 bitmap = Bitmap.createBitmap(bitmap, 0, 0, IMAGE_WIDTH, IMAGE_HEIGHT, matrix, true);
-                Glide.with(this).load(bitmap).into(civProfile);
+                //Glide.with(this).load(bitmap).into(civProfile);
+                civProfile.setImageBitmap(bitmap);
+                //TODO check
                 aboutPresenter.uploadPhoto(bitmap);
             } catch (Exception ex) {
                 Log.e("LOL", ex.getMessage());

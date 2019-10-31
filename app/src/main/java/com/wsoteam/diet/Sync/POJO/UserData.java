@@ -20,6 +20,7 @@ import com.wsoteam.diet.presentation.measurment.POJO.Hips;
 import com.wsoteam.diet.presentation.measurment.POJO.Waist;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 
+import com.wsoteam.diet.presentation.activity.UserActivityExercise;
 import java.io.Serializable;
 import java.util.HashMap;
 

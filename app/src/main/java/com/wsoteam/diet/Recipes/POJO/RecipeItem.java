@@ -59,7 +59,7 @@ public class RecipeItem implements Serializable {
         String result = name + "\n" +
             "Время готовки: " + time + "\n" +
             "Калории: " + calories + "\n" +
-            "Ингридиенты: \n" + ingr +
+            "Ингредиенты: \n" + ingr +
             "Инструкция: \n" + instr +
             "Остальные параметры: \n" +
             "description " + description + "\n" +

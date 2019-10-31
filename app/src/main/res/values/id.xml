@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="facebook_app_id">2250745994970837</string>
-    <string name="fb_login_protocol_scheme">fb2250745994970837</string>
+    <string name="facebook_app_id" translatable="false">2250745994970837</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb2250745994970837</string>
 
+    <string name="instagram_client_id" translatable="false">f9ecb6690966457d88a02b0ea758bc58</string>
+    <string name="instagram_callback_url" translatable="false">http://fiasy.com/</string>
+    <string name="base_url" translatable="false">https://api.instagram.com/</string>
 </resources>

@@ -2,10 +2,6 @@ package com.wsoteam.diet.MainScreen.Controller;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,22 +10,23 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.wsoteam.diet.BranchOfAnalyzer.ActivityListAndSearch;
-import com.wsoteam.diet.common.Analytics.Events;
-import com.wsoteam.diet.model.Eating;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
-
+import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.model.Eating;
+import com.wsoteam.diet.utils.DrawableUtilsKt;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class EatingViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvTitleOfEatingCard)
@@ -133,9 +130,9 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         } else {
             ibtnOpenList.setOnClickListener(view -> {
                 if (!isButtonPressed) {
-                    Glide.with(context).load(R.drawable.close_eating_list).into(ibtnOpenList);
+                    ibtnOpenList.setImageDrawable(DrawableUtilsKt.getVectorIcon(context, R.drawable.close_eating_list));
                 } else {
-                    Glide.with(context).load(R.drawable.open_eating_list).into(ibtnOpenList);
+                    ibtnOpenList.setImageDrawable(DrawableUtilsKt.getVectorIcon(context, R.drawable.open_eating_list));
                 }
                 rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup,
                         context, !isButtonPressed, getAdapterPosition(), this::refreshUI).setUpdateCallback(updateCallback));
@@ -147,19 +144,19 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     private void setIconAndTime() {
         switch (getAdapterPosition()) {
             case BREAKFAST:
-                Glide.with(context).load(R.drawable.breakfast_icon).into(ivEatingIcon);
+                //ivEatingIcon.setImageDrawable(DrawableUtilsKt.getVectorIcon(context, R.drawable.breakfast_icon));
                 endTime = BREAKFAST_TIME;
                 break;
             case LUNCH:
-                Glide.with(context).load(R.drawable.lunch_icon).into(ivEatingIcon);
+                //ivEatingIcon.setImageDrawable(DrawableUtilsKt.getVectorIcon(context, R.drawable.lunch_icon));
                 endTime = LUNCH_TIME;
                 break;
             case DINNER:
-                Glide.with(context).load(R.drawable.dinner_icon).into(ivEatingIcon);
+                //ivEatingIcon.setImageDrawable(DrawableUtilsKt.getVectorIcon(context, R.drawable.dinner_icon));
                 endTime = DINNER_TIME;
                 break;
             case SNACK:
-                Glide.with(context).load(R.drawable.snack_icon).into(ivEatingIcon);
+                //ivEatingIcon.setImageDrawable(DrawableUtilsKt.getVectorIcon(context, R.drawable.snack_icon));
                 endTime = SNACK_TIME;
                 break;
         }
@@ -168,7 +165,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     private void setCPFC() {
         int sumKcal = 0, sumProt = 0, sumFats = 0, sumCarbo = 0;
 
-        tvCount.setText(String.valueOf(eatingGroup.size()) + " шт.");
+        tvCount.setText(String.format(context.getString(R.string.n_item), eatingGroup.size()));
 
         if (eatingGroup.size() > 0) {
             for (int i = 0; i < eatingGroup.size(); i++) {
@@ -180,9 +177,9 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
             //layoutCommonInfo.setVisibility(View.VISIBLE);
             tvSumOfKcal.setText(String.valueOf(sumKcal));
 
-            tvSumProt.setText(String.valueOf(sumProt) + " г");
-            tvSumFats.setText(String.valueOf(sumFats) + " г");
-            tvSumCarbo.setText(String.valueOf(sumCarbo) + " г");
+            tvSumProt.setText(String.format(context.getString(R.string.n_g), sumProt));
+            tvSumFats.setText(String.format(context.getString(R.string.n_g), sumFats));
+            tvSumCarbo.setText(String.format(context.getString(R.string.n_g), sumCarbo));
         } else {
             //layoutCommonInfo.setVisibility(View.GONE);
             //tvRecommendation.setVisibility(View.VISIBLE);

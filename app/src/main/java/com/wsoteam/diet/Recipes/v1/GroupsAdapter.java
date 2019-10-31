@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOS.ListOfRecipes;
 import com.wsoteam.diet.R;
@@ -154,8 +154,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
                     name = name.substring(0, 25) + "...";
                 }
 
-                Glide
-                        .with(context)
+                Picasso.get()
                         .load(getUrl(listIndex, i))
                         .into(imageViewList.get(i));
                 textViewList.get(i).setText(name);

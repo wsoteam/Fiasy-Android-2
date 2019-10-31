@@ -6,6 +6,7 @@ import android.util.Log;
 import com.wsoteam.diet.BranchOfAnalyzer.Const;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.main.water.WaterActivity;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
@@ -203,11 +204,13 @@ public class BodyCalculates {
         carbohydrate = (result * 0.35 / 4) - FPCindex;
 
 
+        profile.setMaxWater(WaterActivity.DEFAULT_NORMA);
         profile.setWaterCount(waterCount);
-        profile.setMaxKcal((int) result);
+        profile.setMaxKcal((int)result);
         profile.setMaxFat((int) fat);
         profile.setMaxProt((int) protein);
         profile.setMaxCarbo((int) carbohydrate);
+
         profile.setMaxWater(maxWater);
 
         if (isNeedCreateMeasurment) {
@@ -265,4 +268,5 @@ public class BodyCalculates {
         }
         WorkWithFirebaseDB.putProfileValue(profile);
     }
+
 }

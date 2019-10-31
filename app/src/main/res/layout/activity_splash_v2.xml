@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+  <LinearLayout
+      android:id="@+id/notice_container"
+      android:orientation="vertical"
+      android:background="@drawable/rounded_bottom_rect"
+      android:padding="16dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Нет подключения к интернету"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:fontFamily="sans-serif"
+        />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Чтобы все функции приложения работали корректно, подключитесь к интернету"
+        android:textColor="#d9ffffff"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:fontFamily="sans-serif-medium"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/ic_no_network_anntena_white"
+        android:layout_gravity="center"
+        />
+
+
+  </LinearLayout>
+
+
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_gravity="center"
+      >
+
+    <ImageView
+        android:id="@+id/brand_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/ic_fiasy_splash_ppl"
+        />
+
+
+    <TextView
+        android:id="@+id/brand_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="58sp"
+        android:layout_marginLeft="16dp"
+        android:textColor="#c0000000"
+        android:textStyle="bold"
+        android:text="Fiasy"
+        />
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:id="@+id/retry_frame"
+      android:background="#c5000000"
+      android:padding="10dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_gravity="bottom"
+      android:gravity="center"
+      android:visibility="gone"
+      >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/ic_refresh_white_24dp"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16dp"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:text="Попробовать снова"
+        />
+
+  </LinearLayout>
+
+
+</FrameLayout>

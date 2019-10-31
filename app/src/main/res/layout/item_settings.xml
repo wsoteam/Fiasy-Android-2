@@ -33,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="TextView"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/ivIconItem"
         app:layout_constraintStart_toEndOf="@+id/ivIconItem"

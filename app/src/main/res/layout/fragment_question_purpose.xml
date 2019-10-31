@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
-        android:text="@string/onboard_purpose_title"
+        android:text="@string/select_your_target"
         android:textColor="#de2b2b2b"
         android:textSize="20sp"
         android:textStyle="normal"
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/onboard_purpose_normal_text"
+        android:text="@string/first_target"
         android:textColor="@color/confirm_text"
         app:layout_constraintEnd_toEndOf="@+id/cbNormal"
         app:layout_constraintStart_toStartOf="@+id/cbNormal"
@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/onboard_purpose_loose_weight_text"
+        android:text="@string/second_target"
         android:textColor="@color/confirm_text"
         app:layout_constraintEnd_toEndOf="@+id/cbLooseWeight"
         app:layout_constraintStart_toStartOf="@+id/cbLooseWeight"
@@ -81,14 +81,15 @@
 
     <TextView
         android:id="@+id/tvMuscle"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/onboard_purpose_muscle_text"
+        android:text="@string/third_target"
         android:textColor="@color/confirm_text"
         app:layout_constraintEnd_toEndOf="@+id/cbMuscle"
         app:layout_constraintStart_toStartOf="@+id/cbMuscle"
-        app:layout_constraintTop_toTopOf="@+id/tvSave"/>
+        app:layout_constraintTop_toTopOf="@+id/tvSave"
+        />
 
     <RadioButton
         android:id="@+id/cbSave"
@@ -104,24 +105,26 @@
 
     <TextView
         android:id="@+id/tvSave"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/onboard_purpose_save_text"
+        android:text="@string/fourth_target"
         android:textColor="@color/confirm_text"
         app:layout_constraintEnd_toEndOf="@+id/cbSave"
         app:layout_constraintStart_toStartOf="@+id/cbSave"
-        app:layout_constraintTop_toBottomOf="@+id/cbSave"/>
+        app:layout_constraintTop_toBottomOf="@+id/cbSave"
+        />
 
     <Button
         android:id="@+id/btnNext"
-        style="@style/Question.NextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:enabled="false"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/Question.NextButton"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

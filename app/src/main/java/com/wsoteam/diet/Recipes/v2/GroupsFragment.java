@@ -38,7 +38,6 @@ import java.util.Set;
 public class GroupsFragment extends Fragment implements Observer {
 
     private GroupsFragment groupsFragment;
-    private Context context = getContext();
     private ViewGroup viewGroup;
     private RecyclerView recyclerView;
     private GroupsAdapter adapter;
@@ -79,7 +78,7 @@ public class GroupsFragment extends Fragment implements Observer {
         cardView = view.findViewById(R.id.cvGroupsRecipes);
 
         Toolbar mToolbar = view.findViewById(R.id.toolbar);
-        mToolbar.setTitle("Рецепты");
+        mToolbar.setTitle(getString(R.string.tab_lat_recipes_name));
         mToolbar.inflateMenu(R.menu.toolbar_menu);
         mToolbar.setTitleTextColor(0xFFFFFFFF);
 

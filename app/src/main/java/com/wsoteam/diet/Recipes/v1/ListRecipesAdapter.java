@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOS.ItemRecipes;
 import com.wsoteam.diet.R;
@@ -87,8 +87,7 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.
 
 
             textView.setText(name);
-            Glide
-                    .with(context)
+            Picasso.get()
                     .load(listRecipes.get(position).getUrl())
                     .into(imageView);
         }

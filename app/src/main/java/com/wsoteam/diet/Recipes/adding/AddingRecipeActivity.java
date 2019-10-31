@@ -98,7 +98,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
                         btnBack.setVisibility(View.VISIBLE);
                         btnNext.setVisibility(View.VISIBLE);
                         btnOk.setVisibility(View.GONE);
-                        mToolbar.setTitle("Ингридиенты для 1 порции");
+                        mToolbar.setTitle("Ингредиенты для 1 порции");
                         break;
                     case 2:
                         btnBack.setVisibility(View.VISIBLE);

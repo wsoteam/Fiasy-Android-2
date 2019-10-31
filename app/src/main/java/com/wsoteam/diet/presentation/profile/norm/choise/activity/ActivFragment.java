@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -42,15 +40,12 @@ public class ActivFragment extends QuestionActivityFragments {
         pbActivity.setProgress(choisePosition(activity));
         tvActivity = getView().findViewById(R.id.tvActivity);
         btnSave = getView().findViewById(R.id.btnNext);
-        btnSave.setText(getActivity().getResources().getString(R.string.activity_save));
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.putExtra(Config.ACTIVITY_CHANGE_RESULT, pbActivity.getProgress());
-                getActivity().setResult(Activity.RESULT_OK, intent);
-                getActivity().finish();
-            }
+        btnSave.setText(getActivity().getResources().getString(R.string.save));
+        btnSave.setOnClickListener(view -> {
+            Intent intent = new Intent();
+            intent.putExtra(Config.ACTIVITY_CHANGE_RESULT, pbActivity.getProgress());
+            getActivity().setResult(Activity.RESULT_OK, intent);
+            getActivity().finish();
         });
     }
 
@@ -59,7 +54,6 @@ public class ActivFragment extends QuestionActivityFragments {
         String[] activities = getActivity().getResources().getStringArray(R.array.activities);
         for (int i = 0; i < activities.length; i++) {
             if (activity.equalsIgnoreCase(activities[i])) {
-                Log.e("LOL", activity);
                 position = i;
                 break;
             }

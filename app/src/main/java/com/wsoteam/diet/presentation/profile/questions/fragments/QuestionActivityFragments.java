@@ -2,22 +2,20 @@ package com.wsoteam.diet.presentation.profile.questions.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Button;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatSeekBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatSeekBar;
-import androidx.fragment.app.Fragment;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.common.helpers.DrawableAlwaysCrossFadeFactory;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 
 import butterknife.BindView;
@@ -45,6 +43,7 @@ public class QuestionActivityFragments extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_question_activity, container, false);
         ButterKnife.bind(this, view);
+
         changeProgress(0);
         pbActivity.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -64,42 +63,47 @@ public class QuestionActivityFragments extends Fragment {
     }
 
     public void changeProgress(int progress) {
-        String text = getString(R.string.onboard_activity_level_none);
+        String text = getString(R.string.first_activity);
         int imageResource = R.drawable.ic_activity0;
         switch (progress) {
             case 0:
                 imageResource = R.drawable.ic_activity0;
-                text = getString(R.string.onboard_activity_level_none);
+                text = getString(R.string.first_activity);
                 break;
             case 1:
                 imageResource = R.drawable.ic_activity1;
-                text = getString(R.string.onboard_activity_level_easy);
+                text = getString(R.string.second_activity);
                 break;
             case 2:
                 imageResource = R.drawable.ic_activity2;
-                text = getString(R.string.onboard_activity_level_medium);
+                text = getString(R.string.third_activity);
                 break;
             case 3:
                 imageResource = R.drawable.ic_activity3;
-                text = getString(R.string.onboard_activity_level_hard);
+                text = getString(R.string.fourth_activity);
                 break;
             case 4:
                 imageResource = R.drawable.ic_activity4;
-                text = getString(R.string.onboard_activity_level_hard_up);
+                text = getString(R.string.five_activity);
                 break;
             case 5:
                 imageResource = R.drawable.ic_activity5;
-                text = getString(R.string.onboard_activity_level_super);
+                text = getString(R.string.six_activity);
                 break;
             case 6:
                 imageResource = R.drawable.ic_activity6;
-                text = getString(R.string.onboard_activity_level_super_up);
+                text = getString(R.string.seven_activity);
                 break;
         }
-        Glide.with(QuestionActivityFragments.this)
-                .load(imageResource)
-                .transition(DrawableTransitionOptions.with(new DrawableAlwaysCrossFadeFactory()))
-                .into(ivImage);
+        //Glide.with(QuestionActivityFragments.this)
+        //        .load(imageResource)
+        //        .transition(DrawableTransitionOptions.with(new DrawableAlwaysCrossFadeFactory()))
+        //        .into(ivImage);
+        //TODO check
+        //Picasso.get().load(imageResource).into(ivImage);
+        ivImage.setImageDrawable(
+            VectorDrawableCompat.create(getResources(), imageResource, requireActivity().getTheme())
+        );
         tvActivity.setText(text);
     }
 

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.SpannableString;
@@ -33,6 +34,7 @@ import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.model.Water;
 
+import com.wsoteam.diet.presentation.activity.DiaryActivitiesSource;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -43,6 +45,7 @@ import java.util.concurrent.ExecutionException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import kotlin.collections.CollectionsKt;
 
 public class FragmentEatingScroll extends Fragment {
     private static final String TAG_OF_BUNDLE = "FragmentEatingScroll";
@@ -139,6 +142,11 @@ public class FragmentEatingScroll extends Fragment {
 
         btnNotification = getActivity().findViewById(R.id.btnNotification);
 
+        DiaryActivitiesSource.INSTANCE.getBurnedLive()
+            .observe(getViewLifecycleOwner(), burned -> {
+                setMainParamsInBars(allEat);
+            });
+
         return view;
     }
 
@@ -149,7 +157,8 @@ public class FragmentEatingScroll extends Fragment {
         unbinder.unbind();
     }
 
-    private String setDateTitle(int day, int month, int year) {
+    @Deprecated
+    public static String setDateTitle(int day, int month, int year) {
         String dayInString, monthInString, yearInString;
 
         if (day < 10) {
@@ -187,6 +196,7 @@ public class FragmentEatingScroll extends Fragment {
     }
 
     private void setMainParamsInBars(List<List<Eating>> lists) {
+        lists = lists == null ? CollectionsKt.emptyList() : lists;
         int kcal = 0, fat = 0, prot = 0, carbo = 0, leftKCal = 0;
 
         for (int i = 0; i < lists.size(); i++) {
@@ -198,7 +208,7 @@ public class FragmentEatingScroll extends Fragment {
             }
         }
 
-        leftKCal = apCollapsingKcal.getMax() - kcal;
+        leftKCal = apCollapsingKcal.getMax() - kcal + DiaryActivitiesSource.INSTANCE.getBurned();
 
         apCollapsingKcal.setProgress(kcal);
         apCollapsingProt.setProgress(prot);
@@ -215,13 +225,13 @@ public class FragmentEatingScroll extends Fragment {
             apCollapsingKcal.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories));
 //            tvCaloriesDone.setText(spanText(R.string.main_screen_topbar_kcal_done, String.valueOf(kcal), R.color.main_calories_done));
 //            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_left, String.valueOf(leftKCal), R.color.main_calories_left));
-            tvCaloriesNeed.setText(String.valueOf(apCollapsingKcal.getMax()) + " ккал");
+            tvCaloriesNeed.setText(String.format(getString(R.string.format_int_kcal), apCollapsingKcal.getMax()));
             btnNotification.setVisibility(View.GONE);
         } else {
             apCollapsingKcal.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar_calories_over));
 //            tvCaloriesDone.setText(spanText(R.string.main_screen_topbar_kcal_done, String.valueOf(kcal), R.color.main_calories_done_over));
 //            tvCaloriesLeft.setText(spanText(R.string.main_screen_topbar_kcal_over, "+" + Math.abs(leftKCal), R.color.main_calories_left_over));
-            tvCaloriesNeed.setText(String.valueOf(apCollapsingKcal.getMax()) + " ккал");
+            tvCaloriesNeed.setText(String.format(getString(R.string.format_int_kcal), apCollapsingKcal.getMax()));
             btnNotification.setVisibility(View.VISIBLE);
         }
 

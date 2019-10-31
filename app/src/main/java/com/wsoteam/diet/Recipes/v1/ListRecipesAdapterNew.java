@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
@@ -102,11 +102,8 @@ public class ListRecipesAdapterNew extends RecyclerView.Adapter<ListRecipesAdapt
             }
 
             textView.setText(name);
-            textViewKK.setText(kk + " кк");
-            Glide
-                    .with(context)
-                    .load(url)
-                    .into(imageView);
+            textViewKK.setText(String.format(context.getString(R.string.n_kk), kk));
+            Picasso.get().load(url).into(imageView);
         }
         private boolean checkSubscribe() {
             SharedPreferences sharedPreferences = activity.getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);

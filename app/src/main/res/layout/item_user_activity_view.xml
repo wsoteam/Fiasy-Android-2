@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:contentPaddingLeft="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingTop="8dp"
+      android:paddingBottom="8dp"
+      tools:paddingLeft="16dp"
+      tools:paddingRight="16dp"
+      >
+
+    <TextView
+        android:id="@+id/activity_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Танцы"
+        android:layout_toLeftOf="@id/activity_effectivity"
+        android:textColor="#d9424242"
+        android:textSize="16sp"
+        style="@style/TextAppearance.AppCompat.Title"
+        />
+
+    <TextView
+        android:id="@+id/activity_duration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/activity_name"
+        android:layout_toLeftOf="@id/activity_effectivity"
+        android:drawablePadding="4dp"
+        tools:text="30 минут"
+        tools:drawableLeft="@drawable/ic_access_time"
+        android:textSize="14sp"
+        android:textColor="#80424242"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:gravity="center_vertical"
+        />
+
+    <TextView
+        android:id="@+id/activity_effectivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/action_edit_activity"
+        android:layout_alignWithParentIfMissing="true"
+        tools:text="120 ккал"
+        android:textSize="16sp"
+        android:textColor="#d9424242"
+        style="@style/TextAppearance.AppCompat.Body2"
+        />
+
+    <ImageView
+        android:id="@+id/action_edit_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        app:srcCompat="@drawable/ic_open_menu"
+        app:tint="@color/orange"
+        />
+  </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -13,12 +13,11 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.di.CiceroneModule;
-import com.wsoteam.diet.helper.NounsDeclension;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 
 
@@ -122,12 +121,12 @@ public class BlockedDetailPlansActivity extends BaseActivity implements BlockedD
     public void showData(DietPlan dietPlan){
         tvName.setText(dietPlan.getName());
         tvTime.setText(dietPlan.getCountDays() + "");
-        tvTimeTxt.setText(NounsDeclension.check(dietPlan.getCountDays(), "день", "дня", "дней"));
+        tvTimeTxt.setText(getResources().getQuantityString(R.plurals.day_plurals, dietPlan.getCountDays()));
         tvRecipes.setText(presenter.getRecipes().size() + "");
-        tvRecipesTxt.setText(NounsDeclension.check(presenter.getRecipes().size(), "рецепт","рецепта", "рецептов"));
+        tvRecipesTxt.setText(getResources().getQuantityString(R.plurals.recipe_plurals, presenter.getRecipes().size()));
         tvUsers.setText("475");
 
-        Glide.with(this)
+        Picasso.get()
                 .load(dietPlan.getUrlImage())
                 .into(ivPlans);
     }

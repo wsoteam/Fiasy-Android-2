@@ -1,36 +1,26 @@
 package com.wsoteam.diet.BranchOfAnalyzer;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-
 import androidx.annotation.Nullable;
-
 import com.google.android.material.tabs.TabLayout;
-
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
-
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.BranchOfAnalyzer.Controller.TabsAdapter;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.ActivityCreateFood;
 import com.wsoteam.diet.BranchOfAnalyzer.Fragments.FragmentFavoriteContainer;
@@ -40,7 +30,6 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
 import com.wsoteam.diet.Recipes.helper.FragmentRecipeContainer;
 import com.wsoteam.diet.common.Analytics.EventProperties;
-import com.wsoteam.diet.common.backward.OldFavoriteConverter;
 import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplateFragment;
 import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
 
@@ -50,6 +39,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.text.TextUtils.concat;
 
 public class ActivityListAndSearch extends AppCompatActivity {
     @BindView(R.id.spnEatingList)
@@ -77,8 +68,8 @@ public class ActivityListAndSearch extends AppCompatActivity {
         ButterKnife.bind(this);
         bindSpinnerChoiceEating();
         updateUI();
-
         getSupportFragmentManager().beginTransaction().add(R.id.searchFragmentContainer, new FragmentSearch()).commit();
+        edtSearchField.setHint(concat("       ",getString(R.string.search)));
         edtSearchField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -87,26 +78,14 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                ((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
+                        sendString(charSequence.toString().replaceAll("\\s+", " "));
                 changeSpeakButton(charSequence);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
 
-            }
-        });
-        edtSearchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    ((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
-                            sendString(edtSearchField.getText().toString().replaceAll("\\s+", " "));
-                    edtSearchField.clearFocus();
-                    InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    inputManager.hideSoftInputFromWindow(edtSearchField.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
-                    return true;
-                }
-                return false;
             }
         });
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -134,17 +113,16 @@ public class ActivityListAndSearch extends AppCompatActivity {
     private void changeSpeakButton(CharSequence charSequence) {
         if (charSequence.length() > 0 && isCanSpeak) {
             isCanSpeak = false;
-            Glide.with(this).load(R.drawable.ic_cancel).into(ibSpeakAndClear);
+            Picasso.get().load(R.drawable.ic_cancel).into(ibSpeakAndClear);
         } else if (charSequence.length() == 0 && !isCanSpeak) {
             isCanSpeak = true;
-            Glide.with(this).load(R.drawable.ic_speak).into(ibSpeakAndClear);
+            Picasso.get().load(R.drawable.ic_speak).into(ibSpeakAndClear);
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        edtSearchField.clearFocus();
         if (fragments.get(viewPager.getCurrentItem()) instanceof BrowseFoodTemplateFragment) {
             ((BrowseFoodTemplateFragment) fragments.get(viewPager.getCurrentItem()))
                     .setUserVisibleHint(true);
@@ -178,9 +156,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
         if (requestCode == 1234 && resultCode == RESULT_OK) {
             ArrayList<String> commandList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             edtSearchField.setText(commandList.get(0));
-            ((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
-                    sendString(edtSearchField.getText().toString().replaceAll("\\s+", " "));
-            edtSearchField.clearFocus();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -214,11 +189,6 @@ public class ActivityListAndSearch extends AppCompatActivity {
                     speak();
                 } else {
                     edtSearchField.setText("");
-                    ((TabsFragment) tabsAdapter.getItem(viewPager.getCurrentItem())).
-                            sendClearSearchField();
-                    edtSearchField.clearFocus();
-                    InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    inputManager.hideSoftInputFromWindow(edtSearchField.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
                 }
                 break;
             case R.id.ivBack:
@@ -251,7 +221,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
                                 .putExtra(EventProperties.template_from, EventProperties.template_from_plus));
                         break;
                     case R.id.createRecipe:
-                        startActivity(new Intent(ActivityListAndSearch.this, AddingRecipeActivity.class).putExtra(EventProperties.recipe_from, EventProperties.recipe_from_plus));
+                        startActivity(new Intent(ActivityListAndSearch.this, AddingRecipeActivity.class).putExtra(EventProperties.recipe_from, EventProperties.recipe_from_button));
                         break;
                 }
                 return false;

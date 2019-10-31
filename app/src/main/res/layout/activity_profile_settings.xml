@@ -25,7 +25,7 @@
         android:layout_marginStart="32dp"
         android:elevation="10dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="Настройки"
+        android:text="@string/activity_profile_settings_settings"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/ibBack"
         app:layout_constraintStart_toEndOf="@+id/ibBack"
@@ -60,7 +60,7 @@
                 android:layout_width="105dp"
                 android:layout_height="117dp"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/settings_prem_main_ic"
+                app:srcCompat="@drawable/settings_prem_main_ic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -31,7 +31,7 @@
         android:layout_marginBottom="8dp"
         android:elevation="9dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="@string/change_norm"
+        android:text="@string/calorie_intake"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView13"
@@ -109,10 +109,10 @@
                             android:enabled="false"
                             android:focusableInTouchMode="false"
                             android:fontFamily="@font/roboto_medium"
-                            android:hint="@string/change_sex"
+                            android:hint="@string/gender"
                             android:inputType="textCapSentences"
                             android:maxLength="50"
-                            android:text="Мужской"
+                            android:text="@string/profile_male"
                             android:textColor="#80424242"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -130,10 +130,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
                             android:fontFamily="@font/roboto_medium"
-                            android:hint="@string/change_height"
+                            android:hint="@string/growth"
                             android:inputType="number"
                             android:maxLength="3"
-                            android:text="180 см"
                             android:textColor="#d9424242"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -151,10 +150,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
                             android:fontFamily="@font/roboto_medium"
-                            android:hint="@string/change_weight"
+                            android:hint="@string/weight"
                             android:inputType="numberDecimal"
                             android:maxLength="5"
-                            android:text="75 кг"
                             android:textColor="#d9424242"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -172,10 +170,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
                             android:fontFamily="@font/roboto_medium"
-                            android:hint="@string/change_age"
+                            android:hint="@string/age"
                             android:inputType="number"
                             android:maxLength="3"
-                            android:text="25 лет"
                             android:textColor="#d9424242"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -194,8 +191,8 @@
                             android:layout_height="wrap_content"
                             android:focusableInTouchMode="false"
                             android:fontFamily="@font/roboto_medium"
-                            android:hint="@string/change_activity"
-                            android:text="Ежедневные интенсивные тренировки"
+                            android:hint="@string/activity"
+                            android:text="@string/five_activity"
                             android:textColor="#d9424242"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -214,9 +211,9 @@
                             android:layout_height="48dp"
                             android:focusableInTouchMode="false"
                             android:fontFamily="@font/roboto_medium"
-                            android:hint="@string/change_goal"
+                            android:hint="@string/target"
                             android:inputType="textCapSentences"
-                            android:text="Сохранение мышц и сжигание жира"
+                            android:text="@string/fourth_target"
                             android:background="@color/transparent"
                             android:textColor="#d9424242"
                             android:layout_marginLeft="3dp"

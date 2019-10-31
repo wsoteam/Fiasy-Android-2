@@ -11,19 +11,19 @@
       android:layout_width="56dp"
       android:layout_height="56dp"
       android:padding="12dp"
-      android:src="@drawable/back_arrow_icon"
+      app:srcCompat="@drawable/back_arrow_icon"
       />
 
   <TextView
-      style="@style/TextAppearance.AppCompat.Title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginLeft="16dp"
-      android:layout_marginTop="16dp"
       android:layout_marginRight="16dp"
-      android:text="Регистрация"
+      android:layout_marginTop="16dp"
+      android:text="@string/signUp_title"
       android:textColor="@color/orange"
       android:textSize="24sp"
+      style="@style/TextAppearance.AppCompat.Title"
       />
 
   <com.google.android.material.textfield.TextInputLayout
@@ -36,9 +36,10 @@
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_email_hint"
+        android:hint="@string/write_email"
         android:maxLength="64"
         android:inputType="textEmailAddress|textPersonName"
+        android:imeOptions="actionDone"
         />
 
   </com.google.android.material.textfield.TextInputLayout>
@@ -55,8 +56,9 @@
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/auth_password_hint"
+        android:hint="@string/password"
         android:inputType="textPassword"
+        android:imeOptions="actionDone"
         />
 
   </com.google.android.material.textfield.TextInputLayout>
@@ -74,7 +76,7 @@
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/repeat_password_hint"
+        android:hint="@string/repeat_password"
         android:inputType="textPassword"
         />
 
@@ -96,10 +98,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/action_sign_up"
+        android:text="@string/signUp_title"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
         />
 
   </androidx.cardview.widget.CardView>
@@ -109,7 +111,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:maxWidth="222dp"
-      android:text="@string/auth_forgot_your_password"
+      android:text="@string/forgot_password"
       style="@style/TextAppearance.AppCompat.Body1"
       android:textColor="#80000000"
       android:gravity="center"
@@ -123,7 +125,7 @@
       android:textSize="16sp"
       android:textStyle="bold"
       android:textColor="#80000000"
-      android:text="@string/auth_sign_up_alternatives"
+      android:text="@string/or_signIn_by"
       android:layout_gravity="center"
       android:layout_marginTop="64dp"
       />

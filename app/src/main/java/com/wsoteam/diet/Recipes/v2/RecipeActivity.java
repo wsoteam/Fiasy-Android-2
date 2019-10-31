@@ -23,9 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.amplitude.api.Amplitude;
-import com.bumptech.glide.Glide;
-import com.wsoteam.diet.AmplitudaEvents;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
@@ -93,7 +91,8 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
         recipeItem = (RecipeItem) getIntent().getSerializableExtra(Config.RECIPE_INTENT);
         Events.logViewRecipe(recipeItem.getName());
 
-        tvKkal.setText(recipeItem.getCalories() + " ккал на порцию");
+        //tvKkal.setText(recipeItem.getCalories() + " ккал на порцию");
+        tvKkal.setText(String.format(getString(R.string.user_recipe_activity_for_portion), recipeItem.getCalories()));
         tvName.setText(recipeItem.getName());
         tvTime.setText(String.valueOf(recipeItem.getTime()));
         tvCarbohydrates.setText(String.valueOf(recipeItem.getCarbohydrates()));
@@ -172,7 +171,10 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
             url = "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
         }
 
-        Glide.with(this).load(url).into(ivHead);
+        Picasso.get()
+            .load(url)
+            .fit().centerInside()
+            .into(ivHead);
 
 
         checkFavorite();
@@ -216,7 +218,6 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
                 return true;
             case R.id.mFavorites:
                 if (key == null) {
-                    Log.e("LOL", "fav");
                     Events.logAddFavoriteRecipe(recipeItem.getName());
                     key = WorkWithFirebaseDB.addFavoriteRecipe(recipeItem);
                     favoriteMenuItem.setIcon(R.drawable.icon_favorites_delete);
@@ -314,7 +315,7 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datepicker, int year, int month, int day) {
-                        //this condition is necessary to work properly on all android versions
+                        //this condition is necessary to work properly on detailed android versions
 //                        if(view.isShown()){
                         savePortion(idOfEating, recipeItem, year, month, day);
 //                        }

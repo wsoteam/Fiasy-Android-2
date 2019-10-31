@@ -5,9 +5,11 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -28,6 +30,7 @@ import com.wsoteam.diet.utils.InputValidation;
 import com.wsoteam.diet.utils.InputValidation.EmailValidation;
 import com.wsoteam.diet.utils.InputValidation.MinLengthValidation;
 import com.wsoteam.diet.utils.RichTextUtils.RichText;
+import com.wsoteam.diet.utils.ViewsExtKt;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,7 +42,7 @@ public class SignInFragment extends AuthStrategyFragment {
   static {
     formValidators.put(R.id.username, Arrays.asList(
         new MinLengthValidation(R.string.constraint_error_username_min_length, 5),
-        new EmailValidation(R.string.constraint_error_username_email)
+        new EmailValidation(R.string.write_email)
     ));
 
     formValidators.put(R.id.password, Arrays.asList(
@@ -98,6 +101,14 @@ public class SignInFragment extends AuthStrategyFragment {
 
       formInputs.add(target);
 
+      target.getEditText().setOnEditorActionListener((v, actionId, event) -> {
+        if(actionId == EditorInfo.IME_ACTION_DONE){
+          ViewsExtKt.hideKeyboard(v);
+          return true;
+        } else {
+          return false;
+        }
+      });
       target.getEditText().addTextChangedListener(validateOnChange);
     }
 
@@ -106,8 +117,8 @@ public class SignInFragment extends AuthStrategyFragment {
     final TextView forgetPassword = view.findViewById(R.id.forget_password);
 
     if (forgetPassword != null) {
-      forgetPassword.setText(TextUtils.concat(getString(R.string.auth_forgot_your_password), " ",
-          new RichText(getString(R.string.auth_restore_your_password))
+      forgetPassword.setText(TextUtils.concat(getString(R.string.forgot_password), " ",
+          new RichText(getString(R.string.restore))
               .colorRes(requireContext(), R.color.orange)
               .onClick(v -> restorePassword())
               .text()));

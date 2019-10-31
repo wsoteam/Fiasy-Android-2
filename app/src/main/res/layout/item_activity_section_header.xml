@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_marginTop="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="8dp"
+    >
+
+  <TextView
+      android:id="@+id/title"
+      style="@style/TextAppearance.AppCompat.Body1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Мои активности"
+      android:layout_gravity="center_vertical"
+      android:textColor="#80424242"
+      android:textSize="14sp"
+      android:textStyle="bold"
+      tools:layout_marginLeft="16dp"
+      />
+
+  <ImageView
+      android:id="@+id/icon"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_marginLeft="8dp"
+      app:srcCompat="@drawable/ic_arrow_drop_down_white_24dp"
+      android:tint="@color/orange"
+      />
+
+</LinearLayout>

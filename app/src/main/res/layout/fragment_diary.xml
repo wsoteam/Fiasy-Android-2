@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wsoteam.diet.views.GuardNestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    >
+
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_main"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+      <androidx.appcompat.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:title="@string/calendar_today"
+          app:titleTextColor="@color/white">
+
+        <com.wsoteam.diet.views.CalendarDateView
+            android:id="@+id/small_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="16dp"
+            android:gravity="bottom|center_horizontal"
+            android:textSize="8dp"
+            android:text="16"
+            android:textColor="@color/white"
+            />
+
+      </androidx.appcompat.widget.Toolbar>
+
+      <com.wsoteam.diet.views.CompactCalendarView
+          android:id="@+id/calendar"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/diary_calendar_height"
+          app:compactCalendarCurrentDayBackgroundColor="#e0850b"
+          app:compactCalendarCurrentSelectedDayBackgroundColor="#c5ffffff"
+          app:compactCalendarCurrentSelectedDayTextColor="@color/orange"
+          app:compactCalendarTargetHeight="240dp"
+          app:compactCalendarTextColor="#ffffff"
+          app:compactCalendarTextSize="13sp"
+          />
+
+      <ImageView
+          android:id="@+id/drag_controller"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:srcCompat="@drawable/shape_drag_controller"
+          android:layout_gravity="center_horizontal"
+          android:paddingBottom="24dp"
+          />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/container"
+        android:background="@drawable/widget_container_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_container"
+        android:layout_marginTop="56dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
+
+  </FrameLayout>
+</com.wsoteam.diet.views.GuardNestedScrollView>

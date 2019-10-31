@@ -5,8 +5,6 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.EventLog;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -23,8 +21,6 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.BranchOfAnalyzer.templates.POJO.FoodTemplate;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
-import com.wsoteam.diet.common.Analytics.Events;
-import com.wsoteam.diet.presentation.food.helper.NounsDeclension;
 import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplatePresenter;
 
 import java.util.ArrayList;
@@ -146,14 +142,15 @@ public class FoodTemplateAdapter extends RecyclerView.Adapter<FoodTemplateAdapte
             }
         }
 
-        void bind(int position) {
+        void    bind(int position) {
             imageView.setImageResource(getImgID(templateList.get(position).getEating()));
             tvName.setText(templateList.get(position).getName());
             tvEating.setText(templateList.get(position).getEating().toLowerCase());
             linearLayout.removeAllViews();
             int numbers = templateList.get(position).getFoodList().size();
-            tvCountFoods.setText(numbers
-                    + NounsDeclension.check(numbers, " продукт", " продукта", " продуктов"));
+            //tvCountFoods.setText(numbers
+            //        + NounsDeclension.check(numbers, " продукт", " продукта", " продуктов"));
+            tvCountFoods.setText(context.getResources().getQuantityString(R.plurals.foods_count, numbers, numbers));
 
             for (Food food :
                     templateList.get(position).getFoodList()) {

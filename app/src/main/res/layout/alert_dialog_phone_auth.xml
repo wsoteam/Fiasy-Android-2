@@ -72,7 +72,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/aler_dialog_phone_auth_btn_background"
                 android:elevation="8dp"
-                android:text="@string/auth_main_phone_btn_cancel"
+                android:text="@string/cancel"
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="@+id/auth_phone_et_code"
                 app:layout_constraintTop_toBottomOf="@+id/auth_phone_et_code"/>
@@ -84,7 +84,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/aler_dialog_phone_auth_btn_background"
                 android:elevation="8dp"
-                android:text="@string/auth_main_phone_btn_send"
+                android:text="@string/reset_send"
                 android:textColor="@android:color/white"
                 app:layout_constraintStart_toStartOf="@+id/auth_phone_et_code"
                 app:layout_constraintTop_toBottomOf="@+id/auth_phone_et_code"/>

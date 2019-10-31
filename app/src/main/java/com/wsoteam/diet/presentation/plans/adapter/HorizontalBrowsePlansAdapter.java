@@ -10,15 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.DietPlans.POJO.DietsList;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.helper.NounsDeclension;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import java.util.LinkedList;
 import java.util.List;
+
+import static android.text.TextUtils.concat;
 
 public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -110,10 +111,11 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
 
     public void bind(DietPlan dietPlan) {
       tvName.setText(dietPlan.getName());
-      tvTime.setText(dietPlan.getCountDays() +
-          NounsDeclension.check(dietPlan.getCountDays(), " день", " дня", " дней"));
-      Glide.with(context)
+      tvTime.setText(concat(String.valueOf(dietPlan.getCountDays()), " ",
+          context.getResources().getQuantityString(R.plurals.day_plurals, dietPlan.getCountDays())));
+      Picasso.get()
           .load(dietPlan.getUrlImage())
+          .fit().centerCrop()
           .into(imageView);
     }
 

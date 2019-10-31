@@ -1,22 +1,24 @@
 package com.wsoteam.diet.common.views.graph.formater;
 
-import android.util.Log;
 
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+
 
 public class XWeekFormatter extends ValueFormatter {
-    ArrayList<String> days = new ArrayList<>();
+    List<String> days;
 
     public XWeekFormatter() {
-        days.add("пн");
-        days.add("вт");
-        days.add("ср");
-        days.add("чт");
-        days.add("пт");
-        days.add("сб");
-        days.add("вс");
+        days = new ArrayList<>(Arrays.asList(
+            new DateFormatSymbols(Locale.getDefault()).getShortWeekdays()));
+        days.add(days.get(1));
+        days.remove(0);
+        days.remove(0);
     }
 
     @Override

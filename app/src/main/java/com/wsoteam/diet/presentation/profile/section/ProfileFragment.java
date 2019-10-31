@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.util.Log;
@@ -18,16 +20,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
-import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
-import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.CombinedChart;
@@ -44,6 +44,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.renderer.CombinedChartRenderer;
 import com.github.mikephil.charting.renderer.DataRenderer;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
@@ -56,11 +57,14 @@ import com.wsoteam.diet.common.views.graph.formater.XYearFormatter;
 import com.wsoteam.diet.common.views.graph.marker.BarMarker;
 import com.wsoteam.diet.presentation.profile.settings.ProfileSettingsActivity;
 
+import com.wsoteam.diet.utils.DrawableUtilsKt;
 import com.wsoteam.diet.utils.ViewUtils;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.text.TextUtils.concat;
 
 public class ProfileFragment extends MvpAppCompatFragment implements ProfileView {
     @BindView(R.id.ibSettings)
@@ -103,6 +107,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     private int INTERVAL_CHOISE = 0; //0 - week, 1 - month, 2 - year
     private final int CHOISED_WEEK = 0, CHOISED_MONTH = 1, CHOISED_YEAR = 2;
     private ArrayList<String> days = new ArrayList<>();
+
 
     @Override
     public void bindCircleProgressBar(float progress) {
@@ -256,16 +261,23 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
     @Override
     public void fillViewsIfProfileNotNull(Profile profile, DietPlan plan) {
-        tvKcalMax.setText(String.valueOf(profile.getMaxKcal()) + " ккал");
-        tvCarboCount.setText(String.valueOf(profile.getMaxCarbo()) + " г");
-        tvFatCount.setText(String.valueOf(profile.getMaxFat()) + " г");
-        tvProtCount.setText(String.valueOf(profile.getMaxProt()) + " г");
-        tvPlanName.setText(plan != null ? String.format(getString(R.string.plan_profile_txt), plan.getName()) : "");
-        if (profile.getFirstName().equals("default")) {
-            tvUserName.setText("Введите Ваше имя");
+        tvKcalMax.setText(String.format(getString(R.string.format_int_kcal), profile.getMaxKcal()));
+        tvCarboCount.setText(String.format(getString(R.string.n_g), profile.getMaxCarbo()));
+        tvFatCount.setText(String.format(getString(R.string.n_g), profile.getMaxFat()));
+        tvProtCount.setText(String.format(getString(R.string.n_g), profile.getMaxProt()));
+        tvPlanName.setText(plan != null ? concat(getString(R.string.nutrition_plan), " - ", plan.getName()) : "");
+
+        if (TextUtils.isEmpty(profile.getFirstName())
+          || profile.getFirstName().toLowerCase().equals("default")) {
+            tvUserName.setText(getString(R.string.your_name));
         } else {
+          if (profile.getLastName().toLowerCase().equals("default")) {
+            tvUserName.setText(profile.getFirstName());
+          } else {
             tvUserName.setText(profile.getFirstName() + " " + profile.getLastName());
+          }
         }
+
         setPhoto(profile);
     }
 
@@ -304,15 +316,21 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
     private void setPhoto(Profile profile) {
         if (profile.getPhotoUrl() != null
-                && !profile.getPhotoUrl().equals("default")
+                && !profile.getPhotoUrl().toLowerCase().equals("default")
                 && !profile.getPhotoUrl().equals("")) {
-            Glide.with(this).load(profile.getPhotoUrl()).into(civProfile);
+            Picasso.get().load(profile.getPhotoUrl()).into(civProfile);
         } else {
+            final Drawable d;
+
             if (profile.isFemale()) {
-                Glide.with(this).load(R.drawable.female_avatar).into(civProfile);
+                d = VectorDrawableCompat.create(getResources(), R.drawable.female_avatar,
+                    getContext().getTheme());
             } else {
-                Glide.with(this).load(R.drawable.male_avatar).into(civProfile);
+                d = VectorDrawableCompat.create(getResources(), R.drawable.male_avatar,
+                    getContext().getTheme());
             }
+
+            civProfile.setImageDrawable(d);
         }
     }
 
@@ -387,7 +405,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
             isOpen = false;
 
-            Glide.with(getActivity()).load(R.drawable.ic_open_detail_profile).into(ibExpandable);
+            ibExpandable.setImageDrawable(DrawableUtilsKt.getVectorIcon(getContext(),
+                R.drawable.ic_open_detail_profile));
         } else {
             ViewUtils.apply(getView(), new int[]{
                 R.id.tvCarboCount, R.id.tvFatCount, R.id.tvProtCount, R.id.tvLabelProt, R.id.tvLabelCarbo,
@@ -396,7 +415,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
 
             isOpen = true;
 
-            Glide.with(getActivity()).load(R.drawable.ic_close_detail_profile).into(ibExpandable);
+            ibExpandable.setImageDrawable(DrawableUtilsKt.getVectorIcon(getContext(),
+                R.drawable.ic_close_detail_profile));
         }
     }
 
