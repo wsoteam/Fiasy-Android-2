@@ -267,8 +267,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadDietPlans() {
+        //DatabaseReference myRef = database.getReference("PLANS");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("PLANS");
+        DatabaseReference myRef;
+        switch (Locale.getDefault().getLanguage().toUpperCase()){
+            case "EN":
+            case "ES":
+            case "PT":
+            case "DE":{
+                myRef = database.getReference(Locale.getDefault().getLanguage().toUpperCase() + "/plans");
+                break;
+            }
+            case "RU":{
+                myRef = database.getReference("PLANS");
+                break;
+            }
+            default:{
+                myRef = database.getReference("EN/recipes");
+            }
+        }
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
