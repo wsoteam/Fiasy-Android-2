@@ -34,7 +34,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView {
     private val DINNER_POSITION = 2
     private val SNACK_POSITION = 3
     private val EMPTY_FIELD = -1
-    lateinit var basketPresenter : BasketDetailPresenter
+    lateinit var basketPresenter: BasketDetailPresenter
 
     override fun refreshCalculate(kcal: String, proteins: String, carbo: String, fats: String) {
         tvKcalCalculate.text = kcal
@@ -76,7 +76,8 @@ class DetailActivity : MvpAppCompatActivity(), DetailView {
     }
 
 
-    override fun fillFields(name: String, fats: Double, carbo: Double, prot: Double, brand: String, sugar: Double, saturatedFats: Double, monoUnSaturatedFats: Double, polyUnSaturatedFats: Double, cholesterol: Double, cellulose: Double, sodium: Double, pottassium: Double) {
+    override fun fillFields(name: String, fats: Double, carbo: Double, prot: Double, brand: String, sugar: Double, saturatedFats: Double,
+                            monoUnSaturatedFats: Double, polyUnSaturatedFats: Double, cholesterol: Double, cellulose: Double, sodium: Double, pottassium: Double, eatingType: Int) {
         tvTitle.text = name
                 .toUpperCase()
         tvFats.text = Math.round(fats * 100).toString() + " г"
@@ -130,6 +131,9 @@ class DetailActivity : MvpAppCompatActivity(), DetailView {
             tvPotassium.visibility = View.VISIBLE
             tvPotassium.text = Math.round(pottassium * 100).toString() + " мг"
         }
+        if (eatingType != EMPTY_FIELD) {
+            bindSpinnerChoiceEating(eatingType)
+        }
     }
 
     private fun handleFood() {
@@ -140,11 +144,11 @@ class DetailActivity : MvpAppCompatActivity(), DetailView {
         }
     }
 
-    private fun bindSpinnerChoiceEating() {
+    private fun bindSpinnerChoiceEating(eatingType: Int) {
         val adapter = ArrayAdapter(this, layout.item_spinner_food_search, resources.getStringArray(array.eatingList))
-        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search)
-        spnFood.setAdapter(adapter)
-        //spnFood.setSelection(basketEntity.eatingType)
+        adapter.setDropDownViewResource(layout.item_spinner_dropdown_food_search)
+        spnFood.adapter = adapter
+        spnFood.setSelection(eatingType)
     }
 
     private fun handlePremiumState() {

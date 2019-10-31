@@ -22,7 +22,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
     protected void onFirstViewAttach() {
         getViewState().fillFields(basketEntity.getName(), basketEntity.getFats(), basketEntity.getCarbohydrates(),
                 basketEntity.getProteins(), basketEntity.getBrand(), basketEntity.getSugar(), basketEntity.getSaturatedFats(),
-                basketEntity.getMonoUnSaturatedFats(), basketEntity.getPolyUnSaturatedFats(), basketEntity.getCholesterol(), basketEntity.getCellulose(), basketEntity.getSodium(), basketEntity.getPottassium());
+                basketEntity.getMonoUnSaturatedFats(), basketEntity.getPolyUnSaturatedFats(), basketEntity.getCholesterol(), basketEntity.getCellulose(), basketEntity.getSodium(), basketEntity.getPottassium(), basketEntity.getEatingType());
     }
 
 
