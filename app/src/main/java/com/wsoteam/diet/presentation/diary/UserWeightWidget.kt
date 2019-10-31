@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.diary
 
+import android.content.Intent
 import android.content.res.Resources
 import android.view.View
 import android.view.View.OnClickListener
@@ -9,6 +10,7 @@ import com.wsoteam.diet.App
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.common.helpers.DateAndTime
+import com.wsoteam.diet.presentation.measurment.MeasurmentActivity
 import java.util.*
 
 class UserWeightWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView), OnClickListener {
@@ -23,13 +25,12 @@ class UserWeightWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView), On
     }
 
     fun updateWeight() {
-
+        context.startActivity(Intent(context, MeasurmentActivity::class.java))
     }
 
     override fun onBind(parent: RecyclerView, position: Int) {
         super.onBind(parent, position)
         getWeightHistory()
-        updateWeight()
     }
 
     override fun onAttached(parent: RecyclerView) {
@@ -59,8 +60,8 @@ class UserWeightWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView), On
             for (i in keys.indices) {
                 values.add(weightHashMap[keys[i]]!!.weight.toString())
             }
-            weightLabel.text = values[values.size - 1] + " " + App.getContext().resources.getString(R.string.weight_unit)
             updatedLabel.text = App.getContext().resources.getString(R.string.meas_prefix) + " " + getTimeDiff(keys.last())
+            weightLabel.text = values[values.size - 1] + " " + App.getContext().resources.getString(R.string.weight_unit)
         } else {
             weightLabel.text = UserDataHolder.getUserData().profile.weight.toString() + " " + App.getContext().resources.getString(R.string.weight_unit)
         }
@@ -73,6 +74,10 @@ class UserWeightWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView), On
         var calendar = DateAndTime.dropTime(Calendar.getInstance())
         var currentTime = calendar.timeInMillis
         var diffDays = (currentTime - lastTime) / millisInDay
-        return App.getInstance().resources.getQuantityString(R.plurals.meas_days_ago, diffDays.toInt(), diffDays.toInt())
+        if (diffDays.toInt() == 0) {
+            return App.getContext().resources.getString(R.string.meas_last_refresh_today)
+        } else {
+            return App.getInstance().resources.getQuantityString(R.plurals.meas_days_ago, diffDays.toInt(), diffDays.toInt())
+        }
     }
 }
