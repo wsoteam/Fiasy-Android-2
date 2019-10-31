@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -15,10 +13,11 @@
             android:id="@+id/edtTextClaim"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
             android:hint="Мин. 10 символов"
-            app:layout_constraintEnd_toEndOf="@+id/ivHeadClaim"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView33" />
@@ -55,28 +54,26 @@
 
         <ImageView
             android:id="@+id/ivHeadClaim"
-            android:layout_width="0dp"
-            android:layout_height="131dp"
+            android:layout_width="171dp"
+            android:layout_height="126dp"
+            android:layout_marginTop="18dp"
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/claim_head" />
+            app:srcCompat="@drawable/claim" />
 
         <TextView
             android:id="@+id/textView33"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/roboto_medium"
             android:text="Опишите проблему"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/ivHeadClaim"
-            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivHeadClaim" />
 
