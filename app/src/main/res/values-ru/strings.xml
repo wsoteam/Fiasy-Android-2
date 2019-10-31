@@ -144,6 +144,9 @@
   <string name="calorie_intake">Норма калорий</string>
   <string name="exit">Выход</string>
   <string name="log_off">Выйти</string>
+  <string name="no">нет</string>
+  <string name="yes">да</string>
+  <string name="log_off_question">Вы хотите выйти из учетной записи?</string>
   <string name="cancel">Отмена</string>
 
   <!-- Promotional Code Screen -->

@@ -664,6 +664,9 @@ Share your accomplishments with friends:</string>
   <string name="personal_data">Personal information</string>
   <string name="calorie_intake">Calorie intake</string>
   <string name="exit">Logout</string>
+  <string name="log_off_question">Вы хотите выйти из учетной записи?</string>
+  <string name="no">no</string>
+  <string name="yes">yes</string>
   <string name="log_off">Log out</string>
   <string name="cancel">Cancel</string>
 
@@ -1026,5 +1029,6 @@ Share your accomplishments with friends:</string>
     <item quantity="one">portion%d</item>
     <item quantity="other">potions</item>
   </plurals>
+
 
 </resources>
