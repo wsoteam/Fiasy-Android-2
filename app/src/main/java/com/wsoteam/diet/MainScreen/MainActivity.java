@@ -56,7 +56,7 @@ import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
-    
+
     @BindView(R.id.flFragmentContainer) FrameLayout flFragmentContainer;
     @BindView(R.id.bnv_main) BottomNavigationView bnvMain;
     @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
