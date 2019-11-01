@@ -49,6 +49,7 @@ import java.util.Map;
 public class WorkWithFirebaseDB {
     public static final int PLAN_UPDATED = 0;
     public static final int EATING_UPDATED = 1;
+    public static final int WEIGHT_UPDATED = 2;
 
     private final static MutableLiveData<Integer> databaseUpdates = new MutableLiveData<>();
 
@@ -491,6 +492,8 @@ public class WorkWithFirebaseDB {
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("weights").child(timeInMillis);
         myRef.setValue(weight);
+
+        databaseUpdates.postValue(WEIGHT_UPDATED);
     }
 
     public static void deleteWeight(String key) {

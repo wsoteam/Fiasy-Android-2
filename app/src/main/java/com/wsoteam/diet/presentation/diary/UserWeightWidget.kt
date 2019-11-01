@@ -9,9 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.App
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.UserDataHolder
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.common.helpers.DateAndTime
 import com.wsoteam.diet.presentation.measurment.MeasurmentActivity
 import java.util.*
+import androidx.lifecycle.Observer
+
 
 class UserWeightWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView), OnClickListener {
     private val weightLabel = itemView.findViewById<TextView>(R.id.weight)
@@ -20,11 +23,18 @@ class UserWeightWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView), On
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.action_refresh -> updateWeight()
+            R.id.action_refresh -> openMeasScreen()
         }
     }
 
-    fun updateWeight() {
+    private val weightObserver = Observer<Int> { id ->
+        if ((id ?: -1) == WorkWithFirebaseDB.WEIGHT_UPDATED) {
+            getWeightHistory()
+        }
+    }
+
+
+    fun openMeasScreen() {
         context.startActivity(Intent(context, MeasurmentActivity::class.java))
     }
 
@@ -36,6 +46,9 @@ class UserWeightWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView), On
     override fun onAttached(parent: RecyclerView) {
         super.onAttached(parent)
         actionRefresh.setOnClickListener(this)
+
+        WorkWithFirebaseDB.liveUpdates().observeForever(weightObserver)
+
     }
 
     override fun onDetached(parent: RecyclerView) {
