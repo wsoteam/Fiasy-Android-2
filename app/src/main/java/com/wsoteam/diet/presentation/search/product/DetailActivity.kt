@@ -1,4 +1,4 @@
-package com.wsoteam.diet.presentation.product
+package com.wsoteam.diet.presentation.search.product
 
 import android.content.Context
 import android.content.Intent
@@ -10,12 +10,12 @@ import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.amplitude.api.Amplitude
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.wsoteam.diet.AmplitudaEvents
 import com.wsoteam.diet.Authenticate.POJO.Box
-import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.ClaimForm
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.InApp.ActivitySubscription
 import com.wsoteam.diet.R
@@ -23,6 +23,7 @@ import com.wsoteam.diet.R.array
 import com.wsoteam.diet.R.layout
 import com.wsoteam.diet.common.Analytics.EventProperties
 import com.wsoteam.diet.common.Analytics.Events
+import com.wsoteam.diet.common.views.wheels.WheelPicker
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.view_calculate_card.*
@@ -37,7 +38,11 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
     private val EMPTY_FIELD = -1
     lateinit var basketPresenter: BasketDetailPresenter
 
-    override fun refreshCalculate(kcal: String, proteins: String, carbo: String, fats: String) {
+    override fun refreshCalculating() {
+        
+    }
+
+    override fun showResult(kcal: String, proteins: String, carbo: String, fats: String) {
         tvKcalCalculate.text = kcal
         tvProtCalculate.text = proteins
         tvCarboCalculate.text = carbo
@@ -46,7 +51,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout.activity_detail)
+        setContentView(R.layout.activity_detail)
         handlePremiumState()
         handleFood()
 
@@ -76,6 +81,20 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         })
     }
 
+    override fun fillPortionSpinner(names: ArrayList<String>) {
+        val adapter = ArrayAdapter(this, R.layout.item_spinner_food_search, names)
+        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search)
+        spnPortions.adapter = adapter
+        spnPortions.setSelection(0)
+        spnPortions.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                basketPresenter.changePortion(p2)
+            }
+        }
+    }
 
     override fun fillFields(name: String, fats: Double, carbo: Double, prot: Double, brand: String, sugar: Double, saturatedFats: Double,
                             monoUnSaturatedFats: Double, polyUnSaturatedFats: Double, cholesterol: Double, cellulose: Double, sodium: Double, pottassium: Double, eatingType: Int) {

@@ -13,7 +13,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.common.diary.FoodWork;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
-import com.wsoteam.diet.presentation.product.DetailActivity;
+import com.wsoteam.diet.presentation.search.product.DetailActivity;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater;

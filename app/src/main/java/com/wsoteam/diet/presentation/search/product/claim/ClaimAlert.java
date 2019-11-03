@@ -1,4 +1,4 @@
-package com.wsoteam.diet.presentation.product.claim;
+package com.wsoteam.diet.presentation.search.product.claim;
 
 import android.content.Context;
 import android.text.Editable;
@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.amplitude.api.Amplitude;
 import com.google.firebase.auth.FirebaseAuth;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOClaim.Claim;
-import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.Events;
