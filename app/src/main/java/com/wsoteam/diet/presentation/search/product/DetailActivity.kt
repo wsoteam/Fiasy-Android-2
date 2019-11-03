@@ -77,7 +77,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
                  basketPresenter.calculate(s)
              } else {
                  tvProtCalculate.text = "0 " + getString(R.string.gramm)
-                 tvKcalCalculate.text = "0 " + getString(R.string.kcal)
+                 tvKcalCalculate.text = "0 "
                  tvCarboCalculate.text = "0 " + getString(R.string.gramm)
                  tvFatCalculate.text = "0 " + getString(R.string.gramm)
              }
