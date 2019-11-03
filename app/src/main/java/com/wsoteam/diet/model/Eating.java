@@ -75,11 +75,11 @@ public class Eating implements Serializable {
 
   public Eating(BasketEntity basketEntity, int day, int month, int year, int type) {
     this.name = basketEntity.getName();
-    this.calories = (int) Math.round(basketEntity.getCalories() * basketEntity.getWeight());
-    this.carbohydrates = (int) Math.round(basketEntity.getCarbohydrates() * basketEntity.getWeight());
-    this.protein = (int) Math.round(basketEntity.getProteins() * basketEntity.getWeight());
-    this.fat = (int) Math.round(basketEntity.getFats() * basketEntity.getWeight());
-    this.weight = basketEntity.getWeight();
+    this.calories = (int) Math.round(basketEntity.getCalories() * basketEntity.getCountPortions());
+    this.carbohydrates = (int) Math.round(basketEntity.getCarbohydrates() * basketEntity.getCountPortions());
+    this.protein = (int) Math.round(basketEntity.getProteins() * basketEntity.getCountPortions());
+    this.fat = (int) Math.round(basketEntity.getFats() * basketEntity.getCountPortions());
+    this.weight = basketEntity.getCountPortions();
     this.day = day;
     this.month = month;
     this.year = year;

@@ -15,7 +15,7 @@ public class BasketEntity implements ISearchResult, Serializable {
   private String name;
   private String brand;
   private boolean isLiquid;
-  private int weight;
+  private int countPortions;
 
   private double kilojoules;
   private double calories;
@@ -49,7 +49,7 @@ public class BasketEntity implements ISearchResult, Serializable {
     this.name = name;
     this.brand = brand;
     this.isLiquid = isLiquid;
-    this.weight = weight;
+    this.countPortions = weight;
     this.kilojoules = kilojoules;
     this.calories = calories;
     this.proteins = proteins;
@@ -74,7 +74,7 @@ public class BasketEntity implements ISearchResult, Serializable {
     if (result.getBrand() != null) {
       brand = result.getBrand().getName();
     }
-    this.weight = weight;
+    this.countPortions = weight;
     isLiquid = result.isLiquid();
     kilojoules = result.getKilojoules();
     calories = result.getCalories();
@@ -142,12 +142,12 @@ public class BasketEntity implements ISearchResult, Serializable {
     isLiquid = liquid;
   }
 
-  public int getWeight() {
-    return weight;
+  public int getCountPortions() {
+    return countPortions;
   }
 
-  public void setWeight(int weight) {
-    this.weight = weight;
+  public void setCountPortions(int countPortions) {
+    this.countPortions = countPortions;
   }
 
   public double getKilojoules() {
@@ -288,7 +288,7 @@ public class BasketEntity implements ISearchResult, Serializable {
         ", name='" + name + '\'' +
         ", brand='" + brand + '\'' +
         ", isLiquid=" + isLiquid +
-        ", weight=" + weight +
+        ", countPortions=" + countPortions +
         ", kilojoules=" + kilojoules +
         ", calories=" + calories +
         ", proteins=" + proteins +

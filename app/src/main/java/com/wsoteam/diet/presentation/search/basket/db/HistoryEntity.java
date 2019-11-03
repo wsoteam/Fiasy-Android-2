@@ -12,7 +12,7 @@ public class HistoryEntity extends BasketEntity implements ISearchResult {
   public HistoryEntity(BasketEntity basketEntity) {
     super(basketEntity.getServerId(), basketEntity.getDeepId(),
         basketEntity.getName(),
-        basketEntity.getBrand(), basketEntity.isLiquid(), basketEntity.getWeight(),
+        basketEntity.getBrand(), basketEntity.isLiquid(), basketEntity.getCountPortions(),
         basketEntity.getKilojoules(), basketEntity.getCalories(), basketEntity.getProteins(),
         basketEntity.getCarbohydrates(), basketEntity.getSugar(), basketEntity.getFats(),
         basketEntity.getSaturatedFats(), basketEntity.getMonoUnSaturatedFats(),

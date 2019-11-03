@@ -272,7 +272,7 @@
                         android:layout_marginRight="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="12dp"
-                        android:text="@string/weight"
+                        android:text="@string/countPortions"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"

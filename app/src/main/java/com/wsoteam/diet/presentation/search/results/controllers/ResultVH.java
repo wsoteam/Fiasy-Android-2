@@ -5,14 +5,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
-import butterknife.OnClick;
+
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity;
@@ -56,11 +54,11 @@ public class ResultVH extends RecyclerView.ViewHolder implements View.OnClickLis
     this.clickListener = clickListener;
     tvTitle.setText(historyEntity.getName());
     if (historyEntity.isLiquid()){
-      tvPortion.setText(String.valueOf(historyEntity.getWeight()) + " " + itemView.getResources().getString(R.string.srch_ml));
+      tvPortion.setText(String.valueOf(historyEntity.getCountPortions()) + " " + itemView.getResources().getString(R.string.srch_ml));
     }else {
-      tvPortion.setText(String.valueOf(historyEntity.getWeight()) + " " + itemView.getResources().getString(R.string.srch_gramm));
+      tvPortion.setText(String.valueOf(historyEntity.getCountPortions()) + " " + itemView.getResources().getString(R.string.srch_gramm));
     }
-    tvKcal.setText(String.valueOf(Math.round(historyEntity.getCalories() * historyEntity.getWeight())) + " Ккал");
+    tvKcal.setText(String.valueOf(Math.round(historyEntity.getCalories() * historyEntity.getCountPortions())) + " Ккал");
     if (!historyEntity.getBrand().equals("")) {
       tvTitle.append(" (" + historyEntity.getBrand() + ")");
     }

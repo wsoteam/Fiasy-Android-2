@@ -603,7 +603,7 @@
 
   <string name="additional_muscle">Дополнительные:</string>
   <string name="complexity">Сложность выполнения:</string>
-  <string name="weight">Вес и количество повторений:</string>
+  <string name="countPortions">Вес и количество повторений:</string>
   <string name="detail">Описание упражнения:</string>
 
   <string name="main_chips">Основные фишки:</string>

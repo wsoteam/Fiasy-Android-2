@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
@@ -36,14 +35,14 @@ public class BasketItemVH extends RecyclerView.ViewHolder implements View.OnClic
     this.listener = listener;
     tvTitle.setText(food.getName());
     tbSelect.setChecked(true);
-    tvKcal.setText(String.valueOf(Math.round(food.getCalories() * food.getWeight())) + " " + itemView.getResources().getString(R.string.tvKkal));
+    tvKcal.setText(String.valueOf(Math.round(food.getCalories() * food.getCountPortions())) + " " + itemView.getResources().getString(R.string.tvKkal));
     if (food.getBrand() != null && !food.getBrand().equals("")) {
       tvTitle.append(" (" + food.getBrand() + ")");
     }
     if (food.isLiquid()){
-      tvPortion.setText(itemView.getResources().getString(R.string.srch_liquid, food.getWeight()));
+      tvPortion.setText(itemView.getResources().getString(R.string.srch_liquid, food.getCountPortions()));
     }else {
-      tvPortion.setText(itemView.getResources().getString(R.string.srch_not_liquid, food.getWeight()));
+      tvPortion.setText(itemView.getResources().getString(R.string.srch_not_liquid, food.getCountPortions()));
     }
     tbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
