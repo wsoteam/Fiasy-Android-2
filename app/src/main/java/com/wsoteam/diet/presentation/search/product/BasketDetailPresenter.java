@@ -17,6 +17,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
     private Context context;
     private BasketEntity basketEntity;
     private final int MINIMAL_PORTION = 1;
+    private final int NUMBER_CUSTOM_PORTION = 1;
     private ArrayList<Integer> portionsSizes;
     private int position = 0;
 
@@ -27,15 +28,20 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
 
     @Override
     protected void onFirstViewAttach() {
+        handlePortions();
         getViewState().fillFields(basketEntity.getName(), basketEntity.getFats(), basketEntity.getCarbohydrates(),
                 basketEntity.getProteins(), basketEntity.getBrand(), basketEntity.getSugar(), basketEntity.getSaturatedFats(),
-                basketEntity.getMonoUnSaturatedFats(), basketEntity.getPolyUnSaturatedFats(), basketEntity.getCholesterol(), basketEntity.getCellulose(), basketEntity.getSodium(), basketEntity.getPottassium(), basketEntity.getEatingType());
-        handlePortions();
+                basketEntity.getMonoUnSaturatedFats(), basketEntity.getPolyUnSaturatedFats(), basketEntity.getCholesterol(), basketEntity.getCellulose(), basketEntity.getSodium(), basketEntity.getPottassium(), basketEntity.getEatingType(), portionsSizes.get(0));
     }
 
     private void handlePortions() {
         portionsSizes = new ArrayList<>();
         ArrayList<String> names = new ArrayList<>();
+
+        if (basketEntity.getSizePortion() != STANDART_PORTION) {
+            portionsSizes.add(basketEntity.getSizePortion());
+            names.add(basketEntity.getNamePortion());
+        }
 
         portionsSizes.add(MINIMAL_PORTION);
         if (basketEntity.isLiquid()) {
@@ -44,21 +50,18 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
             names.add(context.getResources().getString(R.string.srch_gramm));
         }
 
-        if (basketEntity.getSizePortion() != STANDART_PORTION) {
-            portionsSizes.add(basketEntity.getSizePortion());
-            names.add(basketEntity.getNamePortion());
-        }
         getViewState().fillPortionSpinner(names);
     }
 
 
     void calculate(CharSequence weight) {
-        double portion = Double.parseDouble(weight.toString());
+        double count = Double.parseDouble(weight.toString());
+        int portionSize = portionsSizes.get(position);
 
-        String prot = String.valueOf(Math.round(portion * basketEntity.getProteins())) + " " + context.getResources().getString(R.string.gramm);
-        String carbo = String.valueOf(Math.round(portion * basketEntity.getCarbohydrates())) + " " + context.getResources().getString(R.string.gramm);
-        String fats = String.valueOf(Math.round(portion * basketEntity.getFats())) + " " + context.getResources().getString(R.string.gramm);
-        String kcal = String.valueOf(Math.round(portion * basketEntity.getCalories()));
+        String prot = String.valueOf(Math.round(count * portionSize * basketEntity.getProteins())) + " " + context.getResources().getString(R.string.gramm);
+        String carbo = String.valueOf(Math.round(count * portionSize * basketEntity.getCarbohydrates())) + " " + context.getResources().getString(R.string.gramm);
+        String fats = String.valueOf(Math.round(count * portionSize * basketEntity.getFats())) + " " + context.getResources().getString(R.string.gramm);
+        String kcal = String.valueOf(Math.round(count * portionSize * basketEntity.getCalories()));
 
         getViewState().showResult(kcal, prot, carbo, fats);
     }

@@ -39,7 +39,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
     lateinit var basketPresenter: BasketDetailPresenter
 
     override fun refreshCalculating() {
-        
+        calculate(edtWeightCalculate.text.toString())
     }
 
     override fun showResult(kcal: String, proteins: String, carbo: String, fats: String) {
@@ -65,20 +65,23 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 calculate(s)
-                if (s.toString() == "-") {
-                    edtWeightCalculate.setText("")
-                } else {
-                    if (edtWeightCalculate.text.toString() != "") {
-                        basketPresenter.calculate(s)
-                    } else {
-                        tvProtCalculate.text = "0 " + getString(R.string.gramm)
-                        tvKcalCalculate.text = "0 " + getString(R.string.kcal)
-                        tvCarboCalculate.text = "0 " + getString(R.string.gramm)
-                        tvFatCalculate.text = "0 " + getString(R.string.gramm)
-                    }
-                }
             }
         })
+    }
+
+     fun calculate(s: CharSequence?) {
+         if (s.toString() == "-") {
+             edtWeightCalculate.setText("")
+         } else {
+             if (edtWeightCalculate.text.toString() != "") {
+                 basketPresenter.calculate(s)
+             } else {
+                 tvProtCalculate.text = "0 " + getString(R.string.gramm)
+                 tvKcalCalculate.text = "0 " + getString(R.string.kcal)
+                 tvCarboCalculate.text = "0 " + getString(R.string.gramm)
+                 tvFatCalculate.text = "0 " + getString(R.string.gramm)
+             }
+         }
     }
 
     override fun fillPortionSpinner(names: ArrayList<String>) {
@@ -97,12 +100,12 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
     }
 
     override fun fillFields(name: String, fats: Double, carbo: Double, prot: Double, brand: String, sugar: Double, saturatedFats: Double,
-                            monoUnSaturatedFats: Double, polyUnSaturatedFats: Double, cholesterol: Double, cellulose: Double, sodium: Double, pottassium: Double, eatingType: Int) {
+                            monoUnSaturatedFats: Double, polyUnSaturatedFats: Double, cholesterol: Double, cellulose: Double, sodium: Double, pottassium: Double, eatingType: Int, weight : Int) {
         tvTitle.text = name
                 .toUpperCase()
-        tvFats.text = Math.round(fats * 100).toString() + " г"
-        tvCarbohydrates.text = Math.round(carbo * 100).toString() + " г"
-        tvProteins.text = Math.round(prot * 100).toString() + " г"
+        tvFats.text = Math.round(fats * weight).toString() + " г"
+        tvCarbohydrates.text = Math.round(carbo * weight).toString() + " г"
+        tvProteins.text = Math.round(prot * weight).toString() + " г"
 
         if (brand != null && brand != "") {
             tvBrand.text = "(" + brand + ")"
@@ -111,49 +114,54 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         if (sugar != EMPTY_FIELD.toDouble()) {
             tvLabelSugar.visibility = View.VISIBLE
             tvSugar.visibility = View.VISIBLE
-            tvSugar.text = Math.round(sugar * 100).toString() + " г"
+            tvSugar.text = Math.round(sugar * weight).toString() + " г"
         }
         if (saturatedFats != EMPTY_FIELD.toDouble()) {
             tvLabelSaturated.visibility = View.VISIBLE
             tvSaturated.visibility = View.VISIBLE
-            tvSaturated.text = Math.round(saturatedFats * 100).toString() + " г"
+            tvSaturated.text = Math.round(saturatedFats * weight).toString() + " г"
         }
         if (monoUnSaturatedFats != EMPTY_FIELD.toDouble()) {
             tvLabelMonoUnSaturated.visibility = View.VISIBLE
             tvMonoUnSaturated.visibility = View.VISIBLE
             tvMonoUnSaturated.text =
-                    Math.round(monoUnSaturatedFats * 100).toString() + " г"
+                    Math.round(monoUnSaturatedFats * weight).toString() + " г"
 
         }
         if (polyUnSaturatedFats != EMPTY_FIELD.toDouble()) {
             tvLabelPolyUnSaturated.visibility = View.VISIBLE
             tvPolyUnSaturated.visibility = View.VISIBLE
             tvPolyUnSaturated.text =
-                    Math.round(polyUnSaturatedFats * 100).toString() + " г"
+                    Math.round(polyUnSaturatedFats * weight).toString() + " г"
         }
         if (cholesterol != EMPTY_FIELD.toDouble()) {
             tvLabelСholesterol.visibility = View.VISIBLE
             tvСholesterol.visibility = View.VISIBLE
-            tvСholesterol.text = Math.round(cholesterol * 100).toString() + " мг"
+            tvСholesterol.text = Math.round(cholesterol * weight).toString() + " мг"
         }
         if (cellulose != EMPTY_FIELD.toDouble()) {
             tvLabelCellulose.visibility = View.VISIBLE
             tvCellulose.visibility = View.VISIBLE
-            tvCellulose.text = Math.round(cellulose * 100).toString() + " г"
+            tvCellulose.text = Math.round(cellulose * weight).toString() + " г"
         }
         if (sodium != EMPTY_FIELD.toDouble()) {
             tvLabelSodium.visibility = View.VISIBLE
             tvSodium.visibility = View.VISIBLE
-            tvSodium.text = Math.round(sodium * 100).toString() + " мг"
+            tvSodium.text = Math.round(sodium * weight).toString() + " мг"
         }
         if (pottassium != EMPTY_FIELD.toDouble()) {
             tvLabelPotassium.visibility = View.VISIBLE
             tvPotassium.visibility = View.VISIBLE
-            tvPotassium.text = Math.round(pottassium * 100).toString() + " мг"
+            tvPotassium.text = Math.round(pottassium * weight).toString() + " мг"
         }
         if (eatingType != EMPTY_FIELD) {
             bindSpinnerChoiceEating(eatingType)
         }
+        paintWeightString(weight)
+    }
+
+    private fun paintWeightString(weight: Int) {
+
     }
 
     private fun handleFood() {
