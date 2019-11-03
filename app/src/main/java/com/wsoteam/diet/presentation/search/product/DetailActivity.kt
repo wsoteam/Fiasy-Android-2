@@ -85,8 +85,8 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
     }
 
     override fun fillPortionSpinner(names: ArrayList<String>) {
-        val adapter = ArrayAdapter(this, R.layout.item_spinner_food_search, names)
-        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search)
+        val adapter = ArrayAdapter(this, R.layout.item_spinner_portions, names)
+        adapter.setDropDownViewResource(R.layout.item_spinner_portion_drop)
         spnPortions.adapter = adapter
         spnPortions.setSelection(0)
         spnPortions.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{

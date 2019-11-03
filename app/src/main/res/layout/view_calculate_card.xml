@@ -41,10 +41,11 @@
 
     <Spinner
         android:id="@+id/spnPortions"
-        android:layout_width="wrap_content"
+        android:layout_width="212dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="36dp"
+        android:gravity="center_horizontal"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="@+id/edtWeightCalculate"
         app:layout_constraintEnd_toEndOf="parent"
@@ -195,6 +196,16 @@
         app:layout_constraintEnd_toStartOf="@+id/textView29"
         app:layout_constraintStart_toEndOf="@+id/textView34"
         app:layout_constraintTop_toTopOf="@+id/tvFatCalculate" />
+
+    <View
+        android:id="@+id/divider51"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="12dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="@+id/spnPortions"
+        app:layout_constraintStart_toStartOf="@+id/spnPortions"
+        app:layout_constraintTop_toBottomOf="@+id/spnPortions" />
 
 
   </androidx.constraintlayout.widget.ConstraintLayout>
