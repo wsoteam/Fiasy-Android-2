@@ -5,7 +5,7 @@ public class Config {
     // diets plan
     public static final String DIETS_PLAN_INTENT = "DIETS_PLAN_INTENT";
 
-//    temolate
+    //    temolate
     public static final String EATING_SPINNER_POSITION = "EATING_SPINNER_POSITION";
     public static final String SEND_RESULT_TO_BACK = "SEND_RESULT_TO_BACK";
     public static final String DETAIL_FOOD_BTN_NAME = "DETAIL_FOOD_BTN_NAME";
@@ -30,7 +30,7 @@ public class Config {
     public static final int RECIPE_EMPTY_WEIGHT = -1;
     public static final String RECIPE_FOOD_INTENT = "RECIPE_FOOD_INTENT";
     public static final int RECIPE_FOOD_FOR_RESULT_CODE = 4987;
-   public static final String USERS_RECIPES = "USERS_RECIPES";
+    public static final String USERS_RECIPES = "USERS_RECIPES";
 
 
     public static final String ARTICLE_INTENT = "ARTICLE_INTENT";
@@ -87,25 +87,25 @@ public class Config {
 
 
     // -1 - not view grade dialog (default), 0 - not grade, 1 - grade
-    public static final String IS_GRADE_APP= "IS_GRADE_APP";
-    public static final int NOT_VIEW_GRADE_DIALOG= -1;
-    public static final int NOT_GRADED= 0;
-    public static final int GRADED= 1;
+    public static final String IS_GRADE_APP = "IS_GRADE_APP";
+    public static final int NOT_VIEW_GRADE_DIALOG = -1;
+    public static final int NOT_GRADED = 0;
+    public static final int GRADED = 1;
 
     public static final String STARTING_POINT = "STARTING_POINT";
     public static final String IS_ADDED_FOOD = "IS_ADDED_FOOD";
 
-    public static final long ONE_DAY= 86400000l;
+    public static final long ONE_DAY = 86400000l;
 
-    public static final String GEO= "GEO";
-    public static final String UA_GEO= "UA";
-    public static final String DEF_GEO= "DEF_GEO";
-
-
-    public static final String TAG_BOX= "TAG_BOX";
+    public static final String GEO = "GEO";
+    public static final String UA_GEO = "UA";
+    public static final String DEF_GEO = "DEF_GEO";
 
 
-//    firebase realtime database
+    public static final String TAG_BOX = "TAG_BOX";
+
+
+    //    firebase realtime database
     public static final String PECIPES_PLANS = "RECIPES_PLANS";
 
 
@@ -122,8 +122,8 @@ public class Config {
     public static final int DINNER = 2;
     public static final int SNACK = 3;
     public static final String BASKET_CONTINUE = "BASKET_CONTINUE";
-    public static final int SEARCH_RESPONSE_LIMIT= 50;
-    public static final int STANDART_PORTION= -1;
+    public static final int SEARCH_RESPONSE_LIMIT = 50;
+    public static final int STANDART_PORTION = 0;
 
 
 }

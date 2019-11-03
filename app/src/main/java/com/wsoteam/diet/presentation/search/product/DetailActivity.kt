@@ -100,7 +100,8 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
     }
 
     override fun fillFields(name: String, fats: Double, carbo: Double, prot: Double, brand: String, sugar: Double, saturatedFats: Double,
-                            monoUnSaturatedFats: Double, polyUnSaturatedFats: Double, cholesterol: Double, cellulose: Double, sodium: Double, pottassium: Double, eatingType: Int, weight : Int) {
+                            monoUnSaturatedFats: Double, polyUnSaturatedFats: Double, cholesterol: Double, cellulose: Double, sodium: Double,
+                            pottassium: Double, eatingType: Int, weight : Int, isLiquid : Boolean) {
         tvTitle.text = name
                 .toUpperCase()
         tvFats.text = Math.round(fats * weight).toString() + " г"
@@ -157,11 +158,20 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         if (eatingType != EMPTY_FIELD) {
             bindSpinnerChoiceEating(eatingType)
         }
-        paintWeightString(weight)
+        paintWeightString(weight, isLiquid)
     }
 
-    private fun paintWeightString(weight: Int) {
-
+    private fun paintWeightString(weight: Int, isLiquid : Boolean) {
+        var weightUnit = if (isLiquid){
+            resources.getString(R.string.srch_ml)
+        }else{
+            resources.getString(R.string.srch_gramm)
+        }
+        var stringWeight = "$weight $weightUnit"
+        var firstPart = resources.getString(R.string.srch_elements_title)
+        var span = SpannableString(  "$firstPart $stringWeight")
+        span.setSpan(ForegroundColorSpan(resources.getColor(R.color.srch_painted_string)), firstPart.length, span.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+        tvElementsTitle.text = span
     }
 
     private fun handleFood() {
