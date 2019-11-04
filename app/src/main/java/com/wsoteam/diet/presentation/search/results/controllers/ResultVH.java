@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.search.results.controllers;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,9 +39,11 @@ public class ResultVH extends RecyclerView.ViewHolder implements View.OnClickLis
     tvTitle.setText(food.getName());
     tvPortion.setText(itemView.getResources().getString(R.string.srch_default_portion));
     tvKcal.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
-    if (food.getBrand() != null && !food.getBrand().getName().equals("")) {
-      tvTitle.append(" (" + food.getBrand().getName() + ")");
-    }
+
+      if (food.getBrand() != null && food.getBrand().getName() != null && !food.getBrand().getName().equals("")) {
+        tvTitle.append(" (" + food.getBrand().getName() + ")");
+      }
+
     tbSelect.setOnCheckedChangeListener(null);
     tbSelect.setChecked(isChecked);
     tbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

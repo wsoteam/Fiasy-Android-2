@@ -15,5 +15,5 @@ public interface FoodResultAPI {
     Observable<Suggest> getSuggestions(@Query("name_suggest__completion") String search);
 
     @GET("/api/v1/search/")
-    Observable<FoodResult> search(@Query("search") String search);
+    Observable<FoodResult> search(@Query("search") String search, @Query("page") int page);
 }

@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.search.results.controllers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -97,15 +98,17 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
   }
 
-  private void loadNextPortion(int offset) {
+  private void loadNextPortion(int page) {
+    Log.e("LOL", "pag_response");
     foodResultAPI
-        .getResponse(Config.SEARCH_RESPONSE_LIMIT, offset, searchString)
+        .search(searchString, page + 2)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
   }
 
   private void addItems(List<Result> results) {
+    Log.e("LOL", "pag" + String.valueOf(results.size()));
     for (int i = 0; i < results.size(); i++) {
       foods.add(results.get(i));
     }
@@ -115,6 +118,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
     switch (holder.getItemViewType()) {
       case HEADER_TYPE:
+        onPagination(position);
         ((HeaderVH) holder).bind((HeaderObj) foods.get(position));
         break;
       case ITEM_TYPE:
@@ -189,7 +193,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     if (position == currentPaginationTrigger) {
       currentPaginationTrigger += Config.SEARCH_RESPONSE_LIMIT - 1;
       countPaginations += 1;
-      loadNextPortion(countPaginations * Config.SEARCH_RESPONSE_LIMIT);
+      loadNextPortion(countPaginations);
     }
   }
 

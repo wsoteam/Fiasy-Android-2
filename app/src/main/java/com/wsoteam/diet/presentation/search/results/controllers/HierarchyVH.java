@@ -33,7 +33,7 @@ public class HierarchyVH extends RecyclerView.ViewHolder {
 
   public void bind(Result result, List<Integer> savedDeepIds, ExpandableClickListener listener) {
     tvTitle.setText(result.getName());
-    if (result.getBrand() != null && !result.getBrand().getName().equals("")) {
+    if (result.getBrand() != null && result.getBrand().getName() != null && !result.getBrand().getName().equals("")) {
       tvTitle.append(" (" + result.getBrand().getName() + ")");
     }
     tvKcal.setText(
