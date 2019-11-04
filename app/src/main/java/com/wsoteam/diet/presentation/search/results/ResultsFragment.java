@@ -83,7 +83,6 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
   private ProgressBar pbLoad;
 
-  private String searchString = "";
   private ResultAdapter itemAdapter;
   private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
   private BasketDAO basketDAO = App.getInstance().getFoodDatabase().basketDAO();
@@ -135,11 +134,9 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
   @Override public void sendSearchQuery(String query) {
     showLoad();
-    searchString = query;
     hideSuggestView();
-    itemAdapter.sendSearchString(query);
-    search(searchString.trim());
-    Events.logSearch(searchString);
+    search(query.trim());
+    Events.logSearch(query);
   }
 
   @Nullable @Override
@@ -187,7 +184,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
   private void updateUI() {
     List<ISearchResult> foods = new ArrayList<>();
-    itemAdapter = new ResultAdapter(foods, getActivity(), new ArrayList<BasketEntity>(),
+    itemAdapter = new ResultAdapter(foods, getActivity(), new ArrayList<BasketEntity>(), "",
         new BasketUpdater() {
           @Override public void getCurrentSize(int size) {
             updateBasket(size);
@@ -273,7 +270,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
           @Override public void onSuccess(List<ISearchResult> iSearchResults) {
             if (iSearchResults.size() > 0) {
-              updateAdapter(iSearchResults, new ArrayList<>());
+              updateAdapter(iSearchResults, new ArrayList<>(), "");
             } else {
               showNoHistory();
             }
@@ -296,7 +293,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
         .search(searchString, 1)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(t -> refreshAdapter(toISearchResult(t.getResults())),
+        .subscribe(t -> refreshAdapter(toISearchResult(t.getResults()), searchString),
             Throwable::printStackTrace);
   }
 
@@ -308,14 +305,14 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     return list;
   }
 
-  private void refreshAdapter(List<ISearchResult> list) {
+  private void refreshAdapter(List<ISearchResult> list, String searchString) {
     Single.fromCallable(() -> {
       List<BasketEntity> savedItems = getSavedItems();
       return savedItems;
     })
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(t -> updateAdapter(list, t), Throwable::printStackTrace);
+        .subscribe(t -> updateAdapter(list, t, searchString), Throwable::printStackTrace);
     if (list.size() > 0) {
       hideMessageUI();
     } else {
@@ -333,9 +330,9 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     return entities;
   }
 
-  private void updateAdapter(List<ISearchResult> t, List<BasketEntity> basketEntities) {
+  private void updateAdapter(List<ISearchResult> t, List<BasketEntity> basketEntities, String searchString) {
     rvBlocks.setAdapter(itemAdapter = new ResultAdapter(createHeadersArray(t), getActivity(),
-        basketEntities, new BasketUpdater() {
+        basketEntities, searchString, new BasketUpdater() {
       @Override public void getCurrentSize(int size) {
         updateBasket(size);
       }

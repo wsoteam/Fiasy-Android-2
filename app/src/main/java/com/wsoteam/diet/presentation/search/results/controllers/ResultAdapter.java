@@ -40,8 +40,8 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private List<BasketEntity> savedFood;
   private BasketDAO basketDAO;
   private BasketUpdater basketUpdater;
-  private int currentPaginationTrigger = 0;
-  private int countPaginations = 0;
+  private int currentPaginationTrigger = 1;
+  private int page = 1;
   private String searchString = "";
   private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
 
@@ -73,7 +73,8 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   }
 
   public ResultAdapter(List<ISearchResult> foods, Context context, List<BasketEntity> savedFood,
-      BasketUpdater basketUpdater) {
+      String searchString, BasketUpdater basketUpdater) {
+    this.searchString = searchString;
     this.foods = foods;
     this.context = context;
     basketDAO = App.getInstance().getFoodDatabase().basketDAO();
@@ -101,7 +102,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private void loadNextPortion(int page) {
     Log.e("LOL", "pag_response");
     foodResultAPI
-        .search("Кекс", page + 2)
+        .search(searchString, page)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
@@ -192,8 +193,8 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private void onPagination(int position) {
     if (position == currentPaginationTrigger) {
       currentPaginationTrigger += Config.SEARCH_RESPONSE_LIMIT - 1;
-      countPaginations += 1;
-      loadNextPortion(countPaginations);
+      page += 1;
+      loadNextPortion(page);
     }
   }
 
