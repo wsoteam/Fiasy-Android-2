@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -34,8 +33,6 @@ import com.bumptech.glide.Glide;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.diary.FoodWork;
-import com.wsoteam.diet.common.networking.food.FoodResultAPI;
-import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.presentation.search.results.ResultsFragment;
 import com.wsoteam.diet.presentation.search.results.ResultsView;
 import com.wsoteam.diet.presentation.search.sections.SectionFragment;
@@ -112,6 +109,11 @@ public class ParentActivity extends AppCompatActivity {
 
       }
     });
+    clearContinuePossibility();
+  }
+
+  private void clearContinuePossibility() {
+    getSharedPreferences(Config.BASKET_CONTINUE, MODE_PRIVATE).edit().clear().commit();
   }
 
   private void setSearchFragment() {
