@@ -18,6 +18,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.model.Eating;
+import com.wsoteam.diet.presentation.search.product.DetailActivity;
 
 public class InsideViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     @BindView(R.id.tvNameOfFood) TextView tvNameOfFood;
@@ -71,7 +72,7 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
     }
 
     private void openDetailFood(Eating eating) {
-        Intent intent = new Intent(context, ActivityDetailSavedFood.class);
+        Intent intent = new Intent(context, DetailActivity.class);
         intent.putExtra(Config.TAG_CHOISE_EATING, choiseEating);
         intent.putExtra(Config.INTENT_DETAIL_FOOD, eating);
         context.startActivity(intent);

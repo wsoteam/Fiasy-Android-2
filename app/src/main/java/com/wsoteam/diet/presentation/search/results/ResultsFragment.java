@@ -137,9 +137,9 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     showLoad();
     searchString = query;
     hideSuggestView();
+    itemAdapter.sendSearchString(query);
     search(searchString.trim());
     Events.logSearch(searchString);
-    itemAdapter.sendSearchString(query);
   }
 
   @Nullable @Override

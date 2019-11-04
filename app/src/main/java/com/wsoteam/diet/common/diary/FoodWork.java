@@ -29,7 +29,7 @@ public class FoodWork {
   public static void saveMixedList(List<ISearchResult> foods, String date) {
     String[] arrayOfNumbersForDate = date.split("\\.");
     int day = Integer.parseInt(arrayOfNumbersForDate[0]);
-    int month = Integer.parseInt(arrayOfNumbersForDate[1]) - 1;
+    int month = Integer.parseInt(arrayOfNumbersForDate[1]);
     int year = Integer.parseInt(arrayOfNumbersForDate[2]);
     List<HistoryEntity> forSave = new ArrayList<>();
     for (int i = 0; i < foods.size(); i++) {
@@ -45,7 +45,7 @@ public class FoodWork {
   public static void saveClearList(List<BasketEntity> foods, String date) {
     String[] arrayOfNumbersForDate = date.split("\\.");
     int day = Integer.parseInt(arrayOfNumbersForDate[0]);
-    int month = Integer.parseInt(arrayOfNumbersForDate[1]) - 1;
+    int month = Integer.parseInt(arrayOfNumbersForDate[1]);
     int year = Integer.parseInt(arrayOfNumbersForDate[2]);
     List<HistoryEntity> forSave = new ArrayList<>();
     for (int i = 0; i < foods.size(); i++) {

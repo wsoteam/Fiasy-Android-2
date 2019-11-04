@@ -101,7 +101,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private void loadNextPortion(int page) {
     Log.e("LOL", "pag_response");
     foodResultAPI
-        .search(searchString, page + 2)
+        .search("Кекс", page + 2)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
