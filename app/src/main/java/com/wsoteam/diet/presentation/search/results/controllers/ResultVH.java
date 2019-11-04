@@ -62,7 +62,7 @@ public class ResultVH extends RecyclerView.ViewHolder implements View.OnClickLis
       tvPortion.setText(String.valueOf(historyEntity.getCountPortions()) + " " + itemView.getResources().getString(R.string.srch_gramm));
     }
     tvKcal.setText(String.valueOf(Math.round(historyEntity.getCalories() * historyEntity.getCountPortions())) + " Ккал");
-    if (!historyEntity.getBrand().equals("")) {
+    if (historyEntity.getBrand() != null && !historyEntity.getBrand().equals("")) {
       tvTitle.append(" (" + historyEntity.getBrand() + ")");
     }
     tbSelect.setOnCheckedChangeListener(null);
