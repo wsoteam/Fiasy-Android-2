@@ -92,6 +92,7 @@
         android:text="добавить"
         android:textColor="@color/white"
         android:textSize="14sp"
+        android:onClick="onClick"
         android:translationY="-22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
