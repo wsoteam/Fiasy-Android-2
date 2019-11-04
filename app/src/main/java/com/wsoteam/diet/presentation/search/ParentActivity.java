@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
@@ -46,10 +47,12 @@ public class ParentActivity extends AppCompatActivity {
   @BindView(R.id.ibActivityListAndSearchCollapsingCancelButton) ImageView
       ibCancel;
   public int spinnerId = 0;
+  @BindView(R.id.pbLoad) ProgressBar pbLoad;
   private boolean isCanSpeak = true;
   private FragmentManager fragmentManager;
   private final String BS_TAG = "BS_TAG";
   private boolean isBackFromDetail = false;
+
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_parent);
@@ -136,8 +139,6 @@ public class ParentActivity extends AppCompatActivity {
     isBackFromDetail = false;
   }
 
-
-
   private boolean isNeedContinue() {
     return getSharedPreferences(Config.BASKET_CONTINUE, MODE_PRIVATE).getBoolean(
         Config.BASKET_CONTINUE, false);
@@ -192,7 +193,7 @@ public class ParentActivity extends AppCompatActivity {
           R.id.searchFragmentContainer)).sendSearchQuery(
           edtSearch.getText().toString().replaceAll("\\s+", " "));
       edtSearch.clearFocus();
-    }else if (requestCode == Config.RC_DETAIL_FOOD && resultCode == RESULT_OK){
+    } else if (requestCode == Config.RC_DETAIL_FOOD && resultCode == RESULT_OK) {
       ((ResultsFragment) fragmentManager.findFragmentById(
           R.id.searchFragmentContainer)).updateBasket();
       isBackFromDetail = true;
@@ -238,7 +239,7 @@ public class ParentActivity extends AppCompatActivity {
     switch (view.getId()) {
       case R.id.ibActivityListAndSearchCollapsingCancelButton:
         if (isCanSpeak) {
-          if (fragmentManager.getBackStackEntryCount() == 0){
+          if (fragmentManager.getBackStackEntryCount() == 0) {
             setSearchFragment();
           }
           speak();

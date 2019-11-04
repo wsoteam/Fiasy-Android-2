@@ -54,9 +54,9 @@
     </style>
 
     <style name="AnalyzerTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/head_detail_food</item>
-        <item name="colorPrimaryDark">@color/head_detail_food</item>
-        <item name="colorAccent">@color/head_detail_food</item>
+        <item name="colorPrimary">#f49231</item>
+        <item name="colorPrimaryDark">#f49231</item>
+        <item name="colorAccent">#f49231</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowTranslucentStatus">true</item>
@@ -378,6 +378,12 @@
         <item name="colorAccent">#E68D3C</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="LoadStyle" parent="Widget.AppCompat.ProgressBar">
+        <item name="colorPrimary">#E68D3C</item>
+        <item name="colorPrimaryDark">#d1d1d1</item>
+        <item name="colorAccent">#E68D3C</item>
     </style>
 
 </resources>

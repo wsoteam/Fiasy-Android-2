@@ -19,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -80,6 +81,8 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   @BindView(R.id.flSuggestParent) FrameLayout flSuggestParent;
   @BindView(R.id.clRoot) ConstraintLayout clRoot;
 
+  private ProgressBar pbLoad;
+
   private String searchString = "";
   private ResultAdapter itemAdapter;
   private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
@@ -131,6 +134,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   }
 
   @Override public void sendSearchQuery(String query) {
+    showLoad();
     searchString = query;
     hideSuggestView();
     search(searchString.trim());
@@ -143,6 +147,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_results, container, false);
     unbinder = ButterKnife.bind(this, view);
+    pbLoad = getActivity().findViewById(R.id.pbLoad);
     presenter = new ResultsPresenter();
     presenter.attachView(this);
     finalSave = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_meas_update);
@@ -166,6 +171,18 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
         sendSearchQuery(suggestName);
       }
     }));
+  }
+
+  private void showLoad() {
+    if (pbLoad.getVisibility() == View.INVISIBLE){
+      pbLoad.setVisibility(View.VISIBLE);
+    }
+  }
+
+  private void hideLoad() {
+    if (pbLoad.getVisibility() == View.VISIBLE){
+      pbLoad.setVisibility(View.INVISIBLE);
+    }
   }
 
   private void updateUI() {
@@ -331,6 +348,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
         return ((ParentActivity) getActivity()).spinnerId;
       }
     }));
+    hideLoad();
   }
 
   private List<ISearchResult> createHeadersArray(List<ISearchResult> t) {
