@@ -22,6 +22,8 @@ public class Eating implements Serializable {
   private int serverId;
   private int deepId;
 
+  private boolean isNewFood;
+
   private String brand;
   private boolean isLiquid;
 
@@ -43,9 +45,9 @@ public class Eating implements Serializable {
 
   public Eating(String name, String urlOfImages, int calories, int carbohydrates, int protein,
       int fat, int weight, int day, int month, int year, int serverId, int deepId,
+      boolean isNewFood,
       String brand, boolean isLiquid, double kilojoules, double sugar, double saturatedFats,
-      double monoUnSaturatedFats, double polyUnSaturatedFats, double cholesterol,
-      double cellulose,
+      double monoUnSaturatedFats, double polyUnSaturatedFats, double cholesterol, double cellulose,
       double sodium, double pottassium, int type) {
     this.name = name;
     this.urlOfImages = urlOfImages;
@@ -59,6 +61,7 @@ public class Eating implements Serializable {
     this.year = year;
     this.serverId = serverId;
     this.deepId = deepId;
+    this.isNewFood = isNewFood;
     this.brand = brand;
     this.isLiquid = isLiquid;
     this.kilojoules = kilojoules;
@@ -97,6 +100,7 @@ public class Eating implements Serializable {
     this.sodium = basketEntity.getSodium();
     this.pottassium = basketEntity.getPottassium();
     this.type = type;
+    this.isNewFood = true;
   }
 
   public Eating(String name, String urlOfImages, int calories, int carbohydrates, int protein,

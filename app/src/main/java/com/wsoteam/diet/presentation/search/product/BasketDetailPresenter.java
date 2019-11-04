@@ -24,151 +24,170 @@ import static com.wsoteam.diet.Config.STANDART_PORTION;
 
 @InjectViewState
 public class BasketDetailPresenter extends MvpPresenter<DetailView> {
-    private Context context;
-    private BasketEntity basketEntity;
-    private final int MINIMAL_PORTION = 1;
-    private final int NUMBER_CUSTOM_PORTION = 1;
-    private final int DEFAULT_PORTION = 100;
-    private ArrayList<Integer> portionsSizes;
-    private int position = 0;
-    private final int EMPTY_FIELD = -1;
-    private BasketDAO basketDAO;
+  private Context context;
+  private BasketEntity basketEntity;
+  private final int MINIMAL_PORTION = 1;
+  private final int NUMBER_CUSTOM_PORTION = 1;
+  private final int DEFAULT_PORTION = 100;
+  private ArrayList<Integer> portionsSizes;
+  private int position = 0;
+  private final int EMPTY_FIELD = -1;
+  private BasketDAO basketDAO;
 
+  public BasketDetailPresenter() {
+  }
 
-    public BasketDetailPresenter(Context context, BasketEntity basketEntity) {
-        this.context = context;
-        this.basketEntity = basketEntity;
-        basketDAO = App.getInstance().getFoodDatabase().basketDAO();
+  public BasketDetailPresenter(Context context, BasketEntity basketEntity) {
+    this.context = context;
+    this.basketEntity = basketEntity;
+    basketDAO = App.getInstance().getFoodDatabase().basketDAO();
+  }
+
+  @Override
+  protected void onFirstViewAttach() {
+    handlePortions();
+    int portionSize = portionsSizes.get(0);
+    if (portionSize == MINIMAL_PORTION) {
+      portionSize = DEFAULT_PORTION;
+    }
+    getViewState().fillFields(basketEntity.getName(), basketEntity.getFats(),
+        basketEntity.getCarbohydrates(),
+        basketEntity.getProteins(), basketEntity.getBrand(), basketEntity.getSugar(),
+        basketEntity.getSaturatedFats(),
+        basketEntity.getMonoUnSaturatedFats(), basketEntity.getPolyUnSaturatedFats(),
+        basketEntity.getCholesterol(), basketEntity.getCellulose(),
+        basketEntity.getSodium(), basketEntity.getPottassium(), basketEntity.getEatingType(),
+        portionSize, basketEntity.isLiquid());
+  }
+
+  void handlePortions() {
+    portionsSizes = new ArrayList<>();
+    ArrayList<String> names = new ArrayList<>();
+
+    if (basketEntity.getSizePortion() != STANDART_PORTION) {
+      portionsSizes.add(basketEntity.getSizePortion());
+      names.add(basketEntity.getNamePortion());
     }
 
-    @Override
-    protected void onFirstViewAttach() {
-        handlePortions();
-        int portionSize = portionsSizes.get(0);
-        if (portionSize == MINIMAL_PORTION) {
-            portionSize = DEFAULT_PORTION;
-        }
-        getViewState().fillFields(basketEntity.getName(), basketEntity.getFats(), basketEntity.getCarbohydrates(),
-                basketEntity.getProteins(), basketEntity.getBrand(), basketEntity.getSugar(), basketEntity.getSaturatedFats(),
-                basketEntity.getMonoUnSaturatedFats(), basketEntity.getPolyUnSaturatedFats(), basketEntity.getCholesterol(), basketEntity.getCellulose(),
-                basketEntity.getSodium(), basketEntity.getPottassium(), basketEntity.getEatingType(), portionSize, basketEntity.isLiquid());
+    portionsSizes.add(MINIMAL_PORTION);
+    if (basketEntity.isLiquid()) {
+      names.add(context.getResources().getString(R.string.srch_ml));
+    } else {
+      names.add(context.getResources().getString(R.string.srch_gramm));
     }
 
-    private void handlePortions() {
-        portionsSizes = new ArrayList<>();
-        ArrayList<String> names = new ArrayList<>();
+    getViewState().fillPortionSpinner(names);
+  }
 
-        if (basketEntity.getSizePortion() != STANDART_PORTION) {
-            portionsSizes.add(basketEntity.getSizePortion());
-            names.add(basketEntity.getNamePortion());
-        }
+  void calculate(CharSequence weight) {
+    double count = Double.parseDouble(weight.toString());
+    int portionSize = portionsSizes.get(position);
 
-        portionsSizes.add(MINIMAL_PORTION);
-        if (basketEntity.isLiquid()) {
-            names.add(context.getResources().getString(R.string.srch_ml));
-        } else {
-            names.add(context.getResources().getString(R.string.srch_gramm));
-        }
+    String prot =
+        String.valueOf(Math.round(count * portionSize * basketEntity.getProteins())) + " " + context
+            .getResources()
+            .getString(R.string.gramm);
+    String carbo = String.valueOf(Math.round(count * portionSize * basketEntity.getCarbohydrates()))
+        + " "
+        + context.getResources().getString(R.string.gramm);
+    String fats = String.valueOf(Math.round(count * portionSize * basketEntity.getFats()))
+        + " "
+        + context.getResources().getString(R.string.gramm);
+    String kcal = String.valueOf(Math.round(count * portionSize * basketEntity.getCalories()));
 
-        getViewState().fillPortionSpinner(names);
+    getViewState().showResult(kcal, prot, carbo, fats);
+  }
+
+  public void showClaimAlert() {
+    ClaimAlert.create(context, basketEntity);
+  }
+
+  public void changePortion(int position) {
+    this.position = position;
+    getViewState().refreshCalculating();
+  }
+
+  public void save(String weight, String prot, String fats, String carbo, String kcal,
+      int selectedItemPosition) {
+    int calories = Integer.parseInt(kcal);
+    int carbohydrates = Integer.parseInt(carbo.split(" ")[0]);
+    int proteins = Integer.parseInt(prot.split(" ")[0]);
+    int fat = Integer.parseInt(fats.split(" ")[0]);
+    int countPortions = Integer.parseInt(weight);
+
+    basketEntity.setCalories(calories);
+    basketEntity.setFats(fat);
+    basketEntity.setCarbohydrates(carbohydrates);
+    basketEntity.setProteins(proteins);
+    basketEntity.setCountPortions(countPortions);
+    basketEntity.setEatingType(selectedItemPosition);
+
+    if (portionsSizes.get(position) == MINIMAL_PORTION) {
+      basketEntity.setDeepId(-1);
+      basketEntity.setNamePortion("");
+      basketEntity.setSizePortion(1);
     }
 
-
-    void calculate(CharSequence weight) {
-        double count = Double.parseDouble(weight.toString());
-        int portionSize = portionsSizes.get(position);
-
-        String prot = String.valueOf(Math.round(count * portionSize * basketEntity.getProteins())) + " " + context.getResources().getString(R.string.gramm);
-        String carbo = String.valueOf(Math.round(count * portionSize * basketEntity.getCarbohydrates())) + " " + context.getResources().getString(R.string.gramm);
-        String fats = String.valueOf(Math.round(count * portionSize * basketEntity.getFats())) + " " + context.getResources().getString(R.string.gramm);
-        String kcal = String.valueOf(Math.round(count * portionSize * basketEntity.getCalories()));
-
-        getViewState().showResult(kcal, prot, carbo, fats);
+    if (basketEntity.getSugar() != EMPTY_FIELD) {
+      basketEntity.setSugar(countPortions * portionsSizes.get(position) * basketEntity.getSugar());
     }
 
-    public void showClaimAlert() {
-        ClaimAlert.create(context, basketEntity);
+    if (basketEntity.getSaturatedFats() != EMPTY_FIELD) {
+      basketEntity.setSaturatedFats(
+          countPortions * portionsSizes.get(position) * basketEntity.getSaturatedFats());
     }
 
-    public void changePortion(int position) {
-        this.position = position;
-        getViewState().refreshCalculating();
+    if (basketEntity.getMonoUnSaturatedFats() != EMPTY_FIELD) {
+      basketEntity.setMonoUnSaturatedFats(
+          countPortions * portionsSizes.get(position) * basketEntity.getMonoUnSaturatedFats());
     }
 
-    public void save(String weight, String prot, String fats, String carbo, String kcal, int selectedItemPosition) {
-        int calories = Integer.parseInt(kcal);
-        int carbohydrates = Integer.parseInt(carbo.split(" ")[0]);
-        int proteins = Integer.parseInt(prot.split(" ")[0]);
-        int fat = Integer.parseInt(fats.split(" ")[0]);
-        int countPortions = Integer.parseInt(weight);
-
-        basketEntity.setCalories(calories);
-        basketEntity.setFats(fat);
-        basketEntity.setCarbohydrates(carbohydrates);
-        basketEntity.setProteins(proteins);
-        basketEntity.setCountPortions(countPortions);
-        basketEntity.setEatingType(selectedItemPosition);
-
-        if (portionsSizes.get(position) == MINIMAL_PORTION) {
-            basketEntity.setDeepId(-1);
-            basketEntity.setNamePortion("");
-            basketEntity.setSizePortion(1);
-        }
-
-        if (basketEntity.getSugar() != EMPTY_FIELD) {
-            basketEntity.setSugar(countPortions * portionsSizes.get(position) * basketEntity.getSugar());
-        }
-
-        if (basketEntity.getSaturatedFats() != EMPTY_FIELD) {
-            basketEntity.setSaturatedFats(countPortions * portionsSizes.get(position) * basketEntity.getSaturatedFats());
-        }
-
-        if (basketEntity.getMonoUnSaturatedFats() != EMPTY_FIELD) {
-            basketEntity.setMonoUnSaturatedFats(countPortions * portionsSizes.get(position) * basketEntity.getMonoUnSaturatedFats());
-        }
-
-        if (basketEntity.getPolyUnSaturatedFats() != EMPTY_FIELD) {
-            basketEntity.setPolyUnSaturatedFats(countPortions * portionsSizes.get(position) * basketEntity.getPolyUnSaturatedFats());
-        }
-
-        if (basketEntity.getCholesterol() != EMPTY_FIELD) {
-            basketEntity.setCholesterol(countPortions * portionsSizes.get(position) * basketEntity.getCholesterol());
-        }
-
-        if (basketEntity.getCellulose() != EMPTY_FIELD) {
-            basketEntity.setCellulose(countPortions * portionsSizes.get(position) * basketEntity.getCellulose());
-        }
-
-        if (basketEntity.getSodium() != EMPTY_FIELD) {
-            basketEntity.setSodium(countPortions * portionsSizes.get(position) * basketEntity.getSodium());
-        }
-
-        if (basketEntity.getPottassium() != EMPTY_FIELD) {
-            basketEntity.setPottassium(countPortions * portionsSizes.get(position) * basketEntity.getPottassium());
-        }
-
-        Completable.fromAction(new Action() {
-            @Override
-            public void run() throws Exception {
-                basketDAO.insert(basketEntity);
-            }
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CompletableObserver() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        getViewState().close();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-                });
+    if (basketEntity.getPolyUnSaturatedFats() != EMPTY_FIELD) {
+      basketEntity.setPolyUnSaturatedFats(
+          countPortions * portionsSizes.get(position) * basketEntity.getPolyUnSaturatedFats());
     }
 
+    if (basketEntity.getCholesterol() != EMPTY_FIELD) {
+      basketEntity.setCholesterol(
+          countPortions * portionsSizes.get(position) * basketEntity.getCholesterol());
+    }
+
+    if (basketEntity.getCellulose() != EMPTY_FIELD) {
+      basketEntity.setCellulose(
+          countPortions * portionsSizes.get(position) * basketEntity.getCellulose());
+    }
+
+    if (basketEntity.getSodium() != EMPTY_FIELD) {
+      basketEntity.setSodium(
+          countPortions * portionsSizes.get(position) * basketEntity.getSodium());
+    }
+
+    if (basketEntity.getPottassium() != EMPTY_FIELD) {
+      basketEntity.setPottassium(
+          countPortions * portionsSizes.get(position) * basketEntity.getPottassium());
+    }
+
+    Completable.fromAction(new Action() {
+      @Override
+      public void run() throws Exception {
+        basketDAO.insert(basketEntity);
+      }
+    }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new CompletableObserver() {
+          @Override
+          public void onSubscribe(Disposable d) {
+
+          }
+
+          @Override
+          public void onComplete() {
+            getViewState().close();
+          }
+
+          @Override
+          public void onError(Throwable e) {
+          }
+        });
+  }
 }

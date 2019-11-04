@@ -25,6 +25,7 @@ import com.wsoteam.diet.R.array
 import com.wsoteam.diet.R.layout
 import com.wsoteam.diet.common.Analytics.EventProperties
 import com.wsoteam.diet.common.Analytics.Events
+import com.wsoteam.diet.model.Eating
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.view_calculate_card.*
@@ -37,7 +38,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
   private val DINNER_POSITION = 2
   private val SNACK_POSITION = 3
   private val EMPTY_FIELD = -1
-  lateinit var basketPresenter: BasketDetailPresenter
+  lateinit var presenter: BasketDetailPresenter
 
   override fun refreshCalculating() {
     calculate(edtWeightCalculate.text.toString())
@@ -90,7 +91,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
       edtWeightCalculate.setText("")
     } else {
       if (edtWeightCalculate.text.toString() != "") {
-        basketPresenter.calculate(s)
+        presenter.calculate(s)
       } else {
         tvProtCalculate.text = "0 " + getString(R.string.gramm)
         tvKcalCalculate.text = "0 "
@@ -115,7 +116,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         p2: Int,
         p3: Long
       ) {
-        basketPresenter.changePortion(p2)
+        presenter.changePortion(p2)
       }
     }
   }
@@ -125,7 +126,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
     fats: Double,
     carbo: Double,
     prot: Double,
-    brand: String,
+    brand: String?,
     sugar: Double,
     saturatedFats: Double,
     monoUnSaturatedFats: Double,
@@ -218,10 +219,14 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
 
   private fun handleFood() {
     if (intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) is BasketEntity) {
-      basketPresenter = BasketDetailPresenter(
+      presenter = BasketDetailPresenter(
           this, intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) as BasketEntity
       )
-      basketPresenter.attachView(this)
+      presenter.attachView(this)
+    } else if (intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) is Eating) {
+      presenter =
+        SavedFoodPresenter(this, intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) as Eating)
+      presenter.attachView(this)
     }
   }
 
@@ -291,7 +296,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
 
   override fun onClick(p0: View) {
     when (p0.id) {
-      R.id.tvSendClaim -> basketPresenter.showClaimAlert()
+      R.id.tvSendClaim -> presenter.showClaimAlert()
       R.id.btnSaveEating -> if (edtWeightCalculate.text.toString() == ""
           || edtWeightCalculate.text.toString() == " "
           || Integer.parseInt(edtWeightCalculate.text.toString()) == 0
@@ -299,7 +304,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         Toast.makeText(this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT)
             .show()
       } else {
-        basketPresenter.save(
+        presenter.save(
             edtWeightCalculate.text.toString(), tvProtCalculate.text.toString(),
             tvFatCalculate.text.toString(), tvCarboCalculate.text.toString(),
             tvKcalCalculate.text.toString(), spnFood.selectedItemPosition
