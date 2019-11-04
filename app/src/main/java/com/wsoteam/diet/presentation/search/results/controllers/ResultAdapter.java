@@ -14,6 +14,7 @@ import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
+import com.wsoteam.diet.presentation.search.ParentActivity;
 import com.wsoteam.diet.presentation.search.product.DetailActivity;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
@@ -170,7 +171,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private void openDetailActivity(BasketEntity basketEntity) {
     Intent intent = new Intent(new Intent(context, DetailActivity.class));
     intent.putExtra(Config.INTENT_DETAIL_FOOD, basketEntity);
-    context.startActivity(intent);
+    ((ParentActivity) context).startActivityForResult(intent, Config.RC_DETAIL_FOOD);
   }
 
   private BasketEntity createBasketEntity(int position) {

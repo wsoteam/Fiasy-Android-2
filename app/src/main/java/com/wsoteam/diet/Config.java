@@ -124,6 +124,7 @@ public class Config {
     public static final String BASKET_CONTINUE = "BASKET_CONTINUE";
     public static final int SEARCH_RESPONSE_LIMIT = 50;
     public static final int STANDART_PORTION = 0;
+    public static final int RC_DETAIL_FOOD = 755;
 
 
 }

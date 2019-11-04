@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -51,8 +52,7 @@ public class ParentActivity extends AppCompatActivity {
   private boolean isCanSpeak = true;
   private FragmentManager fragmentManager;
   private final String BS_TAG = "BS_TAG";
-  private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
-
+  private boolean isBackFromDetail = false;
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_parent);
@@ -123,7 +123,8 @@ public class ParentActivity extends AppCompatActivity {
 
   @Override protected void onStart() {
     super.onStart();
-    if (!isNeedContinue()) {
+    Log.e("LOL", "start");
+    if (!isNeedContinue() && !isBackFromDetail) {
       edtSearch.setText("");
       fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
       fragmentManager.beginTransaction()
@@ -131,7 +132,10 @@ public class ParentActivity extends AppCompatActivity {
           .commit();
       FoodWork.clearBasket();
     }
+    isBackFromDetail = false;
   }
+
+
 
   private boolean isNeedContinue() {
     return getSharedPreferences(Config.BASKET_CONTINUE, MODE_PRIVATE).getBoolean(
@@ -179,6 +183,7 @@ public class ParentActivity extends AppCompatActivity {
 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    Log.e("LOL", "onResult");
     if (requestCode == 1234 && resultCode == RESULT_OK) {
       ArrayList<String> commandList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
       edtSearch.setText(commandList.get(0));
@@ -187,6 +192,10 @@ public class ParentActivity extends AppCompatActivity {
           R.id.searchFragmentContainer)).sendSearchQuery(
           edtSearch.getText().toString().replaceAll("\\s+", " "));
       edtSearch.clearFocus();
+    }else if (requestCode == Config.RC_DETAIL_FOOD && resultCode == RESULT_OK){
+      ((ResultsFragment) fragmentManager.findFragmentById(
+          R.id.searchFragmentContainer)).updateBasket();
+      isBackFromDetail = true;
     }
     super.onActivityResult(requestCode, resultCode, data);
   }

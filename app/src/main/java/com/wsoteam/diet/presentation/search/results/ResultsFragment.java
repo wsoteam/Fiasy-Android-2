@@ -63,6 +63,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 public class ResultsFragment extends MvpAppCompatFragment implements ResultsView {
   ResultsPresenter presenter;
   Unbinder unbinder;
@@ -77,9 +79,10 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   @BindView(R.id.rvSuggestionsList) RecyclerView rvSuggestionsList;
   @BindView(R.id.flSuggestParent) FrameLayout flSuggestParent;
   @BindView(R.id.clRoot) ConstraintLayout clRoot;
-  private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
+
   private String searchString = "";
   private ResultAdapter itemAdapter;
+  private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
   private BasketDAO basketDAO = App.getInstance().getFoodDatabase().basketDAO();
   private HistoryDAO historyDAO = App.getInstance().getFoodDatabase().historyDAO();
   private Animation finalSave;
@@ -90,6 +93,10 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     } else {
       showSuggestions(currentString);
     }
+  }
+
+  @Override public void updateBasket() {
+
   }
 
   private void showSuggestions(String currentString) {

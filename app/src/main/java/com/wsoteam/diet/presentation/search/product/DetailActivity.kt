@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.search.product
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
@@ -284,6 +285,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
   }
 
   override fun close() {
+    setResult(Activity.RESULT_OK)
     finish()
   }
 
