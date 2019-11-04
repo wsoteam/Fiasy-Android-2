@@ -54,6 +54,12 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     savedFood = new ArrayList<>();
   }
 
+  @Override public void setNewBasket(List<BasketEntity> savedFood) {
+    this.savedFood = savedFood;
+    notifyDataSetChanged();
+    basketUpdater.getCurrentSize(savedFood.size());
+  }
+
   private void clearDB() {
     Completable.fromAction(new Action() {
       @Override

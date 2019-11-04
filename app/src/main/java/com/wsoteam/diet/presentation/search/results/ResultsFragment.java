@@ -96,7 +96,13 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   }
 
   @Override public void updateBasket() {
-
+    Single.fromCallable(() -> {
+      List<BasketEntity> savedItems = getSavedItems();
+      return savedItems;
+    })
+        .subscribeOn(Schedulers.computation())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(t -> itemAdapter.setNewBasket(t), Throwable::printStackTrace);
   }
 
   private void showSuggestions(String currentString) {

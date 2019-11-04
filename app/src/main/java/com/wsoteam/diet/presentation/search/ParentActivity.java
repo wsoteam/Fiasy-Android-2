@@ -123,7 +123,6 @@ public class ParentActivity extends AppCompatActivity {
 
   @Override protected void onStart() {
     super.onStart();
-    Log.e("LOL", "start");
     if (!isNeedContinue() && !isBackFromDetail) {
       edtSearch.setText("");
       fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -183,7 +182,6 @@ public class ParentActivity extends AppCompatActivity {
 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-    Log.e("LOL", "onResult");
     if (requestCode == 1234 && resultCode == RESULT_OK) {
       ArrayList<String> commandList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
       edtSearch.setText(commandList.get(0));
