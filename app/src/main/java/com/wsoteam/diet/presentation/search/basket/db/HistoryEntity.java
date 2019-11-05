@@ -21,8 +21,10 @@ public class HistoryEntity extends BasketEntity implements ISearchResult {
         basketEntity.getPottassium(), basketEntity.getEatingType(), basketEntity.getNamePortion(), basketEntity.getSizePortion());
   }
 
-  public HistoryEntity(Result result, int weight,
+
+
+  /*public HistoryEntity(Result result, int weight,
       int eatingType, int deepId) {
     super(result, weight, eatingType, deepId);
-  }
+  }*/
 }

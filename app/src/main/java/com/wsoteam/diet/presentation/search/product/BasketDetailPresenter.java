@@ -1,7 +1,6 @@
 package com.wsoteam.diet.presentation.search.product;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -67,6 +66,10 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
       names.add(basketEntity.getNamePortion());
     }
 
+    if (basketEntity.getNamePortion().equals(Config.DEFAULT_PORTION_NAME) && basketEntity.getCountPortions() == Config.DEFAULT_PORTION){
+      basketEntity.makeAtomic();
+    }
+
     portionsSizes.add(MINIMAL_PORTION);
     if (basketEntity.isLiquid()) {
       names.add(context.getResources().getString(R.string.srch_ml));
@@ -76,6 +79,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
 
     getViewState().fillPortionSpinner(names);
   }
+
 
   void calculate(CharSequence weight) {
     double count = Double.parseDouble(weight.toString());

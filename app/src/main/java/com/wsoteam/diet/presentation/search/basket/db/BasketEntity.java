@@ -390,4 +390,21 @@ public class BasketEntity implements ISearchResult, Serializable {
         ", eatingType=" + eatingType +
         '}';
   }
+
+  public void makeAtomic() {
+    countPortions = countPortions / Config.DEFAULT_PORTION;
+    calories = calories / Config.DEFAULT_PORTION;
+    proteins = proteins / Config.DEFAULT_PORTION;
+    carbohydrates = carbohydrates / Config.DEFAULT_PORTION;
+    fats = fats / Config.DEFAULT_PORTION;
+
+    sugar = sugar / Config.DEFAULT_PORTION;
+    saturatedFats = saturatedFats / Config.DEFAULT_PORTION;
+    monoUnSaturatedFats = monoUnSaturatedFats / Config.DEFAULT_PORTION;
+    polyUnSaturatedFats = polyUnSaturatedFats / Config.DEFAULT_PORTION;
+    cholesterol = cholesterol / Config.DEFAULT_PORTION;
+    cellulose = cellulose / Config.DEFAULT_PORTION;
+    sodium = sodium / Config.DEFAULT_PORTION;
+    pottassium = pottassium / Config.DEFAULT_PORTION;
+  }
 }
