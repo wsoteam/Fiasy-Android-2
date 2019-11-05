@@ -40,12 +40,14 @@ import io.reactivex.Flowable;
 import io.reactivex.Single;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class WorkWithFirebaseDB {
     public static final int PLAN_UPDATED = 0;
     public static final int EATING_UPDATED = 1;
 
     private final static MutableLiveData<Integer> databaseUpdates = new MutableLiveData<>();
+    private final static AtomicBoolean hasUpdatesListener = new AtomicBoolean(false);
 
     public static LiveData<Integer> liveUpdates(){
         return databaseUpdates;
@@ -80,26 +82,27 @@ public class WorkWithFirebaseDB {
     }
 
     public static void setFirebaseStateListener() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+        if (hasUpdatesListener.compareAndSet(false, true)) {
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                final UserData user = getUserData(dataSnapshot);
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    final UserData user = getUserData(dataSnapshot);
 
-                if (user != null) {
-                  new UserDataHolder().bindObjectWithHolder(user);
+                    if (user != null) {
+                        new UserDataHolder().bindObjectWithHolder(user);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
-
+                }
+            });
+        }
     }
 
     public static void dropUserMealsDiary(){

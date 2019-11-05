@@ -310,7 +310,7 @@
           android:name=".BarcodeScanner.BaseScanner"
           android:screenOrientation="portrait"
           android:theme="@style/DetailFood" />
-      <activity android:name=".presentation.premium.PremiumFeaturesActivity" />
+      <activity android:name=".presentation.premium.PremiumFeaturesActivity" android:exported="true" />
     </application>
 
 </manifest>

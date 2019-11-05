@@ -1,8 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="titleStyle" format="reference" />
+    <attr name="subtitleStyle" format="reference" />
+    <attr name="overlayColor" format="reference|color" />
+
     <declare-styleable name="CheckableCardView">
         <attr name="card_text" format="string|reference" />
         <attr name="card_text_month" format="string|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="DotIndicatorView">
+        <attr name="activeIndicatorColor" format="color|reference" />
+        <attr name="defaultIndicatorColor" format="color|reference" />
+        <attr name="circleRadius" format="dimension|reference" />
+        <attr name="gapBetween" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="FeatureDescribeView">
+        <attr name="titleStyle" />
+        <attr name="titleText" format="string|reference" />
+        <attr name="subtitleStyle" />
+        <attr name="subtitleText" format="string|reference" />
+        <attr name="icon" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="PremiumFeatureRowView">
+        <attr name="title" format="reference|string" />
+        <attr name="titleStyle"  />
+        <attr name="free" format="boolean" />
+        <attr name="premium" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="ExperienceProgressView">

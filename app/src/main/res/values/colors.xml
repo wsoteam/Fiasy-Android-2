@@ -146,4 +146,6 @@
 
   <color name="water_blue">#2d9cdb</color>
 
+  <color name="premium_background_color_dark">#121212</color>
+  <color name="premium_background_color_light">#fff</color>
 </resources>

@@ -1,0 +1,61 @@
+package com.wsoteam.diet.presentation.premium
+
+import android.os.Bundle
+import android.text.TextUtils
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams
+import android.view.ViewGroup.MarginLayoutParams
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import com.android.billingclient.api.BillingClient
+import com.android.billingclient.api.BillingClientStateListener
+import com.android.billingclient.api.Purchase
+import com.android.billingclient.api.PurchasesUpdatedListener
+import com.android.billingclient.api.SkuDetails
+import com.android.billingclient.api.SkuDetailsParams
+import com.android.billingclient.api.SkuDetailsResponseListener
+import com.wsoteam.diet.R
+import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity.PlansAdapter
+import com.wsoteam.diet.utils.RichTextUtils.RichText
+import com.wsoteam.diet.utils.dp
+
+class SubscriptionsListFragment : Fragment(){
+
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?): View? {
+    return inflater.inflate(R.layout.activity_premium_subscriptions_list, container, false)
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+
+    val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
+    toolbar.setNavigationOnClickListener {
+      requireFragmentManager().popBackStack()
+    }
+
+    val title = view.findViewById<TextView>(R.id.title)
+
+    title.text = TextUtils.concat(title.text,
+        RichText(getString(R.string.subscriptions_list_title__premium))
+          .bold()
+          .colorRes(view.context, R.color.orange_light)
+          .text())
+
+    val container = view.findViewById<RecyclerView>(R.id.container)
+    container.adapter = object: PlansAdapter(){
+      override fun getLayoutParams(parent: ViewGroup, viewType: Int): LayoutParams {
+        return MarginLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+          .apply {
+            bottomMargin = dp(parent.context, 16f)
+            leftMargin = dp(parent.context, 18f)
+            rightMargin = dp(parent.context, 18f)
+          }
+      }
+    }
+  }
+}

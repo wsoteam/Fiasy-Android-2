@@ -35,6 +35,7 @@
   <string name="password_dont_match">Не совпадают пароли</string>
   <string name="agree_with_conditions">я согласен с условиями</string>
   <string name="privacy_policy">Политики конфидециальности</string>
+  <string name="privacy_policy_with_condtions">Политика конфиденциальности и условия использования</string>
 
   <!-- Reset Password Screen -->
   <string name="reset_send">ОТПРАВИТЬ</string>

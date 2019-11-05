@@ -84,7 +84,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            app:srcCompat="@color/filter_edit_avatar"
+            android:src="@color/filter_edit_avatar"
             app:civ_border_width="0dp"
             app:civ_circle_background_color="@color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -175,6 +175,7 @@
                 android:maxLength="50"
                 android:textColor="#d9424242"
                 />
+
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

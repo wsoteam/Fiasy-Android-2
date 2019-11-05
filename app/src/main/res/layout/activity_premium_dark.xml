@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/Premium"
+        app:titleTextColor="?android:textColorPrimary"
+        app:navigationIcon="?navigationIcon"
+        />
+
+    <ImageView
+        android:id="@+id/banner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/banner_blackfriday"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:scaleType="centerInside"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:lineSpacingExtra="6.6sp"
+        android:text="@string/premium_feature_title"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="22sp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tarifs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        />
+
+    <Button
+        android:id="@+id/action_buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:lineSpacingExtra="10sp"
+        android:paddingLeft="48dp"
+        android:paddingRight="48dp"
+        android:layout_gravity="center"
+        android:background="@drawable/premium_buy_button2_background"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="32dp"
+        android:elevation="4dp"
+        android:text="@string/action_buy"
+        />
+
+    <com.wsoteam.diet.views.FeatureDescribeView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/ic_feature_premium_article"
+        app:subtitleStyle="?subtitleStyle"
+        app:titleStyle="?titleStyle"
+        app:subtitleText="@string/premium_feature_exclusive_articles_description"
+        app:titleText="@string/premium_feature_exclusive_articles"
+        />
+
+    <com.wsoteam.diet.views.FeatureDescribeView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:icon="@drawable/ic_premium_receipts"
+        app:subtitleStyle="?subtitleStyle"
+        app:titleStyle="?titleStyle"
+        app:subtitleText="@string/premium_feature_exclusive_recipes_description"
+        app:titleText="@string/premium_feature_exclusive_recipes"
+        />
+
+    <com.wsoteam.diet.views.FeatureDescribeView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:icon="@drawable/ic_premium_personal_settings"
+        app:subtitleStyle="?subtitleStyle"
+        app:titleStyle="?titleStyle"
+        app:subtitleText="@string/premium_feature_personal_settings_description"
+        app:titleText="@string/premium_feature_personal_settings"
+        />
+
+    <com.wsoteam.diet.views.FeatureDescribeView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:icon="@drawable/ic_premium_custom_plans"
+        app:subtitleStyle="?subtitleStyle"
+        app:titleStyle="?titleStyle"
+        app:subtitleText="@string/premium_feature_exclusive_plans_description"
+        app:titleText="@string/premium_feature_exclusive_plans"
+        />
+
+    <com.wsoteam.diet.views.FeatureDescribeView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:icon="@drawable/ic_premium_measurements"
+        app:subtitleStyle="?subtitleStyle"
+        app:titleStyle="?titleStyle"
+        app:subtitleText="@string/premium_feature_measurements_description"
+        app:titleText="@string/premium_feature_measurements"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:background="?overlayColor"
+        android:layout_marginTop="32dp">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:textSize="20sp"
+          android:fontFamily="sans-serif"
+          android:textStyle="bold"
+          android:textColor="?android:textColorPrimary"
+          android:lineSpacingExtra="10sp"
+          android:text="@string/premium_client_says_about_us"
+          />
+
+      <RatingBar
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:progressTint="#ffd05a"
+          android:layout_gravity="center"
+          android:secondaryProgressTint="#ffd05a"
+          android:progressBackgroundTint="#ffedc1"
+          android:layout_marginTop="4dp"
+          android:scaleX="0.65"
+          android:scaleY="0.65"
+          android:numStars="5"
+          android:rating="4.5"
+          android:max="5"
+          />
+
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/reviews"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+          android:orientation="horizontal"
+          />
+
+      <com.wsoteam.diet.views.DotIndicatorView
+          android:id="@+id/reviews_page_indicator"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          app:circleRadius="4dp"
+          />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/premium_comparison_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:lineSpacingExtra="6.6sp"
+        android:text="@string/premium_features_comparison"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="22sp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="4"
+        >
+
+      <Space
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="2"
+          />
+
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:text="@string/premium_comparision_basic_title"
+          android:textColor="?android:textColorPrimary"
+          />
+
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:text="@string/premium_comparision_premium"
+          android:textColor="?android:textColorPrimary"
+          />
+
+    </LinearLayout>
+
+    <com.wsoteam.diet.views.PremiumFeatureRowView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?overlayColor"
+        app:title="Дневник питания и нагрузок"
+        app:titleStyle="@style/FeatureDescription.Title"
+        app:free="true"
+        app:premium="true"
+        />
+
+    <com.wsoteam.diet.views.PremiumFeatureRowView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="Учет макроэлементов"
+        app:titleStyle="?titleStyle"
+        />
+
+    <com.wsoteam.diet.views.PremiumFeatureRowView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?overlayColor"
+        app:title="Рецепты"
+        app:titleStyle="?titleStyle"
+        />
+
+    <com.wsoteam.diet.views.PremiumFeatureRowView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="Эксклюзивные статьи от диетолога"
+        app:titleStyle="?titleStyle"
+        />
+
+    <com.wsoteam.diet.views.PremiumFeatureRowView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?overlayColor"
+        app:title="Планы питания"
+        app:titleStyle="?titleStyle"
+        />
+
+    <com.wsoteam.diet.views.PremiumFeatureRowView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="Вся статистика"
+        app:titleStyle="?titleStyle"
+        />
+
+    <com.wsoteam.diet.views.PremiumFeatureRowView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?overlayColor"
+        app:title="Учет морфологии тела"
+        app:titleStyle="?titleStyle"
+        />
+
+    <Button
+        android:id="@+id/action_open_subscriptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:lineSpacingExtra="10sp"
+        android:background="@drawable/premium_buy_button_background"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/action_buy"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
+        android:gravity="center"
+        android:textColor="?android:textColorSecondary"
+        android:lineSpacingExtra="6sp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/privacy_policy_with_condtions"
+        />
+
+  </LinearLayout>
+</ScrollView>

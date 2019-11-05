@@ -19,6 +19,7 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.auth.AuthStrategy;
+import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity;
 import com.wsoteam.diet.presentation.profile.about.AboutActivity;
 import com.wsoteam.diet.presentation.profile.help.HelpActivity;
 import com.wsoteam.diet.presentation.profile.norm.ChangeNormActivity;
@@ -139,7 +140,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
                 Toast.makeText(context, "Раздел в разработке :(", Toast.LENGTH_SHORT).show();
                 break;*/
             case HELP:
-                context.startActivity(new Intent(context, HelpActivity.class));
+                context.startActivity(new Intent(context, PremiumFeaturesActivity.class));
                 break;
             case LOGOUT:
                 Events.logLogout();

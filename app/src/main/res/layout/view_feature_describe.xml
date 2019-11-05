@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:parentTag="RelativeLayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <ImageView
+      android:id="@+id/icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:padding="4dp"
+      app:srcCompat="@drawable/ic_feature_premium_article"
+      android:layout_marginRight="8dp"
+      android:layout_marginLeft="16dp"
+      />
+
+  <TextView
+      android:id="@+id/title"
+      android:layout_toRightOf="@id/icon"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginRight="16dp"
+      style="@style/TextAppearance.AppCompat.Title"
+      tools:text="@string/premium_feature_exclusive_articles"
+      />
+
+  <TextView
+      android:id="@+id/subtitle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="14sp"
+      android:fontFamily="sans-serif"
+      android:textStyle="normal"
+      android:lineSpacingExtra="4.2sp"
+      android:layout_marginTop="5dp"
+      android:layout_toRightOf="@id/icon"
+      android:layout_marginRight="16dp"
+      android:layout_below="@id/title"
+      android:text="@string/premium_feature_exclusive_articles_description"
+      />
+
+</merge>
