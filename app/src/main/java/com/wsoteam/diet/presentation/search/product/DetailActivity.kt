@@ -106,18 +106,23 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
     adapter.setDropDownViewResource(R.layout.item_spinner_portion_drop)
     spnPortions.adapter = adapter
     spnPortions.setSelection(0)
-    spnPortions.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-      override fun onNothingSelected(p0: AdapterView<*>?) {
-      }
+    if (names.size != 1) {
+      spnPortions.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(p0: AdapterView<*>?) {
+        }
 
-      override fun onItemSelected(
-        p0: AdapterView<*>?,
-        p1: View?,
-        p2: Int,
-        p3: Long
-      ) {
-        presenter.changePortion(p2)
+        override fun onItemSelected(
+          p0: AdapterView<*>?,
+          p1: View?,
+          p2: Int,
+          p3: Long
+        ) {
+          presenter.changePortion(p2)
+        }
       }
+    }else{
+      spnPortions.isEnabled = false
+      spnPortions.background = null
     }
   }
 
