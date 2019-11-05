@@ -112,7 +112,24 @@
   <color name="main_calories_left_over">#fb4d3c</color>
 
     <color name="main_value_over">#f96657</color>
+    <color name="main_screen_progress_bar_fat">#fabe4f</color>
+    <color name="main_screen_progress_bar_carbo">#f1e085</color>
 
+    <color name="uncompleted_color">#A3E0D9</color>
+    <color name="uncompleted_text_color">#F8F8F8</color>
+    <color name="highlight_line_color">#80aeb3c0</color>
+    <color name="linear_line_color">#80EB5757</color>
+
+    <color name="hint_no_error_back">#f2994a</color>
+
+    <color name="current_day">#f49231</color>
+    <color name="active_plus_weight">#ff931f</color>
+    <color name="default_meas">#8a000000</color>
+    <color name="increase_meas">#8acc0808</color>
+    <color name="decrease_meas">#62b5a5</color>
+    <color name="old_meas">#51000000</color>
+    <color name="unit_history_color">#8a000000</color>
+    <color name="value_history_color">#ff931f</color>
   <color name="main_screen_progress_bar_calories">#f39530</color>
   <color name="main_screen_progress_bar_protein">#f2942e</color>
   <color name="main_screen_progress_bar_over">#f55d4e</color>

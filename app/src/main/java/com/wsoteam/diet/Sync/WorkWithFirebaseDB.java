@@ -34,6 +34,11 @@ import com.wsoteam.diet.model.Eating;
 import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.model.Water;
+import com.wsoteam.diet.presentation.measurment.POJO.Chest;
+import com.wsoteam.diet.presentation.measurment.POJO.Hips;
+import com.wsoteam.diet.presentation.measurment.POJO.Waist;
+import com.wsoteam.diet.presentation.measurment.POJO.Weight;
+
 import com.wsoteam.diet.utils.FirebaseExtKt;
 import com.wsoteam.diet.utils.RxFirebase;
 import io.reactivex.Flowable;
@@ -45,6 +50,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class WorkWithFirebaseDB {
     public static final int PLAN_UPDATED = 0;
     public static final int EATING_UPDATED = 1;
+    public static final int WEIGHT_UPDATED = 2;
 
     private final static MutableLiveData<Integer> databaseUpdates = new MutableLiveData<>();
     private final static AtomicBoolean hasUpdatesListener = new AtomicBoolean(false);
@@ -481,5 +487,43 @@ public class WorkWithFirebaseDB {
         DatabaseReference myRef = database.getReference(com.wsoteam.diet.common.promo.Config.promoStoragePath).
                 child(promo.getId());
         myRef.setValue(promo);
+    }
+
+
+    public static void setWeight(Weight weight, String timeInMillis) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("weights").child(timeInMillis);
+        myRef.setValue(weight);
+
+        databaseUpdates.postValue(WEIGHT_UPDATED);
+    }
+
+    public static void deleteWeight(String key) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("weights").child(key);
+        myRef.removeValue();
+    }
+
+    public static void setChest(Chest chest) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("chest").child(String.valueOf(chest.getTimeInMillis()));
+        myRef.setValue(chest);
+    }
+
+    public static void setWaist(Waist waist) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("waist").child(String.valueOf(waist.getTimeInMillis()));
+        myRef.setValue(waist);
+    }
+
+    public static void setHips(Hips hips) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("hips").child(String.valueOf(hips.getTimeInMillis()));
+        myRef.setValue(hips);
     }
 }

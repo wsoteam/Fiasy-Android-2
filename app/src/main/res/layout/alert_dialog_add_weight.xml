@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:cardCornerRadius="3dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.wsoteam.diet.common.views.wheels.WheelWeightKiloPicker
+                android:id="@+id/whlWeightKiloPicker"
+                android:layout_width="109dp"
+                android:layout_height="140dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="47dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:wheel_cyclic="true"
+                app:wheel_indicator="true"
+                app:wheel_indicator_color="#1c000000"
+                app:wheel_indicator_size="1dp"
+                app:wheel_item_text_color="#99959595"
+                app:wheel_item_text_size="20sp"
+                app:wheel_selected_item_text_color="#2e2e2e"
+                app:wheel_visible_item_count="3" />
+
+            <com.wsoteam.diet.common.views.wheels.WheelWeightGrammPicker
+                android:id="@+id/whlWeightGrammPicker"
+                android:layout_width="109dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="47dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/whlWeightKiloPicker"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:wheel_cyclic="true"
+                app:wheel_indicator="true"
+                app:wheel_indicator_color="#1c000000"
+                app:wheel_indicator_size="1dp"
+                app:wheel_item_text_color="#99959595"
+                app:wheel_item_text_size="20sp"
+                app:wheel_selected_item_text_color="#2e2e2e"
+                app:wheel_visible_item_count="3" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="38dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/meas_alert_k"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="14sp"
+                android:textColor="#f49231"
+                android:background="@color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/whlWeightGrammPicker" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/meas_alert_cancel"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="#8a000000"
+                android:background="@color/transparent"
+                app:layout_constraintBottom_toBottomOf="@+id/btnSave"
+                app:layout_constraintEnd_toStartOf="@+id/btnSave"
+                app:layout_constraintTop_toTopOf="@+id/btnSave" />
+
+            <ImageButton
+                android:id="@+id/ibDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:background="?selectableItemBackground"
+                android:padding="8dp"
+                android:src="@drawable/ic_meas_delete"
+                app:layout_constraintBottom_toBottomOf="@+id/btnCancel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnCancel"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

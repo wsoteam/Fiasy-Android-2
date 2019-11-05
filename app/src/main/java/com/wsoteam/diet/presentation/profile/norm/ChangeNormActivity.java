@@ -148,9 +148,6 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         }
     };
 
-
-
-
     @Override
     public void setDefaultPremParams(String kcal, String fat, String carbo, String c) {
         edtKcal.removeTextChangedListener(kcalTW);

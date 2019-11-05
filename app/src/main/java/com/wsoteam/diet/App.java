@@ -1,6 +1,7 @@
 package com.wsoteam.diet;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import androidx.multidex.MultiDexApplication;
 import androidx.room.Room;
@@ -26,6 +27,7 @@ public class App extends MultiDexApplication {
     private boolean setupOnDemand = true;
 
     public long now;
+    private static Context context;
 
     public static App getInstance() {
         return instance;
@@ -55,6 +57,12 @@ public class App extends MultiDexApplication {
         Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
             .enableForegroundTracking(this);
         //SetUserProperties.setUserProperties(Adjust.getAttribution());
+
+        context = this;
+    }
+
+    public static Context getContext(){
+        return context;
     }
 
     public void setupOnDemand(){

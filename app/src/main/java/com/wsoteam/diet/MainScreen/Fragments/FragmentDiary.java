@@ -44,6 +44,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.detail.day.CurrentDayPlanFragment;
 import java.util.Calendar;
 import org.joda.time.DateTime;

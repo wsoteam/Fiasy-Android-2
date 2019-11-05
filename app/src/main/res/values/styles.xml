@@ -258,6 +258,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="MeasurmentsStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#E68D3C</item>
+        <item name="colorPrimaryDark">#AE6A23</item>
+        <item name="colorAccent">#E68D3C</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="FeatureDescription">
       <item name="android:textColor">#deffffff</item>
     </style>

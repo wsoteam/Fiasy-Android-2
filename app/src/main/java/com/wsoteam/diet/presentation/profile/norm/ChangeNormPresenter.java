@@ -56,6 +56,7 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
 
         UserProperty.setUserProperties(profile, context, true);
         WorkWithFirebaseDB.putProfileValue(profile);
+        BodyCalculates.createWeightMeas(profile.getWeight());
     }
 
     public void convertAndSetGoal(int i) {
@@ -69,41 +70,13 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
     }
 
     public void dropParams() {
-        Profile profileDefaultMainParams = BodyCalculates.calculateNew(context, fillProfileCalculate(UserDataHolder.getUserData().getProfile()));
+        Profile profileDefaultMainParams = BodyCalculates.calculateNew(context, BodyCalculates.cloneProfile(UserDataHolder.getUserData().getProfile()), true);
 
         getViewState().setDefaultPremParams(String.valueOf(profileDefaultMainParams.getMaxKcal()), String.valueOf(profileDefaultMainParams.getMaxFat()),
                 String.valueOf(profileDefaultMainParams.getMaxCarbo()), String.valueOf(profileDefaultMainParams.getMaxProt()));
     }
 
-    private Profile fillProfileCalculate(Profile profile) {
-        Profile profileCalculate = new Profile();
-        profileCalculate.setHeight(profile.getHeight());
-        profileCalculate.setWeight(profile.getWeight());
-        profileCalculate.setAge(profile.getAge());
-        profileCalculate.setFemale(profile.isFemale());
-        profileCalculate.setExerciseStress(profile.getExerciseStress());
-        profileCalculate.setDifficultyLevel(profile.getDifficultyLevel());
-
-        return profileCalculate;
-    }
-
     public boolean isDefaultParams() {
-        Profile profile = UserDataHolder.getUserData().getProfile();
-        int userKcal = profile.getMaxKcal();
-        int userProt = profile.getMaxProt();
-        int userFat = profile.getMaxFat();
-        int userCarbo = profile.getMaxCarbo();
-
-
-        Profile profileDefaultMainParams = BodyCalculates.calculateNew(context, fillProfileCalculate(profile));
-
-        if (userKcal == profileDefaultMainParams.getMaxKcal()
-                && userProt == profileDefaultMainParams.getMaxProt()
-                && userFat == profileDefaultMainParams.getMaxFat()
-                && userCarbo == profileDefaultMainParams.getMaxCarbo()) {
-            return true;
-        } else {
-            return false;
-        }
+        return BodyCalculates.isDefaultParams(context);
     }
 }

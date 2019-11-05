@@ -51,7 +51,7 @@
         android:lineSpacingExtra="7sp"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:text="Не изменялось с момента регистрации"
+        android:text="@string/meas_without_meas"
         />
 
     <TextView

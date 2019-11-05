@@ -8,9 +8,12 @@ import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.main.water.WaterActivity;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class BodyCalculates {
 
@@ -49,7 +52,7 @@ public class BodyCalculates {
                         sportActivity, "", 0, 0, 0,
                         0, 0, dif_level, day, month, year);
 
-        return calculateNew(context, profile);
+        return calculateNew(context, profile, true);
     }
 
     public static Profile calculate(Context context, String height, String weight, String age, String sex, String activity, String goal) {
@@ -61,7 +64,7 @@ public class BodyCalculates {
         profile.setExerciseStress(convertToOldActivity(context, activity));
         profile.setDifficultyLevel(convertToOldGoal(context, goal));
 
-        return calculateNew(context, profile);
+        return calculateNew(context, profile, true);
     }
 
     public static String convertToOldGoal(Context context, String goal) {
@@ -133,80 +136,7 @@ public class BodyCalculates {
         return choisedGoal;
     }
 
-    /*
-    Минимальные нагрузки (сидячая работа) - К=1.2
-    Немного дневной активности и легкие упражнения 1-3 раза в неделю - К=1.375
-    Тренировки 4-5 раз в неделю (или работа средней тяжести) - К= 1.4625
-    Интенсивные тренировки 4-5 раз в неделю - К=1.550
-    Ежедневные тренировки - К=1.6375
-    Ежедневные интенсивные тренировки или тренировки 2 раза в день - К=1.725
-    Тяжелая физическая работа или интенсивные тренировки 2 раза в день - К=1.9
-    */
-    public static Profile calculate(Context context, Profile profile) {
-        double BOO, SPK = 0, upLineSPK, downLineSPK, SDD = 0.1;
-        double fat, protein, carbohydrate;
-        String stressLevel = profile.getExerciseStress();
-        String difficultyLevel = profile.getDifficultyLevel();
-        int maxWater;
-
-
-        if (profile.isFemale()) {
-            BOO = (((9.99 * profile.getWeight()) + (6.25 * profile.getHeight())
-                    - (4.92 * profile.getAge())
-                    - 161) * 1.1);
-            maxWater = WATER_ON_KG_FEMALE * (int) profile.getWeight();
-        } else {
-            BOO =
-                    (((9.99 * profile.getWeight()) + (6.25 * profile.getHeight()) - (4.92 * profile.getAge())
-                            + 5) * 1.1);
-            maxWater = WATER_ON_KG_MALE * (int) profile.getWeight();
-        }
-
-        DecimalFormat df = new DecimalFormat("0.00");
-        BOO = Double.valueOf(df.format(BOO));
-
-        if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_none))) {
-            SPK = BOO * RATE_NONE;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_easy))) {
-            SPK = BOO * RATE_EASY;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_medium))) {
-            SPK = BOO * RATE_MEDIUM;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_hard))) {
-            SPK = BOO * RATE_HARD;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_hard))) {
-            SPK = BOO * RATE_UP_HARD;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_super))) {
-            SPK = BOO * RATE_SUPER;
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_super))) {
-            SPK = BOO * RATE_UP_SUPER;
-        }
-
-
-        upLineSPK = SPK - COUNT_UP_LINE;
-        downLineSPK = SPK - COUNT_DOWN_LINE;
-
-        fat = upLineSPK * 0.2 / 9;
-        protein = upLineSPK * 0.3 / 4;
-        carbohydrate = upLineSPK * 0.5 / 3.75;
-
-        if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_easy))) {
-            profile.setMaxKcal((int) SPK);
-        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_normal))) {
-            profile.setMaxKcal((int) upLineSPK);
-        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard))) {
-            profile.setMaxKcal((int) downLineSPK);
-        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard_up))) {
-            profile.setMaxKcal((int) downLineSPK);
-        }
-
-        profile.setWaterCount(maxWater);
-        profile.setMaxFat((int) fat);
-        profile.setMaxProt((int) protein);
-        profile.setMaxCarbo((int) carbohydrate);
-        return profile;
-    }
-
-    public static Profile calculateNew(Context context, Profile profile) {
+    public static Profile calculateNew(Context context, Profile profile, boolean isNeedCreateMeasurment) {
 
         double BMR, KFA = 0, result, target = 0, FPCindex;
         double fat, protein, carbohydrate;
@@ -280,6 +210,63 @@ public class BodyCalculates {
         profile.setMaxFat((int) fat);
         profile.setMaxProt((int) protein);
         profile.setMaxCarbo((int) carbohydrate);
+
+        profile.setMaxWater(maxWater);
+
+        if (isNeedCreateMeasurment) {
+            createWeightMeas(profile.getWeight());
+        }
         return profile;
-      }
+    }
+
+    public static void createWeightMeas(double weightValue) {
+        Calendar calendar = Calendar.getInstance();
+        calendar = DateAndTime.dropTime(calendar);
+        Weight weight = new Weight("", calendar.getTimeInMillis(), weightValue);
+        WorkWithFirebaseDB.setWeight(weight, String.valueOf(weight.getTimeInMillis()));
+    }
+
+    public static Profile cloneProfile(Profile profile) {
+        Profile profileCalculate = new Profile();
+        profileCalculate.setHeight(profile.getHeight());
+        profileCalculate.setWeight(profile.getWeight());
+        profileCalculate.setAge(profile.getAge());
+        profileCalculate.setFemale(profile.isFemale());
+        profileCalculate.setExerciseStress(profile.getExerciseStress());
+        profileCalculate.setDifficultyLevel(profile.getDifficultyLevel());
+
+        return profileCalculate;
+    }
+
+    public static boolean isDefaultParams(Context context) {
+        Profile profile = UserDataHolder.getUserData().getProfile();
+        int userKcal = profile.getMaxKcal();
+        int userProt = profile.getMaxProt();
+        int userFat = profile.getMaxFat();
+        int userCarbo = profile.getMaxCarbo();
+
+
+        Profile profileDefaultMainParams = BodyCalculates.calculateNew(context, cloneProfile(profile), false);
+
+        if (userKcal == profileDefaultMainParams.getMaxKcal()
+                && userProt == profileDefaultMainParams.getMaxProt()
+                && userFat == profileDefaultMainParams.getMaxFat()
+                && userCarbo == profileDefaultMainParams.getMaxCarbo()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void saveWeight(double weight, Context context){
+        Profile profile = UserDataHolder.getUserData().getProfile();
+        if (isDefaultParams(context)){
+            profile.setWeight(weight);
+            profile = calculateNew(context, profile, true);
+        }else {
+            profile.setWeight(weight);
+        }
+        WorkWithFirebaseDB.putProfileValue(profile);
+    }
+
 }

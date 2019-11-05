@@ -31,7 +31,12 @@
         <activity android:name=".presentation.promo.PromoFormActivity"
             android:screenOrientation="portrait"
             android:theme="@style/PromoScreen"/>
-
+        <activity android:name=".presentation.measurment.help.HelpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DetailFood"/>
+        <activity android:name=".presentation.measurment.history.HistoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MeasurmentsStyle"/>
         <activity
             android:name=".presentation.profile.norm.choise.activity.ActivActivity"
             android:theme="@style/ChangeGoalActivity" />
@@ -168,6 +173,11 @@
         android:name=".presentation.intro.IntroActivity"
         android:screenOrientation="portrait"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity
+            android:name=".presentation.measurment.MeasurmentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MeasurmentsStyle" />
 
     <activity
         android:name=".EntryPoint.ActivitySplash"

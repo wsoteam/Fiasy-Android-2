@@ -49,13 +49,14 @@ import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
+import com.wsoteam.diet.common.remote.UpdateChecker;
 import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import java.util.Calendar;
 
-
 public class MainActivity extends AppCompatActivity {
+
     @BindView(R.id.flFragmentContainer) FrameLayout flFragmentContainer;
     @BindView(R.id.bnv_main) BottomNavigationView bnvMain;
     @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
@@ -120,28 +121,33 @@ public class MainActivity extends AppCompatActivity {
         return getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).getString(ABConfig.KEY_FOR_SAVE_STATE, "default");
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        handlGrade(Calendar.getInstance().getTimeInMillis());
-        Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
-    }
 
-    private void handlGrade(long currentTime) {
-        long timeStartingPoint = getSharedPreferences(Config.STARTING_POINT, MODE_PRIVATE).getLong(Config.STARTING_POINT, 0);
-        boolean isAddedFoodEarly = getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).getBoolean(Config.IS_ADDED_FOOD, false);
-        int gradeStatus = getSharedPreferences(Config.IS_GRADE_APP, MODE_PRIVATE).
-                getInt(Config.IS_GRADE_APP, Config.NOT_VIEW_GRADE_DIALOG);
-        if ((currentTime - timeStartingPoint) >= Config.ONE_DAY && gradeStatus != Config.GRADED) {
-            if (isAddedFoodEarly) {
-                if (gradeStatus == Config.NOT_VIEW_GRADE_DIALOG) {
-                    RateDialogs.showGradeDialog(this, false);
-                }
-            } else if ((currentTime - timeStartingPoint) >= Config.ONE_DAY * 2) {
-                RateDialogs.showGradeDialog(this, false);
-            }
-        }
-    }
+  @Override
+  protected void onResume() {
+    super.onResume();
+    handlGrade(Calendar.getInstance().getTimeInMillis());
+    new UpdateChecker(this).runChecker();
+    Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
+  }
+
+  private void handlGrade(long currentTime) {
+      long timeStartingPoint =
+              getSharedPreferences(Config.STARTING_POINT, MODE_PRIVATE).getLong(Config.STARTING_POINT, 0);
+      boolean isAddedFoodEarly =
+              getSharedPreferences(Config.IS_ADDED_FOOD, MODE_PRIVATE).getBoolean(Config.IS_ADDED_FOOD,
+                      false);
+      int gradeStatus = getSharedPreferences(Config.IS_GRADE_APP, MODE_PRIVATE).
+              getInt(Config.IS_GRADE_APP, Config.NOT_VIEW_GRADE_DIALOG);
+      if ((currentTime - timeStartingPoint) >= Config.ONE_DAY && gradeStatus != Config.GRADED) {
+          if (isAddedFoodEarly) {
+              if (gradeStatus == Config.NOT_VIEW_GRADE_DIALOG) {
+                  RateDialogs.showGradeDialog(this, false);
+              }
+          } else if ((currentTime - timeStartingPoint) >= Config.ONE_DAY * 2) {
+              RateDialogs.showGradeDialog(this, false);
+          }
+      }
+  }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -176,44 +182,38 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void logEvents() {
-        if (getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).getBoolean(SavedConst.SEE_PREMIUM, false)) {
-            Events.logSuccessOnboarding(getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).getString(SavedConst.HOW_END, EventProperties.onboarding_success_reopen));
-            getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).edit().remove(SavedConst.SEE_PREMIUM).commit();
-            getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).edit().remove(SavedConst.HOW_END).commit();
-        }
+  private void logEvents() {
+    if (getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).getBoolean(
+        SavedConst.SEE_PREMIUM, false)) {
+      Events.logSuccessOnboarding(
+          getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).getString(SavedConst.HOW_END,
+              EventProperties.onboarding_success_reopen));
+      getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).edit()
+          .remove(SavedConst.SEE_PREMIUM)
+          .commit();
+      getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).edit()
+          .remove(SavedConst.HOW_END)
+          .commit();
     }
+  }
 
-    private void checkForcedGrade() {
-        if (getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).getBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false)) {
-            RateDialogs.showGradeDialog(this, true);
-            getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).
-                    edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false).apply();
-        }
+  private void checkForcedGrade() {
+    if (getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).getBoolean(
+        Config.IS_NEED_SHOW_GRADE_DIALOG, false)) {
+      RateDialogs.showGradeDialog(this, true);
+      getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).
+          edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false).apply();
     }
+  }
 
-    private boolean checkSubscribe() {
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-        if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @OnClick({R.id.ibSheetClose, R.id.btnReg})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ibSheetClose:
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                break;
-            case R.id.btnReg:
-                startActivity(new Intent(MainActivity.this, ActivitySplash.class)
-                        .putExtra(Config.IS_NEED_REG, true)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-                break;
-        }
-    }
+  private boolean checkSubscribe() {
+      SharedPreferences sharedPreferences = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+      if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
+          return true;
+      } else {
+          return false;
+      }
+  }
 
     private void loadRecipes() {
 
@@ -263,22 +263,42 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void loadDietPlans() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("PLANS");
 
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                DietModule dietModule = dataSnapshot.getValue(DietModule.class);
-                DietPlansHolder.bind(dietModule);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
+  @OnClick({ R.id.ibSheetClose, R.id.btnReg })
+  public void onViewClicked(View view) {
+    switch (view.getId()) {
+      case R.id.ibSheetClose:
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        break;
+      case R.id.btnReg:
+        startActivity(new Intent(MainActivity.this, ActivitySplash.class)
+            .putExtra(Config.IS_NEED_REG, true)
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+        break;
     }
+  }
+
+
+
+
+
+  private void loadDietPlans() {
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("PLANS");
+
+    myRef.addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        DietModule dietModule = dataSnapshot.getValue(DietModule.class);
+        DietPlansHolder.bind(dietModule);
+      }
+
+      @Override
+      public void onCancelled(@NonNull DatabaseError databaseError) {
+      }
+    });
+  }
+
 
     @Override
     public void onBackPressed() {
@@ -291,6 +311,6 @@ public class MainActivity extends AppCompatActivity {
             window.setStatusBarColor(Color.parseColor("#AE6A23"));
             bnvMain.setSelectedItemId(R.id.bnv_main_diary);
         }
-
     }
+
 }
