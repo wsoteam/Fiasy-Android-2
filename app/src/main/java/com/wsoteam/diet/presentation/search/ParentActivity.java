@@ -193,9 +193,11 @@ public class ParentActivity extends AppCompatActivity {
           R.id.searchFragmentContainer)).sendSearchQuery(
           edtSearch.getText().toString().replaceAll("\\s+", " "));
       edtSearch.clearFocus();
-    } else if (requestCode == Config.RC_DETAIL_FOOD && resultCode == RESULT_OK) {
-      ((ResultsFragment) fragmentManager.findFragmentById(
-          R.id.searchFragmentContainer)).updateBasket();
+    } else if (requestCode == Config.RC_DETAIL_FOOD) {
+      if (resultCode == RESULT_OK) {
+        ((ResultsFragment) fragmentManager.findFragmentById(
+            R.id.searchFragmentContainer)).updateBasket();
+      }
       isBackFromDetail = true;
     }
     super.onActivityResult(requestCode, resultCode, data);

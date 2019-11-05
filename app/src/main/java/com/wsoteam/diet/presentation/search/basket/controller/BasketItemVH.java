@@ -35,14 +35,19 @@ public class BasketItemVH extends RecyclerView.ViewHolder implements View.OnClic
     this.listener = listener;
     tvTitle.setText(food.getName());
     tbSelect.setChecked(true);
-    tvKcal.setText(String.valueOf(Math.round(food.getCalories() * food.getCountPortions())) + " " + itemView.getResources().getString(R.string.tvKkal));
+    tvKcal.setText(String.valueOf(
+        Math.round(food.getCalories() * food.getCountPortions() * food.getSizePortion()))
+        + " "
+        + itemView.getResources().getString(R.string.tvKkal));
     if (food.getBrand() != null && !food.getBrand().equals("")) {
       tvTitle.append(" (" + food.getBrand() + ")");
     }
-    if (food.isLiquid()){
-      tvPortion.setText(itemView.getResources().getString(R.string.srch_liquid, food.getCountPortions()));
-    }else {
-      tvPortion.setText(itemView.getResources().getString(R.string.srch_not_liquid, food.getCountPortions()));
+    if (food.isLiquid()) {
+      tvPortion.setText(itemView.getResources()
+          .getString(R.string.srch_liquid, food.getCountPortions() * food.getSizePortion()));
+    } else {
+      tvPortion.setText(itemView.getResources()
+          .getString(R.string.srch_not_liquid, food.getCountPortions() * food.getSizePortion()));
     }
     tbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
