@@ -69,7 +69,6 @@ public class BasketEntity implements ISearchResult, Serializable {
     this.sizePortion = sizePortion;
   }
 
-
   public BasketEntity(Result result, int weight, int eatingType, int deepId) {
     name = result.getName();
     if (result.getBrand() != null) {
@@ -102,26 +101,60 @@ public class BasketEntity implements ISearchResult, Serializable {
     }
     this.countPortions = Config.DEFAULT_PORTION;
     isLiquid = result.isLiquid();
-    kilojoules = result.getKilojoules();
-    calories = result.getCalories();
-    proteins = result.getProteins();
-    carbohydrates = result.getCarbohydrates();
-    sugar = result.getSugar();
-    fats = result.getFats();
-    saturatedFats = result.getSaturatedFats();
-    monoUnSaturatedFats = result.getMonounsaturatedFats();
-    polyUnSaturatedFats = result.getPolyunsaturatedFats();
-    cholesterol = result.getCholesterol();
-    cellulose = result.getCellulose();
-    sodium = result.getSodium();
-    pottassium = result.getPottasium();
+    calories = Config.DEFAULT_PORTION * result.getCalories();
+    proteins = Config.DEFAULT_PORTION * result.getProteins();
+    carbohydrates = Config.DEFAULT_PORTION * result.getCarbohydrates();
+    fats = Config.DEFAULT_PORTION * result.getFats();
+    if (result.getSugar() != Config.EMPTY_COUNT) {
+      sugar = result.getSugar() * Config.DEFAULT_PORTION;
+    } else {
+      sugar = Config.EMPTY_COUNT;
+    }
+    if (result.getSaturatedFats() != Config.EMPTY_COUNT) {
+      saturatedFats = result.getSaturatedFats() * Config.DEFAULT_PORTION;
+    } else {
+      saturatedFats = Config.EMPTY_COUNT;
+    }
+    if (result.getMonounsaturatedFats() != Config.EMPTY_COUNT) {
+      monoUnSaturatedFats = result.getMonounsaturatedFats() * Config.DEFAULT_PORTION;
+    } else {
+      monoUnSaturatedFats = Config.EMPTY_COUNT;
+    }
+    if (result.getPolyunsaturatedFats() != Config.EMPTY_COUNT) {
+      polyUnSaturatedFats = result.getPolyunsaturatedFats() * Config.DEFAULT_PORTION;
+    } else {
+      polyUnSaturatedFats = Config.EMPTY_COUNT;
+    }
+    if (result.getCholesterol() != Config.EMPTY_COUNT) {
+      cholesterol = result.getCholesterol() * Config.DEFAULT_PORTION;
+    } else {
+      cholesterol = Config.EMPTY_COUNT;
+    }
+    if (result.getCellulose() != Config.EMPTY_COUNT) {
+      cellulose = result.getCellulose() * Config.DEFAULT_PORTION;
+    } else {
+      cellulose = Config.EMPTY_COUNT;
+    }
+    if (result.getSodium() != Config.EMPTY_COUNT) {
+      sodium = result.getSodium() * Config.DEFAULT_PORTION;
+    } else {
+      sodium = Config.EMPTY_COUNT;
+    }
+    if (result.getPottasium() != Config.EMPTY_COUNT) {
+      pottassium = result.getPottasium() * Config.DEFAULT_PORTION;
+    } else {
+      pottassium = Config.EMPTY_COUNT;
+    }
+
     this.eatingType = eatingType;
     serverId = result.getId();
     this.deepId = -1;
     namePortion = Config.DEFAULT_PORTION_NAME;
+    sizePortion = Config.DEFAULT_WEIGHT;
   }
 
-  public BasketEntity(Result result, int countPortions, int sizePortion, String namePortion, int eatingType, int deepId) {
+  public BasketEntity(Result result, int countPortions, int sizePortion, String namePortion,
+      int eatingType, int deepId) {
     name = result.getName();
     if (result.getBrand() != null) {
       brand = result.getBrand().getName();
@@ -308,7 +341,6 @@ public class BasketEntity implements ISearchResult, Serializable {
     this.pottassium = pottassium;
   }
 
-
   public int getEatingType() {
     return eatingType;
   }
@@ -316,7 +348,6 @@ public class BasketEntity implements ISearchResult, Serializable {
   public void setEatingType(int eatingType) {
     this.eatingType = eatingType;
   }
-
 
   public String getNamePortion() {
     return namePortion;

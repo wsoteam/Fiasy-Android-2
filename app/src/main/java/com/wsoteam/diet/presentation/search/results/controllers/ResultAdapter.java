@@ -136,7 +136,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
               }
 
               @Override public void open(int position) {
-                openDetailActivity(createBasketEntity(position));
+                openDetailActivity(createBasketEntityDetail(position));
               }
             });
         break;
@@ -153,7 +153,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
               }
 
               @Override public void open(int position) {
-                openDetailActivity(createBasketEntity(position));
+                openDetailActivity(createBasketEntityDetail(position));
               }
             });
         break;
@@ -186,10 +186,12 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   }
 
   private BasketEntity createBasketEntity(int position) {
-    return new BasketEntity((Result) foods.get(position), Config.DEFAULT_PORTION, Config.DEFAULT_WEIGHT, Config.DEFAULT_PORTION_NAME,
-        basketUpdater.getCurrentEating(), -1);
+    return new BasketEntity((Result) foods.get(position), basketUpdater.getCurrentEating());
   }
 
+  private BasketEntity createBasketEntityDetail(int position) {
+    return new BasketEntity((Result) foods.get(position), Config.DEFAULT_WEIGHT, basketUpdater.getCurrentEating(), ((Result) foods.get(position)).getId());
+  }
 
   private void onPagination(int position) {
     if (position == currentPaginationTrigger) {

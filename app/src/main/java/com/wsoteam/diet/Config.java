@@ -128,6 +128,7 @@ public class Config {
     public static final int DEFAULT_WEIGHT = 1;
     public static final String DEFAULT_PORTION_NAME = "";
     public static final String DEFAULT_CUSTOM_NAME = "DEFAULT_CUSTOM_NAME";
+    public static final int EMPTY_COUNT = -1;
 
 
 }

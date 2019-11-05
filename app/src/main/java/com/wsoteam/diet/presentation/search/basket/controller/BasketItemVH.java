@@ -39,9 +39,8 @@ public class BasketItemVH extends RecyclerView.ViewHolder implements View.OnClic
     if (food.getBrand() != null && !food.getBrand().equals("")) {
       tvTitle.append(" (" + food.getBrand() + ")");
     }
-    handleWeightAndKcal(food);
     tvKcal.setText(String.valueOf(
-        Math.round(food.getCalories() * food.getCountPortions() * food.getSizePortion()))
+        Math.round(food.getCalories()))
         + " "
         + itemView.getResources().getString(R.string.tvKkal));
     if (food.isLiquid()) {
@@ -58,25 +57,4 @@ public class BasketItemVH extends RecyclerView.ViewHolder implements View.OnClic
     });
   }
 
-  private void handleWeightAndKcal(BasketEntity food) {
-    String portion, kcal;
-    if (food.getNamePortion().equals(Config.DEFAULT_PORTION_NAME)){
-
-    }else {
-      if (food.getNamePortion().equals(Config.DEFAULT_CUSTOM_NAME)){
-        kcal = String.valueOf(
-            Math.round(food.getCalories() * food.getCountPortions() * food.getSizePortion()))
-            + " "
-            + itemView.getResources().getString(R.string.tvKkal);
-        portion = String.valueOf(food.getCountPortions() * food.getSizePortion());
-      }else {
-
-      }
-    }
-    if (food.getNamePortion().equals(Config.DEFAULT_CUSTOM_NAME)){
-      portion
-    }else {
-
-    }
-  }
 }

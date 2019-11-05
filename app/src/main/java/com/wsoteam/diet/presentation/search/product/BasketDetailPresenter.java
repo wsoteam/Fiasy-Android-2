@@ -46,11 +46,9 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
 
   @Override
   protected void onFirstViewAttach() {
+    Log.e("LOL", basketEntity.toString());
     handlePortions();
     int portionSize = portionsSizes.get(0);
-    if (portionSize == MINIMAL_PORTION) {
-      portionSize = DEFAULT_PORTION;
-    }
     getViewState().fillFields(basketEntity.getName(), basketEntity.getFats(),
         basketEntity.getCarbohydrates(),
         basketEntity.getProteins(), basketEntity.getBrand(), basketEntity.getSugar(),
@@ -65,7 +63,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
     portionsSizes = new ArrayList<>();
     ArrayList<String> names = new ArrayList<>();
 
-    if (basketEntity.getSizePortion() != STANDART_PORTION) {
+    if (basketEntity.getSizePortion() != MINIMAL_PORTION && basketEntity.getSizePortion() != STANDART_PORTION) {
       portionsSizes.add(basketEntity.getSizePortion());
       names.add(basketEntity.getNamePortion());
     }
