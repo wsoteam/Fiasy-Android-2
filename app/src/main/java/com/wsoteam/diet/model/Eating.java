@@ -37,6 +37,9 @@ public class Eating implements Serializable {
   private double sodium;
   private double pottassium;
 
+  private String namePortion;
+  private int sizePortion;
+
   //0 - normal food
   private int type;
 
@@ -48,7 +51,7 @@ public class Eating implements Serializable {
       boolean isNewFood,
       String brand, boolean isLiquid, double kilojoules, double sugar, double saturatedFats,
       double monoUnSaturatedFats, double polyUnSaturatedFats, double cholesterol, double cellulose,
-      double sodium, double pottassium, int type) {
+      double sodium, double pottassium, String namePortion, int sizePortion, int type) {
     this.name = name;
     this.urlOfImages = urlOfImages;
     this.calories = calories;
@@ -73,6 +76,8 @@ public class Eating implements Serializable {
     this.cellulose = cellulose;
     this.sodium = sodium;
     this.pottassium = pottassium;
+    this.namePortion = namePortion;
+    this.sizePortion = sizePortion;
     this.type = type;
   }
 
@@ -101,6 +106,8 @@ public class Eating implements Serializable {
     this.pottassium = basketEntity.getPottassium();
     this.type = type;
     this.isNewFood = true;
+    this.namePortion = basketEntity.getNamePortion();
+    this.sizePortion = basketEntity.getSizePortion();
   }
 
   public Eating(String name, String urlOfImages, int calories, int carbohydrates, int protein,
@@ -115,6 +122,30 @@ public class Eating implements Serializable {
     this.day = day;
     this.month = month;
     this.year = year;
+  }
+
+  public boolean isNewFood() {
+    return isNewFood;
+  }
+
+  public void setNewFood(boolean newFood) {
+    isNewFood = newFood;
+  }
+
+  public String getNamePortion() {
+    return namePortion;
+  }
+
+  public void setNamePortion(String namePortion) {
+    this.namePortion = namePortion;
+  }
+
+  public int getSizePortion() {
+    return sizePortion;
+  }
+
+  public void setSizePortion(int sizePortion) {
+    this.sizePortion = sizePortion;
   }
 
   public String getName() {
