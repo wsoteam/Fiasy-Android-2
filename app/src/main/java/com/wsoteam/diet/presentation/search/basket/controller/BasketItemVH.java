@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import com.wsoteam.diet.presentation.search.results.controllers.ClickListener;
@@ -35,13 +36,14 @@ public class BasketItemVH extends RecyclerView.ViewHolder implements View.OnClic
     this.listener = listener;
     tvTitle.setText(food.getName());
     tbSelect.setChecked(true);
+    if (food.getBrand() != null && !food.getBrand().equals("")) {
+      tvTitle.append(" (" + food.getBrand() + ")");
+    }
+    handleWeightAndKcal(food);
     tvKcal.setText(String.valueOf(
         Math.round(food.getCalories() * food.getCountPortions() * food.getSizePortion()))
         + " "
         + itemView.getResources().getString(R.string.tvKkal));
-    if (food.getBrand() != null && !food.getBrand().equals("")) {
-      tvTitle.append(" (" + food.getBrand() + ")");
-    }
     if (food.isLiquid()) {
       tvPortion.setText(itemView.getResources()
           .getString(R.string.srch_liquid, food.getCountPortions() * food.getSizePortion()));
@@ -54,5 +56,27 @@ public class BasketItemVH extends RecyclerView.ViewHolder implements View.OnClic
         listener.click(getAdapterPosition(), b);
       }
     });
+  }
+
+  private void handleWeightAndKcal(BasketEntity food) {
+    String portion, kcal;
+    if (food.getNamePortion().equals(Config.DEFAULT_PORTION_NAME)){
+
+    }else {
+      if (food.getNamePortion().equals(Config.DEFAULT_CUSTOM_NAME)){
+        kcal = String.valueOf(
+            Math.round(food.getCalories() * food.getCountPortions() * food.getSizePortion()))
+            + " "
+            + itemView.getResources().getString(R.string.tvKkal);
+        portion = String.valueOf(food.getCountPortions() * food.getSizePortion());
+      }else {
+
+      }
+    }
+    if (food.getNamePortion().equals(Config.DEFAULT_CUSTOM_NAME)){
+      portion
+    }else {
+
+    }
   }
 }

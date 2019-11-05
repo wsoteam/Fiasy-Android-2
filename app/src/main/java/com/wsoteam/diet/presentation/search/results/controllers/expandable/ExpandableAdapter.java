@@ -43,7 +43,9 @@ public class ExpandableAdapter extends RecyclerView.Adapter<ExpandableVH> {
 
   private BasketEntity createNewFood(int position) {
     BasketEntity basketEntity =
-        new BasketEntity(result, result.getMeasurementUnits().get(position).getAmount(), 0,
+        new BasketEntity(result, result.getMeasurementUnits().get(position).getAmount(),
+            result.getMeasurementUnits().get(position).getAmount(),
+            result.getMeasurementUnits().get(position).getName(), 0,
             position);
     return basketEntity;
   }
@@ -51,7 +53,7 @@ public class ExpandableAdapter extends RecyclerView.Adapter<ExpandableVH> {
   private boolean getSaveStatus(int position) {
     boolean isSaved = false;
     for (int i = 0; i < savedIds.size(); i++) {
-      if (savedIds.get(i) == position){
+      if (savedIds.get(i) == position) {
         isSaved = true;
       }
     }

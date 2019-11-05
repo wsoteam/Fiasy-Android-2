@@ -125,6 +125,9 @@ public class Config {
     public static final int SEARCH_RESPONSE_LIMIT = 50;
     public static final int STANDART_PORTION = 0;
     public static final int RC_DETAIL_FOOD = 755;
+    public static final int DEFAULT_WEIGHT = 1;
+    public static final String DEFAULT_PORTION_NAME = "";
+    public static final String DEFAULT_CUSTOM_NAME = "DEFAULT_CUSTOM_NAME";
 
 
 }

@@ -6,6 +6,7 @@ import android.util.Log;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.wsoteam.diet.App;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.product.claim.ClaimAlert;
@@ -124,7 +125,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
 
     if (portionsSizes.get(position) == MINIMAL_PORTION) {
       basketEntity.setDeepId(-1);
-      basketEntity.setNamePortion("");
+      basketEntity.setNamePortion(Config.DEFAULT_CUSTOM_NAME);
       basketEntity.setSizePortion(1);
     }
 

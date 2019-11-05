@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.search.basket.db;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 import java.io.Serializable;
@@ -92,6 +93,59 @@ public class BasketEntity implements ISearchResult, Serializable {
     this.eatingType = eatingType;
     serverId = result.getId();
     this.deepId = deepId;
+  }
+
+  public BasketEntity(Result result, int eatingType) {
+    name = result.getName();
+    if (result.getBrand() != null) {
+      brand = result.getBrand().getName();
+    }
+    this.countPortions = Config.DEFAULT_PORTION;
+    isLiquid = result.isLiquid();
+    kilojoules = result.getKilojoules();
+    calories = result.getCalories();
+    proteins = result.getProteins();
+    carbohydrates = result.getCarbohydrates();
+    sugar = result.getSugar();
+    fats = result.getFats();
+    saturatedFats = result.getSaturatedFats();
+    monoUnSaturatedFats = result.getMonounsaturatedFats();
+    polyUnSaturatedFats = result.getPolyunsaturatedFats();
+    cholesterol = result.getCholesterol();
+    cellulose = result.getCellulose();
+    sodium = result.getSodium();
+    pottassium = result.getPottasium();
+    this.eatingType = eatingType;
+    serverId = result.getId();
+    this.deepId = -1;
+    namePortion = Config.DEFAULT_PORTION_NAME;
+  }
+
+  public BasketEntity(Result result, int countPortions, int sizePortion, String namePortion, int eatingType, int deepId) {
+    name = result.getName();
+    if (result.getBrand() != null) {
+      brand = result.getBrand().getName();
+    }
+    this.countPortions = countPortions;
+    isLiquid = result.isLiquid();
+    kilojoules = result.getKilojoules();
+    calories = result.getCalories();
+    proteins = result.getProteins();
+    carbohydrates = result.getCarbohydrates();
+    sugar = result.getSugar();
+    fats = result.getFats();
+    saturatedFats = result.getSaturatedFats();
+    monoUnSaturatedFats = result.getMonounsaturatedFats();
+    polyUnSaturatedFats = result.getPolyunsaturatedFats();
+    cholesterol = result.getCholesterol();
+    cellulose = result.getCellulose();
+    sodium = result.getSodium();
+    pottassium = result.getPottasium();
+    this.eatingType = eatingType;
+    serverId = result.getId();
+    this.deepId = deepId;
+    this.sizePortion = sizePortion;
+    this.namePortion = namePortion;
   }
 
   public int getServerId() {

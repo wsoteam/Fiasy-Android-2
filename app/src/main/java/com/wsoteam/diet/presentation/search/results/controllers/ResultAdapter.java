@@ -186,9 +186,10 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   }
 
   private BasketEntity createBasketEntity(int position) {
-    return new BasketEntity((Result) foods.get(position), Config.DEFAULT_PORTION,
+    return new BasketEntity((Result) foods.get(position), Config.DEFAULT_PORTION, Config.DEFAULT_WEIGHT, Config.DEFAULT_PORTION_NAME,
         basketUpdater.getCurrentEating(), -1);
   }
+
 
   private void onPagination(int position) {
     if (position == currentPaginationTrigger) {
