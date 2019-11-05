@@ -57,11 +57,11 @@ public class ResultVH extends RecyclerView.ViewHolder implements View.OnClickLis
     this.clickListener = clickListener;
     tvTitle.setText(historyEntity.getName());
     if (historyEntity.isLiquid()){
-      tvPortion.setText(String.valueOf(historyEntity.getCountPortions()) + " " + itemView.getResources().getString(R.string.srch_ml));
+      tvPortion.setText(String.valueOf(historyEntity.getCountPortions() * historyEntity.getSizePortion()) + " " + itemView.getResources().getString(R.string.srch_ml));
     }else {
-      tvPortion.setText(String.valueOf(historyEntity.getCountPortions()) + " " + itemView.getResources().getString(R.string.srch_gramm));
+      tvPortion.setText(String.valueOf(historyEntity.getCountPortions() * historyEntity.getSizePortion()) + " " + itemView.getResources().getString(R.string.srch_gramm));
     }
-    tvKcal.setText(String.valueOf(Math.round(historyEntity.getCalories() * historyEntity.getCountPortions())) + " Ккал");
+    tvKcal.setText(String.valueOf(Math.round(historyEntity.getCalories()) + " Ккал"));
     if (historyEntity.getBrand() != null && !historyEntity.getBrand().equals("")) {
       tvTitle.append(" (" + historyEntity.getBrand() + ")");
     }
