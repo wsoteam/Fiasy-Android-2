@@ -46,7 +46,6 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
 
   @Override
   protected void onFirstViewAttach() {
-    Log.e("LOL", basketEntity.toString());
     handlePortions();
     int portionSize = portionsSizes.get(0);
     getViewState().fillFields(basketEntity.getName(), basketEntity.getFats(),
