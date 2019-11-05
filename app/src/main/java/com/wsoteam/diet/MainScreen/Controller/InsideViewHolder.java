@@ -90,7 +90,11 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
             tvWeight.setText("1 порция");
             isRecipe = true;
         } else {
-            tvWeight.setText("Вес: " + eating.getWeight() + "г");
+            if (eating.isNewFood()){
+                tvWeight.setText("Вес: " + eating.getWeight() * eating.getSizePortion() + "г");
+            }else {
+                tvWeight.setText("Вес: " + eating.getWeight() + "г");
+            }
             isRecipe = false;
         }
         this.insideHolderCallback = insideHolderCallback;
