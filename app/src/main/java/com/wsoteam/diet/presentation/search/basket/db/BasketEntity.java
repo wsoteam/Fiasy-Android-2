@@ -95,6 +95,8 @@ public class BasketEntity implements ISearchResult, Serializable {
     namePortion = Config.DEFAULT_PORTION_NAME;
   }
 
+
+  //save with 100 gramm
   public BasketEntity(Result result, int eatingType) {
     name = result.getName();
     if (result.getBrand() != null) {
@@ -154,33 +156,126 @@ public class BasketEntity implements ISearchResult, Serializable {
     sizePortion = Config.DEFAULT_WEIGHT;
   }
 
+  public BasketEntity(Result result, int eatingType, int weight) {
+    name = result.getName();
+    if (result.getBrand() != null) {
+      brand = result.getBrand().getName();
+    }
+    this.countPortions = weight;
+    isLiquid = result.isLiquid();
+    calories = weight * result.getCalories();
+    proteins = weight * result.getProteins();
+    carbohydrates = weight * result.getCarbohydrates();
+    fats = weight * result.getFats();
+    if (result.getSugar() != Config.EMPTY_COUNT) {
+      sugar = result.getSugar() * weight;
+    } else {
+      sugar = Config.EMPTY_COUNT;
+    }
+    if (result.getSaturatedFats() != Config.EMPTY_COUNT) {
+      saturatedFats = result.getSaturatedFats() * weight;
+    } else {
+      saturatedFats = Config.EMPTY_COUNT;
+    }
+    if (result.getMonounsaturatedFats() != Config.EMPTY_COUNT) {
+      monoUnSaturatedFats = result.getMonounsaturatedFats() * weight;
+    } else {
+      monoUnSaturatedFats = Config.EMPTY_COUNT;
+    }
+    if (result.getPolyunsaturatedFats() != Config.EMPTY_COUNT) {
+      polyUnSaturatedFats = result.getPolyunsaturatedFats() * weight;
+    } else {
+      polyUnSaturatedFats = Config.EMPTY_COUNT;
+    }
+    if (result.getCholesterol() != Config.EMPTY_COUNT) {
+      cholesterol = result.getCholesterol() * weight;
+    } else {
+      cholesterol = Config.EMPTY_COUNT;
+    }
+    if (result.getCellulose() != Config.EMPTY_COUNT) {
+      cellulose = result.getCellulose() * weight;
+    } else {
+      cellulose = Config.EMPTY_COUNT;
+    }
+    if (result.getSodium() != Config.EMPTY_COUNT) {
+      sodium = result.getSodium() * weight;
+    } else {
+      sodium = Config.EMPTY_COUNT;
+    }
+    if (result.getPottasium() != Config.EMPTY_COUNT) {
+      pottassium = result.getPottasium() * weight;
+    } else {
+      pottassium = Config.EMPTY_COUNT;
+    }
+
+    this.eatingType = eatingType;
+    serverId = result.getId();
+    this.deepId = -1;
+    namePortion = Config.DEFAULT_PORTION_NAME;
+    sizePortion = Config.DEFAULT_WEIGHT;
+  }
+
   public BasketEntity(Result result, int countPortions, int sizePortion, String namePortion,
       int eatingType, int deepId) {
     name = result.getName();
     if (result.getBrand() != null) {
       brand = result.getBrand().getName();
     }
+
     this.countPortions = countPortions;
     isLiquid = result.isLiquid();
-    kilojoules = result.getKilojoules();
-    calories = result.getCalories();
-    proteins = result.getProteins();
-    carbohydrates = result.getCarbohydrates();
-    sugar = result.getSugar();
-    fats = result.getFats();
-    saturatedFats = result.getSaturatedFats();
-    monoUnSaturatedFats = result.getMonounsaturatedFats();
-    polyUnSaturatedFats = result.getPolyunsaturatedFats();
-    cholesterol = result.getCholesterol();
-    cellulose = result.getCellulose();
-    sodium = result.getSodium();
-    pottassium = result.getPottasium();
+    calories = countPortions * result.getCalories();
+    proteins = countPortions * result.getProteins();
+    carbohydrates = countPortions * result.getCarbohydrates();
+    fats = countPortions * result.getFats();
+    if (result.getSugar() != Config.EMPTY_COUNT) {
+      sugar = result.getSugar() * countPortions;
+    } else {
+      sugar = Config.EMPTY_COUNT;
+    }
+    if (result.getSaturatedFats() != Config.EMPTY_COUNT) {
+      saturatedFats = result.getSaturatedFats() * countPortions;
+    } else {
+      saturatedFats = Config.EMPTY_COUNT;
+    }
+    if (result.getMonounsaturatedFats() != Config.EMPTY_COUNT) {
+      monoUnSaturatedFats = result.getMonounsaturatedFats() * countPortions;
+    } else {
+      monoUnSaturatedFats = Config.EMPTY_COUNT;
+    }
+    if (result.getPolyunsaturatedFats() != Config.EMPTY_COUNT) {
+      polyUnSaturatedFats = result.getPolyunsaturatedFats() * countPortions;
+    } else {
+      polyUnSaturatedFats = Config.EMPTY_COUNT;
+    }
+    if (result.getCholesterol() != Config.EMPTY_COUNT) {
+      cholesterol = result.getCholesterol() * countPortions;
+    } else {
+      cholesterol = Config.EMPTY_COUNT;
+    }
+    if (result.getCellulose() != Config.EMPTY_COUNT) {
+      cellulose = result.getCellulose() * countPortions;
+    } else {
+      cellulose = Config.EMPTY_COUNT;
+    }
+    if (result.getSodium() != Config.EMPTY_COUNT) {
+      sodium = result.getSodium() * countPortions;
+    } else {
+      sodium = Config.EMPTY_COUNT;
+    }
+    if (result.getPottasium() != Config.EMPTY_COUNT) {
+      pottassium = result.getPottasium() * countPortions;
+    } else {
+      pottassium = Config.EMPTY_COUNT;
+    }
+
     this.eatingType = eatingType;
     serverId = result.getId();
     this.deepId = deepId;
     this.sizePortion = sizePortion;
     this.namePortion = namePortion;
   }
+
 
   public int getServerId() {
     return serverId;

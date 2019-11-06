@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.search.product;
 
 import android.content.Context;
 
+import android.util.Log;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.wsoteam.diet.App;
@@ -45,6 +46,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
 
   @Override
   protected void onFirstViewAttach() {
+    Log.e("LOL", basketEntity.toString());
     handlePortions();
     int portionSize = portionsSizes.get(0);
     getViewState().fillFields(basketEntity.getName(), basketEntity.getFats(),
@@ -61,8 +63,8 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
     portionsSizes = new ArrayList<>();
     ArrayList<String> names = new ArrayList<>();
 
-    if (basketEntity.getSizePortion() != MINIMAL_PORTION && basketEntity.getSizePortion() != STANDART_PORTION) {
-      portionsSizes.add(basketEntity.getSizePortion());
+    if (basketEntity.getNamePortion() != null && !basketEntity.getNamePortion().equals(Config.DEFAULT_PORTION_NAME)) {
+      portionsSizes.add(basketEntity.getCountPortions());
       names.add(basketEntity.getNamePortion());
     }
 
@@ -70,7 +72,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
       basketEntity.makeAtomicDefault();
     }
 
-    if (basketEntity.getNamePortion() != null && basketEntity.getSizePortion() != 0 && basketEntity.getCountPortions() != 0){
+    if (basketEntity.getNamePortion() != null && !basketEntity.getNamePortion().equals(Config.DEFAULT_PORTION_NAME) && basketEntity.getSizePortion() != 0 && basketEntity.getCountPortions() != 0){
       basketEntity.makeAtomic(basketEntity.getCountPortions(), basketEntity.getSizePortion());
     }
 
