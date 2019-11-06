@@ -51,7 +51,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
   @Override public void save(String date) {
     FoodWork.saveClearList(savedFood, date);
-    clearDB();
+    FoodWork.clearBasket();
     savedFood = new ArrayList<>();
   }
 
@@ -59,17 +59,6 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     this.savedFood = savedFood;
     notifyDataSetChanged();
     basketUpdater.getCurrentSize(savedFood.size());
-  }
-
-  private void clearDB() {
-    Completable.fromAction(new Action() {
-      @Override
-      public void run() throws Exception {
-        basketDAO.deleteAll();
-      }
-    }).subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe();
   }
 
   public ResultAdapter(List<ISearchResult> foods, Context context, List<BasketEntity> savedFood,

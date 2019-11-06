@@ -301,7 +301,9 @@ public class ParentActivity extends AppCompatActivity {
     tvExit.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
         alertDialog.cancel();
+        FoodWork.clearBasket();
         ParentActivity.super.onBackPressed();
+
       }
     });
 
