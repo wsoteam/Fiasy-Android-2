@@ -92,6 +92,7 @@ public class BasketEntity implements ISearchResult, Serializable {
     this.eatingType = eatingType;
     serverId = result.getId();
     this.deepId = deepId;
+    namePortion = Config.DEFAULT_PORTION_NAME;
   }
 
   public BasketEntity(Result result, int eatingType) {
@@ -151,7 +152,6 @@ public class BasketEntity implements ISearchResult, Serializable {
     this.deepId = -1;
     namePortion = Config.DEFAULT_PORTION_NAME;
     sizePortion = Config.DEFAULT_WEIGHT;
-    //init
   }
 
   public BasketEntity(Result result, int countPortions, int sizePortion, String namePortion,
