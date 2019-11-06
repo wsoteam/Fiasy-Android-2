@@ -230,7 +230,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
       presenter.attachView(this)
     } else if (intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) is Eating) {
       presenter =
-        SavedFoodPresenter(this, intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) as Eating)
+        SavedFoodPresenter(intent.getSerializableExtra(Config.INTENT_DETAIL_FOOD) as Eating, this,  intent.getSerializableExtra(Config.TAG_CHOISE_EATING) as Int)
       presenter.attachView(this)
     }
   }

@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
+import com.wsoteam.diet.model.Eating;
 import java.io.Serializable;
 
 @Entity
@@ -276,6 +277,64 @@ public class BasketEntity implements ISearchResult, Serializable {
     this.namePortion = namePortion;
   }
 
+
+  public BasketEntity(Eating eating, int typeEating) {
+    if (eating.isNewFood()){
+      convertNewFood(eating, typeEating);
+    }else {
+      convertOldFood(eating, typeEating);
+    }
+  }
+
+  private void convertOldFood(Eating eating, int typeEating) {
+    this.serverId = Config.EMPTY_COUNT;
+    this.deepId = Config.EMPTY_COUNT;
+    this.name = eating.getName();
+    this.brand = eating.getBrand();
+    this.isLiquid = eating.isLiquid();
+    this.countPortions = eating.getWeight();
+    this.kilojoules = Config.EMPTY_COUNT;
+    this.calories = eating.getCalories();
+    this.proteins = eating.getProtein();
+    this.carbohydrates = eating.getCarbohydrates();
+    this.sugar = Config.EMPTY_COUNT;
+    this.fats = eating.getFat();
+    this.saturatedFats = Config.EMPTY_COUNT;
+    this.monoUnSaturatedFats = Config.EMPTY_COUNT;
+    this.polyUnSaturatedFats = Config.EMPTY_COUNT;
+    this.cholesterol = Config.EMPTY_COUNT;
+    this.cellulose = Config.EMPTY_COUNT;
+    this.sodium = Config.EMPTY_COUNT;
+    this.pottassium = Config.EMPTY_COUNT;
+    this.eatingType = typeEating;
+    this.namePortion = Config.DEFAULT_PORTION_NAME;
+    this.sizePortion = Config.DEFAULT_WEIGHT;
+  }
+
+  private void convertNewFood(Eating eating, int typeEating) {
+    this.serverId = eating.getServerId();
+    this.deepId = eating.getDeepId();
+    this.name = eating.getName();
+    this.brand = eating.getBrand();
+    this.isLiquid = eating.isLiquid();
+    this.countPortions = eating.getWeight();
+    this.kilojoules = eating.getKilojoules();
+    this.calories = eating.getCalories();
+    this.proteins = eating.getProtein();
+    this.carbohydrates = eating.getCarbohydrates();
+    this.sugar = eating.getSugar();
+    this.fats = eating.getFat();
+    this.saturatedFats = eating.getSaturatedFats();
+    this.monoUnSaturatedFats = eating.getMonoUnSaturatedFats();
+    this.polyUnSaturatedFats = eating.getPolyUnSaturatedFats();
+    this.cholesterol = eating.getCholesterol();
+    this.cellulose = eating.getCellulose();
+    this.sodium = eating.getSodium();
+    this.pottassium = eating.getPottassium();
+    this.eatingType = typeEating;
+    this.namePortion = eating.getNamePortion();
+    this.sizePortion = eating.getSizePortion();
+  }
 
   public int getServerId() {
     return serverId;
