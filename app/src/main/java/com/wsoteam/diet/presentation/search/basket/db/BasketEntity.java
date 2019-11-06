@@ -392,7 +392,7 @@ public class BasketEntity implements ISearchResult, Serializable {
         '}';
   }
 
-  public void makeAtomic() {
+  public void makeAtomicDefault() {
     countPortions = countPortions / Config.DEFAULT_PORTION;
     calories = calories / Config.DEFAULT_PORTION;
     proteins = proteins / Config.DEFAULT_PORTION;
@@ -407,5 +407,22 @@ public class BasketEntity implements ISearchResult, Serializable {
     cellulose = cellulose / Config.DEFAULT_PORTION;
     sodium = sodium / Config.DEFAULT_PORTION;
     pottassium = pottassium / Config.DEFAULT_PORTION;
+  }
+
+  public void makeAtomic(int countPortions, int sizePortion) {
+    this.countPortions = 1;
+    calories = calories / countPortions / sizePortion;
+    proteins = proteins / countPortions / sizePortion;
+    carbohydrates = carbohydrates / countPortions / sizePortion;
+    fats = fats / countPortions / sizePortion;
+
+    sugar = sugar / countPortions / sizePortion;
+    saturatedFats = saturatedFats / countPortions / sizePortion;
+    monoUnSaturatedFats = monoUnSaturatedFats / countPortions / sizePortion;
+    polyUnSaturatedFats = polyUnSaturatedFats / countPortions / sizePortion;
+    cholesterol = cholesterol / countPortions / sizePortion;
+    cellulose = cellulose / countPortions / sizePortion;
+    sodium = sodium / countPortions / sizePortion;
+    pottassium = pottassium / countPortions / sizePortion;
   }
 }

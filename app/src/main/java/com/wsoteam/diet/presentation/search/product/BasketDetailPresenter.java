@@ -67,7 +67,11 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
     }
 
     if (basketEntity.getNamePortion().equals(Config.DEFAULT_PORTION_NAME) && basketEntity.getCountPortions() == Config.DEFAULT_PORTION){
-      basketEntity.makeAtomic();
+      basketEntity.makeAtomicDefault();
+    }
+
+    if (basketEntity.getNamePortion() != null && basketEntity.getSizePortion() != 0 && basketEntity.getCountPortions() != 0){
+      basketEntity.makeAtomic(basketEntity.getCountPortions(), basketEntity.getSizePortion());
     }
 
     portionsSizes.add(MINIMAL_PORTION);
