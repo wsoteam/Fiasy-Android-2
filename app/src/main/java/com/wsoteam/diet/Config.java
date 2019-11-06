@@ -41,7 +41,7 @@ public class Config {
     public static final int REWRITE_PROFILE = 1;
     public static final int NOT_REWRITE_PROFILE = 0;
 
-    //Tags for choise where need save food
+    //Tags for choise where need prepareToSave food
     public static final String TAG_CHOISE_EATING = "TAG_CHOISE_EATING";
     public static final String TAG_OWN_FOOD = "TAG_OWN_FOOD";
 

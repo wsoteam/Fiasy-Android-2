@@ -115,7 +115,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
     getViewState().refreshCalculating();
   }
 
-  public void save(String weight, String prot, String fats, String carbo, String kcal,
+  public void prepareToSave(String weight, String prot, String fats, String carbo, String kcal,
       int selectedItemPosition) {
     int calories = Integer.parseInt(kcal);
     int carbohydrates = Integer.parseInt(carbo.split(" ")[0]);
@@ -174,7 +174,10 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
       basketEntity.setPottassium(
           countPortions * portionsSizes.get(position) * basketEntity.getPottassium());
     }
+    saveEntity(basketEntity);
+  }
 
+  public void saveEntity(BasketEntity basketEntity) {
     Completable.fromAction(new Action() {
       @Override
       public void run() throws Exception {

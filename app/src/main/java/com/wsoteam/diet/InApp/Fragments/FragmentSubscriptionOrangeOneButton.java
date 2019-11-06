@@ -160,7 +160,7 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
             Events.logBillingError(responseCode);
         }
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
-            //send data about purchase into firebase (and save into profile subInfo)
+            //send data about purchase into firebase (and prepareToSave into profile subInfo)
             SingletonMakePurchase.getInstance().setMakePurchaseNow(true);
             final Purchase p = purchases.get(0);
 

@@ -97,7 +97,7 @@ public class BasketEntity implements ISearchResult, Serializable {
   }
 
 
-  //save with 100 gramm
+  //prepareToSave with 100 gramm
   public BasketEntity(Result result, int eatingType) {
     name = result.getName();
     if (result.getBrand() != null) {

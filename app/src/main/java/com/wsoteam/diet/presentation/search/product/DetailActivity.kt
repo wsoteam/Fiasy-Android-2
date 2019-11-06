@@ -309,7 +309,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         Toast.makeText(this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT)
             .show()
       } else {
-        presenter.save(
+        presenter.prepareToSave(
             edtWeightCalculate.text.toString(), tvProtCalculate.text.toString(),
             tvFatCalculate.text.toString(), tvCarboCalculate.text.toString(),
             tvKcalCalculate.text.toString(), spnFood.selectedItemPosition
