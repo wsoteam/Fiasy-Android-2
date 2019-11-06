@@ -144,11 +144,16 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
     weight: Int,
     isLiquid: Boolean
   ) {
+    var sizePortion = if(weight == Config.DEFAULT_WEIGHT){
+      Config.DEFAULT_PORTION
+    }else{
+      weight
+    }
     tvTitle.text = name
         .toUpperCase()
-    tvFats.text = Math.round(fats * weight).toString() + " г"
-    tvCarbohydrates.text = Math.round(carbo * weight).toString() + " г"
-    tvProteins.text = Math.round(prot * weight).toString() + " г"
+    tvFats.text = Math.round(fats * sizePortion).toString() + " г"
+    tvCarbohydrates.text = Math.round(carbo * sizePortion).toString() + " г"
+    tvProteins.text = Math.round(prot * sizePortion).toString() + " г"
 
     if (brand != null && brand != "") {
       tvBrand.visibility = View.VISIBLE
@@ -158,50 +163,50 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
     if (sugar != EMPTY_FIELD.toDouble()) {
       tvLabelSugar.visibility = View.VISIBLE
       tvSugar.visibility = View.VISIBLE
-      tvSugar.text = Math.round(sugar * weight).toString() + " г"
+      tvSugar.text = Math.round(sugar * sizePortion).toString() + " г"
     }
     if (saturatedFats != EMPTY_FIELD.toDouble()) {
       tvLabelSaturated.visibility = View.VISIBLE
       tvSaturated.visibility = View.VISIBLE
-      tvSaturated.text = Math.round(saturatedFats * weight).toString() + " г"
+      tvSaturated.text = Math.round(saturatedFats * sizePortion).toString() + " г"
     }
     if (monoUnSaturatedFats != EMPTY_FIELD.toDouble()) {
       tvLabelMonoUnSaturated.visibility = View.VISIBLE
       tvMonoUnSaturated.visibility = View.VISIBLE
       tvMonoUnSaturated.text =
-        Math.round(monoUnSaturatedFats * weight).toString() + " г"
+        Math.round(monoUnSaturatedFats * sizePortion).toString() + " г"
 
     }
     if (polyUnSaturatedFats != EMPTY_FIELD.toDouble()) {
       tvLabelPolyUnSaturated.visibility = View.VISIBLE
       tvPolyUnSaturated.visibility = View.VISIBLE
       tvPolyUnSaturated.text =
-        Math.round(polyUnSaturatedFats * weight).toString() + " г"
+        Math.round(polyUnSaturatedFats * sizePortion).toString() + " г"
     }
     if (cholesterol != EMPTY_FIELD.toDouble()) {
       tvLabelСholesterol.visibility = View.VISIBLE
       tvСholesterol.visibility = View.VISIBLE
-      tvСholesterol.text = Math.round(cholesterol * weight).toString() + " мг"
+      tvСholesterol.text = Math.round(cholesterol * sizePortion).toString() + " мг"
     }
     if (cellulose != EMPTY_FIELD.toDouble()) {
       tvLabelCellulose.visibility = View.VISIBLE
       tvCellulose.visibility = View.VISIBLE
-      tvCellulose.text = Math.round(cellulose * weight).toString() + " г"
+      tvCellulose.text = Math.round(cellulose * sizePortion).toString() + " г"
     }
     if (sodium != EMPTY_FIELD.toDouble()) {
       tvLabelSodium.visibility = View.VISIBLE
       tvSodium.visibility = View.VISIBLE
-      tvSodium.text = Math.round(sodium * weight).toString() + " мг"
+      tvSodium.text = Math.round(sodium * sizePortion).toString() + " мг"
     }
     if (pottassium != EMPTY_FIELD.toDouble()) {
       tvLabelPotassium.visibility = View.VISIBLE
       tvPotassium.visibility = View.VISIBLE
-      tvPotassium.text = Math.round(pottassium * weight).toString() + " мг"
+      tvPotassium.text = Math.round(pottassium * sizePortion).toString() + " мг"
     }
     if (eatingType != EMPTY_FIELD) {
       bindSpinnerChoiceEating(eatingType)
     }
-    paintWeightString(weight, isLiquid)
+    paintWeightString(sizePortion, isLiquid)
   }
 
   private fun paintWeightString(
