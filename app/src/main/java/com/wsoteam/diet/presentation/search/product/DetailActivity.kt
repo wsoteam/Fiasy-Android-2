@@ -150,9 +150,10 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
     tvCarbohydrates.text = Math.round(carbo * weight).toString() + " г"
     tvProteins.text = Math.round(prot * weight).toString() + " г"
 
-    /*if (brand != null && brand != "") {
+    if (brand != null && brand != "") {
+      tvBrand.visibility = View.VISIBLE
       tvBrand.text = "(" + brand + ")"
-    }*/
+    }
 
     if (sugar != EMPTY_FIELD.toDouble()) {
       tvLabelSugar.visibility = View.VISIBLE
