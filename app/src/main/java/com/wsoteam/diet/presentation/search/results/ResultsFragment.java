@@ -232,10 +232,12 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   }
 
   private void showNoHistory() {
-    Glide.with(getActivity()).load(R.drawable.scrh_first_search).into(ivSearchImage);
-    tvTextEmptySearch.setText(getResources().getString(R.string.srch_empty_history));
-    ivSearchImage.setVisibility(View.VISIBLE);
-    tvTextEmptySearch.setVisibility(View.VISIBLE);
+    if (ivSearchImage != null) {
+      Glide.with(getActivity()).load(R.drawable.scrh_first_search).into(ivSearchImage);
+      tvTextEmptySearch.setText(getResources().getString(R.string.srch_empty_history));
+      ivSearchImage.setVisibility(View.VISIBLE);
+      tvTextEmptySearch.setVisibility(View.VISIBLE);
+    }
   }
 
   private void showNoFind() {
