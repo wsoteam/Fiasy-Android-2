@@ -1163,5 +1163,9 @@ Share your accomplishments with friends:</string>
 
     <string name="meas_without_meas">Не изменялось с момента регистрации</string>
     <string name="meas_prefix">Вы заносили вес</string>
-    //
+  <string name="timer_days_left">дни</string>
+  <string name="timer_hours_left">часы</string>
+  <string name="timer_minutes_left">минуты</string>
+  <string name="timer_padded_value">%02d</string>
+  //
 </resources>

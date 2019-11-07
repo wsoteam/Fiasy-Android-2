@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
 
   <TextView
-      android:layout_width="match_parent"
+      android:id="@+id/value"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:textSize="34sp"
+      android:fontFamily="sans-serif-medium"
+      android:textStyle="normal"
+      android:textColor="#f2994a"
+      tools:text="14"
+      />
 
+  <TextView
+      android:id="@+id/label"
+      android:layout_width="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_height="wrap_content"
+      android:textSize="14sp"
+      android:fontFamily="sans-serif-light"
+      android:textStyle="normal"
+      android:textColor="?android:textColorPrimary"
+      android:lineSpacingExtra="4.2sp"
+      tools:text="дни"
       />
 
 </LinearLayout>

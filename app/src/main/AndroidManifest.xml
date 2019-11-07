@@ -142,6 +142,11 @@
             android:name=".OtherActivity.ActivityPrivacyPolicy"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemePolicy" />
+
+      <activity-alias
+          android:name=".InApp.ActivitySubscription"
+          android:targetActivity=".presentation.premium.PremiumFeaturesActivity" />
+
         <activity
             android:name=".InApp.ActivitySubscription"
             android:exported="true"

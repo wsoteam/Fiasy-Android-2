@@ -116,7 +116,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
                 box.setOpenFromPremPart(true);
                 box.setOpenFromIntrodaction(false);
 
-                final Intent intent = new Intent(context, ActivitySubscription.class);
+                final Intent intent = new Intent(context, PremiumFeaturesActivity.class);
                 intent.putExtra(Config.TAG_BOX, box);
 
                 context.startActivity(intent);
@@ -140,7 +140,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
                 Toast.makeText(context, "Раздел в разработке :(", Toast.LENGTH_SHORT).show();
                 break;*/
             case HELP:
-                context.startActivity(new Intent(context, PremiumFeaturesActivity.class));
+                context.startActivity(new Intent(context, HelpActivity.class));
                 break;
             case LOGOUT:
                 Events.logLogout();

@@ -12,7 +12,6 @@
       android:layout_height="wrap_content"
       android:orientation="vertical"
       >
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -20,6 +19,25 @@
         app:title="@string/Premium"
         app:titleTextColor="?android:textColorPrimary"
         app:navigationIcon="?navigationIcon"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-light"
+        android:textStyle="normal"
+        android:textColor="?android:textColorPrimary"
+        android:layout_gravity="center_horizontal"
+        android:lineSpacingExtra="6sp"
+        tools:text="До конца акции осталось"
+        />
+
+    <com.wsoteam.diet.views.TimerView
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         />
 
     <ImageView
