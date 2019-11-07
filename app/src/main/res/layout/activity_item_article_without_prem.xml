@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wsoteam.diet.Articles.ItemArticleActivity">
+    tools:context="com.wsoteam.diet.articles.ItemArticleActivity">
 
     <ScrollView
         android:layout_width="0dp"
@@ -39,15 +39,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
+                android:paddingBottom="24dp"
                 android:layout_marginTop="12dp"
-                tools:text="Title" />
-
-            <TextView
-                android:id="@+id/tvIntroArticleWP"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                tools:text="Intro" />
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="#BF000000"
+                android:textSize="18sp"
+                tools:text="Title"
+                />
 
             <View
                 android:id="@+id/divider20"
@@ -57,45 +55,77 @@
                 android:paddingBottom="30dp" />
 
 
+            <ImageView
+                android:id="@+id/imageView66"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                app:srcCompat="@drawable/ic_fiasy_premium"
+                />
             <TextView
                 android:id="@+id/tvArticlePremText"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
                 android:fontFamily="@font/roboto_bold"
-                android:paddingTop="20dp"
                 android:paddingBottom="30dp"
+                android:paddingTop="20dp"
                 android:text="@string/tvArticlePremText"
                 android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="#7993B2"
-                android:textSize="18sp" />
+                android:textAllCaps="false"
+                android:textColor="@color/b_color"
+                android:textSize="18sp"
+                />
 
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView8"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                app:cardBackgroundColor="#EFA61C"
-                app:cardCornerRadius="25dp"
-                app:layout_constraintBottom_toBottomOf="@+id/ivRecipe"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivRecipe">
+                >
 
-                <Button
-                    android:id="@+id/goPremArticle"
-                    android:layout_width="238dp"
-                    android:layout_height="match_parent"
-                    android:background="#00FFFFFF"
-                    android:padding="2dp"
-                    android:text="@string/btnRecipePrem"
-                    android:textColor="@android:color/white" />
-            </androidx.cardview.widget.CardView>
+                <LinearLayout
+                    android:id="@+id/linearLayout4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
+                    <Button
+                        android:id="@+id/goPremArticle"
+                        android:layout_width="238dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/shape_btn_article"
+                        android:padding="2dp"
+                        android:text="@string/getAccess"
+                        android:textColor="@android:color/white"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
+                    app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+                    app:layout_constraintTop_toTopOf="@+id/linearLayout4"
+                    >
+                    <ImageView
+                        android:id="@+id/imageView67"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        app:srcCompat="@drawable/ic_lock"
+                        />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tvMainArticleWP"

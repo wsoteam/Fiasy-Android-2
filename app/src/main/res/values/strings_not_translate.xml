@@ -124,5 +124,5 @@
 
   <string name="join_strings" translatable="false">%s %s</string>
 
-
+<string name="getAccess" translatable="false">Получить доступ</string>
 </resources>

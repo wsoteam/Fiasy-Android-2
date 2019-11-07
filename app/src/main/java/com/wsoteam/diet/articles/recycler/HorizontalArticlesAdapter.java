@@ -1,15 +1,12 @@
-package com.wsoteam.diet.Articles;
+package com.wsoteam.diet.articles.recycler;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.wsoteam.diet.Articles.POJO.Article;
-import com.wsoteam.diet.Articles.POJO.ListArticles;
-import com.wsoteam.diet.R;
+import com.wsoteam.diet.model.Article;
+import com.wsoteam.diet.articles.POJO.ListArticles;
 import java.util.List;
 
 public class HorizontalArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -62,5 +59,7 @@ public class HorizontalArticlesAdapter extends RecyclerView.Adapter<RecyclerView
     void onItemClick(View view, int position, Article dietPlan);
 
     void onClickAll(View view, int position, ListArticles listArticles);
+
+    void onClickBanner(View view);
   }
 }

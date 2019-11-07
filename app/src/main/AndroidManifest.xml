@@ -12,6 +12,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".articles.ArticleSeriesActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/Article" />
+        <activity
+            android:name=".articles.BurlakovAuthorActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Article" />
+
+
         <activity android:name=".presentation.promo.PromoFormActivity"
             android:screenOrientation="portrait"
             android:theme="@style/PromoScreen"/>
@@ -93,11 +104,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
         <activity
-            android:name=".Articles.ItemArticleWithoutPremActivity"
+            android:name=".articles.ItemArticleWithoutPremActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TransparentStatusBar" />
         <activity
-            android:name=".Articles.ItemArticleActivity"
+            android:name=".articles.ItemArticleActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TransparentStatusBar" />
         <activity

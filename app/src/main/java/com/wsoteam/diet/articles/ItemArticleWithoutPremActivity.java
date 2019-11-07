@@ -1,4 +1,4 @@
-package com.wsoteam.diet.Articles;
+package com.wsoteam.diet.articles;
 
 import android.content.Intent;
 import android.graphics.BlurMaskFilter;
@@ -13,11 +13,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProviders;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.Articles.POJO.Article;
-import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
-import com.wsoteam.diet.Articles.Util.HtmlTagHandler;
+import com.wsoteam.diet.articles.Util.HtmlTagHandler;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
@@ -28,18 +28,17 @@ import com.wsoteam.diet.common.Analytics.Events;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-
+import com.wsoteam.diet.model.ApiResult;
+import com.wsoteam.diet.model.Article;
+import com.wsoteam.diet.model.ArticleViewModel;
 
 public class ItemArticleWithoutPremActivity extends AppCompatActivity {
 
     @BindView(R.id.imgArticleWP) ImageView imgArticle;
     @BindView(R.id.tvTitleArticleWP) TextView tvTitle;
-    @BindView(R.id.tvIntroArticleWP) TextView tvIntro;
     @BindView(R.id.tvMainArticleWP) TextView tvMain;
     @BindView(R.id.testID) LinearLayout layout;
     @BindView(R.id.toolbar) Toolbar toolbar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +46,24 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_article_without_prem);
         ButterKnife.bind(this);
 
+        int articleId = getIntent().getIntExtra(Config.ARTICLE_INTENT, 0);
+
+        ArticleViewModel model = ViewModelProviders.of(this).get(ArticleViewModel.class);
+        LiveData<ApiResult<Article>> data = model.getData();
+        data.observe(this,
+            new androidx.lifecycle.Observer<ApiResult<Article>>() {
+                @Override
+                public void onChanged(ApiResult<Article> articleApiResult) {
+                    for (Article article: articleApiResult.getResults()) {
+                        if (article.getId() == articleId) {
+                            setValue(article);
+                            Events.logViewArticle(article.getTitle());
+                        }
+                    }
+                }
+            });
 
 
-        int position = getIntent().getIntExtra(Config.ARTICLE_INTENT, 0);
-        Article article = ArticlesHolder.getListArticles().getListArticles().get(position);
-
-        setValue(article);
 
         tvMain.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         float radius = tvMain.getTextSize() / 3;
@@ -68,18 +79,18 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
             }
         });
 
-        Events.logViewArticle(article.getTitle());
+
 //        tvMain.getPaint().setMaskFilter(new BlurMaskFilter(10, BlurMaskFilter.Blur.NORMAL));
     }
 
     private void setValue(Article article){
-        Glide.with(this).load(article.getImgUrl()).into(imgArticle);
+        Glide.with(this).load(article.getImage()).into(imgArticle);
 
-        tvTitle.setText(Html.fromHtml(article.getTitle()));
-        tvIntro.setText(Html.fromHtml(article.getIntroPart()));
+        tvTitle.setText(article.getTitle().replaceAll("\\<.*?\\>", ""));
+        //tvIntro.setText(Html.fromHtml(article.getIntroPart()));
 
         HtmlTagHandler tagHandler = new HtmlTagHandler();
-        Spanned styledText = HtmlCompat.fromHtml(article.getMainPart(),
+        Spanned styledText = HtmlCompat.fromHtml(article.getBody(),
                 HtmlCompat.FROM_HTML_MODE_LEGACY, null, tagHandler);
         tvMain.setText(styledText);
 

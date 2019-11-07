@@ -1,4 +1,4 @@
-package com.wsoteam.diet.Articles;
+package com.wsoteam.diet.articles.recycler;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -12,8 +12,10 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.wsoteam.diet.Articles.POJO.ListArticles;
+import com.wsoteam.diet.articles.POJO.ListArticles;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.articles.recycler.BurlakovViewHolder;
+import com.wsoteam.diet.articles.recycler.HorizontalArticlesAdapter;
 import java.util.List;
 
 public class VerticalArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -23,6 +25,8 @@ public class VerticalArticlesAdapter extends RecyclerView.Adapter<RecyclerView.V
   private HorizontalArticlesAdapter.OnItemClickListener mItemClickListener;
   private Context mContext;
   private RecyclerView.RecycledViewPool viewPool;
+
+  private final int VH_DEFF = 0, VH_BANNER = 1;
 
   public VerticalArticlesAdapter(
       List<ListArticles> sectionsArticles) {
@@ -34,6 +38,11 @@ public class VerticalArticlesAdapter extends RecyclerView.Adapter<RecyclerView.V
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
     mContext = viewGroup.getContext();
     switch (viewType) {
+      case VH_BANNER: return new BurlakovViewHolder(viewGroup, new View.OnClickListener() {
+        @Override public void onClick(View v) {
+            mItemClickListener.onClickBanner(v);
+        }
+      });
       default: {
         View v0 = LayoutInflater.from(viewGroup.getContext())
             .inflate(R.layout.group_articles_item, viewGroup, false);
@@ -46,6 +55,7 @@ public class VerticalArticlesAdapter extends RecyclerView.Adapter<RecyclerView.V
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
 
     switch (viewHolder.getItemViewType()) {
+      case VH_BANNER: break;
       default: {
         VerticalViewHolder holder = (VerticalViewHolder) viewHolder;
 
@@ -62,18 +72,29 @@ public class VerticalArticlesAdapter extends RecyclerView.Adapter<RecyclerView.V
 
   @Override
   public void onViewRecycled(RecyclerView.ViewHolder viewHolder) {
-    final int position = viewHolder.getAdapterPosition();
-    VerticalViewHolder cellViewHolder = (VerticalViewHolder) viewHolder;
-    int firstVisiblePosition = cellViewHolder.layoutManager.findFirstVisibleItemPosition();
-    listPosition.put(position, firstVisiblePosition);
 
+    if (viewHolder instanceof VerticalViewHolder) {
+      final int position = viewHolder.getAdapterPosition();
+      VerticalViewHolder cellViewHolder = (VerticalViewHolder) viewHolder;
+      int firstVisiblePosition = cellViewHolder.layoutManager.findFirstVisibleItemPosition();
+      listPosition.put(position, firstVisiblePosition);
+    }
     super.onViewRecycled(viewHolder);
+  }
+
+  public void setData(List<ListArticles> sectionsArticles){
+    this.sectionsArticles = sectionsArticles;
   }
 
   @Override public int getItemCount() {
     if (sectionsArticles == null) return 0;
 
     return sectionsArticles.size();
+  }
+
+  @Override public int getItemViewType(int position) {
+    if (position == 0) return VH_BANNER;
+    else return VH_DEFF;
   }
 
   // for both short and long click

@@ -1,4 +1,4 @@
-package com.wsoteam.diet.Articles.Util;
+package com.wsoteam.diet.articles.Util;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

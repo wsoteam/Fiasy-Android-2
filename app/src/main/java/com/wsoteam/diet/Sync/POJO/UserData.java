@@ -13,6 +13,7 @@ import com.wsoteam.diet.common.promo.POJO.UserPromo;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
+import com.wsoteam.diet.model.OpenArticles;
 import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.model.Water;
 
@@ -37,6 +38,7 @@ public class UserData implements Serializable {
   private HashMap<String, RecipeItem> favoriteRecipes;
   private HashMap<String, CustomFood> customFoods;
   private HashMap<String, FoodTemplate> foodTemplates;
+  private HashMap<String, OpenArticles> articleSeries;
   private DietPlan plan;
   private UserPromo userPromo;
 
@@ -69,6 +71,14 @@ public class UserData implements Serializable {
     this.plan = plan;
     this.foodTemplates = foodTemplates;
     this.userPromo = userPromo;
+  }
+
+  public HashMap<String, OpenArticles> getArticleSeries() {
+    return articleSeries;
+  }
+
+  public void setArticleSeries(HashMap<String, OpenArticles> articleSeries) {
+    this.articleSeries = articleSeries;
   }
 
   public SubInfo getSubInfo() {

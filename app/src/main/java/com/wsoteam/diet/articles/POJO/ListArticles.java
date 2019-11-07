@@ -1,14 +1,14 @@
-package com.wsoteam.diet.Articles.POJO;
+package com.wsoteam.diet.articles.POJO;
 
 import java.io.Serializable;
 import java.util.List;
+
+import com.wsoteam.diet.model.Article;
 
 public class ListArticles implements Serializable {
     private String name;
     private List<Article> listArticles;
 
-    public ListArticles() {
-    }
 
     public ListArticles(String name) {
         this.name = name;

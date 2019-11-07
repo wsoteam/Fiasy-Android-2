@@ -1,10 +1,8 @@
-package com.wsoteam.diet.Articles.Util;
+package com.wsoteam.diet.articles.Util;
 
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
-
-import com.wsoteam.diet.Articles.Util.HrSpan;
 
 import org.xml.sax.XMLReader;
 

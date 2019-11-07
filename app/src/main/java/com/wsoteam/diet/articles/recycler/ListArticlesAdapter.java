@@ -1,12 +1,12 @@
-package com.wsoteam.diet.Articles;
+package com.wsoteam.diet.articles.recycler;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,7 +15,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
-import com.wsoteam.diet.Articles.POJO.Article;
+import com.wsoteam.diet.model.Article;
 import com.wsoteam.diet.R;
 
 import java.util.List;
@@ -36,11 +36,10 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
     this.context = viewGroup.getContext();
 
-    RecyclerView.ViewHolder viewHolder = new ArticleViewHolder(viewGroup);
+    ArticleViewHolder viewHolder = new ArticleViewHolder(viewGroup, R.layout.article_view_holder_2);
 
-    ((ArticleViewHolder)viewHolder).setOnClickListener((View v) -> {
-      onItemClickListener.onItemClick(v, listItem.get(viewHolder.getAdapterPosition()));
-    });
+    viewHolder.setOnClickListener((View v) ->
+      onItemClickListener.onItemClick(v, listItem.get(viewHolder.getAdapterPosition())));
 
     return viewHolder;
   }
@@ -63,7 +62,6 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     this.listItem = listItem;
     notifyDataSetChanged();
   }
-
 
   public void setOnItemClickListener(OnItemClickListener onItemClickListener){
     this.onItemClickListener = onItemClickListener;
