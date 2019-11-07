@@ -15,10 +15,13 @@ public class HorizontalArticlesAdapter extends RecyclerView.Adapter<RecyclerView
   private OnItemClickListener mItemClickListener;
   private List<Article> articles;
 
+  private final int VH_DEFF = 0, VH_SPACE = 1;
+
   @NonNull @Override
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
     context = viewGroup.getContext();
     switch (viewType) {
+      case VH_SPACE: return new SpaceViewHolder(viewGroup);
       default: {
         ArticleViewHolder viewHolder = new ArticleViewHolder(viewGroup);
         viewHolder.setOnClickListener((View v) -> {
@@ -30,10 +33,13 @@ public class HorizontalArticlesAdapter extends RecyclerView.Adapter<RecyclerView
   }
 
   @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+
+    if (position == 0 || position == getItemCount() - 1) return;
+
     switch (viewHolder.getItemViewType()) {
       default: {
         ArticleViewHolder articleViewHolder = (ArticleViewHolder) viewHolder;
-        articleViewHolder.bind(articles.get(position));
+        articleViewHolder.bind(articles.get(position - 1));
         break;
       }
     }
@@ -42,7 +48,14 @@ public class HorizontalArticlesAdapter extends RecyclerView.Adapter<RecyclerView
   @Override public int getItemCount() {
     if (articles == null) return 0;
 
-    return articles.size();
+    return articles.size() + 2;
+  }
+
+  @Override
+  public int getItemViewType(int position) {
+   if (position == 0 || position == getItemCount() - 1) return VH_SPACE;
+   else return VH_DEFF;
+
   }
 
   public void updateList(List<Article> articles) {
