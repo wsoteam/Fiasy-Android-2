@@ -125,7 +125,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
     @Override public void onClick(View view) {
       isSubSection = false;
       recyclerView.setAdapter(verticalArticlesAdapter);
-      mToolbar.setTitle("Статьи");
+      mToolbar.setTitle(getString(R.string.bnv_main_articles));
       mToolbar.setNavigationIcon(null);
     }
   };
@@ -161,7 +161,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
           @Override
           public void onChanged(ApiResult<Article> articleApiResult) {
             Log.d("kkk", "onChanged: ");
-            sectionArticles = new SectionArticles(articleApiResult.getResults());
+            sectionArticles = new SectionArticles(articleApiResult.getResults(), getContext());
             adapter.updateData(articleApiResult.getResults());
             verticalArticlesAdapter.setData(sectionArticles.getGroups());
             verticalArticlesAdapter.SetOnItemClickListener(onItemClickListener);
@@ -181,7 +181,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
     View view = inflater.inflate(R.layout.fragment_list_articles, container, false);
     unbinder = ButterKnife.bind(this, view);
 
-    mToolbar.setTitle("Статьи");
+    mToolbar.setTitle(getString(R.string.bnv_main_articles));
     mToolbar.inflateMenu(R.menu.menu_article);
     mToolbar.setNavigationIcon(null);
     mToolbar.setNavigationOnClickListener(onClickListener);

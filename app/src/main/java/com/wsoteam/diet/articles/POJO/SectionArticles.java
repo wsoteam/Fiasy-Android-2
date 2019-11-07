@@ -1,23 +1,24 @@
 package com.wsoteam.diet.articles.POJO;
 
-import android.util.Log;
+import android.content.Context;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.wsoteam.diet.R;
 import com.wsoteam.diet.model.Article;
 
 public class SectionArticles implements GroupsArticles {
 
-  List<ListArticles> sectionArticles;
+  private List<ListArticles> sectionArticles;
 
-  public SectionArticles(List<Article> articles) {
+  public SectionArticles(List<Article> articles, Context context) {
 
     sectionArticles = new ArrayList<>();
 
-    ListArticles nutrition = new ListArticles("Питание");
-    ListArticles training = new ListArticles("Тренировки");
-    ListArticles authors = new ListArticles("От автора");
+    ListArticles nutrition = new ListArticles(context.getString(R.string.section_eating));
+    ListArticles training = new ListArticles(context.getString(R.string.section_train));
+    ListArticles authors = new ListArticles(null);
 
     List<Article> listNutrition = new ArrayList<>();
     List<Article> listTraining = new ArrayList<>();

@@ -86,7 +86,7 @@ public class ArticleSeriesFragment extends Fragment {
         new androidx.lifecycle.Observer<ApiResult<Article>>() {
           @Override
           public void onChanged(ApiResult<Article> articleApiResult) {
-            adapter.setListArticles(new SectionArticles(articleApiResult.getResults()).getGroups().get(0).getListArticles());
+            adapter.setListArticles(new SectionArticles(articleApiResult.getResults(), getContext()).getGroups().get(0).getListArticles());
           }
         });
 

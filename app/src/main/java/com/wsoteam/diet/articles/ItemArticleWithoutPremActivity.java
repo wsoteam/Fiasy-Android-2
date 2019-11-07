@@ -2,6 +2,8 @@ package com.wsoteam.diet.articles;
 
 import android.content.Intent;
 import android.graphics.BlurMaskFilter;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.text.HtmlCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +41,7 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
     @BindView(R.id.tvMainArticleWP) TextView tvMain;
     @BindView(R.id.testID) LinearLayout layout;
     @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.author) ConstraintLayout authorLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,15 +82,20 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
             }
         });
 
-
-//        tvMain.getPaint().setMaskFilter(new BlurMaskFilter(10, BlurMaskFilter.Blur.NORMAL));
+        authorLabel.setOnClickListener(v ->
+                startActivity(new Intent(this, BurlakovAuthorActivity.class)
+                        .putExtra(BurlakovAuthorActivity.HIDE_BTN, true)));
     }
 
     private void setValue(Article article){
         Glide.with(this).load(article.getImage()).into(imgArticle);
 
         tvTitle.setText(article.getTitle().replaceAll("\\<.*?\\>", ""));
-        //tvIntro.setText(Html.fromHtml(article.getIntroPart()));
+        if (article.getCategory().getId() == 4) {
+            authorLabel.setVisibility(View.VISIBLE);
+        } else {
+            authorLabel.setVisibility(View.GONE);
+        }
 
         HtmlTagHandler tagHandler = new HtmlTagHandler();
         Spanned styledText = HtmlCompat.fromHtml(article.getBody(),
