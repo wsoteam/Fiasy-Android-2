@@ -39,7 +39,7 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionViewHolder> {
   }
 
   private void openScreen(int position) {
-    Toast.makeText(context, String.valueOf(position), Toast.LENGTH_SHORT).show();
+    Toast.makeText(context, "Раздел в разработке", Toast.LENGTH_SHORT).show();
   }
 
   @Override public int getItemCount() {
