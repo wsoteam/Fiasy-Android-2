@@ -32,7 +32,7 @@ public class App extends MultiDexApplication {
     FirebaseApp.initializeApp(this);
     FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-    Bugsee.launch(this, "ec43078d-e5d9-4e97-9912-4f293e315bdf");
+    Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
 
     FirebaseApp.initializeApp(getApplicationContext());
     FirebaseDatabase.getInstance().setPersistenceEnabled(true);
