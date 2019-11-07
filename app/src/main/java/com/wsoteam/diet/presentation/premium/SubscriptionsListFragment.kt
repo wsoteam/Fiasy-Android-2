@@ -11,19 +11,17 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.android.billingclient.api.BillingClient
-import com.android.billingclient.api.BillingClientStateListener
-import com.android.billingclient.api.Purchase
-import com.android.billingclient.api.PurchasesUpdatedListener
-import com.android.billingclient.api.SkuDetails
-import com.android.billingclient.api.SkuDetailsParams
-import com.android.billingclient.api.SkuDetailsResponseListener
 import com.wsoteam.diet.R
+import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity.PlanHolder
 import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity.PlansAdapter
+import com.wsoteam.diet.utils.IntentUtils
 import com.wsoteam.diet.utils.RichTextUtils.RichText
 import com.wsoteam.diet.utils.dp
+import io.reactivex.disposables.CompositeDisposable
 
-class SubscriptionsListFragment : Fragment(){
+class SubscriptionsListFragment : Fragment() {
+
+  private var selectedId: Int = 0
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?): View? {
@@ -38,6 +36,11 @@ class SubscriptionsListFragment : Fragment(){
       requireFragmentManager().popBackStack()
     }
 
+    view.findViewById<View>(R.id.action_buy).setOnClickListener {
+      (requireActivity() as PremiumFeaturesActivity)
+        .purchase(PremiumFeaturesActivity.plans[selectedId].key)
+    }
+
     val title = view.findViewById<TextView>(R.id.title)
 
     title.text = TextUtils.concat(title.text,
@@ -47,7 +50,7 @@ class SubscriptionsListFragment : Fragment(){
           .text())
 
     val container = view.findViewById<RecyclerView>(R.id.container)
-    container.adapter = object: PlansAdapter(){
+    container.adapter = object : PlansAdapter() {
       override fun getLayoutParams(parent: ViewGroup, viewType: Int): LayoutParams {
         return MarginLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
           .apply {
@@ -55,6 +58,39 @@ class SubscriptionsListFragment : Fragment(){
             leftMargin = dp(parent.context, 18f)
             rightMargin = dp(parent.context, 18f)
           }
+      }
+
+      override fun onBindViewHolder(holder: PlanHolder, position: Int) {
+        super.onBindViewHolder(holder, position)
+
+        if (position == selectedId) {
+          holder.view.isSelected = true
+        }
+      }
+
+      override fun onViewAttachedToWindow(holder: PlanHolder) {
+        super.onViewAttachedToWindow(holder)
+
+        holder.view.setOnClickListener {
+          if (selectedId == holder.adapterPosition) {
+            return@setOnClickListener
+          }
+
+          it.isSelected = true
+
+          if (selectedId >= 0) {
+            container.findViewHolderForAdapterPosition(selectedId)?.let { vh ->
+              vh.itemView.isSelected = false
+            }
+          }
+
+          selectedId = holder.adapterPosition
+        }
+      }
+
+      override fun onViewDetachedFromWindow(holder: PlanHolder) {
+        super.onViewDetachedFromWindow(holder)
+        holder.view.setOnClickListener(null)
       }
     }
   }

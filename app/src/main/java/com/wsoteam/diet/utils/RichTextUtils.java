@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.text.style.ImageSpan;
 import android.text.style.RelativeSizeSpan;
+import android.text.style.StrikethroughSpan;
 import androidx.core.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -112,6 +113,12 @@ public class RichTextUtils {
   public static Spannable underline(@NonNull CharSequence text) {
     final Spannable editable = edit(text);
     editable.setSpan(new UnderlineSpan(), 0, text.length(), 0);
+    return editable;
+  }
+
+  public static Spannable strikethrough(@NonNull CharSequence text) {
+    final Spannable editable = edit(text);
+    editable.setSpan(new StrikethroughSpan(), 0, text.length(), 0);
     return editable;
   }
 

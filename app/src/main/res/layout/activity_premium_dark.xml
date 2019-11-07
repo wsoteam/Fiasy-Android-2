@@ -65,6 +65,7 @@
         android:paddingRight="48dp"
         android:layout_gravity="center"
         android:background="@drawable/premium_buy_button2_background"
+        android:backgroundTint="@color/premium_button_buy_gold_color"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="32dp"

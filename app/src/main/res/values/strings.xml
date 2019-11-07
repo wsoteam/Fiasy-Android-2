@@ -1058,28 +1058,6 @@ Share your accomplishments with friends:</string>
     <string name="calendar_today">Сегодня</string>
     <string name="widget_weight_title">Измерение тела</string>
     <string name="action_refresh">Обновить</string>
-    <string name="user_activity_title">Активность</string>
-    <string name="user_activity_section_favorite">Избранное</string>
-    <string name="user_activity_section_my">Мои активности</string>
-    <string name="user_activity_section_defaults">Стандартные активности</string>
-    <string name="user_activity_time_elapsed">%d минут</string>
-    <string name="user_activity_time_elapsed_wh" formatted="false">%dч %d м</string>
-    <string name="user_activity_time_elapsed_wh_wm">%dч</string>
-    <string name="user_activity_burned">%d ккал</string>
-    <string name="action_add">Добавить</string>
-    <string name="action_done">Готово</string>
-    <string name="action_add_to_favorite">Добавить в избранное</string>
-    <string name="add_user_activity_done_button">Добавить в дневник</string>
-    <string name="add_user_activity_burned_hint">Потрачено калорий</string>
-    <string name="add_user_activity_duration_hint">за %s</string>
-    <string name="add_user_activity_burned">= %d ккал</string>
-    <string name="add_user_activity_warning">Неправильно добавленная активность, может показывать недостоверные данные по дневной норме КБЖУ</string>
-    <string name="add_user_activity_hint">Введите название активности</string>
-    <string name="widget_user_activity_title">Активности</string>
-    <string name="widget_user_activity_show_all">Все</string>
-    <string name="calendar_today">Сегодня</string>
-    <string name="widget_weight_title">Измерение тела</string>
-    <string name="action_refresh">Обновить</string>
     <string name="premium_feature_title">Сбрасывайте вес\nбез стресса и жестких диет с\nFiasy Premium</string>
     <string name="premium_feature_exclusive_articles">Эксклюзивные статьи</string>
     <string name="premium_feature_exclusive_articles_description">Вы получите доступ к статьям от популярного диетолога и фитнес-тренера</string>
@@ -1102,6 +1080,7 @@ Share your accomplishments with friends:</string>
     <string name="premium_subscription_6_month">6 месяцев</string>
     <string name="premium_subscription_3_month">3 месяца</string>
     <string name="premium_subscription_per_month">%s/месяц</string>
+    <string name="premium_subscription_card_benefits">Выгода\n%d</string>
     <string name="subscriptions_list_title">Открой новые возможности\n</string>
     <string name="subscriptions_list_title__premium">PREMIUM</string>
 

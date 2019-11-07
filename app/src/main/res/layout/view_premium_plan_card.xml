@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="16dp"
     tools:layout_height="wrap_content"
-    tools:parentTag="androidx.cardview.widget.CardView"
+    tools:parentTag="com.wsoteam.diet.views.PremiumPlanCardView"
     tools:layout_marginLeft="16dp"
     tools:layout_marginRight="16dp"
     tools:layout_marginTop="16dp"
@@ -21,8 +21,6 @@
         android:id="@+id/diamond_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="32dp"
         app:srcCompat="@drawable/ic_silver_diamond"
         />
 
@@ -73,6 +71,42 @@
           tools:text="316₽/месяц"
           />
 
+      <TextView
+          android:id="@+id/helper2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:fontFamily="sans-serif"
+          android:lineSpacingExtra="4.2sp"
+          android:layout_gravity="right"
+          android:textColor="#8a000000"
+          android:textSize="14sp"
+          android:textStyle="normal"
+          tools:text="316₽/месяц"
+          />
+
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/benefits_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_rounded_triangle_premium"
+        android:tint="#000"
+        />
+
+    <TextView
+        android:id="@+id/benefits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выгода\n50%"
+        android:textAllCaps="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="10sp"
+        android:rotation="-45"
+        android:gravity="center"
+        android:textColor="@color/white"
+        />
+
   </FrameLayout>
 </merge>

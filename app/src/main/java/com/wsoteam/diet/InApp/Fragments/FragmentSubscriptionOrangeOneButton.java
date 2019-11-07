@@ -69,7 +69,7 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
     Unbinder unbinder;
     private static final String TAG_BOX = "TAG_BOX";
     private Box box;
-    private final String BUY_NOW = "BUY_NOW";
+    public static final String BUY_NOW = "BUY_NOW";
 
     public static FragmentSubscriptionOrangeOneButton newInstance(Box box) {
         Bundle bundle = new Bundle();

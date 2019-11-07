@@ -165,4 +165,8 @@
 
   <color name="premium_background_color_dark">#121212</color>
   <color name="premium_background_color_light">#fff</color>
+
+  <color name="premium_card_selected_border">#ffe600</color>
+  <color name="premium_button_buy_gold_color">#D2A956</color>
+  <color name="premium_button_buy_ordinary_color">#FFFFFF</color>
 </resources>
