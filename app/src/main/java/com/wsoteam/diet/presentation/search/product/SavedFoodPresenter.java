@@ -19,6 +19,7 @@ public class SavedFoodPresenter extends BasketDetailPresenter {
 
   public SavedFoodPresenter(Eating eating, Context context, int typeEating) {
     super(context, new BasketEntity(eating, typeEating));
+    getViewState().hideEatSpinner();
     this.typeEating = typeEating;
     day = eating.getDay();
     month = eating.getMonth();

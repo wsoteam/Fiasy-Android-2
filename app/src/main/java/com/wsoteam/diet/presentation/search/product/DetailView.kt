@@ -11,4 +11,5 @@ interface DetailView : MvpView {
     fun fillPortionSpinner(names : ArrayList<String>)
     fun refreshCalculating()
     fun close()
+    fun hideEatSpinner()
 }

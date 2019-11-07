@@ -40,6 +40,10 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
   private val EMPTY_FIELD = -1
   lateinit var presenter: BasketDetailPresenter
 
+  override fun hideEatSpinner() {
+    spnFood.visibility = View.GONE
+  }
+
   override fun refreshCalculating() {
     calculate(edtWeightCalculate.text.toString())
   }
