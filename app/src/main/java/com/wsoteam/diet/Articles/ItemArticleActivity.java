@@ -57,7 +57,7 @@ public class ItemArticleActivity extends AppCompatActivity {
 
         Glide.with(this).load(article.getImgUrl()).into(imgArticle);
 
-        tvTitle.setText(Html.fromHtml(article.getTitle()));
+        tvTitle.setText( (article.getTitle()));
         tvIntro.setText(Html.fromHtml(article.getIntroPart()));
 
         HtmlTagHandler tagHandler = new HtmlTagHandler();

@@ -142,7 +142,8 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
                     @Override
                     public void onClick(View view) {
                         Intent intent;
-                        int bais = getAdapterPosition() * 5;
+//                        int bais = getAdapterPosition() * 5;
+                        int bais = getAdapterPosition();
                         if (checkSubscribe()){
                             intent = new Intent(groupsFragment.getActivity(), RecipeActivity.class);
                         }else {

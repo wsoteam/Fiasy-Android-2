@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +67,8 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.
         CardView cardView;
         TextView textViewKK;
 
+        RecipeItem recipeItem;
+
         public ListRecipeViewHolder(View itemView) {
             super(itemView);
 
@@ -84,13 +88,17 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.
                         intent = new Intent(activity, BlockedRecipeActivity.class);
                     }
 
-                    intent.putExtra(Config.RECIPE_INTENT, listRecipes.get(getAdapterPosition()));
+//                    intent.putExtra(Config.RECIPE_INTENT, listRecipes.get(getAdapterPosition()));
+                    intent.putExtra(Config.RECIPE_INTENT, recipeItem);
+                    Log.d("kkk", "onClick: " + recipeItem.getName());
                     activity.startActivity(intent);
                 }
             });
         }
 
         void bind(int position) {
+            this.recipeItem = listRecipes.get(position);
+            Log.d("kkk", "bind: " + recipeItem.getName());
 
             String name = listRecipes.get(position).getName();
             String url = listRecipes.get(position).getUrl();
