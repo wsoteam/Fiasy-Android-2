@@ -16,6 +16,7 @@
     </shape>
   </item>
   <item>
+
     <bitmap
         android:gravity="end"
         android:src="@drawable/arrow_drop_down" />
