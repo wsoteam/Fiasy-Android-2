@@ -24,8 +24,11 @@ public class Result implements ISearchResult {
     private double carbohydrates;
     private double sugar;
     private double fats;
+    @SerializedName("saturated_fats")
     private double saturatedFats;
+    @SerializedName("monounsaturated_fats")
     private double monounsaturatedFats;
+    @SerializedName("polyunsaturated_fats")
     private double polyunsaturatedFats;
     private double cholesterol;
     private double cellulose;

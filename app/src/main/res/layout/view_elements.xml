@@ -86,37 +86,40 @@
       android:layout_marginTop="12dp"
       android:fontFamily="@font/roboto"
       android:text="Насыщенные"
-      android:visibility="gone"
       android:textColor="#c0000000"
       android:textSize="14sp"
+      android:visibility="gone"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/tvLabelFats"
       />
 
-    <TextView
-        android:id="@+id/tvLabelMonoUnSaturated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Мононенасыщенные"
-        android:fontFamily="@font/roboto"
-        android:textColor="#c0000000"
-        android:visibility="gone"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/tvLabelSaturated"
-        app:layout_constraintTop_toBottomOf="@+id/tvLabelSaturated" />
+  <TextView
+      android:id="@+id/tvLabelMonoUnSaturated"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="8dp"
+      android:fontFamily="@font/roboto"
+      android:text="Мононенасыщенные"
+      android:textColor="#c0000000"
+      android:textSize="14sp"
+      android:visibility="gone"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tvLabelSaturated"
+      />
 
   <TextView
       android:id="@+id/tvLabelPolyUnSaturated"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
       android:layout_marginTop="8dp"
       android:fontFamily="@font/roboto"
       android:text="Полиненасыщенные"
-      android:visibility="gone"
       android:textColor="#c0000000"
       android:textSize="14sp"
-      app:layout_constraintStart_toStartOf="@+id/tvLabelMonoUnSaturated"
+      android:visibility="gone"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/tvLabelMonoUnSaturated"
       />
 

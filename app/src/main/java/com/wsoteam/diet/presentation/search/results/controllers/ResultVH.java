@@ -35,6 +35,7 @@ public class ResultVH extends RecyclerView.ViewHolder implements View.OnClickLis
 
   public void bind(Result food, boolean isChecked,
       ClickListener clickListener) {
+    Log.e("LOL", food.toString());
     this.clickListener = clickListener;
     tvTitle.setText(food.getName());
     tvPortion.setText(itemView.getResources().getString(R.string.srch_default_portion));
@@ -43,7 +44,6 @@ public class ResultVH extends RecyclerView.ViewHolder implements View.OnClickLis
       if (food.getBrand() != null && food.getBrand().getName() != null && !food.getBrand().getName().equals("")) {
         tvTitle.append(" (" + food.getBrand().getName() + ")");
       }
-
     tbSelect.setOnCheckedChangeListener(null);
     tbSelect.setChecked(isChecked);
     tbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -179,6 +179,8 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   }
 
   private BasketEntity createBasketEntityDetail(int position) {
+    Result result = (Result) foods.get(position);
+    Log.e("LOL", result.toString());
     return new BasketEntity((Result) foods.get(position), Config.DEFAULT_WEIGHT, basketUpdater.getCurrentEating(), ((Result) foods.get(position)).getId());
   }
 
