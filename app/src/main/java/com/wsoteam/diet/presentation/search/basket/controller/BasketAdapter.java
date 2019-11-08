@@ -35,6 +35,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private List<ISearchResult> adapterFoods;
   private final int HEADER_TYPE = 0;
   private final int ITEM_TYPE = 1;
+  private final int EMPTY_LIST = 1;
   private List<List<BasketEntity>> allFood;
   private String[] namesSections;
   private BasketUpdater basketUpdater;
@@ -143,7 +144,11 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 if (!isNeedSave) {
                   deleteEntity = (BasketEntity) adapterFoods.get(position);
                   deletePosition = removeItem(deleteEntity);
-                  runCountdown(deleteEntity);
+                  if (adapterFoods.size() != EMPTY_LIST) {
+                    runCountdown(deleteEntity);
+                  }else {
+                    deleteItem(deleteEntity);
+                  }
                 }
               }
 
