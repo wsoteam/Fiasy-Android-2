@@ -1,15 +1,12 @@
 package com.wsoteam.diet.Recipes.v2;
 
 import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.SearchView;
@@ -20,9 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-
-import com.amplitude.api.Amplitude;
-import com.wsoteam.diet.AmplitudaEvents;
 
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
@@ -41,8 +35,8 @@ public class GroupsFragment extends Fragment implements Observer {
     private ViewGroup viewGroup;
     private RecyclerView recyclerView;
     private GroupsAdapter adapter;
+    ListRecipesAdapter adapterSearch;
     private CardView cardView;
-    private RecyclerView.LayoutManager layoutManager;
     private Window window;
 
     private int statusBarHeight(android.content.res.Resources res) {
@@ -74,7 +68,6 @@ public class GroupsFragment extends Fragment implements Observer {
 
         View view = inflater.inflate(R.layout.fragment_groups_recipes_v2,
                 container, false);
-        layoutManager = new LinearLayoutManager(getContext());
         cardView = view.findViewById(R.id.cvGroupsRecipes);
 
         Toolbar mToolbar = view.findViewById(R.id.toolbar);
@@ -104,7 +97,7 @@ public class GroupsFragment extends Fragment implements Observer {
         });
 
         recyclerView = view.findViewById(R.id.rvGroupsRecipe);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         if (GroupsHolder.getGroupsRecipes() != null) {
             adapter = new GroupsAdapter(GroupsHolder.getGroupsRecipes().getGroups(), groupsFragment, viewGroup.getId());
@@ -113,7 +106,7 @@ public class GroupsFragment extends Fragment implements Observer {
             GroupsHolder.subscribe(this);
             recyclerView.setAdapter(null);
         }
-
+        adapterSearch = new ListRecipesAdapter(null);
         return view;
     }
 
@@ -122,11 +115,9 @@ public class GroupsFragment extends Fragment implements Observer {
         String key = s.toString().toLowerCase();
         Set<RecipeItem> result = new LinkedHashSet<>();
         GroupsRecipes groupsRecipes = GroupsHolder.getGroupsRecipes();
-        RecyclerView.LayoutManager gridLayout = new GridLayoutManager(getContext(), 2);
 
         if (key.equals("")) {
             recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(layoutManager);
         } else {
             for (int i = 0; i < groupsRecipes.getGroups().size(); i++) {
 
@@ -138,8 +129,7 @@ public class GroupsFragment extends Fragment implements Observer {
                 }
             }
 
-            ListRecipesAdapter adapterNew = new ListRecipesAdapter(new LinkedList<>(result), getActivity());
-            recyclerView.setLayoutManager(gridLayout);
+            ListRecipesAdapter adapterNew = new ListRecipesAdapter(new LinkedList<>(result));
             recyclerView.setAdapter(adapterNew);
 
         }
@@ -170,6 +160,7 @@ public class GroupsFragment extends Fragment implements Observer {
     @Override
     public void onResume() {
         super.onResume();
-        adapter.notifyDataSetChanged();
+        if (recyclerView.getAdapter() != null)
+        recyclerView.getAdapter().notifyDataSetChanged();
     }
 }

@@ -79,7 +79,7 @@ public class FavoriteRecipesFragment extends Fragment implements TabsFragment {
         if (recipeItemList == null || recipeItemList.size() == 0) {
             recyclerView.setAdapter(null);
         } else {
-            adapter = new ListRecipesAdapter(recipeItemList, getActivity());
+            adapter = new ListRecipesAdapter(recipeItemList);
             recyclerView.setAdapter(adapter);
         }
 

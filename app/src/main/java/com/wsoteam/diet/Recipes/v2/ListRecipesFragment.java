@@ -91,7 +91,7 @@ public class ListRecipesFragment extends Fragment {
 
     private void updateUI() {
         mToolbar.setTitle(GroupsHolder.getGroupsRecipes().getGroups().get(position).getName());
-        adapter = new ListRecipesAdapter(GroupsHolder.getGroupsRecipes().getGroups().get(position).getListrecipes(), getActivity());
+        adapter = new ListRecipesAdapter(GroupsHolder.getGroupsRecipes().getGroups().get(position).getListrecipes());
         recyclerView.setAdapter(adapter);
     }
 
@@ -112,7 +112,7 @@ public class ListRecipesFragment extends Fragment {
                     }
                 }
             }
-            ListRecipesAdapter adapterNew = new ListRecipesAdapter(new LinkedList<>(result), getActivity());
+            ListRecipesAdapter adapterNew = new ListRecipesAdapter(new LinkedList<>(result));
             recyclerView.setAdapter(adapterNew);
         }
 
