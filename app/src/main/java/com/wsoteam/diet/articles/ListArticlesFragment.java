@@ -229,7 +229,8 @@ public class ListArticlesFragment extends Fragment implements Observer {
     } else {
       for (Article article :
           articles) {
-        if (article.getTitle().toLowerCase().contains(key)) {
+        if (article.getTitle().toLowerCase().contains(key)
+                && article.getCategory().getId() != 4) {
           result.add(article);
         }
       }
