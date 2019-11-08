@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.search.basket;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Spannable;
@@ -192,5 +193,13 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
         finish();
       }
     }.start();
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    if (resultCode == RESULT_OK){
+      presenter.getBasketLists();
+    }
+    super.onActivityResult(requestCode, resultCode, data);
   }
 }

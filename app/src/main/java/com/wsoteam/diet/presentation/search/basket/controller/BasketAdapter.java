@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.search.basket.controller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
@@ -13,6 +14,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.common.diary.FoodWork;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
+import com.wsoteam.diet.presentation.search.basket.BasketActivity;
 import com.wsoteam.diet.presentation.search.product.DetailActivity;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
@@ -150,7 +152,7 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private void openDetailScreen(BasketEntity entity) {
     Intent intent = new Intent(new Intent(context, DetailActivity.class));
     intent.putExtra(Config.INTENT_DETAIL_FOOD, entity);
-    context.startActivity(intent);
+    ((Activity)context).startActivityForResult(intent, 1);
   }
 
   private void runCountdown(BasketEntity basketEntity) {
