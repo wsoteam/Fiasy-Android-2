@@ -90,6 +90,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   private Animation finalSave;
 
   @Override public void updateSearchField(String currentString) {
+    currentString.trim();
     if (currentString.length() == 0) {
       hideSuggestView();
     } else {
