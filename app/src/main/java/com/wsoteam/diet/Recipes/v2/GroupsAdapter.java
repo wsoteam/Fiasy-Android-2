@@ -4,24 +4,34 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
+import androidx.core.graphics.ColorUtils;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.cardview.widget.CardView;
+import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.Sync.UserDataHolder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.text.TextUtils.concat;
@@ -78,8 +88,10 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
 
         List<ImageView> imageViewList;
         List<TextView> textViewList;
-        List<CardView> cardViewList;
+        List<View> viewList;
         List<TextView> textViewsKK;
+        List<LinearLayout> backList;
+        List<ImageView> likeList;
 
 
         public GroupsViewHolder(View itemView) {
@@ -88,8 +100,10 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
 
             imageViewList = new ArrayList<>();
             textViewList = new ArrayList<>();
-            cardViewList = new ArrayList<>();
+            viewList = new ArrayList<>();
             textViewsKK = new ArrayList<>();
+            backList = new ArrayList<>();
+            likeList = new ArrayList<>();
 
             TextView detailTextView = itemView.findViewById(R.id.tvAllRecipes);
             detailTextView.setOnClickListener(new View.OnClickListener() {
@@ -111,34 +125,23 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
                 }
             });
 
-            imageViewList.add(itemView.findViewById(R.id.imageRecipe1));
-            imageViewList.add(itemView.findViewById(R.id.imageRecipe2));
-            imageViewList.add(itemView.findViewById(R.id.imageRecipe3));
-            imageViewList.add(itemView.findViewById(R.id.imageRecipe4));
-            imageViewList.add(itemView.findViewById(R.id.imageRecipe5));
+            viewList.add(itemView.findViewById(R.id.view1));
+            viewList.add(itemView.findViewById(R.id.view2));
+            viewList.add(itemView.findViewById(R.id.view3));
+            viewList.add(itemView.findViewById(R.id.view4));
+            viewList.add(itemView.findViewById(R.id.view5));
 
-            textViewList.add(itemView.findViewById(R.id.textRecipe1));
-            textViewList.add(itemView.findViewById(R.id.textRecipe2));
-            textViewList.add(itemView.findViewById(R.id.textRecipe3));
-            textViewList.add(itemView.findViewById(R.id.textRecipe4));
-            textViewList.add(itemView.findViewById(R.id.textRecipe5));
-
-            cardViewList.add(itemView.findViewById(R.id.cvRecipe1));
-            cardViewList.add(itemView.findViewById(R.id.cvRecipe2));
-            cardViewList.add(itemView.findViewById(R.id.cvRecipe3));
-            cardViewList.add(itemView.findViewById(R.id.cvRecipe4));
-            cardViewList.add(itemView.findViewById(R.id.cvRecipe5));
-
-            textViewsKK.add(itemView.findViewById(R.id.tvRecipeKK1));
-            textViewsKK.add(itemView.findViewById(R.id.tvRecipeKK2));
-            textViewsKK.add(itemView.findViewById(R.id.tvRecipeKK3));
-            textViewsKK.add(itemView.findViewById(R.id.tvRecipeKK4));
-            textViewsKK.add(itemView.findViewById(R.id.tvRecipeKK5));
-
+            for (int i = 0 ; i < viewList.size(); i++){
+                imageViewList.add(viewList.get(i).findViewById(R.id.imageRecipe));
+                textViewList.add(viewList.get(i).findViewById(R.id.textRecipe));
+                textViewsKK.add(viewList.get(i).findViewById(R.id.tvRecipeKK));
+                backList.add(viewList.get(i).findViewById(R.id.llBackground));
+                likeList.add(viewList.get(i).findViewById(R.id.ivLike));
+            }
 
             for (int i = 0; i < 5; i++) {
                 int y = i;
-                cardViewList.get(i).setOnClickListener(new View.OnClickListener() {
+                viewList.get(i).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent;
@@ -156,6 +159,19 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
                 });
             }
 
+        }
+
+        private boolean checkFavorite(RecipeItem recipeItem){
+            if (UserDataHolder.getUserData() != null &&
+                    UserDataHolder.getUserData().getFavoriteRecipes() != null){
+
+                for (Map.Entry<String, RecipeItem> e : UserDataHolder.getUserData().getFavoriteRecipes().entrySet()) {
+                    if (recipeItem.getName().equals(e.getValue().getName())){
+                       return true;
+                    }
+                }
+            }
+            return false;
         }
 
         void bind(int listIndex) {
@@ -178,7 +194,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
                 border = listSize;
 
                 for (int i = border; i < 5; i++) {
-                    cardViewList.get(i).setVisibility(View.GONE);
+                    viewList.get(i).setVisibility(View.GONE);
                 }
             }
 
@@ -192,15 +208,39 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
                     url = "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
                 }
 
-                Glide
-                        .with(context)
+                Glide.with(context)
                         .load(url)
                         .into(imageViewList.get(i));
 
+                setBackGround(url, backList.get(i));
+               if (checkFavorite(groupsRecipes.get(listIndex).getListrecipes().get(i))){
+                   likeList.get(i).setImageResource(R.drawable.ic_like_on);
+               } else {
+                   likeList.get(i).setImageResource(R.drawable.ic_like_off);
+               }
+
                 textViewList.get(i).setText(name);
-                textViewsKK.get(i).setText(concat(String.valueOf(kk), " ", context.getString(R.string.tvKkal)));
+                textViewsKK.get(i).setText(String.valueOf(kk));
             }
         }
+
+        private void setBackGround(String url, LinearLayout layout){
+            Glide.with(context)
+                        .asBitmap()
+                        .load(url)
+                        .into(new SimpleTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                                Palette p = Palette.from(resource).generate();
+                                int mainColor = p.getMutedColor(0);
+                                int alphaColor = 191;
+                                layout.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
+
+                            }
+                        });
+        }
+
+
         private boolean checkSubscribe() {
             SharedPreferences sharedPreferences = groupsFragment.getActivity().getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
             if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {

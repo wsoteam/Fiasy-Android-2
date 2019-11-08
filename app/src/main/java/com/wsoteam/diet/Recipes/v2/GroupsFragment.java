@@ -68,7 +68,7 @@ public class GroupsFragment extends Fragment implements Observer {
                              @Nullable Bundle savedInstanceState) {
 
         window = getActivity().getWindow();
-        window.setStatusBarColor(Color.parseColor("#BB6001"));
+        window.setStatusBarColor(getResources().getColor(R.color.highlight_line_color));
         groupsFragment = this;
         viewGroup = container;
 
@@ -79,8 +79,8 @@ public class GroupsFragment extends Fragment implements Observer {
 
         Toolbar mToolbar = view.findViewById(R.id.toolbar);
         mToolbar.setTitle(getString(R.string.tab_lat_recipes_name));
-        mToolbar.inflateMenu(R.menu.toolbar_menu);
-        mToolbar.setTitleTextColor(0xFFFFFFFF);
+        mToolbar.inflateMenu(R.menu.menu_recipe);
+//        mToolbar.setTitleTextColor(0xFFFFFFFF);
 
         Menu menu = mToolbar.getMenu();
 //        SearchManager searchManager = (SearchManager) getActivity()
@@ -165,5 +165,11 @@ public class GroupsFragment extends Fragment implements Observer {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         handleIntent(getActivity().getIntent());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 }

@@ -91,7 +91,7 @@
         <activity
             android:name=".Recipes.v2.BlockedRecipeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu" />
+            android:theme="@style/Recipe" />
         <activity
             android:name=".Articles.ItemArticleWithoutPremActivity"
             android:screenOrientation="portrait"
@@ -101,21 +101,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/TransparentStatusBar" />
         <activity
-            android:name=".Recipes.v1.RecipeWithoutPremActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Menu" />
-        <activity
-            android:name=".Recipes.v1.ItemActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Menu" />
-        <activity
             android:name=".Recipes.v2.RecipeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu" />
-        <activity
-            android:name=".Recipes.v1.ItemPlansActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Menu" />
+            android:theme="@style/Recipe" />
         <activity
             android:name=".presentation.auth.restore.ActivityForgotPassword"
             android:screenOrientation="portrait"

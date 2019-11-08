@@ -4,51 +4,51 @@
     <color name="colorPrimaryDark">#460261</color>
     <color name="colorAccent">#FF4081</color>
 
-  <color name="pumpkin_orange">#ef7d02</color>
+    <color name="pumpkin_orange">#ef7d02</color>
     <color name="black">#1D1C1C</color>
 
-  <color name="orange1">#EF7D02</color>
+    <color name="orange1">#EF7D02</color>
     <color name="orange2">#FFB800</color>
     <color name="orange3">#FFF4BB</color>
 
-  <color name="white">#FFFFFF</color>
-  <color name="white_half_transparent">#A6FFFFFF</color>
-  <color name="blue">#4a5bf1</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_half_transparent">#A6FFFFFF</color>
+    <color name="blue">#4a5bf1</color>
     <color name="orange">#fb651a</color>
     <color name="orange_light">#fc9426</color>
-  <color name="orange_light2">#f9a12d</color>
-  <color name="gray3">#747474</color>
+    <color name="orange_light2">#f9a12d</color>
+    <color name="gray3">#747474</color>
     <color name="gray4">#aaaaaa</color>
-  <color name="gray7">#ebebeb</color>
-  <color name="gray_light2">#aeaeae</color>
+    <color name="gray7">#ebebeb</color>
+    <color name="gray_light2">#aeaeae</color>
     <color name="light_gray">#8f8f8f</color>
-  <color name="black_gray">#3A3A3A</color>
+    <color name="black_gray">#3A3A3A</color>
     <color name="black_gray_alpha">#A63A3A3A</color>
 
-  <color name="text_enabled">#585757</color>
+    <color name="text_enabled">#585757</color>
     <color name="text_disabled">#46868383</color>
     <color name="text_color_auth">#323131</color>
 
 
-  <color name="water_text_black">#de000000</color>
+    <color name="water_text_black">#de000000</color>
 
     <!--Exercises-->
-  <color name="darkWithoutAlfa">#ffffff</color>
-  <color name="transparent">#00b41c1c</color>
+    <color name="darkWithoutAlfa">#ffffff</color>
+    <color name="transparent">#00b41c1c</color>
 
 
     <!--Colors for cirlce progress on main screen-->
-  <color name="backgroundColor">#FFFFFF</color>
+    <color name="backgroundColor">#FFFFFF</color>
 
 
-  <color name="add_food_green">#34847C</color>
+    <color name="add_food_green">#34847C</color>
 
 
-  <color name="fab_main_activity">#39A298</color>
+    <color name="fab_main_activity">#39A298</color>
 
 
-  <color name="grey_100">#F5F5F5</color>
-  <color name="grey_500">#9E9E9E</color>
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_500">#9E9E9E</color>
 
     <color name="is_exist_profile">#464646</color>
     <color name="first_auth_description">#5A5A5A</color>
@@ -73,7 +73,7 @@
     <color name="head_detail_food">#EF7D02</color>
 
 
-  <color name="b_color">#EF7D02</color>
+    <color name="b_color">#EF7D02</color>
     <color name="g_color">#7993B2</color>
     <color name="u_color">#694B74</color>
 
@@ -81,9 +81,9 @@
     <color name="background_empty_fragment">#44566D</color>
 
 
-  <color name="btn_reg_sheet">#74A6B3</color>
+    <color name="btn_reg_sheet">#74A6B3</color>
 
-  <color name="edit_text_food">#DC8535</color>
+    <color name="edit_text_food">#DC8535</color>
     <color name="text_claim">#A6000000</color>
     <color name="button_claim_active">#EF7D02</color>
     <color name="button_claim_inactive">#8AEF7D02</color>
@@ -96,17 +96,17 @@
     <color name="confirm_text">#8A000000</color>
     <color name="confirm_button">#205651</color>
 
-  <color name="bottom_create_food">#F19027</color>
+    <color name="bottom_create_food">#F19027</color>
 
-  <color name="main_calories_left_over">#fb4d3c</color>
+    <color name="main_calories_left_over">#fb4d3c</color>
 
     <color name="main_value_over">#f96657</color>
 
     <color name="main_screen_progress_bar_calories">#f39530</color>
     <color name="main_screen_progress_bar_protein">#f2942e</color>
-  <color name="main_screen_progress_bar_over">#f55d4e</color>
+    <color name="main_screen_progress_bar_over">#f55d4e</color>
 
-  <color name="prem_settings">#f2994a</color>
+    <color name="prem_settings">#f2994a</color>
     <color name="unprem_settings">#d9424242</color>
     <color name="logout_settings">#eb5757</color>
     <color name="filter_edit_avatar">#59000000</color>
@@ -115,7 +115,7 @@
     <color name="color_bar_future">#d5d7de</color>
     <color name="color_line_chart">#f9a7ad</color>
 
-  <color name="auth_enter_background_color_disabled">#acacac</color>
+    <color name="auth_enter_background_color_disabled">#acacac</color>
     <color name="auth_enter_background_color_enabled">@color/orange</color>
 
     <color name="diets_plan_prem_btn">#ef7d02</color>
@@ -124,9 +124,9 @@
     <color name="hint_promo">#51000000</color>
     <color name="hint_error">#8acc0808</color>
 
-  <color name="active_drop">#ef7d02</color>
+    <color name="active_drop">#ef7d02</color>
     <color name="inactive_drop">#bdbdbd</color>
-
-  <color name="water_blue">#2d9cdb</color>
+    <color name="highlight_line_color">#80aeb3c0</color>
+    <color name="water_blue">#2d9cdb</color>
 
 </resources>
