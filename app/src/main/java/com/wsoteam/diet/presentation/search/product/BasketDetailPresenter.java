@@ -198,6 +198,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
 
           @Override
           public void onError(Throwable e) {
+            Log.e("LOL", e.getMessage());
           }
         });
   }

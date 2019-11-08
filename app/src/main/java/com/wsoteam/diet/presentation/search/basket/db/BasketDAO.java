@@ -10,12 +10,8 @@ import java.util.List;
 @Dao
 public interface BasketDAO {
 
-  @Insert
-  void insert(BasketEntity food);
-
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  void replace(BasketEntity food);
-
+  void insert(BasketEntity food);
 
   @Query("select * from BasketEntity")
   List<BasketEntity> getAll();

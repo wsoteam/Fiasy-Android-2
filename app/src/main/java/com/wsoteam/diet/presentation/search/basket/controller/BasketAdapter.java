@@ -188,24 +188,11 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     Completable.fromAction(new Action() {
       @Override
       public void run() throws Exception {
-        Log.e("LOL", basketEntity.toString());
-        basketDAO.replace(basketEntity);
+        basketDAO.insert(basketEntity);
       }
     }).subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new CompletableObserver() {
-          @Override public void onSubscribe(Disposable d) {
-
-          }
-
-          @Override public void onComplete() {
-            Log.e("LOL", "COMPLETE");
-          }
-
-          @Override public void onError(Throwable e) {
-            Log.e("LOL", e.getMessage());
-          }
-        });
+        .subscribe();
   }
 
   private void deleteItem(BasketEntity basketEntity) {
