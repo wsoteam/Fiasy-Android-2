@@ -1,6 +1,5 @@
 package com.wsoteam.diet.articles.recycler;
 
-import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
@@ -11,15 +10,14 @@ import java.util.List;
 
 public class HorizontalArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-  private Context context;
   private OnItemClickListener mItemClickListener;
   private List<Article> articles;
 
+  private final int MAX_ARTICLES = 3;
   private final int VH_DEFF = 0, VH_SPACE = 1;
 
   @NonNull @Override
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-    context = viewGroup.getContext();
     switch (viewType) {
       case VH_SPACE: return new SpaceViewHolder(viewGroup);
       default: {
@@ -47,8 +45,7 @@ public class HorizontalArticlesAdapter extends RecyclerView.Adapter<RecyclerView
 
   @Override public int getItemCount() {
     if (articles == null) return 0;
-
-    return articles.size() + 2;
+    else return (articles.size() >= MAX_ARTICLES ? MAX_ARTICLES : articles.size()) + 2;
   }
 
   @Override
