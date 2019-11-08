@@ -49,6 +49,7 @@
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintVertical_bias="1.0"
           ></LinearLayout>
+
       <TextView
           android:id="@+id/tvName"
           android:layout_width="match_parent"
@@ -59,13 +60,12 @@
           android:paddingStart="15dp"
           android:paddingTop="4dp"
           android:textColor="#ffffff"
-          android:textSize="14sp"
+          android:textSize="16sp"
           android:textStyle="normal"
           app:layout_constraintBottom_toBottomOf="@+id/background"
           app:layout_constraintTop_toTopOf="@+id/background"
           tools:layout_editor_absoluteX="0dp"
-          tools:text="Женская диета для похудения"
-          />
+          tools:text="Женская диета для похудения" />
       <androidx.constraintlayout.widget.ConstraintLayout
           android:id="@+id/premiumLabel"
           android:layout_width="189dp"
