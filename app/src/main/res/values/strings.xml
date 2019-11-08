@@ -865,7 +865,7 @@
   <string name="srch_search_results">Результаты поиска</string>
   <string name="srch_empty_history">Начните вводить в строку поиска название \nпродукта</string>
 
-  <string name="srch_basket_alet_text">Вы хотите вернуться назад без \nдобавления выбанных продуктов?</string>
+  <string name="srch_basket_alet_text">Вы хотите вернуться назад без \nдобавления выбранных продуктов?</string>
   <string name="srch_cancel_basket">Отменить</string>
   <string name="srch_yes">Да</string>
   <string name="srch_elements_title">Питательные вещества на</string>
