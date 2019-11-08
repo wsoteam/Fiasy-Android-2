@@ -89,7 +89,6 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   }
 
   private void loadNextPortion(int page) {
-    Log.e("LOL", "pag_response");
     foodResultAPI
         .search(searchString, page)
         .subscribeOn(Schedulers.io())
@@ -98,7 +97,6 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   }
 
   private void addItems(List<Result> results) {
-    Log.e("LOL", "pag" + String.valueOf(results.size()));
     for (int i = 0; i < results.size(); i++) {
       foods.add(results.get(i));
     }
@@ -133,7 +131,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ((ResultVH) holder).bindHistoryEntity((HistoryEntity) foods.get(position),
             false, new ClickListener() {
               @Override public void click(int position, boolean isNeedSave) {
-                BasketEntity basketEntity = createBasketEntity(position);
+                BasketEntity basketEntity = (HistoryEntity) foods.get(position);
                 if (isNeedSave) {
                   save(basketEntity);
                 } else {
@@ -179,8 +177,6 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   }
 
   private BasketEntity createBasketEntityDetail(int position) {
-    Result result = (Result) foods.get(position);
-    Log.e("LOL", result.toString());
     return new BasketEntity((Result) foods.get(position), Config.DEFAULT_WEIGHT, basketUpdater.getCurrentEating(), ((Result) foods.get(position)).getId());
   }
 
