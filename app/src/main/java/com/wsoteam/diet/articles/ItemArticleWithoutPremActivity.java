@@ -34,6 +34,8 @@ import com.wsoteam.diet.model.ApiResult;
 import com.wsoteam.diet.model.Article;
 import com.wsoteam.diet.model.ArticleViewModel;
 
+import java.util.Locale;
+
 public class ItemArticleWithoutPremActivity extends AppCompatActivity {
 
     @BindView(R.id.imgArticleWP) ImageView imgArticle;
@@ -90,7 +92,7 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
     private void setValue(Article article){
         Glide.with(this).load(article.getImage()).into(imgArticle);
 
-        tvTitle.setText(article.getTitle().replaceAll("\\<.*?\\>", ""));
+        tvTitle.setText(article.getTitle(Locale.getDefault()).replaceAll("\\<.*?\\>", ""));
         if (article.getCategory().getId() == 4) {
             authorLabel.setVisibility(View.VISIBLE);
         } else {
@@ -98,7 +100,7 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
         }
 
         HtmlTagHandler tagHandler = new HtmlTagHandler();
-        Spanned styledText = HtmlCompat.fromHtml(article.getBody(),
+        Spanned styledText = HtmlCompat.fromHtml(article.getBody(Locale.getDefault()),
                 HtmlCompat.FROM_HTML_MODE_LEGACY, null, tagHandler);
         tvMain.setText(styledText);
 

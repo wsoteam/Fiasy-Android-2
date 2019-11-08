@@ -1028,19 +1028,19 @@ Share your accomplishments with friends:</string>
   </plurals>
 
   //
-  <string name="vh_article_series_day">%d день</string>
+  <string name="vh_article_series_day">%d day</string>
 
-  <string name="art_series_title">Статьи от эксперта</string>
-  <string name="art_series_author_title">Эксклюзивные статьи от профессионального диетолога!</string>
-  <string name="art_series_author_burlakov">Александр Бурлаков</string>
-  <string name="art_series_author_burlakov_bio">Спортивный врач-диетолог, окончил Кубанский государственный медицинский университет. Основатель образовательного центра Bodycoach school, ведет блог о здоровом образе жизни основываясь на доказательной медицине.</string>
+  <string name="art_series_title">Articles from an expert</string>
+  <string name="art_series_author_title">Exclusive articles from a professional nutritionist!</string>
+  <string name="art_series_author_burlakov">Alexander Burlakov</string>
+  <string name="art_series_author_burlakov_bio">A sports medicine doctor and nutritionist, Dr. Burlakov graduated from Kuban State Medical University. He is the founder of the Bodycoach School and runs a wellness blog based on medical science.</string>
+  <string name="art_series_author_burlakov_achiv1">18,800 followers on Instagram</string>
+  <string name="art_series_author_burlakov_achiv2">Medical science</string>
+  <string name="art_series_author_burlakov_achiv3">Has trained UFC, ACA, and RCC athletes</string>
+  <string name="understand">Got it</string>
+  <string name="art_series_series_title">Eight articles for an easy start!</string>
+  <string name="art_series_series_info">You need to complete the previous day before you can go to the next one</string>
+  <string name="day">Day %d</string>
   <string name="art_series_author_burlakov_bio_short">Врач-диетолог. Эксперт в доказательной диетологии. </string>
-  <string name="art_series_author_burlakov_achiv1">18.8 тыс. подписчиков в Instagram</string>
-  <string name="art_series_author_burlakov_achiv2">Доказательная медецина</string>
-  <string name="art_series_author_burlakov_achiv3">Подготовка спортсменов UFC, ACA, RCC</string>
-  <string name="understand">Понятно</string>
-  <string name="art_series_series_title">8 статей для легко старта!</string>
-  <string name="art_series_series_info">Чтобы перейти к следующему дню, Вам нужно будет пройти предыдущий</string>
-  <string name="day">День %d</string>
 
 </resources>

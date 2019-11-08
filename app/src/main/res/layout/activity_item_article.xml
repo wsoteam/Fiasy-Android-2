@@ -29,8 +29,7 @@
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
                 app:srcCompat="@android:color/holo_blue_bright"
-                tools:srcCompat="@drawable/background_item_profile_carbo"
-                />
+                tools:srcCompat="@drawable/background_item_profile_fat" />
 
             <TextView
                 android:id="@+id/tvTitleArticle"
