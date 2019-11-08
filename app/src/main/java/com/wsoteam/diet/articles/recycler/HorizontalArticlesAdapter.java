@@ -21,11 +21,7 @@ public class HorizontalArticlesAdapter extends RecyclerView.Adapter<RecyclerView
     switch (viewType) {
       case VH_SPACE: return new SpaceViewHolder(viewGroup);
       default: {
-        ArticleViewHolder viewHolder = new ArticleViewHolder(viewGroup);
-        viewHolder.setOnClickListener((View v) -> {
-            mItemClickListener.onItemClick(v, viewHolder.getAdapterPosition(), articles.get(viewHolder.getAdapterPosition()));
-          });
-        return viewHolder;
+        return new ArticleViewHolder(viewGroup, mItemClickListener);
       }
     }
   }

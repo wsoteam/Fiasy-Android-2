@@ -65,7 +65,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
   private void startDetailActivity(Article article) {
 
     Intent intent;
-
+    Log.d("kkk", "startDetailActivity: " + article.getTitle_ru());
     //if (false) {
     if (!checkSubscribe() && article.isPremium()) {
       intent = new Intent(getActivity(), ItemArticleWithoutPremActivity.class);
@@ -167,15 +167,6 @@ public class ListArticlesFragment extends Fragment implements Observer {
             verticalArticlesAdapter.SetOnItemClickListener(onItemClickListener);
           }
         });
-
-    if (model.getData().getValue() != null){
-      //Log.d("kkk", "onCreateView: xx");
-      //sectionArticles = new SectionArticles(model.getData().getValue().getResults());
-      //adapter = new ListArticlesAdapter(model.getData().getValue().getResults(), clickListener);
-      //verticalArticlesAdapter = new VerticalArticlesAdapter(sectionArticles.getGroups());
-      //verticalArticlesAdapter.SetOnItemClickListener(onItemClickListener);
-    }
-
 
 
     View view = inflater.inflate(R.layout.fragment_list_articles, container, false);

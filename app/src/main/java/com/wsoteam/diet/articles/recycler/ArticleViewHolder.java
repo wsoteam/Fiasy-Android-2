@@ -27,13 +27,20 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.background) LinearLayout llBackground;
   @BindView(R.id.premiumLabel) ConstraintLayout premiumLabel;
   @BindView(R.id.parentrLayout) ConstraintLayout parentrLayout;
-  Context context;
+  private Context context;
+  private HorizontalArticlesAdapter.OnItemClickListener mItemClickListener;
 
-  public ArticleViewHolder(ViewGroup parent) {
+  private Article article;
+
+  public ArticleViewHolder(ViewGroup parent, HorizontalArticlesAdapter.OnItemClickListener mItemClickListener) {
     super(LayoutInflater.from(parent.getContext()).inflate(R.layout.article_view_holder, parent, false));
     ButterKnife.bind(this, itemView);
-    context = itemView.getContext();
+    this.context = itemView.getContext();
+    this.mItemClickListener = mItemClickListener;
 
+    itemView.setOnClickListener(view -> {
+      if (mItemClickListener != null) mItemClickListener.onItemClick(view, getAdapterPosition(), article);
+    });
   }
 
   public ArticleViewHolder(ViewGroup parent, int layout) {
@@ -47,6 +54,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
   }
 
   public void bind(Article article){
+    this.article = article;
     Glide.with(context).load(article.getImage()).into(imageView);
     tvName.setText(article.getTitle().replaceAll("\\<.*?\\>", ""));
 
