@@ -15,11 +15,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:drawableLeft="@drawable/srch_right_basket"
         android:drawablePadding="8dp"
         android:fontFamily="@font/roboto_medium"
         android:text="TextView"
+        android:padding="8dp"
         android:textColor="#8a000000"
         />
 
