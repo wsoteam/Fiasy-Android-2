@@ -174,6 +174,12 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
     }
   }
 
+  @Override
+  public void onBackPressed() {
+    adapter.emergencyDelete();
+    super.onBackPressed();
+  }
+
   private void runCountdown() {
     Toast toast = new Toast(this);
     toast.setView(LayoutInflater.from(this).inflate(R.layout.toast_meas_update, null));

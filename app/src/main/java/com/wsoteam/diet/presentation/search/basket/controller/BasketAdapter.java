@@ -50,6 +50,13 @@ public class BasketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     clearDB();
   }
 
+  @Override
+  public void emergencyDelete() {
+    if (downTimer != null){
+      downTimer.onFinish();
+    }
+  }
+
   private void clearDB() {
     Completable.fromAction(new Action() {
       @Override
