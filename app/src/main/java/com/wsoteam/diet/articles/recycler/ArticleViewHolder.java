@@ -2,6 +2,7 @@ package com.wsoteam.diet.articles.recycler;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,18 +59,19 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
     Glide.with(context).load(article.getImage()).into(imageView);
     tvName.setText(article.getTitle().replaceAll("\\<.*?\\>", ""));
 
-    Glide.with(context)
-        .asBitmap()
-        .load(article.getImage())
-        .into(new SimpleTarget<Bitmap>() {
-          @Override
-          public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
-            Palette p = Palette.from(resource).generate();
-            int mainColor = p.getDarkVibrantColor(0);
-            int alphaColor = 191;
-            llBackground.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
-          }
-        });
+    llBackground.setBackgroundColor(Color.parseColor(article.getTitle_color()));
+//    Glide.with(context)
+//        .asBitmap()
+//        .load(article.getImage())
+//        .into(new SimpleTarget<Bitmap>() {
+//          @Override
+//          public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+//            Palette p = Palette.from(resource).generate();
+//            int mainColor = p.getDarkVibrantColor(0);
+//            int alphaColor = 191;
+//            llBackground.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
+//          }
+//        });
 
     premiumLabel.setVisibility(article.isPremium() ? View.VISIBLE : View.GONE);
 

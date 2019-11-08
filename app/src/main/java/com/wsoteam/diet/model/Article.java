@@ -22,6 +22,7 @@ public class Article {
   private Author author;
   private boolean premium;
   private int day_in_series;
+  private String title_color;
   private ArticleSeries series;
   private ArticleCategory category;
 
@@ -46,6 +47,14 @@ public class Article {
       case "de": return getTitle_de();
       default: return getTitle_en();
     }
+  }
+
+  public String getTitle_color() {
+    return title_color;
+  }
+
+  public void setTitle_color(String title_color) {
+    this.title_color = title_color;
   }
 
   public int getDay_in_series() {
