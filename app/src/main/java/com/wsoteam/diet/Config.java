@@ -21,6 +21,7 @@ public class Config {
 
     public static final String IS_NEED_SHOW_GRADE_DIALOG = "IS_NEED_SHOW_GRADE_DIALOG";
 
+
     public static String EXERCISES_NAME_OF_ENTITY_FOR_DB = "WORKOUT";
 
     //Recipes
@@ -125,10 +126,12 @@ public class Config {
     public static final int SEARCH_RESPONSE_LIMIT = 50;
     public static final int STANDART_PORTION = 0;
     public static final int RC_DETAIL_FOOD = 755;
+    public static final int RC_BASKET_LIST = 766;
     public static final int DEFAULT_WEIGHT = 1;
     public static final String DEFAULT_PORTION_NAME = "";
     public static final String DEFAULT_CUSTOM_NAME = "DEFAULT_CUSTOM_NAME";
     public static final int EMPTY_COUNT = -1;
+
 
 
 }

@@ -375,9 +375,9 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
       case R.id.btnAddCustomFood:
         break;
       case R.id.tvCounter:
-        startActivity(
+        getActivity().startActivityForResult(
             new Intent(getActivity(), BasketActivity.class).putExtra(Config.INTENT_DATE_FOR_SAVE,
-                getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE)));
+                getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE)), Config.RC_BASKET_LIST);
         break;
       case R.id.tvAddToBasket:
         itemAdapter.save(getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));

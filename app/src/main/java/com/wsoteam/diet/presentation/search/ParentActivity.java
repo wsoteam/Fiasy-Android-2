@@ -199,6 +199,9 @@ public class ParentActivity extends AppCompatActivity {
             R.id.searchFragmentContainer)).updateBasket();
       }
       isBackFromDetail = true;
+    }else if (requestCode == Config.RC_BASKET_LIST){
+      ((ResultsFragment) fragmentManager.findFragmentById(
+              R.id.searchFragmentContainer)).updateBasket();
     }
     super.onActivityResult(requestCode, resultCode, data);
   }
