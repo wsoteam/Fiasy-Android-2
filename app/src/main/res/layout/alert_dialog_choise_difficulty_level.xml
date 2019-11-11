@@ -97,7 +97,6 @@
                         android:layout_marginBottom="16dp"
                         android:text="@string/dif_hard_description"
                         android:textAlignment="center"
-                        android:textColor="@color/vk_black"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

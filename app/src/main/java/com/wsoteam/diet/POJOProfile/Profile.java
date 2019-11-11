@@ -1,11 +1,10 @@
 package com.wsoteam.diet.POJOProfile;
 
-import androidx.room.util.StringUtil;
-import com.orm.SugarRecord;
 import java.io.Serializable;
+
 import kotlin.text.StringsKt;
 
-public class Profile extends SugarRecord implements Serializable {
+public class Profile implements Serializable {
     private String firstName;
     private String lastName;
 
