@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import com.google.android.material.appbar.AppBarLayout;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.articles.recycler.HorizontalArticlesAdapter;
 import com.wsoteam.diet.articles.recycler.ListArticlesAdapter;
@@ -51,6 +53,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
   @BindView(R.id.clFailSearch) ConstraintLayout constraintLayout;
   @BindView(R.id.rvArticle) RecyclerView recyclerView;
   @BindView(R.id.toolbar) Toolbar mToolbar;
+  @BindView(R.id.appbar) AppBarLayout appBarLayout;
   private Unbinder unbinder;
   private ListArticlesAdapter adapter;
   private VerticalArticlesAdapter verticalArticlesAdapter;
@@ -65,8 +68,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
   private void startDetailActivity(Article article) {
 
     Intent intent;
-    Log.d("kkk", "startDetailActivity: " + article.getTitle_ru());
-    //if (false) {
+
     if (!checkSubscribe() && article.isPremium()) {
       intent = new Intent(getActivity(), ItemArticleWithoutPremActivity.class);
     } else {
@@ -160,7 +162,6 @@ public class ListArticlesFragment extends Fragment implements Observer {
         new androidx.lifecycle.Observer<ApiResult<Article>>() {
           @Override
           public void onChanged(ApiResult<Article> articleApiResult) {
-            Log.d("kkk", "onChanged: ");
             sectionArticles = new SectionArticles(articleApiResult.getResults(), getContext());
             adapter.updateData(articleApiResult.getResults());
             verticalArticlesAdapter.setData(sectionArticles.getGroups());
@@ -171,7 +172,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
 
     View view = inflater.inflate(R.layout.fragment_list_articles, container, false);
     unbinder = ButterKnife.bind(this, view);
-
+    appBarLayout.setLiftable(true);
     mToolbar.setTitle(getString(R.string.bnv_main_articles));
     mToolbar.inflateMenu(R.menu.menu_article);
     mToolbar.setNavigationIcon(null);
@@ -185,6 +186,22 @@ public class ListArticlesFragment extends Fragment implements Observer {
 
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(verticalArticlesAdapter);
+    recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+      @Override
+      public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+        super.onScrollStateChanged(recyclerView, newState);
+      }
+      @Override
+      public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        super.onScrolled(recyclerView, dx, dy);
+        LinearLayoutManager linearLayoutManager1 = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+        int firstVisibleItem = 0;
+        if (linearLayoutManager1 != null)
+          firstVisibleItem = linearLayoutManager1.findFirstVisibleItemPosition();
+        appBarLayout.setLiftable(firstVisibleItem == 0);
+      }
+    });
     return view;
   }
 

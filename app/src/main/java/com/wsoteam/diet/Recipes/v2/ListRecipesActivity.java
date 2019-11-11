@@ -44,7 +44,7 @@ public class ListRecipesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_recipes);
 
         ButterKnife.bind(this);
-
+        appBarLayout.setLiftable(true);
         Intent intent = getIntent();
         position = intent.getIntExtra(Config.RECIPES_BUNDLE, 0);
 

@@ -3,6 +3,7 @@ package com.wsoteam.diet.Recipes.v2;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -42,7 +43,8 @@ public class GroupsFragment extends Fragment implements Observer {
     private GroupsAdapter adapter;
     ListRecipesAdapter adapterSearch;
 
-    @BindView(R.id.appbar) AppBarLayout appBarLayout;
+    @BindView(R.id.appbar)
+    AppBarLayout appBarLayout;
 
     private Window window;
 
@@ -77,23 +79,15 @@ public class GroupsFragment extends Fragment implements Observer {
         View view = inflater.inflate(R.layout.fragment_groups_recipes_v2,
                 container, false);
         ButterKnife.bind(this, view);
-
-
-
+        appBarLayout.setLiftable(true);
 
         Toolbar mToolbar = view.findViewById(R.id.toolbar);
         mToolbar.setTitle(getString(R.string.tab_lat_recipes_name));
         mToolbar.inflateMenu(R.menu.menu_recipe);
-//        mToolbar.setTitleTextColor(0xFFFFFFFF);
 
         Menu menu = mToolbar.getMenu();
-//        SearchManager searchManager = (SearchManager) getActivity()
-//                .getSystemService(Context.SEARCH_SERVICE);
-//        ComponentName componentName = new ComponentName(getActivity(), )
-
         MenuItem mSearch = menu.findItem(R.id.action_search);
         SearchView mSearchView = (SearchView) mSearch.getActionView();
-//        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -114,26 +108,15 @@ public class GroupsFragment extends Fragment implements Observer {
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
             }
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 LinearLayoutManager linearLayoutManager1 = (LinearLayoutManager) recyclerView.getLayoutManager();
                 int firstVisibleItem = 0;
                 if (linearLayoutManager1 != null)
-                firstVisibleItem = linearLayoutManager1.findFirstVisibleItemPosition();
+                    firstVisibleItem = linearLayoutManager1.findFirstVisibleItemPosition();
                 appBarLayout.setLiftable(firstVisibleItem == 0);
-
-
-//                if (dy < 0) {
-//                    // Recycle view scrolling up...
-//                    Log.d("kkk", "onScrolled: up");
-//                    appBarLayout.setLiftable(true);
-//
-//                } else if (dy > 0) {
-//                    // Recycle view scrolling down...
-//                    Log.d("kkk", "onScrolled: down");
-//                    appBarLayout.setLiftable(false);
-//                }
             }
         });
 
@@ -182,8 +165,8 @@ public class GroupsFragment extends Fragment implements Observer {
 
     }
 
-    private void handleIntent(Intent intent){
-        if(Intent.ACTION_SEARCH.equals(intent.getAction())){
+    private void handleIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             searchAndShow(query);
         }
@@ -199,6 +182,6 @@ public class GroupsFragment extends Fragment implements Observer {
     public void onResume() {
         super.onResume();
         if (recyclerView.getAdapter() != null)
-        recyclerView.getAdapter().notifyDataSetChanged();
+            recyclerView.getAdapter().notifyDataSetChanged();
     }
 }

@@ -26,6 +26,8 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   private Context context;
   private OnItemClickListener onItemClickListener;
 
+
+
   public ListArticlesAdapter(List<Article> listItem, OnItemClickListener onItemClickListener) {
     this.listItem = listItem;
     this.onItemClickListener = onItemClickListener;

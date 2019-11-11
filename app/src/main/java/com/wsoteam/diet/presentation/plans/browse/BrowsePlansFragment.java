@@ -58,7 +58,6 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
         View view = inflater.inflate(R.layout.fragment_browse_plans,
                 container, false);
         ButterKnife.bind(this, view);
-
         appBarLayout.setLiftable(true);
         getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.highlight_line_color));
         mToolbar.setTitle(getString(R.string.plans));

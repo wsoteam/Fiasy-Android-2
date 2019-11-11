@@ -11,10 +11,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.text.HtmlCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +25,7 @@ import android.widget.TextView;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import com.bumptech.glide.Glide;
+import com.wsoteam.diet.articles.Util.HtmlTagHandler;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.Events;
@@ -54,17 +58,17 @@ public class ItemArticleActivity extends AppCompatActivity {
         ArticleViewModel model = ViewModelProviders.of(this).get(ArticleViewModel.class);
         LiveData<ApiResult<Article>> data = model.getData();
         data.observe(this,
-            new androidx.lifecycle.Observer<ApiResult<Article>>() {
-                @Override
-                public void onChanged(ApiResult<Article> articleApiResult) {
-                    for (Article article: articleApiResult.getResults()) {
-                        if (article.getId() == articleId) {
-                            setValue(article);
-                            Events.logViewArticle(article.getTitle());
+                new androidx.lifecycle.Observer<ApiResult<Article>>() {
+                    @Override
+                    public void onChanged(ApiResult<Article> articleApiResult) {
+                        for (Article article: articleApiResult.getResults()) {
+                            if (article.getId() == articleId) {
+                                setValue(article);
+                                Events.logViewArticle(article.getTitle());
+                            }
                         }
                     }
-                }
-            });
+                });
 
         toolbar.setPadding(0, dpToPx(24), 0, 0);
         toolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
@@ -76,8 +80,8 @@ public class ItemArticleActivity extends AppCompatActivity {
         });
 
         authorLabel.setOnClickListener(v ->
-            startActivity(new Intent(this, BurlakovAuthorActivity.class)
-                .putExtra(BurlakovAuthorActivity.HIDE_BTN, true)));
+                startActivity(new Intent(this, BurlakovAuthorActivity.class)
+                        .putExtra(BurlakovAuthorActivity.HIDE_BTN, true)));
 
     }
 
