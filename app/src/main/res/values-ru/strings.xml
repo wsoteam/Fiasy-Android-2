@@ -635,14 +635,14 @@
 
 
   <plurals name="day_plurals">
-    <item quantity="one">день%d</item>
+    <item quantity="one">день</item>
     <item quantity="few">дня</item>
     <item quantity="many">дней</item>
     <item quantity="other">дней</item>
   </plurals>
 
   <plurals name="recipe_plurals">
-    <item quantity="one">рецепт%d</item>
+    <item quantity="one">рецепт</item>
     <item quantity="few">рецепта</item>
     <item quantity="many">рецептов</item>
     <item quantity="other">рецептов</item>
@@ -656,7 +656,7 @@
   </plurals>
 
   <plurals name="portion_plurals">
-    <item quantity="one">порция%d</item>
+    <item quantity="one">порция</item>
     <item quantity="few">порции</item>
     <item quantity="many">порций</item>
     <item quantity="other">порций</item>

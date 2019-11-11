@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.ColorUtils;
 import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
@@ -107,6 +108,7 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
     @BindView(R.id.tvDietsName) TextView tvName;
     @BindView(R.id.tvDietsTime) TextView tvTime;
     @BindView(R.id.background) LinearLayout background;
+    @BindView(R.id.premLabel) ConstraintLayout premLabel;
 
     public HorizontalViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -117,6 +119,7 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     public void bind(DietPlan dietPlan) {
+      premLabel.setVisibility(dietPlan.isPremium() ? View.VISIBLE : View.GONE);
       tvName.setText(dietPlan.getName());
       tvTime.setText(concat(String.valueOf(dietPlan.getCountDays()), " ",
               context.getResources().getQuantityString(R.plurals.day_plurals, dietPlan.getCountDays())));

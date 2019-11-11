@@ -125,7 +125,7 @@ public class VerticalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public void setData(DietsList dietsList) {
-      viewAll.setVisibility(dietsList.getDietPlans().size() <= 1 ? View.GONE : View.VISIBLE);
+      viewAll.setVisibility(/*dietsList.getDietPlans().size() <= 1*/ true ? View.GONE : View.VISIBLE);
       tvtitle.setText(dietsList.getName());
       adapter.updateList(dietsList);
     }
