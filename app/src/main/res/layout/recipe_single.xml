@@ -46,35 +46,37 @@
 
             <TextView
                 android:id="@+id/tvRecipeKK"
-                tools:text="123"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="14dp"
                 android:layout_marginTop="11dp"
                 android:fontFamily="@font/roboto"
                 android:textColor="@android:color/white"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textRecipe" />
+                app:layout_constraintTop_toTopOf="@+id/textRecipe"
+                tools:text="123" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="@string/calories_unit"
                 android:textColor="@android:color/white"
-                android:textSize="12sp"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tvRecipeKK"
                 app:layout_constraintStart_toStartOf="@+id/tvRecipeKK"
                 app:layout_constraintTop_toBottomOf="@+id/tvRecipeKK" />
 
             <TextView
                 android:id="@+id/textRecipe"
-                tools:text="Название рецепта"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto_medium"
@@ -86,14 +88,15 @@
                 app:layout_constraintBottom_toBottomOf="@+id/llBackground"
                 app:layout_constraintEnd_toStartOf="@+id/imageView2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/llBackground" />
+                app:layout_constraintTop_toTopOf="@+id/llBackground"
+                tools:text="Название рецепта" />
 
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@+id/textView"
-                app:layout_constraintEnd_toStartOf="@+id/tvRecipeKK"
+                app:layout_constraintEnd_toStartOf="@+id/textView"
                 app:layout_constraintTop_toTopOf="@+id/tvRecipeKK"
                 app:srcCompat="@drawable/ic_fire_calories" />
 
