@@ -238,4 +238,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Article" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#FF9800</item>
+        <item name="colorPrimaryDark">@color/highlight_line_color</item>
+        <item name="colorAccent">#FEC152</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

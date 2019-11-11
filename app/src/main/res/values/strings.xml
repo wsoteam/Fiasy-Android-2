@@ -1030,5 +1030,20 @@ Share your accomplishments with friends:</string>
     <item quantity="other">potions</item>
   </plurals>
 
+  //
+  <string name="vh_article_series_day">%d day</string>
+
+  <string name="art_series_title">Articles from an expert</string>
+  <string name="art_series_author_title">Exclusive articles from a professional nutritionist!</string>
+  <string name="art_series_author_burlakov">Alexander Burlakov</string>
+  <string name="art_series_author_burlakov_bio">A sports medicine doctor and nutritionist, Dr. Burlakov graduated from Kuban State Medical University. He is the founder of the Bodycoach School and runs a wellness blog based on medical science.</string>
+  <string name="art_series_author_burlakov_achiv1">18,800 followers on Instagram</string>
+  <string name="art_series_author_burlakov_achiv2">Medical science</string>
+  <string name="art_series_author_burlakov_achiv3">Has trained UFC, ACA, and RCC athletes</string>
+  <string name="understand">Got it</string>
+  <string name="art_series_series_title">Eight articles for an easy start!</string>
+  <string name="art_series_series_info">You need to complete the previous day before you can go to the next one</string>
+  <string name="day">Day %d</string>
+  <string name="art_series_author_burlakov_bio_short">Врач-диетолог. Эксперт в доказательной диетологии. </string>
 
 </resources>

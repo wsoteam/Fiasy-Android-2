@@ -973,5 +973,21 @@
   <string name="tvUnSaturatedFats">Ненасыщеные</string>
   <string name="myRecipe">Свои рецепты</string>
 
+  //
+  <string name="vh_article_series_day">%d день</string>
+
+  <string name="art_series_title">Статьи от эксперта</string>
+  <string name="art_series_author_title">Эксклюзивные статьи от профессионального диетолога!</string>
+  <string name="art_series_author_burlakov">Александр Бурлаков</string>
+  <string name="art_series_author_burlakov_bio">Спортивный врач-диетолог, окончил Кубанский государственный медицинский университет. Основатель образовательного центра Bodycoach school, ведет блог о здоровом образе жизни основываясь на доказательной медицине.</string>
+  <string name="art_series_author_burlakov_bio_short">Врач-диетолог. Эксперт в доказательной диетологии. </string>
+  <string name="art_series_author_burlakov_achiv1">18.8 тыс. подписчиков в Instagram</string>
+  <string name="art_series_author_burlakov_achiv2">Доказательная медецина</string>
+  <string name="art_series_author_burlakov_achiv3">Подготовка спортсменов UFC, ACA, RCC</string>
+  <string name="understand">Понятно</string>
+  <string name="art_series_series_title">8 статей для легко старта!</string>
+  <string name="art_series_series_info">Чтобы перейти к следующему дню, Вам нужно будет пройти предыдущий</string>
+  <string name="day">День %d</string>
+
 
 </resources>

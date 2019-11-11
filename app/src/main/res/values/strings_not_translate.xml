@@ -38,7 +38,7 @@
   <string name="alertDialogSuccess" translatable="false">Рецепт сохранен</string>
   <string name="addingRecipePortionV" translatable="false">Вес:</string>
   <string name="addingRecipePortion" translatable="false">Количество порций (необязательно)</string>
-  <string name="tvArticlePremText" translatable="false">Получите доступ к сотням полезных статей при подписке на premium.</string>
+  <string name="tvArticlePremText" translatable="false">Оформи подписку и получи доступ ко множеству полезных статей и тренировок</string>
   <string name="tvTitleArticleFragment" translatable="false">Полезные статьи</string>
   <string name="titleShareDialogRecipe" translatable="false">Поделится рецептом</string>
 
@@ -124,5 +124,6 @@
 
   <string name="join_strings" translatable="false">%s %s</string>
 
+<string name="getAccess" translatable="false">Получить доступ</string>
 
 </resources>

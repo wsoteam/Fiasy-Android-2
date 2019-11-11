@@ -6,15 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        layout="@layout/toolbar"
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -145,7 +147,7 @@
             android:layout_marginTop="75dp"
             android:fontFamily="sans-serif-medium"
             android:lineSpacingExtra="8sp"
-            android:text="@string/fragment_list_articles_not_result"
+            android:text="Результаты не найдены"
             android:textColor="#de000000"
             android:textSize="16sp"
             android:textStyle="normal"
@@ -161,7 +163,7 @@
             android:layout_marginTop="19dp"
             android:fontFamily="sans-serif"
             android:lineSpacingExtra="7sp"
-            android:text="@string/fragment_list_articles_try_now"
+            android:text="Попробуйте еще раз "
             android:textColor="#000000"
             android:textSize="14sp"
             android:textStyle="normal"

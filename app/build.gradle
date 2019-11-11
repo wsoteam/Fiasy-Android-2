@@ -162,6 +162,8 @@ dependencies {
 
     //stepview
     implementation 'com.github.transferwise:sequence-layout:1.0.11'
+
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
