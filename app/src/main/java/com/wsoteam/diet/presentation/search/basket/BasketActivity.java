@@ -34,7 +34,7 @@ import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater;
 import java.util.List;
 
-public class BasketActivity extends MvpAppCompatActivity implements BasketView {
+public class BasketActivity extends MvpAppCompatActivity implements BasketView, View.OnClickListener {
   @BindView(R.id.rvBasket) RecyclerView rvBasket;
   @BindView(R.id.tvCounter) TextView tvCounter;
   @BindView(R.id.undoCard) CardView undoCard;
@@ -43,6 +43,13 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView {
   private BasketPresenter presenter;
   private BasketAdapter adapter;
   private Animation hide, show, finalSave;
+
+  @Override
+  public void onClick(View v) {
+    switch (v.getId()){
+      case R.id.ibBack : onBackPressed();
+    }
+  }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

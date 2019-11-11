@@ -25,6 +25,7 @@
       android:background="@drawable/filter_state"
       android:elevation="9dp"
       android:padding="16dp"
+      android:onClick="onClick"
       app:layout_constraintBottom_toBottomOf="@+id/imageView13"
       app:layout_constraintStart_toStartOf="@+id/imageView13"
       app:srcCompat="@drawable/ic_meas_arrow_back"
