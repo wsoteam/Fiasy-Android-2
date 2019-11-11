@@ -1,16 +1,22 @@
 package com.wsoteam.diet.presentation.plans.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.graphics.ColorUtils;
+import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.DietPlans.POJO.DietsList;
 import com.wsoteam.diet.R;
@@ -35,10 +41,10 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
     this.dietPlans = new LinkedList<>(dietsList.getDietPlans());
 
     if (UserDataHolder.getUserData().getPlan() != null && !dietsList.getProperties().equals(
-        BrowsePlansFragment.currentPlanProperti)) {
+            BrowsePlansFragment.currentPlanProperti)) {
       for (int i = 0; i < dietPlans.size(); i++) {
         if (dietPlans.get(i).getName().equals(
-            UserDataHolder.getUserData().getPlan().getName())) {
+                UserDataHolder.getUserData().getPlan().getName())) {
           this.dietPlans.remove(i);
           break;
         }
@@ -57,7 +63,7 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
     switch (viewType) {
       default: {
         View v1 = LayoutInflater.from(viewGroup.getContext())
-            .inflate(R.layout.item_diet, viewGroup, false);
+                .inflate(R.layout.item_diet, viewGroup, false);
         return new HorizontalViewHolder(v1);
       }
     }
@@ -95,11 +101,12 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
   }
 
   class HorizontalViewHolder extends RecyclerView.ViewHolder
-      implements View.OnClickListener, View.OnLongClickListener {
+          implements View.OnClickListener, View.OnLongClickListener {
 
     @BindView(R.id.ivDiet) ImageView imageView;
     @BindView(R.id.tvDietsName) TextView tvName;
     @BindView(R.id.tvDietsTime) TextView tvTime;
+    @BindView(R.id.background) LinearLayout background;
 
     public HorizontalViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -112,10 +119,27 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
     public void bind(DietPlan dietPlan) {
       tvName.setText(dietPlan.getName());
       tvTime.setText(concat(String.valueOf(dietPlan.getCountDays()), " ",
-          context.getResources().getQuantityString(R.plurals.day_plurals, dietPlan.getCountDays())));
+              context.getResources().getQuantityString(R.plurals.day_plurals, dietPlan.getCountDays())));
       Glide.with(context)
-          .load(dietPlan.getUrlImage())
-          .into(imageView);
+              .load(dietPlan.getUrlImage())
+              .into(imageView);
+      setBackGround(dietPlan.getUrlImage(), background);
+    }
+
+    private void setBackGround(String url, LinearLayout layout){
+      Glide.with(context)
+              .asBitmap()
+              .load(url)
+              .into(new SimpleTarget<Bitmap>() {
+                @Override
+                public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                  Palette p = Palette.from(resource).generate();
+                  int mainColor = p.getMutedColor(0);
+                  int alphaColor = 191;
+                  layout.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
+
+                }
+              });
     }
 
     @Override
@@ -129,7 +153,7 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
     public boolean onLongClick(View v) {
       if (mItemClickListener != null) {
         mItemClickListener.onItemLongClick(v, getLayoutPosition(),
-            dietPlans.get(getLayoutPosition()));
+                dietPlans.get(getLayoutPosition()));
         return true;
       }
       return false;

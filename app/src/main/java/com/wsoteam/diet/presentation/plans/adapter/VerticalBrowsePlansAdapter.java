@@ -13,6 +13,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.wsoteam.diet.DietPlans.POJO.DietsList;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.EmptyViewHolder;
+import com.wsoteam.diet.presentation.plans.browse.HorizontalBrowsePlansItemDecoration;
+
 import java.util.List;
 
 public class VerticalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -22,6 +25,8 @@ public class VerticalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerVie
   private HorizontalBrowsePlansAdapter.OnItemClickListener mItemClickListener;
   private Context mContext;
   private RecyclerView.RecycledViewPool viewPool;
+
+  private final int EMPTY_VH = 0, DEFF_VH = 1;
 
   public VerticalBrowsePlansAdapter(List<DietsList> listGroups) {
     this.listGroups = listGroups;
@@ -38,9 +43,10 @@ public class VerticalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerVie
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
     mContext = viewGroup.getContext();
     switch (viewType) {
+      case EMPTY_VH: return new EmptyViewHolder(viewGroup);
       default: {
         View v1 = LayoutInflater.from(viewGroup.getContext())
-            .inflate(R.layout.item_vertical_browse_plans, viewGroup, false);
+                .inflate(R.layout.item_vertical_browse_plans, viewGroup, false);
         return new ViewHolder(v1);
       }
     }
@@ -49,12 +55,13 @@ public class VerticalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerVie
   @Override
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
     switch (viewHolder.getItemViewType()) {
+      case EMPTY_VH: break;
       default: {
         ViewHolder holder = (ViewHolder) viewHolder;
 
-        holder.setData(listGroups.get(position));
+        holder.setData(listGroups.get(position - 1));
 
-        int lastSeenFirstPosition = listPosition.get(position, 0);
+        int lastSeenFirstPosition = listPosition.get(position - 1, 0);
         if (lastSeenFirstPosition >= 0) {
           holder.layoutManager.scrollToPositionWithOffset(lastSeenFirstPosition, 0);
         }
@@ -63,34 +70,38 @@ public class VerticalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerVie
     }
   }
 
-  @Override
-  public void onViewRecycled(RecyclerView.ViewHolder viewHolder) {
-    final int position = viewHolder.getAdapterPosition();
-    ViewHolder cellViewHolder = (ViewHolder) viewHolder;
-    int firstVisiblePosition = cellViewHolder.layoutManager.findFirstVisibleItemPosition();
-    listPosition.put(position, firstVisiblePosition);
-
-    super.onViewRecycled(viewHolder);
-  }
+//  @Override
+//  public void onViewRecycled(RecyclerView.ViewHolder viewHolder) {
+//    final int position = viewHolder.getAdapterPosition();
+//    ViewHolder cellViewHolder = (ViewHolder) viewHolder;
+//    int firstVisiblePosition = cellViewHolder.layoutManager.findFirstVisibleItemPosition();
+//    listPosition.put(position, firstVisiblePosition);
+//
+//    super.onViewRecycled(viewHolder);
+//  }
 
   @Override
   public int getItemCount() {
-    if (listGroups == null) {
-      return 0;
-    }
+    if (listGroups == null) return 1;
+    else return listGroups.size() + 1;
+  }
 
-    return listGroups.size();
+  @Override
+  public int getItemViewType(int position) {
+    if (position == 0) return EMPTY_VH;
+    else return DEFF_VH;
   }
 
   // for both short and long click
   public void SetOnItemClickListener(
-      final HorizontalBrowsePlansAdapter.OnItemClickListener mItemClickListener) {
+          final HorizontalBrowsePlansAdapter.OnItemClickListener mItemClickListener) {
     this.mItemClickListener = mItemClickListener;
   }
 
   class ViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.tvName) TextView tvtitle;
+    @BindView(R.id.tvAllRecipes2) TextView viewAll;
     private RecyclerView mRecyclerView;
     private HorizontalBrowsePlansAdapter adapter;
     private LinearLayoutManager layoutManager;
@@ -101,6 +112,7 @@ public class VerticalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerVie
 
       mRecyclerView = itemView.findViewById(R.id.recyclerView);
       mRecyclerView.setRecycledViewPool(viewPool);
+      mRecyclerView.addItemDecoration(new HorizontalBrowsePlansItemDecoration(itemView.getContext()));
 
       mRecyclerView.setHasFixedSize(true);
       layoutManager = new LinearLayoutManager(mContext);
@@ -113,6 +125,7 @@ public class VerticalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public void setData(DietsList dietsList) {
+      viewAll.setVisibility(dietsList.getDietPlans().size() <= 1 ? View.GONE : View.VISIBLE);
       tvtitle.setText(dietsList.getName());
       adapter.updateList(dietsList);
     }
