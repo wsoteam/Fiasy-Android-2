@@ -38,6 +38,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
   private val DINNER_POSITION = 2
   private val SNACK_POSITION = 3
   private val EMPTY_FIELD = -1
+  private val EMPTY_ELEMENT = 0.0
   lateinit var presenter: BasketDetailPresenter
 
   override fun hideEatSpinner() {
@@ -164,45 +165,45 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
       tvBrand.text = "(" + brand + ")"
     }
 
-    if (sugar != EMPTY_FIELD.toDouble()) {
+    if (sugar >= EMPTY_ELEMENT) {
       tvLabelSugar.visibility = View.VISIBLE
       tvSugar.visibility = View.VISIBLE
       tvSugar.text = Math.round(sugar * sizePortion).toString() + " г"
     }
-    if (saturatedFats != EMPTY_FIELD.toDouble()) {
+    if (saturatedFats >= EMPTY_ELEMENT) {
       tvLabelSaturated.visibility = View.VISIBLE
       tvSaturated.visibility = View.VISIBLE
       tvSaturated.text = Math.round(saturatedFats * sizePortion).toString() + " г"
     }
-    if (monoUnSaturatedFats != EMPTY_FIELD.toDouble()) {
+    if (monoUnSaturatedFats >= EMPTY_ELEMENT) {
       tvLabelMonoUnSaturated.visibility = View.VISIBLE
       tvMonoUnSaturated.visibility = View.VISIBLE
       tvMonoUnSaturated.text =
         Math.round(monoUnSaturatedFats * sizePortion).toString() + " г"
 
     }
-    if (polyUnSaturatedFats != EMPTY_FIELD.toDouble()) {
+    if (polyUnSaturatedFats >= EMPTY_ELEMENT) {
       tvLabelPolyUnSaturated.visibility = View.VISIBLE
       tvPolyUnSaturated.visibility = View.VISIBLE
       tvPolyUnSaturated.text =
         Math.round(polyUnSaturatedFats * sizePortion).toString() + " г"
     }
-    if (cholesterol != EMPTY_FIELD.toDouble()) {
+    if (cholesterol >= EMPTY_ELEMENT) {
       tvLabelСholesterol.visibility = View.VISIBLE
       tvСholesterol.visibility = View.VISIBLE
       tvСholesterol.text = Math.round(cholesterol * sizePortion).toString() + " мг"
     }
-    if (cellulose != EMPTY_FIELD.toDouble()) {
+    if (cellulose >= EMPTY_ELEMENT) {
       tvLabelCellulose.visibility = View.VISIBLE
       tvCellulose.visibility = View.VISIBLE
       tvCellulose.text = Math.round(cellulose * sizePortion).toString() + " г"
     }
-    if (sodium != EMPTY_FIELD.toDouble()) {
+    if (sodium >= EMPTY_ELEMENT) {
       tvLabelSodium.visibility = View.VISIBLE
       tvSodium.visibility = View.VISIBLE
       tvSodium.text = Math.round(sodium * sizePortion).toString() + " мг"
     }
-    if (pottassium != EMPTY_FIELD.toDouble()) {
+    if (pottassium >= EMPTY_ELEMENT) {
       tvLabelPotassium.visibility = View.VISIBLE
       tvPotassium.visibility = View.VISIBLE
       tvPotassium.text = Math.round(pottassium * sizePortion).toString() + " мг"
