@@ -12,6 +12,8 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import com.wsoteam.diet.Recipes.EmptyViewHolder;
 import com.wsoteam.diet.articles.POJO.ListArticles;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.articles.recycler.BurlakovViewHolder;
@@ -26,7 +28,7 @@ public class VerticalArticlesAdapter extends RecyclerView.Adapter<RecyclerView.V
   private Context mContext;
   private RecyclerView.RecycledViewPool viewPool;
 
-  private final int VH_DEFF = 0, VH_BANNER = 1;
+  private final int VH_DEFF = 0, VH_BANNER = 1, VH_EMPTY = 2;
 
   public VerticalArticlesAdapter(
       List<ListArticles> sectionsArticles) {
@@ -38,6 +40,7 @@ public class VerticalArticlesAdapter extends RecyclerView.Adapter<RecyclerView.V
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
     mContext = viewGroup.getContext();
     switch (viewType) {
+      case VH_EMPTY: return new EmptyViewHolder(viewGroup);
       case VH_BANNER: return new BurlakovViewHolder(viewGroup, new View.OnClickListener() {
         @Override public void onClick(View v) {
             mItemClickListener.onClickBanner(v);
@@ -55,13 +58,14 @@ public class VerticalArticlesAdapter extends RecyclerView.Adapter<RecyclerView.V
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
 
     switch (viewHolder.getItemViewType()) {
+      case VH_EMPTY: break;
       case VH_BANNER: break;
       default: {
         VerticalViewHolder holder = (VerticalViewHolder) viewHolder;
 
-        holder.setData(sectionsArticles.get(position));
+        holder.setData(sectionsArticles.get(position - 1));
 
-        int lastSeenFirstPosition = listPosition.get(position, 0);
+        int lastSeenFirstPosition = listPosition.get(position - 1, 0);
         if (lastSeenFirstPosition >= 0) {
           holder.layoutManager.scrollToPositionWithOffset(lastSeenFirstPosition, 0);
         }
@@ -87,14 +91,17 @@ public class VerticalArticlesAdapter extends RecyclerView.Adapter<RecyclerView.V
   }
 
   @Override public int getItemCount() {
-    if (sectionsArticles == null) return 0;
+    if (sectionsArticles == null) return 1;
 
-    return sectionsArticles.size();
+    return sectionsArticles.size() + 1;
   }
 
   @Override public int getItemViewType(int position) {
-    if (position == 0) return VH_BANNER;
-    else return VH_DEFF;
+    switch (position){
+      case 0: return VH_EMPTY;
+      case 1: return VH_BANNER;
+      default: return VH_DEFF;
+    }
   }
 
   // for both short and long click
@@ -127,7 +134,7 @@ public class VerticalArticlesAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @OnClick({ R.id.llShowAll })
     void onClicked(View view) {
-      mItemClickListener.onClickAll(view, getAdapterPosition(), sectionsArticles.get(getAdapterPosition()));
+      mItemClickListener.onClickAll(view, getAdapterPosition() - 1, sectionsArticles.get(getAdapterPosition() - 1));
     }
 
     public void setData(ListArticles listArticles) {
