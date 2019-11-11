@@ -35,7 +35,6 @@ public class FoodWork {
     List<HistoryEntity> forSave = new ArrayList<>();
     for (int i = 0; i < foods.size(); i++) {
       if (foods.get(i) instanceof BasketEntity) {
-        Log.e("LOL", String.valueOf(new HistoryEntity((BasketEntity)foods.get(i)).toString()));
         forSave.add(new HistoryEntity((BasketEntity)foods.get(i)));
         saveItem((BasketEntity) foods.get(i), day, month, year);
       }
