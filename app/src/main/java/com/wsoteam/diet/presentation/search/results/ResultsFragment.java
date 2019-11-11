@@ -204,13 +204,15 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   }
 
   private void updateBasket(int size) {
-    if (size > 0) {
-      if (cvBasket.getVisibility() == View.GONE) {
-        cvBasket.setVisibility(View.VISIBLE);
+    if (cvBasket != null) {
+      if (size > 0) {
+        if (cvBasket.getVisibility() == View.GONE) {
+          cvBasket.setVisibility(View.VISIBLE);
+        }
+        tvCounter.setText(getPaintedString(size));
+      } else if (cvBasket.getVisibility() == View.VISIBLE) {
+        cvBasket.setVisibility(View.GONE);
       }
-      tvCounter.setText(getPaintedString(size));
-    } else if (cvBasket.getVisibility() == View.VISIBLE) {
-      cvBasket.setVisibility(View.GONE);
     }
   }
 
@@ -242,12 +244,14 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   }
 
   private void showNoFind() {
-    Glide.with(getActivity()).load(R.drawable.empty_search).into(ivSearchImage);
-    tvTextEmptySearch.setText(getResources().getString(R.string.search_text_empty));
-    ivSearchImage.setVisibility(View.VISIBLE);
-    tvTitleEmptySearch.setVisibility(View.VISIBLE);
-    tvTextEmptySearch.setVisibility(View.VISIBLE);
-    btnAddCustomFood.setVisibility(View.VISIBLE);
+    if (ivSearchImage != null) {
+      Glide.with(getActivity()).load(R.drawable.empty_search).into(ivSearchImage);
+      tvTextEmptySearch.setText(getResources().getString(R.string.search_text_empty));
+      ivSearchImage.setVisibility(View.VISIBLE);
+      tvTitleEmptySearch.setVisibility(View.VISIBLE);
+      tvTextEmptySearch.setVisibility(View.VISIBLE);
+      btnAddCustomFood.setVisibility(View.VISIBLE);
+    }
   }
 
   private void showHistory() {
