@@ -21,6 +21,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.EmptyViewHolder;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.UserDataHolder;
 
@@ -29,11 +30,12 @@ import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.ListRecipeViewHolder> {
+public class ListRecipesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<RecipeItem> listRecipes;
     private Context context;
 
+    private final int EMPTY_VH = 0, DEFF_VH = 1;
 
     public ListRecipesAdapter(List<RecipeItem> listRecipes) {
         this.listRecipes = listRecipes;
@@ -47,24 +49,36 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<ListRecipesAdapter.
 
     @NonNull
     @Override
-    public ListRecipesAdapter.ListRecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        this.context = parent.getContext();
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (context == null) this.context = parent.getContext();
 
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.recipe_single, parent, false);
-        return new ListRecipesAdapter.ListRecipeViewHolder(view);
+        switch (viewType){
+            case EMPTY_VH: return new EmptyViewHolder(parent);
+            default:
+                LayoutInflater inflater = LayoutInflater.from(context);
+                View view = inflater.inflate(R.layout.recipe_single, parent, false);
+                return new ListRecipesAdapter.ListRecipeViewHolder(view);
+        }
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListRecipesAdapter.ListRecipeViewHolder holder, int position) {
-        holder.bind(position);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (position == 0) return;
+        ((ListRecipeViewHolder)holder).bind(position - 1);
 
     }
 
     @Override
     public int getItemCount() {
-        if (listRecipes == null) return 0;
-        return listRecipes.size();
+        if (listRecipes == null) return 1;
+        return listRecipes.size() + 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) return EMPTY_VH;
+        else return DEFF_VH;
     }
 
     class ListRecipeViewHolder extends RecyclerView.ViewHolder {

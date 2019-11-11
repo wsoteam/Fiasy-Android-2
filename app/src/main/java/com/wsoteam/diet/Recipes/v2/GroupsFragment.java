@@ -5,12 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
@@ -36,7 +41,9 @@ public class GroupsFragment extends Fragment implements Observer {
     private RecyclerView recyclerView;
     private GroupsAdapter adapter;
     ListRecipesAdapter adapterSearch;
-    private CardView cardView;
+
+    @BindView(R.id.appbar) AppBarLayout appBarLayout;
+
     private Window window;
 
     private int statusBarHeight(android.content.res.Resources res) {
@@ -61,6 +68,7 @@ public class GroupsFragment extends Fragment implements Observer {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
+
         window = getActivity().getWindow();
         window.setStatusBarColor(getResources().getColor(R.color.highlight_line_color));
         groupsFragment = this;
@@ -68,7 +76,10 @@ public class GroupsFragment extends Fragment implements Observer {
 
         View view = inflater.inflate(R.layout.fragment_groups_recipes_v2,
                 container, false);
-        cardView = view.findViewById(R.id.cvGroupsRecipes);
+        ButterKnife.bind(this, view);
+
+
+
 
         Toolbar mToolbar = view.findViewById(R.id.toolbar);
         mToolbar.setTitle(getString(R.string.tab_lat_recipes_name));
@@ -98,6 +109,33 @@ public class GroupsFragment extends Fragment implements Observer {
 
         recyclerView = view.findViewById(R.id.rvGroupsRecipe);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager linearLayoutManager1 = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int firstVisibleItem = 0;
+                if (linearLayoutManager1 != null)
+                firstVisibleItem = linearLayoutManager1.findFirstVisibleItemPosition();
+                appBarLayout.setLiftable(firstVisibleItem == 0);
+
+
+//                if (dy < 0) {
+//                    // Recycle view scrolling up...
+//                    Log.d("kkk", "onScrolled: up");
+//                    appBarLayout.setLiftable(true);
+//
+//                } else if (dy > 0) {
+//                    // Recycle view scrolling down...
+//                    Log.d("kkk", "onScrolled: down");
+//                    appBarLayout.setLiftable(false);
+//                }
+            }
+        });
 
         if (GroupsHolder.getGroupsRecipes() != null) {
             adapter = new GroupsAdapter(GroupsHolder.getGroupsRecipes().getGroups(), groupsFragment, viewGroup.getId());

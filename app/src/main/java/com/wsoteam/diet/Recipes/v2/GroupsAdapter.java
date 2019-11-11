@@ -25,6 +25,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.EmptyViewHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -36,7 +37,7 @@ import java.util.Map;
 import static android.content.Context.MODE_PRIVATE;
 import static android.text.TextUtils.concat;
 
-public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder> {
+public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     List<ListRecipes> groupsRecipes;
     Context context;
@@ -44,6 +45,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
     FragmentTransaction transaction;
     int containerID;
 
+    private final int EMPTY_VH = 0, DEFF_VH = 1;
 
     public GroupsAdapter(List<ListRecipes> groupsRecipes, Fragment groupsFragment, int containerID) {
         this.groupsRecipes = groupsRecipes;
@@ -54,33 +56,35 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
 
     @NonNull
     @Override
-    public GroupsAdapter.GroupsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-
-        if (this.context == null) this.context = context;
-
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        View view = inflater.inflate(R.layout.recipes_group_item, parent, false);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (this.context == null) this.context = parent.getContext();
 
 
-        GroupsAdapter.GroupsViewHolder viewHolder = new GroupsAdapter.GroupsViewHolder(view);
-
-        return viewHolder;
+        switch (viewType) {
+            case EMPTY_VH: return new  EmptyViewHolder(parent);
+            default:
+                return new GroupsAdapter.GroupsViewHolder(
+                        LayoutInflater.from(context).inflate(R.layout.recipes_group_item, parent, false));
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GroupsAdapter.GroupsViewHolder holder, int position) {
-        Log.d("kkk", "onBindViewHolder: " + position);
-        holder.bind(position);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (position == 0) return;
+        ((GroupsViewHolder)holder).bind(position - 1);
     }
 
     @Override
     public int getItemCount() {
-        if (groupsRecipes != null) return groupsRecipes.size();
-        else return 0;
+        if (groupsRecipes != null) return groupsRecipes.size() + 1;
+        else return 1;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+       if (position == 0) return EMPTY_VH;
+       else return DEFF_VH;
+    }
 
     class GroupsViewHolder extends RecyclerView.ViewHolder {
 

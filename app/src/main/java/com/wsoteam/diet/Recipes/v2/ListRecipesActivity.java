@@ -1,15 +1,21 @@
 package com.wsoteam.diet.Recipes.v2;
 
 import android.content.Intent;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
@@ -29,11 +35,15 @@ public class ListRecipesActivity extends AppCompatActivity {
     ListRecipesAdapter adapterSearch = new ListRecipesAdapter(null);
     private Toolbar mToolbar;
 
+    @BindView(R.id.appbar)
+    AppBarLayout appBarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_recipes);
+
+        ButterKnife.bind(this);
 
         Intent intent = getIntent();
         position = intent.getIntExtra(Config.RECIPES_BUNDLE, 0);
@@ -62,6 +72,22 @@ public class ListRecipesActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.rvListRecipes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager linearLayoutManager1 = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+                int firstVisibleItem = 0;
+                if (linearLayoutManager1 != null)
+                    firstVisibleItem = linearLayoutManager1.findFirstVisibleItemPosition();
+                appBarLayout.setLiftable(firstVisibleItem == 0);
+            }
+        });
         updateUI();
     }
 
