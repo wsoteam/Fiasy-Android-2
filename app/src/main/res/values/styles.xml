@@ -386,4 +386,14 @@
         <item name="colorAccent">#E68D3C</item>
     </style>
 
+
+    <style name="PortionSpinner" parent="android:style/Widget.ListView.DropDown">
+        <item name="android:divider">@color/black</item>
+        <item name="android:dividerHeight">0.3dp</item>
+    </style>
+
+    <style name="MatchSpinnerTheme" parent="AppTheme">
+        <item name="android:dropDownListViewStyle">@style/PortionSpinner</item>
+    </style>
+
 </resources>

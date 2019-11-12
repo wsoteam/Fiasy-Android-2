@@ -47,6 +47,7 @@
         android:layout_marginStart="36dp"
         android:gravity="center_horizontal"
         android:spinnerMode="dropdown"
+        android:theme="@style/MatchSpinnerTheme"
         app:layout_constraintBottom_toBottomOf="@+id/edtWeightCalculate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
