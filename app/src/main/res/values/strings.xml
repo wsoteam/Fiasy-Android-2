@@ -393,7 +393,7 @@ Share your accomplishments with friends:</string>
 
   <!--test-->
   <string name="todo" translatable="false">TODO</string>
-  <string name="app_name" translatable="false">Fiasy</string>
+  <string name="app_name">Fiasy</string>
 
   <!--Privacy Policy-->
   <string name="policy_title" translatable="false">Privacy Policy &amp; Terms of Service</string>
