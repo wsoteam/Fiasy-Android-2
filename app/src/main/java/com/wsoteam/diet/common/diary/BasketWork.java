@@ -17,7 +17,7 @@ import io.reactivex.schedulers.Schedulers;
 public class BasketWork {
     private static BasketDAO dao = App.getInstance().getFoodDatabase().basketDAO();
 
-    public static void addToBasket(BasketEntity entity) {
+    public static void addToBasket(BasketEntity entity, Finisher finisher) {
         dao.
                 getSameEntity(entity.getServerId(), entity.getDeepId(), entity.getEatingType())
                 .subscribeOn(Schedulers.io())
@@ -26,7 +26,7 @@ public class BasketWork {
                     @Override
                     public void onSuccess(BasketEntity basketEntity) {
                         basketEntity.append(entity);
-                        defaultSave(basketEntity);
+                        defaultSave(basketEntity, finisher);
                     }
 
                     @Override
@@ -36,12 +36,12 @@ public class BasketWork {
 
                     @Override
                     public void onComplete() {
-                        defaultSave(entity);
+                        defaultSave(entity, finisher);
                     }
                 });
     }
 
-    private static void defaultSave(BasketEntity entity) {
+    private static void defaultSave(BasketEntity entity, Finisher finisher) {
         Completable.fromAction(new Action() {
             @Override
             public void run() throws Exception {
@@ -49,7 +49,22 @@ public class BasketWork {
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        finisher.finish();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
     }
 }
 

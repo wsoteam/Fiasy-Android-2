@@ -9,6 +9,7 @@ import com.wsoteam.diet.App;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.diary.BasketWork;
+import com.wsoteam.diet.common.diary.Finisher;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.product.claim.ClaimAlert;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
@@ -179,7 +180,11 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
   }
 
   public void saveEntity(BasketEntity basketEntity) {
-    BasketWork.addToBasket(basketEntity);
-    getViewState().close();
+    BasketWork.addToBasket(basketEntity, new Finisher() {
+      @Override
+      public void finish() {
+        getViewState().close();
+      }
+    });
   }
 }
