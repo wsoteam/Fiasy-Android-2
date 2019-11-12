@@ -277,6 +277,55 @@ public class BasketEntity implements ISearchResult, Serializable {
     this.namePortion = namePortion;
   }
 
+  private void append(BasketEntity appendObj) {
+    countPortions += appendObj.getCountPortions();
+    calories += appendObj.getCalories();
+    proteins += appendObj.getProteins();
+    carbohydrates += appendObj.getCarbohydrates();
+    fats += appendObj.getFats();
+    if (appendObj.getSugar() >= Config.STANDART_PORTION) {
+      sugar += appendObj.getSugar();
+    } else {
+      sugar = Config.EMPTY_COUNT;
+    }
+    if (appendObj.getSaturatedFats() >= Config.STANDART_PORTION) {
+      saturatedFats += appendObj.getSaturatedFats();
+    } else {
+      saturatedFats = Config.EMPTY_COUNT;
+    }
+    if (appendObj.getMonoUnSaturatedFats() >= Config.STANDART_PORTION) {
+      monoUnSaturatedFats += appendObj.getMonoUnSaturatedFats();
+    } else {
+      monoUnSaturatedFats = Config.EMPTY_COUNT;
+    }
+    if (appendObj.getPolyUnSaturatedFats() >= Config.STANDART_PORTION) {
+      polyUnSaturatedFats += appendObj.getPolyUnSaturatedFats();
+    } else {
+      polyUnSaturatedFats = Config.EMPTY_COUNT;
+    }
+    if (appendObj.getCholesterol() >= Config.STANDART_PORTION) {
+      cholesterol += appendObj.getCholesterol();
+    } else {
+      cholesterol = Config.EMPTY_COUNT;
+    }
+    if (appendObj.getCellulose() >= Config.STANDART_PORTION) {
+      cellulose += appendObj.getCellulose();
+    } else {
+      cellulose = Config.EMPTY_COUNT;
+    }
+    if (appendObj.getSodium() >= Config.STANDART_PORTION) {
+      sodium += appendObj.getSodium();
+    } else {
+      sodium = Config.EMPTY_COUNT;
+    }
+    if (appendObj.getPottassium() >= Config.STANDART_PORTION) {
+      pottassium = appendObj.getPottassium();
+    } else {
+      pottassium = Config.EMPTY_COUNT;
+    }
+
+  }
+
 
   public BasketEntity(Eating eating, int typeEating) {
     if (eating.isNewFood()){
