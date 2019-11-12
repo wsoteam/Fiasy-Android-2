@@ -277,7 +277,7 @@ public class BasketEntity implements ISearchResult, Serializable {
     this.namePortion = namePortion;
   }
 
-  private void append(BasketEntity appendObj) {
+  public void append(BasketEntity appendObj) {
     countPortions += appendObj.getCountPortions();
     calories += appendObj.getCalories();
     proteins += appendObj.getProteins();

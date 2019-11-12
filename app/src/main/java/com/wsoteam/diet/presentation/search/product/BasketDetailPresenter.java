@@ -8,6 +8,7 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.diary.BasketWork;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.product.claim.ClaimAlert;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
@@ -178,28 +179,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
   }
 
   public void saveEntity(BasketEntity basketEntity) {
-    Completable.fromAction(new Action() {
-      @Override
-      public void run() throws Exception {
-        basketDAO.insert(basketEntity);
-      }
-    }).subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new CompletableObserver() {
-          @Override
-          public void onSubscribe(Disposable d) {
-
-          }
-
-          @Override
-          public void onComplete() {
-            getViewState().close();
-          }
-
-          @Override
-          public void onError(Throwable e) {
-            Log.e("LOL", e.getMessage());
-          }
-        });
+    BasketWork.addToBasket(basketEntity);
+    getViewState().close();
   }
 }

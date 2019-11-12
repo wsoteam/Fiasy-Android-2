@@ -5,6 +5,9 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
+
 import java.util.List;
 
 @Dao
@@ -24,5 +27,8 @@ public interface BasketDAO {
 
   @Query("DELETE FROM BasketEntity")
   void deleteAll();
+
+  @Query("SELECT * FROM BasketEntity WHERE serverId = :serverId AND deepId = :deepId AND eatingType = :eatingType")
+  Maybe<BasketEntity> getSameEntity(int serverId, int deepId, int eatingType);
 
 }

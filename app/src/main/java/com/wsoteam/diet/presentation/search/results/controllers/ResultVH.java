@@ -35,7 +35,6 @@ public class ResultVH extends RecyclerView.ViewHolder implements View.OnClickLis
 
   public void bind(Result food, boolean isChecked,
       ClickListener clickListener) {
-    Log.e("LOL", food.toString());
     this.clickListener = clickListener;
     tvTitle.setText(food.getName());
     tvPortion.setText(itemView.getResources().getString(R.string.srch_default_portion));
