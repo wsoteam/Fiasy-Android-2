@@ -161,6 +161,7 @@
                         android:layout_marginTop="8dp"
                         android:background="@drawable/shape_btn_article"
                         android:padding="2dp"
+                        android:paddingStart="25dp"
                         android:text="@string/getAccess"
                         android:textColor="@android:color/white"
                         android:textStyle="bold" />
