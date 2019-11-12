@@ -35,6 +35,36 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/backgrounds/scenic[11]" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/premiumLabel"
+                android:layout_width="189dp"
+                android:layout_height="106dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView57"
+                    android:layout_width="85dp"
+                    android:layout_height="32dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/rectangle_rounded" />
+
+                <TextView
+                    android:id="@+id/textView159"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/premium"
+                    android:textAllCaps="true"
+                    android:textColor="@color/b_color"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView57"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView57"
+                    app:layout_constraintStart_toStartOf="@+id/imageView57"
+                    app:layout_constraintTop_toTopOf="@+id/imageView57" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <LinearLayout
                 android:id="@+id/llBackground"
                 android:layout_width="0dp"
