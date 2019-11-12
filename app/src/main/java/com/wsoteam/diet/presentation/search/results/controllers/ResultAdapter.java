@@ -129,7 +129,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         break;
       case HISTORY_TYPE:
         ((ResultVH) holder).bindHistoryEntity((HistoryEntity) foods.get(position),
-            false, new ClickListener() {
+            getHistorySaveStatus((HistoryEntity) foods.get(position)), new ClickListener() {
               @Override public void click(int position, boolean isNeedSave) {
                 BasketEntity basketEntity = (HistoryEntity) foods.get(position);
                 basketEntity.setEatingType(basketUpdater.getCurrentEating());
@@ -187,6 +187,17 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
       page += 1;
       loadNextPortion(page);
     }
+  }
+
+  private boolean getHistorySaveStatus(HistoryEntity he) {
+    boolean isSaved = false;
+    for (int i = 0; i < savedFood.size(); i++) {
+      if (he.getServerId() == savedFood.get(i).getServerId()) {
+        isSaved = true;
+        break;
+      }
+    }
+    return isSaved;
   }
 
   private boolean getSaveStatus(Result result) {
