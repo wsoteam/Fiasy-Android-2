@@ -4,6 +4,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,9 @@ import butterknife.ButterKnife;
 
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.search.IClick;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SuggestVH extends RecyclerView.ViewHolder implements View.OnClickListener {
     @BindView(R.id.tvTitle)
@@ -30,16 +34,20 @@ public class SuggestVH extends RecyclerView.ViewHolder implements View.OnClickLi
 
     public void bind(String title, String query, IClick click) {
         this.click = click;
-        tvTitle.setText(title);
+        tvTitle.setText(getPaintedString(title, query));
     }
 
     private Spannable getPaintedString(String title, String query) {
-        int diff = 0;
-        if (query.length() > title.length()){
-            diff = query.length() - title.length();
-        }
+        String[] queryWords = query.split("\\s");
         Spannable spannable = new SpannableString(title);
-        spannable.setSpan(new ForegroundColorSpan(itemView.getResources().getColor(R.color.srch_suggest_painted_string)), 0, query.length() - diff, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        for (String word : queryWords) {
+            if (title.toLowerCase().contains(word.toLowerCase())) {
+                Matcher matcher = Pattern.compile("(?=(" + word.toLowerCase() + "))").matcher(title.toLowerCase());
+                while (matcher.find()) {
+                    spannable.setSpan(new ForegroundColorSpan(itemView.getResources().getColor(R.color.srch_suggest_painted_string)), matcher.start(), word.length() + matcher.start(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+            }
+        }
         return spannable;
     }
 
