@@ -130,4 +130,6 @@
     <string name="blocked_recipe_title_2" translatable="false">Легкие в приготовлении и состоящие из простых доступных игридиентов</string>
     <string name="blocked_recipe_txt" translatable="false">Оформи подписку и получи доступ ко всей базе рецептов</string>
 
+    <string name="blocked_plan_txt" translatable="false">Оформи подписку и получи доступ к специально подобранным для Вас и проверенным планам питания</string>
+
 </resources>

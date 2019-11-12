@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.wsoteam.diet.presentation.plans.detail.blocked.BlockedDetailPlansActivity">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,171 +17,208 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="#ffffff">
 
             <ImageView
-                android:id="@+id/ivBlockedPlans"
+                android:id="@+id/imageView8"
                 android:layout_width="0dp"
-                android:layout_height="233dp"
-                android:scaleType="center"
+                android:layout_height="800dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:color/holo_blue_light" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout9"
+                app:srcCompat="@drawable/background_plan" />
 
-            <TextView
-                android:id="@+id/tvPlansName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="sans-serif"
-                android:textAlignment="center"
-                android:textColor="#ffffff"
-                android:textSize="32sp"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="@+id/ivBlockedPlans"
-                app:layout_constraintEnd_toEndOf="@+id/ivBlockedPlans"
-                app:layout_constraintStart_toStartOf="@+id/ivBlockedPlans"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text=" Кето диета" />
-
-            <Button
-                android:id="@+id/btnGetSubscription"
-                android:layout_width="199dp"
-                android:layout_height="46dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/btn_plans_shpe"
-                android:text="@string/subsc_btn_bay"
-                android:textColor="#fff"
-                app:layout_constraintBottom_toBottomOf="@+id/ivBlockedPlans"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivBlockedPlans" />
-
-            <ImageView
-                android:id="@+id/imageView43"
-                android:layout_width="200dp"
-                android:layout_height="141dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="47dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivBlockedPlans"
-                app:srcCompat="@drawable/img_blocked_diets_plans" />
-
-            <TextView
-                android:id="@+id/tvUsers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
-                android:fontFamily="sans-serif-medium"
-                android:lineSpacingExtra="5sp"
-                android:textColor="#34847c"
-                android:textSize="20sp"
-                android:textStyle="normal"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tvRecipes"
-                app:layout_constraintTop_toBottomOf="@+id/imageView43"
-                tools:text="28"
-                />
-
-            <TextView
-                android:id="@+id/tvRecipes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
-                android:fontFamily="sans-serif-medium"
-                android:lineSpacingExtra="5sp"
-                android:textColor="#34847c"
-                android:textSize="20sp"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toStartOf="@+id/tvUsers"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tvTime"
-                app:layout_constraintTop_toBottomOf="@+id/imageView43"
-                tools:text="28" />
-
-            <TextView
-                android:id="@+id/tvTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
-                android:fontFamily="sans-serif-medium"
-                android:lineSpacingExtra="5sp"
-                android:textColor="#34847c"
-                android:textSize="20sp"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toStartOf="@+id/tvRecipes"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView43"
-                tools:text="28" />
-
-            <TextView
-                android:id="@+id/tvTimeText"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/days"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/tvTime"
-                app:layout_constraintStart_toStartOf="@+id/tvTime"
-                app:layout_constraintTop_toBottomOf="@+id/tvTime" />
-
-            <TextView
-                android:id="@+id/tvRecipesText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/activity_blocked_detail_plans_recipes"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/tvRecipes"
-                app:layout_constraintStart_toStartOf="@+id/tvRecipes"
-                app:layout_constraintTop_toBottomOf="@+id/tvRecipes" />
-
-            <TextView
-                android:id="@+id/tvUsersText"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/activity_blocked_detail_plans_users"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/tvUsers"
-                app:layout_constraintStart_toStartOf="@+id/tvUsers"
-                app:layout_constraintTop_toBottomOf="@+id/tvUsers"
-                />
-
-            <TextView
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout8"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="sans-serif"
-                android:lineSpacingExtra="7.5sp"
-                android:text="@string/activity_blocked_detail_plans_motivation"
-                android:textColor="#d9212121"
-                android:textSize="15sp"
-                android:textStyle="normal"
-                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvRecipesText"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout9">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:paddingTop="30dp"
+                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout7"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_fiasy_premium" />
+
+                <TextView
+                    android:id="@+id/tvArticlePremText2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center"
+                    android:paddingBottom="30dp"
+                    android:paddingTop="20dp"
+                    android:text="@string/blocked_plan_txt"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/b_color"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="32dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <Button
+                            android:id="@+id/goPrem"
+                            android:layout_width="222dp"
+                            android:layout_height="44dp"
+                            android:background="@drawable/shape_btn_article"
+                            android:padding="2dp"
+                            android:paddingStart="25dp"
+                            android:text="@string/getAccess"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+                        app:layout_constraintTop_toTopOf="@+id/linearLayout4">
+
+                        <ImageView
+                            android:id="@+id/imageView67"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            app:srcCompat="@drawable/ic_lock" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView46"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="14dp"
+                    android:src="@drawable/ic_access_time"
+                    app:layout_constraintStart_toEndOf="@+id/tvPlansRecipes"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPlansName" />
+
+                <ImageView
+                    android:id="@+id/ivDietsPlan"
+                    android:layout_width="0dp"
+                    android:layout_height="232dp"
+                    android:scaleType="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@color/add_food_green" />
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvTimeCount"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvTimeCount"
+                    app:srcCompat="@drawable/ic_flag" />
+
+                <TextView
+                    android:id="@+id/tvPlansName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#212121"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ivDietsPlan"
+                    tools:text="Худеем за 28 дней" />
+
+                <TextView
+                    android:id="@+id/tvTimeCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/plans_header_item_n_day_of_x"
+                    android:textColor="#f49231"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toEndOf="@+id/imageView7"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPlansRecipes" />
+
+                <TextView
+                    android:id="@+id/tvPlansRecipes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/plans_header_item_n_recipes"
+                    android:textColor="#777777"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPlansName" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/plans_header_item_n_days"
+                    android:textColor="#777777"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toEndOf="@+id/imageView46"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPlansName" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
