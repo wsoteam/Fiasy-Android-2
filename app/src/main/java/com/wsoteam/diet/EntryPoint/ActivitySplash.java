@@ -213,9 +213,9 @@ public class ActivitySplash extends BaseActivity {
       //startActivity(new Intent(this, QuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
       //startActivity(new Intent(this, AfterQuestionsActivity.class).putExtra(Config.CREATE_PROFILE, true));
 
-  startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
+    startActivity(new Intent(this, NewIntroActivity.class).putExtra(Config.CREATE_PROFILE, true));
 
-  finish();
+    finish();
   }
 
   private void onSignedIn() {
@@ -440,7 +440,7 @@ public class ActivitySplash extends BaseActivity {
 
         emitter.onSuccess(user);
       } else {
-        emitter.onError(new UserNotAuthorized());
+        emitter.tryOnError(new UserNotAuthorized());
       }
     }
 

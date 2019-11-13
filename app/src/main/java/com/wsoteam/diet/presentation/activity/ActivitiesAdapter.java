@@ -708,7 +708,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
       target.setTint(ContextCompat.getColor(context, R.color.orange));
 
       final ImageSpan span = new ImageSpan(target, DynamicDrawableSpan.ALIGN_BOTTOM);
-      final CharSequence iconChar = RichTextUtils.replaceWithIcon("icon", span);
+      final CharSequence iconChar = RichTextUtils.INSTANCE.replaceWithIcon("icon", span);
 
       if (section.titleRes == R.string.user_activity_section_my) {
         emptyView.setText(TextUtils.concat("Вы пока не добавили ни одну "

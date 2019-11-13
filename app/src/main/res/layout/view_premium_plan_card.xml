@@ -13,7 +13,7 @@
   <FrameLayout
       android:id="@+id/container"
       android:layout_width="match_parent"
-      android:layout_height="173dp"
+      android:layout_height="193dp"
       android:orientation="vertical"
       >
 

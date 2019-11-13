@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import com.adjust.sdk.Adjust
 import com.adjust.sdk.AdjustEvent
+import com.amplitude.api.Amplitude
+import com.amplitude.api.Revenue
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClient.SkuType
 import com.android.billingclient.api.BillingClientStateListener
@@ -24,6 +26,7 @@ import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase
 import com.wsoteam.diet.common.Analytics.EventProperties
 import com.wsoteam.diet.common.Analytics.Events
+import com.wsoteam.diet.common.Analytics.UserProperty
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.SingleEmitter
@@ -68,12 +71,27 @@ object SubscriptionManager {
         Events.logSetBuyError(ex.message)
       }
 
-      val sku = SubscriptionManager.purchases.find { it.sku == p.sku }
+      val purchase = SubscriptionManager.purchases.find { it.sku == p.sku }
       val appEventsLogger = AppEventsLogger.newLogger(App.instance)
       val params = Bundle()
-      params.putString(AppEventsConstants.EVENT_PARAM_CURRENCY, sku?.priceCurrencyCode ?: "RUB")
+      params.putString(AppEventsConstants.EVENT_PARAM_CURRENCY,
+          purchase?.priceCurrencyCode ?: "RUB")
       appEventsLogger.logEvent(AppEventsConstants.EVENT_NAME_START_TRIAL,
-          sku?.price?.toDoubleOrNull() ?: 0.0, params)
+          purchase?.price?.toDoubleOrNull() ?: 0.0, params)
+
+      purchase?.let {
+        UserProperty.setPremStatus(UserProperty.buy)
+        UserProperty.setPremState(purchase.price, purchase.sku)
+
+        val r = Revenue()
+        r.setPrice(purchase.price.toDoubleOrNull() ?: 0.0)
+        r.setProductId(purchase.sku)
+        r.setQuantity(1)
+        r.setRevenueType("subscription")
+        r.setReceipt(p.orderId, p.signature)
+
+        Amplitude.getInstance().logRevenueV2(r)
+      }
 
       App.instance.getSharedPreferences(Config.STATE_BILLING, Context.MODE_PRIVATE)
         .edit()
@@ -85,7 +103,7 @@ object SubscriptionManager {
         .putBoolean(Config.ALERT_BUY_SUBSCRIPTION, true)
         .apply()
 
-      sku?.let {
+      purchase?.let {
         SubscriptionManager.purchases.remove(it)
         stream.offer(it)
       }
@@ -99,7 +117,8 @@ object SubscriptionManager {
     .build()
 
   fun buy(activity: Activity, subscriptionKey: String): Single<Int> {
-    return Single.create(QuerySubscriptionSingle(subscriptionKey))
+    return Single.create(ConnectBilling())
+      .flatMap { Single.create(QuerySubscriptionSingle(subscriptionKey)) }
       .observeOn(AndroidSchedulers.mainThread())
       .map { subscription ->
         billingClient.launchBillingFlow(activity, BillingFlowParams.newBuilder()
@@ -112,9 +131,13 @@ object SubscriptionManager {
     return stream.share()
   }
 
-  class QuerySubscriptionSingle(val subscriptionId: String)
-    : SingleOnSubscribe<SkuDetails> {
-    override fun subscribe(emitter: SingleEmitter<SkuDetails>) {
+  class ConnectBilling : SingleOnSubscribe<Int> {
+    override fun subscribe(emitter: SingleEmitter<Int>) {
+      if (billingClient.isReady) {
+        emitter.onSuccess(BillingClient.BillingResponse.OK)
+        return;
+      }
+
       billingClient.startConnection(object : BillingClientStateListener {
         override fun onBillingServiceDisconnected() {
           emitter.tryOnError(DisconnectedException())
@@ -126,27 +149,10 @@ object SubscriptionManager {
               Log.d("Billing", "setup finished, ok")
             }
 
-            val params = SkuDetailsParams.newBuilder()
-              .setSkusList(arrayListOf(subscriptionId))
-              .setType(SkuType.SUBS)
-              .build()
-
-            billingClient.querySkuDetailsAsync(params) { code, details ->
-              if (BuildConfig.DEBUG) {
-                Log.d("Billing", "query finished, response=$responseCode")
-              }
-
-              val subscription = details.find { it.sku == subscriptionId }
-
-              if (subscription != null) {
-                if (!emitter.isDisposed) {
-                  purchases.add(subscription)
-                  emitter.onSuccess(subscription)
-                }
-              } else {
-                emitter.tryOnError(SubscriptionNotFoundException())
-              }
+            if (!emitter.isDisposed) {
+              emitter.onSuccess(responseCode)
             }
+
           } else {
             if (BuildConfig.DEBUG) {
               Log.d("Billing", "setup finished, error=$responseCode")
@@ -156,6 +162,33 @@ object SubscriptionManager {
           }
         }
       })
+    }
+  }
+
+  class QuerySubscriptionSingle(val subscriptionId: String)
+    : SingleOnSubscribe<SkuDetails> {
+    override fun subscribe(emitter: SingleEmitter<SkuDetails>) {
+      val params = SkuDetailsParams.newBuilder()
+        .setSkusList(arrayListOf(subscriptionId))
+        .setType(SkuType.SUBS)
+        .build()
+
+      billingClient.querySkuDetailsAsync(params) { code, details ->
+        if (BuildConfig.DEBUG) {
+          Log.d("Billing", "query finished, response=$code")
+        }
+
+        val subscription = details.find { it.sku == subscriptionId }
+
+        if (subscription != null) {
+          if (!emitter.isDisposed) {
+            purchases.add(subscription)
+            emitter.onSuccess(subscription)
+          }
+        } else {
+          emitter.tryOnError(SubscriptionNotFoundException())
+        }
+      }
     }
   }
 

@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import com.wsoteam.diet.R
 import com.wsoteam.diet.utils.dp
+import com.wsoteam.diet.utils.getVectorIcon
 
 class PremiumPlanCardView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null)
   : CardView(context, attrs) {
@@ -78,6 +79,18 @@ class PremiumPlanCardView @JvmOverloads constructor(context: Context, attrs: Att
         offsetX + diamondStyle.measuredWidth,
         offsetY + diamondStyle.measuredHeight
     )
+  }
+
+  fun setDiamondStyle(drawableId: Int){
+    diamondStyle.setImageDrawable(context.getVectorIcon(drawableId))
+  }
+
+  fun setDarkAppearance(showDarkAppearance: Boolean) {
+    val color = if (showDarkAppearance) Color.WHITE else Color.BLACK
+
+    arrayOf(helper, helper2, duration, price).forEach {label ->
+      label.setTextColor(color)
+    }
   }
 
   override fun setBackgroundResource(resid: Int) {

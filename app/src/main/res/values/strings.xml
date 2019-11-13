@@ -1058,11 +1058,12 @@ Share your accomplishments with friends:</string>
     <string name="calendar_today">Сегодня</string>
     <string name="widget_weight_title">Измерение тела</string>
     <string name="action_refresh">Обновить</string>
-    <string name="premium_feature_title">Сбрасывайте вес\nбез стресса и жестких диет с\nFiasy Premium</string>
+    <string name="premium_feature_title">Сбрасывайте вес\nбез стресса и жестких диет с\n</string>
+    <string name="premium_feature_title__span">Fiasy Premium</string>
     <string name="premium_feature_exclusive_articles">Эксклюзивные статьи</string>
     <string name="premium_feature_exclusive_articles_description">Вы получите доступ к статьям от популярного диетолога и фитнес-тренера</string>
     <string name="premium_feature_exclusive_recipes">База рецептов</string>
-    <string name="premium_feature_exclusive_recipes_description">Легие в приготовление рецепты с данными КБЖУ с недорогими, но вкусными продуктами</string>
+    <string name="premium_feature_exclusive_recipes_description">Легкие в приготовлении рецепты с данными КБЖУ с недорогими, но вкусными продуктами</string>
     <string name="premium_feature_personal_settings_description">Вы сможете просматривать и регулировать уровень своего КБЖУ</string>
     <string name="premium_feature_personal_settings">Персональные настройки</string>
     <string name="premium_feature_measurements">Измерения тела</string>
@@ -1167,5 +1168,7 @@ Share your accomplishments with friends:</string>
   <string name="timer_hours_left">часы</string>
   <string name="timer_minutes_left">минуты</string>
   <string name="timer_padded_value">%02d</string>
+  <string name="premium_black_friday_days_remained_hint">До конца акции осталось</string>
+  <string name="subscription_not_found">Подписка не найдена, возможно она не доступна в вашей стране</string>
   //
 </resources>

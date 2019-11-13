@@ -40,14 +40,10 @@ constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(contex
       setupTimeout(System.currentTimeMillis()
               + DAYS.toMillis(3)
               + HOURS.toMillis(3))
-    } else {
-      setupTimeout(System.currentTimeMillis()
-              + DAYS.toMillis(3)
-              + HOURS.toMillis(3))
     }
   }
 
-  private fun setupTimeout(end: Long) {
+  fun setupTimeout(end: Long) {
     val diff = (end - System.currentTimeMillis())
 
     val days = MILLISECONDS.toDays(diff)

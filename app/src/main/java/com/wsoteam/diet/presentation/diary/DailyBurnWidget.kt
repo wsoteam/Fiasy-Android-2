@@ -1,7 +1,5 @@
 package com.wsoteam.diet.presentation.diary
 
-import android.graphics.Color
-import android.graphics.drawable.ClipDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.text.SpannableString
@@ -20,14 +18,13 @@ import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.presentation.activity.DiaryActivitiesSource
 import com.wsoteam.diet.presentation.diary.Meals.MealsDetailedResult
-import com.wsoteam.diet.utils.RichTextUtils
 import com.wsoteam.diet.utils.dp
 import com.wsoteam.diet.utils.getVectorIcon
+import com.wsoteam.diet.utils.RichTextUtils.setTextColor
 import com.wsoteam.diet.views.ExperienceProgressView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.lang.NullPointerException
 import kotlin.math.abs
 
 open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
@@ -83,8 +80,7 @@ open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView)
   override fun onBind(parent: RecyclerView, position: Int) {
     UserDataHolder.getUserData()?.profile?.let { profile ->
       title.text = TextUtils.concat("Ежедневная норма = ",
-          RichTextUtils.setTextColor("${profile.maxKcal} ккал",
-              itemView.context, R.color.orange))
+          "${profile.maxKcal} ккал".setTextColor(itemView.context, R.color.orange))
 
       progressView.max = profile.maxKcal
 

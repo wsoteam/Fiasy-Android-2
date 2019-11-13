@@ -3,6 +3,8 @@ package com.wsoteam.diet.presentation.premium
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.text.TextUtils
+import android.text.method.LinkMovementMethod
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
@@ -12,6 +14,8 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.view.Window
 import android.widget.ImageView
 import android.widget.ImageView.ScaleType.CENTER_INSIDE
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -22,14 +26,22 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wsoteam.diet.R
+import com.wsoteam.diet.R.string
+import com.wsoteam.diet.presentation.premium.SubscriptionManager.SetupFailedException
+import com.wsoteam.diet.presentation.premium.SubscriptionManager.SubscriptionNotFoundException
 import com.wsoteam.diet.utils.IntentUtils
-import com.wsoteam.diet.utils.RichTextUtils
+import com.wsoteam.diet.utils.RichTextUtils.RichText
+import com.wsoteam.diet.utils.RichTextUtils.strikethrough
 import com.wsoteam.diet.utils.asCurrency
 import com.wsoteam.diet.utils.dp
 import com.wsoteam.diet.views.DotIndicatorView
 import com.wsoteam.diet.views.PremiumPlanCardView
+import com.wsoteam.diet.views.TimerView
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.Consumer
+import io.reactivex.internal.functions.Functions.emptyConsumer
 
 class PremiumFeaturesActivity : AppCompatActivity() {
   companion object {
@@ -39,28 +51,28 @@ class PremiumFeaturesActivity : AppCompatActivity() {
             duration = R.string.premium_subscription_1_year,
             diamondStyleId = R.drawable.ic_blue_diamond,
             monthlyPrice = 79,
-            benefitPercentage = 83,
+            benefitPercentage = 75,
             benefitTintColor = Color.WHITE,
             benefitTextColor = Color.BLACK,
             prevMonthlyPrice = 316
         ),
 
         PremiumPlan(key = "premium_6month",
-            price = 1490,
+            price = 1450,
             duration = R.string.premium_subscription_6_month,
             diamondStyleId = R.drawable.ic_gold_diamond,
-            monthlyPrice = 248,
-            benefitPercentage = 50,
+            monthlyPrice = 241,
+            benefitPercentage = 24,
             benefitTintColor = 0xFFEFB476.toInt(),
             benefitTextColor = Color.WHITE,
             prevMonthlyPrice = 316
         ),
 
         PremiumPlan(key = "premium_3month",
-            price = 990,
+            price = 949,
             duration = R.string.premium_subscription_3_month,
             diamondStyleId = R.drawable.ic_silver_diamond,
-            monthlyPrice = 330,
+            monthlyPrice = 316,
             benefitPercentage = 29,
             benefitTintColor = 0xFFEFB476.toInt(),
             benefitTextColor = Color.WHITE,
@@ -73,7 +85,7 @@ class PremiumFeaturesActivity : AppCompatActivity() {
   private var purchasedId: String? = null
 
   private val isDarkTheme: Boolean
-    get() = intent.getBooleanExtra("darkMode", true)
+    get() = "dark" == FirebaseRemoteConfig.getInstance().getString("premium_theme")
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -90,6 +102,39 @@ class PremiumFeaturesActivity : AppCompatActivity() {
 
     setContentView(R.layout.activity_premium_dark)
 
+    findViewById<TextView>(R.id.privacy_policy).apply {
+      movementMethod = LinkMovementMethod.getInstance()
+      text = RichText(text)
+        .onClick(View.OnClickListener { v ->
+          IntentUtils.openWebLink(v.context,
+              getString(R.string.url_privacy_police))
+        })
+        .text()
+    }
+
+    val timerLabel = findViewById<View>(R.id.timer_label)
+    findViewById<TimerView>(R.id.timer).apply {
+      val endDate = FirebaseRemoteConfig.getInstance().getLong("premium_timer_date")
+
+      if (System.currentTimeMillis() > endDate) {
+        visibility = View.GONE
+        timerLabel.visibility = View.GONE
+      }
+
+      setupTimeout(endDate)
+    }
+
+    findViewById<TextView>(R.id.title).apply {
+      val fullLabel = getString(R.string.premium_feature_title)
+      val spannedLabel = RichText(getString(R.string.premium_feature_title__span))
+        .bold()
+        .colorRes(context, R.color.orange_premium)
+        .textScale(1.4f)
+        .text()
+
+      text = TextUtils.concat(fullLabel, spannedLabel)
+    }
+
     disposables.add(SubscriptionManager.purchases()
       .filter { it.sku == purchasedId }
       .doOnNext {
@@ -97,14 +142,15 @@ class PremiumFeaturesActivity : AppCompatActivity() {
 
         IntentUtils.openMainActivity(this)
       }
-      .subscribe())
+      .subscribe(emptyConsumer(), emptyConsumer())
+    )
 
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar.setNavigationOnClickListener {
       finish()
     }
 
-    val buyButton = findViewById<View>(R.id.action_buy)
+    val buyButton = findViewById<TextView>(R.id.action_buy)
     val tariffsContainer = findViewById<RecyclerView>(R.id.tarifs)
 
     buyButton.setOnClickListener {
@@ -122,13 +168,19 @@ class PremiumFeaturesActivity : AppCompatActivity() {
         val lm = p.layoutManager as LinearLayoutManager
 
         val color: ColorStateList?
+        val textColor: Int
+
         if (newState == RecyclerView.SCROLL_STATE_IDLE &&
             lm.findFirstCompletelyVisibleItemPosition() == 0) {
           color = ContextCompat.getColorStateList(p.context, R.color.premium_button_buy_gold_color)
+          textColor = Color.WHITE
         } else {
-          color = ContextCompat.getColorStateList(p.context, R.color.premium_button_buy_ordinary_color)
+          color =
+            ContextCompat.getColorStateList(p.context, R.color.premium_button_buy_ordinary_color)
+          textColor = Color.BLACK
         }
 
+        buyButton.setTextColor(textColor)
         ViewCompat.setBackgroundTintList(buyButton, color)
       }
     })
@@ -167,12 +219,23 @@ class PremiumFeaturesActivity : AppCompatActivity() {
     }
   }
 
-  fun purchase(subscriptionId: String){
+  fun purchase(subscriptionId: String) {
     purchasedId = subscriptionId
 
     disposables.add(SubscriptionManager
       .buy(this, purchasedId ?: "premium_year")
-      .subscribe())
+      .subscribe(emptyConsumer(), Consumer { error ->
+        val toast = when (error) {
+          is SubscriptionNotFoundException ->
+            Toast.makeText(this, string.subscription_not_found, Toast.LENGTH_SHORT)
+          is SetupFailedException ->
+            Toast.makeText(this, string.subscription_not_found, Toast.LENGTH_SHORT)
+
+          else -> null
+        }
+
+        toast?.show()
+      }))
   }
 
   override fun onDestroy() {
@@ -193,7 +256,7 @@ class PremiumFeaturesActivity : AppCompatActivity() {
     val benefitTextColor: Int
   )
 
-  public class PlanHolder(val view: PremiumPlanCardView) : ViewHolder(view)
+  class PlanHolder(val view: PremiumPlanCardView) : ViewHolder(view)
 
   open class PlansAdapter(val isDarkMode: Boolean = false) : Adapter<PlanHolder>() {
     open fun getLayoutParams(parent: ViewGroup, viewType: Int): LayoutParams {
@@ -217,17 +280,7 @@ class PremiumFeaturesActivity : AppCompatActivity() {
     }
 
     override fun onBindViewHolder(holder: PlanHolder, position: Int) {
-      if (position == 0) {
-        if (isDarkMode) {
-          holder.view.setBackgroundResource(R.drawable.premium_annual_plan_gold_background)
-        } else {
-          holder.view.setBackgroundResource(R.drawable.premium_annual_plan_background)
-        }
-      } else {
-        holder.view.setBackgroundResource(R.color.white)
-      }
-
-      holder.view.diamondStyle.setImageResource(plans[position].diamondStyleId)
+      holder.view.setDiamondStyle(plans[position].diamondStyleId)
       holder.view.duration.setText(plans[position].duration)
       holder.view.price.text = plans[position].price.asCurrency
       holder.view.helper.text = holder.view.context
@@ -237,18 +290,38 @@ class PremiumFeaturesActivity : AppCompatActivity() {
         val message = holder.view.context.getString(R.string.premium_subscription_per_month,
             plans[position].prevMonthlyPrice.asCurrency)
 
-        holder.view.helper2.text = RichTextUtils.strikethrough(message)
+        holder.view.helper2.text = message.strikethrough()
       } else {
         holder.view.helper2.text = ""
       }
 
-      holder.view.setBenefitsPercentage(
-          plans[position].benefitPercentage,
-          plans[position].benefitTintColor,
-          plans[position].benefitTextColor
-      )
-    }
+      if (position == 0) {
+        holder.view.setDarkAppearance(isDarkMode)
 
+        if (isDarkMode) {
+          holder.view.setDiamondStyle(R.drawable.ic_brilliant_black)
+          holder.view.setBackgroundResource(R.drawable.premium_annual_plan_gold_background)
+        } else {
+          holder.view.setBackgroundResource(R.drawable.premium_annual_plan_background)
+        }
+      } else {
+        holder.view.setBackgroundResource(R.color.white)
+      }
+
+      if (isDarkMode) {
+        holder.view.setBenefitsPercentage(
+            plans[position].benefitPercentage,
+            Color.BLACK,
+            Color.WHITE
+        )
+      } else {
+        holder.view.setBenefitsPercentage(
+            plans[position].benefitPercentage,
+            plans[position].benefitTintColor,
+            plans[position].benefitTextColor
+        )
+      }
+    }
   }
 
   private class ReviewHolder(private val image: ImageView) : RecyclerView.ViewHolder(image) {

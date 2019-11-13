@@ -3,19 +3,27 @@ package com.wsoteam.diet;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import androidx.annotation.NonNull;
 import androidx.multidex.MultiDexApplication;
 import androidx.room.Room;
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
 import com.amplitude.api.Amplitude;
 import com.bugsee.library.Bugsee;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.onesignal.OneSignal;
 import com.orm.SugarContext;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import java.util.concurrent.TimeUnit;
 
 import static com.adjust.sdk.AdjustConfig.ENVIRONMENT_PRODUCTION;
 import static com.wsoteam.diet.EventsAdjust.app_token;
@@ -40,6 +48,12 @@ public class App extends MultiDexApplication {
 
         FirebaseApp.initializeApp(getApplicationContext());
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+        FirebaseRemoteConfig.getInstance()
+            .fetchAndActivate()
+            .addOnSuccessListener(result2 -> {
+                Log.d("RemoteConfig", "configs updated=" + result2);
+            });
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             WorkWithFirebaseDB.setFirebaseStateListener();

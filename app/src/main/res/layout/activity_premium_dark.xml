@@ -22,15 +22,17 @@
         />
 
     <TextView
+        android:id="@+id/timer_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
+        android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-light"
         android:textStyle="normal"
         android:textColor="?android:textColorPrimary"
         android:layout_gravity="center_horizontal"
         android:lineSpacingExtra="6sp"
-        tools:text="До конца акции осталось"
+        android:text="@string/premium_black_friday_days_remained_hint"
         />
 
     <com.wsoteam.diet.views.TimerView
@@ -51,6 +53,7 @@
         />
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -181,6 +184,48 @@
           android:max="5"
           />
 
+
+      <LinearLayout
+          android:orientation="horizontal"
+          android:gravity="center"
+          android:layout_marginBottom="8dp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            app:srcCompat="@drawable/ic_google_store"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="?android:textColorPrimary"
+            android:text="4.7"
+            android:layout_marginRight="16dp"
+            />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_apple_store"
+            android:layout_marginRight="8dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="?android:textColorPrimary"
+            android:text="4.9"
+            />
+
+      </LinearLayout>
+
       <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/reviews"
           android:layout_width="match_parent"
@@ -249,7 +294,7 @@
         android:layout_height="wrap_content"
         android:background="?overlayColor"
         app:title="Дневник питания и нагрузок"
-        app:titleStyle="@style/FeatureDescription.Title"
+        app:titleStyle="?titleStyle"
         app:free="true"
         app:premium="true"
         />
@@ -305,6 +350,8 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:layout_marginTop="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
         android:fontFamily="sans-serif"
         android:textStyle="bold"
         android:textColor="@color/white"
@@ -317,6 +364,7 @@
         />
 
     <TextView
+        android:id="@+id/privacy_policy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="12sp"

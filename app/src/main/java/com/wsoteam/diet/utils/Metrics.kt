@@ -21,3 +21,8 @@ val currencyFormatter = DecimalFormat().apply {
 
 val Number.asCurrency: String
   get() = "$this${currency.symbol}"
+
+
+fun Context.dp2px(value: Float): Int{
+  return dp(this, value)
+}

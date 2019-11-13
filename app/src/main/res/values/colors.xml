@@ -44,6 +44,8 @@
   <color name="darkWithoutAlfaJustMoreBlack">#262525</color>
   <color name="transparent">#00b41c1c</color>
 
+  <color name="orange_premium">#E79648</color>
+
 
   <!--Colors for cirlce progress on main screen-->
   <color name="backgroundColor">#FFFFFF</color>

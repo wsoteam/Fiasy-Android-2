@@ -52,6 +52,11 @@ public class UserProperty {
     public static final String paid = "paid";
 
     public static final String premium_duration = "premium_duration";
+    public static final String premium_price = "premium_price";
+    public static final String premium_6month = "6month";
+    public static final String premium_3month = "3month";
+    public static final String premium_year = "year";
+
     public static final String trial_duration = "trial_duration";
     public static final String ltv_duration = "ltv_duration";
     public static final String ltv_revenue = "ltv_revenue";
@@ -134,6 +139,14 @@ public class UserProperty {
     public static void setPremStatus(String status) {
         Identify identify = new Identify()
                 .set(premium_status, status);
+        Amplitude.getInstance().identify(identify);
+    }
+
+    public static void setPremState(String price, String duration) {
+        final Identify identify = new Identify()
+            .set(premium_duration, price)
+            .set(premium_price, duration);
+
         Amplitude.getInstance().identify(identify);
     }
 

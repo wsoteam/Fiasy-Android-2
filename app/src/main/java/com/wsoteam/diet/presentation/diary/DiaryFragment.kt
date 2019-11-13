@@ -18,6 +18,7 @@ import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
 import com.wsoteam.diet.utils.FiasyDateUtils
 import com.wsoteam.diet.utils.ImageSpan
+import com.wsoteam.diet.utils.RichTextUtils
 import com.wsoteam.diet.utils.RichTextUtils.replaceWithIcon
 import com.wsoteam.diet.utils.dp
 import com.wsoteam.diet.utils.getVectorIcon
@@ -265,7 +266,7 @@ class DiaryFragment : Fragment() {
     dropdownIcon.setBounds(0, 0, dp(requireContext(), 16f), dp(requireContext(), 16f))
 
     val dropdownSpan = ImageSpan(dropdownIcon, ImageSpan.ALIGN_BASELINE)
-    toolbar.title = TextUtils.concat(toolbar.title, " ", replaceWithIcon(" ", dropdownSpan))
+    toolbar.title = TextUtils.concat(toolbar.title, " ", " ".replaceWithIcon(dropdownSpan))
   }
 
 }

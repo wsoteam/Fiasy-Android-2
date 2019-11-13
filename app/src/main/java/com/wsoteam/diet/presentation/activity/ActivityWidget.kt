@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
@@ -46,9 +47,9 @@ class ActivityWidget(context: Context) : CardView(context) {
     emptyStateText = findViewById(R.id.empty_description)
 
     val addAction = RichText(context.getString(string.action_add))
-      .onClick {
+      .onClick(OnClickListener {
         display(UserActivityFragment())
-      }
+      })
       .colorRes(context, R.color.orange)
       .textScale(1.2f)
       .text()
