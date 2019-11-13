@@ -24,6 +24,19 @@ import java.util.Calendar;
 
 public class RateDialogs {
 
+    public static void showWhiteDialog(Context context){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog alertDialog = builder.create();
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.alert_dialog_grade_white, null);
+
+
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        alertDialog.setView(view);
+        alertDialog.show();
+
+    }
+
     public static void showGradeDialog(Context context, boolean isForceCall) {
         if (!isForceCall) {
             context.getSharedPreferences(Config.IS_GRADE_APP, Context.MODE_PRIVATE).

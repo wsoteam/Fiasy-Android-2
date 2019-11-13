@@ -142,6 +142,12 @@
         <item name="android:progressDrawable">@drawable/orange_ratingbar</item>
     </style>
 
+    <style name="ImageRatingBarWhite" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/white_ratingbar</item>
+        <item name="android:minHeight">10dip</item>
+        <item name="android:maxHeight">10dip</item>
+    </style>
+
     <style name="SleepActivity" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#b49042</item>
         <item name="colorPrimaryDark">#b49042</item>
