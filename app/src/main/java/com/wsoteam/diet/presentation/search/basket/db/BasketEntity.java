@@ -223,49 +223,49 @@ public class BasketEntity implements ISearchResult, Serializable {
       brand = result.getBrand().getName();
     }
 
-    this.countPortions = countPortions;
+    this.countPortions = sizePortion;
     isLiquid = result.isLiquid();
-    calories = countPortions * result.getCalories();
-    proteins = countPortions * result.getProteins();
-    carbohydrates = countPortions * result.getCarbohydrates();
-    fats = countPortions * result.getFats();
+    calories = sizePortion * result.getCalories();
+    proteins = sizePortion * result.getProteins();
+    carbohydrates = sizePortion * result.getCarbohydrates();
+    fats = sizePortion * result.getFats();
     if (result.getSugar() != Config.EMPTY_COUNT) {
-      sugar = result.getSugar() * countPortions;
+      sugar = result.getSugar() * sizePortion;
     } else {
       sugar = Config.EMPTY_COUNT;
     }
     if (result.getSaturatedFats() != Config.EMPTY_COUNT) {
-      saturatedFats = result.getSaturatedFats() * countPortions;
+      saturatedFats = result.getSaturatedFats() * sizePortion;
     } else {
       saturatedFats = Config.EMPTY_COUNT;
     }
     if (result.getMonounsaturatedFats() != Config.EMPTY_COUNT) {
-      monoUnSaturatedFats = result.getMonounsaturatedFats() * countPortions;
+      monoUnSaturatedFats = result.getMonounsaturatedFats() * sizePortion;
     } else {
       monoUnSaturatedFats = Config.EMPTY_COUNT;
     }
     if (result.getPolyunsaturatedFats() != Config.EMPTY_COUNT) {
-      polyUnSaturatedFats = result.getPolyunsaturatedFats() * countPortions;
+      polyUnSaturatedFats = result.getPolyunsaturatedFats() * sizePortion;
     } else {
       polyUnSaturatedFats = Config.EMPTY_COUNT;
     }
     if (result.getCholesterol() != Config.EMPTY_COUNT) {
-      cholesterol = result.getCholesterol() * countPortions;
+      cholesterol = result.getCholesterol() * sizePortion;
     } else {
       cholesterol = Config.EMPTY_COUNT;
     }
     if (result.getCellulose() != Config.EMPTY_COUNT) {
-      cellulose = result.getCellulose() * countPortions;
+      cellulose = result.getCellulose() * sizePortion;
     } else {
       cellulose = Config.EMPTY_COUNT;
     }
     if (result.getSodium() != Config.EMPTY_COUNT) {
-      sodium = result.getSodium() * countPortions;
+      sodium = result.getSodium() * sizePortion;
     } else {
       sodium = Config.EMPTY_COUNT;
     }
     if (result.getPottasium() != Config.EMPTY_COUNT) {
-      pottassium = result.getPottasium() * countPortions;
+      pottassium = result.getPottasium() * sizePortion;
     } else {
       pottassium = Config.EMPTY_COUNT;
     }
@@ -275,6 +275,7 @@ public class BasketEntity implements ISearchResult, Serializable {
     this.deepId = deepId;
     this.sizePortion = sizePortion;
     this.namePortion = namePortion;
+    this.countPortions = countPortions;
   }
 
   public void append(BasketEntity appendObj) {

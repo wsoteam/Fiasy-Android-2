@@ -88,8 +88,8 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
     portionsSizes = new ArrayList<>();
     ArrayList<String> names = new ArrayList<>();
 
-    if (basketEntity.getNamePortion() != null && !basketEntity.getNamePortion().equals(Config.DEFAULT_PORTION_NAME) && !basketEntity.getNamePortion().equals(Config.DEFAULT_CUSTOM_NAME)) {
-      portionsSizes.add(basketEntity.getCountPortions());
+    if (basketEntity.getSizePortion() != Config.DEFAULT_WEIGHT) {
+      portionsSizes.add(basketEntity.getSizePortion());
       names.add(basketEntity.getNamePortion());
     }
 
@@ -152,7 +152,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
     basketEntity.setFats(fat);
     basketEntity.setCarbohydrates(carbohydrates);
     basketEntity.setProteins(proteins);
-    basketEntity.setCountPortions(countPortions * portionsSizes.get(position));
+    basketEntity.setCountPortions(countPortions);
     basketEntity.setEatingType(selectedItemPosition);
 
     if (portionsSizes.get(position) == MINIMAL_PORTION) {

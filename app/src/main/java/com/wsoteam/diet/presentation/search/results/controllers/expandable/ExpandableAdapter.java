@@ -43,8 +43,8 @@ public class ExpandableAdapter extends RecyclerView.Adapter<ExpandableVH> {
 
   private BasketEntity createNewFood(int position) {
     BasketEntity basketEntity =
-        new BasketEntity(result, result.getMeasurementUnits().get(position).getAmount(),
-            1,
+        new BasketEntity(result, 1,
+            result.getMeasurementUnits().get(position).getAmount(),
             result.getMeasurementUnits().get(position).getName(), 0,
             position);
     return basketEntity;

@@ -2,7 +2,6 @@ package com.wsoteam.diet.presentation.search.results.controllers;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -134,7 +133,8 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                             @Override
                             public void open(int position) {
-                                openDetailActivity(createBasketEntityDetail(position));
+                                BasketEntity basketEntity = new BasketEntity((Result) foods.get(position), Config.DEFAULT_WEIGHT, basketUpdater.getCurrentEating(), ((Result) foods.get(position)).getId());
+                                openDetailActivity(findInBasket(basketEntity));
                             }
                         });
                 break;
@@ -175,7 +175,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             @Override
                             public void open(BasketEntity basketEntity) {
                                 basketEntity.setEatingType(basketUpdater.getCurrentEating());
-                                openDetailActivity(basketEntity);
+                                openDetailActivity(findInBasket(basketEntity));
                             }
                         });
                 break;
@@ -192,8 +192,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return new BasketEntity((Result) foods.get(position), basketUpdater.getCurrentEating());
     }
 
-    private BasketEntity createBasketEntityDetail(int position) {
-        BasketEntity basketEntity = new BasketEntity((Result) foods.get(position), Config.DEFAULT_WEIGHT, basketUpdater.getCurrentEating(), ((Result) foods.get(position)).getId());
+    private BasketEntity findInBasket(BasketEntity basketEntity) {
         for (int i = 0; i < savedFood.size(); i++) {
             if (basketEntity.getEatingType() == savedFood.get(i).getEatingType()
                     && basketEntity.getServerId() == savedFood.get(i).getServerId()
