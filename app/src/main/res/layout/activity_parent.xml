@@ -65,8 +65,7 @@
             android:padding="16dp"
             android:src="@drawable/food_search_back"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
             android:id="@+id/spnEatingList"
