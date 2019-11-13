@@ -55,6 +55,7 @@ public class WorkWithFirebaseDB {
     private final static MutableLiveData<Integer> databaseUpdates = new MutableLiveData<>();
     private final static AtomicBoolean hasUpdatesListener = new AtomicBoolean(false);
 
+
     public static LiveData<Integer> liveUpdates(){
         return databaseUpdates;
     }

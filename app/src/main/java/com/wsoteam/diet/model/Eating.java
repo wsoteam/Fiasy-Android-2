@@ -1,10 +1,8 @@
 package com.wsoteam.diet.model;
 
-import com.orm.SugarRecord;
-
 import java.io.Serializable;
 
-public class Eating extends SugarRecord implements Serializable {
+public class Eating implements Serializable {
     private String name;
     private String urlOfImages;
 

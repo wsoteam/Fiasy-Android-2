@@ -65,6 +65,12 @@ open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView)
     updateProgress(currentState)
   }
 
+  private val paramsObserver = Observer<Int> { id ->
+    if(id == WorkWithFirebaseDB.WEIGHT_UPDATED){
+      setMax()
+    }
+  }
+
   init {
     (progressView.progressDrawable as? LayerDrawable)?.let {
       progressDrawable = DrawableCompat.wrap(it.findDrawableByLayerId(android.R.id.progress))
@@ -78,6 +84,11 @@ open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView)
   }
 
   override fun onBind(parent: RecyclerView, position: Int) {
+    setMax()
+    showPlanForCurrentDay()
+  }
+
+  private fun setMax() {
     UserDataHolder.getUserData()?.profile?.let { profile ->
       title.text = TextUtils.concat("Ежедневная норма = ",
           "${profile.maxKcal} ккал".setTextColor(itemView.context, R.color.orange))
@@ -88,8 +99,6 @@ open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView)
       carbonsView.progressView.max = profile.maxCarbo
       proteinsView.progressView.max = profile.maxProt
     }
-
-    showPlanForCurrentDay()
   }
 
   private fun showPlanForCurrentDay() {
@@ -163,6 +172,7 @@ open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView)
 
     DiaryViewModel.selectedDate.observeForever(dateObserver)
     WorkWithFirebaseDB.liveUpdates().observeForever(dateObserver)
+    WorkWithFirebaseDB.liveUpdates().observeForever(paramsObserver)
     DiaryActivitiesSource.burnedLive.observeForever(activityObserver)
   }
 
@@ -171,6 +181,7 @@ open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView)
 
     DiaryViewModel.selectedDate.removeObserver(dateObserver)
     WorkWithFirebaseDB.liveUpdates().removeObserver(dateObserver)
+    WorkWithFirebaseDB.liveUpdates().removeObserver(paramsObserver)
     DiaryActivitiesSource.burnedLive.removeObserver(activityObserver)
 
     disposables.clear()

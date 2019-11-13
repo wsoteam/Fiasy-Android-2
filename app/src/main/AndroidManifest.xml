@@ -243,19 +243,6 @@
         android:name="com.google.android.gms.ads.AD_MANAGER_APP"
         android:value="true" />
     <meta-data
-        android:name="DATABASE"
-        android:value="foodBase.db" />
-    <meta-data
-        android:name="VERSION"
-        android:value="4" />
-
-    <meta-data
-        android:name="QUERY_LOG"
-        android:value="true" />
-    <meta-data
-        android:name="DOMAIN_PACKAGE_NAME"
-        android:value="com.wsoteam.diet" />
-    <meta-data
         android:name="preloaded_fonts"
         android:resource="@array/preloaded_fonts" />
 
@@ -268,16 +255,6 @@
         android:authorities="com.facebook.app.FacebookContentProvider1234"
         android:exported="true" />
 
-    <receiver
-        android:name=".Services.AlarmManagerBR"
-        android:enabled="true"
-        android:exported="true" />
-    <receiver android:name=".Services.RestartReceiver">
-      <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED" />
-        <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-      </intent-filter>
-    </receiver>
     <receiver
         android:name="com.adjust.sdk.AdjustReferrerReceiver"
         android:exported="true"

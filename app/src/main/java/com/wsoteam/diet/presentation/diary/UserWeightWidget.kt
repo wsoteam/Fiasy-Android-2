@@ -27,11 +27,11 @@ class UserWeightWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView), On
         }
     }
 
-    private val weightObserver = Observer<Int> { id ->
+    /*private val weightObserver = Observer<Int> { id ->
         if ((id ?: -1) == WorkWithFirebaseDB.WEIGHT_UPDATED) {
             getWeightHistory()
         }
-    }
+    }*/
 
 
     fun openMeasScreen() {
@@ -40,26 +40,27 @@ class UserWeightWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView), On
 
     override fun onBind(parent: RecyclerView, position: Int) {
         super.onBind(parent, position)
-        getWeightHistory()
+        //getWeightHistory()
     }
 
     override fun onAttached(parent: RecyclerView) {
         super.onAttached(parent)
         actionRefresh.setOnClickListener(this)
 
-        WorkWithFirebaseDB.liveUpdates().observeForever(weightObserver)
+        //WorkWithFirebaseDB.liveUpdates().observeForever(weightObserver)
 
     }
 
     override fun onDetached(parent: RecyclerView) {
         super.onDetached(parent)
+        //WorkWithFirebaseDB.liveUpdates().removeObserver(weightObserver)
         actionRefresh.setOnClickListener(null)
     }
 
     private fun getWeightHistory() {
         val keys: ArrayList<String>
         val values: ArrayList<String>
-        if (UserDataHolder.getUserData().weights != null && UserDataHolder.getUserData().weights.size > 0) {
+        if (UserDataHolder.getUserData().profile != null && UserDataHolder.getUserData().weights != null && UserDataHolder.getUserData().weights.size > 0) {
             val weightHashMap = UserDataHolder.getUserData().weights
             keys = ArrayList()
             val iterator = weightHashMap.entries.iterator()

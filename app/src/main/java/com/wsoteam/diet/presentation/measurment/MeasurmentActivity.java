@@ -255,12 +255,13 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
         }
         break;
       case R.id.ivInfo:
-        if (cvPseudoToast.getAnimation() == null) {
+        /*if (cvPseudoToast.getAnimation() == null) {
           handlePseudoToast();
-        }
+        }*/
+        startActivity(new Intent(MeasurmentActivity.this, HelpActivity.class));
         break;
       case R.id.tvOpenInfo:
-        startActivity(new Intent(MeasurmentActivity.this, HelpActivity.class));
+        //startActivity(new Intent(MeasurmentActivity.this, HelpActivity.class));
         break;
     }
   }
