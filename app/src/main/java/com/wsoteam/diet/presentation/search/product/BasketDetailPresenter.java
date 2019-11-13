@@ -74,7 +74,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
     portionsSizes = new ArrayList<>();
     ArrayList<String> names = new ArrayList<>();
 
-    if (basketEntity.getSizePortion() != Config.DEFAULT_WEIGHT) {
+    if (basketEntity.getSizePortion() > Config.DEFAULT_WEIGHT) {
       portionsSizes.add(basketEntity.getSizePortion());
       names.add(basketEntity.getNamePortion());
     }
