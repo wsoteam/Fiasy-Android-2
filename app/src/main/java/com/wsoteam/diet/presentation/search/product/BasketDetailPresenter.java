@@ -37,8 +37,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
   private int position = 0;
   private final int EMPTY_FIELD = -1;
   private BasketDAO basketDAO;
-  private int firstPasteCountPortion, firstPasteSizePortion;
-  private String firstPasteNamePortion;
+  private int defaultCountPortions;
 
   public BasketDetailPresenter() {
   }
@@ -52,7 +51,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
   @Override
   protected void onFirstViewAttach() {
     Log.e("LOL", basketEntity.toString());
-    fillPasteConst();
+    defaultCountPortions = basketEntity.getCountPortions();
     handlePortions();
     int portionSize = portionsSizes.get(0);
     getViewState().fillFields(basketEntity.getName(), basketEntity.getFats(),
@@ -65,23 +64,10 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
         portionSize, basketEntity.isLiquid());
   }
 
-  private void fillPasteConst() {
-    firstPasteCountPortion = basketEntity.getCountPortions();
-    firstPasteSizePortion = basketEntity.getSizePortion();
-    firstPasteNamePortion = basketEntity.getNamePortion();
-  }
 
 
   public void handleAutoPaste() {
-    int count;
-    if (firstPasteNamePortion.equalsIgnoreCase(Config.DEFAULT_PORTION_NAME) || firstPasteNamePortion.equalsIgnoreCase(Config.DEFAULT_CUSTOM_NAME)){
-      count = firstPasteCountPortion * firstPasteSizePortion;
-    }else {
-      Log.e("LOL", String.valueOf(firstPasteCountPortion));
-      Log.e("LOL", String.valueOf(portionsSizes.get(position)));
-      count = firstPasteCountPortion / portionsSizes.get(position);
-    }
-    getViewState().pasteDefaultWeight(count);
+    getViewState().pasteDefaultWeight(defaultCountPortions);
   }
 
   void handlePortions() {
