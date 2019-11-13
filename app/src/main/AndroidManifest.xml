@@ -28,6 +28,12 @@
         android:networkSecurityConfig="@xml/network_security"
         android:theme="@style/AppTheme">
 
+        <activity
+            android:name=".articles.BurlakovAuthorActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Article" />
+
         <activity android:name=".presentation.promo.PromoFormActivity"
             android:screenOrientation="portrait"
             android:theme="@style/PromoScreen"/>

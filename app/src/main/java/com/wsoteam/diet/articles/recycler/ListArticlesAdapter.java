@@ -36,7 +36,7 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         default:
         ArticleViewHolder viewHolder = new ArticleViewHolder(viewGroup, R.layout.article_view_holder_2);
         viewHolder.setOnClickListener((View v) ->
-                onItemClickListener.onItemClick(v, listItem.get(viewHolder.getAdapterPosition())));
+                onItemClickListener.onItemClick(v, listItem.get(viewHolder.getAdapterPosition() - 1)));
         return viewHolder;
     }
   }

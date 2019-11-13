@@ -1,28 +1,12 @@
 package com.wsoteam.diet.presentation.plans.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-import com.wsoteam.diet.DietPlans.POJO.DietPlan;
-import com.wsoteam.diet.DietPlans.POJO.DietsList;
-import com.wsoteam.diet.R;
-import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
-
-import java.util.LinkedList;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.ColorUtils;
@@ -30,6 +14,16 @@ import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.squareup.picasso.Picasso;
+import com.wsoteam.diet.DietPlans.POJO.DietPlan;
+import com.wsoteam.diet.DietPlans.POJO.DietsList;
+import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
+import com.wsoteam.diet.utils.PaletteExtractorTransformation;
+import io.reactivex.functions.Consumer;
+import java.util.LinkedList;
+import java.util.List;
 
 import static android.text.TextUtils.concat;
 
@@ -47,10 +41,10 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
     this.dietPlans = new LinkedList<>(dietsList.getDietPlans());
 
     if (UserDataHolder.getUserData().getPlan() != null && !dietsList.getProperties().equals(
-            BrowsePlansFragment.currentPlanProperti)) {
+        BrowsePlansFragment.currentPlanProperti)) {
       for (int i = 0; i < dietPlans.size(); i++) {
         if (dietPlans.get(i).getName().equals(
-                UserDataHolder.getUserData().getPlan().getName())) {
+            UserDataHolder.getUserData().getPlan().getName())) {
           this.dietPlans.remove(i);
           break;
         }
@@ -69,7 +63,7 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
     switch (viewType) {
       default: {
         View v1 = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_diet, viewGroup, false);
+            .inflate(R.layout.item_diet, viewGroup, false);
         return new HorizontalViewHolder(v1);
       }
     }
@@ -107,13 +101,19 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
   }
 
   class HorizontalViewHolder extends RecyclerView.ViewHolder
-          implements View.OnClickListener, View.OnLongClickListener {
+      implements View.OnClickListener, View.OnLongClickListener {
 
     @BindView(R.id.ivDiet) ImageView imageView;
     @BindView(R.id.tvDietsName) TextView tvName;
     @BindView(R.id.tvDietsTime) TextView tvTime;
     @BindView(R.id.background) LinearLayout background;
     @BindView(R.id.premLabel) ConstraintLayout premLabel;
+
+    private Consumer<Palette> paletteConsumer = p -> {
+      int mainColor = p.getMutedColor(0);
+      int alphaColor = 191;
+      background.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
+    };
 
     public HorizontalViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -127,42 +127,18 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
       premLabel.setVisibility(dietPlan.isPremium() ? View.VISIBLE : View.GONE);
       tvName.setText(dietPlan.getName());
       tvTime.setText(concat(String.valueOf(dietPlan.getCountDays()), " ",
-          context.getResources().getQuantityString(R.plurals.day_plurals, dietPlan.getCountDays())));
+          context.getResources()
+              .getQuantityString(R.plurals.day_plurals, dietPlan.getCountDays())));
 
       Picasso.get()
           .load(dietPlan.getUrlImage())
-          .fit().centerCrop()
+          .fit()
+          .centerCrop()
+          .transform(new PaletteExtractorTransformation(paletteConsumer))
           .into(imageView);
-
-      setBackGround(dietPlan.getUrlImage(), background);
     }
 
-  private void setBackGround(String url, LinearLayout layout){
-      Picasso.get()
-              .load(url)
-              .into(new Target() {
-                @Override
-                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                  Palette p = Palette.from(bitmap ).generate();
-                  int mainColor = p.getMutedColor(0);
-                  int alphaColor = 191;
-                  layout.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
-                }
-
-                @Override
-                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
-                }
-
-                @Override
-                public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                }
-              });
-  }
-
-
-      @Override
+    @Override
     public void onClick(View v) {
       if (mItemClickListener != null) {
         mItemClickListener.onItemClick(v, getLayoutPosition(), dietPlans.get(getLayoutPosition()));
@@ -173,7 +149,7 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
     public boolean onLongClick(View v) {
       if (mItemClickListener != null) {
         mItemClickListener.onItemLongClick(v, getLayoutPosition(),
-                dietPlans.get(getLayoutPosition()));
+            dietPlans.get(getLayoutPosition()));
         return true;
       }
       return false;

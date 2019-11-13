@@ -1,9 +1,6 @@
 package com.wsoteam.diet.articles.recycler;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +13,11 @@ import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import com.wsoteam.diet.model.Article;
 import com.wsoteam.diet.R;
-
+import com.wsoteam.diet.utils.PaletteExtractorTransformation;
+import io.reactivex.functions.Consumer;
 
 public class ArticleViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.imageView) ImageView imageView;
@@ -32,6 +27,11 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.parentrLayout) ConstraintLayout parentrLayout;
   private Context context;
   private HorizontalArticlesAdapter.OnItemClickListener mItemClickListener;
+  private Consumer<Palette> paletteConsumer = p -> {
+    int mainColor = p.getMutedColor(0);
+    int alphaColor = 191;
+    llBackground.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
+  };
 
   private Article article;
 
@@ -58,34 +58,14 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
 
   public void bind(Article article){
     this.article = article;
-    Picasso.get().load(article.getImage()).into(imageView);
+
     tvName.setText(article.getTitle().replaceAll("\\<.*?\\>", ""));
-
-//    llBackground.setBackgroundColor(Color.parseColor(article.getTitle_color()));
-    Picasso.get()
-        .load(article.getImage())
-        .into(new Target() {
-          @Override
-          public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-            Palette p = Palette.from(bitmap).generate();
-//            int mainColor = p.getDarkVibrantColor(0);
-            int mainColor = p.getMutedColor(0);
-            int alphaColor = 191;
-            llBackground.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
-          }
-
-          @Override
-          public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
-          }
-
-          @Override
-          public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-          }
-        });
-
     premiumLabel.setVisibility(article.isPremium() ? View.VISIBLE : View.GONE);
+
+    Picasso.get()
+            .load(article.getImage())
+            .transform(new PaletteExtractorTransformation(paletteConsumer))
+            .into(imageView);
 
   }
 }
