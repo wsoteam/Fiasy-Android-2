@@ -1017,6 +1017,17 @@ Share your accomplishments with friends:</string>
     <string name="section_eating">Nutrition</string>
     <string name="section_train">Training</string>
 
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+  <string name="tvItemPlanTime">Cooking time:</string>
+  <string name="tvSaturatedFats">Saturated</string>
+  <string name="tvUnSaturatedFats">Unsaturated</string>
+  <string name="myRecipe">Your recipes</string>
+
+  <plurals name="portion_plurals">
+    <item quantity="one">portion%d</item>
+    <item quantity="other">potions</item>
+  </plurals>
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     <string name="tvItemPlanTime">Cooking time:</string>
     <string name="tvSaturatedFats">Saturated</string>

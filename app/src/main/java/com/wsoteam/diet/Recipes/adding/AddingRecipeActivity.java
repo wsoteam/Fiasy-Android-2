@@ -40,6 +40,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.text.TextUtils.concat;
+
 public class AddingRecipeActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     @BindView(R.id.btnLeft) Button btnBack;
@@ -92,25 +94,25 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
                         btnBack.setVisibility(View.INVISIBLE);
                         btnNext.setVisibility(View.VISIBLE);
                         btnOk.setVisibility(View.GONE);
-                        mToolbar.setTitle("Создать рецепт");
+                        mToolbar.setTitle(getString(R.string.create_recipes));
                         break;
                     case 1:
                         btnBack.setVisibility(View.VISIBLE);
                         btnNext.setVisibility(View.VISIBLE);
                         btnOk.setVisibility(View.GONE);
-                        mToolbar.setTitle("Ингредиенты для 1 порции");
+                        mToolbar.setTitle(concat(getString(R.string.ingredients_on), " ", getString(R.string.ingredients_for_serving)));
                         break;
                     case 2:
                         btnBack.setVisibility(View.VISIBLE);
                         btnNext.setVisibility(View.VISIBLE);
                         btnOk.setVisibility(View.GONE);
-                        mToolbar.setTitle("Инструкция по приготовлению");
+                        mToolbar.setTitle(getString(R.string.instruction));
                         break;
                     case 3:
                         btnBack.setVisibility(View.VISIBLE);
                         btnNext.setVisibility(View.INVISIBLE);
                         btnOk.setVisibility(View.VISIBLE);
-                        mToolbar.setTitle("Сохранить рецепт");
+                        mToolbar.setTitle(getString(R.string.save));
                         break;
                 }
             }
@@ -132,7 +134,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         window.setStatusBarColor(Color.parseColor("#32000000"));
 
-        mToolbar.setTitle(R.string.createRecipe);
+        mToolbar.setTitle(R.string.create_recipes);
         mToolbar.inflateMenu(R.menu.adding_recipe_menu);
         mToolbar.setTitleTextColor(0xFFFFFFFF);
 
@@ -247,7 +249,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         List<String> ingredients = new ArrayList<>();
         for (Food food:
              foods) {
-            ingredients.add(food.getName() + " (" + ((int)food.getPortion() / portion) + "г)");
+            ingredients.add(food.getName() + " (" + ((int)food.getPortion() / portion) + getString(R.string.g) +")");
             prot = prot + food.getProteins();
             fats = fats + checkValue(food.getFats());
             carbo = carbo + checkValue(food.getCarbohydrates());
@@ -289,7 +291,7 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
         }
 
         Toast.makeText(getApplicationContext(),
-                "Рецепт сохранен в разделе Рецепты/Свои рецепты", Toast.LENGTH_SHORT).show();
+                getString(R.string.recipeSaved), Toast.LENGTH_SHORT).show();
 
         AlertDialog alertDialog = AddRecipeAlertDialog.createChoiceEatingAlertDialog(this);
         alertDialog.show();
@@ -316,23 +318,23 @@ public class AddingRecipeActivity extends AppCompatActivity implements View.OnCl
     private boolean check(){
         if (recipeItem.getName() == null || recipeItem.getName().trim().length() < 1){
             Toast.makeText(getApplicationContext(),
-                    "Введите название рецепта!", Toast.LENGTH_SHORT).show();
+                    getString(R.string.errorNameRecipe), Toast.LENGTH_SHORT).show();
             vpPager.setCurrentItem(0);
             return false;
         } else if (recipeItem.getTime() < 1 ){
             Toast.makeText(getApplicationContext(),
-                    "Введите время нужное для готовки!", Toast.LENGTH_SHORT).show();
+                    getString(R.string.errorTimeRecipe), Toast.LENGTH_SHORT).show();
             vpPager.setCurrentItem(0);
             return false;
 
         }else if (foods == null || foods.size() < 1 ){
             Toast.makeText(getApplicationContext(),
-                    "Введите ингридиенты", Toast.LENGTH_SHORT).show();
+                    getString(R.string.errorIngrRecipe), Toast.LENGTH_SHORT).show();
             vpPager.setCurrentItem(1);
             return false;
         } else if (recipeItem.getInstruction() == null || recipeItem.getInstruction().size() < 1 ){
             Toast.makeText(getApplicationContext(),
-                    "Введите шаги приготовления", Toast.LENGTH_SHORT).show();
+                    getString(R.string.errorInstrReipe), Toast.LENGTH_SHORT).show();
             vpPager.setCurrentItem(2);
             return false;
         } else {

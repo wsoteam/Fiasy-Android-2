@@ -1,8 +1,10 @@
 package com.wsoteam.diet.Recipes.POJO.plan;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
+import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
@@ -36,22 +38,22 @@ public class PlansGroupsRecipe implements GroupsRecipes {
     List<RecipeItem> dinner;
     List<RecipeItem> snack;
 
-    public PlansGroupsRecipe(ListRecipes listRecipes, DietPlan plan) {
+    public PlansGroupsRecipe(ListRecipes listRecipes, DietPlan plan, Context context) {
 
 
         int days = plan.getCountDays();
         listRecipesGroups = new ArrayList<>();
 
-        ListRecipes listBreakfast = new ListRecipes("Завтрак");
+        ListRecipes listBreakfast = new ListRecipes(context.getString(R.string.breakfast));
         breakfast = new ArrayList<>();
 
-        ListRecipes listLunch = new ListRecipes("Обед");
+        ListRecipes listLunch = new ListRecipes(context.getString(R.string.lunch));
         lunch = new ArrayList<>();
 
-        ListRecipes listDinner = new ListRecipes("Ужин");
+        ListRecipes listDinner = new ListRecipes(context.getString(R.string.dinner));
         dinner = new ArrayList<>();
 
-        ListRecipes listSnack = new ListRecipes("Перекус");
+        ListRecipes listSnack = new ListRecipes(context.getString(R.string.snack));
         snack = new ArrayList<>();
 
         listBreakfast.setListrecipes(breakfast);
