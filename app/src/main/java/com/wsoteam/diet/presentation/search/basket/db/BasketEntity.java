@@ -628,4 +628,11 @@ public class BasketEntity implements ISearchResult, Serializable {
     sodium = sodium / countPortions / sizePortion;
     pottassium = pottassium / countPortions / sizePortion;
   }
+
+    public void swapId(BasketEntity basketEntity) {
+      id = basketEntity.getId();
+      serverId = basketEntity.getServerId();
+      deepId = basketEntity.getDeepId();
+      eatingType = basketEntity.getEatingType();
+    }
 }

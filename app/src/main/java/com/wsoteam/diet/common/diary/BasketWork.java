@@ -1,7 +1,5 @@
 package com.wsoteam.diet.common.diary;
 
-import android.util.Log;
-
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
@@ -25,8 +23,8 @@ public class BasketWork {
                 .subscribe(new DisposableMaybeObserver<BasketEntity>() {
                     @Override
                     public void onSuccess(BasketEntity basketEntity) {
-                        basketEntity.append(entity);
-                        defaultSave(basketEntity, finisher);
+                        entity.swapId(basketEntity);
+                        defaultSave(entity, finisher);
                     }
 
                     @Override
