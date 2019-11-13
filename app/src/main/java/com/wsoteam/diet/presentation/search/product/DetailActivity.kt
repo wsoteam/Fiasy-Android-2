@@ -214,6 +214,16 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         paintWeightString(sizePortion, isLiquid)
     }
 
+
+    override fun onStart() {
+        super.onStart()
+        presenter.handleAutoPaste()
+    }
+
+    override fun pasteDefaultWeight(count: Int) {
+        edtWeightCalculate.setText(count.toString())
+    }
+
     private fun paintWeightString(
             weight: Int,
             isLiquid: Boolean

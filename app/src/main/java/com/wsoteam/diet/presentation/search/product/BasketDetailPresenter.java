@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.search.product;
 
 import android.content.Context;
 
+import android.icu.text.SymbolTable;
 import android.util.Log;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -36,6 +37,8 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
   private int position = 0;
   private final int EMPTY_FIELD = -1;
   private BasketDAO basketDAO;
+  private int firstPasteCountPortion, firstPasteSizePortion;
+  private String firstPasteNamePortion;
 
   public BasketDetailPresenter() {
   }
@@ -49,6 +52,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
   @Override
   protected void onFirstViewAttach() {
     Log.e("LOL", basketEntity.toString());
+    fillPasteConst();
     handlePortions();
     int portionSize = portionsSizes.get(0);
     getViewState().fillFields(basketEntity.getName(), basketEntity.getFats(),
@@ -59,6 +63,25 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
         basketEntity.getCholesterol(), basketEntity.getCellulose(),
         basketEntity.getSodium(), basketEntity.getPottassium(), basketEntity.getEatingType(),
         portionSize, basketEntity.isLiquid());
+  }
+
+  private void fillPasteConst() {
+    firstPasteCountPortion = basketEntity.getCountPortions();
+    firstPasteSizePortion = basketEntity.getSizePortion();
+    firstPasteNamePortion = basketEntity.getNamePortion();
+  }
+
+
+  public void handleAutoPaste() {
+    int count;
+    if (firstPasteNamePortion.equalsIgnoreCase(Config.DEFAULT_PORTION_NAME) || firstPasteNamePortion.equalsIgnoreCase(Config.DEFAULT_CUSTOM_NAME)){
+      count = firstPasteCountPortion * firstPasteSizePortion;
+    }else {
+      Log.e("LOL", String.valueOf(firstPasteCountPortion));
+      Log.e("LOL", String.valueOf(portionsSizes.get(position)));
+      count = firstPasteCountPortion / portionsSizes.get(position);
+    }
+    getViewState().pasteDefaultWeight(count);
   }
 
   void handlePortions() {
