@@ -53,10 +53,10 @@ public class ListRecipesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list_recipes_v2, container, false);
 
         window = getActivity().getWindow();
-        window.setStatusBarColor(Color.parseColor("#BB6001"));
+        window.setStatusBarColor(getResources().getColor(R.color.highlight_line_color));
         mToolbar = view.findViewById(R.id.toolbar);
         mToolbar.inflateMenu(R.menu.toolbar_menu);
-        mToolbar.setTitleTextColor(0xFFFFFFFF);
+//        mToolbar.setTitleTextColor(0xFFFFFFFF);
         Menu menu = mToolbar.getMenu();
 
         mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
@@ -91,7 +91,7 @@ public class ListRecipesFragment extends Fragment {
 
     private void updateUI() {
         mToolbar.setTitle(GroupsHolder.getGroupsRecipes().getGroups().get(position).getName());
-        adapter = new ListRecipesAdapter(GroupsHolder.getGroupsRecipes().getGroups().get(position).getListrecipes(), getActivity());
+        adapter = new ListRecipesAdapter(GroupsHolder.getGroupsRecipes().getGroups().get(position).getListrecipes());
         recyclerView.setAdapter(adapter);
     }
 
@@ -112,7 +112,7 @@ public class ListRecipesFragment extends Fragment {
                     }
                 }
             }
-            ListRecipesAdapter adapterNew = new ListRecipesAdapter(new LinkedList<>(result), getActivity());
+            ListRecipesAdapter adapterNew = new ListRecipesAdapter(new LinkedList<>(result));
             recyclerView.setAdapter(adapterNew);
         }
 

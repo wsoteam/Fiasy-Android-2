@@ -1,26 +1,26 @@
 package com.wsoteam.diet.Recipes.v2;
 
 import android.content.Intent;
-import android.graphics.Color;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
 
-import com.amplitude.api.Amplitude;
-import com.wsoteam.diet.AmplitudaEvents;
+import com.google.android.material.appbar.AppBarLayout;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
-import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 
 import java.util.LinkedHashSet;
@@ -31,33 +31,29 @@ public class ListRecipesActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private int position;
-    private RecyclerView.LayoutManager layoutManager;
     private ListRecipesAdapter adapter;
+    ListRecipesAdapter adapterSearch = new ListRecipesAdapter(null);
     private Toolbar mToolbar;
-    private Window window;
+
+    @BindView(R.id.appbar)
+    AppBarLayout appBarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_recipes);
 
+        ButterKnife.bind(this);
+        appBarLayout.setLiftable(true);
         Intent intent = getIntent();
         position = intent.getIntExtra(Config.RECIPES_BUNDLE, 0);
 
-        window = getWindow();
-        window.setStatusBarColor(Color.parseColor("#BB6001"));
         mToolbar = findViewById(R.id.toolbar);
-        mToolbar.inflateMenu(R.menu.toolbar_menu);
-        mToolbar.setTitleTextColor(0xFFFFFFFF);
+        mToolbar.inflateMenu(R.menu.menu_recipe);
         Menu menu = mToolbar.getMenu();
 
-        mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        mToolbar.setNavigationIcon(R.drawable.back_arrow_icon);
+        mToolbar.setNavigationOnClickListener(view -> onBackPressed());
 
         MenuItem mSearch = menu.findItem(R.id.action_search);
         SearchView mSearchView = (SearchView) mSearch.getActionView();
@@ -75,15 +71,30 @@ public class ListRecipesActivity extends AppCompatActivity {
         });
 
         recyclerView = findViewById(R.id.rvListRecipes);
-        layoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager linearLayoutManager1 = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+                int firstVisibleItem = 0;
+                if (linearLayoutManager1 != null)
+                    firstVisibleItem = linearLayoutManager1.findFirstVisibleItemPosition();
+                appBarLayout.setLiftable(firstVisibleItem == 0);
+            }
+        });
         updateUI();
     }
 
     private void updateUI() {
         Events.logChoiseRecipeCategory(GroupsHolder.getGroupsRecipes().getGroups().get(position).getName());
         mToolbar.setTitle(GroupsHolder.getGroupsRecipes().getGroups().get(position).getName());
-        adapter = new ListRecipesAdapter(GroupsHolder.getGroupsRecipes().getGroups().get(position).getListrecipes(), this);
+        adapter = new ListRecipesAdapter(GroupsHolder.getGroupsRecipes().getGroups().get(position).getListrecipes());
         recyclerView.setAdapter(adapter);
     }
 
@@ -104,9 +115,16 @@ public class ListRecipesActivity extends AppCompatActivity {
                     }
                 }
             }
-            ListRecipesAdapter adapterNew = new ListRecipesAdapter(new LinkedList<>(result), this);
-            recyclerView.setAdapter(adapterNew);
+            adapterSearch.setData(new LinkedList<>(result));
+            recyclerView.setAdapter(adapterSearch);
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (recyclerView.getAdapter() != null)
+            recyclerView.getAdapter().notifyDataSetChanged();
     }
 }

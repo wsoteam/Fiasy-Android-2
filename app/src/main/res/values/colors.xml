@@ -51,14 +51,14 @@
   <color name="backgroundColor">#FFFFFF</color>
 
 
-  <color name="add_food_green">#34847C</color>
+    <color name="add_food_green">#34847C</color>
 
 
-  <color name="fab_main_activity">#39A298</color>
+    <color name="fab_main_activity">#39A298</color>
 
 
-  <color name="grey_100">#F5F5F5</color>
-  <color name="grey_500">#9E9E9E</color>
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_500">#9E9E9E</color>
 
     <color name="is_exist_profile">#464646</color>
     <color name="first_auth_description">#5A5A5A</color>
@@ -83,7 +83,7 @@
     <color name="head_detail_food">#EF7D02</color>
 
 
-  <color name="b_color">#EF7D02</color>
+    <color name="b_color">#EF7D02</color>
     <color name="g_color">#7993B2</color>
     <color name="u_color">#694B74</color>
 
@@ -91,10 +91,10 @@
   <color name="background_empty_fragment">#44566D</color>
 
 
-  <color name="btn_reg_sheet">#74A6B3</color>
+    <color name="btn_reg_sheet">#74A6B3</color>
 
-  <color name="total_title">#474747</color>
-  <color name="edit_text_food">#DC8535</color>
+    <color name="total_title">#474747</color>
+    <color name="edit_text_food">#DC8535</color>
     <color name="text_claim">#A6000000</color>
     <color name="button_claim_active">#EF7D02</color>
     <color name="button_claim_inactive">#8AEF7D02</color>

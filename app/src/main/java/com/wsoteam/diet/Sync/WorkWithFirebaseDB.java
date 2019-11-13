@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.wsoteam.diet.Articles.POJO.ListArticles;
+import com.wsoteam.diet.articles.POJO.ListArticles;
 import com.wsoteam.diet.BranchOfAnalyzer.Const;
 import com.wsoteam.diet.BranchOfAnalyzer.CustomFood.CustomFood;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOClaim.Claim;
@@ -32,6 +32,7 @@ import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Eating;
 import com.wsoteam.diet.model.Lunch;
+import com.wsoteam.diet.model.OpenArticles;
 import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.model.Water;
 import com.wsoteam.diet.presentation.measurment.POJO.Chest;
@@ -526,5 +527,12 @@ public class WorkWithFirebaseDB {
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("hips").child(String.valueOf(hips.getTimeInMillis()));
         myRef.setValue(hips);
+    }
+
+    public static void addArticleSeries(OpenArticles openArticles) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("articleSeries");
+        myRef.child(openArticles.getId()).setValue(openArticles);
     }
 }

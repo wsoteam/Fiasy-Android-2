@@ -1,17 +1,18 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
 
-  <dimen name="card_height">125dp</dimen>
+    <dimen name="card_height">125dp</dimen>
     <dimen name="card_width">100dp</dimen>
 
 
   <!-- Action Bar -->
 
-  <dimen name="water_thumb_size">22dp</dimen>
+    <dimen name="water_thumb_size">22dp</dimen>
 
   <!-- Wheel -->
     <dimen name="WheelItemTextSize">24sp</dimen>
     <dimen name="WheelItemSpace">12dp</dimen>
     <dimen name="WheelIndicatorSize">2dp</dimen>
-  <dimen name="diary_calendar_height">220dp</dimen>
+    <dimen name="diary_calendar_height">220dp</dimen>
+
 </resources>

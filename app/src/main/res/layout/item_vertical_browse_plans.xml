@@ -6,27 +6,42 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/tvAllRecipes2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:drawablePadding="9dp"
+        android:drawableRight="@drawable/recipes_arrow"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/all"
+        android:textColor="#EF7D02"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvName" />
+
+    <TextView
         android:id="@+id/tvName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:fontFamily="sans-serif"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="29dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/item_vertical_browse_plans_name"
         android:textColor="#000000"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toStartOf="@+id/tvAllRecipes2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/item_vertical_browse_plans_name" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="21dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

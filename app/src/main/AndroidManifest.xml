@@ -111,11 +111,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
         <activity
-            android:name=".Articles.ItemArticleWithoutPremActivity"
+            android:name=".articles.ItemArticleWithoutPremActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TransparentStatusBar" />
         <activity
-            android:name=".Articles.ItemArticleActivity"
+            android:name=".articles.ItemArticleActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TransparentStatusBar" />
         <activity

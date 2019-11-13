@@ -25,17 +25,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.text.TextUtils.concat;
+
 public class BlockedDetailPlansActivity extends BaseActivity implements BlockedDetailPlansView {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.ivBlockedPlans) ImageView ivPlans;
-    @BindView(R.id.tvPlansName) TextView tvName;
-    @BindView(R.id.tvTime) TextView tvTime;
-    @BindView(R.id.tvRecipes) TextView tvRecipes;
-    @BindView(R.id.tvRecipesText) TextView tvRecipesTxt;
-    @BindView(R.id.tvUsers) TextView tvUsers;
-    @BindView(R.id.tvTimeText) TextView tvTimeTxt;
-
+    @BindView(R.id.ivDietsPlan) ImageView ivDietsPlan;
+    @BindView(R.id.tvPlansName) TextView tvPlansName;
+    @BindView(R.id.tvPlansRecipes) TextView recipes;
+    @BindView(R.id.tvTime) TextView days;
 
     @InjectPresenter
     BlockedDetailPlansPresenter presenter;
@@ -96,8 +94,8 @@ public class BlockedDetailPlansActivity extends BaseActivity implements BlockedD
         }
     };
 
-    @OnClick({R.id.btnGetSubscription})
-    void onClicked(View view){
+    @OnClick({R.id.goPrem})
+    void onClicked(){
         presenter.clickedPremButton();
     }
 
@@ -119,16 +117,15 @@ public class BlockedDetailPlansActivity extends BaseActivity implements BlockedD
 
     @Override
     public void showData(DietPlan dietPlan){
-        tvName.setText(dietPlan.getName());
-        tvTime.setText(dietPlan.getCountDays() + "");
-        tvTimeTxt.setText(getResources().getQuantityString(R.plurals.day_plurals, dietPlan.getCountDays()));
-        tvRecipes.setText(presenter.getRecipes().size() + "");
-        tvRecipesTxt.setText(getResources().getQuantityString(R.plurals.recipe_plurals, presenter.getRecipes().size()));
-        tvUsers.setText("475");
+
+        days.setText(concat(dietPlan.getCountDays() + "", " ", getResources().getQuantityString(R.plurals.day_plurals, dietPlan.getCountDays())));
+        recipes.setText(concat(presenter.getRecipes().size() + "", " ",
+                getResources().getQuantityString(R.plurals.recipe_plurals, presenter.getRecipes().size())));
+        tvPlansName.setText(dietPlan.getName());
 
         Picasso.get()
                 .load(dietPlan.getUrlImage())
-                .into(ivPlans);
+                .into(ivDietsPlan);
     }
 
     @Override public void sharePlan(String str) {

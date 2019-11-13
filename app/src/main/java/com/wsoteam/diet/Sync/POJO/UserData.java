@@ -13,6 +13,7 @@ import com.wsoteam.diet.common.promo.POJO.UserPromo;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Lunch;
+import com.wsoteam.diet.model.OpenArticles;
 import com.wsoteam.diet.model.Snack;
 import com.wsoteam.diet.model.Water;
 import com.wsoteam.diet.presentation.measurment.POJO.Chest;
@@ -20,7 +21,6 @@ import com.wsoteam.diet.presentation.measurment.POJO.Hips;
 import com.wsoteam.diet.presentation.measurment.POJO.Waist;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 
-import com.wsoteam.diet.presentation.activity.UserActivityExercise;
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -42,6 +42,7 @@ public class UserData implements Serializable {
     private HashMap<String, RecipeItem> favoriteRecipes;
     private HashMap<String, CustomFood> customFoods;
     private HashMap<String, FoodTemplate> foodTemplates;
+    private HashMap<String, OpenArticles> articleSeries;
     private DietPlan plan;
     private UserPromo userPromo;
     private HashMap<String, Weight> weights;
@@ -80,6 +81,14 @@ public class UserData implements Serializable {
         this.chest = chest;
         this.waist = waist;
         this.hips = hips;
+    }
+
+    public HashMap<String, OpenArticles> getArticleSeries() {
+        return articleSeries;
+    }
+
+    public void setArticleSeries(HashMap<String, OpenArticles> articleSeries) {
+        this.articleSeries = articleSeries;
     }
 
     public String getName() {

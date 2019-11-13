@@ -146,10 +146,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
                 Events.logLogout();
 
                 new AlertDialog.Builder(context)
-                  .setTitle("Выход")
-                  .setMessage("Вы хотите выйти из учетной записи?")
-                  .setPositiveButton("Да", (arg0, arg1) -> exitUser())
-                  .setNegativeButton("Нет", null)
+                  .setTitle(context.getString(R.string.exit))
+                  .setMessage(context.getString(R.string.log_off_question))
+                  .setPositiveButton(context.getString(R.string.yes), (arg0, arg1) -> exitUser())
+                  .setNegativeButton(context.getString(R.string.no), null)
                   .show();
 
                 break;

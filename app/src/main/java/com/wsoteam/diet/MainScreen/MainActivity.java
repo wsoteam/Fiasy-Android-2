@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -30,9 +31,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.Articles.ListArticlesFragment;
-import com.wsoteam.diet.Articles.POJO.ArticlesHolder;
-import com.wsoteam.diet.Articles.POJO.ListArticles;
+import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.articles.ArticleSeriesFragment;
+import com.wsoteam.diet.articles.BurlakovAuthorFragment;
+import com.wsoteam.diet.articles.ListArticlesFragment;
+import com.wsoteam.diet.articles.POJO.ListArticles;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietModule;
@@ -46,14 +49,21 @@ import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipesHolder;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
+import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
 import com.wsoteam.diet.common.remote.UpdateChecker;
 import com.wsoteam.diet.presentation.diary.DiaryFragment;
+import com.wsoteam.diet.model.ArticleViewModel;
+import com.wsoteam.diet.model.ArticleViewModel;
+import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import java.util.Calendar;
+import java.util.Locale;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,13 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private Window window;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            return setActiveTab(item.getItemId());
-        }
-    };
+            = item -> setActiveTab(item.getItemId());
 
     private boolean setActiveTab(int id){
         transaction = getSupportFragmentManager().beginTransaction();
@@ -97,8 +101,28 @@ public class MainActivity extends AppCompatActivity {
                 box.setBuyFrom(EventProperties.trial_from_articles);
                 isMainFragment = false;
                 window.setStatusBarColor(Color.parseColor("#747d3b"));
-                transaction.replace(R.id.flFragmentContainer, new ListArticlesFragment()).commit();
-                return true;
+                switch (Locale.getDefault().getLanguage()){
+                    case "ru":{
+                        transaction.replace(R.id.flFragmentContainer, new com.wsoteam.diet.articles.ListArticlesFragment()).commit();
+                        return true;
+                    }
+                    default:{
+                        com.wsoteam.diet.articles.BurlakovAuthorFragment burlakovAuthorFragment = new com.wsoteam.diet.articles.BurlakovAuthorFragment();
+//                            burlakovAuthorFragment.setClickListener(v -> {
+//                                    transaction.replace(R.id.flFragmentContainer,
+//                                        new ArticleSeriesFragment()).commit();
+//                            });
+                        if (UserDataHolder.getUserData().getArticleSeries() != null &&
+                                UserDataHolder.getUserData().getArticleSeries().containsKey("burlakov")){
+                            transaction.replace(R.id.flFragmentContainer,
+                                    new com.wsoteam.diet.articles.ArticleSeriesFragment()).commit();
+                        }else {
+                            transaction.replace(R.id.flFragmentContainer,
+                                    burlakovAuthorFragment).commit();
+                        }
+                        return true;
+                    }
+                }
             case R.id.bnv_main_trainer:
                 isMainFragment = false;
                 transaction.replace(R.id.flFragmentContainer, new BrowsePlansFragment()).commit();
@@ -170,12 +194,11 @@ public class MainActivity extends AppCompatActivity {
         if (GroupsHolder.getGroupsRecipes() == null) {
             loadRecipes();
         }
-        if (ArticlesHolder.getListArticles() == null) {
-            loadArticles();
-        }
 
-        if (DietPlansHolder.get() == null){
-          loadDietPlans();
+        ViewModelProviders.of(this).get(ArticleViewModel.class).getData();
+
+        if (DietPlansHolder.get() == null) {
+            loadDietPlans();
         }
 
         logEvents();
@@ -216,16 +239,30 @@ public class MainActivity extends AppCompatActivity {
   }
 
     private void loadRecipes() {
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("RECIPES_PLANS_NEW");
+        DatabaseReference myRef;
+        switch (Locale.getDefault().getLanguage().toUpperCase()){
+            case "EN":
+            case "ES":
+            case "PT":
+            case "DE":{
+                myRef = database.getReference(Locale.getDefault().getLanguage().toUpperCase() + "/recipes");
+                break;
+            }
+            case "RU":{
+                myRef = database.getReference("RECIPES_PLANS_NEW");
+                break;
+            }
+            default:{
+                myRef = database.getReference("EN/recipes");
+            }
+        }
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 ListRecipes groupsRecipes = dataSnapshot.getValue(ListRecipes.class);
-
                 RecipesHolder.bind(groupsRecipes);
 
                 EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes, getApplicationContext());
@@ -236,29 +273,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
-
-    private void loadArticles() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("ARTICLES");
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                ListArticles listArticles = dataSnapshot.getValue(ListArticles.class);
-                ArticlesHolder articlesHolder = new ArticlesHolder();
-                articlesHolder.bind(listArticles);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+              Log.d("kkk", "onCancelled: " , databaseError.toException() );
             }
         });
     }
@@ -278,13 +293,26 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-
-
-
-
   private void loadDietPlans() {
+    //DatabaseReference myRef = database.getReference("PLANS");
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("PLANS");
+    DatabaseReference myRef;
+    switch (Locale.getDefault().getLanguage().toUpperCase()){
+        case "EN":
+        case "ES":
+        case "PT":
+        case "DE":{
+            myRef = database.getReference(Locale.getDefault().getLanguage().toUpperCase() + "/plans");
+            break;
+        }
+        case "RU":{
+            myRef = database.getReference("PLANS");
+            break;
+        }
+        default:{
+            myRef = database.getReference("EN/recipes");
+        }
+    }
 
     myRef.addValueEventListener(new ValueEventListener() {
       @Override
