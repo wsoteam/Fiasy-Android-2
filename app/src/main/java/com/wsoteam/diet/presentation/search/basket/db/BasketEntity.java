@@ -92,7 +92,7 @@ public class BasketEntity implements ISearchResult, Serializable {
     pottassium = result.getPottasium();
     this.eatingType = eatingType;
     serverId = result.getId();
-    this.deepId = deepId;
+    this.deepId = -1;
     namePortion = Config.DEFAULT_PORTION_NAME;
   }
 
@@ -569,30 +569,33 @@ public class BasketEntity implements ISearchResult, Serializable {
     this.sizePortion = sizePortion;
   }
 
-  @Override public String toString() {
+  @Override
+  public String toString() {
     return "BasketEntity{" +
-        "id=" + id +
-        ", serverId=" + serverId +
-        ", deepId=" + deepId +
-        ", name='" + name + '\'' +
-        ", brand='" + brand + '\'' +
-        ", isLiquid=" + isLiquid +
-        ", countPortions=" + countPortions +
-        ", kilojoules=" + kilojoules +
-        ", calories=" + calories +
-        ", proteins=" + proteins +
-        ", carbohydrates=" + carbohydrates +
-        ", sugar=" + sugar +
-        ", fats=" + fats +
-        ", saturatedFats=" + saturatedFats +
-        ", monoUnSaturatedFats=" + monoUnSaturatedFats +
-        ", polyUnSaturatedFats=" + polyUnSaturatedFats +
-        ", cholesterol=" + cholesterol +
-        ", cellulose=" + cellulose +
-        ", sodium=" + sodium +
-        ", pottassium=" + pottassium +
-        ", eatingType=" + eatingType +
-        '}';
+            "id=" + id +
+            ", serverId=" + serverId +
+            ", deepId=" + deepId +
+            ", name='" + name + '\'' +
+            ", brand='" + brand + '\'' +
+            ", isLiquid=" + isLiquid +
+            ", countPortions=" + countPortions +
+            ", kilojoules=" + kilojoules +
+            ", calories=" + calories +
+            ", proteins=" + proteins +
+            ", carbohydrates=" + carbohydrates +
+            ", sugar=" + sugar +
+            ", fats=" + fats +
+            ", saturatedFats=" + saturatedFats +
+            ", monoUnSaturatedFats=" + monoUnSaturatedFats +
+            ", polyUnSaturatedFats=" + polyUnSaturatedFats +
+            ", cholesterol=" + cholesterol +
+            ", cellulose=" + cellulose +
+            ", sodium=" + sodium +
+            ", pottassium=" + pottassium +
+            ", eatingType=" + eatingType +
+            ", namePortion='" + namePortion + '\'' +
+            ", sizePortion=" + sizePortion +
+            '}';
   }
 
   public void makeAtomicDefault() {
