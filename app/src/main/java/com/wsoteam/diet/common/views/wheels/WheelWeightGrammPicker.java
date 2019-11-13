@@ -36,7 +36,7 @@ public class WheelWeightGrammPicker extends WheelPicker implements IWheelWeightG
 
   private List<String> createWeightList() {
     List<String> weightsValuesStrings = new ArrayList<>();
-    String unitValue = context.getResources().getString(R.string.meas_gramm);
+    String unitValue = context.getResources().getString(R.string.grams_unit);
 
     for (int i = START_WEIGHT_INTERAVAL; i <= END_WEIGHT_INTERAVAL; i += STEP_WEIGHT_INTERAVAL) {
       weightsValuesStrings.add(String.valueOf(i) + " " + unitValue);

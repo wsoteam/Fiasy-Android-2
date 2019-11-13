@@ -36,7 +36,7 @@ public class WheelMeasurmentPicker extends WheelPicker implements IWheelMeasurme
 
     private List<String> createMeasList() {
         List<String> measValuesStrings = new ArrayList<>();
-        String unitValue = context.getResources().getString(R.string.meas_cwh);
+        String unitValue = context.getResources().getString(R.string.growth_unit);
 
         for (int i = START_MEAS_INTERAVAL; i <= END_MEAS_INTERAVAL; i++) {
             measValuesStrings.add(String.valueOf(i) + " " + unitValue);

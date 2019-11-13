@@ -31,24 +31,7 @@
 
 
 
-  <!--adding recipe-->
 
-  <string name="addingRecipeText" translatable="false">В этом разделе будут храниться созданные вами рецепты</string>
-  <string name="favoriteRecipeText" translatable="false">В этом разделе будут храниться понравившиеся вам рецепты </string>
-  <string name="alertDialogSuccess" translatable="false">Рецепт сохранен</string>
-  <string name="addingRecipePortionV" translatable="false">Вес:</string>
-  <string name="addingRecipePortion" translatable="false">Количество порций (необязательно)</string>
-  <string name="tvArticlePremText" translatable="false">Оформи подписку и получи доступ ко множеству полезных статей и тренировок</string>
-  <string name="tvTitleArticleFragment" translatable="false">Полезные статьи</string>
-  <string name="titleShareDialogRecipe" translatable="false">Поделится рецептом</string>
-
-
-  <string name="addingRecipeAddInstruction" translatable="false">Добавить шаг</string>
-<string name="recipeSaved" translatable="false">Рецепт сохранен в разделе Рецепты/Свои рецепты</string>
-  <string name="errorNameRecipe" translatable="false">Введите название рецепта!</string>
-  <string name="errorTimeRecipe" translatable="false">Введите время нужное для готовки!</string>
-  <string name="errorIngrRecipe" translatable="false">Введите ингридиенты</string>
-  <string name="errorInstrReipe" translatable="false">Введите шаги приготовления</string>
 
 
 

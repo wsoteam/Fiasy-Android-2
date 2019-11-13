@@ -119,7 +119,7 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
 
   private Spannable getPaintedString(Meas meas, int measDiffValue, boolean isOldData) {
     String measDiff = String.valueOf(measDiffValue);
-    String valueUnit = getResources().getString(R.string.meas_cwh);
+    String valueUnit = getResources().getString(R.string.growth_unit);
     String measValue = String.valueOf(meas.getMeas()) + " " + valueUnit;
     int colorDiff;
 

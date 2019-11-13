@@ -39,7 +39,7 @@ public class WheelWeightKiloPicker extends WheelPicker implements IWheelWeightKi
 
     private List<String> createWeightList(){
         List<String> weightsValuesStrings = new ArrayList<>();
-        String unitValue = context.getResources().getString(R.string.meas_kg);
+        String unitValue = context.getResources().getString(R.string.weight_unit);
 
         for (int i = START_WEIGHT_INTERAVAL; i <= END_WEIGHT_INTERAVAL; i++) {
             weightsValuesStrings.add(String.valueOf(i) + " " + unitValue);

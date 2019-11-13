@@ -189,9 +189,9 @@ public class MeasHistoryPresenter extends MvpPresenter<MeasHistoryView> {
         int position = s.length();
         String valueUnit;
         if (isWeight){
-            valueUnit = context.getResources().getString(R.string.meas_kg);
+            valueUnit = context.getResources().getString(R.string.weight_unit);
         }else {
-            valueUnit = context.getResources().getString(R.string.meas_cwh);
+            valueUnit = context.getResources().getString(R.string.growth_unit);
         }
         s = s + " " + valueUnit;
         Spannable spannable = new SpannableString(s);

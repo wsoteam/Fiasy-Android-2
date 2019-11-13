@@ -1051,16 +1051,17 @@ Share your accomplishments with friends:</string>
     <string name="main_screen_topbar_left">%s ккал</string>
     <string name="main_screen_topbar_calories">@string/daily_widget_calories_eaten</string>
     <string name="main_screen_topbar_calories_left">@string/daily_widget_calories_burned</string>
-    <string name="main_screen_topbar_prot">Белки</string>
-    <string name="main_screen_topbar_fat">Жиры</string>
-    <string name="main_screen_topbar_carbo">Углеводы</string>
+    <string name="main_screen_topbar_prot">@string/protein_intake</string>
+    <string name="main_screen_topbar_fat">@string/fats_intake</string>
+    <string name="main_screen_topbar_carbo">@string/carbohydrates_intake</string>
 
-    <string name="main_screen_water">Вода</string>
+    <string name="main_screen_water">@string/water</string>
 
-    <string name="daily_widget_calories_left">Осталось</string>
-    <string name="daily_widget_calories_excess">Превышение</string>
-    <string name="daily_widget_calories_burned">Сожжено</string>
-    <string name="daily_widget_calories_eaten">Съедено</string>
+
+    <string name="daily_widget_calories_left">Remaining</string>
+    <string name="daily_widget_calories_excess">Excess</string>
+    <string name="daily_widget_calories_burned">Burned</string>
+    <string name="daily_widget_calories_eaten">Eaten</string>
 
     <string name="user_activity_title">Активность</string>
     <string name="user_activity_section_favorite">Избранное</string>
@@ -1109,7 +1110,7 @@ Share your accomplishments with friends:</string>
     <string name="premium_subscription_per_month">%s/месяц</string>
     <string name="premium_subscription_card_benefits">Выгода\n%d</string>
     <string name="subscriptions_list_title">Открой новые возможности\n</string>
-    <string name="subscriptions_list_title__premium">PREMIUM</string>
+    <string name="subscriptions_list_title__premium" translatable="false">PREMIUM</string>
 
 
     <plurals name="duration_minutes">
@@ -1145,56 +1146,68 @@ Share your accomplishments with friends:</string>
         <item quantity="other">%d дней назад</item>
     </plurals>
 
-    <string name="meas_kg">кг</string>
+    <string name="measurments">Body measurements</string>
+    <string name="medium_weight">average weight for the week</string>
+    <string name="meas_title_bottom">Measurements (cm)</string>
+    <string name="propose_enter_data">You have not entered any data yet</string>
+    <string name="meas_chest">Chest</string>
+    <string name="meas_add_meas">Add</string>
 
-    <string name="meas_cwh">см</string>
-    <string name="measurments">Измерения тела</string>
-    <string name="medium_weight">средний вес за неделю</string>
-    <string name="meas_gramm">г</string>
-    <string name="meas_title_bottom">Размеры (см)</string>
-    <string name="propose_enter_data">Вы еще не вносили данные</string>
-    <string name="meas_chest">Грудь</string>
-    <string name="meas_add_meas">Добавить</string>
 
-    <string name="meas_waist">Талия</string>
-    <string name="meas_hips">Бедра</string>
+
+    <string name="meas_waist">Waist</string>
+    <string name="meas_hips">Hips</string>
     <string name="meas_prem">premium</string>
-    <string name="meas_last_refresh">Последнее обновление:</string>
-    <string name="meas_last_refresh_today">сегодня</string>
-    <string name="meas_history_title">История измерений</string>
-    <string name="meas_update_weight">Значение текущего веса обновлено</string>
-    <string name="meas_weight_tap">Вес</string>
-    <string name="meas_waist_tap">Талия</string>
-    <string name="meas_chest_tap">Грудь</string>
-    <string name="meas_hips_tap">Бедра</string>
-    <string name="meas_empty_history">Вы еще не заносили свои параметры</string>
-    <string name="meas_alert_k">ok</string>
-    <string name="meas_alert_cancel">отменить</string>
-    <string name="meas_day_monday">пн</string>
-    <string name="meas_day_tuesday">вт</string>
-    <string name="meas_day_wednesday">ср</string>
-    <string name="meas_day_thursday">чт</string>
-    <string name="meas_day_friday">пт</string>
-    <string name="meas_day_saturday">сб</string>
-    <string name="meas_day_sunday">вс</string>
-    <string name="meas_toast_update">Значение текущего веса  \nобновлено</string>
-    <string name="meas_future_day">Этот день еще  \nне наступил</string>
-    <string name="meas_info_toast">Узнать подробнее о \nзначении среднего \nвеса</string>
-    <string name="open_meas_info"><u>Узнать</u></string>
-    <string name="meas_help">Помощь</string>
-    <string name="help_meas_first_title">Информация о расчете среднего веса за \nнеделю</string>
-    <string name="help_meas_first_text">Если вы будете взвешиваться каждый день и заносить данные в дневник в раздел “Измерения тела”, то программа автоматически будет высчитывать ваш средний вес за неделю.</string>
-    <string name="help_meas_second_title">Зачем это нужно?</string>
-    <string name="help_meas_second_text">Вес может колебаться в зависимости от фазы менструального цикла у женщин или употребления продуктов способных удерживать жидкость в организме, поэтому взвешиваясь раз в неделю или даже месяц и ориентируясь на разницу в полученных цифрах, реальное изменение веса может оказаться замаскированным случайными факторами, вызвавшими отклонение веса, то есть показатели будут не точными.</string>
-    <string name="help_meas_third_text">Отслеживайте средний вес за неделю, чтобы наглядно увидеть, как меняется ваш вес. Если делать замеры не регулярно, будет сложно увидеть прогресс. Обязательно делайте 2-х недельные перерывы на поддержание веса, после 4 недель диеты. Так ваш организм не будет испытывать сильного стресса. Снизиться вероятность вернуться к старым пищевым привычкам.</string>
+    <string name="meas_last_refresh">Last update:</string>
+    <string name="meas_last_refresh_today">today</string>
+    <string name="meas_history_title">Measurement history</string>
+    <string name="meas_update_weight">Current weight updated</string>
+    <string name="meas_waist_tap">Waist</string>
+    <string name="meas_chest_tap">Chest</string>
+    <string name="meas_hips_tap">Hips</string>
+    <string name="meas_empty_history">You have not entered your information yet</string>
+    <string name="meas_weight_tap">@string/weight</string>
+
+    <string name="meas_alert_k">@android:string/ok</string>
+    <string name="meas_alert_cancel">cancel</string>
+
+    <string name="meas_toast_update">Current weight \nupdated</string>
+    <string name="meas_future_day">This day has not \ncome yet</string>
+    <string name="meas_info_toast">Learn more about \naverage weight \n</string>
+    <string name="open_meas_info"><u>More</u></string>
+    <string name="meas_help">Help</string>
+    <string name="help_meas_first_title">Information about calculating average weight for the \nweek</string>
+    <string name="help_meas_first_text">If you weigh yourself every day and enter the information in the \"Body measurements\" section of your journal, the program will automatically calculate your average weight for the week.</string>
+    <string name="help_meas_second_title">Why is this important?</string>
+    <string name="help_meas_second_text">Your weight can fluctuate based on the phases of your menstrual cycle (if you\'re a woman) or eating foods that cause water retention, so if you weigh yourself once a week or even once a month and focus on the difference between the numbers, the real change in your weight could be concealed by incidental factors that are causing deviations in your weight. In other words, the number might not be accurate.</string>
+    <string name="help_meas_third_text">Track your average weight for the week to get a clear picture of how your weight has changed. If you don\'t take measurements on a regular basis, it will be difficult to see your progress. Make sure you take two-week breaks to maintain your weight after every four weeks of dieting. This will prevent your body from experiencing intense stress and reduce the likelihood that you will go back to your old dietary habits.</string>
+
 
     <string name="meas_without_meas">Не изменялось с момента регистрации</string>
     <string name="meas_prefix">Вы заносили вес</string>
   <string name="timer_days_left">дни</string>
   <string name="timer_hours_left">часы</string>
   <string name="timer_minutes_left">минуты</string>
-  <string name="timer_padded_value">%02d</string>
+  <string name="timer_padded_value" translatable="false">%02d</string>
   <string name="premium_black_friday_days_remained_hint">До конца акции осталось</string>
   <string name="subscription_not_found">Подписка не найдена, возможно она не доступна в вашей стране</string>
-  //
+
+
+
+//
+
+    <string name="addingRecipeText">The recipe you create will be saved in this section</string>
+    <string name="favoriteRecipeText">The recipes you like will be saved in this section </string>
+    <string name="alertDialogSuccess">Recipe saved</string>
+    <string name="addingRecipePortionV" >Weight:</string>
+    <string name="addingRecipePortion">Number of servings (optional)</string>
+    <string name="tvArticlePremText">Get access to hundreds of useful articles when you sign up for a premium account.</string>
+    <string name="tvTitleArticleFragment">Useful articles</string>
+    <string name="titleShareDialogRecipe">Share recipe</string>
+    <string name="addingRecipeAddInstruction">Add step</string>
+    <string name="recipeSaved">The recipe has been saved under \"Recipes/My recipes\"</string>
+    <string name="errorNameRecipe">Enter a name for the recipe</string>
+    <string name="errorTimeRecipe">Enter the required cooking time</string>
+    <string name="errorIngrRecipe">Enter ingredients</string>
+    <string name="errorInstrReipe">Enter step-by-step instructions</string>
 </resources>

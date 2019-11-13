@@ -990,5 +990,72 @@
   <string name="art_series_series_info">Чтобы перейти к следующему дню, Вам нужно пройти предыдущий</string>
   <string name="day">День %d</string>
 
+  <string name="main_screen_topbar_prot">@string/protein_intake</string>
+  <string name="main_screen_topbar_fat">@string/fats_intake</string>
+  <string name="main_screen_topbar_carbo">@string/carbohydrates_intake</string>
+  <string name="main_screen_water">@string/water</string>
+
+
+  <string name="meas_waist">Талия</string>
+  <string name="meas_hips">Бедра</string>
+  <string name="meas_prem">premium</string>
+  <string name="meas_last_refresh">Последнее обновление:</string>
+  <string name="meas_last_refresh_today">сегодня</string>
+  <string name="meas_history_title">История измерений</string>
+  <string name="meas_update_weight">Значение текущего веса обновлено</string>
+  <string name="meas_weight_tap">@string/weight</string>
+  <string name="meas_waist_tap">Талия</string>
+  <string name="meas_chest_tap">Грудь</string>
+  <string name="meas_hips_tap">Бедра</string>
+  <string name="meas_empty_history">Вы еще не заносили свои параметры</string>
+  <string name="meas_alert_k">@android:string/ok</string>
+  <string name="meas_alert_cancel">отменить</string>
+
+  <string name="meas_toast_update">Значение текущего веса  \nобновлено</string>
+  <string name="meas_future_day">Этот день еще  \nне наступил</string>
+  <string name="meas_info_toast">Узнать подробнее о \nзначении среднего \nвеса</string>
+  <string name="open_meas_info"><u>Узнать</u></string>
+  <string name="meas_help">Помощь</string>
+  <string name="help_meas_first_title">Информация о расчете среднего веса за \nнеделю</string>
+  <string name="help_meas_first_text">Если вы будете взвешиваться каждый день и заносить данные в дневник в раздел “Измерения тела”, то программа автоматически будет высчитывать ваш средний вес за неделю.</string>
+  <string name="help_meas_second_title">Зачем это нужно?</string>
+  <string name="help_meas_second_text">Вес может колебаться в зависимости от фазы менструального цикла у женщин или употребления продуктов способных удерживать жидкость в организме, поэтому взвешиваясь раз в неделю или даже месяц и ориентируясь на разницу в полученных цифрах, реальное изменение веса может оказаться замаскированным случайными факторами, вызвавшими отклонение веса, то есть показатели будут не точными.</string>
+  <string name="help_meas_third_text">Отслеживайте средний вес за неделю, чтобы наглядно увидеть, как меняется ваш вес. Если делать замеры не регулярно, будет сложно увидеть прогресс. Обязательно делайте 2-х недельные перерывы на поддержание веса, после 4 недель диеты. Так ваш организм не будет испытывать сильного стресса. Снизиться вероятность вернуться к старым пищевым привычкам.</string>
+
+
+  <!--adding recipe-->
+
+  <string name="addingRecipeText" >В этом разделе будут храниться созданные вами рецепты</string>
+  <string name="favoriteRecipeText" >В этом разделе будут храниться понравившиеся вам рецепты </string>
+  <string name="alertDialogSuccess" >Рецепт сохранен</string>
+  <string name="addingRecipePortionV" >Вес:</string>
+  <string name="addingRecipePortion" >Количество порций (необязательно)</string>
+  <string name="tvArticlePremText" >Оформи подписку и получи доступ ко множеству полезных статей и тренировок</string>
+  <string name="tvTitleArticleFragment" >Полезные статьи</string>
+  <string name="titleShareDialogRecipe" >Поделится рецептом</string>
+  <string name="addingRecipeAddInstruction">Добавить шаг</string>
+  <string name="recipeSaved" >Рецепт сохранен в разделе Рецепты/Свои рецепты</string>
+  <string name="errorNameRecipe" >Введите название рецепта!</string>
+  <string name="errorTimeRecipe" >Введите время нужное для готовки!</string>
+  <string name="errorIngrRecipe" >Введите ингридиенты</string>
+  <string name="errorInstrReipe" >Введите шаги приготовления</string>
+
+  <string name="daily_widget_calories_left">Осталось</string>
+  <string name="daily_widget_calories_excess">Превышение</string>
+  <string name="daily_widget_calories_burned">Сожжено</string>
+  <string name="daily_widget_calories_eaten">Съедено</string>
+
+
+  <string name="measurments">Измерения тела</string>
+  <string name="medium_weight">средний вес за неделю</string>
+  <string name="meas_title_bottom">Размеры (см)</string>
+  <string name="propose_enter_data">Вы еще не вносили данные</string>
+  <string name="meas_chest">Грудь</string>
+  <string name="meas_add_meas">Добавить</string>
+
+  <string name="timer_days_left">days</string>
+  <string name="timer_hours_left">hours</string>
+  <string name="timer_minutes_left">minutes</string>
+  <string name="premium_black_friday_days_remained_hint">The special offer will end in</string>
 
 </resources>
