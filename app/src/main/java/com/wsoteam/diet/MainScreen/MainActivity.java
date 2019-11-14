@@ -166,13 +166,13 @@ public class MainActivity extends AppCompatActivity {
         Log.d("kkk", "gradeStatus != Config.GRADED  ---  " + (gradeStatus != Config.GRADED));
         Log.d("kkk", "isAddedFoodEarly  ---   " + (isAddedFoodEarly));
         Log.d("kkk", "gradeStatus == Config.NOT_VIEW_GRADE_DIALOG  ---    " + (gradeStatus == Config.NOT_VIEW_GRADE_DIALOG));
-//        if ((currentTime - timeStartingPoint) >= Config.ONE_DAY && gradeStatus != Config.GRADED) {
-//            if (isAddedFoodEarly) {
+        if ((currentTime - timeStartingPoint) >= Config.ONE_DAY && gradeStatus != Config.GRADED) {
+            if (isAddedFoodEarly) {
 
                 RateDialogs.showWhiteDialog(this);
 
-//            }
-//        }
+            }
+        }
     }
 
     @Override
