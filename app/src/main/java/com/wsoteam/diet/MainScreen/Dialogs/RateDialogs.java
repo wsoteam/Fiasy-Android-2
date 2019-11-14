@@ -1,5 +1,6 @@
 package com.wsoteam.diet.MainScreen.Dialogs;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,10 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -109,6 +113,13 @@ public class RateDialogs {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = layoutInflater.inflate(R.layout.alert_dialog_done, null);
+
+        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        progressBar.setRotation(180);
+        ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, "progress", 0, 500); // see this max value coming back here, we animale towards that value
+        animation.setDuration (1900); //in milliseconds
+        animation.setInterpolator (new DecelerateInterpolator());
+        animation.start ();
 
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         alertDialog.setView(view);

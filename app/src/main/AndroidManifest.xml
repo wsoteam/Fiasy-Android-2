@@ -27,6 +27,9 @@
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security"
         android:theme="@style/AppTheme">
+        <activity android:name=".articles.ArticleSeriesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Article"/>
 
         <activity
             android:name=".articles.BurlakovAuthorActivity"
@@ -125,19 +128,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/TransparentStatusBar" />
         <activity
-            android:name=".Recipes.v1.RecipeWithoutPremActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Menu" />
-        <activity
-            android:name=".Recipes.v1.ItemActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Menu" />
-        <activity
             android:name=".Recipes.v2.RecipeActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Menu" />
-        <activity
-            android:name=".Recipes.v1.ItemPlansActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
         <activity
