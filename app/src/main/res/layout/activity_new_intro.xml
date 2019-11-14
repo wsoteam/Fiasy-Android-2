@@ -11,34 +11,57 @@
         android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="32dp"
         android:text="@string/intro_title"
         android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#404040"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <LinearLayout
         android:id="@+id/tvSub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginTop="4dp"
-        android:text="@string/intro_subtitle"
-        android:textColor="@color/orange"
-        android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvWelcome" />
+        app:layout_constraintTop_toBottomOf="@id/tvWelcome">
 
+        <ImageView
+            android:id="@+id/brand_logo"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="4dp"
+            app:srcCompat="@drawable/ic_fiasy_splash_ppl"
+            />
+
+        <TextView
+            android:id="@+id/brand_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:layout_marginLeft="8dp"
+            android:textColor="#c0000000"
+            android:textStyle="bold"
+            android:text="Fiasy"
+            />
+
+    </LinearLayout>
 
     <com.wsoteam.diet.views.CustomizedViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.65"
+        android:layout_marginTop="16dp"
+        app:layout_constraintHeight_percent="0.60"
         app:layout_constraintTop_toBottomOf="@id/tvSub"
         tools:layout_editor_absoluteX="175dp" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabDots"
         android:layout_width="match_parent"
@@ -52,7 +75,7 @@
     <Button
         android:id="@+id/btnNext"
         style="@style/Question.NextButton"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/next2"
         app:layout_constraintEnd_toEndOf="parent"

@@ -50,7 +50,7 @@
 
     <com.wsoteam.diet.common.views.wheels.WheelDatePicker
         android:id="@+id/wheelDate"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="62dp"
         app:layout_constraintEnd_toEndOf="parent"

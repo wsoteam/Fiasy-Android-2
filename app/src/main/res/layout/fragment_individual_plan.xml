@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
   <TextView
       android:id="@+id/tvTitle"
       android:layout_width="0dp"
@@ -15,7 +18,7 @@
       android:text="@string/plan_calculated"
       android:textAlignment="center"
       android:textColor="#de2b2b2b"
-      android:textSize="18sp"
+      android:textSize="20sp"
       android:textStyle="normal"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -23,15 +26,8 @@
       />
   <Button
       android:id="@+id/btnNext2"
-      android:layout_width="134dp"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="24dp"
-      android:background="@drawable/shape_orange"
-      android:elevation="10dp"
-      android:foreground="?android:attr/selectableItemBackgroundBorderless"
+      style="@style/Question.NextButton"
       android:text="@string/next"
-      android:textAllCaps="true"
-      android:textColor="@color/white"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +48,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-
       <TextView
           android:id="@+id/textView151"
           android:layout_width="wrap_content"
@@ -225,7 +220,7 @@
       app:layout_constraintTop_toTopOf="@+id/linearLayout2"/>
   <ImageView
       android:id="@+id/imageView50"
-      android:layout_width="325dp"
+      android:layout_width="match_parent"
       android:layout_height="321dp"
       android:layout_marginEnd="40dp"
       android:layout_marginStart="40dp"

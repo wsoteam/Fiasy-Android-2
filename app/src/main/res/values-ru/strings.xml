@@ -24,10 +24,10 @@
   <string name="password">Пароль</string>
   <string name="restore">Восстановить</string>
   <string name="forgot_password">Забыли пароль?</string>
-  <string name="or_signIn_by">или войти с помощью</string>
+  <string name="or_signIn_by">Или войти с помощью</string>
 
   <!-- Sign Up Screen -->
-  <string name="signUp_title">Зарегистрироваться</string>
+  <string name="signUp_title">Регистрация</string>
   <string name="write_email">Введите Email</string>
   <string name="write_password">Введите пароль</string>
   <string name="repeat_password">Повторите пароль</string>

@@ -45,7 +45,7 @@ public class AuthFirstFragment extends AuthStrategyFragment {
     final RichText actionSignIn = new RichText(getString(R.string.signIn))
         .onClick(v -> signIn())
         .textScale(1.2f)
-        .colorRes(requireContext(), R.color.orange);
+        .colorRes(requireContext(), R.color.orange_light);
 
     final TextView signInView = view.findViewById(R.id.signIn);
     signInView.setMovementMethod(LinkMovementMethod.getInstance());

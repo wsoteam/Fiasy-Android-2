@@ -38,10 +38,10 @@ public class SignUpFragment extends SignInFragment {
     if (privacyView != null) {
       final RichTextUtils.RichText actionOpenPrivacyPolicy =
           new RichTextUtils.RichText(getString(R.string.privacy_policy))
-              .colorRes(requireContext(), R.color.blue)
               .underline()
               .onClick(v -> IntentUtils.openWebLink(v.getContext(),
-                  getString(R.string.url_privacy_police)));
+                  getString(R.string.url_privacy_police)))
+              .color(0xFFEF7d02);
 
       privacyView.setMovementMethod(LinkMovementMethod.getInstance());
       privacyView.setText(concat(getString(R.string.agree_with_conditions), " ",

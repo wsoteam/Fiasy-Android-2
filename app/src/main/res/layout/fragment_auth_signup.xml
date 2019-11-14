@@ -113,22 +113,44 @@
       android:maxWidth="222dp"
       android:text="@string/forgot_password"
       style="@style/TextAppearance.AppCompat.Body1"
-      android:textColor="#80000000"
+      android:textColor="#51000000"
       android:gravity="center"
+      android:textSize="14sp"
       android:layout_gravity="center"
       android:layout_marginTop="12dp"
       />
 
-  <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textSize="16sp"
-      android:textStyle="bold"
-      android:textColor="#80000000"
-      android:text="@string/or_signIn_by"
+  <LinearLayout
       android:layout_gravity="center"
       android:layout_marginTop="64dp"
-      />
+      android:gravity="center"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    <View
+        android:layout_width="32dp"
+        android:layout_height="1dp"
+        android:background="#d3d3d3"
+        android:layout_marginRight="8dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#51000000"
+        android:text="@string/or_signIn_by"
+        />
+
+    <View
+        android:layout_width="32dp"
+        android:layout_height="1dp"
+        android:background="#d3d3d3"
+        android:layout_marginLeft="8dp"
+        />
+
+  </LinearLayout>
+
 
   <LinearLayout
       android:orientation="horizontal"
@@ -143,10 +165,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:background="@drawable/circle_overlay_background"
         app:srcCompat="@drawable/ic_facebook"/>
 
     <ImageView
         android:id="@+id/auth_strategy_google"
+        android:background="@drawable/circle_overlay_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
