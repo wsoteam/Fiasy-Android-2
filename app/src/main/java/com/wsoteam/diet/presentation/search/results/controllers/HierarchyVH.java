@@ -12,7 +12,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 import com.wsoteam.diet.presentation.search.results.controllers.expandable.ExpandableAdapter;
@@ -39,7 +38,7 @@ public class HierarchyVH extends RecyclerView.ViewHolder {
     tvKcal.setText(
         String.valueOf(Math.round(result.getCalories() * 100)) + " " + itemView.getContext()
             .getResources()
-            .getString(R.string.marker_kcal));
+            .getString(R.string.srch_kcal));
     tvKcal.setText(getKcalInterval(result));
     tvPortion.setText(getPortionsInterval(result));
     rvExpList.setAdapter(new ExpandableAdapter(result, listener, savedDeepIds));
@@ -76,7 +75,7 @@ public class HierarchyVH extends RecyclerView.ViewHolder {
         + " - "
         + String.valueOf(lastKcal)
         + " "
-        + itemView.getContext().getResources().getString(R.string.marker_kcal);
+        + itemView.getContext().getResources().getString(R.string.srch_kcal);
   }
 
   @OnClick(R.id.ivOpenList) public void onViewClicked() {

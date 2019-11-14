@@ -20,7 +20,7 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionViewHolder> {
 
   public SectionAdapter(Context context) {
     this.context = context;
-    names = context.getResources().getStringArray(R.array.sections_names);
+    names = context.getResources().getStringArray(R.array.srch_names_sections);
     drawablesLeft = context.getResources().obtainTypedArray(R.array.sections_images);
   }
 
@@ -39,7 +39,7 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionViewHolder> {
   }
 
   private void openScreen(int position) {
-    Toast.makeText(context, "Раздел в разработке", Toast.LENGTH_SHORT).show();
+    Toast.makeText(context, context.getResources().getString(R.string.srch_empty_section), Toast.LENGTH_SHORT).show();
   }
 
   @Override public int getItemCount() {

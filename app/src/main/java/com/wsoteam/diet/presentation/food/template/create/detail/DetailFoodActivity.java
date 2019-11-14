@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import com.amplitude.api.Amplitude;
+
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
@@ -33,11 +32,9 @@ import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -291,7 +288,7 @@ public class DetailFoodActivity extends AppCompatActivity {
                         || weight.equals(" ")
                         || Integer.parseInt(weight) < 1) {
 
-                    Toast.makeText(this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.srch_weight_error, Toast.LENGTH_SHORT).show();
 
                 } else {
                     Double portion = Double.parseDouble(edtWeight.getText().toString());

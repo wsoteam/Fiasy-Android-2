@@ -15,7 +15,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amplitude.api.Amplitude;
 import com.bumptech.glide.Glide;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
@@ -29,14 +28,11 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
-import com.wsoteam.diet.common.Analytics.UserProperty;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -277,7 +273,7 @@ public class ActivityDetailFood extends AppCompatActivity {
                         || weight.equals(" ")
                         || Integer.parseInt(weight) < 1) {
 
-                    Toast.makeText(this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.srch_weight_error, Toast.LENGTH_SHORT).show();
 
                 } else {
                     Double portion = Double.parseDouble(edtWeight.getText().toString());

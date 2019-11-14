@@ -14,8 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amplitude.api.Amplitude;
-import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.AddFoodDialog;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
@@ -178,7 +176,7 @@ public class ActivityDetailSavedFood extends AppCompatActivity {
                 if (edtWeight.getText().toString().equals("")
                         || edtWeight.getText().toString().equals(" ")
                         || Integer.parseInt(edtWeight.getText().toString()) == 0) {
-                    Toast.makeText(ActivityDetailSavedFood.this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityDetailSavedFood.this, R.string.srch_weight_error, Toast.LENGTH_SHORT).show();
                 } else {
                     savePortion(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
                 }

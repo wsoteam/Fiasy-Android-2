@@ -16,7 +16,6 @@ import androidx.appcompat.widget.PopupMenu;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,7 +39,6 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.adding.AddingRecipeActivity;
 import com.wsoteam.diet.Recipes.helper.FragmentRecipeContainer;
 import com.wsoteam.diet.common.Analytics.EventProperties;
-import com.wsoteam.diet.common.backward.OldFavoriteConverter;
 import com.wsoteam.diet.presentation.food.template.browse.BrowseFoodTemplateFragment;
 import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
 
@@ -187,7 +185,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
     private void bindSpinnerChoiceEating() {
         ArrayAdapter<String> adapter = new ArrayAdapter(this,
-                R.layout.item_spinner_food_search, getResources().getStringArray(R.array.eatingList));
+                R.layout.item_spinner_food_search, getResources().getStringArray(R.array.srch_eat_list));
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search);
         spinner.setAdapter(adapter);
         spinner.setSelection(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));

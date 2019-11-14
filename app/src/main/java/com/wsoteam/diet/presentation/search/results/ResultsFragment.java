@@ -8,7 +8,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,8 +62,6 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
 
 public class ResultsFragment extends MvpAppCompatFragment implements ResultsView {
   ResultsPresenter presenter;
@@ -246,7 +243,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   private void showNoFind() {
     if (ivSearchImage != null) {
       Glide.with(getActivity()).load(R.drawable.empty_search).into(ivSearchImage);
-      tvTextEmptySearch.setText(getResources().getString(R.string.search_text_empty));
+      tvTextEmptySearch.setText(getResources().getString(R.string.srch_text_empty));
       ivSearchImage.setVisibility(View.VISIBLE);
       tvTitleEmptySearch.setVisibility(View.VISIBLE);
       tvTextEmptySearch.setVisibility(View.VISIBLE);

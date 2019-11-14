@@ -166,7 +166,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
 
     private void bindSpinnerChoiceEating() {
         ArrayAdapter<String> adapter = new ArrayAdapter(this,
-                R.layout.item_spinner_food_search, getResources().getStringArray(R.array.eatingList));
+                R.layout.item_spinner_food_search, getResources().getStringArray(R.array.srch_eat_list));
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search);
         spnFood.setAdapter(adapter);
         spnFood.setSelection(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
@@ -373,7 +373,7 @@ public class ActivityDetailOfFood extends AppCompatActivity {
                 if (edtWeight.getText().toString().equals("")
                         || edtWeight.getText().toString().equals(" ")
                         || Integer.parseInt(edtWeight.getText().toString()) == 0) {
-                    Toast.makeText(ActivityDetailOfFood.this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityDetailOfFood.this, R.string.srch_weight_error, Toast.LENGTH_SHORT).show();
                 } else {
                     savePortion(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
                 }

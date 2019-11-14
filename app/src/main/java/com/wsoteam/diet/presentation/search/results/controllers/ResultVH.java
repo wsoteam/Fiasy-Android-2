@@ -38,7 +38,7 @@ public class ResultVH extends RecyclerView.ViewHolder implements View.OnClickLis
     this.clickListener = clickListener;
     tvTitle.setText(food.getName());
     tvPortion.setText(itemView.getResources().getString(R.string.srch_default_portion));
-    tvKcal.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " Ккал");
+    tvKcal.setText(String.valueOf(Math.round(food.getCalories() * 100)) + " " + itemView.getContext().getResources().getString(R.string.tvKkal));
 
       if (food.getBrand() != null && food.getBrand().getName() != null && !food.getBrand().getName().equals("")) {
         tvTitle.append(" (" + food.getBrand().getName() + ")");
@@ -60,7 +60,7 @@ public class ResultVH extends RecyclerView.ViewHolder implements View.OnClickLis
     }else {
       tvPortion.setText(String.valueOf(historyEntity.getCountPortions() * historyEntity.getSizePortion()) + " " + itemView.getResources().getString(R.string.srch_gramm));
     }
-    tvKcal.setText(String.valueOf(Math.round(historyEntity.getCalories()) + " Ккал"));
+    tvKcal.setText(String.valueOf(Math.round(historyEntity.getCalories()) + " " + itemView.getContext().getResources().getString(R.string.tvKkal)));
     if (historyEntity.getBrand() != null && !historyEntity.getBrand().equals("")) {
       tvTitle.append(" (" + historyEntity.getBrand() + ")");
     }

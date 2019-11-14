@@ -146,7 +146,7 @@ public class ParentActivity extends AppCompatActivity {
 
   private void bindSpinnerChoiceEating() {
     ArrayAdapter<String> adapter = new ArrayAdapter(this,
-        R.layout.item_spinner_food_search, getResources().getStringArray(R.array.eatingList));
+        R.layout.item_spinner_food_search, getResources().getStringArray(R.array.srch_eat_list));
     adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search);
     spnEatingList.setAdapter(adapter);
     spnEatingList.setSelection(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
@@ -179,7 +179,7 @@ public class ParentActivity extends AppCompatActivity {
         RecognizerIntent.ACTION_RECOGNIZE_SPEECH); // намерение для вызова формы обработки речи (ОР)
     intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
         RecognizerIntent.LANGUAGE_MODEL_FREE_FORM); // сюда он слушает и запоминает
-    intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Говорите!");
+    intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getResources().getString(R.string.srch_speak));
     startActivityForResult(intent, 1234); // вызываем активность ОР
   }
 

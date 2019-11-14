@@ -680,7 +680,7 @@
   <string name="btn_nav_eating_lunch">Обед</string>
   <string name="navigation_dinner">Ужин</string>
   <string name="navigation_snack">Перекус</string>
-  <string name="input_weight_of_eating">Введите вес порции</string>
+  <string name="srch_weight_error">Введите вес порции</string>
   <string name="saved_in_breakfast">Порция сохранена в завтрак</string>
   <string name="saved_in_lunch">Порция сохранена в обед</string>
   <string name="saved_in_dinner">Порция сохранена в ужин</string>
@@ -743,7 +743,7 @@
   <string name="check_your_name">Введите Ваше имя</string>
 
   <string name="check_your_email">Неправильный формат</string>
-  <string name="marker_kcal">ккал</string>
+  <string name="srch_kcal">ккал</string>
   <string name="text_start_search">Начните вводить в строку поиска \nназвание продукта</string>
 
   <string name="title_no_find_food">Результаты не найдены</string>
@@ -787,7 +787,8 @@
   <string name="food_saved">Продукт сохранен в разделе избранное/свои продукты </string>
   <string name="own_food">свои продукты</string>
   <string name="add_food">Добавить продукт</string>
-  <string name="create_user_food">Создать продукт</string>
+  <string name="srch_create_user_food">Создать продукт</string>
+  <string name="srch_mg">мг</string>
   <string name="error_name">Введите название продукта</string>
   <string name="edit_food_completed">Продукт изменен</string>
   <string name="reports">Отчеты</string>
@@ -843,9 +844,9 @@
   <string name="update_title">Обновление!</string>
   <string name="eating_trigger">Питание</string>
   <string name="enter_multi_params">Введите данные</string>
-  <string name="activity_parent_search_hint">Поиск по базе продуктов</string>
-  <string name="empty_search_title">Результаты не найдены</string>
-  <string name="search_text_empty">Попробуйте еще раз или создайте \nсвой продукт</string>
+  <string name="srch_search_field">Поиск по базе продуктов</string>
+  <string name="srch_empty_search_title">Результаты не найдены</string>
+  <string name="srch_text_empty">Попробуйте еще раз или создайте \nсвой продукт</string>
   <string name="srch_ml">мл</string>
   <string name="srch_gramm">г</string>
   <string name="srch_add_to_basket">Добавить</string>
@@ -878,6 +879,25 @@
   <string name="srch_text_prem_third">\u0020PREMIUM\u0020</string>
   <string name="srch_text_prem_end">версии.</string>
   <string name="srch_connect_prem">подключить premium</string>
+  <string name="srch_speak">Говорите!</string>
+  <string name="srch_empty_section">Раздел в разработке</string>
+  <string name="srch_min_claim">Мин. 10 символов</string>
+  <string name="srch_claim_send">Отправить</string>
+  <string name="srch_claim_cancel">Cancel</string>
+  <string name="srch_write_claim">Опишите проблему</string>
+  <string name="srch_detail_add">добавить</string>
+  <string name="srch_speak_about_error">Сообщить об ошибке</string>
+  <string name="srch_carbo">Углеводы</string>
+  <string name="srch_cell">Клетчатка</string>
+  <string name="srch_sugar">Сахар</string>
+  <string name="srch_fats">Жиры</string>
+  <string name="srch_sat">Насыщенные</string>
+  <string name="srch_mono_un_sat">Мононенасыщенные</string>
+  <string name="srch_poly_us_sat">Полиненасыщенные</string>
+  <string name="srch_prot">Белки</string>
+  <string name="srch_chol">Холестерин</string>
+  <string name="srch_sod">Натрий</string>
+  <string name="srch_pot">Калий</string>
   <string-array name="settings_items">
     <item>Premium аккаунт</item>
     <!--<item>Еда и аллергия</item>-->
@@ -1032,7 +1052,7 @@
     <item>Ноябрь</item>
     <item>Декабрь</item>
   </string-array>
-  <string-array name="eatingList">
+  <string-array name="srch_eat_list">
     <item>Завтрак</item>
     <item>Обед</item>
     <item>Ужин</item>
@@ -1133,7 +1153,7 @@
     <item>Тренировки 5-7 раз в неделю по два раза в день</item>
     <item>Тяжелая физическая работа или ежедневные интенсивные тренировки по 2 раза в день</item>
   </string-array>
-  <string-array name="sections_names">
+  <string-array name="srch_names_sections">
     <item>Избранное</item>
     <item>Шаблоны</item>
     <item>Мои блюда</item>

@@ -22,7 +22,6 @@ import com.wsoteam.diet.Config
 import com.wsoteam.diet.InApp.ActivitySubscription
 import com.wsoteam.diet.R
 import com.wsoteam.diet.R.array
-import com.wsoteam.diet.R.layout
 import com.wsoteam.diet.common.Analytics.EventProperties
 import com.wsoteam.diet.common.Analytics.Events
 import com.wsoteam.diet.model.Eating
@@ -98,10 +97,10 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
             if (edtWeightCalculate.text.toString() != "") {
                 presenter.calculate(s)
             } else {
-                tvProtCalculate.text = "0 " + getString(R.string.gramm)
+                tvProtCalculate.text = "0" + getString(R.string.srch_gramm)
                 tvKcalCalculate.text = "0 "
-                tvCarboCalculate.text = "0 " + getString(R.string.gramm)
-                tvFatCalculate.text = "0 " + getString(R.string.gramm)
+                tvCarboCalculate.text = "0" + getString(R.string.srch_gramm)
+                tvFatCalculate.text = "0" + getString(R.string.srch_gramm)
             }
         }
     }
@@ -156,9 +155,9 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         }
         tvTitle.text = name
                 .toUpperCase()
-        tvFats.text = Math.round(fats * sizePortion).toString() + " г"
-        tvCarbohydrates.text = Math.round(carbo * sizePortion).toString() + " г"
-        tvProteins.text = Math.round(prot * sizePortion).toString() + " г"
+        tvFats.text = Math.round(fats * sizePortion).toString() + " " + getString(R.string.srch_gramm)
+        tvCarbohydrates.text = Math.round(carbo * sizePortion).toString() + " " + getString(R.string.srch_gramm)
+        tvProteins.text = Math.round(prot * sizePortion).toString() + " " + getString(R.string.srch_gramm)
 
         if (brand != null && brand != "") {
             tvBrand.visibility = View.VISIBLE
@@ -168,45 +167,45 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         if (sugar >= EMPTY_ELEMENT) {
             tvLabelSugar.visibility = View.VISIBLE
             tvSugar.visibility = View.VISIBLE
-            tvSugar.text = Math.round(sugar * sizePortion).toString() + " г"
+            tvSugar.text = Math.round(sugar * sizePortion).toString() + " " + getString(R.string.srch_gramm)
         }
         if (saturatedFats >= EMPTY_ELEMENT) {
             tvLabelSaturated.visibility = View.VISIBLE
             tvSaturated.visibility = View.VISIBLE
-            tvSaturated.text = Math.round(saturatedFats * sizePortion).toString() + " г"
+            tvSaturated.text = Math.round(saturatedFats * sizePortion).toString() + " " + getString(R.string.srch_gramm)
         }
         if (monoUnSaturatedFats >= EMPTY_ELEMENT) {
             tvLabelMonoUnSaturated.visibility = View.VISIBLE
             tvMonoUnSaturated.visibility = View.VISIBLE
             tvMonoUnSaturated.text =
-                    Math.round(monoUnSaturatedFats * sizePortion).toString() + " г"
+                    Math.round(monoUnSaturatedFats * sizePortion).toString() + " " + getString(R.string.srch_gramm)
 
         }
         if (polyUnSaturatedFats >= EMPTY_ELEMENT) {
             tvLabelPolyUnSaturated.visibility = View.VISIBLE
             tvPolyUnSaturated.visibility = View.VISIBLE
             tvPolyUnSaturated.text =
-                    Math.round(polyUnSaturatedFats * sizePortion).toString() + " г"
+                    Math.round(polyUnSaturatedFats * sizePortion).toString() + " " + getString(R.string.srch_gramm)
         }
         if (cholesterol >= EMPTY_ELEMENT) {
             tvLabelСholesterol.visibility = View.VISIBLE
             tvСholesterol.visibility = View.VISIBLE
-            tvСholesterol.text = Math.round(cholesterol * sizePortion).toString() + " мг"
+            tvСholesterol.text = Math.round(cholesterol * sizePortion).toString() + " " + getString(R.string.srch_mg)
         }
         if (cellulose >= EMPTY_ELEMENT) {
             tvLabelCellulose.visibility = View.VISIBLE
             tvCellulose.visibility = View.VISIBLE
-            tvCellulose.text = Math.round(cellulose * sizePortion).toString() + " г"
+            tvCellulose.text = Math.round(cellulose * sizePortion).toString() + " " + getString(R.string.srch_gramm)
         }
         if (sodium >= EMPTY_ELEMENT) {
             tvLabelSodium.visibility = View.VISIBLE
             tvSodium.visibility = View.VISIBLE
-            tvSodium.text = Math.round(sodium * sizePortion).toString() + " мг"
+            tvSodium.text = Math.round(sodium * sizePortion).toString() + " " + getString(R.string.srch_mg)
         }
         if (pottassium >= EMPTY_ELEMENT) {
             tvLabelPotassium.visibility = View.VISIBLE
             tvPotassium.visibility = View.VISIBLE
-            tvPotassium.text = Math.round(pottassium * sizePortion).toString() + " мг"
+            tvPotassium.text = Math.round(pottassium * sizePortion).toString() + " " + + getString(R.string.srch_mg)
         }
         if (eatingType != EMPTY_FIELD) {
             bindSpinnerChoiceEating(eatingType)
@@ -258,7 +257,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
 
     private fun bindSpinnerChoiceEating(eatingType: Int) {
         val adapter = ArrayAdapter(
-                this, R.layout.item_spinner_food_search, resources.getStringArray(array.eatingList)
+                this, R.layout.item_spinner_food_search, resources.getStringArray(array.srch_eat_list)
         )
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search)
         spnFood.adapter = adapter
@@ -328,7 +327,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
                     || edtWeightCalculate.text.toString() == " "
                     || Integer.parseInt(edtWeightCalculate.text.toString()) == 0
             ) {
-                Toast.makeText(this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT)
+                Toast.makeText(this, R.string.srch_weight_error, Toast.LENGTH_SHORT)
                         .show()
             } else {
                 presenter.prepareToSave(

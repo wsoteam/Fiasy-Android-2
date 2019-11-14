@@ -1,8 +1,6 @@
 package com.wsoteam.diet.common.views.graph.marker;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.MarkerView;
@@ -46,9 +44,9 @@ public class BarMarker extends MarkerView {
         }
         if (e instanceof CandleEntry) {
             CandleEntry ce = (CandleEntry) e;
-            tvTitle.setText("" + Utils.formatNumber(ce.getHigh(), 0, true) + " " + getContext().getString(R.string.marker_kcal));
+            tvTitle.setText("" + Utils.formatNumber(ce.getHigh(), 0, true) + " " + getContext().getString(R.string.srch_kcal));
         } else {
-            tvTitle.setText("" + Utils.formatNumber(e.getY(), 0, true) + " " + getContext().getString(R.string.marker_kcal));
+            tvTitle.setText("" + Utils.formatNumber(e.getY(), 0, true) + " " + getContext().getString(R.string.srch_kcal));
         }
         super.refreshContent(e, highlight);
     }

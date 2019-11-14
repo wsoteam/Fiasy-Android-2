@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
@@ -49,7 +48,7 @@ public class ExpandableVH extends RecyclerView.ViewHolder implements View.OnClic
     long kcal = Math.round(amount * calories);
     return String.valueOf(kcal) + " " + itemView.getContext()
         .getResources()
-        .getString(R.string.marker_kcal);
+        .getString(R.string.srch_kcal);
   }
 
   private String convertToString(int amount, boolean isLiquid) {
