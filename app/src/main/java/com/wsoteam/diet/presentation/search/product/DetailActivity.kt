@@ -205,7 +205,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         if (pottassium >= EMPTY_ELEMENT) {
             tvLabelPotassium.visibility = View.VISIBLE
             tvPotassium.visibility = View.VISIBLE
-            tvPotassium.text = Math.round(pottassium * sizePortion).toString() + " " + + getString(R.string.srch_mg)
+            tvPotassium.text = Math.round(pottassium * sizePortion).toString() + " " + getString(R.string.srch_mg)
         }
         if (eatingType != EMPTY_FIELD) {
             bindSpinnerChoiceEating(eatingType)
