@@ -67,6 +67,7 @@ public class RateDialogs {
                     context.startActivity(new Intent(Intent.ACTION_VIEW,
                             Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
                 }
+                saveData(context, Config.GRADED);
             } else {
                 grade.setRating(atomicRating.get());
                 msgAlert(context, grade);
