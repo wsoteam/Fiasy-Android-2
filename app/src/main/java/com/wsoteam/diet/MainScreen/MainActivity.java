@@ -162,11 +162,15 @@ public class MainActivity extends AppCompatActivity {
                       false);
       int gradeStatus = getSharedPreferences(Config.IS_GRADE_APP, MODE_PRIVATE).
               getInt(Config.IS_GRADE_APP, Config.NOT_VIEW_GRADE_DIALOG);
+      Log.d("kkk", "(currentTime - timeStartingPoint) >= Config.ONE_DAY  ---   " + ((currentTime - timeStartingPoint) >= Config.ONE_DAY));
+      Log.d("kkk", "gradeStatus != Config.GRADED  ---  " + (gradeStatus != Config.GRADED));
+      Log.d("kkk", "isAddedFoodEarly  ---   " + (isAddedFoodEarly));
+      Log.d("kkk", "gradeStatus == Config.NOT_VIEW_GRADE_DIALOG  ---    " + (gradeStatus == Config.NOT_VIEW_GRADE_DIALOG));
       if ((currentTime - timeStartingPoint) >= Config.ONE_DAY && gradeStatus != Config.GRADED) {
           if (isAddedFoodEarly) {
-              if (gradeStatus == Config.NOT_VIEW_GRADE_DIALOG) {
+//              if (gradeStatus == Config.NOT_VIEW_GRADE_DIALOG) {
                   RateDialogs.showWhiteDialog(this);
-              }
+//              }
           }
       }
   }
