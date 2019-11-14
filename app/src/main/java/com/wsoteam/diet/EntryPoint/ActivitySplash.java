@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,11 +33,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.wsoteam.diet.ABConfig;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Amplitude.SetUserProperties;
 import com.wsoteam.diet.App;
+import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.FirebaseUserProperties;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.InApp.IDs;
 import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.InApp.properties.EmptySubInfo;
@@ -49,6 +53,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.UserProperty;
 import com.wsoteam.diet.common.promo.POJO.UserPromo;
 import com.wsoteam.diet.presentation.auth.AuthStrategy;
@@ -80,6 +85,8 @@ public class ActivitySplash extends BaseActivity {
   private View retryFrame;
 
   private final CompositeDisposable disposables = new CompositeDisposable();
+
+  private boolean deeplink;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -193,7 +200,18 @@ public class ActivitySplash extends BaseActivity {
               new UserDataHolder().bindObjectWithHolder(user);
 
               UserProperty.setUserProperties(UserDataHolder.getUserData().getProfile(), ActivitySplash.this, false);
-              onSignedIn();
+
+              Intent intent = getIntent();
+              String action = intent.getAction();
+              // using action u can detect
+              Uri data = intent.getData();
+              if (Intent.ACTION_VIEW.equals(action) && data != null && !deeplink){
+                checkBilling();
+                startPrem();
+                deeplink = true;
+              } else {
+                onSignedIn();
+              }
             },
 
             error -> {
@@ -204,6 +222,18 @@ public class ActivitySplash extends BaseActivity {
         );
 
     disposables.add(d);
+  }
+
+  private void startPrem(){
+    Box box = new Box();
+    box.setSubscribe(false);
+    box.setOpenFromPremPart(true);
+    box.setOpenFromIntrodaction(false);
+    //TODO trial_from_*
+    box.setComeFrom(AmplitudaEvents.view_prem_content);
+    box.setBuyFrom(EventProperties.trial_from_articles);
+    Intent intent = new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box);
+    startActivity(intent);
   }
 
   private void onUserNotAuthorized() {

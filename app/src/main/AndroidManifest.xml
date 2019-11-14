@@ -190,16 +190,30 @@
             android:screenOrientation="portrait"
             android:theme="@style/MeasurmentsStyle" />
 
-    <activity
-        android:name=".EntryPoint.ActivitySplash"
-        android:screenOrientation="unspecified"
-        android:theme="@style/Theme.AppCompat.Translucent">
-      <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar"> -->
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
+        <activity
+            android:name=".EntryPoint.ActivitySplash"
+            android:screenOrientation="unspecified"
+            android:theme="@style/Theme.AppCompat.Translucent">
+            <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar"> -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="fiasy.com"
+                    android:pathPrefix="/premium"
+                    android:scheme="https" />
+                <data
+                    android:host="fiasy.com"
+                    android:pathPrefix="/premium"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
 
 
     <activity
