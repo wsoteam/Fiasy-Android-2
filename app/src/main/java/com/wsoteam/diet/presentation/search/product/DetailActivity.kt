@@ -266,7 +266,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
     }
 
     private fun handlePremiumState() {
-        if (!isPremUser()) {
+        if (isPremUser()) {
             include_lock_premium.visibility = View.GONE
         } else {
             paintPremText()
