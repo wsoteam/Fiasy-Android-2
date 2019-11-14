@@ -258,9 +258,9 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
 
     private fun bindSpinnerChoiceEating(eatingType: Int) {
         val adapter = ArrayAdapter(
-                this, layout.item_spinner_food_search, resources.getStringArray(array.eatingList)
+                this, R.layout.item_spinner_food_search, resources.getStringArray(array.eatingList)
         )
-        adapter.setDropDownViewResource(layout.item_spinner_dropdown_food_search)
+        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search)
         spnFood.adapter = adapter
         spnFood.setSelection(eatingType)
     }
