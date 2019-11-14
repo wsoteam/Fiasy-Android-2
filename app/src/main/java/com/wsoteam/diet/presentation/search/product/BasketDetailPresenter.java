@@ -48,6 +48,7 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
 
   @Override
   protected void onFirstViewAttach() {
+    Log.e("LOL", basketEntity.toString());
     defaultCountPortions = basketEntity.getCountPortions();
     handlePortions();
     int portionSize = portionsSizes.get(0);
@@ -72,8 +73,12 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
     ArrayList<String> names = new ArrayList<>();
 
     if (basketEntity.getSizePortion() > Config.DEFAULT_WEIGHT) {
+      String unit = context.getResources().getString(R.string.srch_gramm);
+      if (basketEntity.isLiquid()){
+        unit = context.getResources().getString(R.string.srch_ml);
+      }
       portionsSizes.add(basketEntity.getSizePortion());
-      names.add(basketEntity.getNamePortion());
+      names.add(basketEntity.getNamePortion() + " (" + String.valueOf(basketEntity.getSizePortion()) + unit + ")");
     }
 
     if (basketEntity.getNamePortion().equals(Config.DEFAULT_PORTION_NAME) && basketEntity.getCountPortions() == Config.DEFAULT_PORTION){
