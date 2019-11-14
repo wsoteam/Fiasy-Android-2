@@ -118,6 +118,7 @@
         android:id="@+id/auth_strategy_facebook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/circle_overlay_background"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         app:srcCompat="@drawable/ic_facebook"/>
@@ -126,6 +127,7 @@
         android:id="@+id/auth_strategy_google"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/circle_overlay_background"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         app:srcCompat="@drawable/ic_google"/>

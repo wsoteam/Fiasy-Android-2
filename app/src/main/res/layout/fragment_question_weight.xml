@@ -56,7 +56,7 @@
         android:fontFamily="sans-serif"
         android:text="@string/select_your_weight"
         android:textColor="#de2b2b2b"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="normal"
         app:layout_constraintStart_toStartOf="@+id/textView145"
         app:layout_constraintTop_toBottomOf="@+id/textView145"/>

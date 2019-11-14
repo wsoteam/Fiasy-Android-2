@@ -3,6 +3,7 @@ package com.wsoteam.diet.presentation.profile.questions.fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatSeekBar;
@@ -71,7 +72,7 @@ public class QuestionActivityFragments extends Fragment {
                 text = getString(R.string.first_activity);
                 break;
             case 1:
-                imageResource = R.drawable.ic_activity1;
+                imageResource = R.drawable.auth_first_girl_walking;
                 text = getString(R.string.second_activity);
                 break;
             case 2:
@@ -102,7 +103,7 @@ public class QuestionActivityFragments extends Fragment {
         //TODO check
         //Picasso.get().load(imageResource).into(ivImage);
         ivImage.setImageDrawable(
-            VectorDrawableCompat.create(getResources(), imageResource, requireActivity().getTheme())
+            AppCompatResources.getDrawable(requireContext(), imageResource)
         );
         tvActivity.setText(text);
     }

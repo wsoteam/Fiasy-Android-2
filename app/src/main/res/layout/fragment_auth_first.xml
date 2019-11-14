@@ -11,11 +11,11 @@
         android:id="@+id/ivMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_activity1"/>
+        app:srcCompat="@drawable/auth_first_girl_walking"/>
 
     <TextView
         android:id="@+id/tvEntry"
@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="28dp"
+        android:background="@drawable/circle_overlay_background"
         app:layout_constraintEnd_toStartOf="@+id/auth_strategy_google"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +49,7 @@
         android:id="@+id/auth_strategy_google"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/circle_overlay_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/auth_strategy_facebook"
         app:layout_constraintTop_toTopOf="@+id/auth_strategy_facebook"
@@ -96,7 +98,7 @@
         android:layout_width="235dp"
         android:layout_height="43dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/new_auth_button_background"
+        android:background="@drawable/question_next_button_background"
         android:elevation="3dp"
         android:gravity="center"
         android:text="@string/registration_by_mail"
@@ -121,7 +123,6 @@
         app:layout_constraintTop_toBottomOf="@+id/signUp"
         />
 
-
     <TextView
         android:id="@+id/privacyPolicy"
         android:layout_width="wrap_content"
@@ -132,8 +133,8 @@
         android:gravity="center"
         android:letterSpacing="0.05"
         android:text="@string/privacy_policy_title"
-        android:textColor="#a63a3a3a"
-        android:textSize="10sp"
+        android:textColor="#a6000000"
+        android:textSize="12sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

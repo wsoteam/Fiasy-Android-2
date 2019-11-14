@@ -15,7 +15,7 @@
         android:fontFamily="sans-serif-medium"
         android:text="@string/select_your_gender"
         android:textColor="#de2b2b2b"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,6 +63,7 @@
         style="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintTop_toBottomOf="@id/rgSex"
         app:layout_constraintBottom_toTopOf="@id/btnNext"
+        android:textSize="18sp"
         tools:text="Женский"
         />
 

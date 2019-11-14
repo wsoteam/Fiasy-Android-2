@@ -73,7 +73,7 @@
         <activity
             android:name=".presentation.auth.MainAuthNewActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/EditProfile" />
+            android:theme="@style/ActivityAuthMain" />
         <activity
             android:name=".presentation.intro_tut.NewIntroActivity"
             android:screenOrientation="portrait"
@@ -81,7 +81,7 @@
         <activity
             android:name=".presentation.profile.questions.QuestionsCalculationsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/EditProfile" />
+            android:theme="@style/ActivityAuthMain" />
         <activity
             android:name=".presentation.food.template.create.CreateFoodTemplateActivity"
             android:screenOrientation="portrait"
