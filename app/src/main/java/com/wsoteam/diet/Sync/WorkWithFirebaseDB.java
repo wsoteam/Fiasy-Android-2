@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +33,7 @@ import com.wsoteam.diet.common.promo.POJO.UserPromo;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
 import com.wsoteam.diet.model.Eating;
+import com.wsoteam.diet.model.Grade;
 import com.wsoteam.diet.model.Lunch;
 import com.wsoteam.diet.model.OpenArticles;
 import com.wsoteam.diet.model.Snack;
@@ -534,5 +537,15 @@ public class WorkWithFirebaseDB {
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("articleSeries");
         myRef.child(openArticles.getId()).setValue(openArticles);
+    }
+
+    public static void saveGrade(Grade grade){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("FEEDBACK").
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        grade.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        String key = myRef.push().getKey();
+        myRef.child(key).setValue(grade);
     }
 }

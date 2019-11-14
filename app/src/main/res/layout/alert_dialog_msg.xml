@@ -9,7 +9,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="303dp"
-        android:layout_height="457dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -24,16 +24,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/imageView15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gradeClose"
-                app:srcCompat="@drawable/img_feedback" />
 
             <Button
                 android:id="@+id/btnGradeSend"
@@ -62,51 +52,49 @@
                 app:srcCompat="@drawable/ic_close_gray" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textView6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="26dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto_medium"
-                android:text="@string/alert_rating_title"
+                android:text="@string/alert_grade_title"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView15" />
+                app:layout_constraintTop_toBottomOf="@+id/gradeClose" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textView7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="@string/alert_rating_txt"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/alert_grade_txt"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-            <me.zhanghai.android.materialratingbar.MaterialRatingBar
-                android:id="@+id/ratingBarM"
-                style="@style/Widget.MaterialRatingBar.RatingBar"
+            <MultiAutoCompleteTextView
+                android:id="@+id/multiAutoCompleteTextView"
                 android:layout_width="0dp"
-                android:layout_height="64dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:progressTint="@color/b_color"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="32dp"
+                android:maxHeight="200dp"
                 app:layout_constraintBottom_toTopOf="@+id/btnGradeSend"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5"
-                app:mrb_progressBackgroundTint="@color/current_day"
-                app:mrb_progressTint="@color/current_day"
-                app:mrb_secondaryProgressTint="@color/b_color"/>
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

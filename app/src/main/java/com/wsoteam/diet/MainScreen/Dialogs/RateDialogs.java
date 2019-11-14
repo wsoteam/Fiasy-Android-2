@@ -1,10 +1,14 @@
 package com.wsoteam.diet.MainScreen.Dialogs;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import androidx.appcompat.app.AlertDialog;
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
+
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -12,28 +16,118 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.amplitude.api.Amplitude;
+import com.google.common.util.concurrent.AtomicDouble;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.model.Grade;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class RateDialogs {
 
+    private static void saveData(Context context, int status ){
+        context.getSharedPreferences(Config.IS_GRADE_APP, Context.MODE_PRIVATE).
+                edit().putInt(Config.IS_GRADE_APP, status).
+                commit();
+        context.getSharedPreferences(Config.STARTING_POINT, Context.MODE_PRIVATE).
+                edit().putLong(Config.STARTING_POINT, Calendar.getInstance().getTimeInMillis()).
+                commit();
+    }
+
     public static void showWhiteDialog(Context context){
+
+
+
+        Grade grade = new Grade(new Date().getTime());
+        AtomicDouble atomicRating = new AtomicDouble(0.0);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         AlertDialog alertDialog = builder.create();
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.alert_dialog_grade_white, null);
 
+        View view = layoutInflater.inflate(R.layout.alert_dialog_grade_white, null);
+        view.findViewById(R.id.gradeClose).setOnClickListener(v -> alertDialog.cancel());
+        ((MaterialRatingBar)view.findViewById(R.id.ratingBarM)).setOnRatingChangeListener((ratingBar, rating) -> atomicRating.set(rating));
+        view.findViewById(R.id.btnGradeSend).setOnClickListener(v -> {
+            if (atomicRating.get() >= 4){
+                final String appPackageName = context.getPackageName();
+                try {
+                    context.startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException exp) {
+                    context.startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
+            } else {
+                grade.setRating(atomicRating.get());
+                msgAlert(context, grade);
+            }
+            alertDialog.cancel();
+        });
+
+        saveData(context, Config.NOT_GRADED);
 
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         alertDialog.setView(view);
         alertDialog.show();
+    }
+
+    private static void msgAlert(Context context, Grade grade){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog alertDialog = builder.create();
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View view = layoutInflater.inflate(R.layout.alert_dialog_msg, null);
+        view.findViewById(R.id.gradeClose).setOnClickListener(v -> alertDialog.cancel());
+        MultiAutoCompleteTextView textView = view.findViewById(R.id.multiAutoCompleteTextView);
+        view.findViewById(R.id.btnGradeSend).setOnClickListener(v -> {
+            grade.setMsg(textView.getText().toString());
+            WorkWithFirebaseDB.saveGrade(grade);
+            doneAlert(context);
+            alertDialog.cancel();
+        });
+        saveData(context, Config.NOT_GRADED);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        alertDialog.setView(view);
+        alertDialog.show();
+
+    }
+
+    private static void doneAlert(Context context){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog alertDialog = builder.create();
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View view = layoutInflater.inflate(R.layout.alert_dialog_done, null);
+
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        alertDialog.setView(view);
+        alertDialog.show();
+        saveData(context, Config.GRADED);
+        // Hide after some seconds
+        final Handler handler  = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (alertDialog.isShowing()) {
+                    alertDialog.dismiss();
+                }
+            }
+        };
+
+        alertDialog.setOnDismissListener(dialog ->
+                handler.removeCallbacks(runnable));
+
+        handler.postDelayed(runnable, 2000);
 
     }
 

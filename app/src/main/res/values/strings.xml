@@ -1086,7 +1086,7 @@ Share your accomplishments with friends:</string>
     <string name="widget_weight_title">Измерение тела</string>
     <string name="action_refresh">Обновить</string>
     <string name="premium_feature_title">Сбрасывайте вес\nбез стресса и жестких диет с\n</string>
-    <string name="premium_feature_title__span">Fiasy Premium</string>
+    <string name="premium_feature_title__span" translatable="false">Fiasy Premium</string>
     <string name="premium_feature_exclusive_articles">Эксклюзивные статьи</string>
     <string name="premium_feature_exclusive_articles_description">Вы получите доступ к статьям от популярного диетолога и фитнес-тренера</string>
     <string name="premium_feature_exclusive_recipes">База рецептов</string>
@@ -1210,4 +1210,12 @@ Share your accomplishments with friends:</string>
     <string name="errorTimeRecipe">Enter the required cooking time</string>
     <string name="errorIngrRecipe">Enter ingredients</string>
     <string name="errorInstrReipe">Enter step-by-step instructions</string>
+
+
+    <string name="aler_done_msg">Ваш отзыв отправлен</string>
+    <string name="alert_grade_title">Оставьте отзыв</string>
+    <string name="alert_grade_txt">Напишите несколько слов о приложении</string>
+    <string name="alert_rating_title">Оцените приложение</string>
+    <string name="alert_rating_txt">Пожалуйста, оцените наше приложение! Каждый отзыв делает его лучше!</string>
+
 </resources>
