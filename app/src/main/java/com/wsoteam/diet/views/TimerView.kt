@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit.DAYS
 import java.util.concurrent.TimeUnit.HOURS
 import java.util.concurrent.TimeUnit.MILLISECONDS
 import java.util.concurrent.TimeUnit.MINUTES
+import java.util.concurrent.TimeUnit.SECONDS
 
 class TimerView
 @JvmOverloads
@@ -46,18 +47,19 @@ constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(contex
   fun setupTimeout(end: Long) {
     val diff = (end - System.currentTimeMillis())
 
-    val days = MILLISECONDS.toDays(diff)
+    val days = 0L // MILLISECONDS.toDays(diff)
     val hours = MILLISECONDS.toHours(diff - DAYS.toMillis(days))
     val minutes = MILLISECONDS.toMinutes(diff - DAYS.toMillis(days) - HOURS.toMillis(hours))
+    val seconds = MILLISECONDS.toSeconds(diff - DAYS.toMillis(days) - HOURS.toMillis(hours) - MINUTES.toMillis(minutes))
 
-    setCellValue(days, DAYS)
     setCellValue(hours, HOURS)
     setCellValue(minutes, MINUTES)
+    setCellValue(seconds, SECONDS)
 
     endDate = end
 
     if (endDate > 0 || endDate > System.currentTimeMillis() + MINUTES.toMillis(1)) {
-      postDelayed(callback, MINUTES.toMillis(1))
+      postDelayed(callback, SECONDS.toMillis(1))
     }
   }
 
@@ -80,7 +82,7 @@ constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(contex
       val factory = LayoutInflater.from(context)
       val container = factory.inflate(R.layout.view_premium_timer, this, false)
 
-      if (unit != DAYS) {
+      if (unit != HOURS) {
         factory.inflate(R.layout.view_timer_divider, this, true)
       }
 
@@ -89,6 +91,7 @@ constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(contex
       container.findViewById<TextView>(R.id.label).setText(when (unit) {
         DAYS -> R.string.timer_days_left
         HOURS -> R.string.timer_hours_left
+        SECONDS -> R.string.timer_seconds_left
         else -> R.string.timer_minutes_left
       })
 

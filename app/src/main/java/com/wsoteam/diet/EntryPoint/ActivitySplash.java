@@ -192,9 +192,9 @@ public class ActivitySplash extends BaseActivity {
                 }
               });
         })
+        .delay(1500, TimeUnit.MILLISECONDS)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .delay(1500, TimeUnit.MILLISECONDS)
         .subscribe(
             user -> {
               new UserDataHolder().bindObjectWithHolder(user);

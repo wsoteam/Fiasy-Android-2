@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
+import android.text.format.DateUtils
 import android.text.method.LinkMovementMethod
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +43,8 @@ import com.wsoteam.diet.views.TimerView
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
 import io.reactivex.internal.functions.Functions.emptyConsumer
+import java.util.Calendar
+import java.util.concurrent.TimeUnit
 
 class PremiumFeaturesActivity : AppCompatActivity() {
   companion object {
@@ -73,7 +76,7 @@ class PremiumFeaturesActivity : AppCompatActivity() {
             duration = R.string.premium_subscription_3_month,
             diamondStyleId = R.drawable.ic_silver_diamond,
             monthlyPrice = 316,
-            benefitPercentage = 29,
+            benefitPercentage = 0,
             benefitTintColor = 0xFFEFB476.toInt(),
             benefitTextColor = Color.WHITE,
             prevMonthlyPrice = -1
@@ -84,7 +87,7 @@ class PremiumFeaturesActivity : AppCompatActivity() {
   private val disposables = CompositeDisposable()
   private var purchasedId: String? = null
 
-  private val isDarkTheme: Boolean
+  internal val isDarkTheme: Boolean
     get() = "dark" == FirebaseRemoteConfig.getInstance().getString("premium_theme")
 
   public override fun onCreate(savedInstanceState: Bundle?) {
@@ -116,7 +119,9 @@ class PremiumFeaturesActivity : AppCompatActivity() {
     findViewById<TimerView>(R.id.timer).apply {
       val endDate = FirebaseRemoteConfig.getInstance().getLong("premium_timer_date")
 
-      if (System.currentTimeMillis() > endDate) {
+      val diff = System.currentTimeMillis() - endDate
+
+      if (System.currentTimeMillis() > endDate) { //|| diff > TimeUnit.DAYS.toMillis(3)) {
         visibility = View.GONE
         timerLabel.visibility = View.GONE
       }

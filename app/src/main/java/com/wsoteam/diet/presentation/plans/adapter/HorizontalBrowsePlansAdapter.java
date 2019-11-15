@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.plans.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,8 +133,9 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
 
       Picasso.get()
           .load(dietPlan.getUrlImage())
-          .fit()
+          .resizeDimen(R.dimen.diet_card_width, R.dimen.diet_card_height)
           .centerCrop()
+          .config(Bitmap.Config.RGB_565)
           .transform(new PaletteExtractorTransformation(paletteConsumer))
           .into(imageView);
     }

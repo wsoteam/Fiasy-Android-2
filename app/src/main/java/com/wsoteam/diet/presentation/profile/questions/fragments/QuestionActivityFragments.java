@@ -72,7 +72,7 @@ public class QuestionActivityFragments extends Fragment {
                 text = getString(R.string.first_activity);
                 break;
             case 1:
-                imageResource = R.drawable.auth_first_girl_walking;
+                imageResource = R.drawable.ic_activity1;
                 text = getString(R.string.second_activity);
                 break;
             case 2:

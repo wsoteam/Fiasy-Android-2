@@ -113,7 +113,7 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
         itemView.context.getString(R.string.main_screen_menu_water_count), water.waterCount
     )
     if (water.waterCount >= UserDataHolder.getUserData()?.profile?.maxWater ?: 2f) {
-      waterAchievement.visibility = View.VISIBLE
+      waterAchievement.visibility = View.GONE
     } else {
       waterAchievement.visibility = View.GONE
     }

@@ -42,7 +42,7 @@ public class NewIntroActivity extends AppCompatActivity {
     final SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(this);
 
     if (!pm.getBoolean(KEY_ONBOARD_SHOWN, false)) {
-      viewPager.setHandleTouchEvents(false);
+      viewPager.setHandleTouchEvents(true);
       viewPager.setAdapter(new IntroSlidesAdapter(getSupportFragmentManager()));
       tabLayout.setupWithViewPager(viewPager, true);
       Events.logMoveOnboard(viewPager.getCurrentItem() + 1);
