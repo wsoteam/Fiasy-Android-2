@@ -17,6 +17,7 @@ public class Result implements ISearchResult {
     private String fullInfo;
     private Object barcode;
     private double portion;
+    @SerializedName("is_liquid")
     private boolean isLiquid;
     private double kilojoules;
     private double calories;
