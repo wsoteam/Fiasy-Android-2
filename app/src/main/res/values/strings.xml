@@ -897,6 +897,8 @@
   <string name="srch_chol">Холестерин</string>
   <string name="srch_sod">Натрий</string>
   <string name="srch_pot">Калий</string>
+  <string name="srch_back">НАЗАД</string>
+  <string name="srch_continue">ПРОДОЛЖИТЬ</string>
   <string-array name="settings_items">
     <item>Premium аккаунт</item>
     <!--<item>Еда и аллергия</item>-->
