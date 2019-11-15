@@ -218,10 +218,8 @@ public class MainActivity extends AppCompatActivity {
 
         logEvents();
 
-        if (Deeplink.isNeedPrem.get()) {
-            startPrem();
-            Deeplink.isNeedPrem.set(false);
-        }
+        if (Deeplink.isNeedPrem.get()) startPrem();
+
 
     }
 

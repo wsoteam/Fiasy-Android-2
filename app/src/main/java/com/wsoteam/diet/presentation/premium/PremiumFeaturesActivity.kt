@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.wsoteam.diet.MainScreen.Deeplink
 import com.wsoteam.diet.R
 import com.wsoteam.diet.R.string
 import com.wsoteam.diet.presentation.premium.SubscriptionManager.SetupFailedException
@@ -43,6 +44,7 @@ import com.wsoteam.diet.views.TimerView
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
 import io.reactivex.internal.functions.Functions.emptyConsumer
+import kotlinx.android.synthetic.main.activity_premium_dark.*
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
@@ -104,6 +106,11 @@ class PremiumFeaturesActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
 
     setContentView(R.layout.activity_premium_dark)
+
+    if (Deeplink.isNeedPrem.get()){
+      toolbar.navigationIcon = null
+      Deeplink.isNeedPrem.set(false)
+    }
 
     findViewById<TextView>(R.id.privacy_policy).apply {
       movementMethod = LinkMovementMethod.getInstance()
