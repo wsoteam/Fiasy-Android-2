@@ -864,7 +864,7 @@
 
   <string name="srch_delete_undo_title">Продукт удален из списка</string>
   <string name="srch_cancel">Отмена</string>
-  <string name="srch_insp_ask">Хотите продолжить добавлять продукты \nв</string>
+  <string name="srch_insp_ask">Хотите продолжить добавлять продукты в</string>
 
   <string name="srch_default_portion">100 г</string>
   <string name="srch_liquid">%d мл</string>

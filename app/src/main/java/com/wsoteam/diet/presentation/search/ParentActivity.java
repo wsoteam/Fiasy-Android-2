@@ -152,6 +152,7 @@ public class ParentActivity extends AppCompatActivity {
     spnEatingList.setAdapter(adapter);
     spnEatingList.setSelection(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));
     spinnerId = spnEatingList.getSelectedItemPosition();
+
     spnEatingList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -163,6 +164,8 @@ public class ParentActivity extends AppCompatActivity {
 
       }
     });
+
+
   }
 
   private void changeSpeakButton(CharSequence charSequence) {

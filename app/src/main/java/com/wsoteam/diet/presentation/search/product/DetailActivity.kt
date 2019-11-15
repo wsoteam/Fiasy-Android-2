@@ -26,6 +26,7 @@ import com.wsoteam.diet.common.Analytics.EventProperties
 import com.wsoteam.diet.common.Analytics.Events
 import com.wsoteam.diet.model.Eating
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
+import com.wsoteam.diet.presentation.search.inspector.Inspector
 import com.wsoteam.diet.presentation.search.inspector.InspectorAlert
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.view_calculate_card.*
@@ -33,13 +34,20 @@ import kotlinx.android.synthetic.main.view_elements.*
 import kotlinx.android.synthetic.main.view_lock_premium.*
 
 class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener {
-    private val BREAKFAST_POSITION = 0
-    private val LUNCH_POSITION = 1
-    private val DINNER_POSITION = 2
-    private val SNACK_POSITION = 3
     private val EMPTY_FIELD = -1
     private val EMPTY_ELEMENT = 0.0
+
     lateinit var presenter: BasketDetailPresenter
+    lateinit var basketParams: IntArray
+    var spinnerId = 0
+    object spinnerListener
+    var watcher = object : AdapterView.OnItemSelectedListener{
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+        }
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        }
+    }
 
     override fun hideEatSpinner() {
         spnFood.visibility = View.GONE
@@ -64,9 +72,32 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        basketParams = intent.getIntArrayExtra(Config.BASKET_PARAMS)
         handlePremiumState()
         handleFood()
-        InspectorAlert.askChangeEatingId(java.util.ArrayList(), "sdf")
+
+
+        if (basketParams != null) {
+            watcher = object : AdapterView.OnItemSelectedListener {
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    InspectorAlert.askChangeEatingId(basketParams, position, this@DetailActivity, Inspector {
+                        if (!it) {
+                            spnFood.onItemSelectedListener = null
+                            spnFood.setSelection(spinnerId)
+                            spnFood.onItemSelectedListener = watcher
+                        }else{
+                            spinnerId = position
+                        }
+                    })
+
+                }
+            }
+        }
 
         edtWeightCalculate.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -263,6 +294,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         )
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search)
         spnFood.adapter = adapter
+        spinnerId = eatingType
         spnFood.setSelection(eatingType)
     }
 
