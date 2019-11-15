@@ -27,7 +27,7 @@ public class SavedFoodPresenter extends BasketDetailPresenter {
     keySave = eating.getUrlOfImages();
   }
 
-  @Override public void saveEntity(BasketEntity basketEntity) {
+  @Override public void saveEntity(BasketEntity basketEntity, int eating) {
     switch (typeEating) {
       case Config.BREAKFAST:
         WorkWithFirebaseDB.
@@ -52,6 +52,6 @@ public class SavedFoodPresenter extends BasketDetailPresenter {
                 keySave);
         break;
     }
-    getViewState().close();
+    getViewState().close(eating);
   }
 }

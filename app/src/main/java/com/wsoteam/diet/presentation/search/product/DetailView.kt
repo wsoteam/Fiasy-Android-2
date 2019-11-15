@@ -12,6 +12,6 @@ interface DetailView : MvpView {
     fun showResult(kcal: String, prot: String, carbo: String, fat: String)
     fun fillPortionSpinner(names: ArrayList<String>)
     fun refreshCalculating()
-    fun close()
+    fun close(selectedItemPosition : Integer)
     fun hideEatSpinner()
 }

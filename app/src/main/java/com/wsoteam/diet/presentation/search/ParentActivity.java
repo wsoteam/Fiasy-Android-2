@@ -195,6 +195,7 @@ public class ParentActivity extends AppCompatActivity {
       edtSearch.clearFocus();
     } else if (requestCode == Config.RC_DETAIL_FOOD) {
       if (resultCode == RESULT_OK) {
+        spnEatingList.setSelection(data.getIntExtra(Config.SPINER_ID, 0));
         ((ResultsFragment) fragmentManager.findFragmentById(
             R.id.searchFragmentContainer)).updateBasket();
       }

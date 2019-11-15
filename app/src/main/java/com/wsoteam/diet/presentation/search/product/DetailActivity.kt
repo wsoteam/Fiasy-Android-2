@@ -314,8 +314,10 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         tvPremText.append(resources.getString(R.string.srch_text_prem_end))
     }
 
-    override fun close() {
-        setResult(Activity.RESULT_OK)
+    override fun close(eating : Integer) {
+        intent = Intent()
+        intent.putExtra(Config.SPINER_ID, eating)
+        setResult(Activity.RESULT_OK, intent)
         finish()
     }
 

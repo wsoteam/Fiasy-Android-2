@@ -187,14 +187,14 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
       basketEntity.setPottassium(
           countPortions * portionsSizes.get(position) * basketEntity.getPottassium());
     }
-    saveEntity(basketEntity);
+    saveEntity(basketEntity, selectedItemPosition);
   }
 
-  public void saveEntity(BasketEntity basketEntity) {
+  public void saveEntity(BasketEntity basketEntity, int eating) {
     BasketWork.addToBasket(basketEntity, new Finisher() {
       @Override
       public void finish() {
-        getViewState().close();
+        getViewState().close(eating);
       }
     });
   }
