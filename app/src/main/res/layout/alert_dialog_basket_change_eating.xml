@@ -31,6 +31,7 @@
                 android:elevation="4dp"
                 android:fontFamily="@font/roboto"
                 android:text="Test"
+                android:visibility="gone"
                 android:textColor="#c0000000"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +48,7 @@
                 android:elevation="4dp"
                 android:fontFamily="@font/roboto"
                 android:text="Test"
+                android:visibility="gone"
                 android:textColor="#c0000000"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -63,6 +65,7 @@
                 android:elevation="4dp"
                 android:fontFamily="@font/roboto"
                 android:text="Test"
+                android:visibility="gone"
                 android:textColor="#c0000000"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -79,6 +82,7 @@
                 android:elevation="4dp"
                 android:fontFamily="@font/roboto"
                 android:text="Test"
+                android:visibility="gone"
                 android:textColor="#c0000000"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -114,12 +118,12 @@
                 android:text="@string/srch_back"
                 android:textColor="#ef7d02"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvExit"
-                app:layout_constraintEnd_toStartOf="@+id/tvExit"
-                app:layout_constraintTop_toTopOf="@+id/tvExit" />
+                app:layout_constraintBottom_toBottomOf="@+id/tvContinue"
+                app:layout_constraintEnd_toStartOf="@+id/tvContinue"
+                app:layout_constraintTop_toTopOf="@+id/tvContinue" />
 
             <TextView
-                android:id="@+id/tvExit"
+                android:id="@+id/tvContinue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

@@ -38,6 +38,7 @@ import com.wsoteam.diet.presentation.search.results.ResultsFragment;
 import com.wsoteam.diet.presentation.search.results.ResultsView;
 import com.wsoteam.diet.presentation.search.sections.SectionFragment;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ParentActivity extends AppCompatActivity {
   @BindView(R.id.ibStartAction) ImageButton ibStartAction;
@@ -316,5 +317,7 @@ public class ParentActivity extends AppCompatActivity {
     alertDialog.show();
   }
 
-  
+
+
+
 }

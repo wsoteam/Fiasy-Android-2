@@ -60,6 +60,14 @@
     <item quantity="many">%d порций</item>
     <item quantity="other">%d порций</item>
   </plurals>
+  <plurals name="srch_foods">
+    <item quantity="zero"></item>
+    <item quantity="one">%d продукт</item>
+    <item quantity="two">%d продукта</item>
+    <item quantity="few">%d продукта</item>
+    <item quantity="many">%d продуктов</item>
+    <item quantity="other">%d продуктов</item>
+  </plurals>
   <string name="breakfast">Завтрак</string>
   <string name="lunch">Обед</string>
   <!--food_template-->
@@ -856,6 +864,7 @@
 
   <string name="srch_delete_undo_title">Продукт удален из списка</string>
   <string name="srch_cancel">Отмена</string>
+  <string name="srch_insp_ask">Хотите продолжить добавлять продукты \nв</string>
 
   <string name="srch_default_portion">100 г</string>
   <string name="srch_liquid">%d мл</string>
@@ -1059,6 +1068,14 @@
     <item>Ужин</item>
     <item>Перекус</item>
   </string-array>
+
+  <string-array name="srch_insp">
+    <item>Вы добавили в Завтрак:</item>
+    <item>Вы добавили в Обед:</item>
+    <item>Вы добавили в Ужин:</item>
+    <item>Вы добавили в Перекус:</item>
+  </string-array>
+
   <string-array name="fragment_names">
     <item>Добавить продукт</item>
     <item>Пищевая ценность на 100 г</item>

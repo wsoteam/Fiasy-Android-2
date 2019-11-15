@@ -186,6 +186,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private void openDetailActivity(BasketEntity basketEntity) {
         Intent intent = new Intent(new Intent(context, DetailActivity.class));
         intent.putExtra(Config.INTENT_DETAIL_FOOD, basketEntity);
+        intent.putExtra()
         ((ParentActivity) context).startActivityForResult(intent, Config.RC_DETAIL_FOOD);
     }
 

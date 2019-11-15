@@ -26,6 +26,7 @@ import com.wsoteam.diet.common.Analytics.EventProperties
 import com.wsoteam.diet.common.Analytics.Events
 import com.wsoteam.diet.model.Eating
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
+import com.wsoteam.diet.presentation.search.inspector.InspectorAlert
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.view_calculate_card.*
 import kotlinx.android.synthetic.main.view_elements.*
@@ -65,6 +66,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         setContentView(R.layout.activity_detail)
         handlePremiumState()
         handleFood()
+        InspectorAlert.askChangeEatingId(java.util.ArrayList(), "sdf")
 
         edtWeightCalculate.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
