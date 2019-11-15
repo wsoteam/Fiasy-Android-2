@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.diary.FoodWork;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
@@ -186,8 +187,16 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private void openDetailActivity(BasketEntity basketEntity) {
         Intent intent = new Intent(new Intent(context, DetailActivity.class));
         intent.putExtra(Config.INTENT_DETAIL_FOOD, basketEntity);
-        intent.putExtra()
+        intent.putExtra(Config.BASKET_PARAMS, getBasketParams());
         ((ParentActivity) context).startActivityForResult(intent, Config.RC_DETAIL_FOOD);
+    }
+
+    private int[] getBasketParams() {
+        int[] basketParams = new int[context.getResources().getStringArray(R.array.srch_eating).length];
+        for (int i = 0; i < savedFood.size(); i++) {
+            basketParams[savedFood.get(i).getEatingType()] ++;
+        }
+        return basketParams;
     }
 
     private BasketEntity createBasketEntity(int position) {
