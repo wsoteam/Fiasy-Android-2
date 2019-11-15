@@ -8,22 +8,19 @@ import java.lang.ref.WeakReference;
 
 public class PaletteExtractorTransformation implements Transformation {
 
-  private final WeakReference<Consumer<Palette>> consumer;
+  private final Consumer<Palette> consumer;
 
   public PaletteExtractorTransformation(Consumer<Palette> consumer) {
-    this.consumer = new WeakReference<>(consumer);
+    this.consumer = consumer;
   }
 
   @Override
   public Bitmap transform(Bitmap source) {
     Palette.from(source).generate(palette -> {
-      Consumer<Palette> callback = consumer.get();
-      if (callback != null) {
-        try {
-          callback.accept(palette);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
+      try {
+        consumer.accept(palette);
+      } catch (Exception e) {
+        e.printStackTrace();
       }
     });
     return source;

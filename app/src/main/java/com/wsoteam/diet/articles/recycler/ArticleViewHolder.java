@@ -1,6 +1,7 @@
 package com.wsoteam.diet.articles.recycler;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +28,9 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.parentrLayout) ConstraintLayout parentrLayout;
   private Context context;
   private HorizontalArticlesAdapter.OnItemClickListener mItemClickListener;
+
   private Consumer<Palette> paletteConsumer = p -> {
-    int mainColor = p.getMutedColor(0);
+    int mainColor = p.getMutedColor (0);
     int alphaColor = 191;
     llBackground.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
   };
@@ -64,6 +66,9 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
 
     Picasso.get()
             .load(article.getImage())
+            .resizeDimen(R.dimen.article_card_width, R.dimen.article_card_height)
+            .centerCrop()
+            .config(Bitmap.Config.RGB_565)
             .transform(new PaletteExtractorTransformation(paletteConsumer))
             .into(imageView);
 

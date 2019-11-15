@@ -1,5 +1,4 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -286,6 +285,11 @@
     <item name="subtitleStyle">@style/FeatureDescription</item>
     <item name="overlayColor">#0cffffff</item>
     <item name="navigationIcon">@drawable/back_arrow_icon_white</item>
+    <item name="background">@color/black</item>
+  </style>
+
+  <style name="AppTheme.BottomItemTextView">
+    <item name="android:textSize">12sp</item>
   </style>
 
   <style name="AppTheme.Premium.Light" parent="Theme.AppCompat.Light">
@@ -293,6 +297,7 @@
     <item name="subtitleStyle">@style/FeatureDescription.Black</item>
     <item name="overlayColor">#0cf2994a</item>
     <item name="navigationIcon">@drawable/back_arrow_icon</item>
+    <item name="background">@color/white</item>
   </style>
 
     <style name="Recipe" parent="Theme.AppCompat.Light.NoActionBar">

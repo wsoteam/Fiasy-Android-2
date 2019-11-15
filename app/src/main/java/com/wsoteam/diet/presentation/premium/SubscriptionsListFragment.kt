@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity.PlanHolder
 import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity.PlansAdapter
@@ -36,11 +37,6 @@ class SubscriptionsListFragment : Fragment() {
       requireFragmentManager().popBackStack()
     }
 
-    view.findViewById<View>(R.id.action_buy).setOnClickListener {
-      (requireActivity() as PremiumFeaturesActivity)
-        .purchase(PremiumFeaturesActivity.plans[selectedId].key)
-    }
-
     val title = view.findViewById<TextView>(R.id.title)
 
     title.text = TextUtils.concat(title.text,
@@ -50,7 +46,10 @@ class SubscriptionsListFragment : Fragment() {
           .text())
 
     val container = view.findViewById<RecyclerView>(R.id.container)
-    container.adapter = object : PlansAdapter() {
+
+    val isDarkMode = "dark" == FirebaseRemoteConfig.getInstance().getString("premium_theme")
+
+    container.adapter = object : PlansAdapter(isDarkMode = isDarkMode) {
       override fun getLayoutParams(parent: ViewGroup, viewType: Int): LayoutParams {
         return MarginLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
           .apply {
@@ -85,6 +84,9 @@ class SubscriptionsListFragment : Fragment() {
           }
 
           selectedId = holder.adapterPosition
+
+          (requireActivity() as PremiumFeaturesActivity)
+            .purchase(PremiumFeaturesActivity.plans[selectedId].key)
         }
       }
 

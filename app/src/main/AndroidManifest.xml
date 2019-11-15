@@ -231,7 +231,7 @@
         android:name=".presentation.profile.questions.QuestionsActivity"
         android:exported="true"
         android:screenOrientation="portrait"
-        android:theme="@style/EditProfile" />
+        android:theme="@style/ActivityAuthMain" />
     <activity
         android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
         android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />

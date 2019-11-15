@@ -30,6 +30,8 @@
             android:theme="@style/Widget.BottomNavigationView"
             app:itemIconTint="@drawable/bnv_main_selector"
             app:itemTextColor="@color/black"
+            app:itemTextAppearanceActive="@style/AppTheme.BottomItemTextView"
+            app:itemTextAppearanceInactive="@style/AppTheme.BottomItemTextView"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

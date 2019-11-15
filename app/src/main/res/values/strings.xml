@@ -1192,9 +1192,11 @@ Share your accomplishments with friends:</string>
     <string name="meas_prefix">Вы заносили вес</string>
   <string name="timer_days_left">дни</string>
   <string name="timer_hours_left">часы</string>
+  <string name="timer_seconds_left">секунды</string>
   <string name="timer_minutes_left">минуты</string>
   <string name="timer_padded_value">%02d</string>
   <string name="premium_black_friday_days_remained_hint">До конца акции осталось</string>
   <string name="subscription_not_found">Подписка не найдена, возможно она не доступна в вашей стране</string>
+  <string name="be_better_with_premium">Стань лучше с Premium</string>
   //
 </resources>

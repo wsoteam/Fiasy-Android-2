@@ -28,10 +28,17 @@ import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.UserProperty;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
+import com.wsoteam.diet.utils.NetworkService;
 import com.wsoteam.diet.utils.RichTextUtils.RichText;
 import com.wsoteam.diet.views.InAppNotification;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiConsumer;
+import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
+import okhttp3.ResponseBody;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -45,19 +52,36 @@ public abstract class AuthStrategyFragment extends Fragment {
                 //put(R.id.auth_strategy_reset, ResetPasswordAuthStrategy.class);
             }};
 
+    private AuthStrategy authStrategy;
+    private InAppNotification notification;
+
+    private final CompositeDisposable disposables = new CompositeDisposable();
+
     protected final Observer<AuthStrategy.AuthenticationResult> userObserver =
             authenticationResult -> {
                 if (authenticationResult == null) return;
 
                 if (authenticationResult.isSuccessful()) {
-                    onAuthorized(authenticationResult.user(), authenticationResult.isNewUser());
+                    final FirebaseUser user = authenticationResult.user();
+
+                    if (authenticationResult.isNewUser()) {
+                        disposables.add(NetworkService.getInstance().getApi()
+                            .sign2Newsletters(user.getEmail(), "android")
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe((responseBody, throwable) -> {
+                                if (throwable != null) {
+                                    throwable.printStackTrace();
+                                }
+                                onAuthorized(user, authenticationResult.isNewUser());
+                            }));
+                    } else {
+                        onAuthorized(user, authenticationResult.isNewUser());
+                    }
                 } else {
                     onAuthException(authenticationResult.error());
                 }
             };
-
-    private AuthStrategy authStrategy;
-    private InAppNotification notification;
 
     protected <T extends AuthStrategy> T getStrategyByType(Class<T> strategyType) {
         final AuthStrategy strategy;
@@ -309,5 +333,6 @@ public abstract class AuthStrategyFragment extends Fragment {
         super.onDestroy();
 
         releaseCurrentAuthStrategy();
+        disposables.clear();
     }
 }

@@ -2,8 +2,8 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?background"
     android:fillViewport="true">
 
   <LinearLayout
@@ -17,48 +17,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="@string/Premium"
-        app:titleTextColor="@color/black"
-        app:navigationIcon="@drawable/back_arrow_icon"
+        app:titleTextColor="?android:textColorPrimary"
+        app:navigationIcon="?navigationIcon"
         />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:lineSpacingExtra="11sp"
         android:text="@string/subscriptions_list_title"
-        android:textColor="#d9424242"
+        android:textColor="?android:textColorPrimary"
         android:textSize="22sp"
         android:textStyle="normal"
         />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/container"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
         />
 
-    <Button
-        android:id="@+id/action_buy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:lineSpacingExtra="10sp"
-        android:background="@drawable/premium_buy_button3_background"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/action_buy"
-        />
   </LinearLayout>
 </androidx.core.widget.NestedScrollView>
