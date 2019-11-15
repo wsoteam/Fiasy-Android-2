@@ -48,7 +48,6 @@ public class ArticleSeriesFragment extends Fragment {
             .getArticleSeries()
             .get("burlakov")
             .getDate()) / (60 * 60 * 24 * 1000);
-        Log.d("kkk", "onCreateView: " + day);
         if (day >= 1.0 && checkSubscribe()) {
           OpenArticles openArticles = UserDataHolder.getUserData().getArticleSeries().get("burlakov");
           openArticles.setDate(new Date().getTime());

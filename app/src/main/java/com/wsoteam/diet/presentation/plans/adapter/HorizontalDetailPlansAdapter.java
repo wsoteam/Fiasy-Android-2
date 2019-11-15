@@ -17,6 +17,8 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import java.util.List;
 
+import static android.text.TextUtils.concat;
+
 public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
   private List<RecipeItem> recipeItems;
@@ -111,8 +113,7 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerV
       tvName.setText(recipeItem.getName());
       //tvCalories.setText(
           //recipeItem.getCalories() + " " + context.getResources().getString(R.string.kcal));
-      tvCalories.setText(String.format(context.getString(R.string.join_strings),
-          String.valueOf(recipeItem.getCalories()), context.getString(R.string.calories_unit)));
+      tvCalories.setText(concat(String.valueOf(recipeItem.getCalories()), " ", context.getString(R.string.calories_unit)));
 
       if (isCurrentDay && recipeItem.isAddedInDiaryFromPlan()) {
         //Glide.with(context)

@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 box.setComeFrom(AmplitudaEvents.view_prem_content);
                 box.setBuyFrom(EventProperties.trial_from_articles);
                 isMainFragment = false;
-                window.setStatusBarColor(Color.parseColor("#747d3b"));
+                window.setStatusBarColor(getResources().getColor(R.color.highlight_line_color));
                 switch (Locale.getDefault().getLanguage()){
                     case "ru":{
                         transaction.replace(R.id.flFragmentContainer, new com.wsoteam.diet.articles.ListArticlesFragment()).commit();

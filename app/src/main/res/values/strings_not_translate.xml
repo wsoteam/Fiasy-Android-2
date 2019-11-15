@@ -105,14 +105,5 @@
 
   <string name="space" translatable="false">\u0020</string>
 
-  <string name="join_strings" translatable="false">%s %s</string>
-
-<string name="getAccess" translatable="false">Получить доступ</string>
-
-    <string name="blocked_recipe_title" translatable="false">Множество полезных рецептов на любой вкус и для любых целей</string>
-    <string name="blocked_recipe_title_2" translatable="false">Легкие в приготовлении и состоящие из простых доступных игридиентов</string>
-    <string name="blocked_recipe_txt" translatable="false">Оформи подписку и получи доступ ко всей базе рецептов</string>
-
-    <string name="blocked_plan_txt" translatable="false">Оформи подписку и получи доступ к специально подобранным для Вас и проверенным планам питания</string>
 
 </resources>

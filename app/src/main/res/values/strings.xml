@@ -1221,4 +1221,12 @@ Share your accomplishments with friends:</string>
     <string name="alert_rating_title">Оцените приложение</string>
     <string name="alert_rating_txt">Пожалуйста, оцените наше приложение! Каждый отзыв делает его лучше!</string>
 
+
+
+    <string name="getAccess">Получить доступ</string>
+    <string name="blocked_recipe_title">Множество полезных рецептов на любой вкус и для любых целей</string>
+    <string name="blocked_recipe_title_2">Легкие в приготовлении и состоящие из простых доступных игредиентов</string>
+    <string name="blocked_recipe_txt">Оформи подписку и получи доступ ко всей базе рецептов</string>
+    <string name="blocked_plan_txt">Оформи подписку и получи доступ к специально подобранным для Вас и проверенным планам питания</string>
+
 </resources>

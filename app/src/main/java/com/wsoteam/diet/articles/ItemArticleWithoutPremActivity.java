@@ -91,7 +91,7 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
     }
 
     private void setValue(Article article){
-        Picasso.get().load(article.getImage()).into(imgArticle);
+        Picasso.get().load(article.getImage()).fit().centerCrop().into(imgArticle);
 
         tvTitle.setText(article.getTitle(Locale.getDefault()).replaceAll("\\<.*?\\>", ""));
         if (article.getCategory().getId() == 4) {

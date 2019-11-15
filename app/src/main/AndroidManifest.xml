@@ -68,7 +68,7 @@
         <activity
             android:name=".Recipes.v2.ListRecipesActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Menu" />
+            android:theme="@style/Recipe" />
         <activity
             android:name=".presentation.profile.questions.AfterQuestionsActivity"
             android:screenOrientation="portrait"
