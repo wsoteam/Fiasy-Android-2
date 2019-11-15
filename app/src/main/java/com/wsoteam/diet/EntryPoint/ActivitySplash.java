@@ -45,6 +45,7 @@ import com.wsoteam.diet.InApp.IDs;
 import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.InApp.properties.EmptySubInfo;
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
+import com.wsoteam.diet.MainScreen.Deeplink;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.POJOProfile.SubInfo;
@@ -91,6 +92,14 @@ public class ActivitySplash extends BaseActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    Intent intent = getIntent();
+    String action = intent.getAction();
+    Uri data = intent.getData();
+    if (Intent.ACTION_VIEW.equals(action) && data != null && !deeplink){
+      Deeplink.isNeedPrem.set(!deeplink);
+      deeplink = true;
+    }
 
     if (getSharedPreferences(Config.IS_NEED_SHOW_LOADING_SPLASH, MODE_PRIVATE).getBoolean(
         Config.IS_NEED_SHOW_LOADING_SPLASH, false)) {
@@ -201,17 +210,8 @@ public class ActivitySplash extends BaseActivity {
 
               UserProperty.setUserProperties(UserDataHolder.getUserData().getProfile(), ActivitySplash.this, false);
 
-              Intent intent = getIntent();
-              String action = intent.getAction();
-              // using action u can detect
-              Uri data = intent.getData();
-              if (Intent.ACTION_VIEW.equals(action) && data != null && !deeplink){
-                checkBilling();
-                startPrem();
-                deeplink = true;
-              } else {
-                onSignedIn();
-              }
+              onSignedIn();
+
             },
 
             error -> {
@@ -250,7 +250,6 @@ public class ActivitySplash extends BaseActivity {
 
   private void onSignedIn() {
     checkBilling();
-
     if (QuestionsActivity.hasNotAskedQuestionsLeft(this)) {
       startActivity(new Intent(this, QuestionsActivity.class));
     } else {

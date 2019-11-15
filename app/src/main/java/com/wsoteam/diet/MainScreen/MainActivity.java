@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.articles.ArticleSeriesFragment;
 import com.wsoteam.diet.articles.BurlakovAuthorFragment;
@@ -141,6 +142,18 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    private void startPrem(){
+        Box box = new Box();
+        box.setSubscribe(false);
+        box.setOpenFromPremPart(true);
+        box.setOpenFromIntrodaction(false);
+        //TODO trial_from_* метка для амплитуды
+        box.setComeFrom(AmplitudaEvents.view_prem_content);
+        box.setBuyFrom(EventProperties.trial_from_articles);
+        Intent intent = new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box);
+        startActivity(intent);
+    }
+
     private String getABVersion() {
         return getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).getString(ABConfig.KEY_FOR_SAVE_STATE, "default");
     }
@@ -162,10 +175,10 @@ public class MainActivity extends AppCompatActivity {
                         false);
         int gradeStatus = getSharedPreferences(Config.IS_GRADE_APP, MODE_PRIVATE).
                 getInt(Config.IS_GRADE_APP, Config.NOT_VIEW_GRADE_DIALOG);
-        Log.d("kkk", "(currentTime - timeStartingPoint) >= Config.ONE_DAY  ---   " + ((currentTime - timeStartingPoint) >= Config.ONE_DAY));
-        Log.d("kkk", "gradeStatus != Config.GRADED  ---  " + (gradeStatus != Config.GRADED));
-        Log.d("kkk", "isAddedFoodEarly  ---   " + (isAddedFoodEarly));
-        Log.d("kkk", "gradeStatus == Config.NOT_VIEW_GRADE_DIALOG  ---    " + (gradeStatus == Config.NOT_VIEW_GRADE_DIALOG));
+//        Log.d("kkk", "(currentTime - timeStartingPoint) >= Config.ONE_DAY  ---   " + ((currentTime - timeStartingPoint) >= Config.ONE_DAY));
+//        Log.d("kkk", "gradeStatus != Config.GRADED  ---  " + (gradeStatus != Config.GRADED));
+//        Log.d("kkk", "isAddedFoodEarly  ---   " + (isAddedFoodEarly));
+//        Log.d("kkk", "gradeStatus == Config.NOT_VIEW_GRADE_DIALOG  ---    " + (gradeStatus == Config.NOT_VIEW_GRADE_DIALOG));
         if ((currentTime - timeStartingPoint) >= Config.ONE_DAY && gradeStatus != Config.GRADED) {
             if (isAddedFoodEarly) {
 
@@ -204,6 +217,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         logEvents();
+
+        if (Deeplink.isNeedPrem.get()) {
+            startPrem();
+            Deeplink.isNeedPrem.set(false);
+        }
 
     }
 
