@@ -2,6 +2,8 @@ package com.wsoteam.diet.presentation.profile.questions;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -25,26 +27,19 @@ import com.wsoteam.diet.common.Analytics.UserProperty;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
 
 public class QuestionsCalculationsActivity extends AppCompatActivity {
-  @BindView(R.id.loader)
-  ImageView loader;
+
   private boolean isNeedShowOnboard, createUser;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_questions_calculations);
-    ButterKnife.bind(this);
 
-    RotateAnimation rotate =
-        new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-            0.5f);
-    rotate.setDuration(4000);
-    rotate.setRepeatMode(Animation.INFINITE);
-    rotate.setRepeatCount(Animation.INFINITE);
-    rotate.setInterpolator(new LinearInterpolator());
-
-    loader.startAnimation(rotate);
-
+    ImageView imageView = findViewById(R.id.imageView17);
+    Drawable drawable = imageView.getDrawable();
+    if (drawable instanceof Animatable) {
+      ((Animatable) drawable).start();
+    }
     SharedPreferences sp = getSharedPreferences(Config.ONBOARD_PROFILE, MODE_PRIVATE);
 
     boolean isFemale = sp.getBoolean(Config.ONBOARD_PROFILE_SEX, true);
@@ -70,7 +65,7 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
     }
     createUser = getIntent().getBooleanExtra(Config.CREATE_PROFILE, true);
 
-        new Handler().postDelayed(() -> saveProfile(isNeedShowOnboard, profileFinal, createUser), 4000);
+//        new Handler().postDelayed(() -> saveProfile(isNeedShowOnboard, profileFinal, createUser), 4000);
     }
 
 

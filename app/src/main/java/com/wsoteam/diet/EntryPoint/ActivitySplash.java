@@ -3,6 +3,8 @@ package com.wsoteam.diet.EntryPoint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -168,19 +170,13 @@ public class ActivitySplash extends BaseActivity {
   private void showLoadingScreen() {
     setContentView(R.layout.activity_questions_calculations);
 
-    final ImageView loader = findViewById(R.id.loader);
     final TextView tvSubTitle = findViewById(R.id.tvSubTitle);
     tvSubTitle.setText(getString(R.string.personal_diary));
-
-    final RotateAnimation rotate =
-        new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-            0.5f);
-    rotate.setDuration(1000);
-    rotate.setRepeatMode(Animation.INFINITE);
-    rotate.setRepeatCount(Animation.INFINITE);
-    rotate.setInterpolator(new LinearInterpolator());
-
-    loader.startAnimation(rotate);
+    ImageView imageView = findViewById(R.id.imageView17);
+    Drawable drawable = imageView.getDrawable();
+    if (drawable instanceof Animatable) {
+      ((Animatable) drawable).start();
+    }
   }
 
   private void checkRegistrationAndRun() {

@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -17,9 +18,9 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:background="@android:color/white"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/white" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -126,12 +127,12 @@
         android:id="@+id/clFailSearch"
         android:layout_width="264dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        >
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/imageView44"
             android:layout_width="192dp"
@@ -139,8 +140,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_aricle_fail_search"
-            />
+            app:srcCompat="@drawable/ic_aricle_fail_search" />
 
         <TextView
             android:id="@+id/textView154"
@@ -156,8 +156,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.552"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView44"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/imageView44" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -171,8 +170,7 @@
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView154"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/textView154" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
