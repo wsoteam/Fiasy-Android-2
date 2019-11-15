@@ -26,7 +26,6 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.background) LinearLayout llBackground;
   @BindView(R.id.premiumLabel) ConstraintLayout premiumLabel;
   @BindView(R.id.parentrLayout) ConstraintLayout parentrLayout;
-  private Context context;
   private HorizontalArticlesAdapter.OnItemClickListener mItemClickListener;
 
   private Consumer<Palette> paletteConsumer = p -> {
@@ -40,7 +39,6 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
   public ArticleViewHolder(ViewGroup parent, HorizontalArticlesAdapter.OnItemClickListener mItemClickListener) {
     super(LayoutInflater.from(parent.getContext()).inflate(R.layout.article_view_holder, parent, false));
     ButterKnife.bind(this, itemView);
-    this.context = itemView.getContext();
     this.mItemClickListener = mItemClickListener;
 
     itemView.setOnClickListener(view -> {
@@ -51,7 +49,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
   public ArticleViewHolder(ViewGroup parent, int layout) {
     super(LayoutInflater.from(parent.getContext()).inflate(layout, parent, false));
     ButterKnife.bind(this, itemView);
-    context = itemView.getContext();
+
 
   }
   public void setOnClickListener(View.OnClickListener listener){

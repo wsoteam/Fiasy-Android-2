@@ -120,6 +120,7 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
         @Override
         public void onItemClick(View view, int position, DietPlan dietPlan) {
             Intent intent;
+
             if (!checkSubscribe() && dietPlan.isPremium()){
                 intent = new Intent(getContext(), BlockedDetailPlansActivity.class);
             }else {

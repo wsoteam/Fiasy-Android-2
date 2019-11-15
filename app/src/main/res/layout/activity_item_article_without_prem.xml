@@ -17,12 +17,12 @@
         <LinearLayout
             android:id="@+id/testID"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:alpha="0.9"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="10dp">
@@ -35,7 +35,7 @@
                     <ImageView
                         android:id="@+id/imgArticleWP"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="230dp"
                         android:scaleType="fitCenter"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -47,9 +47,9 @@
                         android:id="@+id/tvTitleArticleWP"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
                         android:fontFamily="@font/roboto_medium"
                         android:textColor="#BF000000"
                         android:textSize="18sp"
@@ -73,8 +73,8 @@
                             android:id="@+id/imageView63"
                             android:layout_width="52dp"
                             android:layout_height="52dp"
-                            android:layout_marginBottom="4dp"
                             android:layout_marginStart="16dp"
+                            android:layout_marginBottom="4dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -99,9 +99,9 @@
                             android:id="@+id/textView171"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
+                            android:layout_marginEnd="16dp"
                             android:text="@string/art_series_author_burlakov_bio_short"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -119,28 +119,27 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="30dp"
                 app:srcCompat="@drawable/ic_fiasy_premium" />
+
             <TextView
                 android:id="@+id/tvArticlePremText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:fontFamily="@font/roboto_bold"
-                android:paddingBottom="30dp"
                 android:paddingTop="20dp"
+                android:paddingBottom="30dp"
                 android:text="@string/tvArticlePremText"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/b_color"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:id="@+id/linearLayout4"
@@ -151,15 +150,14 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    >
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <Button
                         android:id="@+id/goPremArticle"
                         android:layout_width="238dp"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="8dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
                         android:background="@drawable/shape_btn_article"
                         android:padding="2dp"
                         android:paddingStart="25dp"
@@ -167,6 +165,7 @@
                         android:textColor="@android:color/white"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/linearLayout3"
                     android:layout_width="wrap_content"
@@ -175,15 +174,14 @@
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout4"
-                    app:layout_constraintTop_toTopOf="@+id/linearLayout4"
-                    >
+                    app:layout_constraintTop_toTopOf="@+id/linearLayout4">
+
                     <ImageView
                         android:id="@+id/imageView67"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        app:srcCompat="@drawable/ic_lock"
-                        />
+                        app:srcCompat="@drawable/ic_lock" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -191,9 +189,9 @@
                 android:id="@+id/tvMainArticleWP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="40dp"
                 android:layout_marginHorizontal="12dp"
                 android:lines="32"
+                android:paddingTop="40dp"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

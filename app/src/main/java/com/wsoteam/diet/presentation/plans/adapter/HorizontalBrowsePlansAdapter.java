@@ -110,6 +110,8 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
     @BindView(R.id.background) LinearLayout background;
     @BindView(R.id.premLabel) ConstraintLayout premLabel;
 
+    private DietPlan dietPlan;
+
     private Consumer<Palette> paletteConsumer = p -> {
       int mainColor = p.getMutedColor(0);
       int alphaColor = 191;
@@ -125,6 +127,9 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     public void bind(DietPlan dietPlan) {
+
+      this.dietPlan = dietPlan;
+
       premLabel.setVisibility(dietPlan.isPremium() ? View.VISIBLE : View.GONE);
       tvName.setText(dietPlan.getName());
       tvTime.setText(concat(String.valueOf(dietPlan.getCountDays()), " ",
@@ -143,7 +148,7 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
     @Override
     public void onClick(View v) {
       if (mItemClickListener != null) {
-        mItemClickListener.onItemClick(v, getLayoutPosition(), dietPlans.get(getLayoutPosition()));
+        mItemClickListener.onItemClick(v, getLayoutPosition(), dietPlan);
       }
     }
 
@@ -151,7 +156,7 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
     public boolean onLongClick(View v) {
       if (mItemClickListener != null) {
         mItemClickListener.onItemLongClick(v, getLayoutPosition(),
-            dietPlans.get(getLayoutPosition()));
+            dietPlan);
         return true;
       }
       return false;
