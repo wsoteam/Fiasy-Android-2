@@ -1,17 +1,23 @@
 
 package com.wsoteam.diet.common.networking.food.POJO;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.squareup.moshi.Json;
+import com.wsoteam.diet.common.networking.food.ISearchResult;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Result {
+public class Result implements ISearchResult {
 
     private int id;
     private String name;
     private String fullInfo;
     private Object barcode;
     private double portion;
+    @SerializedName("is_liquid")
     private boolean isLiquid;
     private double kilojoules;
     private double calories;
@@ -19,8 +25,11 @@ public class Result {
     private double carbohydrates;
     private double sugar;
     private double fats;
+    @SerializedName("saturated_fats")
     private double saturatedFats;
+    @SerializedName("monounsaturated_fats")
     private double monounsaturatedFats;
+    @SerializedName("polyunsaturated_fats")
     private double polyunsaturatedFats;
     private double cholesterol;
     private double cellulose;
@@ -28,7 +37,9 @@ public class Result {
     private double pottasium;
     private Category category;
     private Brand brand;
-    private List<Object> measurementUnits = null;
+    @SerializedName("measurement_units")
+    @Expose
+    private List<MeasurementUnit> measurementUnits = null;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public int getId() {
@@ -199,12 +210,17 @@ public class Result {
         this.brand = brand;
     }
 
-    public List<Object> getMeasurementUnits() {
+    public List<MeasurementUnit> getMeasurementUnits() {
         return measurementUnits;
     }
 
-    public void setMeasurementUnits(List<Object> measurementUnits) {
+    public void setMeasurementUnits(List<MeasurementUnit> measurementUnits) {
         this.measurementUnits = measurementUnits;
+    }
+
+    public Result withMeasurementUnits(List<MeasurementUnit> measurementUnits) {
+        this.measurementUnits = measurementUnits;
+        return this;
     }
 
     public Map<String, Object> getAdditionalProperties() {

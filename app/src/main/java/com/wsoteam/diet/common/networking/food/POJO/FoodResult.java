@@ -1,11 +1,12 @@
 
 package com.wsoteam.diet.common.networking.food.POJO;
 
+import com.wsoteam.diet.common.networking.food.ISearchResult;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FoodResult {
+public class FoodResult  {
 
     private Integer count;
     private String next;

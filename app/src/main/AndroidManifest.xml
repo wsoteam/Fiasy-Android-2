@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wsoteam.diet"
-    android:installLocation="internalOnly">
+    android:installLocation="internalOnly"
+    package="com.wsoteam.diet">
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -51,6 +51,24 @@
             android:name=".presentation.measurment.history.HistoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MeasurmentsStyle" />
+        <activity
+            android:name="com.wsoteam.diet.presentation.search.product.DetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AnalyzerTheme" />
+        <activity
+            android:name=".presentation.search.basket.BasketActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AnalyzerTheme" />
+        <activity
+            android:name=".presentation.search.ParentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AnalyzerTheme" />
+        <activity
+            android:name=".presentation.promo.PromoFormActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/PromoScreen" />
+       
+            
         <activity
             android:name=".presentation.profile.norm.choise.activity.ActivActivity"
             android:theme="@style/ChangeGoalActivity" />

@@ -46,6 +46,7 @@ import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.detail.day.CurrentDayPlanFragment;
+import com.wsoteam.diet.presentation.search.ParentActivity;
 import java.util.Calendar;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -277,7 +278,7 @@ public class FragmentDiary extends Fragment
       case R.id.fabAddEating:
                 /*AlertDialogChoiceEating.createChoiceEatingAlertDialog(getActivity(),
                         tvDateForMainScreen.getText().toString()).show();*/
-        Events.logOpenChat();
+        startActivity(new Intent(getActivity(), ParentActivity.class));
         break;
       case R.id.btnNotification:
         attachCaloriesPopup();
