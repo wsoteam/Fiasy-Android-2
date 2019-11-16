@@ -3,23 +3,17 @@ package com.wsoteam.diet;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
-import androidx.multidex.MultiDexApplication;
-import androidx.room.Room;
+
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
 import com.amplitude.api.Amplitude;
 import com.bugsee.library.Bugsee;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.onesignal.OneSignal;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 
-import static com.adjust.sdk.AdjustConfig.ENVIRONMENT_PRODUCTION;
-import static com.wsoteam.diet.EventsAdjust.app_token;
+import androidx.multidex.MultiDexApplication;
+import androidx.room.Room;
 
 public class App extends MultiDexApplication {
 
@@ -38,7 +32,6 @@ public class App extends MultiDexApplication {
   @Override
   public void onCreate() {
     super.onCreate();
-    SugarContext.init(this);
 
     FirebaseApp.initializeApp(this);
     FirebaseDatabase.getInstance().setPersistenceEnabled(true);
@@ -59,6 +52,13 @@ public class App extends MultiDexApplication {
         .fallbackToDestructiveMigration()
         .build();
     //SetUserProperties.setUserProperties(Adjust.getAttribution());
+
+
+    context = this;
+  }
+
+  public static Context getContext(){
+    return context;
   }
 
   public FoodDatabase getFoodDatabase() {
@@ -68,7 +68,6 @@ public class App extends MultiDexApplication {
   @Override
   public void onTerminate() {
     super.onTerminate();
-    SugarContext.terminate();
   }
 
   private static final class AdjustLifecycleCallbacks implements ActivityLifecycleCallbacks {
