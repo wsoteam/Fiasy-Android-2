@@ -15,6 +15,9 @@ import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
 import androidx.multidex.MultiDexApplication;
 import androidx.room.Room;
 
+import static com.adjust.sdk.AdjustConfig.ENVIRONMENT_PRODUCTION;
+import static com.wsoteam.diet.EventsAdjust.app_token;
+
 public class App extends MultiDexApplication {
 
     public static App instance;
@@ -41,9 +44,7 @@ public class App extends MultiDexApplication {
     FirebaseApp.initializeApp(getApplicationContext());
     FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-    Adjust.onCreate(
-        new AdjustConfig(this, EventsAdjust.app_token, AdjustConfig.ENVIRONMENT_PRODUCTION));
-    registerActivityLifecycleCallbacks(new AdjustLifecycleCallbacks());
+
     Amplitude.getInstance().trackSessionEvents(true);
     Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
         .enableForegroundTracking(this);
@@ -55,6 +56,18 @@ public class App extends MultiDexApplication {
 
 
     context = this;
+  }
+
+
+  public void setupOnDemand(){
+    if (setupOnDemand) {
+      setupOnDemand = false;
+
+      Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
+
+      Adjust.onCreate(new AdjustConfig(this, app_token, ENVIRONMENT_PRODUCTION));
+      registerActivityLifecycleCallbacks(new AdjustLifecycleCallbacks());
+    }
   }
 
   public static Context getContext(){
