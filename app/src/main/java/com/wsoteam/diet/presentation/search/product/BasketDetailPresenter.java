@@ -107,13 +107,13 @@ public class BasketDetailPresenter extends MvpPresenter<DetailView> {
     String prot =
         String.valueOf(Math.round(count * portionSize * basketEntity.getProteins())) + " " + context
             .getResources()
-            .getString(R.string.gramm);
+            .getString(R.string.srch_gramm);
     String carbo = String.valueOf(Math.round(count * portionSize * basketEntity.getCarbohydrates()))
         + " "
-        + context.getResources().getString(R.string.gramm);
+        + context.getResources().getString(R.string.srch_gramm);
     String fats = String.valueOf(Math.round(count * portionSize * basketEntity.getFats()))
         + " "
-        + context.getResources().getString(R.string.gramm);
+        + context.getResources().getString(R.string.srch_gramm);
     String kcal = String.valueOf(Math.round(count * portionSize * basketEntity.getCalories()));
 
     getViewState().showResult(kcal, prot, carbo, fats);
