@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -162,7 +163,7 @@ public class ActivityListAndSearch extends AppCompatActivity {
 
     private void bindSpinnerChoiceEating() {
         ArrayAdapter<String> adapter = new ArrayAdapter(this,
-                R.layout.item_spinner_food_search, getResources().getStringArray(R.array.eatingList));
+                R.layout.item_spinner_food_search, getResources().getStringArray(R.array.srch_eat_list));
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_food_search);
         spinner.setAdapter(adapter);
         spinner.setSelection(getIntent().getIntExtra(Config.TAG_CHOISE_EATING, 0));

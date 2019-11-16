@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BranchOfAnalyzer.Dialogs.ClaimForm;
@@ -295,7 +296,7 @@ public class DetailFoodActivity extends AppCompatActivity {
                         || weight.equals(" ")
                         || Integer.parseInt(weight) < 1) {
 
-                    Toast.makeText(this, R.string.input_weight_of_eating, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.srch_weight_error, Toast.LENGTH_SHORT).show();
 
                 } else {
                     Double portion = Double.parseDouble(edtWeight.getText().toString());

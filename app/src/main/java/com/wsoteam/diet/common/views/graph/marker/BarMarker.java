@@ -1,8 +1,6 @@
 package com.wsoteam.diet.common.views.graph.marker;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.MarkerView;

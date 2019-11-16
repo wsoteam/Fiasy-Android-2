@@ -66,7 +66,7 @@
         android:paddingLeft="46dp"
         android:paddingRight="46dp"
         android:visibility="gone"
-        android:text="@string/create_product"
+        android:text="@string/srch_create_user_food"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/tvTextAddFavorite"

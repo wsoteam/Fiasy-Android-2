@@ -23,6 +23,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.model.Eating;
 import com.wsoteam.diet.utils.DrawableUtilsKt;
+import com.wsoteam.diet.presentation.search.ParentActivity;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -209,7 +210,8 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void openSearch() {
-        Intent intent = new Intent(context, ActivityListAndSearch.class);
+        //Intent intent = new Intent(context, ActivityListAndSearch.class);
+        Intent intent = new Intent(context, ParentActivity.class);
         intent.putExtra(Config.INTENT_DATE_FOR_SAVE, data);
         intent.putExtra(Config.TAG_CHOISE_EATING, getAdapterPosition());
         context.startActivity(intent);

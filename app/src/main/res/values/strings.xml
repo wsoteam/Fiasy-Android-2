@@ -1229,4 +1229,120 @@ Share your accomplishments with friends:</string>
     <string name="blocked_recipe_txt">Оформи подписку и получи доступ ко всей базе рецептов</string>
     <string name="blocked_plan_txt">Оформи подписку и получи доступ к специально подобранным для Вас и проверенным планам питания</string>
 
+
+    ///////////////////
+    <string name="srch_search_field">Поиск по базе продуктов</string>
+    <string name="srch_empty_search_title">Результаты не найдены</string>
+    <string name="srch_text_empty">Попробуйте еще раз или создайте \nсвой продукт</string>
+    <string name="srch_ml">мл</string>
+    <string name="srch_gramm">г</string>
+    <string name="srch_add_to_basket">Добавить</string>
+    <string name="srch_basket_title">Выбранные продукты</string>
+    <string name="srch_basket_card"><u>Выбрано: %d</u></string>
+
+
+    <string name="srch_delete_undo_title">Продукт удален из списка</string>
+    <string name="srch_cancel">Отмена</string>
+    <string name="srch_insp_ask">Хотите продолжить добавлять продукты в</string>
+
+    <string name="srch_default_portion">100 г</string>
+    <string name="srch_liquid">%d мл</string>
+    <string name="srch_not_liquid">%d г</string>
+    <string name="srch_save_list">Добавлено в дневник</string>
+    <string name="srch_history_header">Последние добавленные</string>
+    <string name="srch_search_results">Результаты поиска</string>
+    <string name="srch_empty_history">Начните вводить в строку поиска название \nпродукта</string>
+
+    <string name="srch_basket_alet_text">Вы хотите вернуться назад без \nдобавления выбранных продуктов?</string>
+    <string name="srch_cancel_basket">Отменить</string>
+    <string name="srch_yes">Да</string>
+    <string name="srch_elements_title">Питательные вещества на</string>
+    <string name="srch_fats">Жиры</string>
+    <string name="srch_carbohydrates">Углеводы</string>
+    <string name="srch_proteins">Белки</string>
+    <string name="srch_prem_elements">Микроэлементы</string>
+    <string name="srch_text_prem">Хотите знать достаточно ли витаминов и \nминералов вы потребляете с пищей? Тогда \n</string>
+    <string name="srch_text_prem_second">присоединяйтесь к</string>
+    <string name="srch_text_prem_third">\u0020PREMIUM\u0020</string>
+    <string name="srch_text_prem_end">версии.</string>
+    <string name="srch_connect_prem">подключить premium</string>
+    <string name="srch_speak">Говорите!</string>
+    <string name="srch_empty_section">Раздел в разработке</string>
+    <string name="srch_min_claim">Мин. 10 символов</string>
+    <string name="srch_claim_send">Отправить</string>
+    <string name="srch_claim_cancel">Cancel</string>
+    <string name="srch_write_claim">Опишите проблему</string>
+    <string name="srch_detail_add">добавить</string>
+    <string name="srch_speak_about_error">Сообщить об ошибке</string>
+    <string name="srch_carbo">Углеводы</string>
+    <string name="srch_cell">Клетчатка</string>
+    <string name="srch_sugar">Сахар</string>
+    <string name="srch_sat">Насыщенные</string>
+    <string name="srch_mono_un_sat">Мононенасыщенные</string>
+    <string name="srch_poly_us_sat">Полиненасыщенные</string>
+    <string name="srch_prot">Белки</string>
+    <string name="srch_chol">Холестерин</string>
+    <string name="srch_sod">Натрий</string>
+    <string name="srch_pot">Калий</string>
+    <string name="srch_back">НАЗАД</string>
+    <string name="srch_continue">ПРОДОЛЖИТЬ</string>
+
+    <string name="srch_weight_error">Введите вес порции</string>
+    <string name="srch_kcal">ккал</string>
+    <string name="srch_create_user_food">Создать продукт</string>
+    <string name="srch_mg">мг</string>
+
+    <string-array name="srch_eat_list">
+        <item>Завтрак</item>
+        <item>Обед</item>
+        <item>Ужин</item>
+        <item>Перекус</item>
+    </string-array>
+
+    <string-array name="srch_insp">
+        <item>Вы добавили в Завтрак:</item>
+        <item>Вы добавили в Обед:</item>
+        <item>Вы добавили в Ужин:</item>
+        <item>Вы добавили в Перекус:</item>
+    </string-array>
+
+    <string-array name="srch_names_sections">
+        <item>Избранное</item>
+        <item>Шаблоны</item>
+        <item>Мои блюда</item>
+        <item>Мои продукты</item>
+    </string-array>
+    <string-array name="srch_eating">
+        <item>Завтрак</item>
+        <item>Обед</item>
+        <item>Ужин</item>
+        <item>Перекус</item>
+    </string-array>
+
+
+    <plurals name="srch_portions">
+        <item quantity="zero"></item>
+        <item quantity="one">%d порция</item>
+        <item quantity="two">%d порции</item>
+        <item quantity="few">%d порции</item>
+        <item quantity="many">%d порций</item>
+        <item quantity="other">%d порций</item>
+    </plurals>
+    <plurals name="srch_foods">
+        <item quantity="zero"></item>
+        <item quantity="one">%d продукт</item>
+        <item quantity="two">%d продукта</item>
+        <item quantity="few">%d продукта</item>
+        <item quantity="many">%d продуктов</item>
+        <item quantity="other">%d продуктов</item>
+    </plurals>
+
+    <integer-array name="sections_images">
+        <item>@drawable/ic_left_sections_favorites</item>
+        <item>@drawable/ic_left_sections_template</item>
+        <item>@drawable/ic_left_sections_dish</item>
+        <item>@drawable/ic_left_sections_food</item>
+    </integer-array>
+
+
 </resources>
