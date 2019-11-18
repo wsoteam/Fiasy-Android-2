@@ -52,6 +52,11 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
 
     @Override
+    public int[] getParams() {
+        return getBasketParams();
+    }
+
+    @Override
     public void sendSearchString(String searchString) {
         this.searchString = searchString;
     }

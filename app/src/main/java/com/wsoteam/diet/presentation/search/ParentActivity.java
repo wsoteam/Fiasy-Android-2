@@ -156,6 +156,11 @@ public class ParentActivity extends AppCompatActivity {
     spnEatingList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (fragmentManager.findFragmentById(
+                R.id.searchFragmentContainer) instanceof ResultsView) {
+          ((ResultsView) fragmentManager.findFragmentById(
+                  R.id.searchFragmentContainer)).changeSpinner(position);
+        }
         spinnerId = position;
       }
 

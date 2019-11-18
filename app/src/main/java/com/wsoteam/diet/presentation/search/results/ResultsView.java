@@ -7,4 +7,5 @@ public interface ResultsView extends MvpView {
   void sendSearchQuery(String query);
   void updateSearchField(String currentString);
   void updateBasket();
+  void changeSpinner(int position);
 }

@@ -7,4 +7,5 @@ public interface IResult {
   void save(String date);
   void sendSearchString(String searchString);
   void setNewBasket(List<BasketEntity> savedFood);
+  int[] getParams();
 }

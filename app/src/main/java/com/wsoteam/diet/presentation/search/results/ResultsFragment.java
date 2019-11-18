@@ -87,6 +87,12 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   private BasketDAO basketDAO = App.getInstance().getFoodDatabase().basketDAO();
   private HistoryDAO historyDAO = App.getInstance().getFoodDatabase().historyDAO();
   private Animation finalSave;
+  private int spinnerId;
+
+  @Override
+  public void changeSpinner(int position) {
+      
+  }
 
   @Override public void updateSearchField(String currentString) {
     currentString.trim();
@@ -150,6 +156,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     finalSave = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_meas_update);
     updateUI();
     showHistory();
+    spinnerId = ((ParentActivity) getActivity()).spinnerId;
     return view;
   }
 
