@@ -360,37 +360,37 @@ Share your accomplishments with friends:</string>
 
 
     <!--auth_fragment_data-->
-    <string name="auth_data_ask" translatable="false">Укажите ваши данные</string>
+    <string name="auth_data_ask">Укажите ваши данные</string>
 
 
     <!--auth_fragment_gender-->
-    <string name="auth_mission_get" translatable="false">Набрать вес</string>
-    <string name="auth_mission_save" translatable="false">Сохранить</string>
-    <string name="auth_gender_tv_q" translatable="false">Укажите ваш пол</string>
+    <string name="auth_mission_get">Набрать вес</string>
+    <string name="auth_mission_save">Сохранить</string>
+    <string name="auth_gender_tv_q">Укажите ваш пол</string>
 
 
 
     <!--auth_main-->
-    <string name="auth_main_tv" translatable="false">Вход</string>
+    <string name="auth_main_tv">Вход</string>
 
-    <string name="auth_main_create" translatable="false">Регистрация</string>
-    <string name="auth_main_phone_text_set_number" translatable="false">Введите номер для отправки смс с кодом.</string>
-    <string name="auth_main_phone_text_set_code" translatable="false">Вам выслан код. Введите его.</string>
-    <string name="auth_main_phone_hint_phone" translatable="false">+79998887766</string>
-    <string name="auth_main_phone_hint_code" translatable="false">Код из смс</string>
+    <string name="auth_main_create">Регистрация</string>
+    <string name="auth_main_phone_text_set_number">Введите номер для отправки смс с кодом.</string>
+    <string name="auth_main_phone_text_set_code">Вам выслан код. Введите его.</string>
+    <string name="auth_main_phone_hint_phone">+79998887766</string>
+    <string name="auth_main_phone_hint_code">Код из смс</string>
 
     <!--auth_fragment_registration-->
-    <string name="auth_main_check_box_pp" translatable="false">Я согласен с условиями \n<u>политики конфиденциальности</u></string>
+    <string name="auth_main_check_box_pp">Я согласен с условиями \n<u>политики конфиденциальности</u></string>
 
     <!--auth_fragment_hello-->
-    <string name="reg_tv_hello" translatable="false">Привет!</string>
+    <string name="reg_tv_hello">Привет!</string>
 
     <!--auth_fragment_signin-->
-    <string name="reg_tv_hello_body" translatable="false">Я твой консультант по питанию. Расскажи мне о себе.</string>
+    <string name="reg_tv_hello_body">Я твой консультант по питанию. Расскажи мне о себе.</string>
 
 
     <!--auth_fragment_first-->
-    <string name="reg_btn_reg" translatable="false">Регистрация</string>
+    <string name="reg_btn_reg">Регистрация</string>
 
     <!--test-->
     <string name="todo" translatable="false">TODO</string>
@@ -422,13 +422,13 @@ Share your accomplishments with friends:</string>
     <string name="tv_level_up_super" translatable="false">Тяжелая физическая работа или интенсивные тренировки 2 раза в день</string>
 
 
-    <string name="dif_level_easy" translatable="false">Легкая</string>
-    <string name="dif_level_normal" translatable="false">Средняя</string>
-    <string name="dif_level_hard" translatable="false">Высокая</string>
+    <string name="dif_level_easy" >Легкая</string>
+    <string name="dif_level_normal">Средняя</string>
+    <string name="dif_level_hard" >Высокая</string>
 
 
     <!--List of main max params in profile-->
-    <string name="check_your_email" translatable="false">Неправильный формат</string>
+    <string name="check_your_email">Неправильный формат</string>
 
 
 
@@ -438,13 +438,10 @@ Share your accomplishments with friends:</string>
 
 
     <string name="activity_detail_food_1234" translatable="false">1234</string>
-
     <string name="activity_item_plans_def_value" translatable="false">00</string>
-
     <string name="activity_profile_2019" translatable="false">2019</string>
     <string name="activity_profile_date" translatable="false">10.06 &#8211; 17.06</string>
 
-    <string name="adding_recipe_menu_close" translatable="false">Close</string>
 
 
     <string name="alert_dialog_from_claim_cancel" translatable="false">Cancel</string>
@@ -456,7 +453,7 @@ Share your accomplishments with friends:</string>
 
     <string name="food_item_for_template_name" translatable="false">Name</string>
     <string name="food_item_for_template_kcal" translatable="false">Kcal</string>
-    <string name="food_item_for_template_weight" translatable="false">Вес</string>
+    <string name="food_item_for_template_weight">Вес</string>
     <string name="food_item_for_template_b" translatable="false">B</string>
     <string name="food_item_for_template_g" translatable="false">G</string>
     <string name="food_item_for_template_u" translatable="false">U</string>
@@ -1063,7 +1060,7 @@ Share your accomplishments with friends:</string>
     <string name="daily_widget_calories_burned">Burned</string>
     <string name="daily_widget_calories_eaten">Eaten</string>
 
-    <string name="user_activity_title">Активность</string>
+
     <string name="user_activity_section_favorite">Избранное</string>
     <string name="user_activity_section_my">Мои активности</string>
     <string name="user_activity_section_defaults">Стандартные активности</string>
@@ -1072,7 +1069,6 @@ Share your accomplishments with friends:</string>
     <string name="user_activity_time_elapsed_wh_wm">%dч</string>
     <string name="user_activity_burned">%d ккал</string>
     <string name="action_add">Добавить</string>
-    <string name="action_done">Готово</string>
     <string name="action_add_to_favorite">Добавить в избранное</string>
     <string name="add_user_activity_done_button">Добавить в дневник</string>
     <string name="add_user_activity_burned_hint">Потрачено калорий</string>
@@ -1082,68 +1078,78 @@ Share your accomplishments with friends:</string>
     <string name="add_user_activity_hint">Введите название активности</string>
     <string name="widget_user_activity_title">Активности</string>
     <string name="widget_user_activity_show_all">Все</string>
-    <string name="calendar_today">Сегодня</string>
-    <string name="widget_weight_title">Измерение тела</string>
-    <string name="action_refresh">Обновить</string>
-    <string name="premium_feature_title">Сбрасывайте вес\nбез стресса и жестких диет с\n</string>
+
+    <string name="widget_weight_title">Body measurements</string>
+    <string name="action_refresh">Update</string>
+
+
+
+    <string name="premium_feature_title">Lose weight\n without stress or strict diets with\n</string>
+
+
     <string name="premium_feature_title__span" translatable="false">Fiasy Premium</string>
-    <string name="premium_feature_exclusive_articles">Эксклюзивные статьи</string>
-    <string name="premium_feature_exclusive_articles_description">Вы получите доступ к статьям от популярного диетолога и фитнес-тренера</string>
-    <string name="premium_feature_exclusive_recipes">База рецептов</string>
-    <string name="premium_feature_exclusive_recipes_description">Легкие в приготовлении рецепты с данными КБЖУ с недорогими, но вкусными продуктами</string>
-    <string name="premium_feature_personal_settings_description">Вы сможете просматривать и регулировать уровень своего КБЖУ</string>
-    <string name="premium_feature_personal_settings">Персональные настройки</string>
-    <string name="premium_feature_measurements">Измерения тела</string>
-    <string name="premium_feature_measurements_description">Отслеживайте динамику прогресса с помощью подробного анализа параметров своего тела</string>
-    <string name="premium_feature_exclusive_plans_description">Готовые планы питания на любой вкус и для любой цели</string>
-    <string name="premium_feature_exclusive_plans">Планы питания</string>
-    <string name="premium_features_comparison">ВСЕ ПРОЩЕ С PREMIUM</string>
-    <string name="premium_comparision_basic_title">Basic</string>
-    <string name="premium_comparision_premium">Premium</string>
-    <string name="action_buy">КУПИТЬ</string>
+    <string name="premium_feature_exclusive_articles">Exclusive articles</string>
+    <string name="premium_feature_exclusive_articles_description">You\'ll get access to articles from a popular nutritionist and fitness trainer</string>
+    <string name="premium_feature_exclusive_recipes">Recipe database</string>
+    <string name="premium_feature_exclusive_recipes_description">Easy-to-cook, affordable, delicious recipes with CPFC data</string>
+    <string name="premium_feature_personal_settings_description">View and adjust your CPFC level</string>
+    <string name="premium_feature_personal_settings">Personalized settings</string>
+    <string name="premium_feature_measurements">Body measurements</string>
+    <string name="premium_feature_measurements_description">Track your progress with detailed body measurement analysis</string>
+
+    <string name="premium_feature_exclusive_plans_description">Ready-made meal plans for every taste and goal</string>
+    <string name="premium_feature_exclusive_plans">Meal plans</string>
+    <string name="premium_features_comparison">EVERYTHING IS EASIER WITH PREMIUM</string>
+
+
+
+
+    <string name="premium_comparision_basic_title" translatable="false">Basic</string>
+    <string name="premium_comparision_premium" translatable="false">Premium</string>
+    <string name="action_buy">Buy</string>
     <string name="privacy_policy_with_condtions">Политика конфиденциальности и\nусловия использования</string>
     <string name="premium_client_says_about_us">ДОВОЛЬНЫЕ КЛИЕНТЫ</string>
 
-    <string name="premium_subscription_1_year">1 год</string>
-    <string name="premium_subscription_6_month">6 месяцев</string>
-    <string name="premium_subscription_3_month">3 месяца</string>
-    <string name="premium_subscription_per_month">%s/месяц</string>
-    <string name="premium_subscription_card_benefits">Выгода\n%d</string>
-    <string name="subscriptions_list_title">Открой новые возможности\n</string>
+
+
+    <string name="premium_subscription_1_year">1 year</string>
+    <string name="premium_subscription_6_month">6 months</string>
+    <string name="premium_subscription_3_month">3 months</string>
+    <string name="premium_subscription_per_month">%s/month</string>
+
+    <string name="premium_subscription_card_benefits">%d\nAdvantages</string>
+    <string name="subscriptions_list_title">Unlock more options\n</string>
     <string name="subscriptions_list_title__premium" translatable="false">PREMIUM</string>
 
-
     <plurals name="duration_minutes">
-        <item quantity="one">минуту</item>
-        <item quantity="few">минуты</item>
-        <item quantity="many">минут</item>
-        <item quantity="other">минут</item>
+        <item quantity="one">minute</item>
+        <item quantity="other">minutes</item>
     </plurals>
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
+
+
+
 
     <string-array name="names_months_meas">
-        <item>января</item>
-        <item>февраля</item>
-        <item>марта</item>
-        <item>апреля</item>
-        <item>мая</item>
-        <item>июня</item>
-        <item>июля</item>
-        <item>августа</item>
-        <item>сентября</item>
-        <item>октября</item>
-        <item>ноября</item>
-        <item>декабря</item>
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
     </string-array>
 
+
     <plurals name="meas_days_ago">
-        <item quantity="zero"></item>
-        <item quantity="one">%d день назад</item>
-        <item quantity="two">%d дня назад</item>
-        <item quantity="few">%d дня назад</item>
-        <item quantity="many">%d дней назад</item>
-        <item quantity="other">%d дней назад</item>
+        <item quantity="one">%d day ago</item>
+        <item quantity="other">%d days ago</item>
     </plurals>
 
     <string name="measurments">Body measurements</string>
@@ -1185,19 +1191,17 @@ Share your accomplishments with friends:</string>
 
     <string name="meas_without_meas">Не изменялось с момента регистрации</string>
     <string name="meas_prefix">Вы заносили вес</string>
-  <string name="timer_days_left">дни</string>
-  <string name="timer_hours_left">часы</string>
-  <string name="timer_seconds_left">секунды</string>
-  <string name="timer_minutes_left">минуты</string>
-  <string name="timer_padded_value" translatable="false">%02d</string>
-  <string name="premium_black_friday_days_remained_hint">До конца акции осталось</string>
-  <string name="subscription_not_found">Подписка не найдена, возможно она не доступна в вашей стране</string>
-  <string name="be_better_with_premium">Стань лучше с Premium</string>
-  //
 
+    <string name="timer_padded_value" translatable="false">%02d</string>
+    <string name="premium_black_friday_days_remained_hint">The special offer will end in</string>
+    <string name="timer_days_left">days</string>
+    <string name="timer_seconds_left">seconds</string>
+    <string name="timer_hours_left">hours</string>
+    <string name="timer_minutes_left">minutes</string>
 
+    <string name="subscription_not_found">Подписка не найдена, возможно она не доступна в вашей стране</string>
+    <string name="be_better_with_premium">Стань лучше с Premium</string>
 
-//
 
     <string name="addingRecipeText">The recipe you create will be saved in this section</string>
     <string name="favoriteRecipeText">The recipes you like will be saved in this section </string>
@@ -1343,6 +1347,20 @@ Share your accomplishments with friends:</string>
         <item>@drawable/ic_left_sections_dish</item>
         <item>@drawable/ic_left_sections_food</item>
     </integer-array>
+
+    <string name="daily_burn_widget_title">Ежедненая норма</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="tomorrow">Tomorrow</string>
+
+    <string name="black_prem_features_diary">Nutrition and exercise journal</string>
+    <string name="black_prem_features_elements">Macro-nutrient tracking</string>
+    <string name="black_prem_features_recipe">Recipes</string>
+    <string name="black_prem_features_articles">Exclusive articles from a nutritionist</string>
+    <string name="black_prem_features_plans">Meal plans</string>
+    <string name="black_prem_features_statistic">All statistics</string>
+    <string name="black_prem_features_body">Body morphology tracking</string>
+
 
 
 </resources>

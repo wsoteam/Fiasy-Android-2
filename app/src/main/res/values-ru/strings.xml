@@ -815,6 +815,7 @@
   <string name="personal_diary">Создаём ваш персональный дневник питания</string>
   <string name="update_message">Вышла новая версия приложения!  \nОбновите приложение в Google Play</string>
   <string name="go_update">Обновить</string>
+  <string name="action_refresh">Обновить</string>
   <string name="update_title">Обновление!</string>
   <string name="eating_trigger">Питание</string>
   <string name="enter_multi_params">Введите данные</string>
@@ -1053,10 +1054,11 @@
   <string name="meas_chest">Грудь</string>
   <string name="meas_add_meas">Добавить</string>
 
-  <string name="timer_days_left">days</string>
-  <string name="timer_hours_left">hours</string>
-  <string name="timer_minutes_left">minutes</string>
-  <string name="premium_black_friday_days_remained_hint">The special offer will end in</string>
+  <string name="timer_days_left">дни</string>
+  <string name="timer_hours_left">часы</string>
+  <string name="timer_seconds_left">секунды</string>
+  <string name="timer_minutes_left">минуты</string>
+  <string name="premium_black_friday_days_remained_hint">До конца акции осталось</string>
 
 
   ///////////////////
@@ -1173,4 +1175,74 @@
     <item>@drawable/ic_left_sections_food</item>
   </integer-array>
 
+  <string name="today">Сегодня</string>
+  <string name="yesterday">Вчера</string>
+  <string name="tomorrow">Завтра</string>
+
+  <string name="premium_feature_title">Сбрасывайте вес\nбез стресса и жестких диет с\n</string>
+  <string name="action_buy">КУПИТЬ</string>
+  <string name="premium_subscription_card_benefits">Выгода\n%d</string>
+
+  <string name="premium_subscription_1_year">1 год</string>
+  <string name="premium_subscription_6_month">6 месяцев</string>
+  <string name="premium_subscription_3_month">3 месяца</string>
+  <string name="premium_subscription_per_month">%s/месяц</string>
+
+  <string name="premium_feature_exclusive_articles">Эксклюзивные статьи</string>
+  <string name="premium_feature_exclusive_articles_description">Вы получите доступ к статьям от популярного диетолога и фитнес-тренера</string>
+  <string name="premium_feature_exclusive_recipes">База рецептов</string>
+  <string name="premium_feature_exclusive_recipes_description">Легкие в приготовлении рецепты с данными КБЖУ с недорогими, но вкусными продуктами</string>
+  <string name="premium_feature_personal_settings_description">Вы сможете просматривать и регулировать уровень своего КБЖУ</string>
+  <string name="premium_feature_personal_settings">Персональные настройки</string>
+  <string name="premium_feature_measurements">Измерения тела</string>
+  <string name="premium_feature_measurements_description">Отслеживайте динамику прогресса с помощью подробного анализа параметров своего тела</string>
+
+  <string name="premium_feature_exclusive_plans_description">Готовые планы питания на любой вкус и для любой цели</string>
+  <string name="premium_feature_exclusive_plans">Планы питания</string>
+  <string name="premium_features_comparison">ВСЕ ПРОЩЕ С PREMIUM</string>
+
+  <string name="subscriptions_list_title">Открой новые возможности\n</string>
+
+  <plurals name="duration_minutes">
+    <item quantity="one">минуту</item>
+    <item quantity="few">минуты</item>
+    <item quantity="many">минут</item>
+    <item quantity="other">минут</item>
+  </plurals>
+
+  <string name="black_prem_features_diary">Дневник питания и нагрузок</string>
+  <string name="black_prem_features_elements">Учет макроэлементов</string>
+  <string name="black_prem_features_recipe">Рецепты</string>
+  <string name="black_prem_features_articles">Эксклюзивные статьи от диетолога</string>
+  <string name="black_prem_features_plans">Планы питания</string>
+  <string name="black_prem_features_statistic">Вся статистика</string>
+  <string name="black_prem_features_body">Учет морфологии тела</string>
+
+  <string-array name="names_months_meas">
+    <item>января</item>
+    <item>февраля</item>
+    <item>марта</item>
+    <item>апреля</item>
+    <item>мая</item>
+    <item>июня</item>
+    <item>июля</item>
+    <item>августа</item>
+    <item>сентября</item>
+    <item>октября</item>
+    <item>ноября</item>
+    <item>декабря</item>
+  </string-array>
+
+
+  <plurals name="meas_days_ago">
+    <item quantity="zero"></item>
+    <item quantity="one">%d день назад</item>
+    <item quantity="two">%d дня назад</item>
+    <item quantity="few">%d дня назад</item>
+    <item quantity="many">%d дней назад</item>
+    <item quantity="other">%d дней назад</item>
+  </plurals>
+
+  <string name="widget_weight_title">Измерение тела</string>
+  <string name="widget_user_activity_show_all">All</string>
 </resources>

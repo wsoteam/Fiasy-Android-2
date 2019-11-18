@@ -65,7 +65,7 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
     }
     createUser = getIntent().getBooleanExtra(Config.CREATE_PROFILE, true);
 
-//        new Handler().postDelayed(() -> saveProfile(isNeedShowOnboard, profileFinal, createUser), 4000);
+        new Handler().postDelayed(() -> saveProfile(isNeedShowOnboard, profileFinal, createUser), 4000);
     }
 
 

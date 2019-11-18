@@ -14,7 +14,7 @@
       android:id="@+id/toolbar"
       android:background="@drawable/gradient_main"
       app:navigationIcon="@drawable/back_arrow_icon_white"
-      app:title="@string/user_activity_title"
+      app:title="@string/activity"
       app:titleTextColor="@color/white"
       android:layout_width="match_parent"
       android:layout_height="wrap_content" />

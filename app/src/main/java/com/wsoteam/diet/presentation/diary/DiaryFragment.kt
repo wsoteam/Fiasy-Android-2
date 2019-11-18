@@ -318,9 +318,9 @@ class DiaryFragment : Fragment() {
 
     if (!isCalendarExpanded && (today || yesterday || tomorrow)) {
       toolbar.title = when {
-        today -> "Cегодня"
-        yesterday -> "Вчера"
-        else -> "Завтра"
+        today -> getString(R.string.today)
+        yesterday -> getString(R.string.yesterday)
+        else -> getString(R.string.tomorrow)
       }
     } else {
       val target = DiaryViewModel.currentDate

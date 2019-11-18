@@ -63,7 +63,7 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
         mToolbar.setTitle(getString(R.string.plans));
 
         if (getArguments() != null && getArguments().getBoolean("addBackButton")) {
-            mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
+            mToolbar.setNavigationIcon(R.drawable.arrow_back_gray);
             mToolbar.setNavigationOnClickListener(navigationListener);
         }
 
