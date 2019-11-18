@@ -369,7 +369,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       tvName.setText(dietPlan.getName());
       //tvRecipes.setText(mContext.getResources().getQuantityString(R.plurals.recipe_count, dietPlan.getCountDays(), dietPlan.getCountDays()));
       tvRecipes.setText(concat(
-          String.valueOf(dietPlan.getCountDays()), " ",
+          String.valueOf(dietPlan.getRecipeCount()), " ",
           mContext.getResources().getQuantityString(R.plurals.recipe_plurals, dietPlan.getCountDays())));
       tvTime.setText(concat(String.valueOf(dietPlan.getCountDays()), " ",
           mContext.getResources().getQuantityString(
