@@ -11,9 +11,12 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
 import android.view.ViewTreeObserver.OnPreDrawListener
 import android.widget.FrameLayout
 import androidx.appcompat.widget.Toolbar
+import androidx.core.widget.NestedScrollView
+import androidx.core.widget.NestedScrollView.OnScrollChangeListener
 import androidx.customview.widget.ViewDragHelper
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -49,6 +52,8 @@ class DiaryFragment : Fragment() {
 
   private val calendar = Calendar.getInstance()
   protected val targets = hashMapOf<View, Target>()
+
+  private lateinit var premiumContainer: View
 
   private lateinit var root: GuardNestedScrollView
   private lateinit var toolbar: Toolbar
@@ -126,6 +131,8 @@ class DiaryFragment : Fragment() {
       dragHelper.capturedView != null
     }
 
+    premiumContainer = view.findViewById<View>(R.id.premium_banner_root)
+
     smallCalendarView = toolbar.findViewById(R.id.small_calendar)
     smallCalendarView.visibility = View.GONE
     smallCalendarView.setOnClickListener {
@@ -177,19 +184,38 @@ class DiaryFragment : Fragment() {
       }
     })
 
+    root.setOnScrollChangeListener(object : OnScrollChangeListener {
+      override fun onScrollChange(v: NestedScrollView,
+        scrollX: Int,
+        scrollY: Int,
+        oldScrollX: Int,
+        oldScrollY: Int) {
+
+        val endValue: Float
+
+        if (scrollY > oldScrollY) {
+          endValue = 0f
+        } else {
+          endValue = 1f * scrollY
+        }
+
+        premiumContainer.translationY = endValue
+      }
+    })
+
     calendarView.viewTreeObserver.addOnPreDrawListener(object : OnPreDrawListener {
       override fun onPreDraw(): Boolean {
-        smallCalendarView.translationX = 1f * toolbar.width - smallCalendarView.left
-
         calendarView.viewTreeObserver.removeOnPreDrawListener(this)
+
+        smallCalendarView.translationX = 1f * toolbar.width - smallCalendarView.left
 
         val isPremium = requireContext()
           .getSharedPreferences(Config.STATE_BILLING, Context.MODE_PRIVATE)
           .getBoolean(Config.STATE_BILLING, false)
 
-        val premiumContainer = view.findViewById<View>(R.id.premium_banner_root)
         premiumContainer.setOnClickListener {
-          startActivity(Intent(requireContext(), PremiumFeaturesActivity::class.java))
+//          premiumContainer.visibility = View.GONE
+            startActivity(Intent(requireContext(), PremiumFeaturesActivity::class.java))
         }
 
         if (!isPremium) {
@@ -236,8 +262,15 @@ class DiaryFragment : Fragment() {
           premiumContainer.visibility = View.GONE
         }
 
-        val lp = (container.layoutParams as FrameLayout.LayoutParams)
-        lp.topMargin = toolbar.bottom
+        val toolbarContainer = toolbar.parent as View
+        (toolbarContainer.layoutParams as FrameLayout.LayoutParams).apply {
+          topMargin = premiumContainer.height
+        }
+
+        (container.layoutParams as FrameLayout.LayoutParams).apply {
+          topMargin = premiumContainer.height + toolbar.height
+        }
+
         return false
       }
     })
@@ -252,9 +285,9 @@ class DiaryFragment : Fragment() {
       .getSharedPreferences(Config.STATE_BILLING, Context.MODE_PRIVATE)
       .getBoolean(Config.STATE_BILLING, false)
 
-    view?.findViewById<View>(R.id.premium_banner_root)?.let { premiumContainer ->
-      premiumContainer.visibility = if (isPremium) View.GONE else View.VISIBLE
-    }
+    premiumContainer.visibility = if (isPremium) View.GONE else View.VISIBLE
+
+    container.translationY = 0f
   }
 
   private fun toggleCalendar() {

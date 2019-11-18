@@ -19,9 +19,9 @@ class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
 
   private val widgets = intArrayOf(
       R.layout.widget_daily_calories,
+      R.layout.ms_item_water_list,
       R.layout.fragment_current_day_plan,
       R.layout.widget_eatings,
-      R.layout.ms_item_water_list,
       R.layout.widget_user_weight,
       R.layout.widget_user_activities
   )
