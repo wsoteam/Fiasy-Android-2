@@ -293,7 +293,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?overlayColor"
-        app:title="Дневник питания и нагрузок"
+        app:title="@string/black_prem_features_diary"
         app:titleStyle="?titleStyle"
         app:free="true"
         app:premium="true"
@@ -302,7 +302,7 @@
     <com.wsoteam.diet.views.PremiumFeatureRowView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Учет макроэлементов"
+        app:title="@string/black_prem_features_elements"
         app:titleStyle="?titleStyle"
         />
 
@@ -310,29 +310,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?overlayColor"
-        app:title="Рецепты"
+        app:title="@string/black_prem_features_recipe"
         app:titleStyle="?titleStyle"
         />
 
     <com.wsoteam.diet.views.PremiumFeatureRowView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Эксклюзивные статьи от диетолога"
-        app:titleStyle="?titleStyle"
-        />
-
-    <com.wsoteam.diet.views.PremiumFeatureRowView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?overlayColor"
-        app:title="Планы питания"
-        app:titleStyle="?titleStyle"
-        />
-
-    <com.wsoteam.diet.views.PremiumFeatureRowView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="Вся статистика"
+        app:title="@string/black_prem_features_articles"
         app:titleStyle="?titleStyle"
         />
 
@@ -340,7 +325,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?overlayColor"
-        app:title="Учет морфологии тела"
+        app:title="@string/black_prem_features_plans"
+        app:titleStyle="?titleStyle"
+        />
+
+    <com.wsoteam.diet.views.PremiumFeatureRowView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/black_prem_features_statistic"
+        app:titleStyle="?titleStyle"
+        />
+
+    <com.wsoteam.diet.views.PremiumFeatureRowView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?overlayColor"
+        app:title="@string/black_prem_features_body"
         app:titleStyle="?titleStyle"
         />
 

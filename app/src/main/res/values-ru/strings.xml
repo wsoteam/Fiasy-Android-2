@@ -815,6 +815,7 @@
   <string name="personal_diary">Создаём ваш персональный дневник питания</string>
   <string name="update_message">Вышла новая версия приложения!  \nОбновите приложение в Google Play</string>
   <string name="go_update">Обновить</string>
+  <string name="action_refresh">Обновить</string>
   <string name="update_title">Обновление!</string>
   <string name="eating_trigger">Питание</string>
   <string name="enter_multi_params">Введите данные</string>
@@ -1208,4 +1209,40 @@
     <item quantity="many">минут</item>
     <item quantity="other">минут</item>
   </plurals>
+
+  <string name="black_prem_features_diary">Дневник питания и нагрузок</string>
+  <string name="black_prem_features_elements">Учет макроэлементов</string>
+  <string name="black_prem_features_recipe">Рецепты</string>
+  <string name="black_prem_features_articles">Эксклюзивные статьи от диетолога</string>
+  <string name="black_prem_features_plans">Планы питания</string>
+  <string name="black_prem_features_statistic">Вся статистика</string>
+  <string name="black_prem_features_body">Учет морфологии тела</string>
+
+  <string-array name="names_months_meas">
+    <item>января</item>
+    <item>февраля</item>
+    <item>марта</item>
+    <item>апреля</item>
+    <item>мая</item>
+    <item>июня</item>
+    <item>июля</item>
+    <item>августа</item>
+    <item>сентября</item>
+    <item>октября</item>
+    <item>ноября</item>
+    <item>декабря</item>
+  </string-array>
+
+
+  <plurals name="meas_days_ago">
+    <item quantity="zero"></item>
+    <item quantity="one">%d день назад</item>
+    <item quantity="two">%d дня назад</item>
+    <item quantity="few">%d дня назад</item>
+    <item quantity="many">%d дней назад</item>
+    <item quantity="other">%d дней назад</item>
+  </plurals>
+
+  <string name="widget_weight_title">Измерение тела</string>
+  <string name="widget_user_activity_show_all">All</string>
 </resources>

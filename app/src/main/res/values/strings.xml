@@ -1060,7 +1060,7 @@ Share your accomplishments with friends:</string>
     <string name="daily_widget_calories_burned">Burned</string>
     <string name="daily_widget_calories_eaten">Eaten</string>
 
-    <string name="user_activity_title">Активность</string>
+
     <string name="user_activity_section_favorite">Избранное</string>
     <string name="user_activity_section_my">Мои активности</string>
     <string name="user_activity_section_defaults">Стандартные активности</string>
@@ -1069,7 +1069,6 @@ Share your accomplishments with friends:</string>
     <string name="user_activity_time_elapsed_wh_wm">%dч</string>
     <string name="user_activity_burned">%d ккал</string>
     <string name="action_add">Добавить</string>
-    <string name="action_done">Готово</string>
     <string name="action_add_to_favorite">Добавить в избранное</string>
     <string name="add_user_activity_done_button">Добавить в дневник</string>
     <string name="add_user_activity_burned_hint">Потрачено калорий</string>
@@ -1079,9 +1078,10 @@ Share your accomplishments with friends:</string>
     <string name="add_user_activity_hint">Введите название активности</string>
     <string name="widget_user_activity_title">Активности</string>
     <string name="widget_user_activity_show_all">Все</string>
-    <string name="calendar_today">Сегодня</string>
-    <string name="widget_weight_title">Измерение тела</string>
-    <string name="action_refresh">Обновить</string>
+
+    <string name="widget_weight_title">Body measurements</string>
+    <string name="action_refresh">Update</string>
+
 
 
     <string name="premium_feature_title">Lose weight\n without stress or strict diets with\n</string>
@@ -1117,7 +1117,7 @@ Share your accomplishments with friends:</string>
     <string name="premium_subscription_3_month">3 months</string>
     <string name="premium_subscription_per_month">%s/month</string>
 
-    <string name="premium_subscription_card_benefits">Advantages\n%d</string>
+    <string name="premium_subscription_card_benefits">%d\nAdvantages</string>
     <string name="subscriptions_list_title">Unlock more options\n</string>
     <string name="subscriptions_list_title__premium" translatable="false">PREMIUM</string>
 
@@ -1127,30 +1127,29 @@ Share your accomplishments with friends:</string>
     </plurals>
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
+
+
+
 
     <string-array name="names_months_meas">
-        <item>января</item>
-        <item>февраля</item>
-        <item>марта</item>
-        <item>апреля</item>
-        <item>мая</item>
-        <item>июня</item>
-        <item>июля</item>
-        <item>августа</item>
-        <item>сентября</item>
-        <item>октября</item>
-        <item>ноября</item>
-        <item>декабря</item>
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
     </string-array>
 
+
     <plurals name="meas_days_ago">
-        <item quantity="zero"></item>
-        <item quantity="one">%d день назад</item>
-        <item quantity="two">%d дня назад</item>
-        <item quantity="few">%d дня назад</item>
-        <item quantity="many">%d дней назад</item>
-        <item quantity="other">%d дней назад</item>
+        <item quantity="one">%d day ago</item>
+        <item quantity="other">%d days ago</item>
     </plurals>
 
     <string name="measurments">Body measurements</string>
@@ -1353,5 +1352,15 @@ Share your accomplishments with friends:</string>
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
     <string name="tomorrow">Tomorrow</string>
+
+    <string name="black_prem_features_diary">Nutrition and exercise journal</string>
+    <string name="black_prem_features_elements">Macro-nutrient tracking</string>
+    <string name="black_prem_features_recipe">Recipes</string>
+    <string name="black_prem_features_articles">Exclusive articles from a nutritionist</string>
+    <string name="black_prem_features_plans">Meal plans</string>
+    <string name="black_prem_features_statistic">All statistics</string>
+    <string name="black_prem_features_body">Body morphology tracking</string>
+
+
 
 </resources>
