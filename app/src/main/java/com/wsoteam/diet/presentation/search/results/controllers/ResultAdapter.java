@@ -33,6 +33,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         implements IResult {
@@ -98,11 +99,19 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     private void loadNextPortion(int page) {
-        foodResultAPI
-                .search(searchString, page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
+        if (Locale.getDefault().getLanguage().equals(Config.EN)) {
+            foodResultAPI
+                    .searchEn(searchString, page)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
+        } else if (Locale.getDefault().getLanguage().equals(Config.RU)) {
+            foodResultAPI
+                    .search(searchString, page)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
+        }
     }
 
     private void addItems(List<Result> results) {
@@ -194,7 +203,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private int[] getBasketParams() {
         int[] basketParams = new int[context.getResources().getStringArray(R.array.srch_eating).length];
         for (int i = 0; i < savedFood.size(); i++) {
-            basketParams[savedFood.get(i).getEatingType()] ++;
+            basketParams[savedFood.get(i).getEatingType()]++;
         }
         return basketParams;
     }

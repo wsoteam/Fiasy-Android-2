@@ -135,6 +135,8 @@ public class Config {
     public static final String SPINER_ID = "SPINER_ID";
     public static final int EMPTY_BASKET = 0;
     public static final String BASKET_PARAMS = "BASKET_PARAMS";
+    public static final String EN = "en";
+    public static final String RU = "ru";
 
 
 

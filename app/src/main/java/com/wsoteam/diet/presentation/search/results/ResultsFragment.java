@@ -8,6 +8,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,6 +63,7 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class ResultsFragment extends MvpAppCompatFragment implements ResultsView {
   ResultsPresenter presenter;
@@ -293,12 +295,21 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   }
 
   private void search(String searchString) {
-    foodResultAPI
-        .search(searchString, 1)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(t -> refreshAdapter(toISearchResult(t.getResults()), searchString),
-            Throwable::printStackTrace);
+    if (Locale.getDefault().getLanguage().equals(Config.EN)){
+      foodResultAPI
+              .searchEn(searchString, 1)
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe(t -> refreshAdapter(toISearchResult(t.getResults()), searchString),
+                      Throwable::printStackTrace);
+    }else if (Locale.getDefault().getLanguage().equals(Config.RU)){
+      foodResultAPI
+              .search(searchString, 1)
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe(t -> refreshAdapter(toISearchResult(t.getResults()), searchString),
+                      Throwable::printStackTrace);
+    }
   }
 
   private List<ISearchResult> toISearchResult(List<Result> results) {
