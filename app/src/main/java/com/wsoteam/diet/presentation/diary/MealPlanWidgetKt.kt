@@ -35,7 +35,7 @@ import com.wsoteam.diet.presentation.plans.detail.day.CurrentDayPlanAdapter
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
-class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
+class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
   TabLayout.BaseOnTabSelectedListener<Tab> {
 
   private val recyclerView: RecyclerView = itemView.findViewById(R.id.recycler)
@@ -144,15 +144,16 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
   private fun checkStatus() {
     val currentDate = DiaryViewModel.currentDate.calendar.time
 
-    UserDataHolder.getUserData()?.plan?.let { plan ->
+    val currentPlan = UserDataHolder.getUserData()?.plan
 
+    if (currentPlan != null) {
       val startDay: Calendar = Calendar.getInstance()
       val endDay: Calendar = Calendar.getInstance()
-      startDay.time = DateHelper.stringToDate(plan.startDate)
+      startDay.time = DateHelper.stringToDate(currentPlan.startDate)
       endDay.time = startDay.time
-      endDay.add(Calendar.DAY_OF_WEEK, plan.countDays)
+      endDay.add(Calendar.DAY_OF_WEEK, currentPlan.countDays)
 
-      day = plan.daysAfterStart
+      day = currentPlan.daysAfterStart
       daysPicked = TimeUnit.DAYS.convert(
           (currentDate.time.minus(startDay.time.time)),
           TimeUnit.MILLISECONDS
@@ -171,22 +172,17 @@ class MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
       }
 
       if (currentDate.after(startDay.time) && currentDate.before(endDay.time)) {
-        showRecipe(plan, daysPicked)
+        showRecipe(currentPlan, daysPicked)
         return
       }
 
       if (currentDate.after(endDay.time)) {
-        finishPlan(plan)
+        finishPlan(currentPlan)
         return
       }
 
       hideAll()
       return
-
-    }
-
-    if (DiaryViewModel.isToday) {
-      notActivePlan()
     } else {
       hideAll()
     }

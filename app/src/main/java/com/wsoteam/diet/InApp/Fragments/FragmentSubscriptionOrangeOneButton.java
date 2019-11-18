@@ -45,6 +45,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
+import com.wsoteam.diet.presentation.premium.SubscriptionManager;
 import com.wsoteam.diet.utils.IntentUtils;
 
 import java.util.ArrayList;
@@ -101,23 +102,6 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(wordtoSpan);
 
-
-        billingClient = BillingClient.newBuilder(requireContext())
-                .setListener(this)
-                .build();
-        billingClient.startConnection(new BillingClientStateListener() {
-            @Override
-            public void onBillingSetupFinished(int responseCode) {
-                if (responseCode == BillingClient.BillingResponse.OK) {
-                    getSKU();
-                }
-            }
-
-            @Override
-            public void onBillingServiceDisconnected() {
-
-            }
-        });
         return view;
     }
 

@@ -2,11 +2,10 @@ package com.wsoteam.diet.presentation.profile.questions;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -14,8 +13,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.amplitude.api.Amplitude;
-import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
@@ -25,32 +23,40 @@ import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.UserProperty;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
+import com.wsoteam.diet.utils.NetworkService;
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.internal.functions.Functions;
 
 public class QuestionsCalculationsActivity extends AppCompatActivity {
+  @BindView(R.id.loader)
+  ImageView loader;
 
   private boolean isNeedShowOnboard, createUser;
+  private CompositeDisposable disposable;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_questions_calculations);
 
-    ImageView imageView = findViewById(R.id.imageView17);
-    Drawable drawable = imageView.getDrawable();
+    final Drawable drawable = loader.getDrawable();
     if (drawable instanceof Animatable) {
       ((Animatable) drawable).start();
     }
-    SharedPreferences sp = getSharedPreferences(Config.ONBOARD_PROFILE, MODE_PRIVATE);
 
-    boolean isFemale = sp.getBoolean(Config.ONBOARD_PROFILE_SEX, true);
-    int age = sp.getInt(Config.ONBOARD_PROFILE_YEARS, BodyCalculates.DEFAULT_AGE);
-    int height = sp.getInt(Config.ONBOARD_PROFILE_HEIGHT, BodyCalculates.DEFAULT_HEIGHT);
-    double weight =
+    final SharedPreferences sp = getSharedPreferences(Config.ONBOARD_PROFILE, MODE_PRIVATE);
+
+    final boolean isFemale = sp.getBoolean(Config.ONBOARD_PROFILE_SEX, true);
+    final int age = sp.getInt(Config.ONBOARD_PROFILE_YEARS, BodyCalculates.DEFAULT_AGE);
+    final int height = sp.getInt(Config.ONBOARD_PROFILE_HEIGHT, BodyCalculates.DEFAULT_HEIGHT);
+    final double weight =
         (double) sp.getInt(Config.ONBOARD_PROFILE_WEIGHT, (int) BodyCalculates.DEFAULT_WEIGHT);
-    String activity = sp.getString(Config.ONBOARD_PROFILE_ACTIVITY, getString(R.string.level_none));
-    String diff = sp.getString(Config.ONBOARD_PROFILE_PURPOSE, getString(R.string.dif_level_easy));
+    final String activity = sp.getString(Config.ONBOARD_PROFILE_ACTIVITY, getString(R.string.level_none));
+    final String diff = sp.getString(Config.ONBOARD_PROFILE_PURPOSE, getString(R.string.dif_level_easy));
 
-    Profile profileFinal =
+    final Profile profileFinal =
         BodyCalculates.calculate(this, weight, height, age, isFemale, activity, diff);
 
     profileFinal.setFirstName(sp.getString(Config.ONBOARD_PROFILE_NAME,
@@ -65,9 +71,28 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
     }
     createUser = getIntent().getBooleanExtra(Config.CREATE_PROFILE, true);
 
-        new Handler().postDelayed(() -> saveProfile(isNeedShowOnboard, profileFinal, createUser), 4000);
-    }
+    final Disposable d = NetworkService.getInstance().getApi()
+        .getArticles()
+        .flatMap(response -> Observable.fromIterable(response.getResults()))
+        .doOnNext(article ->
+            Picasso.get()
+                .load(article.getImage())
+                .resizeDimen(R.dimen.article_card_width, R.dimen.article_card_height)
+                .centerCrop()
+                .config(Bitmap.Config.RGB_565)
+                .fetch()
+        )
+        .subscribe(Functions.emptyConsumer(), Throwable::printStackTrace);
 
+    disposable.add(d);
+
+    loader.postDelayed(() -> saveProfile(isNeedShowOnboard, profileFinal, createUser), 4000);
+  }
+
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    disposable.clear();
+  }
 
   void saveProfile(boolean isNeedShowOnboard, Profile profile, boolean createProfile) {
     if (createProfile) {
@@ -89,8 +114,8 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
     }
 
     if (profile != null) {
-        UserProperty.setUserProperties(profile, this, false);
-        WorkWithFirebaseDB.putProfileValue(profile);
+      UserProperty.setUserProperties(profile, this, false);
+      WorkWithFirebaseDB.putProfileValue(profile);
     }
-    }
+  }
 }

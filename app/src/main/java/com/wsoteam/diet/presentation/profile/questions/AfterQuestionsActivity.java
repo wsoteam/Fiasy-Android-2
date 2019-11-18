@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.profile.questions;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -8,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity;
 
 public class AfterQuestionsActivity extends AppCompatActivity {
 
@@ -64,7 +67,10 @@ public class AfterQuestionsActivity extends AppCompatActivity {
 
 
   public void nextQuestion() {
-    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+    startActivities(new Intent[]{
+        new Intent(this, MainActivity.class),
+        new Intent(this, PremiumFeaturesActivity.class),
+    });
   }
 
   public void prevQuestion() {

@@ -22,8 +22,6 @@
         app:layout_constraintTop_toTopOf="parent"
         >
 
-      <include layout="@layout/view_premium_banner" />
-
       <androidx.appcompat.widget.Toolbar
           android:id="@+id/toolbar"
           android:layout_width="match_parent"
@@ -77,6 +75,8 @@
         android:layout_marginTop="56dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         />
+
+    <include layout="@layout/view_premium_banner" />
 
   </FrameLayout>
 </com.wsoteam.diet.views.GuardNestedScrollView>
