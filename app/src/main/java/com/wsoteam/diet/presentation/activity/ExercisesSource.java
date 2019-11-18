@@ -115,7 +115,7 @@ public abstract class ExercisesSource {
           case "is":
           default:{
             stream = new InputStreamReader(assets.open("user_activity_table_en.csv"));
-
+            break;
           }
         }
 
