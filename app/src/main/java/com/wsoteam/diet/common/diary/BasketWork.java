@@ -64,5 +64,16 @@ public class BasketWork {
                     }
                 });
     }
+
+
+    public static boolean isNeedShow(int[] basketParams, int position){
+        boolean isHaveAnotherFoods = false;
+        for (int i = 0; i < basketParams.length - 1; i++) {
+            if (i != position && basketParams[i] > 0){
+                isHaveAnotherFoods = true;
+            }
+        }
+        return isHaveAnotherFoods;
+    }
 }
 

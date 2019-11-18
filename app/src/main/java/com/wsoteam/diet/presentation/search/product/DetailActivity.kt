@@ -24,6 +24,7 @@ import com.wsoteam.diet.R
 import com.wsoteam.diet.R.array
 import com.wsoteam.diet.common.Analytics.EventProperties
 import com.wsoteam.diet.common.Analytics.Events
+import com.wsoteam.diet.common.diary.BasketWork
 import com.wsoteam.diet.model.Eating
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
 import com.wsoteam.diet.presentation.search.inspector.Inspector
@@ -67,7 +68,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         setContentView(R.layout.activity_detail)
         handlePremiumState()
         handleFood()
-        
+
         edtWeightCalculate.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
 
@@ -275,17 +276,20 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     if (!isWatcherDead) {
-                        InspectorAlert.askChangeEatingId(basketParams, position, this@DetailActivity, Inspector {
-                            if (!it) {
-                                isWatcherDead = true
-                                spnFood.setSelection(spinnerId)
-                            } else {
-                                spinnerId = position
-                            }
-                        })
-                    }else{
+                        if (BasketWork.isNeedShow(basketParams, position)) {
+                            InspectorAlert.askChangeEatingId(basketParams, position, this@DetailActivity, Inspector {
+                                if (!it) {
+                                    isWatcherDead = true
+                                    spnFood.setSelection(spinnerId)
+                                } else {
+                                    spinnerId = position
+                                }
+                            })
+                        }
+                    } else {
                         isWatcherDead = false
                     }
+
                 }
             }
         }
