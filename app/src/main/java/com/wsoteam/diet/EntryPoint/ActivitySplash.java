@@ -172,7 +172,7 @@ public class ActivitySplash extends BaseActivity {
 
     final TextView tvSubTitle = findViewById(R.id.tvSubTitle);
     tvSubTitle.setText(getString(R.string.personal_diary));
-    ImageView imageView = findViewById(R.id.imageView17);
+    ImageView imageView = findViewById(R.id.loader);
     Drawable drawable = imageView.getDrawable();
     if (drawable instanceof Animatable) {
       ((Animatable) drawable).start();
