@@ -65,7 +65,6 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-        basketParams = intent.getIntArrayExtra(Config.BASKET_PARAMS)
         handlePremiumState()
         handleFood()
         
@@ -266,7 +265,8 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         spnFood.adapter = adapter
         spinnerId = eatingType
         spnFood.setSelection(eatingType)
-        if (basketParams != null) {
+        if (intent.getIntArrayExtra(Config.BASKET_PARAMS) != null) {
+            basketParams = intent.getIntArrayExtra(Config.BASKET_PARAMS)
             spnFood.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
