@@ -29,7 +29,7 @@
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal"
         android:textColor="#d9424242"
-        tools:text="Ежедненая норма"
+        tools:text="@string/daily_burn_widget_title"
         />
 
 
@@ -127,7 +127,7 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:layout_marginTop="8dp"
-        app:label="Белки (г)"
+        app:label="@string/prot"
         tools:value="pidor"
         tools:progress="90"
         tools:max="100"
@@ -142,7 +142,7 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:layout_marginTop="8dp"
-        app:label="Углеводы (г)"
+        app:label="@string/carbo"
         tools:value="pidor"
         tools:progress="40"
         tools:max="100"
@@ -157,7 +157,7 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:layout_marginTop="8dp"
-        app:label="Жиры (г)"
+        app:label="@string/create_food_fats"
         tools:value="pidor"
         tools:progress="10"
         tools:max="100"

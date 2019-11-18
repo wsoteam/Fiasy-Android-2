@@ -360,37 +360,37 @@ Share your accomplishments with friends:</string>
 
 
     <!--auth_fragment_data-->
-    <string name="auth_data_ask" translatable="false">Укажите ваши данные</string>
+    <string name="auth_data_ask">Укажите ваши данные</string>
 
 
     <!--auth_fragment_gender-->
-    <string name="auth_mission_get" translatable="false">Набрать вес</string>
-    <string name="auth_mission_save" translatable="false">Сохранить</string>
-    <string name="auth_gender_tv_q" translatable="false">Укажите ваш пол</string>
+    <string name="auth_mission_get">Набрать вес</string>
+    <string name="auth_mission_save">Сохранить</string>
+    <string name="auth_gender_tv_q">Укажите ваш пол</string>
 
 
 
     <!--auth_main-->
-    <string name="auth_main_tv" translatable="false">Вход</string>
+    <string name="auth_main_tv">Вход</string>
 
-    <string name="auth_main_create" translatable="false">Регистрация</string>
-    <string name="auth_main_phone_text_set_number" translatable="false">Введите номер для отправки смс с кодом.</string>
-    <string name="auth_main_phone_text_set_code" translatable="false">Вам выслан код. Введите его.</string>
-    <string name="auth_main_phone_hint_phone" translatable="false">+79998887766</string>
-    <string name="auth_main_phone_hint_code" translatable="false">Код из смс</string>
+    <string name="auth_main_create">Регистрация</string>
+    <string name="auth_main_phone_text_set_number">Введите номер для отправки смс с кодом.</string>
+    <string name="auth_main_phone_text_set_code">Вам выслан код. Введите его.</string>
+    <string name="auth_main_phone_hint_phone">+79998887766</string>
+    <string name="auth_main_phone_hint_code">Код из смс</string>
 
     <!--auth_fragment_registration-->
-    <string name="auth_main_check_box_pp" translatable="false">Я согласен с условиями \n<u>политики конфиденциальности</u></string>
+    <string name="auth_main_check_box_pp">Я согласен с условиями \n<u>политики конфиденциальности</u></string>
 
     <!--auth_fragment_hello-->
-    <string name="reg_tv_hello" translatable="false">Привет!</string>
+    <string name="reg_tv_hello">Привет!</string>
 
     <!--auth_fragment_signin-->
-    <string name="reg_tv_hello_body" translatable="false">Я твой консультант по питанию. Расскажи мне о себе.</string>
+    <string name="reg_tv_hello_body">Я твой консультант по питанию. Расскажи мне о себе.</string>
 
 
     <!--auth_fragment_first-->
-    <string name="reg_btn_reg" translatable="false">Регистрация</string>
+    <string name="reg_btn_reg">Регистрация</string>
 
     <!--test-->
     <string name="todo" translatable="false">TODO</string>
@@ -422,13 +422,13 @@ Share your accomplishments with friends:</string>
     <string name="tv_level_up_super" translatable="false">Тяжелая физическая работа или интенсивные тренировки 2 раза в день</string>
 
 
-    <string name="dif_level_easy" translatable="false">Легкая</string>
-    <string name="dif_level_normal" translatable="false">Средняя</string>
-    <string name="dif_level_hard" translatable="false">Высокая</string>
+    <string name="dif_level_easy" >Легкая</string>
+    <string name="dif_level_normal">Средняя</string>
+    <string name="dif_level_hard" >Высокая</string>
 
 
     <!--List of main max params in profile-->
-    <string name="check_your_email" translatable="false">Неправильный формат</string>
+    <string name="check_your_email">Неправильный формат</string>
 
 
 
@@ -438,13 +438,10 @@ Share your accomplishments with friends:</string>
 
 
     <string name="activity_detail_food_1234" translatable="false">1234</string>
-
     <string name="activity_item_plans_def_value" translatable="false">00</string>
-
     <string name="activity_profile_2019" translatable="false">2019</string>
     <string name="activity_profile_date" translatable="false">10.06 &#8211; 17.06</string>
 
-    <string name="adding_recipe_menu_close" translatable="false">Close</string>
 
 
     <string name="alert_dialog_from_claim_cancel" translatable="false">Cancel</string>
@@ -456,7 +453,7 @@ Share your accomplishments with friends:</string>
 
     <string name="food_item_for_template_name" translatable="false">Name</string>
     <string name="food_item_for_template_kcal" translatable="false">Kcal</string>
-    <string name="food_item_for_template_weight" translatable="false">Вес</string>
+    <string name="food_item_for_template_weight">Вес</string>
     <string name="food_item_for_template_b" translatable="false">B</string>
     <string name="food_item_for_template_g" translatable="false">G</string>
     <string name="food_item_for_template_u" translatable="false">U</string>
@@ -1344,5 +1341,6 @@ Share your accomplishments with friends:</string>
         <item>@drawable/ic_left_sections_food</item>
     </integer-array>
 
+    <string name="daily_burn_widget_title">Ежедненая норма</string>
 
 </resources>
