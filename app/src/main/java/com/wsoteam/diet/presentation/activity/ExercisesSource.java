@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CopyOnWriteArrayList;
 import kotlin.text.StringsKt;
 import org.jetbrains.annotations.NotNull;
@@ -102,7 +103,22 @@ public abstract class ExercisesSource {
         // lines to skip from start
         boolean skip = true;
 
-        final Reader stream = new InputStreamReader(assets.open("user_activity_table.csv"));
+        final Reader stream;
+        switch (Locale.getDefault().getLanguage()){
+          case "ru":{
+            stream = new InputStreamReader(assets.open("user_activity_table_ru.csv"));
+            break;
+          }
+          case "de":
+          case "pt":
+          case "es":
+          case "is":
+          default:{
+            stream = new InputStreamReader(assets.open("user_activity_table_en.csv"));
+
+          }
+        }
+
         final CSVParser parser = new CSVParser(stream, CSVStrategy.EXCEL_STRATEGY);
 
         while (true) {

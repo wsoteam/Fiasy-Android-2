@@ -197,7 +197,7 @@ class EditUserActivityFragment : DialogFragment() {
       .text()
 
     exerciseEfficiency.text =
-      TextUtils.concat(getString(R.string.add_user_activity_burned_hint), " ",
+      TextUtils.concat(getString(R.string.calories_spent), " ",
           burned, "\n", exerciseTemplate)
   }
 }

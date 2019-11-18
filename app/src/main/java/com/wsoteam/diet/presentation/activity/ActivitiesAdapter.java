@@ -711,15 +711,13 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
       final CharSequence iconChar = RichTextUtils.INSTANCE.replaceWithIcon("icon", span);
 
       if (section.titleRes == R.string.user_activity_section_my) {
-        emptyView.setText(TextUtils.concat("Вы пока не добавили ни одну "
-                + "активность.\nДля того, чтобы добавить активность",
-            new RichTextUtils.RichText(TextUtils.concat("\nнажмите на ", iconChar))
+        emptyView.setText(TextUtils.concat(itemView.getContext().getString(R.string.empty_my_activity_first),
+            new RichTextUtils.RichText(TextUtils.concat("\n", itemView.getContext().getString(R.string.empty_my_activity_second), iconChar))
                 .colorRes(itemView.getContext(), R.color.orange)
                 .text()));
       } else {
-        emptyView.setText(TextUtils.concat("Вы пока не добавили активность в избранное. "
-                + "Чтобы добавить",
-            new RichTextUtils.RichText(TextUtils.concat("\nнажмите на ", iconChar))
+        emptyView.setText(TextUtils.concat(itemView.getContext().getString(R.string.empty_favorites),
+            new RichTextUtils.RichText(TextUtils.concat("\n", itemView.getContext().getString(R.string.empty_my_activity_second), " ", iconChar))
                 .colorRes(itemView.getContext(), R.color.orange)
                 .text()));
       }

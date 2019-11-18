@@ -184,7 +184,7 @@
         android:visibility="visible"
         android:textColor="#80424242"
         android:gravity="center"
-        android:text="@string/add_user_activity_warning"
+        android:text="@string/attention_description"
         />
   </RelativeLayout>
 </androidx.core.widget.NestedScrollView>

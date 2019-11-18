@@ -2,7 +2,7 @@
     <string name="format_int_kcal">%d kcal</string>
 
 
-    <string name="bnv_main_diary">Journal</string>
+    <string name="bnv_main_diary">Diary</string>
     <string name="bnv_main_articles">Articles</string>
     <string name="bnv_main_plan">Plans</string>
     <string name="bnv_main_recipes">Recipes</string>
@@ -453,7 +453,7 @@ Share your accomplishments with friends:</string>
 
     <string name="food_item_for_template_name" translatable="false">Name</string>
     <string name="food_item_for_template_kcal" translatable="false">Kcal</string>
-    <string name="food_item_for_template_weight">Вес</string>
+<!--    <string name="food_item_for_template_weight">Вес</string>-->
     <string name="food_item_for_template_b" translatable="false">B</string>
     <string name="food_item_for_template_g" translatable="false">G</string>
     <string name="food_item_for_template_u" translatable="false">U</string>
@@ -732,8 +732,8 @@ Share your accomplishments with friends:</string>
     <string name="activity_navigation">Activity</string>
     <string name="my_activity">My activities</string>
     <string name="search">Search</string>
-    <string name="empty_my_activity_first">You haven\'t added any activities yet. To add an activity, tap</string>
-    <string name="empty_my_activity_second">tap ➕</string>
+    <string name="empty_my_activity_first">You haven\'t added any activities yet.\n To add an activity,</string>
+    <string name="empty_my_activity_second">tap</string>
     <string name="favorites">Favorites</string>
     <string name="empty_favorites">You haven\'t added any activities to your favorites yet. To add an activity, swipe left and tap the heart.</string>
     <string name="standard_activities">Standard activities</string>
@@ -1061,23 +1061,22 @@ Share your accomplishments with friends:</string>
     <string name="daily_widget_calories_eaten">Eaten</string>
 
 
-    <string name="user_activity_section_favorite">Избранное</string>
+
     <string name="user_activity_section_my">Мои активности</string>
     <string name="user_activity_section_defaults">Стандартные активности</string>
-    <string name="user_activity_time_elapsed">%d минут</string>
+
     <string name="user_activity_time_elapsed_wh" formatted="false">%dч %d м</string>
-    <string name="user_activity_time_elapsed_wh_wm">%dч</string>
-    <string name="user_activity_burned">%d ккал</string>
-    <string name="action_add">Добавить</string>
+
+    <string name="user_activity_time_elapsed">%d minutes</string>
+    <string name="user_activity_time_elapsed_wh_wm">%dh</string>
+    <string name="add_user_activity_burned">= %d kcal</string>
+    <string name="user_activity_burned">%d kcal</string>
     <string name="action_add_to_favorite">Добавить в избранное</string>
-    <string name="add_user_activity_done_button">Добавить в дневник</string>
-    <string name="add_user_activity_burned_hint">Потрачено калорий</string>
+
     <string name="add_user_activity_duration_hint">за %s</string>
-    <string name="add_user_activity_burned">= %d ккал</string>
-    <string name="add_user_activity_warning">Неправильно добавленная активность, может показывать недостоверные данные по дневной норме КБЖУ</string>
     <string name="add_user_activity_hint">Введите название активности</string>
     <string name="widget_user_activity_title">Активности</string>
-    <string name="widget_user_activity_show_all">Все</string>
+
 
     <string name="widget_weight_title">Body measurements</string>
     <string name="action_refresh">Update</string>
@@ -1117,7 +1116,7 @@ Share your accomplishments with friends:</string>
     <string name="premium_subscription_3_month">3 months</string>
     <string name="premium_subscription_per_month">%s/month</string>
 
-    <string name="premium_subscription_card_benefits">%d\nAdvantages</string>
+    <string name="premium_subscription_card_benefits">Save\n%d</string>
     <string name="subscriptions_list_title">Unlock more options\n</string>
     <string name="subscriptions_list_title__premium" translatable="false">PREMIUM</string>
 
@@ -1200,7 +1199,7 @@ Share your accomplishments with friends:</string>
     <string name="timer_minutes_left">minutes</string>
 
     <string name="subscription_not_found">Подписка не найдена, возможно она не доступна в вашей стране</string>
-    <string name="be_better_with_premium">Стань лучше с Premium</string>
+    <string name="be_better_with_premium">Become better Premium</string>
 
 
     <string name="addingRecipeText">The recipe you create will be saved in this section</string>
@@ -1348,7 +1347,8 @@ Share your accomplishments with friends:</string>
         <item>@drawable/ic_left_sections_food</item>
     </integer-array>
 
-    <string name="daily_burn_widget_title">Ежедненая норма</string>
+
+    <string name="daily_burn_widget_title">Daily rate</string>
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
     <string name="tomorrow">Tomorrow</string>

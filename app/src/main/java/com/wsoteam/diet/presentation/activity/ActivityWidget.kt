@@ -46,7 +46,7 @@ class ActivityWidget(context: Context) : CardView(context) {
     emptyState = findViewById(R.id.empty_state)
     emptyStateText = findViewById(R.id.empty_description)
 
-    val addAction = RichText(context.getString(string.action_add))
+    val addAction = RichText(context.getString(string.add))
       .onClick(OnClickListener {
         display(UserActivityFragment())
       })
