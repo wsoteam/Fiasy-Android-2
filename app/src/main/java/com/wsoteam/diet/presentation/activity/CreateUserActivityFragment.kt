@@ -65,7 +65,7 @@ class CreateUserActivityFragment : DialogFragment() {
       val callback = targetFragment as? OnActivityCreated ?: return@setOnClickListener
 
       if (exerciseName.length() < 1) {
-        Toast.makeText(it.context, "Введите название", Toast.LENGTH_SHORT).show()
+        Toast.makeText(it.context, getString(R.string.add_user_activity_hint), Toast.LENGTH_SHORT).show()
         return@setOnClickListener
       }
 
@@ -127,7 +127,7 @@ class CreateUserActivityFragment : DialogFragment() {
     exerciseDurationText.text = TextUtils.concat(duration, " ",
         resources.getQuantityString(R.plurals.duration_minutes, exercise.duration))
 
-    exerciseEfficiency.text = RichText("${selected.calories} калорий")
+    exerciseEfficiency.text = RichText("${selected.calories} " + getString(R.string.calories))
       .underline()
       .colorRes(requireContext(), R.color.orange1)
       .text()

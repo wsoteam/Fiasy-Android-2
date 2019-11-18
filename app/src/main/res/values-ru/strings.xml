@@ -35,7 +35,7 @@
   <string name="password_dont_match">Не совпадают пароли</string>
   <string name="agree_with_conditions">я согласен с условиями</string>
   <string name="privacy_policy">Политики конфидециальности</string>
-  <string name="privacy_policy_with_condtions">Политика конфиденциальности и условия использования</string>
+    <string name="privacy_policy_with_condtions">Политика конфиденциальности и\nусловия использования</string>
 
   <!-- Reset Password Screen -->
   <string name="reset_send">ОТПРАВИТЬ</string>
@@ -1253,5 +1253,15 @@
 
   <string name="daily_burn_widget_title">Ежедненая норма</string>
   <string name="be_better_with_premium">Стань лучше с Premium</string>
+
+    <string name="add_user_activity_hint">Введите название активности</string>
+    <string name="action_add_to_favorite">Добавить в избранное</string>
+    <string name="user_activity_section_my">Мои активности</string>
+    <string name="user_activity_section_defaults">Стандартные активности</string>
+    <string name="getAccess">Получить доступ</string>
+
+  <string name="user_activity_time_elapsed_wh" formatted="false">%dч %d м</string>
+  <string name="add_user_activity_duration_hint">за %s</string>
+  <string name="main_screen_topbar_left">%s ккал</string>
 
 </resources>

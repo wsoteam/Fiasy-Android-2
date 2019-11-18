@@ -1045,7 +1045,8 @@ Share your accomplishments with friends:</string>
   <string name="art_series_author_burlakov_bio_short">Врач-диетолог. Эксперт в доказательной диетологии. </string>
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
-    <string name="main_screen_topbar_left">%s ккал</string>
+
+    <string name="main_screen_topbar_left">%s kcal</string>
     <string name="main_screen_topbar_calories">@string/daily_widget_calories_eaten</string>
     <string name="main_screen_topbar_calories_left">@string/daily_widget_calories_burned</string>
     <string name="main_screen_topbar_prot">@string/protein_intake</string>
@@ -1062,19 +1063,23 @@ Share your accomplishments with friends:</string>
 
 
 
-    <string name="user_activity_section_my">Мои активности</string>
-    <string name="user_activity_section_defaults">Стандартные активности</string>
+    <string name="user_activity_section_my">My activities</string>
+    <string name="user_activity_section_defaults">Standard activities</string>
 
-    <string name="user_activity_time_elapsed_wh" formatted="false">%dч %d м</string>
+    <string name="user_activity_time_elapsed_wh" formatted="false">%dh %d m</string>
 
     <string name="user_activity_time_elapsed">%d minutes</string>
     <string name="user_activity_time_elapsed_wh_wm">%dh</string>
     <string name="add_user_activity_burned">= %d kcal</string>
     <string name="user_activity_burned">%d kcal</string>
-    <string name="action_add_to_favorite">Добавить в избранное</string>
 
-    <string name="add_user_activity_duration_hint">за %s</string>
-    <string name="add_user_activity_hint">Введите название активности</string>
+    <string name="action_add_to_favorite">Add to favorites</string>
+
+
+
+    <string name="add_user_activity_duration_hint">for %s</string>
+
+    <string name="add_user_activity_hint">Enter a name for the Activities</string>
     <string name="widget_user_activity_title">Активности</string>
 
 
@@ -1106,7 +1111,8 @@ Share your accomplishments with friends:</string>
     <string name="premium_comparision_basic_title" translatable="false">Basic</string>
     <string name="premium_comparision_premium" translatable="false">Premium</string>
     <string name="action_buy">Buy</string>
-    <string name="privacy_policy_with_condtions">Политика конфиденциальности и\nусловия использования</string>
+
+    <string name="privacy_policy_with_condtions">Privacy Policy and\nterms of use</string>
     <string name="premium_client_says_about_us">ДОВОЛЬНЫЕ КЛИЕНТЫ</string>
 
 
@@ -1226,7 +1232,8 @@ Share your accomplishments with friends:</string>
 
 
 
-    <string name="getAccess">Получить доступ</string>
+
+    <string name="getAccess">Get  access </string>
     <string name="blocked_recipe_title">Множество полезных рецептов на любой вкус и для любых целей</string>
     <string name="blocked_recipe_title_2">Легкие в приготовлении и состоящие из простых доступных игредиентов</string>
     <string name="blocked_recipe_txt">Оформи подписку и получи доступ ко всей базе рецептов</string>
@@ -1243,6 +1250,10 @@ Share your accomplishments with friends:</string>
     <string name="srch_basket_title">Selected products</string>
     <string name="srch_basket_card"><u>Selected: %d</u></string>
 
+    <string name="added_favorite">Добавлено в избранное</string>
+    <string name="add_fail">Не удалось добавить</string>
+    <string name="edit_activity">Редактировать активность</string>
+    <string name="create_activity">Создать Активность</string>
 
     <string name="srch_delete_undo_title">Product removed from list</string>
     <string name="srch_cancel">Cancel</string>

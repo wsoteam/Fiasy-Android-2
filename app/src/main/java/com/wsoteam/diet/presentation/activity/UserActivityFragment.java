@@ -118,7 +118,7 @@ public class UserActivityFragment extends DialogFragment implements
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSuccess(e -> {
                       adapter.addItem(R.string.favorites, e);
-                      Toast.makeText(requireContext(), "Добавлено в избранное", Toast.LENGTH_SHORT).show();
+                      Toast.makeText(requireContext(), getString(R.string.added_favorite), Toast.LENGTH_SHORT).show();
                     })
                     .subscribe());
               }

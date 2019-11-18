@@ -14,7 +14,7 @@
       android:background="@drawable/gradient_main"
       android:layout_alignParentTop="true"
       app:navigationIcon="@drawable/back_arrow_icon_white"
-      app:title="Добавить Активность"
+      app:title="@string/add_activitie"
       app:titleTextColor="@color/white"
       android:layout_width="match_parent"
       android:layout_height="wrap_content" />
@@ -82,7 +82,7 @@
       android:layout_margin="16dp"
       android:textColor="#51000000"
       android:gravity="center"
-      android:text="Передвигайте ползунок, чтобы\nизменить время"
+      android:text="@string/move_slider"
       android:fontFamily="@font/roboto_medium"
       style="@style/TextAppearance.AppCompat.Caption"
       android:textSize="16sp"

@@ -59,7 +59,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto_medium"
-                android:text="@string/alert_grade_title"
+                android:text="@string/alert_dialog_grade_review"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
@@ -78,6 +78,7 @@
                 android:text="@string/alert_grade_txt"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6" />

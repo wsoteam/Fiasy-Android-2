@@ -60,6 +60,7 @@
                 android:fontFamily="@font/roboto_medium"
                 android:text="@string/aler_done_msg"
                 android:textColor="#8a000000"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
