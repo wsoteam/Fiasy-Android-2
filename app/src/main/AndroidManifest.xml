@@ -91,6 +91,7 @@
             android:theme="@style/Recipe" />
         <activity
             android:name=".presentation.profile.questions.AfterQuestionsActivity"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/EditProfile" />
         <activity

@@ -13,7 +13,7 @@ import com.wsoteam.diet.presentation.profile.questions.fragments.WeOfferFragment
 
 public class AfterQuestionsPagerAdapter extends FragmentPagerAdapter {
 
-  private static int NUM_ITEMS = 2;
+  private static int NUM_ITEMS = 1;
 
   public AfterQuestionsPagerAdapter(FragmentManager fm) {
     super(fm);

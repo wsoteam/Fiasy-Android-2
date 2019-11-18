@@ -22,7 +22,7 @@ import io.reactivex.disposables.CompositeDisposable
 
 class SubscriptionsListFragment : Fragment() {
 
-  private var selectedId: Int = 0
+  private var selectedId: Int = -1
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?): View? {

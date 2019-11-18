@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -38,6 +39,7 @@ import com.wsoteam.diet.App;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.Events;
+import com.wsoteam.diet.common.diary.BasketWork;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
@@ -50,6 +52,8 @@ import com.wsoteam.diet.presentation.search.basket.db.BasketDAO;
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity;
 import com.wsoteam.diet.presentation.search.basket.db.HistoryDAO;
 import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity;
+import com.wsoteam.diet.presentation.search.inspector.Inspector;
+import com.wsoteam.diet.presentation.search.inspector.InspectorAlert;
 import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater;
 import com.wsoteam.diet.presentation.search.results.controllers.ResultAdapter;
 import com.wsoteam.diet.presentation.search.results.controllers.suggestions.ISuggest;
@@ -81,6 +85,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   @BindView(R.id.clRoot) ConstraintLayout clRoot;
 
   private ProgressBar pbLoad;
+  private Spinner parentSpinner;
 
   private ResultAdapter itemAdapter;
   private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
@@ -88,10 +93,29 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   private HistoryDAO historyDAO = App.getInstance().getFoodDatabase().historyDAO();
   private Animation finalSave;
   private int spinnerId;
+  private boolean isWatcherDead = false;
 
   @Override
   public void changeSpinner(int position) {
-      
+    if (isWatcherDead) {
+      isWatcherDead = false;
+    }else {
+      if (BasketWork.isNeedShow(itemAdapter.getParams(), position)) {
+        InspectorAlert.askChangeEatingId(itemAdapter.getParams(), position, getActivity(), new Inspector() {
+          @Override
+          public void getPermission(boolean isCanChange) {
+            if (!isCanChange) {
+              isWatcherDead = true;
+              parentSpinner.setSelection(spinnerId);
+            } else {
+              spinnerId = position;
+            }
+          }
+        });
+      }else {
+        spinnerId = position;
+      }
+    }
   }
 
   @Override public void updateSearchField(String currentString) {
@@ -151,6 +175,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     View view = inflater.inflate(R.layout.fragment_results, container, false);
     unbinder = ButterKnife.bind(this, view);
     pbLoad = getActivity().findViewById(R.id.pbLoad);
+    parentSpinner = getActivity().findViewById(R.id.spnEatingList);
     presenter = new ResultsPresenter();
     presenter.attachView(this);
     finalSave = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_meas_update);

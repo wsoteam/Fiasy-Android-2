@@ -25,6 +25,7 @@ import android.widget.TextView;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.articles.Util.HtmlTagHandler;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
@@ -89,12 +90,10 @@ public class ItemArticleActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         authorLabel.setVisibility(article.getCategory().getId() == 4 ? View.VISIBLE : View.GONE);
 
-        Glide.with(this).load(article.getImage()).into(imgArticle);
+        Picasso.get().load(article.getImage()).config(Bitmap.Config.RGB_565).into(imgArticle);
 
         tvTitle.setText(article.getTitle(Locale.getDefault()).replaceAll("\\<.*?\\>", ""));
         //tvTitle.setText();
-
-
 
         //HtmlTagHandler tagHandler = new HtmlTagHandler();
         //Spanned styledText = HtmlCompat.fromHtml(article.getBody(Locale.getDefault()),
