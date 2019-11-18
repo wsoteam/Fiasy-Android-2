@@ -123,7 +123,8 @@ public class BlockedDetailPlansActivity extends BaseActivity implements BlockedD
         recipes.setText(concat(presenter.getRecipes().size() + "", " ",
                 getResources().getQuantityString(R.plurals.recipe_plurals, presenter.getRecipes().size())));
         tvPlansName.setText(dietPlan.getName());
-        dayAfterStart.setText(String.format(getString(R.string.vertical_detail_plan_adapter_day_of_days), dietPlan.getDaysAfterStart(), dietPlan.getCountDays()));
+        dayAfterStart.setText(String.format(getString(R.string.vertical_detail_plan_adapter_day_of_days),
+                dietPlan.getDaysAfterStart() > 0 ? dietPlan.getDaysAfterStart() : 0, dietPlan.getCountDays()));
         Picasso.get()
                 .load(dietPlan.getUrlImage())
                 .into(ivDietsPlan);
