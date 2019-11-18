@@ -1082,40 +1082,50 @@ Share your accomplishments with friends:</string>
     <string name="calendar_today">Сегодня</string>
     <string name="widget_weight_title">Измерение тела</string>
     <string name="action_refresh">Обновить</string>
-    <string name="premium_feature_title">Сбрасывайте вес\nбез стресса и жестких диет с\n</string>
+
+
+    <string name="premium_feature_title">Lose weight\n without stress or strict diets with\n</string>
+
+
     <string name="premium_feature_title__span" translatable="false">Fiasy Premium</string>
-    <string name="premium_feature_exclusive_articles">Эксклюзивные статьи</string>
-    <string name="premium_feature_exclusive_articles_description">Вы получите доступ к статьям от популярного диетолога и фитнес-тренера</string>
-    <string name="premium_feature_exclusive_recipes">База рецептов</string>
-    <string name="premium_feature_exclusive_recipes_description">Легкие в приготовлении рецепты с данными КБЖУ с недорогими, но вкусными продуктами</string>
-    <string name="premium_feature_personal_settings_description">Вы сможете просматривать и регулировать уровень своего КБЖУ</string>
-    <string name="premium_feature_personal_settings">Персональные настройки</string>
-    <string name="premium_feature_measurements">Измерения тела</string>
-    <string name="premium_feature_measurements_description">Отслеживайте динамику прогресса с помощью подробного анализа параметров своего тела</string>
-    <string name="premium_feature_exclusive_plans_description">Готовые планы питания на любой вкус и для любой цели</string>
-    <string name="premium_feature_exclusive_plans">Планы питания</string>
-    <string name="premium_features_comparison">ВСЕ ПРОЩЕ С PREMIUM</string>
-    <string name="premium_comparision_basic_title">Basic</string>
-    <string name="premium_comparision_premium">Premium</string>
-    <string name="action_buy">КУПИТЬ</string>
+    <string name="premium_feature_exclusive_articles">Exclusive articles</string>
+    <string name="premium_feature_exclusive_articles_description">You\'ll get access to articles from a popular nutritionist and fitness trainer</string>
+    <string name="premium_feature_exclusive_recipes">Recipe database</string>
+    <string name="premium_feature_exclusive_recipes_description">Easy-to-cook, affordable, delicious recipes with CPFC data</string>
+    <string name="premium_feature_personal_settings_description">View and adjust your CPFC level</string>
+    <string name="premium_feature_personal_settings">Personalized settings</string>
+    <string name="premium_feature_measurements">Body measurements</string>
+    <string name="premium_feature_measurements_description">Track your progress with detailed body measurement analysis</string>
+
+    <string name="premium_feature_exclusive_plans_description">Ready-made meal plans for every taste and goal</string>
+    <string name="premium_feature_exclusive_plans">Meal plans</string>
+    <string name="premium_features_comparison">EVERYTHING IS EASIER WITH PREMIUM</string>
+
+
+
+
+    <string name="premium_comparision_basic_title" translatable="false">Basic</string>
+    <string name="premium_comparision_premium" translatable="false">Premium</string>
+    <string name="action_buy">Buy</string>
     <string name="privacy_policy_with_condtions">Политика конфиденциальности и\nусловия использования</string>
     <string name="premium_client_says_about_us">ДОВОЛЬНЫЕ КЛИЕНТЫ</string>
 
-    <string name="premium_subscription_1_year">1 год</string>
-    <string name="premium_subscription_6_month">6 месяцев</string>
-    <string name="premium_subscription_3_month">3 месяца</string>
-    <string name="premium_subscription_per_month">%s/месяц</string>
-    <string name="premium_subscription_card_benefits">Выгода\n%d</string>
-    <string name="subscriptions_list_title">Открой новые возможности\n</string>
+
+
+    <string name="premium_subscription_1_year">1 year</string>
+    <string name="premium_subscription_6_month">6 months</string>
+    <string name="premium_subscription_3_month">3 months</string>
+    <string name="premium_subscription_per_month">%s/month</string>
+
+    <string name="premium_subscription_card_benefits">Advantages\n%d</string>
+    <string name="subscriptions_list_title">Unlock more options\n</string>
     <string name="subscriptions_list_title__premium" translatable="false">PREMIUM</string>
 
-
     <plurals name="duration_minutes">
-        <item quantity="one">минуту</item>
-        <item quantity="few">минуты</item>
-        <item quantity="many">минут</item>
-        <item quantity="other">минут</item>
+        <item quantity="one">minute</item>
+        <item quantity="other">minutes</item>
     </plurals>
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
 
@@ -1182,19 +1192,17 @@ Share your accomplishments with friends:</string>
 
     <string name="meas_without_meas">Не изменялось с момента регистрации</string>
     <string name="meas_prefix">Вы заносили вес</string>
-  <string name="timer_days_left">дни</string>
-  <string name="timer_hours_left">часы</string>
-  <string name="timer_seconds_left">секунды</string>
-  <string name="timer_minutes_left">минуты</string>
-  <string name="timer_padded_value" translatable="false">%02d</string>
-  <string name="premium_black_friday_days_remained_hint">До конца акции осталось</string>
-  <string name="subscription_not_found">Подписка не найдена, возможно она не доступна в вашей стране</string>
-  <string name="be_better_with_premium">Стань лучше с Premium</string>
-  //
 
+    <string name="timer_padded_value" translatable="false">%02d</string>
+    <string name="premium_black_friday_days_remained_hint">The special offer will end in</string>
+    <string name="timer_days_left">days</string>
+    <string name="timer_seconds_left">seconds</string>
+    <string name="timer_hours_left">hours</string>
+    <string name="timer_minutes_left">minutes</string>
 
+    <string name="subscription_not_found">Подписка не найдена, возможно она не доступна в вашей стране</string>
+    <string name="be_better_with_premium">Стань лучше с Premium</string>
 
-//
 
     <string name="addingRecipeText">The recipe you create will be saved in this section</string>
     <string name="favoriteRecipeText">The recipes you like will be saved in this section </string>
@@ -1342,5 +1350,8 @@ Share your accomplishments with friends:</string>
     </integer-array>
 
     <string name="daily_burn_widget_title">Ежедненая норма</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="tomorrow">Tomorrow</string>
 
 </resources>
