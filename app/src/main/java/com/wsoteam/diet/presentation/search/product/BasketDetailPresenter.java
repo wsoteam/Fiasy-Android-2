@@ -4,6 +4,9 @@ import android.content.Context;
 
 import android.icu.text.SymbolTable;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.wsoteam.diet.App;

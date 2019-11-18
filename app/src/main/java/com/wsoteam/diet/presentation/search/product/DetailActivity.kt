@@ -40,14 +40,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
     lateinit var presenter: BasketDetailPresenter
     lateinit var basketParams: IntArray
     var spinnerId = 0
-    object spinnerListener
-    var watcher = object : AdapterView.OnItemSelectedListener{
-        override fun onNothingSelected(parent: AdapterView<*>?) {
-        }
-
-        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        }
-    }
+    var isWatcherDead = true
 
     override fun hideEatSpinner() {
         spnFood.visibility = View.GONE
@@ -75,30 +68,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         basketParams = intent.getIntArrayExtra(Config.BASKET_PARAMS)
         handlePremiumState()
         handleFood()
-
-
-        if (basketParams != null) {
-            watcher = object : AdapterView.OnItemSelectedListener {
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-
-                }
-
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    InspectorAlert.askChangeEatingId(basketParams, position, this@DetailActivity, Inspector {
-                        if (!it) {
-                            spnFood.onItemSelectedListener = null
-                            spnFood.setSelection(spinnerId)
-                            spnFood.onItemSelectedListener = watcher
-                        }else{
-                            spinnerId = position
-                        }
-                    })
-
-                }
-            }
-        }
-
+        
         edtWeightCalculate.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
 
@@ -296,6 +266,30 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         spnFood.adapter = adapter
         spinnerId = eatingType
         spnFood.setSelection(eatingType)
+        if (basketParams != null) {
+            spnFood.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    if (!isWatcherDead) {
+                        InspectorAlert.askChangeEatingId(basketParams, position, this@DetailActivity, Inspector {
+                            if (!it) {
+                                isWatcherDead = true
+                                spnFood.setSelection(spinnerId)
+                            } else {
+                                spinnerId = position
+                            }
+                        })
+                    }else{
+                        isWatcherDead = false
+                    }
+                }
+            }
+        }
+
     }
 
     private fun handlePremiumState() {
@@ -348,7 +342,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         tvPremText.append(resources.getString(R.string.srch_text_prem_end))
     }
 
-    override fun close(eating : Integer) {
+    override fun close(eating: Integer) {
         intent = Intent()
         intent.putExtra(Config.SPINER_ID, eating)
         setResult(Activity.RESULT_OK, intent)
