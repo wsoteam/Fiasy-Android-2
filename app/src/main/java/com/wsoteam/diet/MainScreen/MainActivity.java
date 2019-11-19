@@ -257,43 +257,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
     private void loadRecipes() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef;
-        switch (Locale.getDefault().getLanguage().toUpperCase()){
-            case "EN":
-            case "ES":
-            case "PT":
-            case "DE":{
-                myRef = database.getReference(Locale.getDefault().getLanguage().toUpperCase() + "/recipes");
-                break;
-            }
-            case "RU":{
-                myRef = database.getReference("RECIPES_PLANS_NEW");
-                break;
-            }
-            default:{
-                myRef = database.getReference("EN/recipes");
-            }
-        }
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                ListRecipes groupsRecipes = dataSnapshot.getValue(ListRecipes.class);
-                RecipesHolder.bind(groupsRecipes);
-
-                EatingGroupsRecipes eatingGroupsRecipes = new EatingGroupsRecipes(groupsRecipes, getApplicationContext());
-                GroupsHolder groupsHolder = new GroupsHolder();
-                groupsHolder.bind(eatingGroupsRecipes);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-              Log.d("kkk", "onCancelled: " , databaseError.toException() );
-            }
-        });
+        GroupsHolder.loadRecipes(getApplicationContext(), null);
     }
 
 

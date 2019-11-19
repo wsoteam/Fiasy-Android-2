@@ -19,8 +19,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="255dp"
-            android:layout_height="170dp">
+            android:layout_width="@dimen/receipt_container_width"
+            android:layout_height="@dimen/receipt_container_height">
 
             <ImageView
                 android:id="@+id/imageRecipe"

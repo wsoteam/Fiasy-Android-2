@@ -3,17 +3,8 @@ package com.wsoteam.diet.Recipes.v2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import androidx.annotation.NonNull;
-import androidx.core.graphics.ColorUtils;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.cardview.widget.CardView;
-import androidx.palette.graphics.Palette;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+import androidx.core.graphics.ColorUtils;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.palette.graphics.Palette;
+import androidx.recyclerview.widget.RecyclerView;
+
 import static android.content.Context.MODE_PRIVATE;
-import static android.text.TextUtils.concat;
 
 public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -61,7 +58,8 @@ public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
 
         switch (viewType) {
-            case EMPTY_VH: return new  EmptyViewHolder(parent);
+            case EMPTY_VH:
+                return new EmptyViewHolder(parent);
             default:
                 return new GroupsAdapter.GroupsViewHolder(
                         LayoutInflater.from(context).inflate(R.layout.recipes_group_item, parent, false));
@@ -71,7 +69,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (position == 0) return;
-        ((GroupsViewHolder)holder).bind(position - 1);
+        ((GroupsViewHolder) holder).bind(position - 1);
     }
 
     @Override
@@ -82,8 +80,8 @@ public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-       if (position == 0) return EMPTY_VH;
-       else return DEFF_VH;
+        if (position == 0) return EMPTY_VH;
+        else return DEFF_VH;
     }
 
     class GroupsViewHolder extends RecyclerView.ViewHolder {
@@ -135,7 +133,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             viewList.add(itemView.findViewById(R.id.view4));
             viewList.add(itemView.findViewById(R.id.view5));
 
-            for (int i = 0 ; i < viewList.size(); i++){
+            for (int i = 0; i < viewList.size(); i++) {
                 imageViewList.add(viewList.get(i).findViewById(R.id.imageRecipe));
                 textViewList.add(viewList.get(i).findViewById(R.id.textRecipe));
                 textViewsKK.add(viewList.get(i).findViewById(R.id.tvRecipeKK));
@@ -151,9 +149,9 @@ public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         Intent intent;
 //                        int bais = getAdapterPosition() * 5;
                         int bais = getAdapterPosition();
-                        if (checkSubscribe()){
+                        if (checkSubscribe()) {
                             intent = new Intent(groupsFragment.getActivity(), RecipeActivity.class);
-                        }else {
+                        } else {
                             intent = new Intent(groupsFragment.getActivity(), BlockedRecipeActivity.class);
                         }
 
@@ -165,13 +163,13 @@ public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         }
 
-        private boolean checkFavorite(RecipeItem recipeItem){
+        private boolean checkFavorite(RecipeItem recipeItem) {
             if (UserDataHolder.getUserData() != null &&
-                    UserDataHolder.getUserData().getFavoriteRecipes() != null){
+                    UserDataHolder.getUserData().getFavoriteRecipes() != null) {
 
                 for (Map.Entry<String, RecipeItem> e : UserDataHolder.getUserData().getFavoriteRecipes().entrySet()) {
-                    if (recipeItem.getName().equals(e.getValue().getName())){
-                       return true;
+                    if (recipeItem.getName().equals(e.getValue().getName())) {
+                        return true;
                     }
                 }
             }
@@ -181,7 +179,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         void bind(int listIndex) {
 
             if (groupsRecipes.get(listIndex).getListrecipes() == null
-                || groupsRecipes.get(listIndex).getListrecipes().size() == 0){
+                    || groupsRecipes.get(listIndex).getListrecipes().size() == 0) {
 
                 itemView.setVisibility(View.GONE);
                 return;
@@ -214,42 +212,46 @@ public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                 Picasso.get()
                         .load(url)
-                        .fit().centerCrop()
+                        .resizeDimen(R.dimen.receipt_container_width, R.dimen.receipt_container_height)
+                        .centerCrop()
                         .into(imageViewList.get(i));
 
                 setBackGround(url, backList.get(i));
-               if (checkFavorite(groupsRecipes.get(listIndex).getListrecipes().get(i))){
-                   likeList.get(i).setImageResource(R.drawable.ic_like_on);
-               } else {
-                   likeList.get(i).setImageResource(R.drawable.ic_like_off);
-               }
+                if (checkFavorite(groupsRecipes.get(listIndex).getListrecipes().get(i))) {
+                    likeList.get(i).setImageResource(R.drawable.ic_like_on);
+                } else {
+                    likeList.get(i).setImageResource(R.drawable.ic_like_off);
+                }
 
                 textViewList.get(i).setText(name);
                 textViewsKK.get(i).setText(String.valueOf(kk));
             }
         }
 
-        private void setBackGround(String url, LinearLayout layout){
-            Picasso.get().load(url)
-                        .into(new Target() {
-                            @Override
-                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                Palette p = Palette.from(bitmap).generate();
-                                int mainColor = p.getMutedColor(0);
-                                int alphaColor = 191;
-                                layout.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
-                            }
+        private void setBackGround(String url, LinearLayout layout) {
+            Picasso.get()
+                    .load(url)
+                    .resizeDimen(R.dimen.receipt_container_width, R.dimen.receipt_container_height)
+                    .centerCrop()
+                    .into(new Target() {
+                        @Override
+                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                            Palette p = Palette.from(bitmap).generate();
+                            int mainColor = p.getMutedColor(0);
+                            int alphaColor = 191;
+                            layout.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
+                        }
 
-                            @Override
-                            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                        @Override
+                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {
 
-                            }
-                        });
+                        }
+                    });
         }
 
 

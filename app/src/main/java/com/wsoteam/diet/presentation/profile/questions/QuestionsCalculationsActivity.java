@@ -19,14 +19,19 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
+import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.UserProperty;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.utils.NetworkService;
+
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.internal.functions.Functions;
 
 public class QuestionsCalculationsActivity extends AppCompatActivity {
@@ -85,6 +90,20 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
         .subscribe(Functions.emptyConsumer(), Throwable::printStackTrace);
 
     disposable.add(d);
+
+    GroupsHolder.loadRecipes(this, receipts -> {
+      final Disposable r = Flowable.fromIterable(receipts.getListrecipes())
+              .doOnNext(receipt -> {
+                Picasso.get()
+                        .load(receipt.getUrl())
+                        .resizeDimen(R.dimen.receipt_container_width, R.dimen.receipt_container_height)
+                        .centerCrop()
+                        .fetch();
+              })
+              .subscribe();
+
+      disposable.add(r);
+    });
 
     loader.postDelayed(() -> saveProfile(isNeedShowOnboard, profileFinal, createUser), 4000);
   }
