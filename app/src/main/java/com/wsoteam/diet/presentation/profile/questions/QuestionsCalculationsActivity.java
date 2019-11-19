@@ -39,7 +39,7 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
   ImageView loader;
 
   private boolean isNeedShowOnboard, createUser;
-  private CompositeDisposable disposable;
+  private CompositeDisposable disposable = new CompositeDisposable();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
