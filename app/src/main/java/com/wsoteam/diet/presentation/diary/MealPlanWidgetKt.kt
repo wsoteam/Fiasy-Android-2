@@ -3,6 +3,7 @@ package com.wsoteam.diet.presentation.diary
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -60,7 +61,8 @@ class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
   }
 
   private val planObserver = Observer<Int> { id ->
-    if ((id ?: -1) == WorkWithFirebaseDB.PLAN_UPDATED) {
+    if ((id ?: -1) == WorkWithFirebaseDB.PLAN_UPDATED
+            || (id ?: -1) == WorkWithFirebaseDB.EATING_UPDATED){
       checkStatus()
     }
   }
