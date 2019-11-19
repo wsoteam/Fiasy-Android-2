@@ -35,7 +35,7 @@
   <string name="password_dont_match">Не совпадают пароли</string>
   <string name="agree_with_conditions">я согласен с условиями</string>
   <string name="privacy_policy">Политики конфидециальности</string>
-  <string name="privacy_policy_with_condtions">Политика конфиденциальности и условия использования</string>
+    <string name="privacy_policy_with_condtions">Политика конфиденциальности и\nусловия использования</string>
 
   <!-- Reset Password Screen -->
   <string name="reset_send">ОТПРАВИТЬ</string>
@@ -216,10 +216,10 @@
   <string name="activity_navigation">Активность</string>
   <string name="my_activity">Мои aктивности</string>
   <string name="search">Поиск</string>
-  <string name="empty_my_activity_first">Вы пока не добавили ни одну активность. Для того, чтобы добавить активность нажмите на</string>
-  <string name="empty_my_activity_second">нажмите на ➕</string>
+  <string name="empty_my_activity_first">Вы пока не добавили ни одну активность.n\ Для того, чтобы добавить активность</string>
+  <string name="empty_my_activity_second">нажмите на</string>
   <string name="favorites">Избранное</string>
-  <string name="empty_favorites">Вы пока не добавили активность в избранное. Чтобы добавить активность, сделайте свайп влево и нажмите на сердечко</string>
+  <string name="empty_favorites">Вы пока не добавили активность в избранное. Чтобы добавить активность, </string>
   <string name="standard_activities">Стандартные активности</string>
   <string name="add_activitie">Добавить активность</string>
   <string name="add_name_activitie">Напишите название активности</string>
@@ -1245,4 +1245,23 @@
 
   <string name="widget_weight_title">Измерение тела</string>
   <string name="widget_user_activity_show_all">All</string>
+
+  <string name="user_activity_burned">%d ккал</string>
+  <string name="add_user_activity_burned">= %d ккал</string>
+  <string name="user_activity_time_elapsed_wh_wm">%dч</string>
+  <string name="user_activity_time_elapsed">%d минут</string>
+
+  <string name="daily_burn_widget_title">Ежедненая норма</string>
+  <string name="be_better_with_premium">Стань лучше с Premium</string>
+
+    <string name="add_user_activity_hint">Введите название активности</string>
+    <string name="action_add_to_favorite">Добавить в избранное</string>
+    <string name="user_activity_section_my">Мои активности</string>
+    <string name="user_activity_section_defaults">Стандартные активности</string>
+    <string name="getAccess">Получить доступ</string>
+
+  <string name="user_activity_time_elapsed_wh" formatted="false">%dч %d м</string>
+  <string name="add_user_activity_duration_hint">за %s</string>
+  <string name="main_screen_topbar_left">%s ккал</string>
+
 </resources>

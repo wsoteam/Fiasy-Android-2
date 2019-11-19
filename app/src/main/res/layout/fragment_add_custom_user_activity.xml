@@ -20,7 +20,7 @@
         android:background="@drawable/gradient_main"
         android:layout_alignParentTop="true"
         app:navigationIcon="@drawable/back_arrow_icon_white"
-        app:title="Создать Активность"
+        app:title="@string/create_activity"
         app:titleTextColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -64,7 +64,7 @@
         android:textSize="18sp"
         android:fontFamily="@font/roboto_medium"
         android:gravity="left"
-        android:text="Время тренировки"
+        android:text="@string/training_time"
         style="@style/TextAppearance.AppCompat.Body2"
         />
 
@@ -81,7 +81,7 @@
         android:textSize="14sp"
         android:fontFamily="@font/roboto_medium"
         android:gravity="left"
-        android:text="Передвигая ползунком, выберите то количество времени, которое вы потратили на актинвость"
+        android:text="@string/training_time_description"
         style="@style/TextAppearance.AppCompat.Caption"
         />
 
@@ -121,7 +121,7 @@
         android:textSize="18sp"
         android:fontFamily="@font/roboto_medium"
         android:gravity="left"
-        android:text="Количество калорий"
+        android:text="@string/calories_count"
         style="@style/TextAppearance.AppCompat.Body2"
         />
 
@@ -138,7 +138,7 @@
         android:textSize="14sp"
         android:fontFamily="@font/roboto_medium"
         android:gravity="left"
-        android:text="Введите количество калорий, которые потратили или думайте, что потратили"
+        android:text="@string/calories_count_description"
         style="@style/TextAppearance.AppCompat.Caption"
         />
 
@@ -184,7 +184,7 @@
         android:visibility="visible"
         android:textColor="#80424242"
         android:gravity="center"
-        android:text="@string/add_user_activity_warning"
+        android:text="@string/attention_description"
         />
   </RelativeLayout>
 </androidx.core.widget.NestedScrollView>

@@ -14,7 +14,7 @@
       android:background="@drawable/gradient_main"
       android:layout_alignParentTop="true"
       app:navigationIcon="@drawable/back_arrow_icon_white"
-      app:title="Добавить Активность"
+      app:title="@string/add_activitie"
       app:titleTextColor="@color/white"
       android:layout_width="match_parent"
       android:layout_height="wrap_content" />
@@ -56,7 +56,7 @@
       android:fontFamily="@font/roboto_medium"
       android:gravity="center"
       android:textColor="#80424242"
-      android:text="@string/add_user_activity_burned_hint"
+      android:text="@string/calories_spent"
       style="@style/TextAppearance.AppCompat.Caption"
       />
 
@@ -82,7 +82,7 @@
       android:layout_margin="16dp"
       android:textColor="#51000000"
       android:gravity="center"
-      android:text="Передвигайте ползунок, чтобы\nизменить время"
+      android:text="@string/move_slider"
       android:fontFamily="@font/roboto_medium"
       style="@style/TextAppearance.AppCompat.Caption"
       android:textSize="16sp"
@@ -94,23 +94,23 @@
       android:layout_below="@id/duration_slide_to_change_hint"
       android:layout_centerHorizontal="true"
       android:layout_marginTop="24dp"
-      android:text="@string/add_user_activity_done_button"
+      android:text="@string/add_to_diary"
       />
 
   <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/action_done"
-      android:layout_marginTop="32dp"
       android:layout_marginLeft="32dp"
+      android:layout_marginTop="32dp"
       android:layout_marginRight="32dp"
+      android:gravity="center"
       android:lineSpacingExtra="4dp"
+      android:text="@string/attention_description"
+      android:textColor="#80424242"
       android:textSize="16sp"
       android:visibility="gone"
-      android:textColor="#80424242"
-      android:gravity="center"
-      android:text="@string/add_user_activity_warning"
-      />
+      tools:visibility="visible" />
 
 
 </RelativeLayout>

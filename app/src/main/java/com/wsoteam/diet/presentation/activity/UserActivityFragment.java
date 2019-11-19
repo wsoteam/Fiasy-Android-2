@@ -100,7 +100,7 @@ public class UserActivityFragment extends DialogFragment implements
 
         if (sectionId == R.string.user_activity_section_defaults) {
           menu.getMenu().add(0, R.id.action_make_favorite, 1, R.string.action_add_to_favorite);
-        } else if (sectionId == R.string.user_activity_section_favorite) {
+        } else if (sectionId == R.string.favorites) {
           menu.getMenu().add(0, R.id.action_delete, 1, R.string.contextMenuDelete);
         } else if (sectionId == R.string.user_activity_section_my) {
           menu.getMenu().add(0, R.id.action_delete, 1, R.string.contextMenuDelete);
@@ -111,14 +111,14 @@ public class UserActivityFragment extends DialogFragment implements
 
           switch (item.getItemId()) {
             case R.id.action_make_favorite:
-              if (sources.containsKey(R.string.user_activity_section_favorite)) {
-                disposables.add(sources.get(R.string.user_activity_section_favorite)
+              if (sources.containsKey(R.string.favorites)) {
+                disposables.add(sources.get(R.string.favorites)
                     .add(target)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSuccess(e -> {
-                      adapter.addItem(R.string.user_activity_section_favorite, e);
-                      Toast.makeText(requireContext(), "Добавлено в избранное", Toast.LENGTH_SHORT).show();
+                      adapter.addItem(R.string.favorites, e);
+                      Toast.makeText(requireContext(), getString(R.string.added_favorite), Toast.LENGTH_SHORT).show();
                     })
                     .subscribe());
               }
@@ -159,7 +159,7 @@ public class UserActivityFragment extends DialogFragment implements
     sources.put(R.string.user_activity_section_my,
         new ActivitiesSyncedSource(ActivitiesSyncedSource.ACTIVITIES));
 
-    sources.put(R.string.user_activity_section_favorite,
+    sources.put(R.string.favorites,
         new FavoriteSource());
 
     sources.put(R.string.user_activity_section_defaults,
@@ -167,7 +167,7 @@ public class UserActivityFragment extends DialogFragment implements
 
     int[] sections = {
         R.string.user_activity_section_my,
-        R.string.user_activity_section_favorite,
+        R.string.favorites,
         R.string.user_activity_section_defaults,
     };
 

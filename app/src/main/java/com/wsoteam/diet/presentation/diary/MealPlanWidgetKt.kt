@@ -22,10 +22,7 @@ import com.wsoteam.diet.Recipes.POJO.RecipeItem
 import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay
 import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
-import com.wsoteam.diet.model.Breakfast
-import com.wsoteam.diet.model.Dinner
-import com.wsoteam.diet.model.Lunch
-import com.wsoteam.diet.model.Snack
+import com.wsoteam.diet.model.*
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
 import com.wsoteam.diet.presentation.global.Screens
 import com.wsoteam.diet.presentation.plans.DateHelper
@@ -167,7 +164,8 @@ class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
       }
 
       if (currentDate.before(startDay.time)) {
-        notActivePlan()
+//        notActivePlan()
+        hideAll()
         return
       }
 
@@ -184,7 +182,8 @@ class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
       hideAll()
       return
     } else {
-      hideAll()
+      notActivePlan()
+//      hideAll()
     }
   }
 
@@ -268,22 +267,30 @@ class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
         val breakfast =
           Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year)
         WorkWithFirebaseDB.addBreakfast(breakfast)
+        if(UserDataHolder.getUserData().breakfasts == null)
+          UserDataHolder.getUserData().breakfasts = HashMap<String, Breakfast>()
         UserDataHolder.getUserData()
           .breakfasts[System.currentTimeMillis().toString() + ""] = breakfast
       }
       "lunch" -> {
         val lunch = Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year)
         WorkWithFirebaseDB.addLunch(lunch)
+        if(UserDataHolder.getUserData().lunches == null)
+          UserDataHolder.getUserData().lunches = HashMap<String, Lunch>()
         UserDataHolder.getUserData().lunches[System.currentTimeMillis().toString() + ""] = lunch
       }
       "dinner" -> {
         val dinner = Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year)
         WorkWithFirebaseDB.addDinner(dinner)
+        if(UserDataHolder.getUserData().dinners == null)
+          UserDataHolder.getUserData().dinners = HashMap<String, Dinner>()
         UserDataHolder.getUserData().dinners[System.currentTimeMillis().toString() + ""] = dinner
       }
       "snack" -> {
         val snack = Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year)
         WorkWithFirebaseDB.addSnack(snack)
+        if(UserDataHolder.getUserData().snacks == null)
+          UserDataHolder.getUserData().snacks = HashMap<String, Snack>()
         UserDataHolder.getUserData().snacks[System.currentTimeMillis().toString() + ""] = snack
       }
     }

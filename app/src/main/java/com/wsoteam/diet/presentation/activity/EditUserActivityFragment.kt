@@ -51,8 +51,8 @@ class EditUserActivityFragment : DialogFragment() {
     doneButton = view.findViewById(R.id.action_done)
 
     if (editMode == true) {
-      toolbar.title = "Редактировать активность"
-      doneButton.text = "Изменить"
+      toolbar.title = getString(R.string.edit_activity)
+      doneButton.text = getString(R.string.search_food_activity_change)
     }
 
     doneButton.setOnClickListener {
@@ -80,10 +80,10 @@ class EditUserActivityFragment : DialogFragment() {
 
         disposables.add(task.subscribeOn(Schedulers.io()).subscribe { r, error ->
           if (error != null) {
-            Toast.makeText(requireContext(), "Не удалось добавить", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.add_fail), Toast.LENGTH_SHORT).show()
             error.printStackTrace()
           } else {
-            Toast.makeText(requireContext(), "Добавлено в Дневник", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.srch_save_list), Toast.LENGTH_SHORT).show()
             dismissAllowingStateLoss()
           }
         })
@@ -197,7 +197,7 @@ class EditUserActivityFragment : DialogFragment() {
       .text()
 
     exerciseEfficiency.text =
-      TextUtils.concat(getString(R.string.add_user_activity_burned_hint), " ",
+      TextUtils.concat(getString(R.string.calories_spent), " ",
           burned, "\n", exerciseTemplate)
   }
 }

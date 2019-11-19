@@ -73,6 +73,7 @@
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView15" />
@@ -85,7 +86,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/roboto_light"
-                android:text="@string/alert_rating_txt"
+                android:text="@string/alert_dialog_grade_if_like"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"

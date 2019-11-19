@@ -4,7 +4,7 @@
 
   <item
       android:id="@+id/action_open_menu"
-      android:title="@string/action_add"
+      android:title="@string/add"
       android:icon="@drawable/ic_add_black_24dp"
       app:showAsAction="ifRoom"
       />
