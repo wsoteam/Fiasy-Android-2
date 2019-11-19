@@ -104,15 +104,17 @@ public abstract class ExercisesSource {
         boolean skip = true;
 
         final Reader stream;
-        switch (Locale.getDefault().getLanguage()){
-          case "ru":{
-            stream = new InputStreamReader(assets.open("user_activity_table_ru.csv"));
-            break;
-          }
+        String lang = Locale.getDefault().getLanguage();
+        switch (lang){
+          case "ru":
           case "de":
           case "pt":
           case "es":
           case "is":
+          {
+            stream = new InputStreamReader(assets.open("user_activity_table_" + lang + ".csv"));
+            break;
+          }
           default:{
             stream = new InputStreamReader(assets.open("user_activity_table_en.csv"));
             break;

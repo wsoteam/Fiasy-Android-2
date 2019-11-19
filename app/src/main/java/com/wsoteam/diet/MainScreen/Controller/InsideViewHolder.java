@@ -20,6 +20,8 @@ import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.model.Eating;
 import com.wsoteam.diet.presentation.search.product.DetailActivity;
 
+import static android.text.TextUtils.concat;
+
 public class InsideViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     @BindView(R.id.tvNameOfFood) TextView tvNameOfFood;
     @BindView(R.id.tvCalories) TextView tvCalories;
@@ -91,9 +93,17 @@ public class InsideViewHolder extends RecyclerView.ViewHolder implements View.On
             isRecipe = true;
         } else {
             if (eating.isNewFood()){
-                tvWeight.setText("Вес: " + eating.getWeight() * eating.getSizePortion() + "г");
+                tvWeight.setText(concat(
+                        context.getString(R.string.weight),
+                        ": ",
+                        String.valueOf(eating.getWeight() * eating.getSizePortion()),
+                        context.getString(R.string.g)));
             }else {
-                tvWeight.setText("Вес: " + eating.getWeight() + "г");
+                tvWeight.setText(concat(
+                        context.getString(R.string.weight),
+                        ": ",
+                        String.valueOf(eating.getWeight()),
+                        context.getString(R.string.g)));
             }
             isRecipe = false;
         }

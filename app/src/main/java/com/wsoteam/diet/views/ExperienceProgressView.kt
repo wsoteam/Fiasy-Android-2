@@ -61,7 +61,9 @@ class ExperienceProgressView
       this.value.text = TextUtils.concat(RichText("$value")
         .bold()
         .color(Color.BLACK)
-        .text(), " из ", this.progressView.max.toString())
+        .text(),
+              " ",
+              context.getString(R.string.from), " ", this.progressView.max.toString())
 
       if (value >= progressView.max) {
         DrawableCompat.setTint(progressDrawable, getColor(context, color.daily_progress_achieved))

@@ -349,25 +349,18 @@ Share your accomplishments with friends:</string>
     <string name="onboard_weight_pattern">%d kg</string>
     <string name="onboard_height_pattern">%d cm</string>
 
-
     <string name="Premium" translatable="false">Premium</string>
     <string name="premium" translatable="false">premium</string>
 
-
-
     <string name="intro_subtitle" translatable="false">FIASY!</string>
-
-
 
     <!--auth_fragment_data-->
     <string name="auth_data_ask">Укажите ваши данные</string>
-
 
     <!--auth_fragment_gender-->
     <string name="auth_mission_get">Набрать вес</string>
     <string name="auth_mission_save">Сохранить</string>
     <string name="auth_gender_tv_q">Укажите ваш пол</string>
-
 
 
     <!--auth_main-->
@@ -400,11 +393,6 @@ Share your accomplishments with friends:</string>
     <string name="policy_title" translatable="false">Privacy Policy &amp; Terms of Service</string>
 
 
-    <!--Calculating Lorenc-->
-    <!--  <string name="ok" translatable="false">Ok</string>-->
-
-
-
     <!--Load levels-->
     <string name="level_none" translatable="false">Минимальная нагрузка</string>
     <string name="level_easy" translatable="false">Малоактивный</string>
@@ -431,21 +419,13 @@ Share your accomplishments with friends:</string>
     <string name="check_your_email">Неправильный формат</string>
 
 
-
-
-
-
-
-
     <string name="activity_detail_food_1234" translatable="false">1234</string>
     <string name="activity_item_plans_def_value" translatable="false">00</string>
     <string name="activity_profile_2019" translatable="false">2019</string>
     <string name="activity_profile_date" translatable="false">10.06 &#8211; 17.06</string>
 
 
-
     <string name="alert_dialog_from_claim_cancel" translatable="false">Cancel</string>
-
 
 
     <string name="checkable_card_view_description" translatable="false">Description</string>
@@ -478,20 +458,7 @@ Share your accomplishments with friends:</string>
     <string name="recipe_menu_share" translatable="false">Share</string>
     <string name="recipe_menu_favorites" translatable="false">Favorite</string>
 
-
-
-
-
-
-
     <string name="n_g">%d g</string>
-
-
-
-
-
-
-
     <string-array name="fragment_names">
         <item>Добавить продукт</item>
         <item>Пищевая ценность на 100 г</item>
@@ -1080,9 +1047,8 @@ Share your accomplishments with friends:</string>
     <string name="add_user_activity_duration_hint">for %s</string>
 
     <string name="add_user_activity_hint">Enter a name for the Activities</string>
-    <string name="widget_user_activity_title">Активности</string>
-
-
+    <string name="widget_user_activity_title">Activities</string>
+    <string name="widget_user_activity_show_all">All</string>
     <string name="widget_weight_title">Body measurements</string>
     <string name="action_refresh">Update</string>
 
@@ -1113,8 +1079,7 @@ Share your accomplishments with friends:</string>
     <string name="action_buy">Buy</string>
 
     <string name="privacy_policy_with_condtions">Privacy Policy and\nterms of use</string>
-    <string name="premium_client_says_about_us">ДОВОЛЬНЫЕ КЛИЕНТЫ</string>
-
+    <string name="premium_client_says_about_us">SATISFIED CLIENTS</string>
 
 
     <string name="premium_subscription_1_year">1 year</string>
@@ -1132,9 +1097,6 @@ Share your accomplishments with friends:</string>
     </plurals>
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
 
     <string-array name="names_months_meas">
         <item>January</item>
@@ -1194,8 +1156,8 @@ Share your accomplishments with friends:</string>
     <string name="help_meas_third_text">Track your average weight for the week to get a clear picture of how your weight has changed. If you don\'t take measurements on a regular basis, it will be difficult to see your progress. Make sure you take two-week breaks to maintain your weight after every four weeks of dieting. This will prevent your body from experiencing intense stress and reduce the likelihood that you will go back to your old dietary habits.</string>
 
 
-    <string name="meas_without_meas">Не изменялось с момента регистрации</string>
-    <string name="meas_prefix">Вы заносили вес</string>
+    <string name="meas_prefix">You added new weight value</string>
+    <string name="meas_without_meas">Did not change from the moment of registration</string>
 
     <string name="timer_padded_value" translatable="false">%02d</string>
     <string name="premium_black_friday_days_remained_hint">The special offer will end in</string>
@@ -1231,16 +1193,12 @@ Share your accomplishments with friends:</string>
     <string name="alert_rating_txt">Пожалуйста, оцените наше приложение! Каждый отзыв делает его лучше!</string>
 
 
-
-
     <string name="getAccess">Get  access </string>
-    <string name="blocked_recipe_title">Множество полезных рецептов на любой вкус и для любых целей</string>
-    <string name="blocked_recipe_title_2">Легкие в приготовлении и состоящие из простых доступных игредиентов</string>
-    <string name="blocked_recipe_txt">Оформи подписку и получи доступ ко всей базе рецептов</string>
-    <string name="blocked_plan_txt">Оформи подписку и получи доступ к специально подобранным для Вас и проверенным планам питания</string>
+    <string name="blocked_recipe_title">Healthy recipies for each day and for different tastes</string>
+    <string name="blocked_recipe_title_2">Easy to cook, affordable ingredients</string>
+    <string name="blocked_recipe_txt">Buy premium and get access to all recipies</string>
+    <string name="blocked_plan_txt">Buy premium and get access to diet plans created by certified nutritionists</string>
 
-
-    ///////////////////
     <string name="srch_search_field">Search product database</string>
     <string name="srch_empty_search_title">No results found</string>
     <string name="srch_text_empty">Try again or create \nyour product</string>
@@ -1250,10 +1208,11 @@ Share your accomplishments with friends:</string>
     <string name="srch_basket_title">Selected products</string>
     <string name="srch_basket_card"><u>Selected: %d</u></string>
 
-    <string name="added_favorite">Добавлено в избранное</string>
-    <string name="add_fail">Не удалось добавить</string>
-    <string name="edit_activity">Редактировать активность</string>
-    <string name="create_activity">Создать Активность</string>
+
+    <string name="added_favorite">Successfully added to favourites</string>
+    <string name="add_fail">Falied to add, please try again</string>
+    <string name="edit_activity">Edit activity</string>
+    <string name="create_activity">Create activity</string>
 
     <string name="srch_delete_undo_title">Product removed from list</string>
     <string name="srch_cancel">Cancel</string>
@@ -1373,5 +1332,7 @@ Share your accomplishments with friends:</string>
     <string name="black_prem_features_body">Body morphology tracking</string>
 
 
+    <string name="from">from</string>
 
+    <string name="daily_rate_2">Daily rate =</string>
 </resources>
