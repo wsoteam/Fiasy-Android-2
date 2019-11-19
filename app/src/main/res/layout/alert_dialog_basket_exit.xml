@@ -44,8 +44,8 @@
       android:id="@+id/tvExit"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
       android:layout_marginBottom="8dp"
-      android:layout_marginEnd="8dp"
       android:background="?selectableItemBackground"
       android:elevation="4dp"
       android:fontFamily="@font/roboto_medium"
@@ -54,8 +54,7 @@
       android:textColor="#8a000000"
       android:textSize="14sp"
       app:layout_constraintBottom_toBottomOf="@+id/cardView19"
-      app:layout_constraintEnd_toEndOf="@+id/textView164"
-      />
+      app:layout_constraintEnd_toEndOf="@+id/cardView19" />
 
   <androidx.cardview.widget.CardView
       android:id="@+id/cardView19"
