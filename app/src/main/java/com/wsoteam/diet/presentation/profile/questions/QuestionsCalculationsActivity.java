@@ -45,6 +45,7 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_questions_calculations);
+    ButterKnife.bind(this);
 
     final Drawable drawable = loader.getDrawable();
     if (drawable instanceof Animatable) {
