@@ -20,4 +20,14 @@ public interface FoodResultAPI {
 
     @GET("/api/v1/en/search/")
     Observable<FoodResult> searchEn(@Query("search") String search, @Query("page") int page);
+
+    @GET("/api/v1/de/search/")
+    Observable<FoodResult> searchDe(@Query("search") String search, @Query("page") int page);
+
+    @GET("/api/v1/es/search/")
+    Observable<FoodResult> searchEs(@Query("search") String search, @Query("page") int page);
+
+    @GET("/api/v1/pt/search/")
+    Observable<FoodResult> searchPt(@Query("search") String search, @Query("page") int page);
+
 }

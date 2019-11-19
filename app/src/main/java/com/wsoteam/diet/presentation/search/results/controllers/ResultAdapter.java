@@ -104,18 +104,43 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     private void loadNextPortion(int page) {
-        if (Locale.getDefault().getLanguage().equals(Config.EN)) {
-            foodResultAPI
-                    .searchEn(searchString, page)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
-        } else if (Locale.getDefault().getLanguage().equals(Config.RU)) {
-            foodResultAPI
-                    .search(searchString, page)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
+        switch (Locale.getDefault().getLanguage()) {
+            default:
+            case Config.EN:
+                foodResultAPI
+                        .searchEn(searchString, page)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
+                break;
+            case Config.RU:
+                foodResultAPI
+                        .search(searchString, page)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
+                break;
+            case Config.DE:
+                foodResultAPI
+                        .searchDe(searchString, page)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
+                break;
+            case Config.PT:
+                foodResultAPI
+                        .searchPt(searchString, page)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
+                break;
+            case Config.ES:
+                foodResultAPI
+                        .searchEs(searchString, page)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
+                break;
         }
     }
 
