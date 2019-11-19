@@ -117,7 +117,7 @@ public class FoodWork {
             ArrayList<Integer> indexs = new ArrayList<>();
             List<HistoryEntity> uniqueEntities = new ArrayList<>();
             for (int i = 0; i < historyEntities.size() - 1; i++) {
-                for (int j = 1; j < historyEntities.size() - 1; j++) {
+                for (int j = i + 1; j < historyEntities.size() - 2; j++) {
                     if (historyEntities.get(i).getDeepId() == historyEntities.get(j).getDeepId() && historyEntities.get(i).getServerId() == historyEntities.get(j).getServerId()) {
                         indexs.add(j);
                     }
