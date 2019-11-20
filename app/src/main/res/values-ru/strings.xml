@@ -1287,4 +1287,12 @@
 
   <string name="my_plan">Мой план питания</string>
 
+  ///////
+  <string-array name="prf_goals">
+    <item>Поддержания тела в форме</item>
+    <item>Похудение</item>
+    <item>Набор мышечной массы</item>
+    <item>Сохранение мышц и сжигание жира</item>
+  </string-array>
+
 </resources>

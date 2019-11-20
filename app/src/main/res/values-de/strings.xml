@@ -465,4 +465,14 @@ Teilen Sie Ihre Erfolge mit Freunden:</string>
     <string name="meas_without_meas">Hat sich vom Zeitpunkt der Registrierung nicht geändert</string>
     <string name="premium_client_says_about_us">Zufriedene Kunden</string>
     <string name="meas_prefix">Sie haben neue Gewicht Wert</string>
+
+
+
+    ///////
+    <string-array name="prf_goals">
+        <item>In Form bleiben</item>
+        <item>Abnehmen</item>
+        <item>Ganar masa muscular</item>
+        <item>Muskulatur halten und Fett verbrennen</item>
+    </string-array>
 </resources>

@@ -469,4 +469,13 @@ Comparta sus logros con sus amigos:</string>
     <string name="meas_without_meas">No cambió desde el momento de la inscripción</string>
     <string name="premium_client_says_about_us">Clientes satisfechos</string>
     <string name="meas_prefix">Ha añadido un nuevo valor de peso</string>
+
+
+    ///////
+    <string-array name="prf_goals">
+        <item>Mantenerse en forma</item>
+        <item>Perder peso</item>
+        <item>Ganar masa muscular</item>
+        <item>Mantener la musculatura y quemar grasa</item>
+    </string-array>
 </resources>

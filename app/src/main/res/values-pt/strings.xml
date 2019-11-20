@@ -475,4 +475,13 @@ Parabéns!</string>
     <string name="meas_without_meas">Não se alterou a partir do momento do registo</string>
     <string name="premium_client_says_about_us">Clientes satisfeitos</string>
     <string name="meas_prefix">Adicionaste um novo valor de peso</string>
+
+
+    ///////
+    <string-array name="prf_goals">
+        <item>Ficar em forma</item>
+        <item>Perder peso</item>
+        <item>Ganhar massa muscular</item>
+        <item>Manter a musculatura e queimar gordura</item>
+    </string-array>
 </resources>
