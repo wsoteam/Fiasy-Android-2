@@ -365,7 +365,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
             default:
             case Config.EN:
                 foodResultAPI
-                        .searchEn(searchString + " null", 1)
+                        .searchEn(searchString, 1)
                         .map(foodResult -> dropBrands(foodResult))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -374,7 +374,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
                 break;
             case Config.RU:
                 foodResultAPI
-                        .search(searchString + " null", 1)
+                        .search(searchString, 1)
                         .map(foodResult -> dropBrands(foodResult))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
