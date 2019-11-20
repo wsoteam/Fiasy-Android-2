@@ -23,6 +23,8 @@ import io.reactivex.disposables.CompositeDisposable
 class SubscriptionsListFragment : Fragment() {
 
   private var selectedId: Int = -1
+  private val withTrial: Boolean
+    get() = FirebaseRemoteConfig.getInstance().getBoolean("premium_with_trial")
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?): View? {
@@ -49,7 +51,7 @@ class SubscriptionsListFragment : Fragment() {
 
     val isDarkMode = "dark" == FirebaseRemoteConfig.getInstance().getString("premium_theme")
 
-    container.adapter = object : PlansAdapter(isDarkMode = isDarkMode) {
+    container.adapter = object : PlansAdapter(isDarkMode = isDarkMode, withTrial = withTrial) {
       override fun getLayoutParams(parent: ViewGroup, viewType: Int): LayoutParams {
         return MarginLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
           .apply {

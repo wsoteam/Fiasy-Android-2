@@ -23,7 +23,9 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.*
+import androidx.recyclerview.widget.RecyclerView.Adapter
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wsoteam.diet.MainScreen.Deeplink
 import com.wsoteam.diet.R
@@ -37,377 +39,425 @@ import com.wsoteam.diet.utils.asCurrency
 import com.wsoteam.diet.utils.dp
 import com.wsoteam.diet.views.DotIndicatorView
 import com.wsoteam.diet.views.PremiumPlanCardView
+import com.wsoteam.diet.views.PremiumPlanCardView2
 import com.wsoteam.diet.views.TimerView
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
 import io.reactivex.internal.functions.Functions.emptyConsumer
-import kotlinx.android.synthetic.main.activity_premium_dark.*
-import java.util.*
+import kotlinx.android.synthetic.main.activity_premium_dark.toolbar
+import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 class PremiumFeaturesActivity : AppCompatActivity() {
-    companion object {
+  companion object {
 
-        val localizedPlans = mapOf<String, Array<PremiumPlan>>(
-                "ru" to arrayOf(
-                        PremiumPlan(key = "premium_year",
-                                price = 949.0,
-                                duration = R.string.premium_subscription_1_year,
-                                diamondStyleId = R.drawable.ic_blue_diamond,
-                                monthlyPrice = 79.0,
-                                benefitPercentage = 75,
-                                benefitTintColor = Color.WHITE,
-                                benefitTextColor = Color.BLACK,
-                                prevMonthlyPrice = 316.0
-                        ),
-
-                        PremiumPlan(key = "premium_6month",
-                                price = 1450.0,
-                                duration = R.string.premium_subscription_6_month,
-                                diamondStyleId = R.drawable.ic_gold_diamond,
-                                monthlyPrice = 241.0,
-                                benefitPercentage = 24,
-                                benefitTintColor = 0xFFEFB476.toInt(),
-                                benefitTextColor = Color.WHITE,
-                                prevMonthlyPrice = 316.0
-                        ),
-
-                        PremiumPlan(key = "premium_3month",
-                                price = 949.0,
-                                duration = R.string.premium_subscription_3_month,
-                                diamondStyleId = R.drawable.ic_silver_diamond,
-                                monthlyPrice = 316.0,
-                                benefitPercentage = 0,
-                                benefitTintColor = 0xFFEFB476.toInt(),
-                                benefitTextColor = Color.WHITE,
-                                prevMonthlyPrice = -1.0
-                        )
-                ),
-
-                "en" to arrayOf(
-                        PremiumPlan(key = "premium_year",
-                                price = 14.99,
-                                duration = R.string.premium_subscription_1_year,
-                                diamondStyleId = R.drawable.ic_blue_diamond,
-                                monthlyPrice = 1.23,
-                                benefitPercentage = 75,
-                                benefitTintColor = Color.WHITE,
-                                benefitTextColor = Color.BLACK,
-                                prevMonthlyPrice = 4.94
-                        ),
-
-                        PremiumPlan(key = "premium_6month",
-                                price = 22.75,
-                                duration = R.string.premium_subscription_6_month,
-                                diamondStyleId = R.drawable.ic_gold_diamond,
-                                monthlyPrice = 3.76,
-                                benefitPercentage = 24,
-                                benefitTintColor = 0xFFEFB476.toInt(),
-                                benefitTextColor = Color.WHITE,
-                                prevMonthlyPrice = 4.94
-                        ),
-
-                        PremiumPlan(key = "premium_3month",
-                                price = 14.99,
-                                duration = R.string.premium_subscription_3_month,
-                                diamondStyleId = R.drawable.ic_silver_diamond,
-                                monthlyPrice = 4.94,
-                                benefitPercentage = 0,
-                                benefitTintColor = 0xFFEFB476.toInt(),
-                                benefitTextColor = Color.WHITE,
-                                prevMonthlyPrice = -1.0
-                        )
-                )
-        )
-
-        val plans: Array<PremiumPlan>
-            get() {
-                return localizedPlans.get(Locale.getDefault().language)
-                        ?: localizedPlans.getValue("en")
-            }
-    }
-
-    private val disposables = CompositeDisposable()
-    private var purchasedId: String? = null
-
-    internal val isDarkTheme: Boolean
-        get() = "dark" == FirebaseRemoteConfig.getInstance().getString("premium_theme")
-
-    public override fun onCreate(savedInstanceState: Bundle?) {
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
-
-        if (isDarkTheme) {
-            setTheme(R.style.AppTheme_Premium)
-            window.setBackgroundDrawableResource(R.color.premium_background_color_dark)
-        } else {
-            setTheme(R.style.AppTheme_Premium_Light)
-            window.setBackgroundDrawableResource(R.color.premium_background_color_light)
-        }
-
-        super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_premium_dark)
-
-        if (Deeplink.isNeedPrem.get()) {
-            toolbar.navigationIcon = null
-            Deeplink.isNeedPrem.set(false)
-        }
-
-        findViewById<TextView>(R.id.privacy_policy).apply {
-            movementMethod = LinkMovementMethod.getInstance()
-            text = RichText(text)
-                    .onClick(View.OnClickListener { v ->
-                        IntentUtils.openWebLink(v.context,
-                                getString(R.string.url_privacy_police))
-                    })
-                    .text()
-        }
-
-        val timerLabel = findViewById<View>(R.id.timer_label)
-        findViewById<TimerView>(R.id.timer).apply {
-            val endDate = FirebaseRemoteConfig.getInstance().getLong("premium_timer_date")
-
-            val diff = System.currentTimeMillis() - endDate
-
-            if (System.currentTimeMillis() > endDate) { //|| diff > TimeUnit.DAYS.toMillis(3)) {
-                visibility = View.GONE
-                timerLabel.visibility = View.GONE
-            }
-
-            setupTimeout(endDate)
-        }
-
-        findViewById<TextView>(R.id.title).apply {
-            val fullLabel = getString(R.string.premium_feature_title)
-            val spannedLabel = RichText(getString(R.string.premium_feature_title__span))
-                    .bold()
-                    .colorRes(context, R.color.orange_premium)
-                    .textScale(1.4f)
-                    .text()
-
-            text = TextUtils.concat(fullLabel, spannedLabel)
-        }
-
-        disposables.add(SubscriptionManager.purchases()
-                .filter { it.sku == purchasedId }
-                .doOnNext {
-                    finish()
-
-                    IntentUtils.openMainActivity(this)
-                }
-                .subscribe(emptyConsumer(), emptyConsumer())
-        )
-
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar.setNavigationOnClickListener {
-            finish()
-        }
-
-        val buyButton = findViewById<TextView>(R.id.action_buy)
-        val tariffsContainer = findViewById<RecyclerView>(R.id.tarifs)
-
-        buyButton.setOnClickListener {
-            val lm = tariffsContainer.layoutManager as LinearLayoutManager
-            val id = lm.findFirstCompletelyVisibleItemPosition()
-
-            purchase(plans[id].key)
-        }
-
-        tariffsContainer.adapter = PlansAdapter(isDarkMode = isDarkTheme)
-        tariffsContainer.addOnScrollListener(object : OnScrollListener() {
-            override fun onScrollStateChanged(p: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(p, newState)
-
-                val lm = p.layoutManager as LinearLayoutManager
-
-                val color: ColorStateList?
-                val textColor: Int
-
-                if (newState == RecyclerView.SCROLL_STATE_IDLE &&
-                        lm.findFirstCompletelyVisibleItemPosition() == 0) {
-                    color = ContextCompat.getColorStateList(p.context, R.color.premium_button_buy_gold_color)
-                    textColor = Color.WHITE
-                } else {
-                    color =
-                            ContextCompat.getColorStateList(p.context, R.color.premium_button_buy_ordinary_color)
-                    textColor = Color.BLACK
-                }
-
-                buyButton.setTextColor(textColor)
-                ViewCompat.setBackgroundTintList(buyButton, color)
-            }
-        })
-
-        val tariffsSnap = PagerSnapHelper()
-        tariffsSnap.attachToRecyclerView(tariffsContainer)
-
-        val adapter = ReviewsAdapter()
-
-        val dotsIndicator = findViewById<DotIndicatorView>(R.id.reviews_page_indicator)
-        dotsIndicator.setCirclesCount(adapter.itemCount)
-
-        val reviewsContainer = findViewById<RecyclerView>(R.id.reviews)
-        reviewsContainer.adapter = adapter
-        reviewsContainer.addOnScrollListener(object : OnScrollListener() {
-            override fun onScrollStateChanged(p: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(p, newState)
-
-                val lm = p.layoutManager as LinearLayoutManager
-
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    dotsIndicator.setActiveIndex(lm.findFirstCompletelyVisibleItemPosition())
-                }
-            }
-        })
-
-        val reviewsSnap = PagerSnapHelper()
-        reviewsSnap.attachToRecyclerView(reviewsContainer)
-
-        findViewById<View>(R.id.action_open_subscriptions).setOnClickListener {
-            supportFragmentManager
-                    .beginTransaction()
-                    .add(android.R.id.content, SubscriptionsListFragment())
-                    .addToBackStack(null)
-                    .commit()
-        }
-    }
-
-    fun purchase(subscriptionId: String) {
-        purchasedId = subscriptionId
-
-        disposables.add(SubscriptionManager
-                .buy(this, purchasedId ?: "premium_year")
-                .subscribe(emptyConsumer(), Consumer { error ->
-                    val toast = when (error) {
-                        is SubscriptionNotFoundException ->
-                            Toast.makeText(this, string.subscription_not_found, Toast.LENGTH_SHORT)
-                        is SetupFailedException ->
-                            Toast.makeText(this, string.subscription_not_found, Toast.LENGTH_SHORT)
-
-                        else -> null
-                    }
-
-                    toast?.show()
-                }))
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        disposables.clear()
-    }
-
-    data class PremiumPlan(
-            val key: String,
-            val price: Double,
-            val duration: Int,
-            val diamondStyleId: Int,
-            val monthlyPrice: Double,
-            val benefitPercentage: Int,
-            val prevMonthlyPrice: Double,
-            val benefitTintColor: Int,
-            val benefitTextColor: Int
+    val subscriptionsMap = hashMapOf(
+        "premium_year" to "trial_premium_year",
+        "premium_6month" to "trial_premium_6month"
     )
 
-    class PlanHolder(val view: PremiumPlanCardView) : ViewHolder(view)
+    val localizedPlans = mapOf(
+        "ru" to arrayOf(
+            PremiumPlan(key = "premium_year",
+                price = 949.0,
+                trial = 7,
+                duration = R.string.premium_subscription_1_year,
+                diamondStyleId = R.drawable.ic_blue_diamond,
+                monthlyPrice = 79.0,
+                benefitPercentage = 75,
+                benefitTintColor = Color.WHITE,
+                benefitTextColor = Color.BLACK,
+                prevMonthlyPrice = 316.0
+            ),
 
-    open class PlansAdapter(val isDarkMode: Boolean = false) : Adapter<PlanHolder>() {
-        open fun getLayoutParams(parent: ViewGroup, viewType: Int): LayoutParams {
-            val width = parent.context.resources.displayMetrics.widthPixels
+            PremiumPlan(key = "premium_6month",
+                price = 1450.0,
+                trial = 3,
+                duration = R.string.premium_subscription_6_month,
+                diamondStyleId = R.drawable.ic_gold_diamond,
+                monthlyPrice = 241.0,
+                benefitPercentage = 24,
+                benefitTintColor = 0xFFEFB476.toInt(),
+                benefitTextColor = Color.WHITE,
+                prevMonthlyPrice = 316.0
+            ),
 
-            return MarginLayoutParams(width - dp(parent.context, 64f), WRAP_CONTENT)
-                    .apply {
-                        leftMargin = dp(parent.context, 16f)
-                        rightMargin = dp(parent.context, 16f)
-                    }
-        }
+            PremiumPlan(key = "premium_3month",
+                price = 949.0,
+                trial = 0,
+                duration = R.string.premium_subscription_3_month,
+                diamondStyleId = R.drawable.ic_silver_diamond,
+                monthlyPrice = 316.0,
+                benefitPercentage = 0,
+                benefitTintColor = 0xFFEFB476.toInt(),
+                benefitTextColor = Color.WHITE,
+                prevMonthlyPrice = -1.0
+            )
+        ),
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlanHolder {
-            val view = PremiumPlanCardView(parent.context)
-            view.layoutParams = getLayoutParams(parent, viewType)
-            return PlanHolder(view)
-        }
+        "en" to arrayOf(
+            PremiumPlan(key = "premium_year",
+                price = 14.99,
+                trial = 7,
+                duration = R.string.premium_subscription_1_year,
+                diamondStyleId = R.drawable.ic_blue_diamond,
+                monthlyPrice = 1.23,
+                benefitPercentage = 75,
+                benefitTintColor = Color.WHITE,
+                benefitTextColor = Color.BLACK,
+                prevMonthlyPrice = 4.94
+            ),
 
-        override fun getItemCount(): Int {
-            return plans.size
-        }
+            PremiumPlan(key = "premium_6month",
+                price = 22.75,
+                trial = 3,
+                duration = R.string.premium_subscription_6_month,
+                diamondStyleId = R.drawable.ic_gold_diamond,
+                monthlyPrice = 3.76,
+                benefitPercentage = 24,
+                benefitTintColor = 0xFFEFB476.toInt(),
+                benefitTextColor = Color.WHITE,
+                prevMonthlyPrice = 4.94
+            ),
 
-        override fun onBindViewHolder(holder: PlanHolder, position: Int) {
-            holder.view.setDiamondStyle(plans[position].diamondStyleId)
-            holder.view.duration.setText(plans[position].duration)
-            holder.view.price.text = plans[position].price.asCurrency
-            holder.view.helper.text = holder.view.context
-                    .getString(R.string.premium_subscription_per_month, plans[position].monthlyPrice.asCurrency)
-
-            if (plans[position].prevMonthlyPrice > 0) {
-                val message = holder.view.context.getString(R.string.premium_subscription_per_month,
-                        plans[position].prevMonthlyPrice.asCurrency)
-
-                holder.view.helper2.text = message.strikethrough()
-            } else {
-                holder.view.helper2.text = ""
-            }
-
-            if (position == 0) {
-                holder.view.setDarkAppearance(isDarkMode)
-
-                if (isDarkMode) {
-                    holder.view.setDiamondStyle(R.drawable.ic_brilliant_black)
-                    holder.view.setBackgroundResource(R.drawable.premium_annual_plan_gold_background)
-                } else {
-                    holder.view.setBackgroundResource(R.drawable.premium_annual_plan_background)
-                }
-            } else {
-                holder.view.setBackgroundResource(R.color.white)
-            }
-
-            if (isDarkMode) {
-                holder.view.setBenefitsPercentage(
-                        plans[position].benefitPercentage,
-                        Color.BLACK,
-                        Color.WHITE
-                )
-            } else {
-                holder.view.setBenefitsPercentage(
-                        plans[position].benefitPercentage,
-                        plans[position].benefitTintColor,
-                        plans[position].benefitTextColor
-                )
-            }
-        }
-    }
-
-    private class ReviewHolder(private val image: ImageView) : RecyclerView.ViewHolder(image) {
-        fun bind(imageId: Int) {
-            image.setImageResource(imageId)
-        }
-    }
-
-    private class ReviewsAdapter : RecyclerView.Adapter<ReviewHolder>() {
-        private val reviews = intArrayOf(
-                R.drawable.review_1,
-                R.drawable.review_2,
-                R.drawable.review_3,
-                R.drawable.review_4
+            PremiumPlan(key = "premium_3month",
+                price = 14.99,
+                trial = 0,
+                duration = R.string.premium_subscription_3_month,
+                diamondStyleId = R.drawable.ic_silver_diamond,
+                monthlyPrice = 4.94,
+                benefitPercentage = 0,
+                benefitTintColor = 0xFFEFB476.toInt(),
+                benefitTextColor = Color.WHITE,
+                prevMonthlyPrice = -1.0
+            )
         )
+    )
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewHolder {
-            val params = MarginLayoutParams(MATCH_PARENT, WRAP_CONTENT)
-            params.leftMargin = dp(parent.context, 16f)
-            params.rightMargin = dp(parent.context, 16f)
+    val plans: Array<PremiumPlan>
+      get() {
+        return localizedPlans.get(Locale.getDefault().language)
+            ?: localizedPlans.getValue("en")
+      }
+  }
 
-            val view = ImageView(parent.context)
-            view.layoutParams = params
-            view.scaleType = CENTER_INSIDE
+  private val disposables = CompositeDisposable()
+  private var purchasedId: String? = null
 
-            return ReviewHolder(view)
+  internal val isDarkTheme: Boolean
+    get() = "dark" == FirebaseRemoteConfig.getInstance().getString("premium_theme")
+
+  internal val withTrial: Boolean
+    get() = FirebaseRemoteConfig.getInstance().getBoolean("premium_with_trial")
+
+  public override fun onCreate(savedInstanceState: Bundle?) {
+    supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
+
+    if (isDarkTheme) {
+      setTheme(R.style.AppTheme_Premium)
+      window.setBackgroundDrawableResource(R.color.premium_background_color_dark)
+    } else {
+      setTheme(R.style.AppTheme_Premium_Light)
+      window.setBackgroundDrawableResource(R.color.premium_background_color_light)
+    }
+
+    super.onCreate(savedInstanceState)
+
+    setContentView(R.layout.activity_premium_dark)
+
+    if (Deeplink.isNeedPrem.get()) {
+      toolbar.navigationIcon = null
+      Deeplink.isNeedPrem.set(false)
+    }
+
+    findViewById<TextView>(R.id.privacy_policy).apply {
+      movementMethod = LinkMovementMethod.getInstance()
+      text = RichText(text)
+        .onClick(View.OnClickListener { v ->
+          IntentUtils.openWebLink(v.context,
+              getString(R.string.url_privacy_police))
+        })
+        .text()
+    }
+
+    val timerLabel = findViewById<View>(R.id.timer_label)
+    findViewById<TimerView>(R.id.timer).apply {
+      val endDate = FirebaseRemoteConfig.getInstance().getLong("premium_timer_date")
+
+      val diff = System.currentTimeMillis() - endDate
+
+      if (System.currentTimeMillis() > endDate || diff > TimeUnit.DAYS.toMillis(3)) {
+        visibility = View.GONE
+        timerLabel.visibility = View.GONE
+      }
+
+      setupTimeout(endDate)
+    }
+
+    findViewById<TextView>(R.id.title).apply {
+      val fullLabel = getString(R.string.premium_feature_title)
+      val spannedLabel = RichText(getString(R.string.premium_feature_title__span))
+        .bold()
+        .colorRes(context, R.color.orange_premium)
+        .textScale(1.4f)
+        .text()
+
+      text = TextUtils.concat(fullLabel, spannedLabel)
+    }
+
+    disposables.add(SubscriptionManager.purchases()
+      .filter { it.sku == purchasedId }
+      .doOnNext {
+        finish()
+
+        IntentUtils.openMainActivity(this)
+      }
+      .subscribe(emptyConsumer(), emptyConsumer())
+    )
+
+    val toolbar = findViewById<Toolbar>(R.id.toolbar)
+    toolbar.setNavigationOnClickListener {
+      finish()
+    }
+
+    val buyButton = findViewById<TextView>(R.id.action_buy)
+    val tariffsContainer = findViewById<RecyclerView>(R.id.tarifs)
+
+    buyButton.setOnClickListener {
+      val lm = tariffsContainer.layoutManager as LinearLayoutManager
+      val id = lm.findFirstCompletelyVisibleItemPosition()
+
+      purchase(plans[id].key)
+    }
+
+    tariffsContainer.adapter = PlansAdapter(isDarkMode = isDarkTheme)
+    tariffsContainer.addOnScrollListener(object : OnScrollListener() {
+      override fun onScrollStateChanged(p: RecyclerView, newState: Int) {
+        super.onScrollStateChanged(p, newState)
+
+        val lm = p.layoutManager as LinearLayoutManager
+
+        val color: ColorStateList?
+        val textColor: Int
+
+        if (newState == RecyclerView.SCROLL_STATE_IDLE &&
+            lm.findFirstCompletelyVisibleItemPosition() == 0) {
+          color = ContextCompat.getColorStateList(p.context, R.color.premium_button_buy_gold_color)
+          textColor = Color.WHITE
+        } else {
+          color =
+            ContextCompat.getColorStateList(p.context, R.color.premium_button_buy_ordinary_color)
+          textColor = Color.BLACK
         }
 
-        override fun onBindViewHolder(holder: ReviewHolder, position: Int) {
-            holder.bind(reviews[position])
+        buyButton.setTextColor(textColor)
+        ViewCompat.setBackgroundTintList(buyButton, color)
+      }
+    })
+
+    val tariffsSnap = PagerSnapHelper()
+    tariffsSnap.attachToRecyclerView(tariffsContainer)
+
+    val adapter = ReviewsAdapter()
+
+    val dotsIndicator = findViewById<DotIndicatorView>(R.id.reviews_page_indicator)
+    dotsIndicator.setCirclesCount(adapter.itemCount)
+
+    val reviewsContainer = findViewById<RecyclerView>(R.id.reviews)
+    reviewsContainer.adapter = adapter
+    reviewsContainer.addOnScrollListener(object : OnScrollListener() {
+      override fun onScrollStateChanged(p: RecyclerView, newState: Int) {
+        super.onScrollStateChanged(p, newState)
+
+        val lm = p.layoutManager as LinearLayoutManager
+
+        if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+          dotsIndicator.setActiveIndex(lm.findFirstCompletelyVisibleItemPosition())
+        }
+      }
+    })
+
+    val reviewsSnap = PagerSnapHelper()
+    reviewsSnap.attachToRecyclerView(reviewsContainer)
+
+    findViewById<View>(R.id.action_open_subscriptions).setOnClickListener {
+      supportFragmentManager
+        .beginTransaction()
+        .add(android.R.id.content, SubscriptionsListFragment())
+        .addToBackStack(null)
+        .commit()
+    }
+  }
+
+  fun purchase(subscriptionId: String) {
+    purchasedId = if (withTrial) subscriptionsMap[subscriptionId] ?: subscriptionId else subscriptionId
+
+    disposables.add(SubscriptionManager
+      .buy(this, purchasedId ?: "premium_year")
+      .subscribe(emptyConsumer(), Consumer { error ->
+        val toast = when (error) {
+          is SubscriptionNotFoundException ->
+            Toast.makeText(this, string.subscription_not_found, Toast.LENGTH_SHORT)
+          is SetupFailedException ->
+            Toast.makeText(this, string.subscription_not_found, Toast.LENGTH_SHORT)
+
+          else -> null
         }
 
-        override fun getItemCount(): Int {
-            return reviews.size
+        toast?.show()
+      }))
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+
+    disposables.clear()
+  }
+
+  data class PremiumPlan(
+    val key: String,
+    val price: Double,
+    val duration: Int,
+    val diamondStyleId: Int,
+    val monthlyPrice: Double,
+    val benefitPercentage: Int,
+    val prevMonthlyPrice: Double,
+    val benefitTintColor: Int,
+    val benefitTextColor: Int,
+    val trial: Int
+  )
+
+  class PlanHolder(val view: PremiumPlanCardView) : ViewHolder(view)
+
+  open class PlansAdapter(
+    val isDarkMode: Boolean = false,
+    val withTrial: Boolean = true) : Adapter<PlanHolder>() {
+
+    open fun getLayoutParams(parent: ViewGroup, viewType: Int): LayoutParams {
+      val width = parent.context.resources.displayMetrics.widthPixels
+
+      return MarginLayoutParams(width - dp(parent.context, 64f), WRAP_CONTENT)
+        .apply {
+          leftMargin = dp(parent.context, 16f)
+          rightMargin = dp(parent.context, 16f)
         }
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlanHolder {
+      val view = if (withTrial) {
+        PremiumPlanCardView2(parent.context)
+      } else {
+        PremiumPlanCardView(parent.context)
+      }
+
+      view.layoutParams = getLayoutParams(parent, viewType)
+      return PlanHolder(view)
+    }
+
+    override fun getItemCount(): Int {
+      return plans.size
+    }
+
+    override fun onBindViewHolder(holder: PlanHolder, position: Int) {
+      val c = holder.view.context
+      holder.view.setDiamondStyle(plans[position].diamondStyleId)
+      holder.view.duration.visibility = View.VISIBLE
+
+      if (withTrial) {
+        if (plans[position].trial > 0) {
+          holder.view.duration.text = c.resources
+            .getQuantityString(R.plurals.trial_days,
+              plans[position].trial,
+              plans[position].trial
+            )
+        } else {
+          holder.view.duration.text = ""
+          holder.view.duration.visibility = View.GONE
+        }
+
+        holder.view.price.text = c.resources
+          .getString(R.string.subscription_detailed,
+              c.getString(plans[position].duration),
+              plans[position].price.asCurrency
+          )
+      } else {
+        holder.view.duration.setText(plans[position].duration)
+        holder.view.price.text = plans[position].price.asCurrency
+      }
+
+      holder.view.helper.text = holder.view.context
+        .getString(R.string.premium_subscription_per_month, plans[position].monthlyPrice.asCurrency)
+
+      if (plans[position].prevMonthlyPrice > 0) {
+        val message = holder.view.context.getString(R.string.premium_subscription_per_month,
+            plans[position].prevMonthlyPrice.asCurrency)
+
+        holder.view.helper2.text = message.strikethrough()
+      } else {
+        holder.view.helper2.text = ""
+      }
+
+      if (position == 0) {
+        holder.view.setDarkAppearance(isDarkMode)
+
+        if (isDarkMode) {
+          holder.view.setDiamondStyle(R.drawable.ic_brilliant_black)
+          holder.view.setBackgroundResource(R.drawable.premium_annual_plan_gold_background)
+        } else {
+          holder.view.setBackgroundResource(R.drawable.premium_annual_plan_background)
+        }
+      } else {
+        holder.view.setBackgroundResource(R.color.white)
+      }
+
+      if (isDarkMode) {
+        holder.view.setBenefitsPercentage(
+            plans[position].benefitPercentage,
+            Color.BLACK,
+            Color.WHITE
+        )
+      } else {
+        holder.view.setBenefitsPercentage(
+            plans[position].benefitPercentage,
+            plans[position].benefitTintColor,
+            plans[position].benefitTextColor
+        )
+      }
+    }
+  }
+
+  private class ReviewHolder(private val image: ImageView) : RecyclerView.ViewHolder(image) {
+    fun bind(imageId: Int) {
+      image.setImageResource(imageId)
+    }
+  }
+
+  private class ReviewsAdapter : RecyclerView.Adapter<ReviewHolder>() {
+    private val reviews = intArrayOf(
+        R.drawable.review_1,
+        R.drawable.review_2,
+        R.drawable.review_3,
+        R.drawable.review_4
+    )
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewHolder {
+      val params = MarginLayoutParams(MATCH_PARENT, WRAP_CONTENT)
+      params.leftMargin = dp(parent.context, 16f)
+      params.rightMargin = dp(parent.context, 16f)
+
+      val view = ImageView(parent.context)
+      view.layoutParams = params
+      view.scaleType = CENTER_INSIDE
+
+      return ReviewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ReviewHolder, position: Int) {
+      holder.bind(reviews[position])
+    }
+
+    override fun getItemCount(): Int {
+      return reviews.size
+    }
+  }
 }

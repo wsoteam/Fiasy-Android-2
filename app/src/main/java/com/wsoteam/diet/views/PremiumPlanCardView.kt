@@ -18,7 +18,8 @@ import com.wsoteam.diet.R
 import com.wsoteam.diet.utils.dp
 import com.wsoteam.diet.utils.getVectorIcon
 
-class PremiumPlanCardView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null)
+open class PremiumPlanCardView @JvmOverloads constructor(context: Context,
+  attrs: AttributeSet? = null)
   : CardView(context, attrs) {
 
   private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -32,9 +33,12 @@ class PremiumPlanCardView @JvmOverloads constructor(context: Context, attrs: Att
   val helper by lazy { findViewById<TextView>(R.id.helper) }
   val helper2 by lazy { findViewById<TextView>(R.id.helper2) }
 
+  protected open val mergeLayoutId: Int = R.layout.view_premium_plan_card
+  protected open val useOldLayout: Boolean = false
+
   init {
     if (!isInEditMode) {
-      View.inflate(context, R.layout.view_premium_plan_card, this)
+      View.inflate(context, mergeLayoutId, this)
     }
 
     setWillNotDraw(false)
@@ -68,6 +72,10 @@ class PremiumPlanCardView @JvmOverloads constructor(context: Context, attrs: Att
   override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
     super.onLayout(changed, left, top, right, bottom)
 
+    if (useOldLayout) {
+      return
+    }
+
     val w = diamondStyle.measuredWidth
     val pW = (diamondStyle.parent as View).measuredWidth
     val container = (pW) - (price.parent as View).measuredWidth
@@ -81,14 +89,14 @@ class PremiumPlanCardView @JvmOverloads constructor(context: Context, attrs: Att
     )
   }
 
-  fun setDiamondStyle(drawableId: Int){
+  fun setDiamondStyle(drawableId: Int) {
     diamondStyle.setImageDrawable(context.getVectorIcon(drawableId))
   }
 
   fun setDarkAppearance(showDarkAppearance: Boolean) {
     val color = if (showDarkAppearance) Color.WHITE else Color.BLACK
 
-    arrayOf(helper, helper2, duration, price).forEach {label ->
+    arrayOf(helper, helper2, duration, price).forEach { label ->
       label.setTextColor(color)
     }
   }
