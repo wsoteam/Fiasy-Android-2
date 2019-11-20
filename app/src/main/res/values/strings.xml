@@ -150,7 +150,7 @@
     <string name="tvMG">mg</string>
     <string name="tvKkal">kcal</string>
     <string name="tvKkal0">0 kcal</string>
-    <string name="btnRecipeDiary">Add to journal</string>
+    <string name="btnRecipeDiary">Add to diary</string>
     <string name="btnRecipePrem">Upgrade to Premium</string>
     <string name="tvRecipePrem">Get a Premium subscription, and you\'ll \n
                                 get recipes \n
@@ -220,7 +220,7 @@
     <string name="constraint_error_passwords_must_match">The passwords must match</string>
     <string name="constraint_error_user_profile_name_min_length">Минимальная длина логина 3 символов</string>
     <string name="auth_user_set_weak_password">The password is too weak: add more characters</string>
-    <string name="personal_diary">Creating your personalized diet journal</string>
+    <string name="personal_diary">Creating your personalized diet diary</string>
     <string name="update_message">A new version of the app has been released!  \nUpdate the app on Google Play</string>
     <string name="go_update">Update</string>
     <string name="update_title">Update!</string>
@@ -1167,7 +1167,7 @@ Share your accomplishments with friends:</string>
     <string name="timer_minutes_left">minutes</string>
 
     <string name="subscription_not_found">Подписка не найдена, возможно она не доступна в вашей стране</string>
-    <string name="be_better_with_premium">Become better Premium</string>
+    <string name="be_better_with_premium">Become better with Premium</string>
 
 
     <string name="addingRecipeText">The recipe you create will be saved in this section</string>
@@ -1337,5 +1337,7 @@ Share your accomplishments with friends:</string>
 
     <string name="daily_rate_2">Daily rate =</string>
     <string name="my_plan">My diet plan</string>
+
+    <string name="question_name_title">Давайте знакомиться.\nКак вас зовут?</string>
 
 </resources>
