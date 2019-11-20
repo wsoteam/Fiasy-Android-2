@@ -166,8 +166,8 @@ class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
       }
 
       if (currentDate.before(startDay.time)) {
-//        notActivePlan()
-        hideAll()
+        notActivePlan()
+//        hideAll()
         return
       }
 
@@ -184,8 +184,8 @@ class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
       hideAll()
       return
     } else {
-      notActivePlan()
-//      hideAll()
+//      notActivePlan()
+      hideAll()
     }
   }
 
