@@ -72,7 +72,7 @@ public class ClaimAlert {
                         && edtClaim.getText().toString().replaceAll("\\s+", " ").length() > MIN) {
                     WorkWithFirebaseDB.sendClaim(fillClaim(food, edtClaim.getText().toString()));
                     Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_BUGSEND);
-                    Toast.makeText(context, "Жалоба отправлена. Спасибо!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getResources().getString(R.string.srch_claim_send_fin), Toast.LENGTH_SHORT).show();
                     alertDialog.cancel();
                 }
             }

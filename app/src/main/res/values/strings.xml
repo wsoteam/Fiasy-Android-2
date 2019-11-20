@@ -1264,6 +1264,7 @@ Share your accomplishments with friends:</string>
     <string name="srch_kcal">kcal</string>
     <string name="srch_create_user_food">Create product</string>
     <string name="srch_mg">mg</string>
+    <string name="srch_claim_send_fin">Complaint sent. Thanks!</string>
 
     <string-array name="srch_eat_list">
         <item>Breakfast</item>
@@ -1335,4 +1336,5 @@ Share your accomplishments with friends:</string>
     <string name="from">from</string>
 
     <string name="daily_rate_2">Daily rate =</string>
+
 </resources>

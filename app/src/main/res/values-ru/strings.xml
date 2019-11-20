@@ -1122,6 +1122,8 @@
   <string name="srch_kcal">ккал</string>
   <string name="srch_create_user_food">Создать продукт</string>
   <string name="srch_mg">мг</string>
+  <string name="srch_claim_send_fin">Жалоба отправлена. Спасибо!</string>
+
 
   <string-array name="srch_eat_list">
     <item>Завтрак</item>
