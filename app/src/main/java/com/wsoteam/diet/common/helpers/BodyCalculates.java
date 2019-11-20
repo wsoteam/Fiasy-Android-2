@@ -3,6 +3,7 @@ package com.wsoteam.diet.common.helpers;
 import android.content.Context;
 import android.util.Log;
 
+import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.Const;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.Profile;
@@ -290,6 +291,71 @@ public class BodyCalculates {
             profile.setWeight(weight);
         }
         WorkWithFirebaseDB.putProfileValue(profile);
+    }
+
+    public static void handleProfile() {
+        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null){
+            if (isProfileOld()){
+                makeProfileDigital();
+            }
+        }
+    }
+
+    private static void makeProfileDigital() {
+        Profile profile = UserDataHolder.getUserData().getProfile();
+        Context context = App.getInstance();
+
+        String stressLevel = profile.getExerciseStress();
+        String difficultyLevel = profile.getDifficultyLevel();
+
+        if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_none))) {
+            profile.setExerciseStress(Config.EMPTY_FIELD);
+            profile.setGoLevel(Config.FIRST_LEVEL);
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_easy))) {
+            profile.setExerciseStress(Config.EMPTY_FIELD);
+            profile.setGoLevel(Config.SECOND_LEVEL);
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_medium))) {
+            profile.setExerciseStress(Config.EMPTY_FIELD);
+            profile.setGoLevel(Config.THIRD_LEVEL);
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_hard))) {
+            profile.setExerciseStress(Config.EMPTY_FIELD);
+            profile.setGoLevel(Config.FOURTH_LEVEL);
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_hard))) {
+            profile.setExerciseStress(Config.EMPTY_FIELD);
+            profile.setGoLevel(Config.FIFTH_LEVEL);
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_super))) {
+            profile.setExerciseStress(Config.EMPTY_FIELD);
+            profile.setGoLevel(Config.SIXTH_LEVEL);
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_super))) {
+            profile.setExerciseStress(Config.EMPTY_FIELD);
+            profile.setGoLevel(Config.SEVENTH_LEVEL);
+        }
+
+
+        if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_easy))) {
+            profile.setDifficultyLevel(Config.EMPTY_FIELD);
+            profile.setGoal(Config.FIRST_GOAL);
+        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_normal))) {
+            profile.setDifficultyLevel(Config.EMPTY_FIELD);
+            profile.setGoal(Config.SECOND_GOAL);
+        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard))) {
+            profile.setDifficultyLevel(Config.EMPTY_FIELD);
+            profile.setGoal(Config.THIRD_GOAL);
+        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard_up))) {
+            profile.setDifficultyLevel(Config.EMPTY_FIELD);
+            profile.setGoal(Config.FOURTH_GOAL);
+        }
+
+        UserDataHolder.getUserData().setProfile(profile);
+        WorkWithFirebaseDB.putProfileValue(profile);
+    }
+
+    private static boolean isProfileOld() {
+        boolean isProfileOld = false;
+        if (!UserDataHolder.getUserData().getProfile().getExerciseStress().equals(Config.EMPTY_FIELD) && !UserDataHolder.getUserData().getProfile().getDifficultyLevel().equals(Config.EMPTY_FIELD)){
+            isProfileOld = true;
+        }
+        return isProfileOld;
     }
 
 }
