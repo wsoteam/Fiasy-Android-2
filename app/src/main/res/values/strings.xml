@@ -1200,7 +1200,7 @@ Share your accomplishments with friends:</string>
     <string name="blocked_recipe_txt">Buy premium and get access to all recipies</string>
     <string name="blocked_plan_txt">Buy premium and get access to diet plans created by certified nutritionists</string>
 
-    <string name="srch_search_field">Search product database</string>
+    <string name="srch_search_field">Search product in database</string>
     <string name="srch_empty_search_title">No results found</string>
     <string name="srch_text_empty">Try again or create \nyour product</string>
     <string name="srch_ml">ml</string>
