@@ -40,6 +40,7 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView, 
   @BindView(R.id.undoCard) CardView undoCard;
   @BindView(R.id.cancel) TextView cancel;
   @BindView(R.id.cvBasket) CardView cvBasket;
+  @BindView(R.id.tvAddToBasket) TextView tvAddToBasket;
   private BasketPresenter presenter;
   private BasketAdapter adapter;
   private Animation hide, show, finalSave;
@@ -174,6 +175,7 @@ public class BasketActivity extends MvpAppCompatActivity implements BasketView, 
         adapter.cancelRemove();
         break;
       case R.id.tvAddToBasket:
+        tvAddToBasket.setEnabled(false);
         deleteContinueMark();
         adapter.saveFood(getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
         runCountdown();

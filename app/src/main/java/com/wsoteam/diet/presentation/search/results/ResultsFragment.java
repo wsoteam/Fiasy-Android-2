@@ -61,6 +61,8 @@ import com.wsoteam.diet.presentation.search.results.controllers.ResultAdapter;
 import com.wsoteam.diet.presentation.search.results.controllers.suggestions.ISuggest;
 import com.wsoteam.diet.presentation.search.results.controllers.suggestions.SuggestAdapter;
 
+import org.w3c.dom.Text;
+
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -90,6 +92,8 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     TextView tvCounter;
     @BindView(R.id.cvBasket)
     CardView cvBasket;
+    @BindView(R.id.tvAddToBasket)
+    TextView tvAddToBasket;
 
     @BindView(R.id.rvSuggestionsList)
     RecyclerView rvSuggestionsList;
@@ -482,6 +486,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
                                 getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE)), Config.RC_BASKET_LIST);
                 break;
             case R.id.tvAddToBasket:
+                tvAddToBasket.setEnabled(false);
                 itemAdapter.save(getActivity().getIntent().getStringExtra(Config.INTENT_DATE_FOR_SAVE));
                 runCountdown();
                 break;
