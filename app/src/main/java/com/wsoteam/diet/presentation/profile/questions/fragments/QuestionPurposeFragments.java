@@ -15,11 +15,14 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import kotlin.collections.ArraysKt;
+
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.wsoteam.diet.Config.ONBOARD_PROFILE_PURPOSE;
 
 public class QuestionPurposeFragments extends Fragment {
   @BindView(R.id.cbLooseWeight)
@@ -79,13 +82,22 @@ public class QuestionPurposeFragments extends Fragment {
         cbSave
     };
 
+    int selected = getLastCheck();
+
     for (int i = 0; i < views.length; i++) {
       final int targetId = isFemale ? female[i] : male[i];
       final VectorDrawableCompat d = VectorDrawableCompat
           .create(r, targetId, requireContext().getTheme());
 
       views[i].setBackground(d);
+
+      if(i == selected){
+        selectedPurpose = views[i];
+        setSelectedPurposeTint(R.color.purpose_icon_selected);
+      }
     }
+
+    nextButton.setEnabled(selected >= 0);
   }
 
   public int getCheckedId() {
@@ -112,11 +124,6 @@ public class QuestionPurposeFragments extends Fragment {
       return;
     }
 
-    String difLevel = getDiffLevel(position);
-    SharedPreferences sp = getActivity().getSharedPreferences(Config.ONBOARD_PROFILE, MODE_PRIVATE);
-    SharedPreferences.Editor editor = sp.edit();
-    editor.putString(Config.ONBOARD_PROFILE_PURPOSE, difLevel);
-    editor.apply();
     ((QuestionsActivity) getActivity()).saveProfile();
   }
 
@@ -150,6 +157,12 @@ public class QuestionPurposeFragments extends Fragment {
     setSelectedPurposeTint(R.color.purpose_icon_selected);
 
     nextButton.setEnabled(getCheckedId() >= 0);
+
+    final String difLevel = getDiffLevel(getCheckedId());
+    SharedPreferences sp = getActivity().getSharedPreferences(Config.ONBOARD_PROFILE, MODE_PRIVATE);
+    SharedPreferences.Editor editor = sp.edit();
+    editor.putString(ONBOARD_PROFILE_PURPOSE, difLevel);
+    editor.apply();
   }
 
   private void setSelectedPurposeTint(int tintColor) {
@@ -159,6 +172,20 @@ public class QuestionPurposeFragments extends Fragment {
 
       selectedPurpose.invalidateDrawable(d);
     }
+  }
+
+  private int getLastCheck() {
+    final String level = getActivity().getSharedPreferences(Config.ONBOARD_PROFILE, MODE_PRIVATE)
+            .getString(ONBOARD_PROFILE_PURPOSE, null);
+
+    final String[] levels = new String[]{
+            getString(R.string.dif_level_normal),
+            getString(R.string.dif_level_hard),
+            getString(R.string.dif_level_hard_up),
+            getString(R.string.dif_level_easy)
+    };
+
+    return ArraysKt.indexOf(levels, level);
   }
 
   private String getDiffLevel(int position) {

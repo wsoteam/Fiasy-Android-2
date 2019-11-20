@@ -37,14 +37,7 @@ class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
     val root = parent.inflate(viewType, false)
 
     return when (viewType) {
-      R.layout.fragment_current_day_plan -> {
-        val container = CardView(parent.context)
-        container.radius = 1f * dp(parent.context, 16f)
-        container.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-        container.addView(root)
-
-        MealPlanWidgetKt(container)
-      }
+      R.layout.fragment_current_day_plan -> MealPlanWidgetKt(root)
       R.layout.widget_daily_calories -> DailyBurnWidget(root)
       R.layout.widget_user_weight -> UserWeightWidget(root)
       R.layout.widget_user_activities -> DiaryActivityWidget(root)
