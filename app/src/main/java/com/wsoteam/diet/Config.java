@@ -143,5 +143,23 @@ public class Config {
     public static final String PT = "pt";
 
 
+    public static final int FIRST_LEVEL = 1;
+    public static final int SECOND_LEVEL = 2;
+    public static final int THIRD_LEVEL = 3;
+    public static final int FOURTH_LEVEL = 4;
+    public static final int FIFTH_LEVEL = 5;
+    public static final int SIXTH_LEVEL = 6;
+    public static final int SEVENTH_LEVEL = 7;
+
+    public static final String EMPTY_FIELD = "";
+
+    // left to right, from top to bottom
+    public static final int FIRST_GOAL = 1;
+    public static final int SECOND_GOAL = 2;
+    public static final int THIRD_GOAL = 3;
+    public static final int FOURTH_GOAL = 4;
+
+
+
 
 }

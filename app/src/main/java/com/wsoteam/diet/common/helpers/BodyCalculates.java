@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.wsoteam.diet.BranchOfAnalyzer.Const;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.main.water.WaterActivity;
@@ -171,29 +172,51 @@ public class BodyCalculates {
 
         if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_none))) {
             KFA = RATE_NONE;
+            profile.setExerciseStress(Config.EMPTY_FIELD);
+            profile.setGoLevel(Config.FIRST_LEVEL);
         } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_easy))) {
             KFA = RATE_EASY;
+            profile.setExerciseStress(Config.EMPTY_FIELD);
+            profile.setGoLevel(Config.SECOND_LEVEL);
         } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_medium))) {
             KFA = RATE_MEDIUM;
+            profile.setExerciseStress(Config.EMPTY_FIELD);
+            profile.setGoLevel(Config.THIRD_LEVEL);
         } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_hard))) {
             KFA = RATE_HARD;
+            profile.setExerciseStress(Config.EMPTY_FIELD);
+            profile.setGoLevel(Config.FOURTH_LEVEL);
         } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_hard))) {
             KFA = RATE_UP_HARD;
+            profile.setExerciseStress(Config.EMPTY_FIELD);
+            profile.setGoLevel(Config.FIFTH_LEVEL);
         } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_super))) {
             KFA = RATE_SUPER;
+            profile.setExerciseStress(Config.EMPTY_FIELD);
+            profile.setGoLevel(Config.SIXTH_LEVEL);
         } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_super))) {
             KFA = RATE_UP_SUPER;
+            profile.setExerciseStress(Config.EMPTY_FIELD);
+            profile.setGoLevel(Config.SEVENTH_LEVEL);
         }
 
 
         if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_easy))) {
             target = 1 - TARGET_NORMAL;
+            profile.setDifficultyLevel(Config.EMPTY_FIELD);
+            profile.setGoal(Config.FIRST_GOAL);
         } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_normal))) {
             target = 1 - TARGET_LOOSE_WEIGHT;
+            profile.setDifficultyLevel(Config.EMPTY_FIELD);
+            profile.setGoal(Config.SECOND_GOAL);
         } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard))) {
             target = 1 + TARGET_MUSCLE;
+            profile.setDifficultyLevel(Config.EMPTY_FIELD);
+            profile.setGoal(Config.THIRD_GOAL);
         } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard_up))) {
             target = 1 - TARGET_SAVE;
+            profile.setDifficultyLevel(Config.EMPTY_FIELD);
+            profile.setGoal(Config.FOURTH_GOAL);
         }
 
         result = (BMR * KFA) * target;
