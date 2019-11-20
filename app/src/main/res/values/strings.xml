@@ -1350,4 +1350,9 @@ Share your accomplishments with friends:</string>
       <item quantity="other">%d дней бесплатно</item>
     </plurals>
 
+    <string name="camera">Камера</string>
+    <string name="load_photo">Загрузка фото</string>
+    <string name="where_photo">Откуда берем фото?</string>
+    <string name="phone_memory">Память телефона</string>
+
 </resources>

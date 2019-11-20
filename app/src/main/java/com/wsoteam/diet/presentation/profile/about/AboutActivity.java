@@ -171,10 +171,10 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
                     new String[]{Manifest.permission.CAMERA}, 1);
         } else {
             AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(this);
-            myAlertDialog.setTitle("Загрузка фото");
-            myAlertDialog.setMessage("Откуда берем фото?");
+            myAlertDialog.setTitle(getString(R.string.load_photo));
+            myAlertDialog.setMessage(getString(R.string.where_photo));
 
-            myAlertDialog.setPositiveButton("Память телефона",
+            myAlertDialog.setPositiveButton(getString(R.string.phone_memory),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                             Intent galleryIntent = new Intent(Intent.ACTION_PICK,
@@ -183,7 +183,7 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
                         }
                     });
 
-            myAlertDialog.setNegativeButton("Камера",
+            myAlertDialog.setNegativeButton(getString(R.string.camera),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                             Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
