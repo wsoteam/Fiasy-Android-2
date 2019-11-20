@@ -152,6 +152,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
             weight: Int,
             isLiquid: Boolean
     ) {
+        Events.logViewFood(name)
         var sizePortion = if (weight == Config.DEFAULT_WEIGHT) {
             Config.DEFAULT_PORTION
         } else {
