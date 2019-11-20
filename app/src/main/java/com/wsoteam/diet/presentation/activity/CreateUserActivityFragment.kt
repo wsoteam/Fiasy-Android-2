@@ -127,7 +127,7 @@ class CreateUserActivityFragment : DialogFragment() {
     exerciseDurationText.text = TextUtils.concat(duration, " ",
         resources.getQuantityString(R.plurals.duration_minutes, exercise.duration))
 
-    exerciseEfficiency.text = RichText("${selected.calories} " + getString(R.string.calories))
+    exerciseEfficiency.text = RichText("${selected.calories} " + getString(R.string.Calories_2))
       .underline()
       .colorRes(requireContext(), R.color.orange1)
       .text()
