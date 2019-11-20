@@ -42,6 +42,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
     lateinit var basketParams: IntArray
     var spinnerId = 0
     var isWatcherDead = true
+    var isChangedEating = false
 
     override fun hideEatSpinner() {
         spnFood.visibility = View.GONE
@@ -151,6 +152,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
             weight: Int,
             isLiquid: Boolean
     ) {
+        Events.logViewFood(name)
         var sizePortion = if (weight == Config.DEFAULT_WEIGHT) {
             Config.DEFAULT_PORTION
         } else {
@@ -282,6 +284,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
                                     isWatcherDead = true
                                     spnFood.setSelection(spinnerId)
                                 } else {
+                                    isChangedEating = true
                                     spinnerId = position
                                 }
                             })
@@ -349,6 +352,7 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
     override fun close(eating: Integer) {
         intent = Intent()
         intent.putExtra(Config.SPINER_ID, eating)
+        intent.putExtra(Config.IS_CHANGED, isChangedEating)
         setResult(Activity.RESULT_OK, intent)
         finish()
     }

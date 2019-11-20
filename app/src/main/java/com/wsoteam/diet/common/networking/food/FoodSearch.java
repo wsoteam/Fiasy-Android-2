@@ -15,8 +15,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FoodSearch {
-    //private static final String BASE_URL = "http://116.203.193.111:8000";
-    private static final String BASE_URL = "http://78.47.35.187:8000";
+    private static final String BASE_URL = "http://116.203.193.111:8000";
+    //private static final String BASE_URL = "http://78.47.35.187:8000";
     private static FoodSearch instance = new FoodSearch();
     private FoodResultAPI api;
 

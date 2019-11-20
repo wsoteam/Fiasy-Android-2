@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
 import com.wsoteam.diet.model.Breakfast;
 import com.wsoteam.diet.model.Dinner;
@@ -25,6 +27,8 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
+import static com.wsoteam.diet.common.helpers.DateAndTime.getDateType;
 
 public class FoodWork {
     public static final int BREAKFAST = 0;
@@ -75,24 +79,35 @@ public class FoodWork {
     }
 
     private static void saveItem(BasketEntity basketEntity, int day, int month, int year) {
+        String food_intake = "";
+        String food_category = EventProperties.food_category_base;
+        String food_date = getDateType(day, month, year);
+        String food_item = basketEntity.getName();
+        double kcal = basketEntity.getCalories();
+        double weight = basketEntity.getCountPortions() * basketEntity.getSizePortion();
         switch (basketEntity.getEatingType()) {
             case BREAKFAST:
+                food_intake = EventProperties.food_intake_breakfast;
                 WorkWithFirebaseDB.
                         addBreakfast(new Breakfast(basketEntity, day, month, year, 0));
                 break;
             case LUNCH:
+                food_intake = EventProperties.food_intake_lunch;
                 WorkWithFirebaseDB.
                         addLunch(new Lunch(basketEntity, day, month, year, 0));
                 break;
             case DINNER:
+                food_intake = EventProperties.food_intake_dinner;
                 WorkWithFirebaseDB.
                         addDinner(new Dinner(basketEntity, day, month, year, 0));
                 break;
             case SNACK:
+                food_intake = EventProperties.food_intake_snack;
                 WorkWithFirebaseDB.
                         addSnack(new Snack(basketEntity, day, month, year, 0));
                 break;
         }
+        Events.logAddFood(food_intake, food_category, food_date, food_item, (int) kcal, (int) weight);
     }
 
     private static void updateHistoryList(List<HistoryEntity> forSave) {
@@ -117,7 +132,7 @@ public class FoodWork {
             ArrayList<Integer> indexs = new ArrayList<>();
             List<HistoryEntity> uniqueEntities = new ArrayList<>();
             for (int i = 0; i < historyEntities.size() - 1; i++) {
-                for (int j = 1; j < historyEntities.size() - 1; j++) {
+                for (int j = i + 1; j < historyEntities.size() - 2; j++) {
                     if (historyEntities.get(i).getDeepId() == historyEntities.get(j).getDeepId() && historyEntities.get(i).getServerId() == historyEntities.get(j).getServerId()) {
                         indexs.add(j);
                     }

@@ -90,8 +90,8 @@ open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView)
 
   private fun setMax() {
     UserDataHolder.getUserData()?.profile?.let { profile ->
-      title.text = TextUtils.concat("Ежедневная норма = ",
-              ("${profile.maxKcal} " + itemView.context.getString(R.string.calories_unit)).setTextColor(itemView.context, R.color.orange))
+      title.text = TextUtils.concat(context.getString(R.string.daily_rate_2),
+              (" ${profile.maxKcal} " + itemView.context.getString(R.string.calories_unit)).setTextColor(itemView.context, R.color.orange))
 
       progressView.max = profile.maxKcal
 

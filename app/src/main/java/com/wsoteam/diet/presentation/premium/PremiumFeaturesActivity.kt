@@ -386,7 +386,8 @@ class PremiumFeaturesActivity : AppCompatActivity() {
         private val reviews = intArrayOf(
                 R.drawable.review_1,
                 R.drawable.review_2,
-                R.drawable.review_3
+                R.drawable.review_3,
+                R.drawable.review_4
         )
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewHolder {

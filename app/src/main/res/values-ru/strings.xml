@@ -1244,7 +1244,7 @@
   </plurals>
 
   <string name="widget_weight_title">Измерение тела</string>
-  <string name="widget_user_activity_show_all">All</string>
+  <string name="widget_user_activity_show_all">Все</string>
 
   <string name="user_activity_burned">%d ккал</string>
   <string name="add_user_activity_burned">= %d ккал</string>
@@ -1263,5 +1263,24 @@
   <string name="user_activity_time_elapsed_wh" formatted="false">%dч %d м</string>
   <string name="add_user_activity_duration_hint">за %s</string>
   <string name="main_screen_topbar_left">%s ккал</string>
+
+  <string name="widget_user_activity_title">Активности</string>
+
+  <string name="blocked_recipe_title">Множество полезных рецептов на любой вкус и для любых целей</string>
+  <string name="blocked_recipe_title_2">Легкие в приготовлении и состоящие из простых доступных игредиентов</string>
+  <string name="blocked_recipe_txt">Оформи подписку и получи доступ ко всей базе рецептов</string>
+  <string name="blocked_plan_txt">Оформи подписку и получи доступ к специально подобранным для Вас и проверенным планам питания</string>
+
+  <string name="added_favorite">Добавлено в избранное</string>
+  <string name="add_fail">Не удалось добавить</string>
+  <string name="edit_activity">Редактировать активность</string>
+  <string name="create_activity">Создать Активность</string>
+
+  <string name="meas_without_meas">Не изменялось с момента регистрации</string>
+  <string name="daily_rate_2">Ежедневная норма =</string>
+
+  <string name="from">из</string>
+  <string name="premium_client_says_about_us">ДОВОЛЬНЫЕ КЛИЕНТЫ</string>
+  <string name="meas_prefix">Вы заносили вес</string>
 
 </resources>
