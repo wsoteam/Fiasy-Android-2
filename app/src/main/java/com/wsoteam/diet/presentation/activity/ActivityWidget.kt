@@ -50,7 +50,7 @@ class ActivityWidget(context: Context) : CardView(context) {
       .onClick(OnClickListener {
         display(UserActivityFragment())
       })
-      .colorRes(context, R.color.orange)
+      .colorRes(context, R.color.orange_light3)
       .textScale(1.2f)
       .text()
 
@@ -61,7 +61,7 @@ class ActivityWidget(context: Context) : CardView(context) {
 
     actionShowAll = findViewById(R.id.action_show_all)
     actionShowAll.setCompoundDrawablesWithIntrinsicBounds(null, null,
-        d.tint(context, R.color.orange), null)
+        d.tint(context, R.color.orange_light3), null)
 
     actionShowAll.setOnClickListener {
       display(UserActivityFragment())
