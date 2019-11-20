@@ -133,6 +133,7 @@ public class Config {
     public static final String DEFAULT_CUSTOM_NAME = "DEFAULT_CUSTOM_NAME";
     public static final int EMPTY_COUNT = -1;
     public static final String SPINER_ID = "SPINER_ID";
+    public static final String IS_CHANGED = "IS_CHANGED_EATING_ID_INSIDE_DETAIL";
     public static final int EMPTY_BASKET = 0;
     public static final String BASKET_PARAMS = "BASKET_PARAMS";
     public static final String EN = "en";
