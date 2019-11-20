@@ -18,6 +18,9 @@ public interface FoodResultAPI {
     @GET("/api/v1/search/")
     Observable<FoodResult> search(@Query("search") String search, @Query("page") int page);
 
+    @GET("/api/v1/search/")
+    Observable<FoodResult> searchNoBrand(@Query("search") String search , @Query("page") int page);
+
     @GET("/api/v1/en/search/")
     Observable<FoodResult> searchEn(@Query("search") String search, @Query("page") int page);
 

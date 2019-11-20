@@ -46,6 +46,7 @@ import com.wsoteam.diet.common.networking.food.FoodResultAPI;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
+import com.wsoteam.diet.common.networking.food.POJO.FoodResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 import com.wsoteam.diet.common.networking.food.suggest.Suggest;
 import com.wsoteam.diet.presentation.search.ParentActivity;
@@ -76,6 +77,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class ResultsFragment extends MvpAppCompatFragment implements ResultsView {
+    private final String EMPTY_BRAND = "null";
+
     ResultsPresenter presenter;
     Unbinder unbinder;
     @BindView(R.id.rvBlocks)
@@ -363,6 +366,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
             case Config.EN:
                 foodResultAPI
                         .searchEn(searchString, 1)
+                        .map(foodResult -> dropBrands(foodResult))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(t -> refreshAdapter(toISearchResult(t.getResults()), searchString),
@@ -371,6 +375,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
             case Config.RU:
                 foodResultAPI
                         .search(searchString, 1)
+                        .map(foodResult -> dropBrands(foodResult))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(t -> refreshAdapter(toISearchResult(t.getResults()), searchString),
@@ -401,6 +406,19 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
                                 Throwable::printStackTrace);
                 break;
         }
+    }
+
+    private FoodResult dropBrands(FoodResult foodResult) {
+        for (int i = 0; i < foodResult.getResults().size(); i++) {
+            try {
+                if (foodResult.getResults().get(i).getBrand().getName().equalsIgnoreCase(EMPTY_BRAND)) {
+                    foodResult.getResults().get(i).getBrand().setName("");
+                }
+            } catch (Exception e) {
+                Log.e("LOL", e.getMessage());
+            }
+        }
+        return foodResult;
     }
 
     private List<ISearchResult> toISearchResult(List<Result> results) {
