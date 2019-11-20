@@ -3,6 +3,7 @@ package com.wsoteam.diet.presentation.plans.browse;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,15 +95,20 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
     private List<DietsList> prepareList(){
 
         List<DietsList> listGroups = DietPlansHolder.get().getListGroups();
-        if (listGroups.get(0).getProperties().equals(currentPlanProperti)){
-            listGroups.remove(0);
+        try {
+            if (listGroups.get(0).getProperties().equals(currentPlanProperti)) {
+                listGroups.remove(0);
+            }
+        } catch (NullPointerException e){
+            Log.d("TAG", "com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment \n" +
+                    "private List<DietsList> prepareList()", e);
         }
 
 
         if (UserDataHolder.getUserData().getPlan() != null && UserDataHolder.getUserData().getPlan().getDaysAfterStart() <
                 UserDataHolder.getUserData().getPlan().getCountDays()) {
             DietsList dietsList = new DietsList();
-            dietsList.setName("Мой план питания");
+            dietsList.setName(getString(R.string.my_plan));
             dietsList.setProperties(currentPlanProperti);
             List<DietPlan> plan = new LinkedList<>();
             plan.add(UserDataHolder.getUserData().getPlan());

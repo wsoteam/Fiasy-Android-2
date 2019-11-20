@@ -982,7 +982,7 @@
   <string name="art_series_author_title">Эксклюзивные статьи от профессионального диетолога!</string>
   <string name="art_series_author_burlakov">Александр Бурлаков</string>
   <string name="art_series_author_burlakov_bio">Спортивный врач-диетолог, окончил Кубанский государственный медицинский университет. Основатель образовательного центра Bodycoach school, ведет блог о здоровом образе жизни основываясь на доказательной медицине.</string>
-  <string name="art_series_author_burlakov_bio_short">Врач-диетолог. Эксперт в доказательной диетологии. </string>
+  <string name="art_series_author_burlakov_bio_short">Спортивный врач-диетолог</string>
   <string name="art_series_author_burlakov_achiv1">18.8 тыс. подписчиков в Instagram</string>
   <string name="art_series_author_burlakov_achiv2">Доказательная медицина</string>
   <string name="art_series_author_burlakov_achiv3">Подготовка спортсменов UFC, ACA, RCC</string>
@@ -1284,5 +1284,7 @@
   <string name="from">из</string>
   <string name="premium_client_says_about_us">ДОВОЛЬНЫЕ КЛИЕНТЫ</string>
   <string name="meas_prefix">Вы заносили вес</string>
+
+  <string name="my_plan">Мой план питания</string>
 
 </resources>

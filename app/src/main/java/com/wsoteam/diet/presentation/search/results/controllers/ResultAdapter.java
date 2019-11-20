@@ -195,7 +195,9 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                             @Override
                             public void open(int position) {
-                                openDetailActivity((BasketEntity) foods.get(position));
+                                BasketEntity basketEntity = (BasketEntity) foods.get(position);
+                                basketEntity.setEatingType(basketUpdater.getCurrentEating());
+                                openDetailActivity(basketEntity);
                             }
                         });
                 break;

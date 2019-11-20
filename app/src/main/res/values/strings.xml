@@ -150,7 +150,7 @@
     <string name="tvMG">mg</string>
     <string name="tvKkal">kcal</string>
     <string name="tvKkal0">0 kcal</string>
-    <string name="btnRecipeDiary">Add to journal</string>
+    <string name="btnRecipeDiary">Add to diary</string>
     <string name="btnRecipePrem">Upgrade to Premium</string>
     <string name="tvRecipePrem">Get a Premium subscription, and you\'ll \n
                                 get recipes \n
@@ -220,7 +220,7 @@
     <string name="constraint_error_passwords_must_match">The passwords must match</string>
     <string name="constraint_error_user_profile_name_min_length">Минимальная длина логина 3 символов</string>
     <string name="auth_user_set_weak_password">The password is too weak: add more characters</string>
-    <string name="personal_diary">Creating your personalized diet journal</string>
+    <string name="personal_diary">Creating your personalized diet diary</string>
     <string name="update_message">A new version of the app has been released!  \nUpdate the app on Google Play</string>
     <string name="go_update">Update</string>
     <string name="update_title">Update!</string>
@@ -1002,6 +1002,7 @@ Share your accomplishments with friends:</string>
   <string name="art_series_author_title">Exclusive articles from a professional nutritionist!</string>
   <string name="art_series_author_burlakov">Alexander Burlakov</string>
   <string name="art_series_author_burlakov_bio">A sports medicine doctor and nutritionist, Dr. Burlakov graduated from Kuban State Medical University. He is the founder of the Bodycoach School and runs a wellness blog based on medical science.</string>
+    <string name="art_series_author_burlakov_bio_short">A sports medicine doctor and nutritionist</string>
   <string name="art_series_author_burlakov_achiv1">18,800 followers on Instagram</string>
   <string name="art_series_author_burlakov_achiv2">Medical science</string>
   <string name="art_series_author_burlakov_achiv3">Has trained UFC, ACA, and RCC athletes</string>
@@ -1009,7 +1010,7 @@ Share your accomplishments with friends:</string>
   <string name="art_series_series_title">Eight articles for an easy start!</string>
   <string name="art_series_series_info">You need to complete the previous day before you can go to the next one</string>
   <string name="day">Day %d</string>
-  <string name="art_series_author_burlakov_bio_short">Врач-диетолог. Эксперт в доказательной диетологии. </string>
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1167,7 +1168,7 @@ Share your accomplishments with friends:</string>
     <string name="timer_minutes_left">minutes</string>
 
     <string name="subscription_not_found">Подписка не найдена, возможно она не доступна в вашей стране</string>
-    <string name="be_better_with_premium">Become better Premium</string>
+    <string name="be_better_with_premium">Become better with Premium</string>
 
 
     <string name="addingRecipeText">The recipe you create will be saved in this section</string>
@@ -1199,7 +1200,7 @@ Share your accomplishments with friends:</string>
     <string name="blocked_recipe_txt">Buy premium and get access to all recipies</string>
     <string name="blocked_plan_txt">Buy premium and get access to diet plans created by certified nutritionists</string>
 
-    <string name="srch_search_field">Search product database</string>
+    <string name="srch_search_field">Search product in database</string>
     <string name="srch_empty_search_title">No results found</string>
     <string name="srch_text_empty">Try again or create \nyour product</string>
     <string name="srch_ml">ml</string>
@@ -1336,6 +1337,9 @@ Share your accomplishments with friends:</string>
     <string name="from">from</string>
 
     <string name="daily_rate_2">Daily rate =</string>
+    <string name="my_plan">My diet plan</string>
+
+    <string name="question_name_title">Давайте знакомиться.\nКак вас зовут?</string>
 
     <string name="subscription_detailed">Подписка на %s %s</string>
 

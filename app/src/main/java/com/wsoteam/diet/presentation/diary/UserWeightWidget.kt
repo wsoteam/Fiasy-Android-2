@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.diary
 
 import android.content.Intent
 import android.content.res.Resources
+import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.TextView
@@ -14,6 +15,8 @@ import com.wsoteam.diet.common.helpers.DateAndTime
 import com.wsoteam.diet.presentation.measurment.MeasurmentActivity
 import java.util.*
 import androidx.lifecycle.Observer
+import com.google.android.gms.common.data.DataHolder
+import java.lang.Exception
 
 
 class UserWeightWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView), OnClickListener {
@@ -28,7 +31,7 @@ class UserWeightWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView), On
     }
 
     private val weightObserver = Observer<Int> { id ->
-        if ((id ?: -1) == WorkWithFirebaseDB.WEIGHT_UPDATED) {
+        if ((id ?: -1) == WorkWithFirebaseDB.WEIGHT_UPDATED ) {
             getWeightHistory()
         }
     }
@@ -60,24 +63,28 @@ class UserWeightWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView), On
     private fun getWeightHistory() {
         val keys: ArrayList<String>
         val values: ArrayList<String>
-        if (UserDataHolder.getUserData().profile != null && UserDataHolder.getUserData().weights != null && UserDataHolder.getUserData().weights.size > 0) {
-            val weightHashMap = UserDataHolder.getUserData().weights
-            keys = ArrayList()
-            val iterator = weightHashMap.entries.iterator()
-            while (iterator.hasNext()) {
-                val pair = iterator.next()
-                keys.add(pair.key as String)
-            }
-            Collections.sort(keys)
+        try {
+            if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null && UserDataHolder.getUserData().weights != null && UserDataHolder.getUserData().weights.size > 0) {
+                val weightHashMap = UserDataHolder.getUserData().weights
+                keys = ArrayList()
+                val iterator = weightHashMap.entries.iterator()
+                while (iterator.hasNext()) {
+                    val pair = iterator.next()
+                    keys.add(pair.key as String)
+                }
+                Collections.sort(keys)
 
-            values = ArrayList()
-            for (i in keys.indices) {
-                values.add(weightHashMap[keys[i]]!!.weight.toString())
+                values = ArrayList()
+                for (i in keys.indices) {
+                    values.add(weightHashMap[keys[i]]!!.weight.toString())
+                }
+                updatedLabel.text = App.getContext().resources.getString(R.string.meas_prefix) + " " + getTimeDiff(keys.last())
+                weightLabel.text = values[values.size - 1] + " " + App.getContext().resources.getString(R.string.weight_unit)
+            } else {
+                weightLabel.text = UserDataHolder.getUserData().profile.weight.toString() + " " + App.getContext().resources.getString(R.string.weight_unit)
             }
-            updatedLabel.text = App.getContext().resources.getString(R.string.meas_prefix) + " " + getTimeDiff(keys.last())
-            weightLabel.text = values[values.size - 1] + " " + App.getContext().resources.getString(R.string.weight_unit)
-        } else {
-            weightLabel.text = UserDataHolder.getUserData().profile.weight.toString() + " " + App.getContext().resources.getString(R.string.weight_unit)
+        }catch (e: Exception){
+            Log.e("LOL", "Profile is null")
         }
 
     }
