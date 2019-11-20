@@ -292,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
             break;
         }
         default:{
-            myRef = database.getReference("EN/recipes");
+            myRef = database.getReference("EN/plans");
         }
     }
 

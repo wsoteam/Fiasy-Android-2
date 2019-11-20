@@ -102,7 +102,7 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
         if (UserDataHolder.getUserData().getPlan() != null && UserDataHolder.getUserData().getPlan().getDaysAfterStart() <
                 UserDataHolder.getUserData().getPlan().getCountDays()) {
             DietsList dietsList = new DietsList();
-            dietsList.setName("Мой план питания");
+            dietsList.setName(getString(R.string.my_plan));
             dietsList.setProperties(currentPlanProperti);
             List<DietPlan> plan = new LinkedList<>();
             plan.add(UserDataHolder.getUserData().getPlan());
