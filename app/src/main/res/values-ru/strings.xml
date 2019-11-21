@@ -592,7 +592,6 @@
   <string name="personal_diary">Создаём ваш персональный дневник питания</string>
   <string name="update_message">Вышла новая версия приложения!  \nОбновите приложение в Google Play</string>
   <string name="go_update">Обновить</string>
-  <string name="action_refresh">Обновить</string>
   <string name="update_title">Обновление!</string>
   <string name="eating_trigger">Питание</string>
   <string name="enter_multi_params">Введите данные</string>
@@ -910,12 +909,7 @@
     <item>Вы добавили в Перекус:</item>
   </string-array>
 
-  <string-array name="srch_names_sections">
-    <item>Избранное</item>
-    <item>Шаблоны</item>
-    <item>Мои блюда</item>
-    <item>Мои продукты</item>
-  </string-array>
+
 
 
 
@@ -1017,7 +1011,6 @@
   </plurals>
 
   <string name="widget_weight_title">Измерение тела</string>
-  <string name="widget_user_activity_show_all">Все</string>
 
   <string name="user_activity_burned">%d ккал</string>
   <string name="add_user_activity_burned">= %d ккал</string>
@@ -1038,6 +1031,7 @@
   <string name="main_screen_topbar_left">%s ккал</string>
 
   <string name="widget_user_activity_title">Активности</string>
+
 
   <string name="blocked_recipe_title">Множество полезных рецептов на любой вкус и для любых целей</string>
   <string name="blocked_recipe_title_2">Легкие в приготовлении и состоящие из простых доступных игредиентов</string>

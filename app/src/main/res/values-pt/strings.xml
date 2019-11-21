@@ -37,7 +37,12 @@
     <string name="user_activity_section_defaults">Atividades padrão</string>
     <string name="user_activity_time_elapsed">%d minutos</string>
     <string name="add_user_activity_duration_hint">para %s</string>
-
+    <string name="widget_user_activity_title">Atividades</string>
+    <string name="getAccess">Obtenha acesso </string>
+    <string name="tvItemPlanTime">Tempo de cozimento:</string>
+    <string name="main_screen_topbar_fat">Gordura</string>
+    <string name="tvSaturatedFats">Saturada</string>
+    <string name="tvUnSaturatedFats">Insaturada</string>
     <string name="premium_features_comparison">TUDO É MAIS FÁCIL COM</string>
     <string name="subscriptions_list_title">Desbloquear mais opções\n</string>
     <string name="action_buy">Comprar</string>

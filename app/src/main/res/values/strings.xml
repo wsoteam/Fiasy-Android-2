@@ -771,6 +771,10 @@ Share your accomplishments with friends:</string>
     <string name="section_train">Training</string>
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
   <string name="tvItemPlanTime">Cooking time:</string>
   <string name="tvSaturatedFats">Saturated</string>
   <string name="tvUnSaturatedFats">Unsaturated</string>
@@ -826,9 +830,8 @@ Share your accomplishments with friends:</string>
 
     <string name="add_user_activity_hint">Enter a name for the Activities</string>
     <string name="widget_user_activity_title">Activities</string>
-    <string name="widget_user_activity_show_all">All</string>
     <string name="widget_weight_title">Body measurements</string>
-    <string name="action_refresh">Update</string>
+
 
 
 
@@ -970,6 +973,7 @@ Share your accomplishments with friends:</string>
     <string name="alert_rating_txt">Пожалуйста, оцените наше приложение! Каждый отзыв делает его лучше!</string>
 
 
+
     <string name="getAccess">Get  access </string>
     <string name="blocked_recipe_title">Healthy recipies for each day and for different tastes</string>
     <string name="blocked_recipe_title_2">Easy to cook, affordable ingredients</string>
@@ -1052,12 +1056,7 @@ Share your accomplishments with friends:</string>
         <item>You added to the snack:</item>
     </string-array>
 
-    <string-array name="srch_names_sections">
-        <item>Favorites</item>
-        <item>Patterns</item>
-        <item>My dishes</item>
-        <item>My products</item>
-    </string-array>
+
 
 
 

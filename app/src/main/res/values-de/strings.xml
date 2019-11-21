@@ -199,7 +199,12 @@
     <string name="user_activity_section_defaults">Standardaktivitäten</string>
     <string name="user_activity_time_elapsed">%d Minuten</string>
     <string name="add_user_activity_duration_hint">für %s</string>
+    <string name="getAccess">Erhalten Sie  Zugang </string>
+    <string name="tvItemPlanTime">Kochzeit:</string>
+    <string name="main_screen_topbar_fat">Fett</string>
 
+    <string name="tvSaturatedFats">Gesättigte</string>
+    <string name="tvUnSaturatedFats">Ungesättigte</string>
     <string name="main_screen_topbar_left">%s kcal</string>
     <string name="user_activity_section_my">Meine Aktivitäten</string>
     <string name="daily_widget_calories_left">Verbleibend</string>

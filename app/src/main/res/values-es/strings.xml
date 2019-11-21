@@ -20,7 +20,13 @@
     <string name="user_activity_section_defaults">Actividades estándares</string>
     <string name="user_activity_time_elapsed">%d minutos</string>
     <string name="add_user_activity_duration_hint">para %s</string>
+    <string name="getAccess">Obtenga acceso </string>
+    <string name="tvItemPlanTime">Tiempo de cocinado:</string>
+    <string name="main_screen_topbar_fat">Grasa</string>
 
+
+    <string name="tvSaturatedFats">Saturada</string>
+    <string name="tvUnSaturatedFats">Nosaturada</string>
     <string name="main_screen_topbar_left">%s kcal</string>
     <string name="phone_memory">Memoria del telefono</string>
     <string name="daily_rate_2">Cálculo diario =</string>
