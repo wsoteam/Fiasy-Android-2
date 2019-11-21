@@ -1,6 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
+    <string name="today">hoje</string>
+
+    <string name="premium_feature_exclusive_articles">Artigos exclusivos</string>
+    <string name="premium_feature_exclusive_articles_description">Você obterá acesso a artigos de um famoso nutricionista e instrutor fitness</string>
+    <string name="premium_feature_exclusive_recipes">Banco de dados de receitas</string>
+    <string name="premium_feature_exclusive_recipes_description">Receitas deliciosas, fáceis de preparar, acessíveis e com dados de CPFC</string>
+    <string name="premium_feature_personal_settings">Configurações personalizadas</string>
+    <string name="premium_feature_personal_settings_description">Veja e ajuste seu nível de CPFC</string>
+    <string name="premium_feature_exclusive_plans">Planos de refeições</string>
+    <string name="premium_feature_exclusive_plans_description">Planos de refeições prontas para todos os gostos e objetivos</string>
+    <string name="premium_feature_measurements">Medidas do corpo</string>
+    <string name="premium_feature_measurements_description">Acompanhe seu progresso com uma análise detalhada de medição corporal</string>
+
+    <string name="premium_feature_title">Perca peso\n sem estresse ou dietas rigorosas com\n</string>
+    <string name="premium_subscription_card_benefits">Vantagens\n%d</string>
+
+    <string name="premium_features_comparison">TUDO É MAIS FÁCIL COM</string>
+    <string name="subscriptions_list_title">Desbloquear mais opções\n</string>
+    <string name="action_buy">Comprar</string>
+
+    <string name="black_prem_features_diary">Diário de nutrição e exercícios</string>
+    <string name="black_prem_features_elements">Acompanhamento de macronutrientes</string>
+    <string name="black_prem_features_recipe">Receitas</string>
+    <string name="black_prem_features_articles">Artigos exclusivos de um nutricionista</string>
+    <string name="black_prem_features_plans">Planos de refeições</string>
+    <string name="black_prem_features_statistic">Todas as estatísticas</string>
+    <string name="black_prem_features_body">Acompanhamento da morfologia corporal</string>
+
+    <string name="premium_subscription_1_year">1 ano</string>
+    <string name="premium_subscription_6_month">6 meses</string>
+    <string name="premium_subscription_3_month">3 meses</string>
+    <string name="premium_subscription_per_month">%s/mês</string>
+
+    <string name="timer_days_left">dias</string>
+    <string name="timer_hours_left">horas</string>
+    <string name="timer_seconds_left">segundos</string>
+    <string name="timer_minutes_left">minutos</string>
+    <string name="premium_black_friday_days_remained_hint">A oferta especial terminará em</string>
+
+    <string-array name="names_months_meas">
+        <item>Janeiro</item>
+        <item>Fevereiro</item>
+        <item>Março</item>
+        <item>Abril</item>
+        <item>Maio</item>
+        <item>Junho</item>
+        <item>Julho</item>
+        <item>Agosto</item>
+        <item>Setembro</item>
+        <item>Outubro</item>
+        <item>Novembro</item>
+        <item>Dezembro</item>
+    </string-array>
+    <plurals name="meas_days_ago">
+        <item quantity="one">%d dia atrás</item>
+        <item quantity="other">%d dias atrás</item>
+    </plurals>
+<!--    <string name="enter_multi_params">Informe os dados</string>-->
+    <string name="measurments">Medidas do corpo</string>
+    <string name="medium_weight">peso médio da semana</string>
+    <string name="meas_title_bottom">Medidas (cm)</string>
+    <string name="propose_enter_data">Você ainda não informou nenhum dado</string>
+    <string name="meas_chest">Peito</string>
+    <string name="meas_add_meas">Adicionar</string>
+    <string name="meas_waist">Cintura</string>
+    <string name="meas_hips">Quadril</string>
+    <string name="meas_prem">premium</string>
+    <string name="meas_last_refresh">Última atualização:</string>
+    <string name="meas_last_refresh_today">hoje</string>
+    <string name="meas_history_title">Histórico de medidas</string>
+    <string name="meas_update_weight">Peso atual atualizado</string>
+    <string name="meas_waist_tap">Cintura</string>
+    <string name="meas_chest_tap">Peito</string>
+    <string name="meas_hips_tap">Quadril</string>
+    <string name="meas_empty_history">Você ainda não inseriu suas informações</string>
+    <string name="meas_alert_cancel">cancelar</string>
+    <string name="meas_toast_update">Peso atual \natualizado</string>
+    <string name="meas_future_day">Este dia ainda não \nchegou</string>
+    <string name="meas_info_toast">Saiba mais sobre o\npeso médio \n</string>
+    <string name="open_meas_info"><u>Mais</u></string>
+    <string name="meas_help">Ajuda</string>
+    <string name="help_meas_first_title">Informações sobre o cálculo do peso médio da \nsemana</string>
+    <string name="help_meas_first_text">Se você se pesar todos os dias e inserir as informações na seção \"Medidas do corpo\" em seu diário, o programa calculará automaticamente seu peso médio da semana.</string>
+    <string name="help_meas_second_title">Por que isso é importante?</string>
+    <string name="help_meas_second_text">Seu peso pode variar de acordo com as fases de seu ciclo menstrual (se você for mulher) ou com a ingestão de alimentos que causam a retenção de água. Portanto, se você se pesar uma vez por semana ou mesmo uma vez por mês e se focar na diferença entre os números, a mudança real no seu peso pode ser ocultada por fatores incidentais que causam desvios no seu peso. Em outras palavras, o número pode não ser preciso.</string>
+    <string name="help_meas_third_text">Acompanhe o seu peso médio da semana para obter uma imagem clara de como o seu peso mudou. Se você não fizer medições regularmente, será difícil ver seu progresso. Certifique-se de fazer pausas de duas semanas para manter seu peso após cada quatro semanas de dieta. Isso impedirá que seu corpo sofra estresse intenso e reduzirá a probabilidade de você voltar aos seus antigos hábitos alimentares.</string>
+    <string name="addingRecipeText">A receita que você criar será salva nesta seção</string>
+    <string name="favoriteRecipeText">As receitas que você curtir serão salvas nesta seção </string>
+    <string name="alertDialogSuccess">Receita salva</string>
+    <string name="addingRecipePortion">Número de porções (opcional)</string>
+    <string name="tvArticlePremText">Obtenha acesso a centenas de artigos úteis assinando uma conta premium.</string>
+    <string name="tvTitleArticleFragment">Artigos úteis</string>
+    <string name="titleShareDialogRecipe">Compartilhar receita</string>
+    <string name="addingRecipeAddInstruction">Adicionar passo</string>
+    <string name="recipeSaved">A receita foi salva em \"Receitas/Minhas receitas\"</string>
+    <string name="errorNameRecipe">Digite um nome para a receita</string>
+    <string name="errorTimeRecipe">Digite o tempo de preparo necessário</string>
+    <string name="errorIngrRecipe">Informe os ingredientes</string>
+    <string name="errorInstrReipe">Informe as instruções passo a passo</string>
+    <string name="daily_widget_calories_excess">Excesso</string>
+<!--    <string name="action_add">Adicionar</string>-->
+<!--    <string name="action_add_to_favorite">Adicionar aos favoritos</string>-->
+<!--    <string name="calendar_today">Hoje</string>-->
+    <string name="widget_weight_title">Medidas do corpo</string>
+    <plurals name="duration_minutes">
+        <item quantity="one">minuto</item>
+        <item quantity="other">minutos</item>
+    </plurals>
+    <plurals name="portion_plurals">
+        <item quantity="one">porção</item>
+        <item quantity="other">porções</item>
+    </plurals>
+
+    <string name="log_off_question">Deseja sair?</string>
+    <string name="no">não</string>
+    <string name="yes">sim</string>
+
     <string name="art_series_title">Artigos de um especialista</string>
     <string name="art_series_author_title">Artigos exclusivos de um nutricionista profissional!</string>
     <string name="art_series_author_burlakov">Alexander Burlakov</string>
