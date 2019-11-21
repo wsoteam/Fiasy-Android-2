@@ -485,6 +485,7 @@ Share your accomplishments with friends:</string>
     <string name="account_available">Already have an account?</string>
     <string name="registration_by_mail">SIGN UP VIA EMAIL</string>
 
+
     <!-- Sign In Screen -->
     <string name="signIn_title">Log in</string>
     <string name="login">Login</string>
@@ -551,8 +552,6 @@ Share your accomplishments with friends:</string>
     <string name="in_a_month">in just a month</string>
     <string name="first_piece_description">You will reach your goal</string>
     <string name="second_piece_description">and gain access to unique articles about healthy eating and hundreds of recipes.</string>
-
-
 
     <!-- Premium Screen -->
     <string name="reach_goal_faster">Reach your goal more quickly</string>
@@ -782,9 +781,7 @@ Share your accomplishments with friends:</string>
     <item quantity="other">potions</item>
   </plurals>
 
-  //
   <string name="vh_article_series_day">%d day</string>
-
   <string name="art_series_title">Articles from an expert</string>
   <string name="art_series_author_title">Exclusive articles from a professional nutritionist!</string>
   <string name="art_series_author_burlakov">Alexander Burlakov</string>
@@ -813,26 +810,19 @@ Share your accomplishments with friends:</string>
 
     <string name="daily_widget_calories_left">Remaining</string>
     <string name="daily_widget_calories_excess">Excess</string>
-    <string name="daily_widget_calories_burned">Burned</string>
+    <string name="daily_widget_calories_burned">Quemadas</string>
     <string name="daily_widget_calories_eaten">Eaten</string>
-
-
-
-    <string name="user_activity_section_my">My activities</string>
-    <string name="user_activity_section_defaults">Standard activities</string>
-
-    <string name="user_activity_time_elapsed_wh" formatted="false">%dh %d m</string>
-
-    <string name="user_activity_time_elapsed">%d minutes</string>
-    <string name="user_activity_time_elapsed_wh_wm">%dh</string>
     <string name="add_user_activity_burned">= %d kcal</string>
     <string name="user_activity_burned">%d kcal</string>
-
+    <string name="user_activity_section_my">My activities</string>
+    <string name="user_activity_section_defaults">Standard activities</string>
+    <string name="user_activity_time_elapsed_wh" formatted="false">%dh %d m</string>
+    <string name="user_activity_time_elapsed">%d minutes</string>
+    <string name="user_activity_time_elapsed_wh_wm">%dh</string>
     <string name="action_add_to_favorite">Add to favorites</string>
 
-
-
     <string name="add_user_activity_duration_hint">for %s</string>
+
 
     <string name="add_user_activity_hint">Enter a name for the Activities</string>
     <string name="widget_user_activity_title">Activities</string>
@@ -1089,8 +1079,6 @@ Share your accomplishments with friends:</string>
     </plurals>
 
 
-
-
     <string name="daily_burn_widget_title">Daily rate</string>
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
@@ -1104,28 +1092,21 @@ Share your accomplishments with friends:</string>
     <string name="black_prem_features_statistic">All statistics</string>
     <string name="black_prem_features_body">Body morphology tracking</string>
 
-
     <string name="from">from</string>
-
     <string name="daily_rate_2">Daily rate =</string>
     <string name="my_plan">My diet plan</string>
-
-
     <string name="question_name_title">Let\'s start.\n What is your name?</string>
-
-    <string name="subscription_detailed">Подписка на %s %s</string>
+    <string name="subscription_detailed">Subscription to %s %s</string>
 
     <plurals name="trial_days">
         <item quantity="one">free for %d day</item>
         <item quantity="other">free for %d days</item>
     </plurals>
 
-
     <string name="camera">Camera</string>
     <string name="load_photo">Upload photo</string>
     <string name="where_photo"></string>
     <string name="phone_memory">Phone memory</string>
-
 
     <string name="widget_activity_question">Have you been active today?</string>
     <string name="url_privacy_police">https://fiasy.com/privacypolicy_en</string>

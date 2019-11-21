@@ -105,23 +105,21 @@ public abstract class ExercisesSource {
 
         final Reader stream;
         String lang = Locale.getDefault().getLanguage();
-//        switch (lang){
-//          case "ru":
-//          case "de":
-//          case "pt":
-//          case "es":
-//          case "is":
-//          {
-//            stream = new InputStreamReader(assets.open("user_activity_table_" + lang + ".csv"));
-//            break;
-//          }
-//          default:{
-//            stream = new InputStreamReader(assets.open("user_activity_table_en.csv"));
-//            break;
-//          }
-//        }
-
-        stream = new InputStreamReader(assets.open("user_activity_table_es.csv"));
+        switch (lang){
+          case "ru":
+          case "de":
+          case "pt":
+          case "es":
+          case "is":
+          {
+            stream = new InputStreamReader(assets.open("user_activity_table_" + lang + ".csv"));
+            break;
+          }
+          default:{
+            stream = new InputStreamReader(assets.open("user_activity_table_en.csv"));
+            break;
+          }
+        }
 
         final CSVParser parser = new CSVParser(stream, CSVStrategy.EXCEL_STRATEGY);
 
