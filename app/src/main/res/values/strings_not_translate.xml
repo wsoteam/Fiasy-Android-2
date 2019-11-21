@@ -9,7 +9,7 @@
         <!--<item>@drawable/ic_left_settings_item_fork</item>-->
         <item>@drawable/ic_left_settings_item_promo</item>
         <item>@drawable/ic_left_settings_item_man</item>
-        <item>@drawable/ic_left_settings_item_kcal</item>
+        <item>@drawable/ic_left_settings_item_kcal_en</item>
         <!--<item>@drawable/ic_left_settings_item_bell</item>
     <item>@drawable/ic_left_settings_item_run</item>-->
         <item>@drawable/ic_left_settings_item_help</item>
@@ -20,7 +20,7 @@
         <!--<item>@drawable/ic_left_settings_item_fork</item>-->
         <item>@drawable/ic_left_settings_item_promo</item>
         <item>@drawable/ic_left_settings_item_man</item>
-        <item>@drawable/ic_left_settings_item_kcal</item>
+        <item>@drawable/ic_left_settings_item_kcal_en</item>
         <!--<item>@drawable/ic_left_settings_item_bell</item>
     <item>@drawable/ic_left_settings_item_run</item>-->
         <item>@drawable/ic_left_settings_item_help</item>
