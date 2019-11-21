@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.plans.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,9 @@ import com.wsoteam.diet.DietPlans.POJO.DietsList;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.EmptyViewHolder;
 import com.wsoteam.diet.presentation.plans.browse.HorizontalBrowsePlansItemDecoration;
+import com.wsoteam.diet.utils.DrawableUtilsKt;
+import com.wsoteam.diet.utils.FragmentExtKt;
+import com.wsoteam.diet.utils.ViewsExtKt;
 
 import java.util.List;
 
@@ -110,6 +114,11 @@ public class VerticalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerVie
       super(itemView);
       ButterKnife.bind(this, itemView);
 
+      final Drawable v = DrawableUtilsKt.getVectorIcon(
+              itemView.getContext(), R.drawable.recipes_arrow);
+
+      viewAll.setCompoundDrawablesWithIntrinsicBounds(null, null, v, null);
+
       mRecyclerView = itemView.findViewById(R.id.recyclerView);
       mRecyclerView.setRecycledViewPool(viewPool);
       mRecyclerView.addItemDecoration(new HorizontalBrowsePlansItemDecoration(itemView.getContext()));
@@ -125,7 +134,8 @@ public class VerticalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public void setData(DietsList dietsList) {
-      viewAll.setVisibility(/*dietsList.getDietPlans().size() <= 1*/ true ? View.GONE : View.VISIBLE);
+//      viewAll.setVisibility(dietsList.getDietPlans().size() <= 1 ? View.GONE : View.VISIBLE);
+      viewAll.setVisibility(View.GONE);
       tvtitle.setText(dietsList.getName());
       adapter.updateList(dietsList);
     }

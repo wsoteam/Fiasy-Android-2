@@ -61,8 +61,8 @@
           android:gravity="center"
           android:lineSpacingExtra="4dp"
           android:text="@string/widget_activity_question"
-          android:textColor="#80424242"
-          android:textSize="16sp" />
+          android:textColor="#51000000"
+          android:textSize="14sp" />
 
     </LinearLayout>
 
