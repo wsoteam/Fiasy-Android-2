@@ -117,7 +117,7 @@
     <string name="errorTimeRecipe">Geben Sie die gewünschte Kochzeit ein</string>
     <string name="errorIngrRecipe">Zutaten eingeben</string>
     <string name="errorInstrReipe">Geben Sie schrittweise Anweisungen ein</string>
-    <string name="daily_widget_calories_excess">Überschuss</string>
+
 <!--    <string name="action_add">Hinzufügen</string>-->
 <!--    <string name="action_add_to_favorite">Zu den Favoriten hinzufügen</string>-->
 <!--    <string name="calendar_today">Heute</string>-->
@@ -192,7 +192,28 @@
     <string name="alert_dialog_buy_sub_info_congratulations">Herzlichen Glückwunsch!</string>
     <string name="alert_dialog_change_food_in_template_cancel">Abbrechen</string>
     <string name="alert_dialog_confirm_cancel">Abbrechen</string>
+    <string name="subscription_detailed">Abonnement für %s %s</string>
+    <string name="meas_alert_k">@android:string/ok</string>
+    <string name="carbohydrates_intake">Kohlenhydrate</string>
+    <string name="my_plan">Meine Ernährung</string>
+    <string name="user_activity_section_defaults">Standardaktivitäten</string>
+    <string name="user_activity_time_elapsed">%d Minuten</string>
+    <string name="add_user_activity_duration_hint">für %s</string>
 
+    <string name="main_screen_topbar_left">%s kcal</string>
+    <string name="user_activity_section_my">Meine Aktivitäten</string>
+    <string name="daily_widget_calories_left">Verbleibend</string>
+    <string name="daily_widget_calories_excess">Überschuss</string>
+    <string name="daily_widget_calories_burned">Verbrannt</string>
+    <string name="daily_widget_calories_eaten">Gegessen</string>
+    <string name="user_activity_time_elapsed_wh" formatted="false">%ds %d m</string>
+    <string name="user_activity_time_elapsed_wh_wm">%ds</string>
+    <string name="add_user_activity_burned">= %d kcal</string>
+    <string name="user_activity_burned">%d kcal</string>
+    <string name="vh_article_series_day">Tag %d</string>
+    <string name="fats_intake">Fett</string>
+    <string name="protein_intake">Protein</string>
+    <string name="_try">Testen Sie</string>
     <string name="bnv_main_diary">Tagebuch</string>
     <string name="bnv_main_plan">Ernährungspläne</string>
     <string name="bnv_main_recipes">Rezepte</string>
@@ -205,6 +226,8 @@
     <string name="unboarding_second_screen">Täglich gesunde Rezepte</string>
     <string name="unboarding_skeep">Überspringen</string>
     <string name="next">WEITER</string>
+    <string name="next2">weiter</string>
+    <string name="signIn_title">ANMELDEN</string>
     <string name="or">ODER</string>
     <string name="signIn">ANMELDEN</string>
     <string name="authorization_with">REGISTRIEREN MIT</string>

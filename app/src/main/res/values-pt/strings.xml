@@ -29,13 +29,19 @@
     <string name="premium_feature_exclusive_plans_description">Planos de refeições prontas para todos os gostos e objetivos</string>
     <string name="premium_feature_measurements">Medidas do corpo</string>
     <string name="premium_feature_measurements_description">Acompanhe seu progresso com uma análise detalhada de medição corporal</string>
-
+    <string name="meas_alert_k">@android:string/ok</string>
+    <string name="main_screen_topbar_left">%s kcal</string>
     <string name="premium_feature_title">Perca peso\n sem estresse ou dietas rigorosas com\n</string>
     <string name="premium_subscription_card_benefits">Vantagens\n%d</string>
+    <string name="subscription_detailed">Assinatura de %s %s</string>
+    <string name="user_activity_section_defaults">Atividades padrão</string>
+    <string name="user_activity_time_elapsed">%d minutos</string>
+    <string name="add_user_activity_duration_hint">para %s</string>
 
     <string name="premium_features_comparison">TUDO É MAIS FÁCIL COM</string>
     <string name="subscriptions_list_title">Desbloquear mais opções\n</string>
     <string name="action_buy">Comprar</string>
+    <string name="my_plan">Minha Dieta</string>
 
     <string name="black_prem_features_diary">Diário de nutrição e exercícios</string>
     <string name="black_prem_features_elements">Acompanhamento de macronutrientes</string>
@@ -45,6 +51,7 @@
     <string name="black_prem_features_statistic">Todas as estatísticas</string>
     <string name="black_prem_features_body">Acompanhamento da morfologia corporal</string>
 
+    <string name="user_activity_section_my">Minhas atividades</string>
     <string name="premium_subscription_1_year">1 ano</string>
     <string name="premium_subscription_6_month">6 meses</string>
     <string name="premium_subscription_3_month">3 meses</string>
@@ -116,7 +123,6 @@
     <string name="errorTimeRecipe">Digite o tempo de preparo necessário</string>
     <string name="errorIngrRecipe">Informe os ingredientes</string>
     <string name="errorInstrReipe">Informe as instruções passo a passo</string>
-    <string name="daily_widget_calories_excess">Excesso</string>
 <!--    <string name="action_add">Adicionar</string>-->
 <!--    <string name="action_add_to_favorite">Adicionar aos favoritos</string>-->
 <!--    <string name="calendar_today">Hoje</string>-->
@@ -188,7 +194,20 @@
     <string name="alert_dialog_buy_sub_info_congratulations">Parabéns!</string>
     <string name="alert_dialog_change_food_in_template_cancel">Cancelar</string>
     <string name="alert_dialog_confirm_cancel">Cancelar</string>
+    <string name="carbohydrates_intake">carboidratos</string>
 
+    <string name="daily_widget_calories_left">Restante</string>
+    <string name="daily_widget_calories_excess">Excesso</string>
+    <string name="daily_widget_calories_burned">Queimado</string>
+    <string name="daily_widget_calories_eaten">Comido</string>
+    <string name="user_activity_time_elapsed_wh" formatted="false">%dh %d m</string>
+    <string name="user_activity_time_elapsed_wh_wm">%dh</string>
+    <string name="add_user_activity_burned">= %d kcal</string>
+    <string name="user_activity_burned">%d kcal</string>
+    <string name="vh_article_series_day">Dia %d</string>
+    <string name="fats_intake">gordura</string>
+    <string name="protein_intake">proteína</string>
+    <string name="_try">Experimente</string>
     <string name="activity_detail_food_to_100_g">por 100 g\u0020</string>
     <string name="profile_female">Feminino</string>
     <string name="bnv_main_diary">Diário</string>
@@ -202,6 +221,7 @@
     <string name="unboarding_second_screen">Receitas saudáveis todos os dias</string>
     <string name="unboarding_skeep">Ignorar</string>
     <string name="next">AVANÇAR</string>
+    <string name="signIn_title">ENTRAR</string>
     <string name="next2">avançar</string>
     <string name="or">OU</string>
     <string name="signIn">ENTRAR</string>

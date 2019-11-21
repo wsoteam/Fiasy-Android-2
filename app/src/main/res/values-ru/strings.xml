@@ -1076,4 +1076,5 @@
     <item quantity="other">%d дней бесплатно</item>
   </plurals>
 
+  <string name="subscription_detailed">Подписка на %s %s</string>
 </resources>

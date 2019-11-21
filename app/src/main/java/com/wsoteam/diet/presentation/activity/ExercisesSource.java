@@ -1,6 +1,8 @@
 package com.wsoteam.diet.presentation.activity;
 
 import android.content.res.AssetManager;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
@@ -112,10 +114,12 @@ public abstract class ExercisesSource {
           case "es":
           case "is":
           {
+            Log.d("tagg", "1");
             stream = new InputStreamReader(assets.open("user_activity_table_" + lang + ".csv"));
             break;
           }
           default:{
+            Log.d("tagg", "3 deff");
             stream = new InputStreamReader(assets.open("user_activity_table_en.csv"));
             break;
           }
