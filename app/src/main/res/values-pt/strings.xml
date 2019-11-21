@@ -475,4 +475,7 @@ Parabéns!</string>
     <string name="meas_without_meas">Não se alterou a partir do momento do registo</string>
     <string name="premium_client_says_about_us">Clientes satisfeitos</string>
     <string name="meas_prefix">Adicionaste um novo valor de peso</string>
+
+    <string name="widget_activity_question">Estiveste activo hoje?</string>
+    <string name="question_name_title">Vamos começar.\n Como tu te chamas?</string>
 </resources>

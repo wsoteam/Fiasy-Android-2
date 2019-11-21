@@ -1276,4 +1276,7 @@
   <string name="load_photo">Загрузка фото</string>
   <string name="where_photo">Откуда берем фото?</string>
   <string name="phone_memory">Память телефона</string>
+
+  <string name="widget_activity_question">У вас сегодня были активные занятия?</string>
+    <string name="question_name_title">Давайте знакомиться.\nКак вас зовут?</string>
 </resources>

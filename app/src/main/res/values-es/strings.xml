@@ -469,4 +469,7 @@ Comparta sus logros con sus amigos:</string>
     <string name="meas_without_meas">No cambió desde el momento de la inscripción</string>
     <string name="premium_client_says_about_us">Clientes satisfechos</string>
     <string name="meas_prefix">Ha añadido un nuevo valor de peso</string>
+
+    <string name="widget_activity_question">¿Has estado activo hoy?</string>
+    <string name="question_name_title">Vamos a empezar.\n ¿Cómo te llamas?</string>
 </resources>
