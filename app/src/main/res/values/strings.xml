@@ -1341,7 +1341,7 @@ Share your accomplishments with friends:</string>
 
     <string name="camera">Camera</string>
     <string name="load_photo">Upload photo</string>
-    <string name="where_photo">Откуда берем фото?</string>
+    <string name="where_photo"></string>
     <string name="phone_memory">Phone memory</string>
 
 </resources>
