@@ -186,7 +186,7 @@ class PremiumFeaturesActivity : AppCompatActivity() {
 
       val diff = System.currentTimeMillis() - endDate
 
-      if (System.currentTimeMillis() > endDate || diff > TimeUnit.DAYS.toMillis(3)) {
+      if (System.currentTimeMillis() > endDate || TimeUnit.DAYS.toMillis(3) >= diff) {
         visibility = View.GONE
         timerLabel.visibility = View.GONE
       }

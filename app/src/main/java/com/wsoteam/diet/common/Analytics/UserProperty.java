@@ -4,6 +4,7 @@ import android.content.Context;
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Identify;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 
@@ -62,6 +63,7 @@ public class UserProperty {
     public static final String ltv_revenue = "ltv_revenue";
 
     public static final String user_id = "id";
+    public static final String abtest = "abtest";
 
     public static final String EMAIL = "email";
 
@@ -132,6 +134,8 @@ public class UserProperty {
                 .set(fats, fat)
                 .set(сarbohydrates, carbo)
                 .set(name_const, name)
+                .set(abtest, FirebaseRemoteConfig.getInstance()
+                    .getBoolean("premium_with_trial") ? "black_trial" : "black_direct")
                 .set(user_id, id);
         Amplitude.getInstance().identify(identify);
     }

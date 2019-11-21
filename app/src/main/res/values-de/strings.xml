@@ -1,5 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+
+    <string name="art_series_title">Artikel von einem Experten</string>
+    <string name="art_series_author_title">Exklusive Artikel von einem professionellen Ernährungsberater!</string>
+    <string name="art_series_author_burlakov">Alexander Burlakov</string>
+    <string name="art_series_author_burlakov_bio">Der Sportmediziner und Ernährungswissenschaftler Dr. Burlakov hat seinen Abschluss von der Kuban State Medical University. Er ist der Gründer der Bodycoach School und betreibt einen medizinisch-wissenschaftlichen Wellness-Blog.</string>
+    <string name="art_series_author_burlakov_bio_short">Der Sportmediziner und Ernährungswissenschaftler</string>
+    <string name="art_series_author_burlakov_achiv1">18.800 Follower auf Instagram</string>
+    <string name="art_series_author_burlakov_achiv2">Medizin</string>
+    <string name="art_series_author_burlakov_achiv3">Hat UFC-, ACA- und RCC-Athleten trainiert</string>
+    <string name="understand">Verstanden</string>
+    <string name="art_series_series_title">Acht Artikel für einen einfachen Start!</string>
+    <string name="art_series_series_info">Sie müssen den vorherigen Tag abschließen, bevor Sie mit dem nächsten fortfahren können</string>
+    <string name="day">Tag %d</string>
+
+    <string name="alert_dialog_confirm_delete">Löschen</string>
+    <string name="activity_main_new_burnt">0\nverbrannt</string>
+    <string name="alert_dialog_promo_success_congratulations">Herzlichen Glückwunsch!</string>
+    <string name="n_KCal">%d kcal</string>
+    <string name="n_mg">%d mg</string>
+    <string name="n_kk">%d kc</string>
+    <string name="onboard_weight_pattern">%d kg</string>
+    <string name="onboard_height_pattern">%d cm</string>
+    <string name="n_g">%d g</string>
+    <string name="activity_navigation">Aktivität</string>
+    <string name="_for">für</string>
+    <string name="somplex">Schwer</string>
+
+    <string name="profile_female">Weiblich</string>
+    <string name="profile_male">Männlich</string>
+    <string name="bnv_main_articles">Artikel</string>
+    <string name="activity_detail_food_0_kkal">0 kcal</string>
+    <string name="activity_detail_food_0_gram">0 g</string>
+    <string name="activity_detail_food_3_3_g">3.3 g</string>
+    <string name="g">g</string>
+    <string name="tvGram">g</string>
+    <string name="tvKkal">kcal</string>
+    <string name="tvKkal0">0 kcal</string>
+    <string name="planDays">Tag %d/%d</string>
+    <string name="btnRecipeDiary">Zum Tagebuch hinzufügen</string>
+    <string name="intro_text_1">Wissenschaftliche Artikel zu gesunder Ernährung</string>
+    <string name="intro_text_2">Täglich gesunde Rezepte</string>
+    <string name="main_screen_menu_water_count">%.2f l</string>
+    <string name="dif_level_hard_up">Abnehmen</string>
+    <string name="auth_restore_your_password">Passwort wiederherstellen</string>
+    <string name="constraint_error_username_email">E-Mail Adresse eingeben</string>
+    <string name="enter_email_hint">E-Mail Adresse eingeben</string>
+    <string name="activity_detail_food_add">Hinzufügen</string>
+    <string name="activity_detail_food_to_100_g">pro 100 g\u0020</string>
+    <string name="Calories">Kalorien</string>
+    <string name="update_title">Update!</string>
+    <string name="activity_profile_names">John Smith</string>
+    <string name="activity_profile_235_g">235 g</string>
+    <string name="activity_profile_60_g">60 g</string>
+    <string name="activity_profile_1800_kcal">1,800 kcal</string>
+    <string name="alert_dialog_buy_sub_info_congratulations">Herzlichen Glückwunsch!</string>
+    <string name="alert_dialog_change_food_in_template_cancel">Abbrechen</string>
+    <string name="alert_dialog_confirm_cancel">Abbrechen</string>
+
+    <string name="bnv_main_diary">Tagebuch</string>
+    <string name="bnv_main_plan">Ernährungspläne</string>
+    <string name="bnv_main_recipes">Rezepte</string>
+    <string name="bnv_main_profile">Profil</string>
+    <string name="item_food_template_count">0 Lebensmittel</string>
+    <string name="item_food_template_name">vorname</string>
+    <string name="format_int_kcal">%d kcal</string>
     <string name="unboarding_welcome">Willkommen bei</string>
     <string name="unboarding_first_screen">Wissenschaftliche Artikel zu gesunder Ernährung</string>
     <string name="unboarding_second_screen">Täglich gesunde Rezepte</string>
@@ -140,7 +205,6 @@ diese kostenlos nutzen.</string>
     <string name="target">Ziel</string>
     <string name="set_your_norm_title">Stellen Sie Ihre Kalorien-, Protein-, Fett- und Kohlenhydrataufnahme ein</string>
     <string name="set_your_norm_description">Um Ihre KPFK zu ändern, kaufen Sie</string>
-    <string name="Calories">Kalorien</string>
     <string name="day_norm_intake_description">Tägliche KPFK-Aufnahme basierend auf der Mifflin-St. Jeor-Gleichung</string>
     <string name="default_intake">STANDARDAUFNAHME</string>
     <string name="default_description_intake">Wenn Sie Ihre KPFK-Aufnahme ändern, können Sie immer zum
@@ -465,4 +529,9 @@ Teilen Sie Ihre Erfolge mit Freunden:</string>
     <string name="meas_without_meas">Hat sich vom Zeitpunkt der Registrierung nicht geändert</string>
     <string name="premium_client_says_about_us">Zufriedene Kunden</string>
     <string name="meas_prefix">Sie haben neue Gewicht Wert</string>
+
+    <string name="widget_activity_question">Waren Sie heute schon aktiv?</string>
+
+    <string name="question_name_title">Fangen wir an.\n Wie heißen Sie?</string>
+    <string name="subscription_not_found">Premium-Abonnement nicht gefunden, kann es nicht in Ihrem Land verfügbar sein</string>
 </resources>
