@@ -190,9 +190,9 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
         isOneWordSearch = query.split(" ").length < 2;
         showLoad();
         hideSuggestView();
-        if (isOneWordSearch){
+        if (isOneWordSearch) {
             oneWordSearch(query.trim());
-        }else {
+        } else {
             manyWordSearch(query.trim());
         }
 
@@ -486,14 +486,18 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     private FoodResult dropBrands(FoodResult foodResult) {
         for (int i = 0; i < foodResult.getResults().size(); i++) {
             try {
-                if (foodResult.getResults().get(i).getBrand().getName().equalsIgnoreCase(EMPTY_BRAND)) {
+                if (foodResult.getResults().get(i).getName() == null) {
+                    Log.e("LOL", foodResult.getResults().get(i).toString());
+                    foodResult.getResults().remove(i);
+                    i--;
+                } else if (foodResult.getResults().get(i).getBrand().getName().equalsIgnoreCase(EMPTY_BRAND)) {
                     foodResult.getResults().get(i).getBrand().setName("");
                 }
             } catch (Exception e) {
                 Log.e("LOL", e.getMessage());
             }
         }
-        Log.e("LOL", String.valueOf(foodResult.getResults().size()));
+
         return foodResult;
     }
 
