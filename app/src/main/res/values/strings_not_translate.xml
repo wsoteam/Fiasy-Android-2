@@ -9,7 +9,7 @@
         <!--<item>@drawable/ic_left_settings_item_fork</item>-->
         <item>@drawable/ic_left_settings_item_promo</item>
         <item>@drawable/ic_left_settings_item_man</item>
-        <item>@drawable/ic_left_settings_item_kcal_en</item>
+        <item>@drawable/ic_left_settings_item_kcal</item>
         <!--<item>@drawable/ic_left_settings_item_bell</item>
     <item>@drawable/ic_left_settings_item_run</item>-->
         <item>@drawable/ic_left_settings_item_help</item>
@@ -20,13 +20,69 @@
         <!--<item>@drawable/ic_left_settings_item_fork</item>-->
         <item>@drawable/ic_left_settings_item_promo</item>
         <item>@drawable/ic_left_settings_item_man</item>
-        <item>@drawable/ic_left_settings_item_kcal_en</item>
+        <item>@drawable/ic_left_settings_item_kcal</item>
         <!--<item>@drawable/ic_left_settings_item_bell</item>
     <item>@drawable/ic_left_settings_item_run</item>-->
         <item>@drawable/ic_left_settings_item_help</item>
         <item>@drawable/ic_left_settings_item_exit</item>
     </integer-array>
 
+
+    <integer-array name="left_drawables_trans">
+        <item>@drawable/ic_left_settings_diamond</item>
+        <!--<item>@drawable/ic_left_settings_item_fork</item>-->
+        <item>@drawable/ic_left_settings_item_promo</item>
+        <item>@drawable/ic_left_settings_item_man</item>
+        <item>@drawable/ic_left_settings_item_kcal</item>
+        <!--<item>@drawable/ic_left_settings_item_bell</item>
+    <item>@drawable/ic_left_settings_item_run</item>-->
+<!--        <item>@drawable/ic_left_settings_item_help</item>-->
+        <item>@drawable/ic_left_settings_item_exit</item>
+    </integer-array>
+
+    <integer-array name="left_drawables_prem_trans">
+        <!--<item>@drawable/ic_left_settings_item_fork</item>-->
+        <item>@drawable/ic_left_settings_item_promo</item>
+        <item>@drawable/ic_left_settings_item_man</item>
+        <item>@drawable/ic_left_settings_item_kcal</item>
+        <!--<item>@drawable/ic_left_settings_item_bell</item>
+    <item>@drawable/ic_left_settings_item_run</item>-->
+<!--        <item>@drawable/ic_left_settings_item_help</item>-->
+        <item>@drawable/ic_left_settings_item_exit</item>
+    </integer-array>
+
+
+    <string-array name="settings_items">
+        <item>@string/settimgs_item_premium</item>
+        <item>@string/settings_item_promo</item>
+        <item>@string/settings_item_info</item>
+        <item>@string/settings_item_calories</item>
+        <item>@string/settings_item_log_out</item>
+    </string-array>
+
+    <string-array name="settings_items_ru">
+        <item>@string/settimgs_item_premium</item>
+        <item>@string/settings_item_promo</item>
+        <item>@string/settings_item_info</item>
+        <item>@string/settings_item_calories</item>
+        <item>@string/settings_item_help</item>
+        <item>@string/settings_item_log_out</item>
+    </string-array>
+
+    <string-array name="settings_items_prem">
+        <item>@string/settings_item_promo</item>
+        <item>@string/settings_item_info</item>
+        <item>@string/settings_item_calories</item>
+        <item>@string/settings_item_log_out</item>
+    </string-array>
+
+    <string-array name="settings_items_prem_ru">
+        <item>@string/settings_item_promo</item>
+        <item>@string/settings_item_info</item>
+        <item>@string/settings_item_calories</item>
+        <item>@string/settings_item_help</item>
+        <item>@string/settings_item_log_out</item>
+    </string-array>
 
     <!--Types of body-->
     <string name="policy_text" translatable="false">Fiasy Privacy Policy\n\nBy installing our mobile application or in any way using or accessing our Services,

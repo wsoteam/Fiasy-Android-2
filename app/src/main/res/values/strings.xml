@@ -52,28 +52,15 @@
     <string name="prem_title_settings">Improve your indicators!</string>
     <string name="text_prem_settings">Exclusive articles from leading \nnutritionists and athletes, as well as \nlots of recipes!</string>
     <string name="btn_settings_prem">become better</string>
-    <string-array name="settings_items">
-        <item>Premium Account</item>
-        <!--<item>Еда и аллергия</item>-->
-        <item>Promo codes</item>
-        <item>Personal information</item>
-        <item>Calorie intake</item>
-        <!--<item>Уведомления</item>
-        <item>Цель</item>-->
-        <item>Help</item>
-        <item>Log out</item>
-    </string-array>
 
-    <string-array name="settings_items_prem">
-        <!--<item>Еда и аллергия</item>-->
-        <item>Promo codes</item>
-        <item>Personal information</item>
-        <item>Calorie intake</item>
-        <!--<item>Уведомления</item>
-        <item>Цель</item>-->
-        <item>Help</item>
-        <item>Log out</item>
-    </string-array>
+    <string name="settimgs_item_premium">Premium Account</string>
+    <string name="settings_item_promo">Promo codes</string>
+    <string name="settings_item_info">Personal information</string>
+    <string name="settings_item_calories">Calorie intake</string>
+    <string name="settings_item_help">Help</string>
+    <string name="settings_item_log_out">Log out</string>
+
+
     <string name="plans">Diets</string>
     <string name="plan">Diet</string>
     <string name="activity_blocked_detail_plans_recipes">recipes</string>

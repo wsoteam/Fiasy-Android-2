@@ -25,6 +25,8 @@ import com.wsoteam.diet.presentation.profile.help.HelpActivity;
 import com.wsoteam.diet.presentation.profile.norm.ChangeNormActivity;
 import com.wsoteam.diet.presentation.promo.PromoFormActivity;
 
+import java.util.Locale;
+
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
 
     private final Context context;
@@ -52,14 +54,27 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
         this.context = context;
         this.isNotPrem = isNotPrem;
 
-        if (isNotPrem) {
-            names = context.getResources().getStringArray(R.array.settings_items);
-            ids = new int[] { PREMIUM, PROMO, PERSONAL, KCAL, HELP, LOGOUT };
-            this.drawablesLeft = context.getResources().obtainTypedArray(R.array.left_drawables);
-        } else {
-            names = context.getResources().getStringArray(R.array.settings_items_prem);
-            ids = new int[] { PROMO, PERSONAL, KCAL, HELP, LOGOUT };
-            this.drawablesLeft = context.getResources().obtainTypedArray(R.array.left_drawables_prem);
+        if (Locale.getDefault().getLanguage().equals("ru")){
+            if (isNotPrem) {
+                names = context.getResources().getStringArray(R.array.settings_items_ru);
+                ids = new int[] { PREMIUM, PROMO, PERSONAL, KCAL, HELP, LOGOUT };
+                this.drawablesLeft = context.getResources().obtainTypedArray(R.array.left_drawables);
+            } else {
+                names = context.getResources().getStringArray(R.array.settings_items_prem_ru);
+                ids = new int[] { PROMO, PERSONAL, KCAL, HELP, LOGOUT };
+                this.drawablesLeft = context.getResources().obtainTypedArray(R.array.left_drawables_prem);
+            }
+        }else {
+
+            if (isNotPrem) {
+                names = context.getResources().getStringArray(R.array.settings_items);
+                ids = new int[]{PREMIUM, PROMO, PERSONAL, KCAL, LOGOUT};
+                this.drawablesLeft = context.getResources().obtainTypedArray(R.array.left_drawables_trans);
+            } else {
+                names = context.getResources().getStringArray(R.array.settings_items_prem);
+                ids = new int[]{PROMO, PERSONAL, KCAL, LOGOUT};
+                this.drawablesLeft = context.getResources().obtainTypedArray(R.array.left_drawables_prem_trans);
+            }
         }
     }
 
