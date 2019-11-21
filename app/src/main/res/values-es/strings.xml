@@ -1,5 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <string name="art_series_title">Artículos de un experto</string>
+    <string name="art_series_author_title">Artículos exclusivos de un nutricionista profesional.</string>
+    <string name="art_series_author_burlakov">Alexander Burlakov</string>
+    <string name="art_series_author_burlakov_bio">Doctor en medicina deportiva y nutricionista, el Dr. Burlakov se graduó en la universidad de medicina de Kubán (Rusia). Es fundador de la escuela Bodycoach y tiene un blog sobre hábitos de vida saludables y medicina.</string>
+    <string name="art_series_author_burlakov_bio_short">Doctor en medicina deportiva y nutricionista</string>
+    <string name="art_series_author_burlakov_achiv1">18.800 seguidores en Instagram</string>
+    <string name="art_series_author_burlakov_achiv2">Medicina</string>
+    <string name="art_series_author_burlakov_achiv3">Ha preparado a deportistas de las ligas UFC, ACA y RCC</string>
+    <string name="understand">Entendido</string>
+    <string name="art_series_series_title">Ocho artículos para empezar de forma fácil.</string>
+    <string name="art_series_series_info">Tiene que completar el día anterior para poder pasar al siguiente</string>
+    <string name="day">Día %d</string>
+
+
+    <plurals name="day_plurals">
+        <item quantity="one">día</item>
+        <item quantity="other">días</item>
+    </plurals>
+    <plurals name="recipe_plurals">
+        <item quantity="one">receta</item>
+        <item quantity="other">recetas</item>
+    </plurals>
+    <plurals name="foods_count">
+        <item quantity="one">%d comida</item>
+        <item quantity="other">%d comidas</item>
+    </plurals>
+    <string-array name="eatingList">
+        <item>Desayuno</item>
+        <item>Almuerzo</item>
+        <item>Cena</item>
+        <item>Aperitivo</item>
+    </string-array>
+
+    <plurals name="daysAtRow">
+        <item quantity="one">%d día consecutivo registrado</item>
+        <item quantity="other">%d días consecutivos registrados</item>
+    </plurals>
+
+    <string-array name="recipeComplexity">
+        <item>Fácil</item>
+        <item>Normal</item>
+        <item>Difícil</item>
+    </string-array>
+    <string-array name="premium_slider_texts">
+        <item>Artículos útiles sobre \ncomida saludable. \nElabore su plan de pérdida de peso \nconociendo la información necesaria.</item>
+        <item>Puede ver el \ncontenido calórico de su plato en \ntiempo real</item>
+        <item>Podrá \nregistrar platos en su diario \ncdictándolos en voz alta. Así \nse ahorrará mucho tiempo</item>
+        <item>Dietas y ejercicios \npersonalizados. \nUn coach personalizado y experto en \nsu smartphone.</item>
+    </string-array>
+
+
+    <string name="alert_dialog_confirm_delete">Eliminar</string>
+    <string name="activity_main_new_burnt">0\nqueimado</string>
+    <string name="alert_dialog_promo_success_congratulations">¡Enhorabuena!</string>
+    <string name="n_KCal">%d kcal</string>
+    <string name="n_mg">%d mg</string>
+    <string name="n_kk">%d kc</string>
+    <string name="onboard_weight_pattern">%d kg</string>
+    <string name="onboard_height_pattern">%d cm</string>
+    <string name="n_g">%d g</string>
+    <string name="activity_navigation">Actividad</string>
+    <string name="_for">para</string>
+    <string name="somplex">Difícil</string>
+
+    <string name="profile_female">Mujer</string>
+    <string name="profile_male">Hombre</string>
+    <string name="bnv_main_articles">Artículos</string>
+    <string name="activity_detail_food_0_kkal">0 kcal</string>
+    <string name="activity_detail_food_0_gram">0 g</string>
+    <string name="activity_detail_food_3_3_g">3.3 g</string>
+    <string name="g">g</string>
+    <string name="tvGram">g</string>
+    <string name="tvKkal">kcal</string>
+    <string name="tvKkal0">0 kcal</string>
+    <string name="planDays">Día %d/%d</string>
+    <string name="btnRecipeDiary">Añadir al diario</string>
+    <string name="intro_text_1">Numerosos artículos científicos sobre comidas saludables</string>
+    <string name="intro_text_2">Recetas saludables cada día</string>
+    <string name="main_screen_menu_water_count">%.2f l</string>
+    <string name="auth_restore_your_password">Recuperar contraseña</string>
+    <string name="constraint_error_username_email">Introduzca la dirección de correo electrónico</string>
+    <string name="enter_email_hint">Introduzca la dirección de correo electrónico</string>
+    <string name="dif_level_hard_up">Perder peso</string>
+    <string name="activity_detail_food_add">Añadir</string>
+    <string name="activity_detail_food_to_100_g">por cada 100 g\u0020</string>
+    <string name="update_title">Actualización!</string>
+    <string name="activity_profile_names">John Smith</string>
+    <string name="activity_profile_235_g">235 g</string>
+    <string name="activity_profile_60_g">60 g</string>
+    <string name="activity_profile_1800_kcal">1,800 kcal</string>
+    <string name="alert_dialog_buy_sub_info_congratulations">Enhorabuena!</string>
+    <string name="alert_dialog_change_food_in_template_cancel">Cancelar</string>
+    <string name="alert_dialog_confirm_cancel">Cancelar</string>
+
+    <string name="bnv_main_diary">Diario</string>
+    <string name="bnv_main_plan">Dietas</string>
+    <string name="item_food_template_count">0 comida</string>
+    <string name="format_int_kcal">%d kcal</string>
     <string name="unboarding_welcome">Bienvenido a</string>
     <string name="unboarding_first_screen">Numerosos artículos científicos sobre comidas saludables</string>
     <string name="unboarding_second_screen">Recetas saludables cada día</string>
@@ -448,6 +546,7 @@ Rellene el formulario anterior con la información más completa y precisa posib
 Comparta sus logros con sus amigos:</string>
     <string name="plans_footer_item_cong">Ha terminado su dieta.
 ¡Enhorabuena!</string>
+    <string name="item_food_template_name">nombre</string>
     <string name="plans_footer_item_new_plan">Seleccione una dieta diferente</string>
     <string name="popup_search_food_create_food">Crear comida</string>
     <string name="recipe_group_item_all_recipe">Ver todas las recetas</string>
@@ -473,4 +572,7 @@ Comparta sus logros con sus amigos:</string>
     <string name="widget_activity_question">¿Has estado activo hoy?</string>
     <string name="question_name_title">Vamos a empezar.\n ¿Cómo te llamas?</string>
     <string name="subscription_not_found">Suscripción Premium no encontrada, puede no estar disponible en su país</string>
+
+    <string name="bnv_main_recipes">Recetas</string>
+    <string name="bnv_main_profile">Perfil</string>
 </resources>

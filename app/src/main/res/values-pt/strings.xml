@@ -1,5 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+
+    <string name="art_series_title">Artigos de um especialista</string>
+    <string name="art_series_author_title">Artigos exclusivos de um nutricionista profissional!</string>
+    <string name="art_series_author_burlakov">Alexander Burlakov</string>
+    <string name="art_series_author_burlakov_bio">Médico de medicina esportiva e nutricionista, o Dr. Burlakov se formou na Kuban State Medical University. Ele é o fundador da Bodycoach School e administra um blog de bem-estar baseado em ciência médica.</string>
+    <string name="art_series_author_burlakov_bio_short">Médico de medicina esportiva e nutricionista</string>
+    <string name="art_series_author_burlakov_achiv1">18.800 seguidores no Instagram</string>
+    <string name="art_series_author_burlakov_achiv2">Ciência médica</string>
+    <string name="art_series_author_burlakov_achiv3">Treinou atletas do UFC, ACA e RCC</string>
+    <string name="understand">Entendi</string>
+    <string name="art_series_series_title">Oito artigos para ter um começo fácil!</string>
+    <string name="art_series_series_info">Você precisa concluir o dia anterior para poder ir para o próximo</string>
+    <string name="day">Dia %d</string>
+
+    <string name="profile_male">Masculino</string>
+    <string name="bnv_main_articles">Artigos </string>
+    <string name="activity_detail_food_0_kkal">0 kcal</string>
+    <string name="activity_detail_food_0_gram">0 g</string>
+    <string name="activity_detail_food_3_3_g">3.3 g</string>
+    <string name="g">g</string>
+    <string name="tvGram">g</string>
+    <string name="tvKkal">kcal</string>
+    <string name="tvKkal0">0 kcal</string>
+    <string name="planDays">Dia %d/%d</string>
+    <string name="btnRecipeDiary">Adicionar ao diário</string>
+    <string name="alert_dialog_confirm_delete">Excluir</string>
+    <string name="activity_main_new_burnt">0\nquemadas</string>
+    <string name="alert_dialog_promo_success_congratulations">Parabéns!</string>
+    <string name="n_KCal">%d kcal</string>
+    <string name="n_mg">%d mg</string>
+    <string name="n_kk">%d kc</string>
+    <string name="onboard_weight_pattern">%d kg</string>
+    <string name="onboard_height_pattern">%d cm</string>
+    <string name="n_g">%d g</string>
+    <string name="activity_navigation">Atividade</string>
+    <string name="_for">para</string>
+    <string name="somplex">Difícil</string>
+
+    <string name="intro_text_1">Muitos artigos científicos sobre alimentação saudável</string>
+    <string name="intro_text_2">Receitas saudáveis todos os dias</string>
+    <string name="main_screen_menu_water_count">%.2f l</string>
+    <string name="auth_restore_your_password">Recuperar senha</string>
+    <string name="constraint_error_username_email">Insira o endereço de e-mail</string>
+    <string name="enter_email_hint">Insira o endereço de e-mail</string>
+    <string name="dif_level_hard_up">Perder peso</string>
+    <string name="activity_detail_food_add">Adicionar</string>
+    <string name="Calories">Calorias</string>
+    <string name="update_title">Atualização!</string>
+    <string name="activity_profile_names">John Smith</string>
+    <string name="activity_profile_235_g">235 g</string>
+    <string name="activity_profile_60_g">60 g</string>
+    <string name="activity_profile_1800_kcal">1,800 kcal</string>
+    <string name="alert_dialog_buy_sub_info_congratulations">Parabéns!</string>
+    <string name="alert_dialog_change_food_in_template_cancel">Cancelar</string>
+    <string name="alert_dialog_confirm_cancel">Cancelar</string>
+
+    <string name="activity_detail_food_to_100_g">por 100 g\u0020</string>
+    <string name="profile_female">Feminino</string>
+    <string name="bnv_main_diary">Diário</string>
+    <string name="bnv_main_plan">Dietas</string>
+    <string name="bnv_main_recipes">Receitas</string>
+    <string name="bnv_main_profile">Perfil</string>
+    <string name="item_food_template_count">0 alimento</string>
+    <string name="format_int_kcal">%d kcal</string>
     <string name="unboarding_welcome">Boas-vindas a</string>
     <string name="unboarding_first_screen">Muitos artigos científicos sobre alimentação saudável</string>
     <string name="unboarding_second_screen">Receitas saudáveis todos os dias</string>
@@ -130,6 +194,7 @@ Você pode gerenciar suas assinaturas e cancelá-las nas configurações de sua 
     <string name="personal_data_navigation">Informações pessoais</string>
     <string name="done">Pronto</string>
     <string name="name">Nome</string>
+    <string name="item_food_template_name">nome</string>
     <string name="surname">Sobrenome</string>
     <string name="email">Endereço de e-mail</string>
     <string name="calorie_intake_navigation">Ingestão de calorias</string>
