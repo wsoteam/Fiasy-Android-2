@@ -16,7 +16,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:srcCompat="@drawable/profile_gradient" />
+      app:srcCompat="@drawable/gradient_main" />
 
   <ImageButton
       android:id="@+id/ibBack"
