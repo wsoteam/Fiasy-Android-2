@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.wsoteam.diet.Config;
@@ -20,6 +22,7 @@ import com.wsoteam.diet.Recipes.EmptyViewHolder;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.utils.Img;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -210,13 +213,8 @@ public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     url = "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/loading.jpg?alt=media&token=f1b6fe6d-57e3-4bca-8be3-9ebda9dc715e";
                 }
 
-                Picasso.get()
-                        .load(url)
-                        .resizeDimen(R.dimen.receipt_container_width, R.dimen.receipt_container_height)
-                        .centerCrop()
-                        .into(imageViewList.get(i));
+                setImg(imageViewList.get(i), url, backList.get(i));
 
-                setBackGround(url, backList.get(i));
                 if (checkFavorite(groupsRecipes.get(listIndex).getListrecipes().get(i))) {
                     likeList.get(i).setImageResource(R.drawable.ic_like_on);
                 } else {
@@ -228,32 +226,23 @@ public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         }
 
-        private void setBackGround(String url, LinearLayout layout) {
+        private void setImg(ImageView img, String url, LinearLayout layout){
             Picasso.get()
                     .load(url)
                     .resizeDimen(R.dimen.receipt_container_width, R.dimen.receipt_container_height)
                     .centerCrop()
-                    .into(new Target() {
+                    .into(img, new Callback() {
                         @Override
-                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                            Palette p = Palette.from(bitmap).generate();
-                            int mainColor = p.getMutedColor(0);
-                            int alphaColor = 191;
-                            layout.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
+                        public void onSuccess() {
+                            Img.setBackGround(img.getDrawable(), layout);
                         }
 
                         @Override
-                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
-                        }
-
-                        @Override
-                        public void onPrepareLoad(Drawable placeHolderDrawable) {
+                        public void onError(Exception e) {
 
                         }
                     });
         }
-
 
         private boolean checkSubscribe() {
             SharedPreferences sharedPreferences = groupsFragment.getActivity().getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);

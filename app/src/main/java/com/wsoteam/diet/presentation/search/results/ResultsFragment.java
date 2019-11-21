@@ -64,6 +64,8 @@ import com.wsoteam.diet.presentation.search.results.controllers.suggestions.Sugg
 
 import org.w3c.dom.Text;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -365,7 +367,9 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
             default:
             case Config.EN:
                 foodResultAPI
-                        .searchEn(searchString + " " + EMPTY_BRAND, 1)
+                        .searchEnNoBrand(searchString, 1, EMPTY_BRAND)
+                        .flatMap(foodResult -> foodResultAPI.searchEn(searchString, 1),
+                                (foodResult, foodResult1) -> mergeLists(foodResult, foodResult1))
                         .map(foodResult -> dropBrands(foodResult))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -374,7 +378,9 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
                 break;
             case Config.RU:
                 foodResultAPI
-                        .search(searchString + " " + EMPTY_BRAND, 1)
+                        .searchNoBrand(searchString, 1, EMPTY_BRAND)
+                        .flatMap(foodResult -> foodResultAPI.search(searchString, 1),
+                                (foodResult, foodResult1) -> mergeLists(foodResult, foodResult1))
                         .map(foodResult -> dropBrands(foodResult))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -383,7 +389,10 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
                 break;
             case Config.DE:
                 foodResultAPI
-                        .searchDe(searchString + " " + EMPTY_BRAND, 1)
+                        .searchDeNoBrand(searchString, 1, EMPTY_BRAND)
+                        .flatMap(foodResult -> foodResultAPI.searchDe(searchString, 1),
+                                (foodResult, foodResult1) -> mergeLists(foodResult, foodResult1))
+                        .map(foodResult -> dropBrands(foodResult))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(t -> refreshAdapter(toISearchResult(t.getResults()), searchString),
@@ -391,7 +400,10 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
                 break;
             case Config.PT:
                 foodResultAPI
-                        .searchPt(searchString + " " + EMPTY_BRAND, 1)
+                        .searchPtNoBrand(searchString, 1, EMPTY_BRAND)
+                        .flatMap(foodResult -> foodResultAPI.searchPt(searchString, 1),
+                                (foodResult, foodResult1) -> mergeLists(foodResult, foodResult1))
+                        .map(foodResult -> dropBrands(foodResult))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(t -> refreshAdapter(toISearchResult(t.getResults()), searchString),
@@ -399,7 +411,10 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
                 break;
             case Config.ES:
                 foodResultAPI
-                        .searchEs(searchString + " " + EMPTY_BRAND, 1)
+                        .searchEsNoBrand(searchString, 1, EMPTY_BRAND)
+                        .flatMap(foodResult -> foodResultAPI.searchEs(searchString, 1),
+                                (foodResult, foodResult1) -> mergeLists(foodResult, foodResult1))
+                        .map(foodResult -> dropBrands(foodResult))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(t -> refreshAdapter(toISearchResult(t.getResults()), searchString),
@@ -407,6 +422,12 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
                 break;
         }
     }
+
+    private FoodResult mergeLists(FoodResult foodResult, FoodResult foodResult1) {
+        foodResult.getResults().addAll(foodResult1.getResults());
+        return foodResult;
+    }
+
 
     private FoodResult dropBrands(FoodResult foodResult) {
         for (int i = 0; i < foodResult.getResults().size(); i++) {

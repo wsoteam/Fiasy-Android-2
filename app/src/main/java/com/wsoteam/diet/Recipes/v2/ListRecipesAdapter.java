@@ -9,6 +9,7 @@ import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.wsoteam.diet.Config;
@@ -24,6 +26,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.EmptyViewHolder;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.utils.Img;
 
 import java.util.List;
 import java.util.Map;
@@ -136,14 +139,30 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 like.setImageResource(R.drawable.ic_like_off);
             }
 
-            setBackGround(listRecipes.get(position).getUrl(), background);
+
             textView.setText(name);
             textViewKK.setText(String.valueOf(kk));
-            Picasso.get()
-                .load(url)
-                .fit().centerCrop()
-                .into(imageView);
+            setImg(imageView, url, background);
+
         }
+
+        private void setImg(ImageView img, String url, LinearLayout layout){
+            Picasso.get()
+                    .load(url)
+                    .fit().centerCrop()
+                    .into(img, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Img.setBackGround(img.getDrawable(), layout);
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+
+                        }
+                    });
+        }
+
 
         private boolean checkFavorite(RecipeItem recipeItem){
             if (UserDataHolder.getUserData() != null &&
@@ -155,30 +174,6 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
             }
             return false;
-        }
-
-        private void setBackGround(String url, LinearLayout layout){
-            Picasso.get()
-                    .load(url)
-                    .into(new Target() {
-                        @Override
-                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                            Palette p = Palette.from(bitmap).generate();
-                            int mainColor = p.getMutedColor(0);
-                            int alphaColor = 191;
-                            layout.setBackgroundColor(ColorUtils.setAlphaComponent(mainColor, alphaColor));
-                        }
-
-                        @Override
-                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
-                        }
-
-                        @Override
-                        public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                        }
-                    });
         }
 
         private boolean checkSubscribe() {

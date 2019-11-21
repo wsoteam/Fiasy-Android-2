@@ -465,4 +465,9 @@ Teilen Sie Ihre Erfolge mit Freunden:</string>
     <string name="meas_without_meas">Hat sich vom Zeitpunkt der Registrierung nicht geändert</string>
     <string name="premium_client_says_about_us">Zufriedene Kunden</string>
     <string name="meas_prefix">Sie haben neue Gewicht Wert</string>
+
+    <string name="widget_activity_question">Waren Sie heute schon aktiv?</string>
+
+    <string name="question_name_title">Fangen wir an.\n Wie heißen Sie?</string>
+    <string name="subscription_not_found">Premium-Abonnement nicht gefunden, kann es nicht in Ihrem Land verfügbar sein</string>
 </resources>
