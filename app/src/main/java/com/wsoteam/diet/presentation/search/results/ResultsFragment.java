@@ -62,10 +62,6 @@ import com.wsoteam.diet.presentation.search.results.controllers.ResultAdapter;
 import com.wsoteam.diet.presentation.search.results.controllers.suggestions.ISuggest;
 import com.wsoteam.diet.presentation.search.results.controllers.suggestions.SuggestAdapter;
 
-import org.w3c.dom.Text;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -117,6 +113,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     private Animation finalSave;
     private int spinnerId;
     private boolean isWatcherDead = false;
+    private boolean isOneWordSearch = true;
 
     @Override
     public void changeSpinner(int position) {
@@ -190,9 +187,15 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
     @Override
     public void sendSearchQuery(String query) {
+        isOneWordSearch = query.split(" ").length < 2;
         showLoad();
         hideSuggestView();
-        search(query.trim());
+        if (isOneWordSearch){
+            oneWordSearch(query.trim());
+        }else {
+            manyWordSearch(query.trim());
+        }
+
         Events.logSearch(query);
     }
 
@@ -362,7 +365,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
         unbinder.unbind();
     }
 
-    private void search(String searchString) {
+    private void oneWordSearch(String searchString) {
         switch (Locale.getDefault().getLanguage()) {
             default:
             case Config.EN:
@@ -414,6 +417,57 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
                         .searchEsNoBrand(searchString, 1, EMPTY_BRAND)
                         .flatMap(foodResult -> foodResultAPI.searchEs(searchString, 1),
                                 (foodResult, foodResult1) -> mergeLists(foodResult, foodResult1))
+                        .map(foodResult -> dropBrands(foodResult))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(t -> refreshAdapter(toISearchResult(t.getResults()), searchString),
+                                Throwable::printStackTrace);
+                break;
+        }
+    }
+
+    private void manyWordSearch(String searchString) {
+        switch (Locale.getDefault().getLanguage()) {
+            default:
+            case Config.EN:
+                foodResultAPI
+                        .searchEn(searchString, 1)
+                        .map(foodResult -> dropBrands(foodResult))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(t -> refreshAdapter(toISearchResult(t.getResults()), searchString),
+                                Throwable::printStackTrace);
+                break;
+            case Config.RU:
+                foodResultAPI
+                        .search(searchString, 1)
+                        .map(foodResult -> dropBrands(foodResult))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(t -> refreshAdapter(toISearchResult(t.getResults()), searchString),
+                                Throwable::printStackTrace);
+                break;
+            case Config.DE:
+                foodResultAPI
+                        .searchDe(searchString, 1)
+                        .map(foodResult -> dropBrands(foodResult))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(t -> refreshAdapter(toISearchResult(t.getResults()), searchString),
+                                Throwable::printStackTrace);
+                break;
+            case Config.PT:
+                foodResultAPI
+                        .searchPt(searchString, 1)
+                        .map(foodResult -> dropBrands(foodResult))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(t -> refreshAdapter(toISearchResult(t.getResults()), searchString),
+                                Throwable::printStackTrace);
+                break;
+            case Config.ES:
+                foodResultAPI
+                        .searchEs(searchString, 1)
                         .map(foodResult -> dropBrands(foodResult))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())

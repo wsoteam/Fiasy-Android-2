@@ -307,199 +307,6 @@
   <string name="sooking_method">Способ приготовления</string>
   <string name="recipe_added">Рецепт добавлен</string>
 
-  <!-- Default Activity List -->
-  <string name="aikido">Айкидо</string>
-  <string name="aqua_run">Аква-бег</string>
-  <string name="water_aerobics">Аквааэробика</string>
-  <string name="mountaineering">Альпинизм</string>
-  <string name="american_football">Американский футбол</string>
-  <string name="army_press">Армейский жим</string>
-  <string name="aerobics_high_load">Аэробика, высокая нагрузка</string>
-  <string name="aerobics_medium_load">Аэробика, средняя нагрузка</string>
-  <string name="badminton_high_load">Бадминтон, высокая нагрузка</string>
-  <string name="badminton_medium_load">Бадминтон, средняя нагрузка</string>
-  <string name="basketball_high_load">Баскетбол, высокая нагрузка</string>
-  <string name="basketball_medium_load">Баскетбол, средняя нагрузка</string>
-  <string name="run_11_3_km_h">Бег 11,3 км/ч</string>
-  <string name="run_12_1_km_h">Бег 12,1 км/ч</string>
-  <string name="run_12_9_km_h">Бег 12,9 км/ч</string>
-  <string name="run_14_5_km_h">Бег 14,5км/ч</string>
-  <string name="run_16_09_km_h">Бег 16,09 км/ч</string>
-  <string name="run_17_7_km_h">Бег 17,7 км/ч</string>
-  <string name="run_6_4_km_h">Бег 6,4 км/ч</string>
-  <string name="run_8_km_h">Бег 8 км/ч</string>
-  <string name="run_9_7_km_h">Бег 9,7 км/ч</string>
-  <string name="running_up_the_stairs">Бег вверх по лестнице</string>
-  <string name="sross_country_running">Бег по пересеченной местности</string>
-  <string name="sand_running">Бег по песку</string>
-  <string name="jogging">Бег трусцой</string>
-  <string name="treadmill">Беговая дорожка</string>
-  <string name="baseball">Бейсбол</string>
-  <string name="biathlon">Биатлон</string>
-  <string name="bikram_yoga">Бикрам-Йога</string>
-  <string name="billiards">Бильярд</string>
-  <string name="arm_curlbiceps">Сгибание рук(бицепс)</string>
-  <string name="body_step">Боди Степ</string>
-  <string name="martial_arts">Боевые искусства</string>
-  <string name="boxing">Бокс</string>
-  <string name="boxing_high_load">Бокс, высокая нагрузка</string>
-  <string name="boxing_training">Бокс, тренировочный</string>
-  <string name="boxing_punching_bag">Бокс: груша</string>
-  <string name="bowling">Боулинг</string>
-  <string name="quick_run_up_stairs">Быстрая пробежка вверх по лестнице</string>
-  <string name="brisk_walking_6_5_km_h">Быстрая ходьба пешком 6,5 км/ч</string>
-  <string name="wakeboarding">Вейкбординг</string>
-  <string name="bicycle_aerobics_high_load">Велоаэробика, высокая нагрузка</string>
-  <string name="bicycle_aerobics_medium_load">Велоаэробика, средняя нагрузка</string>
-  <string name="cycling_high_load">Велоспорт, высокая нагрузка</string>
-  <string name="cycling_medium_load">Велоспорт, средняя нагрузка</string>
-  <string name="horseback_riding">Верховая езда</string>
-  <string name="horseback_riding_dressage">Верховая езда: выездка</string>
-  <string name="horse_riding_gallop">Верховая езда: галоп</string>
-  <string name="horse_riding_obstacles">Верховая езда: препятствия</string>
-  <string name="horse_riding_lynx">Верховая езда: рысь</string>
-  <string name="windsurfing">Виндсерфинг</string>
-  <string name="water_gymnastics">Водная гимнастика</string>
-  <string name="water_polo">Водное поло</string>
-  <string name="volleyball_high_load">Волейбол, высокая нагрузка</string>
-  <string name="volleyball_light_load">Волейбол, легкая нагрузка</string>
-  <string name="handball">Гандбол</string>
-  <string name="gymnastics">Гимнастика</string>
-  <string name="gymnastics_intensive">Гимнастика, интенсив</string>
-  <string name="gymnastics_average_load">Гимнастика, средняя нагрузка</string>
-  <string name="kettlebell_training">Гиревая тренировка</string>
-  <string name="laundry_ironing">Глажка белья</string>
-  <string name="golf_normal">Гольф (обычный)</string>
-  <string name="alpine_skiing_high_load">Горные лыжи, высокая нагрузка</string>
-  <string name="alpine_skiing_medium_load">Горные лыжи, средняя нагрузка</string>
-  <string name="alpine_skiing_moderate_load">Горные лыжи, умеренная нагрузка</string>
-  <string name="kayaking">Гребля на байдарках</string>
-  <string name="canoeing">Гребля на каноэ</string>
-  <string name="rowing_high_load">Гребля, высокая нагрузка</string>
-  <string name="rowing_low_load">Гребля, низкая нагрузка</string>
-  <string name="rowing_medium_load">Гребля, средняя нагрузка</string>
-  <string name="diving">Дайвинг</string>
-  <string name="scuba_diving">Дайвинг с аквалангом</string>
-  <string name="judo">Дзюдо</string>
-  <string name="bench_press">Жим лежа</string>
-  <string name="leg_press">Жим ногами</string>
-  <string name="winter_kiting">Зимний кайтинг</string>
-  <string name="zumba">Зумба</string>
-  <string name="drumming">Игра на барабанах</string>
-  <string name="intense_walk">Интенсивная прогулка</string>
-  <string name="hiit_interval_training">Интервальная тренировка HIIT, высокая интенсивность</string>
-  <string name="yoga">Йога</string>
-  <string name="kitesurfing">Кайтсерфинг</string>
-  <string name="karate">Карате</string>
-  <string name="cardiovascular_equipment">Кардиотренажеры</string>
-  <string name="cross_country_skiing">Катание на беговых лыжах</string>
-  <string name="riding_bicycle">Катание на велосипеде</string>
-  <string name="water_skiing">Катание на водных лыжах</string>
-  <string name="mountain_biking">Катание на горном велосипеде</string>
-  <string name="skating">Катание на коньках</string>
-  <string name="ice_skating_high_load">Катание на коньках,высокая нагрузка</string>
-  <string name="cross_country_skiing_high_load">Катание на лыжах по пересеченной местности, высокая нагрузка</string>
-  <string name="cross_country_skiing_moderate_exercise">Катание на лыжах по пересеченной местности, умеренная нагрузка</string>
-  <string name="skiing_medium_load">Катание на лыжах, средняя нагрузка</string>
-  <string name="roller_skating">Катание на роликовых каньках</string>
-  <string name="in_line_skiing">Катание на роликовых лыжах</string>
-  <string name="scooter_riding">Катание на самокате</string>
-  <string name="sledging">Катание на санках</string>
-  <string name="skateboarding">Катание на скейтборде</string>
-  <string name="snowboarding">Катание на сноуборде</string>
-  <string name="press_swing">Качание пресса</string>
-  <string name="curling">Керлинг</string>
-  <string name="kickboxing">Кикбоксинг</string>
-  <string name="digging_the_earth">Копание земли</string>
-  <string name="mowing_grass">Кошение травы</string>
-  <string name="cross_skating">Кросс-конькобежный спорт</string>
-  <string name="sross_trainer">Кросс-тренажер</string>
-  <string name="srossfit">Кроссфит</string>
-  <string name="sircular_training">Круговая тренировка</string>
-  <string name="hoop_torsion">Кручение обруча</string>
-  <string name="bodybuilding">Культуризм (Бодибилдинг)</string>
-  <string name="lacrosse">Лакросс</string>
-  <string name="slow_walking_4_5_km_h">Медленная ходба пешком 4,5 км/ч</string>
-  <string name="window_cleaning">Мойка окон</string>
-  <string name="motocross">Мотокросс</string>
-  <string name="car_wash">Мытье машины</string>
-  <string name="slopes">Наклоны</string>
-  <string name="table_tennis">Настольный тенис</string>
-  <string name="push_ups">Отжимания</string>
-  <string name="powerlifting">Пауэрлифтинг (силовое троеборье)</string>
-  <string name="hiking">Пеший туризм</string>
-  <string name="hiking_with_backpack_">Пеший туризм, с рюкзаком</string>
-  <string name="pilates">Пилатес</string>
-  <string name="butterfly_swimming">Плавание баттерфляем</string>
-  <string name="breaststroke">Плавание брассом</string>
-  <string name="backstroke">Плавание на спине</string>
-  <string name="sailing">Плавание под парусом</string>
-  <string name="snorkeling">Плавание с маской(Снорклинг)</string>
-  <string name="swimming_high_load">Плавание, высокая нагрузка</string>
-  <string name="swimming_low_load">Плавание, низкая нагрузка</string>
-  <string name="swimming_free">Плавание, свободное</string>
-  <string name="swimming_medium_load">Плавание, средняя нагрузка</string>
-  <string name="lying_hips">Поднятие бедер из положения лежа</string>
-  <string name="pull_ups">Подтягивания</string>
-  <string name="climbing_stairs">Подъем по лестнице</string>
-  <string name="polo">Поло</string>
-  <string name="obstacle_course">Полоса препятствий</string>
-  <string name="squat_on_one_leg">Приседание на одной ноге</string>
-  <string name="shoulder_squat">Приседание со штангой на плечах</string>
-  <string name="stroll">Прогулка</string>
-  <string name="walking_in_no_hurry">Прогулка не торопливым шагом</string>
-  <string name="walk_through_the_woods">Прогулка по лесу</string>
-  <string name="professional_football">Профессиональный футбол</string>
-  <string name="long_jump">Прыжки в длину</string>
-  <string name="trampoline_amateur">Прыжки на батуте, любительские</string>
-  <string name="rope_jumping">Прыжки со скакалкой</string>
-  <string name="vacuuming">Пылесошение</string>
-  <string name="work_with_a_rake">Работа с граблями</string>
-  <string name="stretching">Растяжка</string>
-  <string name="rugby">Регби</string>
-  <string name="gardening">Садоводство</string>
-  <string name="salsa">Сальса</string>
-  <string name="sex">Секс</string>
-  <string name="surfing">Серфинг</string>
-  <string name="power_yoga">Силовая йога</string>
-  <string name="power_training">Силовые тренировки</string>
-  <string name="strength_exercises">Силовые упражнения</string>
-  <string name="synchronized_swimming">Синхронное плавание</string>
-  <string name="rock_climbing">Скалолазание</string>
-  <string name="nordic_walking">Скандинавская ходьба</string>
-  <string name="twisting">Скручивание</string>
-  <string name="mixed_martial_arts">Смешанные единоборства</string>
-  <string name="orienteering">Спортивное ориентирование</string>
-  <string name="deadlift">Становая тяга</string>
-  <string name="step">Степ</string>
-  <string name="step_platform">Степ-платформа</string>
-  <string name="pan">Табата</string>
-  <string name="thai_boxing">Тайский бокс</string>
-  <string name="dance_aerobics">Танцевальная аэробика</string>
-  <string name="dancing">Танцы</string>
-  <string name="pole_dancing">Танцы у шеста</string>
-  <string name="twist">Твист</string>
-  <string name="tennis">Теннис</string>
-  <string name="cleaning">Уборка</string>
-  <string name="snow_removal_with_shovel">Уборка снега лопатой</string>
-  <string name="burpee_exercise">Упражнение Burpee</string>
-  <string name="exercise_plank">Упражнение планка</string>
-  <string name="exercise_lunges">Упражнение выпады</string>
-  <string name="fencing">Фехтование</string>
-  <string name="frisbee">Фрисби</string>
-  <string name="football">Футбол</string>
-  <string name="walking_up_the_stairs">Хотьба вверх по лестнице</string>
-  <string name="indoor_walking">Ходьба внутри помещения</string>
-  <string name="walking_5_km_h">Ходьба пешком, 5 км/ч</string>
-  <string name="hockey">Хоккей</string>
-  <string name="stick_walking">Ходьба с палками</string>
-  <string name="shopping">Шопинг</string>
-  <string name="elliptical_trainer_high_load">Эллиптический тренажер, высокая нагрузка</string>
-  <string name="elliptical_trainer_medium_load">Эллиптический тренажер, средняя нагрузка</string>
-  <string name="elliptical_trainer_low_load">Эллиптический тренажер, низкая нагрузка</string>
-
-
-
   <string name="onboard_weight_pattern">%d кг</string>
   <string name="onboard_height_pattern">%d см</string>
 
@@ -565,14 +372,6 @@
   <string name="text_prem_settings">Эксклюзивные статьи от ведущих \nдиетологов и спортсменов, а так же \nмножество рецептов!</string>
   <string name="btn_settings_prem">стать лучше</string>
 
-  <string name="settimgs_item_premium">Premium аккаунт</string>
-  <string name="settings_item_promo">Промокоды</string>
-  <string name="settings_item_info">Личные данные</string>
-  <string name="settings_item_calories">Норма калорий</string>
-  <string name="settings_item_help">Помощь</string>
-  <string name="settings_item_log_out">Выход</string>
-
-
   // Планы питания
   <string name="plans">Планы питания</string>
   <string name="plan">План питания</string>
@@ -590,7 +389,7 @@
   <string name="join">Присоединиться</string>
   <string name="add">Добавить</string>
 
-  <string name="activity_detail_saved_food_def_value">activity_detail_food_0_gram</string>
+<!--  <string name="activity_detail_saved_food_def_value">activity_detail_food_0_gram</string>-->
 
   <string name="activity_plan_recipes_0_kcal">0 ккал на порцию</string>
   <string name="activity_plan_recipes_method">Способ приготовления</string>
@@ -977,7 +776,7 @@
   <string name="day">День %d</string>
 
   <string name="main_screen_topbar_prot">@string/protein_intake</string>
-  <string name="main_screen_topbar_fat">@string/fats_intake</string>
+  <string name="main_screen_topbar_fat">Жиры</string>
   <string name="main_screen_topbar_carbo">@string/carbohydrates_intake</string>
   <string name="main_screen_water">@string/water</string>
 
@@ -1162,12 +961,12 @@
     <item>@drawable/ic_left_sections_food</item>
   </integer-array>
 
+
   <string name="today">Сегодня</string>
   <string name="yesterday">Вчера</string>
   <string name="tomorrow">Завтра</string>
 
   <string name="premium_feature_title">Сбрасывайте вес\nбез стресса и жестких диет с\n</string>
-  <string name="action_buy">КУПИТЬ</string>
   <string name="premium_subscription_card_benefits">Выгода\n%d</string>
 
   <string name="premium_subscription_1_year">1 год</string>
@@ -1175,20 +974,25 @@
   <string name="premium_subscription_3_month">3 месяца</string>
   <string name="premium_subscription_per_month">%s/месяц</string>
 
+
+
   <string name="premium_feature_exclusive_articles">Эксклюзивные статьи</string>
   <string name="premium_feature_exclusive_articles_description">Вы получите доступ к статьям от популярного диетолога и фитнес-тренера</string>
   <string name="premium_feature_exclusive_recipes">База рецептов</string>
   <string name="premium_feature_exclusive_recipes_description">Легкие в приготовлении рецепты с данными КБЖУ с недорогими, но вкусными продуктами</string>
-  <string name="premium_feature_personal_settings_description">Вы сможете просматривать и регулировать уровень своего КБЖУ</string>
   <string name="premium_feature_personal_settings">Персональные настройки</string>
+  <string name="premium_feature_personal_settings_description">Вы сможете просматривать и регулировать уровень своего КБЖУ</string>
+  <string name="premium_feature_exclusive_plans">Планы питания</string>
+  <string name="premium_feature_exclusive_plans_description">Готовые планы питания на любой вкус и для любой цели</string>
   <string name="premium_feature_measurements">Измерения тела</string>
   <string name="premium_feature_measurements_description">Отслеживайте динамику прогресса с помощью подробного анализа параметров своего тела</string>
 
-  <string name="premium_feature_exclusive_plans_description">Готовые планы питания на любой вкус и для любой цели</string>
-  <string name="premium_feature_exclusive_plans">Планы питания</string>
-  <string name="premium_features_comparison">ВСЕ ПРОЩЕ С PREMIUM</string>
 
+  <string name="premium_features_comparison">ВСЕ ПРОЩЕ С PREMIUM</string>
   <string name="subscriptions_list_title">Открой новые возможности\n</string>
+  <string name="action_buy">КУПИТЬ</string>
+
+
 
   <plurals name="duration_minutes">
     <item quantity="one">минуту</item>
