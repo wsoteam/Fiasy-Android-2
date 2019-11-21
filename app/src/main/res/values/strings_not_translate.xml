@@ -152,4 +152,32 @@
     <string name="space" translatable="false">\u0020</string>
 
 
+    <string-array name="srch_eat_list">
+        <item>@string/breakfast</item>
+        <item>@string/lunch</item>
+        <item>@string/dinner</item>
+        <item>@string/snack</item>
+    </string-array>
+
+    <string-array name="srch_eating">
+        <item>@string/breakfast</item>
+        <item>@string/lunch</item>
+        <item>@string/dinner</item>
+        <item>@string/snack</item>
+    </string-array>
+
+    <string-array name="eatingList">
+        <item>@string/breakfast</item>
+        <item>@string/lunch</item>
+        <item>@string/dinner</item>
+        <item>@string/snack</item>
+    </string-array>
+
+    <integer-array name="sections_images">
+        <item>@drawable/ic_left_sections_favorites</item>
+        <item>@drawable/ic_left_sections_template</item>
+        <item>@drawable/ic_left_sections_dish</item>
+        <item>@drawable/ic_left_sections_food</item>
+    </integer-array>
+
 </resources>

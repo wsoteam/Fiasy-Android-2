@@ -448,13 +448,6 @@
   </plurals>
 
 
-  // Добавление продуктов в дневник
-  <string-array name="eatingList">
-    <item>Завтрак</item>
-    <item>Обед</item>
-    <item>Ужин</item>
-    <item>Перекус</item>
-  </string-array>
 
   <string name="favoriteRecipe">Понравившиеся</string>
   <string name="own_food">свои продукты</string>
@@ -909,12 +902,6 @@
   <string name="srch_claim_send_fin">Жалоба отправлена. Спасибо!</string>
 
 
-  <string-array name="srch_eat_list">
-    <item>Завтрак</item>
-    <item>Обед</item>
-    <item>Ужин</item>
-    <item>Перекус</item>
-  </string-array>
 
   <string-array name="srch_insp">
     <item>Вы добавили в Завтрак:</item>
@@ -929,12 +916,7 @@
     <item>Мои блюда</item>
     <item>Мои продукты</item>
   </string-array>
-  <string-array name="srch_eating">
-    <item>Завтрак</item>
-    <item>Обед</item>
-    <item>Ужин</item>
-    <item>Перекус</item>
-  </string-array>
+
 
 
   <plurals name="srch_portions">
@@ -1086,4 +1068,12 @@
   <string name="subscription_not_found">Подписка не найдена, возможно она не доступна в вашей стране</string>
 
   <string name="url_privacy_police">http://fiasy.com/PrivacyPolice</string>
+
+  <plurals name="trial_days">
+    <item quantity="one">%d день бесплатно</item>
+    <item quantity="few">%d дня бесплатно</item>
+    <item quantity="many">%d дней бесплатно</item>
+    <item quantity="other">%d дней бесплатно</item>
+  </plurals>
+
 </resources>

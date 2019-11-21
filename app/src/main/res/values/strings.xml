@@ -96,12 +96,7 @@
         <item quantity="one">%d food</item>
         <item quantity="other">%d foods</item>
     </plurals>
-    <string-array name="eatingList">
-        <item>Breakfast</item>
-        <item>Lunch</item>
-        <item>Dinner</item>
-        <item>Snack</item>
-    </string-array>
+
 <!--    TODO-->
     <string name="favoriteRecipe">Liked</string>
     <string name="own_food">my foods</string>
@@ -965,7 +960,7 @@ Share your accomplishments with friends:</string>
     <string name="addingRecipeText">The recipe you create will be saved in this section</string>
     <string name="favoriteRecipeText">The recipes you like will be saved in this section </string>
     <string name="alertDialogSuccess">Recipe saved</string>
-    <string name="addingRecipePortionV" >Weight:</string>
+    <string name="addingRecipePortionV">Weight:</string>
     <string name="addingRecipePortion">Number of servings (optional)</string>
     <string name="tvArticlePremText">Get access to hundreds of useful articles when you sign up for a premium account.</string>
     <string name="tvTitleArticleFragment">Useful articles</string>
@@ -1058,12 +1053,7 @@ Share your accomplishments with friends:</string>
     <string name="srch_mg">mg</string>
     <string name="srch_claim_send_fin">Complaint sent. Thanks!</string>
 
-    <string-array name="srch_eat_list">
-        <item>Breakfast</item>
-        <item>Lunch</item>
-        <item>Dinner</item>
-        <item>Snack</item>
-    </string-array>
+
 
     <string-array name="srch_insp">
         <item>You added to breakfast:</item>
@@ -1078,12 +1068,7 @@ Share your accomplishments with friends:</string>
         <item>My dishes</item>
         <item>My products</item>
     </string-array>
-    <string-array name="srch_eating">
-        <item>Breakfast</item>
-        <item>Lunch</item>
-        <item>Dinner</item>
-        <item>Snack</item>
-    </string-array>
+
 
 
     <plurals name="srch_portions">
@@ -1103,12 +1088,7 @@ Share your accomplishments with friends:</string>
         <item quantity="other">%d products</item>
     </plurals>
 
-    <integer-array name="sections_images">
-        <item>@drawable/ic_left_sections_favorites</item>
-        <item>@drawable/ic_left_sections_template</item>
-        <item>@drawable/ic_left_sections_dish</item>
-        <item>@drawable/ic_left_sections_food</item>
-    </integer-array>
+
 
 
     <string name="daily_burn_widget_title">Daily rate</string>
@@ -1131,16 +1111,13 @@ Share your accomplishments with friends:</string>
     <string name="my_plan">My diet plan</string>
 
 
-
     <string name="question_name_title">Let\'s start.\n What is your name?</string>
 
     <string name="subscription_detailed">Подписка на %s %s</string>
 
     <plurals name="trial_days">
-      <item quantity="one">%d день бесплатно</item>
-      <item quantity="few">%d дня бесплатно</item>
-      <item quantity="many">%d дней бесплатно</item>
-      <item quantity="other">%d дней бесплатно</item>
+        <item quantity="one">free for %d day</item>
+        <item quantity="other">free for %d days</item>
     </plurals>
 
 
@@ -1148,6 +1125,7 @@ Share your accomplishments with friends:</string>
     <string name="load_photo">Upload photo</string>
     <string name="where_photo"></string>
     <string name="phone_memory">Phone memory</string>
+
 
     <string name="widget_activity_question">Have you been active today?</string>
     <string name="url_privacy_police">https://fiasy.com/privacypolicy_en</string>

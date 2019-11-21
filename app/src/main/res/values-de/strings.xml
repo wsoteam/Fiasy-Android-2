@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+
+    <string name="addingRecipePortionV">Gewicht:</string>
+    <string name="yesterday">gestern</string>
+    <string name="tomorrow">morgen</string>
+    <string name="daily_burn_widget_title">Tagesrate</string>
+
+    <plurals name="trial_days">
+        <item quantity="one">kostenlos für %d Tage</item>
+        <item quantity="other">kostenlos für %d Tage</item>
+    </plurals>
+
+    <string name="url_privacy_police">https://fiasy.com/privacypolicy_en</string>
     <string name="today">Heute</string>
+
+    <string name="camera">Kamera</string>
+    <string name="load_photo">Foto hochladen</string>
+    <string name="where_photo"></string>
+    <string name="phone_memory">Handyspeicher</string>
+    <string name="daily_rate_2">Tagesrate =</string>
 
     <string name="premium_feature_exclusive_articles">Exklusive Artikel</string>
     <string name="premium_feature_exclusive_articles_description">Sie erhalten Zugang zu Artikeln eines bekannten Ernährungswissenschaftlers und Fitnesstrainers</string>
