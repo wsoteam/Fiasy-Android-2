@@ -478,4 +478,5 @@ Parabéns!</string>
 
     <string name="widget_activity_question">Estiveste activo hoje?</string>
     <string name="question_name_title">Vamos começar.\n Como tu te chamas?</string>
+    <string name="subscription_not_found">Assinatura Premium não encontrada, não pode estar disponível no seu país</string>
 </resources>

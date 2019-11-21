@@ -1154,9 +1154,8 @@ Share your accomplishments with friends:</string>
     <string name="timer_hours_left">hours</string>
     <string name="timer_minutes_left">minutes</string>
 
-    <string name="subscription_not_found">Подписка не найдена, возможно она не доступна в вашей стране</string>
+    <string name="subscription_not_found">Premium subscription not found, it can be not available in your country</string>
     <string name="be_better_with_premium">Become better with Premium</string>
-
 
     <string name="addingRecipeText">The recipe you create will be saved in this section</string>
     <string name="favoriteRecipeText">The recipes you like will be saved in this section </string>
@@ -1328,8 +1327,6 @@ Share your accomplishments with friends:</string>
 
 
 
-
-
     <string name="question_name_title">Let\'s start.\n What is your name?</string>
 
     <string name="subscription_detailed">Подписка на %s %s</string>
@@ -1342,15 +1339,11 @@ Share your accomplishments with friends:</string>
     </plurals>
 
 
-
     <string name="camera">Camera</string>
     <string name="load_photo">Upload photo</string>
     <string name="where_photo"></string>
     <string name="phone_memory">Phone memory</string>
 
-
-
-
     <string name="widget_activity_question">Have you been active today?</string>
-
+    <string name="url_privacy_police">https://fiasy.com/privacypolicy_en</string>
 </resources>

@@ -1278,5 +1278,8 @@
   <string name="phone_memory">Память телефона</string>
 
   <string name="widget_activity_question">У вас сегодня были активные занятия?</string>
-    <string name="question_name_title">Давайте знакомиться.\nКак вас зовут?</string>
+  <string name="question_name_title">Давайте знакомиться.\nКак вас зовут?</string>
+  <string name="subscription_not_found">Подписка не найдена, возможно она не доступна в вашей стране</string>
+
+  <string name="url_privacy_police">http://fiasy.com/PrivacyPolice</string>
 </resources>

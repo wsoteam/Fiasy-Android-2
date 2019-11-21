@@ -2,7 +2,6 @@
 <resources>
 
 
-    <string name="url_privacy_police" translatable="false">http://fiasy.com/PrivacyPolice</string>
 
     <integer-array name="left_drawables">
         <item>@drawable/ic_left_settings_diamond</item>

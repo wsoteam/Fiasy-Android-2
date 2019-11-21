@@ -469,4 +469,5 @@ Teilen Sie Ihre Erfolge mit Freunden:</string>
     <string name="widget_activity_question">Waren Sie heute schon aktiv?</string>
 
     <string name="question_name_title">Fangen wir an.\n Wie heißen Sie?</string>
+    <string name="subscription_not_found">Premium-Abonnement nicht gefunden, kann es nicht in Ihrem Land verfügbar sein</string>
 </resources>

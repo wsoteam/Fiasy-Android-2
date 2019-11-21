@@ -472,4 +472,5 @@ Comparta sus logros con sus amigos:</string>
 
     <string name="widget_activity_question">¿Has estado activo hoy?</string>
     <string name="question_name_title">Vamos a empezar.\n ¿Cómo te llamas?</string>
+    <string name="subscription_not_found">Suscripción Premium no encontrada, puede no estar disponible en su país</string>
 </resources>
