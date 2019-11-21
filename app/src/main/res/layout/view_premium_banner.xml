@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#120918"
+    android:fitsSystemWindows="true"
     android:id="@+id/premium_banner_root"
     android:orientation="horizontal"
     android:layout_width="match_parent"
