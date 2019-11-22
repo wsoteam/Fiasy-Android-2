@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
+    <string name="srch_basket_alet_text">Möchten Sie zurückdrehen, \nohne ausgewählte Lebensmittel </string>
+    <string name="srch_cancel_basket">Abbrechen</string>
+    <string name="srch_yes">Ja</string>
+    <string name="srch_elements_title">Nährstoffe pro </string>
+    <string name="srch_fats">Fett</string>
+    <string name="srch_carbohydrates">Kohlenhydrate</string>
+    <string name="srch_proteins">Protein</string>
+    <string name="srch_prem_elements">Mikronährstoffe</string>
+    <string name="srch_text_prem">Möchten Sie wissen, wie viele Vitamine und Mineralstoffe Sie mit Nahrung einnehmen \n</string>
+    <string name="srch_text_prem_second">Dann treten Sie der version bei</string>
+
+
+    <string name="srch_text_prem_end">versions.</string>
+    <string name="srch_connect_prem">premium-konto aktivieren</string>
+    <string name="srch_speak">Einsprechen!</string>
+    <string name="srch_empty_section">Abschnitt in der Entwicklung</string>
+    <string name="srch_min_claim">Min. 10 Zeichen</string>
+    <string name="srch_claim_send">Senden</string>
+    <string name="srch_claim_cancel">Abbrechen</string>
+    <string name="srch_write_claim">Beschreiben Sie das Problem</string>
+    <string name="srch_detail_add">Hinzufügen</string>
+    <string name="srch_speak_about_error">Einen Fehler melden</string>
+    <string name="srch_carbo">Kohlenhydrate</string>
+    <string name="srch_cell">Zellulose</string>
+
+
+    <string name="srch_sugar">Zucker</string>
+    <string name="srch_sat">Fettsäuren</string>
+    <string name="srch_mono_un_sat">Einfach Fettsäuren</string>
+    <string name="srch_poly_us_sat">Mehrfach Fettsäuren</string>
+    <string name="srch_prot">Protein</string>
+    <string name="srch_chol">Cholesterin</string>
+    <string name="srch_sod">Natrium</string>
+    <string name="srch_pot">Kalium</string>
+    <string name="srch_back">ZURÜCK</string>
+    <string name="srch_continue">FORTFAHREN</string>
+
+
+    <string name="srch_default_portion">100 g</string>
+    <string name="srch_liquid">%d ml</string>
+    <string name="srch_not_liquid">%d g</string>
+    <string name="srch_save_list">Wurde dem Tagebuch Hinzugefügt</string>
+    <string name="srch_history_header">Zuletzt Hinzugefügt</string>
+    <string name="srch_search_results">Suchergebnisse</string>
+    <string name="srch_empty_history">Beginnen Sie mit der Eingabe eines Lebensmittelnamens in das \nSuchfeld</string>
+
+
+    <string name="srch_delete_undo_title">Ausgewähltes Produkt wurde aus der Liste gelöscht</string>
+    <string name="srch_cancel">Abbrechen</string>
+    <string name="srch_insp_ask">Wollen Sie weiterhin Lebensmittel in </string>
+
+    <string name="srch_search_field">Suche</string>
+    <string name="srch_empty_search_title">Keine Ergebnisse gefunden</string>
+    <string name="srch_text_empty">Versuchen Sie es erneut oder erstellen Sie Ihre eigenen \nLebensmittel</string>
+    <string name="srch_ml">ml</string>
+    <string name="srch_gramm">g</string>
+    <string name="srch_add_to_basket">Hinzufügen</string>
+    <string name="srch_basket_title">Ausgewählte Produkte</string>
+    <string name="srch_basket_card"><u>Ausgew: %d</u></string>
+    <string name="srch_weight_error">Portionsgewicht eingeben</string>
+    <string name="srch_kcal">kcal</string>
+    <string name="srch_create_user_food">Lebensmittel erstellen</string>
+    <string name="srch_mg">mg</string>
+    <string name="srch_claim_send_fin">Die Beschwerde wird gesendet. Danke!</string>
+
     <string name="main_screen_water">Wasser</string>
 
     <string name="addingRecipePortionV">Gewicht:</string>
@@ -180,7 +245,7 @@
     <string name="intro_text_1">Wissenschaftliche Artikel zu gesunder Ernährung</string>
     <string name="intro_text_2">Täglich gesunde Rezepte</string>
     <string name="main_screen_menu_water_count">%.2f l</string>
-    <string name="dif_level_hard_up">Abnehmen</string>
+<!--    <string name="dif_level_hard_up">Abnehmen</string>-->
     <string name="auth_restore_your_password">Passwort wiederherstellen</string>
     <string name="constraint_error_username_email">E-Mail Adresse eingeben</string>
     <string name="enter_email_hint">E-Mail Adresse eingeben</string>
@@ -288,7 +353,7 @@
     <string name="select_your_target">Wählen Sie Ihr Ziel</string>
     <string name="first_target">In Form bleiben</string>
     <string name="second_target">Abnehmen</string>
-    <string name="third_target">fourth_target</string>
+    <string name="third_target">Muskelmasse aufbauen</string>
     <string name="fourth_target">Muskulatur halten und Fett verbrennen</string>
     <string name="wait_a_while">Einen Augenblick</string>
     <string name="wait_a_while_description">Ihre persönliche Ernährung wird berechnet.</string>
@@ -406,8 +471,8 @@ Standardwert zurückkehren</string>
     <string name="make_default">Auf Standard setzen</string>
     <string name="my_activity">Meine Aktivitäten</string>
     <string name="search">Suche</string>
-    <string name="empty_my_activity_first">Noch keine Aktivitäten hinzugefügt. Tippen Sie dazu auf</string>
-    <string name="empty_my_activity_second"> Tippen Sie auf ➕</string>
+    <string name="empty_my_activity_first">Noch keine Aktivitäten hinzugefügt. </string>
+    <string name="empty_my_activity_second"> Tippen Sie auf </string>
     <string name="favorites">Favoriten</string>
     <string name="empty_favorites">Noch keine Aktivitäten als Favoriten hinzugefügt. Streichen Sie dazu nach links
 und tippen Sie auf das Herz.</string>

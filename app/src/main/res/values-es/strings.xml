@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
+
+    <string name="srch_basket_alet_text">¿Quieres volver atrás sin \nagregar comidas Estambul?</string>
+    <string name="srch_cancel_basket">Cancelar</string>
+    <string name="srch_yes">Sí</string>
+    <string name="srch_elements_title">Nutrientes por </string>
+    <string name="srch_fats">Grasa</string>
+    <string name="srch_carbohydrates">Carbohidratos</string>
+    <string name="srch_proteins">Proteína</string>
+    <string name="srch_prem_elements">Micronutrientes</string>
+    <string name="srch_text_prem">¿Quieres saber cuántas vitaminas y minerales tomas con los alimentos? \n</string>
+    <string name="srch_text_prem_second">Luego únete a la versión</string>
+
+
+    <string name="srch_text_prem_end">versión.</string>
+    <string name="srch_connect_prem">activar cuenta premium</string>
+    <string name="srch_speak">¡Hable!</string>
+    <string name="srch_empty_section">Sección en desarrollo</string>
+    <string name="srch_min_claim">Mín. 10 caracteres</string>
+    <string name="srch_claim_send">Enviar</string>
+    <string name="srch_claim_cancel">Cancelar</string>
+    <string name="srch_write_claim">Describa el problema</string>
+    <string name="srch_detail_add">añadir</string>
+    <string name="srch_speak_about_error">Informar de un error</string>
+    <string name="srch_carbo">Carbohidratos</string>
+    <string name="srch_cell">Celulosa</string>
+
+
+    <string name="srch_sugar">Azúcar</string>
+    <string name="srch_sat">Saturada</string>
+    <string name="srch_mono_un_sat">Monosaturada</string>
+    <string name="srch_poly_us_sat">Poliinsaturada</string>
+    <string name="srch_prot">Proteína</string>
+    <string name="srch_chol">Colesterol</string>
+    <string name="srch_sod">Sodio</string>
+    <string name="srch_pot">Potasio</string>
+    <string name="srch_back">ATRÁS</string>
+    <string name="srch_continue">CONTINUAR</string>
+
+
+    <string name="srch_default_portion">100 g</string>
+    <string name="srch_liquid">%d ml</string>
+    <string name="srch_not_liquid">%d g</string>
+    <string name="srch_save_list">Se añadió al diario</string>
+    <string name="srch_history_header">Último añadido</string>
+    <string name="srch_search_results">Resultados de la búsqueda</string>
+    <string name="srch_empty_history">Empiece a escribir el nombre de una comida en el \ncampo de búsqueda</string>
+
+
+    <string name="srch_delete_undo_title">El producto seleccionado fue eliminado de la lista</string>
+    <string name="srch_cancel">Cancelar</string>
+    <string name="srch_insp_ask">¿Quieres continuar con los alimentos </string>
+
+    <string name="srch_search_field">Buscar</string>
+    <string name="srch_empty_search_title">No se han encontrado resultados</string>
+    <string name="srch_text_empty">Inténtelo de nuevo o cree su propia \ncomida</string>
+    <string name="srch_ml">ml</string>
+    <string name="srch_gramm">g</string>
+    <string name="srch_add_to_basket">Añadir</string>
+    <string name="srch_basket_title">Productos seleccionados</string>
+    <string name="srch_basket_card"><u>Elegido: %d</u></string>
+    <string name="srch_weight_error">Introducir peso de la ración</string>
+    <string name="srch_kcal">kcal</string>
+    <string name="srch_create_user_food">Crear comida</string>
+    <string name="srch_mg">mg</string>
+    <string name="srch_claim_send_fin">Se envía la denuncia. ¡Gracias!</string>
+
     <string name="main_screen_water">Agua</string>
     <string name="addingRecipePortionV">Peso:</string>
     <string name="yesterday">ayer</string>
@@ -242,7 +308,7 @@
     <string name="auth_restore_your_password">Recuperar contraseña</string>
     <string name="constraint_error_username_email">Introduzca la dirección de correo electrónico</string>
     <string name="enter_email_hint">Introduzca la dirección de correo electrónico</string>
-    <string name="dif_level_hard_up">Perder peso</string>
+<!--    <string name="dif_level_hard_up">Perder peso</string>-->
     <string name="activity_detail_food_add">Añadir</string>
     <string name="activity_detail_food_to_100_g">por cada 100 g\u0020</string>
     <string name="update_title">Actualización!</string>
@@ -437,8 +503,8 @@ predeterminado</string>
     <string name="make_default">Establecer como predeterminado</string>
     <string name="my_activity">Mis actividades</string>
     <string name="search">Buscar</string>
-    <string name="empty_my_activity_first">Aún no ha añadido actividades. Para añadir una, pulse</string>
-    <string name="empty_my_activity_second"> pulse ➕</string>
+    <string name="empty_my_activity_first">Aún no ha añadido actividades. Para añadir una,</string>
+    <string name="empty_my_activity_second"> pulse </string>
     <string name="favorites">Favoritos</string>
     <string name="empty_favorites">Aún no ha añadido actividades a sus favoritos. Para añadir una,
 deslice hacia la izquierda y pulse en el símbolo de corazón.</string>

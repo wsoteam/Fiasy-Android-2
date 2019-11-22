@@ -998,8 +998,6 @@ Share your accomplishments with friends:</string>
     <string name="srch_basket_card"><u>Selected: %d</u></string>
 
 
-
-
     <string name="srch_delete_undo_title">Product removed from list</string>
     <string name="srch_cancel">Cancel</string>
     <string name="srch_insp_ask">Want to continue adding products to</string>
@@ -1035,6 +1033,7 @@ Share your accomplishments with friends:</string>
     <string name="srch_speak_about_error">Report a bug</string>
     <string name="srch_carbo">Carbohydrates</string>
     <string name="srch_cell">Cellulose</string>
+
     <string name="srch_sugar">Sugar</string>
     <string name="srch_sat">Saturated</string>
     <string name="srch_mono_un_sat">Monounsaturated</string>
@@ -1051,8 +1050,6 @@ Share your accomplishments with friends:</string>
     <string name="srch_create_user_food">Create product</string>
     <string name="srch_mg">mg</string>
     <string name="srch_claim_send_fin">Complaint sent. Thanks!</string>
-
-
 
     <string-array name="srch_insp">
         <item>You added to breakfast:</item>

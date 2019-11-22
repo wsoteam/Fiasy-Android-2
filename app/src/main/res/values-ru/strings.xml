@@ -546,7 +546,7 @@
   <string name="input_weight_of_eating">Введите вес порции</string>
 
 
-  <string name="dif_level_hard_up">Похудение</string>
+<!--  <string name="dif_level_hard_up">Похудение</string>-->
   <string name="dif_easy_description">Идеально подходит для начинающих. Используется для поддержания веса</string>
   <string name="dif_normal_description">Плавное похудение. Потеря веса без больших усилий</string>
   <string name="dif_hard_description">Для достижения результатов быстрыми темпами, требуется большая сила воли</string>
@@ -874,6 +874,7 @@
   <string name="srch_text_prem">Хотите знать достаточно ли витаминов и \nминералов вы потребляете с пищей? Тогда \n</string>
   <string name="srch_text_prem_second">присоединяйтесь к</string>
   <string name="srch_text_prem_third">\u0020PREMIUM\u0020</string>
+
   <string name="srch_text_prem_end">версии.</string>
   <string name="srch_connect_prem">подключить premium</string>
   <string name="srch_speak">Говорите!</string>
@@ -886,6 +887,7 @@
   <string name="srch_speak_about_error">Сообщить об ошибке</string>
   <string name="srch_carbo">Углеводы</string>
   <string name="srch_cell">Клетчатка</string>
+
   <string name="srch_sugar">Сахар</string>
   <string name="srch_sat">Насыщенные</string>
   <string name="srch_mono_un_sat">Мононенасыщенные</string>
