@@ -89,7 +89,7 @@ public class QuestionPurposeFragments extends Fragment {
       final VectorDrawableCompat d = VectorDrawableCompat
           .create(r, targetId, requireContext().getTheme());
 
-      views[i].setBackground(d);
+      views[i].setBackground(d.mutate());
 
       if(i == selected){
         selectedPurpose = views[i];
@@ -180,9 +180,9 @@ public class QuestionPurposeFragments extends Fragment {
 
     final String[] levels = new String[]{
             getString(R.string.dif_level_normal),
+            getString(R.string.dif_level_easy),
             getString(R.string.dif_level_hard),
             getString(R.string.dif_level_hard_up),
-            getString(R.string.dif_level_easy)
     };
 
     return ArraysKt.indexOf(levels, level);

@@ -2,10 +2,9 @@ package com.wsoteam.diet.common.views.water_step;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.view.Gravity;
-import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.wsoteam.diet.R;
+
+import androidx.core.content.ContextCompat;
 
 public class WaterStepView extends LinearLayout implements View.OnClickListener {
 
@@ -22,7 +23,7 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
     private int currentProgress;
 
     private final int imageSize = dpToPx(52);
-    private  int lineCount = getResources().getDisplayMetrics().widthPixels / imageSize;
+    private int lineCount = getResources().getDisplayMetrics().widthPixels / imageSize;
     private final int rowMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, lineCount, getResources().getDisplayMetrics());
     private final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(imageSize, imageSize, 1);
     private final LinearLayout.LayoutParams rowLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -47,15 +48,15 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
         init();
     }
 
-   private int dpToPx(float dp) {
+    private int dpToPx(float dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getContext().getResources().getDisplayMetrics());
     }
 
     public void setMaxProgress(int MAX_PROGRESS) {
-    this.MAX_PROGRESS = MAX_PROGRESS;
+        this.MAX_PROGRESS = MAX_PROGRESS;
     }
 
-  private void init() {
+    private void init() {
         View rootView = LayoutInflater.from(getContext()).inflate(R.layout.view_water, this);
         rlContainer = rootView.findViewById(R.id.rlContainer);
         rowLayoutParams.setMargins(0, rowMargin, 0, rowMargin);
@@ -73,26 +74,26 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
         rlContainer.addView(firstLinearLayout, rowLayoutParams);
     }
 
-  @Override
-  public void onClick(View view) {
-    int item = (int) view.getTag();
+    @Override
+    public void onClick(View view) {
+        int item = (int) view.getTag();
 
-    if (item <= currentProgress) {
-      currentProgress = item - 1;
-    } else {
-      currentProgress = item;
+        if (item <= currentProgress) {
+            currentProgress = item - 1;
+        } else {
+            currentProgress = item;
+        }
+        setStepNum(currentProgress, MAX_PROGRESS == 0 || currentProgress < MAX_PROGRESS);
+        if (listener != null) {
+            listener.onWaterClick(currentProgress);
+        }
     }
-    setStepNum(currentProgress, MAX_PROGRESS == 0 || currentProgress < MAX_PROGRESS);
-    if (listener != null) {
-      listener.onWaterClick(currentProgress);
-    }
-  }
 
-  public void setStepNum(int _count) {
-    this.count = _count;
-    redrawView(count, MAX_PROGRESS == 0 || _count < MAX_PROGRESS);
-    requestLayout();
-  }
+    public void setStepNum(int _count) {
+        this.count = _count;
+        redrawView(count, MAX_PROGRESS == 0 || _count < MAX_PROGRESS);
+        requestLayout();
+    }
 
     public void setStepNum(int _count, boolean _addMore) {
         this.count = _count;
@@ -101,7 +102,7 @@ public class WaterStepView extends LinearLayout implements View.OnClickListener 
     }
 
     private void redrawView(int count, boolean addMore) {
-      currentProgress = count;
+        currentProgress = count;
 
         if (rlContainer.getChildCount() > 1) {
             rlContainer.removeViews(1, rlContainer.getChildCount() - 1);
