@@ -874,6 +874,7 @@
   <string name="srch_text_prem">Хотите знать достаточно ли витаминов и \nминералов вы потребляете с пищей? Тогда \n</string>
   <string name="srch_text_prem_second">присоединяйтесь к</string>
   <string name="srch_text_prem_third">\u0020PREMIUM\u0020</string>
+
   <string name="srch_text_prem_end">версии.</string>
   <string name="srch_connect_prem">подключить premium</string>
   <string name="srch_speak">Говорите!</string>
@@ -886,6 +887,7 @@
   <string name="srch_speak_about_error">Сообщить об ошибке</string>
   <string name="srch_carbo">Углеводы</string>
   <string name="srch_cell">Клетчатка</string>
+
   <string name="srch_sugar">Сахар</string>
   <string name="srch_sat">Насыщенные</string>
   <string name="srch_mono_un_sat">Мононенасыщенные</string>

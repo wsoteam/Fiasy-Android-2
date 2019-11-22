@@ -1,5 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+
+    <string name="srch_basket_alet_text">Deseja voltar para trás sem \nadicionar os alimentos seleccionados </string>
+    <string name="srch_cancel_basket">Cancelar</string>
+    <string name="srch_yes">Sim</string>
+    <string name="srch_elements_title">Nutrientes por </string>
+    <string name="srch_fats">Gordura</string>
+    <string name="srch_carbohydrates">Carboidratos</string>
+    <string name="srch_proteins">Proteína</string>
+    <string name="srch_prem_elements">Micronutrientes</string>
+    <string name="srch_text_prem">Quer saber quantas vitaminas e minerais toma com alimentos? \n</string>
+    <string name="srch_text_prem_second">Em seguida, junte-se à versão</string>
+
+
+    <string name="srch_text_prem_end">versão.</string>
+    <string name="srch_connect_prem">ativar conta premium</string>
+    <string name="srch_speak">Fale!</string>
+    <string name="srch_empty_section">Secção do desenvolvimento</string>
+    <string name="srch_min_claim">Min. de 10 caracteres</string>
+    <string name="srch_claim_send">Enviar</string>
+    <string name="srch_claim_cancel">Cancelar</string>
+    <string name="srch_write_claim">Descreva o problema</string>
+    <string name="srch_detail_add">adicionar</string>
+    <string name="srch_speak_about_error">Relatar um erro</string>
+    <string name="srch_carbo">Carboidratos</string>
+    <string name="srch_cell">Celulose</string>
+
+
+    <string name="srch_sugar">Açúcar</string>
+    <string name="srch_sat">Saturada</string>
+    <string name="srch_mono_un_sat">Gordura monoinsaturada</string>
+    <string name="srch_poly_us_sat">Poliinsaturada</string>
+    <string name="srch_prot">Proteína</string>
+    <string name="srch_chol">Colesterol</string>
+    <string name="srch_sod">SodiSódio</string>
+    <string name="srch_pot">Potássio</string>
+    <string name="srch_back">VOLTAR</string>
+    <string name="srch_continue">CONTINUAR</string>
+
+    <string name="srch_default_portion">100 g</string>
+    <string name="srch_liquid">%d ml</string>
+    <string name="srch_not_liquid">%d g</string>
+    <string name="srch_save_list">Foi adicionado ao diário</string>
+    <string name="srch_history_header">Última adição</string>
+    <string name="srch_search_results">Pesquisa</string>
+    <string name="srch_empty_history">Comece digitando o nome de um alimento no campo de pesquisa\n</string>
+
+    <string name="srch_delete_undo_title">O produto seleccionado foi eliminado da lista</string>
+    <string name="srch_cancel">Cancelar</string>
+    <string name="srch_insp_ask">Queres continuar a comer</string>
+
+    <string name="srch_weight_error">Informe o peso da porção</string>
+    <string name="srch_kcal">kcal</string>
+    <string name="srch_create_user_food">Criar alimento</string>
+    <string name="srch_mg">mg</string>
+    <string name="srch_claim_send_fin">A queixa é enviada. Obrigado!</string>
+
+    <string name="srch_search_field">Procurar</string>
+    <string name="srch_empty_search_title">Nenhum resultado encontrado</string>
+    <string name="srch_text_empty">Tente novamente ou crie seu próprio \nalimento</string>
+    <string name="srch_ml">ml</string>
+    <string name="srch_gramm">g</string>
+    <string name="srch_add_to_basket">Adicionar</string>
+    <string name="srch_basket_title">Produtos seleccionados</string>
+    <string name="srch_basket_card"><u>Seleccionado: %d</u></string>
+
+
     <string name="main_screen_water">Água</string>
 
     <string name="addingRecipePortionV">Peso:</string>
