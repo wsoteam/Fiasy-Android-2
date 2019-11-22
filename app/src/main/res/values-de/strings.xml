@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
+    <string name="main_screen_water">Wasser</string>
+
     <string name="addingRecipePortionV">Gewicht:</string>
     <string name="yesterday">gestern</string>
     <string name="tomorrow">morgen</string>
     <string name="daily_burn_widget_title">Tagesrate</string>
 
     <plurals name="trial_days">
-        <item quantity="one">kostenlos für %d Tage</item>
-        <item quantity="other">kostenlos für %d Tage</item>
+        <item quantity="one">Kostenlos für %d Tage</item>
+        <item quantity="other">Kostenlos für %d Tage</item>
     </plurals>
 
     <string name="url_privacy_police">https://fiasy.com/privacypolicy_en</string>
@@ -148,6 +150,7 @@
     <string name="art_series_series_title">Acht Artikel für einen einfachen Start!</string>
     <string name="art_series_series_info">Sie müssen den vorherigen Tag abschließen, bevor Sie mit dem nächsten fortfahren können</string>
     <string name="day">Tag %d</string>
+    <string name="food_popup_menu_delete">Löschen</string>
 
     <string name="alert_dialog_confirm_delete">Löschen</string>
     <string name="activity_main_new_burnt">0\nverbrannt</string>
@@ -195,11 +198,21 @@
     <string name="subscription_detailed">Abonnement für %s %s</string>
     <string name="meas_alert_k">@android:string/ok</string>
     <string name="carbohydrates_intake">Kohlenhydrate</string>
+    <string name="main_screen_topbar_carbo">Kohlenhydrate</string>
+
     <string name="my_plan">Meine Ernährung</string>
     <string name="user_activity_section_defaults">Standardaktivitäten</string>
     <string name="user_activity_time_elapsed">%d Minuten</string>
     <string name="add_user_activity_duration_hint">für %s</string>
+    <string name="getAccess">Erhalten Sie  Zugang </string>
+    <string name="tvItemPlanTime">Kochzeit:</string>
+    <string name="main_screen_topbar_fat">Fett</string>
+    <string name="check_your_email">Falsche format</string>
+    <string name="my_meals">Meine Mahlzeiten</string>
+    <string name="my_food">Mein Essen</string>
 
+    <string name="tvSaturatedFats">Gesättigte</string>
+    <string name="tvUnSaturatedFats">Ungesättigte</string>
     <string name="main_screen_topbar_left">%s kcal</string>
     <string name="user_activity_section_my">Meine Aktivitäten</string>
     <string name="daily_widget_calories_left">Verbleibend</string>
@@ -551,6 +564,8 @@ Bitte versuchen Sie, das obige Formular so genau und vollständig wie möglich a
     <string name="eatingTemplate">Kategorie:</string>
     <string name="contextMenuDelete">Löschen</string>
     <string name="contextMenuEdit">Bearbeiten</string>
+    <string name="food_popup_menu_change">Bearbeiten</string>
+
     <string name="addTemplate">Vorlage hinzufügen</string>
     <string name="templates">Vorlagen</string>
     <string name="tvMG">mg</string>
@@ -662,6 +677,8 @@ Bitte versuchen Sie, das obige Formular so genau und vollständig wie möglich a
     <string name="item_vertical_browse_plans_name">Name des Ernährungsplans</string>
     <string name="ms_item_eating_list_recommendation">Empfohlen: 475-855 kcal</string>
     <string name="ms_item_eating_list_add_meal">Geben Sie jetzt Ihr Mittagessen ein, und erreichen Sie Ihr Ziel schneller</string>
+    <string name="ms_item_eating_list_kcal2">kcal</string>
+    <string name="privacy_policy_with_condtions">Privacy Policy and\nterms of use</string>
     <string name="plans_footer_item_share">Haben Sie Ihr Ziel erreicht?
 Teilen Sie Ihre Erfolge mit Freunden:</string>
     <string name="plans_footer_item_cong">Ihr Ernährungsplan ist abgeschlossen!

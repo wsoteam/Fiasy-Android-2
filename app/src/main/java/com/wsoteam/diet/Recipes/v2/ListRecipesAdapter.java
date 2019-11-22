@@ -27,6 +27,7 @@ import com.wsoteam.diet.Recipes.EmptyViewHolder;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.utils.Img;
+import com.wsoteam.diet.utils.Subscription;
 
 import java.util.List;
 import java.util.Map;
@@ -107,7 +108,7 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 @Override
                 public void onClick(View view) {
                     Intent intent;
-                    if (checkSubscribe()) {
+                    if (Subscription.check(context)) {
                         intent = new Intent(context, RecipeActivity.class);
 
                     } else {
@@ -174,15 +175,6 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
             }
             return false;
-        }
-
-        private boolean checkSubscribe() {
-            SharedPreferences sharedPreferences = context.getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-            if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
-                return true;
-            } else {
-                return false;
-            }
         }
     }
 }

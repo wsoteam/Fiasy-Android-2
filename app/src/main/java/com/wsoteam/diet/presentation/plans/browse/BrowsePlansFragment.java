@@ -27,6 +27,7 @@ import com.wsoteam.diet.presentation.plans.adapter.HorizontalBrowsePlansAdapter;
 import com.wsoteam.diet.presentation.plans.adapter.VerticalBrowsePlansAdapter;
 import com.wsoteam.diet.presentation.plans.detail.DetailPlansActivity;
 import com.wsoteam.diet.presentation.plans.detail.blocked.BlockedDetailPlansActivity;
+import com.wsoteam.diet.utils.Subscription;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -127,7 +128,7 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
         public void onItemClick(View view, int position, DietPlan dietPlan) {
             Intent intent;
 
-            if (!checkSubscribe() && dietPlan.isPremium()){
+            if (!Subscription.check(getContext()) && dietPlan.isPremium()){
                 intent = new Intent(getContext(), BlockedDetailPlansActivity.class);
             }else {
                 intent = new Intent(getContext(), DetailPlansActivity.class);
@@ -153,11 +154,6 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
     @Override
     public void showMessage(String message) {
 
-    }
-
-    private boolean checkSubscribe() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-        return sharedPreferences.getBoolean(Config.STATE_BILLING, false);
     }
 
     @Override public void onResume() {

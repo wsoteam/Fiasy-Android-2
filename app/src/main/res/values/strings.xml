@@ -163,7 +163,7 @@
     <string name="g">g</string>
     <string name="gram">gram</string>
     <string name="input_weight_of_eating">Enter serving weight</string>
-    <string name="dif_level_hard_up">Weight loss</string>
+
     <string name="dif_easy_description">Perfect for beginners. It can be used to maintain your weight.</string>
     <string name="dif_normal_description">Gradual weight loss. Lose weight without a lot of effort</string>
     <string name="dif_hard_description">Achieving a rapid result requires a lot of willpower</string>
@@ -389,13 +389,14 @@ Share your accomplishments with friends:</string>
     <string name="tv_level_up_super" translatable="false">Тяжелая физическая работа или интенсивные тренировки 2 раза в день</string>
 
 
-    <string name="dif_level_easy" >Легкая</string>
-    <string name="dif_level_normal">Средняя</string>
-    <string name="dif_level_hard" >Высокая</string>
-
+    <string name="dif_level_easy" translatable="false">Легкая</string>
+    <string name="dif_level_normal" translatable="false">Средняя</string>
+    <string name="dif_level_hard" translatable="false">Высокая</string>
+    <string name="dif_level_hard_up" translatable="false">Похудение</string>
+<!--    <string name="dif_level_hard_up">Weight loss</string>-->
 
     <!--List of main max params in profile-->
-    <string name="check_your_email">Неправильный формат</string>
+    <string name="check_your_email">Wrong format</string>
 
 
     <string name="activity_detail_food_1234" translatable="false">1234</string>
@@ -771,6 +772,10 @@ Share your accomplishments with friends:</string>
     <string name="section_train">Training</string>
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
   <string name="tvItemPlanTime">Cooking time:</string>
   <string name="tvSaturatedFats">Saturated</string>
   <string name="tvUnSaturatedFats">Unsaturated</string>
@@ -805,12 +810,14 @@ Share your accomplishments with friends:</string>
     <string name="main_screen_topbar_fat">Fat</string>
     <string name="main_screen_topbar_carbo">@string/carbohydrates_intake</string>
 
-    <string name="main_screen_water">@string/water</string>
 
 
+
+    <string name="main_screen_water">Water</string>
     <string name="daily_widget_calories_left">Remaining</string>
     <string name="daily_widget_calories_excess">Excess</string>
-    <string name="daily_widget_calories_burned">Quemadas</string>
+
+    <string name="daily_widget_calories_burned">Burned</string>
     <string name="daily_widget_calories_eaten">Eaten</string>
     <string name="add_user_activity_burned">= %d kcal</string>
     <string name="user_activity_burned">%d kcal</string>
@@ -826,9 +833,8 @@ Share your accomplishments with friends:</string>
 
     <string name="add_user_activity_hint">Enter a name for the Activities</string>
     <string name="widget_user_activity_title">Activities</string>
-    <string name="widget_user_activity_show_all">All</string>
     <string name="widget_weight_title">Body measurements</string>
-    <string name="action_refresh">Update</string>
+
 
 
 
@@ -970,11 +976,17 @@ Share your accomplishments with friends:</string>
     <string name="alert_rating_txt">Пожалуйста, оцените наше приложение! Каждый отзыв делает его лучше!</string>
 
 
+
     <string name="getAccess">Get  access </string>
     <string name="blocked_recipe_title">Healthy recipies for each day and for different tastes</string>
     <string name="blocked_recipe_title_2">Easy to cook, affordable ingredients</string>
     <string name="blocked_recipe_txt">Buy premium and get access to all recipies</string>
     <string name="blocked_plan_txt">Buy premium and get access to diet plans created by certified nutritionists</string>
+
+    <string name="added_favorite">Successfully added to favourites</string>
+    <string name="add_fail">Falied to add, please try again</string>
+    <string name="edit_activity">Edit activity</string>
+    <string name="create_activity">Create activity</string>
 
     <string name="srch_search_field">Search product in database</string>
     <string name="srch_empty_search_title">No results found</string>
@@ -986,10 +998,7 @@ Share your accomplishments with friends:</string>
     <string name="srch_basket_card"><u>Selected: %d</u></string>
 
 
-    <string name="added_favorite">Successfully added to favourites</string>
-    <string name="add_fail">Falied to add, please try again</string>
-    <string name="edit_activity">Edit activity</string>
-    <string name="create_activity">Create activity</string>
+
 
     <string name="srch_delete_undo_title">Product removed from list</string>
     <string name="srch_cancel">Cancel</string>
@@ -1013,7 +1022,7 @@ Share your accomplishments with friends:</string>
     <string name="srch_prem_elements">Microelements</string>
     <string name="srch_text_prem">Want to know if you have enough vitamins and \nminerals you eat with food? Then \n</string>
     <string name="srch_text_prem_second">join the</string>
-    <string name="srch_text_prem_third">\u0020PREMIUM\u0020</string>
+    <string name="srch_text_prem_third" translatable="false">\u0020PREMIUM\u0020</string>
     <string name="srch_text_prem_end">version.</string>
     <string name="srch_connect_prem">connect premium</string>
     <string name="srch_speak">Speak!</string>
@@ -1052,12 +1061,7 @@ Share your accomplishments with friends:</string>
         <item>You added to the snack:</item>
     </string-array>
 
-    <string-array name="srch_names_sections">
-        <item>Favorites</item>
-        <item>Patterns</item>
-        <item>My dishes</item>
-        <item>My products</item>
-    </string-array>
+
 
 
 
@@ -1099,8 +1103,8 @@ Share your accomplishments with friends:</string>
     <string name="subscription_detailed">Subscription to %s %s</string>
 
     <plurals name="trial_days">
-        <item quantity="one">free for %d day</item>
-        <item quantity="other">free for %d days</item>
+        <item quantity="one">Free for %d day</item>
+        <item quantity="other">Free for %d days</item>
     </plurals>
 
     <string name="camera">Camera</string>
@@ -1110,4 +1114,8 @@ Share your accomplishments with friends:</string>
 
     <string name="widget_activity_question">Have you been active today?</string>
     <string name="url_privacy_police">https://fiasy.com/privacypolicy_en</string>
+
+
+    <string name="my_meals">My meals</string>
+    <string name="my_food">My food</string>
 </resources>

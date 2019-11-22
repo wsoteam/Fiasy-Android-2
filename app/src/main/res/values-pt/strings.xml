@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <string name="main_screen_water">Água</string>
 
     <string name="addingRecipePortionV">Peso:</string>
     <string name="yesterday">ontem</string>
@@ -37,7 +38,12 @@
     <string name="user_activity_section_defaults">Atividades padrão</string>
     <string name="user_activity_time_elapsed">%d minutos</string>
     <string name="add_user_activity_duration_hint">para %s</string>
-
+    <string name="widget_user_activity_title">Atividades</string>
+    <string name="getAccess">Obtenha acesso </string>
+    <string name="tvItemPlanTime">Tempo de cozimento:</string>
+    <string name="main_screen_topbar_fat">Gordura</string>
+    <string name="tvSaturatedFats">Saturada</string>
+    <string name="tvUnSaturatedFats">Insaturada</string>
     <string name="premium_features_comparison">TUDO É MAIS FÁCIL COM</string>
     <string name="subscriptions_list_title">Desbloquear mais opções\n</string>
     <string name="action_buy">Comprar</string>
@@ -139,6 +145,9 @@
     <string name="log_off_question">Deseja sair?</string>
     <string name="no">não</string>
     <string name="yes">sim</string>
+    <string name="check_your_email">Formato errado</string>
+    <string name="my_meals">As minhas refeições</string>
+    <string name="my_food">A minha comida</string>
 
     <string name="art_series_title">Artigos de um especialista</string>
     <string name="art_series_author_title">Artigos exclusivos de um nutricionista profissional!</string>
@@ -165,6 +174,7 @@
     <string name="planDays">Dia %d/%d</string>
     <string name="btnRecipeDiary">Adicionar ao diário</string>
     <string name="alert_dialog_confirm_delete">Excluir</string>
+    <string name="food_popup_menu_delete">Excluir</string>
     <string name="activity_main_new_burnt">0\nquemadas</string>
     <string name="alert_dialog_promo_success_congratulations">Parabéns!</string>
     <string name="n_KCal">%d kcal</string>
@@ -195,6 +205,7 @@
     <string name="alert_dialog_change_food_in_template_cancel">Cancelar</string>
     <string name="alert_dialog_confirm_cancel">Cancelar</string>
     <string name="carbohydrates_intake">carboidratos</string>
+    <string name="main_screen_topbar_carbo">carboidratos</string>
 
     <string name="daily_widget_calories_left">Restante</string>
     <string name="daily_widget_calories_excess">Excesso</string>
@@ -557,6 +568,8 @@ A pesquisa começará automaticamente.</string>
     <string name="eatingTemplate">Categoria:</string>
     <string name="contextMenuDelete">Excluir</string>
     <string name="contextMenuEdit">Editar</string>
+    <string name="food_popup_menu_change">Editar</string>
+
     <string name="addTemplate">Adicionar modelo</string>
     <string name="templates">Modelos</string>
     <string name="tvMG">mg</string>
@@ -668,6 +681,8 @@ Tente preencher o formulário acima da maneira mais precisa e completa possível
     <string name="item_vertical_browse_plans_name">Nome da dieta</string>
     <string name="ms_item_eating_list_recommendation">Recomendado: 475-855 kcal</string>
     <string name="ms_item_eating_list_add_meal">Insira agora seu almoço e alcance sua meta mais rapidamente</string>
+    <string name="ms_item_eating_list_kcal2">kcal</string>
+    <string name="privacy_policy_with_condtions">Privacy Policy and\nterms of use</string>
     <string name="plans_footer_item_share">Você atingiu sua meta?
 Compartilhe suas realizações com seus amigos:</string>
     <string name="plans_footer_item_cong">Sua dieta acabou.

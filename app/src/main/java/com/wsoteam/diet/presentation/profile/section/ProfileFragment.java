@@ -176,7 +176,13 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         barData.setBarWidth(width);
 
         List<Entry> limitLine = new ArrayList<>();
-        int limit = UserDataHolder.getUserData().getProfile().getMaxKcal();
+        int limit = 0;
+        try {
+            limit = UserDataHolder.getUserData().getProfile().getMaxKcal();
+        } catch (NullPointerException e){
+            Log.e("error", "UserDataHolder.getUserData().getProfile().getMaxKcal() == null", e);
+        }
+
         limitLine.add(new Entry(-1, limit));
         for (int i = 0; i < pairs.size(); i++) {
             Entry entry = new Entry(pairs.get(i).getX(), limit);

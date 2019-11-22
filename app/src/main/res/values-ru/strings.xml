@@ -72,6 +72,8 @@
   <string name="third_target">Набор мышечной массы</string>
   <string name="fourth_target">Сохранение мышц и сжигание жира</string>
   <!-- Interrogation Finish Screen -->
+  <string name="my_meals">Мои блюда</string>
+  <string name="my_food">Мои продукты</string>
 
   <string name="wait_a_while">Подождите немного</string>
   <string name="wait_a_while_description">Идет расчет индивидуального плана питания</string>
@@ -183,6 +185,7 @@
   <string name="default_intake">СТАНДАРТНЫЕ ЗНАЧЕНИЕ</string>
   <string name="default_description_intake">Если вы меняли значение КБЖУ, то вы всегда можете вернуться к стандартным значеним</string>
 
+
   <!-- Diary Screen -->
   <string name="diary_title">Дневник</string>
   <string name="diary_daily_rate">Ежедневная норма</string>
@@ -273,6 +276,7 @@
   <string name="recipes_info">Информация о рецепте</string>
   <string name="ingredients">Ингредиенты:</string>
   <string name="verification_of_information">Проверка информации</string>
+    <string name="check_your_email">Неправильный формат</string>
 
   <!-- Product Creation Screen -->
   <string name="brand_manufacturer">Марка/производитель</string>
@@ -592,7 +596,6 @@
   <string name="personal_diary">Создаём ваш персональный дневник питания</string>
   <string name="update_message">Вышла новая версия приложения!  \nОбновите приложение в Google Play</string>
   <string name="go_update">Обновить</string>
-  <string name="action_refresh">Обновить</string>
   <string name="update_title">Обновление!</string>
   <string name="eating_trigger">Питание</string>
   <string name="enter_multi_params">Введите данные</string>
@@ -770,9 +773,8 @@
 
   <string name="main_screen_topbar_prot">@string/protein_intake</string>
   <string name="main_screen_topbar_fat">Жиры</string>
-  <string name="main_screen_topbar_carbo">@string/carbohydrates_intake</string>
-  <string name="main_screen_water">@string/water</string>
-
+  <string name="main_screen_topbar_carbo">Углеводы</string>
+  <string name="main_screen_water">Вода</string>
 
   <string name="meas_waist">Талия</string>
   <string name="meas_hips">Бедра</string>
@@ -910,12 +912,7 @@
     <item>Вы добавили в Перекус:</item>
   </string-array>
 
-  <string-array name="srch_names_sections">
-    <item>Избранное</item>
-    <item>Шаблоны</item>
-    <item>Мои блюда</item>
-    <item>Мои продукты</item>
-  </string-array>
+
 
 
 
@@ -1017,7 +1014,6 @@
   </plurals>
 
   <string name="widget_weight_title">Измерение тела</string>
-  <string name="widget_user_activity_show_all">Все</string>
 
   <string name="user_activity_burned">%d ккал</string>
   <string name="add_user_activity_burned">= %d ккал</string>
@@ -1038,6 +1034,7 @@
   <string name="main_screen_topbar_left">%s ккал</string>
 
   <string name="widget_user_activity_title">Активности</string>
+
 
   <string name="blocked_recipe_title">Множество полезных рецептов на любой вкус и для любых целей</string>
   <string name="blocked_recipe_title_2">Легкие в приготовлении и состоящие из простых доступных игредиентов</string>

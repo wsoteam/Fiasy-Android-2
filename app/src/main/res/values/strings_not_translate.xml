@@ -180,4 +180,11 @@
         <item>@drawable/ic_left_sections_food</item>
     </integer-array>
 
+    <string-array name="srch_names_sections">
+        <item>@string/favorites</item>
+        <item>@string/templates</item>
+        <item>@string/my_meals</item>
+        <item>@string/my_food</item>
+    </string-array>
+
 </resources>

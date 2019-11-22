@@ -25,4 +25,10 @@ public class Brand {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public String toString() {
+        return "Brand{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
