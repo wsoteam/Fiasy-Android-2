@@ -180,7 +180,7 @@
     <string name="intro_text_1">Wissenschaftliche Artikel zu gesunder Ernährung</string>
     <string name="intro_text_2">Täglich gesunde Rezepte</string>
     <string name="main_screen_menu_water_count">%.2f l</string>
-    <string name="dif_level_hard_up">Abnehmen</string>
+<!--    <string name="dif_level_hard_up">Abnehmen</string>-->
     <string name="auth_restore_your_password">Passwort wiederherstellen</string>
     <string name="constraint_error_username_email">E-Mail Adresse eingeben</string>
     <string name="enter_email_hint">E-Mail Adresse eingeben</string>
@@ -288,7 +288,7 @@
     <string name="select_your_target">Wählen Sie Ihr Ziel</string>
     <string name="first_target">In Form bleiben</string>
     <string name="second_target">Abnehmen</string>
-    <string name="third_target">fourth_target</string>
+    <string name="third_target">Muskelmasse aufbauen</string>
     <string name="fourth_target">Muskulatur halten und Fett verbrennen</string>
     <string name="wait_a_while">Einen Augenblick</string>
     <string name="wait_a_while_description">Ihre persönliche Ernährung wird berechnet.</string>

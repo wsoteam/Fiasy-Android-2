@@ -242,7 +242,7 @@
     <string name="auth_restore_your_password">Recuperar contraseña</string>
     <string name="constraint_error_username_email">Introduzca la dirección de correo electrónico</string>
     <string name="enter_email_hint">Introduzca la dirección de correo electrónico</string>
-    <string name="dif_level_hard_up">Perder peso</string>
+<!--    <string name="dif_level_hard_up">Perder peso</string>-->
     <string name="activity_detail_food_add">Añadir</string>
     <string name="activity_detail_food_to_100_g">por cada 100 g\u0020</string>
     <string name="update_title">Actualización!</string>

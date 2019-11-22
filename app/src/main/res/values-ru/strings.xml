@@ -546,7 +546,7 @@
   <string name="input_weight_of_eating">Введите вес порции</string>
 
 
-  <string name="dif_level_hard_up">Похудение</string>
+<!--  <string name="dif_level_hard_up">Похудение</string>-->
   <string name="dif_easy_description">Идеально подходит для начинающих. Используется для поддержания веса</string>
   <string name="dif_normal_description">Плавное похудение. Потеря веса без больших усилий</string>
   <string name="dif_hard_description">Для достижения результатов быстрыми темпами, требуется большая сила воли</string>
