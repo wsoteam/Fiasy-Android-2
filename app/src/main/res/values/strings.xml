@@ -163,7 +163,7 @@
     <string name="g">g</string>
     <string name="gram">gram</string>
     <string name="input_weight_of_eating">Enter serving weight</string>
-    <string name="dif_level_hard_up">Weight loss</string>
+
     <string name="dif_easy_description">Perfect for beginners. It can be used to maintain your weight.</string>
     <string name="dif_normal_description">Gradual weight loss. Lose weight without a lot of effort</string>
     <string name="dif_hard_description">Achieving a rapid result requires a lot of willpower</string>
@@ -389,13 +389,14 @@ Share your accomplishments with friends:</string>
     <string name="tv_level_up_super" translatable="false">Тяжелая физическая работа или интенсивные тренировки 2 раза в день</string>
 
 
-    <string name="dif_level_easy" >Легкая</string>
-    <string name="dif_level_normal">Средняя</string>
-    <string name="dif_level_hard" >Высокая</string>
-
+    <string name="dif_level_easy" translatable="false">Легкая</string>
+    <string name="dif_level_normal" translatable="false">Средняя</string>
+    <string name="dif_level_hard" translatable="false">Высокая</string>
+    <string name="dif_level_hard_up" translatable="false">Похудение</string>
+<!--    <string name="dif_level_hard_up">Weight loss</string>-->
 
     <!--List of main max params in profile-->
-    <string name="check_your_email">Неправильный формат</string>
+    <string name="check_your_email">Wrong format</string>
 
 
     <string name="activity_detail_food_1234" translatable="false">1234</string>

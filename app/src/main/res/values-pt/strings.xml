@@ -144,6 +144,7 @@
     <string name="log_off_question">Deseja sair?</string>
     <string name="no">não</string>
     <string name="yes">sim</string>
+    <string name="check_your_email">Formato errado</string>
 
     <string name="art_series_title">Artigos de um especialista</string>
     <string name="art_series_author_title">Artigos exclusivos de um nutricionista profissional!</string>
