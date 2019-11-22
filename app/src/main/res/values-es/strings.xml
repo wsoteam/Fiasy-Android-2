@@ -437,8 +437,8 @@ predeterminado</string>
     <string name="make_default">Establecer como predeterminado</string>
     <string name="my_activity">Mis actividades</string>
     <string name="search">Buscar</string>
-    <string name="empty_my_activity_first">Aún no ha añadido actividades. Para añadir una, pulse</string>
-    <string name="empty_my_activity_second"> pulse ➕</string>
+    <string name="empty_my_activity_first">Aún no ha añadido actividades. Para añadir una,</string>
+    <string name="empty_my_activity_second"> pulse </string>
     <string name="favorites">Favoritos</string>
     <string name="empty_favorites">Aún no ha añadido actividades a sus favoritos. Para añadir una,
 deslice hacia la izquierda y pulse en el símbolo de corazón.</string>

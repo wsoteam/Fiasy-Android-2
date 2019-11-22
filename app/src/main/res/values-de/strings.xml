@@ -406,8 +406,8 @@ Standardwert zurückkehren</string>
     <string name="make_default">Auf Standard setzen</string>
     <string name="my_activity">Meine Aktivitäten</string>
     <string name="search">Suche</string>
-    <string name="empty_my_activity_first">Noch keine Aktivitäten hinzugefügt. Tippen Sie dazu auf</string>
-    <string name="empty_my_activity_second"> Tippen Sie auf ➕</string>
+    <string name="empty_my_activity_first">Noch keine Aktivitäten hinzugefügt. </string>
+    <string name="empty_my_activity_second"> Tippen Sie auf </string>
     <string name="favorites">Favoriten</string>
     <string name="empty_favorites">Noch keine Aktivitäten als Favoriten hinzugefügt. Streichen Sie dazu nach links
 und tippen Sie auf das Herz.</string>

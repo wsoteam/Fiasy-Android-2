@@ -402,8 +402,8 @@ ao valor padrão</string>
     <string name="my_activity">Minhas atividades</string>
     <string name="search">Procurar</string>
     <string name="empty_my_activity_first">Você ainda não adicionou nenhuma atividade.
-Para adicionar uma atividade, toque em</string>
-    <string name="empty_my_activity_second"> toque em ➕</string>
+Para adicionar uma atividade,</string>
+    <string name="empty_my_activity_second"> toque em </string>
     <string name="favorites">Favoritos</string>
     <string name="empty_favorites">Você ainda não adicionou atividades aos seus favoritos.
  Para adicionar uma atividade, deslize para a esquerda e
