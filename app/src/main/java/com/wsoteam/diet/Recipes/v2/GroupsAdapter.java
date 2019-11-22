@@ -23,6 +23,7 @@ import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.utils.Img;
+import com.wsoteam.diet.utils.Subscription;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -152,7 +153,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         Intent intent;
 //                        int bais = getAdapterPosition() * 5;
                         int bais = getAdapterPosition();
-                        if (checkSubscribe()) {
+                        if (Subscription.check(context)) {
                             intent = new Intent(groupsFragment.getActivity(), RecipeActivity.class);
                         } else {
                             intent = new Intent(groupsFragment.getActivity(), BlockedRecipeActivity.class);
@@ -242,15 +243,6 @@ public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                         }
                     });
-        }
-
-        private boolean checkSubscribe() {
-            SharedPreferences sharedPreferences = groupsFragment.getActivity().getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-            if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
-                return true;
-            } else {
-                return false;
-            }
         }
 
     }

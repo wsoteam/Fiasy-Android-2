@@ -1103,8 +1103,8 @@ Share your accomplishments with friends:</string>
     <string name="subscription_detailed">Subscription to %s %s</string>
 
     <plurals name="trial_days">
-        <item quantity="one">free for %d day</item>
-        <item quantity="other">free for %d days</item>
+        <item quantity="one">Free for %d day</item>
+        <item quantity="other">Free for %d days</item>
     </plurals>
 
     <string name="camera">Camera</string>

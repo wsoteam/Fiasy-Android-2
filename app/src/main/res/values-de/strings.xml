@@ -9,8 +9,8 @@
     <string name="daily_burn_widget_title">Tagesrate</string>
 
     <plurals name="trial_days">
-        <item quantity="one">kostenlos für %d Tage</item>
-        <item quantity="other">kostenlos für %d Tage</item>
+        <item quantity="one">Kostenlos für %d Tage</item>
+        <item quantity="other">Kostenlos für %d Tage</item>
     </plurals>
 
     <string name="url_privacy_police">https://fiasy.com/privacypolicy_en</string>

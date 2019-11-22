@@ -388,7 +388,7 @@ Una vez que realice la compra, podrá gestionar sus suscripciones y cancelarlas 
     <string name="promotional_title">Añadiendo códigos de promoción</string>
     <string name="promotional_description">Los códigos de promoción pueden otorgarle un descuento en la aplicación
 o permitirle usarla de forma gratuita.</string>
-    <string name="enter_promotional_code">Introduzca el código de promoción</string>
+    <string name="enter_promotional_code">Código de promoción</string>
     <string name="enter_your_promotional_code">Introduzca su código de promoción</string>
     <string name="active_promode">ACTIVAR CÓDIGO DE PROMOCIÓN</string>
     <string name="invalid_promotional_code_error">Código de promoción no válido</string>
