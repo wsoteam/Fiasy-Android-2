@@ -156,7 +156,7 @@ public class FoodWork {
     }
 
     private static List<HistoryEntity> cut(List<HistoryEntity> historyEntities, int size) {
-        if (historyEntities.size() < size) {
+        if (historyEntities.size() <= size) {
             return historyEntities;
         } else {
             return historyEntities.subList(historyEntities.size() - size - 1, historyEntities.size() - 1);
