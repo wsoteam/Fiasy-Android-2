@@ -158,11 +158,15 @@ class DiaryFragment : Fragment() {
     container = view.findViewById(R.id.container)
 
     container.addItemDecoration(object : ItemDecoration() {
-      val spaceHeight = dp(requireContext(), 16f)
+      val spaceHeight = dp(requireContext(), 12f)
 
       override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: State) {
         super.getItemOffsets(outRect, view, parent, state)
-        outRect.bottom = spaceHeight
+
+        val wa = parent.adapter as WidgetsAdapter
+        if (parent.getChildAdapterPosition(view) != wa.indexOf(R.layout.ms_item_water_list)) {
+          outRect.bottom = spaceHeight
+        }
       }
     })
     container.adapter = WidgetsAdapter()
