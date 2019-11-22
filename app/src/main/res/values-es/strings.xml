@@ -7,7 +7,7 @@
     <string name="my_plan">Mi Dieta</string>
     <string name="daily_widget_calories_left">Restante</string>
     <string name="daily_widget_calories_excess">Exceso</string>
-    <string name="daily_widget_calories_burned">Burned</string>
+    <string name="daily_widget_calories_burned">Quemadas</string>
     <string name="daily_widget_calories_eaten">Ingeridas</string>
     <string name="user_activity_time_elapsed_wh" formatted="false">%dh %d m</string>
     <string name="user_activity_time_elapsed_wh_wm">%dh</string>
@@ -23,6 +23,7 @@
     <string name="getAccess">Obtenga acceso </string>
     <string name="tvItemPlanTime">Tiempo de cocinado:</string>
     <string name="main_screen_topbar_fat">Grasa</string>
+    <string name="check_your_email">Formato incorrecto</string>
 
 
     <string name="tvSaturatedFats">Saturada</string>

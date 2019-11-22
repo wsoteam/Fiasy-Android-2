@@ -273,6 +273,7 @@
   <string name="recipes_info">Информация о рецепте</string>
   <string name="ingredients">Ингредиенты:</string>
   <string name="verification_of_information">Проверка информации</string>
+    <string name="check_your_email">Неправильный формат</string>
 
   <!-- Product Creation Screen -->
   <string name="brand_manufacturer">Марка/производитель</string>
