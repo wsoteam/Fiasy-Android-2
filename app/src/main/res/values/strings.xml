@@ -814,7 +814,8 @@ Share your accomplishments with friends:</string>
 
     <string name="daily_widget_calories_left">Remaining</string>
     <string name="daily_widget_calories_excess">Excess</string>
-    <string name="daily_widget_calories_burned">Quemadas</string>
+
+    <string name="daily_widget_calories_burned">Burned</string>
     <string name="daily_widget_calories_eaten">Eaten</string>
     <string name="add_user_activity_burned">= %d kcal</string>
     <string name="user_activity_burned">%d kcal</string>

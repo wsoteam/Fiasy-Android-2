@@ -7,7 +7,7 @@
     <string name="my_plan">Mi Dieta</string>
     <string name="daily_widget_calories_left">Restante</string>
     <string name="daily_widget_calories_excess">Exceso</string>
-    <string name="daily_widget_calories_burned">Burned</string>
+    <string name="daily_widget_calories_burned">Quemadas</string>
     <string name="daily_widget_calories_eaten">Ingeridas</string>
     <string name="user_activity_time_elapsed_wh" formatted="false">%dh %d m</string>
     <string name="user_activity_time_elapsed_wh_wm">%dh</string>
