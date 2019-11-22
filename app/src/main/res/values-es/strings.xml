@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
+    <string name="main_screen_water">Agua</string>
     <string name="addingRecipePortionV">Peso:</string>
     <string name="yesterday">ayer</string>
     <string name="tomorrow">mañana</string>
@@ -24,6 +25,8 @@
     <string name="tvItemPlanTime">Tiempo de cocinado:</string>
     <string name="main_screen_topbar_fat">Grasa</string>
     <string name="check_your_email">Formato incorrecto</string>
+    <string name="my_meals">Mis comidas</string>
+    <string name="my_food">Mi comida</string>
 
 
     <string name="tvSaturatedFats">Saturada</string>
@@ -38,7 +41,7 @@
 
     <plurals name="trial_days">
         <item quantity="one">Gratis por %d día</item>
-        <item quantity="other">De forma gratuita durante %d días</item>
+        <item quantity="other">Gratis por %d días</item>
     </plurals>
 
     <string name="user_activity_section_my">Mis actividades</string>
@@ -206,6 +209,7 @@
         <item>Dietas y ejercicios \npersonalizados. \nUn coach personalizado y experto en \nsu smartphone.</item>
     </string-array>
 
+    <string name="food_popup_menu_delete">Eliminar</string>
 
     <string name="alert_dialog_confirm_delete">Eliminar</string>
     <string name="activity_main_new_burnt">0\nqueimado</string>
@@ -250,6 +254,7 @@
     <string name="alert_dialog_change_food_in_template_cancel">Cancelar</string>
     <string name="alert_dialog_confirm_cancel">Cancelar</string>
     <string name="carbohydrates_intake">carbohidratos</string>
+    <string name="main_screen_topbar_carbo">carbohidratos</string>
 
     <string name="vh_article_series_day">Día %d</string>
     <string name="fats_intake">grasa</string>
@@ -594,6 +599,8 @@ La búsqueda empezará automáticamente.</string>
     <string name="eatingTemplate">Categoría:</string>
     <string name="contextMenuDelete">Eliminar</string>
     <string name="contextMenuEdit">Editar</string>
+    <string name="food_popup_menu_change">Editar</string>
+
     <string name="addTemplate">Añadir plantilla</string>
     <string name="templates">Plantillas</string>
     <string name="tvMG">mg</string>
@@ -705,6 +712,8 @@ Rellene el formulario anterior con la información más completa y precisa posib
     <string name="item_vertical_browse_plans_name">Nombre de dieta</string>
     <string name="ms_item_eating_list_recommendation">Recomendado: 475-855 kcal</string>
     <string name="ms_item_eating_list_add_meal">Introduzca su almuerzo y logre su objetivo más rápidamente</string>
+    <string name="ms_item_eating_list_kcal2">kcal</string>
+    <string name="privacy_policy_with_condtions">Privacy Policy and\nterms of use</string>
     <string name="plans_footer_item_share">¿Ha logrado su objetivo?
 Comparta sus logros con sus amigos:</string>
     <string name="plans_footer_item_cong">Ha terminado su dieta.

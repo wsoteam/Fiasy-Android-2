@@ -180,19 +180,11 @@
         <item>@drawable/ic_left_sections_food</item>
     </integer-array>
 
-<!--    TODO-->
     <string-array name="srch_names_sections">
         <item>@string/favorites</item>
         <item>@string/templates</item>
-        <item>My dishes</item>
-        <item>My products</item>
+        <item>@string/my_meals</item>
+        <item>@string/my_food</item>
     </string-array>
-
-<!--    <string-array name="srch_names_sections">-->
-<!--        <item>Избранное</item>-->
-<!--        <item>Шаблоны</item>-->
-<!--        <item>Мои блюда</item>-->
-<!--        <item>Мои продукты</item>-->
-<!--    </string-array>-->
 
 </resources>

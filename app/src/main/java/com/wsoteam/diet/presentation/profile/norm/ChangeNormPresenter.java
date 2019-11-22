@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.profile.norm;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -24,8 +25,14 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
+
+//            Log.d("test", "DifficultyLevel : " + BodyCalculates.convertToNewGoal(context, UserDataHolder.getUserData().getProfile().getDifficultyLevel()));
+//            Log.d("test", "ExerciseStress : " + BodyCalculates.convertToNewActivity(context, UserDataHolder.getUserData().getProfile().getExerciseStress()));
             String goal = BodyCalculates.convertToNewGoal(context, UserDataHolder.getUserData().getProfile().getDifficultyLevel());
             String activity = BodyCalculates.convertToNewActivity(context, UserDataHolder.getUserData().getProfile().getExerciseStress());
+
+//            Log.d("test", "convert DifficultyLevel : " + goal);
+//            Log.d("test", "convert ExerciseStress : " + activity);
             getViewState().bindFields(UserDataHolder.getUserData().getProfile(), goal, activity);
         }
 

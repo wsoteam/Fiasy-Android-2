@@ -16,22 +16,23 @@
       app:layout_constraintTop_toTopOf="parent"
       app:srcCompat="@drawable/section_article_img"
       />
+
   <TextView
       android:id="@+id/textView168"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
       android:layout_marginStart="16dp"
       android:layout_marginTop="24dp"
+      android:layout_marginEnd="16dp"
       android:fontFamily="@font/roboto_medium"
       android:text="@string/art_series_series_title"
+      android:textAlignment="center"
       android:textColor="@android:color/black"
       android:textSize="20sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/imageView65"
-      tools:text="8 статей для легко старта!"
-      />
+      tools:text="8 статей для легко старта!" />
   <TextView
       android:id="@+id/textView169"
       android:layout_width="0dp"

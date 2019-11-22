@@ -810,9 +810,10 @@ Share your accomplishments with friends:</string>
     <string name="main_screen_topbar_fat">Fat</string>
     <string name="main_screen_topbar_carbo">@string/carbohydrates_intake</string>
 
-    <string name="main_screen_water">@string/water</string>
 
 
+
+    <string name="main_screen_water">Water</string>
     <string name="daily_widget_calories_left">Remaining</string>
     <string name="daily_widget_calories_excess">Excess</string>
 
@@ -982,6 +983,11 @@ Share your accomplishments with friends:</string>
     <string name="blocked_recipe_txt">Buy premium and get access to all recipies</string>
     <string name="blocked_plan_txt">Buy premium and get access to diet plans created by certified nutritionists</string>
 
+    <string name="added_favorite">Successfully added to favourites</string>
+    <string name="add_fail">Falied to add, please try again</string>
+    <string name="edit_activity">Edit activity</string>
+    <string name="create_activity">Create activity</string>
+
     <string name="srch_search_field">Search product in database</string>
     <string name="srch_empty_search_title">No results found</string>
     <string name="srch_text_empty">Try again or create \nyour product</string>
@@ -992,10 +998,7 @@ Share your accomplishments with friends:</string>
     <string name="srch_basket_card"><u>Selected: %d</u></string>
 
 
-    <string name="added_favorite">Successfully added to favourites</string>
-    <string name="add_fail">Falied to add, please try again</string>
-    <string name="edit_activity">Edit activity</string>
-    <string name="create_activity">Create activity</string>
+
 
     <string name="srch_delete_undo_title">Product removed from list</string>
     <string name="srch_cancel">Cancel</string>
@@ -1019,7 +1022,7 @@ Share your accomplishments with friends:</string>
     <string name="srch_prem_elements">Microelements</string>
     <string name="srch_text_prem">Want to know if you have enough vitamins and \nminerals you eat with food? Then \n</string>
     <string name="srch_text_prem_second">join the</string>
-    <string name="srch_text_prem_third">\u0020PREMIUM\u0020</string>
+    <string name="srch_text_prem_third" translatable="false">\u0020PREMIUM\u0020</string>
     <string name="srch_text_prem_end">version.</string>
     <string name="srch_connect_prem">connect premium</string>
     <string name="srch_speak">Speak!</string>
@@ -1111,4 +1114,8 @@ Share your accomplishments with friends:</string>
 
     <string name="widget_activity_question">Have you been active today?</string>
     <string name="url_privacy_police">https://fiasy.com/privacypolicy_en</string>
+
+
+    <string name="my_meals">My meals</string>
+    <string name="my_food">My food</string>
 </resources>
