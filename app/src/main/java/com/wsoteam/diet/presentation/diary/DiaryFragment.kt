@@ -230,8 +230,6 @@ class DiaryFragment : Fragment() {
           }
         }
 
-        Log.d("next_state", "current_state=$currentState, next=$nextState")
-
         if (nextState == currentState) {
           return
         }
@@ -265,8 +263,8 @@ class DiaryFragment : Fragment() {
           .getBoolean(Config.STATE_BILLING, false)
 
         premiumContainer.setOnClickListener {
-          //          premiumContainer.visibility = View.GONE
-          startActivity(Intent(requireContext(), PremiumFeaturesActivity::class.java))
+          startActivity(Intent(requireContext(), PremiumFeaturesActivity::class.java)
+                  .putExtra("fromDiary", true))
         }
 
         if (!isPremium) {

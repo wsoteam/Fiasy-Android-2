@@ -230,7 +230,7 @@ class PremiumFeaturesActivity : AppCompatActivity() {
       purchase(plans[id].key)
     }
 
-    tariffsContainer.adapter = PlansAdapter(isDarkMode = isDarkTheme)
+    tariffsContainer.adapter = PlansAdapter(isDarkMode = isDarkTheme, withTrial = withTrial)
     tariffsContainer.addOnScrollListener(object : OnScrollListener() {
       override fun onScrollStateChanged(p: RecyclerView, newState: Int) {
         super.onScrollStateChanged(p, newState)
