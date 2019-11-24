@@ -134,8 +134,6 @@ public class UserProperty {
                 .set(fats, fat)
                 .set(сarbohydrates, carbo)
                 .set(name_const, name)
-                .set(abtest, FirebaseRemoteConfig.getInstance()
-                    .getBoolean("premium_with_trial") ? "black_trial" : "black_direct")
                 .set(user_id, id);
         Amplitude.getInstance().identify(identify);
     }

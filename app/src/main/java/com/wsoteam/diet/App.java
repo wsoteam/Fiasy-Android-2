@@ -11,6 +11,7 @@ import com.bugsee.library.Bugsee;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.onesignal.OneSignal;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
 
 import java.util.HashMap;
@@ -60,6 +61,11 @@ public class App extends MultiDexApplication {
                 .build();
         //SetUserProperties.setUserProperties(Adjust.getAttribution());
 
+        // OneSignal Initialization
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
 
         context = this;
     }

@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.amplitude.api.Amplitude
+import com.amplitude.api.Identify
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wsoteam.diet.MainScreen.Deeplink
 import com.wsoteam.diet.R
@@ -164,6 +166,11 @@ class PremiumFeaturesActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
 
     setContentView(R.layout.activity_premium_dark)
+
+    val props = Identify()
+    props.add("abtest", if (withTrial) "black_trial" else "black_direct")
+
+    Amplitude.getInstance().identify(props)
 
     if (Deeplink.isNeedPrem.get()) {
       toolbar.navigationIcon = null
