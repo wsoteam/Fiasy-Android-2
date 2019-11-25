@@ -31,6 +31,8 @@ import com.wsoteam.diet.utils.Subscription;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -95,14 +97,16 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
 
     private List<DietsList> prepareList(){
 
-        List<DietsList> listGroups = DietPlansHolder.get().getListGroups();
+        List<DietsList> listGroups;
         try {
+            listGroups = DietPlansHolder.get().getListGroups();
             if (listGroups.get(0).getProperties().equals(currentPlanProperti)) {
                 listGroups.remove(0);
             }
         } catch (NullPointerException e){
             Log.d("TAG", "com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment \n" +
                     "private List<DietsList> prepareList()", e);
+            listGroups = new ArrayList<>();
         }
 
 

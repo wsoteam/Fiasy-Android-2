@@ -179,6 +179,7 @@
   <string name="set_your_norm_title">Задать свою норму КБЖУ</string>
   <string name="set_your_norm_description">Чтобы изменить КБЖУ вы должны купить</string>
   <string name="protein_intake">Белки</string>
+  <string name="main_screen_topbar_prot">Белки</string>
   <string name="carbohydrates_intake">Углеводы</string>
   <string name="fats_intake">Жиры</string>
   <string name="day_norm_intake_description">Дневная норма КБЖУ, рассчитанная по формуле Миффлина - Сан Жеора</string>
@@ -662,7 +663,7 @@
 
   <string name="detail_activity_question">Вопрос</string>
   <string name="detail_plans_day_item_day_13">День 13</string>
-  <string name="detail_plans_recipe_item_recipe_added">Рецепт добавлен</string>
+<!--  <string name="detail_plans_recipe_item_recipe_added">Рецепт добавлен</string>-->
   <string name="detail_plans_recipe_item_n_kcal">175 ккал\u0020</string>
   <string name="detail_plans_recipe_item_some_name">Салат с оливками, авокадо и брынзой</string>
   <string name="diary_recipe_plans_added">Вы занесли в дневник:</string>
@@ -754,6 +755,8 @@
   <string name="tvSaturatedFats">Насыщеные</string>
   <string name="tvUnSaturatedFats">Ненасыщеные</string>
   <string name="myRecipe">Свои рецепты</string>
+  <string name="constraint_error_user_profile_name_min_length">Минимальная длина логина 3 символов</string>
+
 
   //
   <string name="vh_article_series_day">%d день</string>
@@ -771,7 +774,6 @@
   <string name="art_series_series_info">Чтобы перейти к следующему дню, Вам нужно пройти предыдущий</string>
   <string name="day">День %d</string>
 
-  <string name="main_screen_topbar_prot">@string/protein_intake</string>
   <string name="main_screen_topbar_fat">Жиры</string>
   <string name="main_screen_topbar_carbo">Углеводы</string>
   <string name="main_screen_water">Вода</string>
@@ -823,7 +825,9 @@
   <string name="daily_widget_calories_left">Осталось</string>
   <string name="daily_widget_calories_excess">Превышение</string>
   <string name="daily_widget_calories_burned">Сожжено</string>
+  <string name="main_screen_topbar_calories_left">Сожжено</string>
   <string name="daily_widget_calories_eaten">Съедено</string>
+  <string name="main_screen_topbar_calories">Съедено</string>
 
 
   <string name="measurments">Измерения тела</string>
@@ -914,10 +918,6 @@
     <item>Вы добавили в Перекус:</item>
   </string-array>
 
-
-
-
-
   <plurals name="srch_portions">
     <item quantity="zero"></item>
     <item quantity="one">%d порция</item>
@@ -935,12 +935,6 @@
     <item quantity="other">%d продуктов</item>
   </plurals>
 
-  <integer-array name="sections_images">
-    <item>@drawable/ic_left_sections_favorites</item>
-    <item>@drawable/ic_left_sections_template</item>
-    <item>@drawable/ic_left_sections_dish</item>
-    <item>@drawable/ic_left_sections_food</item>
-  </integer-array>
 
 
   <string name="today">Сегодня</string>

@@ -14,7 +14,9 @@
     <string name="srch_text_prem">¿Quieres saber cuántas vitaminas y minerales tomas con los alimentos? \n</string>
     <string name="srch_text_prem_second">Luego únete a la versión</string>
 
-
+    <string name="recipe_added">Receta añadida</string>
+    <string name="section_eating">Nutrición</string>
+    <string name="section_train">Entrenamiento</string>
     <string name="srch_text_prem_end">versión.</string>
     <string name="srch_connect_prem">activar cuenta premium</string>
     <string name="srch_speak">¡Hable!</string>
@@ -76,7 +78,9 @@
     <string name="daily_widget_calories_left">Restante</string>
     <string name="daily_widget_calories_excess">Exceso</string>
     <string name="daily_widget_calories_burned">Quemadas</string>
+    <string name="main_screen_topbar_calories_left">Quemadas</string>
     <string name="daily_widget_calories_eaten">Ingeridas</string>
+    <string name="main_screen_topbar_calories">Ingeridas</string>
     <string name="user_activity_time_elapsed_wh" formatted="false">%dh %d m</string>
     <string name="user_activity_time_elapsed_wh_wm">%dh</string>
     <string name="daily_burn_widget_title">Cálculo diario</string>
@@ -264,6 +268,24 @@
         <item quantity="other">%d días consecutivos registrados</item>
     </plurals>
 
+
+    <string-array name="srch_insp">
+        <item>Usted ha agregado al Desayuno:</item>
+        <item>Has añadido al almuerzo:</item>
+        <item>Usted ha agregado a la cafetería:</item>
+        <item>Hemos añadido a la merienda:</item>
+    </string-array>
+
+    <plurals name="srch_portions">
+        <item quantity="one">%d ración</item>
+        <item quantity="other">%d raciones</item>
+    </plurals>
+
+    <plurals name="srch_foods">
+        <item quantity="one">%d comida</item>
+        <item quantity="other">%d comidas</item>
+    </plurals>
+
     <string-array name="recipeComplexity">
         <item>Fácil</item>
         <item>Normal</item>
@@ -322,10 +344,12 @@
     <string name="alert_dialog_confirm_cancel">Cancelar</string>
     <string name="carbohydrates_intake">carbohidratos</string>
     <string name="main_screen_topbar_carbo">carbohidratos</string>
+    <string name="constraint_error_user_profile_name_min_length">La longitud mínima de inicio de sesión es de tres caracteres</string>
 
     <string name="vh_article_series_day">Día %d</string>
     <string name="fats_intake">grasa</string>
     <string name="protein_intake">proteína</string>
+    <string name="main_screen_topbar_prot">proteína</string>
     <string name="_try">Pruébelo</string>
     <string name="bnv_main_diary">Diario</string>
     <string name="bnv_main_plan">Dietas</string>
@@ -468,6 +492,7 @@ o permitirle usarla de forma gratuita.</string>
     <string name="gender">Sexo</string>
     <string name="growth">Altura</string>
     <string name="weight">Peso</string>
+    <string name="meas_weight_tap">Peso</string>
     <string name="age">Edad</string>
     <string name="activity">Actividad</string>
     <string name="target">Objetivo</string>

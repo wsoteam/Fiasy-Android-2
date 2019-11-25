@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
-                android:text="@string/detail_plans_recipe_item_recipe_added"
+                android:text="@string/recipe_added"
                 android:textColor="#ffffff"
                 android:textSize="20sp"
                 android:textStyle="italic"
