@@ -13,7 +13,9 @@
     <string name="srch_text_prem">Möchten Sie wissen, wie viele Vitamine und Mineralstoffe Sie mit Nahrung einnehmen \n</string>
     <string name="srch_text_prem_second">Dann treten Sie der version bei</string>
 
-
+    <string name="recipe_added">Rezept hinzugefügt</string>
+    <string name="section_eating">Ernährung</string>
+    <string name="section_train">Sporttraining</string>
     <string name="srch_text_prem_end">versions.</string>
     <string name="srch_connect_prem">premium-konto aktivieren</string>
     <string name="srch_speak">Einsprechen!</string>
@@ -265,6 +267,7 @@
     <string name="meas_alert_k">@android:string/ok</string>
     <string name="carbohydrates_intake">Kohlenhydrate</string>
     <string name="main_screen_topbar_carbo">Kohlenhydrate</string>
+    <string name="constraint_error_user_profile_name_min_length">Die minimale Anmeldelänge beträgt 3 Zeichen</string>
 
     <string name="my_plan">Meine Ernährung</string>
     <string name="user_activity_section_defaults">Standardaktivitäten</string>
@@ -284,7 +287,10 @@
     <string name="daily_widget_calories_left">Verbleibend</string>
     <string name="daily_widget_calories_excess">Überschuss</string>
     <string name="daily_widget_calories_burned">Verbrannt</string>
+    <string name="main_screen_topbar_calories_left">Verbrannt</string>
     <string name="daily_widget_calories_eaten">Gegessen</string>
+    <string name="main_screen_topbar_calories">Ingeridas</string>
+
     <string name="user_activity_time_elapsed_wh" formatted="false">%ds %d m</string>
     <string name="user_activity_time_elapsed_wh_wm">%ds</string>
     <string name="add_user_activity_burned">= %d kcal</string>
@@ -292,6 +298,7 @@
     <string name="vh_article_series_day">Tag %d</string>
     <string name="fats_intake">Fett</string>
     <string name="protein_intake">Protein</string>
+    <string name="main_screen_topbar_prot">Protein</string>
     <string name="_try">Testen Sie</string>
     <string name="bnv_main_diary">Tagebuch</string>
     <string name="bnv_main_plan">Ernährungspläne</string>
@@ -437,6 +444,7 @@ diese kostenlos nutzen.</string>
     <string name="gender">Geschlecht</string>
     <string name="growth">Größe</string>
     <string name="weight">Gewicht</string>
+    <string name="meas_weight_tap">Gewicht</string>
     <string name="age">Alter</string>
     <string name="activity">Aktivität</string>
     <string name="target">Ziel</string>

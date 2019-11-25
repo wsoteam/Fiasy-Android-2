@@ -197,7 +197,8 @@
     <string name="enter_email_hint">Enter email address</string>
     <string name="repeat_password_hint">Re-enter password</string>
     <string name="constraint_error_passwords_must_match">The passwords must match</string>
-    <string name="constraint_error_user_profile_name_min_length">Минимальная длина логина 3 символов</string>
+    <string name="constraint_error_user_profile_name_min_length">The minimum login length is three characters</string>
+
     <string name="auth_user_set_weak_password">The password is too weak: add more characters</string>
     <string name="personal_diary">Creating your personalized diet diary</string>
     <string name="update_message">A new version of the app has been released!  \nUpdate the app on Google Play</string>
@@ -806,15 +807,11 @@ Share your accomplishments with friends:</string>
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     <string name="main_screen_topbar_left">%s kcal</string>
-    <string name="main_screen_topbar_calories">@string/daily_widget_calories_eaten</string>
-    <string name="main_screen_topbar_calories_left">@string/daily_widget_calories_burned</string>
-    <string name="main_screen_topbar_prot">@string/protein_intake</string>
+    <string name="main_screen_topbar_calories">Eaten</string>
+    <string name="main_screen_topbar_calories_left">Burned</string>
+    <string name="main_screen_topbar_prot">Protein</string>
     <string name="main_screen_topbar_fat">Fat</string>
-    <string name="main_screen_topbar_carbo">@string/carbohydrates_intake</string>
-
-
-
-
+    <string name="main_screen_topbar_carbo">Carbohydrates</string>
     <string name="main_screen_water">Water</string>
     <string name="daily_widget_calories_left">Remaining</string>
     <string name="daily_widget_calories_excess">Excess</string>
@@ -836,9 +833,6 @@ Share your accomplishments with friends:</string>
     <string name="add_user_activity_hint">Enter a name for the Activities</string>
     <string name="widget_user_activity_title">Activities</string>
     <string name="widget_weight_title">Body measurements</string>
-
-
-
 
     <string name="premium_feature_title">Lose weight\n without stress or strict diets with\n</string>
 
@@ -925,8 +919,7 @@ Share your accomplishments with friends:</string>
     <string name="meas_chest_tap">Chest</string>
     <string name="meas_hips_tap">Hips</string>
     <string name="meas_empty_history">You have not entered your information yet</string>
-    <string name="meas_weight_tap">@string/weight</string>
-
+    <string name="meas_weight_tap">Weight</string>
     <string name="meas_alert_k">@android:string/ok</string>
     <string name="meas_alert_cancel">cancel</string>
 
@@ -1059,11 +1052,6 @@ Share your accomplishments with friends:</string>
         <item>You added to dinner:</item>
         <item>You added to the snack:</item>
     </string-array>
-
-
-
-
-
     <plurals name="srch_portions">
         <item quantity="zero"></item>
         <item quantity="one">%d portion</item>
