@@ -83,7 +83,6 @@
     <string name="vertical_detail_plan_adapter_in_diary">You made the following journal entry:\u0020</string>
     <string name="vertical_detail_plan_adapter_day">Day %d</string>
     <string name="vertical_detail_plan_adapter_day_of_days">Day %d of %d</string>
-<!--    TODO-->
     <plurals name="day_plurals">
         <item quantity="one">day</item>
         <item quantity="other">days</item>
@@ -98,8 +97,6 @@
     </plurals>
 
 
-
-<!--    TODO-->
     <string name="favoriteRecipe">Liked</string>
     <string name="own_food">my foods</string>
     <string name="btnAddTemplate">Create template</string>
@@ -298,7 +295,7 @@ Share your accomplishments with friends:</string>
     <string name="tab_lat_template_name">Templates</string>
     <string name="template_add_food_add">Add food</string>
     <string name="search_food_activity_say">Speak!</string>
-    <string name="search_food_activity_change">Change</string>
+<!--    <string name="search_food_activity_change">Change</string>-->
     <string name="search_food_activity_weight_ml">Weight: 100 ml</string>
     <string name="search_food_activity_weight_g">Weight: 100 g</string>
     <string name="search_food_activity_prot">P. %d</string>

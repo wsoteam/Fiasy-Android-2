@@ -715,7 +715,6 @@
   <string name="template_add_food_add">Добавить продукт</string>
 
   <string name="search_food_activity_say">Говорите!</string>
-  <string name="search_food_activity_change">Изменить</string>
   <string name="search_food_activity_weight_ml">Вес: 100мл</string>
   <string name="search_food_activity_weight_g">Вес: 100г</string>
   <string name="search_food_activity_prot">Б. %d</string>

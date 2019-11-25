@@ -52,7 +52,7 @@ class EditUserActivityFragment : DialogFragment() {
 
     if (editMode == true) {
       toolbar.title = getString(R.string.edit_activity)
-      doneButton.text = getString(R.string.search_food_activity_change)
+      doneButton.text = getString(R.string.btnChange)
     }
 
     doneButton.setOnClickListener {
