@@ -46,8 +46,8 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
 
         profile.setFemale(sex.equalsIgnoreCase(context.getResources().getString(R.string.profile_female)));
 
-        profile.setExerciseStress(BodyCalculates.convertToOldActivity(context, activity));
-        profile.setDifficultyLevel(BodyCalculates.convertToOldGoal(context, goal));
+        profile.setGoal(BodyCalculates.convertToGoalDigital(goal));
+        profile.setGoLevel(BodyCalculates.convertToActivityDigital(activity));
 
         profile.setMaxKcal(Integer.parseInt(kcal));
         profile.setMaxProt(Integer.parseInt(prot));
