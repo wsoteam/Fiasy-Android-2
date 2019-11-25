@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
 import android.text.method.LinkMovementMethod
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
@@ -24,9 +23,7 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import androidx.recyclerview.widget.RecyclerView.OnScrollListener
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import androidx.recyclerview.widget.RecyclerView.*
 import com.amplitude.api.Amplitude
 import com.amplitude.api.Identify
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
@@ -36,6 +33,7 @@ import com.wsoteam.diet.R.string
 import com.wsoteam.diet.common.Analytics.Events
 import com.wsoteam.diet.presentation.premium.SubscriptionManager.SetupFailedException
 import com.wsoteam.diet.presentation.premium.SubscriptionManager.SubscriptionNotFoundException
+import com.wsoteam.diet.utils.AbTests
 import com.wsoteam.diet.utils.IntentUtils
 import com.wsoteam.diet.utils.RichTextUtils.RichText
 import com.wsoteam.diet.utils.RichTextUtils.strikethrough
@@ -48,8 +46,9 @@ import com.wsoteam.diet.views.TimerView
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
 import io.reactivex.internal.functions.Functions.emptyConsumer
-import kotlinx.android.synthetic.main.activity_premium_dark.toolbar
-import java.util.Locale
+import kotlinx.android.synthetic.main.activity_premium_dark.*
+import org.json.JSONObject
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class PremiumFeaturesActivity : AppCompatActivity() {
@@ -155,7 +154,7 @@ class PremiumFeaturesActivity : AppCompatActivity() {
     get() = "dark" == FirebaseRemoteConfig.getInstance().getString("premium_theme")
 
   internal val withTrial: Boolean
-    get() = FirebaseRemoteConfig.getInstance().getBoolean("premium_with_trial")
+    get() = AbTests.enableTrials();
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -172,10 +171,13 @@ class PremiumFeaturesActivity : AppCompatActivity() {
 
     setContentView(R.layout.activity_premium_dark)
 
-    val props = Identify()
-    props.add("abtest", if (withTrial) "black_trial" else "black_direct")
-
-    Amplitude.getInstance().identify(props)
+    Amplitude.getInstance().logEvent("new_premium_open", JSONObject().apply {
+      optString("abtest",
+          if (withTrial)
+            "black_trial"
+          else
+            "black_direct")
+    })
 
     if (Deeplink.isNeedPrem.get()) {
       toolbar.navigationIcon = null
@@ -313,7 +315,8 @@ class PremiumFeaturesActivity : AppCompatActivity() {
   }
 
   fun purchase(subscriptionId: String) {
-    purchasedId = if (withTrial) subscriptionsMap[subscriptionId] ?: subscriptionId else subscriptionId
+    purchasedId =
+      if (withTrial) subscriptionsMap[subscriptionId] ?: subscriptionId else subscriptionId
 
     Events.logPushButton("purchase", source, purchasedId)
 
@@ -392,8 +395,8 @@ class PremiumFeaturesActivity : AppCompatActivity() {
         if (plans[position].trial > 0) {
           holder.view.duration.text = c.resources
             .getQuantityString(R.plurals.trial_days,
-              plans[position].trial,
-              plans[position].trial
+                plans[position].trial,
+                plans[position].trial
             )
         } else {
           holder.view.duration.text = ""

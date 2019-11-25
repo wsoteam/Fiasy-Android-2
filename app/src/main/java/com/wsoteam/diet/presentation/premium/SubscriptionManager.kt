@@ -28,6 +28,7 @@ import com.wsoteam.diet.InApp.properties.SingletonMakePurchase
 import com.wsoteam.diet.common.Analytics.EventProperties
 import com.wsoteam.diet.common.Analytics.Events
 import com.wsoteam.diet.common.Analytics.UserProperty
+import com.wsoteam.diet.utils.AbTests
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.SingleEmitter
@@ -91,8 +92,7 @@ object SubscriptionManager {
         r.setProductId(purchase.sku)
         r.setEventProperties(JSONObject().apply {
           put("buy_from", if(fromDiary) "header" else "ordinary")
-          put("abtest", if (FirebaseRemoteConfig.getInstance()
-                .getBoolean("premium_with_trial")) "black_trial" else "black_direct")
+          put("abtest", if (AbTests.enableTrials()) "black_trial" else "black_direct")
         })
         r.setQuantity(1)
         r.setRevenueType("subscription")

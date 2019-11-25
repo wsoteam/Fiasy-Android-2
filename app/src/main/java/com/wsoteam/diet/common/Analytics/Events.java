@@ -4,7 +4,10 @@ import android.util.Log;
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Revenue;
 import com.android.billingclient.api.BillingClient;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
+import com.wsoteam.diet.utils.AbTests;
+
 import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -377,13 +380,7 @@ public class Events {
     }
 
     public static void logPushButton(String whichButton, String from) {
-        JSONObject eventProperties = new JSONObject();
-        try {
-            eventProperties.put(EventProperties.push_button, whichButton);
-            eventProperties.put(EventProperties.push_button_from, from);
-        } catch (JSONException exception) {
-        }
-        Amplitude.getInstance().logEvent(PREMIUM_NEXT, eventProperties);
+        logPushButton(whichButton, from, null);
     }
 
     public static void logPushButton(String whichButton, String from, String purchaseId) {
@@ -392,6 +389,7 @@ public class Events {
             eventProperties.put(EventProperties.push_button, whichButton);
             eventProperties.put(EventProperties.push_button_from, from);
             eventProperties.put("purchaseId", purchaseId);
+            eventProperties.put("abtest", AbTests.enableTrials() ? "black_trial" : "black_direct");
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(PREMIUM_NEXT, eventProperties);
