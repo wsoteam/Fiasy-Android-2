@@ -60,12 +60,12 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
     }
 
     public void convertAndSetGoal(int i) {
-        String goal = context.getResources().getStringArray(R.array.goals)[i];
+        String goal = context.getResources().getStringArray(R.array.prf_goals)[i];
         getViewState().setGoal(goal);
     }
 
     public void convertAndSetActivity(int i) {
-        String activity = context.getResources().getStringArray(R.array.activities)[i];
+        String activity = context.getResources().getStringArray(R.array.prf_activity_level)[i];
         getViewState().setActivity(activity);
     }
 
