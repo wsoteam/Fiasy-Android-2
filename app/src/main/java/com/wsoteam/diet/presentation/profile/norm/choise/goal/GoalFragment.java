@@ -49,7 +49,7 @@ public class GoalFragment extends QuestionPurposeFragments {
 
     private int choisePosition(String activity) {
         int position = 0;
-        String[] goals = getActivity().getResources().getStringArray(R.array.goals);
+        String[] goals = getActivity().getResources().getStringArray(R.array.prf_goals);
         for (int i = 0; i < goals.length; i++) {
             if (activity.equalsIgnoreCase(goals[i])) {
                 position = i;
