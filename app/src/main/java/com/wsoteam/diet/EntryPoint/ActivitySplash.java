@@ -63,6 +63,7 @@ import com.wsoteam.diet.presentation.auth.AuthStrategy;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
+import com.wsoteam.diet.utils.NetworkService;
 import com.wsoteam.diet.utils.RxFirebase;
 import com.wsoteam.diet.utils.UserNotAuthorized;
 import com.wsoteam.diet.views.SplashBackground;

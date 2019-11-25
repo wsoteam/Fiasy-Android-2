@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.utils.AbTests;
 
 public class UserProperty {
     public static final String registration = "registration";
@@ -134,6 +135,7 @@ public class UserProperty {
                 .set(fats, fat)
                 .set(сarbohydrates, carbo)
                 .set(name_const, name)
+                .set(abtest, AbTests.enableTrials() ? "black_trial" : "black_direct")
                 .set(user_id, id);
         Amplitude.getInstance().identify(identify);
     }

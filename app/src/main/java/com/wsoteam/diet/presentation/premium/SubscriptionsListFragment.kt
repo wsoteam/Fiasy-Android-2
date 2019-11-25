@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wsoteam.diet.R
+import com.wsoteam.diet.common.Analytics.Events
+import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity.Companion
 import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity.PlanHolder
 import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity.PlansAdapter
 import com.wsoteam.diet.utils.IntentUtils
@@ -37,6 +39,7 @@ class SubscriptionsListFragment : Fragment() {
     val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
     toolbar.setNavigationOnClickListener {
       requireFragmentManager().popBackStack()
+      Events.logPushButton("back", "premium")
     }
 
     val title = view.findViewById<TextView>(R.id.title)
