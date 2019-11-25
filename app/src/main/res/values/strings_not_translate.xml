@@ -2,14 +2,13 @@
 <resources>
 
 
-    <string name="url_privacy_police" translatable="false">http://fiasy.com/PrivacyPolice</string>
 
     <integer-array name="left_drawables">
         <item>@drawable/ic_left_settings_diamond</item>
         <!--<item>@drawable/ic_left_settings_item_fork</item>-->
         <item>@drawable/ic_left_settings_item_promo</item>
         <item>@drawable/ic_left_settings_item_man</item>
-        <item>@drawable/ic_left_settings_item_kcal</item>
+        <item>@drawable/ic_left_settings_item_kcal_en</item>
         <!--<item>@drawable/ic_left_settings_item_bell</item>
     <item>@drawable/ic_left_settings_item_run</item>-->
         <item>@drawable/ic_left_settings_item_help</item>
@@ -20,13 +19,69 @@
         <!--<item>@drawable/ic_left_settings_item_fork</item>-->
         <item>@drawable/ic_left_settings_item_promo</item>
         <item>@drawable/ic_left_settings_item_man</item>
-        <item>@drawable/ic_left_settings_item_kcal</item>
+        <item>@drawable/ic_left_settings_item_kcal_en</item>
         <!--<item>@drawable/ic_left_settings_item_bell</item>
     <item>@drawable/ic_left_settings_item_run</item>-->
         <item>@drawable/ic_left_settings_item_help</item>
         <item>@drawable/ic_left_settings_item_exit</item>
     </integer-array>
 
+
+    <integer-array name="left_drawables_trans">
+        <item>@drawable/ic_left_settings_diamond</item>
+        <!--<item>@drawable/ic_left_settings_item_fork</item>-->
+        <item>@drawable/ic_left_settings_item_promo</item>
+        <item>@drawable/ic_left_settings_item_man</item>
+        <item>@drawable/ic_left_settings_item_kcal_en</item>
+        <!--<item>@drawable/ic_left_settings_item_bell</item>
+    <item>@drawable/ic_left_settings_item_run</item>-->
+<!--        <item>@drawable/ic_left_settings_item_help</item>-->
+        <item>@drawable/ic_left_settings_item_exit</item>
+    </integer-array>
+
+    <integer-array name="left_drawables_prem_trans">
+        <!--<item>@drawable/ic_left_settings_item_fork</item>-->
+        <item>@drawable/ic_left_settings_item_promo</item>
+        <item>@drawable/ic_left_settings_item_man</item>
+        <item>@drawable/ic_left_settings_item_kcal_en</item>
+        <!--<item>@drawable/ic_left_settings_item_bell</item>
+    <item>@drawable/ic_left_settings_item_run</item>-->
+<!--        <item>@drawable/ic_left_settings_item_help</item>-->
+        <item>@drawable/ic_left_settings_item_exit</item>
+    </integer-array>
+
+
+    <string-array name="settings_items">
+        <item>@string/premium_account</item>
+        <item>@string/promotional_codes</item>
+        <item>@string/personal_data</item>
+        <item>@string/calorie_intake</item>
+        <item>@string/exit</item>
+    </string-array>
+
+    <string-array name="settings_items_ru">
+        <item>@string/premium_account</item>
+        <item>@string/promotional_codes</item>
+        <item>@string/personal_data</item>
+        <item>@string/calorie_intake</item>
+        <item>@string/help_activity_title</item>
+        <item>@string/exit</item>
+    </string-array>
+
+    <string-array name="settings_items_prem">
+        <item>@string/promotional_codes</item>
+        <item>@string/personal_data</item>
+        <item>@string/calorie_intake</item>
+        <item>@string/exit</item>
+    </string-array>
+
+    <string-array name="settings_items_prem_ru">
+        <item>@string/promotional_codes</item>
+        <item>@string/personal_data</item>
+        <item>@string/calorie_intake</item>
+        <item>@string/help_activity_title</item>
+        <item>@string/exit</item>
+    </string-array>
 
     <!--Types of body-->
     <string name="policy_text" translatable="false">Fiasy Privacy Policy\n\nBy installing our mobile application or in any way using or accessing our Services,
@@ -96,5 +151,40 @@
 
     <string name="space" translatable="false">\u0020</string>
 
+
+    <string-array name="srch_eat_list">
+        <item>@string/breakfast</item>
+        <item>@string/lunch</item>
+        <item>@string/dinner</item>
+        <item>@string/snack</item>
+    </string-array>
+
+    <string-array name="srch_eating">
+        <item>@string/breakfast</item>
+        <item>@string/lunch</item>
+        <item>@string/dinner</item>
+        <item>@string/snack</item>
+    </string-array>
+
+    <string-array name="eatingList">
+        <item>@string/breakfast</item>
+        <item>@string/lunch</item>
+        <item>@string/dinner</item>
+        <item>@string/snack</item>
+    </string-array>
+
+    <integer-array name="sections_images">
+        <item>@drawable/ic_left_sections_favorites</item>
+        <item>@drawable/ic_left_sections_template</item>
+        <item>@drawable/ic_left_sections_dish</item>
+        <item>@drawable/ic_left_sections_food</item>
+    </integer-array>
+
+    <string-array name="srch_names_sections">
+        <item>@string/favorites</item>
+        <item>@string/templates</item>
+        <item>@string/my_meals</item>
+        <item>@string/my_food</item>
+    </string-array>
 
 </resources>

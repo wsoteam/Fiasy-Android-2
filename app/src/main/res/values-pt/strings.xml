@@ -1,10 +1,306 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+
+    <string name="app_name">Fiasy</string>
+
+    <string name="srch_basket_alet_text">Deseja voltar para trás sem \nadicionar os alimentos seleccionados </string>
+    <string name="srch_cancel_basket">Cancelar</string>
+    <string name="srch_yes">Sim</string>
+    <string name="srch_elements_title">Nutrientes por </string>
+    <string name="srch_fats">Gordura</string>
+    <string name="srch_carbohydrates">Carboidratos</string>
+    <string name="srch_proteins">Proteína</string>
+    <string name="srch_prem_elements">Micronutrientes</string>
+    <string name="srch_text_prem">Quer saber quantas vitaminas e minerais toma com alimentos? \n</string>
+    <string name="srch_text_prem_second">Em seguida, junte-se à versão</string>
+
+
+    <string name="srch_text_prem_end">versão.</string>
+    <string name="srch_connect_prem">ativar conta premium</string>
+    <string name="srch_speak">Fale!</string>
+    <string name="srch_empty_section">Secção do desenvolvimento</string>
+    <string name="srch_min_claim">Min. de 10 caracteres</string>
+    <string name="srch_claim_send">Enviar</string>
+    <string name="srch_claim_cancel">Cancelar</string>
+    <string name="srch_write_claim">Descreva o problema</string>
+    <string name="srch_detail_add">adicionar</string>
+    <string name="srch_speak_about_error">Relatar um erro</string>
+    <string name="srch_carbo">Carboidratos</string>
+    <string name="srch_cell">Celulose</string>
+
+
+    <string name="srch_sugar">Açúcar</string>
+    <string name="srch_sat">Saturada</string>
+    <string name="srch_mono_un_sat">Gordura monoinsaturada</string>
+    <string name="srch_poly_us_sat">Poliinsaturada</string>
+    <string name="srch_prot">Proteína</string>
+    <string name="srch_chol">Colesterol</string>
+    <string name="srch_sod">SodiSódio</string>
+    <string name="srch_pot">Potássio</string>
+    <string name="srch_back">VOLTAR</string>
+    <string name="srch_continue">CONTINUAR</string>
+
+    <string name="srch_default_portion">100 g</string>
+    <string name="srch_liquid">%d ml</string>
+    <string name="srch_not_liquid">%d g</string>
+    <string name="srch_save_list">Foi adicionado ao diário</string>
+    <string name="srch_history_header">Última adição</string>
+    <string name="srch_search_results">Pesquisa</string>
+    <string name="srch_empty_history">Comece digitando o nome de um alimento no campo de pesquisa\n</string>
+
+    <string name="srch_delete_undo_title">O produto seleccionado foi eliminado da lista</string>
+    <string name="srch_cancel">Cancelar</string>
+    <string name="srch_insp_ask">Queres continuar a comer</string>
+
+    <string name="srch_weight_error">Informe o peso da porção</string>
+    <string name="srch_kcal">kcal</string>
+    <string name="srch_create_user_food">Criar alimento</string>
+    <string name="srch_mg">mg</string>
+    <string name="srch_claim_send_fin">A queixa é enviada. Obrigado!</string>
+
+    <string name="srch_search_field">Procurar</string>
+    <string name="srch_empty_search_title">Nenhum resultado encontrado</string>
+    <string name="srch_text_empty">Tente novamente ou crie seu próprio \nalimento</string>
+    <string name="srch_ml">ml</string>
+    <string name="srch_gramm">g</string>
+    <string name="srch_add_to_basket">Adicionar</string>
+    <string name="srch_basket_title">Produtos seleccionados</string>
+    <string name="srch_basket_card"><u>Seleccionado: %d</u></string>
+
+
+    <string name="main_screen_water">Água</string>
+
+    <string name="addingRecipePortionV">Peso:</string>
+    <string name="yesterday">ontem</string>
+    <string name="tomorrow">amanhã</string>
+    <string name="daily_burn_widget_title">Taxa diária</string>
+    <string name="url_privacy_police">https://fiasy.com/privacypolicy_en</string>
+    <string name="today">hoje</string>
+    <string name="daily_rate_2">Taxa diária =</string>
+
+    <plurals name="trial_days">
+        <item quantity="one">de graça por %d dias</item>
+        <item quantity="other">de graça por %d dias</item>
+    </plurals>
+
+    <string name="camera">Câmera</string>
+    <string name="load_photo">Carregar foto</string>
+    <string name="where_photo"></string>
+    <string name="phone_memory">Memória do telefone</string>
+
+    <string name="premium_feature_exclusive_articles">Artigos exclusivos</string>
+    <string name="premium_feature_exclusive_articles_description">Você obterá acesso a artigos de um famoso nutricionista e instrutor fitness</string>
+    <string name="premium_feature_exclusive_recipes">Banco de dados de receitas</string>
+    <string name="premium_feature_exclusive_recipes_description">Receitas deliciosas, fáceis de preparar, acessíveis e com dados de CPFC</string>
+    <string name="premium_feature_personal_settings">Configurações personalizadas</string>
+    <string name="premium_feature_personal_settings_description">Veja e ajuste seu nível de CPFC</string>
+    <string name="premium_feature_exclusive_plans">Planos de refeições</string>
+    <string name="premium_feature_exclusive_plans_description">Planos de refeições prontas para todos os gostos e objetivos</string>
+    <string name="premium_feature_measurements">Medidas do corpo</string>
+    <string name="premium_feature_measurements_description">Acompanhe seu progresso com uma análise detalhada de medição corporal</string>
+    <string name="meas_alert_k">@android:string/ok</string>
+    <string name="main_screen_topbar_left">%s kcal</string>
+    <string name="premium_feature_title">Perca peso\n sem estresse ou dietas rigorosas com\n</string>
+    <string name="premium_subscription_card_benefits">Vantagens\n%d</string>
+    <string name="subscription_detailed">Assinatura de %s %s</string>
+    <string name="user_activity_section_defaults">Atividades padrão</string>
+    <string name="user_activity_time_elapsed">%d minutos</string>
+    <string name="add_user_activity_duration_hint">para %s</string>
+    <string name="widget_user_activity_title">Atividades</string>
+    <string name="getAccess">Obtenha acesso </string>
+    <string name="tvItemPlanTime">Tempo de cozimento:</string>
+    <string name="main_screen_topbar_fat">Gordura</string>
+    <string name="tvSaturatedFats">Saturada</string>
+    <string name="tvUnSaturatedFats">Insaturada</string>
+    <string name="premium_features_comparison">TUDO É MAIS FÁCIL COM</string>
+    <string name="subscriptions_list_title">Desbloquear mais opções\n</string>
+    <string name="action_buy">Comprar</string>
+    <string name="my_plan">Minha Dieta</string>
+
+    <string name="black_prem_features_diary">Diário de nutrição e exercícios</string>
+    <string name="black_prem_features_elements">Acompanhamento de macronutrientes</string>
+    <string name="black_prem_features_recipe">Receitas</string>
+    <string name="black_prem_features_articles">Artigos exclusivos de um nutricionista</string>
+    <string name="black_prem_features_plans">Planos de refeições</string>
+    <string name="black_prem_features_statistic">Todas as estatísticas</string>
+    <string name="black_prem_features_body">Acompanhamento da morfologia corporal</string>
+
+    <string name="user_activity_section_my">Minhas atividades</string>
+    <string name="premium_subscription_1_year">1 ano</string>
+    <string name="premium_subscription_6_month">6 meses</string>
+    <string name="premium_subscription_3_month">3 meses</string>
+    <string name="premium_subscription_per_month">%s/mês</string>
+
+    <string name="timer_days_left">dias</string>
+    <string name="timer_hours_left">horas</string>
+    <string name="timer_seconds_left">segundos</string>
+    <string name="timer_minutes_left">minutos</string>
+    <string name="premium_black_friday_days_remained_hint">A oferta especial terminará em</string>
+
+    <string-array name="names_months_meas">
+        <item>Janeiro</item>
+        <item>Fevereiro</item>
+        <item>Março</item>
+        <item>Abril</item>
+        <item>Maio</item>
+        <item>Junho</item>
+        <item>Julho</item>
+        <item>Agosto</item>
+        <item>Setembro</item>
+        <item>Outubro</item>
+        <item>Novembro</item>
+        <item>Dezembro</item>
+    </string-array>
+    <plurals name="meas_days_ago">
+        <item quantity="one">%d dia atrás</item>
+        <item quantity="other">%d dias atrás</item>
+    </plurals>
+<!--    <string name="enter_multi_params">Informe os dados</string>-->
+    <string name="measurments">Medidas do corpo</string>
+    <string name="medium_weight">peso médio da semana</string>
+    <string name="meas_title_bottom">Medidas (cm)</string>
+    <string name="propose_enter_data">Você ainda não informou nenhum dado</string>
+    <string name="meas_chest">Peito</string>
+    <string name="meas_add_meas">Adicionar</string>
+    <string name="meas_waist">Cintura</string>
+    <string name="meas_hips">Quadril</string>
+    <string name="meas_prem">premium</string>
+    <string name="meas_last_refresh">Última atualização:</string>
+    <string name="meas_last_refresh_today">hoje</string>
+    <string name="meas_history_title">Histórico de medidas</string>
+    <string name="meas_update_weight">Peso atual atualizado</string>
+    <string name="meas_waist_tap">Cintura</string>
+    <string name="meas_chest_tap">Peito</string>
+    <string name="meas_hips_tap">Quadril</string>
+    <string name="meas_empty_history">Você ainda não inseriu suas informações</string>
+    <string name="meas_alert_cancel">cancelar</string>
+    <string name="meas_toast_update">Peso atual \natualizado</string>
+    <string name="meas_future_day">Este dia ainda não \nchegou</string>
+    <string name="meas_info_toast">Saiba mais sobre o\npeso médio \n</string>
+    <string name="open_meas_info"><u>Mais</u></string>
+    <string name="meas_help">Ajuda</string>
+    <string name="help_meas_first_title">Informações sobre o cálculo do peso médio da \nsemana</string>
+    <string name="help_meas_first_text">Se você se pesar todos os dias e inserir as informações na seção \"Medidas do corpo\" em seu diário, o programa calculará automaticamente seu peso médio da semana.</string>
+    <string name="help_meas_second_title">Por que isso é importante?</string>
+    <string name="help_meas_second_text">Seu peso pode variar de acordo com as fases de seu ciclo menstrual (se você for mulher) ou com a ingestão de alimentos que causam a retenção de água. Portanto, se você se pesar uma vez por semana ou mesmo uma vez por mês e se focar na diferença entre os números, a mudança real no seu peso pode ser ocultada por fatores incidentais que causam desvios no seu peso. Em outras palavras, o número pode não ser preciso.</string>
+    <string name="help_meas_third_text">Acompanhe o seu peso médio da semana para obter uma imagem clara de como o seu peso mudou. Se você não fizer medições regularmente, será difícil ver seu progresso. Certifique-se de fazer pausas de duas semanas para manter seu peso após cada quatro semanas de dieta. Isso impedirá que seu corpo sofra estresse intenso e reduzirá a probabilidade de você voltar aos seus antigos hábitos alimentares.</string>
+    <string name="addingRecipeText">A receita que você criar será salva nesta seção</string>
+    <string name="favoriteRecipeText">As receitas que você curtir serão salvas nesta seção </string>
+    <string name="alertDialogSuccess">Receita salva</string>
+    <string name="addingRecipePortion">Número de porções (opcional)</string>
+    <string name="tvArticlePremText">Obtenha acesso a centenas de artigos úteis assinando uma conta premium.</string>
+    <string name="tvTitleArticleFragment">Artigos úteis</string>
+    <string name="titleShareDialogRecipe">Compartilhar receita</string>
+    <string name="addingRecipeAddInstruction">Adicionar passo</string>
+    <string name="recipeSaved">A receita foi salva em \"Receitas/Minhas receitas\"</string>
+    <string name="errorNameRecipe">Digite um nome para a receita</string>
+    <string name="errorTimeRecipe">Digite o tempo de preparo necessário</string>
+    <string name="errorIngrRecipe">Informe os ingredientes</string>
+    <string name="errorInstrReipe">Informe as instruções passo a passo</string>
+<!--    <string name="action_add">Adicionar</string>-->
+<!--    <string name="action_add_to_favorite">Adicionar aos favoritos</string>-->
+<!--    <string name="calendar_today">Hoje</string>-->
+    <string name="widget_weight_title">Medidas do corpo</string>
+    <plurals name="duration_minutes">
+        <item quantity="one">minuto</item>
+        <item quantity="other">minutos</item>
+    </plurals>
+    <plurals name="portion_plurals">
+        <item quantity="one">porção</item>
+        <item quantity="other">porções</item>
+    </plurals>
+
+    <string name="log_off_question">Deseja sair?</string>
+    <string name="no">não</string>
+    <string name="yes">sim</string>
+    <string name="check_your_email">Formato errado</string>
+    <string name="my_meals">As minhas refeições</string>
+    <string name="my_food">A minha comida</string>
+
+    <string name="art_series_title">Artigos de um especialista</string>
+    <string name="art_series_author_title">Artigos exclusivos de um nutricionista profissional!</string>
+    <string name="art_series_author_burlakov">Alexander Burlakov</string>
+    <string name="art_series_author_burlakov_bio">Médico de medicina esportiva e nutricionista, o Dr. Burlakov se formou na Kuban State Medical University. Ele é o fundador da Bodycoach School e administra um blog de bem-estar baseado em ciência médica.</string>
+    <string name="art_series_author_burlakov_bio_short">Médico de medicina esportiva e nutricionista</string>
+    <string name="art_series_author_burlakov_achiv1">18.800 seguidores no Instagram</string>
+    <string name="art_series_author_burlakov_achiv2">Ciência médica</string>
+    <string name="art_series_author_burlakov_achiv3">Treinou atletas do UFC, ACA e RCC</string>
+    <string name="understand">Entendi</string>
+    <string name="art_series_series_title">Oito artigos para ter um começo fácil!</string>
+    <string name="art_series_series_info">Você precisa concluir o dia anterior para poder ir para o próximo</string>
+    <string name="day">Dia %d</string>
+
+    <string name="profile_male">Masculino</string>
+    <string name="bnv_main_articles">Artigos </string>
+    <string name="activity_detail_food_0_kkal">0 kcal</string>
+    <string name="activity_detail_food_0_gram">0 g</string>
+    <string name="activity_detail_food_3_3_g">3.3 g</string>
+    <string name="g">g</string>
+    <string name="tvGram">g</string>
+    <string name="tvKkal">kcal</string>
+    <string name="tvKkal0">0 kcal</string>
+    <string name="planDays">Dia %d/%d</string>
+    <string name="btnRecipeDiary">Adicionar ao diário</string>
+    <string name="alert_dialog_confirm_delete">Excluir</string>
+    <string name="food_popup_menu_delete">Excluir</string>
+    <string name="activity_main_new_burnt">0\nquemadas</string>
+    <string name="alert_dialog_promo_success_congratulations">Parabéns!</string>
+    <string name="n_KCal">%d kcal</string>
+    <string name="n_mg">%d mg</string>
+    <string name="n_kk">%d kc</string>
+    <string name="onboard_weight_pattern">%d kg</string>
+    <string name="onboard_height_pattern">%d cm</string>
+    <string name="n_g">%d g</string>
+    <string name="activity_navigation">Atividade</string>
+    <string name="_for">para</string>
+    <string name="somplex">Difícil</string>
+
+    <string name="intro_text_1">Muitos artigos científicos sobre alimentação saudável</string>
+    <string name="intro_text_2">Receitas saudáveis todos os dias</string>
+    <string name="main_screen_menu_water_count">%.2f l</string>
+    <string name="auth_restore_your_password">Recuperar senha</string>
+    <string name="constraint_error_username_email">Insira o endereço de e-mail</string>
+    <string name="enter_email_hint">Insira o endereço de e-mail</string>
+<!--    <string name="dif_level_hard_up">Perder peso</string>-->
+    <string name="activity_detail_food_add">Adicionar</string>
+    <string name="Calories">Calorias</string>
+    <string name="update_title">Atualização!</string>
+    <string name="activity_profile_names">John Smith</string>
+    <string name="activity_profile_235_g">235 g</string>
+    <string name="activity_profile_60_g">60 g</string>
+    <string name="activity_profile_1800_kcal">1,800 kcal</string>
+    <string name="alert_dialog_buy_sub_info_congratulations">Parabéns!</string>
+    <string name="alert_dialog_change_food_in_template_cancel">Cancelar</string>
+    <string name="alert_dialog_confirm_cancel">Cancelar</string>
+    <string name="carbohydrates_intake">carboidratos</string>
+    <string name="main_screen_topbar_carbo">carboidratos</string>
+
+    <string name="daily_widget_calories_left">Restante</string>
+    <string name="daily_widget_calories_excess">Excesso</string>
+    <string name="daily_widget_calories_burned">Queimado</string>
+    <string name="daily_widget_calories_eaten">Comido</string>
+    <string name="user_activity_time_elapsed_wh" formatted="false">%dh %d m</string>
+    <string name="user_activity_time_elapsed_wh_wm">%dh</string>
+    <string name="add_user_activity_burned">= %d kcal</string>
+    <string name="user_activity_burned">%d kcal</string>
+    <string name="vh_article_series_day">Dia %d</string>
+    <string name="fats_intake">gordura</string>
+    <string name="protein_intake">proteína</string>
+    <string name="_try">Experimente</string>
+    <string name="activity_detail_food_to_100_g">por 100 g\u0020</string>
+    <string name="profile_female">Feminino</string>
+    <string name="bnv_main_diary">Diário</string>
+    <string name="bnv_main_plan">Dietas</string>
+    <string name="bnv_main_recipes">Receitas</string>
+    <string name="bnv_main_profile">Perfil</string>
+    <string name="item_food_template_count">0 alimento</string>
+    <string name="format_int_kcal">%d kcal</string>
     <string name="unboarding_welcome">Boas-vindas a</string>
     <string name="unboarding_first_screen">Muitos artigos científicos sobre alimentação saudável</string>
     <string name="unboarding_second_screen">Receitas saudáveis todos os dias</string>
     <string name="unboarding_skeep">Ignorar</string>
     <string name="next">AVANÇAR</string>
+    <string name="signIn_title">ENTRAR</string>
     <string name="next2">avançar</string>
     <string name="or">OU</string>
     <string name="signIn">ENTRAR</string>
@@ -130,6 +426,7 @@ Você pode gerenciar suas assinaturas e cancelá-las nas configurações de sua 
     <string name="personal_data_navigation">Informações pessoais</string>
     <string name="done">Pronto</string>
     <string name="name">Nome</string>
+    <string name="item_food_template_name">nome</string>
     <string name="surname">Sobrenome</string>
     <string name="email">Endereço de e-mail</string>
     <string name="calorie_intake_navigation">Ingestão de calorias</string>
@@ -173,8 +470,8 @@ ao valor padrão</string>
     <string name="my_activity">Minhas atividades</string>
     <string name="search">Procurar</string>
     <string name="empty_my_activity_first">Você ainda não adicionou nenhuma atividade.
-Para adicionar uma atividade, toque em</string>
-    <string name="empty_my_activity_second"> toque em ➕</string>
+Para adicionar uma atividade,</string>
+    <string name="empty_my_activity_second"> toque em </string>
     <string name="favorites">Favoritos</string>
     <string name="empty_favorites">Você ainda não adicionou atividades aos seus favoritos.
  Para adicionar uma atividade, deslize para a esquerda e
@@ -339,6 +636,8 @@ A pesquisa começará automaticamente.</string>
     <string name="eatingTemplate">Categoria:</string>
     <string name="contextMenuDelete">Excluir</string>
     <string name="contextMenuEdit">Editar</string>
+    <string name="food_popup_menu_change">Editar</string>
+
     <string name="addTemplate">Adicionar modelo</string>
     <string name="templates">Modelos</string>
     <string name="tvMG">mg</string>
@@ -450,6 +749,8 @@ Tente preencher o formulário acima da maneira mais precisa e completa possível
     <string name="item_vertical_browse_plans_name">Nome da dieta</string>
     <string name="ms_item_eating_list_recommendation">Recomendado: 475-855 kcal</string>
     <string name="ms_item_eating_list_add_meal">Insira agora seu almoço e alcance sua meta mais rapidamente</string>
+    <string name="ms_item_eating_list_kcal2">kcal</string>
+    <string name="privacy_policy_with_condtions">Privacy Policy and\nterms of use</string>
     <string name="plans_footer_item_share">Você atingiu sua meta?
 Compartilhe suas realizações com seus amigos:</string>
     <string name="plans_footer_item_cong">Sua dieta acabou.
@@ -476,23 +777,7 @@ Parabéns!</string>
     <string name="premium_client_says_about_us">Clientes satisfeitos</string>
     <string name="meas_prefix">Adicionaste um novo valor de peso</string>
 
-
-    ///////
-    <string-array name="prf_goals">
-        <item>Ficar em forma</item>
-        <item>Perder peso</item>
-        <item>Ganhar massa muscular</item>
-        <item>Manter a musculatura e queimar gordura</item>
-    </string-array>
-
-    <string-array name="prf_activity_level">
-        <item>O mínimo de exercícios</item>
-        <item>Exercícios leves ao longo do dia</item>
-        <item>Eu me exercito de 2 a 4 vezes por semana (ou realizo um trabalho que exige esforço físico moderado).</item>
-        <item>Eu me exercito intensamente 4-5 vezes por semana.</item>
-        <item>Eu me exercito intensamente todos os dias.</item>
-        <item>Eu me exercito duas vezes por dia, 5-7 dias por semana.</item>
-        <item>Meu trabalho é fisicamente intenso ou faço exercícios intensos duas vezes por dia, todos os dias.</item>
-    </string-array>
-
+    <string name="widget_activity_question">Estiveste activo hoje?</string>
+    <string name="question_name_title">Vamos começar.\n Como tu te chamas?</string>
+    <string name="subscription_not_found">Assinatura Premium não encontrada, não pode estar disponível no seu país</string>
 </resources>
