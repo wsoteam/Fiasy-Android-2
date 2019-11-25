@@ -260,7 +260,7 @@ public class SearchFoodActivity extends AppCompatActivity {
                             break;
                         case R.id.btnChange:
                             Intent intent = new Intent(SearchFoodActivity.this, ActivityDetailFood.class);
-                            intent.putExtra(Config.DETAIL_FOOD_BTN_NAME, getString(R.string.search_food_activity_change));
+                            intent.putExtra(Config.DETAIL_FOOD_BTN_NAME, getString(R.string.btnChange));
                             intent.putExtra(Config.INTENT_DETAIL_FOOD, FoodConverter.convertResultToFood(itemAdapter.foods.get(getAdapterPosition())));
                             startActivityForResult(intent, 45);
                             alertDialog.dismiss();
