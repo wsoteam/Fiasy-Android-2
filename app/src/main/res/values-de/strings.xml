@@ -775,4 +775,24 @@ Teilen Sie Ihre Erfolge mit Freunden:</string>
 
     <string name="question_name_title">Fangen wir an.\n Wie heißen Sie?</string>
     <string name="subscription_not_found">Premium-Abonnement nicht gefunden, kann es nicht in Ihrem Land verfügbar sein</string>
+
+
+    ///////
+    <string-array name="prf_goals">
+        <item>In Form bleiben</item>
+        <item>Abnehmen</item>
+        <item>Ganar masa muscular</item>
+        <item>Muskulatur halten und Fett verbrennen</item>
+    </string-array>
+
+
+    <string-array name="prf_activity_level">
+        <item>Minimale Aktivität</item>
+        <item>Leichte Übungen im Laufe des Tages</item>
+        <item>Ich trainiere 2–4 Mal pro Woche (moderate körperliche Anstrengung).</item>
+        <item>Ich trainiere 4–5 Mal pro Woche intensiv.</item>
+        <item>Ich trainiere jeden Tag intensiv.</item>
+        <item>Ich trainiere zweimal täglich an 5 bis 7 Tagen in der Woche.</item>
+        <item>Meine Arbeit ist körperlich anstrengend oder ich trainiere täglich zweimal intensiv.</item>
+    </string-array>
 </resources>

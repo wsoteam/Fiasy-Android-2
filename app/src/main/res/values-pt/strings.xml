@@ -780,4 +780,22 @@ Parabéns!</string>
     <string name="widget_activity_question">Estiveste activo hoje?</string>
     <string name="question_name_title">Vamos começar.\n Como tu te chamas?</string>
     <string name="subscription_not_found">Assinatura Premium não encontrada, não pode estar disponível no seu país</string>
+
+    ///////
+    <string-array name="prf_goals">
+        <item>Ficar em forma</item>
+        <item>Perder peso</item>
+        <item>Ganhar massa muscular</item>
+        <item>Manter a musculatura e queimar gordura</item>
+    </string-array>
+
+    <string-array name="prf_activity_level">
+        <item>O mínimo de exercícios</item>
+        <item>Exercícios leves ao longo do dia</item>
+        <item>Eu me exercito de 2 a 4 vezes por semana (ou realizo um trabalho que exige esforço físico moderado).</item>
+        <item>Eu me exercito intensamente 4-5 vezes por semana.</item>
+        <item>Eu me exercito intensamente todos os dias.</item>
+        <item>Eu me exercito duas vezes por dia, 5-7 dias por semana.</item>
+        <item>Meu trabalho é fisicamente intenso ou faço exercícios intensos duas vezes por dia, todos os dias.</item>
+    </string-array>
 </resources>
