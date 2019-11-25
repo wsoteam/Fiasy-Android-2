@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <string name="app_name">Fiasy</string>
 
     <string name="srch_basket_alet_text">Möchten Sie zurückdrehen, \nohne ausgewählte Lebensmittel </string>
     <string name="srch_cancel_basket">Abbrechen</string>

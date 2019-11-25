@@ -366,7 +366,8 @@ Share your accomplishments with friends:</string>
 
     <!--test-->
     <string name="todo" translatable="false">TODO</string>
-    <string name="app_name" translatable="false">Fiasy</string>
+    <string name="app_name">Fiasy</string>
+    <string name="app_name_fiasy" translatable="false">Fiasy</string>
 
     <!--Privacy Policy-->
     <string name="policy_title" translatable="false">Privacy Policy &amp; Terms of Service</string>
@@ -799,6 +800,7 @@ Share your accomplishments with friends:</string>
   <string name="art_series_series_title">Eight articles for an easy start!</string>
   <string name="art_series_series_info">You need to complete the previous day before you can go to the next one</string>
   <string name="day">Day %d</string>
+    <string name="art_series_banner" translatable="false">Cтатьи от профессионального диетолога</string>
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////

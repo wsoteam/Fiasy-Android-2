@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
+    <string name="app_name">Fiasy</string>
+
     <string name="srch_basket_alet_text">Deseja voltar para trás sem \nadicionar os alimentos seleccionados </string>
     <string name="srch_cancel_basket">Cancelar</string>
     <string name="srch_yes">Sim</string>
