@@ -97,6 +97,8 @@
         <item quantity="other">%d foods</item>
     </plurals>
 
+
+
 <!--    TODO-->
     <string name="favoriteRecipe">Liked</string>
     <string name="own_food">my foods</string>
@@ -253,7 +255,7 @@
     <string name="cards_fragment_subscription_info">Get full access \n to exclusive articles and recipes</string>
     <string name="detail_activity_question">Question</string>
     <string name="detail_plans_day_item_day_13">Day 13</string>
-    <string name="detail_plans_recipe_item_recipe_added">Recipe added</string>
+<!--    <string name="detail_plans_recipe_item_recipe_added">Recipe added</string>-->
     <string name="detail_plans_recipe_item_n_kcal">175 kcal\u0020</string>
     <string name="detail_plans_recipe_item_some_name">Olive, Avocado, and Feta Salad</string>
     <string name="diary_recipe_plans_added">You made the following journal entry:</string>

@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
+    
+    <plurals name="day_plurals">
+        <item quantity="one">Tag</item>
+        <item quantity="other">Tagen</item>
+    </plurals>
+    <plurals name="recipe_plurals">
+        <item quantity="one">Rezept</item>
+        <item quantity="other">Rezepte</item>
+    </plurals>
+    <plurals name="foods_count">
+        <item quantity="one">%d Lebensmittel</item>
+        <item quantity="other">%d Lebensmittel</item>
+    </plurals>
+
     <plurals name="srch_foods">
         <item quantity="one">%d Lebensmittel</item>
         <item quantity="other">%d Lebensmittel</item>

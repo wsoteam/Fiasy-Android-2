@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
+
+    <plurals name="day_plurals">
+        <item quantity="one">dia</item>
+        <item quantity="other">dias</item>
+    </plurals>
+    <plurals name="recipe_plurals">
+        <item quantity="one">receita</item>
+        <item quantity="other">receitas</item>
+    </plurals>
+    <plurals name="foods_count">
+        <item quantity="one">%d alimento</item>
+        <item quantity="other">%d alimentos</item>
+    </plurals>
+
     <plurals name="srch_foods">
         <item quantity="one">%d alimento</item>
         <item quantity="other">%d alimentos</item>

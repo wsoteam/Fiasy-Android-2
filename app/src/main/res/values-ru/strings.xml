@@ -663,7 +663,7 @@
 
   <string name="detail_activity_question">Вопрос</string>
   <string name="detail_plans_day_item_day_13">День 13</string>
-  <string name="detail_plans_recipe_item_recipe_added">Рецепт добавлен</string>
+<!--  <string name="detail_plans_recipe_item_recipe_added">Рецепт добавлен</string>-->
   <string name="detail_plans_recipe_item_n_kcal">175 ккал\u0020</string>
   <string name="detail_plans_recipe_item_some_name">Салат с оливками, авокадо и брынзой</string>
   <string name="diary_recipe_plans_added">Вы занесли в дневник:</string>
