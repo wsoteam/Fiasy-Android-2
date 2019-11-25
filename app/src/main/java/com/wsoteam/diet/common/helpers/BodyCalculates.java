@@ -62,14 +62,14 @@ public class BodyCalculates {
         profile.setGoLevel(convertToActivityDigital(activity));
         profile.setGoal(convertToGoalDigital(goal));
 
-        return calculateNew(context, profile, true);
+        return calculateDigital(context, profile, true);
     }
 
     public static int convertToGoalDigital(String goal) {
         String[] goals = App.getInstance().getResources().getStringArray(R.array.prf_goals);
         int goalDig = 0;
         for (int i = 0; i < goals.length - 1; i++) {
-            if(goal.equalsIgnoreCase(goals[i])){
+            if (goal.equalsIgnoreCase(goals[i])) {
                 goalDig = i;
             }
         }
@@ -80,7 +80,7 @@ public class BodyCalculates {
         String[] activities = App.getInstance().getResources().getStringArray(R.array.prf_activity_level);
         int goLevel = 0;
         for (int i = 0; i < activities.length - 1; i++) {
-            if(activity.equalsIgnoreCase(activities[i])){
+            if (activity.equalsIgnoreCase(activities[i])) {
                 goLevel = i;
             }
         }
@@ -189,50 +189,50 @@ public class BodyCalculates {
         }
 
 
-        if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_none)) || profile.getGoLevel() == Config.FIRST_LEVEL) {
+        if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_none))) {
             KFA = RATE_NONE;
             profile.setExerciseStress(Config.EMPTY_FIELD);
             profile.setGoLevel(Config.FIRST_LEVEL);
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_easy)) || profile.getGoLevel() == Config.SECOND_LEVEL) {
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_easy))) {
             KFA = RATE_EASY;
             profile.setExerciseStress(Config.EMPTY_FIELD);
             profile.setGoLevel(Config.SECOND_LEVEL);
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_medium)) || profile.getGoLevel() == Config.THIRD_LEVEL) {
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_medium))) {
             KFA = RATE_MEDIUM;
             profile.setExerciseStress(Config.EMPTY_FIELD);
             profile.setGoLevel(Config.THIRD_LEVEL);
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_hard)) || profile.getGoLevel() == Config.FOURTH_LEVEL) {
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_hard))) {
             KFA = RATE_HARD;
             profile.setExerciseStress(Config.EMPTY_FIELD);
             profile.setGoLevel(Config.FOURTH_LEVEL);
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_hard))|| profile.getGoLevel() == Config.FIFTH_LEVEL) {
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_hard))) {
             KFA = RATE_UP_HARD;
             profile.setExerciseStress(Config.EMPTY_FIELD);
             profile.setGoLevel(Config.FIFTH_LEVEL);
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_super))|| profile.getGoLevel() == Config.SIXTH_LEVEL) {
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_super))) {
             KFA = RATE_SUPER;
             profile.setExerciseStress(Config.EMPTY_FIELD);
             profile.setGoLevel(Config.SIXTH_LEVEL);
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_super)) || profile.getGoLevel() == Config.SEVENTH_LEVEL) {
+        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_super))) {
             KFA = RATE_UP_SUPER;
             profile.setExerciseStress(Config.EMPTY_FIELD);
             profile.setGoLevel(Config.SEVENTH_LEVEL);
         }
 
 
-        if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_easy)) || profile.getGoal() == Config.FIRST_GOAL) {
+        if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_easy))) {
             target = 1 - TARGET_NORMAL;
             profile.setDifficultyLevel(Config.EMPTY_FIELD);
             profile.setGoal(Config.FIRST_GOAL);
-        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_normal)) || profile.getGoal() == Config.SECOND_GOAL) {
+        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_normal))) {
             target = 1 - TARGET_LOOSE_WEIGHT;
             profile.setDifficultyLevel(Config.EMPTY_FIELD);
             profile.setGoal(Config.SECOND_GOAL);
-        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard)) || profile.getGoal() == Config.THIRD_GOAL) {
+        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard))) {
             target = 1 + TARGET_MUSCLE;
             profile.setDifficultyLevel(Config.EMPTY_FIELD);
             profile.setGoal(Config.THIRD_GOAL);
-        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard_up)) || profile.getGoal() == Config.FOURTH_GOAL) {
+        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard_up))) {
             target = 1 - TARGET_SAVE;
             profile.setDifficultyLevel(Config.EMPTY_FIELD);
             profile.setGoal(Config.FOURTH_GOAL);
@@ -248,7 +248,88 @@ public class BodyCalculates {
 
         profile.setMaxWater(WaterActivity.DEFAULT_NORMA);
         profile.setWaterCount(waterCount);
-        profile.setMaxKcal((int)result);
+        profile.setMaxKcal((int) result);
+        profile.setMaxFat((int) fat);
+        profile.setMaxProt((int) protein);
+        profile.setMaxCarbo((int) carbohydrate);
+
+        profile.setMaxWater(maxWater);
+
+        if (isNeedCreateMeasurment) {
+            createWeightMeas(profile.getWeight());
+        }
+        return profile;
+    }
+
+    public static Profile calculateDigital(Context context, Profile profile, boolean isNeedCreateMeasurment) {
+
+        double BMR, KFA = 0, result, target = 0, FPCindex;
+        double fat, protein, carbohydrate;
+        int waterCount;
+        float maxWater = 2f;
+
+        final double RATE_NONE = 1.2;
+        final double RATE_EASY = 1.375;
+        final double RATE_MEDIUM = 1.46;
+        final double RATE_HARD = 1.55;
+        final double RATE_UP_HARD = 1.6375;
+        final double RATE_SUPER = 1.725;
+        final double RATE_UP_SUPER = 1.9;
+
+        final double TARGET_NORMAL = 0;
+        final double TARGET_LOOSE_WEIGHT = 0.15; //похудение
+        final double TARGET_MUSCLE = 0.3;
+        final double TARGET_SAVE = 0.1; //Сохранение мышц и сжигание жира
+
+        if (profile.isFemale()) {
+            FPCindex = 16;
+            BMR = (10 * profile.getWeight() + 6.25 * profile.getHeight() - 5 * profile.getAge() - 161);
+            waterCount = WATER_ON_KG_FEMALE * (int) profile.getWeight();
+        } else {
+            FPCindex = 36;
+            BMR = (10 * profile.getWeight() + 6.25 * profile.getHeight() - 5 * profile.getAge() + 5);
+            waterCount = WATER_ON_KG_MALE * (int) profile.getWeight();
+        }
+
+
+        if (profile.getGoLevel() == Config.FIRST_LEVEL - 1) {
+            KFA = RATE_NONE;
+        } else if (profile.getGoLevel() == Config.SECOND_LEVEL - 1) {
+            KFA = RATE_EASY;
+        } else if (profile.getGoLevel() == Config.THIRD_LEVEL - 1) {
+            KFA = RATE_MEDIUM;
+        } else if (profile.getGoLevel() == Config.FOURTH_LEVEL - 1) {
+            KFA = RATE_HARD;
+        } else if (profile.getGoLevel() == Config.FIFTH_LEVEL - 1) {
+            KFA = RATE_UP_HARD;
+        } else if (profile.getGoLevel() == Config.SIXTH_LEVEL - 1) {
+            KFA = RATE_SUPER;
+        } else if (profile.getGoLevel() == Config.SEVENTH_LEVEL - 1) {
+            KFA = RATE_UP_SUPER;
+        }
+
+
+        if (profile.getGoal() == Config.FIRST_GOAL - 1) {
+            target = 1 - TARGET_NORMAL;
+        } else if (profile.getGoal() == Config.SECOND_GOAL - 1) {
+            target = 1 - TARGET_LOOSE_WEIGHT;
+        } else if (profile.getGoal() == Config.THIRD_GOAL - 1) {
+            target = 1 + TARGET_MUSCLE;
+        } else if (profile.getGoal() == Config.FOURTH_GOAL - 1) {
+            target = 1 - TARGET_SAVE;
+        }
+
+        result = (BMR * KFA) * target;
+
+
+        fat = (result * 0.25 / 9) + FPCindex;
+        protein = (result * 0.4 / 4) - FPCindex;
+        carbohydrate = (result * 0.35 / 4) - FPCindex;
+
+
+        profile.setMaxWater(WaterActivity.DEFAULT_NORMA);
+        profile.setWaterCount(waterCount);
+        profile.setMaxKcal((int) result);
         profile.setMaxFat((int) fat);
         profile.setMaxProt((int) protein);
         profile.setMaxCarbo((int) carbohydrate);
@@ -288,7 +369,7 @@ public class BodyCalculates {
         int userCarbo = profile.getMaxCarbo();
 
 
-        Profile profileDefaultMainParams = BodyCalculates.calculateNew(context, cloneProfile(profile), false);
+        Profile profileDefaultMainParams = BodyCalculates.calculateDigital(context, cloneProfile(profile), false);
 
         if (userKcal == profileDefaultMainParams.getMaxKcal()
                 && userProt == profileDefaultMainParams.getMaxProt()
@@ -300,20 +381,20 @@ public class BodyCalculates {
         }
     }
 
-    public static void saveWeight(double weight, Context context){
+    public static void saveWeight(double weight, Context context) {
         Profile profile = UserDataHolder.getUserData().getProfile();
-        if (isDefaultParams(context)){
+        if (isDefaultParams(context)) {
             profile.setWeight(weight);
             profile = calculateNew(context, profile, true);
-        }else {
+        } else {
             profile.setWeight(weight);
         }
         WorkWithFirebaseDB.putProfileValue(profile);
     }
 
     public static void handleProfile() {
-        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null){
-            if (isProfileOld()){
+        if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
+            if (isProfileOld()) {
                 makeProfileDigital();
             }
         }
@@ -370,19 +451,19 @@ public class BodyCalculates {
 
     private static boolean isProfileOld() {
         boolean isProfileOld = false;
-        if (!UserDataHolder.getUserData().getProfile().getExerciseStress().equals(Config.EMPTY_FIELD) && !UserDataHolder.getUserData().getProfile().getDifficultyLevel().equals(Config.EMPTY_FIELD)){
+        if (!UserDataHolder.getUserData().getProfile().getExerciseStress().equals(Config.EMPTY_FIELD) && !UserDataHolder.getUserData().getProfile().getDifficultyLevel().equals(Config.EMPTY_FIELD)) {
             isProfileOld = true;
         }
         return isProfileOld;
     }
 
     public static String getGoalName(int goal) {
-        String choisedGoal = App.getInstance().getResources().getStringArray(R.array.prf_goals)[goal - 1];
+        String choisedGoal = App.getInstance().getResources().getStringArray(R.array.prf_goals)[goal];
         return choisedGoal;
     }
 
     public static String getActivityName(int activityLevel) {
-        String activity = App.getInstance().getResources().getStringArray(R.array.prf_activity_level)[activityLevel - 1];
+        String activity = App.getInstance().getResources().getStringArray(R.array.prf_activity_level)[activityLevel];
         return activity;
     }
 
