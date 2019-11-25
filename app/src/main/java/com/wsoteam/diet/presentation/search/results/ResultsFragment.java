@@ -345,7 +345,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
                     @Override
                     public void onSuccess(List<ISearchResult> iSearchResults) {
-                        if (iSearchResults.size() > 0) {
+                        if (iSearchResults.size() > 0 && rvBlocks != null) {
                             updateAdapter(iSearchResults, new ArrayList<>(), "");
                         } else {
                             showNoHistory();
