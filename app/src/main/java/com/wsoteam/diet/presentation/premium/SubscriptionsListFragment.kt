@@ -17,6 +17,7 @@ import com.wsoteam.diet.common.Analytics.Events
 import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity.Companion
 import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity.PlanHolder
 import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity.PlansAdapter
+import com.wsoteam.diet.utils.AbTests
 import com.wsoteam.diet.utils.IntentUtils
 import com.wsoteam.diet.utils.RichTextUtils.RichText
 import com.wsoteam.diet.utils.dp
@@ -26,7 +27,7 @@ class SubscriptionsListFragment : Fragment() {
 
   private var selectedId: Int = -1
   private val withTrial: Boolean
-    get() = FirebaseRemoteConfig.getInstance().getBoolean("premium_with_trial")
+    get() = AbTests.enableTrials()
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?): View? {
