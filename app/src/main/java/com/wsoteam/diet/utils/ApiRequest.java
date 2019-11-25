@@ -1,6 +1,8 @@
 package com.wsoteam.diet.utils;
 
-import com.wsoteam.diet.model.*;
+import com.wsoteam.diet.model.ApiResult;
+import com.wsoteam.diet.model.Article;
+import com.wsoteam.diet.model.Author;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import okhttp3.ResponseBody;

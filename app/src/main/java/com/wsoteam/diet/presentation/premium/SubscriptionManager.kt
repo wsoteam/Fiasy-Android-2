@@ -17,6 +17,7 @@ import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.SkuDetailsParams
 import com.facebook.appevents.AppEventsConstants
 import com.facebook.appevents.AppEventsLogger
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wsoteam.diet.App
 import com.wsoteam.diet.BuildConfig
 import com.wsoteam.diet.Config
@@ -90,6 +91,8 @@ object SubscriptionManager {
         r.setProductId(purchase.sku)
         r.setEventProperties(JSONObject().apply {
           put("buy_from", if(fromDiary) "header" else "ordinary")
+          put("abtest", if (FirebaseRemoteConfig.getInstance()
+                .getBoolean("premium_with_trial")) "black_trial" else "black_direct")
         })
         r.setQuantity(1)
         r.setRevenueType("subscription")
