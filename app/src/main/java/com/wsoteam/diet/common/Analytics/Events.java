@@ -386,6 +386,17 @@ public class Events {
         Amplitude.getInstance().logEvent(PREMIUM_NEXT, eventProperties);
     }
 
+    public static void logPushButton(String whichButton, String from, String purchaseId) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.push_button, whichButton);
+            eventProperties.put(EventProperties.push_button_from, from);
+            eventProperties.put("purchaseId", purchaseId);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(PREMIUM_NEXT, eventProperties);
+    }
+
     public static void logOpenChat() {
         Amplitude.getInstance().logEvent(INTERCOM_CHAT);
     }

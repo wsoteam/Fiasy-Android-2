@@ -33,6 +33,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wsoteam.diet.MainScreen.Deeplink
 import com.wsoteam.diet.R
 import com.wsoteam.diet.R.string
+import com.wsoteam.diet.common.Analytics.Events
 import com.wsoteam.diet.presentation.premium.SubscriptionManager.SetupFailedException
 import com.wsoteam.diet.presentation.premium.SubscriptionManager.SubscriptionNotFoundException
 import com.wsoteam.diet.utils.IntentUtils
@@ -147,6 +148,9 @@ class PremiumFeaturesActivity : AppCompatActivity() {
   private val disposables = CompositeDisposable()
   private var purchasedId: String? = null
 
+  internal val source: String
+    get() = intent.getStringExtra("source") ?: "profile"
+
   internal val isDarkTheme: Boolean
     get() = "dark" == FirebaseRemoteConfig.getInstance().getString("premium_theme")
 
@@ -182,6 +186,8 @@ class PremiumFeaturesActivity : AppCompatActivity() {
       movementMethod = LinkMovementMethod.getInstance()
       text = RichText(text)
         .onClick(View.OnClickListener { v ->
+          Events.logPushButton("privacy", source)
+
           IntentUtils.openWebLink(v.context,
               getString(R.string.url_privacy_police))
         })
@@ -225,6 +231,8 @@ class PremiumFeaturesActivity : AppCompatActivity() {
 
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar.setNavigationOnClickListener {
+      Events.logPushButton("close", source)
+
       finish()
     }
 
@@ -289,6 +297,8 @@ class PremiumFeaturesActivity : AppCompatActivity() {
     reviewsSnap.attachToRecyclerView(reviewsContainer)
 
     findViewById<View>(R.id.action_open_subscriptions).setOnClickListener {
+      Events.logPushButton("open_subscriptions_list", source)
+
       supportFragmentManager
         .beginTransaction()
         .add(android.R.id.content, SubscriptionsListFragment())
@@ -297,8 +307,15 @@ class PremiumFeaturesActivity : AppCompatActivity() {
     }
   }
 
+  override fun onBackPressed() {
+    super.onBackPressed()
+    Events.logPushButton("back", source)
+  }
+
   fun purchase(subscriptionId: String) {
     purchasedId = if (withTrial) subscriptionsMap[subscriptionId] ?: subscriptionId else subscriptionId
+
+    Events.logPushButton("purchase", source, purchasedId)
 
     disposables.add(SubscriptionManager
       .buy(this, purchasedId ?: "premium_year")
