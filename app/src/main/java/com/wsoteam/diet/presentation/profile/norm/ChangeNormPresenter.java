@@ -25,7 +25,7 @@ public class ChangeNormPresenter extends MvpPresenter<ChangeNormView> {
         super.onFirstViewAttach();
         if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getProfile() != null) {
             String goal = BodyCalculates.getGoalName(UserDataHolder.getUserData().getProfile().getGoal());
-            String activity = BodyCalculates.convertToNewActivity(context, UserDataHolder.getUserData().getProfile().getExerciseStress());
+            String activity = BodyCalculates.getActivityName(UserDataHolder.getUserData().getProfile().getGoLevel());
             getViewState().bindFields(UserDataHolder.getUserData().getProfile(), goal, activity);
         }
 

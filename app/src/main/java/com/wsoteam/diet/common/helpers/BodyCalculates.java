@@ -359,16 +359,14 @@ public class BodyCalculates {
     }
 
     public static String getGoalName(int goal) {
-        String choisedGoal = "";
-        if (goal == Config.FIRST_GOAL) {
-            choisedGoal = App.getInstance().getResources().getStringArray(R.array.prf_goals)[0];
-        } else if (goal == Config.SECOND_GOAL) {
-            choisedGoal = App.getInstance().getResources().getStringArray(R.array.prf_goals)[1];
-        } else if (goal == Config.THIRD_GOAL) {
-            choisedGoal = App.getInstance().getResources().getStringArray(R.array.prf_goals)[2];
-        } else if (goal == Config.FOURTH_GOAL) {
-            choisedGoal = App.getInstance().getResources().getStringArray(R.array.prf_goals)[3];
-        }
+        String choisedGoal = App.getInstance().getResources().getStringArray(R.array.prf_goals)[goal - 1];
         return choisedGoal;
     }
+
+    public static String getActivityName(int activityLevel) {
+        String activity = App.getInstance().getResources().getStringArray(R.array.prf_activity_level)[activityLevel - 1];
+        return activity;
+    }
+
+
 }
