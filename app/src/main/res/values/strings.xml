@@ -1052,6 +1052,7 @@ Share your accomplishments with friends:</string>
         <item>You added to dinner:</item>
         <item>You added to the snack:</item>
     </string-array>
+
     <plurals name="srch_portions">
         <item quantity="zero"></item>
         <item quantity="one">%d portion</item>
@@ -1068,7 +1069,6 @@ Share your accomplishments with friends:</string>
         <item quantity="many">%d products</item>
         <item quantity="other">%d products</item>
     </plurals>
-
 
     <string name="daily_burn_widget_title">Daily rate</string>
     <string name="today">Today</string>

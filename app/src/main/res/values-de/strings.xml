@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+
+    <plurals name="srch_foods">
+        <item quantity="one">%d Lebensmittel</item>
+        <item quantity="other">%d Lebensmittel</item>
+    </plurals>
+
+    <string-array name="srch_insp">
+        <item>Sie haben zum Frühstück Hinzugefügt:</item>
+        <item>Sie haben zum Mittagessen Hinzugefügt:</item>
+        <item>Sie haben zum diner Hinzugefügt:</item>
+        <item>Sie haben den snack Hinzugefügt:</item>
+    </string-array>
+
+    <plurals name="srch_portions">
+        <item quantity="one">%d Portion</item>
+        <item quantity="other">%d Portionen</item>
+    </plurals>
+
     <string name="app_name">Fiasy</string>
 
     <string name="srch_basket_alet_text">Möchten Sie zurückdrehen, \nohne ausgewählte Lebensmittel </string>

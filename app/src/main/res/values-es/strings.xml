@@ -268,6 +268,24 @@
         <item quantity="other">%d días consecutivos registrados</item>
     </plurals>
 
+
+    <string-array name="srch_insp">
+        <item>Usted ha agregado al Desayuno:</item>
+        <item>Has añadido al almuerzo:</item>
+        <item>Usted ha agregado a la cafetería:</item>
+        <item>Hemos añadido a la merienda:</item>
+    </string-array>
+
+    <plurals name="srch_portions">
+        <item quantity="one">%d ración</item>
+        <item quantity="other">%d raciones</item>
+    </plurals>
+
+    <plurals name="srch_foods">
+        <item quantity="one">%d comida</item>
+        <item quantity="other">%d comidas</item>
+    </plurals>
+
     <string-array name="recipeComplexity">
         <item>Fácil</item>
         <item>Normal</item>
