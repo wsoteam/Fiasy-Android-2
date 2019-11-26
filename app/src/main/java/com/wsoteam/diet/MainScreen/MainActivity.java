@@ -61,6 +61,8 @@ import com.wsoteam.diet.model.ArticleViewModel;
 import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
+import com.wsoteam.diet.presentation.teach.TeachActivity;
+
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -220,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (Deeplink.isNeedPrem.get()) startPrem();
 
-
+        startActivity(new Intent(this, TeachActivity.class));
     }
 
   private void logEvents() {
