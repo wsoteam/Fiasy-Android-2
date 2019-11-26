@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
+
+    <plurals name="day_plurals">
+        <item quantity="one">dia</item>
+        <item quantity="other">dias</item>
+    </plurals>
+    <plurals name="recipe_plurals">
+        <item quantity="one">receita</item>
+        <item quantity="other">receitas</item>
+    </plurals>
+    <plurals name="foods_count">
+        <item quantity="one">%d alimento</item>
+        <item quantity="other">%d alimentos</item>
+    </plurals>
+
+    <plurals name="srch_foods">
+        <item quantity="one">%d alimento</item>
+        <item quantity="other">%d alimentos</item>
+    </plurals>
+
+
+    <string-array name="srch_insp">
+        <item>Você adicionou ao pequeno-almoço:</item>
+        <item>Você adicionou ao almoço:</item>
+        <item>Você adicionou ao restaurante:</item>
+        <item>Você adicionou ao lanche:</item>
+    </string-array>
+
+    <plurals name="srch_portions">
+        <item quantity="one">%d porção</item>
+        <item quantity="other">%d porções</item>
+    </plurals>
+
     <string name="app_name">Fiasy</string>
 
     <string name="srch_basket_alet_text">Deseja voltar para trás sem \nadicionar os alimentos seleccionados </string>
@@ -14,7 +46,9 @@
     <string name="srch_text_prem">Quer saber quantas vitaminas e minerais toma com alimentos? \n</string>
     <string name="srch_text_prem_second">Em seguida, junte-se à versão</string>
 
-
+    <string name="recipe_added">Receita adicionada</string>
+    <string name="section_eating">Nutrição</string>
+    <string name="section_train">Treinamento</string>
     <string name="srch_text_prem_end">versão.</string>
     <string name="srch_connect_prem">ativar conta premium</string>
     <string name="srch_speak">Fale!</string>
@@ -274,11 +308,15 @@
     <string name="alert_dialog_confirm_cancel">Cancelar</string>
     <string name="carbohydrates_intake">carboidratos</string>
     <string name="main_screen_topbar_carbo">carboidratos</string>
+    <string name="constraint_error_user_profile_name_min_length">O tamanho mínimo do login é de tres caracteres</string>
 
     <string name="daily_widget_calories_left">Restante</string>
     <string name="daily_widget_calories_excess">Excesso</string>
     <string name="daily_widget_calories_burned">Queimado</string>
+    <string name="main_screen_topbar_calories_left">Queimado</string>
     <string name="daily_widget_calories_eaten">Comido</string>
+    <string name="main_screen_topbar_calories">Comido</string>
+
     <string name="user_activity_time_elapsed_wh" formatted="false">%dh %d m</string>
     <string name="user_activity_time_elapsed_wh_wm">%dh</string>
     <string name="add_user_activity_burned">= %d kcal</string>
@@ -286,6 +324,7 @@
     <string name="vh_article_series_day">Dia %d</string>
     <string name="fats_intake">gordura</string>
     <string name="protein_intake">proteína</string>
+    <string name="main_screen_topbar_prot">proteína</string>
     <string name="_try">Experimente</string>
     <string name="activity_detail_food_to_100_g">por 100 g\u0020</string>
     <string name="profile_female">Feminino</string>
@@ -433,6 +472,7 @@ Você pode gerenciar suas assinaturas e cancelá-las nas configurações de sua 
     <string name="gender">Gênero</string>
     <string name="growth">Altura</string>
     <string name="weight">Peso</string>
+    <string name="meas_weight_tap">Peso</string>
     <string name="age">Idade</string>
     <string name="activity">Atividade</string>
     <string name="target">Objetivo</string>
@@ -780,22 +820,4 @@ Parabéns!</string>
     <string name="widget_activity_question">Estiveste activo hoje?</string>
     <string name="question_name_title">Vamos começar.\n Como tu te chamas?</string>
     <string name="subscription_not_found">Assinatura Premium não encontrada, não pode estar disponível no seu país</string>
-
-    ///////
-    <string-array name="prf_goals">
-        <item>Ficar em forma</item>
-        <item>Perder peso</item>
-        <item>Ganhar massa muscular</item>
-        <item>Manter a musculatura e queimar gordura</item>
-    </string-array>
-
-    <string-array name="prf_activity_level">
-        <item>O mínimo de exercícios</item>
-        <item>Exercícios leves ao longo do dia</item>
-        <item>Eu me exercito de 2 a 4 vezes por semana (ou realizo um trabalho que exige esforço físico moderado).</item>
-        <item>Eu me exercito intensamente 4-5 vezes por semana.</item>
-        <item>Eu me exercito intensamente todos os dias.</item>
-        <item>Eu me exercito duas vezes por dia, 5-7 dias por semana.</item>
-        <item>Meu trabalho é fisicamente intenso ou faço exercícios intensos duas vezes por dia, todos os dias.</item>
-    </string-array>
 </resources>
