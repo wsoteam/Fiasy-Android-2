@@ -22,9 +22,9 @@ public class GoalFragment extends QuestionPurposeFragments {
     @BindView(R.id.btnNext) Button btnSave;
     private final int EASY = 0, NORMAL = 1, HARD = 2, UPHARD = 3;
 
-    public static GoalFragment newInstance(String goal) {
+    public static GoalFragment newInstance(int goal) {
         Bundle bundle = new Bundle();
-        bundle.putString(GOAL_TAG, goal);
+        bundle.putInt(GOAL_TAG, goal);
         GoalFragment goalFragment = new GoalFragment();
         goalFragment.setArguments(bundle);
         return goalFragment;
@@ -33,6 +33,7 @@ public class GoalFragment extends QuestionPurposeFragments {
     @Override
     public void onResume() {
         super.onResume();
+        changeGoal(getArguments().getInt(GOAL_TAG));
         btnSave.setEnabled(true);
         btnSave.setText(getActivity().getResources().getString(R.string.save));
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -44,5 +45,22 @@ public class GoalFragment extends QuestionPurposeFragments {
                 getActivity().finish();
             }
         });
+    }
+
+    private void changeGoal(int position) {
+        switch (position) {
+            case EASY:
+                cbNormal.setChecked(true);
+                break;
+            case NORMAL:
+                cbLooseWeight.setChecked(true);
+                break;
+            case HARD:
+                cbMuscle.setChecked(true);
+                break;
+            case UPHARD:
+                cbSave.setChecked(true);
+                break;
+        }
     }
 }

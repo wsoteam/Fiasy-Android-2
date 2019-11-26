@@ -11,12 +11,14 @@ import static com.wsoteam.diet.Config.ONBOARD_PROFILE_PURPOSE;
 
 public class GoalActivity extends AppCompatActivity {
 
+    private int numberChoisedFigure = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal);
         getData();
-        getSupportFragmentManager().beginTransaction().replace(R.id.clContainer, GoalFragment.newInstance(getIntent().getStringExtra(Config.GOAL))).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.clContainer, GoalFragment.newInstance(numberChoisedFigure)).commit();
     }
 
     private void getData() {
@@ -24,14 +26,15 @@ public class GoalActivity extends AppCompatActivity {
         String[] newGoals = getResources().getStringArray(R.array.prf_goals);
         String oldGoalForSend = "";
         String[] levels = new String[]{
+                getString(R.string.dif_level_easy),
                 getString(R.string.dif_level_normal),
                 getString(R.string.dif_level_hard),
-                getString(R.string.dif_level_hard_up),
-                getString(R.string.dif_level_easy)
+                getString(R.string.dif_level_hard_up)
         };
-        for (int i = 0; i < newGoals.length - 1; i++) {
+        for (int i = 0; i < newGoals.length; i++) {
             if (newGoal.equalsIgnoreCase(newGoals[i])) {
                 oldGoalForSend = levels[i];
+                numberChoisedFigure = i;
             }
         }
 
