@@ -12,7 +12,7 @@ class TeachActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_teach)
 
-
+//        getWindow().getDecorView().setBackgroundResource(android.R.color.transparent)
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         val fragment = TeachMealFragment()
         fragmentTransaction.add(R.id.TeachContainer, fragment)
