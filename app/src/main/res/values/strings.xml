@@ -1104,4 +1104,23 @@ Share your accomplishments with friends:</string>
 
     <string name="my_meals">My meals</string>
     <string name="my_food">My food</string>
+
+    ///////
+    <string-array name="prf_goals">
+        <item>Stay in shape</item>
+        <item>Lose weight</item>
+        <item>Build muscle mass</item>
+        <item>Maintain musculature and burn fat</item>
+    </string-array>
+
+    <string-array name="prf_activity_level">
+        <item>Minimal exercise</item>
+        <item>Light exercise over the course of the day</item>
+        <item>I exercise 2–4 times a week (or do work that requires moderate physical exertion</item>
+        <item>I exercise intensely 4–5 times a week.</item>
+        <item>I exercise intensely every day</item>
+        <item>I exercise twice a day, 5–7 days a week.</item>
+        <item>My job is physically intense, or I exercise intensely twice a day, every day.</item>
+    </string-array>
+
 </resources>
