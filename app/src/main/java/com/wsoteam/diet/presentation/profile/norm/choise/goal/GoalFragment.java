@@ -33,7 +33,6 @@ public class GoalFragment extends QuestionPurposeFragments {
     @Override
     public void onResume() {
         super.onResume();
-        changeGoal(choisePosition(getArguments().getString(GOAL_TAG)));
         btnSave.setEnabled(true);
         btnSave.setText(getActivity().getResources().getString(R.string.save));
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -45,34 +44,5 @@ public class GoalFragment extends QuestionPurposeFragments {
                 getActivity().finish();
             }
         });
-    }
-
-    private int choisePosition(String activity) {
-        int position = 0;
-        String[] goals = getActivity().getResources().getStringArray(R.array.prf_goals);
-        for (int i = 0; i < goals.length; i++) {
-            if (activity.equalsIgnoreCase(goals[i])) {
-                position = i;
-                break;
-            }
-        }
-        return position;
-    }
-
-    private void changeGoal(int position) {
-        switch (position) {
-            case EASY:
-                cbNormal.setChecked(true);
-                break;
-            case NORMAL:
-                cbLooseWeight.setChecked(true);
-                break;
-            case HARD:
-                cbMuscle.setChecked(true);
-                break;
-            case UPHARD:
-                cbSave.setChecked(true);
-                break;
-        }
     }
 }
