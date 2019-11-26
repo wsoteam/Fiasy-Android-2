@@ -41,7 +41,7 @@
                 android:id="@+id/background"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:background="#d98ab5d7"
+                android:background="#7E777777"
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"

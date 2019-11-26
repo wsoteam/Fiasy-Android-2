@@ -17,6 +17,7 @@ import com.wsoteam.diet.common.networking.food.FoodResultAPI;
 import com.wsoteam.diet.common.networking.food.FoodSearch;
 import com.wsoteam.diet.common.networking.food.HeaderObj;
 import com.wsoteam.diet.common.networking.food.ISearchResult;
+import com.wsoteam.diet.common.networking.food.POJO.FoodResult;
 import com.wsoteam.diet.common.networking.food.POJO.Result;
 import com.wsoteam.diet.presentation.search.ParentActivity;
 import com.wsoteam.diet.presentation.search.product.DetailActivity;
@@ -109,6 +110,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case Config.EN:
                 foodResultAPI
                         .searchEn(searchString, page)
+                        .map(foodResult -> dropBrands(foodResult))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
@@ -116,6 +118,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case Config.RU:
                 foodResultAPI
                         .search(searchString, page)
+                        .map(foodResult -> dropBrands(foodResult))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
@@ -123,6 +126,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case Config.DE:
                 foodResultAPI
                         .searchDe(searchString, page)
+                        .map(foodResult -> dropBrands(foodResult))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
@@ -130,6 +134,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case Config.PT:
                 foodResultAPI
                         .searchPt(searchString, page)
+                        .map(foodResult -> dropBrands(foodResult))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
@@ -137,6 +142,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case Config.ES:
                 foodResultAPI
                         .searchEs(searchString, page)
+                        .map(foodResult -> dropBrands(foodResult))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(t -> addItems(t.getResults()), Throwable::printStackTrace);
@@ -149,6 +155,24 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             foods.add(results.get(i));
         }
         notifyDataSetChanged();
+    }
+
+    private FoodResult dropBrands(FoodResult foodResult) {
+        for (int i = 0; i < foodResult.getResults().size(); i++) {
+            try {
+                if (foodResult.getResults().get(i).getName() == null) {
+                    foodResult.getResults().remove(i);
+                    i--;
+                }
+                if (foodResult.getResults().get(i).getBrand().getName().equalsIgnoreCase("null")) {
+                    foodResult.getResults().get(i).getBrand().setName("");
+                }
+            } catch (Exception e) {
+                Log.e("LOL", e.getMessage());
+            }
+        }
+
+        return foodResult;
     }
 
     @Override

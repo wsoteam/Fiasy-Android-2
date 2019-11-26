@@ -27,9 +27,12 @@ import com.wsoteam.diet.presentation.plans.adapter.HorizontalBrowsePlansAdapter;
 import com.wsoteam.diet.presentation.plans.adapter.VerticalBrowsePlansAdapter;
 import com.wsoteam.diet.presentation.plans.detail.DetailPlansActivity;
 import com.wsoteam.diet.presentation.plans.detail.blocked.BlockedDetailPlansActivity;
+import com.wsoteam.diet.utils.Subscription;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -94,14 +97,16 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
 
     private List<DietsList> prepareList(){
 
-        List<DietsList> listGroups = DietPlansHolder.get().getListGroups();
+        List<DietsList> listGroups;
         try {
+            listGroups = DietPlansHolder.get().getListGroups();
             if (listGroups.get(0).getProperties().equals(currentPlanProperti)) {
                 listGroups.remove(0);
             }
         } catch (NullPointerException e){
             Log.d("TAG", "com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment \n" +
                     "private List<DietsList> prepareList()", e);
+            listGroups = new ArrayList<>();
         }
 
 
@@ -127,7 +132,7 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
         public void onItemClick(View view, int position, DietPlan dietPlan) {
             Intent intent;
 
-            if (!checkSubscribe() && dietPlan.isPremium()){
+            if (!Subscription.check(getContext()) && dietPlan.isPremium()){
                 intent = new Intent(getContext(), BlockedDetailPlansActivity.class);
             }else {
                 intent = new Intent(getContext(), DetailPlansActivity.class);
@@ -153,11 +158,6 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
     @Override
     public void showMessage(String message) {
 
-    }
-
-    private boolean checkSubscribe() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-        return sharedPreferences.getBoolean(Config.STATE_BILLING, false);
     }
 
     @Override public void onResume() {

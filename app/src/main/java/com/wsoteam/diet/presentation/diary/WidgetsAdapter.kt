@@ -33,6 +33,10 @@ class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
     return widgets[position]
   }
 
+  fun indexOf(id: Int): Int {
+    return widgets.indexOf(id)
+  }
+
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WidgetView {
     val root = parent.inflate(viewType, false)
 

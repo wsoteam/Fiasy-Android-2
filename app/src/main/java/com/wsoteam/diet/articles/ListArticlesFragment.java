@@ -40,6 +40,8 @@ import com.wsoteam.diet.R;
 
 import com.wsoteam.diet.model.ApiResult;
 import com.wsoteam.diet.model.ArticleViewModel;
+import com.wsoteam.diet.utils.Subscription;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -69,7 +71,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
 
     Intent intent;
 
-    if (!checkSubscribe() && article.isPremium()) {
+    if (!Subscription.check(getContext()) && article.isPremium()) {
       intent = new Intent(getActivity(), ItemArticleWithoutPremActivity.class);
     } else {
       intent = new Intent(getActivity(), ItemArticleActivity.class);
@@ -79,15 +81,6 @@ public class ListArticlesFragment extends Fragment implements Observer {
     getActivity().startActivity(intent);
   }
 
-  private boolean checkSubscribe() {
-    SharedPreferences sharedPreferences =
-        getActivity().getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-    if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   HorizontalArticlesAdapter.OnItemClickListener onItemClickListener =
       new HorizontalArticlesAdapter.OnItemClickListener() {

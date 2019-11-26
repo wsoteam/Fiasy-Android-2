@@ -48,6 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         app:srcCompat="@drawable/ic_show_all" />
+
   </LinearLayout>
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/recycler"

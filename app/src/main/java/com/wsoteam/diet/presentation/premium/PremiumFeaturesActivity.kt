@@ -23,15 +23,17 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import androidx.recyclerview.widget.RecyclerView.OnScrollListener
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import androidx.recyclerview.widget.RecyclerView.*
+import com.amplitude.api.Amplitude
+import com.amplitude.api.Identify
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wsoteam.diet.MainScreen.Deeplink
 import com.wsoteam.diet.R
 import com.wsoteam.diet.R.string
+import com.wsoteam.diet.common.Analytics.Events
 import com.wsoteam.diet.presentation.premium.SubscriptionManager.SetupFailedException
 import com.wsoteam.diet.presentation.premium.SubscriptionManager.SubscriptionNotFoundException
+import com.wsoteam.diet.utils.AbTests
 import com.wsoteam.diet.utils.IntentUtils
 import com.wsoteam.diet.utils.RichTextUtils.RichText
 import com.wsoteam.diet.utils.RichTextUtils.strikethrough
@@ -44,8 +46,9 @@ import com.wsoteam.diet.views.TimerView
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
 import io.reactivex.internal.functions.Functions.emptyConsumer
-import kotlinx.android.synthetic.main.activity_premium_dark.toolbar
-import java.util.Locale
+import kotlinx.android.synthetic.main.activity_premium_dark.*
+import org.json.JSONObject
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class PremiumFeaturesActivity : AppCompatActivity() {
@@ -144,11 +147,14 @@ class PremiumFeaturesActivity : AppCompatActivity() {
   private val disposables = CompositeDisposable()
   private var purchasedId: String? = null
 
+  internal val source: String
+    get() = intent.getStringExtra("source") ?: "profile"
+
   internal val isDarkTheme: Boolean
     get() = "dark" == FirebaseRemoteConfig.getInstance().getString("premium_theme")
 
   internal val withTrial: Boolean
-    get() = FirebaseRemoteConfig.getInstance().getBoolean("premium_with_trial")
+    get() = AbTests.enableTrials();
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -165,6 +171,14 @@ class PremiumFeaturesActivity : AppCompatActivity() {
 
     setContentView(R.layout.activity_premium_dark)
 
+    Amplitude.getInstance().logEvent("new_premium_open", JSONObject().apply {
+      optString("abtest",
+          if (withTrial)
+            "black_trial"
+          else
+            "black_direct")
+    })
+
     if (Deeplink.isNeedPrem.get()) {
       toolbar.navigationIcon = null
       Deeplink.isNeedPrem.set(false)
@@ -174,6 +188,8 @@ class PremiumFeaturesActivity : AppCompatActivity() {
       movementMethod = LinkMovementMethod.getInstance()
       text = RichText(text)
         .onClick(View.OnClickListener { v ->
+          Events.logPushButton("privacy", source)
+
           IntentUtils.openWebLink(v.context,
               getString(R.string.url_privacy_police))
         })
@@ -186,7 +202,7 @@ class PremiumFeaturesActivity : AppCompatActivity() {
 
       val diff = System.currentTimeMillis() - endDate
 
-      if (System.currentTimeMillis() > endDate || diff > TimeUnit.DAYS.toMillis(3)) {
+      if (System.currentTimeMillis() > endDate || TimeUnit.DAYS.toMillis(3) >= diff) {
         visibility = View.GONE
         timerLabel.visibility = View.GONE
       }
@@ -217,6 +233,8 @@ class PremiumFeaturesActivity : AppCompatActivity() {
 
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar.setNavigationOnClickListener {
+      Events.logPushButton("close", source)
+
       finish()
     }
 
@@ -230,7 +248,7 @@ class PremiumFeaturesActivity : AppCompatActivity() {
       purchase(plans[id].key)
     }
 
-    tariffsContainer.adapter = PlansAdapter(isDarkMode = isDarkTheme)
+    tariffsContainer.adapter = PlansAdapter(isDarkMode = isDarkTheme, withTrial = withTrial)
     tariffsContainer.addOnScrollListener(object : OnScrollListener() {
       override fun onScrollStateChanged(p: RecyclerView, newState: Int) {
         super.onScrollStateChanged(p, newState)
@@ -281,6 +299,8 @@ class PremiumFeaturesActivity : AppCompatActivity() {
     reviewsSnap.attachToRecyclerView(reviewsContainer)
 
     findViewById<View>(R.id.action_open_subscriptions).setOnClickListener {
+      Events.logPushButton("open_subscriptions_list", source)
+
       supportFragmentManager
         .beginTransaction()
         .add(android.R.id.content, SubscriptionsListFragment())
@@ -289,8 +309,16 @@ class PremiumFeaturesActivity : AppCompatActivity() {
     }
   }
 
+  override fun onBackPressed() {
+    super.onBackPressed()
+    Events.logPushButton("back", source)
+  }
+
   fun purchase(subscriptionId: String) {
-    purchasedId = if (withTrial) subscriptionsMap[subscriptionId] ?: subscriptionId else subscriptionId
+    purchasedId =
+      if (withTrial) subscriptionsMap[subscriptionId] ?: subscriptionId else subscriptionId
+
+    Events.logPushButton("purchase", source, purchasedId)
 
     disposables.add(SubscriptionManager
       .buy(this, purchasedId ?: "premium_year")
@@ -367,8 +395,8 @@ class PremiumFeaturesActivity : AppCompatActivity() {
         if (plans[position].trial > 0) {
           holder.view.duration.text = c.resources
             .getQuantityString(R.plurals.trial_days,
-              plans[position].trial,
-              plans[position].trial
+                plans[position].trial,
+                plans[position].trial
             )
         } else {
           holder.view.duration.text = ""

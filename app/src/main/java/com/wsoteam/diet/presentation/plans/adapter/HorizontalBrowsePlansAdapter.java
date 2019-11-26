@@ -15,12 +15,15 @@ import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.DietPlans.POJO.DietsList;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
+import com.wsoteam.diet.utils.Img;
 import com.wsoteam.diet.utils.PaletteExtractorTransformation;
 import io.reactivex.functions.Consumer;
 import java.util.LinkedList;
@@ -136,13 +139,25 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
           context.getResources()
               .getQuantityString(R.plurals.day_plurals, dietPlan.getCountDays())));
 
+      setImg(imageView, dietPlan.getUrlImage(), background);
+    }
+
+    private void setImg(ImageView img, String url, LinearLayout layout){
       Picasso.get()
-          .load(dietPlan.getUrlImage())
-          .resizeDimen(R.dimen.diet_card_width, R.dimen.diet_card_height)
-          .centerCrop()
-          .config(Bitmap.Config.RGB_565)
-          .transform(new PaletteExtractorTransformation(paletteConsumer))
-          .into(imageView);
+              .load(url)
+              .resizeDimen(R.dimen.diet_card_width, R.dimen.diet_card_height)
+              .centerCrop()
+              .into(img, new Callback() {
+                @Override
+                public void onSuccess() {
+                  Img.setBackGround(img.getDrawable(), layout);
+                }
+
+                @Override
+                public void onError(Exception e) {
+
+                }
+              });
     }
 
     @Override

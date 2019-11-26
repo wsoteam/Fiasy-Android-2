@@ -8,10 +8,10 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.MarginLayoutParams
 import android.view.ViewTreeObserver.OnPreDrawListener
 import android.widget.FrameLayout
 import androidx.appcompat.widget.Toolbar
@@ -28,6 +28,8 @@ import com.squareup.picasso.Target
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
+import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Hiden
+import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Revealed
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
 import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity
 import com.wsoteam.diet.utils.FiasyDateUtils
@@ -48,6 +50,11 @@ class DiaryFragment : Fragment() {
   companion object {
     private val formatterFullStyle = SimpleDateFormat("LLLL, EEEE dd", Locale.getDefault())
     private val formatterMonth = SimpleDateFormat("LLLL", Locale.getDefault())
+
+    private enum class PremiumState {
+      Revealed,
+      Hiden
+    }
   }
 
   private val calendar = Calendar.getInstance()
@@ -151,11 +158,15 @@ class DiaryFragment : Fragment() {
     container = view.findViewById(R.id.container)
 
     container.addItemDecoration(object : ItemDecoration() {
-      val spaceHeight = dp(requireContext(), 16f)
+      val spaceHeight = dp(requireContext(), 12f)
 
       override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: State) {
         super.getItemOffsets(outRect, view, parent, state)
-        outRect.bottom = spaceHeight
+
+        val wa = parent.adapter as WidgetsAdapter
+        if (parent.getChildAdapterPosition(view) != wa.indexOf(R.layout.ms_item_water_list)) {
+          outRect.bottom = spaceHeight
+        }
       }
     })
     container.adapter = WidgetsAdapter()
@@ -185,21 +196,59 @@ class DiaryFragment : Fragment() {
     })
 
     root.setOnScrollChangeListener(object : OnScrollChangeListener {
+      private var currentState = Revealed
+
       override fun onScrollChange(v: NestedScrollView,
         scrollX: Int,
         scrollY: Int,
         oldScrollX: Int,
         oldScrollY: Int) {
 
-        val endValue: Float
+        val scrollingDown = scrollY > oldScrollY
+        val spaceLeft = premiumContainer.height + premiumContainer.translationY
 
-        if (scrollY > oldScrollY) {
-          endValue = 0f
+        currentState = if (spaceLeft == 0f) Hiden else Revealed
+
+        var nextState = currentState
+
+        if (scrollingDown && spaceLeft > 0f && !(spaceLeft == 1f * premiumContainer.height && scrollY > spaceLeft)) {
+          premiumContainer.translationY = -1f * Math.min(scrollY, premiumContainer.height)
+
+        } else if (scrollY <= premiumContainer.height) {
+          premiumContainer.animate().cancel()
+
+          if (spaceLeft != 1f * premiumContainer.height) {
+            premiumContainer.translationY = -1f * Math.min(scrollY, premiumContainer.height)
+          }
         } else {
-          endValue = 1f * scrollY
+          if (scrollingDown && spaceLeft != 0f) {
+            nextState = Hiden
+          }
+
+          if (!scrollingDown && spaceLeft == 0f) {
+            nextState = Revealed
+          }
         }
 
-        premiumContainer.translationY = endValue
+        if (nextState == currentState) {
+          return
+        }
+
+        premiumContainer.animate().cancel()
+
+        val animator = premiumContainer.animate()
+
+        if (nextState == Revealed) {
+          animator.translationY(0f)
+        } else if (nextState == Hiden) {
+          animator.translationY(-1f * premiumContainer.height)
+        }
+
+        animator.duration = 120
+        animator.withEndAction {
+          currentState = nextState
+        }
+        animator.start()
       }
     })
 
@@ -214,8 +263,8 @@ class DiaryFragment : Fragment() {
           .getBoolean(Config.STATE_BILLING, false)
 
         premiumContainer.setOnClickListener {
-//          premiumContainer.visibility = View.GONE
-            startActivity(Intent(requireContext(), PremiumFeaturesActivity::class.java))
+          startActivity(Intent(requireContext(), PremiumFeaturesActivity::class.java)
+                  .putExtra("fromDiary", true))
         }
 
         if (!isPremium) {
@@ -278,8 +327,16 @@ class DiaryFragment : Fragment() {
     updateTitle()
   }
 
+  private var oldStatusBarColor = 0
+
   override fun onResume() {
     super.onResume()
+
+    oldStatusBarColor = activity?.window?.statusBarColor ?: 0
+
+    if (oldStatusBarColor != 0) {
+      activity?.window?.statusBarColor = 0xFF12061C.toInt()
+    }
 
     val isPremium = requireContext()
       .getSharedPreferences(Config.STATE_BILLING, Context.MODE_PRIVATE)
@@ -288,6 +345,14 @@ class DiaryFragment : Fragment() {
     premiumContainer.visibility = if (isPremium) View.GONE else View.VISIBLE
 
     container.translationY = 0f
+  }
+
+  override fun onPause() {
+    super.onPause()
+
+    if (oldStatusBarColor != 0) {
+      activity?.window?.statusBarColor = oldStatusBarColor
+    }
   }
 
   private fun toggleCalendar() {

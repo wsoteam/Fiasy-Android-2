@@ -27,6 +27,8 @@ import com.wsoteam.diet.model.ApiResult;
 import com.wsoteam.diet.model.Article;
 import com.wsoteam.diet.model.ArticleViewModel;
 import com.wsoteam.diet.model.OpenArticles;
+import com.wsoteam.diet.utils.Subscription;
+
 import java.util.Date;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -48,7 +50,7 @@ public class ArticleSeriesFragment extends Fragment {
             .getArticleSeries()
             .get("burlakov")
             .getDate()) / (60 * 60 * 24 * 1000);
-        if (day >= 1.0 && checkSubscribe()) {
+        if (day >= 1.0 && Subscription.check(getContext())) {
           OpenArticles openArticles = UserDataHolder.getUserData().getArticleSeries().get("burlakov");
           openArticles.setDate(new Date().getTime());
           openArticles.setUnlockedArticles(openArticles.getUnlockedArticles() + 1);
@@ -67,8 +69,7 @@ public class ArticleSeriesFragment extends Fragment {
     adapter = new SeriesAdapter(null, new SeriesCallback() {
       @Override public void Clicked(View v, Article article) {
         Intent intent;
-//        if(false){
-        if (checkSubscribe()) {
+        if (Subscription.check(getContext())) {
           intent = new Intent(getActivity(), ItemArticleActivity.class);
 
         } else {
@@ -92,14 +93,5 @@ public class ArticleSeriesFragment extends Fragment {
 
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(adapter);
-  }
-  private boolean checkSubscribe() {
-    SharedPreferences sharedPreferences =
-        getActivity().getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-    if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
-      return true;
-    } else {
-      return false;
-    }
   }
 }

@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="16dp"
     >
 
   <LinearLayout
@@ -32,7 +31,7 @@
           android:lineSpacingExtra="10sp"
           android:text="@string/main_screen_water"
           android:textColor="@color/black"
-          android:textSize="18sp"
+          android:textSize="20sp"
           android:textStyle="normal"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -92,6 +91,7 @@
           android:id="@+id/waterStepView"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:gravity="center_vertical"
           android:paddingBottom="20dp"
           />
     </LinearLayout>

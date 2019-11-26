@@ -17,6 +17,7 @@ import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.SkuDetailsParams
 import com.facebook.appevents.AppEventsConstants
 import com.facebook.appevents.AppEventsLogger
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wsoteam.diet.App
 import com.wsoteam.diet.BuildConfig
 import com.wsoteam.diet.Config
@@ -27,16 +28,19 @@ import com.wsoteam.diet.InApp.properties.SingletonMakePurchase
 import com.wsoteam.diet.common.Analytics.EventProperties
 import com.wsoteam.diet.common.Analytics.Events
 import com.wsoteam.diet.common.Analytics.UserProperty
+import com.wsoteam.diet.utils.AbTests
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.SingleEmitter
 import io.reactivex.SingleOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.PublishProcessor
+import org.json.JSONObject
 import java.util.concurrent.CopyOnWriteArrayList
 
 object SubscriptionManager {
 
+  private var fromDiary: Boolean = false
   private val purchases = CopyOnWriteArrayList<SkuDetails>()
   private val purchaseListener = PurchasesUpdatedListener { responseCode, purchases ->
     Log.d("PurchaseUpdated", "responseCode=$responseCode, purchases=$purchases")
@@ -86,6 +90,10 @@ object SubscriptionManager {
         val r = Revenue()
         r.setPrice(purchase.price.toDoubleOrNull() ?: 0.0)
         r.setProductId(purchase.sku)
+        r.setEventProperties(JSONObject().apply {
+          put("buy_from", if(fromDiary) "header" else "ordinary")
+          put("abtest", if (AbTests.enableTrials()) "black_trial" else "black_direct")
+        })
         r.setQuantity(1)
         r.setRevenueType("subscription")
         r.setReceipt(p.orderId, p.signature)
@@ -117,6 +125,8 @@ object SubscriptionManager {
     .build()
 
   fun buy(activity: Activity, subscriptionKey: String): Single<Int> {
+    fromDiary = activity.intent.getBooleanExtra("fromDiary", false)
+
     return Single.create(ConnectBilling())
       .flatMap { Single.create(QuerySubscriptionSingle(subscriptionKey)) }
       .observeOn(AndroidSchedulers.mainThread())

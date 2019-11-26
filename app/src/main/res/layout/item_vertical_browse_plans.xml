@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:drawablePadding="9dp"
-        android:drawableRight="@drawable/recipes_arrow"
+        tools:drawableRight="@drawable/recipes_arrow"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/all"
         android:textColor="#EF7D02"

@@ -14,9 +14,12 @@ import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.model.Article;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.utils.Img;
 import com.wsoteam.diet.utils.PaletteExtractorTransformation;
 import io.reactivex.functions.Consumer;
 
@@ -61,14 +64,25 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
 
     tvName.setText(article.getTitle().replaceAll("\\<.*?\\>", ""));
     premiumLabel.setVisibility(article.isPremium() ? View.VISIBLE : View.GONE);
+    setImg(imageView, article.getImage(), llBackground);
 
+  }
+
+  private void setImg(ImageView img, String url, LinearLayout layout){
     Picasso.get()
-            .load(article.getImage())
+            .load(url)
             .resizeDimen(R.dimen.article_card_width, R.dimen.article_card_height)
             .centerCrop()
-            .config(Bitmap.Config.RGB_565)
-            .transform(new PaletteExtractorTransformation(paletteConsumer))
-            .into(imageView);
+            .into(img, new Callback() {
+              @Override
+              public void onSuccess() {
+                Img.setBackGround(img.getDrawable(), layout);
+              }
 
+              @Override
+              public void onError(Exception e) {
+
+              }
+            });
   }
 }
