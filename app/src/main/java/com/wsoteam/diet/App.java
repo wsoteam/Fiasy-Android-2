@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
 import com.amplitude.api.Amplitude;
+import com.bugsee.library.Bugsee;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -42,7 +43,7 @@ public class App extends MultiDexApplication {
         FirebaseApp.initializeApp(this);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-        //Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
+        Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
 
         FirebaseRemoteConfig.getInstance().setDefaults(new HashMap<String, Object>(){{
             put("premium_theme", "dark");
@@ -74,7 +75,7 @@ public class App extends MultiDexApplication {
         if (setupOnDemand) {
             setupOnDemand = false;
 
-            //Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
+            Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
 
             Adjust.onCreate(new AdjustConfig(this, app_token, ENVIRONMENT_PRODUCTION));
             registerActivityLifecycleCallbacks(new AdjustLifecycleCallbacks());
