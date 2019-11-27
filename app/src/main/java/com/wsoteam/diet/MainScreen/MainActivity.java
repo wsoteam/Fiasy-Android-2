@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -57,6 +58,7 @@ import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 
 import com.wsoteam.diet.presentation.teach.fragments.TeachMealDialogFragment;
+import com.wsoteam.diet.presentation.teach.fragments.TeachSearchDialogFragment;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -162,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
     new UpdateChecker(this).runChecker();
     Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-      TeachMealDialogFragment dialog = new TeachMealDialogFragment();
+      DialogFragment dialog = new TeachSearchDialogFragment();
       dialog.show(getSupportFragmentManager(), "dlg1");
   }
 
