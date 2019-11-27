@@ -1106,4 +1106,7 @@ Share your accomplishments with friends:</string>
     <string name="teach_meal_txt">Выберите прием пищи</string>
     <string name="teach_meal">Прием пищи</string>
 
+    <string name="teach_search_title">Что вы ели?</string>
+    <string name="teach_search_txt">Введите название продукта в поисковую строку</string>
+
 </resources>

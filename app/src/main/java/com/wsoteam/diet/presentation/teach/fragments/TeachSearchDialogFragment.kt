@@ -13,11 +13,12 @@ import kotlinx.android.synthetic.main.fragment_teach_meal.*
 class TeachSearchDialogFragment : SupportBlurDialogFragment() {
 
     private var _style = STYLE_NO_TITLE
-    private var _theme = R.style.TransparentBackgroundDialog
+    private var _theme = R.style.TransparentStatusbarWithBackgroundDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(_style, _theme)
+
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
