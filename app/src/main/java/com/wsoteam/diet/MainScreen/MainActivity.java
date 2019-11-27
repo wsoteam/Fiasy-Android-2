@@ -45,29 +45,22 @@ import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
 import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodDB;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
-import com.wsoteam.diet.Recipes.POJO.ListRecipes;
-import com.wsoteam.diet.Recipes.POJO.RecipesHolder;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
-import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
 import com.wsoteam.diet.common.remote.UpdateChecker;
 import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.model.ArticleViewModel;
-import com.wsoteam.diet.model.ArticleViewModel;
-import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
-import com.wsoteam.diet.presentation.teach.TeachActivity;
-import com.wsoteam.diet.presentation.teach.fragments.TestFragment;
+
+import com.wsoteam.diet.presentation.teach.fragments.TeachMealDialogFragment;
 
 import java.util.Calendar;
 import java.util.Locale;
 
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -168,6 +161,9 @@ public class MainActivity extends AppCompatActivity {
     handlGrade(Calendar.getInstance().getTimeInMillis());
     new UpdateChecker(this).runChecker();
     Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+      TeachMealDialogFragment dialog = new TeachMealDialogFragment();
+      dialog.show(getSupportFragmentManager(), "dlg1");
   }
 
     private void handlGrade(long currentTime) {
@@ -225,8 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        startActivity(new Intent(this, TeachActivity.class));
 
-        TestFragment dialog = new TestFragment();
-        dialog.show(getSupportFragmentManager(), "dlg1");
+
     }
 
   private void logEvents() {

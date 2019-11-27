@@ -1099,4 +1099,11 @@ Share your accomplishments with friends:</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="teach_cancel">Пропустить</string>
+    <string name="teach_meal_title">Какой прием пищи у вас был последним?</string>
+    <string name="teach_meal_txt">Выберите прием пищи</string>
+    <string name="teach_meal">Прием пищи</string>
+
 </resources>
