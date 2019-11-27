@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,7 +13,6 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -34,10 +32,6 @@ import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.articles.ArticleSeriesFragment;
-import com.wsoteam.diet.articles.BurlakovAuthorFragment;
-import com.wsoteam.diet.articles.ListArticlesFragment;
-import com.wsoteam.diet.articles.POJO.ListArticles;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietModule;
@@ -57,8 +51,7 @@ import com.wsoteam.diet.model.ArticleViewModel;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 
-import com.wsoteam.diet.presentation.teach.fragments.TeachMealDialogFragment;
-import com.wsoteam.diet.presentation.teach.fragments.TeachSearchDialogFragment;
+import com.wsoteam.diet.presentation.teach.TeachHostFragment;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -164,8 +157,7 @@ public class MainActivity extends AppCompatActivity {
     new UpdateChecker(this).runChecker();
     Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-      DialogFragment dialog = new TeachSearchDialogFragment();
-      dialog.show(getSupportFragmentManager(), "dlg1");
+      getSupportFragmentManager().beginTransaction().add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
   }
 
     private void handlGrade(long currentTime) {
@@ -221,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (Deeplink.isNeedPrem.get()) startPrem();
 
-//        startActivity(new Intent(this, TeachActivity.class));
+
 
 
     }

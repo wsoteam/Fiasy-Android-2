@@ -27,8 +27,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.teach.TeachActivity"
-            android:theme="@style/Theme.Transparent"/>
         <activity
             android:name=".articles.ArticleSeriesActivity"
             android:screenOrientation="portrait"
