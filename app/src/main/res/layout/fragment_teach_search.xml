@@ -15,17 +15,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <FrameLayout
-            android:id="@+id/searchFragmentContainer"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSuggestionsList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="300dp"
             android:background="@color/white"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
-
-        </FrameLayout>
+        </androidx.recyclerview.widget.RecyclerView>
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/main.appbar"

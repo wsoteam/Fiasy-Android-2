@@ -114,6 +114,8 @@ public class ParentActivity extends AppCompatActivity {
                     ((ResultsView) fragmentManager.findFragmentById(
                             R.id.searchFragmentContainer)).updateSearchField(
                             charSequence.toString().replaceAll("\\s+", " "));
+
+
                 }
             }
 
