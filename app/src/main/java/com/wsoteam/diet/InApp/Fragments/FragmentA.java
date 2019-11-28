@@ -88,7 +88,7 @@ public class FragmentA extends Fragment
 
         box = (Box) getArguments().getSerializable(TAG_BOX);
 
-        if (box.isOpenFromIntrodaction()) {
+        if (box != null && box.isOpenFromIntrodaction()) {
             btnBack.setVisibility(View.GONE);
             getActivity().getSharedPreferences(SavedConst.SEE_PREMIUM, Context.MODE_PRIVATE).edit().putBoolean(SavedConst.SEE_PREMIUM, true).commit();
         }
@@ -176,7 +176,7 @@ public class FragmentA extends Fragment
             editor.putBoolean(Config.ALERT_BUY_SUBSCRIPTION, true);
             editor.apply();
 
-            if (box.isOpenFromIntrodaction()) {
+            if (box != null && box.isOpenFromIntrodaction()) {
                 box.setSubscribe(true);
                 getActivity().getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE).edit().putString(SavedConst.HOW_END, EventProperties.onboarding_success_trial).commit();
             }
@@ -199,7 +199,7 @@ public class FragmentA extends Fragment
                 break;
             case R.id.btnClose: {
                 Events.logPushButton(EventProperties.push_button_close, box.getBuyFrom());
-                if (box.isOpenFromIntrodaction()) {
+                if (box != null && box.isOpenFromIntrodaction()) {
                     getActivity().getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE).edit().putString(SavedConst.HOW_END, EventProperties.onboarding_success_close).commit();
                     final Intent intent = new Intent(getContext(), ActivitySplash.class);
                     startActivity(intent);
