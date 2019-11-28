@@ -14,6 +14,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.util.Consumer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.Visibility
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.wsoteam.diet.App
 import com.wsoteam.diet.Config
 
@@ -86,11 +88,27 @@ class TeachSearchDialogFragment : SupportBlurDialogFragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 //                showSuggestions(s.toString().replaceAll("\\s+", " "))
-                showSuggestions(s.toString().replace("\\s+", " "))
+                val str = s.toString().replace("\\s+", " ")
+
+                hideSearchResult("".equals(str))
+                if(!"".equals(str)) showSuggestions(str)
 
             }
         })
         bindSpinnerChoiceEating()
+    }
+
+    private fun hideSearchResult(hide: Boolean){
+        if(hide){
+            if (rvSuggestionsList.visibility == View.VISIBLE) rvSuggestionsList.visibility = View.GONE
+            title_first.visibility = View.VISIBLE
+            title_second.visibility = View.GONE
+
+        }else{
+            if (rvSuggestionsList.visibility == View.GONE) rvSuggestionsList.visibility = View.VISIBLE
+            title_first.visibility = View.GONE
+            title_second.visibility = View.VISIBLE
+        }
     }
 
     private fun bindSpinnerChoiceEating() {

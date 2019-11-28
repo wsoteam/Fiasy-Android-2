@@ -1108,5 +1108,6 @@ Share your accomplishments with friends:</string>
 
     <string name="teach_search_title">Что вы ели?</string>
     <string name="teach_search_txt">Введите название продукта в поисковую строку</string>
+    <string name="teach_search_food">Нажмите на подходящий продукт</string>
 
 </resources>
