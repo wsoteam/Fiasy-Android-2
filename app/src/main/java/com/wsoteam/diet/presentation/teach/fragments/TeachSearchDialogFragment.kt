@@ -12,6 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 
 import com.wsoteam.diet.R
+import com.wsoteam.diet.presentation.search.results.ResultsFragment
 import com.wsoteam.diet.presentation.teach.TeachHostFragment
 import fr.tvbarthel.lib.blurdialogfragment.SupportBlurDialogFragment
 
@@ -47,6 +48,7 @@ class TeachSearchDialogFragment : SupportBlurDialogFragment() {
             dismiss()
         }
         bindSpinnerChoiceEating()
+//        setSearchFragment()
     }
 
     private fun bindSpinnerChoiceEating(){
@@ -79,6 +81,12 @@ class TeachSearchDialogFragment : SupportBlurDialogFragment() {
 
             }
         }
+    }
+
+    private fun setSearchFragment() {
+        childFragmentManager?.beginTransaction()
+                ?.add(R.id.searchFragmentContainer, ResultsFragment())
+                ?.commit()
     }
 
 }

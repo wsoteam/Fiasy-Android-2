@@ -49,11 +49,9 @@ public class ParentActivity extends AppCompatActivity {
     @BindView(R.id.spnEatingList)
     Spinner spnEatingList;
     @BindView(R.id.edtActivityListAndSearchCollapsingSearchField)
-    public EditText
-            edtSearch;
+    public EditText edtSearch;
     @BindView(R.id.ibActivityListAndSearchCollapsingCancelButton)
-    ImageView
-            ibCancel;
+    ImageView ibCancel;
     public int spinnerId = 0;
     @BindView(R.id.pbLoad)
     ProgressBar pbLoad;
