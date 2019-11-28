@@ -3,18 +3,19 @@ package com.wsoteam.diet.presentation.profile.questions;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
-import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class AfterQuestionsActivity extends AppCompatActivity {
 
@@ -68,7 +69,7 @@ public class AfterQuestionsActivity extends AppCompatActivity {
   public void nextQuestion() {
     startActivities(new Intent[]{
         new Intent(this, MainActivity.class),
-        new Intent(this, PremiumFeaturesActivity.class),
+        new Intent(this, ActivitySubscription.class),
     });
   }
 

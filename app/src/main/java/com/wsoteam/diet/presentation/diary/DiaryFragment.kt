@@ -8,7 +8,6 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,12 +25,12 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
 import com.wsoteam.diet.Config
+import com.wsoteam.diet.InApp.ActivitySubscription
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Hiden
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Revealed
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
-import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity
 import com.wsoteam.diet.utils.FiasyDateUtils
 import com.wsoteam.diet.utils.ImageSpan
 import com.wsoteam.diet.utils.RichTextUtils.replaceWithIcon
@@ -41,9 +40,7 @@ import com.wsoteam.diet.views.CompactCalendarView
 import com.wsoteam.diet.views.CompactCalendarView.CompactCalendarViewListener
 import com.wsoteam.diet.views.GuardNestedScrollView
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 class DiaryFragment : Fragment() {
 
@@ -263,7 +260,7 @@ class DiaryFragment : Fragment() {
           .getBoolean(Config.STATE_BILLING, false)
 
         premiumContainer.setOnClickListener {
-          startActivity(Intent(requireContext(), PremiumFeaturesActivity::class.java)
+          startActivity(Intent(requireContext(), ActivitySubscription::class.java)
                   .putExtra("fromDiary", true))
         }
 

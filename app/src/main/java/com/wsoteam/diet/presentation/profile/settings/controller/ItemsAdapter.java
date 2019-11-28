@@ -131,7 +131,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
                 box.setOpenFromPremPart(true);
                 box.setOpenFromIntrodaction(false);
 
-                final Intent intent = new Intent(context, PremiumFeaturesActivity.class);
+                final Intent intent = new Intent(context, ActivitySubscription.class);
                 intent.putExtra(Config.TAG_BOX, box);
 
                 context.startActivity(intent);
