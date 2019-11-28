@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.wsoteam.diet.BuildConfig;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.common.networking.food.POJO.FoodResult;
 
 import io.reactivex.Observable;
@@ -15,8 +16,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FoodSearch {
-    private static final String BASE_URL = "http://116.203.193.111:8000";
-    //private static final String BASE_URL = "http://78.47.35.187:8000";
     private static FoodSearch instance = new FoodSearch();
     private FoodResultAPI api;
 
@@ -31,7 +30,7 @@ public class FoodSearch {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Config.CURRENT_SEARCH_URL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
