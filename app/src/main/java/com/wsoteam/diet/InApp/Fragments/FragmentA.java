@@ -86,7 +86,9 @@ public class FragmentA extends Fragment
         View view = inflater.inflate(R.layout.cards_fragment_subscription, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        box = (Box) getArguments().getSerializable(TAG_BOX);
+        if (getArguments().getSerializable(TAG_BOX) != null) {
+            box = (Box) getArguments().getSerializable(TAG_BOX);
+        }
 
         if (box != null && box.isOpenFromIntrodaction()) {
             btnBack.setVisibility(View.GONE);
