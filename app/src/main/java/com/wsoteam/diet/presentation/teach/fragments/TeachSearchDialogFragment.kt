@@ -28,6 +28,7 @@ import com.wsoteam.diet.presentation.search.ParentActivity
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
 import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity
 import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater
+import com.wsoteam.diet.presentation.search.results.controllers.ExpandableClickListener
 import com.wsoteam.diet.presentation.search.results.controllers.ResultAdapter
 import com.wsoteam.diet.presentation.search.results.controllers.suggestions.ISuggest
 import com.wsoteam.diet.presentation.search.results.controllers.suggestions.SuggestAdapter
@@ -290,7 +291,7 @@ class TeachSearchDialogFragment : SupportBlurDialogFragment() {
             override fun getCurrentEating(): Int {
                 return spinnerId
             }
-        }))
+        }, teachCallback))
 //        hideLoad()
     }
 
@@ -322,5 +323,14 @@ class TeachSearchDialogFragment : SupportBlurDialogFragment() {
             list.add(results[i])
         }
         return list
+    }
+    val teachCallback: ExpandableClickListener = object : ExpandableClickListener{
+        override fun click(basketEntity: BasketEntity?, isNeedSave: Boolean) {
+
+        }
+
+        override fun open(basketEntity: BasketEntity?) {
+            Log.d("kkk", basketEntity?.name ?: "")
+        }
     }
 }
