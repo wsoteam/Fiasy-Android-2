@@ -15,6 +15,18 @@ public interface FoodResultAPI {
     @GET("/api/v1/search/suggest/")
     Observable<Suggest> getSuggestions(@Query("name_suggest__completion") String search);
 
+    @GET("/api/v1/en/search/suggest/")
+    Observable<Suggest> getSuggestionsEn(@Query("name_suggest__completion") String search);
+
+    @GET("/api/v1/de/search/suggest/")
+    Observable<Suggest> getSuggestionsDe(@Query("name_suggest__completion") String search);
+
+    @GET("/api/v1/es/search/suggest/")
+    Observable<Suggest> getSuggestionsEs(@Query("name_suggest__completion") String search);
+
+    @GET("/api/v1/pt/search/suggest/")
+    Observable<Suggest> getSuggestionsPt(@Query("name_suggest__completion") String search);
+
     @GET("/api/v1/search/")
     Observable<FoodResult> search(@Query("search") String search, @Query("page") int page);
 
