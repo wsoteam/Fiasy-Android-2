@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionOrangeOneButton;
+import com.wsoteam.diet.InApp.Fragments.FragmentA;
 import com.wsoteam.diet.R;
 
 
@@ -23,14 +23,14 @@ public class ActivitySubscription extends AppCompatActivity {
 
         if (abVersion.equals(ABConfig.A_VERSION)) {
             getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                FragmentSubscriptionOrangeOneButton.newInstance(box)).commit();
+                FragmentA.newInstance(box)).commit();
         } else {
             if (abVersion.equals(ABConfig.C_VERSION)) {
                 getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                    FragmentSubscriptionOrangeOneButton.newInstance(box)).commit();
+                    FragmentA.newInstance(box)).commit();
             } else {
                 getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                    FragmentSubscriptionOrangeOneButton.newInstance(box)).commit();
+                    FragmentA.newInstance(box)).commit();
             }
         }
 

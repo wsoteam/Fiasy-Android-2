@@ -60,7 +60,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView17"
-            app:srcCompat="@drawable/ic_title_premium" />
+            app:srcCompat="@drawable/title_prem" />
 
         <TextView
             android:id="@+id/tvPrivacyPolicy"
@@ -97,7 +97,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
-            android:text="@string/cards_fragment_subscription_info"
+            android:text="@string/abt_prop_a"
             android:textColor="#59000000"
             android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"

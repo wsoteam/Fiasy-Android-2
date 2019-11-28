@@ -839,4 +839,11 @@ Comparta sus logros con sus amigos:</string>
 
     <string name="bnv_main_recipes">Recetas</string>
     <string name="bnv_main_profile">Perfil</string>
+    <string name="abt_prop_a">Alcanzará su objetivo y obtenga acceso \na artículos exclusivos sobre alimentación \nsaludable y cientos de recetas.</string>
+    <string name="abt_1_arrow">Artículos exclusivos de un nutricionista profesional</string>
+    <string name="abt_2_arrow">Ajustes personalizados</string>
+    <string name="abt_3_arrow">Base de datos de recetas</string>
+    <string name="abt_4_arrow">Planes de comida</string>
+    <string name="abt_5_arrow">Medidas corporales</string>
+
 </resources>

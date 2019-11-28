@@ -820,4 +820,11 @@ Parabéns!</string>
     <string name="widget_activity_question">Estiveste activo hoje?</string>
     <string name="question_name_title">Vamos começar.\n Como tu te chamas?</string>
     <string name="subscription_not_found">Assinatura Premium não encontrada, não pode estar disponível no seu país</string>
+
+    <string name="abt_prop_a">Você alcançará seu objetivo e obterá \nacesso a artigos exclusivos sobre \nalimentação saudável e centenas de receitas.</string>
+    <string name="abt_1_arrow">Artigos exclusivos de um nutricionista</string>
+    <string name="abt_2_arrow">Configurações personalizadas</string>
+    <string name="abt_3_arrow">Banco de dados de receitas</string>
+    <string name="abt_4_arrow">Planos de refeições</string>
+    <string name="abt_5_arrow">Medidas do corpo</string>
 </resources>

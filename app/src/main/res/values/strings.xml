@@ -1104,4 +1104,11 @@ Share your accomplishments with friends:</string>
 
     <string name="my_meals">My meals</string>
     <string name="my_food">My food</string>
+
+    <string name="abt_prop_a">You will reach your goal and \ngain access to unique articles \nabout healthy eating and hundreds of recipes</string>
+    <string name="abt_1_arrow">Exclusive articles from a nutritionist</string>
+    <string name="abt_2_arrow">Personalized settings</string>
+    <string name="abt_3_arrow">Recipe database</string>
+    <string name="abt_4_arrow">Meal plans</string>
+    <string name="abt_5_arrow">Body measurements</string>
 </resources>

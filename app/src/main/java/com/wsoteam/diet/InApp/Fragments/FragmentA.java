@@ -21,9 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
-import com.amplitude.api.Amplitude;
 import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
@@ -45,7 +43,6 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
-import com.wsoteam.diet.presentation.premium.SubscriptionManager;
 import com.wsoteam.diet.utils.IntentUtils;
 
 import java.util.ArrayList;
@@ -56,7 +53,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class FragmentSubscriptionOrangeOneButton extends Fragment
+public class FragmentA extends Fragment
         implements PurchasesUpdatedListener {
 
     @BindView(R.id.textView161) TextView textView;
@@ -72,11 +69,11 @@ public class FragmentSubscriptionOrangeOneButton extends Fragment
     private Box box;
     public static final String BUY_NOW = "BUY_NOW";
 
-    public static FragmentSubscriptionOrangeOneButton newInstance(Box box) {
+    public static FragmentA newInstance(Box box) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(TAG_BOX, box);
-        FragmentSubscriptionOrangeOneButton fragmentSubscriptionOrangeOneButton =
-                new FragmentSubscriptionOrangeOneButton();
+        FragmentA fragmentSubscriptionOrangeOneButton =
+                new FragmentA();
         fragmentSubscriptionOrangeOneButton.setArguments(bundle);
         return fragmentSubscriptionOrangeOneButton;
     }

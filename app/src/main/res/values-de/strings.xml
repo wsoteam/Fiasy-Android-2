@@ -815,4 +815,11 @@ Teilen Sie Ihre Erfolge mit Freunden:</string>
 
     <string name="question_name_title">Fangen wir an.\n Wie heißen Sie?</string>
     <string name="subscription_not_found">Premium-Abonnement nicht gefunden, kann es nicht in Ihrem Land verfügbar sein</string>
+
+    <string name="abt_prop_a">Sie werden Ihr Ziel erreichen und \nZugang zu einzigartigen Artikeln über \ngesunde Ernährung und Hunderte von Rezepten erhalten.</string>
+    <string name="abt_1_arrow">Exklusive Artikel von einem professionellen Ernährungsberater</string>
+    <string name="abt_2_arrow">Personalisierte Einstellungen</string>
+    <string name="abt_3_arrow">Rezeptdatenbank</string>
+    <string name="abt_4_arrow">Mahlzeitenpläne</string>
+    <string name="abt_5_arrow">Körpermaße</string>
 </resources>
