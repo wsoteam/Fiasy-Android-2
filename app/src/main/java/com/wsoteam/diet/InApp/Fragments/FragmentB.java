@@ -96,12 +96,6 @@ public class FragmentB extends Fragment
             getActivity().getSharedPreferences(SavedConst.SEE_PREMIUM, Context.MODE_PRIVATE).edit().putBoolean(SavedConst.SEE_PREMIUM, true).commit();
         }
 
-
-        Spannable wordtoSpan = new SpannableString(getString(R.string.subTestText));
-        wordtoSpan.setSpan(new ForegroundColorSpan(Color.parseColor("#ef7d02")), 11, 27,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textView.setText(wordtoSpan);
-
         billingClient = BillingClient.newBuilder(requireContext())
                 .setListener(this)
                 .build();

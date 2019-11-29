@@ -9,7 +9,7 @@ public class ABConfig {
 
 
     //Amplituda key
-    public static final String AB_VERSION = "AB_VERSION";
+    public static final String AB_VERSION = "abtest";
 
 
     public static final String PREMIUM_VERSION = "PREMIUM_VERSION";

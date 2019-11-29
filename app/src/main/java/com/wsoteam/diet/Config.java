@@ -145,8 +145,8 @@ public class Config {
     // ip for search
     public static final String DEV_SEARCH_URL = "http://78.47.35.187:8000";
     public static final String PROD_SEARCH_URL = "http://116.203.193.111:8000";
-    public static final String CURRENT_SEARCH_URL = "http://78.47.35.187:8000";
-    //public static final String CURRENT_SEARCH_URL = "http://116.203.193.111:8000";
+    //public static final String CURRENT_SEARCH_URL = "http://78.47.35.187:8000";
+    public static final String CURRENT_SEARCH_URL = "http://116.203.193.111:8000";
 
 
 
