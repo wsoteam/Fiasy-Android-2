@@ -53,39 +53,40 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
 public class FragmentB extends Fragment
-        implements PurchasesUpdatedListener
+        implements PurchasesUpdatedListener {
 
-    {
+    @BindView(R.id.textView161)
+    TextView textView;
+    @BindView(R.id.btnBack)
+    ImageView btnBack;
 
-        @BindView(R.id.textView161) TextView textView;
-        @BindView(R.id.btnBack) ImageView btnBack;
 
+    private BillingClient billingClient;
+    private static final String TAG = "inappbilling";
+    private String currentSKU = IDs.ID_ONE_YEAR_WITH_TRIAL, currentPrice = "99р";
+    private SharedPreferences sharedPreferences;
+    Unbinder unbinder;
+    private static final String TAG_BOX = "TAG_BOX";
+    private Box box;
+    public static final String BUY_NOW = "BUY_NOW";
 
-        private BillingClient billingClient;
-        private static final String TAG = "inappbilling";
-        private String currentSKU = IDs.ID_ONE_YEAR_WITH_TRIAL, currentPrice = "99р";
-        private SharedPreferences sharedPreferences;
-        Unbinder unbinder;
-        private static final String TAG_BOX = "TAG_BOX";
-        private Box box;
-        public static final String BUY_NOW = "BUY_NOW";
-
-        public static FragmentA newInstance(Box box) {
+    public static FragmentB newInstance(Box box) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(TAG_BOX, box);
-        FragmentA fragmentSubscriptionOrangeOneButton =
-                new FragmentA();
-        fragmentSubscriptionOrangeOneButton.setArguments(bundle);
-        return fragmentSubscriptionOrangeOneButton;
+        FragmentB fragment =
+                new FragmentB();
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
-        @Nullable
-        @Override
-        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         //View view = inflater.inflate(R.layout.fragment_subscription_one_button_2, container, false);
-        View view = inflater.inflate(R.layout.cards_fragment_subscription, container, false);
+        View view = inflater.inflate(R.layout.fragment_premium_b, container, false);
         unbinder = ButterKnife.bind(this, view);
 
         box = (Box) getArguments().getSerializable(TAG_BOX);
@@ -101,28 +102,28 @@ public class FragmentB extends Fragment
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(wordtoSpan);
 
-            billingClient = BillingClient.newBuilder(requireContext())
-                    .setListener(this)
-                    .build();
-            billingClient.startConnection(new BillingClientStateListener() {
-                @Override
-                public void onBillingSetupFinished(int responseCode) {
-                    if (responseCode == BillingClient.BillingResponse.OK) {
-                        getSKU();
-                    }
+        billingClient = BillingClient.newBuilder(requireContext())
+                .setListener(this)
+                .build();
+        billingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingSetupFinished(int responseCode) {
+                if (responseCode == BillingClient.BillingResponse.OK) {
+                    getSKU();
                 }
+            }
 
-                @Override
-                public void onBillingServiceDisconnected() {
+            @Override
+            public void onBillingServiceDisconnected() {
 
-                }
-            });
+            }
+        });
 
         return view;
     }
 
 
-        private void getSKU() {
+    private void getSKU() {
         List<String> skuList = new ArrayList<>();
         skuList.add(Config.ONE_YEAR_PRICE_TRIAL);
 
@@ -145,7 +146,7 @@ public class FragmentB extends Fragment
         });
     }
 
-        private void buy(String sku) {
+    private void buy(String sku) {
         BillingFlowParams mParams = BillingFlowParams.newBuilder()
                 .setSku(sku)
                 .setType(BillingClient.SkuType.SUBS)
@@ -154,9 +155,9 @@ public class FragmentB extends Fragment
         billingClient.launchBillingFlow(getActivity(), mParams);
     }
 
-        @Override
-        public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
-        if (responseCode != BillingClient.BillingResponse.OK){
+    @Override
+    public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
+        if (responseCode != BillingClient.BillingResponse.OK) {
             Events.logBillingError(responseCode);
         }
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
@@ -205,8 +206,8 @@ public class FragmentB extends Fragment
     }
 
 
-        @OnClick({R.id.btnBack, R.id.btnClose, R.id.btnBuyPrem, R.id.tvPrivacyPolicy})
-        public void onViewClicked(View view) {
+    @OnClick({R.id.btnBack, R.id.btnClose, R.id.btnBuyPrem, R.id.tvPrivacyPolicy})
+    public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnBuyPrem:
                 Events.logPushButton(EventProperties.push_button_next, box.getBuyFrom());
@@ -237,16 +238,16 @@ public class FragmentB extends Fragment
         }
     }
 
-        @Override
-        public void onDestroyView() {
+    @Override
+    public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
 
-        private void logTrial() {
+    private void logTrial() {
         AppEventsLogger appEventsLogger = AppEventsLogger.newLogger(getActivity());
         Bundle params = new Bundle();
         params.putString(AppEventsConstants.EVENT_PARAM_CURRENCY, "RUB");
         appEventsLogger.logEvent(AppEventsConstants.EVENT_NAME_START_TRIAL, 990, params);
     }
-    }
+}

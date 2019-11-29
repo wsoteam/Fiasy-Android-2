@@ -73,10 +73,10 @@ public class FragmentA extends Fragment
     public static FragmentA newInstance(Box box) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(TAG_BOX, box);
-        FragmentA fragmentSubscriptionOrangeOneButton =
+        FragmentA fragmentA =
                 new FragmentA();
-        fragmentSubscriptionOrangeOneButton.setArguments(bundle);
-        return fragmentSubscriptionOrangeOneButton;
+        fragmentA.setArguments(bundle);
+        return fragmentA;
     }
 
     @Nullable
@@ -217,7 +217,7 @@ public class FragmentA extends Fragment
                 break;
             case R.id.btnClose: {
                 Events.logPushButton(EventProperties.push_button_close, box.getBuyFrom());
-                if (box != null && box.isOpenFromIntrodaction()) {
+                if (box.isOpenFromIntrodaction()) {
                     getActivity().getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE).edit().putString(SavedConst.HOW_END, EventProperties.onboarding_success_close).commit();
                     final Intent intent = new Intent(getContext(), ActivitySplash.class);
                     startActivity(intent);
