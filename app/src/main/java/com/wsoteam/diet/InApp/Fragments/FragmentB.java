@@ -125,7 +125,7 @@ public class FragmentB extends Fragment
 
     private void getSKU() {
         List<String> skuList = new ArrayList<>();
-        skuList.add(Config.ONE_YEAR_PRICE_TRIAL);
+        skuList.add(IDs.ID_ONE_YEAR_WITH_TRIAL);
 
         SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
         params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS);
@@ -134,16 +134,23 @@ public class FragmentB extends Fragment
             @Override
             public void onSkuDetailsResponse(int responseCode, List<SkuDetails> skuDetailsList) {
 
-                //if (responseCode == BillingClient.BillingResponse.OK && skuDetailsList != null) {
-                //  Log.d(TAG, "onSkuDetailsResponse: OK");
-                //
-                //
-                //} else {
-                //  Log.d(TAG, "onSkuDetailsResponse: FAIL");
-                //}
+                if (responseCode == BillingClient.BillingResponse.OK && skuDetailsList != null) {
+                    Log.e("LOL", skuDetailsList.get(0).toString());
+                    if (skuDetailsList.size() > 0){
+                        setPrice(skuDetailsList.get(0).getPrice());
+                    }
+
+
+                } else {
+                    Log.d(TAG, "onSkuDetailsResponse: FAIL");
+                }
 
             }
         });
+    }
+
+    private void setPrice(String price) {
+        textView.setText(getActivity().getResources().getString(R.string.abt_bottom_prem, price));
     }
 
     private void buy(String sku) {
