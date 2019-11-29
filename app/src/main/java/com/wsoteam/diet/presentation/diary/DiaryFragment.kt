@@ -24,10 +24,13 @@ import androidx.recyclerview.widget.RecyclerView.State
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
+import com.wsoteam.diet.AmplitudaEvents
+import com.wsoteam.diet.Authenticate.POJO.Box
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.InApp.ActivitySubscription
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
+import com.wsoteam.diet.common.Analytics.EventProperties
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Hiden
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Revealed
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
@@ -259,9 +262,14 @@ class DiaryFragment : Fragment() {
           .getSharedPreferences(Config.STATE_BILLING, Context.MODE_PRIVATE)
           .getBoolean(Config.STATE_BILLING, false)
 
+        var box = Box()
+        box.comeFrom = AmplitudaEvents.view_prem_header
+        box.buyFrom = EventProperties.trial_from_header
+        box.isOpenFromIntrodaction = false
+        box.isOpenFromPremPart = true
         premiumContainer.setOnClickListener {
           startActivity(Intent(requireContext(), ActivitySubscription::class.java)
-                  .putExtra("fromDiary", true))
+                  .putExtra(Config.TAG_BOX, box))
         }
 
         if (!isPremium) {

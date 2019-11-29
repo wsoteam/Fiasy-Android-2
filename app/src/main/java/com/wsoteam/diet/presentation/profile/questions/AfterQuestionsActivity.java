@@ -5,6 +5,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
+import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Authenticate.POJO.Box;
+import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.POJOProfile.Profile;
@@ -67,9 +70,14 @@ public class AfterQuestionsActivity extends AppCompatActivity {
 
 
   public void nextQuestion() {
+    Box box = new Box();
+    box.setOpenFromIntrodaction(true);
+    box.setOpenFromPremPart(false);
+    box.setBuyFrom(EventProperties.trial_from_onboard);
+    box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);
     startActivities(new Intent[]{
         new Intent(this, MainActivity.class),
-        new Intent(this, ActivitySubscription.class),
+        new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box),
     });
   }
 
