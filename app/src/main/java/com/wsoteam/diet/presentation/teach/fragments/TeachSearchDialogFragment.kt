@@ -72,7 +72,7 @@ class TeachSearchDialogFragment : SupportBlurDialogFragment() {
         teachCancel.setOnClickListener { dismiss() }
         ivBack.setOnClickListener {
             val intent = Intent()
-            intent.putExtra(TeachHostFragment.SEARCH_START_MEAL, true)
+            intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_START_MEAL_DIALOG)
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
             dismiss()
         }
@@ -349,6 +349,16 @@ class TeachSearchDialogFragment : SupportBlurDialogFragment() {
 
         override fun open(basketEntity: BasketEntity?) {
             Log.d("kkk", basketEntity?.name ?: "")
+            startNextDialog(basketEntity)
         }
     }
+
+fun startNextDialog(basketEntity: BasketEntity?){
+    val intent = Intent()
+    intent.putExtra(TeachHostFragment.INTENT_FOOD, basketEntity)
+    intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_START_FOOD_DIALOG)
+    targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
+    dismiss()
+}
+
 }
