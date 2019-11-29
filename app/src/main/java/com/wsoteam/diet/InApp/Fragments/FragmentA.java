@@ -57,8 +57,10 @@ import butterknife.Unbinder;
 public class FragmentA extends Fragment
         implements PurchasesUpdatedListener {
 
-    @BindView(R.id.textView161) TextView textView;
-    @BindView(R.id.btnBack) ImageView btnBack;
+    @BindView(R.id.textView161)
+    TextView textView;
+    @BindView(R.id.btnBack)
+    ImageView btnBack;
 
 
     private BillingClient billingClient;
@@ -87,18 +89,13 @@ public class FragmentA extends Fragment
         View view = inflater.inflate(R.layout.cards_fragment_subscription, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-            box = (Box) getArguments().getSerializable(TAG_BOX);
+        box = (Box) getArguments().getSerializable(TAG_BOX);
 
         if (box.isOpenFromIntrodaction()) {
             btnBack.setVisibility(View.GONE);
             getActivity().getSharedPreferences(SavedConst.SEE_PREMIUM, Context.MODE_PRIVATE).edit().putBoolean(SavedConst.SEE_PREMIUM, true).commit();
         }
 
-
-        Spannable wordtoSpan = new SpannableString(getString(R.string.subTestText));
-        wordtoSpan.setSpan(new ForegroundColorSpan(Color.parseColor("#ef7d02")), 11, 27,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textView.setText(wordtoSpan);
 
         billingClient = BillingClient.newBuilder(requireContext())
                 .setListener(this)
@@ -123,7 +120,7 @@ public class FragmentA extends Fragment
 
     private void getSKU() {
         List<String> skuList = new ArrayList<>();
-        skuList.add(Config.ONE_YEAR_PRICE_TRIAL);
+        skuList.add(IDs.ID_ONE_YEAR_WITH_TRIAL);
 
         SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
         params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS);
@@ -132,16 +129,23 @@ public class FragmentA extends Fragment
             @Override
             public void onSkuDetailsResponse(int responseCode, List<SkuDetails> skuDetailsList) {
 
-                //if (responseCode == BillingClient.BillingResponse.OK && skuDetailsList != null) {
-                //  Log.d(TAG, "onSkuDetailsResponse: OK");
-                //
-                //
-                //} else {
-                //  Log.d(TAG, "onSkuDetailsResponse: FAIL");
-                //}
+                if (responseCode == BillingClient.BillingResponse.OK && skuDetailsList != null) {
+                    Log.e("LOL", skuDetailsList.get(0).toString());
+                    if (skuDetailsList.size() > 0){
+                        setPrice(skuDetailsList.get(0).getPrice());
+                    }
+
+
+                } else {
+                    Log.d(TAG, "onSkuDetailsResponse: FAIL");
+                }
 
             }
         });
+    }
+
+    private void setPrice(String price) {
+        textView.setText(getActivity().getResources().getString(R.string.abt_bottom_prem, price));
     }
 
     private void buy(String sku) {
@@ -155,7 +159,7 @@ public class FragmentA extends Fragment
 
     @Override
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
-        if (responseCode != BillingClient.BillingResponse.OK){
+        if (responseCode != BillingClient.BillingResponse.OK) {
             Events.logBillingError(responseCode);
         }
         if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {

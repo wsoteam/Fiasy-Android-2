@@ -1076,4 +1076,5 @@
   <string name="abt_3_arrow">База рецептов</string>
   <string name="abt_4_arrow">Планы питания</string>
   <string name="abt_5_arrow">Измерения тела</string>
+  <string name="abt_bottom_prem">Попробуйте 3 дня бесплатно \nДалее %s в год</string>
 </resources>

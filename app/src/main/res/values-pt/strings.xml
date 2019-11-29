@@ -827,4 +827,5 @@ Parabéns!</string>
     <string name="abt_3_arrow">Banco de dados de receitas</string>
     <string name="abt_4_arrow">Planos de refeições</string>
     <string name="abt_5_arrow">Medidas do corpo</string>
+    <string name="abt_bottom_prem">Experimente 3 dias gratuitamente \nPróximos %s por ano</string>
 </resources>
