@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
 import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
@@ -99,6 +100,23 @@ public class FragmentB extends Fragment
         wordtoSpan.setSpan(new ForegroundColorSpan(Color.parseColor("#ef7d02")), 11, 27,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(wordtoSpan);
+
+            billingClient = BillingClient.newBuilder(requireContext())
+                    .setListener(this)
+                    .build();
+            billingClient.startConnection(new BillingClientStateListener() {
+                @Override
+                public void onBillingSetupFinished(int responseCode) {
+                    if (responseCode == BillingClient.BillingResponse.OK) {
+                        getSKU();
+                    }
+                }
+
+                @Override
+                public void onBillingServiceDisconnected() {
+
+                }
+            });
 
         return view;
     }
