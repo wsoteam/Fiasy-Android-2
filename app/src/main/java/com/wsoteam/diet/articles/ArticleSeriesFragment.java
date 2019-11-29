@@ -68,15 +68,7 @@ public class ArticleSeriesFragment extends Fragment {
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     adapter = new SeriesAdapter(null, new SeriesCallback() {
       @Override public void Clicked(View v, Article article) {
-        Intent intent;
-        if (Subscription.check(getContext())) {
-          intent = new Intent(getActivity(), ItemArticleActivity.class);
-
-        } else {
-          intent = new Intent(getActivity(), ItemArticleWithoutPremActivity.class);
-        }
-        intent.putExtra(Config.ARTICLE_INTENT, article.getId());
-        startActivity(intent);
+     startDetailActivity(article);
       }
     });
 
@@ -93,5 +85,19 @@ public class ArticleSeriesFragment extends Fragment {
 
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(adapter);
+  }
+
+  private void startDetailActivity(Article article) {
+
+    Intent intent;
+
+    if (!Subscription.check(getContext()) && article.isPremium()) {
+      intent = new Intent(getActivity(), ItemArticleWithoutPremActivity.class);
+    } else {
+      intent = new Intent(getActivity(), ItemArticleActivity.class);
+    }
+    intent.putExtra(Config.ARTICLE_INTENT, article.getId());
+
+    getActivity().startActivity(intent);
   }
 }
