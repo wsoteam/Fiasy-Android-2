@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
+import com.wsoteam.diet.presentation.teach.fragments.TeachFoodDetailDialogFragment
 import com.wsoteam.diet.presentation.teach.fragments.TeachMealDialogFragment
 import com.wsoteam.diet.presentation.teach.fragments.TeachSearchDialogFragment
 
@@ -33,6 +34,7 @@ class TeachHostFragment : Fragment() {
 
         const val REQUEST_MEAL = 111
         const val REQUEST_SEARCH = 112
+        const val REQUEST_DETAIL = 113
     }
 
 
@@ -59,23 +61,28 @@ class TeachHostFragment : Fragment() {
                 REQUEST_MEAL -> {
                     Log.d("kkk", "REQUEST_MEAL")
 
-                    val handler = Handler()
-                    val runnable = Runnable {
                         val args = Bundle()
                         args.putInt(MEAL_ARGUMENT,
                                 data!!.getIntExtra(TeachMealDialogFragment().javaClass.name, 0))
-                        startDialog( TeachSearchDialogFragment(), REQUEST_SEARCH, args)
-                    }
-                    handler.postDelayed(runnable, 400)
+                        startDialog( TeachSearchDialogFragment(), REQUEST_SEARCH, 400, args)
+
                 }
                 REQUEST_SEARCH -> {
                     Log.d("kkk", "REQUEST_SEARCH")
                     when(data?.getStringExtra(ACTION)){
                         ACTION_START_MEAL_DIALOG -> {
-                            startDialog(TeachMealDialogFragment(), REQUEST_MEAL)
+                            startDialog(TeachMealDialogFragment(), REQUEST_MEAL, 400)
                         }
                         ACTION_START_FOOD_DIALOG ->{
-                            Log.d("kkk", "food : " + (data!!.getSerializableExtra(INTENT_FOOD) as BasketEntity).name )
+                            val food = data!!.getSerializableExtra(INTENT_FOOD) as BasketEntity
+                            Log.d("kkk", "food : " + food.name )
+
+                            val args = Bundle()
+//                            args.putInt(MEAL_ARGUMENT,
+//                                    data!!.getIntExtra(TeachMealDialogFragment().javaClass.name, 0))
+                            args.putSerializable(INTENT_FOOD, food)
+                            startDialog( TeachFoodDetailDialogFragment(), REQUEST_DETAIL, 400, args)
+
                         }
                     }
                 }
@@ -84,14 +91,19 @@ class TeachHostFragment : Fragment() {
         }
     }
 
-    private fun startDialog(dialogFragment: DialogFragment, request: Int, args: Bundle){
+    private fun startDialog(dialogFragment: DialogFragment, request: Int, delay: Long,args: Bundle){
         dialogFragment.arguments = args
-        startDialog(dialogFragment, request)
+        startDialog(dialogFragment, request, delay)
     }
 
-    private fun startDialog(dialogFragment: DialogFragment, requestCode: Int){
+    private fun startDialog(dialogFragment: DialogFragment, requestCode: Int, delay : Long){
         val fm = activity?.supportFragmentManager
         dialogFragment.setTargetFragment(this, requestCode)
+
+        val handler = Handler()
+        val runnable = Runnable {
         fm?.let { dialogFragment.show(fm, dialogFragment.javaClass.name) }
+        }
+        handler.postDelayed(runnable, delay)
     }
 }
