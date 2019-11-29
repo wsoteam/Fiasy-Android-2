@@ -19,4 +19,6 @@ public class AmplitudaEvents {
     public static final String view_prem_header = "view_prem_header";
 
     public static final String view_prem_meas = "view_prem_meas";
+
+    public static final String view_prem_plans = "view_prem_plans";
 }
