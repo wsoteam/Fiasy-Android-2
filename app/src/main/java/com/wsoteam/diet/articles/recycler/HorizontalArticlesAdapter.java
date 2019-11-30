@@ -59,7 +59,7 @@ public class HorizontalArticlesAdapter extends RecyclerView.Adapter<RecyclerView
 
       if (!articles.get(i).isPremium()) {
         articles.add(0, articles.get(i));
-        articles.remove(i);
+        articles.remove(i + 1);
         break;
       }
     }
