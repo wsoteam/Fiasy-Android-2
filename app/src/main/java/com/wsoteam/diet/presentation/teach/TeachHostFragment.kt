@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
+import com.wsoteam.diet.presentation.teach.fragments.TeachDoneDialogFragment
 import com.wsoteam.diet.presentation.teach.fragments.TeachFoodDetailDialogFragment
 import com.wsoteam.diet.presentation.teach.fragments.TeachMealDialogFragment
 import com.wsoteam.diet.presentation.teach.fragments.TeachSearchDialogFragment
@@ -31,6 +32,7 @@ class TeachHostFragment : Fragment() {
         const val ACTION_START_FOOD_DIALOG = "ACTION_START_FOOD_DIALOG"
         const val ACTION_START_SEARCH_DIALOG = "ACTION_START_SEARCH_DIALOG"
         const val ACTION_START_DONE_DIALOG = "ACTION_START_DONE_DIALOG"
+        const val ACTION_START_BASKET_DIALOG = "ACTION_START_BASKET_DIALOG"
 
         const val INTENT_FOOD = "INTENT_FOOD"
         const val INTENT_MEAL = "INTENT_MEAL"
@@ -38,6 +40,7 @@ class TeachHostFragment : Fragment() {
         const val REQUEST_MEAL = 111
         const val REQUEST_SEARCH = 112
         const val REQUEST_DETAIL = 113
+        const val REQUEST_DONE = 114
     }
 
 
@@ -93,6 +96,9 @@ class TeachHostFragment : Fragment() {
                             args.putInt(MEAL_ARGUMENT,
                                     data!!.getIntExtra(INTENT_MEAL, 0))
                             startDialog( TeachSearchDialogFragment(), REQUEST_SEARCH, 400, args)
+                        }
+                        ACTION_START_DONE_DIALOG ->{
+                            startDialog( TeachDoneDialogFragment(), REQUEST_DONE, 400)
                         }
 
                     }

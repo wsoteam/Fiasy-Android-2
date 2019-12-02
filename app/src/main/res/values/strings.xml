@@ -1111,5 +1111,7 @@ Share your accomplishments with friends:</string>
     <string name="teach_search_food">Нажмите на подходящий продукт</string>
 
     <string name="teach_detail_txt">Отрегулируйте размер порции</string>
+    <string name="teach_done_title">Нажмите “Готово”</string>
+    <string name="teach_done_txt">Вы добавите продукт в предварительный список, где сможете проверить все выбранные продукты</string>
 
 </resources>
