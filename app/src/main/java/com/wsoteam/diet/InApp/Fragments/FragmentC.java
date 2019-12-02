@@ -146,12 +146,7 @@ public class FragmentC extends Fragment
     }
 
     private void setPrice(String price) {
-        String s = getActivity().getResources().getString(R.string.abt_bottom_prem, price);
-        Spannable spannable = new SpannableString(s);
-        int start = s.split(" ")[0].length() + 1;
-        int end = s.indexOf("\n");
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.srch_suggest_painted_string)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textView.setText(spannable);
+        textView.setText(getActivity().getResources().getString(R.string.abt_bottom_prem, price));
     }
 
     private void buy(String sku) {
