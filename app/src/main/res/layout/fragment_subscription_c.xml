@@ -209,7 +209,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-medium"
-            android:text="ffffffffffffff"
+            android:text=""
             android:textAlignment="center"
             android:textColor="#8a000000"
             android:textSize="14sp"
