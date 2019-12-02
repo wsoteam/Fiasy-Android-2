@@ -1,6 +1,5 @@
 package com.wsoteam.diet.Recipes.v2;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,7 +8,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,8 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
-import com.amplitude.api.Amplitude;
-import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
@@ -47,7 +43,6 @@ public class ListRecipesFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             position = bundle.getInt(Config.RECIPES_BUNDLE);
-            Log.d("testrt", "onCreateView: position " + position);
         }
 
         View view = inflater.inflate(R.layout.fragment_list_recipes_v2, container, false);

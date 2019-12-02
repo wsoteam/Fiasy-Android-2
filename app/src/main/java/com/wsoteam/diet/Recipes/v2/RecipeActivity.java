@@ -89,7 +89,7 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         window.setStatusBarColor(Color.parseColor("#66000000"));
         recipeItem = (RecipeItem) getIntent().getSerializableExtra(Config.RECIPE_INTENT);
-        Log.d("kkk", "onCreate: " + recipeItem.getName());
+//        Log.d("kkk", "onCreate: " + recipeItem.getName());
         Events.logViewRecipe(recipeItem.getName());
 
         //tvKkal.setText(recipeItem.getCalories() + " ккал на порцию");

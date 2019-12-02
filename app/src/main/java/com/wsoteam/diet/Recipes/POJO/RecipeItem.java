@@ -32,6 +32,7 @@ public class RecipeItem implements Serializable {
   private int portions;
   private String key;
   private boolean addedInDiaryFromPlan;
+  private boolean premium;
 
   private List<String> ingredients;
   private List<String> instruction;
@@ -117,6 +118,14 @@ public class RecipeItem implements Serializable {
     this.addedInDiaryFromPlan = addedInDiaryFromPlan;
     this.ingredients = ingredients;
     this.instruction = instruction;
+  }
+
+  public boolean isPremium() {
+    return premium;
+  }
+
+  public void setPremium(boolean premium) {
+    this.premium = premium;
   }
 
   public String getName() {
