@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.wsoteam.diet.R
 import fr.tvbarthel.lib.blurdialogfragment.SupportBlurDialogFragment
+import kotlinx.android.synthetic.main.fragment_teach_detail.*
 
 class TeachFoodDetailDialogFragment: SupportBlurDialogFragment() {
 
@@ -21,4 +22,11 @@ class TeachFoodDetailDialogFragment: SupportBlurDialogFragment() {
         return inflater.inflate(R.layout.fragment_teach_detail, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        include.setBackgroundResource(R.drawable.teach_cardview_back)
+        teachCancel.setOnClickListener { dismiss() }
+        teachNext.setOnClickListener {  }
+    }
 }
