@@ -30,6 +30,7 @@ class TeachHostFragment : Fragment() {
         const val ACTION_START_MEAL_DIALOG = "ACTION_START_MEAL_DIALOG"
         const val ACTION_START_FOOD_DIALOG = "ACTION_START_FOOD_DIALOG"
         const val ACTION_START_SEARCH_DIALOG = "ACTION_START_SEARCH_DIALOG"
+        const val ACTION_START_DONE_DIALOG = "ACTION_START_DONE_DIALOG"
 
         const val INTENT_FOOD = "INTENT_FOOD"
         const val INTENT_MEAL = "INTENT_MEAL"

@@ -48,6 +48,11 @@ class TeachFoodDetailDialogFragment: SupportBlurDialogFragment() {
         include.setBackgroundResource(R.drawable.teach_cardview_back)
         teachCancel.setOnClickListener { dismiss() }
         teachNext.setOnClickListener {
+            val intent = Intent()
+            intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_START_DONE_DIALOG)
+            intent.putExtra(TeachHostFragment.INTENT_MEAL, spinnerId)
+            intent.putExtra(TeachHostFragment.INTENT_FOOD, basketEntity)
+            targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
            dismiss()
         }
 
@@ -85,7 +90,7 @@ class TeachFoodDetailDialogFragment: SupportBlurDialogFragment() {
                     before: Int,
                     count: Int
             ) {
-               if (s != n) calculate(s)
+               if (s != null && s.isNotEmpty()) calculate(s)
                 else calculate("0")
             }
         })
@@ -135,6 +140,7 @@ class TeachFoodDetailDialogFragment: SupportBlurDialogFragment() {
                 + getString(R.string.srch_gramm))
         val kcal = round(count * portionSize.toDouble() * basketEntity.calories).toString()
 
+        basketEntity.sizePortion = portionSize
         showResult(kcal, prot, carbo, fats)
     }
 
