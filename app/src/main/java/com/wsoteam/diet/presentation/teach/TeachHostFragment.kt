@@ -29,8 +29,10 @@ class TeachHostFragment : Fragment() {
         const val ACTION = "ACTION"
         const val ACTION_START_MEAL_DIALOG = "ACTION_START_MEAL_DIALOG"
         const val ACTION_START_FOOD_DIALOG = "ACTION_START_FOOD_DIALOG"
+        const val ACTION_START_SEARCH_DIALOG = "ACTION_START_SEARCH_DIALOG"
 
         const val INTENT_FOOD = "INTENT_FOOD"
+        const val INTENT_MEAL = "INTENT_MEAL"
 
         const val REQUEST_MEAL = 111
         const val REQUEST_SEARCH = 112
@@ -45,10 +47,7 @@ class TeachHostFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
-        val fm = activity?.supportFragmentManager
-        val dialog: DialogFragment = TeachMealDialogFragment()
-        dialog.setTargetFragment(this, REQUEST_MEAL)
-        fm?.let { dialog.show(fm, dialog.javaClass.name) }
+        startDialog(TeachMealDialogFragment(), REQUEST_MEAL, 0)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -63,7 +62,7 @@ class TeachHostFragment : Fragment() {
 
                         val args = Bundle()
                         args.putInt(MEAL_ARGUMENT,
-                                data!!.getIntExtra(TeachMealDialogFragment().javaClass.name, 0))
+                                data!!.getIntExtra(INTENT_MEAL, 0))
                         startDialog( TeachSearchDialogFragment(), REQUEST_SEARCH, 400, args)
 
                 }
@@ -78,12 +77,23 @@ class TeachHostFragment : Fragment() {
                             Log.d("kkk", "food : " + food.name )
 
                             val args = Bundle()
-//                            args.putInt(MEAL_ARGUMENT,
-//                                    data!!.getIntExtra(TeachMealDialogFragment().javaClass.name, 0))
+                            args.putInt(MEAL_ARGUMENT,
+                                    data!!.getIntExtra(INTENT_MEAL, 0))
                             args.putSerializable(INTENT_FOOD, food)
                             startDialog( TeachFoodDetailDialogFragment(), REQUEST_DETAIL, 400, args)
 
                         }
+                    }
+                }
+                REQUEST_DETAIL ->{
+                    when(data?.getStringExtra(ACTION)){
+                        ACTION_START_SEARCH_DIALOG ->{
+                            val args = Bundle()
+                            args.putInt(MEAL_ARGUMENT,
+                                    data!!.getIntExtra(INTENT_MEAL, 0))
+                            startDialog( TeachSearchDialogFragment(), REQUEST_SEARCH, 400, args)
+                        }
+
                     }
                 }
             }

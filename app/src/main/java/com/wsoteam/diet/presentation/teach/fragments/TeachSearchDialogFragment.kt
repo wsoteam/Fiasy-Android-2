@@ -12,10 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.core.util.Consumer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.transition.Visibility
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.wsoteam.diet.App
 import com.wsoteam.diet.Config
 
@@ -26,7 +23,6 @@ import com.wsoteam.diet.common.networking.food.ISearchResult
 import com.wsoteam.diet.common.networking.food.POJO.FoodResult
 import com.wsoteam.diet.common.networking.food.POJO.Result
 import com.wsoteam.diet.common.networking.food.suggest.Suggest
-import com.wsoteam.diet.presentation.search.ParentActivity
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
 import com.wsoteam.diet.presentation.search.basket.db.HistoryEntity
 import com.wsoteam.diet.presentation.search.results.controllers.BasketUpdater
@@ -356,6 +352,7 @@ class TeachSearchDialogFragment : SupportBlurDialogFragment() {
 fun startNextDialog(basketEntity: BasketEntity?){
     val intent = Intent()
     intent.putExtra(TeachHostFragment.INTENT_FOOD, basketEntity)
+    intent.putExtra(TeachHostFragment.INTENT_MEAL, spinnerId)
     intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_START_FOOD_DIALOG)
     targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
     dismiss()

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.teach.TeachHostFragment
+import com.wsoteam.diet.presentation.teach.TeachHostFragment.Companion.INTENT_MEAL
 import fr.tvbarthel.lib.blurdialogfragment.SupportBlurDialogFragment
 import kotlinx.android.synthetic.main.fragment_teach_meal.*
 
@@ -43,7 +44,7 @@ class TeachMealDialogFragment : SupportBlurDialogFragment() {
 
     private fun nextDialog(meal: Int) {
         val intent = Intent()
-        intent.putExtra(TeachMealDialogFragment().javaClass.name, meal)
+        intent.putExtra(INTENT_MEAL, meal)
         targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
         dismiss()
     }
