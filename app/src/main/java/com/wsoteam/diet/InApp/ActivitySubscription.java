@@ -7,6 +7,7 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.Fragments.FragmentA;
 import com.wsoteam.diet.InApp.Fragments.FragmentB;
+import com.wsoteam.diet.InApp.Fragments.FragmentC;
 import com.wsoteam.diet.R;
 
 
@@ -22,19 +23,20 @@ public class ActivitySubscription extends AppCompatActivity {
                 getString(ABConfig.KEY_FOR_SAVE_STATE, "default");
         box = (Box) getIntent().getSerializableExtra(Config.TAG_BOX);
 
-        if (abVersion.equals(ABConfig.A_VERSION)) {
+        /*if (abVersion.equals(ABConfig.A_VERSION)) {
             getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
                 FragmentA.newInstance(box)).commit();
         } else {
             if (abVersion.equals(ABConfig.B_VERSION)) {
                 getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                    FragmentB.newInstance(box)).commit();
+                    FragmentC.newInstance(box)).commit();
             } else {
                 getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
                     FragmentA.newInstance(box)).commit();
             }
-        }
+        }*/
 
-
+        getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
+                FragmentC.newInstance(box)).commit();
     }
 }
