@@ -526,12 +526,15 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
 
     private FoodResult dropBrands(FoodResult foodResult) {
+        Log.e("LOL", String.valueOf(foodResult.getResults().size()));
         for (int i = 0; i < foodResult.getResults().size(); i++) {
             try {
                 if (foodResult.getResults().get(i).getName() == null) {
                     Log.e("LOL", foodResult.getResults().get(i).toString());
                     foodResult.getResults().remove(i);
-                    i--;
+                    if (foodResult.getResults().size() != 0) {
+                        i--;
+                    }
                 } else if (foodResult.getResults().get(i).getBrand().getName().equalsIgnoreCase(EMPTY_BRAND)) {
                     foodResult.getResults().get(i).getBrand().setName("");
                 }
@@ -539,7 +542,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
                 Log.e("LOL", e.getMessage());
             }
         }
-
+        Log.e("LOL", "KEK " + foodResult.getResults().get(0).toString());
         return foodResult;
     }
 
