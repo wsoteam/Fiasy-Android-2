@@ -95,7 +95,7 @@ public class ActivitySplash extends BaseActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
+    getABVersion();
     Intent intent = getIntent();
     String action = intent.getAction();
     Uri data = intent.getData();

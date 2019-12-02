@@ -142,6 +142,12 @@ public class Config {
     public static final String ES = "es";
     public static final String PT = "pt";
 
+    // ip for search
+    public static final String DEV_SEARCH_URL = "http://78.47.35.187:8000";
+    public static final String PROD_SEARCH_URL = "http://116.203.193.111:8000";
+    //public static final String CURRENT_SEARCH_URL = "http://78.47.35.187:8000";
+    public static final String CURRENT_SEARCH_URL = "http://116.203.193.111:8000";
+
 
     public static final int FIRST_LEVEL = 1;
     public static final int SECOND_LEVEL = 2;

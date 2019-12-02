@@ -157,15 +157,57 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(t -> itemAdapter.setNewBasket(t), Throwable::printStackTrace);
+
     }
 
     private void showSuggestions(String currentString) {
         showSuggestView();
-        foodResultAPI
-                .getSuggestions(currentString)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(t -> updateSuggestions(t, currentString), Throwable::printStackTrace);
+        if (Config.CURRENT_SEARCH_URL.equals(Config.DEV_SEARCH_URL)) {
+            switch (Locale.getDefault().getLanguage()) {
+                default:
+                case Config.EN:
+                    foodResultAPI
+                            .getSuggestionsEn(currentString)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(t -> updateSuggestions(t, currentString), Throwable::printStackTrace);
+                    break;
+                case Config.RU:
+                    foodResultAPI
+                            .getSuggestions(currentString)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(t -> updateSuggestions(t, currentString), Throwable::printStackTrace);
+                    break;
+                case Config.DE:
+                    foodResultAPI
+                            .getSuggestionsDe(currentString)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(t -> updateSuggestions(t, currentString), Throwable::printStackTrace);
+                    break;
+                case Config.PT:
+                    foodResultAPI
+                            .getSuggestionsPt(currentString)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(t -> updateSuggestions(t, currentString), Throwable::printStackTrace);
+                    break;
+                case Config.ES:
+                    foodResultAPI
+                            .getSuggestionsEs(currentString)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(t -> updateSuggestions(t, currentString), Throwable::printStackTrace);
+                    break;
+            }
+        }else {
+            foodResultAPI
+                    .getSuggestions(currentString)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(t -> updateSuggestions(t, currentString), Throwable::printStackTrace);
+        }
     }
 
     private void showSuggestView() {

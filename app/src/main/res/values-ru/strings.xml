@@ -1088,4 +1088,11 @@
     <item>Тренировки 5-7 раз в неделю, по два раза в день</item>
     <item>Тяжелая физическая работа или ежедневные интенсивные тренировки по 2 раза в день</item>
   </string-array>
+  <string name="abt_prop_a">Вы достигнете своей цели получив доступ \nк уникальным статьям о здоровом \nпитании и сотни рецептов</string>
+  <string name="abt_1_arrow">Эксклюзивные статьи от диетолога</string>
+  <string name="abt_2_arrow">Персональные настройки</string>
+  <string name="abt_3_arrow">База рецептов</string>
+  <string name="abt_4_arrow">Планы питания</string>
+  <string name="abt_5_arrow">Измерения тела</string>
+  <string name="abt_bottom_prem">Попробуйте 3 дня бесплатно \nДалее %s в год</string>
 </resources>

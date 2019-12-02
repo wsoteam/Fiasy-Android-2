@@ -52,6 +52,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class ListArticlesFragment extends Fragment implements Observer {
 
+  private final int FREE_SERIES_ARTICLE = 1;
+
   @BindView(R.id.clFailSearch) ConstraintLayout constraintLayout;
   @BindView(R.id.rvArticle) RecyclerView recyclerView;
   @BindView(R.id.toolbar) Toolbar mToolbar;

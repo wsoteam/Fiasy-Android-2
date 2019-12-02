@@ -3,12 +3,15 @@ package com.wsoteam.diet.presentation.global;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.presentation.auth.main.MainAuthActivity;
 import com.wsoteam.diet.presentation.auth.restore.ActivityForgotPassword;
 import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActivity;
@@ -140,6 +143,8 @@ public class Screens {
       box.setSubscribe(false);
       box.setOpenFromPremPart(true);
       box.setOpenFromIntrodaction(false);
+      box.setComeFrom(AmplitudaEvents.view_prem_plans);
+      box.setBuyFrom(EventProperties.trial_from_plans);
       Intent intent = new Intent(context, ActivitySubscription.class)
           .putExtra(Config.TAG_BOX, box);
       return intent;

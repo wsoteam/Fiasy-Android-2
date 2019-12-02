@@ -135,7 +135,6 @@ public class UserProperty {
                 .set(fats, fat)
                 .set(сarbohydrates, carbo)
                 .set(name_const, name)
-                .set(abtest, AbTests.enableTrials() ? "black_trial" : "black_direct")
                 .set(user_id, id);
         Amplitude.getInstance().identify(identify);
     }

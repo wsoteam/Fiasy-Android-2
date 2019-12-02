@@ -10,7 +10,7 @@ public class AbTests {
     private static final Random random = new Random();
 
     public static boolean enableTrials() {
-        int state = PreferenceManager.getDefaultSharedPreferences(App.instance)
+        /*int state = PreferenceManager.getDefaultSharedPreferences(App.instance)
                 .getInt("premium_with_trial", -1);
 
         if (state == -1) {
@@ -22,7 +22,8 @@ public class AbTests {
                     .apply();
         }
 
-        return state == 1;
+        return state == 1;*/
+        return true;
     }
 
 }

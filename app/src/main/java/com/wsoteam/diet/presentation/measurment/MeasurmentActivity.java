@@ -25,10 +25,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.presentation.measurment.POJO.Chest;
 import com.wsoteam.diet.presentation.measurment.POJO.Hips;
 import com.wsoteam.diet.presentation.measurment.POJO.Meas;
@@ -332,6 +334,8 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
     Box box = new Box();
     box.setOpenFromIntrodaction(false);
     box.setOpenFromPremPart(true);
+    box.setComeFrom(AmplitudaEvents.view_prem_meas);
+    box.setBuyFrom(EventProperties.trial_from_meas);
     startActivity(new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box));
   }
 }

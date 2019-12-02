@@ -161,9 +161,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemePolicy" />
 
-        <activity-alias
+        <!--<activity-alias
             android:name=".InApp.ActivitySubscription"
-            android:targetActivity=".presentation.premium.PremiumFeaturesActivity" />
+            android:targetActivity=".presentation.premium.PremiumFeaturesActivity" />-->
 
         <activity
             android:name=".InApp.ActivitySubscription"
