@@ -3,6 +3,7 @@ package com.wsoteam.diet;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
@@ -44,7 +45,7 @@ public class App extends MultiDexApplication {
 
         //Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
 
-        FirebaseRemoteConfig.getInstance().setDefaults(new HashMap<String, Object>(){{
+        FirebaseRemoteConfig.getInstance().setDefaults(new HashMap<String, Object>() {{
             put("premium_theme", "dark");
             put("premium_with_trial", true);
         }});
@@ -65,6 +66,12 @@ public class App extends MultiDexApplication {
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(true)
                 .init();
+
+        if (BuildConfig.DEBUG) {
+            OneSignal.idsAvailable((userId, registrationId) -> {
+                Log.d("OneSignalId", "user_id=" + userId);
+            });
+        }
 
         context = this;
     }
