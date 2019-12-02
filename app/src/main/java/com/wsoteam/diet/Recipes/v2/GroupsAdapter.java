@@ -85,7 +85,8 @@ public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             while (itr.hasNext())
             {
                 RecipeItem recipeItem = (RecipeItem) itr.next();
-                if (!recipeItem.isPremium() && !firstItem){
+//                if (!recipeItem.isPremium() && !firstItem){
+                if (buffer.contains(recipeItem) && !firstItem){
                     itr.remove();
 
                 }
