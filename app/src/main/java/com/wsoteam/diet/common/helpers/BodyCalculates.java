@@ -68,7 +68,7 @@ public class BodyCalculates {
     public static int convertToGoalDigital(String goal) {
         String[] goals = App.getInstance().getResources().getStringArray(R.array.prf_goals);
         int goalDig = 0;
-        for (int i = 0; i < goals.length - 1; i++) {
+        for (int i = 0; i < goals.length; i++) {
             if (goal.equalsIgnoreCase(goals[i])) {
                 goalDig = i;
             }
@@ -79,7 +79,7 @@ public class BodyCalculates {
     public static int convertToActivityDigital(String activity) {
         String[] activities = App.getInstance().getResources().getStringArray(R.array.prf_activity_level);
         int goLevel = 0;
-        for (int i = 0; i < activities.length - 1; i++) {
+        for (int i = 0; i < activities.length; i++) {
             if (activity.equalsIgnoreCase(activities[i])) {
                 goLevel = i;
             }
