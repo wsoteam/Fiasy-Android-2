@@ -5,7 +5,7 @@ public class ABConfig {
     public static final String REQUEST_STRING = "premium_version";
     public static final String A_VERSION = "trial_stock";
     public static final String B_VERSION = "trial_diamond";
-    public static final String C_VERSION = "ua_prem";
+    public static final String C_VERSION = "trial_pair";
 
 
     //Amplituda key

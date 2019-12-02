@@ -1,16 +1,10 @@
 package com.wsoteam.diet.Recipes.v2;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
-import androidx.core.graphics.ColorUtils;
-import androidx.palette.graphics.Palette;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,19 +14,16 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.EmptyViewHolder;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.Recipes.RecipeUtils;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.utils.Img;
-import com.wsoteam.diet.utils.Subscription;
 
 import java.util.List;
 import java.util.Map;
 
-import static android.content.Context.MODE_PRIVATE;
 
 public class ListRecipesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -91,6 +82,7 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         TextView textViewKK;
         LinearLayout background;
         ImageView like;
+        ConstraintLayout premiumLabel;
 
         RecipeItem recipeItem;
 
@@ -102,26 +94,17 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             textViewKK = itemView.findViewById(R.id.tvRecipeKK);
             background = itemView.findViewById(R.id.llBackground);
             like = itemView.findViewById(R.id.ivLike);
+            premiumLabel = itemView.findViewById(R.id.premiumLabel);
 
             textViewKK.setVisibility(View.VISIBLE);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent;
-                    if (Subscription.check(context)) {
-                        intent = new Intent(context, RecipeActivity.class);
-
-                    } else {
-                        intent = new Intent(context, BlockedRecipeActivity.class);
-                    }
-
-//                    intent.putExtra(Config.RECIPE_INTENT, listRecipes.get(getAdapterPosition()));
-                    intent.putExtra(Config.RECIPE_INTENT, recipeItem);
-
-                    context.startActivity(intent);
-                }
-            });
+            itemView.setOnClickListener(v ->
+                    RecipeUtils.startDetailActivity(getContext(), recipeItem));
         }
+
+        private Context getContext(){
+            return  itemView.getContext();
+        }
+
 
         void bind(int position) {
             this.recipeItem = listRecipes.get(position);
@@ -140,6 +123,8 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 like.setImageResource(R.drawable.ic_like_off);
             }
 
+            premiumLabel.setVisibility(listRecipes.get(position).isPremium() ?
+                    View.VISIBLE: View.GONE);
 
             textView.setText(name);
             textViewKK.setText(String.valueOf(kk));
