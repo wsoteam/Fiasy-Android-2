@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,9 +114,9 @@ public class FragmentC extends Fragment
 
             }
         });
-
         return view;
     }
+
 
 
     private void getSKU() {
@@ -143,7 +146,12 @@ public class FragmentC extends Fragment
     }
 
     private void setPrice(String price) {
-        textView.setText(getActivity().getResources().getString(R.string.abt_bottom_prem, price));
+        String s = getActivity().getResources().getString(R.string.abt_bottom_prem, price);
+        Spannable spannable = new SpannableString(s);
+        int start = s.split(" ")[0].length() + 1;
+        int end = s.indexOf("\n");
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.srch_suggest_painted_string)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(spannable);
     }
 
     private void buy(String sku) {
