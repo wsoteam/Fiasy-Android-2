@@ -2,7 +2,6 @@ package com.wsoteam.diet.Recipes;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
@@ -14,7 +13,6 @@ public class RecipeUtils {
 
     public static void startDetailActivity(Context context, RecipeItem recipeItem) {
 
-        Log.d("xxx", recipeItem.getName() + " --- " + recipeItem.isPremium());
         Intent intent;
 
         if (!Subscription.check(context) && recipeItem.isPremium()) {

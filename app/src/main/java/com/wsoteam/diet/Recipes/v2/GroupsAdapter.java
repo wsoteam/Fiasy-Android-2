@@ -2,11 +2,6 @@ package com.wsoteam.diet.Recipes.v2;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +11,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.EmptyViewHolder;
@@ -25,7 +19,6 @@ import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Recipes.RecipeUtils;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.utils.Img;
-import com.wsoteam.diet.utils.Subscription;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -36,13 +29,9 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.graphics.ColorUtils;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -71,7 +60,6 @@ public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 if (!recipes.get(i).isPremium() && !buffer.contains(recipes.get(i))){
 
                     RecipeItem item = recipes.get(i);
-                    Log.d("xxx", item.getName() + " --- " + item.isPremium());
                     recipes.remove(recipes.get(i));
                     recipes.add(0, item);
                     buffer.add(item);
@@ -85,10 +73,8 @@ public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             while (itr.hasNext())
             {
                 RecipeItem recipeItem = (RecipeItem) itr.next();
-//                if (!recipeItem.isPremium() && !firstItem){
                 if (buffer.contains(recipeItem) && !firstItem){
                     itr.remove();
-
                 }
                 firstItem = false;
             }
