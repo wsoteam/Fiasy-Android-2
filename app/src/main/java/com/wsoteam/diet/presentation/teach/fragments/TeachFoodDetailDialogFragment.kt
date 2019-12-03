@@ -16,7 +16,6 @@ import com.wsoteam.diet.Config
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
 import com.wsoteam.diet.presentation.teach.TeachHostFragment
-import fr.tvbarthel.lib.blurdialogfragment.SupportBlurDialogFragment
 import kotlinx.android.synthetic.main.fragment_teach_detail.*
 import java.util.ArrayList
 import kotlin.math.round
@@ -27,6 +26,7 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
     var spinnerId = 0
     private var portionsSizes = mutableListOf<Int>()
     private val MINIMAL_PORTION = 1
+    private val EMPTY_FIELD = -1
     private var position = 0
 
     private var basketEntity: BasketEntity = BasketEntity()
@@ -53,7 +53,11 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
             intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_START_DONE_DIALOG)
             intent.putExtra(TeachHostFragment.INTENT_MEAL, spinnerId)
             basketEntity.eatingType = spinnerId
-            intent.putExtra(TeachHostFragment.INTENT_FOOD, basketEntity)
+            intent.putExtra(TeachHostFragment.INTENT_FOOD, prepareToSave(
+                    edtWeightCalculate.text.toString(), tvProtCalculate.text.toString(),
+                    tvFatCalculate.text.toString(), tvCarboCalculate.text.toString(),
+                    tvKcalCalculate.text.toString(), spnFood.selectedItemPosition
+            ))
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
            dismiss()
         }
@@ -132,17 +136,16 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
         val count = weight.toString().toInt()
         val portionSize = portionsSizes[position]
 
-        val prot = round(count * portionSize.toDouble() * basketEntity.proteins).toString() + " " +
+        val prot = round(count * portionSize.toDouble() * basketEntity.proteins).toInt().toString() + " " +
                 getString(R.string.srch_gramm)
-        val carbo = (round(count * portionSize.toDouble() * basketEntity.carbohydrates).toString()
+        val carbo = (round(count * portionSize.toDouble() * basketEntity.carbohydrates).toInt().toString()
                 + " "
                 + getString(R.string.srch_gramm))
-        val fats = (round(count * portionSize.toDouble() * basketEntity.fats).toString()
+        val fats = (round(count * portionSize.toDouble() * basketEntity.fats).toInt().toString()
                 + " "
                 + getString(R.string.srch_gramm))
-        val kcal = round(count * portionSize.toDouble() * basketEntity.calories).toString()
+        val kcal = round(count * portionSize.toDouble() * basketEntity.calories).toInt().toString()
 
-        basketEntity.countPortions = count
         showResult(kcal, prot, carbo, fats)
     }
 
@@ -216,6 +219,62 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
     fun changePortion(position: Int) {
         this.position = position
 //        getViewState().refreshCalculating()
+    }
+
+    fun prepareToSave(weight: String, prot: String, fats: String, carbo: String, kcal: String,
+                      selectedItemPosition: Int) : BasketEntity {
+        val calories = Integer.parseInt(kcal)
+        val carbohydrates = Integer.parseInt(carbo.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0])
+        val proteins = Integer.parseInt(prot.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0])
+        val fat = Integer.parseInt(fats.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0])
+        val countPortions = Integer.parseInt(weight)
+
+        basketEntity.calories = calories.toDouble()
+        basketEntity.fats = fat.toDouble()
+        basketEntity.carbohydrates = carbohydrates.toDouble()
+        basketEntity.proteins = proteins.toDouble()
+        basketEntity.countPortions = countPortions
+        basketEntity.eatingType = selectedItemPosition
+
+        if (portionsSizes[position] == MINIMAL_PORTION) {
+            basketEntity.deepId = -1
+            basketEntity.namePortion = Config.DEFAULT_CUSTOM_NAME
+            basketEntity.sizePortion = 1
+        }
+
+        if (basketEntity.sugar != EMPTY_FIELD.toDouble()) {
+            basketEntity.sugar = countPortions.toDouble() * portionsSizes[position].toDouble() * basketEntity.sugar
+        }
+
+        if (basketEntity.saturatedFats != EMPTY_FIELD.toDouble()) {
+            basketEntity.saturatedFats = countPortions.toDouble() * portionsSizes[position].toDouble() * basketEntity.saturatedFats
+        }
+
+        if (basketEntity.monoUnSaturatedFats != EMPTY_FIELD.toDouble()) {
+            basketEntity.monoUnSaturatedFats = countPortions.toDouble() * portionsSizes[position].toDouble() * basketEntity.monoUnSaturatedFats
+        }
+
+        if (basketEntity.polyUnSaturatedFats != EMPTY_FIELD.toDouble()) {
+            basketEntity.polyUnSaturatedFats = countPortions.toDouble() * portionsSizes[position].toDouble() * basketEntity.polyUnSaturatedFats
+        }
+
+        if (basketEntity.cholesterol != EMPTY_FIELD.toDouble()) {
+            basketEntity.cholesterol = countPortions.toDouble() * portionsSizes[position].toDouble() * basketEntity.cholesterol
+        }
+
+        if (basketEntity.cellulose != EMPTY_FIELD.toDouble()) {
+            basketEntity.cellulose = countPortions.toDouble() * portionsSizes[position].toDouble() * basketEntity.cellulose
+        }
+
+        if (basketEntity.sodium != EMPTY_FIELD.toDouble()) {
+            basketEntity.sodium = countPortions.toDouble() * portionsSizes[position].toDouble() * basketEntity.sodium
+        }
+
+        if (basketEntity.pottassium != EMPTY_FIELD.toDouble()) {
+            basketEntity.pottassium = countPortions.toDouble() * portionsSizes[position].toDouble() * basketEntity.pottassium
+        }
+//        saveEntity(basketEntity, selectedItemPosition)
+        return basketEntity
     }
 
 }
