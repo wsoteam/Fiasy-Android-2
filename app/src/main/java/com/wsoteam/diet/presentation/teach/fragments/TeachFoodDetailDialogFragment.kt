@@ -51,6 +51,7 @@ class TeachFoodDetailDialogFragment: SupportBlurDialogFragment() {
             val intent = Intent()
             intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_START_DONE_DIALOG)
             intent.putExtra(TeachHostFragment.INTENT_MEAL, spinnerId)
+            basketEntity.eatingType = spinnerId
             intent.putExtra(TeachHostFragment.INTENT_FOOD, basketEntity)
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
            dismiss()
@@ -127,7 +128,7 @@ class TeachFoodDetailDialogFragment: SupportBlurDialogFragment() {
     }
 
     internal fun calculate(weight: CharSequence) {
-        val count = weight.toString().toDouble()
+        val count = weight.toString().toInt()
         val portionSize = portionsSizes[position]
 
         val prot = round(count * portionSize.toDouble() * basketEntity.proteins).toString() + " " +
@@ -140,7 +141,7 @@ class TeachFoodDetailDialogFragment: SupportBlurDialogFragment() {
                 + getString(R.string.srch_gramm))
         val kcal = round(count * portionSize.toDouble() * basketEntity.calories).toString()
 
-        basketEntity.sizePortion = portionSize
+        basketEntity.countPortions = count
         showResult(kcal, prot, carbo, fats)
     }
 
