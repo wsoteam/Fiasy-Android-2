@@ -840,7 +840,7 @@ Parabéns!</string>
         <item>Meu trabalho é fisicamente intenso ou faço exercícios intensos duas vezes por dia, todos os dias.</item>
     </string-array>
 
-    <string name="abt_prop_a">Você alcançará seu objetivo e obterá \nacesso a artigos exclusivos sobre \nalimentação saudável e centenas de receitas.</string>
+    <string name="abt_prop_a">Você alcançará seu objetivo e obterá acesso a artigos exclusivos sobre alimentação saudável e centenas de receitas.</string>
     <string name="abt_1_arrow">Artigos exclusivos de um nutricionista</string>
     <string name="abt_2_arrow">Configurações personalizadas</string>
     <string name="abt_3_arrow">Banco de dados de receitas</string>

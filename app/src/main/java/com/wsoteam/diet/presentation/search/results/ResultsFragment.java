@@ -162,16 +162,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
     private void showSuggestions(String currentString) {
         showSuggestView();
-        if (Config.CURRENT_SEARCH_URL.equals(Config.DEV_SEARCH_URL)) {
             switch (Locale.getDefault().getLanguage()) {
-                default:
-                case Config.EN:
-                    foodResultAPI
-                            .getSuggestionsEn(currentString)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(t -> updateSuggestions(t, currentString), Throwable::printStackTrace);
-                    break;
                 case Config.RU:
                     foodResultAPI
                             .getSuggestions(currentString)
@@ -200,14 +191,15 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(t -> updateSuggestions(t, currentString), Throwable::printStackTrace);
                     break;
+                default:
+                case Config.EN:
+                    foodResultAPI
+                            .getSuggestionsEn(currentString)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(t -> updateSuggestions(t, currentString), Throwable::printStackTrace);
+                    break;
             }
-        }else {
-            foodResultAPI
-                    .getSuggestions(currentString)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(t -> updateSuggestions(t, currentString), Throwable::printStackTrace);
-        }
     }
 
     private void showSuggestView() {
