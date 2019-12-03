@@ -45,8 +45,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView138"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView138"
-        app:srcCompat="@drawable/ic_calendar_small"/>
+        app:layout_constraintTop_toTopOf="@+id/textView138" />
 
     <TextView
         android:id="@+id/textView138"
