@@ -292,19 +292,19 @@ public class BodyCalculates {
         }
 
 
-        if (profile.getGoLevel() == Config.FIRST_LEVEL - 1) {
+        if (profile.getGoLevel() == Config.FIRST_LEVEL) {
             KFA = RATE_NONE;
-        } else if (profile.getGoLevel() == Config.SECOND_LEVEL - 1) {
+        } else if (profile.getGoLevel() == Config.SECOND_LEVEL) {
             KFA = RATE_EASY;
-        } else if (profile.getGoLevel() == Config.THIRD_LEVEL - 1) {
+        } else if (profile.getGoLevel() == Config.THIRD_LEVEL) {
             KFA = RATE_MEDIUM;
-        } else if (profile.getGoLevel() == Config.FOURTH_LEVEL - 1) {
+        } else if (profile.getGoLevel() == Config.FOURTH_LEVEL ) {
             KFA = RATE_HARD;
-        } else if (profile.getGoLevel() == Config.FIFTH_LEVEL - 1) {
+        } else if (profile.getGoLevel() == Config.FIFTH_LEVEL ) {
             KFA = RATE_UP_HARD;
-        } else if (profile.getGoLevel() == Config.SIXTH_LEVEL - 1) {
+        } else if (profile.getGoLevel() == Config.SIXTH_LEVEL ) {
             KFA = RATE_SUPER;
-        } else if (profile.getGoLevel() == Config.SEVENTH_LEVEL - 1) {
+        } else if (profile.getGoLevel() == Config.SEVENTH_LEVEL) {
             KFA = RATE_UP_SUPER;
         }
 
