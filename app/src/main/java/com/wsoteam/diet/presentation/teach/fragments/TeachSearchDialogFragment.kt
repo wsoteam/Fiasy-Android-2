@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wsoteam.diet.App
 import com.wsoteam.diet.Config
@@ -40,7 +41,7 @@ import kotlinx.android.synthetic.main.fragment_teach_search.*
 import java.util.*
 
 
-class TeachSearchDialogFragment : SupportBlurDialogFragment() {
+class TeachSearchDialogFragment : DialogFragment() {
 
     private val foodResultAPI = FoodSearch.getInstance().foodSearchAPI
     var spinnerId = 0

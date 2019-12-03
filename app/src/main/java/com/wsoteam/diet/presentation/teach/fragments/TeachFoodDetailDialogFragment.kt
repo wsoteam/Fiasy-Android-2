@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
@@ -21,7 +22,7 @@ import java.util.ArrayList
 import kotlin.math.round
 
 
-class TeachFoodDetailDialogFragment: SupportBlurDialogFragment() {
+class TeachFoodDetailDialogFragment: DialogFragment() {
 
     var spinnerId = 0
     private var portionsSizes = mutableListOf<Int>()

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.teach.TeachHostFragment
@@ -14,11 +15,11 @@ import com.wsoteam.diet.presentation.teach.TeachHostFragment.Companion.INTENT_ME
 import fr.tvbarthel.lib.blurdialogfragment.SupportBlurDialogFragment
 import kotlinx.android.synthetic.main.fragment_teach_meal.*
 
-class TeachMealDialogFragment : SupportBlurDialogFragment() {
+class TeachMealDialogFragment : DialogFragment() {
 
 
     private var _style = STYLE_NO_TITLE
-    private var _theme = R.style.TeachDialog
+    private var _theme = R.style.TeachDialog_NoStatusBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

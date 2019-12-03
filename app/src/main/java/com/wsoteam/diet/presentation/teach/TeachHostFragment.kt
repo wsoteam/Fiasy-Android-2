@@ -43,6 +43,7 @@ class TeachHostFragment : Fragment() {
         const val INTENT_FOOD = "INTENT_FOOD"
         const val INTENT_MEAL = "INTENT_MEAL"
 
+        const val REQUEST_BLUR = 110
         const val REQUEST_MEAL = 111
         const val REQUEST_SEARCH = 112
         const val REQUEST_DETAIL = 113
@@ -51,6 +52,7 @@ class TeachHostFragment : Fragment() {
     }
 
 
+    private val blur = BlurDialogFragment()
     private var basketEntity : BasketEntity? = null
     private var finalSave: Animation? = null
 
@@ -61,6 +63,8 @@ class TeachHostFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
+
+        startDialog(blur, REQUEST_BLUR, 0)
         startDialog(TeachMealDialogFragment(), REQUEST_MEAL, 0)
 
         finalSave = AnimationUtils.loadAnimation(activity, R.anim.anim_meas_update)
@@ -79,14 +83,14 @@ class TeachHostFragment : Fragment() {
                         val args = Bundle()
                         args.putInt(MEAL_ARGUMENT,
                                 data!!.getIntExtra(INTENT_MEAL, 0))
-                        startDialog( TeachSearchDialogFragment(), REQUEST_SEARCH, 400, args)
+                        startDialog( TeachSearchDialogFragment(), REQUEST_SEARCH, 0, args)
 
                 }
                 REQUEST_SEARCH -> {
                     Log.d("kkk", "REQUEST_SEARCH")
                     when(data?.getStringExtra(ACTION)){
                         ACTION_START_MEAL_DIALOG -> {
-                            startDialog(TeachMealDialogFragment(), REQUEST_MEAL, 400)
+                            startDialog(TeachMealDialogFragment(), REQUEST_MEAL, 0)
                         }
                         ACTION_START_FOOD_DIALOG ->{
                             val food = data!!.getSerializableExtra(INTENT_FOOD) as BasketEntity
@@ -96,7 +100,7 @@ class TeachHostFragment : Fragment() {
                             args.putInt(MEAL_ARGUMENT,
                                     data!!.getIntExtra(INTENT_MEAL, 0))
                             args.putSerializable(INTENT_FOOD, food)
-                            startDialog( TeachFoodDetailDialogFragment(), REQUEST_DETAIL, 400, args)
+                            startDialog( TeachFoodDetailDialogFragment(), REQUEST_DETAIL, 0, args)
 
                         }
                     }
@@ -107,10 +111,10 @@ class TeachHostFragment : Fragment() {
                             val args = Bundle()
                             args.putInt(MEAL_ARGUMENT,
                                     data!!.getIntExtra(INTENT_MEAL, 0))
-                            startDialog( TeachSearchDialogFragment(), REQUEST_SEARCH, 400, args)
+                            startDialog( TeachSearchDialogFragment(), REQUEST_SEARCH, 0, args)
                         }
                         ACTION_START_DONE_DIALOG ->{
-                            startDialog( TeachDoneDialogFragment(), REQUEST_DONE, 400)
+                            startDialog( TeachDoneDialogFragment(), REQUEST_DONE, 0)
                             basketEntity = data!!.getSerializableExtra(INTENT_FOOD) as BasketEntity
                         }
 
@@ -120,7 +124,7 @@ class TeachHostFragment : Fragment() {
                 REQUEST_DONE ->{
                     when(data?.getStringExtra(ACTION)){
                         ACTION_START_BASKET_DIALOG ->{
-                            startDialog( TeachBasketDialogFragment(), REQUEST_BASKET, 400)
+                            startDialog( TeachBasketDialogFragment(), REQUEST_BASKET, 0)
                         }
 
                     }
@@ -155,12 +159,12 @@ class TeachHostFragment : Fragment() {
     private fun startDialog(dialogFragment: DialogFragment, requestCode: Int, delay : Long){
         val fm = activity?.supportFragmentManager
         dialogFragment.setTargetFragment(this, requestCode)
-
-        val handler = Handler()
-        val runnable = Runnable {
+//
+//        val handler = Handler()
+//        val runnable = Runnable {
         fm?.let { dialogFragment.show(fm, dialogFragment.javaClass.name) }
-        }
-        handler.postDelayed(runnable, delay)
+//        }
+//        handler.postDelayed(runnable, delay)
     }
     private fun runCountdown() {
         val toast = Toast(context)
@@ -178,8 +182,12 @@ class TeachHostFragment : Fragment() {
             }
 
             override fun onFinish() {
-
+                blur.dismiss()
             }
         }.start()
+    }
+
+    fun onBackPressed(){
+        blur.dismiss()
     }
 }

@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean isMainFragment = true;
     private Window window;
 
+    private TeachHostFragment teachHost = new TeachHostFragment();
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> setActiveTab(item.getItemId());
 
@@ -157,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
     new UpdateChecker(this).runChecker();
     Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-      getSupportFragmentManager().beginTransaction().add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
+      getSupportFragmentManager().beginTransaction().add(teachHost, TeachHostFragment.class.getName()).commit();
   }
 
     private void handlGrade(long currentTime) {
@@ -316,6 +318,8 @@ public class MainActivity extends AppCompatActivity {
             window.setStatusBarColor(Color.parseColor("#AE6A23"));
             bnvMain.setSelectedItemId(R.id.bnv_main_diary);
         }
+
+        if (teachHost != null) teachHost.onBackPressed();
     }
 
 }

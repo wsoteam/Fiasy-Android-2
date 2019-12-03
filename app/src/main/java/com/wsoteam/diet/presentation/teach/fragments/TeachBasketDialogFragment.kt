@@ -11,13 +11,14 @@ import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.teach.TeachHostFragment
 import fr.tvbarthel.lib.blurdialogfragment.SupportBlurDialogFragment
 import kotlinx.android.synthetic.main.fragment_teach_basket.*
 
 
-class TeachBasketDialogFragment : SupportBlurDialogFragment() {
+class TeachBasketDialogFragment : DialogFragment() {
 
     private var _style = STYLE_NO_TITLE
     private var _theme = R.style.TeachDialog_NoStatusBar
