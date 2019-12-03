@@ -54,6 +54,7 @@ import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
+import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.common.remote.UpdateChecker;
 import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.model.ArticleViewModel;
@@ -219,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
         logEvents();
 
         if (Deeplink.isNeedPrem.get()) startPrem();
-
+        BodyCalculates.handleProfile();
 
     }
 
