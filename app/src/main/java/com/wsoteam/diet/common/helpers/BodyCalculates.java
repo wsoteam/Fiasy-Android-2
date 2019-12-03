@@ -309,13 +309,13 @@ public class BodyCalculates {
         }
 
 
-        if (profile.getGoal() == Config.FIRST_GOAL - 1) {
+        if (profile.getGoal() == Config.FIRST_GOAL) {
             target = 1 - TARGET_NORMAL;
-        } else if (profile.getGoal() == Config.SECOND_GOAL - 1) {
+        } else if (profile.getGoal() == Config.SECOND_GOAL) {
             target = 1 - TARGET_LOOSE_WEIGHT;
-        } else if (profile.getGoal() == Config.THIRD_GOAL - 1) {
+        } else if (profile.getGoal() == Config.THIRD_GOAL) {
             target = 1 + TARGET_MUSCLE;
-        } else if (profile.getGoal() == Config.FOURTH_GOAL - 1) {
+        } else if (profile.getGoal() == Config.FOURTH_GOAL) {
             target = 1 - TARGET_SAVE;
         }
 
