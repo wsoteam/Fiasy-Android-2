@@ -176,7 +176,7 @@ class TeachHostFragment : Fragment() {
         title.text = resources.getString(R.string.srch_save_list)
         ellipse.animation = finalSave
         toast.show()
-        val timer = object : CountDownTimer(2000, 100) {
+        object : CountDownTimer(2000, 100) {
             override fun onTick(l: Long) {
 
             }
