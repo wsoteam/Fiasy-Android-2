@@ -3,7 +3,6 @@ package com.wsoteam.diet.MainScreen;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -56,7 +55,6 @@ public class DeepLink {
 
     public static boolean prepareUri(Context context,@NonNull Uri dat){
 
-        Log.d("ukkk", "prepareUri: " + dat.getHost());
         String host = dat.getHost();
         if (host != null)
         switch (host){

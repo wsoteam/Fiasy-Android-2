@@ -85,8 +85,6 @@ public class ActivitySplash extends BaseActivity {
 
   private final CompositeDisposable disposables = new CompositeDisposable();
 
-//  private boolean deeplink;
-
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -95,11 +93,8 @@ public class ActivitySplash extends BaseActivity {
     String action = intent.getAction();
     Uri data = intent.getData();
     if (Intent.ACTION_VIEW.equals(action) && data != null ){
-//      DeepLink.isNeedPrem.set(!deeplink);
-//      DeepLink.addAction(this, DeepLink.Start.PREMIUM);
       DeepLink.prepareUri(this, data);
       intent.setData(null);
-//      deeplink = true;
     }
 
     if (getSharedPreferences(Config.IS_NEED_SHOW_LOADING_SPLASH, MODE_PRIVATE).getBoolean(
