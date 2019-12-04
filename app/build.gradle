@@ -14,8 +14,8 @@ android {
         applicationId "com.wild.diet"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 104
-        versionName "3.0.0.6"
+        versionCode 105
+        versionName "3.0.0.7dev"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         renderscriptTargetApi 27
