@@ -147,7 +147,7 @@ public class FragmentA extends Fragment
     }
 
     private void setPrice(String price) {
-        textView.setText(getActivity().getResources().getString(R.string.abt_bottom_prem, price));
+        textView.setText(getActivity().getResources().getString(R.string.abt_bottom_prem_week, price));
     }
 
     private void buy(String sku) {
