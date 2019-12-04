@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -45,7 +44,6 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.articles.ArticleSeriesActivity;
-import com.wsoteam.diet.articles.POJO.SectionArticles;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
@@ -252,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
                     DeepLink.deleteAction(context);
                     break;
                 }
-                case DeepLink.Start.MEASURMENT:{
+                case DeepLink.Start.MEASUREMENT:{
                     startActivity(new Intent(this, MeasurmentActivity.class));
                     DeepLink.deleteAction(context);
                     break;
