@@ -107,6 +107,7 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     private Spinner parentSpinner;
 
     private ResultAdapter itemAdapter;
+    private SuggestAdapter suggestAdapter;
     private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
     private BasketDAO basketDAO = App.getInstance().getFoodDatabase().basketDAO();
     private HistoryDAO historyDAO = App.getInstance().getFoodDatabase().historyDAO();
@@ -251,8 +252,8 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     }
 
     private void updateSuggestions(Suggest t, String currentString) {
-        rvSuggestionsList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvSuggestionsList.setAdapter(new SuggestAdapter(t, currentString, new ISuggest() {
+        suggestAdapter = null;
+        suggestAdapter = new SuggestAdapter(t, currentString, new ISuggest() {
             @Override
             public void choiceSuggest(String suggestName) {
                 ((ParentActivity) getActivity()).edtSearch.setText(suggestName);
@@ -265,7 +266,9 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
 
                 sendSearchQuery(suggestName);
             }
-        }));
+        });
+        rvSuggestionsList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvSuggestionsList.setAdapter(suggestAdapter);
     }
 
     private void showLoad() {
