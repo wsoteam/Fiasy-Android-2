@@ -230,18 +230,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
 
-                case DeepLink.Start.ARTICLE:{
-                    CountDownTimer timer = new CountDownTimer(2000, 100) {
-                        @Override public void onTick(long l) {
-
-                        }
-
-                        @Override public void onFinish() {
-                            bnvMain.setSelectedItemId(R.id.bnv_main_articles);
-                            DeepLink.deleteAction(context);
-                        }
-                    }.start();
-
+                case DeepLink.Start.ARTICLE: {
+                    bnvMain.setSelectedItemId(R.id.bnv_main_articles);
+                    DeepLink.deleteAction(context);
                     break;
                 }
                 case DeepLink.Start.RECIPE:{

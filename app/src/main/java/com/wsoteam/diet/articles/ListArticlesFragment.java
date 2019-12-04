@@ -1,7 +1,6 @@
 package com.wsoteam.diet.articles;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,8 +46,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class ListArticlesFragment extends Fragment implements Observer {
 
@@ -182,7 +179,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
                 Log.d("ukkk", articleApiResult.getResults().size() + "");
                 sectionArticles = new SectionArticles(articleApiResult.getResults(), getContext());
                 adapter.updateData(articleApiResult.getResults());
-                verticalArticlesAdapter.setData(sectionArticles.getGroups());
+                verticalArticlesAdapter.updateData(sectionArticles.getGroups());
                 verticalArticlesAdapter.SetOnItemClickListener(onItemClickListener);
               }
             });
