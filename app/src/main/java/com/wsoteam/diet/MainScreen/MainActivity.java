@@ -1,11 +1,12 @@
 package com.wsoteam.diet.MainScreen;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -33,10 +34,6 @@ import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.Sync.UserDataHolder;
-import com.wsoteam.diet.articles.ArticleSeriesFragment;
-import com.wsoteam.diet.articles.BurlakovAuthorFragment;
-import com.wsoteam.diet.articles.ListArticlesFragment;
-import com.wsoteam.diet.articles.POJO.ListArticles;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietModule;
@@ -45,12 +42,10 @@ import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.MainScreen.Dialogs.RateDialogs;
 import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodDB;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.Recipes.POJO.EatingGroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
-import com.wsoteam.diet.Recipes.POJO.ListRecipes;
-import com.wsoteam.diet.Recipes.POJO.RecipesHolder;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
-import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.articles.ArticleSeriesActivity;
+import com.wsoteam.diet.articles.POJO.SectionArticles;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
@@ -58,13 +53,10 @@ import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.common.remote.UpdateChecker;
 import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.model.ArticleViewModel;
-import com.wsoteam.diet.model.ArticleViewModel;
-import com.wsoteam.diet.presentation.diary.DiaryFragment;
+import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import java.util.Calendar;
-import java.util.Locale;
-
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -166,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
     handlGrade(Calendar.getInstance().getTimeInMillis());
     new UpdateChecker(this).runChecker();
     Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
+
   }
 
     private void handlGrade(long currentTime) {
@@ -219,10 +212,65 @@ public class MainActivity extends AppCompatActivity {
 
         logEvents();
 
-        if (Deeplink.isNeedPrem.get()) startPrem();
+
         BodyCalculates.handleProfile();
 
+        checkDeepLink(getApplicationContext());
     }
+
+    private void checkDeepLink(Context context){
+
+        String deepLinkAction = DeepLink.getAction(context);
+        Log.d("ukkk", "checkDeepLink: " + deepLinkAction);
+        if (deepLinkAction != null)
+            switch (deepLinkAction){
+                case DeepLink.Start.PREMIUM:{
+                    startPrem();
+                    DeepLink.deleteAction(context);
+                    break;
+                }
+
+                case DeepLink.Start.ARTICLE:{
+                    CountDownTimer timer = new CountDownTimer(2000, 100) {
+                        @Override public void onTick(long l) {
+
+                        }
+
+                        @Override public void onFinish() {
+                            bnvMain.setSelectedItemId(R.id.bnv_main_articles);
+                            DeepLink.deleteAction(context);
+                        }
+                    }.start();
+
+                    break;
+                }
+                case DeepLink.Start.RECIPE:{
+                    bnvMain.setSelectedItemId(R.id.bnv_main_recipes);
+                    DeepLink.deleteAction(context);
+                    break;
+                }
+
+                case DeepLink.Start.DIETS:{
+                    bnvMain.setSelectedItemId(R.id.bnv_main_trainer);
+                    DeepLink.deleteAction(context);
+                    break;
+                }
+
+                case DeepLink.Start.NUTRITIONIST:{
+                    startActivity(new Intent(this, ArticleSeriesActivity.class));
+                    DeepLink.deleteAction(context);
+                    break;
+                }
+                case DeepLink.Start.MEASURMENT:{
+                    startActivity(new Intent(this, MeasurmentActivity.class));
+                    DeepLink.deleteAction(context);
+                    break;
+                }
+
+            }
+    }
+
+
 
   private void logEvents() {
     if (getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).getBoolean(

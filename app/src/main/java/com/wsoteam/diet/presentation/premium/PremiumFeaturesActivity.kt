@@ -25,9 +25,8 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.*
 import com.amplitude.api.Amplitude
-import com.amplitude.api.Identify
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.wsoteam.diet.MainScreen.Deeplink
+import com.wsoteam.diet.MainScreen.DeepLink
 import com.wsoteam.diet.R
 import com.wsoteam.diet.R.string
 import com.wsoteam.diet.common.Analytics.Events
@@ -179,10 +178,10 @@ class PremiumFeaturesActivity : AppCompatActivity() {
             "black_direct")
     })
 
-    if (Deeplink.isNeedPrem.get()) {
-      toolbar.navigationIcon = null
-      Deeplink.isNeedPrem.set(false)
-    }
+//    if (DeepLink.isNeedPrem.get()) {
+//      toolbar.navigationIcon = null
+//      DeepLink.isNeedPrem.set(false)
+//    }
 
     findViewById<TextView>(R.id.privacy_policy).apply {
       movementMethod = LinkMovementMethod.getInstance()
