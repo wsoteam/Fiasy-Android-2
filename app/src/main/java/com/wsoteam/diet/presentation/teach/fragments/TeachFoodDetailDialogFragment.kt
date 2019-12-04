@@ -46,11 +46,11 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        include.setBackgroundResource(R.drawable.teach_cardview_back)
+//        include.setBackgroundResource(R.drawable.teach_cardview_back)
         teachCancel.setOnClickListener { dismiss() }
-        teachNext.setOnClickListener {
+        btnDone.setOnClickListener {
             val intent = Intent()
-            intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_START_DONE_DIALOG)
+            intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_START_BASKET_DIALOG)
             intent.putExtra(TeachHostFragment.INTENT_MEAL, spinnerId)
             basketEntity.eatingType = spinnerId
             intent.putExtra(TeachHostFragment.INTENT_FOOD, prepareToSave(

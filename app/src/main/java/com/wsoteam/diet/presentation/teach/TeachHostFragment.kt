@@ -21,6 +21,7 @@ import com.wsoteam.diet.R
 import com.wsoteam.diet.common.diary.FoodWork
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
 import com.wsoteam.diet.presentation.teach.fragments.*
+import java.util.*
 
 
 class TeachHostFragment : Fragment() {
@@ -117,6 +118,10 @@ class TeachHostFragment : Fragment() {
                             startDialog( TeachDoneDialogFragment(), REQUEST_DONE, 0)
                             basketEntity = data!!.getSerializableExtra(INTENT_FOOD) as BasketEntity
                         }
+                        ACTION_START_BASKET_DIALOG ->{
+                            startDialog( TeachBasketDialogFragment(), REQUEST_BASKET, 0)
+                            basketEntity = data!!.getSerializableExtra(INTENT_FOOD) as BasketEntity
+                        }
 
                     }
                 }
@@ -134,9 +139,12 @@ class TeachHostFragment : Fragment() {
                 REQUEST_BASKET ->{
                     when(data?.getStringExtra(ACTION)){
                         ACTION_SAVE_FOOD ->{
-
+                           val calendar = Calendar.getInstance()
                          basketEntity?.apply {
-                             FoodWork.saveItem(this, 3,11, 2019 )
+                             FoodWork.saveItem(this,
+                                     calendar.get(Calendar.DAY_OF_MONTH),
+                                     calendar.get(Calendar.MONTH),
+                                     calendar.get(Calendar.YEAR) )
                              runCountdown()
                          }
 

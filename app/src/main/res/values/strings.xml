@@ -1114,4 +1114,6 @@ Share your accomplishments with friends:</string>
     <string name="teach_done_title">Нажмите “Готово”</string>
     <string name="teach_done_txt">Вы добавите продукт в предварительный список, где сможете проверить все выбранные продукты</string>
 
+    <string name="teach_basket_title">Добавьте выбранный продукт в дневник</string>
+
 </resources>
