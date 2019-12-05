@@ -211,7 +211,7 @@ public class FragmentA extends Fragment
     }
 
 
-    @OnClick({R.id.btnBack, R.id.btnClose, R.id.btnBuyPrem, R.id.tvPrivacyPolicy})
+    @OnClick({R.id.btnBack, R.id.btnClose, R.id.btnBuyPrem, R.id.tvPrivacyPolicy, R.id.textView18})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnBuyPrem:
@@ -222,6 +222,7 @@ public class FragmentA extends Fragment
                 Events.logPushButton(EventProperties.push_button_back, box.getBuyFrom());
                 getActivity().onBackPressed();
                 break;
+            case R.id.textView18:
             case R.id.btnClose: {
                 Events.logPushButton(EventProperties.push_button_close, box.getBuyFrom());
                 if (box.isOpenFromIntrodaction()) {
@@ -229,6 +230,9 @@ public class FragmentA extends Fragment
                     Intent intent = new Intent();
                     if (isNeedGoNext()){
                         intent = new Intent(getContext(), AfterQuestionsActivity.class);
+                        if (box.getProfile() != null){
+                            intent.putExtra(Config.INTENT_PROFILE, box.getProfile());
+                        }
                     }else {
                         intent = new Intent(getContext(), ActivitySplash.class);
                     }

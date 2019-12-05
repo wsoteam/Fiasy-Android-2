@@ -15,7 +15,7 @@
             android:id="@+id/btnBuyPrem"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/shape_orange"
             android:fontFamily="@font/roboto_bold"
             android:text="@string/connect_premium"
@@ -50,7 +50,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_prem_close"
-            android:visibility="visible"
+            android:visibility="gone"
             app:tint="#444" />
 
 
@@ -72,6 +72,7 @@
             android:layout_marginBottom="64dp"
             android:text="Условия и Политика конфидециальности"
             android:textColor="#51000000"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -83,15 +84,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="12dp"
             android:text="Оформив Premium вы активируете пробный период на 3 \nдня, после этого оплата 2290р. в год. Подключая \nPremium Вы соглашаетесь с условиями использования \nи политикой конфидициальности"
             android:textAlignment="center"
+            android:textSize="12sp"
             android:textColor="#51000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnBuyPrem" />
+            app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
 
         <TextView
@@ -104,8 +106,8 @@
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
             android:text="@string/abt_prop_a"
-            android:textColor="#59000000"
-            android:textSize="17sp"
+            android:textColor="#51000000"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView57" />
@@ -114,16 +116,20 @@
             android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ПРОДОЛЖИТЬ"
-            android:textSize="7sp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto_medium"
-            android:textColor="@color/black"/>
+            android:text="ПРОДОЛЖИТЬ"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/btnBuyPrem"
+            app:layout_constraintStart_toStartOf="@+id/btnBuyPrem"
+            app:layout_constraintTop_toBottomOf="@+id/btnBuyPrem" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView17"
             android:layout_width="146dp"
             android:layout_height="192dp"
-            android:layout_marginTop="116dp"
+            android:layout_marginTop="69dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="6dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -133,28 +139,28 @@
             <ImageView
                 android:id="@+id/ivCentral"
                 android:layout_width="match_parent"
-                app:srcCompat="@drawable/central_image_prem"
+                android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:layout_height="match_parent" />
+                app:srcCompat="@drawable/central_image_prem" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvTopRight"
             android:layout_width="86dp"
             android:layout_height="109dp"
-            android:layout_marginTop="82dp"
-            app:cardCornerRadius="16dp"
+            android:layout_marginTop="39dp"
             android:translationX="10dp"
+            app:cardCornerRadius="16dp"
             app:cardElevation="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/ivTopRight"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/right_top_prem"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/right_top_prem" />
         </androidx.cardview.widget.CardView>
 
 
@@ -200,19 +206,19 @@
             android:id="@+id/cvTopLeft"
             android:layout_width="122dp"
             android:layout_height="135dp"
-            android:layout_marginTop="69dp"
-            app:cardCornerRadius="16dp"
+            android:layout_marginTop="43dp"
             android:translationX="-50dp"
+            app:cardCornerRadius="16dp"
             app:cardElevation="6dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/ivTopLeft"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/top_left_prem"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/top_left_prem" />
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
