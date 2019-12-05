@@ -258,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case DeepLink.Start.ADD_FOOD:{
-                    startActivity(new Intent(context, ParentActivity.class));
+                    startActivity(new Intent(context, ParentActivity.class).putExtra(Config.INTENT_DATE_FOR_SAVE, DeepLink.getDate()));
                     DeepLink.deleteAction(context);
                     break;
                 }
