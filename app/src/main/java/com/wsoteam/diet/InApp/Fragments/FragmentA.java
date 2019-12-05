@@ -130,7 +130,7 @@ public class FragmentA extends Fragment
             @Override
             public void onSkuDetailsResponse(int responseCode, List<SkuDetails> skuDetailsList) {
 
-                if (responseCode == BillingClient.BillingResponse.OK && skuDetailsList != null) {
+                /*if (responseCode == BillingClient.BillingResponse.OK && skuDetailsList != null) {
                     Log.e("LOL", skuDetailsList.get(0).toString());
                     try {
                         setPrice(skuDetailsList.get(0).getPrice());
@@ -141,7 +141,7 @@ public class FragmentA extends Fragment
 
                 } else {
                     Log.d(TAG, "onSkuDetailsResponse: FAIL");
-                }
+                }*/
 
             }
         });
