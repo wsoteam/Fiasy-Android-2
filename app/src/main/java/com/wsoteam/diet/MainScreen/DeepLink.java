@@ -16,6 +16,7 @@ public class DeepLink {
         public static final String NUTRITIONIST = "nutritionist";
         public static final String DIETS = "diets";
         public static final String MEASUREMENT = "measurements";
+        public static final String ADD_FOOD = "addfood";
 
     }
 
@@ -63,6 +64,7 @@ public class DeepLink {
             case Start.NUTRITIONIST:
             case Start.DIETS:
             case Start.MEASUREMENT:
+            case Start.ADD_FOOD:
             case Start.RECIPE:{
                 addAction(context, host);
                 return true;

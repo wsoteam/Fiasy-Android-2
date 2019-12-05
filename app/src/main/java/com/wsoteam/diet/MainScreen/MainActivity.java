@@ -54,6 +54,8 @@ import com.wsoteam.diet.model.ArticleViewModel;
 import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
+import com.wsoteam.diet.presentation.search.ParentActivity;
+
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -246,12 +248,17 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 case DeepLink.Start.NUTRITIONIST:{
-                    startActivity(new Intent(this, ArticleSeriesActivity.class));
+                    startActivity(new Intent(context, ArticleSeriesActivity.class));
                     DeepLink.deleteAction(context);
                     break;
                 }
                 case DeepLink.Start.MEASUREMENT:{
-                    startActivity(new Intent(this, MeasurmentActivity.class));
+                    startActivity(new Intent(context, MeasurmentActivity.class));
+                    DeepLink.deleteAction(context);
+                    break;
+                }
+                case DeepLink.Start.ADD_FOOD:{
+                    startActivity(new Intent(context, ParentActivity.class));
                     DeepLink.deleteAction(context);
                     break;
                 }
