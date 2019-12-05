@@ -32,7 +32,7 @@ import com.wsoteam.diet.presentation.search.results.controllers.ResultAdapter
 import com.wsoteam.diet.presentation.search.results.controllers.suggestions.ISuggest
 import com.wsoteam.diet.presentation.search.results.controllers.suggestions.SuggestAdapter
 import com.wsoteam.diet.presentation.teach.TeachHostFragment
-import fr.tvbarthel.lib.blurdialogfragment.SupportBlurDialogFragment
+import com.wsoteam.diet.utils.hideKeyboard
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -66,7 +66,9 @@ class TeachSearchDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        teachCancel.setOnClickListener { dismiss() }
+        teachCancel.setOnClickListener {
+            targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, Intent())
+            dismiss() }
         ivBack.setOnClickListener {
             val intent = Intent()
             intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_START_MEAL_DIALOG)
@@ -104,7 +106,7 @@ class TeachSearchDialogFragment : DialogFragment() {
         }else{
             if (rvSuggestionsList.visibility == View.GONE) rvSuggestionsList.visibility = View.VISIBLE
             title_first.visibility = View.GONE
-            title_second.visibility = View.VISIBLE
+            title_second.visibility = View.GONE
         }
     }
 
@@ -143,8 +145,8 @@ class TeachSearchDialogFragment : DialogFragment() {
     }
 
     private fun updateSuggestions(t: Suggest, currentString: String) {
-        rvSuggestionsList.setLayoutManager(LinearLayoutManager(activity))
-        rvSuggestionsList.setAdapter(SuggestAdapter(t, currentString, ISuggest { suggestName ->
+        rvSuggestionsList.layoutManager = LinearLayoutManager(activity)
+        rvSuggestionsList.adapter = SuggestAdapter(t, currentString, ISuggest { suggestName ->
             //            (activity as ParentActivity).edtSearch.setText(suggestName)
 //            (activity as ParentActivity).edtSearch.clearFocus()
 //
@@ -153,7 +155,7 @@ class TeachSearchDialogFragment : DialogFragment() {
 //                    InputMethodManager.HIDE_NOT_ALWAYS)
 //
             sendSearchQuery(suggestName)
-        }))
+        })
     }
 
     private fun sendSearchQuery(query: String) {
@@ -292,8 +294,17 @@ class TeachSearchDialogFragment : DialogFragment() {
         }
     }
 
+    private fun hideKeyboard(){
+        Log.d("kkk", "hideKeyboard()")
+        edtActivityListAndSearchCollapsingSearchField.hideKeyboard()
+        title_first.visibility = View.GONE
+        title_second.visibility = View.VISIBLE
+
+    }
+
     private fun updateAdapter(t: List<ISearchResult>, basketEntities: List<BasketEntity>, searchString: String) {
-        rvSuggestionsList.setAdapter(ResultAdapter(createHeadersArray(t), activity,
+        hideKeyboard()
+        rvSuggestionsList.adapter = ResultAdapter(createHeadersArray(t), activity,
                 basketEntities, searchString, object : BasketUpdater {
             override fun getCurrentSize(size: Int) {
 //                updateBasket(size)
@@ -306,7 +317,7 @@ class TeachSearchDialogFragment : DialogFragment() {
             override fun getCurrentEating(): Int {
                 return spinnerId
             }
-        }, teachCallback))
+        }, teachCallback, true)
 //        hideLoad()
     }
 

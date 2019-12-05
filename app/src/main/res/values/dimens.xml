@@ -21,4 +21,8 @@
     <dimen name="receipt_container_width">255dp</dimen>
     <dimen name="receipt_container_height">170dp</dimen>
 
+
+    <dimen name="teach_width">62dp</dimen>
+    <dimen name="teach_height">46dp</dimen>
+
 </resources>

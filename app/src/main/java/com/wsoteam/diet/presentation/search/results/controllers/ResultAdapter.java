@@ -53,6 +53,8 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private FoodResultAPI foodResultAPI = FoodSearch.getInstance().getFoodSearchAPI();
     ExpandableClickListener teachCallback;
 
+    private boolean hideTbSelect = false;
+
     @Override
     public int[] getParams() {
         return getBasketParams();
@@ -89,9 +91,16 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public ResultAdapter(List<ISearchResult> foods, Context context, List<BasketEntity> savedFood,
-                         String searchString, BasketUpdater basketUpdate, ExpandableClickListener teachCallback) {
+                         String searchString, BasketUpdater basketUpdate, ExpandableClickListener teachCallback, boolean hideTbSelect) {
         this(foods, context, savedFood, searchString, basketUpdate);
         this.teachCallback = teachCallback;
+        this.hideTbSelect = hideTbSelect;
+    }
+
+
+    public void hideTbSelect(boolean hideTbSelect){
+        this.hideTbSelect = hideTbSelect;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -215,7 +224,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                                 }
                                 openDetailActivity(findInBasket(basketEntity));
                             }
-                        });
+                        }, hideTbSelect);
                 break;
             case HISTORY_TYPE:
                 ((ResultVH) holder).bindHistoryEntity((HistoryEntity) foods.get(position),

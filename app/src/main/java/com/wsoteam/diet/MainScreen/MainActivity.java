@@ -158,8 +158,6 @@ public class MainActivity extends AppCompatActivity {
     handlGrade(Calendar.getInstance().getTimeInMillis());
     new UpdateChecker(this).runChecker();
     Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-      getSupportFragmentManager().beginTransaction().add(teachHost, TeachHostFragment.class.getName()).commit();
   }
 
     private void handlGrade(long currentTime) {
@@ -214,6 +212,9 @@ public class MainActivity extends AppCompatActivity {
         logEvents();
 
         if (Deeplink.isNeedPrem.get()) startPrem();
+        if (TeachHostFragment.Companion.isNeedStart(getApplicationContext()))
+            getSupportFragmentManager().beginTransaction()
+                    .add(teachHost, TeachHostFragment.class.getName()).commit();
 
 
 

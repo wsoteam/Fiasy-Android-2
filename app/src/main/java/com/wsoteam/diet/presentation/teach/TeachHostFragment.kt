@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.teach
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -22,6 +23,9 @@ import com.wsoteam.diet.common.diary.FoodWork
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
 import com.wsoteam.diet.presentation.teach.fragments.*
 import java.util.*
+import android.content.Context.MODE_PRIVATE
+
+
 
 
 class TeachHostFragment : Fragment() {
@@ -40,6 +44,7 @@ class TeachHostFragment : Fragment() {
         const val ACTION_START_DONE_DIALOG = "ACTION_START_DONE_DIALOG"
         const val ACTION_START_BASKET_DIALOG = "ACTION_START_BASKET_DIALOG"
         const val ACTION_SAVE_FOOD = "ACTION_SAVE_FOOD"
+        const val ACTION_CANCEL = "ACTION_CANCEL"
 
         const val INTENT_FOOD = "INTENT_FOOD"
         const val INTENT_MEAL = "INTENT_MEAL"
@@ -50,6 +55,16 @@ class TeachHostFragment : Fragment() {
         const val REQUEST_DETAIL = 113
         const val REQUEST_DONE = 114
         const val REQUEST_BASKET = 115
+
+
+        private val PREFERENCES = "TEACH_STARTED"
+
+        public fun isNeedStart(context : Context): Boolean{
+            val preferences = context.getSharedPreferences(PREFERENCES, MODE_PRIVATE)
+           return if(preferences.contains(PREFERENCES)) {
+                 preferences.getBoolean(PREFERENCES, true)
+            } else  false
+        }
     }
 
 
@@ -73,18 +88,20 @@ class TeachHostFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-//        val fm = activity?.supportFragmentManager
-        Log.d("kkk", "1")
+
         if (resultCode == Activity.RESULT_OK) {
-            Log.d("kkk", "2")
+
             when (requestCode) {
                 REQUEST_MEAL -> {
-                    Log.d("kkk", "REQUEST_MEAL")
-
-                        val args = Bundle()
-                        args.putInt(MEAL_ARGUMENT,
-                                data!!.getIntExtra(INTENT_MEAL, 0))
-                        startDialog( TeachSearchDialogFragment(), REQUEST_SEARCH, 0, args)
+//                    Log.d("kkk", "REQUEST_MEAL")
+//                    when(data?.getStringExtra(ACTION)){
+//
+//
+//                    }
+                    val args = Bundle()
+                    args.putInt(MEAL_ARGUMENT,
+                            data!!.getIntExtra(INTENT_MEAL, 0))
+                    startDialog( TeachSearchDialogFragment(), REQUEST_SEARCH, 0, args)
 
                 }
                 REQUEST_SEARCH -> {
@@ -157,6 +174,12 @@ class TeachHostFragment : Fragment() {
             }
 
         }
+
+        if (resultCode == Activity.RESULT_CANCELED) {
+            Log.d("kkk", "RESULT_CANCELED")
+            savePreferences(context!!)
+            blur.dismiss()
+        }
     }
 
     private fun startDialog(dialogFragment: DialogFragment, request: Int, delay: Long,args: Bundle){
@@ -198,4 +221,14 @@ class TeachHostFragment : Fragment() {
     fun onBackPressed(){
         blur.dismiss()
     }
+
+    private fun savePreferences(context : Context){
+        val preferences = context.getSharedPreferences(PREFERENCES, MODE_PRIVATE)
+
+        val editor = preferences.edit()
+        editor.putBoolean(PREFERENCES, true)
+        editor.apply()
+    }
+
+
 }

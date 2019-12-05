@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.R
@@ -23,6 +24,7 @@ import kotlin.math.round
 
 class TeachFoodDetailDialogFragment: DialogFragment() {
 
+    var weight = 0
     var spinnerId = 0
     private var portionsSizes = mutableListOf<Int>()
     private val MINIMAL_PORTION = 1
@@ -46,20 +48,38 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        include.setBackgroundResource(R.drawable.teach_cardview_back)
-        teachCancel.setOnClickListener { dismiss() }
+        include.setBackgroundResource(R.drawable.teach_cardview_back)
+
         btnDone.setOnClickListener {
-            val intent = Intent()
-            intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_START_BASKET_DIALOG)
-            intent.putExtra(TeachHostFragment.INTENT_MEAL, spinnerId)
-            basketEntity.eatingType = spinnerId
-            intent.putExtra(TeachHostFragment.INTENT_FOOD, prepareToSave(
-                    edtWeightCalculate.text.toString(), tvProtCalculate.text.toString(),
-                    tvFatCalculate.text.toString(), tvCarboCalculate.text.toString(),
-                    tvKcalCalculate.text.toString(), spnFood.selectedItemPosition
-            ))
-            targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
-           dismiss()
+            if (weight > 0) {
+                val intent = Intent()
+                intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_START_BASKET_DIALOG)
+                intent.putExtra(TeachHostFragment.INTENT_MEAL, spinnerId)
+                basketEntity.eatingType = spinnerId
+                intent.putExtra(TeachHostFragment.INTENT_FOOD, prepareToSave(
+                        edtWeightCalculate.text.toString(), tvProtCalculate.text.toString(),
+                        tvFatCalculate.text.toString(), tvCarboCalculate.text.toString(),
+                        tvKcalCalculate.text.toString(), spnFood.selectedItemPosition
+                ))
+                targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
+                dismiss()
+            }
+        }
+
+        teachCancel.setOnClickListener {
+            targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, Intent())
+            dismiss() }
+
+        teachNext.setOnClickListener {
+            if (weight > 0){
+                include.setBackgroundResource(R.drawable.teach_cardview_back_2)
+                btnDone.visibility = View.VISIBLE
+                teachCancel.visibility = View.GONE
+                teachNext.visibility = View.GONE
+                firstTxt.visibility = View.GONE
+                secondTxt.visibility = View.VISIBLE
+                teachConstr.setPadding(0,0,0, 30)
+            }
         }
 
         ivBack.setOnClickListener {
@@ -96,8 +116,17 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
                     before: Int,
                     count: Int
             ) {
-               if (s != null && s.isNotEmpty()) calculate(s)
-                else calculate("0")
+               if (s != null && s.isNotEmpty()){
+                   calculate(s)
+
+
+               }
+                else {
+                   calculate("0")
+//                   include.setBackgroundResource(R.drawable.teach_cardview_back)
+//                   btnDone.visibility = View.GONE
+//                   teachConstr.setPadding(0,0,0, 0)
+               }
             }
         })
     }
@@ -146,6 +175,7 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
                 + getString(R.string.srch_gramm))
         val kcal = round(count * portionSize.toDouble() * basketEntity.calories).toInt().toString()
 
+        this.weight = count
         showResult(kcal, prot, carbo, fats)
     }
 
