@@ -149,7 +149,7 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
         String abVersion = getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
                 getString(ABConfig.KEY_FOR_SAVE_STATE, "default");
         Intent intent = new Intent();
-        if (false) {
+        if (abVersion.equals(ABConfig.A_VERSION)) {
             intent = new Intent(this, AfterQuestionsActivity.class);
         } else {
             markAfterPremRoad();
