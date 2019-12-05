@@ -89,7 +89,6 @@ public class FragmentC extends Fragment
         //View view = inflater.inflate(R.layout.fragment_subscription_one_button_2, container, false);
         View view = inflater.inflate(R.layout.fragment_subscription_c, container, false);
         unbinder = ButterKnife.bind(this, view);
-        Glide.with(getActivity()).load(R.drawable.subscription_one_button_title_img).into(imgTitle);
 
         box = (Box) getArguments().getSerializable(TAG_BOX);
 
