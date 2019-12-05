@@ -8,6 +8,7 @@ import android.view.View;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
+import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.POJOProfile.Profile;
@@ -75,10 +76,22 @@ public class AfterQuestionsActivity extends AppCompatActivity {
     box.setOpenFromPremPart(false);
     box.setBuyFrom(EventProperties.trial_from_onboard);
     box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);
-    startActivities(new Intent[]{
-        new Intent(this, MainActivity.class),
-        new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box),
-    });
+    if (isAfterRoad()){
+      startActivity(new Intent(this, ActivitySplash.class));
+    }else {
+      startActivities(new Intent[]{
+              new Intent(this, MainActivity.class),
+              new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box),
+      });
+    }
+  }
+
+  private boolean isAfterRoad() {
+    boolean isAfterRoad = getSharedPreferences(Config.AFTER_PREM_ROAD, MODE_PRIVATE).getBoolean(Config.AFTER_PREM_ROAD, false);
+    if (isAfterRoad) {
+      getSharedPreferences(Config.AFTER_PREM_ROAD, MODE_PRIVATE).edit().remove(Config.AFTER_PREM_ROAD).commit();
+    }
+    return isAfterRoad;
   }
 
   public void prevQuestion() {

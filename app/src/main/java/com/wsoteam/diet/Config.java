@@ -166,6 +166,10 @@ public class Config {
     public static final int FOURTH_GOAL = 3;
 
 
+    /////
+    public static final String AFTER_PREM_ROAD = "AFTER_PREM_ROAD";
+
+
 
 
 }

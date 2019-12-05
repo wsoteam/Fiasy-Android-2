@@ -44,6 +44,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
+import com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity;
 import com.wsoteam.diet.utils.IntentUtils;
 
 import java.util.ArrayList;
@@ -225,7 +226,12 @@ public class FragmentA extends Fragment
                 Events.logPushButton(EventProperties.push_button_close, box.getBuyFrom());
                 if (box.isOpenFromIntrodaction()) {
                     getActivity().getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE).edit().putString(SavedConst.HOW_END, EventProperties.onboarding_success_close).commit();
-                    final Intent intent = new Intent(getContext(), ActivitySplash.class);
+                    Intent intent = new Intent();
+                    if (isNeedGoNext()){
+                        intent = new Intent(getContext(), AfterQuestionsActivity.class);
+                    }else {
+                        intent = new Intent(getContext(), ActivitySplash.class);
+                    }
                     startActivity(intent);
                     getActivity().finish();
                 } else {
@@ -240,6 +246,10 @@ public class FragmentA extends Fragment
                 break;
 
         }
+    }
+
+    private boolean isNeedGoNext() {
+        return getActivity().getSharedPreferences(Config.AFTER_PREM_ROAD, Context.MODE_PRIVATE).getBoolean(Config.AFTER_PREM_ROAD, false);
     }
 
     @Override
