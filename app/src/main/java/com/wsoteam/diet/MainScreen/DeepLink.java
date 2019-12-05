@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
+import java.util.Calendar;
+
 import androidx.annotation.NonNull;
 
 public class DeepLink {
@@ -16,6 +18,7 @@ public class DeepLink {
         public static final String NUTRITIONIST = "nutritionist";
         public static final String DIETS = "diets";
         public static final String MEASUREMENT = "measurements";
+        public static final String ADD_FOOD = "addfood";
 
     }
 
@@ -63,6 +66,7 @@ public class DeepLink {
             case Start.NUTRITIONIST:
             case Start.DIETS:
             case Start.MEASUREMENT:
+            case Start.ADD_FOOD:
             case Start.RECIPE:{
                 addAction(context, host);
                 return true;
@@ -70,5 +74,30 @@ public class DeepLink {
         }
 
         return false;
+    }
+
+    public static String getDate(){
+        String date;
+        int day, month, year;
+
+        day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        month = Calendar.getInstance().get(Calendar.MONTH);
+        year = Calendar.getInstance().get(Calendar.YEAR);
+
+        if (day < 10) {
+            date = "0" + String.valueOf(day) + ".";
+        } else {
+            date = String.valueOf(day) + ".";
+        }
+
+        if (month < 10) {
+            date += "0" + String.valueOf(month + 1) + ".";
+        } else {
+            date += String.valueOf(month) + ".";
+        }
+
+        date += String.valueOf(year);
+
+        return date;
     }
 }
