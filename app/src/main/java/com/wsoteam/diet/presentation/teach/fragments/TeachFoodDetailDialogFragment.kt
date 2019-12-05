@@ -11,12 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
 import com.wsoteam.diet.presentation.teach.TeachHostFragment
+import com.wsoteam.diet.presentation.teach.TeachUtil
 import kotlinx.android.synthetic.main.fragment_teach_detail.*
 import java.util.ArrayList
 import kotlin.math.round
@@ -30,6 +30,8 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
     private val MINIMAL_PORTION = 1
     private val EMPTY_FIELD = -1
     private var position = 0
+
+    private var isCanceled = true
 
     private var basketEntity: BasketEntity = BasketEntity()
 
@@ -62,11 +64,13 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
                         tvKcalCalculate.text.toString(), spnFood.selectedItemPosition
                 ))
                 targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
+                isCanceled = false
                 dismiss()
             }
         }
 
         teachCancel.setOnClickListener {
+            TeachUtil.setOpened(context, true)
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, Intent())
             dismiss() }
 
@@ -87,6 +91,7 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
             intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_START_SEARCH_DIALOG)
             intent.putExtra(TeachHostFragment.INTENT_MEAL, spinnerId)
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
+            isCanceled = false
             dismiss()
         }
 
@@ -138,7 +143,7 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
         spnFood.adapter = adapter
 
         try {
-            spnFood.setSelection(arguments!!.getInt(TeachHostFragment.MEAL_ARGUMENT, 0))
+            spnFood.setSelection(arguments!!.getInt(TeachHostFragment.INTENT_MEAL, 0))
         } catch (e: NullPointerException) {
             Log.e("error", "arguments == null", e)
         }
@@ -305,6 +310,13 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
         }
 //        saveEntity(basketEntity, selectedItemPosition)
         return basketEntity
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+
+        if(isCanceled)
+        targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, Intent())
     }
 
 }

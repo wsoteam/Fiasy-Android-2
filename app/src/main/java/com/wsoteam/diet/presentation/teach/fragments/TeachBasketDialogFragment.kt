@@ -14,7 +14,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.teach.TeachHostFragment
-import fr.tvbarthel.lib.blurdialogfragment.SupportBlurDialogFragment
 import kotlinx.android.synthetic.main.fragment_teach_basket.*
 
 
@@ -22,6 +21,8 @@ class TeachBasketDialogFragment : DialogFragment() {
 
     private var _style = STYLE_NO_TITLE
     private var _theme = R.style.TeachDialog_NoStatusBar
+
+    private var isCanceled = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +44,7 @@ class TeachBasketDialogFragment : DialogFragment() {
             val intent = Intent()
             intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_SAVE_FOOD)
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
+            isCanceled = false
             dismiss()
         }
     }
@@ -58,5 +60,10 @@ class TeachBasketDialogFragment : DialogFragment() {
         return spannable
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        if(isCanceled)
+        targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, Intent())
+    }
 
 }

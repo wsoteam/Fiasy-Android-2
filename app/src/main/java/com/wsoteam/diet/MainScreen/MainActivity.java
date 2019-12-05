@@ -52,6 +52,7 @@ import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 
 import com.wsoteam.diet.presentation.teach.TeachHostFragment;
+import com.wsoteam.diet.presentation.teach.TeachUtil;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -67,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean isMainFragment = true;
     private Window window;
 
-    private TeachHostFragment teachHost = new TeachHostFragment();
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> setActiveTab(item.getItemId());
@@ -211,12 +211,13 @@ public class MainActivity extends AppCompatActivity {
 
         logEvents();
 
+
         if (Deeplink.isNeedPrem.get()) startPrem();
-        if (TeachHostFragment.Companion.isNeedStart(getApplicationContext()))
+
+
+        if (!TeachUtil.isOpened(getApplicationContext()))
             getSupportFragmentManager().beginTransaction()
-                    .add(teachHost, TeachHostFragment.class.getName()).commit();
-
-
+                    .add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
 
 
     }
@@ -310,6 +311,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
         if (isMainFragment) {
             super.onBackPressed();
         } else {
@@ -320,7 +322,7 @@ public class MainActivity extends AppCompatActivity {
             bnvMain.setSelectedItemId(R.id.bnv_main_diary);
         }
 
-        if (teachHost != null) teachHost.onBackPressed();
+
     }
 
 }

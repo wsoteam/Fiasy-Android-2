@@ -32,6 +32,7 @@ import com.wsoteam.diet.presentation.search.results.controllers.ResultAdapter
 import com.wsoteam.diet.presentation.search.results.controllers.suggestions.ISuggest
 import com.wsoteam.diet.presentation.search.results.controllers.suggestions.SuggestAdapter
 import com.wsoteam.diet.presentation.teach.TeachHostFragment
+import com.wsoteam.diet.presentation.teach.TeachUtil
 import com.wsoteam.diet.utils.hideKeyboard
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -48,6 +49,8 @@ class TeachSearchDialogFragment : DialogFragment() {
     private var isOneWordSearch = true
     private val EMPTY_BRAND = "null"
     private val basketDAO = App.getInstance().foodDatabase.basketDAO()
+
+    private var isCanceled = true
 
     private var _style = STYLE_NO_TITLE
     private var _theme = R.style.TeachDialog_NoStatusBar
@@ -67,12 +70,15 @@ class TeachSearchDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         teachCancel.setOnClickListener {
+            TeachUtil.setOpened(context, true)
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, Intent())
-            dismiss() }
+            dismiss()
+        }
         ivBack.setOnClickListener {
             val intent = Intent()
             intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_START_MEAL_DIALOG)
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
+            isCanceled = false
             dismiss()
         }
 
@@ -90,20 +96,20 @@ class TeachSearchDialogFragment : DialogFragment() {
                 val str = s.toString().replace("\\s+", " ")
 
                 hideSearchResult("".equals(str))
-                if(!"".equals(str)) showSuggestions(str)
+                if (!"".equals(str)) showSuggestions(str)
 
             }
         })
         bindSpinnerChoiceEating()
     }
 
-    private fun hideSearchResult(hide: Boolean){
-        if(hide){
+    private fun hideSearchResult(hide: Boolean) {
+        if (hide) {
             if (rvSuggestionsList.visibility == View.VISIBLE) rvSuggestionsList.visibility = View.GONE
             title_first.visibility = View.VISIBLE
             title_second.visibility = View.GONE
 
-        }else{
+        } else {
             if (rvSuggestionsList.visibility == View.GONE) rvSuggestionsList.visibility = View.VISIBLE
             title_first.visibility = View.GONE
             title_second.visibility = View.GONE
@@ -117,7 +123,7 @@ class TeachSearchDialogFragment : DialogFragment() {
         spnEatingList.adapter = adapter
 
         try {
-            spnEatingList.setSelection(arguments!!.getInt(TeachHostFragment.MEAL_ARGUMENT, 0))
+            spnEatingList.setSelection(arguments!!.getInt(TeachHostFragment.INTENT_MEAL, 0))
         } catch (e: NullPointerException) {
             Log.e("error", "arguments == null", e)
         }
@@ -263,14 +269,14 @@ class TeachSearchDialogFragment : DialogFragment() {
         while (i < foodResult.results.size) {
             try {
                 if (foodResult.results[i].name == null) {
-                    Log.e("LOL", foodResult.results[i].toString())
+
                     foodResult.results.removeAt(i)
                     i--
                 } else if (foodResult.results[i].brand.name.equals(EMPTY_BRAND, ignoreCase = true)) {
                     foodResult.results[i].brand.name = ""
                 }
             } catch (e: Exception) {
-                Log.e("LOL", e.message)
+               e.printStackTrace()
             }
 
             i++
@@ -294,8 +300,7 @@ class TeachSearchDialogFragment : DialogFragment() {
         }
     }
 
-    private fun hideKeyboard(){
-        Log.d("kkk", "hideKeyboard()")
+    private fun hideKeyboard() {
         edtActivityListAndSearchCollapsingSearchField.hideKeyboard()
         title_first.visibility = View.GONE
         title_second.visibility = View.VISIBLE
@@ -350,7 +355,8 @@ class TeachSearchDialogFragment : DialogFragment() {
         }
         return list
     }
-    val teachCallback: ExpandableClickListener = object : ExpandableClickListener{
+
+    val teachCallback: ExpandableClickListener = object : ExpandableClickListener {
         override fun click(basketEntity: BasketEntity?, isNeedSave: Boolean) {
 
         }
@@ -361,13 +367,20 @@ class TeachSearchDialogFragment : DialogFragment() {
         }
     }
 
-fun startNextDialog(basketEntity: BasketEntity?){
-    val intent = Intent()
-    intent.putExtra(TeachHostFragment.INTENT_FOOD, basketEntity)
-    intent.putExtra(TeachHostFragment.INTENT_MEAL, spinnerId)
-    intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_START_FOOD_DIALOG)
-    targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
-    dismiss()
-}
+    fun startNextDialog(basketEntity: BasketEntity?) {
+        val intent = Intent()
+        intent.putExtra(TeachHostFragment.INTENT_FOOD, basketEntity)
+        intent.putExtra(TeachHostFragment.INTENT_MEAL, spinnerId)
+        intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_START_FOOD_DIALOG)
+        targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
+        isCanceled = false
+        dismiss()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        if (isCanceled)
+        targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, Intent())
+    }
 
 }

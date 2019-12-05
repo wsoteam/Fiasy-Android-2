@@ -1,12 +1,9 @@
 package com.wsoteam.diet.presentation.teach
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.Handler
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -23,15 +20,11 @@ import com.wsoteam.diet.common.diary.FoodWork
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
 import com.wsoteam.diet.presentation.teach.fragments.*
 import java.util.*
-import android.content.Context.MODE_PRIVATE
-
-
 
 
 class TeachHostFragment : Fragment() {
 
     companion object {
-        const val MEAL_ARGUMENT = "MEAL_ARGUMENT"
         const val BREAKFAST = 0
         const val LUNCH = 1
         const val DINNER = 2
@@ -41,10 +34,8 @@ class TeachHostFragment : Fragment() {
         const val ACTION_START_MEAL_DIALOG = "ACTION_START_MEAL_DIALOG"
         const val ACTION_START_FOOD_DIALOG = "ACTION_START_FOOD_DIALOG"
         const val ACTION_START_SEARCH_DIALOG = "ACTION_START_SEARCH_DIALOG"
-        const val ACTION_START_DONE_DIALOG = "ACTION_START_DONE_DIALOG"
         const val ACTION_START_BASKET_DIALOG = "ACTION_START_BASKET_DIALOG"
         const val ACTION_SAVE_FOOD = "ACTION_SAVE_FOOD"
-        const val ACTION_CANCEL = "ACTION_CANCEL"
 
         const val INTENT_FOOD = "INTENT_FOOD"
         const val INTENT_MEAL = "INTENT_MEAL"
@@ -56,20 +47,11 @@ class TeachHostFragment : Fragment() {
         const val REQUEST_DONE = 114
         const val REQUEST_BASKET = 115
 
-
-        private val PREFERENCES = "TEACH_STARTED"
-
-        public fun isNeedStart(context : Context): Boolean{
-            val preferences = context.getSharedPreferences(PREFERENCES, MODE_PRIVATE)
-           return if(preferences.contains(PREFERENCES)) {
-                 preferences.getBoolean(PREFERENCES, true)
-            } else  false
-        }
     }
 
 
     private val blur = BlurDialogFragment()
-    private var basketEntity : BasketEntity? = null
+    private var basketEntity: BasketEntity? = null
     private var finalSave: Animation? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -80,8 +62,8 @@ class TeachHostFragment : Fragment() {
         super.onCreate(savedInstanceState)
         retainInstance = true
 
-        startDialog(blur, REQUEST_BLUR, 0)
-        startDialog(TeachMealDialogFragment(), REQUEST_MEAL, 0)
+        startDialog(blur, REQUEST_BLUR)
+        startDialog(TeachMealDialogFragment(), REQUEST_MEAL)
 
         finalSave = AnimationUtils.loadAnimation(activity, R.anim.anim_meas_update)
     }
@@ -93,77 +75,66 @@ class TeachHostFragment : Fragment() {
 
             when (requestCode) {
                 REQUEST_MEAL -> {
-//                    Log.d("kkk", "REQUEST_MEAL")
-//                    when(data?.getStringExtra(ACTION)){
-//
-//
-//                    }
                     val args = Bundle()
-                    args.putInt(MEAL_ARGUMENT,
+                    args.putInt(INTENT_MEAL,
                             data!!.getIntExtra(INTENT_MEAL, 0))
-                    startDialog( TeachSearchDialogFragment(), REQUEST_SEARCH, 0, args)
+                    startDialog(TeachSearchDialogFragment(), REQUEST_SEARCH, args)
 
                 }
                 REQUEST_SEARCH -> {
-                    Log.d("kkk", "REQUEST_SEARCH")
-                    when(data?.getStringExtra(ACTION)){
-                        ACTION_START_MEAL_DIALOG -> {
-                            startDialog(TeachMealDialogFragment(), REQUEST_MEAL, 0)
-                        }
-                        ACTION_START_FOOD_DIALOG ->{
-                            val food = data!!.getSerializableExtra(INTENT_FOOD) as BasketEntity
-                            Log.d("kkk", "food : " + food.name )
 
+                    when (data?.getStringExtra(ACTION)) {
+                        ACTION_START_MEAL_DIALOG -> {
+                            startDialog(TeachMealDialogFragment(), REQUEST_MEAL)
+                        }
+                        ACTION_START_FOOD_DIALOG -> {
+                            val food = data!!.getSerializableExtra(INTENT_FOOD) as BasketEntity
                             val args = Bundle()
-                            args.putInt(MEAL_ARGUMENT,
+                            args.putInt(INTENT_MEAL,
                                     data!!.getIntExtra(INTENT_MEAL, 0))
                             args.putSerializable(INTENT_FOOD, food)
-                            startDialog( TeachFoodDetailDialogFragment(), REQUEST_DETAIL, 0, args)
+                            startDialog(TeachFoodDetailDialogFragment(), REQUEST_DETAIL, args)
 
                         }
                     }
                 }
-                REQUEST_DETAIL ->{
-                    when(data?.getStringExtra(ACTION)){
-                        ACTION_START_SEARCH_DIALOG ->{
+                REQUEST_DETAIL -> {
+                    when (data?.getStringExtra(ACTION)) {
+                        ACTION_START_SEARCH_DIALOG -> {
                             val args = Bundle()
-                            args.putInt(MEAL_ARGUMENT,
+                            args.putInt(INTENT_MEAL,
                                     data!!.getIntExtra(INTENT_MEAL, 0))
-                            startDialog( TeachSearchDialogFragment(), REQUEST_SEARCH, 0, args)
+                            startDialog(TeachSearchDialogFragment(), REQUEST_SEARCH, args)
                         }
-                        ACTION_START_DONE_DIALOG ->{
-                            startDialog( TeachDoneDialogFragment(), REQUEST_DONE, 0)
-                            basketEntity = data!!.getSerializableExtra(INTENT_FOOD) as BasketEntity
-                        }
-                        ACTION_START_BASKET_DIALOG ->{
-                            startDialog( TeachBasketDialogFragment(), REQUEST_BASKET, 0)
+                        ACTION_START_BASKET_DIALOG -> {
+                            startDialog(TeachBasketDialogFragment(), REQUEST_BASKET)
                             basketEntity = data!!.getSerializableExtra(INTENT_FOOD) as BasketEntity
                         }
 
                     }
                 }
 
-                REQUEST_DONE ->{
-                    when(data?.getStringExtra(ACTION)){
-                        ACTION_START_BASKET_DIALOG ->{
-                            startDialog( TeachBasketDialogFragment(), REQUEST_BASKET, 0)
+                REQUEST_DONE -> {
+                    when (data?.getStringExtra(ACTION)) {
+                        ACTION_START_BASKET_DIALOG -> {
+                            startDialog(TeachBasketDialogFragment(), REQUEST_BASKET)
                         }
 
                     }
 
                 }
 
-                REQUEST_BASKET ->{
-                    when(data?.getStringExtra(ACTION)){
-                        ACTION_SAVE_FOOD ->{
-                           val calendar = Calendar.getInstance()
-                         basketEntity?.apply {
-                             FoodWork.saveItem(this,
-                                     calendar.get(Calendar.DAY_OF_MONTH),
-                                     calendar.get(Calendar.MONTH),
-                                     calendar.get(Calendar.YEAR) )
-                             runCountdown()
-                         }
+                REQUEST_BASKET -> {
+                    when (data?.getStringExtra(ACTION)) {
+                        ACTION_SAVE_FOOD -> {
+                            val calendar = Calendar.getInstance()
+                            basketEntity?.apply {
+                                FoodWork.saveItem(this,
+                                        calendar.get(Calendar.DAY_OF_MONTH),
+                                        calendar.get(Calendar.MONTH),
+                                        calendar.get(Calendar.YEAR))
+                                runCountdown()
+                            }
 
 
                         }
@@ -176,27 +147,24 @@ class TeachHostFragment : Fragment() {
         }
 
         if (resultCode == Activity.RESULT_CANCELED) {
-            Log.d("kkk", "RESULT_CANCELED")
-            savePreferences(context!!)
+
+            //TODO
+//            TeachUtil.setOpened(context, true)
             blur.dismiss()
         }
     }
 
-    private fun startDialog(dialogFragment: DialogFragment, request: Int, delay: Long,args: Bundle){
+    private fun startDialog(dialogFragment: DialogFragment, request: Int, args: Bundle) {
         dialogFragment.arguments = args
-        startDialog(dialogFragment, request, delay)
+        startDialog(dialogFragment, request)
     }
 
-    private fun startDialog(dialogFragment: DialogFragment, requestCode: Int, delay : Long){
+    private fun startDialog(dialogFragment: DialogFragment, requestCode: Int) {
         val fm = activity?.supportFragmentManager
         dialogFragment.setTargetFragment(this, requestCode)
-//
-//        val handler = Handler()
-//        val runnable = Runnable {
         fm?.let { dialogFragment.show(fm, dialogFragment.javaClass.name) }
-//        }
-//        handler.postDelayed(runnable, delay)
     }
+
     private fun runCountdown() {
         val toast = Toast(context)
         toast.view = LayoutInflater.from(context).inflate(R.layout.toast_meas_update, null)
@@ -217,18 +185,5 @@ class TeachHostFragment : Fragment() {
             }
         }.start()
     }
-
-    fun onBackPressed(){
-        blur.dismiss()
-    }
-
-    private fun savePreferences(context : Context){
-        val preferences = context.getSharedPreferences(PREFERENCES, MODE_PRIVATE)
-
-        val editor = preferences.edit()
-        editor.putBoolean(PREFERENCES, true)
-        editor.apply()
-    }
-
 
 }

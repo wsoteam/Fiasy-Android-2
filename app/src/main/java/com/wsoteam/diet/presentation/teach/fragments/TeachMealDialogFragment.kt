@@ -12,7 +12,7 @@ import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.teach.TeachHostFragment
 import com.wsoteam.diet.presentation.teach.TeachHostFragment.Companion.INTENT_MEAL
-import fr.tvbarthel.lib.blurdialogfragment.SupportBlurDialogFragment
+import com.wsoteam.diet.presentation.teach.TeachUtil
 import kotlinx.android.synthetic.main.fragment_teach_meal.*
 
 class TeachMealDialogFragment : DialogFragment() {
@@ -20,6 +20,8 @@ class TeachMealDialogFragment : DialogFragment() {
 
     private var _style = STYLE_NO_TITLE
     private var _theme = R.style.TeachDialog_NoStatusBar
+
+    private var isCanceled = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +36,7 @@ class TeachMealDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         teachCancel.setOnClickListener {
+            TeachUtil.setOpened(context, true)
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, Intent())
             dismiss() }
         linearLayoutBreakfast.setOnClickListener { nextDialog(TeachHostFragment.BREAKFAST) }
@@ -47,7 +50,13 @@ class TeachMealDialogFragment : DialogFragment() {
         val intent = Intent()
         intent.putExtra(INTENT_MEAL, meal)
         targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
+        isCanceled = false
         dismiss()
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        if (isCanceled)
+        targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, Intent())
+    }
 }
