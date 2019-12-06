@@ -3,6 +3,7 @@ package com.wsoteam.diet.presentation.teach.fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,10 +11,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 import com.wsoteam.diet.App
 import com.wsoteam.diet.Config
 
@@ -51,6 +55,7 @@ class TeachSearchDialogFragment : DialogFragment() {
     private val basketDAO = App.getInstance().foodDatabase.basketDAO()
 
     private var isCanceled = true
+    private var isCanSpeak = true
 
     private var _style = STYLE_NO_TITLE
     private var _theme = R.style.TeachDialog_NoStatusBar
@@ -59,6 +64,16 @@ class TeachSearchDialogFragment : DialogFragment() {
         super.onCreate(savedInstanceState)
         setStyle(_style, _theme)
 
+    }
+
+    private fun changeSpeakButton(charSequence: CharSequence) {
+        if (charSequence.isNotEmpty() && isCanSpeak) {
+            isCanSpeak = false
+            ibActivityListAndSearchCollapsingCancelButton.setImageDrawable(resources.getDrawable(R.drawable.ic_cancel))
+        } else if (charSequence.isEmpty() && !isCanSpeak) {
+            isCanSpeak = true
+            ibActivityListAndSearchCollapsingCancelButton.setImageDrawable(resources.getDrawable(R.drawable.ic_speak))
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -92,14 +107,26 @@ class TeachSearchDialogFragment : DialogFragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                showSuggestions(s.toString().replaceAll("\\s+", " "))
+                s?.apply {  changeSpeakButton(s)}
                 val str = s.toString().replace("\\s+", " ")
-
-                hideSearchResult("".equals(str))
-                if (!"".equals(str)) showSuggestions(str)
+                hideSearchResult(str.isEmpty())
+                if (str.isNotEmpty()) showSuggestions(str)
 
             }
         })
+
+        edtActivityListAndSearchCollapsingSearchField.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                sendSearchQuery(edtActivityListAndSearchCollapsingSearchField.text
+                        .toString().replace("\\s+", " "))
+                true
+            } else false
+        }
+
+        ibActivityListAndSearchCollapsingCancelButton.setOnClickListener {
+            edtActivityListAndSearchCollapsingSearchField.setText("")
+        }
+
         bindSpinnerChoiceEating()
     }
 
@@ -166,7 +193,7 @@ class TeachSearchDialogFragment : DialogFragment() {
 
     private fun sendSearchQuery(query: String) {
         isOneWordSearch = query.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().size < 2
-//        showLoad()
+        showLoad()
 //        hideSuggestView()
         if (isOneWordSearch) {
             oneWordSearch(query.trim { it <= ' ' })
@@ -174,6 +201,18 @@ class TeachSearchDialogFragment : DialogFragment() {
             manyWordSearch(query.trim { it <= ' ' })
         }
 
+    }
+
+    private fun showLoad() {
+        if (pbLoad.visibility == View.INVISIBLE) {
+            pbLoad.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hideLoad() {
+        if (pbLoad.visibility == View.VISIBLE) {
+            pbLoad.visibility = View.INVISIBLE
+        }
     }
 
     private fun oneWordSearch(searchString: String) {
@@ -323,7 +362,7 @@ class TeachSearchDialogFragment : DialogFragment() {
                 return spinnerId
             }
         }, teachCallback, true)
-//        hideLoad()
+        hideLoad()
     }
 
     private fun createHeadersArray(t: List<ISearchResult>): List<ISearchResult> {
