@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.teach.TeachHostFragment
+import com.wsoteam.diet.presentation.teach.TeachUtil
 import kotlinx.android.synthetic.main.fragment_teach_basket.*
 
 
@@ -44,6 +45,7 @@ class TeachBasketDialogFragment : DialogFragment() {
             val intent = Intent()
             intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_SAVE_FOOD)
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
+            TeachUtil.setOpened(context, true)
             isCanceled = false
             dismiss()
         }

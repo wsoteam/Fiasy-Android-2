@@ -232,7 +232,6 @@ public class MainActivity extends AppCompatActivity {
     private void checkDeepLink(Context context){
 
         String deepLinkAction = DeepLink.getAction(context);
-        Log.d("ukkk", "checkDeepLink: " + deepLinkAction);
         if (deepLinkAction != null)
             switch (deepLinkAction){
                 case DeepLink.Start.PREMIUM:{
