@@ -201,12 +201,29 @@ public class FragmentA extends Fragment
             editor.putBoolean(Config.ALERT_BUY_SUBSCRIPTION, true);
             editor.apply();
 
-            if (box != null && box.isOpenFromIntrodaction()) {
+            if (box.isOpenFromIntrodaction()) {
                 box.setSubscribe(true);
                 getActivity().getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE).edit().putString(SavedConst.HOW_END, EventProperties.onboarding_success_trial).commit();
             }
+            Intent intent = new Intent();
+            if (box.isOpenFromIntrodaction()) {
+                getActivity().getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE).edit().putString(SavedConst.HOW_END, EventProperties.onboarding_success_close).commit();
+                if (isNeedGoNext()){
+                    intent = new Intent(getContext(), AfterQuestionsActivity.class);
+                    if (box.getProfile() != null){
+                        intent.putExtra(Config.INTENT_PROFILE, box.getProfile());
+                    }
+                    startActivity(intent);
+                    getActivity().finish();
+                }else {
+                    intent = new Intent(getContext(), ActivitySplash.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+            } else {
+                intent = new Intent(getContext(), ActivitySplash.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
 
-            IntentUtils.openMainActivity(requireContext());
         }
     }
 
