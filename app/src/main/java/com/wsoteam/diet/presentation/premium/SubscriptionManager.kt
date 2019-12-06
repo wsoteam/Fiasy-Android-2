@@ -17,12 +17,11 @@ import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.SkuDetailsParams
 import com.facebook.appevents.AppEventsConstants
 import com.facebook.appevents.AppEventsLogger
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wsoteam.diet.App
 import com.wsoteam.diet.BuildConfig
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.EventsAdjust
-import com.wsoteam.diet.InApp.Fragments.FragmentSubscriptionOrangeOneButton
+import com.wsoteam.diet.InApp.Fragments.FragmentA
 import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase
 import com.wsoteam.diet.common.Analytics.EventProperties
@@ -61,7 +60,7 @@ object SubscriptionManager {
       CheckAndSetPurchase(App.instance).execute(p.getSku(),
           p.getPurchaseToken(),
           p.getPackageName(),
-          FragmentSubscriptionOrangeOneButton.BUY_NOW)
+          FragmentA.BUY_NOW)
 
       Adjust.trackEvent(AdjustEvent(EventsAdjust.buy_trial))
 

@@ -3,13 +3,13 @@ package com.wsoteam.diet;
 public class ABConfig {
     public static final String KEY_FOR_SAVE_STATE = "KEY_FOR_SAVE_STATE";
     public static final String REQUEST_STRING = "premium_version";
-    public static final String A_VERSION = "green";
-    public static final String B_VERSION = "green_one_button";
-    public static final String C_VERSION = "ua_prem";
+    public static final String A_VERSION = "trial_stock_before";
+    public static final String B_VERSION = "trial_stock_after";
+    public static final String C_VERSION = "trial_pair";
 
 
     //Amplituda key
-    public static final String AB_VERSION = "AB_VERSION";
+    public static final String AB_VERSION = "abtest";
 
 
     public static final String PREMIUM_VERSION = "PREMIUM_VERSION";

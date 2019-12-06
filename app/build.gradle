@@ -14,8 +14,8 @@ android {
         applicationId "com.wild.diet"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 99
-        versionName "3.0.0.1"
+        versionCode 105
+        versionName "3.0.0.7dev"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         renderscriptTargetApi 27
@@ -121,7 +121,8 @@ dependencies {
 
     implementation 'com.bugsee:bugsee-android:+'
 
-    implementation 'com.google.apis:google-api-services-androidpublisher:v2-rev159-1.25.0'
+    //implementation 'com.google.apis:google-api-services-androidpublisher:v2-rev159-1.25.0'
+    implementation 'com.google.apis:google-api-services-androidpublisher:v3-rev130-1.25.0'
 
     implementation 'org.sufficientlysecure:html-textview:3.6'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
@@ -157,7 +158,6 @@ dependencies {
 
     // Calendar
     implementation 'com.appeaser.sublimepickerlibrary:sublimepickerlibrary:2.1.2'
-    implementation project(path: ':horizontal-picker')
     implementation 'joda-time:joda-time:2.9.9'
 
     implementation 'com.github.chyrta:AndroidOnboarder:0.7'

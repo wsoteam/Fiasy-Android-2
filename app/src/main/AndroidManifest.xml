@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wsoteam.diet"
-    android:installLocation="internalOnly">
+    android:installLocation="internalOnly"
+    package="com.wsoteam.diet">
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -31,11 +31,13 @@
             android:name=".articles.ArticleSeriesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Article" />
+
         <activity
             android:name=".articles.BurlakovAuthorActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Article" />
+
         <activity
             android:name=".presentation.promo.PromoFormActivity"
             android:screenOrientation="portrait"
@@ -154,6 +156,11 @@
             android:name=".OtherActivity.ActivityPrivacyPolicy"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemePolicy" />
+
+        <!--<activity-alias
+            android:name=".InApp.ActivitySubscription"
+            android:targetActivity=".presentation.premium.PremiumFeaturesActivity" />-->
+
         <activity
             android:name=".InApp.ActivitySubscription"
             android:exported="true"
@@ -180,24 +187,26 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".presentation.intro.IntroActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name=".presentation.measurment.MeasurmentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MeasurmentsStyle" />
+
         <activity
             android:name=".EntryPoint.ActivitySplash"
             android:screenOrientation="unspecified"
             android:theme="@style/Theme.AppCompat.Translucent">
-
             <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar"> -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -207,7 +216,11 @@
 
                 <data android:scheme="fiasy" />
             </intent-filter>
+
+
         </activity>
+
+
         <activity
             android:name=".MainScreen.MainActivity"
             android:launchMode="singleTop"
@@ -245,6 +258,7 @@
         <meta-data
             android:name="android.app.searchable"
             android:resource="@xml/searchable" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -257,6 +271,7 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -292,6 +307,7 @@
             android:name=".presentation.profile.help.detail.DetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DetailFood" />
+
         <activity
             android:name=".presentation.plans.browse.BrowsePlansActivity"
             android:screenOrientation="portrait"

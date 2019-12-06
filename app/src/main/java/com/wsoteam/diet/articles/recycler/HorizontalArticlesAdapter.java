@@ -52,6 +52,17 @@ public class HorizontalArticlesAdapter extends RecyclerView.Adapter<RecyclerView
   }
 
   public void updateList(List<Article> articles) {
+
+    // выводим бесплатную статью в начало списка
+    for (int i = 0; i < articles.size(); i++){
+      if(articles.get(0) != null && !articles.get(0).isPremium()) break;
+
+      if (!articles.get(i).isPremium()) {
+        articles.add(0, articles.get(i));
+        articles.remove(i + 1);
+        break;
+      }
+    }
     this.articles = articles;
     notifyDataSetChanged();
   }

@@ -388,8 +388,6 @@ public class Events {
         try {
             eventProperties.put(EventProperties.push_button, whichButton);
             eventProperties.put(EventProperties.push_button_from, from);
-            eventProperties.put("purchaseId", purchaseId);
-            eventProperties.put("abtest", AbTests.enableTrials() ? "black_trial" : "black_direct");
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(PREMIUM_NEXT, eventProperties);

@@ -1,7 +1,6 @@
 package com.wsoteam.diet.articles;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,9 +47,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class ListArticlesFragment extends Fragment implements Observer {
+
+  private final int FREE_SERIES_ARTICLE = 1;
 
   @BindView(R.id.clFailSearch) ConstraintLayout constraintLayout;
   @BindView(R.id.rvArticle) RecyclerView recyclerView;
@@ -146,23 +145,6 @@ public class ListArticlesFragment extends Fragment implements Observer {
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
     window.setStatusBarColor(getContext().getResources().getColor(R.color.highlight_line_color));
 
-    adapter = new ListArticlesAdapter(null, clickListener);
-    verticalArticlesAdapter = new VerticalArticlesAdapter(null);
-
-    model = ViewModelProviders.of(this).get(ArticleViewModel.class);
-    data = model.getData();
-    data.observe(this,
-        new androidx.lifecycle.Observer<ApiResult<Article>>() {
-          @Override
-          public void onChanged(ApiResult<Article> articleApiResult) {
-            sectionArticles = new SectionArticles(articleApiResult.getResults(), getContext());
-            adapter.updateData(articleApiResult.getResults());
-            verticalArticlesAdapter.setData(sectionArticles.getGroups());
-            verticalArticlesAdapter.SetOnItemClickListener(onItemClickListener);
-          }
-        });
-
-
     View view = inflater.inflate(R.layout.fragment_list_articles, container, false);
     unbinder = ButterKnife.bind(this, view);
     appBarLayout.setLiftable(true);
@@ -171,11 +153,36 @@ public class ListArticlesFragment extends Fragment implements Observer {
     mToolbar.setNavigationIcon(null);
     mToolbar.setNavigationOnClickListener(onClickListener);
 
+    return view;
+  }
+
+
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
 
     Menu menu = mToolbar.getMenu();
     MenuItem mSearch = menu.findItem(R.id.action_search);
     SearchView mSearchView = (SearchView) mSearch.getActionView();
     mSearchView.setOnQueryTextListener(textListener);
+
+    adapter = new ListArticlesAdapter(null, clickListener);
+    verticalArticlesAdapter = new VerticalArticlesAdapter(null);
+
+    model = ViewModelProviders.of(this).get(ArticleViewModel.class);
+    data = model.getData();
+    data.observe(this,
+            new androidx.lifecycle.Observer<ApiResult<Article>>() {
+              @Override
+              public void onChanged(ApiResult<Article> articleApiResult) {
+
+                Log.d("ukkk", articleApiResult.getResults().size() + "");
+                sectionArticles = new SectionArticles(articleApiResult.getResults(), getContext());
+                adapter.updateData(articleApiResult.getResults());
+                verticalArticlesAdapter.updateData(sectionArticles.getGroups());
+                verticalArticlesAdapter.SetOnItemClickListener(onItemClickListener);
+              }
+            });
 
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(verticalArticlesAdapter);
@@ -195,7 +202,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
         appBarLayout.setLiftable(firstVisibleItem == 0);
       }
     });
-    return view;
+
   }
 
   @Override

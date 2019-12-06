@@ -113,8 +113,8 @@ public class InsideAdapter extends RecyclerView.Adapter<InsideViewHolder> {
                 String dayS = String.valueOf(day), mealS, recipeNumberS;
 
                 if (day >= plan.getRecipeForDays().size()) return;
-
                 RecipeForDay recipeForDay = plan.getRecipeForDays().get(day);
+
                 if (getRecipePosition(recipeForDay.getBreakfast(), eating.getName()) != null){
                     mealS = "breakfast";
                     recipeNumberS = getRecipePosition(recipeForDay.getBreakfast(), eating.getName());

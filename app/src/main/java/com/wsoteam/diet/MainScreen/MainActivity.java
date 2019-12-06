@@ -1,5 +1,6 @@
 package com.wsoteam.diet.MainScreen;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -42,21 +43,25 @@ import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodDB;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
+import com.wsoteam.diet.articles.ArticleSeriesActivity;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
+import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.common.remote.UpdateChecker;
 import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.model.ArticleViewModel;
+import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 
 import com.wsoteam.diet.presentation.teach.TeachHostFragment;
 import com.wsoteam.diet.presentation.teach.TeachUtil;
 
+import com.wsoteam.diet.presentation.search.ParentActivity;
+
 import java.util.Calendar;
 import java.util.Locale;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -158,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
     handlGrade(Calendar.getInstance().getTimeInMillis());
     new UpdateChecker(this).runChecker();
     Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
+
   }
 
     private void handlGrade(long currentTime) {
@@ -212,8 +218,9 @@ public class MainActivity extends AppCompatActivity {
         logEvents();
 
 
-        if (Deeplink.isNeedPrem.get()) startPrem();
+        BodyCalculates.handleProfile();
 
+        checkDeepLink(getApplicationContext());
 
         if (!TeachUtil.isOpened(getApplicationContext()))
             getSupportFragmentManager().beginTransaction()
@@ -221,6 +228,56 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private void checkDeepLink(Context context){
+
+        String deepLinkAction = DeepLink.getAction(context);
+        Log.d("ukkk", "checkDeepLink: " + deepLinkAction);
+        if (deepLinkAction != null)
+            switch (deepLinkAction){
+                case DeepLink.Start.PREMIUM:{
+                    startPrem();
+                    DeepLink.deleteAction(context);
+                    break;
+                }
+
+                case DeepLink.Start.ARTICLE: {
+                    bnvMain.setSelectedItemId(R.id.bnv_main_articles);
+                    DeepLink.deleteAction(context);
+                    break;
+                }
+                case DeepLink.Start.RECIPE:{
+                    bnvMain.setSelectedItemId(R.id.bnv_main_recipes);
+                    DeepLink.deleteAction(context);
+                    break;
+                }
+
+                case DeepLink.Start.DIETS:{
+                    bnvMain.setSelectedItemId(R.id.bnv_main_trainer);
+                    DeepLink.deleteAction(context);
+                    break;
+                }
+
+                case DeepLink.Start.NUTRITIONIST:{
+                    startActivity(new Intent(context, ArticleSeriesActivity.class));
+                    DeepLink.deleteAction(context);
+                    break;
+                }
+                case DeepLink.Start.MEASUREMENT:{
+                    startActivity(new Intent(context, MeasurmentActivity.class));
+                    DeepLink.deleteAction(context);
+                    break;
+                }
+                case DeepLink.Start.ADD_FOOD:{
+                    startActivity(new Intent(context, ParentActivity.class).putExtra(Config.INTENT_DATE_FOR_SAVE, DeepLink.getDate()));
+                    DeepLink.deleteAction(context);
+                    break;
+                }
+
+            }
+    }
+
+
 
   private void logEvents() {
     if (getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).getBoolean(
