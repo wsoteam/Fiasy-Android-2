@@ -3,21 +3,13 @@ package com.wsoteam.diet.InApp.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
@@ -45,11 +37,13 @@ import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
 import com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity;
-import com.wsoteam.diet.utils.IntentUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -62,6 +56,8 @@ public class FragmentA extends Fragment
     TextView textView;
     @BindView(R.id.btnBack)
     ImageView btnBack;
+    @BindView(R.id.textView18)
+    TextView tvNext;
 
 
     private BillingClient billingClient;
@@ -95,6 +91,9 @@ public class FragmentA extends Fragment
         if (box.isOpenFromIntrodaction()) {
             btnBack.setVisibility(View.GONE);
             getActivity().getSharedPreferences(SavedConst.SEE_PREMIUM, Context.MODE_PRIVATE).edit().putBoolean(SavedConst.SEE_PREMIUM, true).commit();
+        } else {
+            tvNext.setVisibility(View.GONE);
+            btnBack.setVisibility(View.VISIBLE);
         }
 
 
@@ -208,14 +207,14 @@ public class FragmentA extends Fragment
             Intent intent = new Intent();
             if (box.isOpenFromIntrodaction()) {
                 getActivity().getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE).edit().putString(SavedConst.HOW_END, EventProperties.onboarding_success_close).commit();
-                if (isNeedGoNext()){
+                if (isNeedGoNext()) {
                     intent = new Intent(getContext(), AfterQuestionsActivity.class);
-                    if (box.getProfile() != null){
+                    if (box.getProfile() != null) {
                         intent.putExtra(Config.INTENT_PROFILE, box.getProfile());
                     }
                     startActivity(intent);
                     getActivity().finish();
-                }else {
+                } else {
                     intent = new Intent(getContext(), ActivitySplash.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
@@ -245,12 +244,12 @@ public class FragmentA extends Fragment
                 if (box.isOpenFromIntrodaction()) {
                     getActivity().getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE).edit().putString(SavedConst.HOW_END, EventProperties.onboarding_success_close).commit();
                     Intent intent = new Intent();
-                    if (isNeedGoNext()){
+                    if (isNeedGoNext()) {
                         intent = new Intent(getContext(), AfterQuestionsActivity.class);
-                        if (box.getProfile() != null){
+                        if (box.getProfile() != null) {
                             intent.putExtra(Config.INTENT_PROFILE, box.getProfile());
                         }
-                    }else {
+                    } else {
                         intent = new Intent(getContext(), ActivitySplash.class);
                     }
                     startActivity(intent);

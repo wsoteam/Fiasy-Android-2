@@ -30,13 +30,12 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="32dp"
             android:padding="4dp"
             android:scaleType="fitCenter"
             android:tint="#000"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/space2"
             app:srcCompat="@drawable/ic_prem_back" />
 
         <ImageView
@@ -129,12 +128,12 @@
             android:id="@+id/cardView17"
             android:layout_width="146dp"
             android:layout_height="192dp"
-            android:layout_marginTop="69dp"
+            android:layout_marginTop="24dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@+id/cvTopLeft">
 
             <ImageView
                 android:id="@+id/ivCentral"
@@ -148,12 +147,12 @@
             android:id="@+id/cvTopRight"
             android:layout_width="86dp"
             android:layout_height="109dp"
-            android:layout_marginTop="39dp"
+            android:layout_marginTop="4dp"
             android:translationX="10dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="6dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@+id/cvTopLeft">
 
             <ImageView
                 android:id="@+id/ivTopRight"
@@ -206,12 +205,12 @@
             android:id="@+id/cvTopLeft"
             android:layout_width="122dp"
             android:layout_height="135dp"
-            android:layout_marginTop="43dp"
+            android:layout_marginTop="8dp"
             android:translationX="-50dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="6dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/btnBack">
 
             <ImageView
                 android:id="@+id/ivTopLeft"
@@ -220,6 +219,14 @@
                 android:scaleType="fitXY"
                 app:srcCompat="@drawable/top_left_prem" />
         </androidx.cardview.widget.CardView>
+
+        <Space
+            android:id="@+id/space2"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
