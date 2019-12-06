@@ -3,7 +3,6 @@ package com.wsoteam.diet.presentation.teach.fragments
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,8 +15,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 import com.wsoteam.diet.App
 import com.wsoteam.diet.Config
 
