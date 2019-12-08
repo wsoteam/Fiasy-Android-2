@@ -55,6 +55,7 @@ import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.presentation.search.ParentActivity;
+import com.wsoteam.diet.views.fabmenu.FloatingActionMenu;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             = item -> setActiveTab(item.getItemId());
 
     private boolean setActiveTab(int id){
+        String DIARY_TAG = "DIARY_TAG";
         transaction = getSupportFragmentManager().beginTransaction();
         window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -83,11 +85,22 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().popBackStack(Config.RECIPE_BACK_STACK, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
+        DiaryFragment diaryFragment = (DiaryFragment)getSupportFragmentManager().findFragmentByTag(DIARY_TAG);
+        if (diaryFragment != null && diaryFragment.isVisible()){
+            FloatingActionMenu menu = diaryFragment.getMenu();
+            if (menu != null) {
+                Log.d("kkk", "menu != null");
+                menu.close(true);
+            } else {
+                Log.d("kkk", "menu == null");
+            }
+        }
+
         switch (id) {
             case R.id.bnv_main_diary:
                 isMainFragment = true;
-                transaction.replace(R.id.flFragmentContainer, new DiaryFragment()).commit();
-                window.setStatusBarColor(Color.parseColor("#AE6A23"));
+                transaction.replace(R.id.flFragmentContainer, new DiaryFragment(), DIARY_TAG).commit();
+//                window.setStatusBarColor(Color.parseColor("#AE6A23"));
                 return true;
             case R.id.bnv_main_articles:
                 Amplitude.getInstance().logEvent(Events.CHOOSE_ARTICLES);
@@ -221,7 +234,6 @@ public class MainActivity extends AppCompatActivity {
     private void checkDeepLink(Context context){
 
         String deepLinkAction = DeepLink.getAction(context);
-        Log.d("ukkk", "checkDeepLink: " + deepLinkAction);
         if (deepLinkAction != null)
             switch (deepLinkAction){
                 case DeepLink.Start.PREMIUM:{

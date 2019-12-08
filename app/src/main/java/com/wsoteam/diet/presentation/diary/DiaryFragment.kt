@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.recyclerview.widget.RecyclerView.State
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
@@ -65,6 +66,8 @@ class DiaryFragment : Fragment() {
 
     private val calendar = Calendar.getInstance()
     protected val targets = hashMapOf<View, Target>()
+
+    private var menu : FloatingActionMenu? = null
 
     private lateinit var premiumContainer: View
 
@@ -213,7 +216,11 @@ class DiaryFragment : Fragment() {
                 val scrollingDown = scrollY > oldScrollY
                 val spaceLeft = premiumContainer.height + premiumContainer.translationY
 
-                if (scrollingDown)  floatingActionButton.hide()
+                if (scrollingDown)  {
+                    menu?.close(true)
+                    background(false)
+                    floatingActionButton.hide()
+                }
                 else  floatingActionButton.show()
 
                 currentState = if (spaceLeft == 0f) Hiden else Revealed
@@ -342,11 +349,16 @@ class DiaryFragment : Fragment() {
 
         updateTitle()
 
-        addFab(activity!!)
+        addFab(activity!!, floatingActionButton)
 
     }
 
-    private fun addFab(activity: Activity){
+    private fun background(isNeed: Boolean){
+        if (isNeed) background.visibility = View.VISIBLE
+        else background.visibility = View.INVISIBLE
+    }
+
+    private fun addFab(activity: Activity, fab: FloatingActionButton){
         val icon = ImageView(activity)
 
         val builder = SubActionButton.Builder(activity)
@@ -366,13 +378,27 @@ class DiaryFragment : Fragment() {
         icon.setImageResource(R.drawable.detail_food_back)
         val dBtn = builder.setContentView(icon).build()
 
-        FloatingActionMenu.Builder(activity)
+        menu = FloatingActionMenu.Builder(activity)
                 .addSubActionView(removeBtn)
                 .addSubActionView(deleteBtn)
                 .addSubActionView(fBtn)
                 .addSubActionView(dBtn)
-                .attachTo(floatingActionButton)
+                .attachTo(fab)
+                .setStateChangeListener(object : FloatingActionMenu.MenuStateChangeListener{
+                    override fun onMenuOpened(menu: FloatingActionMenu?) {
+                        background(true)
+                    }
+
+                    override fun onMenuClosed(menu: FloatingActionMenu?) {
+                        background(false)
+                    }
+                })
                 .build()
+    }
+
+    fun getMenu() : FloatingActionMenu?{
+        Log.d("kkk", "ff")
+        return menu
     }
 
     private var oldStatusBarColor = 0
@@ -401,6 +427,7 @@ class DiaryFragment : Fragment() {
         if (oldStatusBarColor != 0) {
             activity?.window?.statusBarColor = oldStatusBarColor
         }
+
     }
 
     private fun toggleCalendar() {
