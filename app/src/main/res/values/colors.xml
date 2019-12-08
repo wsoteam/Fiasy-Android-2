@@ -174,4 +174,6 @@
   <color name="premium_card_selected_border">#ffe600</color>
   <color name="premium_button_buy_gold_color">#D2A956</color>
   <color name="premium_button_buy_ordinary_color">#FFFFFF</color>
+
+  <color name="fab_color">#ef7d02</color>
 </resources>

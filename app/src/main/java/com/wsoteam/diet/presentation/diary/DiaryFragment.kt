@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.diary
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -8,11 +9,13 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnPreDrawListener
 import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.NestedScrollView
 import androidx.core.widget.NestedScrollView.OnScrollChangeListener
@@ -42,6 +45,9 @@ import com.wsoteam.diet.utils.getVectorIcon
 import com.wsoteam.diet.views.CompactCalendarView
 import com.wsoteam.diet.views.CompactCalendarView.CompactCalendarViewListener
 import com.wsoteam.diet.views.GuardNestedScrollView
+import com.wsoteam.diet.views.fabmenu.FloatingActionMenu
+import com.wsoteam.diet.views.fabmenu.SubActionButton
+import kotlinx.android.synthetic.main.fragment_diary.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -207,6 +213,9 @@ class DiaryFragment : Fragment() {
                 val scrollingDown = scrollY > oldScrollY
                 val spaceLeft = premiumContainer.height + premiumContainer.translationY
 
+                if (scrollingDown)  floatingActionButton.hide()
+                else  floatingActionButton.show()
+
                 currentState = if (spaceLeft == 0f) Hiden else Revealed
 
                 var nextState = currentState
@@ -249,6 +258,7 @@ class DiaryFragment : Fragment() {
                     currentState = nextState
                 }
                 animator.start()
+
             }
         })
 
@@ -331,6 +341,13 @@ class DiaryFragment : Fragment() {
         })
 
         updateTitle()
+
+        addFab(activity!!)
+
+    }
+
+    private fun addFab(activity: Activity){
+
     }
 
     private var oldStatusBarColor = 0
