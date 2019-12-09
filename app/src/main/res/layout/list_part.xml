@@ -31,6 +31,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/textView45"
         android:layout_width="253dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -42,111 +43,143 @@
         app:layout_constraintTop_toBottomOf="@+id/textView44" />
 
     <TextView
+        android:id="@+id/textView53"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/premium_feature_measurements"
         android:textColor="#c0000000"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="-10dp"
-        tools:layout_editor_absoluteY="328dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageView69"
+        app:layout_constraintStart_toEndOf="@+id/imageView69"
+        app:layout_constraintTop_toTopOf="@+id/imageView69" />
 
     <TextView
+        android:id="@+id/textView47"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/premium_feature_exclusive_recipes"
         android:textColor="#c0000000"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="-10dp"
-        tools:layout_editor_absoluteY="328dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageView39"
+        app:layout_constraintStart_toEndOf="@+id/imageView39"
+        app:layout_constraintTop_toTopOf="@+id/imageView39" />
 
     <ImageView
+        android:id="@+id/imageView39"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/ic_premium_receipts"
-        tools:layout_editor_absoluteX="-10dp"
-        tools:layout_editor_absoluteY="328dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView45" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/textView48"
+        android:layout_width="292dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/roboto"
         android:text="@string/premium_feature_exclusive_recipes_description"
         android:textColor="#8a000000"
         android:textSize="14sp"
-        tools:layout_editor_absoluteX="-10dp"
-        tools:layout_editor_absoluteY="328dp" />
+        app:layout_constraintStart_toStartOf="@+id/textView47"
+        app:layout_constraintTop_toBottomOf="@+id/textView47" />
 
     <TextView
+        android:id="@+id/textView49"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/premium_feature_personal_settings"
         android:textColor="#c0000000"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="-10dp"
-        tools:layout_editor_absoluteY="328dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageView38"
+        app:layout_constraintStart_toEndOf="@+id/imageView38"
+        app:layout_constraintTop_toTopOf="@+id/imageView38" />
 
     <ImageView
+        android:id="@+id/imageView38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="19dp"
         android:src="@drawable/ic_premium_personal_settings"
-        tools:layout_editor_absoluteX="-10dp"
-        tools:layout_editor_absoluteY="328dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView48" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/textView50"
+        android:layout_width="293dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/roboto"
         android:text="@string/premium_feature_personal_settings_description"
         android:textColor="#8a000000"
         android:textSize="14sp"
-        tools:layout_editor_absoluteX="-10dp"
-        tools:layout_editor_absoluteY="328dp" />
+        app:layout_constraintStart_toStartOf="@+id/textView49"
+        app:layout_constraintTop_toBottomOf="@+id/textView49" />
 
     <TextView
+        android:id="@+id/textView51"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/premium_feature_exclusive_plans"
         android:textColor="#c0000000"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="-10dp"
-        tools:layout_editor_absoluteY="328dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageView68"
+        app:layout_constraintStart_toEndOf="@+id/imageView68"
+        app:layout_constraintTop_toTopOf="@+id/imageView68"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
+        android:id="@+id/imageView68"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="19dp"
         android:src="@drawable/ic_premium_custom_plans"
-        tools:layout_editor_absoluteX="-10dp"
-        tools:layout_editor_absoluteY="328dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView50" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/textView52"
+        android:layout_width="293dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/roboto"
         android:text="@string/premium_feature_exclusive_plans_description"
         android:textColor="#8a000000"
         android:textSize="14sp"
-        tools:layout_editor_absoluteX="-10dp"
-        tools:layout_editor_absoluteY="328dp" />
+        app:layout_constraintStart_toStartOf="@+id/textView51"
+        app:layout_constraintTop_toBottomOf="@+id/textView51" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="293dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/roboto"
         android:text="@string/premium_feature_measurements_description"
         android:textColor="#8a000000"
         android:textSize="14sp"
-        tools:layout_editor_absoluteX="-10dp"
-        tools:layout_editor_absoluteY="328dp" />
+        app:layout_constraintStart_toStartOf="@+id/textView53"
+        app:layout_constraintTop_toBottomOf="@+id/textView53" />
 
     <ImageView
+        android:id="@+id/imageView69"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="19dp"
         android:src="@drawable/ic_premium_measurements"
-        tools:layout_editor_absoluteX="-10dp"
-        tools:layout_editor_absoluteY="328dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView52" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
