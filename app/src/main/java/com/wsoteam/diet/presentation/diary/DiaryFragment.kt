@@ -35,6 +35,7 @@ import com.wsoteam.diet.InApp.ActivitySubscription
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.common.Analytics.EventProperties
+import com.wsoteam.diet.presentation.MainFabMenu
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Hiden
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Revealed
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
@@ -66,6 +67,8 @@ class DiaryFragment : Fragment() {
 
     private val calendar = Calendar.getInstance()
     protected val targets = hashMapOf<View, Target>()
+
+    private var fabListener : MainFabMenu.Scroll? = null
 
     private var menu : FloatingActionMenu? = null
 
@@ -129,6 +132,10 @@ class DiaryFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         return inflater.inflate(R.layout.fragment_diary, parent, false)
+    }
+
+    public fun setFabListener(fabListener : MainFabMenu.Scroll?){
+        this.fabListener = fabListener
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -216,12 +223,8 @@ class DiaryFragment : Fragment() {
                 val scrollingDown = scrollY > oldScrollY
                 val spaceLeft = premiumContainer.height + premiumContainer.translationY
 
-                if (scrollingDown)  {
-                    menu?.close(true)
-                    background(false)
-                    floatingActionButton.hide()
-                }
-                else  floatingActionButton.show()
+                if (scrollingDown) fabListener?.down()
+                else  fabListener?.up()
 
                 currentState = if (spaceLeft == 0f) Hiden else Revealed
 
@@ -349,52 +352,52 @@ class DiaryFragment : Fragment() {
 
         updateTitle()
 
-        addFab(activity!!, floatingActionButton)
+//        addFab(activity!!, floatingActionButton)
 
     }
 
-    private fun background(isNeed: Boolean){
-        if (isNeed) background.visibility = View.VISIBLE
-        else background.visibility = View.INVISIBLE
-    }
+//    private fun background(isNeed: Boolean){
+//        if (isNeed) background.visibility = View.VISIBLE
+//        else background.visibility = View.INVISIBLE
+//    }
 
-    private fun addFab(activity: Activity, fab: FloatingActionButton){
-        val icon = ImageView(activity)
-
-        val builder = SubActionButton.Builder(activity)
-
-        val deleteIcon = ImageView(activity)
-        deleteIcon.setImageResource(R.drawable.close_bs)
-        val deleteBtn = builder.setContentView(deleteIcon).build()
-
-        val removeIcon = ImageView(activity)
-        removeIcon.setImageResource(R.drawable.detail_food_back)
-        val removeBtn = builder.setContentView(removeIcon).build()
-
-        val fIcon = ImageView(activity)
-        fIcon.setImageResource(R.drawable.detail_food_back)
-        val fBtn = builder.setContentView(fIcon).build()
-
-        icon.setImageResource(R.drawable.detail_food_back)
-        val dBtn = builder.setContentView(icon).build()
-
-        menu = FloatingActionMenu.Builder(activity)
-                .addSubActionView(removeBtn)
-                .addSubActionView(deleteBtn)
-                .addSubActionView(fBtn)
-                .addSubActionView(dBtn)
-                .attachTo(fab)
-                .setStateChangeListener(object : FloatingActionMenu.MenuStateChangeListener{
-                    override fun onMenuOpened(menu: FloatingActionMenu?) {
-                        background(true)
-                    }
-
-                    override fun onMenuClosed(menu: FloatingActionMenu?) {
-                        background(false)
-                    }
-                })
-                .build()
-    }
+//    private fun addFab(activity: Activity, fab: FloatingActionButton){
+//        val icon = ImageView(activity)
+//
+//        val builder = SubActionButton.Builder(activity)
+//
+//        val deleteIcon = ImageView(activity)
+//        deleteIcon.setImageResource(R.drawable.close_bs)
+//        val deleteBtn = builder.setContentView(deleteIcon).build()
+//
+//        val removeIcon = ImageView(activity)
+//        removeIcon.setImageResource(R.drawable.detail_food_back)
+//        val removeBtn = builder.setContentView(removeIcon).build()
+//
+//        val fIcon = ImageView(activity)
+//        fIcon.setImageResource(R.drawable.detail_food_back)
+//        val fBtn = builder.setContentView(fIcon).build()
+//
+//        icon.setImageResource(R.drawable.detail_food_back)
+//        val dBtn = builder.setContentView(icon).build()
+//
+//        menu = FloatingActionMenu.Builder(activity)
+//                .addSubActionView(removeBtn)
+//                .addSubActionView(deleteBtn)
+//                .addSubActionView(fBtn)
+//                .addSubActionView(dBtn)
+//                .attachTo(fab)
+//                .setStateChangeListener(object : FloatingActionMenu.MenuStateChangeListener{
+//                    override fun onMenuOpened(menu: FloatingActionMenu?) {
+//                        background(true)
+//                    }
+//
+//                    override fun onMenuClosed(menu: FloatingActionMenu?) {
+//                        background(false)
+//                    }
+//                })
+//                .build()
+//    }
 
     fun getMenu() : FloatingActionMenu?{
         Log.d("kkk", "ff")

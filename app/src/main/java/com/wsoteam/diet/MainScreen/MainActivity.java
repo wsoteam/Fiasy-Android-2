@@ -23,6 +23,7 @@ import butterknife.OnClick;
 import com.amplitude.api.Amplitude;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,6 +50,7 @@ import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.common.remote.UpdateChecker;
+import com.wsoteam.diet.presentation.MainFabMenu;
 import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.model.ArticleViewModel;
 import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
@@ -65,16 +67,41 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.flFragmentContainer) FrameLayout flFragmentContainer;
     @BindView(R.id.bnv_main) BottomNavigationView bnvMain;
     @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
+    @BindView(R.id.floatingActionButton) FloatingActionButton fab;
     private FragmentTransaction transaction;
     private BottomSheetBehavior bottomSheetBehavior;
     private boolean isMainFragment = true;
     private Window window;
 
+    private FloatingActionMenu fabMenu;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> setActiveTab(item.getItemId());
 
+    private MainFabMenu.Scroll fabListener = new MainFabMenu.Scroll() {
+        @Override
+        public void up() {
+            Log.d("kkk", "up");
+           showFab();
+        }
+
+        @Override
+        public void down() {
+            Log.d("kkk", "down");
+           hidefab();
+        }
+    };
+
+    private void hidefab(){
+        if (fabMenu != null) fabMenu.close(true);
+
+        fab.hide();
+    }
+
+    private void showFab(){
+        fab.show();
+    }
     private boolean setActiveTab(int id){
-        String DIARY_TAG = "DIARY_TAG";
         transaction = getSupportFragmentManager().beginTransaction();
         window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -85,23 +112,18 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().popBackStack(Config.RECIPE_BACK_STACK, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-        DiaryFragment diaryFragment = (DiaryFragment)getSupportFragmentManager().findFragmentByTag(DIARY_TAG);
-        if (diaryFragment != null && diaryFragment.isVisible()){
-            FloatingActionMenu menu = diaryFragment.getMenu();
-            if (menu != null) {
-                Log.d("kkk", "menu != null");
-                menu.close(true);
-            } else {
-                Log.d("kkk", "menu == null");
-            }
-        }
+        hidefab();
 
         switch (id) {
-            case R.id.bnv_main_diary:
+            case R.id.bnv_main_diary: {
                 isMainFragment = true;
-                transaction.replace(R.id.flFragmentContainer, new DiaryFragment(), DIARY_TAG).commit();
+                DiaryFragment fragment = new DiaryFragment();
+                fragment.setFabListener(fabListener);
+                transaction.replace(R.id.flFragmentContainer, fragment).commit();
 //                window.setStatusBarColor(Color.parseColor("#AE6A23"));
+                showFab();
                 return true;
+            }
             case R.id.bnv_main_articles:
                 Amplitude.getInstance().logEvent(Events.CHOOSE_ARTICLES);
                 box.setComeFrom(AmplitudaEvents.view_prem_content);
@@ -203,13 +225,16 @@ public class MainActivity extends AppCompatActivity {
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-
+        DiaryFragment fragment = new  DiaryFragment();
+        fragment.setFabListener(fabListener);
         if (getSupportFragmentManager().findFragmentByTag("diary") == null) {
             getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.flFragmentContainer, new DiaryFragment(), "diary")
+                .add(R.id.flFragmentContainer, fragment, "diary")
                 .commit();
         }
+
+        fabMenu = MainFabMenu.Companion.initFabMenu(this, fab);
 
         //checkForcedGrade();
         new AsyncWriteFoodDB().execute(MainActivity.this);
@@ -230,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
 
         checkDeepLink(getApplicationContext());
     }
+
 
     private void checkDeepLink(Context context){
 

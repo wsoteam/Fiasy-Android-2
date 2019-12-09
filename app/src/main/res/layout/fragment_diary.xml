@@ -80,27 +80,9 @@
           app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
           />
 
-      <View
-          android:id="@+id/background"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:background="@color/fab_black"
-          android:visibility="invisible"/>
-
     </FrameLayout>
   </com.wsoteam.diet.views.GuardNestedScrollView>
 
   <include layout="@layout/view_premium_banner" />
-
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
-      android:id="@+id/floatingActionButton"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:backgroundTint="@color/fab_color"
-      android:layout_gravity="bottom|end"
-      android:src="@drawable/ic_start_action"
-      android:layout_margin="16dp"
-      android:clickable="true" />
-
 
 </FrameLayout>
