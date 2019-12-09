@@ -17,6 +17,7 @@ import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
 import com.wsoteam.diet.presentation.teach.TeachHostFragment
 import com.wsoteam.diet.presentation.teach.TeachUtil
+import com.wsoteam.diet.utils.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_teach_detail.*
 import java.util.ArrayList
 import kotlin.math.round
@@ -70,7 +71,7 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
         }
 
         teachCancel.setOnClickListener {
-            TeachUtil.setOpened(context, true)
+            TeachUtil.setOpen(context, false)
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, Intent())
             dismiss() }
 
@@ -83,6 +84,7 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
                 firstTxt.visibility = View.GONE
                 secondTxt.visibility = View.VISIBLE
                 teachConstr.setPadding(0,0,0, 30)
+                edtWeightCalculate.hideKeyboard()
             }
         }
 

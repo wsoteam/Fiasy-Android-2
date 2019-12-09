@@ -11,32 +11,32 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif-medium"
         android:lineSpacingExtra="6sp"
         android:text="@string/teach_meal_title"
         android:textColor="@android:color/white"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/teachTxt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/teachTxt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif-medium"
         android:lineSpacingExtra="4sp"
         android:text="@string/teach_meal_txt"
         android:textColor="@android:color/white"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teachTitle" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
@@ -46,7 +46,7 @@
         app:layout_constraintBottom_toTopOf="@+id/teachCancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teachTxt">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -56,10 +56,10 @@
                 android:id="@+id/textView12"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:gravity="center_vertical"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical"
                 android:lineSpacingExtra="4sp"
                 android:text="@string/teach_meal"
                 android:textColor="#de000000"
@@ -73,10 +73,10 @@
                 android:id="@+id/linearLayoutBreakfast"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:orientation="horizontal"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView12">
@@ -108,10 +108,10 @@
                 android:id="@+id/linearLayoutLunch"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:orientation="horizontal"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayoutBreakfast">
@@ -143,10 +143,10 @@
                 android:id="@+id/linearLayoutDinner"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:orientation="horizontal"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayoutLunch">
@@ -178,10 +178,10 @@
                 android:id="@+id/linearLayoutSnack"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:orientation="horizontal"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayoutDinner">

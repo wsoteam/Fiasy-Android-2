@@ -150,7 +150,7 @@ class TeachHostFragment : Fragment() {
         if (resultCode == Activity.RESULT_CANCELED) {
 
             //TODO
-//            TeachUtil.setOpened(context, true)
+//            TeachUtil.setOpen(context, false)
             blur.dismiss()
         }
     }

@@ -36,7 +36,7 @@ class TeachMealDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         teachCancel.setOnClickListener {
-            TeachUtil.setOpened(context, true)
+            TeachUtil.setOpen(context, false)
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, Intent())
             dismiss() }
         linearLayoutBreakfast.setOnClickListener { nextDialog(TeachHostFragment.BREAKFAST) }

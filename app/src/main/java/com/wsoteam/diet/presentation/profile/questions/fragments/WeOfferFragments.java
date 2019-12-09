@@ -42,9 +42,4 @@ public class WeOfferFragments extends Fragment {
     //getActivity().finish();
   }
 
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-    TeachUtil.setOpened(getContext(),true);
-  }
 }

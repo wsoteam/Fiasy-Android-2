@@ -45,7 +45,7 @@ class TeachBasketDialogFragment : DialogFragment() {
             val intent = Intent()
             intent.putExtra(TeachHostFragment.ACTION, TeachHostFragment.ACTION_SAVE_FOOD)
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
-            TeachUtil.setOpened(context, true)
+            TeachUtil.setOpen(context, false)
             isCanceled = false
             dismiss()
         }
