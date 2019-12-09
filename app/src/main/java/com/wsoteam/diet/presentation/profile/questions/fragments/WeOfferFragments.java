@@ -11,6 +11,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity;
+import com.wsoteam.diet.presentation.teach.TeachUtil;
 
 public class WeOfferFragments extends Fragment {
 
@@ -39,5 +40,11 @@ public class WeOfferFragments extends Fragment {
     //Intent intent = new Intent(getContext(), ActivitySplash.class);
     //startActivity(intent);
     //getActivity().finish();
+  }
+
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    TeachUtil.setOpened(getContext(),true);
   }
 }

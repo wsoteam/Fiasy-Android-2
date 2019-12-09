@@ -46,6 +46,7 @@ class TeachHostFragment : Fragment() {
         const val REQUEST_DETAIL = 113
         const val REQUEST_DONE = 114
         const val REQUEST_BASKET = 115
+        const val REQUEST_ACHIEVEMENT = 116
 
     }
 
@@ -182,6 +183,7 @@ class TeachHostFragment : Fragment() {
 
             override fun onFinish() {
                 blur.dismiss()
+                startDialog(AchievementDialogFragment(), REQUEST_ACHIEVEMENT)
             }
         }.start()
     }

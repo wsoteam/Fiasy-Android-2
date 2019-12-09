@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 public class TeachUtil {
 
     private static final String APP_PREFERENCES = "TEACH_CONFIG";
-    private static final String OPENED = "isOpened";
+    private static final String OPENED = "isNeedOpen";
 
 
     public static void setOpened(Context context, boolean opened){
@@ -21,11 +21,13 @@ public class TeachUtil {
 
 
     /* Если туториал уже показывался - вернет true, иначе false*/
-    public static boolean isOpened(Context context){
-        SharedPreferences preferences =
-                context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        if(preferences.contains(OPENED)) {
-            return preferences.getBoolean(OPENED, false);
-        } else return false;
+    public static boolean isNeedOpen(Context context){
+        if (context != null) {
+            SharedPreferences preferences =
+                    context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+            if (preferences.contains(OPENED))
+                return preferences.getBoolean(OPENED, false);
+        }
+        return false;
     }
 }

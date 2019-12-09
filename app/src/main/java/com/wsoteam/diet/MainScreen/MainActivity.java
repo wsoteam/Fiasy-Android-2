@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
 
         checkDeepLink(getApplicationContext());
 
-        if (!TeachUtil.isOpened(getApplicationContext()))
+        if (TeachUtil.isNeedOpen(getApplicationContext()))
             getSupportFragmentManager().beginTransaction()
                     .add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
 
