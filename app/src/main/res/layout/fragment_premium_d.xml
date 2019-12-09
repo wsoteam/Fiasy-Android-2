@@ -160,4 +160,9 @@
         app:layout_constraintTop_toTopOf="@+id/imageView32"
         app:srcCompat="@drawable/ic_title_prem" />
 
+    <include
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        layout="@layout/list_part"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
