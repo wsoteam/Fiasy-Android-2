@@ -148,20 +148,14 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
     private void moveNext(Profile profile) {
         String abVersion = getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
                 getString(ABConfig.KEY_FOR_SAVE_STATE, "default");
-        Intent intent = new Intent();
-        if (abVersion.equals(ABConfig.A_VERSION)) {
-            intent = new Intent(this, AfterQuestionsActivity.class).putExtra(Config.INTENT_PROFILE, profile);
-        } else {
-            markAfterPremRoad();
-            intent = new Intent(this, ActivitySubscription.class);
-            Box box = new Box();
-            box.setBuyFrom(EventProperties.trial_from_onboard);
-            box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);
-            box.setOpenFromIntrodaction(true);
-            box.setOpenFromPremPart(false);
-            box.setProfile(profile);
-            intent.putExtra(Config.TAG_BOX, box);
-        }
+        Intent intent = new Intent(this, ActivitySubscription.class);
+        Box box = new Box();
+        box.setBuyFrom(EventProperties.trial_from_onboard);
+        box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);
+        box.setOpenFromIntrodaction(true);
+        box.setOpenFromPremPart(false);
+        box.setProfile(profile);
+        intent.putExtra(Config.TAG_BOX, box);
         startActivity(intent);
     }
 
