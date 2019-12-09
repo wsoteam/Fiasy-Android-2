@@ -1,6 +1,5 @@
 package com.wsoteam.diet.presentation.diary
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -15,7 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnPreDrawListener
 import android.widget.FrameLayout
-import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.NestedScrollView
 import androidx.core.widget.NestedScrollView.OnScrollChangeListener
@@ -24,7 +22,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.recyclerview.widget.RecyclerView.State
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
@@ -48,8 +45,6 @@ import com.wsoteam.diet.views.CompactCalendarView
 import com.wsoteam.diet.views.CompactCalendarView.CompactCalendarViewListener
 import com.wsoteam.diet.views.GuardNestedScrollView
 import com.wsoteam.diet.views.fabmenu.FloatingActionMenu
-import com.wsoteam.diet.views.fabmenu.SubActionButton
-import kotlinx.android.synthetic.main.fragment_diary.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -352,52 +347,8 @@ class DiaryFragment : Fragment() {
 
         updateTitle()
 
-//        addFab(activity!!, floatingActionButton)
-
     }
 
-//    private fun background(isNeed: Boolean){
-//        if (isNeed) background.visibility = View.VISIBLE
-//        else background.visibility = View.INVISIBLE
-//    }
-
-//    private fun addFab(activity: Activity, fab: FloatingActionButton){
-//        val icon = ImageView(activity)
-//
-//        val builder = SubActionButton.Builder(activity)
-//
-//        val deleteIcon = ImageView(activity)
-//        deleteIcon.setImageResource(R.drawable.close_bs)
-//        val deleteBtn = builder.setContentView(deleteIcon).build()
-//
-//        val removeIcon = ImageView(activity)
-//        removeIcon.setImageResource(R.drawable.detail_food_back)
-//        val removeBtn = builder.setContentView(removeIcon).build()
-//
-//        val fIcon = ImageView(activity)
-//        fIcon.setImageResource(R.drawable.detail_food_back)
-//        val fBtn = builder.setContentView(fIcon).build()
-//
-//        icon.setImageResource(R.drawable.detail_food_back)
-//        val dBtn = builder.setContentView(icon).build()
-//
-//        menu = FloatingActionMenu.Builder(activity)
-//                .addSubActionView(removeBtn)
-//                .addSubActionView(deleteBtn)
-//                .addSubActionView(fBtn)
-//                .addSubActionView(dBtn)
-//                .attachTo(fab)
-//                .setStateChangeListener(object : FloatingActionMenu.MenuStateChangeListener{
-//                    override fun onMenuOpened(menu: FloatingActionMenu?) {
-//                        background(true)
-//                    }
-//
-//                    override fun onMenuClosed(menu: FloatingActionMenu?) {
-//                        background(false)
-//                    }
-//                })
-//                .build()
-//    }
 
     fun getMenu() : FloatingActionMenu?{
         Log.d("kkk", "ff")

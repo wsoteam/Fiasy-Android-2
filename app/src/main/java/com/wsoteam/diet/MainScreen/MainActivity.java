@@ -57,6 +57,7 @@ import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.presentation.search.ParentActivity;
+import com.wsoteam.diet.views.BlurredLayout;
 import com.wsoteam.diet.views.fabmenu.FloatingActionMenu;
 
 import java.util.Calendar;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bnv_main) BottomNavigationView bnvMain;
     @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
     @BindView(R.id.floatingActionButton) FloatingActionButton fab;
+    @BindView(R.id.background) View background;
     private FragmentTransaction transaction;
     private BottomSheetBehavior bottomSheetBehavior;
     private boolean isMainFragment = true;
@@ -81,18 +83,16 @@ public class MainActivity extends AppCompatActivity {
     private MainFabMenu.Scroll fabListener = new MainFabMenu.Scroll() {
         @Override
         public void up() {
-            Log.d("kkk", "up");
            showFab();
         }
 
         @Override
         public void down() {
-            Log.d("kkk", "down");
-           hidefab();
+           hideFab();
         }
     };
 
-    private void hidefab(){
+    private void hideFab(){
         if (fabMenu != null) fabMenu.close(true);
 
         fab.hide();
@@ -101,6 +101,19 @@ public class MainActivity extends AppCompatActivity {
     private void showFab(){
         fab.show();
     }
+
+    FloatingActionMenu.MenuStateChangeListener menuStateChangeListener = new FloatingActionMenu.MenuStateChangeListener() {
+        @Override
+        public void onMenuOpened(FloatingActionMenu menu) {
+            background.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onMenuClosed(FloatingActionMenu menu) {
+            background.setVisibility(View.GONE);
+        }
+    };
+
     private boolean setActiveTab(int id){
         transaction = getSupportFragmentManager().beginTransaction();
         window = getWindow();
@@ -112,7 +125,10 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().popBackStack(Config.RECIPE_BACK_STACK, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-        hidefab();
+        hideFab();
+
+        BlurredLayout blurredLayout = new BlurredLayout(this);
+        blurredLayout.setBlurRadius(0,0);
 
         switch (id) {
             case R.id.bnv_main_diary: {
@@ -193,7 +209,8 @@ public class MainActivity extends AppCompatActivity {
     handlGrade(Calendar.getInstance().getTimeInMillis());
     new UpdateChecker(this).runChecker();
     Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
-
+    hideFab();
+    showFab();
   }
 
     private void handlGrade(long currentTime) {
@@ -234,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
         }
 
-        fabMenu = MainFabMenu.Companion.initFabMenu(this, fab);
+        fabMenu = MainFabMenu.Companion.initFabMenu(this, fab, menuStateChangeListener);
 
         //checkForcedGrade();
         new AsyncWriteFoodDB().execute(MainActivity.this);

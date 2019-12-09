@@ -28,7 +28,8 @@ public class SubActionButton extends FrameLayout {
                 backgroundDrawable = context.getResources().getDrawable(R.drawable.button_sub_action_dark_selector);
             }
             else if(theme == THEME_LIGHTER) {
-                backgroundDrawable = context.getResources().getDrawable(R.drawable.button_action_selector);
+//                backgroundDrawable = context.getResources().getDrawable(R.drawable.button_action_selector);
+                backgroundDrawable = context.getResources().getDrawable(R.drawable.ic_fab_circle);
             }
             else if(theme == THEME_DARKER) {
                 backgroundDrawable = context.getResources().getDrawable(R.drawable.button_action_dark_selector);
