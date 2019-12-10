@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
 
         checkDeepLink(getApplicationContext());
         
-        if (TeachUtil.isNeedOpen(getApplicationContext()))
+        if (TeachUtil.isNeedOpen(getApplicationContext()) && Locale.getDefault().getLanguage().equals("ru"))
             getSupportFragmentManager().beginTransaction()
                     .add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
 
