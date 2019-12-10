@@ -57,7 +57,7 @@ public class FragmentE extends Fragment
 
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
-    private String currentSKU = IDs.ID_ONE_YEAR_WITH_TRIAL, currentPrice = "99р";
+    private String currentSKU = "trial_long_result_3d_3m", currentPrice = "99р";
     private SharedPreferences sharedPreferences;
     Unbinder unbinder;
     private static final String TAG_BOX = "TAG_BOX";
