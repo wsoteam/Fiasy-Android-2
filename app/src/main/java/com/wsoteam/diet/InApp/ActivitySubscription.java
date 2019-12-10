@@ -39,7 +39,7 @@ public class ActivitySubscription extends AppCompatActivity {
             }*/
 
         getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                new FragmentD()).commit();
+                FragmentD.newInstance(box)).commit();
 
 
         }
