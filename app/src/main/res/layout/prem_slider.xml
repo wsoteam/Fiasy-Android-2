@@ -81,6 +81,7 @@
 
 
     <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="302dp"
         android:layout_height="143dp"
         android:layout_marginStart="24dp"
@@ -89,4 +90,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView59" />
+
+    <com.wsoteam.diet.views.DotIndicatorView
+        android:id="@+id/dotsIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:circleRadius="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/viewPager"
+        app:layout_constraintStart_toStartOf="@+id/viewPager"
+        app:layout_constraintTop_toBottomOf="@+id/viewPager" />
 </androidx.constraintlayout.widget.ConstraintLayout>

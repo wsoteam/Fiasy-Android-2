@@ -28,6 +28,7 @@ import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.EventsAdjust;
+import com.wsoteam.diet.InApp.Fragments.slides.SlideFragment;
 import com.wsoteam.diet.InApp.IDs;
 import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
@@ -37,6 +38,7 @@ import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
 import com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity;
+import com.wsoteam.diet.views.DotIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,8 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -95,6 +99,41 @@ public class FragmentD extends Fragment
 
             @Override
             public void onBillingServiceDisconnected() {
+
+            }
+        });
+
+        ViewPager viewPager = view.findViewById(R.id.viewPager);
+        DotIndicatorView indicatorView = view.findViewById(R.id.dotsIndicator);
+        indicatorView.setCirclesCount(4);
+        indicatorView.setActiveIndex(0);
+
+        viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
+            @NonNull
+            @Override
+            public Fragment getItem(int position) {
+                return SlideFragment.newInstance(position);
+            }
+
+            @Override
+            public int getCount() {
+                return 4;
+            }
+        });
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                indicatorView.setActiveIndex(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
             }
         });
