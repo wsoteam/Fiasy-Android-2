@@ -2,7 +2,9 @@ package com.wsoteam.diet.InApp;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
@@ -27,22 +29,13 @@ public class ActivitySubscription extends AppCompatActivity {
                 getString(ABConfig.KEY_FOR_SAVE_STATE, "default");
         box = (Box) getIntent().getSerializableExtra(Config.TAG_BOX);
 
-        /*if (abVersion.equals(ABConfig.A_VERSION)) {
+        if (abVersion.equals(ABConfig.A_VERSION)) {
             getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                FragmentA.newInstance(box)).commit();
+                    FragmentD.newInstance(box)).commit();
         } else {
-            if (abVersion.equals(ABConfig.C_VERSION)) {
-                getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                    FragmentC.newInstance(box)).commit();
-            } else {
-                getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                    FragmentA.newInstance(box)).commit();
-            }*/
-
-        getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                FragmentE.newInstance(box)).commit();
-
-
+            getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
+                    FragmentE.newInstance(box)).commit();
         }
     }
+}
 
