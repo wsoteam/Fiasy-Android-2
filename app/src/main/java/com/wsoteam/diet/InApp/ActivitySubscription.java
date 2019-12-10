@@ -9,6 +9,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.Fragments.FragmentA;
 import com.wsoteam.diet.InApp.Fragments.FragmentB;
 import com.wsoteam.diet.InApp.Fragments.FragmentC;
+import com.wsoteam.diet.InApp.Fragments.FragmentD;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity;
 
@@ -37,10 +38,10 @@ public class ActivitySubscription extends AppCompatActivity {
                     FragmentA.newInstance(box)).commit();
             }*/
 
-        /*getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                FragmentA.newInstance(box)).commit();*/
+        getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
+                new FragmentD()).commit();
 
-        startActivity(new Intent(this, PremiumFeaturesActivity.class));
+
         }
     }
 
