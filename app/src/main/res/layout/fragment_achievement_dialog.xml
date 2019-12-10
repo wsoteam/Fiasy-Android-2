@@ -64,14 +64,5 @@
                 android:text="@string/teach_achievement_btn" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/closeDialog"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="end"
-            android:layout_margin="13dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:srcCompat="@drawable/ic_cancel" />
     </androidx.cardview.widget.CardView>
 </FrameLayout>
