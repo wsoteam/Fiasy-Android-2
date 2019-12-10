@@ -27,6 +27,7 @@ import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
 import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.Fragments.slides.SlideFragment;
+import com.wsoteam.diet.InApp.Fragments.slides.TopSlideFragment;
 import com.wsoteam.diet.InApp.IDs;
 import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
@@ -63,11 +64,11 @@ public class FragmentE extends Fragment
     private Box box;
     public static final String BUY_NOW = "BUY_NOW";
 
-    public static FragmentD newInstance(Box box) {
+    public static FragmentE newInstance(Box box) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(TAG_BOX, box);
-        FragmentD fragment =
-                new FragmentD();
+        FragmentE fragment =
+                new FragmentE();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -134,6 +135,43 @@ public class FragmentE extends Fragment
 
             }
         });
+
+        ViewPager topViewPager = view.findViewById(R.id.topVp);
+        DotIndicatorView indicatorViewTop = view.findViewById(R.id.dotsIndicatorTop);
+        indicatorViewTop.setCirclesCount(2);
+        indicatorViewTop.setActiveIndex(0);
+
+
+        topViewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
+            @NonNull
+            @Override
+            public Fragment getItem(int position) {
+                return TopSlideFragment.newInstance(position);
+            }
+
+            @Override
+            public int getCount() {
+                return 2;
+            }
+        });
+
+        topViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                indicatorViewTop.setActiveIndex(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
 
         return view;
     }
