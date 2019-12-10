@@ -332,9 +332,6 @@
             android:name=".presentation.premium.PremiumFeaturesActivity"
             android:exported="true" />
 
-        <activity-alias
-            android:name=".InApp.ActivitySubscription"
-            android:targetActivity=".presentation.premium.PremiumFeaturesActivity" />
     </application>
 
 </manifest>
