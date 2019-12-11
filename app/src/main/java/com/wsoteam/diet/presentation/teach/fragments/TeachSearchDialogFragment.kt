@@ -19,6 +19,8 @@ import com.wsoteam.diet.App
 import com.wsoteam.diet.Config
 
 import com.wsoteam.diet.R
+import com.wsoteam.diet.common.Analytics.EventProperties
+import com.wsoteam.diet.common.Analytics.Events
 import com.wsoteam.diet.common.networking.food.FoodSearch
 import com.wsoteam.diet.common.networking.food.HeaderObj
 import com.wsoteam.diet.common.networking.food.ISearchResult
@@ -60,7 +62,7 @@ class TeachSearchDialogFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(_style, _theme)
-
+        Events.logTeach(EventProperties.teach_search)
     }
 
     private fun changeSpeakButton(charSequence: CharSequence) {
@@ -82,6 +84,7 @@ class TeachSearchDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         teachCancel.setOnClickListener {
+            Events.logTeach(EventProperties.teach_skip)
             TeachUtil.setOpen(context, false)
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, Intent())
             dismiss()
@@ -340,7 +343,7 @@ class TeachSearchDialogFragment : DialogFragment() {
         edtActivityListAndSearchCollapsingSearchField.hideKeyboard()
         title_first.visibility = View.GONE
         title_second.visibility = View.VISIBLE
-
+        Events.logTeach(EventProperties.teach_add)
     }
 
     private fun updateAdapter(t: List<ISearchResult>, basketEntities: List<BasketEntity>, searchString: String) {
@@ -398,7 +401,6 @@ class TeachSearchDialogFragment : DialogFragment() {
         }
 
         override fun open(basketEntity: BasketEntity?) {
-            Log.d("kkk", basketEntity?.name ?: "")
             startNextDialog(basketEntity)
         }
     }

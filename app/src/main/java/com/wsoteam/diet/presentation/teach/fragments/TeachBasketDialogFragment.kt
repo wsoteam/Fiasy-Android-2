@@ -13,6 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.R
+import com.wsoteam.diet.common.Analytics.EventProperties
+import com.wsoteam.diet.common.Analytics.Events
 import com.wsoteam.diet.presentation.teach.TeachHostFragment
 import com.wsoteam.diet.presentation.teach.TeachUtil
 import kotlinx.android.synthetic.main.fragment_teach_basket.*
@@ -29,7 +31,7 @@ class TeachBasketDialogFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(_style, _theme)
-
+        Events.logTeach(EventProperties.teach_done)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

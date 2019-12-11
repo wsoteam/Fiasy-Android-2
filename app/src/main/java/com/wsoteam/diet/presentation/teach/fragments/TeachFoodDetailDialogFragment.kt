@@ -14,6 +14,8 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.R
+import com.wsoteam.diet.common.Analytics.EventProperties
+import com.wsoteam.diet.common.Analytics.Events
 import com.wsoteam.diet.presentation.search.basket.db.BasketEntity
 import com.wsoteam.diet.presentation.teach.TeachHostFragment
 import com.wsoteam.diet.presentation.teach.TeachUtil
@@ -42,6 +44,7 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(_style, _theme)
+        Events.logTeach(EventProperties.teach_weight)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -71,6 +74,7 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
         }
 
         teachCancel.setOnClickListener {
+            Events.logTeach(EventProperties.teach_skip)
             TeachUtil.setOpen(context, false)
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, Intent())
             dismiss() }
@@ -85,6 +89,7 @@ class TeachFoodDetailDialogFragment: DialogFragment() {
                 secondTxt.visibility = View.VISIBLE
                 teachConstr.setPadding(0,0,0, 30)
                 edtWeightCalculate.hideKeyboard()
+                Events.logTeach(EventProperties.teach_ready)
             }
         }
 

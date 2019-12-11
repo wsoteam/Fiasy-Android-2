@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 
 import com.wsoteam.diet.R
+import com.wsoteam.diet.common.Analytics.EventProperties
+import com.wsoteam.diet.common.Analytics.Events
 import com.wsoteam.diet.presentation.teach.TeachHostFragment
 import com.wsoteam.diet.presentation.teach.TeachHostFragment.Companion.INTENT_MEAL
 import com.wsoteam.diet.presentation.teach.TeachUtil
@@ -26,6 +28,7 @@ class TeachMealDialogFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(_style, _theme)
+        Events.logTeach(EventProperties.teach_main)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -36,6 +39,7 @@ class TeachMealDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         teachCancel.setOnClickListener {
+            Events.logTeach(EventProperties.teach_skip)
             TeachUtil.setOpen(context, false)
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, Intent())
             dismiss() }

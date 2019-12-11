@@ -104,6 +104,21 @@ public class Events {
     public static final String PLAN_COMPLETE = "plan_complete";
     public static final String LEAVE_PLAN = "leave_plan";
 
+    //Tutorial
+    private static final String TEACH_NEXT = "tutorial_next";
+
+
+    public static void logTeach(String screen){
+
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.teach_screen, screen);
+        } catch (JSONException exception) {
+            exception.printStackTrace();
+        }
+        Amplitude.getInstance().logEvent(TEACH_NEXT, eventProperties);
+    }
+
     public static void logAddRecipeInDiaryPlan(String eating, String nameRecipe, String namePlan) {
         String convertedNamePlan = flagToAnalConst(namePlan);
         JSONObject eventProperties = new JSONObject();
