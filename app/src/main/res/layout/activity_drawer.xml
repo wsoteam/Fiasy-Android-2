@@ -59,7 +59,7 @@
             android:layout_margin="16dp"
             android:backgroundTint="@color/fab_color"
             android:clickable="true"
-            android:src="@drawable/ic_start_action"
+            android:src="@drawable/ic_fab_menu_plus"
             app:layout_constraintBottom_toTopOf="@+id/bnv_main"
             app:layout_constraintEnd_toEndOf="parent" />
 

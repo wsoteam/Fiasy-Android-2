@@ -13,34 +13,34 @@ class MainFabMenu {
 
     companion object{
         public fun initFabMenu(activity: Activity, fab: FloatingActionButton, listener: FloatingActionMenu.MenuStateChangeListener):  FloatingActionMenu{
-            val icon = ImageView(activity)
 
             val builder = SubActionButton.Builder(activity).setTheme(SubActionButton.THEME_LIGHTER)
 
             val activityIcon = ImageView(activity)
-            activityIcon.setImageResource(R.drawable.ic_fab_activity)
+            activityIcon.setImageResource(R.drawable.ic_fab_menu_activity)
             val activityBtn = builder.setContentView(activityIcon).build()
             activityBtn.setOnClickListener {
                 activity.startActivity(Intent(activity, MeasurmentActivity().javaClass))
             }
 
-            val removeIcon = ImageView(activity)
-            removeIcon.setImageResource(R.drawable.detail_food_back)
-            val removeBtn = builder.setContentView(removeIcon).build()
+            val measurementIcon = ImageView(activity)
+            measurementIcon.setImageResource(R.drawable.ic_fab_menu_measurement)
+            val measurementBtn = builder.setContentView(measurementIcon).build()
 
+            val mealIcon = ImageView(activity)
+            mealIcon.setImageResource(R.drawable.ic_fab_menu_meal)
+            val mealBtn = builder.setContentView(mealIcon).build()
 
-            val fIcon = ImageView(activity)
-            fIcon.setImageResource(R.drawable.detail_food_back)
-            val fBtn = builder.setContentView(fIcon).build()
+            val waterIcon = ImageView(activity)
+            waterIcon.setImageResource(R.drawable.ic_fab_menu_water)
+            val waterBtn = builder.setContentView(waterIcon).build()
 
-            icon.setImageResource(R.drawable.detail_food_back)
-            val dBtn = builder.setContentView(icon).build()
 
             return FloatingActionMenu.Builder(activity)
                     .addSubActionView(activityBtn)
-                    .addSubActionView(removeBtn)
-                    .addSubActionView(fBtn)
-                    .addSubActionView(dBtn)
+                    .addSubActionView(measurementBtn)
+                    .addSubActionView(mealBtn)
+                    .addSubActionView(waterBtn)
                     .attachTo(fab)
                     .setStateChangeListener(listener)
                     .build()
