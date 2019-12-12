@@ -50,9 +50,12 @@ import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.common.remote.UpdateChecker;
+import com.wsoteam.diet.presentation.activity.CreateUserActivityFragment;
+import com.wsoteam.diet.presentation.activity.UserActivityFragment;
 import com.wsoteam.diet.presentation.fab.MainFabMenu;
 import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.model.ArticleViewModel;
+import com.wsoteam.diet.presentation.fab.SelectMealDialogFragment;
 import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.norm.choise.activity.ActivActivity;
@@ -70,11 +73,16 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.flFragmentContainer) FrameLayout flFragmentContainer;
-    @BindView(R.id.bnv_main) BottomNavigationView bnvMain;
-    @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
-    @BindView(R.id.floatingActionButton) FloatingActionButton fab;
-    @BindView(R.id.background) View background;
+    @BindView(R.id.flFragmentContainer)
+    FrameLayout flFragmentContainer;
+    @BindView(R.id.bnv_main)
+    BottomNavigationView bnvMain;
+    @BindView(R.id.bottom_sheet)
+    LinearLayout bottomSheet;
+    @BindView(R.id.floatingActionButton)
+    FloatingActionButton fab;
+    @BindView(R.id.background)
+    View background;
     private FragmentTransaction transaction;
     private BottomSheetBehavior bottomSheetBehavior;
     private boolean isMainFragment = true;
@@ -88,22 +96,25 @@ public class MainActivity extends AppCompatActivity {
     private MainFabMenu.Scroll fabListener = new MainFabMenu.Scroll() {
         @Override
         public void up() {
-           showFab();
+            showFab();
         }
 
         @Override
         public void down() {
-           hideFab();
+            hideFab();
         }
     };
 
-    private void hideFab(){
-        if (fabMenu != null) fabMenu.close(true);
-
+    private void hideFab() {
+        hideFabMenu();
         fab.hide();
     }
 
-    private void showFab(){
+    private void hideFabMenu(){
+        if (fabMenu != null) fabMenu.close(true);
+    }
+
+    private void showFab() {
         fab.show();
     }
 
@@ -111,15 +122,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onMenuOpened(FloatingActionMenu menu) {
             background.setVisibility(View.VISIBLE);
+            bnvMain.setVisibility(View.GONE);
         }
 
         @Override
         public void onMenuClosed(FloatingActionMenu menu) {
             background.setVisibility(View.GONE);
+            bnvMain.setVisibility(View.VISIBLE);
         }
     };
 
-    private boolean setActiveTab(int id){
+    private boolean setActiveTab(int id) {
         transaction = getSupportFragmentManager().beginTransaction();
         window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -133,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         hideFab();
 
         BlurredLayout blurredLayout = new BlurredLayout(this);
-        blurredLayout.setBlurRadius(0,0);
+        blurredLayout.setBlurRadius(0, 0);
 
         switch (id) {
             case R.id.bnv_main_diary: {
@@ -151,22 +164,22 @@ public class MainActivity extends AppCompatActivity {
                 box.setBuyFrom(EventProperties.trial_from_articles);
                 isMainFragment = false;
                 window.setStatusBarColor(getResources().getColor(R.color.highlight_line_color));
-                switch (Locale.getDefault().getLanguage()){
-                    case "ru":{
+                switch (Locale.getDefault().getLanguage()) {
+                    case "ru": {
                         transaction.replace(R.id.flFragmentContainer, new com.wsoteam.diet.articles.ListArticlesFragment()).commit();
                         return true;
                     }
-                    default:{
+                    default: {
                         com.wsoteam.diet.articles.BurlakovAuthorFragment burlakovAuthorFragment = new com.wsoteam.diet.articles.BurlakovAuthorFragment();
 //                            burlakovAuthorFragment.setClickListener(v -> {
 //                                    transaction.replace(R.id.flFragmentContainer,
 //                                        new ArticleSeriesFragment()).commit();
 //                            });
                         if (UserDataHolder.getUserData().getArticleSeries() != null &&
-                                UserDataHolder.getUserData().getArticleSeries().containsKey("burlakov")){
+                                UserDataHolder.getUserData().getArticleSeries().containsKey("burlakov")) {
                             transaction.replace(R.id.flFragmentContainer,
                                     new com.wsoteam.diet.articles.ArticleSeriesFragment()).commit();
-                        }else {
+                        } else {
                             transaction.replace(R.id.flFragmentContainer,
                                     burlakovAuthorFragment).commit();
                         }
@@ -191,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private void startPrem(){
+    private void startPrem() {
         Box box = new Box();
         box.setSubscribe(false);
         box.setOpenFromPremPart(true);
@@ -208,15 +221,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-  @Override
-  protected void onResume() {
-    super.onResume();
-    handlGrade(Calendar.getInstance().getTimeInMillis());
-    new UpdateChecker(this).runChecker();
-    Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
-    hideFab();
-    showFab();
-  }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handlGrade(Calendar.getInstance().getTimeInMillis());
+        new UpdateChecker(this).runChecker();
+        Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        hideFabMenu();
+    }
 
     private void handlGrade(long currentTime) {
         long timeStartingPoint =
@@ -247,13 +259,13 @@ public class MainActivity extends AppCompatActivity {
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        DiaryFragment fragment = new  DiaryFragment();
+        DiaryFragment fragment = new DiaryFragment();
         fragment.setFabListener(fabListener);
         if (getSupportFragmentManager().findFragmentByTag("diary") == null) {
             getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.flFragmentContainer, fragment, "diary")
-                .commit();
+                    .beginTransaction()
+                    .add(R.id.flFragmentContainer, fragment, "diary")
+                    .commit();
         }
 
         fabMenu = MainFabMenu.Companion.initFabMenu(this, fab, menuStateChangeListener,
@@ -285,12 +297,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void checkDeepLink(Context context){
+    private void checkDeepLink(Context context) {
 
         String deepLinkAction = DeepLink.getAction(context);
         if (deepLinkAction != null)
-            switch (deepLinkAction){
-                case DeepLink.Start.PREMIUM:{
+            switch (deepLinkAction) {
+                case DeepLink.Start.PREMIUM: {
                     startPrem();
                     DeepLink.deleteAction(context);
                     break;
@@ -301,30 +313,32 @@ public class MainActivity extends AppCompatActivity {
                     DeepLink.deleteAction(context);
                     break;
                 }
-                case DeepLink.Start.RECIPE:{
+                case DeepLink.Start.RECIPE: {
                     bnvMain.setSelectedItemId(R.id.bnv_main_recipes);
                     DeepLink.deleteAction(context);
                     break;
                 }
 
-                case DeepLink.Start.DIETS:{
+                case DeepLink.Start.DIETS: {
                     bnvMain.setSelectedItemId(R.id.bnv_main_trainer);
                     DeepLink.deleteAction(context);
                     break;
                 }
 
-                case DeepLink.Start.NUTRITIONIST:{
+                case DeepLink.Start.NUTRITIONIST: {
                     startActivity(new Intent(context, ArticleSeriesActivity.class));
                     DeepLink.deleteAction(context);
                     break;
                 }
-                case DeepLink.Start.MEASUREMENT:{
+                case DeepLink.Start.MEASUREMENT: {
                     startActivity(new Intent(context, MeasurmentActivity.class));
                     DeepLink.deleteAction(context);
                     break;
                 }
-                case DeepLink.Start.ADD_FOOD:{
-                    startActivity(new Intent(context, ParentActivity.class).putExtra(Config.INTENT_DATE_FOR_SAVE, DeepLink.getDate()));
+                case DeepLink.Start.ADD_FOOD: {
+                    startActivity(new Intent(context, ParentActivity.class)
+                            .putExtra(Config.INTENT_DATE_FOR_SAVE,
+                                    ParentActivity.prepareDate(Calendar.getInstance())));
                     DeepLink.deleteAction(context);
                     break;
                 }
@@ -333,92 +347,91 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-  private void logEvents() {
-    if (getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).getBoolean(
-        SavedConst.SEE_PREMIUM, false)) {
-      Events.logSuccessOnboarding(
-          getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).getString(SavedConst.HOW_END,
-              EventProperties.onboarding_success_reopen));
-      getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).edit()
-          .remove(SavedConst.SEE_PREMIUM)
-          .commit();
-      getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).edit()
-          .remove(SavedConst.HOW_END)
-          .commit();
+    private void logEvents() {
+        if (getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).getBoolean(
+                SavedConst.SEE_PREMIUM, false)) {
+            Events.logSuccessOnboarding(
+                    getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).getString(SavedConst.HOW_END,
+                            EventProperties.onboarding_success_reopen));
+            getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).edit()
+                    .remove(SavedConst.SEE_PREMIUM)
+                    .commit();
+            getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).edit()
+                    .remove(SavedConst.HOW_END)
+                    .commit();
+        }
     }
-  }
 
-  private void checkForcedGrade() {
-    if (getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).getBoolean(
-        Config.IS_NEED_SHOW_GRADE_DIALOG, false)) {
-      RateDialogs.showGradeDialog(this, true);
-      getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).
-          edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false).apply();
+    private void checkForcedGrade() {
+        if (getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).getBoolean(
+                Config.IS_NEED_SHOW_GRADE_DIALOG, false)) {
+            RateDialogs.showGradeDialog(this, true);
+            getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).
+                    edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false).apply();
+        }
     }
-  }
 
-  private boolean checkSubscribe() {
-      SharedPreferences sharedPreferences = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-      if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
-          return true;
-      } else {
-          return false;
-      }
-  }
+    private boolean checkSubscribe() {
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+        if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     private void loadRecipes() {
         GroupsHolder.loadRecipes(getApplicationContext(), null);
     }
 
 
-  @OnClick({ R.id.ibSheetClose, R.id.btnReg })
-  public void onViewClicked(View view) {
-    switch (view.getId()) {
-      case R.id.ibSheetClose:
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        break;
-      case R.id.btnReg:
-        startActivity(new Intent(MainActivity.this, ActivitySplash.class)
-            .putExtra(Config.IS_NEED_REG, true)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-        break;
-    }
-  }
-
-  private void loadDietPlans() {
-    //DatabaseReference myRef = database.getReference("PLANS");
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef;
-    switch (Locale.getDefault().getLanguage().toUpperCase()){
-        case "EN":
-        case "ES":
-        case "PT":
-        case "DE":{
-            myRef = database.getReference(Locale.getDefault().getLanguage().toUpperCase() + "/plans");
-            break;
-        }
-        case "RU":{
-            myRef = database.getReference("PLANS");
-            break;
-        }
-        default:{
-            myRef = database.getReference("EN/plans");
+    @OnClick({R.id.ibSheetClose, R.id.btnReg})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ibSheetClose:
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                break;
+            case R.id.btnReg:
+                startActivity(new Intent(MainActivity.this, ActivitySplash.class)
+                        .putExtra(Config.IS_NEED_REG, true)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                break;
         }
     }
 
-    myRef.addValueEventListener(new ValueEventListener() {
-      @Override
-      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        DietModule dietModule = dataSnapshot.getValue(DietModule.class);
-        DietPlansHolder.bind(dietModule);
-      }
+    private void loadDietPlans() {
+        //DatabaseReference myRef = database.getReference("PLANS");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef;
+        switch (Locale.getDefault().getLanguage().toUpperCase()) {
+            case "EN":
+            case "ES":
+            case "PT":
+            case "DE": {
+                myRef = database.getReference(Locale.getDefault().getLanguage().toUpperCase() + "/plans");
+                break;
+            }
+            case "RU": {
+                myRef = database.getReference("PLANS");
+                break;
+            }
+            default: {
+                myRef = database.getReference("EN/plans");
+            }
+        }
 
-      @Override
-      public void onCancelled(@NonNull DatabaseError databaseError) {
-      }
-    });
-  }
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                DietModule dietModule = dataSnapshot.getValue(DietModule.class);
+                DietPlansHolder.bind(dietModule);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
 
 
     @Override
@@ -429,7 +442,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             isMainFragment = true;
             getSupportFragmentManager().beginTransaction().replace(R.id.flFragmentContainer,
-                new DiaryFragment()).commitNowAllowingStateLoss();
+                    new DiaryFragment()).commitNowAllowingStateLoss();
             window.setStatusBarColor(Color.parseColor("#AE6A23"));
             bnvMain.setSelectedItemId(R.id.bnv_main_diary);
         }
@@ -437,16 +450,30 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private View.OnClickListener activityListener = v ->
-            startActivity(new Intent(getApplicationContext(), ActivActivity.class));
+    private View.OnClickListener activityListener = v -> {
+
+        final UserActivityFragment target = new UserActivityFragment();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(android.R.id.content, target, target.getClass().getSimpleName())
+                .addToBackStack(null)
+                .commitAllowingStateLoss();
+        hideFabMenu();
+    };
 
 
-    private View.OnClickListener measurementListener = v ->
-            startActivity(new Intent(getApplicationContext(), MeasurmentActivity.class));
+    private View.OnClickListener measurementListener = v -> {
+        startActivity(new Intent(getApplicationContext(), MeasurmentActivity.class));
+        hideFabMenu();
+    };
 
     private View.OnClickListener mealListener = v -> {
-
+        new SelectMealDialogFragment().show(getSupportFragmentManager(),
+                SelectMealDialogFragment.class.getName());
+        hideFabMenu();
     };
+
 
     private View.OnClickListener waterListener = v -> {
 
