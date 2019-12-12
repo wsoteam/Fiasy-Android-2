@@ -50,11 +50,12 @@ import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.common.remote.UpdateChecker;
-import com.wsoteam.diet.presentation.MainFabMenu;
+import com.wsoteam.diet.presentation.fab.MainFabMenu;
 import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.model.ArticleViewModel;
 import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
+import com.wsoteam.diet.presentation.profile.norm.choise.activity.ActivActivity;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 import com.wsoteam.diet.presentation.search.ParentActivity;
 import com.wsoteam.diet.views.BlurredLayout;
@@ -251,7 +252,8 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
         }
 
-        fabMenu = MainFabMenu.Companion.initFabMenu(this, fab, menuStateChangeListener);
+        fabMenu = MainFabMenu.Companion.initFabMenu(this, fab, menuStateChangeListener,
+                activityListener, measurementListener, mealListener, waterListener);
 
         //checkForcedGrade();
         new AsyncWriteFoodDB().execute(MainActivity.this);
@@ -422,5 +424,20 @@ public class MainActivity extends AppCompatActivity {
             bnvMain.setSelectedItemId(R.id.bnv_main_diary);
         }
     }
+
+    private View.OnClickListener activityListener = v ->
+            startActivity(new Intent(getApplicationContext(), ActivActivity.class));
+
+
+    private View.OnClickListener measurementListener = v ->
+            startActivity(new Intent(getApplicationContext(), MeasurmentActivity.class));
+
+    private View.OnClickListener mealListener = v -> {
+
+    };
+
+    private View.OnClickListener waterListener = v -> {
+
+    };
 
 }

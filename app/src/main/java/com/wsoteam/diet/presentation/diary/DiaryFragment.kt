@@ -32,7 +32,7 @@ import com.wsoteam.diet.InApp.ActivitySubscription
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.common.Analytics.EventProperties
-import com.wsoteam.diet.presentation.MainFabMenu
+import com.wsoteam.diet.presentation.fab.MainFabMenu
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Hiden
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Revealed
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
