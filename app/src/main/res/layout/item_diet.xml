@@ -35,7 +35,7 @@
                 tools:srcCompat="@tools:sample/backgrounds/scenic[13]" />
 
             <LinearLayout
-                android:id="@+id/background"
+                android:id="@+id/backgroundImg"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:orientation="vertical"

@@ -2,7 +2,6 @@ package com.wsoteam.diet.MainScreen;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,10 +9,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -50,21 +51,21 @@ import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.common.remote.UpdateChecker;
-import com.wsoteam.diet.presentation.activity.CreateUserActivityFragment;
 import com.wsoteam.diet.presentation.activity.UserActivityFragment;
 import com.wsoteam.diet.presentation.fab.MainFabMenu;
 import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.model.ArticleViewModel;
 import com.wsoteam.diet.presentation.fab.SelectMealDialogFragment;
+import com.wsoteam.diet.presentation.main.water.WaterViewModel;
 import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
-import com.wsoteam.diet.presentation.profile.norm.choise.activity.ActivActivity;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 
 import com.wsoteam.diet.presentation.teach.TeachHostFragment;
 import com.wsoteam.diet.presentation.teach.TeachUtil;
 
 import com.wsoteam.diet.presentation.search.ParentActivity;
+import com.wsoteam.diet.utils.BlurBuilder;
 import com.wsoteam.diet.views.BlurredLayout;
 import com.wsoteam.diet.views.fabmenu.FloatingActionMenu;
 
@@ -81,8 +82,13 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout bottomSheet;
     @BindView(R.id.floatingActionButton)
     FloatingActionButton fab;
-    @BindView(R.id.background)
-    View background;
+    @BindView(R.id.fabBackground)
+    FrameLayout fabBackground;
+    @BindView(R.id.backgroundImg)
+    ImageView fabBackgroundImg;
+    @BindView(R.id.mainConstraint)
+    ConstraintLayout constraintLayout;
+
     private FragmentTransaction transaction;
     private BottomSheetBehavior bottomSheetBehavior;
     private boolean isMainFragment = true;
@@ -115,19 +121,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showFab() {
+
         fab.show();
     }
 
     FloatingActionMenu.MenuStateChangeListener menuStateChangeListener = new FloatingActionMenu.MenuStateChangeListener() {
         @Override
         public void onMenuOpened(FloatingActionMenu menu) {
-            background.setVisibility(View.VISIBLE);
+            fabBackgroundImg.setImageBitmap(BlurBuilder.blur(getApplicationContext(), constraintLayout));
+            fabBackground.setVisibility(View.VISIBLE);
             bnvMain.setVisibility(View.GONE);
         }
 
         @Override
         public void onMenuClosed(FloatingActionMenu menu) {
-            background.setVisibility(View.GONE);
+            fabBackground.setVisibility(View.GONE);
             bnvMain.setVisibility(View.VISIBLE);
         }
     };
@@ -371,15 +379,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private boolean checkSubscribe() {
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-        if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     private void loadRecipes() {
         GroupsHolder.loadRecipes(getApplicationContext(), null);
     }
@@ -476,7 +475,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private View.OnClickListener waterListener = v -> {
-
+        hideFabMenu();
+        WaterViewModel.data.setValue(true);
     };
 
 }

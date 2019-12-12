@@ -1,19 +1,20 @@
 package com.wsoteam.diet.presentation.fab
 
 import android.app.Activity
-import android.content.Intent
+import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.wsoteam.diet.R
-import com.wsoteam.diet.presentation.measurment.MeasurmentActivity
 import com.wsoteam.diet.views.fabmenu.FloatingActionMenu
 import com.wsoteam.diet.views.fabmenu.SubActionButton
 
 class MainFabMenu {
 
     companion object{
-        public fun initFabMenu(activity: Activity, fab: FloatingActionButton,
+        fun initFabMenu(activity: Activity, fab: FloatingActionButton,
                                listener: FloatingActionMenu.MenuStateChangeListener,
                                activityListener: View.OnClickListener,
                                measurementListener: View.OnClickListener,
@@ -22,24 +23,26 @@ class MainFabMenu {
 
             val builder = SubActionButton.Builder(activity).setTheme(SubActionButton.THEME_LIGHTER)
 
-            val activityIcon = ImageView(activity)
-            activityIcon.setImageResource(R.drawable.ic_fab_menu_activity)
-            val activityBtn = builder.setContentView(activityIcon).build()
+            val activityBtn = builder.setContentView(getView(
+                    activity, R.drawable.ic_fab_menu_activity, activity.getString(R.string.widget_user_activity_title)
+            ), null).build()
             activityBtn.setOnClickListener(activityListener)
 
-            val measurementIcon = ImageView(activity)
-            measurementIcon.setImageResource(R.drawable.ic_fab_menu_measurement)
-            val measurementBtn = builder.setContentView(measurementIcon).build()
+            val measurementBtn = builder.setContentView(getView(
+                    activity, R.drawable.ic_fab_menu_measurement, "Измерения"
+            )).build()
             measurementBtn.setOnClickListener(measurementListener)
 
-            val mealIcon = ImageView(activity)
-            mealIcon.setImageResource(R.drawable.ic_fab_menu_meal)
-            val mealBtn = builder.setContentView(mealIcon).build()
+
+            val mealBtn = builder.setContentView(getView(
+                    activity, R.drawable.ic_fab_menu_meal, "Еда"
+            )).build()
             mealBtn.setOnClickListener(mealListener)
 
-            val waterIcon = ImageView(activity)
-            waterIcon.setImageResource(R.drawable.ic_fab_menu_water)
-            val waterBtn = builder.setContentView(waterIcon).build()
+
+            val waterBtn = builder.setContentView(getView(
+                    activity, R.drawable.ic_fab_menu_water, activity.getString(R.string.water)
+            )).build()
             waterBtn.setOnClickListener(waterListener)
 
             return FloatingActionMenu.Builder(activity)
@@ -49,7 +52,17 @@ class MainFabMenu {
                     .addSubActionView(waterBtn)
                     .attachTo(fab)
                     .setStateChangeListener(listener)
+                    .setEndAngle(260)
                     .build()
+        }
+
+        private fun getView(context: Context, imgResId: Int, str: String ): View{
+            val view = LayoutInflater.from(context).inflate(R.layout.fab_menu_item, null)
+            val img = view.findViewById<ImageView>(R.id.img)
+            img.setImageResource(imgResId)
+            val txt = view.findViewById<TextView>(R.id.txt)
+            txt.text = str
+            return view
         }
     }
 

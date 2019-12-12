@@ -1,6 +1,9 @@
 package com.wsoteam.diet.views.fabmenu;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.Gravity;
@@ -8,6 +11,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.wsoteam.diet.R;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class SubActionButton extends FrameLayout {
 
@@ -29,7 +35,28 @@ public class SubActionButton extends FrameLayout {
             }
             else if(theme == THEME_LIGHTER) {
 //                backgroundDrawable = context.getResources().getDrawable(R.drawable.button_action_selector);
-                backgroundDrawable = context.getResources().getDrawable(R.drawable.ic_fab_circle);
+//                backgroundDrawable = context.getResources().getDrawable(R.drawable.ic_fab_circle);
+                backgroundDrawable = new Drawable() {
+                    @Override
+                    public void draw(@NonNull Canvas canvas) {
+
+                    }
+
+                    @Override
+                    public void setAlpha(int alpha) {
+
+                    }
+
+                    @Override
+                    public void setColorFilter(@Nullable ColorFilter colorFilter) {
+
+                    }
+
+                    @Override
+                    public int getOpacity() {
+                        return PixelFormat.TRANSLUCENT;
+                    }
+                };
             }
             else if(theme == THEME_DARKER) {
                 backgroundDrawable = context.getResources().getDrawable(R.drawable.button_action_dark_selector);
@@ -98,7 +125,10 @@ public class SubActionButton extends FrameLayout {
 
             // Default SubActionButton settings
             int size = context.getResources().getDimensionPixelSize(R.dimen.sub_action_button_size);
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(size, size, Gravity.TOP | Gravity.LEFT);
+            int width = context.getResources().getDimensionPixelSize(R.dimen.sub_action_button_width);
+            int height = context.getResources().getDimensionPixelSize(R.dimen.sub_action_button_height);
+
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height, Gravity.TOP | Gravity.RIGHT);
             setLayoutParams(params);
             setTheme(SubActionButton.THEME_LIGHT);
         }

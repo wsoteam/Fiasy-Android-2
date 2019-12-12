@@ -36,6 +36,7 @@ import com.wsoteam.diet.presentation.fab.MainFabMenu
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Hiden
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Revealed
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
+import com.wsoteam.diet.presentation.main.water.WaterViewModel
 import com.wsoteam.diet.utils.FiasyDateUtils
 import com.wsoteam.diet.utils.ImageSpan
 import com.wsoteam.diet.utils.RichTextUtils.replaceWithIcon
@@ -44,7 +45,6 @@ import com.wsoteam.diet.utils.getVectorIcon
 import com.wsoteam.diet.views.CompactCalendarView
 import com.wsoteam.diet.views.CompactCalendarView.CompactCalendarViewListener
 import com.wsoteam.diet.views.GuardNestedScrollView
-import com.wsoteam.diet.views.fabmenu.FloatingActionMenu
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -64,8 +64,6 @@ class DiaryFragment : Fragment() {
     protected val targets = hashMapOf<View, Target>()
 
     private var fabListener : MainFabMenu.Scroll? = null
-
-    private var menu : FloatingActionMenu? = null
 
     private lateinit var premiumContainer: View
 
@@ -347,15 +345,17 @@ class DiaryFragment : Fragment() {
 
         updateTitle()
 
+        WaterViewModel.data.observe(this, waterObserver)
+
     }
 
-
-    fun getMenu() : FloatingActionMenu?{
-        Log.d("kkk", "ff")
-        return menu
-    }
 
     private var oldStatusBarColor = 0
+
+    private val waterObserver = androidx.lifecycle.Observer<Boolean> {
+        container.scrollToPosition(3)
+        Log.d("kkk", "get - $it")
+    }
 
     override fun onResume() {
         super.onResume()

@@ -38,7 +38,7 @@ public class DefaultAnimationHandler extends MenuAnimationHandler {
 
             PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, menu.getSubActionItems().get(i).x - center.x + menu.getSubActionItems().get(i).width / 2);
             PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, menu.getSubActionItems().get(i).y - center.y + menu.getSubActionItems().get(i).height / 2);
-            PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION, 720);
+            PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION, 0);
             PropertyValuesHolder pvhsX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1);
             PropertyValuesHolder pvhsY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1);
             PropertyValuesHolder pvhA = PropertyValuesHolder.ofFloat(View.ALPHA, 1);
@@ -72,7 +72,7 @@ public class DefaultAnimationHandler extends MenuAnimationHandler {
         for (int i = 0; i < menu.getSubActionItems().size(); i++) {
             PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, - (menu.getSubActionItems().get(i).x - center.x + menu.getSubActionItems().get(i).width / 2));
             PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, - (menu.getSubActionItems().get(i).y - center.y + menu.getSubActionItems().get(i).height / 2));
-            PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION, -720);
+            PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION, 0);
             PropertyValuesHolder pvhsX = PropertyValuesHolder.ofFloat(View.SCALE_X, 0);
             PropertyValuesHolder pvhsY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 0);
             PropertyValuesHolder pvhA = PropertyValuesHolder.ofFloat(View.ALPHA, 0);
