@@ -1124,6 +1124,30 @@ Share your accomplishments with friends:</string>
     <string name="abt_5_arrow">Body measurements</string>
     <string name="abt_bottom_prem">Try 3 days for free \nNext %s per year</string>
     <string name="abt_bottom_prem_week">Try 3 days for free \nNext %s per week</string>
+    <string name="s_316_s"><s>316 ₽/мес</s></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="teach_cancel">Пропустить</string>
+    <string name="teach_meal_title">Какой прием пищи у вас был последним?</string>
+    <string name="teach_meal_txt">Выберите прием пищи</string>
+    <string name="teach_meal">Прием пищи</string>
+
+    <string name="teach_search_title">Что вы ели?</string>
+    <string name="teach_search_txt">Введите название продукта в поисковую строку</string>
+    <string name="teach_search_food">Нажмите на подходящий продукт</string>
+
+    <string name="teach_detail_txt">Отрегулируйте размер порции</string>
+    <string name="teach_done_title">Нажмите “Готово”</string>
+    <string name="teach_done_txt">Вы добавите продукт в предварительный список, где сможете проверить все выбранные продукты</string>
+
+    <string name="teach_basket_title">Добавьте выбранный продукт в дневник</string>
+
+    <string name="teach_achievement_title">Добавление первого продукта</string>
+    <string name="teach_achievement_txt">Поздравляем! Ваша первая награда в приложении.</string>
+    <string name="teach_achievement_btn">Отлично!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

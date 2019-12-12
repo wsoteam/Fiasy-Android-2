@@ -187,6 +187,8 @@ dependencies {
 
     implementation 'jp.wasabeef:blurry:3.0.0'
 
+    implementation 'fr.tvbarthel.blurdialogfragment:lib:2.2.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

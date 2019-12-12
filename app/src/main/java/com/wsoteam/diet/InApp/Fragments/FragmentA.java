@@ -204,20 +204,14 @@ public class FragmentA extends Fragment
                 box.setSubscribe(true);
                 getActivity().getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE).edit().putString(SavedConst.HOW_END, EventProperties.onboarding_success_trial).commit();
             }
-            Intent intent = new Intent();
+            Intent intent;
             if (box.isOpenFromIntrodaction()) {
-                getActivity().getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE).edit().putString(SavedConst.HOW_END, EventProperties.onboarding_success_close).commit();
-                if (isNeedGoNext()) {
-                    intent = new Intent(getContext(), AfterQuestionsActivity.class);
-                    if (box.getProfile() != null) {
-                        intent.putExtra(Config.INTENT_PROFILE, box.getProfile());
-                    }
-                    startActivity(intent);
-                    getActivity().finish();
-                } else {
-                    intent = new Intent(getContext(), ActivitySplash.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                intent = new Intent(getContext(), AfterQuestionsActivity.class);
+                if (box.getProfile() != null) {
+                    intent.putExtra(Config.INTENT_PROFILE, box.getProfile());
                 }
+                startActivity(intent);
+                getActivity().finish();
             } else {
                 intent = new Intent(getContext(), ActivitySplash.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -241,22 +235,12 @@ public class FragmentA extends Fragment
             case R.id.textView18:
             case R.id.btnClose: {
                 Events.logPushButton(EventProperties.push_button_close, box.getBuyFrom());
-                if (box.isOpenFromIntrodaction()) {
-                    getActivity().getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE).edit().putString(SavedConst.HOW_END, EventProperties.onboarding_success_close).commit();
-                    Intent intent = new Intent();
-                    if (isNeedGoNext()) {
-                        intent = new Intent(getContext(), AfterQuestionsActivity.class);
-                        if (box.getProfile() != null) {
-                            intent.putExtra(Config.INTENT_PROFILE, box.getProfile());
-                        }
-                    } else {
-                        intent = new Intent(getContext(), ActivitySplash.class);
-                    }
-                    startActivity(intent);
-                    getActivity().finish();
-                } else {
-                    getActivity().onBackPressed();
+                Intent intent = new Intent(getContext(), AfterQuestionsActivity.class);
+                if (box.getProfile() != null) {
+                    intent.putExtra(Config.INTENT_PROFILE, box.getProfile());
                 }
+                startActivity(intent);
+                getActivity().finish();
             }
             break;
             case R.id.tvPrivacyPolicy:

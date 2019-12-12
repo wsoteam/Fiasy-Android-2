@@ -16,7 +16,6 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
     <uses-permission android:name="com.android.vending.BILLING" />
-
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -52,7 +51,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/MeasurmentsStyle" />
         <activity
-            android:name="com.wsoteam.diet.presentation.search.product.DetailActivity"
+            android:name=".presentation.search.product.DetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AnalyzerTheme" />
         <activity
@@ -63,9 +62,6 @@
             android:name=".presentation.search.ParentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AnalyzerTheme" />
-
-       
-            
         <activity
             android:name=".presentation.profile.norm.choise.activity.ActivActivity"
             android:theme="@style/ChangeGoalActivity" />
@@ -335,6 +331,7 @@
         <activity
             android:name=".presentation.premium.PremiumFeaturesActivity"
             android:exported="true" />
+
     </application>
 
 </manifest>

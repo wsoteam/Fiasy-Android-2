@@ -20,6 +20,7 @@ import kotlin.collections.ArraysKt;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
+import com.wsoteam.diet.presentation.teach.TeachUtil;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.wsoteam.diet.Config.ONBOARD_PROFILE_PURPOSE;
@@ -123,7 +124,7 @@ public class QuestionPurposeFragments extends Fragment {
     if (position == -1) {
       return;
     }
-
+    TeachUtil.setOpen(getContext(),true);
     ((QuestionsActivity) getActivity()).saveProfile();
   }
 

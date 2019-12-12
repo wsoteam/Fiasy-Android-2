@@ -57,6 +57,10 @@ import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.norm.choise.activity.ActivActivity;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
+
+import com.wsoteam.diet.presentation.teach.TeachHostFragment;
+import com.wsoteam.diet.presentation.teach.TeachUtil;
+
 import com.wsoteam.diet.presentation.search.ParentActivity;
 import com.wsoteam.diet.views.BlurredLayout;
 import com.wsoteam.diet.views.fabmenu.FloatingActionMenu;
@@ -273,8 +277,13 @@ public class MainActivity extends AppCompatActivity {
         BodyCalculates.handleProfile();
 
         checkDeepLink(getApplicationContext());
-    }
 
+        if (TeachUtil.isNeedOpen(getApplicationContext()) && Locale.getDefault().getLanguage().equals("ru"))
+            getSupportFragmentManager().beginTransaction()
+                    .add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
+
+
+    }
 
     private void checkDeepLink(Context context){
 
@@ -414,6 +423,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
         if (isMainFragment) {
             super.onBackPressed();
         } else {
@@ -423,6 +433,8 @@ public class MainActivity extends AppCompatActivity {
             window.setStatusBarColor(Color.parseColor("#AE6A23"));
             bnvMain.setSelectedItemId(R.id.bnv_main_diary);
         }
+
+
     }
 
     private View.OnClickListener activityListener = v ->

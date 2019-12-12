@@ -95,44 +95,6 @@ class PremiumFeaturesActivity : AppCompatActivity() {
                 benefitTextColor = Color.WHITE,
                 prevMonthlyPrice = -1.0
             )
-        ),
-
-        "en" to arrayOf(
-            PremiumPlan(key = "premium_year",
-                price = 14.99,
-                trial = 7,
-                duration = R.string.premium_subscription_1_year,
-                diamondStyleId = R.drawable.ic_blue_diamond,
-                monthlyPrice = 1.23,
-                benefitPercentage = 75,
-                benefitTintColor = Color.WHITE,
-                benefitTextColor = Color.BLACK,
-                prevMonthlyPrice = 4.94
-            ),
-
-            PremiumPlan(key = "premium_6month",
-                price = 22.75,
-                trial = 3,
-                duration = R.string.premium_subscription_6_month,
-                diamondStyleId = R.drawable.ic_gold_diamond,
-                monthlyPrice = 3.76,
-                benefitPercentage = 24,
-                benefitTintColor = 0xFFEFB476.toInt(),
-                benefitTextColor = Color.WHITE,
-                prevMonthlyPrice = 4.94
-            ),
-
-            PremiumPlan(key = "premium_3month",
-                price = 14.99,
-                trial = 0,
-                duration = R.string.premium_subscription_3_month,
-                diamondStyleId = R.drawable.ic_silver_diamond,
-                monthlyPrice = 4.94,
-                benefitPercentage = 0,
-                benefitTintColor = 0xFFEFB476.toInt(),
-                benefitTextColor = Color.WHITE,
-                prevMonthlyPrice = -1.0
-            )
         )
     )
 
@@ -149,8 +111,7 @@ class PremiumFeaturesActivity : AppCompatActivity() {
   internal val source: String
     get() = intent.getStringExtra("source") ?: "profile"
 
-  internal val isDarkTheme: Boolean
-    get() = "dark" == FirebaseRemoteConfig.getInstance().getString("premium_theme")
+   val isDarkTheme = false
 
   internal val withTrial: Boolean
     get() = AbTests.enableTrials();
