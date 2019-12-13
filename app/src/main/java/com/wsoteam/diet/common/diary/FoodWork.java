@@ -79,6 +79,9 @@ public class FoodWork {
     }
 
     public static void saveItem(BasketEntity basketEntity, int day, int month, int year) {
+        if (month < 10){
+            month --;
+        }
         String food_intake = "";
         String food_category = EventProperties.food_category_base;
         String food_date = getDateType(day, month, year);
