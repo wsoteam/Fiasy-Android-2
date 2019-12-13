@@ -353,7 +353,7 @@ class DiaryFragment : Fragment() {
     private var oldStatusBarColor = 0
 
     private val waterObserver = androidx.lifecycle.Observer<Boolean> {
-        container.scrollToPosition(3)
+        container.scrollToPosition(5)
         Log.d("kkk", "get - $it")
     }
 
