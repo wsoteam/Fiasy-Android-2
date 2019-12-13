@@ -189,53 +189,31 @@ public class BodyCalculates {
         }
 
 
-        if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_none))) {
+        if (profile.getGoLevel() == Config.FIRST_LEVEL) {
             KFA = RATE_NONE;
-            profile.setExerciseStress(Config.EMPTY_FIELD);
-            profile.setGoLevel(Config.FIRST_LEVEL);
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_easy))) {
+        } else if (profile.getGoLevel() == Config.SECOND_LEVEL) {
             KFA = RATE_EASY;
-            profile.setExerciseStress(Config.EMPTY_FIELD);
-            profile.setGoLevel(Config.SECOND_LEVEL);
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_medium))) {
+        } else if (profile.getGoLevel() == Config.THIRD_LEVEL) {
             KFA = RATE_MEDIUM;
-            profile.setExerciseStress(Config.EMPTY_FIELD);
-            profile.setGoLevel(Config.THIRD_LEVEL);
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_hard))) {
+        } else if (profile.getGoLevel() == Config.FOURTH_LEVEL ) {
             KFA = RATE_HARD;
-            profile.setExerciseStress(Config.EMPTY_FIELD);
-            profile.setGoLevel(Config.FOURTH_LEVEL);
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_hard))) {
+        } else if (profile.getGoLevel() == Config.FIFTH_LEVEL ) {
             KFA = RATE_UP_HARD;
-            profile.setExerciseStress(Config.EMPTY_FIELD);
-            profile.setGoLevel(Config.FIFTH_LEVEL);
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_super))) {
+        } else if (profile.getGoLevel() == Config.SIXTH_LEVEL ) {
             KFA = RATE_SUPER;
-            profile.setExerciseStress(Config.EMPTY_FIELD);
-            profile.setGoLevel(Config.SIXTH_LEVEL);
-        } else if (stressLevel.equalsIgnoreCase(context.getString(R.string.level_up_super))) {
+        } else if (profile.getGoLevel() == Config.SEVENTH_LEVEL) {
             KFA = RATE_UP_SUPER;
-            profile.setExerciseStress(Config.EMPTY_FIELD);
-            profile.setGoLevel(Config.SEVENTH_LEVEL);
         }
 
 
-        if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_easy))) {
+        if (profile.getGoal() == Config.FIRST_GOAL) {
             target = 1 - TARGET_NORMAL;
-            profile.setDifficultyLevel(Config.EMPTY_FIELD);
-            profile.setGoal(Config.FIRST_GOAL);
-        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_normal))) {
+        } else if (profile.getGoal() == Config.SECOND_GOAL) {
             target = 1 - TARGET_LOOSE_WEIGHT;
-            profile.setDifficultyLevel(Config.EMPTY_FIELD);
-            profile.setGoal(Config.SECOND_GOAL);
-        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard))) {
+        } else if (profile.getGoal() == Config.THIRD_GOAL) {
             target = 1 + TARGET_MUSCLE;
-            profile.setDifficultyLevel(Config.EMPTY_FIELD);
-            profile.setGoal(Config.THIRD_GOAL);
-        } else if (difficultyLevel.equalsIgnoreCase(context.getString(R.string.dif_level_hard_up))) {
+        } else if (profile.getGoal() == Config.FOURTH_GOAL) {
             target = 1 - TARGET_SAVE;
-            profile.setDifficultyLevel(Config.EMPTY_FIELD);
-            profile.setGoal(Config.FOURTH_GOAL);
         }
 
         result = (BMR * KFA) * target;
