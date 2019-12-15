@@ -308,10 +308,14 @@ class DiaryFragment : Fragment() {
 
                         targets[i] = giftTarget
 
-                        Picasso.get()
-                                .load(R.drawable.star_1)
-                                .resize(premiumContainer.width, premiumContainer.height)
-                                .into(giftTarget)
+                        try {
+                            Picasso.get()
+                                    .load(R.drawable.star_1)
+                                    .resize(premiumContainer.width, premiumContainer.height)
+                                    .into(giftTarget)
+                        }catch (e: java.lang.Exception){
+
+                        }
                     }
                 } else {
                     premiumContainer.visibility = View.GONE
