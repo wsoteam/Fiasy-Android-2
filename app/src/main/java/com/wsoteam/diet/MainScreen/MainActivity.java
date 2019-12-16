@@ -325,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
 
         checkDeepLink(getApplicationContext());
 
-        TeachUtil.setOpen(getApplicationContext(), true);
+
         if (TeachUtil.isNeedOpen(getApplicationContext()) && Locale.getDefault().getLanguage().equals("ru"))
 //            startActivity(new Intent(this, TeachActivity.class));
             getSupportFragmentManager().beginTransaction()
