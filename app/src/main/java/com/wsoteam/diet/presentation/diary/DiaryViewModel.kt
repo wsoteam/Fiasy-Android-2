@@ -14,6 +14,7 @@ class DiaryViewModel : ViewModel() {
 
     val scrollToPosition = MutableLiveData<Int>()
 
+
     val isToday: Boolean
       get() {
         val calendar = Calendar.getInstance()

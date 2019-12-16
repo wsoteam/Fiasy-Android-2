@@ -355,9 +355,12 @@ class DiaryFragment : Fragment() {
     private var oldStatusBarColor = 0
 
     private val waterObserver = androidx.lifecycle.Observer<Int> {position ->
+        Log.d("kkk", "position = $position")
+        if(position != null)
         container.post {
             val y = container.y + container.getChildAt(position).y - premiumContainer.height
             root.smoothScrollTo(0, y.toInt())
+            DiaryViewModel.scrollToPosition.value = null
         }
     }
 
