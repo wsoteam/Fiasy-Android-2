@@ -63,6 +63,7 @@ import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 
+import com.wsoteam.diet.presentation.teach.TeachActivity;
 import com.wsoteam.diet.presentation.teach.TeachHostFragment;
 import com.wsoteam.diet.presentation.teach.TeachUtil;
 
@@ -328,9 +329,11 @@ public class MainActivity extends AppCompatActivity {
 
         checkDeepLink(getApplicationContext());
 
-        if (TeachUtil.isNeedOpen(getApplicationContext()) && Locale.getDefault().getLanguage().equals("ru"))
-            getSupportFragmentManager().beginTransaction()
-                    .add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
+//        TeachUtil.setOpen(getApplicationContext(), true);
+//        if (TeachUtil.isNeedOpen(getApplicationContext()) && Locale.getDefault().getLanguage().equals("ru"))
+//            startActivity(new Intent(this, TeachActivity.class));
+//            getSupportFragmentManager().beginTransaction()
+//                    .add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
 
 
     }
@@ -511,7 +514,7 @@ public class MainActivity extends AppCompatActivity {
 
     private View.OnClickListener waterListener = v -> {
         hideFabMenu();
-        DiaryViewModel.Companion.getScrollToPosition().setValue(2);
+        DiaryViewModel.Companion.getScrollToPosition().setValue(1);
     };
 
     private View.OnClickListener fabButtonListener = v ->{

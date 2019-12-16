@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnPreDrawListener
 import android.widget.FrameLayout
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
 import androidx.core.widget.NestedScrollView
 import androidx.core.widget.NestedScrollView.OnScrollChangeListener
 import androidx.customview.widget.ViewDragHelper
@@ -344,6 +345,8 @@ class DiaryFragment : Fragment() {
 
         updateTitle()
 
+        ViewCompat.setNestedScrollingEnabled(container, false)
+
         DiaryViewModel.scrollToPosition.observe(this, waterObserver)
 
     }
@@ -352,9 +355,10 @@ class DiaryFragment : Fragment() {
     private var oldStatusBarColor = 0
 
     private val waterObserver = androidx.lifecycle.Observer<Int> {position ->
-//        container.scrollToPosition(position)
-        root.scrollTo(0, 0)
-        Log.d("kkk", "get - $position")
+        container.post {
+            val y = container.y + container.getChildAt(position).y - premiumContainer.height
+            root.smoothScrollTo(0, y.toInt())
+        }
     }
 
     override fun onResume() {
