@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
     private Window window;
 
     private FloatingActionMenu fabMenu;
-    private boolean click = false;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> setActiveTab(item.getItemId());
@@ -145,14 +144,12 @@ public class MainActivity extends AppCompatActivity {
                 menu.close(true);
                 Log.d("kkk", "onMenuOpened 0");
             }
-            click = false;
         }
 
         @Override
         public void onMenuClosed(FloatingActionMenu menu) {
             fabBackground.setVisibility(View.GONE);
             Log.d("kkk", "onMenuClosed");
-            click = false;
         }
     };
 
@@ -170,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().popBackStack(Config.RECIPE_BACK_STACK, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-        if (click) return false;
         hideFab();
 
         Log.d("kkkid", "2 id - " + id);
@@ -329,11 +325,11 @@ public class MainActivity extends AppCompatActivity {
 
         checkDeepLink(getApplicationContext());
 
-//        TeachUtil.setOpen(getApplicationContext(), true);
-//        if (TeachUtil.isNeedOpen(getApplicationContext()) && Locale.getDefault().getLanguage().equals("ru"))
+        TeachUtil.setOpen(getApplicationContext(), true);
+        if (TeachUtil.isNeedOpen(getApplicationContext()) && Locale.getDefault().getLanguage().equals("ru"))
 //            startActivity(new Intent(this, TeachActivity.class));
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
+            getSupportFragmentManager().beginTransaction()
+                    .add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
 
 
     }
@@ -519,7 +515,7 @@ public class MainActivity extends AppCompatActivity {
 
     private View.OnClickListener fabButtonListener = v ->{
         Log.d("kkk", "fab button");
-        click = true;
+
     };
 
     private Observer<Boolean> fabMenuStatusObserver = isNeedClose -> {

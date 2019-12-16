@@ -108,7 +108,7 @@ class TeachSearchDialogFragment : DialogFragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 s?.apply {  changeSpeakButton(s)}
-                val str = s.toString().replace("\\s+", " ")
+                val str = s.toString().trim().replace("\\s+", " ")
                 hideSearchResult(str.isEmpty())
                 if (str.isNotEmpty()) showSuggestions(str)
 

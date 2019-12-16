@@ -61,7 +61,7 @@ class TeachActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_teach)
-        teachBlurImg.setImageBitmap(BlurBuilder.blur(applicationContext, window.decorView.rootView))
+//        teachBlurImg.setImageBitmap(BlurBuilder.blur(applicationContext, vie))
 //        startDialog(blur, REQUEST_BLUR)
         startDialog(TeachMealDialogFragment(), REQUEST_MEAL)
 
@@ -163,9 +163,12 @@ class TeachActivity : AppCompatActivity() {
 
     private fun startDialog(dialogFragment: DialogFragment, requestCode: Int) {
         val fm = supportFragmentManager
+
 //        dialogFragment.setTargetFragment(this, requestCode)
         dialogFragment.show(fm, dialogFragment.javaClass.name)
     }
+
+
 
     private fun runCountdown() {
         val toast = Toast(this)
