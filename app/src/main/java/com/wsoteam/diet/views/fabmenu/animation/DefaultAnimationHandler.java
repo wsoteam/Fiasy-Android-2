@@ -19,6 +19,7 @@ public class DefaultAnimationHandler extends MenuAnimationHandler {
     /** holds the current state of animation */
     private boolean animating;
 
+
     public DefaultAnimationHandler() {
         setAnimating(false);
     }
@@ -61,6 +62,8 @@ public class DefaultAnimationHandler extends MenuAnimationHandler {
         }
 
     }
+
+
 
     @Override
     public void animateMenuClosing(Point center) {
@@ -122,11 +125,13 @@ public class DefaultAnimationHandler extends MenuAnimationHandler {
         @Override
         public void onAnimationEnd(Animator animation) {
             restoreSubActionViewAfterAnimation(subActionItem, actionType);
+
         }
 
         @Override
         public void onAnimationCancel(Animator animation) {
             restoreSubActionViewAfterAnimation(subActionItem, actionType);
+
         }
 
         @Override public void onAnimationRepeat(Animator animation) {}

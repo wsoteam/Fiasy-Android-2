@@ -2,7 +2,6 @@ package com.wsoteam.diet.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.View;
 
 import androidx.renderscript.Allocation;
@@ -14,7 +13,6 @@ public class BlurBuilder {
     private static final float BITMAP_SCALE = 0.6f;
     private static final float BLUR_RADIUS = 15f;
     private static Bitmap blur(Context context, Bitmap image) {
-        Log.d("kkkb", "blur: 6");
         int width = Math.round(image.getWidth() * BITMAP_SCALE);
         int height = Math.round(image.getHeight() * BITMAP_SCALE);
         Bitmap inputBitmap = Bitmap.createScaledBitmap(image, width, height, false);
@@ -27,23 +25,18 @@ public class BlurBuilder {
         intrinsicBlur.setInput(tmpIn);
         intrinsicBlur.forEach(tmpOut);
         tmpOut.copyTo(outputBitmap);
-        Log.d("kkkb", "blur: 7");
         return outputBitmap;
     }
 
     public static Bitmap blur(Context context, View view) {
-        Log.d("kkkb", "blur: 1");
         if (view != null && context != null) {
-            Log.d("kkkb", "blur: 2");
-            return blur(context, takeScreenShot(view));
+            return blur(context, takeSnapShot(view));
         } else{
-            Log.d("kkkb", "blur: 3");
             return null;
         }
     }
 
-    private static Bitmap takeScreenShot(View view) {
-        Log.d("kkkb", "blur: 4");
+    private static Bitmap takeSnapShot(View view) {
         if (view == null) return null;
 
         // configuramos para que la view almacene la cache en una imagen
@@ -57,7 +50,6 @@ public class BlurBuilder {
         Bitmap snapshot = Bitmap.createBitmap(view.getDrawingCache());
         view.setDrawingCacheEnabled(false);
         view.destroyDrawingCache();
-        Log.d("kkkb", "blur: 5");
         return snapshot;
     }
 }

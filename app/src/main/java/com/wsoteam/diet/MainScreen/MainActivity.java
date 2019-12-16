@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,11 +53,12 @@ import com.wsoteam.diet.common.Analytics.SavedConst;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.common.remote.UpdateChecker;
 import com.wsoteam.diet.presentation.activity.UserActivityFragment;
+import com.wsoteam.diet.presentation.diary.DiaryViewModel;
+import com.wsoteam.diet.presentation.fab.FabMenuViewModel;
 import com.wsoteam.diet.presentation.fab.MainFabMenu;
 import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.model.ArticleViewModel;
 import com.wsoteam.diet.presentation.fab.SelectMealDialogFragment;
-import com.wsoteam.diet.presentation.main.water.WaterViewModel;
 import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
@@ -66,7 +68,6 @@ import com.wsoteam.diet.presentation.teach.TeachUtil;
 
 import com.wsoteam.diet.presentation.search.ParentActivity;
 import com.wsoteam.diet.utils.BlurBuilder;
-import com.wsoteam.diet.views.BlurredLayout;
 import com.wsoteam.diet.views.fabmenu.FloatingActionMenu;
 
 import java.util.Calendar;
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     private Window window;
 
     private FloatingActionMenu fabMenu;
+    private boolean click = false;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> setActiveTab(item.getItemId());
@@ -117,7 +119,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void hideFabMenu(){
-        if (fabMenu != null) fabMenu.close(true);
+        if (fabMenu != null){
+            Log.d("kkk", "hideFabMenu: ");
+
+            fabMenu.close(true);
+        }
     }
 
     private void showFab() {
@@ -130,17 +136,27 @@ public class MainActivity extends AppCompatActivity {
         public void onMenuOpened(FloatingActionMenu menu) {
             fabBackgroundImg.setImageBitmap(BlurBuilder.blur(getApplicationContext(), constraintLayout));
             fabBackground.setVisibility(View.VISIBLE);
-            bnvMain.setVisibility(View.GONE);
+
+
+            if (isMainFragment){
+                Log.d("kkk", "onMenuOpened 1");
+            } else {
+                menu.close(true);
+                Log.d("kkk", "onMenuOpened 0");
+            }
+            click = false;
         }
 
         @Override
         public void onMenuClosed(FloatingActionMenu menu) {
             fabBackground.setVisibility(View.GONE);
-            bnvMain.setVisibility(View.VISIBLE);
+            Log.d("kkk", "onMenuClosed");
+            click = false;
         }
     };
 
     private boolean setActiveTab(int id) {
+        isMainFragment = false;
         transaction = getSupportFragmentManager().beginTransaction();
         window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -149,24 +165,29 @@ public class MainActivity extends AppCompatActivity {
         box.setOpenFromPremPart(true);
         box.setOpenFromIntrodaction(false);
 
+//        Log.d("kkkid", "1 id - " + id);
+
         getSupportFragmentManager().popBackStack(Config.RECIPE_BACK_STACK, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
+        if (click) return false;
         hideFab();
 
-        BlurredLayout blurredLayout = new BlurredLayout(this);
-        blurredLayout.setBlurRadius(0, 0);
+        Log.d("kkkid", "2 id - " + id);
 
         switch (id) {
             case R.id.bnv_main_diary: {
+                Log.d("kkkid", "3 id - " + id);
                 isMainFragment = true;
                 DiaryFragment fragment = new DiaryFragment();
                 fragment.setFabListener(fabListener);
                 transaction.replace(R.id.flFragmentContainer, fragment).commit();
 //                window.setStatusBarColor(Color.parseColor("#AE6A23"));
                 showFab();
+//                Log.d("kkkid", "4 id - " + id);
                 return true;
             }
-            case R.id.bnv_main_articles:
+            case R.id.bnv_main_articles: {
+                Log.d("kkkid", "5 id - " + id);
                 Amplitude.getInstance().logEvent(Events.CHOOSE_ARTICLES);
                 box.setComeFrom(AmplitudaEvents.view_prem_content);
                 box.setBuyFrom(EventProperties.trial_from_articles);
@@ -194,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 }
+            }
             case R.id.bnv_main_trainer:
                 isMainFragment = false;
                 transaction.replace(R.id.flFragmentContainer, new BrowsePlansFragment()).commit();
@@ -265,6 +287,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_drawer);
         ButterKnife.bind(this);
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        bnvMain.setOnNavigationItemReselectedListener(menuItem ->{
+            Log.d("kkk", "onCreate: 0");
+            if (menuItem.getItemId() != R.id.bnv_main_diary) {
+                FabMenuViewModel.isNeedClose.setValue(true);
+                Log.d("kkk", "onCreate: 1");
+            }
+        });
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         DiaryFragment fragment = new DiaryFragment();
@@ -277,7 +306,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         fabMenu = MainFabMenu.Companion.initFabMenu(this, fab, menuStateChangeListener,
-                activityListener, measurementListener, mealListener, waterListener);
+                activityListener, measurementListener, mealListener, waterListener, fabButtonListener);
+        FabMenuViewModel.isNeedClose.observe(this ,fabMenuStatusObserver);
 
         //checkForcedGrade();
         new AsyncWriteFoodDB().execute(MainActivity.this);
@@ -436,6 +466,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+        if (fabMenu != null && fabMenu.isOpen()){
+            hideFab();
+            return;
+        }
+
         if (isMainFragment) {
             super.onBackPressed();
         } else {
@@ -476,7 +511,17 @@ public class MainActivity extends AppCompatActivity {
 
     private View.OnClickListener waterListener = v -> {
         hideFabMenu();
-        WaterViewModel.data.setValue(true);
+        DiaryViewModel.Companion.getScrollToPosition().setValue(2);
+    };
+
+    private View.OnClickListener fabButtonListener = v ->{
+        Log.d("kkk", "fab button");
+        click = true;
+    };
+
+    private Observer<Boolean> fabMenuStatusObserver = isNeedClose -> {
+        Log.d("kkk", "fabMenuStatusObserver - " + isNeedClose);
+        if (isNeedClose) hideFab();
     };
 
 }

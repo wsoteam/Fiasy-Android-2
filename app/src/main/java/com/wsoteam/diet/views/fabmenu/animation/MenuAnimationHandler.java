@@ -15,6 +15,9 @@ public abstract class MenuAnimationHandler {
 
     protected FloatingActionMenu menu;
 
+
+    private  Animator.AnimatorListener animatorListener;
+
     public MenuAnimationHandler() {
     }
 
@@ -93,6 +96,10 @@ public abstract class MenuAnimationHandler {
         }
     }
 
+    public void setAnimatorListener(Animator.AnimatorListener animatorListener) {
+        this.animatorListener = animatorListener;
+    }
+
     /**
      * A special animation listener that is intended to listen the last of the sequential animations.
      * Changes the animating property of children.
@@ -107,11 +114,13 @@ public abstract class MenuAnimationHandler {
         @Override
         public void onAnimationEnd(Animator animation) {
             setAnimating(false);
+            if (animatorListener != null) animatorListener.onAnimationEnd(animation);
         }
 
         @Override
         public void onAnimationCancel(Animator animation) {
             setAnimating(false);
+            if (animatorListener != null) animatorListener.onAnimationCancel(animation);
         }
 
         @Override

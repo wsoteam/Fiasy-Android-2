@@ -36,7 +36,6 @@ import com.wsoteam.diet.presentation.fab.MainFabMenu
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Hiden
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Revealed
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
-import com.wsoteam.diet.presentation.main.water.WaterViewModel
 import com.wsoteam.diet.utils.FiasyDateUtils
 import com.wsoteam.diet.utils.ImageSpan
 import com.wsoteam.diet.utils.RichTextUtils.replaceWithIcon
@@ -345,16 +344,16 @@ class DiaryFragment : Fragment() {
 
         updateTitle()
 
-        WaterViewModel.data.observe(this, waterObserver)
+        DiaryViewModel.scrollToPosition.observe(this, waterObserver)
 
     }
 
 
     private var oldStatusBarColor = 0
 
-    private val waterObserver = androidx.lifecycle.Observer<Boolean> {
-        container.scrollToPosition(5)
-        Log.d("kkk", "get - $it")
+    private val waterObserver = androidx.lifecycle.Observer<Int> {position ->
+        container.scrollToPosition(position)
+        Log.d("kkk", "get - $position")
     }
 
     override fun onResume() {

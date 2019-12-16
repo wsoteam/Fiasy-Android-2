@@ -19,7 +19,8 @@ class MainFabMenu {
                                activityListener: View.OnClickListener,
                                measurementListener: View.OnClickListener,
                                mealListener: View.OnClickListener,
-                               waterListener: View.OnClickListener):  FloatingActionMenu{
+                               waterListener: View.OnClickListener,
+                                onClickListener: View.OnClickListener):  FloatingActionMenu{
 
             val builder = SubActionButton.Builder(activity).setTheme(SubActionButton.THEME_LIGHTER)
 
@@ -53,6 +54,7 @@ class MainFabMenu {
                     .attachTo(fab)
                     .setStateChangeListener(listener)
                     .setEndAngle(260)
+                    .setOnclickListener(onClickListener)
                     .build()
         }
 

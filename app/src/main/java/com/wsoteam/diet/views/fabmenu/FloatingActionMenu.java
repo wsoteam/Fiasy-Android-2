@@ -1,5 +1,6 @@
 package com.wsoteam.diet.views.fabmenu;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Path;
@@ -9,6 +10,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.hardware.SensorManager;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -50,7 +52,39 @@ public class FloatingActionMenu {
     /** a simple layout to contain all the sub action views in the system overlay mode */
     private FrameLayout overlayContainer;
 
+    private boolean isNeedClose = false;
+
     private OrientationEventListener orientationListener;
+
+    private View.OnClickListener onClickListener;
+
+    Animator.AnimatorListener animatorListener = new Animator.AnimatorListener(){
+
+        @Override
+        public void onAnimationStart(Animator animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            Log.d("kkl", " end");
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animation) {
+            Log.d("kkl", " cancel");
+            if (isNeedClose){
+                Log.d("kkkl", "close from open");
+                close(true);
+            }
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animation) {
+
+        }
+    } ;
 
     /**
      * Constructor that takes the parameters collected using {@link FloatingActionMenu.Builder}
@@ -70,7 +104,8 @@ public class FloatingActionMenu {
                               MenuAnimationHandler animationHandler,
                               boolean animated,
                               MenuStateChangeListener stateChangeListener,
-                              final boolean systemOverlay) {
+                              final boolean systemOverlay,
+                              View.OnClickListener listener) {
         this.mainActionView = mainActionView;
         this.startAngle = startAngle;
         this.endAngle = endAngle;
@@ -79,6 +114,7 @@ public class FloatingActionMenu {
         this.animationHandler = animationHandler;
         this.animated = animated;
         this.systemOverlay = systemOverlay;
+        this.onClickListener = listener;
         // The menu is initially closed.
         this.open = false;
 
@@ -137,6 +173,12 @@ public class FloatingActionMenu {
             };
             orientationListener.enable();
         }
+
+
+            Log.d("kkkl", "set listener");
+        if (animationHandler != null)
+            animationHandler.setAnimatorListener(animatorListener);
+
     }
 
     /**
@@ -210,6 +252,7 @@ public class FloatingActionMenu {
         }
         // do not forget to specify that the menu is open.
         open = true;
+        Log.d("kkkl", "open");
 
         if(stateChangeListener != null) {
             stateChangeListener.onMenuOpened(this);
@@ -222,15 +265,20 @@ public class FloatingActionMenu {
      * @param animated if true, this action is executed by the current {@link MenuAnimationHandler}
      */
     public void close(boolean animated) {
+        Log.d("kkkl", "close 1");
         // If animations are enabled and we have a MenuAnimationHandler, let it do the heavy work
         if(animated && animationHandler != null) {
+            Log.d("kkkl", "close true");
             if(animationHandler.isAnimating()) {
+                isNeedClose = true;
+                Log.d("kkkl", "close animating");
                 // Do not proceed if there is an animation currently going on.
                 return;
             }
             animationHandler.animateMenuClosing(getActionViewCenter());
         }
         else {
+            Log.d("kkkl", "close false");
             // If animations are disabled, just detach each of the Item views from the Activity content view.
             for (int i = 0; i < subActionItems.size(); i++) {
                 removeViewFromCurrentContainer(subActionItems.get(i).view);
@@ -239,11 +287,14 @@ public class FloatingActionMenu {
         }
         // do not forget to specify that the menu is now closed.
         open = false;
+        isNeedClose = false;
+        Log.d("kkkl", "false");
 
         if(stateChangeListener != null) {
             stateChangeListener.onMenuClosed(this);
         }
     }
+
 
     /**
      * Toggles the menu
@@ -514,6 +565,7 @@ public class FloatingActionMenu {
 
         @Override
         public void onClick(View v) {
+            if (onClickListener != null) onClickListener.onClick(v);
             toggle(animated);
         }
     }
@@ -595,6 +647,7 @@ public class FloatingActionMenu {
         private boolean animated;
         private MenuStateChangeListener stateChangeListener;
         private boolean systemOverlay;
+        private View.OnClickListener onClickListener;
 
         public Builder(Context context, boolean systemOverlay) {
             subActionItems = new ArrayList<Item>();
@@ -618,6 +671,11 @@ public class FloatingActionMenu {
 
         public Builder setEndAngle(int endAngle) {
             this.endAngle = endAngle;
+            return this;
+        }
+
+        public Builder setOnclickListener(View.OnClickListener listener){
+            this.onClickListener = listener;
             return this;
         }
 
@@ -708,7 +766,8 @@ public class FloatingActionMenu {
                     animationHandler,
                     animated,
                     stateChangeListener,
-                    systemOverlay);
+                    systemOverlay,
+                    onClickListener);
         }
     }
 
