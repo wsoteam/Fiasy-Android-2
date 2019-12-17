@@ -63,7 +63,6 @@ import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 
-import com.wsoteam.diet.presentation.teach.TeachActivity;
 import com.wsoteam.diet.presentation.teach.TeachHostFragment;
 import com.wsoteam.diet.presentation.teach.TeachUtil;
 
@@ -120,8 +119,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void hideFabMenu(){
         if (fabMenu != null){
-            Log.d("kkk", "hideFabMenu: ");
-
             fabMenu.close(true);
         }
     }
@@ -137,19 +134,15 @@ public class MainActivity extends AppCompatActivity {
             fabBackgroundImg.setImageBitmap(BlurBuilder.blur(getApplicationContext(), constraintLayout));
             fabBackground.setVisibility(View.VISIBLE);
 
-
             if (isMainFragment){
-                Log.d("kkk", "onMenuOpened 1");
             } else {
                 menu.close(true);
-                Log.d("kkk", "onMenuOpened 0");
             }
         }
 
         @Override
         public void onMenuClosed(FloatingActionMenu menu) {
             fabBackground.setVisibility(View.GONE);
-            Log.d("kkk", "onMenuClosed");
         }
     };
 
@@ -163,28 +156,23 @@ public class MainActivity extends AppCompatActivity {
         box.setOpenFromPremPart(true);
         box.setOpenFromIntrodaction(false);
 
-//        Log.d("kkkid", "1 id - " + id);
 
         getSupportFragmentManager().popBackStack(Config.RECIPE_BACK_STACK, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
         hideFab();
 
-        Log.d("kkkid", "2 id - " + id);
 
         switch (id) {
             case R.id.bnv_main_diary: {
-                Log.d("kkkid", "3 id - " + id);
                 isMainFragment = true;
                 DiaryFragment fragment = new DiaryFragment();
                 fragment.setFabListener(fabListener);
                 transaction.replace(R.id.flFragmentContainer, fragment).commit();
 //                window.setStatusBarColor(Color.parseColor("#AE6A23"));
                 showFab();
-//                Log.d("kkkid", "4 id - " + id);
                 return true;
             }
             case R.id.bnv_main_articles: {
-                Log.d("kkkid", "5 id - " + id);
                 Amplitude.getInstance().logEvent(Events.CHOOSE_ARTICLES);
                 box.setComeFrom(AmplitudaEvents.view_prem_content);
                 box.setBuyFrom(EventProperties.trial_from_articles);
@@ -285,10 +273,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         bnvMain.setOnNavigationItemReselectedListener(menuItem ->{
-            Log.d("kkk", "onCreate: 0");
             if (menuItem.getItemId() != R.id.bnv_main_diary) {
                 FabMenuViewModel.isNeedClose.setValue(true);
-                Log.d("kkk", "onCreate: 1");
             }
         });
 
@@ -327,7 +313,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (TeachUtil.isNeedOpen(getApplicationContext()) && Locale.getDefault().getLanguage().equals("ru"))
-//            startActivity(new Intent(this, TeachActivity.class));
             getSupportFragmentManager().beginTransaction()
                     .add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
 
@@ -514,12 +499,10 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private View.OnClickListener fabButtonListener = v ->{
-        Log.d("kkk", "fab button");
 
     };
 
     private Observer<Boolean> fabMenuStatusObserver = isNeedClose -> {
-        Log.d("kkk", "fabMenuStatusObserver - " + isNeedClose);
         if (isNeedClose) hideFab();
     };
 

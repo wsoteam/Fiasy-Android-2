@@ -10,7 +10,6 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.hardware.SensorManager;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -52,7 +51,6 @@ public class FloatingActionMenu {
     /** a simple layout to contain all the sub action views in the system overlay mode */
     private FrameLayout overlayContainer;
 
-    private boolean isNeedClose = false;
 
     private OrientationEventListener orientationListener;
 
@@ -67,16 +65,11 @@ public class FloatingActionMenu {
 
         @Override
         public void onAnimationEnd(Animator animation) {
-            Log.d("kkl", " end");
         }
 
         @Override
         public void onAnimationCancel(Animator animation) {
-            Log.d("kkl", " cancel");
-            if (isNeedClose){
-                Log.d("kkkl", "close from open");
-                close(true);
-            }
+
 
         }
 
@@ -175,7 +168,7 @@ public class FloatingActionMenu {
         }
 
 
-            Log.d("kkkl", "set listener");
+
         if (animationHandler != null)
             animationHandler.setAnimatorListener(animatorListener);
 
@@ -252,7 +245,7 @@ public class FloatingActionMenu {
         }
         // do not forget to specify that the menu is open.
         open = true;
-        Log.d("kkkl", "open");
+
 
         if(stateChangeListener != null) {
             stateChangeListener.onMenuOpened(this);
@@ -265,20 +258,17 @@ public class FloatingActionMenu {
      * @param animated if true, this action is executed by the current {@link MenuAnimationHandler}
      */
     public void close(boolean animated) {
-        Log.d("kkkl", "close 1");
+
         // If animations are enabled and we have a MenuAnimationHandler, let it do the heavy work
         if(animated && animationHandler != null) {
-            Log.d("kkkl", "close true");
+
             if(animationHandler.isAnimating()) {
-                isNeedClose = true;
-                Log.d("kkkl", "close animating");
                 // Do not proceed if there is an animation currently going on.
                 return;
             }
             animationHandler.animateMenuClosing(getActionViewCenter());
         }
         else {
-            Log.d("kkkl", "close false");
             // If animations are disabled, just detach each of the Item views from the Activity content view.
             for (int i = 0; i < subActionItems.size(); i++) {
                 removeViewFromCurrentContainer(subActionItems.get(i).view);
@@ -287,8 +277,6 @@ public class FloatingActionMenu {
         }
         // do not forget to specify that the menu is now closed.
         open = false;
-        isNeedClose = false;
-        Log.d("kkkl", "false");
 
         if(stateChangeListener != null) {
             stateChangeListener.onMenuClosed(this);

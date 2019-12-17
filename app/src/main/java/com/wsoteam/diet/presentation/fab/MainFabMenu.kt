@@ -30,13 +30,13 @@ class MainFabMenu {
             activityBtn.setOnClickListener(activityListener)
 
             val measurementBtn = builder.setContentView(getView(
-                    activity, R.drawable.ic_fab_menu_measurement, "Измерения"
+                    activity, R.drawable.ic_fab_menu_measurement, activity.getString(R.string.fab_menu_measurement)
             )).build()
             measurementBtn.setOnClickListener(measurementListener)
 
 
             val mealBtn = builder.setContentView(getView(
-                    activity, R.drawable.ic_fab_menu_meal, "Еда"
+                    activity, R.drawable.ic_fab_menu_meal, activity.getString(R.string.fab_menu_food)
             )).build()
             mealBtn.setOnClickListener(mealListener)
 
