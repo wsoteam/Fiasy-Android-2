@@ -29,13 +29,16 @@ public class ActivitySubscription extends AppCompatActivity {
                 getString(ABConfig.KEY_FOR_SAVE_STATE, "default");
         box = (Box) getIntent().getSerializableExtra(Config.TAG_BOX);
 
-        if (abVersion.equals(ABConfig.A_VERSION)) {
+        getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
+                FragmentE.newInstance(box)).commit();
+
+        /*if (abVersion.equals(ABConfig.A_VERSION)) {
             getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                    FragmentD.newInstance(box)).commit();
+                    FragmentE.newInstance(box)).commit();
         } else {
             getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
                     FragmentE.newInstance(box)).commit();
-        }
+        }*/
     }
 }
 
