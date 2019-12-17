@@ -32,10 +32,10 @@ public class ActivitySubscription extends AppCompatActivity {
 
         if (abVersion.equals(ABConfig.A_VERSION)) {
             getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                    FragmentE.newInstance(box)).commit();
+                    FragmentD.newInstance(box)).commit();
         } else {
             getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                    FragmentF.newInstance(box)).commit();
+                    FragmentE.newInstance(box)).commit();
         }
     }
 }
