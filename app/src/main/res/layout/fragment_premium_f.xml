@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/roboto_bold"
-                android:text="3 дня бесплатно"
+                android:text="7 дней бесплатно"
                 android:elevation="5dp"
                 android:textColor="@color/white"
                 android:textSize="24sp"

@@ -78,7 +78,7 @@ public class FragmentF extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         //View view = inflater.inflate(R.layout.fragment_subscription_one_button_2, container, false);
-        View view = inflater.inflate(R.layout.fragment_premium_e, container, false);
+        View view = inflater.inflate(R.layout.fragment_premium_f, container, false);
         unbinder = ButterKnife.bind(this, view);
 
         box = (Box) getArguments().getSerializable(TAG_BOX);
