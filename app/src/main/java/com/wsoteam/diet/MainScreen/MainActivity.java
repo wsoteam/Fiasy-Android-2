@@ -2,7 +2,6 @@ package com.wsoteam.diet.MainScreen;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,12 +9,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +25,7 @@ import butterknife.OnClick;
 import com.amplitude.api.Amplitude;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,35 +52,109 @@ import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.common.remote.UpdateChecker;
+import com.wsoteam.diet.presentation.activity.UserActivityFragment;
+import com.wsoteam.diet.presentation.diary.DiaryViewModel;
+import com.wsoteam.diet.presentation.fab.FabMenuViewModel;
+import com.wsoteam.diet.presentation.fab.MainFabMenu;
 import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.model.ArticleViewModel;
+import com.wsoteam.diet.presentation.fab.SelectMealDialogFragment;
 import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 
+import com.wsoteam.diet.presentation.teach.TeachActivity;
 import com.wsoteam.diet.presentation.teach.TeachHostFragment;
 import com.wsoteam.diet.presentation.teach.TeachUtil;
 
 import com.wsoteam.diet.presentation.search.ParentActivity;
+import com.wsoteam.diet.utils.BlurBuilder;
+import com.wsoteam.diet.views.fabmenu.FloatingActionMenu;
 
 import java.util.Calendar;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.flFragmentContainer) FrameLayout flFragmentContainer;
-    @BindView(R.id.bnv_main) BottomNavigationView bnvMain;
-    @BindView(R.id.bottom_sheet) LinearLayout bottomSheet;
+    @BindView(R.id.flFragmentContainer)
+    FrameLayout flFragmentContainer;
+    @BindView(R.id.bnv_main)
+    BottomNavigationView bnvMain;
+    @BindView(R.id.bottom_sheet)
+    LinearLayout bottomSheet;
+    @BindView(R.id.floatingActionButton)
+    FloatingActionButton fab;
+    @BindView(R.id.fabBackground)
+    FrameLayout fabBackground;
+    @BindView(R.id.backgroundImg)
+    ImageView fabBackgroundImg;
+    @BindView(R.id.mainConstraint)
+    ConstraintLayout constraintLayout;
+
     private FragmentTransaction transaction;
     private BottomSheetBehavior bottomSheetBehavior;
     private boolean isMainFragment = true;
     private Window window;
 
+    private FloatingActionMenu fabMenu;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> setActiveTab(item.getItemId());
 
-    private boolean setActiveTab(int id){
+    private MainFabMenu.Scroll fabListener = new MainFabMenu.Scroll() {
+        @Override
+        public void up() {
+            showFab();
+        }
+
+        @Override
+        public void down() {
+            hideFab();
+        }
+    };
+
+    private void hideFab() {
+        hideFabMenu();
+        fab.hide();
+    }
+
+    private void hideFabMenu(){
+        if (fabMenu != null){
+            Log.d("kkk", "hideFabMenu: ");
+
+            fabMenu.close(true);
+        }
+    }
+
+    private void showFab() {
+
+        fab.show();
+    }
+
+    FloatingActionMenu.MenuStateChangeListener menuStateChangeListener = new FloatingActionMenu.MenuStateChangeListener() {
+        @Override
+        public void onMenuOpened(FloatingActionMenu menu) {
+            fabBackgroundImg.setImageBitmap(BlurBuilder.blur(getApplicationContext(), constraintLayout));
+            fabBackground.setVisibility(View.VISIBLE);
+
+
+            if (isMainFragment){
+                Log.d("kkk", "onMenuOpened 1");
+            } else {
+                menu.close(true);
+                Log.d("kkk", "onMenuOpened 0");
+            }
+        }
+
+        @Override
+        public void onMenuClosed(FloatingActionMenu menu) {
+            fabBackground.setVisibility(View.GONE);
+            Log.d("kkk", "onMenuClosed");
+        }
+    };
+
+    private boolean setActiveTab(int id) {
+        isMainFragment = false;
         transaction = getSupportFragmentManager().beginTransaction();
         window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -86,42 +163,56 @@ public class MainActivity extends AppCompatActivity {
         box.setOpenFromPremPart(true);
         box.setOpenFromIntrodaction(false);
 
+//        Log.d("kkkid", "1 id - " + id);
+
         getSupportFragmentManager().popBackStack(Config.RECIPE_BACK_STACK, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
+        hideFab();
+
+        Log.d("kkkid", "2 id - " + id);
+
         switch (id) {
-            case R.id.bnv_main_diary:
+            case R.id.bnv_main_diary: {
+                Log.d("kkkid", "3 id - " + id);
                 isMainFragment = true;
-                transaction.replace(R.id.flFragmentContainer, new DiaryFragment()).commit();
-                window.setStatusBarColor(Color.parseColor("#AE6A23"));
+                DiaryFragment fragment = new DiaryFragment();
+                fragment.setFabListener(fabListener);
+                transaction.replace(R.id.flFragmentContainer, fragment).commit();
+//                window.setStatusBarColor(Color.parseColor("#AE6A23"));
+                showFab();
+//                Log.d("kkkid", "4 id - " + id);
                 return true;
-            case R.id.bnv_main_articles:
+            }
+            case R.id.bnv_main_articles: {
+                Log.d("kkkid", "5 id - " + id);
                 Amplitude.getInstance().logEvent(Events.CHOOSE_ARTICLES);
                 box.setComeFrom(AmplitudaEvents.view_prem_content);
                 box.setBuyFrom(EventProperties.trial_from_articles);
                 isMainFragment = false;
                 window.setStatusBarColor(getResources().getColor(R.color.highlight_line_color));
-                switch (Locale.getDefault().getLanguage()){
-                    case "ru":{
+                switch (Locale.getDefault().getLanguage()) {
+                    case "ru": {
                         transaction.replace(R.id.flFragmentContainer, new com.wsoteam.diet.articles.ListArticlesFragment()).commit();
                         return true;
                     }
-                    default:{
+                    default: {
                         com.wsoteam.diet.articles.BurlakovAuthorFragment burlakovAuthorFragment = new com.wsoteam.diet.articles.BurlakovAuthorFragment();
 //                            burlakovAuthorFragment.setClickListener(v -> {
 //                                    transaction.replace(R.id.flFragmentContainer,
 //                                        new ArticleSeriesFragment()).commit();
 //                            });
                         if (UserDataHolder.getUserData().getArticleSeries() != null &&
-                                UserDataHolder.getUserData().getArticleSeries().containsKey("burlakov")){
+                                UserDataHolder.getUserData().getArticleSeries().containsKey("burlakov")) {
                             transaction.replace(R.id.flFragmentContainer,
                                     new com.wsoteam.diet.articles.ArticleSeriesFragment()).commit();
-                        }else {
+                        } else {
                             transaction.replace(R.id.flFragmentContainer,
                                     burlakovAuthorFragment).commit();
                         }
                         return true;
                     }
                 }
+            }
             case R.id.bnv_main_trainer:
                 isMainFragment = false;
                 transaction.replace(R.id.flFragmentContainer, new BrowsePlansFragment()).commit();
@@ -140,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private void startPrem(){
+    private void startPrem() {
         Box box = new Box();
         box.setSubscribe(false);
         box.setOpenFromPremPart(true);
@@ -157,14 +248,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-  @Override
-  protected void onResume() {
-    super.onResume();
-    handlGrade(Calendar.getInstance().getTimeInMillis());
-    new UpdateChecker(this).runChecker();
-    Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-  }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handlGrade(Calendar.getInstance().getTimeInMillis());
+        new UpdateChecker(this).runChecker();
+        Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        hideFabMenu();
+    }
 
     private void handlGrade(long currentTime) {
         long timeStartingPoint =
@@ -193,15 +284,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_drawer);
         ButterKnife.bind(this);
         bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        bnvMain.setOnNavigationItemReselectedListener(menuItem ->{
+            Log.d("kkk", "onCreate: 0");
+            if (menuItem.getItemId() != R.id.bnv_main_diary) {
+                FabMenuViewModel.isNeedClose.setValue(true);
+                Log.d("kkk", "onCreate: 1");
+            }
+        });
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-
+        DiaryFragment fragment = new DiaryFragment();
+        fragment.setFabListener(fabListener);
         if (getSupportFragmentManager().findFragmentByTag("diary") == null) {
             getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.flFragmentContainer, new DiaryFragment(), "diary")
-                .commit();
+                    .beginTransaction()
+                    .add(R.id.flFragmentContainer, fragment, "diary")
+                    .commit();
         }
+
+        fabMenu = MainFabMenu.Companion.initFabMenu(this, fab, menuStateChangeListener,
+                activityListener, measurementListener, mealListener, waterListener, fabButtonListener);
+        FabMenuViewModel.isNeedClose.observe(this ,fabMenuStatusObserver);
 
         //checkForcedGrade();
         new AsyncWriteFoodDB().execute(MainActivity.this);
@@ -222,19 +325,21 @@ public class MainActivity extends AppCompatActivity {
 
         checkDeepLink(getApplicationContext());
 
+
         if (TeachUtil.isNeedOpen(getApplicationContext()) && Locale.getDefault().getLanguage().equals("ru"))
+//            startActivity(new Intent(this, TeachActivity.class));
             getSupportFragmentManager().beginTransaction()
                     .add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
 
 
     }
 
-    private void checkDeepLink(Context context){
+    private void checkDeepLink(Context context) {
 
         String deepLinkAction = DeepLink.getAction(context);
         if (deepLinkAction != null)
-            switch (deepLinkAction){
-                case DeepLink.Start.PREMIUM:{
+            switch (deepLinkAction) {
+                case DeepLink.Start.PREMIUM: {
                     startPrem();
                     DeepLink.deleteAction(context);
                     break;
@@ -245,30 +350,32 @@ public class MainActivity extends AppCompatActivity {
                     DeepLink.deleteAction(context);
                     break;
                 }
-                case DeepLink.Start.RECIPE:{
+                case DeepLink.Start.RECIPE: {
                     bnvMain.setSelectedItemId(R.id.bnv_main_recipes);
                     DeepLink.deleteAction(context);
                     break;
                 }
 
-                case DeepLink.Start.DIETS:{
+                case DeepLink.Start.DIETS: {
                     bnvMain.setSelectedItemId(R.id.bnv_main_trainer);
                     DeepLink.deleteAction(context);
                     break;
                 }
 
-                case DeepLink.Start.NUTRITIONIST:{
+                case DeepLink.Start.NUTRITIONIST: {
                     startActivity(new Intent(context, ArticleSeriesActivity.class));
                     DeepLink.deleteAction(context);
                     break;
                 }
-                case DeepLink.Start.MEASUREMENT:{
+                case DeepLink.Start.MEASUREMENT: {
                     startActivity(new Intent(context, MeasurmentActivity.class));
                     DeepLink.deleteAction(context);
                     break;
                 }
-                case DeepLink.Start.ADD_FOOD:{
-                    startActivity(new Intent(context, ParentActivity.class).putExtra(Config.INTENT_DATE_FOR_SAVE, DeepLink.getDate()));
+                case DeepLink.Start.ADD_FOOD: {
+                    startActivity(new Intent(context, ParentActivity.class)
+                            .putExtra(Config.INTENT_DATE_FOR_SAVE,
+                                    ParentActivity.prepareDate(Calendar.getInstance())));
                     DeepLink.deleteAction(context);
                     break;
                 }
@@ -277,108 +384,143 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-  private void logEvents() {
-    if (getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).getBoolean(
-        SavedConst.SEE_PREMIUM, false)) {
-      Events.logSuccessOnboarding(
-          getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).getString(SavedConst.HOW_END,
-              EventProperties.onboarding_success_reopen));
-      getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).edit()
-          .remove(SavedConst.SEE_PREMIUM)
-          .commit();
-      getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).edit()
-          .remove(SavedConst.HOW_END)
-          .commit();
+    private void logEvents() {
+        if (getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).getBoolean(
+                SavedConst.SEE_PREMIUM, false)) {
+            Events.logSuccessOnboarding(
+                    getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).getString(SavedConst.HOW_END,
+                            EventProperties.onboarding_success_reopen));
+            getSharedPreferences(SavedConst.SEE_PREMIUM, MODE_PRIVATE).edit()
+                    .remove(SavedConst.SEE_PREMIUM)
+                    .commit();
+            getSharedPreferences(SavedConst.HOW_END, MODE_PRIVATE).edit()
+                    .remove(SavedConst.HOW_END)
+                    .commit();
+        }
     }
-  }
 
-  private void checkForcedGrade() {
-    if (getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).getBoolean(
-        Config.IS_NEED_SHOW_GRADE_DIALOG, false)) {
-      RateDialogs.showGradeDialog(this, true);
-      getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).
-          edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false).apply();
+    private void checkForcedGrade() {
+        if (getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).getBoolean(
+                Config.IS_NEED_SHOW_GRADE_DIALOG, false)) {
+            RateDialogs.showGradeDialog(this, true);
+            getSharedPreferences(Config.IS_NEED_SHOW_GRADE_DIALOG, MODE_PRIVATE).
+                    edit().putBoolean(Config.IS_NEED_SHOW_GRADE_DIALOG, false).apply();
+        }
     }
-  }
-
-  private boolean checkSubscribe() {
-      SharedPreferences sharedPreferences = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-      if (sharedPreferences.getBoolean(Config.STATE_BILLING, false)) {
-          return true;
-      } else {
-          return false;
-      }
-  }
 
     private void loadRecipes() {
         GroupsHolder.loadRecipes(getApplicationContext(), null);
     }
 
 
-  @OnClick({ R.id.ibSheetClose, R.id.btnReg })
-  public void onViewClicked(View view) {
-    switch (view.getId()) {
-      case R.id.ibSheetClose:
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        break;
-      case R.id.btnReg:
-        startActivity(new Intent(MainActivity.this, ActivitySplash.class)
-            .putExtra(Config.IS_NEED_REG, true)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-        break;
-    }
-  }
-
-  private void loadDietPlans() {
-    //DatabaseReference myRef = database.getReference("PLANS");
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef;
-    switch (Locale.getDefault().getLanguage().toUpperCase()){
-        case "EN":
-        case "ES":
-        case "PT":
-        case "DE":{
-            myRef = database.getReference(Locale.getDefault().getLanguage().toUpperCase() + "/plans");
-            break;
-        }
-        case "RU":{
-            myRef = database.getReference("PLANS");
-            break;
-        }
-        default:{
-            myRef = database.getReference("EN/plans");
+    @OnClick({R.id.ibSheetClose, R.id.btnReg})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ibSheetClose:
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                break;
+            case R.id.btnReg:
+                startActivity(new Intent(MainActivity.this, ActivitySplash.class)
+                        .putExtra(Config.IS_NEED_REG, true)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                break;
         }
     }
 
-    myRef.addValueEventListener(new ValueEventListener() {
-      @Override
-      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        DietModule dietModule = dataSnapshot.getValue(DietModule.class);
-        DietPlansHolder.bind(dietModule);
-      }
+    private void loadDietPlans() {
+        //DatabaseReference myRef = database.getReference("PLANS");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef;
+        switch (Locale.getDefault().getLanguage().toUpperCase()) {
+            case "EN":
+            case "ES":
+            case "PT":
+            case "DE": {
+                myRef = database.getReference(Locale.getDefault().getLanguage().toUpperCase() + "/plans");
+                break;
+            }
+            case "RU": {
+                myRef = database.getReference("PLANS");
+                break;
+            }
+            default: {
+                myRef = database.getReference("EN/plans");
+            }
+        }
 
-      @Override
-      public void onCancelled(@NonNull DatabaseError databaseError) {
-      }
-    });
-  }
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                DietModule dietModule = dataSnapshot.getValue(DietModule.class);
+                DietPlansHolder.bind(dietModule);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
 
 
     @Override
     public void onBackPressed() {
+
+        if (fabMenu != null && fabMenu.isOpen()){
+            hideFab();
+            return;
+        }
 
         if (isMainFragment) {
             super.onBackPressed();
         } else {
             isMainFragment = true;
             getSupportFragmentManager().beginTransaction().replace(R.id.flFragmentContainer,
-                new DiaryFragment()).commitNowAllowingStateLoss();
+                    new DiaryFragment()).commitNowAllowingStateLoss();
             window.setStatusBarColor(Color.parseColor("#AE6A23"));
             bnvMain.setSelectedItemId(R.id.bnv_main_diary);
         }
 
 
     }
+
+    private View.OnClickListener activityListener = v -> {
+
+        final UserActivityFragment target = new UserActivityFragment();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(android.R.id.content, target, target.getClass().getSimpleName())
+                .addToBackStack(null)
+                .commitAllowingStateLoss();
+        hideFabMenu();
+    };
+
+
+    private View.OnClickListener measurementListener = v -> {
+        startActivity(new Intent(getApplicationContext(), MeasurmentActivity.class));
+        hideFabMenu();
+    };
+
+    private View.OnClickListener mealListener = v -> {
+        new SelectMealDialogFragment().show(getSupportFragmentManager(),
+                SelectMealDialogFragment.class.getName());
+        hideFabMenu();
+    };
+
+
+    private View.OnClickListener waterListener = v -> {
+        hideFabMenu();
+        DiaryViewModel.Companion.getScrollToPosition().setValue(1);
+    };
+
+    private View.OnClickListener fabButtonListener = v ->{
+        Log.d("kkk", "fab button");
+
+    };
+
+    private Observer<Boolean> fabMenuStatusObserver = isNeedClose -> {
+        Log.d("kkk", "fabMenuStatusObserver - " + isNeedClose);
+        if (isNeedClose) hideFab();
+    };
 
 }

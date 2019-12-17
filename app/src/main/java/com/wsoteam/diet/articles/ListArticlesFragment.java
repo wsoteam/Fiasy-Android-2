@@ -2,7 +2,6 @@ package com.wsoteam.diet.articles;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -176,7 +175,6 @@ public class ListArticlesFragment extends Fragment implements Observer {
               @Override
               public void onChanged(ApiResult<Article> articleApiResult) {
 
-                Log.d("ukkk", articleApiResult.getResults().size() + "");
                 sectionArticles = new SectionArticles(articleApiResult.getResults(), getContext());
                 adapter.updateData(articleApiResult.getResults());
                 verticalArticlesAdapter.updateData(sectionArticles.getGroups());

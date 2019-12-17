@@ -216,4 +216,9 @@ public class EventProperties {
     public static final String teach_ready = "ready";
     public static final String teach_done = "done";
     public static final String teach_skip = "skip";
+
+    public static final String review_star = "star";
+    public static final String review_comment = "comment";
+    public static final String review_comment_server = "server";
+    public static final String review_comment_store = "store";
 }
