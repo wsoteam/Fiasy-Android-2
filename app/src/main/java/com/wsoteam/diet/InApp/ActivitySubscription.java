@@ -13,6 +13,7 @@ import com.wsoteam.diet.InApp.Fragments.FragmentB;
 import com.wsoteam.diet.InApp.Fragments.FragmentC;
 import com.wsoteam.diet.InApp.Fragments.FragmentD;
 import com.wsoteam.diet.InApp.Fragments.FragmentE;
+import com.wsoteam.diet.InApp.Fragments.FragmentF;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity;
 
