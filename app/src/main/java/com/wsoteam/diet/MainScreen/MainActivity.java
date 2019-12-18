@@ -60,6 +60,7 @@ import com.wsoteam.diet.presentation.teach.TeachHostFragment;
 import com.wsoteam.diet.presentation.teach.TeachUtil;
 
 import com.wsoteam.diet.presentation.search.ParentActivity;
+import com.wsoteam.diet.presentation.training.TrainingActivity;
 import com.wsoteam.diet.presentation.training.TrainingFragment;
 
 import java.util.Calendar;
@@ -384,13 +385,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startTraining(){
-        DialogFragment fragment = new TrainingFragment();
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(android.R.id.content, fragment, fragment.getClass().getName())
-                .addToBackStack(null)
-                .commitAllowingStateLoss();
+//        DialogFragment fragment = new TrainingFragment();
+//
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .add(android.R.id.content, fragment, fragment.getClass().getName())
+//                .addToBackStack(null)
+//                .commitAllowingStateLoss();
+        startActivity(new Intent(this, TrainingActivity.class));
     }
 
 }

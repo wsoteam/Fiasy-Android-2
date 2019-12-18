@@ -3,13 +3,13 @@ package com.wsoteam.diet.utils;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.widget.LinearLayout;
+import android.view.View;
 
 import androidx.core.graphics.ColorUtils;
 import androidx.palette.graphics.Palette;
 
 public class Img {
-    public static void setBackGround(Drawable drawable, LinearLayout layout){
+    public static void setBackGround(Drawable drawable, View layout){
         Bitmap bitmap;
 
         if (drawable instanceof BitmapDrawable) {
