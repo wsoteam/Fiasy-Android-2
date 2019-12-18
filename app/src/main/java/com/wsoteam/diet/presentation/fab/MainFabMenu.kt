@@ -68,8 +68,4 @@ class MainFabMenu {
         }
     }
 
-    interface Scroll{
-        fun up()
-        fun down()
-    }
 }

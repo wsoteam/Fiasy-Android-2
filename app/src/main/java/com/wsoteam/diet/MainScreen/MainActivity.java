@@ -100,17 +100,6 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> setActiveTab(item.getItemId());
 
-    private MainFabMenu.Scroll fabListener = new MainFabMenu.Scroll() {
-        @Override
-        public void up() {
-            showFab();
-        }
-
-        @Override
-        public void down() {
-            hideFab();
-        }
-    };
 
     private void hideFab() {
         hideFabMenu();
@@ -124,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showFab() {
-
+        if (Locale.getDefault().getLanguage().equals("ru"))
         fab.show();
     }
 
@@ -166,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.bnv_main_diary: {
                 isMainFragment = true;
                 DiaryFragment fragment = new DiaryFragment();
-                fragment.setFabListener(fabListener);
                 transaction.replace(R.id.flFragmentContainer, fragment).commit();
 //                window.setStatusBarColor(Color.parseColor("#AE6A23"));
                 showFab();
@@ -280,7 +268,6 @@ public class MainActivity extends AppCompatActivity {
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         DiaryFragment fragment = new DiaryFragment();
-        fragment.setFabListener(fabListener);
         if (getSupportFragmentManager().findFragmentByTag("diary") == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -288,9 +275,6 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
 
-        fabMenu = MainFabMenu.Companion.initFabMenu(this, fab, menuStateChangeListener,
-                activityListener, measurementListener, mealListener, waterListener, fabButtonListener);
-        FabMenuViewModel.isNeedClose.observe(this ,fabMenuStatusObserver);
 
         //checkForcedGrade();
         new AsyncWriteFoodDB().execute(MainActivity.this);
@@ -317,6 +301,15 @@ public class MainActivity extends AppCompatActivity {
                     .add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
 
 
+        if ( Locale.getDefault().getLanguage().equals("ru")){
+            fabMenu = MainFabMenu.Companion.initFabMenu(this, fab, menuStateChangeListener,
+                    activityListener, measurementListener, mealListener, waterListener, fabButtonListener);
+            FabMenuViewModel.isNeedClose.observe(this ,fabMenuStatusObserver);
+            FabMenuViewModel.fabState.observe(this, fabState);
+        }else {
+            fabBackground.setVisibility(View.GONE);
+            fab.hide();
+        }
     }
 
     private void checkDeepLink(Context context) {
@@ -504,6 +497,21 @@ public class MainActivity extends AppCompatActivity {
 
     private Observer<Boolean> fabMenuStatusObserver = isNeedClose -> {
         if (isNeedClose) hideFab();
+    };
+
+    private Observer<String> fabState = state -> {
+            Log.d("kkk", " state - " + state);
+        if (state != null)
+      switch (state){
+          case FabMenuViewModel.FAB_HIDE:{
+              fab.hide();
+              break;
+          }
+          case FabMenuViewModel.FAB_SHOW:{
+              fab.show();
+              break;
+          }
+      }
     };
 
 }

@@ -37,6 +37,7 @@ import com.wsoteam.diet.presentation.fab.MainFabMenu
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Hiden
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Revealed
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
+import com.wsoteam.diet.presentation.fab.FabMenuViewModel
 import com.wsoteam.diet.utils.FiasyDateUtils
 import com.wsoteam.diet.utils.ImageSpan
 import com.wsoteam.diet.utils.RichTextUtils.replaceWithIcon
@@ -62,8 +63,6 @@ class DiaryFragment : Fragment() {
 
     private val calendar = Calendar.getInstance()
     protected val targets = hashMapOf<View, Target>()
-
-    private var fabListener : MainFabMenu.Scroll? = null
 
     private lateinit var premiumContainer: View
 
@@ -125,10 +124,6 @@ class DiaryFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         return inflater.inflate(R.layout.fragment_diary, parent, false)
-    }
-
-    public fun setFabListener(fabListener : MainFabMenu.Scroll?){
-        this.fabListener = fabListener
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -216,8 +211,9 @@ class DiaryFragment : Fragment() {
                 val scrollingDown = scrollY > oldScrollY
                 val spaceLeft = premiumContainer.height + premiumContainer.translationY
 
-                if (scrollingDown) fabListener?.down()
-                else  fabListener?.up()
+                 FabMenuViewModel.fabState.value = if (scrollingDown)
+                     FabMenuViewModel.FAB_HIDE else  FabMenuViewModel.FAB_SHOW
+
 
                 currentState = if (spaceLeft == 0f) Hiden else Revealed
 
