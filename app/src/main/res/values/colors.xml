@@ -177,4 +177,6 @@
 
   <color name="teach_background">#88313130</color>
   <color name="teach_btn_cancel">#51ffffff</color>
+
+  <color name="toolbar_title">#c0000000</color>
 </resources>

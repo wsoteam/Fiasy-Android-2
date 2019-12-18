@@ -27,7 +27,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.training.TrainingActivity"></activity>
+        <activity android:name=".presentation.training.TrainingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Article"/>
         <activity
             android:name=".articles.ArticleSeriesActivity"
             android:screenOrientation="portrait"

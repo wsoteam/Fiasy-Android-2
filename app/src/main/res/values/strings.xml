@@ -1151,4 +1151,6 @@ Share your accomplishments with friends:</string>
 
     <string name="img">img</string>
 
+    <string name="training_progress">Выполнено %d/%d</string>
+
 </resources>

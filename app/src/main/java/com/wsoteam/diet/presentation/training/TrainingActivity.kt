@@ -12,8 +12,7 @@ class TrainingActivity : AppCompatActivity() {
 
         supportFragmentManager
                 .beginTransaction()
-                .add(TrainingFragment(), TrainingFragment().javaClass.simpleName)
-                .addToBackStack(null)
+                .add(R.id.trainingContainer ,TrainingFragment(), TrainingFragment().javaClass.simpleName)
                 .commit()
     }
 }

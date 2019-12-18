@@ -1,5 +1,7 @@
 package com.wsoteam.diet.presentation.training
 
+import android.content.Context
+import android.text.TextUtils.concat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,17 +13,21 @@ import com.wsoteam.diet.R
 import com.wsoteam.diet.utils.Img
 import kotlinx.android.synthetic.main.training_view_holder.view.*
 
-class TrainingViewHolder: RecyclerView.ViewHolder {
+class TrainingViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater
+        .from(parent.context)
+        .inflate(R.layout.training_view_holder, parent, false)) {
 
 
-    constructor(parent: ViewGroup):
-            super(LayoutInflater
-                    .from(parent.context)
-                    .inflate(R.layout.training_view_holder, parent, false))
-
-    public fun bind(training: Training){
-
-        setImg(itemView.imageTVH,training.url, itemView.backgroundTVH)
+    fun bind(training: Training?) {
+        if (training != null) {
+            val days = 2
+            val progressCurrent = 5
+            val progressMax = 16
+            setImg(itemView.imageTVH, training.url, itemView.backgroundTVH)
+            itemView.nameTVH.text = training.name
+            itemView.daysTVH.text = concat(days.toString(), " ", getContext().resources.getQuantityText(R.plurals.day_plurals, days))
+            itemView.progressTVH.text = String.format(getContext().getString(R.string.training_progress), progressCurrent, progressMax )
+        }
     }
 
     private fun setImg(img: ImageView, url: String, background: View) {
@@ -38,5 +44,9 @@ class TrainingViewHolder: RecyclerView.ViewHolder {
 
                     }
                 })
+    }
+
+    private fun getContext(): Context{
+        return itemView.context
     }
 }
