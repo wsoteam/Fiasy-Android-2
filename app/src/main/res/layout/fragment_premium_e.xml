@@ -152,7 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="42dp"
-                android:text="Подписка на год 699 ₽"
+                android:text="Подписка на 3 месяца 699 ₽"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:elevation="5dp"

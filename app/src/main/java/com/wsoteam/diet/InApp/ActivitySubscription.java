@@ -13,6 +13,7 @@ import com.wsoteam.diet.InApp.Fragments.FragmentB;
 import com.wsoteam.diet.InApp.Fragments.FragmentC;
 import com.wsoteam.diet.InApp.Fragments.FragmentD;
 import com.wsoteam.diet.InApp.Fragments.FragmentE;
+import com.wsoteam.diet.InApp.Fragments.FragmentF;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity;
 
@@ -29,16 +30,13 @@ public class ActivitySubscription extends AppCompatActivity {
                 getString(ABConfig.KEY_FOR_SAVE_STATE, "default");
         box = (Box) getIntent().getSerializableExtra(Config.TAG_BOX);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                FragmentE.newInstance(box)).commit();
-
-        /*if (abVersion.equals(ABConfig.A_VERSION)) {
+        if (abVersion.equals(ABConfig.A_VERSION)) {
             getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                    FragmentE.newInstance(box)).commit();
+                    FragmentD.newInstance(box)).commit();
         } else {
             getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
                     FragmentE.newInstance(box)).commit();
-        }*/
+        }
     }
 }
 
