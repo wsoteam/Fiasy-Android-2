@@ -38,11 +38,10 @@ class TrainingViewHolder(parent: ViewGroup,private var clickListener: TrainingAd
         }
     }
 
-    private fun setImg(img: ImageView, url: String, background: View) {
+    private fun setImg(img: ImageView, url: String?, background: View) {
+        if(url == null) return
         Picasso.get()
                 .load(url)
-                .resizeDimen(R.dimen.article_card_width, R.dimen.article_card_height)
-                .centerCrop()
                 .into(img, object : Callback {
                     override fun onSuccess() {
                         Img.setBackGround(img.drawable, background)

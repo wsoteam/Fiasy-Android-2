@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
 import kotlinx.android.synthetic.main.fragment_training.*
+import android.view.ViewGroup
+
+
 
 
 class TrainingFragment : Fragment(R.layout.fragment_training) {
@@ -29,7 +32,7 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
         trainingRV.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val layoutManager= trainingRV.layoutManager
+                val layoutManager = trainingRV.layoutManager
                 if(layoutManager is LinearLayoutManager) {
                     appbarT.setLiftable(layoutManager.findFirstCompletelyVisibleItemPosition() == 0)
                 }
@@ -43,7 +46,16 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
 
         adapter.setClickListener(object : TrainingAdapter.ClickListener{
             override fun onClick(training: Training?) {
-               Log.d("kkk", "training - ${training?.name}")
+                training?.apply {
+                    val bundle = Bundle()
+                    val fragment = TrainingBlockedFragment()
+                    bundle.putParcelable(Training().javaClass.simpleName, training)
+                    fragment.arguments = bundle
+                    fragmentManager?.beginTransaction()
+                            ?.replace((getView()?.parent as ViewGroup).id, fragment)
+                            ?.addToBackStack(TrainingBlockedFragment().javaClass.simpleName)
+                            ?.commit()
+                }
             }
         })
     }

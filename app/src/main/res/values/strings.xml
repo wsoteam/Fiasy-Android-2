@@ -1154,4 +1154,6 @@ Share your accomplishments with friends:</string>
     <string name="training_progress">Выполнено %d/%d</string>
     <string name="training_toolbar_title">Тренировки</string>
 
+    <string name="training_blocked_txt">Оформи подписку и получи доступ к готовым планам тренировок</string>
+
 </resources>
