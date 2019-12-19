@@ -48,7 +48,9 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
             override fun onClick(training: Training?) {
                 training?.apply {
                     val bundle = Bundle()
-                    val fragment = TrainingBlockedFragment()
+                    val fragment = if (id.equals("0")) TrainingBlockedFragment()
+                    else TrainingDetailFragment()
+
                     bundle.putParcelable(Training().javaClass.simpleName, training)
                     fragment.arguments = bundle
                     fragmentManager?.beginTransaction()
