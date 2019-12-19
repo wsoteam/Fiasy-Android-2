@@ -13,12 +13,20 @@ import com.wsoteam.diet.R
 import com.wsoteam.diet.utils.Img
 import kotlinx.android.synthetic.main.training_view_holder.view.*
 
-class TrainingViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater
+class TrainingViewHolder(parent: ViewGroup,private var clickListener: TrainingAdapter.ClickListener?)
+    : RecyclerView.ViewHolder(LayoutInflater
         .from(parent.context)
         .inflate(R.layout.training_view_holder, parent, false)) {
+    init {
+        itemView.setOnClickListener { clickListener?.onClick(training) }
+    }
+
+    private var training: Training? = null
+//    private var clickListener: TrainingAdapter.ClickListener? = null
 
 
     fun bind(training: Training?) {
+        this.training = training
         if (training != null) {
             val days = 2
             val progressCurrent = 5

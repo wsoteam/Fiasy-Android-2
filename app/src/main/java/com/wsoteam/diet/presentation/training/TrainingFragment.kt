@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.training
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_training.*
 
 class TrainingFragment : Fragment(R.layout.fragment_training) {
 
-    private val adapter = TrainingAdapter(null)
+    private val adapter = TrainingAdapter(null, null)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,6 +39,12 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
         val model = ViewModelProviders.of(this)[TrainingViewModel::class.java]
         model.getTrainings().observe(this, Observer<List<Training>>{ trainings ->
             adapter.updateData(trainings)
+        })
+
+        adapter.setClickListener(object : TrainingAdapter.ClickListener{
+            override fun onClick(training: Training?) {
+               Log.d("kkk", "training - ${training?.name}")
+            }
         })
     }
 
