@@ -195,7 +195,6 @@ public class ListArticlesFragment extends Fragment implements Observer {
       public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
         LinearLayoutManager linearLayoutManager1 = (LinearLayoutManager) recyclerView.getLayoutManager();
-
         int firstVisibleItem = 0;
         if (linearLayoutManager1 != null)
           firstVisibleItem = linearLayoutManager1.findFirstVisibleItemPosition();

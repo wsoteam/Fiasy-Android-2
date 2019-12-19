@@ -15,7 +15,7 @@
         android:id="@+id/toolbarT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="@string/_for"
+        app:title="@string/training_toolbar_title"
         app:titleTextColor="@color/toolbar_title"
         android:backgroundTint="@android:color/white"
         android:background="?attr/colorPrimary"
@@ -26,5 +26,6 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trainingRV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@android:color/white"/>
 </LinearLayout>
