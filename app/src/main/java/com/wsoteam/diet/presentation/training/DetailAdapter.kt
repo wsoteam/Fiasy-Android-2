@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class DetailAdapter(private var training: Training?): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private val bias = 1 // header view holder
+
     data class ViewType(
             val HEADER: Int = 1,
             val DAY: Int = 2
@@ -23,7 +25,7 @@ class DetailAdapter(private var training: Training?): RecyclerView.Adapter<Recyc
         }
     }
 
-    override fun getItemCount(): Int = (training?.days?.size  ?: 0) + 1
+    override fun getItemCount(): Int = (training?.days?.size  ?: 0) + bias
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
@@ -33,7 +35,7 @@ class DetailAdapter(private var training: Training?): RecyclerView.Adapter<Recyc
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is DetailDayViewHolder) holder.bind()
+        if (holder is DetailDayViewHolder) holder.bind(training?.days?.get(position - bias))
         if (holder is DetailHeaderViewHolder) training?.apply { holder.bind(this)}
     }
 }

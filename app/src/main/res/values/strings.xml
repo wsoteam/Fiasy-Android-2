@@ -1156,4 +1156,11 @@ Share your accomplishments with friends:</string>
 
     <string name="training_blocked_txt">Оформи подписку и получи доступ к готовым планам тренировок</string>
 
+    <plurals name="exercises">
+        <item quantity="one">упражнение</item>
+        <item quantity="few">упражнения</item>
+        <item quantity="many">упражнений</item>
+        <item quantity="other">упражнений</item>
+    </plurals>
+
 </resources>
