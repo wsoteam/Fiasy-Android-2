@@ -8,7 +8,7 @@
     android:layout_marginRight="8dp"
     android:layout_marginBottom="5dp"
     app:cardCornerRadius="12dp"
-    tools:context="com.wsoteam.diet.presentation.training.TrainingDetailFragment">
+    tools:context="com.wsoteam.diet.presentation.training.TrainingDayFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.wsoteam.diet.R
-import kotlinx.android.synthetic.main.detail_header_view_holder.view.*
+import kotlinx.android.synthetic.main.training_day_header_view_holder.view.*
 
-class DetailHeaderViewHolder(parent: ViewGroup): RecyclerView.ViewHolder(LayoutInflater
+class TrainingDayHeaderViewHolder(parent: ViewGroup): RecyclerView.ViewHolder(LayoutInflater
         .from(parent.context)
-        .inflate(R.layout.detail_header_view_holder, parent, false)) {
+        .inflate(R.layout.training_day_header_view_holder, parent, false)) {
 
     fun bind(training: Training){
 

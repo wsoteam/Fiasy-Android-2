@@ -7,23 +7,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
-import kotlinx.android.synthetic.main.detail_day_view_holder.view.*
+import kotlinx.android.synthetic.main.training_day_view_holder.view.*
 
-class DetailDayViewHolder(parent: ViewGroup): RecyclerView.ViewHolder(LayoutInflater
-        .from(parent.context)
-        .inflate(R.layout.detail_day_view_holder, parent, false)) {
+class TrainingDayViewHolder(parent: ViewGroup,
+                            private val listener: TrainingDayAdapter.ClickListener? = null)
+    : RecyclerView.ViewHolder(LayoutInflater.from(parent.context)
+        .inflate(R.layout.training_day_view_holder, parent, false)) {
+    init {
+        itemView.setOnClickListener { listener?.onClick(day) }
+    }
+
+    private var day: TrainingDay? = null
 
     fun bind(trainingDay: TrainingDay?){
+        this.day = trainingDay
 
         val  day = 1
         val  exercises = trainingDay?.number ?: 0
         val  progress = 50
-        val isDayComplit = trainingDay?.number == 0
+        val isDayComplete = trainingDay?.number == 0
 
-        if (isDayComplit) closeProgress() else openProgress()
+        if (isDayComplete) closeProgress() else openProgress()
 
         itemView.dayNumber.text = String.format(getContext().getString(R.string.day), day)
-        itemView.exercises.text = concat(exercises.toString(), " ", getContext().resources.getQuantityText(R.plurals.exercises, exercises))
+        itemView.exercises.text = concat(exercises.toString(), " ",
+                getContext().resources.getQuantityText(R.plurals.exercises, exercises))
         itemView.progressBar.progress = progress
         itemView.progressTxt.text = concat(progress.toString(), " %")
 

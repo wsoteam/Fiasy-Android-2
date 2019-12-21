@@ -2,7 +2,6 @@ package com.wsoteam.diet.presentation.training
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -12,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
 import kotlinx.android.synthetic.main.fragment_training.*
 import android.view.ViewGroup
-
-
 
 
 class TrainingFragment : Fragment(R.layout.fragment_training) {
@@ -49,13 +46,13 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
                 training?.apply {
                     val bundle = Bundle()
                     val fragment = if (id.equals("0")) TrainingBlockedFragment()
-                    else TrainingDetailFragment()
+                    else TrainingDayFragment()
 
                     bundle.putParcelable(Training().javaClass.simpleName, training)
                     fragment.arguments = bundle
                     fragmentManager?.beginTransaction()
                             ?.replace((getView()?.parent as ViewGroup).id, fragment)
-                            ?.addToBackStack(TrainingBlockedFragment().javaClass.simpleName)
+                            ?.addToBackStack(fragment.javaClass.simpleName)
                             ?.commit()
                 }
             }

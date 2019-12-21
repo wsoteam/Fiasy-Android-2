@@ -15,4 +15,6 @@ data class Training(
 @Parcelize
 data class TrainingDay(
         val number: Int?
-): Parcelable
+): Parcelable{
+    constructor() : this(null)
+}
