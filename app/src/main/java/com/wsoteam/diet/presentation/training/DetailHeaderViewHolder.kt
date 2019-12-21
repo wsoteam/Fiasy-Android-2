@@ -21,11 +21,8 @@ class DetailHeaderViewHolder(parent: ViewGroup): RecyclerView.ViewHolder(LayoutI
 
         itemView.daysDHVH.text = concat(days.toString(), " ", getContext().resources.getQuantityText(R.plurals.day_plurals, days))
         itemView.progressDHVH.text = String.format(getContext().getString(R.string.training_progress), progressCurrent, progressMax )
-
-
-        if (training.name != null)
         Picasso.get()
-                .load(training.name)
+                .load(training.url)
                 .into(itemView.imageDHVH)
         itemView.nameDHVH.text = training.name
 

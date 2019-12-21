@@ -19,9 +19,12 @@ class TrainingDetailFragment : Fragment(R.layout.fragment_training_detail) {
         detailRecycler.layoutManager = LinearLayoutManager(context)
         detailRecycler.adapter = adapter
 
+        toolbarFTD.setNavigationIcon(R.drawable.ic_arrow_back_white)
+        toolbarFTD.setNavigationOnClickListener { activity?.onBackPressed() }
+
         arguments?.apply {
             training = getParcelable<Training>(Training().javaClass.simpleName)
-            training?.apply {  }
+            training?.apply { adapter.updateData(this) }
         }
     }
 }
