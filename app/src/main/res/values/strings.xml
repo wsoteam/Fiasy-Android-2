@@ -1163,4 +1163,10 @@ Share your accomplishments with friends:</string>
         <item quantity="other">упражнений</item>
     </plurals>
 
+    <string name="exercises_alert_title">Вы не закончили тренировку.</string>
+    <string name="exercises_alert_txt">Хотите продолжить тренировку или начать сначала?</string>
+    <string name="exercises_alert_continue">Продолжить</string>
+    <string name="exercises_alert_start">Начать сначала</string>
+
+
 </resources>

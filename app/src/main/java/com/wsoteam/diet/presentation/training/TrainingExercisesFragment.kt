@@ -15,7 +15,7 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
 
 
     private var adapter: TrainingExercisesAdapter = TrainingExercisesAdapter(null, View.OnClickListener {
-        fragmentManager?.let { it1 -> ExercisesDialogFragment().show(it1, "test") }
+        fragmentManager?.let { it1 -> NewTrainingDialogFragment().show(it1, "test") }
     })
     private var day: TrainingDay? = null
 
