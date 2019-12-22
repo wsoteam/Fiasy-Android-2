@@ -25,7 +25,7 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
         trainingRV.layoutManager = LinearLayoutManager(context)
         trainingRV.adapter = adapter
 
-        appbarT.setLiftable(true)
+
         trainingRV.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)

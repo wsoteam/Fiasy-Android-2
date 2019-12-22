@@ -8,5 +8,5 @@ import com.wsoteam.diet.R
 class TrainingExercisesViewHolder(parent: ViewGroup)
     : RecyclerView.ViewHolder(LayoutInflater
         .from(parent.context)
-        .inflate(R.layout.training_view_holder, parent, false)) {
+        .inflate(R.layout.training_exercises_view_holder, parent, false)) {
 }
