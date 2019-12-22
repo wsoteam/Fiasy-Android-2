@@ -1,9 +1,10 @@
 package com.wsoteam.diet.presentation.training
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class TrainingExercisesAdapter(private var trainingDay: TrainingDay?): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TrainingExercisesAdapter(private var trainingDay: TrainingDay?, var onClickListener: View.OnClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun updateData(trainingDay: TrainingDay?){
         this.trainingDay = trainingDay
@@ -11,7 +12,7 @@ class TrainingExercisesAdapter(private var trainingDay: TrainingDay?): RecyclerV
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return TrainingExercisesViewHolder(parent)
+        return TrainingExercisesViewHolder(parent, onClickListener)
     }
 
     override fun getItemCount(): Int = trainingDay?.number ?: 0

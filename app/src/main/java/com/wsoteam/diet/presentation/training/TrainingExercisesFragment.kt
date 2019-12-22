@@ -13,7 +13,10 @@ import kotlinx.android.synthetic.main.fragment_training_exercises.*
 
 class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises) {
 
-    private var adapter: TrainingExercisesAdapter = TrainingExercisesAdapter(null)
+
+    private var adapter: TrainingExercisesAdapter = TrainingExercisesAdapter(null, View.OnClickListener {
+        fragmentManager?.let { it1 -> ExercisesDialogFragment().show(it1, "test") }
+    })
     private var day: TrainingDay? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -21,6 +24,7 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
         toolbarTEF.setNavigationIcon(R.drawable.arrow_back_gray)
         toolbarTEF.setNavigationOnClickListener { activity?.onBackPressed() }
         toolbarTEF.title = "День 1"
+
 
         recyclerTEF.layoutManager = LinearLayoutManager(context)
         recyclerTEF.adapter = adapter
@@ -42,4 +46,5 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
             }
         }
     }
+
 }
