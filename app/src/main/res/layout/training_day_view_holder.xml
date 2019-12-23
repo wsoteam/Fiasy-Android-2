@@ -93,14 +93,14 @@
 
         <ImageView
             android:id="@+id/lock"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="31dp"
+            android:layout_height="32dp"
             android:layout_marginEnd="32dp"
-            android:src="@android:drawable/ic_delete"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_lock"
             tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
