@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.wsoteam.diet.R
 import kotlinx.android.synthetic.main.fragment_training_day.*
 
@@ -32,15 +34,33 @@ class TrainingDayFragment : Fragment(R.layout.fragment_training_day) {
             }
         })
 
-        detailRecycler.layoutManager = LinearLayoutManager(context)
-        detailRecycler.adapter = adapter
+        recyclerTD.layoutManager = LinearLayoutManager(context)
+        recyclerTD.adapter = adapter
+        recyclerTD.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerTD.layoutManager
+                if(layoutManager is LinearLayoutManager) {
+                    appbarTD.setLiftable(layoutManager.findFirstCompletelyVisibleItemPosition() == 0)
+                }
+            }
+        })
 
-        toolbarFTD.setNavigationIcon(R.drawable.ic_arrow_back_white)
-        toolbarFTD.setNavigationOnClickListener { activity?.onBackPressed() }
+        toolbarTD.setNavigationIcon(R.drawable.arrow_back_gray)
+        toolbarTD.setNavigationOnClickListener { activity?.onBackPressed() }
 
         arguments?.apply {
             training = getParcelable<Training>(Training().javaClass.simpleName)
-            training?.apply { adapter.updateData(this) }
+            training?.apply {
+                adapter.updateData(this)
+                Picasso.get()
+                        .load(url)
+                        .into(backdropTD)
+                toolbarTD.title = name
+            }
+
         }
+        collapsingTD.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar)
+
     }
 }

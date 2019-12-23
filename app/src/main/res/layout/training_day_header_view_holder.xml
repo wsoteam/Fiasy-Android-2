@@ -10,6 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="170dp"
         android:scaleType="centerCrop"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,6 +26,7 @@
         android:fontFamily="sans-serif-medium"
         android:textColor="@color/toolbar_title"
         android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageDHVH"
@@ -34,9 +36,10 @@
         android:id="@+id/imageView94"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_calendar_2"
-        app:layout_constraintStart_toStartOf="@+id/nameDHVH"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameDHVH" />
 
     <TextView
