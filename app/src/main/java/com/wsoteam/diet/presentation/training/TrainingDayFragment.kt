@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_training_day.*
 
 class TrainingDayFragment : Fragment(R.layout.fragment_training_day) {
 
-    val adapter = TrainingDayAdapter(null, null)
+    private val adapter = TrainingDayAdapter(null, null)
     private var training: Training? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,6 +36,7 @@ class TrainingDayFragment : Fragment(R.layout.fragment_training_day) {
 
         recyclerTD.layoutManager = LinearLayoutManager(context)
         recyclerTD.adapter = adapter
+        recyclerTD.setHasFixedSize(true)
         recyclerTD.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -61,6 +62,13 @@ class TrainingDayFragment : Fragment(R.layout.fragment_training_day) {
 
         }
         collapsingTD.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        recyclerTD.scrollToPosition(0)
+//        appbarTD.setExpanded(false)
 
     }
 }
