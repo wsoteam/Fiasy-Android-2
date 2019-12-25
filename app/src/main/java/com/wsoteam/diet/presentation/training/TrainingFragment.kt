@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.training
 
 
+import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -25,6 +26,11 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
         trainingRV.layoutManager = LinearLayoutManager(context)
         trainingRV.adapter = adapter
 
+//        imageView96.setImageResource(R.drawable.exercise_wall_push_up)
+//        val drawable = imageView96.drawable
+//        if (drawable is Animatable) {
+//            drawable.start()
+//        }
 
         trainingRV.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

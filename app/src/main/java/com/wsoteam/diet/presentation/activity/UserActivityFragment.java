@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -22,6 +23,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.training.TrainingActivity;
 import com.wsoteam.diet.utils.Metrics;
 import com.wsoteam.diet.utils.ViewsExtKt;
 import io.reactivex.Single;
@@ -75,6 +77,8 @@ public class UserActivityFragment extends DialogFragment implements
     container.setLayoutManager(new LinearLayoutManager(requireContext()));
 
     adapter.setSearchListener(this::search);
+    adapter.setBannerListener(v ->
+            startActivity(new Intent(getContext(), TrainingActivity.class)));
     adapter.addItemClickListener(new ActivitiesAdapter.AdapterItemsClickListener() {
       @Override
       public void onSectionClick(ActivitiesAdapter.HeaderView view, int sectionId) {
