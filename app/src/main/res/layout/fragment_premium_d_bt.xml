@@ -120,7 +120,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView34"
                 app:srcCompat="@drawable/el_2_prem" />
 
-            <ImageView
+            <androidx.viewpager.widget.ViewPager
                 android:id="@+id/imageView34"
                 android:layout_width="337dp"
                 android:layout_height="207dp"
@@ -130,35 +130,7 @@
                 android:elevation="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView39"
-                app:srcCompat="@drawable/prem_slider_card" />
-
-            <TextView
-                android:id="@+id/textView40"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="3 дня бесплатно"
-                android:elevation="5dp"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/textView41"
-                app:layout_constraintEnd_toEndOf="@+id/imageView34"
-                app:layout_constraintStart_toStartOf="@+id/imageView34" />
-
-            <TextView
-                android:id="@+id/textView41"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="42dp"
-                android:text="Подписка на 3 месяца 699 ₽"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:elevation="5dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView34"
-                app:layout_constraintEnd_toEndOf="@+id/textView40"
-                app:layout_constraintStart_toStartOf="@+id/textView40" />
+                app:layout_constraintTop_toBottomOf="@+id/textView39" />
 
             <ImageView
                 android:id="@+id/imageView70"
