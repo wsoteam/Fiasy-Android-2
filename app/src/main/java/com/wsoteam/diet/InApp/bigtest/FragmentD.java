@@ -175,11 +175,11 @@ public class FragmentD extends Fragment
 
     vpInApps.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
       @NonNull @Override public Fragment getItem(int position) {
-        return InAppSlideFragment.newInstance(0);
+        return InAppSlideFragment.newInstance(position);
       }
 
       @Override public int getCount() {
-        return 1;
+        return 3;
       }
     });
 
