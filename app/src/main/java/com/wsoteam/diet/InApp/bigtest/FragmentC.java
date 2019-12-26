@@ -8,8 +8,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustEvent;
 import com.android.billingclient.api.BillingClient;
@@ -30,7 +36,6 @@ import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.Fragments.slides.SlideFragment;
 import com.wsoteam.diet.InApp.Fragments.slides.TopSlideFragment;
 import com.wsoteam.diet.InApp.IDs;
-import com.wsoteam.diet.InApp.bigtest.slides.InAppSlideFragment;
 import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
@@ -40,39 +45,27 @@ import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
 import com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity;
 import com.wsoteam.diet.views.DotIndicatorView;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-
-public class FragmentD extends Fragment
+public class FragmentC extends Fragment
     implements PurchasesUpdatedListener {
 
-  @BindView(R.id.imageView34) ViewPager vpInApps;
+
   private BillingClient billingClient;
   private static final String TAG = "inappbilling";
-  private String currentSKU = "trial_long_result_stop_price_3d_3m_2k", currentPrice = "99р";
+  private String currentSKU = "trial_long_result_stop_3d_3m_2k", currentPrice = "99р";
   private SharedPreferences sharedPreferences;
   Unbinder unbinder;
   private static final String TAG_BOX = "TAG_BOX";
   private Box box;
   public static final String BUY_NOW = "BUY_NOW";
-  private ArrayList<String> subs = new ArrayList<>();
 
-  public static FragmentD newInstance(Box box) {
+  public static FragmentC newInstance(Box box) {
     Bundle bundle = new Bundle();
     bundle.putSerializable(TAG_BOX, box);
-    FragmentD fragment =
-        new FragmentD();
+    FragmentC fragment =
+        new FragmentC();
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -82,13 +75,11 @@ public class FragmentD extends Fragment
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     //View view = inflater.inflate(R.layout.fragment_subscription_one_button_2, container, false);
-    View view = inflater.inflate(R.layout.fragment_premium_d_bt, container, false);
+    View view = inflater.inflate(R.layout.fragment_premium_c_bt, container, false);
     unbinder = ButterKnife.bind(this, view);
-    subs.add("trial_long_result_stop_price_3d_3m_2k");
-    subs.add("year_long_result_stop_price_2k");
-    subs.add("month_long_result_stop_price_2k");
 
     box = (Box) getArguments().getSerializable(TAG_BOX);
+
 
     billingClient = BillingClient.newBuilder(requireContext())
         .setListener(this)
@@ -147,6 +138,7 @@ public class FragmentD extends Fragment
     indicatorViewTop.setCirclesCount(2);
     indicatorViewTop.setActiveIndex(0);
 
+
     topViewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
       @NonNull
       @Override
@@ -177,35 +169,10 @@ public class FragmentD extends Fragment
       }
     });
 
-    vpInApps.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
-      @NonNull @Override public Fragment getItem(int position) {
-        return InAppSlideFragment.newInstance(position);
-      }
-
-      @Override public int getCount() {
-        return 3;
-      }
-    });
-
-    vpInApps.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-      @Override
-      public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-      }
-
-      @Override
-      public void onPageSelected(int position) {
-        currentSKU = subs.get(position);
-      }
-
-      @Override
-      public void onPageScrollStateChanged(int state) {
-
-      }
-    });
 
     return view;
   }
+
 
   private void getSKU() {
     List<String> skuList = new ArrayList<>();
@@ -262,8 +229,7 @@ public class FragmentD extends Fragment
         Log.d("Fiasy", "Purchased, " + p.toString());
       }
 
-      new CheckAndSetPurchase(getActivity()).execute(p.getSku(), p.getPurchaseToken(),
-          p.getPackageName(), BUY_NOW);
+      new CheckAndSetPurchase(getActivity()).execute(p.getSku(), p.getPurchaseToken(), p.getPackageName(), BUY_NOW);
 
       Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
       try {
@@ -275,6 +241,7 @@ public class FragmentD extends Fragment
       } catch (Exception ex) {
         Events.logSetBuyError(ex.getMessage());
       }
+
 
       logTrial();
 
@@ -291,10 +258,7 @@ public class FragmentD extends Fragment
 
       if (box.isOpenFromIntrodaction()) {
         box.setSubscribe(true);
-        getActivity().getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE)
-            .edit()
-            .putString(SavedConst.HOW_END, EventProperties.onboarding_success_trial)
-            .commit();
+        getActivity().getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE).edit().putString(SavedConst.HOW_END, EventProperties.onboarding_success_trial).commit();
       }
       Intent intent;
       if (box.isOpenFromIntrodaction()) {
@@ -305,14 +269,15 @@ public class FragmentD extends Fragment
         startActivity(intent);
         getActivity().finish();
       } else {
-        intent = new Intent(getContext(), ActivitySplash.class).setFlags(
-            Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent = new Intent(getContext(), ActivitySplash.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
       }
+
     }
   }
 
-  @OnClick({ R.id.btnClose, R.id.btnBuyPrem, R.id.tvPrivacyPolicy })
+
+  @OnClick({R.id.btnClose, R.id.btnBuyPrem, R.id.tvPrivacyPolicy})
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.btnBuyPrem:
@@ -325,7 +290,7 @@ public class FragmentD extends Fragment
                 break;*/
       case R.id.btnClose: {
         Events.logPushButton(EventProperties.push_button_close, box.getBuyFrom());
-        if (box.isOpenFromIntrodaction()) {
+        if (box.isOpenFromIntrodaction()){
           Intent intent = new Intent(getContext(), AfterQuestionsActivity.class);
           if (box.getProfile() != null) {
             intent.putExtra(Config.INTENT_PROFILE, box.getProfile());
@@ -340,12 +305,12 @@ public class FragmentD extends Fragment
         Intent intent = new Intent(getActivity(), ActivityPrivacyPolicy.class);
         startActivity(intent);
         break;
+
     }
   }
 
   private boolean isNeedGoNext() {
-    return getActivity().getSharedPreferences(Config.AFTER_PREM_ROAD, Context.MODE_PRIVATE)
-        .getBoolean(Config.AFTER_PREM_ROAD, false);
+    return getActivity().getSharedPreferences(Config.AFTER_PREM_ROAD, Context.MODE_PRIVATE).getBoolean(Config.AFTER_PREM_ROAD, false);
   }
 
   @Override
