@@ -51,24 +51,24 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class FragmentE extends Fragment
+public class FragmentB extends Fragment
         implements PurchasesUpdatedListener {
 
 
     private BillingClient billingClient;
     private static final String TAG = "inappbilling";
-    private String currentSKU = "trial_long_result_3d_3m_v2", currentPrice = "99р";
+    private String currentSKU = "trial_long_result_3d_3m_2k", currentPrice = "99р";
     private SharedPreferences sharedPreferences;
     Unbinder unbinder;
     private static final String TAG_BOX = "TAG_BOX";
     private Box box;
     public static final String BUY_NOW = "BUY_NOW";
 
-    public static FragmentE newInstance(Box box) {
+    public static FragmentB newInstance(Box box) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(TAG_BOX, box);
-        FragmentE fragment =
-                new FragmentE();
+        FragmentB fragment =
+                new FragmentB();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -78,7 +78,7 @@ public class FragmentE extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         //View view = inflater.inflate(R.layout.fragment_subscription_one_button_2, container, false);
-        View view = inflater.inflate(R.layout.fragment_premium_e, container, false);
+        View view = inflater.inflate(R.layout.fragment_premium_e_bt, container, false);
         unbinder = ButterKnife.bind(this, view);
 
         box = (Box) getArguments().getSerializable(TAG_BOX);

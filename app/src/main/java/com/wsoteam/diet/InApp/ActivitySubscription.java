@@ -8,12 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
-import com.wsoteam.diet.InApp.Fragments.FragmentB;
 import com.wsoteam.diet.InApp.Fragments.FragmentC;
 import com.wsoteam.diet.InApp.Fragments.FragmentD;
 import com.wsoteam.diet.InApp.Fragments.FragmentE;
 import com.wsoteam.diet.InApp.Fragments.FragmentF;
 import com.wsoteam.diet.InApp.bigtest.FragmentA;
+import com.wsoteam.diet.InApp.bigtest.FragmentB;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity;
 
@@ -32,10 +32,10 @@ public class ActivitySubscription extends AppCompatActivity {
 
         if (abVersion.equals(ABConfig.A_VERSION)) {
             getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                    FragmentA.newInstance(box)).commit();
+                    FragmentB.newInstance(box)).commit();
         } else {
             getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-                    FragmentA.newInstance(box)).commit();
+                    FragmentB.newInstance(box)).commit();
         }
     }
 }
