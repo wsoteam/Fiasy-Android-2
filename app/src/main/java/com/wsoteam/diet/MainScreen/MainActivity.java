@@ -310,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void checkSub() {
-    if (isSub()){
+    if (!isSub() && isStopVersion()) {
       Intent intent = new Intent(this, ActivitySubscription.class);
       Box box = new Box();
       box.setBuyFrom(EventProperties.trial_from_nec);
@@ -320,6 +320,12 @@ public class MainActivity extends AppCompatActivity {
       intent.putExtra(Config.TAG_BOX, box);
       startActivity(intent);
     }
+  }
+
+  private boolean isStopVersion() {
+    String version = getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
+        getString(ABConfig.KEY_FOR_SAVE_STATE, "default");
+    return version.equals(ABConfig.C) || version.equals(ABConfig.D) || version.equals(ABConfig.F) || version.equals(ABConfig.H);
   }
 
   private boolean isSub() {

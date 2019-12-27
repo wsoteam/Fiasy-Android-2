@@ -69,8 +69,8 @@ class WheelFortuneFragment : AppCompatActivity(R.layout.fragment_wheel_fortune) 
           var box = Box()
           box.isOpenFromPremPart = false
           box.isOpenFromIntrodaction = true
-          box.buyFrom = EventProperties.trial_from_wheel
-          box.comeFrom = EventProperties.trial_from_wheel
+          box.buyFrom = EventProperties.trial_from_onboard
+          box.comeFrom = EventProperties.trial_from_onboard
           var intent = Intent(this, ActivitySubscription::class.java)
           intent.putExtra(Config.TAG_BOX, box)
           startActivity(intent)

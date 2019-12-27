@@ -3,9 +3,14 @@ package com.wsoteam.diet;
 public class ABConfig {
     public static final String KEY_FOR_SAVE_STATE = "KEY_FOR_SAVE_STATE";
     public static final String REQUEST_STRING = "prem_screen";
-    public static final String A_VERSION = "trial_long_pic_v2";
-    public static final String B_VERSION = "trial_long_result_v2";
-    public static final String C_VERSION = "trial_long_result_v2_7d_3m";
+    public static final String A = "1";
+    public static final String B = "2";
+    public static final String C = "3";
+    public static final String D = "4";
+    public static final String E = "5";
+    public static final String F = "6";
+    public static final String G = "7";
+    public static final String H = "8";
 
 
     //Amplituda key
