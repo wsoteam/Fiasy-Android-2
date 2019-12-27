@@ -15,7 +15,9 @@ import com.wsoteam.diet.InApp.bigtest.FragmentB;
 import com.wsoteam.diet.InApp.bigtest.FragmentC;
 import com.wsoteam.diet.InApp.bigtest.FragmentD;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.premium.AnastasiaStoryFragment;
 import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity;
+import com.wsoteam.diet.presentation.premium.WheelFortuneFragment;
 
 
 public class ActivitySubscription extends AppCompatActivity {
