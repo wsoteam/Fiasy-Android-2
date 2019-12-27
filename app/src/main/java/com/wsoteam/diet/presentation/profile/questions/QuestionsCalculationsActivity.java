@@ -29,6 +29,7 @@ import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.UserProperty;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
+import com.wsoteam.diet.presentation.premium.WheelFortuneFragment;
 import com.wsoteam.diet.utils.NetworkService;
 
 import io.reactivex.Flowable;
@@ -148,7 +149,7 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
     private void moveNext(Profile profile) {
         String abVersion = getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
                 getString(ABConfig.KEY_FOR_SAVE_STATE, "default");
-        Intent intent = new Intent(this, ActivitySubscription.class);
+        Intent intent = new Intent(this, WheelFortuneFragment.class);
         Box box = new Box();
         box.setBuyFrom(EventProperties.trial_from_onboard);
         box.setComeFrom(AmplitudaEvents.view_prem_free_onboard);

@@ -32,13 +32,13 @@ public class ActivitySubscription extends AppCompatActivity {
                 getString(ABConfig.KEY_FOR_SAVE_STATE, "default");
         box = (Box) getIntent().getSerializableExtra(Config.TAG_BOX);
 
-        if (abVersion.equals(ABConfig.A_VERSION)) {
+        /*if (abVersion.equals(ABConfig.A_VERSION)) {
             getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
                     FragmentC.newInstance(box)).commit();
         } else {
             getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
                     FragmentC.newInstance(box)).commit();
-        }
+        }*/
     }
 
     @Override public void onBackPressed() {

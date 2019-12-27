@@ -3,6 +3,7 @@ package com.wsoteam.diet.presentation.premium
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,27 +17,16 @@ import kotlinx.android.synthetic.main.fragment_anastasia_story.*
 import java.util.*
 
 
-class AnastasiaStoryFragment : Fragment(R.layout.fragment_anastasia_story) {
-    companion object{
-        private const val TAG_BOX = "TAG_BOX"
-
-        fun newInstance(box: Box): AnastasiaStoryFragment{
-            val bundle = Bundle()
-            bundle.putSerializable(TAG_BOX, box)
-            val fragment = AnastasiaStoryFragment()
-            fragment.arguments = bundle
-            return fragment
-        }
-    }
+class AnastasiaStoryFragment : AppCompatActivity(R.layout.fragment_anastasia_story) {
 
     private val adapter = HorizontalRecipesAdapter(getRecipes())
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         toolbar2.setNavigationIcon(R.drawable.arrow_back_gray)
-        toolbar2.setNavigationOnClickListener { activity?.onBackPressed() }
+        toolbar2.setNavigationOnClickListener { onBackPressed() }
 
-        val linearLayoutManager = LinearLayoutManager(context)
+        val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
         anastasia_recycler.layoutManager = linearLayoutManager
         anastasia_recycler.adapter = adapter
@@ -48,10 +38,11 @@ class AnastasiaStoryFragment : Fragment(R.layout.fragment_anastasia_story) {
             appbar.setLiftable(scrollY == 0) }
 
         next.setOnClickListener {
-            activity?.onBackPressed()
+            onBackPressed()
 
         }
     }
+
 
     private fun getRecipes(): List<RecipeItem>{
         val list = LinkedList<RecipeItem>()
