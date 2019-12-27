@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.premium
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,11 +9,14 @@ import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wsoteam.diet.Authenticate.POJO.Box
+import com.wsoteam.diet.Config
+import com.wsoteam.diet.InApp.ActivitySubscription
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder
 import com.wsoteam.diet.Recipes.POJO.RecipeItem
 import com.wsoteam.diet.Recipes.POJO.RecipesHolder
 import com.wsoteam.diet.Recipes.v2.HorizontalRecipesAdapter
+import com.wsoteam.diet.common.Analytics.EventProperties
 import kotlinx.android.synthetic.main.fragment_anastasia_story.*
 import java.util.*
 
@@ -38,8 +42,14 @@ class AnastasiaStoryFragment : AppCompatActivity(R.layout.fragment_anastasia_sto
             appbar.setLiftable(scrollY == 0) }
 
         next.setOnClickListener {
-            onBackPressed()
-
+            var box = Box()
+            box.isOpenFromPremPart = false
+            box.isOpenFromIntrodaction = true
+            box.buyFrom = EventProperties.trial_from_onboard
+            box.comeFrom = EventProperties.trial_from_onboard
+            var intent = Intent(this, ActivitySubscription::class.java)
+            intent.putExtra(Config.TAG_BOX, box)
+            startActivity(intent)
         }
     }
 
