@@ -4,9 +4,7 @@ import android.util.Log;
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Revenue;
 import com.android.billingclient.api.BillingClient;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
-import com.wsoteam.diet.utils.AbTests;
 
 import java.util.List;
 import org.json.JSONException;
@@ -432,6 +430,17 @@ public class Events {
         try {
             eventProperties.put(EventProperties.trial_from, from);
             eventProperties.put(EventProperties.auto_renewal, autoRenewing);
+        } catch (JSONException exception) {
+        }
+        Amplitude.getInstance().logEvent(TRIAL_SUCCESS, eventProperties);
+    }
+
+    public static void logNewBuy(String from, String autoRenewing, String id) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(EventProperties.trial_from, from);
+            eventProperties.put(EventProperties.auto_renewal, autoRenewing);
+            eventProperties.put(EventProperties.purchase_id, id);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(TRIAL_SUCCESS, eventProperties);

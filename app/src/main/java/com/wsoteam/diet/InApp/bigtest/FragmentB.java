@@ -237,9 +237,9 @@ public class FragmentB extends Fragment
             Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
             try {
                 if (p.isAutoRenewing()) {
-                    Events.logBuy(box.getBuyFrom(), EventProperties.auto_renewal_true);
+                    Events.logNewBuy(box.getBuyFrom(), EventProperties.auto_renewal_true, currentSKU);
                 } else {
-                    Events.logBuy(box.getBuyFrom(), EventProperties.auto_renewal_false);
+                    Events.logNewBuy(box.getBuyFrom(), EventProperties.auto_renewal_false, currentSKU);
                 }
             } catch (Exception ex) {
                 Events.logSetBuyError(ex.getMessage());
