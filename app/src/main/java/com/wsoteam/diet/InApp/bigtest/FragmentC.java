@@ -277,6 +277,7 @@ public class FragmentC extends Fragment
   }
 
 
+
   @OnClick({R.id.btnClose, R.id.btnBuyPrem, R.id.tvPrivacyPolicy})
   public void onViewClicked(View view) {
     switch (view.getId()) {
