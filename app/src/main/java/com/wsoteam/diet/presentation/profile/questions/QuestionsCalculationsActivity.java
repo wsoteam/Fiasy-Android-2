@@ -175,16 +175,13 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
         intent.putExtra(Config.TAG_BOX, box);
         break;
       case ABConfig.E:
+      case ABConfig.F:
         intent = new Intent(this, AnastasiaStoryFragment.class);
         break;
-      /*case ABConfig.A:
-        getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-            FragmentC.newInstance(box)).commit();
+      case ABConfig.G:
+      case ABConfig.H:
+        intent = new Intent(this, WheelFortuneFragment.class);
         break;
-      case ABConfig.A:
-        getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
-            FragmentC.newInstance(box)).commit();
-        break;*/
     }
     startActivity(intent);
   }

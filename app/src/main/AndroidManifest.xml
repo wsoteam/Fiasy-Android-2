@@ -173,6 +173,12 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/PremiumActivity" />
+
+        <activity
+            android:name=".presentation.premium.WheelFortuneFragment"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/PremiumActivity" />
         <activity
             android:name=".presentation.auth.main.MainAuthActivity"
             android:parentActivityName=".presentation.intro.IntroActivity"
