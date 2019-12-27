@@ -1,7 +1,5 @@
 package com.wsoteam.diet.presentation.premium
 
-
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 
@@ -10,7 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import com.wsoteam.diet.Authenticate.POJO.Box
+import com.wsoteam.diet.Config
+import com.wsoteam.diet.InApp.ActivitySubscription
 import com.wsoteam.diet.R
+import com.wsoteam.diet.common.Analytics.EventProperties
 import kotlinx.android.synthetic.main.dialog_fragment_fifty_discount.*
 
 class FiftyDiscountDialogFragment : DialogFragment() {
@@ -42,7 +44,16 @@ class FiftyDiscountDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         next.setOnClickListener {
-            targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, null)
+            val box = Box()
+            box.isOpenFromPremPart = false
+            box.isOpenFromIntrodaction = true
+            box.buyFrom = EventProperties.trial_from_onboard
+            box.comeFrom = EventProperties.trial_from_onboard
+            val intent = Intent(activity, ActivitySubscription::class.java)
+            intent.putExtra(Config.TAG_BOX, box)
+            startActivity(intent)
+
+            activity?.finish()
             dismiss()
         }
     }

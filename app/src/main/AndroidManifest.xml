@@ -175,7 +175,7 @@
             android:theme="@style/PremiumActivity" />
 
         <activity
-            android:name=".presentation.premium.WheelFortuneFragment"
+            android:name=".presentation.premium.WheelFortuneActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/PremiumActivity" />

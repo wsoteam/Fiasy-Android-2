@@ -6,9 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,28 +18,21 @@ import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
-import com.wsoteam.diet.InApp.Fragments.FragmentE;
-import com.wsoteam.diet.InApp.bigtest.FragmentA;
-import com.wsoteam.diet.InApp.bigtest.FragmentB;
-import com.wsoteam.diet.InApp.bigtest.FragmentC;
-import com.wsoteam.diet.InApp.bigtest.FragmentD;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
-import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.UserProperty;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.presentation.premium.AnastasiaStoryFragment;
-import com.wsoteam.diet.presentation.premium.WheelFortuneFragment;
+import com.wsoteam.diet.presentation.premium.WheelFortuneActivity;
 import com.wsoteam.diet.utils.NetworkService;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.internal.functions.Functions;
 
 public class QuestionsCalculationsActivity extends AppCompatActivity {
@@ -180,7 +170,7 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
         break;
       case ABConfig.G:
       case ABConfig.H:
-        intent = new Intent(this, WheelFortuneFragment.class);
+        intent = new Intent(this, WheelFortuneActivity.class);
         break;
     }
     startActivity(intent);

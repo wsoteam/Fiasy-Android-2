@@ -1,6 +1,5 @@
 package com.wsoteam.diet.InApp;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +16,6 @@ import com.wsoteam.diet.InApp.bigtest.FragmentF;
 import com.wsoteam.diet.InApp.bigtest.FragmentG;
 import com.wsoteam.diet.InApp.bigtest.FragmentH;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.presentation.premium.AnastasiaStoryFragment;
-import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity;
-import com.wsoteam.diet.presentation.premium.WheelFortuneFragment;
 
 public class ActivitySubscription extends AppCompatActivity {
   private String abVersion;
