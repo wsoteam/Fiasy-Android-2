@@ -1169,4 +1169,10 @@ Share your accomplishments with friends:</string>
     <string name="exercises_alert_start">Начать сначала</string>
 
 
+    <string name="repeat_training">Повторить тренировку</string>
+    <string name="training_day">день</string>
+
+    <string name="training_exercise">Упражнений</string>
+    <string name="training_duration">Длительность</string>
+    <string name="training_done">Выполнено</string>
 </resources>
