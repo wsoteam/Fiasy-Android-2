@@ -52,6 +52,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.common.Analytics.ABLiveData;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.UserProperty;
 import com.wsoteam.diet.common.promo.POJO.UserPromo;
@@ -386,6 +387,8 @@ public class ActivitySplash extends BaseActivity {
     /*getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
         edit().putString(ABConfig.KEY_FOR_SAVE_STATE, responseString).
         apply();*/
+    ABLiveData.getInstance().setData(responseString);
+    Log.e("LOL", "вызов из сплэш");
     //TODO remove
     getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
         edit().putString(ABConfig.KEY_FOR_SAVE_STATE, Config.HARD_VERSION).

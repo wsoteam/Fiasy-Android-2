@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
@@ -47,6 +49,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
 import com.wsoteam.diet.articles.ArticleSeriesActivity;
+import com.wsoteam.diet.common.Analytics.ABLiveData;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
@@ -96,9 +99,17 @@ public class MainActivity extends AppCompatActivity {
   private Window window;
 
   private FloatingActionMenu fabMenu;
+  private LiveData<String> abLiveData;
 
   private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
       = item -> setActiveTab(item.getItemId());
+
+  private Observer<String> abObserver = new Observer<String>() {
+    @Override public void onChanged(String s) {
+        checkSub();
+        Log.e("LOL", "вызов из mainActivity");
+    }
+  };
 
   private void hideFab() {
     hideFabMenu();
@@ -256,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_drawer);
     ButterKnife.bind(this);
-    checkSub();
+    abLiveData = ABLiveData.getInstance().getData();
     bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     bnvMain.setOnNavigationItemReselectedListener(menuItem -> {
       if (menuItem.getItemId() != R.id.bnv_main_diary) {
@@ -309,6 +320,16 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
+  @Override protected void onStart() {
+    super.onStart();
+    abLiveData.observeForever(abObserver);
+  }
+
+  @Override protected void onStop() {
+    super.onStop();
+    abLiveData.removeObserver(abObserver);
+  }
+
   private void checkSub() {
     if (!isSub() && isStopVersion()) {
       Intent intent = new Intent(this, ActivitySubscription.class);
@@ -325,7 +346,10 @@ public class MainActivity extends AppCompatActivity {
   private boolean isStopVersion() {
     String version = getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
         getString(ABConfig.KEY_FOR_SAVE_STATE, "default");
-    return version.equals(ABConfig.C) || version.equals(ABConfig.D) || version.equals(ABConfig.F) || version.equals(ABConfig.H);
+    return version.equals(ABConfig.C)
+        || version.equals(ABConfig.D)
+        || version.equals(ABConfig.F)
+        || version.equals(ABConfig.H);
   }
 
   private boolean isSub() {

@@ -45,4 +45,5 @@ class WheelFortuneActivity : AppCompatActivity(R.layout.activity_wheel_fortune) 
             startWheel.isEnabled = false
         }
     }
+
 }
