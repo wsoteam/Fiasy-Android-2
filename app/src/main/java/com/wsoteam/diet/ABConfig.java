@@ -2,15 +2,15 @@ package com.wsoteam.diet;
 
 public class ABConfig {
     public static final String KEY_FOR_SAVE_STATE = "KEY_FOR_SAVE_STATE";
-    public static final String REQUEST_STRING = "prem_screen";
-    public static final String A = "1";
-    public static final String B = "2";
-    public static final String C = "3";
-    public static final String D = "4";
-    public static final String E = "5";
-    public static final String F = "6";
-    public static final String G = "7";
-    public static final String H = "8";
+    public static final String REQUEST_STRING = "big_test";
+    public static final String A = "trial_long_pic_2k";
+    public static final String B = "trial_long_result_2k";
+    public static final String C = "trial_long_result_stop_2k";
+    public static final String D = "trial_long_result_stop_price_2k";
+    public static final String E = "trial_article_long_result_2k";
+    public static final String F = "trial_article_long_result_stop_2k";
+    public static final String G = "trial_fortune_long_result_2k";
+    public static final String H = "trial_fortune_long_result_stop_2k";
 
 
     //Amplituda key
