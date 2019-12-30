@@ -268,6 +268,7 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_drawer);
     ButterKnife.bind(this);
     abLiveData = ABLiveData.getInstance().getData();
+    abLiveData.observeForever(abObserver);
     bnvMain.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     bnvMain.setOnNavigationItemReselectedListener(menuItem -> {
       if (menuItem.getItemId() != R.id.bnv_main_diary) {
@@ -320,15 +321,11 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-  @Override protected void onStart() {
-    super.onStart();
-    abLiveData.observeForever(abObserver);
-  }
-
-  @Override protected void onStop() {
-    super.onStop();
+  @Override protected void onDestroy() {
+    super.onDestroy();
     abLiveData.removeObserver(abObserver);
   }
+
 
   private void checkSub() {
     if (!isSub() && isStopVersion()) {

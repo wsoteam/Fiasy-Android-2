@@ -61,11 +61,11 @@ public class FragmentG extends Fragment
   private Box box;
   public static final String BUY_NOW = "BUY_NOW";
 
-  public static FragmentE newInstance(Box box) {
+  public static FragmentG newInstance(Box box) {
     Bundle bundle = new Bundle();
     bundle.putSerializable(TAG_BOX, box);
-    FragmentE fragment =
-        new FragmentE();
+    FragmentG fragment =
+        new FragmentG();
     fragment.setArguments(bundle);
     return fragment;
   }
