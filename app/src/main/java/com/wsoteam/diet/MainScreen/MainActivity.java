@@ -78,6 +78,8 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+  private final long TIMESTAMP = 1577705306338l; //30.12.2019
+
   @BindView(R.id.flFragmentContainer)
   FrameLayout flFragmentContainer;
   @BindView(R.id.bnv_main)
@@ -243,7 +245,9 @@ public class MainActivity extends AppCompatActivity {
     super.onResume();
     handlGrade(Calendar.getInstance().getTimeInMillis());
     new UpdateChecker(this).runChecker();
+
     Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
+    Log.e("LOL", String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getMetadata().getCreationTimestamp()));
     hideFabMenu();
   }
 
@@ -328,7 +332,7 @@ public class MainActivity extends AppCompatActivity {
 
 
   private void checkSub() {
-    if (!isSub() && isStopVersion()) {
+    if (!isSub() && isStopVersion() && isNewUser()) {
       Intent intent = new Intent(this, ActivitySubscription.class);
       Box box = new Box();
       box.setBuyFrom(EventProperties.trial_from_nec);
@@ -338,6 +342,10 @@ public class MainActivity extends AppCompatActivity {
       intent.putExtra(Config.TAG_BOX, box);
       startActivity(intent);
     }
+  }
+
+  private boolean isNewUser() {
+    return FirebaseAuth.getInstance().getCurrentUser().getMetadata().getCreationTimestamp() > TIMESTAMP;
   }
 
   private boolean isStopVersion() {
