@@ -30,6 +30,7 @@ class FiftyDiscountDialogFragment : DialogFragment() {
         }
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NO_TITLE, R.style.FullScreenDialog)
@@ -53,8 +54,12 @@ class FiftyDiscountDialogFragment : DialogFragment() {
             intent.putExtra(Config.TAG_BOX, box)
             startActivity(intent)
 
-            activity?.finish()
             dismiss()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+         activity?.finish()
     }
 }

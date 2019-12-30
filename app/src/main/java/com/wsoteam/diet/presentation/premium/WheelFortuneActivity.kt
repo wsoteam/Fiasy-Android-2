@@ -9,11 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_wheel_fortune.*
 import kotlin.random.Random
 
+
 class WheelFortuneActivity : AppCompatActivity(R.layout.activity_wheel_fortune) {
 
+    val dialogFragment = FiftyDiscountDialogFragment.newInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         startWheel.setOnClickListener {
 
             val round = 3
@@ -29,8 +32,8 @@ class WheelFortuneActivity : AppCompatActivity(R.layout.activity_wheel_fortune) 
                 }
 
                 override fun onAnimationEnd(animation: Animator?) {
-                    val dialogFragment = FiftyDiscountDialogFragment.newInstance()
-                    dialogFragment.show(supportFragmentManager, dialogFragment.javaClass.name)
+                    FiftyDiscountDialogFragment.newInstance()
+                            .show(supportFragmentManager, dialogFragment.javaClass.name)
                 }
 
                 override fun onAnimationCancel(animation: Animator?) {
