@@ -162,7 +162,6 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
       case ABConfig.C:
       case ABConfig.D:
         intent = new Intent(this, ActivitySubscription.class);
-        intent.putExtra(Config.TAG_BOX, box);
         break;
       case ABConfig.E:
       case ABConfig.F:
@@ -173,6 +172,7 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
         intent = new Intent(this, WheelFortuneActivity.class);
         break;
     }
+    intent.putExtra(Config.TAG_BOX, box);
     startActivity(intent);
   }
 

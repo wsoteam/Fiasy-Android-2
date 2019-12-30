@@ -29,7 +29,7 @@ class AnastasiaStoryFragment : AppCompatActivity(R.layout.fragment_anastasia_sto
         super.onCreate(savedInstanceState)
         toolbar2.setNavigationIcon(R.drawable.arrow_back_gray)
         toolbar2.setNavigationOnClickListener { onBackPressed() }
-
+        val box = intent.getSerializableExtra(Config.TAG_BOX)
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
         anastasia_recycler.layoutManager = linearLayoutManager
@@ -42,11 +42,6 @@ class AnastasiaStoryFragment : AppCompatActivity(R.layout.fragment_anastasia_sto
             appbar.setLiftable(scrollY == 0) }
 
         next.setOnClickListener {
-            var box = Box()
-            box.isOpenFromPremPart = false
-            box.isOpenFromIntrodaction = true
-            box.buyFrom = EventProperties.trial_from_onboard
-            box.comeFrom = EventProperties.trial_from_onboard
             var intent = Intent(this, ActivitySubscription::class.java)
             intent.putExtra(Config.TAG_BOX, box)
             startActivity(intent)
