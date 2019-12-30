@@ -32,8 +32,7 @@ class WheelFortuneActivity : AppCompatActivity(R.layout.activity_wheel_fortune) 
                 }
 
                 override fun onAnimationEnd(animation: Animator?) {
-                    FiftyDiscountDialogFragment.newInstance()
-                            .show(supportFragmentManager, dialogFragment.javaClass.name)
+                    dialogFragment.show(supportFragmentManager, dialogFragment.javaClass.name)
                 }
 
                 override fun onAnimationCancel(animation: Animator?) {
