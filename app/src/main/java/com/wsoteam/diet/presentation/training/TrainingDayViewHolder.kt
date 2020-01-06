@@ -23,9 +23,9 @@ class TrainingDayViewHolder(parent: ViewGroup,
         this.day = trainingDay
 
         val  day = 1
-        val  exercises = trainingDay?.number ?: 0
+        val  exercises = trainingDay?.day ?: 0
         val  progress = 50
-        val isDayComplete = trainingDay?.number == 0
+        val isDayComplete = trainingDay?.day == 0
 
         if (isDayComplete) closeProgress() else openProgress()
 

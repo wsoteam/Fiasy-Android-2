@@ -1,7 +1,6 @@
 package com.wsoteam.diet.presentation.training
 
 
-import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -12,12 +11,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
 import kotlinx.android.synthetic.main.fragment_training.*
 import android.view.ViewGroup
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 class TrainingFragment : Fragment(R.layout.fragment_training) {
 
     private val adapter = TrainingAdapter(null, null)
+    private lateinit var database: DatabaseReference
 
+    private var mapTraining: MapTraining? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,6 +28,12 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
         toolbarT.setNavigationOnClickListener { activity?.onBackPressed() }
         trainingRV.layoutManager = LinearLayoutManager(context)
         trainingRV.adapter = adapter
+
+        database = FirebaseDatabase.getInstance().reference
+                .child("RU").child("TRAININGS")
+        button3.setOnClickListener {
+//            database.setValue(mapTraining)
+        }
 
 //        imageView96.setImageResource(R.drawable.exercise_wall_push_up)
 //        val drawable = imageView96.drawable
@@ -43,8 +52,9 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
         })
 
         val model = ViewModelProviders.of(this)[TrainingViewModel::class.java]
-        model.getTrainings().observe(this, Observer<List<Training>>{ trainings ->
-            adapter.updateData(trainings)
+        model.getTrainings().observe(this, Observer<MapTraining>{ trainings ->
+            adapter.updateData(ArrayList(trainings.trainings!!.values))
+            mapTraining = trainings
         })
 
         adapter.setClickListener(object : TrainingAdapter.ClickListener{
@@ -54,7 +64,7 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
                     val fragment = if (id.equals("0")) TrainingBlockedFragment()
                     else TrainingDayFragment()
 
-                    bundle.putParcelable(Training().javaClass.simpleName, training)
+                    bundle.putParcelable(Training::class.java.simpleName, training)
                     fragment.arguments = bundle
                     fragmentManager?.beginTransaction()
                             ?.replace((getView()?.parent as ViewGroup).id, fragment)

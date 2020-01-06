@@ -17,7 +17,7 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
     private var adapter: TrainingExercisesAdapter = TrainingExercisesAdapter(null, View.OnClickListener {
        ExercisesDialogFragment.show(fragmentManager)
     })
-    private var day: TrainingDay? = null
+    private var trainingDay: TrainingDay? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,10 +39,11 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
         })
 
         arguments?.apply {
-            getParcelable<TrainingDay>(TrainingDay().javaClass.simpleName)?.apply {
-                day = this
+            getParcelable<TrainingDay>(TrainingDay::class.java.simpleName)?.apply {
+                trainingDay = this
+                //TODO
                 adapter.updateData(this)
-                Log.d("kkk", "days = $number")
+                Log.d("kkk", "days = $day")
             }
         }
     }

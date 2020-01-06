@@ -39,7 +39,7 @@ class TrainingDayAdapter(private var training: Training?, private var clickListe
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is TrainingDayViewHolder) holder.bind(training?.days?.get(position - bias))
+        if (holder is TrainingDayViewHolder) holder.bind(training?.days?.get((position - bias).toString()))
         if (holder is TrainingDayHeaderViewHolder) training?.apply { holder.bind(this)}
     }
 

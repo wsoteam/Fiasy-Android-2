@@ -15,7 +15,7 @@ class TrainingExercisesAdapter(private var trainingDay: TrainingDay?, var onClic
         return TrainingExercisesViewHolder(parent, onClickListener)
     }
 
-    override fun getItemCount(): Int = trainingDay?.number ?: 0
+    override fun getItemCount(): Int = trainingDay?.exercises?.size ?: 0
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
