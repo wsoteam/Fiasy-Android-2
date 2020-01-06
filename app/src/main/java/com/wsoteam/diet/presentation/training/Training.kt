@@ -42,3 +42,5 @@ data class ExercisesType(
         var id: String? = "",
         var type: String? = ""
 ) : Parcelable
+
+

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
@@ -14,9 +15,7 @@ import kotlinx.android.synthetic.main.fragment_training_exercises.*
 class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises) {
 
 
-    private var adapter: TrainingExercisesAdapter = TrainingExercisesAdapter(null, View.OnClickListener {
-       ExercisesDialogFragment.show(fragmentManager)
-    })
+    private lateinit var  adapter: TrainingExercisesAdapter
     private var trainingDay: TrainingDay? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -25,6 +24,15 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
         toolbarTEF.setNavigationOnClickListener { activity?.onBackPressed() }
         toolbarTEF.title = "День 1"
 
+        adapter = TrainingExercisesAdapter(null, View.OnClickListener {
+
+            val fragment = ExerciseExecutorFragment()
+
+            fragmentManager?.beginTransaction()
+                    ?.replace((getView()?.parent as ViewGroup).id, fragment)
+                    ?.addToBackStack(fragment.javaClass.simpleName)
+                    ?.commit()
+        })
 
         recyclerTEF.layoutManager = LinearLayoutManager(context)
         recyclerTEF.adapter = adapter

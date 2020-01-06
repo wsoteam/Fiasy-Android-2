@@ -25,4 +25,7 @@
     <dimen name="teach_width">62dp</dimen>
     <dimen name="teach_height">46dp</dimen>
 
+    <dimen name="exercises_progress_bar_padding">2.5dp</dimen>
+    <dimen name="exercises_progress_bar_height">5dp</dimen>
+
 </resources>
