@@ -1,10 +1,12 @@
 package com.wsoteam.diet.presentation.training
 
+import android.text.TextUtils.concat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
+import com.wsoteam.diet.utils.getResources
 import kotlinx.android.synthetic.main.training_exercises_view_holder.view.*
 
 class TrainingExercisesViewHolder(parent: ViewGroup, var onClickListener: View.OnClickListener)
@@ -17,7 +19,10 @@ class TrainingExercisesViewHolder(parent: ViewGroup, var onClickListener: View.O
 
     fun bind(exercises: Exercises?){
 
-        itemView.exercisesRepeat.text = exercises?.iteration.toString()
-        itemView.exercisesRound.text = exercises?.approaches.toString()
+        val iteration = exercises?.iteration ?: 0
+        val approaches = exercises?.approaches ?: 0
+
+        itemView.exercisesRepeat.text = concat(approaches.toString(), " ", getResources().getQuantityText(R.plurals.repetition, approaches))
+        itemView.exercisesRound.text = concat("(", iteration.toString(), " ", getResources().getQuantityString(R.plurals.circle, iteration), ")")
     }
 }

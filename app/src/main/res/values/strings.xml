@@ -1175,4 +1175,20 @@ Share your accomplishments with friends:</string>
     <string name="training_exercise">Упражнений</string>
     <string name="training_duration">Длительность</string>
     <string name="training_done">Выполнено</string>
+
+    <string name="relax">Отдых</string>
+
+    <plurals name="repetition">
+        <item quantity="one">повторение</item>
+        <item quantity="few">повторения</item>
+        <item quantity="many">повторений</item>
+        <item quantity="other">повторений</item>
+    </plurals>
+
+    <plurals name="circle">
+        <item quantity="one">круг</item>
+        <item quantity="few">круга</item>
+        <item quantity="many">кругов</item>
+        <item quantity="other">кругов</item>
+    </plurals>
 </resources>

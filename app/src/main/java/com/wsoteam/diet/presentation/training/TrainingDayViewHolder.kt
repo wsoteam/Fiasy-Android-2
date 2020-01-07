@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
+import com.wsoteam.diet.utils.getString
 import kotlinx.android.synthetic.main.training_day_view_holder.view.*
 
 class TrainingDayViewHolder(parent: ViewGroup,
@@ -22,16 +23,17 @@ class TrainingDayViewHolder(parent: ViewGroup,
     fun bind(trainingDay: TrainingDay?){
         this.day = trainingDay
 
-        var  day = trainingDay?.day ?: 0
-        var  exercises = trainingDay?.exercises?.size ?: 0
-        var  progress = 50
-        var isDayComplete = trainingDay?.day == 0
+        val  day = trainingDay?.day ?: 0
+        val  exercises = trainingDay?.exercises?.size ?: 0
+        val  progress = 50
+        val isDayComplete = trainingDay?.day == 0
 
         if (isDayComplete) closeProgress() else openProgress()
 
         itemView.dayNumber.text = String.format(getContext().getString(R.string.day), day)
-        itemView.exercises.text = concat(exercises.toString(), " ",
-                getContext().resources.getQuantityText(R.plurals.exercises, exercises))
+        itemView.exercises.text = if (exercises > 0)
+            concat(exercises.toString(), " ", getContext().resources.getQuantityText(R.plurals.exercises, exercises))
+        else getString(R.string.relax)
         itemView.progressBar.progress = progress
         itemView.progressTxt.text = concat(progress.toString(), " %")
 

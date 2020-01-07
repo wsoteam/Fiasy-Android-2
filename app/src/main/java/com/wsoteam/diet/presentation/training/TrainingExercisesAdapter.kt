@@ -18,6 +18,6 @@ class TrainingExercisesAdapter(private var trainingDay: TrainingDay?, var onClic
     override fun getItemCount(): Int = trainingDay?.exercises?.size ?: 0
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(holder is TrainingExercisesViewHolder) holder.bind(trainingDay?.exercises?.get(Config.exercisesPrefix + (position + 1)))
+        if(holder is TrainingExercisesViewHolder) holder.bind(trainingDay?.exercises?.get(Prefix.exercises + (position + 1)))
     }
 }

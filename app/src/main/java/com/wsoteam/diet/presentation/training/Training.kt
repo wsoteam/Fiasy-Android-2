@@ -42,14 +42,22 @@ data class Exercises(
 @Parcelize
 data class ExercisesType(
         var uid: String? = "",
+        var title: String? = "",
         var type: String? = ""
 ) : Parcelable
 
 
-class Config{
+class Prefix {
+    companion object {
+        const val day = "day-"
+        const val exercises = "exercises-"
+    }
+}
+
+class Type(){
     companion object{
-       const val dayPrefix = "day-"
-        const val exercisesPrefix = "exercises-"
+        const val time = "time"
+        const val repeat = "repeat"
     }
 }
 
