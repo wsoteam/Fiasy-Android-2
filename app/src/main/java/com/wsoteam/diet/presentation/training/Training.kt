@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @IgnoreExtraProperties
 @Parcelize
 data class MapTraining(
-        var trainings: Map<String, Training>? = HashMap(),
+        var trainings: MutableMap<String, Training>? = mutableMapOf(),
         var name: String? = ""
 ) : Parcelable
 
@@ -17,20 +17,22 @@ data class Training(
         var uid: String? = "",
         var name: String? = "",
         var url: String? = "",
-        var days: Map<String, TrainingDay>? = HashMap()
+        var days: MutableMap<String, TrainingDay>? = mutableMapOf()
 ) : Parcelable
 
 @IgnoreExtraProperties
 @Parcelize
 data class TrainingDay(
         var day: Int? = 0,
-        var exercises: Map<String, Exercises>? = HashMap()
+        var time: Int? = 0,
+        var name: String? = "",
+        var exercises: MutableMap<String, Exercises>? = mutableMapOf()
 ) : Parcelable
 
 @IgnoreExtraProperties
 @Parcelize
 data class Exercises(
-        var uid: Int? = 0,
+        var number: Int? = 0,
         var type: String? = "",
         var approaches: Int? = 0,
         var iteration: Int? = 0
@@ -39,8 +41,15 @@ data class Exercises(
 @IgnoreExtraProperties
 @Parcelize
 data class ExercisesType(
-        var id: String? = "",
+        var uid: String? = "",
         var type: String? = ""
 ) : Parcelable
 
+
+class Config{
+    companion object{
+       const val dayPrefix = "day-"
+        const val exercisesPrefix = "exercises-"
+    }
+}
 

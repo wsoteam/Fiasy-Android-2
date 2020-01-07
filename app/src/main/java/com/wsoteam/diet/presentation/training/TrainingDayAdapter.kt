@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.training
 
+import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
@@ -13,6 +14,7 @@ class TrainingDayAdapter(private var training: Training?, private var clickListe
     )
 
     fun updateData(training: Training?){
+        Log.d("kkk","tr2ad - ${training?.days?.get("day-1")?.exercises?.size}")
         this.training = training
         notifyDataSetChanged()
     }
@@ -39,7 +41,7 @@ class TrainingDayAdapter(private var training: Training?, private var clickListe
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is TrainingDayViewHolder) holder.bind(training?.days?.get((position - bias).toString()))
+        if (holder is TrainingDayViewHolder) holder.bind(training?.days?.get(Config.dayPrefix + (position)))
         if (holder is TrainingDayHeaderViewHolder) training?.apply { holder.bind(this)}
     }
 

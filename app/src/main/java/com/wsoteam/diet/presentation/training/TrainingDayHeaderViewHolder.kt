@@ -15,8 +15,8 @@ class TrainingDayHeaderViewHolder(parent: ViewGroup): RecyclerView.ViewHolder(La
 
     fun bind(training: Training){
 
-        val days = 5
-        val progressMax = 16
+        val days = training.days?.size ?: 0
+        val progressMax = training.days?.size ?: 0
         val progressCurrent = 5
 
         itemView.daysDHVH.text = concat(days.toString(), " ", getContext().resources.getQuantityText(R.plurals.day_plurals, days))

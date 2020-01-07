@@ -22,10 +22,10 @@ class TrainingDayViewHolder(parent: ViewGroup,
     fun bind(trainingDay: TrainingDay?){
         this.day = trainingDay
 
-        val  day = 1
-        val  exercises = trainingDay?.day ?: 0
-        val  progress = 50
-        val isDayComplete = trainingDay?.day == 0
+        var  day = trainingDay?.day ?: 0
+        var  exercises = trainingDay?.exercises?.size ?: 0
+        var  progress = 50
+        var isDayComplete = trainingDay?.day == 0
 
         if (isDayComplete) closeProgress() else openProgress()
 

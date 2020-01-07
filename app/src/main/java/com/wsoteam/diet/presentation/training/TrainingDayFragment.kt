@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.training
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +26,7 @@ class TrainingDayFragment : Fragment(R.layout.fragment_training_day) {
                 val bundle = Bundle()
                 val fragment = TrainingExercisesFragment()
 
-                bundle.putParcelable(TrainingDay::class.java.simpleName, day)
+                bundle.putParcelable(TrainingExercisesFragment::class.java.simpleName, day)
                 fragment.arguments = bundle
                 fragmentManager?.beginTransaction()
                         ?.replace((getView()?.parent as ViewGroup).id, fragment)
@@ -51,13 +52,14 @@ class TrainingDayFragment : Fragment(R.layout.fragment_training_day) {
         toolbarTD.setNavigationOnClickListener { activity?.onBackPressed() }
 
         arguments?.apply {
-            training = getParcelable<Training>(Training().javaClass.simpleName)
+            training = getParcelable<Training>(Training::class.java.simpleName)
             training?.apply {
                 adapter.updateData(this)
                 Picasso.get()
                         .load(url)
                         .into(backdropTD)
                 toolbarTD.title = name
+                Log.d("kkk","tr2 - ${days?.get("day-1")?.exercises?.size}")
             }
 
         }

@@ -28,9 +28,9 @@ class TrainingViewHolder(parent: ViewGroup,private var clickListener: TrainingAd
     fun bind(training: Training?) {
         this.training = training
         if (training != null) {
-            val days = 2
+            val days = training.days?.size ?: 0
             val progressCurrent = 5
-            val progressMax = 16
+            val progressMax = training.days?.size ?: 0
             setImg(itemView.imageTVH, training.url, itemView.backgroundTVH)
             itemView.nameTVH.text = training.name
             itemView.daysTVH.text = concat(days.toString(), " ", getContext().resources.getQuantityText(R.plurals.day_plurals, days))

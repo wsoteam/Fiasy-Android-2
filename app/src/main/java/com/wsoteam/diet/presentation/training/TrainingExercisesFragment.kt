@@ -22,7 +22,7 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
         super.onViewCreated(view, savedInstanceState)
         toolbarTEF.setNavigationIcon(R.drawable.arrow_back_gray)
         toolbarTEF.setNavigationOnClickListener { activity?.onBackPressed() }
-        toolbarTEF.title = "День 1"
+
 
         adapter = TrainingExercisesAdapter(null, View.OnClickListener {
 
@@ -45,15 +45,18 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
                 }
             }
         })
-
+        Log.d("kkk", "e0")
         arguments?.apply {
-            getParcelable<TrainingDay>(TrainingDay::class.java.simpleName)?.apply {
+            Log.d("kkk", "e1")
+            getParcelable<TrainingDay>(TrainingExercisesFragment::class.java.simpleName)?.apply {
+                Log.d("kkk", "e2")
                 trainingDay = this
-                //TODO
                 adapter.updateData(this)
-                Log.d("kkk", "days = $day")
+                Log.d("kkk", "exercises?.size = ${exercises?.size}")
             }
         }
+
+        toolbarTEF.title = String.format(getString(R.string.day), trainingDay?.day)
     }
 
 }
