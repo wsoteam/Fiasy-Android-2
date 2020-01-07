@@ -4,18 +4,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class TrainingViewModel: ViewModel() {
+class TrainingViewModel : ViewModel() {
+    companion object {
+        private val exercisesType: MutableLiveData<MutableMap<String, ExercisesType>> by lazy {
+            MutableLiveData<MutableMap<String, ExercisesType>>().also {
+                it.value = mutableMapOf()
+            }
+        }
+
+        fun getExercisesType(): LiveData<MutableMap<String, ExercisesType>> = exercisesType
+    }
 
     private val trainings: MutableLiveData<MapTraining> by lazy {
-       MutableLiveData<MapTraining>().also {
-//            loadTrainings(it)
+        MutableLiveData<MapTraining>().also {
+            //            loadTrainings(it)
         }
     }
 
-
     fun getTrainings(): LiveData<MapTraining> = trainings
 
-    private fun loadTrainings(liveData: MutableLiveData<MapTraining>){
+
+    private fun loadTrainings(liveData: MutableLiveData<MapTraining>) {
         val mapTraining = MapTraining()
 
         val training = Training()
@@ -34,7 +43,7 @@ class TrainingViewModel: ViewModel() {
         liveData.value = mapTraining
     }
 
-    private fun getDays(): MutableMap<String, Exercises>{
+    private fun getDays(): MutableMap<String, Exercises> {
 
         val days = mutableMapOf<String, Exercises>()
         for (i in 1..10) {

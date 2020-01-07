@@ -30,9 +30,9 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
         model = ViewModelProviders.of(this)[TrainingViewModel::class.java]
 
         database = FirebaseDatabase.getInstance().reference
-                .child("RU").child("trainings")
+                .child("RU")
 
-        database.addValueEventListener(object : ValueEventListener{
+        database.child("trainings").addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
             }
 
@@ -40,29 +40,36 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
                val mapTraining: MapTraining? = p0.getValue(MapTraining::class.java)
                 (model.getTrainings() as MutableLiveData).value = mapTraining
 
-//                Log.d("kkk", "mapTraining.size = ${mapTraining?.trainings?.size}")
-//                Log.d("kkk", "name = ${mapTraining?.trainings?.get("full_body_workout")?.name}")
-//                Log.d("kkk", "day.size = ${mapTraining?.trainings?.get("full_body_workout")?.days?.size}")
-//                Log.d("kkk", "day1.time = ${mapTraining?.trainings?.get("full_body_workout")?.days?.get("day-1")?.time}")
-//                Log.d("kkk", "exercises.time = ${mapTraining?.trainings?.get("full_body_workout")?.days?.get("day-1")?.exercises?.size}")
-
             }
         })
 
-//        database.child("trainings").child("full_body_workout").addValueEventListener(object : ValueEventListener{
-//            override fun onCancelled(p0: DatabaseError) {
-//            }
-//
-//            override fun onDataChange(p0: DataSnapshot) {
-//                val training: Training? = p0.getValue(Training::class.java)
-//
-//
-//
-//                Log.d("kkk6", "day.size = ${training?.days?.size}")
-//                Log.d("kkk6", "day1.time = ${training?.days?.get("day-1")?.time}")
-//
-//            }
-//        })
+        database.child("ExercisesType").addChildEventListener(object : ChildEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+            }
+
+            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+            }
+
+            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+            }
+
+            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+
+                val exercisesType = p0.getValue(ExercisesType::class.java)
+//                Log.d("kkk", "a ${exercisesType?.title}")
+//                Log.d("kkk", "a2 ${exercisesType?.uid}")
+                if (exercisesType != null)
+                (TrainingViewModel.getExercisesType() as MutableLiveData).value?.put((exercisesType.uid ?: ""), exercisesType)
+            }
+
+            override fun onChildRemoved(p0: DataSnapshot) {
+
+                val exercisesType = p0.getValue(ExercisesType::class.java)
+
+                if (exercisesType != null)
+                    (TrainingViewModel.getExercisesType() as MutableLiveData).value?.remove((exercisesType.uid ?: ""))
+            }
+        })
 
         return super.onCreateView(inflater, container, savedInstanceState)
     }
