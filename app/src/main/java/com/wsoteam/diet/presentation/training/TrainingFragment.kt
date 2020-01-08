@@ -14,7 +14,9 @@ import com.wsoteam.diet.R
 import kotlinx.android.synthetic.main.fragment_training.*
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 
 
 class TrainingFragment : Fragment(R.layout.fragment_training) {
@@ -30,9 +32,9 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
         model = ViewModelProviders.of(this)[TrainingViewModel::class.java]
 
         database = FirebaseDatabase.getInstance().reference
-                .child("RU")
 
-        database.child("trainings").addValueEventListener(object : ValueEventListener{
+
+        database.child("RU").child("trainings").addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
             }
 
@@ -43,7 +45,7 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
             }
         })
 
-        database.child("ExercisesType").addChildEventListener(object : ChildEventListener{
+        database.child("RU").child("ExercisesType").addChildEventListener(object : ChildEventListener{
             override fun onCancelled(p0: DatabaseError) {
             }
 
@@ -56,8 +58,6 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
 
                 val exercisesType = p0.getValue(ExercisesType::class.java)
-//                Log.d("kkk", "a ${exercisesType?.title}")
-//                Log.d("kkk", "a2 ${exercisesType?.uid}")
                 if (exercisesType != null)
                 (TrainingViewModel.getExercisesType() as MutableLiveData).value?.put((exercisesType.uid ?: ""), exercisesType)
             }
@@ -68,6 +68,43 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
 
                 if (exercisesType != null)
                     (TrainingViewModel.getExercisesType() as MutableLiveData).value?.remove((exercisesType.uid ?: ""))
+            }
+        })
+
+        database.child("USER_LIST").child(FirebaseAuth.getInstance().currentUser!!.uid).child("trainings")
+            .addChildEventListener(object : ChildEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+
+            }
+
+            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+
+            }
+
+            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+
+                val dayResult = p0.getValue(TrainingResult::class.java)
+
+                Log.d("kkk", "p1 - ${dayResult}")
+                if (dayResult != null){
+//                    Log.d("kkk", "p1 - ${dayResult.exercises?.size}")
+                    (TrainingViewModel.getTrainingResult() as MutableLiveData).value?.put(p0.key ?: "", dayResult)
+                }
+            }
+
+            override fun onChildRemoved(p0: DataSnapshot) {
+                val dayResult = p0.getValue(TrainingResult::class.java)
+
+                Log.d("kkk", "p1 - ${dayResult}")
+                if (dayResult != null){
+//                    Log.d("kkk", "p1 - ${dayResult.exercises?.size}")
+                    (TrainingViewModel.getTrainingResult() as MutableLiveData).value?.remove(p0.key ?: "")
+
+                }
             }
         })
 
@@ -83,6 +120,15 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
 
 
         button3.setOnClickListener {
+            val result = TrainingResult()
+            val map: MutableMap<String, Int> = mutableMapOf()
+            map.put("00", 0)
+            map.put("11", 1)
+            map.put("22", 2)
+            result.days?.put("ff", map)
+            result.days?.put("gg", map)
+
+            WorkWithFirebaseDB.saveTrainingProgress2("full_body_workout",result)
 //            database.setValue(mapTraining)
         }
 
@@ -114,8 +160,6 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
                     val bundle = Bundle()
                     val fragment = if (id.equals("0")) TrainingBlockedFragment()
                     else TrainingDayFragment()
-
-                    Log.d("kkk","tr - ${training.days?.get("day-1")?.exercises?.size}")
 
                     bundle.putParcelable(Training::class.java.simpleName, training)
                     fragment.arguments = bundle

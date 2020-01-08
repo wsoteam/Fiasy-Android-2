@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.view.ViewGroup
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import kotlinx.android.synthetic.main.fragment_training_exercises.*
 
 
@@ -17,6 +18,7 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
 
     private lateinit var  adapter: TrainingExercisesAdapter
     private var trainingDay: TrainingDay? = null
+    private var trainingUid: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -24,15 +26,33 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
         toolbarTEF.setNavigationOnClickListener { activity?.onBackPressed() }
 
 
-        adapter = TrainingExercisesAdapter(null, View.OnClickListener {
+        adapter = TrainingExercisesAdapter(trainingUid,null, View.OnClickListener {
 
-            val fragment = ExerciseExecutorFragment()
+            WorkWithFirebaseDB.saveTrainingProgress("full_body_workout",
+                    "day-1",
+                    "exercises-1", 30)
 
-            fragmentManager?.beginTransaction()
-                    ?.replace((getView()?.parent as ViewGroup).id, fragment)
-                    ?.addToBackStack(fragment.javaClass.simpleName)
-                    ?.commit()
+//            val fragment = ExerciseExecutorFragment()
+//
+//            fragmentManager?.beginTransaction()
+//                    ?.replace((getView()?.parent as ViewGroup).id, fragment)
+//                    ?.addToBackStack(fragment.javaClass.simpleName)
+//                    ?.commit()
         })
+
+        arguments?.apply {
+
+            getParcelable<TrainingDay>(TrainingExercisesFragment::class.java.simpleName)?.apply {
+                trainingDay = this
+                adapter.updateData(this)
+            }
+
+            getString(TrainingUid.training).apply {
+                Log.d("kkk", this)
+                trainingUid = this
+                adapter.trainingUid = this
+            }
+        }
 
         recyclerTEF.layoutManager = LinearLayoutManager(context)
         recyclerTEF.adapter = adapter
@@ -45,16 +65,8 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
                 }
             }
         })
-        Log.d("kkk", "e0")
-        arguments?.apply {
-            Log.d("kkk", "e1")
-            getParcelable<TrainingDay>(TrainingExercisesFragment::class.java.simpleName)?.apply {
-                Log.d("kkk", "e2")
-                trainingDay = this
-                adapter.updateData(this)
-                Log.d("kkk", "exercises?.size = ${exercises?.size}")
-            }
-        }
+
+
 
         toolbarTEF.title = String.format(getString(R.string.day), trainingDay?.day)
     }

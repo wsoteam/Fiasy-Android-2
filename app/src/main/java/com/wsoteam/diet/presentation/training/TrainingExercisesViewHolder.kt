@@ -22,12 +22,12 @@ class TrainingExercisesViewHolder(parent: ViewGroup, var onClickListener: View.O
     }
 
 
-    fun bind(exercises: Exercises?){
+    fun bind(exercises: Exercises?, dayUid: String, trainingUid: String){
 
-        Log.d("kkk", "uid ex = ${exercises?.type}")
+        Log.d("kkk", "trainingUid - $trainingUid   dayUid - $dayUid")
+
         val iteration = exercises?.iteration ?: 0
         val approaches = exercises?.approaches ?: 0
-        Log.d("kkk", "size uid ex = ${TrainingViewModel.getExercisesType().value?.size}")
         val exercisesType = TrainingViewModel.getExercisesType().value?.get(exercises?.type)
 
         itemView.exercisesRepeat.text = concat(approaches.toString(), " ", getResources().getQuantityText(R.plurals.repetition, approaches))

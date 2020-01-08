@@ -41,10 +41,16 @@ data class Exercises(
 @IgnoreExtraProperties
 @Parcelize
 data class ExercisesType(
-        var uid: String? = "",
-        var title: String? = "",
-        var type: String? = ""
-) : Parcelable
+var uid: String? = "",
+var title: String? = "",
+var type: String? = ""
+) : Parcelable{
+    companion object {
+        const val time = "time"
+        const val repeat = "repeat"
+    }
+
+}
 
 
 class Prefix {
@@ -54,10 +60,25 @@ class Prefix {
     }
 }
 
-class Type(){
+class TrainingUid {
     companion object{
-        const val time = "time"
-        const val repeat = "repeat"
+        const val training = "training_uid"
+        const val day = "day_uid"
+        const val exercises = "exercises_uid"
     }
 }
 
+
+@IgnoreExtraProperties
+@Parcelize
+data class DayResult(
+        var exercises: MutableMap<String, Int>? = mutableMapOf()
+) : Parcelable
+
+
+@IgnoreExtraProperties
+@Parcelize
+data class TrainingResult(
+        var days: MutableMap<String, MutableMap<String, Int>>? = mutableMapOf(),
+        var finishedDays: Int? = 0
+) : Parcelable

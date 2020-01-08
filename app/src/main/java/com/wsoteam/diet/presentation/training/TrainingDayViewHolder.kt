@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.training
 
 import android.content.Context
 import android.text.TextUtils.concat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,35 +16,41 @@ class TrainingDayViewHolder(parent: ViewGroup,
     : RecyclerView.ViewHolder(LayoutInflater.from(parent.context)
         .inflate(R.layout.training_day_view_holder, parent, false)) {
     init {
-        itemView.setOnClickListener { listener?.onClick(day) }
+        itemView.setOnClickListener {
+            if ((day?.exercises?.size ?: 0) > 0 && isUnlocked) listener?.onClick(day)
+        }
     }
 
     private var day: TrainingDay? = null
+    private var isUnlocked = false
 
-    fun bind(trainingDay: TrainingDay?){
+
+    fun bind(trainingDay: TrainingDay?, finishedDays: Int?){
         this.day = trainingDay
+        this.isUnlocked = (finishedDays ?: 1 >= adapterPosition)
 
+        Log.d("kkk",  "bind trainingDay - ${trainingDay?.day} /  $isUnlocked")
         val  day = trainingDay?.day ?: 0
         val  exercises = trainingDay?.exercises?.size ?: 0
         val  progress = 50
         val isDayComplete = trainingDay?.day == 0
 
-        if (isDayComplete) closeProgress() else openProgress()
 
         itemView.dayNumber.text = String.format(getContext().getString(R.string.day), day)
-        itemView.exercises.text = if (exercises > 0)
+        itemView.exercises.text =
             concat(exercises.toString(), " ", getContext().resources.getQuantityText(R.plurals.exercises, exercises))
-        else getString(R.string.relax)
-        itemView.progressBar.progress = progress
-        itemView.progressTxt.text = concat(progress.toString(), " %")
 
+        if (isUnlocked == true) openProgress(progress) else closeProgress()
+        if (exercises <= 0) relaxDay(isUnlocked)
     }
 
-    private fun openProgress(){
+    private fun openProgress(progress: Int){
         itemView.lock.visibility = View.GONE
         itemView.progressBar.visibility = View.VISIBLE
         itemView.progressTxt.visibility = View.VISIBLE
 
+        itemView.progressBar.progress = progress
+        itemView.progressTxt.text = concat(progress.toString(), " %")
     }
 
     private fun closeProgress(){
@@ -51,6 +58,13 @@ class TrainingDayViewHolder(parent: ViewGroup,
         itemView.progressBar.visibility = View.GONE
         itemView.progressTxt.visibility = View.GONE
 
+    }
+
+    private fun relaxDay(isUnloced: Boolean){
+        itemView.lock.visibility = if (isUnloced) View.GONE else View.VISIBLE
+        itemView.progressBar.visibility = View.GONE
+        itemView.progressTxt.visibility = View.GONE
+        itemView.exercises.text = getString(R.string.relax)
     }
 
     fun getContext(): Context{

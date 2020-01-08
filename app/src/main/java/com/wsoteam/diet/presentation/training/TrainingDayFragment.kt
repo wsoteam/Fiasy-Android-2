@@ -27,6 +27,8 @@ class TrainingDayFragment : Fragment(R.layout.fragment_training_day) {
                 val fragment = TrainingExercisesFragment()
 
                 bundle.putParcelable(TrainingExercisesFragment::class.java.simpleName, day)
+                bundle.putString(TrainingUid.training, training?.uid)
+
                 fragment.arguments = bundle
                 fragmentManager?.beginTransaction()
                         ?.replace((getView()?.parent as ViewGroup).id, fragment)

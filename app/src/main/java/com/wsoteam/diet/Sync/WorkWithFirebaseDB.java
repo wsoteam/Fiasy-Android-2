@@ -2,6 +2,8 @@ package com.wsoteam.diet.Sync;
 
 import androidx.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -43,6 +45,7 @@ import com.wsoteam.diet.presentation.measurment.POJO.Hips;
 import com.wsoteam.diet.presentation.measurment.POJO.Waist;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 
+import com.wsoteam.diet.presentation.training.TrainingResult;
 import com.wsoteam.diet.utils.FirebaseExtKt;
 import com.wsoteam.diet.utils.RxFirebase;
 import io.reactivex.Flowable;
@@ -547,5 +550,27 @@ public class WorkWithFirebaseDB {
         grade.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
         String key = myRef.push().getKey();
         myRef.child(key).setValue(grade);
+    }
+
+    public static void saveTrainingProgress(String trainingsUid, String dayUid, String exercisesUid, int time){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("USER_LIST")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("trainings")
+                .child(trainingsUid + ":" + dayUid)
+                .child("exercises")
+                .child(exercisesUid);
+
+        myRef.setValue(time);
+    }
+
+    public static void saveTrainingProgress2(String trainingsUid, TrainingResult result){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("USER_LIST")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("trainings")
+                .child(trainingsUid);
+
+        myRef.setValue(result);
     }
 }
