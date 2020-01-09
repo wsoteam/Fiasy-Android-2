@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:srcCompat="@drawable/aaaaatest" />
+        app:srcCompat="@drawable/mountain_climbers" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trainingRV"

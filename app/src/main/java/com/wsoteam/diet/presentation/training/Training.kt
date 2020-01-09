@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.training
 
 import android.os.Parcelable
 import com.google.firebase.database.IgnoreExtraProperties
+import com.wsoteam.diet.R
 import kotlinx.android.parcel.Parcelize
 
 @IgnoreExtraProperties
@@ -82,3 +83,34 @@ data class TrainingResult(
         var days: MutableMap<String, MutableMap<String, Int>>? = mutableMapOf(),
         var finishedDays: Int? = 0
 ) : Parcelable
+
+class ExercisesDrawable{
+    companion object{
+
+        fun get(key: String?): Int = map[key] ?: R.drawable.btn_elements_prem
+
+
+        private val map = mapOf(
+                "advanced_scissor_kicks" to R.drawable.mountain_climbers,
+                "alternating_superman" to R.drawable.mountain_climbers,
+                "balanced_crunch" to R.drawable.mountain_climbers,
+                "bent_knee_raise" to R.drawable.mountain_climbers,
+                "butt_lift_bridge" to R.drawable.mountain_climbers,
+                "floor_back_extension" to R.drawable.mountain_climbers,
+                "flutter_kicks" to R.drawable.mountain_climbers,
+                "glute_kickback" to R.drawable.mountain_climbers,
+                "inner_thigh_lifts" to R.drawable.mountain_climbers,
+                "lying_back_extension" to R.drawable.mountain_climbers,
+                "lying_butterfly" to R.drawable.mountain_climbers,
+                "lying_leg_raise" to R.drawable.mountain_climbers,
+                "lying_side_leg_ift" to R.drawable.mountain_climbers,
+                "mountain_climbers" to R.drawable.mountain_climbers,
+                "plank" to R.drawable.mountain_climbers,
+                "single_leg_push_up" to R.drawable.mountain_climbers,
+                "squat" to R.drawable.mountain_climbers,
+                "standing_leg_kick_back" to R.drawable.mountain_climbers,
+                "sumo_squats" to R.drawable.mountain_climbers,
+                "wall_push_up" to R.drawable.mountain_climbers
+        )
+    }
+}

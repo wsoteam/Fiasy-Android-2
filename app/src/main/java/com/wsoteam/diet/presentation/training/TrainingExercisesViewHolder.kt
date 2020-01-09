@@ -30,10 +30,10 @@ class TrainingExercisesViewHolder(parent: ViewGroup, var onClickListener: View.O
         val approaches = exercises?.approaches ?: 0
         val exercisesType = TrainingViewModel.getExercisesType().value?.get(exercises?.type)
 
-        itemView.exercisesRepeat.text = concat(approaches.toString(), " ", getResources().getQuantityText(R.plurals.repetition, approaches))
-        itemView.exercisesRound.text = concat("(", iteration.toString(), " ", getResources().getQuantityString(R.plurals.circle, iteration), ")")
+        itemView.exercisesRepeat.text = concat("(", iteration.toString(), " ", getResources().getQuantityString(R.plurals.circle, iteration), ")")
+        itemView.exercisesRound.text = concat(approaches.toString(), " ", getResources().getQuantityText(R.plurals.repetition, approaches))
         itemView.exercisesName.text = exercisesType?.title
-
+        itemView.imageExercises.setImageResource(ExercisesDrawable.get(exercises?.type))
     }
 
 }
