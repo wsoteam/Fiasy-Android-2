@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.view.ViewGroup
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,9 +29,9 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
 
         adapter = TrainingExercisesAdapter(trainingUid,null, View.OnClickListener {
 
-            WorkWithFirebaseDB.saveTrainingProgress("full_body_workout",
-                    "day-1",
-                    "exercises-1", 30)
+//            WorkWithFirebaseDB.saveTrainingProgress("full_body_workout",
+//                    "day-1",
+//                    "exercises-1", 30)
 
 //            val fragment = ExerciseExecutorFragment()
 //
@@ -38,6 +39,7 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
 //                    ?.replace((getView()?.parent as ViewGroup).id, fragment)
 //                    ?.addToBackStack(fragment.javaClass.simpleName)
 //                    ?.commit()
+            ExercisesDialogFragment.show(fragmentManager, trainingDay, 1)
         })
 
         arguments?.apply {

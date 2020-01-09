@@ -72,13 +72,6 @@ class TrainingUid {
 
 @IgnoreExtraProperties
 @Parcelize
-data class DayResult(
-        var exercises: MutableMap<String, Int>? = mutableMapOf()
-) : Parcelable
-
-
-@IgnoreExtraProperties
-@Parcelize
 data class TrainingResult(
         var days: MutableMap<String, MutableMap<String, Int>>? = mutableMapOf(),
         var finishedDays: Int? = 0
