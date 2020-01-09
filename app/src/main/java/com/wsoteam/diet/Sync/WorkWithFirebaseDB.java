@@ -557,8 +557,9 @@ public class WorkWithFirebaseDB {
         DatabaseReference myRef = database.getReference("USER_LIST")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("trainings")
-                .child(trainingsUid + ":" + dayUid)
-                .child("exercises")
+                .child(trainingsUid)
+                .child("days")
+                .child(dayUid)
                 .child(exercisesUid);
 
         myRef.setValue(time);

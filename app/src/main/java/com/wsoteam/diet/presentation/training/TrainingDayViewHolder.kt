@@ -40,7 +40,7 @@ class TrainingDayViewHolder(parent: ViewGroup,
         itemView.exercises.text =
             concat(exercises.toString(), " ", getContext().resources.getQuantityText(R.plurals.exercises, exercises))
 
-        if (isUnlocked == true) openProgress(progress) else closeProgress()
+        if (isUnlocked) openProgress(progress) else closeProgress()
         if (exercises <= 0) relaxDay(isUnlocked)
     }
 

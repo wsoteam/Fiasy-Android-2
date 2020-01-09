@@ -1185,6 +1185,8 @@ Share your accomplishments with friends:</string>
         <item quantity="other">повторений</item>
     </plurals>
 
+    <string name="training_time_min">мин.</string>
+
     <plurals name="circle">
         <item quantity="one">круг</item>
         <item quantity="few">круга</item>

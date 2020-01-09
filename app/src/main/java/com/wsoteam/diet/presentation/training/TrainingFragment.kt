@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.training
 
 
+import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +18,12 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
+import org.xmlpull.v1.XmlPullParserFactory
+import java.net.HttpURLConnection
+import java.net.URL
+import android.graphics.drawable.VectorDrawable
+import android.util.AttributeSet
+import android.util.Xml
 
 
 class TrainingFragment : Fragment(R.layout.fragment_training) {
@@ -118,6 +125,12 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
         trainingRV.layoutManager = LinearLayoutManager(context)
         trainingRV.adapter = adapter
 
+//        imageView99.setImageDrawable(testLoadinVector())
+        val drawable = imageView99.drawable
+
+        imageView99.setOnClickListener {
+            if (drawable is Animatable) drawable.start()
+        }
 
         button3.setOnClickListener {
             val result = TrainingResult()
@@ -170,6 +183,22 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
                 }
             }
         })
+    }
+
+    private fun testLoadinVector() : VectorDrawable{
+        val url = "https://firebasestorage.googleapis.com/v0/b/pregnancy-definition.appspot.com/o/Mountain%20Climbers1.xml?alt=media&token=8d3d18ce-0909-4308-a4cc-8c4afa2d7805"
+
+        val connection = URL(url).openConnection() as HttpURLConnection
+        connection.connect()
+        val input = connection.inputStream
+        val factory = XmlPullParserFactory.newInstance()
+        val xpp = factory.newPullParser()
+        xpp.setInput(input, null)
+
+        val vd = VectorDrawable()
+        vd.inflate(resources, xpp, Xml.asAttributeSet(xpp), null)
+
+        return vd
     }
 
 }
