@@ -133,15 +133,16 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
         }
 
         button3.setOnClickListener {
-            val result = TrainingResult()
+            val result = TrainingResult(finishedDays = 2)
             val map: MutableMap<String, Int> = mutableMapOf()
-            map.put("00", 0)
-            map.put("11", 1)
-            map.put("22", 2)
-            result.days?.put("ff", map)
-            result.days?.put("gg", map)
+            map.put("exercises-1", 0)
+            map.put("exercises-2", 1)
+            map.put("exercises-3", 2)
+            result.days?.put("day-1", map)
+            result.days?.put("day-2", map)
 
-            WorkWithFirebaseDB.saveTrainingProgress2("full_body_workout",result)
+            Log.d("kkk", "" + FirebaseAuth.getInstance().currentUser!!.uid)
+//            WorkWithFirebaseDB.saveTrainingProgress2("full_body_workout",result)
 //            database.setValue(mapTraining)
         }
 

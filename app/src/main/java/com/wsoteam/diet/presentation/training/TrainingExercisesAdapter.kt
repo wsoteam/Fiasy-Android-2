@@ -1,10 +1,10 @@
 package com.wsoteam.diet.presentation.training
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class TrainingExercisesAdapter(var trainingUid: String? = "" ,private var trainingDay: TrainingDay?, var onClickListener: View.OnClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TrainingExercisesAdapter(var trainingUid: String? = "" ,private var trainingDay: TrainingDay?,
+                               private var onClickListener: ClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var  bias = 1
 
@@ -14,6 +14,10 @@ class TrainingExercisesAdapter(var trainingUid: String? = "" ,private var traini
     fun updateData(trainingDay: TrainingDay?){
         this.trainingDay = trainingDay
         notifyDataSetChanged()
+    }
+
+    fun setListener(onClickListener: ClickListener){
+        this.onClickListener = onClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -32,5 +36,9 @@ class TrainingExercisesAdapter(var trainingUid: String? = "" ,private var traini
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is TrainingExercisesHeaderViewHolder) holder.bind(trainingDay)
         if(holder is TrainingExercisesViewHolder) holder.bind(trainingDay?.exercises?.get(Prefix.exercises + (position)), Prefix.day + trainingDay?.day, trainingUid ?: "" )
+    }
+
+    interface ClickListener{
+        fun onClick(exercises: Exercises?)
     }
 }

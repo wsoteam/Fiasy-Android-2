@@ -28,4 +28,7 @@
     <dimen name="exercises_progress_bar_padding">2.5dp</dimen>
     <dimen name="exercises_progress_bar_height">5dp</dimen>
 
+    <dimen name="default_stroke_width">7dp</dimen>
+    <dimen name="default_background_stroke_width">3dp</dimen>
+
 </resources>

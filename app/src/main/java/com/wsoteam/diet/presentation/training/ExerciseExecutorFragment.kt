@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.View
+
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import com.wsoteam.diet.R
@@ -20,6 +21,13 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
         super.onViewCreated(view, savedInstanceState)
 
         initProgressBar(9)
+
+        val fragment = ExerciseStartFragment()
+
+        childFragmentManager.beginTransaction()
+                .replace(R.id.exercisesContainer, fragment)
+                .addToBackStack(fragment.javaClass.simpleName)
+                .commit()
     }
 
     private fun initProgressBar(count: Int){

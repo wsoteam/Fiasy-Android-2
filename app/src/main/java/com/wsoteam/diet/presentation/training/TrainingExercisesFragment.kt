@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import kotlinx.android.synthetic.main.fragment_training_exercises.*
 
 
@@ -26,20 +25,22 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
         toolbarTEF.setNavigationIcon(R.drawable.arrow_back_gray)
         toolbarTEF.setNavigationOnClickListener { activity?.onBackPressed() }
 
+        startTraining.setOnClickListener {
+            val bundle = Bundle()
+            val fragment = ExerciseExecutorFragment()
 
-        adapter = TrainingExercisesAdapter(trainingUid,null, View.OnClickListener {
+//            bundle.putParcelable(Training::class.java.simpleName, training)
+            fragment.arguments = bundle
+            fragmentManager?.beginTransaction()
+                    ?.replace((getView()?.parent as ViewGroup).id, fragment)
+                    ?.addToBackStack(fragment.javaClass.simpleName)
+                    ?.commit()
+        }
 
-//            WorkWithFirebaseDB.saveTrainingProgress("full_body_workout",
-//                    "day-1",
-//                    "exercises-1", 30)
-
-//            val fragment = ExerciseExecutorFragment()
-//
-//            fragmentManager?.beginTransaction()
-//                    ?.replace((getView()?.parent as ViewGroup).id, fragment)
-//                    ?.addToBackStack(fragment.javaClass.simpleName)
-//                    ?.commit()
-            ExercisesDialogFragment.show(fragmentManager, trainingDay, 1)
+        adapter = TrainingExercisesAdapter(trainingUid,null, object :TrainingExercisesAdapter.ClickListener {
+            override fun onClick(exercises: Exercises?) {
+                ExercisesDialogFragment.show(fragmentManager, trainingDay, exercises?.number ?: 1)
+            }
         })
 
         arguments?.apply {
@@ -71,6 +72,7 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
 
 
         toolbarTEF.title = String.format(getString(R.string.day), trainingDay?.day)
+
     }
 
 }

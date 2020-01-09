@@ -1167,6 +1167,9 @@ Share your accomplishments with friends:</string>
     <string name="exercises_alert_txt">Хотите продолжить тренировку или начать сначала?</string>
     <string name="exercises_alert_continue">Продолжить</string>
     <string name="exercises_alert_start">Начать сначала</string>
+    <string name="training_start">Начать тренировку</string>
+    
+    <string name="training_prepare">Приготовьтесь</string>
 
 
     <string name="repeat_training">Повторить тренировку</string>

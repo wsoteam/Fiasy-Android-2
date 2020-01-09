@@ -13,16 +13,19 @@ import com.wsoteam.diet.R
 import com.wsoteam.diet.utils.getResources
 import kotlinx.android.synthetic.main.training_exercises_view_holder.view.*
 
-class TrainingExercisesViewHolder(parent: ViewGroup, var onClickListener: View.OnClickListener)
+class TrainingExercisesViewHolder(parent: ViewGroup, var onClickListener: TrainingExercisesAdapter.ClickListener)
     : RecyclerView.ViewHolder(LayoutInflater
         .from(parent.context)
         .inflate(R.layout.training_exercises_view_holder, parent, false)){
     init {
-        itemView.setOnClickListener(onClickListener)
+        itemView.setOnClickListener{onClickListener.onClick(exercises)}
     }
 
+    private var exercises: Exercises? = null
 
     fun bind(exercises: Exercises?, dayUid: String, trainingUid: String){
+
+        this.exercises = exercises
 
         Log.d("kkk", "trainingUid - $trainingUid   dayUid - $dayUid")
 
