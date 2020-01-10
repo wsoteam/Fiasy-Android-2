@@ -1,4 +1,4 @@
-package com.wsoteam.diet.presentation.training
+package com.wsoteam.diet.presentation.training.day
 
 
 import android.os.Bundle
@@ -10,6 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.wsoteam.diet.R
+import com.wsoteam.diet.presentation.training.Training
+import com.wsoteam.diet.presentation.training.TrainingDay
+import com.wsoteam.diet.presentation.training.exercises.TrainingExercisesFragment
+import com.wsoteam.diet.presentation.training.TrainingUid
 import kotlinx.android.synthetic.main.fragment_training_day.*
 
 

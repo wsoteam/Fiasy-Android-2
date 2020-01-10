@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wsoteam.diet.presentation.training.ExerciseStartFragment">
+    tools:context="com.wsoteam.diet.presentation.training.executor.ExerciseStartFragment">
 
 
     <ImageView
@@ -70,13 +70,12 @@
         app:layout_constraintVertical_bias="0.36">
 
         <Button
-            android:id="@+id/button4"
             android:layout_width="106dp"
             android:layout_height="106dp"
-            android:clickable="false"
-            android:focusable="false"
             android:layout_margin="10dp"
-            android:background="@drawable/shape_roundet_btn" />
+            android:background="@drawable/shape_roundet_btn"
+            android:clickable="false"
+            android:focusable="false" />
     </FrameLayout>
 
     <com.wsoteam.diet.views.CircularProgressBar

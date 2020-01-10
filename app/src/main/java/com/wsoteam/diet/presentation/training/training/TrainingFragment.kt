@@ -1,4 +1,4 @@
-package com.wsoteam.diet.presentation.training
+package com.wsoteam.diet.presentation.training.training
 
 
 import android.graphics.drawable.Animatable
@@ -17,13 +17,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import org.xmlpull.v1.XmlPullParserFactory
 import java.net.HttpURLConnection
 import java.net.URL
 import android.graphics.drawable.VectorDrawable
-import android.util.AttributeSet
 import android.util.Xml
+import com.wsoteam.diet.presentation.training.*
+import com.wsoteam.diet.presentation.training.day.TrainingDayFragment
 
 
 class TrainingFragment : Fragment(R.layout.fragment_training) {

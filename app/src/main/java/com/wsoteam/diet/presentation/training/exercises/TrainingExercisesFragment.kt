@@ -1,4 +1,4 @@
-package com.wsoteam.diet.presentation.training
+package com.wsoteam.diet.presentation.training.exercises
 
 
 import android.os.Bundle
@@ -10,6 +10,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
+import com.wsoteam.diet.presentation.training.*
+import com.wsoteam.diet.presentation.training.dialog.ExercisesDialogFragment
+import com.wsoteam.diet.presentation.training.executor.ExerciseExecutorFragment
 import kotlinx.android.synthetic.main.fragment_training_exercises.*
 
 
@@ -37,9 +40,10 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
                     ?.commit()
         }
 
-        adapter = TrainingExercisesAdapter(trainingUid,null, object :TrainingExercisesAdapter.ClickListener {
+        adapter = TrainingExercisesAdapter(trainingUid, null, object : TrainingExercisesAdapter.ClickListener {
             override fun onClick(exercises: Exercises?) {
-                ExercisesDialogFragment.show(fragmentManager, trainingDay, exercises?.number ?: 1)
+                ExercisesDialogFragment.show(fragmentManager, trainingDay, exercises?.number
+                        ?: 1)
             }
         })
 

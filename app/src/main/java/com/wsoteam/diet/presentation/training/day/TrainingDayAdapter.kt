@@ -1,8 +1,9 @@
-package com.wsoteam.diet.presentation.training
+package com.wsoteam.diet.presentation.training.day
 
 import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.wsoteam.diet.presentation.training.*
 
 class TrainingDayAdapter(private var training: Training?, private var clickListener: ClickListener?): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

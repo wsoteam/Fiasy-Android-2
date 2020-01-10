@@ -1,9 +1,10 @@
-package com.wsoteam.diet.presentation.training
+package com.wsoteam.diet.presentation.training.exercises
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.wsoteam.diet.presentation.training.*
 
-class TrainingExercisesAdapter(var trainingUid: String? = "" ,private var trainingDay: TrainingDay?,
+class TrainingExercisesAdapter(var trainingUid: String? = "", private var trainingDay: TrainingDay?,
                                private var onClickListener: ClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var  bias = 1

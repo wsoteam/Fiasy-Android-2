@@ -1,4 +1,4 @@
-package com.wsoteam.diet.presentation.training
+package com.wsoteam.diet.presentation.training.dialog
 
 
 import android.graphics.drawable.Animatable
@@ -10,6 +10,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.wsoteam.diet.R
+import com.wsoteam.diet.presentation.training.ExercisesDrawable
+import com.wsoteam.diet.presentation.training.Prefix
+import com.wsoteam.diet.presentation.training.TrainingDay
+import com.wsoteam.diet.presentation.training.TrainingViewModel
 import kotlinx.android.synthetic.main.exercises_dialog_fragment.*
 
 class ExercisesDialogFragment : DialogFragment() {
@@ -90,7 +94,8 @@ class ExercisesDialogFragment : DialogFragment() {
 
             val exercisesType = TrainingViewModel.getExercisesType().value?.get(exercises?.get(Prefix.exercises + i)?.type)
 
-            imageView97.setImageResource(ExercisesDrawable.get(exercises?.get(Prefix.exercises + i)?.type ?: ""))
+            imageView97.setImageResource(ExercisesDrawable.get(exercises?.get(Prefix.exercises + i)?.type
+                    ?: ""))
             nameEx.text = exercisesType?.title
             currentEx.text = number.toString()
 

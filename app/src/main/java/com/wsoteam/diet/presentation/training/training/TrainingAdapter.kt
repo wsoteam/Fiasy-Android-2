@@ -1,7 +1,8 @@
-package com.wsoteam.diet.presentation.training
+package com.wsoteam.diet.presentation.training.training
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.wsoteam.diet.presentation.training.Training
 
 class TrainingAdapter(private var listTraining: List<Training>?,
                       private var clickListener: ClickListener?)
@@ -17,7 +18,7 @@ class TrainingAdapter(private var listTraining: List<Training>?,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-      return  TrainingViewHolder(parent, clickListener)
+      return TrainingViewHolder(parent, clickListener)
     }
 
     override fun getItemCount(): Int = listTraining?.size ?: 0

@@ -1,4 +1,4 @@
-package com.wsoteam.diet.presentation.training
+package com.wsoteam.diet.presentation.training.day
 
 import android.content.Context
 import android.text.TextUtils.concat
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.wsoteam.diet.R
+import com.wsoteam.diet.presentation.training.Training
 import kotlinx.android.synthetic.main.training_day_header_view_holder.view.*
 
 class TrainingDayHeaderViewHolder(parent: ViewGroup): RecyclerView.ViewHolder(LayoutInflater

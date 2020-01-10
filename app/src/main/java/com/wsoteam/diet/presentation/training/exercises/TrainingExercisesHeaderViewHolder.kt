@@ -1,4 +1,4 @@
-package com.wsoteam.diet.presentation.training
+package com.wsoteam.diet.presentation.training.exercises
 
 
 import android.text.TextUtils.concat
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 import com.wsoteam.diet.R
+import com.wsoteam.diet.presentation.training.TrainingDay
 import com.wsoteam.diet.utils.getResources
 import com.wsoteam.diet.utils.getString
 import kotlinx.android.synthetic.main.training_exercises_header_view_holder.view.*

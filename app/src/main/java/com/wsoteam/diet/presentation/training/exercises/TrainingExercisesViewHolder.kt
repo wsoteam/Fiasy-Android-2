@@ -1,14 +1,16 @@
-package com.wsoteam.diet.presentation.training
+package com.wsoteam.diet.presentation.training.exercises
 
 import android.text.TextUtils.concat
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 
 
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
+import com.wsoteam.diet.presentation.training.Exercises
+import com.wsoteam.diet.presentation.training.ExercisesDrawable
+import com.wsoteam.diet.presentation.training.TrainingViewModel
 
 import com.wsoteam.diet.utils.getResources
 import kotlinx.android.synthetic.main.training_exercises_view_holder.view.*

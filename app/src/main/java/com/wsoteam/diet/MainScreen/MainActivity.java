@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -61,7 +60,6 @@ import com.wsoteam.diet.presentation.teach.TeachUtil;
 
 import com.wsoteam.diet.presentation.search.ParentActivity;
 import com.wsoteam.diet.presentation.training.TrainingActivity;
-import com.wsoteam.diet.presentation.training.TrainingFragment;
 
 import java.util.Calendar;
 import java.util.Locale;

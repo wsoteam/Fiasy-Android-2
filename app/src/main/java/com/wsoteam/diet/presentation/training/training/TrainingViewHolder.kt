@@ -1,4 +1,4 @@
-package com.wsoteam.diet.presentation.training
+package com.wsoteam.diet.presentation.training.training
 
 import android.content.Context
 import android.text.TextUtils.concat
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.wsoteam.diet.R
+import com.wsoteam.diet.presentation.training.Training
 import com.wsoteam.diet.utils.Img
 import kotlinx.android.synthetic.main.training_view_holder.view.*
 

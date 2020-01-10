@@ -3,6 +3,7 @@ package com.wsoteam.diet.presentation.training
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.wsoteam.diet.R
+import com.wsoteam.diet.presentation.training.training.TrainingFragment
 
 class TrainingActivity : AppCompatActivity() {
 
@@ -12,7 +13,7 @@ class TrainingActivity : AppCompatActivity() {
 
         supportFragmentManager
                 .beginTransaction()
-                .add(R.id.trainingContainer ,TrainingFragment(), TrainingFragment().javaClass.simpleName)
+                .add(R.id.trainingContainer , TrainingFragment(), TrainingFragment().javaClass.simpleName)
                 .commit()
     }
 }

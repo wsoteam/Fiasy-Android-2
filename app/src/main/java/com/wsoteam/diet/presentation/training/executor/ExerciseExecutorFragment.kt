@@ -1,4 +1,4 @@
-package com.wsoteam.diet.presentation.training
+package com.wsoteam.diet.presentation.training.executor
 
 
 import android.os.Bundle
@@ -22,7 +22,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
 
         initProgressBar(9)
 
-        val fragment = ExerciseRelaxationFragment()
+        val fragment = ExerciseTimeFragment()
 
         childFragmentManager.beginTransaction()
                 .replace(R.id.exercisesContainer, fragment)

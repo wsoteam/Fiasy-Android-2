@@ -1,4 +1,4 @@
-package com.wsoteam.diet.presentation.training
+package com.wsoteam.diet.presentation.training.training
 
 
 import android.content.Intent
@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.TextUtils.concat
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.view.WindowManager
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import com.wsoteam.diet.AmplitudaEvents
@@ -15,6 +14,7 @@ import com.wsoteam.diet.Config
 import com.wsoteam.diet.InApp.ActivitySubscription
 import com.wsoteam.diet.R
 import com.wsoteam.diet.common.Analytics.EventProperties
+import com.wsoteam.diet.presentation.training.Training
 import kotlinx.android.synthetic.main.fragment_training_blocked.*
 
 
