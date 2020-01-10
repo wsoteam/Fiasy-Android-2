@@ -1,45 +1,48 @@
 package com.wsoteam.diet.presentation.training
 
 
-
 import android.os.Bundle
 import android.text.TextUtils.concat
 import android.util.Log
 import android.view.View
-import android.view.animation.LinearInterpolator
 import androidx.fragment.app.Fragment
 import com.wsoteam.diet.R
-import com.wsoteam.diet.views.CircularProgressBar
+import com.wsoteam.diet.utils.CountDownTimer
 import kotlinx.android.synthetic.main.fragment_exercise_start.*
 
 
 class ExerciseStartFragment : Fragment(R.layout.fragment_exercise_start) {
 
-    private val time = 30
+    private var time = 30000
 
-    private var t = 1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        circularProgressBar.progressMax = time.toFloat()
 
-        circularProgressBar.apply {
-            progressMax = time.toFloat()
+        val timerCounter = object : CountDownTimer(time.toLong(), 1) {
 
-            progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+            override fun onTick(millisUntilFinished: Long) {
+
+                Log.d("kkk", "timer - ${millisUntilFinished / 1000}")
+                circularProgressBar.progress = (time - millisUntilFinished).toFloat()
+                timer.text = concat(((time - millisUntilFinished) / 1000).toString(), "\"")
+
+            }
+
+            override fun onFinish() {
+                timer.text = concat((time / 1000).toString(), "\"")
+            }
         }
+                .start()
 
-        circularProgressBar.onProgressChangeListener = { progress ->
-            timer.text = concat(progress.toInt().toString(), "\"")
-        }
-
-        circularProgressBar.onIndeterminateModeChangeListener = { isEnable ->
-            Log.d("kkk", "$isEnable")
-        }
 
         buttonPause.setOnClickListener {
-            circularProgressBar.setProgressWithAnimation(t.toFloat(), 1000L, LinearInterpolator()) // =1s
-            t++
+            if (timerCounter.isPaused) timerCounter.resume()
+            else {
+                timerCounter.pause()
+            }
         }
     }
 }

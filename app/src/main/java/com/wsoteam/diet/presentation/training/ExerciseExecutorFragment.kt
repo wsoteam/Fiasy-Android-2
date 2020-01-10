@@ -22,7 +22,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
 
         initProgressBar(9)
 
-        val fragment = ExerciseStartFragment()
+        val fragment = ExerciseRelaxationFragment()
 
         childFragmentManager.beginTransaction()
                 .replace(R.id.exercisesContainer, fragment)
