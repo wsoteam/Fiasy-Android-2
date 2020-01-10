@@ -59,7 +59,7 @@ class ExerciseTimeFragment : Fragment(R.layout.fragment_exercise_time) {
         min.text = format(minutes)
 
     }
-    
+
     private fun format(time: Long) : String{
         return "%02d".format(if (time >= 0) time else 0)
     }
