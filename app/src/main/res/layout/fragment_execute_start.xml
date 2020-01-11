@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wsoteam.diet.presentation.training.executor.ExerciseStartFragment">
+    tools:context="com.wsoteam.diet.presentation.training.executor.ExecuteStartFragment">
 
 
     <ImageView
@@ -21,13 +21,14 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
         android:lineSpacingExtra="12sp"
-        android:text="@string/training_relaxation"
+        android:text="@string/training_prepare"
         android:textColor="#c0000000"
         android:textSize="24sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageEx" />
+        app:layout_constraintTop_toBottomOf="@+id/imageEx"
+        tools:text="Приготовьтесь" />
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -59,6 +60,23 @@
         app:layout_constraintStart_toStartOf="@+id/frameLayout"
         app:layout_constraintTop_toTopOf="@+id/frameLayout" />
 
+    <TextView
+        android:id="@+id/skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="0.04"
+        android:text="@string/unboarding_skeep"
+        android:textAllCaps="true"
+        android:textColor="#f49231"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
+        tools:text="Пропустить" />
+
     <FrameLayout
         android:id="@+id/frameLayout2"
         android:layout_width="wrap_content"
@@ -70,12 +88,13 @@
         app:layout_constraintVertical_bias="0.36">
 
         <Button
+            android:id="@+id/buttonDone"
             android:layout_width="106dp"
             android:layout_height="106dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/shape_roundet_btn"
             android:clickable="false"
-            android:focusable="false" />
+            android:focusable="false"
+            android:layout_margin="10dp"
+            android:background="@drawable/shape_roundet_btn" />
     </FrameLayout>
 
     <com.wsoteam.diet.views.CircularProgressBar
@@ -106,47 +125,5 @@
         app:layout_constraintEnd_toEndOf="@+id/frameLayout2"
         app:layout_constraintStart_toStartOf="@+id/frameLayout2"
         app:layout_constraintTop_toTopOf="@+id/frameLayout2" />
-
-    <FrameLayout
-        android:id="@+id/frameLayoutAddTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/frameLayout2"
-        app:layout_constraintEnd_toStartOf="@+id/frameLayout2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/frameLayout2">
-
-        <Button
-            android:id="@+id/buttonAddTime"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/shape_roundet_btn"
-            android:elevation="15dp"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="4.2sp"
-            android:text="+15 s"
-            android:textColor="#f49231"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-    </FrameLayout>
-
-    <Button
-        android:id="@+id/start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:textSize="14sp"
-        android:fontFamily="sans-serif"
-        android:textStyle="bold"
-        android:textColor="#ef7d02"
-        android:lineSpacingExtra="7sp"
-        tools:text="Начать"
-        android:background="@drawable/shape_roundet_btn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

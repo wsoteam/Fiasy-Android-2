@@ -22,7 +22,9 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
 
         initProgressBar(9)
 
-        val fragment = ExerciseTimeFragment()
+        back.setOnClickListener { activity?.onBackPressed() }
+
+        val fragment = ExecuteRepeatFragment()
 
         childFragmentManager.beginTransaction()
                 .replace(R.id.exercisesContainer, fragment)
@@ -58,5 +60,9 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
             progressContainer.addView(progressBar)
             progressList.add(i, progressBar)
         }
+    }
+
+    fun setResult(result: Long){
+        Log.d("kkk", "result - $result")
     }
 }

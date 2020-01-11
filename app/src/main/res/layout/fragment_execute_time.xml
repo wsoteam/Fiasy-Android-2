@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wsoteam.diet.presentation.training.executor.ExerciseStartFragment">
+    tools:context="com.wsoteam.diet.presentation.training.executor.ExecuteStartFragment">
 
 
     <ImageView
@@ -69,8 +69,7 @@
             android:layout_width="106dp"
             android:layout_height="106dp"
             android:layout_margin="10dp"
-            android:background="@drawable/shape_roundet_btn"
-            android:text="00" />
+            android:background="@drawable/shape_roundet_btn" />
     </FrameLayout>
 
     <LinearLayout
@@ -134,5 +133,15 @@
             android:textColor="#f2994a"
             android:text="00" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView92"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_checkmark"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout2"
+        app:layout_constraintEnd_toEndOf="@+id/frameLayout2"
+        app:layout_constraintStart_toStartOf="@+id/frameLayout2"
+        app:layout_constraintTop_toTopOf="@+id/frameLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

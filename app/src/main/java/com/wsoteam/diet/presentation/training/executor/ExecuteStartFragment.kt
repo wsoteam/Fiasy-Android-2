@@ -8,10 +8,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.wsoteam.diet.R
 import com.wsoteam.diet.utils.CountDownTimer
-import kotlinx.android.synthetic.main.fragment_exercise_start.*
+import kotlinx.android.synthetic.main.fragment_execute_start.*
 
 
-class ExerciseStartFragment : Fragment(R.layout.fragment_exercise_start) {
+class ExecuteStartFragment : Fragment(R.layout.fragment_execute_start) {
 
     private var time = 30000
 

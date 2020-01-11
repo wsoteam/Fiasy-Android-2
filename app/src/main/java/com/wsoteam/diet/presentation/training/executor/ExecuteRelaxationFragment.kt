@@ -9,13 +9,13 @@ import androidx.fragment.app.Fragment
 
 import com.wsoteam.diet.R
 import com.wsoteam.diet.utils.CountDownTimer
-import kotlinx.android.synthetic.main.fragment_exercise_relaxation.*
-import kotlinx.android.synthetic.main.fragment_exercise_start.buttonPause
-import kotlinx.android.synthetic.main.fragment_exercise_start.circularProgressBar
-import kotlinx.android.synthetic.main.fragment_exercise_start.timer
+import kotlinx.android.synthetic.main.fragment_execute_relaxation.*
+import kotlinx.android.synthetic.main.fragment_execute_start.buttonPause
+import kotlinx.android.synthetic.main.fragment_execute_start.circularProgressBar
+import kotlinx.android.synthetic.main.fragment_execute_start.timer
 
 
-class ExerciseRelaxationFragment : Fragment(R.layout.fragment_exercise_relaxation) {
+class ExecuteRelaxationFragment : Fragment(R.layout.fragment_execute_relaxation) {
 
     private var time = 30000
     private var timerMax = 5_000_000L
