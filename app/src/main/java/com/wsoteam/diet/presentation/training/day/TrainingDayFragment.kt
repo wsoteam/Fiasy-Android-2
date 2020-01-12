@@ -13,11 +13,21 @@ import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.training.Training
 import com.wsoteam.diet.presentation.training.TrainingDay
 import com.wsoteam.diet.presentation.training.exercises.TrainingExercisesFragment
-import com.wsoteam.diet.presentation.training.TrainingUid
 import kotlinx.android.synthetic.main.fragment_training_day.*
 
 
 class TrainingDayFragment : Fragment(R.layout.fragment_training_day) {
+
+    companion object{
+        private const val TRAINING_BUNDLE_KEY = "TRAINING_BUNDLE_KEY"
+        fun newInstance(training: Training?) :TrainingDayFragment{
+            val fragment = TrainingDayFragment()
+            val bundle = Bundle()
+            bundle.putParcelable(TRAINING_BUNDLE_KEY, training)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 
     private val adapter = TrainingDayAdapter(null, null)
     private var training: Training? = null
@@ -27,13 +37,8 @@ class TrainingDayFragment : Fragment(R.layout.fragment_training_day) {
         adapter.setListener(object : TrainingDayAdapter.ClickListener{
             override fun onClick(day: TrainingDay?) {
 
-                val bundle = Bundle()
-                val fragment = TrainingExercisesFragment()
+                val fragment = TrainingExercisesFragment.newInstance(day, training?.uid)
 
-                bundle.putParcelable(TrainingExercisesFragment::class.java.simpleName, day)
-                bundle.putString(TrainingUid.training, training?.uid)
-
-                fragment.arguments = bundle
                 fragmentManager?.beginTransaction()
                         ?.replace((getView()?.parent as ViewGroup).id, fragment)
                         ?.addToBackStack(fragment.javaClass.simpleName)
@@ -58,14 +63,14 @@ class TrainingDayFragment : Fragment(R.layout.fragment_training_day) {
         toolbarTD.setNavigationOnClickListener { activity?.onBackPressed() }
 
         arguments?.apply {
-            training = getParcelable<Training>(Training::class.java.simpleName)
+            training = getParcelable<Training>(TRAINING_BUNDLE_KEY)
             training?.apply {
                 adapter.updateData(this)
                 Picasso.get()
                         .load(url)
                         .into(backdropTD)
                 toolbarTD.title = name
-                Log.d("kkk","tr2 - ${days?.get("day-1")?.exercises?.size}")
+//                Log.d("kkk","tr2 - ${days?.get("day-1")?.exercises?.size}")
             }
 
         }

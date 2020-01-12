@@ -19,6 +19,20 @@ import kotlinx.android.synthetic.main.fragment_training_exercises.*
 class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises) {
 
 
+    companion object{
+        private const val TRAINING_DAY_BUNDLE_KEY = "TRAINING_DAY_BUNDLE_KEY"
+        fun newInstance(day: TrainingDay?, trainingUid: String?) :TrainingExercisesFragment{
+            val fragment = TrainingExercisesFragment()
+            val bundle = Bundle()
+
+            bundle.putParcelable(TRAINING_DAY_BUNDLE_KEY, day)
+            bundle.putString(TrainingUid.training, trainingUid)
+
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
     private lateinit var  adapter: TrainingExercisesAdapter
     private var trainingDay: TrainingDay? = null
     private var trainingUid: String? = null
@@ -29,11 +43,9 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
         toolbarTEF.setNavigationOnClickListener { activity?.onBackPressed() }
 
         startTraining.setOnClickListener {
-            val bundle = Bundle()
-            val fragment = ExerciseExecutorFragment()
 
-//            bundle.putParcelable(Training::class.java.simpleName, training)
-            fragment.arguments = bundle
+            val fragment = ExerciseExecutorFragment.newInstance(trainingDay, trainingUid)
+
             fragmentManager?.beginTransaction()
                     ?.replace((getView()?.parent as ViewGroup).id, fragment)
                     ?.addToBackStack(fragment.javaClass.simpleName)
@@ -49,7 +61,7 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
 
         arguments?.apply {
 
-            getParcelable<TrainingDay>(TrainingExercisesFragment::class.java.simpleName)?.apply {
+            getParcelable<TrainingDay>(TRAINING_DAY_BUNDLE_KEY)?.apply {
                 trainingDay = this
                 adapter.updateData(this)
             }

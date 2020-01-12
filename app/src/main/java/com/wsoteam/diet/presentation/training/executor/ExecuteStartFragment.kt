@@ -13,19 +13,26 @@ import kotlinx.android.synthetic.main.fragment_execute_start.*
 
 class ExecuteStartFragment : Fragment(R.layout.fragment_execute_start) {
 
-    private var time = 30000
+    private var time = 30000L
 
+
+    private var timerCount = 0L
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         circularProgressBar.progressMax = time.toFloat()
 
-        val timerCounter = object : CountDownTimer(time.toLong(), 1) {
+        val timerCounter = object : CountDownTimer(time, 1) {
 
             override fun onTick(millisUntilFinished: Long) {
 
-                Log.d("kkk", "timer - ${millisUntilFinished / 1000}")
+//                Log.d("kkk", "timer - ${millisUntilFinished / 1000}")
+                timerCount = time - millisUntilFinished
                 circularProgressBar.progress = (time - millisUntilFinished).toFloat()
                 timer.text = concat(((time - millisUntilFinished) / 1000).toString(), "\"")
 
@@ -33,6 +40,10 @@ class ExecuteStartFragment : Fragment(R.layout.fragment_execute_start) {
 
             override fun onFinish() {
                 timer.text = concat((time / 1000).toString(), "\"")
+                parentFragment?.apply { if(this is ExerciseExecutorFragment) {
+                    setResult(time, ExerciseExecutorFragment.TYPE_START)
+
+                }}
             }
         }
                 .start()
@@ -43,6 +54,15 @@ class ExecuteStartFragment : Fragment(R.layout.fragment_execute_start) {
             else {
                 timerCounter.pause()
             }
+        }
+
+        skip.setOnClickListener {
+
+            parentFragment?.apply { if(this is ExerciseExecutorFragment) {
+                timerCounter?.cancel()
+                setResult(timerCount, ExerciseExecutorFragment.TYPE_START)
+
+            }}
         }
     }
 }

@@ -36,6 +36,7 @@ class ExecuteRelaxationFragment : Fragment(R.layout.fragment_execute_relaxation)
                     cancel()
                     buttonAddTime.isClickable = false
                     buttonPause.isClickable = false
+                    parentFragment?.apply { if(this is ExerciseExecutorFragment) setResult(time.toLong(), ExerciseExecutorFragment.TYPE_RELAXATION) }
                 }
             }
 
@@ -55,6 +56,16 @@ class ExecuteRelaxationFragment : Fragment(R.layout.fragment_execute_relaxation)
             circularProgressBar.progressMax = time.toFloat()
 
         }
+
+        start.setOnClickListener {
+            timerCounter?.cancel()
+            parentFragment?.apply { if(this is ExerciseExecutorFragment) setResult(time.toLong(), ExerciseExecutorFragment.TYPE_RELAXATION) }
+        }
+    }
+
+    override fun onStop() {
+
+        super.onStop()
     }
 
 }

@@ -171,12 +171,10 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
         adapter.setClickListener(object : TrainingAdapter.ClickListener{
             override fun onClick(training: Training?) {
                 training?.apply {
-                    val bundle = Bundle()
-                    val fragment = if (id.equals("0")) TrainingBlockedFragment()
-                    else TrainingDayFragment()
 
-                    bundle.putParcelable(Training::class.java.simpleName, training)
-                    fragment.arguments = bundle
+                    val fragment = if (id.equals("0")) TrainingBlockedFragment()
+                    else TrainingDayFragment.newInstance(training)
+
                     fragmentManager?.beginTransaction()
                             ?.replace((getView()?.parent as ViewGroup).id, fragment)
                             ?.addToBackStack(fragment.javaClass.simpleName)

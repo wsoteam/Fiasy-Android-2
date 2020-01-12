@@ -136,17 +136,17 @@
         android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        android:textSize="14sp"
-        android:fontFamily="sans-serif"
-        android:textStyle="bold"
-        android:textColor="#ef7d02"
-        android:lineSpacingExtra="7sp"
-        tools:text="Начать"
         android:background="@drawable/shape_roundet_btn"
+        android:fontFamily="sans-serif"
+        android:lineSpacingExtra="7sp"
+        android:text="Начать"
+        android:textColor="#ef7d02"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
+        tools:text="Начать" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
