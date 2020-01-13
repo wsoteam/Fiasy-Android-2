@@ -1,9 +1,6 @@
 package com.wsoteam.diet.presentation.training.training
 
 
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,13 +20,9 @@ import org.xmlpull.v1.XmlPullParserFactory
 import java.net.HttpURLConnection
 import java.net.URL
 import android.graphics.drawable.VectorDrawable
-import android.net.Uri
 import android.util.Xml
 import com.wsoteam.diet.presentation.training.*
 import com.wsoteam.diet.presentation.training.day.TrainingDayFragment
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 
 
 class TrainingFragment : Fragment(R.layout.fragment_training) {
@@ -40,32 +33,6 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
 
     private var mapTraining: MapTraining? = null
 
-
-    private fun shareImageFromURI(uri: Uri?) {
-
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.type = "image/*"
-        intent.putExtra(Intent.EXTRA_STREAM, uri)
-        startActivity(Intent.createChooser(intent, ""))
-
-    }
-
-    private fun getBitmapFromView(bmp: Bitmap?): Uri? {
-        var bmpUri: Uri? = null
-        try {
-            val file = File(activity?.externalCacheDir, System.currentTimeMillis().toString() + ".jpg")
-
-            val out = FileOutputStream(file)
-            bmp?.compress(Bitmap.CompressFormat.JPEG, 90, out)
-            out.flush()
-            out.close()
-            bmpUri = Uri.fromFile(file)
-
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return bmpUri
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -160,7 +127,7 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
 
 
         button3.setOnClickListener {
-           shareImageFromURI(getBitmapFromView( BitmapFactory.decodeResource(resources, R.drawable.img_training_done)))
+
 
         }
 

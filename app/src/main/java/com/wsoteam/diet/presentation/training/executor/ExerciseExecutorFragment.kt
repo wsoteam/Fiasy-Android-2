@@ -61,6 +61,15 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
                 trainingUid = this
 
             }
+
+            //TODO
+            val fragment = TrainingDayDoneFragment.newInstance(trainingDay, trainingUid)
+
+            fragmentManager?.beginTransaction()
+                    ?.replace((getView()?.parent as ViewGroup).id, fragment)
+                    ?.commit()
+
+            //**************************************
         }
 
         back.setOnClickListener { activity?.onBackPressed() }

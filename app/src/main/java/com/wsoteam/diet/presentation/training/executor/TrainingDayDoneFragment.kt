@@ -13,15 +13,8 @@ import com.wsoteam.diet.presentation.training.TrainingUid
 import com.wsoteam.diet.presentation.training.TrainingViewModel
 import kotlinx.android.synthetic.main.fragment_training_day_done.*
 import android.content.Intent
-import com.google.common.io.Flushables.flush
 import android.graphics.Bitmap.CompressFormat
-import android.R.string
-import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import android.net.Uri
-import androidx.core.app.ShareCompat
-import androidx.core.content.FileProvider
-import com.squareup.picasso.Picasso
 import com.wsoteam.diet.utils.getBitmap
 import java.io.File
 import java.io.FileOutputStream
@@ -30,14 +23,15 @@ import java.io.IOException
 
 class TrainingDayDoneFragment : Fragment(R.layout.fragment_training_day_done) {
 
+
     companion object{
 
-        private const val TRAININ_DONE_BUNDLE_KEY = "TRAININ_DONE_BUNDLE_KEY"
+        private const val TRAINING_DONE_BUNDLE_KEY = "TRAINING_DONE_BUNDLE_KEY"
         fun newInstance(day: TrainingDay?, trainingUid: String?) :TrainingDayDoneFragment{
             val fragment = TrainingDayDoneFragment()
             val bundle = Bundle()
 
-            bundle.putParcelable(TRAININ_DONE_BUNDLE_KEY, day)
+            bundle.putParcelable(TRAINING_DONE_BUNDLE_KEY, day)
             bundle.putString(TrainingUid.training, trainingUid)
 
             fragment.arguments = bundle
@@ -60,17 +54,15 @@ class TrainingDayDoneFragment : Fragment(R.layout.fragment_training_day_done) {
         }
 
         shareTraining.setOnClickListener {
-            shareImageFromURI(getBitmapFromView(trainingDoneRoot.getBitmap()))
+            shareImageFromURI(getUriFromBitmap(resultImg.getBitmap()))
         }
 
         model = ViewModelProviders.of(this)[TrainingViewModel::class.java]
 
         arguments?.apply {
-            getParcelable<TrainingDay>(TRAININ_DONE_BUNDLE_KEY)?.apply {
+            getParcelable<TrainingDay>(TRAINING_DONE_BUNDLE_KEY)?.apply {
                 trainingDay = this
                 updateUi(this)
-//                initProgressBar((exercises?.size ?: 0) -1)
-//                exerciseNumber.text = "1/${exercises?.size ?: 0}"
             }
 
             getString(TrainingUid.training).apply {
@@ -99,7 +91,7 @@ class TrainingDayDoneFragment : Fragment(R.layout.fragment_training_day_done) {
 
     }
 
-    private fun getBitmapFromView(bmp: Bitmap?): Uri? {
+    private fun getUriFromBitmap(bmp: Bitmap?): Uri? {
         var bmpUri: Uri? = null
         try {
             val file = File(activity?.externalCacheDir, System.currentTimeMillis().toString() + ".jpg")
@@ -115,4 +107,5 @@ class TrainingDayDoneFragment : Fragment(R.layout.fragment_training_day_done) {
         }
         return bmpUri
     }
+
 }
