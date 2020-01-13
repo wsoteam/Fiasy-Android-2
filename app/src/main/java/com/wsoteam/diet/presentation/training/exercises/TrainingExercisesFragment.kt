@@ -67,7 +67,7 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
             }
 
             getString(TrainingUid.training).apply {
-                Log.d("kkk", this)
+//                Log.d("kkk", this)
                 trainingUid = this
                 adapter.trainingUid = this
             }

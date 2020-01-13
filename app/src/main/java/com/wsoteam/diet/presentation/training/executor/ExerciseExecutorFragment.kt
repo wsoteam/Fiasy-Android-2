@@ -100,7 +100,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
                 if (exerciseExecute <= trainingDay?.exercises?.size ?: 0) {
                     execute(getExerciseType()?.type ?: TYPE_START)
                 }else{
-                    val fragment = TrainingDayDoneFragment()
+                    val fragment = TrainingDayDoneFragment.newInstance(trainingDay, trainingUid)
 
                     fragmentManager?.beginTransaction()
                             ?.replace((getView()?.parent as ViewGroup).id, fragment)
