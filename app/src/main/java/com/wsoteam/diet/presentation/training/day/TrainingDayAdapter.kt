@@ -12,7 +12,7 @@ class TrainingDayAdapter(private var training: Training?, private var clickListe
     }
 
     private val bias = 1 // header view holder
-    private var unlockedDays = 2
+    private var unlockedDays = 15
 
     data class ViewType(
             val HEADER: Int = 1,
@@ -29,7 +29,7 @@ class TrainingDayAdapter(private var training: Training?, private var clickListe
     }
 
     fun updateData(training: Training?){
-        Log.d("kkk","tr2ad - ${training?.days?.get("day-1")?.exercises?.size}")
+//        Log.d("kkk","tr2ad - ${training?.days?.get("day-1")?.exercises?.size}")
         this.training = training
         checkFinishedDays()
         notifyDataSetChanged()

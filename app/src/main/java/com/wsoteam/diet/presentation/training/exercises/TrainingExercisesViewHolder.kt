@@ -29,7 +29,7 @@ class TrainingExercisesViewHolder(parent: ViewGroup, var onClickListener: Traini
 
         this.exercises = exercises
 
-        Log.d("kkk", "trainingUid - $trainingUid   dayUid - $dayUid")
+//        Log.d("kkk", "trainingUid - $trainingUid   dayUid - $dayUid")
 
         val iteration = exercises?.iteration ?: 0
         val approaches = exercises?.approaches ?: 0

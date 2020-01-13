@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.training.executor
 
 
 import android.os.Bundle
+import android.text.TextUtils.concat
 import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
@@ -78,12 +79,13 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
         } else {
             exerciseExecute++
             approacheExecute = 1
+            exerciseNumber.text = concat(exerciseExecute.toString(), "/", (trainingDay?.exercises?.size ?: 0).toString())
         }
     }
 
     fun setResult(result: Long, from: String) {
         Log.d("kkk", "result - $result")
-
+        updateProgressBars()
 
         when (from) {
 
@@ -95,14 +97,13 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
             TYPE_RELAXATION -> {
 
                 nextIteration()
-                if (exerciseExecute <= getExercise()?.approaches ?: 0) {
+                if (exerciseExecute <= trainingDay?.exercises?.size ?: 0) {
                     execute(getExerciseType()?.type ?: TYPE_START)
                 }else{
                     val fragment = TrainingDayDoneFragment()
 
                     fragmentManager?.beginTransaction()
                             ?.replace((getView()?.parent as ViewGroup).id, fragment)
-                            ?.addToBackStack(null)
                             ?.commit()
                 }
             }
@@ -120,6 +121,14 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
 
     }
 
+    private fun updateProgressBars(){
+        if(exerciseExecute <= 0 || approacheExecute <= 0) return
+        val progressBar =  progressList.get(exerciseExecute - 1)
+        progressBar?.max = getExercise()?.approaches ?: 0
+        progressBar?.progress = approacheExecute
+
+    }
+
     private fun execute(type: String){
         Log.d("kkk", "execute - $type")
         when(type){
@@ -134,7 +143,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
             TYPE_REPEAT ->{
                 setChildFragment(ExecuteRepeatFragment.newInstance(trainingDay?.exercises?.get(Prefix.exercises + exerciseExecute)))
             }
-            else ->{throw IllegalArgumentException()}
+            else ->{throw IllegalArgumentException("$type - is not valid type")}
         }
     }
 
@@ -146,11 +155,11 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
         progressContainer.removeAllViewsInLayout()
 
         for(i in 0..count){
-            Log.d("kkk", "i = $i")
+//            Log.d("kkk", "i = $i")
             val progressBar = ProgressBar(context, null,
                     android.R.attr.progressBarStyleHorizontal)
 
-            progressBar.progress = 50
+//            progressBar.progress = 50
 
             progressBar.setPadding(resources.getDimension(R.dimen.exercises_progress_bar_padding).toInt(), 0,
                     resources.getDimension(R.dimen.exercises_progress_bar_padding).toInt(), 0)

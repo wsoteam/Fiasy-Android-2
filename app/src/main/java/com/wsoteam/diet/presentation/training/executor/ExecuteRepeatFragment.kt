@@ -48,7 +48,7 @@ class ExecuteRepeatFragment : Fragment(R.layout.fragment_execute_repeat) {
 
             getParcelable<Exercises>(EXERCISE_REPEAT_BUNDLE_KEY)?.apply {
 
-                Log.e("kkk", type)
+//                Log.e("kkk", type)
                 exercises = this
                 updateUi(this)
 //                initProgressBar((exercises?.size ?: 0) -1)

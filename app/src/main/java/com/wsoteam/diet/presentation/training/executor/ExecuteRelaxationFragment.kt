@@ -20,12 +20,14 @@ class ExecuteRelaxationFragment : Fragment(R.layout.fragment_execute_relaxation)
     private var time = 30000
     private var timerMax = 5_000_000L
 
+    private var timerCounter: CountDownTimer? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         circularProgressBar.progressMax = time.toFloat()
 
-        val timerCounter = object : CountDownTimer(timerMax, 1) {
+        timerCounter = object : CountDownTimer(timerMax, 1) {
 
             override fun onTick(millisUntilFinished: Long) {
                 Log.d("kkk", "timer - ${millisUntilFinished}")
@@ -48,8 +50,8 @@ class ExecuteRelaxationFragment : Fragment(R.layout.fragment_execute_relaxation)
 
 
         buttonPause.setOnClickListener {
-            if (timerCounter.isPaused) timerCounter.resume()
-            else timerCounter.pause()
+            if (timerCounter?.isPaused == true) timerCounter?.resume()
+            else timerCounter?.pause()
         }
         buttonAddTime.setOnClickListener {
             time += 15000
@@ -64,7 +66,7 @@ class ExecuteRelaxationFragment : Fragment(R.layout.fragment_execute_relaxation)
     }
 
     override fun onStop() {
-
+        timerCounter?.cancel()
         super.onStop()
     }
 

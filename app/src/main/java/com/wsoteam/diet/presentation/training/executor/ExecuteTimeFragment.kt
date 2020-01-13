@@ -21,7 +21,7 @@ class ExecuteTimeFragment : Fragment(R.layout.fragment_execute_time) {
         fun newInstance(exercises: Exercises?) :ExecuteTimeFragment{
             val fragment = ExecuteTimeFragment()
             val bundle = Bundle()
-            Log.e("kkk", "${exercises?.type}" )
+//            Log.e("kkk", "${exercises?.type}" )
             bundle.putParcelable(EXERCISE_TIME_BUNDLE_KEY, exercises)
 
             fragment.arguments = bundle
@@ -46,7 +46,7 @@ class ExecuteTimeFragment : Fragment(R.layout.fragment_execute_time) {
 
             getParcelable<Exercises>(EXERCISE_TIME_BUNDLE_KEY)?.apply {
 
-                Log.e("kkk", type)
+//                Log.e("kkk", type)
                 exercises = this
 //                initProgressBar((exercises?.size ?: 0) -1)
 //                exerciseNumber.text = "1/${exercises?.size ?: 0}"

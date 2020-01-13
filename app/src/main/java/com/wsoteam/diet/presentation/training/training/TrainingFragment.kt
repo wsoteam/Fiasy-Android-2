@@ -125,12 +125,6 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
         trainingRV.layoutManager = LinearLayoutManager(context)
         trainingRV.adapter = adapter
 
-//        imageView99.setImageDrawable(testLoadinVector())
-        val drawable = imageView99.drawable
-
-        imageView99.setOnClickListener {
-            if (drawable is Animatable) drawable.start()
-        }
 
         button3.setOnClickListener {
             val result = TrainingResult(finishedDays = 2)
