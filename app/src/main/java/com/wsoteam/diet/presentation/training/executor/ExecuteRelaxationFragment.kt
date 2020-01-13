@@ -30,10 +30,10 @@ class ExecuteRelaxationFragment : Fragment(R.layout.fragment_execute_relaxation)
         timerCounter = object : CountDownTimer(timerMax, 1) {
 
             override fun onTick(millisUntilFinished: Long) {
-                Log.d("kkk", "timer - ${millisUntilFinished}")
+//                Log.d("kkk", "timer - ${millisUntilFinished}")
                 circularProgressBar.progress = (timerMax - millisUntilFinished).toFloat()
                 timer.text = TextUtils.concat((circularProgressBar.progress / 1000).toInt().toString(), "\"")
-                Log.d("kkk", "progress - ${circularProgressBar.progress}")
+//                Log.d("kkk", "progress - ${circularProgressBar.progress}")
                 if (circularProgressBar.progress >= time) {
                     cancel()
                     buttonAddTime.isClickable = false

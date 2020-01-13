@@ -89,7 +89,8 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
             }
 
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-
+                Log.d("kkl", "changed")
+            //TODO
             }
 
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {

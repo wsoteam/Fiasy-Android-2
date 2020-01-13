@@ -1,7 +1,7 @@
 package com.wsoteam.diet.presentation.training.dialog
 
 
-import android.graphics.drawable.Animatable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils.concat
 import android.view.LayoutInflater
@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.training.ExercisesDrawable
 import com.wsoteam.diet.presentation.training.Prefix
@@ -40,6 +42,7 @@ class ExercisesDialogFragment : DialogFragment() {
         }
     }
 
+    private var animated : AnimatedVectorDrawableCompat? = null
     private var trainingDay: TrainingDay? = null
     private var number = 1
 
@@ -94,13 +97,19 @@ class ExercisesDialogFragment : DialogFragment() {
 
             val exercisesType = TrainingViewModel.getExercisesType().value?.get(exercises?.get(Prefix.exercises + i)?.type)
 
-            imageView97.setImageResource(ExercisesDrawable.get(exercises?.get(Prefix.exercises + i)?.type
-                    ?: ""))
             nameEx.text = exercisesType?.title
             currentEx.text = number.toString()
 
-            val drawable = imageView97.drawable
-            if (drawable is Animatable){ drawable.start() }
+            animated = AnimatedVectorDrawableCompat.create(context!!,
+                    ExercisesDrawable.get(exercises?.get(Prefix.exercises + i)?.type ?: ""))
+            animated?.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
+                override fun onAnimationEnd(drawable: Drawable?) {
+                    imageView97?.post { animated?.start() }
+                }
+
+            })
+            imageView97.setImageDrawable(animated)
+            animated?.start()
 
         }
     }

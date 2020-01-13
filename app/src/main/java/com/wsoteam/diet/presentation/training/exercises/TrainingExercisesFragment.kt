@@ -48,7 +48,6 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
 
             fragmentManager?.beginTransaction()
                     ?.replace((getView()?.parent as ViewGroup).id, fragment)
-                    ?.addToBackStack(fragment.javaClass.simpleName)
                     ?.commit()
         }
 

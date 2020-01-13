@@ -15,6 +15,9 @@ import kotlinx.android.synthetic.main.fragment_training_day_done.*
 import android.content.Intent
 import android.graphics.Bitmap.CompressFormat
 import android.net.Uri
+import android.util.Log
+import android.view.ViewGroup
+import com.wsoteam.diet.presentation.training.day.TrainingDayFragment
 import com.wsoteam.diet.utils.getBitmap
 import java.io.File
 import java.io.FileOutputStream
@@ -47,10 +50,14 @@ class TrainingDayDoneFragment : Fragment(R.layout.fragment_training_day_done) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         continueTraining.setOnClickListener {
-
+            activity?.onBackPressed()
         }
         repeatTraining.setOnClickListener {
-            
+            val fragment = ExerciseExecutorFragment.newInstance(trainingDay, trainingUid)
+
+            fragmentManager?.beginTransaction()
+                    ?.replace((getView()?.parent as ViewGroup).id, fragment)
+                    ?.commit()
         }
 
         shareTraining.setOnClickListener {

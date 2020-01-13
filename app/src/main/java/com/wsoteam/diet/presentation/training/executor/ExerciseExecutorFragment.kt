@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import com.wsoteam.diet.R
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.presentation.training.*
 import kotlinx.android.synthetic.main.fragment_exercise_executor.*
 
@@ -44,6 +45,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
 
     private var exerciseExecute = 0
     private var approacheExecute = 0
+    private var exerciseExecuteTime = 0L
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,14 +64,6 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
 
             }
 
-            //TODO
-            val fragment = TrainingDayDoneFragment.newInstance(trainingDay, trainingUid)
-
-            fragmentManager?.beginTransaction()
-                    ?.replace((getView()?.parent as ViewGroup).id, fragment)
-                    ?.commit()
-
-            //**************************************
         }
 
         back.setOnClickListener { activity?.onBackPressed() }
@@ -84,16 +78,19 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
     private fun nextIteration(){
         if (approacheExecute < getExercise()?.approaches ?: 0 ) {
             approacheExecute++
-
+            Log.d("kkk", "kkk0")
         } else {
+            Log.d("kkk", "kkk1")
+            WorkWithFirebaseDB.saveExerciseProgress(trainingUid, trainingDay?.day ?: 0, exerciseExecute, exerciseExecuteTime )
             exerciseExecute++
+            exerciseExecuteTime = 0
             approacheExecute = 1
             exerciseNumber.text = concat(exerciseExecute.toString(), "/", (trainingDay?.exercises?.size ?: 0).toString())
         }
     }
 
     fun setResult(result: Long, from: String) {
-        Log.d("kkk", "result - $result")
+
         updateProgressBars()
 
         when (from) {
@@ -106,21 +103,14 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
             TYPE_RELAXATION -> {
 
                 nextIteration()
-                if (exerciseExecute <= trainingDay?.exercises?.size ?: 0) {
-                    execute(getExerciseType()?.type ?: TYPE_START)
-                }else{
-                    val fragment = TrainingDayDoneFragment.newInstance(trainingDay, trainingUid)
+                execute(getExerciseType()?.type ?: TYPE_START)
 
-                    fragmentManager?.beginTransaction()
-                            ?.replace((getView()?.parent as ViewGroup).id, fragment)
-                            ?.commit()
-                }
             }
             TYPE_TIME -> {
-                execute(TYPE_RELAXATION)
+                next(result)
             }
             TYPE_REPEAT -> {
-                execute(TYPE_RELAXATION)
+                next(result)
 
             }
             else -> {
@@ -128,6 +118,23 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
             }
         }
 
+    }
+
+    private fun next(result: Long){
+        exerciseExecuteTime += result
+        if ((approacheExecute >= getExercise()?.approaches ?: 0)
+                && (exerciseExecute >= trainingDay?.exercises?.size ?: 0)){
+            trainingDay?.day?.apply {
+                WorkWithFirebaseDB.setFinishedDaysProgress(trainingUid, this) }
+
+            val fragment = TrainingDayDoneFragment.newInstance(trainingDay, trainingUid)
+
+            fragmentManager?.beginTransaction()
+                    ?.replace((getView()?.parent as ViewGroup).id, fragment)
+                    ?.commit()
+        }else {
+            execute(TYPE_RELAXATION)
+        }
     }
 
     private fun updateProgressBars(){
@@ -139,7 +146,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
     }
 
     private fun execute(type: String){
-        Log.d("kkk", "execute - $type")
+//        Log.d("kkk", "execute - $type")
         when(type){
 
             TYPE_START ->{

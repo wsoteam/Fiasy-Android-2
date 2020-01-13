@@ -30,7 +30,7 @@ class TrainingDayViewHolder(parent: ViewGroup,
         this.day = trainingDay
         this.isUnlocked = (finishedDays ?: 1 >= adapterPosition)
 
-        Log.d("kkk",  "bind trainingDay - ${trainingDay?.day} /  $isUnlocked")
+//        Log.d("kkk",  "bind trainingDay - ${trainingDay?.day} /  $isUnlocked")
         val  day = trainingDay?.day ?: 0
         val  exercises = trainingDay?.exercises?.size ?: 0
         val  progress = 50

@@ -45,6 +45,7 @@ import com.wsoteam.diet.presentation.measurment.POJO.Hips;
 import com.wsoteam.diet.presentation.measurment.POJO.Waist;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 
+import com.wsoteam.diet.presentation.training.Prefix;
 import com.wsoteam.diet.presentation.training.TrainingResult;
 import com.wsoteam.diet.utils.FirebaseExtKt;
 import com.wsoteam.diet.utils.RxFirebase;
@@ -552,26 +553,30 @@ public class WorkWithFirebaseDB {
         myRef.child(key).setValue(grade);
     }
 
-    public static void saveTrainingProgress(String trainingsUid, String dayUid, String exercisesUid, int time){
+
+
+    public static void saveExerciseProgress(String trainingsUid, int day, int exercise, long time){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("USER_LIST")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("trainings")
                 .child(trainingsUid)
                 .child("days")
-                .child(dayUid)
-                .child(exercisesUid);
-
+                .child(Prefix.day + day)
+                .child(Prefix.exercises + exercise);
+        Log.d("kkk", trainingsUid + "  " + day + "  "+ exercise + "  " + time + " " + FirebaseAuth.getInstance().getCurrentUser().getUid());
         myRef.setValue(time);
     }
 
-    public static void saveTrainingProgress2(String trainingsUid, TrainingResult result){
+    public static void setFinishedDaysProgress(String trainingsUid, int finishedDays){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("USER_LIST")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("trainings")
-                .child(trainingsUid);
+                .child(trainingsUid)
+                .child("finishedDays");
 
-        myRef.setValue(result);
+        Log.d("kkk", trainingsUid + "  " +finishedDays);
+        myRef.setValue(finishedDays);
     }
 }
