@@ -85,7 +85,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
             exerciseExecute++
             exerciseExecuteTime = 0
             approacheExecute = 1
-            exerciseNumber.text = concat(exerciseExecute.toString(), "/", (trainingDay?.exercises?.size ?: 0).toString())
+            exerciseNumber?.text = concat(exerciseExecute.toString(), "/", (trainingDay?.exercises?.size ?: 0).toString())
         }
     }
 
@@ -125,7 +125,9 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
         if ((approacheExecute >= getExercise()?.approaches ?: 0)
                 && (exerciseExecute >= trainingDay?.exercises?.size ?: 0)){
             trainingDay?.day?.apply {
-                WorkWithFirebaseDB.setFinishedDaysProgress(trainingUid, this) }
+                WorkWithFirebaseDB.setFinishedDaysProgress(trainingUid, this)
+            }
+            WorkWithFirebaseDB.saveExerciseProgress(trainingUid, trainingDay?.day ?: 0, exerciseExecute, exerciseExecuteTime )
 
             val fragment = TrainingDayDoneFragment.newInstance(trainingDay, trainingUid)
 

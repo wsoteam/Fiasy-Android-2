@@ -14,14 +14,13 @@ class TrainingDayHeaderViewHolder(parent: ViewGroup): RecyclerView.ViewHolder(La
         .from(parent.context)
         .inflate(R.layout.training_day_header_view_holder, parent, false)) {
 
-    fun bind(training: Training){
+    fun bind(training: Training, unlocked: Int){
 
         val days = training.days?.size ?: 0
         val progressMax = training.days?.size ?: 0
-        val progressCurrent = 5
 
         itemView.daysDHVH.text = concat(days.toString(), " ", getContext().resources.getQuantityText(R.plurals.day_plurals, days))
-        itemView.progressDHVH.text = String.format(getContext().getString(R.string.training_progress), progressCurrent, progressMax )
+        itemView.progressDHVH.text = String.format(getContext().getString(R.string.training_progress), unlocked, progressMax )
         Picasso.get()
                 .load(training.url)
                 .into(itemView.imageDHVH)

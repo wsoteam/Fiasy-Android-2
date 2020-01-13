@@ -26,23 +26,22 @@ class TrainingDayViewHolder(parent: ViewGroup,
     private var isUnlocked = false
 
 
-    fun bind(trainingDay: TrainingDay?, finishedDays: Int?){
+    fun bind(trainingDay: TrainingDay?, finishedDays: Int?, dayProgress: Int){
         this.day = trainingDay
         this.isUnlocked = (finishedDays ?: 1 >= adapterPosition)
 
-//        Log.d("kkk",  "bind trainingDay - ${trainingDay?.day} /  $isUnlocked")
         val  day = trainingDay?.day ?: 0
         val  exercises = trainingDay?.exercises?.size ?: 0
-        val  progress = 50
-        val isDayComplete = trainingDay?.day == 0
+
 
 
         itemView.dayNumber.text = String.format(getContext().getString(R.string.day), day)
         itemView.exercises.text =
             concat(exercises.toString(), " ", getContext().resources.getQuantityText(R.plurals.exercises, exercises))
 
-        if (isUnlocked) openProgress(progress) else closeProgress()
-        if (exercises <= 0) relaxDay(isUnlocked)
+        if (isUnlocked && exercises <= 0) relaxDay(isUnlocked)
+        else if(isUnlocked && exercises > 0) openProgress(dayProgress)
+        else closeProgress()
     }
 
     private fun openProgress(progress: Int){
@@ -50,8 +49,9 @@ class TrainingDayViewHolder(parent: ViewGroup,
         itemView.progressBar.visibility = View.VISIBLE
         itemView.progressTxt.visibility = View.VISIBLE
 
+        itemView.progressBar.max = day?.exercises?.size ?: 1
         itemView.progressBar.progress = progress
-        itemView.progressTxt.text = concat(progress.toString(), " %")
+        itemView.progressTxt.text = concat(((progress * 100) / (day?.exercises?.size ?: 1)).toString(), " %")
     }
 
     private fun closeProgress(){

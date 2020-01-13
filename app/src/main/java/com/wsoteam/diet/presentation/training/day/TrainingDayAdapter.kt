@@ -12,7 +12,7 @@ class TrainingDayAdapter(private var training: Training?, private var clickListe
     }
 
     private val bias = 1 // header view holder
-    private var unlockedDays = 15
+    private var unlockedDays = 0
 
     data class ViewType(
             val HEADER: Int = 1,
@@ -21,10 +21,14 @@ class TrainingDayAdapter(private var training: Training?, private var clickListe
 
     private fun checkFinishedDays(){
 
-        unlockedDays = TrainingViewModel.getTrainingResult().value?.get(training?.uid)?.finishedDays ?: 1
+        unlockedDays = TrainingViewModel.getTrainingResult().value?.get(training?.uid)?.finishedDays ?: 0
 
-        if (training?.days?.get(Prefix.day + (unlockedDays + 1))?.exercises?.size  == 0){
-            unlockedDays++
+        for (i in unlockedDays..(training?.days?.size ?: 28)) {
+            if (training?.days?.get(Prefix.day + (i + 1))?.exercises?.size == 0) {
+                Log.d("kkk", training?.uid + Prefix.day + (i + 1))
+                unlockedDays++
+                break
+            }
         }
     }
 
@@ -58,11 +62,10 @@ class TrainingDayAdapter(private var training: Training?, private var clickListe
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-
-
 //        Log.d("kkk", "check  " + training?.uid + ":" + Prefix.day + (position + 1) + "  " + isUnlocked)
-        if (holder is TrainingDayViewHolder) holder.bind(training?.days?.get(Prefix.day + (position)), unlockedDays)
-        if (holder is TrainingDayHeaderViewHolder) training?.apply { holder.bind(this)}
+        if (holder is TrainingDayViewHolder) holder.bind(training?.days?.get(Prefix.day + (position)), unlockedDays,
+                TrainingViewModel.getTrainingResult().value?.get(training?.uid)?.days?.get(Prefix.day + (position))?.size ?: 0)
+        if (holder is TrainingDayHeaderViewHolder) training?.apply { holder.bind(this, unlockedDays)}
     }
 
     interface ClickListener{
