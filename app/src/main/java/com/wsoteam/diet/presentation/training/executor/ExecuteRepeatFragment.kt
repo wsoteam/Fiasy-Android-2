@@ -1,10 +1,8 @@
 package com.wsoteam.diet.presentation.training.executor
 
-
-import android.graphics.drawable.Animatable
-import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -34,32 +32,35 @@ class ExecuteRepeatFragment : Fragment(R.layout.fragment_execute_repeat) {
         }
     }
 
-    private var exercises: Exercises? = null
     private var animated : AnimatedVectorDrawableCompat? = null
+
+    private var startTime = 0L
+    private var finishTime = 0L
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        startTime = SystemClock.elapsedRealtime()
+//        Log.d("kkk", "realyime - $startTime")
+
         buttonDone.setOnClickListener {
-            parentFragment?.apply { if(this is ExerciseExecutorFragment) setResult((exercises?.iteration ?: 0).toLong(), ExerciseExecutorFragment.TYPE_REPEAT) }
+
+            finishTime = SystemClock.elapsedRealtime()
+//            Log.d("kkk", "finishTime - $finishTime")
+
+            parentFragment?.apply { if(this is ExerciseExecutorFragment) setResult(finishTime - startTime, ExerciseExecutorFragment.TYPE_REPEAT) }
         }
 
         arguments?.apply {
 
             getParcelable<Exercises>(EXERCISE_REPEAT_BUNDLE_KEY)?.apply {
-
-//                Log.e("kkk", type)
-                exercises = this
                 updateUi(this)
-//                initProgressBar((exercises?.size ?: 0) -1)
-//                exerciseNumber.text = "1/${exercises?.size ?: 0}"
             }
         }
     }
 
     private fun updateUi(exercises: Exercises?){
         val exerciseType =  TrainingViewModel.getExercisesType().value?.get(exercises?.type)
-//        imageEx.setImageResource(ExercisesDrawable.get(exercises?.type))
         textView70.text = exerciseType?.title
 
         animated = AnimatedVectorDrawableCompat.create(context!!, ExercisesDrawable.get(exercises?.type))
@@ -72,11 +73,5 @@ class ExecuteRepeatFragment : Fragment(R.layout.fragment_execute_repeat) {
         imageEx.setImageDrawable(animated)
         animated?.start()
 
-    }
-
-    override fun onStop() {
-//        animated?.registerAnimationCallback(null)
-//        animated?.stop()
-        super.onStop()
     }
 }

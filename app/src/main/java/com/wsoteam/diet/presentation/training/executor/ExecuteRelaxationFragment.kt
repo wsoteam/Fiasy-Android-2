@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.training.executor
 
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -21,6 +22,7 @@ class ExecuteRelaxationFragment : Fragment(R.layout.fragment_execute_relaxation)
     private var timerMax = 5_000_000L
 
     private var timerCounter: CountDownTimer? = null
+    private var result = 0L
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,7 +33,8 @@ class ExecuteRelaxationFragment : Fragment(R.layout.fragment_execute_relaxation)
 
             override fun onTick(millisUntilFinished: Long) {
 //                Log.d("kkk", "timer - ${millisUntilFinished}")
-                circularProgressBar.progress = (timerMax - millisUntilFinished).toFloat()
+                result = (timerMax - millisUntilFinished)
+                circularProgressBar.progress = result.toFloat()
                 timer.text = TextUtils.concat((circularProgressBar.progress / 1000).toInt().toString(), "\"")
 //                Log.d("kkk", "progress - ${circularProgressBar.progress}")
                 if (circularProgressBar.progress >= time) {
@@ -61,7 +64,7 @@ class ExecuteRelaxationFragment : Fragment(R.layout.fragment_execute_relaxation)
 
         start.setOnClickListener {
             timerCounter?.cancel()
-            parentFragment?.apply { if(this is ExerciseExecutorFragment) setResult(time.toLong(), ExerciseExecutorFragment.TYPE_RELAXATION) }
+            parentFragment?.apply { if(this is ExerciseExecutorFragment) setResult(result, ExerciseExecutorFragment.TYPE_RELAXATION) }
         }
     }
 

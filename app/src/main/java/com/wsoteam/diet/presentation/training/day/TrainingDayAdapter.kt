@@ -25,7 +25,7 @@ class TrainingDayAdapter(private var training: Training?, private var clickListe
 
         for (i in unlockedDays..(training?.days?.size ?: 28)) {
             if (training?.days?.get(Prefix.day + (i + 1))?.exercises?.size == 0) {
-                Log.d("kkk", training?.uid + Prefix.day + (i + 1))
+//                Log.d("kkk", training?.uid + Prefix.day + (i + 1))
                 unlockedDays++
                 break
             }

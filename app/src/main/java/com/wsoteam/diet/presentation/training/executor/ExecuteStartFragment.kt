@@ -4,11 +4,14 @@ package com.wsoteam.diet.presentation.training.executor
 import android.os.Bundle
 import android.text.TextUtils.concat
 import android.view.View
+import android.widget.Chronometer
 import androidx.fragment.app.Fragment
 import com.wsoteam.diet.R
 import com.wsoteam.diet.utils.CountDownTimer
 import com.wsoteam.diet.views.CircularProgressBar
 import kotlinx.android.synthetic.main.fragment_execute_start.*
+import android.os.SystemClock
+import android.util.Log
 
 
 class ExecuteStartFragment : Fragment(R.layout.fragment_execute_start) {
@@ -19,10 +22,22 @@ class ExecuteStartFragment : Fragment(R.layout.fragment_execute_start) {
     private var timerCount = 0L
 
     private var timerCounter :CountDownTimer? = null
+//    private var chronometer : Chronometer? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        chronometer = Chronometer(context)
+//
+//        chronometer?.setOnChronometerTickListener {
+//            val elapsedMillis = SystemClock.elapsedRealtime() - (chronometer?.base ?: 0L)
+//
+//            Log.d("kkk", "test - $elapsedMillis")
+//        }
+//
+//        chronometer?.base = SystemClock.elapsedRealtime()
+//        chronometer?.start()
 
         circularProgressBar.progressMax = time.toFloat()
 

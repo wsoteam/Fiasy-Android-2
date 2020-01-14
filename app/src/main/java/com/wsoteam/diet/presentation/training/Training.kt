@@ -78,6 +78,12 @@ data class TrainingResult(
         var timestamp: Long? = 0
 ) : Parcelable
 
+@IgnoreExtraProperties
+@Parcelize
+data class Result(
+        var trainings: MutableMap<String, TrainingResult>? = mutableMapOf()
+) : Parcelable
+
 class ExercisesDrawable{
     companion object{
 

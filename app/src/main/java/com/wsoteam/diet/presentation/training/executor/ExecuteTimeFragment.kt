@@ -39,25 +39,21 @@ class ExecuteTimeFragment : Fragment(R.layout.fragment_execute_time) {
 
     private var exercises: Exercises? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         arguments?.apply {
 
             getParcelable<Exercises>(EXERCISE_TIME_BUNDLE_KEY)?.apply {
 
-//                Log.e("kkk", type)
+                //                Log.e("kkk", type)
                 exercises = this
-//                initProgressBar((exercises?.size ?: 0) -1)
-//                exerciseNumber.text = "1/${exercises?.size ?: 0}"
+                updateUi(this)
+
             }
         }
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        updateUi(exercises)
         timerCounter = object : CountDownTimer(timerInit, 1) {
 
             override fun onTick(millisUntilFinished: Long) {

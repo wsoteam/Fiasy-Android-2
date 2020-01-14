@@ -78,10 +78,9 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
     private fun nextIteration(){
         if (approacheExecute < getExercise()?.approaches ?: 0 ) {
             approacheExecute++
-            Log.d("kkk", "kkk0")
         } else {
-            Log.d("kkk", "kkk1")
             WorkWithFirebaseDB.saveExerciseProgress(trainingUid, trainingDay?.day ?: 0, exerciseExecute, exerciseExecuteTime )
+//            TrainingViewModel.getTrainingResult().value?.get(trainingUid)?.days.p
             exerciseExecute++
             exerciseExecuteTime = 0
             approacheExecute = 1
@@ -92,6 +91,9 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
     fun setResult(result: Long, from: String) {
 
         updateProgressBars()
+        exerciseExecuteTime += result
+
+        Log.d("kkk", "result = $result;  exerciseExecuteTime = $exerciseExecuteTime;")
 
         when (from) {
 
@@ -101,17 +103,14 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
                 execute(getExerciseType()?.type ?: TYPE_START)
             }
             TYPE_RELAXATION -> {
-
                 nextIteration()
                 execute(getExerciseType()?.type ?: TYPE_START)
-
             }
             TYPE_TIME -> {
-                next(result)
+                next()
             }
             TYPE_REPEAT -> {
-                next(result)
-
+                next()
             }
             else -> {
                 throw IllegalArgumentException("Bad Exercises Type")
@@ -120,8 +119,8 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
 
     }
 
-    private fun next(result: Long){
-        exerciseExecuteTime += result
+    private fun next(){
+
         if ((approacheExecute >= getExercise()?.approaches ?: 0)
                 && (exerciseExecute >= trainingDay?.exercises?.size ?: 0)){
             trainingDay?.day?.apply {

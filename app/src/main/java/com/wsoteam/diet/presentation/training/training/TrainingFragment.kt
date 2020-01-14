@@ -78,44 +78,57 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
             }
         })
 
-        database.child("USER_LIST").child(FirebaseAuth.getInstance().currentUser!!.uid).child("trainings")
-            .addChildEventListener(object : ChildEventListener{
+//        database.child("USER_LIST").child(FirebaseAuth.getInstance().currentUser!!.uid).child("trainings")
+//            .addChildEventListener(object : ChildEventListener{
+//            override fun onCancelled(p0: DatabaseError) {
+//
+//            }
+//
+//            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+//
+//            }
+//
+//            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+//                Log.d("kkl", "changed")
+//            //TODO
+//            }
+//
+//            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+//
+//                val dayResult = p0.getValue(TrainingResult::class.java)
+//
+//                Log.d("kkk", "p1 - ${dayResult}")
+//                if (dayResult != null){
+////                    Log.d("kkk", "p1 - ${dayResult.exercises?.size}")
+//                    (TrainingViewModel.getTrainingResult() as MutableLiveData).value?.put(p0.key ?: "", dayResult)
+//                }
+//            }
+//
+//            override fun onChildRemoved(p0: DataSnapshot) {
+//                val dayResult = p0.getValue(TrainingResult::class.java)
+//
+//                Log.d("kkk", "p1 - ${dayResult}")
+//                if (dayResult != null){
+////                    Log.d("kkk", "p1 - ${dayResult.exercises?.size}")
+//                    (TrainingViewModel.getTrainingResult() as MutableLiveData).value?.remove(p0.key ?: "")
+//
+//                }
+//            }
+//        })
+        database.child("USER_LIST").child(FirebaseAuth.getInstance().currentUser!!.uid).addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
 
             }
 
-            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+            override fun onDataChange(p0: DataSnapshot) {
+                Log.d("kkk", "onDataChange")
+                val result = p0.getValue(Result::class.java)
 
-            }
-
-            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-                Log.d("kkl", "changed")
-            //TODO
-            }
-
-            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-
-                val dayResult = p0.getValue(TrainingResult::class.java)
-
-                Log.d("kkk", "p1 - ${dayResult}")
-                if (dayResult != null){
-//                    Log.d("kkk", "p1 - ${dayResult.exercises?.size}")
-                    (TrainingViewModel.getTrainingResult() as MutableLiveData).value?.put(p0.key ?: "", dayResult)
-                }
-            }
-
-            override fun onChildRemoved(p0: DataSnapshot) {
-                val dayResult = p0.getValue(TrainingResult::class.java)
-
-                Log.d("kkk", "p1 - ${dayResult}")
-                if (dayResult != null){
-//                    Log.d("kkk", "p1 - ${dayResult.exercises?.size}")
-                    (TrainingViewModel.getTrainingResult() as MutableLiveData).value?.remove(p0.key ?: "")
-
+                if (result != null) {
+                    (TrainingViewModel.getTrainingResult() as MutableLiveData).value = result.trainings
                 }
             }
         })
-
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
