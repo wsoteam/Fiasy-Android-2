@@ -19,7 +19,6 @@ class TrainingActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         tellFragments()
-//        super.onBackPressed()
     }
 
     private fun tellFragments() {
@@ -28,5 +27,6 @@ class TrainingActivity : AppCompatActivity() {
             if (f != null && f is OnBackPressed)
                 f.onBackPressed()
         }
+
     }
 }

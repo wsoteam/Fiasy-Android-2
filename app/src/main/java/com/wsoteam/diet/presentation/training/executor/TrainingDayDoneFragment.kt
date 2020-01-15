@@ -18,7 +18,6 @@ import android.net.Uri
 import android.util.Log
 import android.view.ViewGroup
 import com.wsoteam.diet.presentation.training.OnBackPressed
-import com.wsoteam.diet.presentation.training.day.TrainingDayFragment
 import com.wsoteam.diet.utils.getBitmap
 import java.io.File
 import java.io.FileOutputStream

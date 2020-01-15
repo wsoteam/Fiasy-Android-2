@@ -79,7 +79,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
             exerciseExecute = (TrainingViewModel.getTrainingResult().value?.get(trainingUid)?.days?.size ?: 0) + 1
             setResult(0, TYPE_RELAXATION)
             for (i in 1 until exerciseExecute) {
-                Log.d("kkk", "progress / i - $i // $exerciseExecute")
+//                Log.d("kkk", "progress / i - $i // $exerciseExecute")
                 progressList.get(i - 1)?.max = 1
                 progressList.get(i - 1)?.progress = 1
 
@@ -111,7 +111,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
         updateProgressBars()
         exerciseExecuteTime += result
 
-        Log.d("kkk", "result = $result;  exerciseExecuteTime = $exerciseExecuteTime;")
+//        Log.d("kkk", "result = $result;  exerciseExecuteTime = $exerciseExecuteTime;")
 
         when (from) {
 
@@ -224,7 +224,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        Log.d("kkk", "kkk1 - $requestCode")
+//        Log.d("kkk", "kkk1 - $requestCode")
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 AbortExerciseDialogFragment.REQUEST_CODE_LEAVE -> {

@@ -2,7 +2,6 @@ package com.wsoteam.diet.presentation.training.executor
 
 
 import android.os.Bundle
-import android.os.SystemClock
 import android.text.TextUtils
 import android.util.Log
 import android.view.View

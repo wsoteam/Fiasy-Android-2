@@ -16,15 +16,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import org.xmlpull.v1.XmlPullParserFactory
-import java.net.HttpURLConnection
-import java.net.URL
-import android.graphics.drawable.VectorDrawable
-import android.util.Xml
 import com.wsoteam.diet.presentation.training.*
 import com.wsoteam.diet.presentation.training.day.TrainingDayFragment
-import com.wsoteam.diet.presentation.training.dialog.ExercisesDialogFragment
-import com.wsoteam.diet.presentation.training.dialog.NewTrainingDialogFragment
+
 
 
 class TrainingFragment : Fragment(R.layout.fragment_training), OnBackPressed {
@@ -86,7 +80,7 @@ class TrainingFragment : Fragment(R.layout.fragment_training), OnBackPressed {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                Log.d("kkk", "onDataChange")
+//                Log.d("kkk", "onDataChange")
                 val result = p0.getValue(Result::class.java)
 
                 if (result != null) {
@@ -100,7 +94,10 @@ class TrainingFragment : Fragment(R.layout.fragment_training), OnBackPressed {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         toolbarT.setNavigationIcon(R.drawable.arrow_back_gray)
-        toolbarT.setNavigationOnClickListener { activity?.onBackPressed() }
+        toolbarT.setNavigationOnClickListener {
+            fragmentManager?.popBackStack()
+            activity?.finish()
+        }
         trainingRV.layoutManager = LinearLayoutManager(context)
         trainingRV.adapter = adapter
 
@@ -110,11 +107,6 @@ class TrainingFragment : Fragment(R.layout.fragment_training), OnBackPressed {
 
         }
 
-//        imageView96.setImageResource(R.drawable.exercise_wall_push_up)
-//        val drawable = imageView96.drawable
-//        if (drawable is Animatable) {
-//            drawable.start()
-//        }
 
         trainingRV.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -150,5 +142,6 @@ class TrainingFragment : Fragment(R.layout.fragment_training), OnBackPressed {
 
     override fun onBackPressed() {
         fragmentManager?.popBackStack()
+        activity?.finish()
     }
 }

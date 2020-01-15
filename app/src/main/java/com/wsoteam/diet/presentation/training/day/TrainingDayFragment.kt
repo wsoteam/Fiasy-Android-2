@@ -61,7 +61,7 @@ class TrainingDayFragment : Fragment(R.layout.fragment_training_day), OnBackPres
         })
 
         toolbarTD.setNavigationIcon(R.drawable.arrow_back_gray)
-        toolbarTD.setNavigationOnClickListener { activity?.onBackPressed() }
+        toolbarTD.setNavigationOnClickListener { fragmentManager?.popBackStack() }
 
         arguments?.apply {
             training = getParcelable<Training>(TRAINING_BUNDLE_KEY)

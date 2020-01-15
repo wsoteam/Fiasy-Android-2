@@ -43,7 +43,7 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         toolbarTEF.setNavigationIcon(R.drawable.arrow_back_gray)
-        toolbarTEF.setNavigationOnClickListener { activity?.onBackPressed() }
+        toolbarTEF.setNavigationOnClickListener { fragmentManager?.popBackStack() }
 
         startTraining.setOnClickListener {
 
@@ -101,7 +101,6 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        Log.d("kkk", "kkk1 - $requestCode")
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode){
                NewTrainingDialogFragment.REQUEST_CODE_CONTINUE ->{
