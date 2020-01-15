@@ -8,16 +8,15 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.wsoteam.diet.R
-import com.wsoteam.diet.presentation.training.TrainingDay
-import com.wsoteam.diet.presentation.training.TrainingUid
-import com.wsoteam.diet.presentation.training.TrainingViewModel
 import kotlinx.android.synthetic.main.fragment_training_day_done.*
 import android.content.Intent
 import android.graphics.Bitmap.CompressFormat
 import android.net.Uri
+import android.os.Build
+import android.text.TextUtils.concat
 import android.util.Log
 import android.view.ViewGroup
-import com.wsoteam.diet.presentation.training.OnBackPressed
+import com.wsoteam.diet.presentation.training.*
 import com.wsoteam.diet.utils.getBitmap
 import java.io.File
 import java.io.FileOutputStream
@@ -85,7 +84,19 @@ class TrainingDayDoneFragment : Fragment(R.layout.fragment_training_day_done), O
 
         exercisesCount.text = (trainingDay.exercises?.size ?: 0).toString()
 
-        time.text = "10:20"
+        var timeSum = 0
+
+        TrainingViewModel.getTrainingResult().value?.get(trainingUid)?.days
+                ?.get(Prefix.day + trainingDay.day)?.values?.forEach {
+
+            Log.d("kkk","${trainingDay.day} - $it")
+            timeSum += it
+        }
+
+        val minutes = timeSum / 1000 / 60
+        val seconds = timeSum / 1000 % 60
+
+        time.text = concat(minutes.toString(), ":", seconds.toString())
     }
 
 

@@ -21,6 +21,7 @@ import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.presentation.training.*
 import com.wsoteam.diet.presentation.training.dialog.AbortExerciseDialogFragment
 import kotlinx.android.synthetic.main.fragment_exercise_executor.*
+import java.lang.Exception
 
 
 class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), OnBackPressed {
@@ -75,24 +76,30 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
             }
 
             isContinue = getBoolean(IS_CONTINUE_BUNDLE_KEY)
-            setAnimation(1)
+
+            if (isContinue){
+                exerciseExecute = (TrainingViewModel.getTrainingResult().value?.get(trainingUid)?.days?.get(Prefix.day + trainingDay?.day)?.size ?: 0) + 1
+
+                if (exerciseExecute < 1 ||  exerciseExecute > trainingDay?.exercises?.size ?: 10) exerciseExecute = 1
+
+                setResult(0, TYPE_RELAXATION)
+                for (i in 1 until exerciseExecute) {
+
+                    progressList.get(i - 1)?.max = 1
+                    progressList.get(i - 1)?.progress = 1
+
+                    exerciseNumber?.text = concat(exerciseExecute.toString(), "/", (trainingDay?.exercises?.size ?: 0).toString())
+                }
+            }else {
+                setAnimation(1)
+                setChildFragment(ExecuteStartFragment())
+            }
+
 
         }
 
         back.setOnClickListener {  AbortExerciseDialogFragment.show(this) }
-        if (isContinue){
-            exerciseExecute = (TrainingViewModel.getTrainingResult().value?.get(trainingUid)?.days?.size ?: 0) + 1
-            setResult(0, TYPE_RELAXATION)
-            for (i in 1 until exerciseExecute) {
-//                Log.d("kkk", "progress / i - $i // $exerciseExecute")
-                progressList.get(i - 1)?.max = 1
-                progressList.get(i - 1)?.progress = 1
 
-                exerciseNumber?.text = concat(exerciseExecute.toString(), "/", (trainingDay?.exercises?.size ?: 0).toString())
-            }
-        }else {
-            setChildFragment(ExecuteStartFragment())
-        }
 
     }
 
@@ -122,15 +129,19 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
     }
 
     private fun setAnimation(exercise: Int?){
-        animated = AnimatedVectorDrawableCompat.create(context!!, ExercisesDrawable.get(getExercise(exercise)?.type))
-        animated?.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
-            override fun onAnimationEnd(drawable: Drawable?) {
-                imageEx?.post { animated?.start() }
-            }
+        try {
+            animated = AnimatedVectorDrawableCompat.create(context!!, ExercisesDrawable.get(getExercise(exercise)?.type))
+            animated?.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
+                override fun onAnimationEnd(drawable: Drawable?) {
+                    imageEx?.post { animated?.start() }
+                }
 
-        })
-        imageEx.setImageDrawable(animated)
-        animated?.start()
+            })
+            imageEx.setImageDrawable(animated)
+            animated?.start()
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
     }
 
     fun setResult(result: Long, from: String) {

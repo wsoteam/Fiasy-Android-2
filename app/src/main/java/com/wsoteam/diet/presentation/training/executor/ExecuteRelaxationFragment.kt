@@ -33,13 +33,13 @@ class ExecuteRelaxationFragment : Fragment(R.layout.fragment_execute_relaxation)
             override fun onTick(millisUntilFinished: Long) {
 //                Log.d("kkk", "timer - ${millisUntilFinished}")
                 result = (timerMax - millisUntilFinished)
-                circularProgressBar.progress = result.toFloat()
-                timer.text = TextUtils.concat((circularProgressBar.progress / 1000).toInt().toString(), "\"")
+                circularProgressBar?.progress = result.toFloat()
+                timer?.text = TextUtils.concat((circularProgressBar.progress / 1000).toInt().toString(), "\"")
 //                Log.d("kkk", "progress - ${circularProgressBar.progress}")
-                if (circularProgressBar.progress >= time) {
+                if ((circularProgressBar?.progress ?: 0F) >= time) {
                     cancel()
-                    buttonAddTime.isClickable = false
-                    buttonPause.isClickable = false
+                    buttonAddTime?.isClickable = false
+                    buttonPause?.isClickable = false
                     parentFragment?.apply { if(this is ExerciseExecutorFragment) setResult(time.toLong(), ExerciseExecutorFragment.TYPE_RELAXATION) }
                 }
             }

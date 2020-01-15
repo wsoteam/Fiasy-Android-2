@@ -49,7 +49,7 @@
             android:elevation="15dp"
             android:fontFamily="sans-serif"
             android:lineSpacingExtra="4.2sp"
-            android:text="+15 s"
+            android:text="+30 s"
             android:textColor="#f49231"
             android:textSize="14sp"
             android:textStyle="bold" />

@@ -47,8 +47,9 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
 
         startTraining.setOnClickListener {
 
-            if ((TrainingViewModel.getTrainingResult().value?.get(trainingUid)?.days?.size
-                            ?: 0) > 0) {
+            val exercisesFinished = (TrainingViewModel.getTrainingResult().value?.get(trainingUid)?.days?.get(Prefix.day + trainingDay?.day)?.size ?: 0)
+
+            if (exercisesFinished > 0 && exercisesFinished < trainingDay?.exercises?.size ?:10) {
                 NewTrainingDialogFragment.show(this)
             } else {
                 val fragment = ExerciseExecutorFragment.newInstance(trainingDay, trainingUid, false)

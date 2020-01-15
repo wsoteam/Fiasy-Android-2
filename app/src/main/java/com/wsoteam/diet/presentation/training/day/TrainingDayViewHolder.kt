@@ -25,9 +25,10 @@ class TrainingDayViewHolder(parent: ViewGroup,
     private var isUnlocked = false
 
 
-    fun bind(trainingDay: TrainingDay?, finishedDays: Int?, dayProgress: Int){
+    fun bind(trainingDay: TrainingDay?, isUnlocked: Boolean, dayProgress: Int){
         this.day = trainingDay
-        this.isUnlocked = (finishedDays ?: 1 >= adapterPosition)
+
+        this.isUnlocked = isUnlocked
 
         val  day = trainingDay?.day ?: 0
         val  exercises = trainingDay?.exercises?.size ?: 0
