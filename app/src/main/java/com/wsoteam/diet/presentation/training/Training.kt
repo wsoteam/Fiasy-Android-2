@@ -44,7 +44,8 @@ data class Exercises(
 data class ExercisesType(
 var uid: String? = "",
 var title: String? = "",
-var type: String? = ""
+var type: String? = "",
+var comment: String? = ""
 ) : Parcelable{
     companion object {
         const val time = "time"
@@ -94,7 +95,7 @@ class ExercisesDrawable{
                 "advanced_scissor_kicks" to R.drawable.advanced_scissor_kicks,
                 "alternating_superman" to R.drawable.alternating_superman,
                 "balanced_crunch" to R.drawable.balanced_crunch,
-                "bent_knee_raise" to R.drawable.mountain_climbers,
+                "bent_knee_raise" to R.drawable.straight_leg_dead_lifts,
                 "butt_lift_bridge" to R.drawable.butt_lift_bridge,
                 "floor_back_extension" to R.drawable.floor_back_extension,
                 "flutter_kicks" to R.drawable.flutter_kicks,

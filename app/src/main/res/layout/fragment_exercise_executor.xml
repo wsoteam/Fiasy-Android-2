@@ -41,7 +41,7 @@
     <ImageView
         android:id="@+id/imageEx"
         android:layout_width="0dp"
-        android:layout_height="246dp"
+        android:layout_height="230dp"
         android:src="@drawable/exercise_wall_push_up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

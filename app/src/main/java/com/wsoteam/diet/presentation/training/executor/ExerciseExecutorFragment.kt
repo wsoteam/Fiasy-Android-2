@@ -214,7 +214,8 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
                 setChildFragment(ExecuteTimeFragment.newInstance(trainingDay?.exercises?.get(Prefix.exercises + exerciseExecute)))
             }
             TYPE_REPEAT ->{
-                setChildFragment(ExecuteRepeatFragment.newInstance(trainingDay?.exercises?.get(Prefix.exercises + exerciseExecute)))
+                Log.d("kkk", approacheExecute.toString())
+                setChildFragment(ExecuteRepeatFragment.newInstance(trainingDay?.exercises?.get(Prefix.exercises + exerciseExecute), approacheExecute))
             }
             else ->{throw IllegalArgumentException("$type - is not valid type")}
         }

@@ -1199,4 +1199,5 @@ Share your accomplishments with friends:</string>
     </plurals>
     
     <string name="exercise_alert_txt">Вы хотите покинуть тренировку без завершения?</string>
+    <string name="exercises_round_number">Круг</string>
 </resources>
