@@ -1197,4 +1197,6 @@ Share your accomplishments with friends:</string>
         <item quantity="many">кругов</item>
         <item quantity="other">кругов</item>
     </plurals>
+    
+    <string name="exercise_alert_txt">Вы хотите покинуть тренировку без завершения?</string>
 </resources>

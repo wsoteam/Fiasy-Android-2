@@ -9,19 +9,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.wsoteam.diet.R
-import kotlinx.android.synthetic.main.new_training_dialog_fragment.*
+import kotlinx.android.synthetic.main.dialog_fragment_abort_exercise.*
 
-class NewTrainingDialogFragment : DialogFragment() {
+
+class AbortExerciseDialogFragment : DialogFragment() {
 
     companion object {
-        private const val FRAGMENT_TAG = "new_training_dialog"
-        private const val requestCode = 546687532
-        const val REQUEST_CODE_CONTINUE = 963
-        const val REQUEST_CODE_START_NEW = 681
+        private const val FRAGMENT_TAG = "abort_exercise_dialog"
+        private const val requestCode = 328
 
-        fun newInstance() = NewTrainingDialogFragment()
+        const val REQUEST_CODE_LEAVE = 4569
+        const val REQUEST_CODE_CANCEL = 789
 
-        fun show(fragment: Fragment?): NewTrainingDialogFragment? {
+        fun newInstance() = AbortExerciseDialogFragment()
+
+        fun show(fragment: Fragment?): AbortExerciseDialogFragment? {
             if (fragment == null) return null
             val dialog = newInstance()
 
@@ -33,6 +35,7 @@ class NewTrainingDialogFragment : DialogFragment() {
         }
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NO_TITLE, R.style.TeachDialog)
@@ -40,18 +43,20 @@ class NewTrainingDialogFragment : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.new_training_dialog_fragment, container, false)
+
+        return inflater.inflate(R.layout.dialog_fragment_abort_exercise, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        continueBtn.setOnClickListener {
-            targetFragment?.onActivityResult(REQUEST_CODE_CONTINUE, Activity.RESULT_OK, null)
+        leave.setOnClickListener {
+            targetFragment?.onActivityResult(REQUEST_CODE_LEAVE, Activity.RESULT_OK, null)
             dismiss()
         }
-        start.setOnClickListener {
-            targetFragment?.onActivityResult(REQUEST_CODE_START_NEW, Activity.RESULT_OK, null)
+
+        cancel.setOnClickListener {
+            targetFragment?.onActivityResult(REQUEST_CODE_CANCEL, Activity.RESULT_OK, null)
             dismiss()
         }
     }

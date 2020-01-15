@@ -1,6 +1,8 @@
 package com.wsoteam.diet.presentation.training.exercises
 
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,11 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.training.*
 import com.wsoteam.diet.presentation.training.dialog.ExercisesDialogFragment
+import com.wsoteam.diet.presentation.training.dialog.NewTrainingDialogFragment
 import com.wsoteam.diet.presentation.training.executor.ExerciseExecutorFragment
 import kotlinx.android.synthetic.main.fragment_training_exercises.*
 
 
-class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises) {
+class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises), OnBackPressed {
 
 
     companion object{
@@ -44,11 +47,16 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
 
         startTraining.setOnClickListener {
 
-            val fragment = ExerciseExecutorFragment.newInstance(trainingDay, trainingUid)
+            if ((TrainingViewModel.getTrainingResult().value?.get(trainingUid)?.days?.size
+                            ?: 0) > 0) {
+                NewTrainingDialogFragment.show(this)
+            } else {
+                val fragment = ExerciseExecutorFragment.newInstance(trainingDay, trainingUid, false)
 
-            fragmentManager?.beginTransaction()
-                    ?.replace((getView()?.parent as ViewGroup).id, fragment)
-                    ?.commit()
+                fragmentManager?.beginTransaction()
+                        ?.replace((getView()?.parent as ViewGroup).id, fragment)
+                        ?.commit()
+            }
         }
 
         adapter = TrainingExercisesAdapter(trainingUid, null, object : TrainingExercisesAdapter.ClickListener {
@@ -88,6 +96,34 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
 
         toolbarTEF.title = String.format(getString(R.string.day), trainingDay?.day)
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        Log.d("kkk", "kkk1 - $requestCode")
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode){
+               NewTrainingDialogFragment.REQUEST_CODE_CONTINUE ->{
+                    val fragment = ExerciseExecutorFragment.newInstance(trainingDay, trainingUid, true)
+
+                    fragmentManager?.beginTransaction()
+                            ?.replace((view?.parent as ViewGroup).id, fragment)
+                            ?.commit()
+                }
+                NewTrainingDialogFragment.REQUEST_CODE_START_NEW -> {
+                    val fragment = ExerciseExecutorFragment.newInstance(trainingDay, trainingUid, false)
+
+                    fragmentManager?.beginTransaction()
+                            ?.replace((view?.parent as ViewGroup).id, fragment)
+                            ?.commit()
+                }
+            }
+            }
+        }
+
+    override fun onBackPressed() {
+        fragmentManager?.popBackStack()
     }
 
 }

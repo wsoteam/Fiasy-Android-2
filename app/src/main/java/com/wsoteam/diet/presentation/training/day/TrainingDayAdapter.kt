@@ -21,23 +21,27 @@ class TrainingDayAdapter(private var training: Training?, private var clickListe
             val DAY: Int = 2
     )
 
-    private fun checkFinishedDays(){
+    private fun checkFinishedDays() {
 
-        unlockedDays = TrainingViewModel.getTrainingResult().value?.get(training?.uid)?.finishedDays ?: 0
+        unlockedDays = TrainingViewModel.getTrainingResult().value?.get(training?.uid)?.finishedDays
+                ?: 0
 
         for (i in unlockedDays..(training?.days?.size ?: 28)) {
-                            Log.d("kkk", "$i -- ${Calendar.getInstance().get(Calendar.DAY_OF_WEEK)}")
+            Log.d("kkk", "$i -- ${Calendar.getInstance().get(Calendar.DAY_OF_WEEK)}")
             if ((training?.days?.get(Prefix.day + (i + 1))?.exercises?.size ?: 0) > 0) {
 
-                val day :Long = TimeUnit.MILLISECONDS.toDays(Calendar.getInstance().timeInMillis - (TrainingViewModel.getTrainingResult().value?.get(training?.uid)?.timestamp ?: Calendar.getInstance().timeInMillis))
-               Log.d("kkk", "days - $day")
-                if (day > 1){
+                val day: Long = TimeUnit.MILLISECONDS.toDays(Calendar.getInstance().timeInMillis - (TrainingViewModel.getTrainingResult().value?.get(training?.uid)?.timestamp
+                        ?: Calendar.getInstance().timeInMillis))
+                Log.d("kkk", "days - $day")
+                if (day > 1) {
                     unlockedDays++
                 }
                 break
             }
             unlockedDays++
         }
+
+        if (unlockedDays == 0) unlockedDays = 1
     }
 
     fun updateData(training: Training?){

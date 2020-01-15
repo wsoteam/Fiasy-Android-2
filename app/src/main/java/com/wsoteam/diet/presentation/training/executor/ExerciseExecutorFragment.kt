@@ -1,6 +1,8 @@
 package com.wsoteam.diet.presentation.training.executor
 
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils.concat
 import android.util.Log
@@ -14,10 +16,11 @@ import android.widget.ProgressBar
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.presentation.training.*
+import com.wsoteam.diet.presentation.training.dialog.AbortExerciseDialogFragment
 import kotlinx.android.synthetic.main.fragment_exercise_executor.*
 
 
-class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
+class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), OnBackPressed {
 
     companion object{
 
@@ -27,12 +30,14 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
         const val TYPE_REPEAT = "repeat"
 
         private const val EXERCISE_EXECUTOR_BUNDLE_KEY = "EXERCISE_EXECUTOR_BUNDLE_KEY"
-        fun newInstance(day: TrainingDay?, trainingUid: String?) :ExerciseExecutorFragment{
+        private const val IS_CONTINUE_BUNDLE_KEY = "IS_CONTINUE_BUNDLE_KEY"
+        fun newInstance(day: TrainingDay?, trainingUid: String?, isContinue: Boolean) :ExerciseExecutorFragment{
             val fragment = ExerciseExecutorFragment()
             val bundle = Bundle()
 
             bundle.putParcelable(EXERCISE_EXECUTOR_BUNDLE_KEY, day)
             bundle.putString(TrainingUid.training, trainingUid)
+            bundle.putBoolean(IS_CONTINUE_BUNDLE_KEY, isContinue)
 
             fragment.arguments = bundle
             return fragment
@@ -42,6 +47,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
     private val progressList = mutableListOf<ProgressBar>()
     private var trainingDay: TrainingDay? = null
     private var trainingUid: String? = null
+    private var isContinue: Boolean = false
 
     private var exerciseExecute = 0
     private var approacheExecute = 0
@@ -64,11 +70,24 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
 
             }
 
+            isContinue = getBoolean(IS_CONTINUE_BUNDLE_KEY)
+
         }
 
-        back.setOnClickListener { activity?.onBackPressed() }
+        back.setOnClickListener {  AbortExerciseDialogFragment.show(this) }
+        if (isContinue){
+            exerciseExecute = (TrainingViewModel.getTrainingResult().value?.get(trainingUid)?.days?.size ?: 0) + 1
+            setResult(0, TYPE_RELAXATION)
+            for (i in 1 until exerciseExecute) {
+                Log.d("kkk", "progress / i - $i // $exerciseExecute")
+                progressList.get(i - 1)?.max = 1
+                progressList.get(i - 1)?.progress = 1
 
-        setChildFragment(ExecuteStartFragment())
+                exerciseNumber?.text = concat(exerciseExecute.toString(), "/", (trainingDay?.exercises?.size ?: 0).toString())
+            }
+        }else {
+            setChildFragment(ExecuteStartFragment())
+        }
 
     }
 
@@ -80,7 +99,6 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
             approacheExecute++
         } else {
             WorkWithFirebaseDB.saveExerciseProgress(trainingUid, trainingDay?.day ?: 0, exerciseExecute, exerciseExecuteTime )
-//            TrainingViewModel.getTrainingResult().value?.get(trainingUid)?.days.p
             exerciseExecute++
             exerciseExecuteTime = 0
             approacheExecute = 1
@@ -176,7 +194,6 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
             val progressBar = ProgressBar(context, null,
                     android.R.attr.progressBarStyleHorizontal)
 
-//            progressBar.progress = 50
 
             progressBar.setPadding(resources.getDimension(R.dimen.exercises_progress_bar_padding).toInt(), 0,
                     resources.getDimension(R.dimen.exercises_progress_bar_padding).toInt(), 0)
@@ -202,6 +219,23 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor) {
                 .replace(R.id.exercisesContainer, fragment)
                 .addToBackStack(null)
                 .commit()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        Log.d("kkk", "kkk1 - $requestCode")
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                AbortExerciseDialogFragment.REQUEST_CODE_LEAVE -> {
+                            fragmentManager?.popBackStack()
+                }
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        AbortExerciseDialogFragment.show(this)
     }
 
 }

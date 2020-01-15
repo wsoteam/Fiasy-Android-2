@@ -23,9 +23,11 @@ import android.graphics.drawable.VectorDrawable
 import android.util.Xml
 import com.wsoteam.diet.presentation.training.*
 import com.wsoteam.diet.presentation.training.day.TrainingDayFragment
+import com.wsoteam.diet.presentation.training.dialog.ExercisesDialogFragment
+import com.wsoteam.diet.presentation.training.dialog.NewTrainingDialogFragment
 
 
-class TrainingFragment : Fragment(R.layout.fragment_training) {
+class TrainingFragment : Fragment(R.layout.fragment_training), OnBackPressed {
 
     private val adapter = TrainingAdapter(null, null)
     private lateinit var database: DatabaseReference
@@ -146,20 +148,7 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
         })
     }
 
-    private fun testLoadinVector() : VectorDrawable{
-        val url = "https://firebasestorage.googleapis.com/v0/b/pregnancy-definition.appspot.com/o/Mountain%20Climbers1.xml?alt=media&token=8d3d18ce-0909-4308-a4cc-8c4afa2d7805"
-
-        val connection = URL(url).openConnection() as HttpURLConnection
-        connection.connect()
-        val input = connection.inputStream
-        val factory = XmlPullParserFactory.newInstance()
-        val xpp = factory.newPullParser()
-        xpp.setInput(input, null)
-
-        val vd = VectorDrawable()
-        vd.inflate(resources, xpp, Xml.asAttributeSet(xpp), null)
-
-        return vd
+    override fun onBackPressed() {
+        fragmentManager?.popBackStack()
     }
-
 }

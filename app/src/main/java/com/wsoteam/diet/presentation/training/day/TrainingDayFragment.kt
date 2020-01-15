@@ -10,13 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.wsoteam.diet.R
+import com.wsoteam.diet.presentation.training.OnBackPressed
 import com.wsoteam.diet.presentation.training.Training
 import com.wsoteam.diet.presentation.training.TrainingDay
 import com.wsoteam.diet.presentation.training.exercises.TrainingExercisesFragment
 import kotlinx.android.synthetic.main.fragment_training_day.*
 
 
-class TrainingDayFragment : Fragment(R.layout.fragment_training_day) {
+class TrainingDayFragment : Fragment(R.layout.fragment_training_day), OnBackPressed {
 
     companion object{
         private const val TRAINING_BUNDLE_KEY = "TRAINING_BUNDLE_KEY"
@@ -83,5 +84,9 @@ class TrainingDayFragment : Fragment(R.layout.fragment_training_day) {
         recyclerTD.scrollToPosition(0)
 //        appbarTD.setExpanded(false)
 
+    }
+
+    override fun onBackPressed() {
+        fragmentManager?.popBackStack()
     }
 }
