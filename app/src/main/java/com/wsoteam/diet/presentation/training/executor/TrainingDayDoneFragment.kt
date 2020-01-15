@@ -66,14 +66,16 @@ class TrainingDayDoneFragment : Fragment(R.layout.fragment_training_day_done), O
         model = ViewModelProviders.of(this)[TrainingViewModel::class.java]
 
         arguments?.apply {
+            getString(TrainingUid.training).apply {
+                trainingUid = this
+            }
+
             getParcelable<TrainingDay>(TRAINING_DONE_BUNDLE_KEY)?.apply {
                 trainingDay = this
                 updateUi(this)
             }
 
-            getString(TrainingUid.training).apply {
-                trainingUid = this
-            }
+
         }
     }
 

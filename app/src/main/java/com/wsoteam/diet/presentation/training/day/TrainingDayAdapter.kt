@@ -75,7 +75,7 @@ class TrainingDayAdapter(private var training: Training?, private var clickListe
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        Log.d("kkk", "unlock - $unlockedDays // fin = ${TrainingViewModel.getTrainingResult().value?.get(training?.uid)?.finishedDays}")
+//        Log.d("kkk", "unlock - $unlockedDays // fin = ${TrainingViewModel.getTrainingResult().value?.get(training?.uid)?.finishedDays}")
 
         if (holder is TrainingDayViewHolder) holder.bind(
                 training?.days?.get(Prefix.day + (position)),
