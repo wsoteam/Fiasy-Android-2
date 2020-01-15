@@ -3,6 +3,7 @@ package com.wsoteam.diet.presentation.training.executor
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils.concat
 import android.util.Log
@@ -13,6 +14,8 @@ import android.view.ViewGroup
 
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.presentation.training.*
@@ -44,6 +47,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
         }
     }
 
+    private var animated : AnimatedVectorDrawableCompat? = null
     private val progressList = mutableListOf<ProgressBar>()
     private var trainingDay: TrainingDay? = null
     private var trainingUid: String? = null
@@ -71,6 +75,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
             }
 
             isContinue = getBoolean(IS_CONTINUE_BUNDLE_KEY)
+            setAnimation(1)
 
         }
 
@@ -91,7 +96,16 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
 
     }
 
-    private fun getExercise(): Exercises? = trainingDay?.exercises?.get(Prefix.exercises + exerciseExecute)
+    private fun getExercise(): Exercises? = getExercise(null)
+
+    private fun getExercise(number: Int?): Exercises? {
+        return  if (number == null){
+            trainingDay?.exercises?.get(Prefix.exercises + exerciseExecute)
+        } else{
+            trainingDay?.exercises?.get(Prefix.exercises + number)
+        }
+
+    }
     private fun getExerciseType(): ExercisesType? = TrainingViewModel.getExercisesType().value?.get(getExercise()?.type)
 
     private fun nextIteration(){
@@ -103,7 +117,20 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
             exerciseExecuteTime = 0
             approacheExecute = 1
             exerciseNumber?.text = concat(exerciseExecute.toString(), "/", (trainingDay?.exercises?.size ?: 0).toString())
+            setAnimation(null)
         }
+    }
+
+    private fun setAnimation(exercise: Int?){
+        animated = AnimatedVectorDrawableCompat.create(context!!, ExercisesDrawable.get(getExercise(exercise)?.type))
+        animated?.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
+            override fun onAnimationEnd(drawable: Drawable?) {
+                imageEx?.post { animated?.start() }
+            }
+
+        })
+        imageEx.setImageDrawable(animated)
+        animated?.start()
     }
 
     fun setResult(result: Long, from: String) {

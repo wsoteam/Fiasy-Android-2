@@ -6,15 +6,6 @@
     tools:context="com.wsoteam.diet.presentation.training.executor.ExecuteStartFragment">
 
 
-    <ImageView
-        android:id="@+id/imageEx"
-        android:layout_width="0dp"
-        android:layout_height="246dp"
-        android:src="@drawable/exercise_wall_push_up"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textView70"
         android:layout_width="wrap_content"
@@ -27,7 +18,7 @@
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageEx"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Приготовьтесь" />
 
     <FrameLayout
