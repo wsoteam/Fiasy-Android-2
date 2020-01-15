@@ -2,7 +2,6 @@ package com.wsoteam.diet.presentation.training.day
 
 import android.content.Context
 import android.text.TextUtils.concat
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

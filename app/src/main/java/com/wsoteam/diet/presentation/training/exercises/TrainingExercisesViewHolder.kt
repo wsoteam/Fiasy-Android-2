@@ -1,7 +1,6 @@
 package com.wsoteam.diet.presentation.training.exercises
 
 import android.text.TextUtils.concat
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 
@@ -29,14 +28,12 @@ class TrainingExercisesViewHolder(parent: ViewGroup, var onClickListener: Traini
 
         this.exercises = exercises
 
-//        Log.d("kkk", "trainingUid - $trainingUid   dayUid - $dayUid")
-
         val iteration = exercises?.iteration ?: 0
         val approaches = exercises?.approaches ?: 0
         val exercisesType = TrainingViewModel.getExercisesType().value?.get(exercises?.type)
 
-        itemView.exercisesRepeat.text = concat("(", iteration.toString(), " ", getResources().getQuantityString(R.plurals.circle, iteration), ")")
-        itemView.exercisesRound.text = concat(approaches.toString(), " ", getResources().getQuantityText(R.plurals.repetition, approaches))
+        itemView.exercisesRepeat.text = concat("(", approaches.toString(), " ", getResources().getQuantityString(R.plurals.circle, approaches), ")")
+        itemView.exercisesRound.text = concat(iteration.toString(), " ", getResources().getQuantityText(R.plurals.repetition, iteration))
         itemView.exercisesName.text = exercisesType?.title
         itemView.imageExercises.setImageResource(ExercisesDrawable.get(exercises?.type))
     }
