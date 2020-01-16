@@ -17,6 +17,7 @@ import android.text.TextUtils.concat
 import android.util.Log
 import android.view.ViewGroup
 import com.wsoteam.diet.presentation.training.*
+import com.wsoteam.diet.presentation.training.day.TrainingDayFragment
 import com.wsoteam.diet.utils.getBitmap
 import java.io.File
 import java.io.FileOutputStream
@@ -49,13 +50,14 @@ class TrainingDayDoneFragment : Fragment(R.layout.fragment_training_day_done), O
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         continueTraining.setOnClickListener {
-            activity?.onBackPressed()
+            fragmentManager?.popBackStack(TrainingDayFragment::class.java.simpleName, 0)
         }
         repeatTraining.setOnClickListener {
             val fragment = ExerciseExecutorFragment.newInstance(trainingDay, trainingUid, false)
 
             fragmentManager?.beginTransaction()
                     ?.replace((getView()?.parent as ViewGroup).id, fragment)
+                    ?.addToBackStack(fragment.javaClass.simpleName)
                     ?.commit()
         }
 
@@ -129,7 +131,7 @@ class TrainingDayDoneFragment : Fragment(R.layout.fragment_training_day_done), O
     }
 
     override fun onBackPressed() {
-        fragmentManager?.popBackStack()
+        fragmentManager?.popBackStack(TrainingDayFragment::class.java.simpleName, 0)
     }
 
 }

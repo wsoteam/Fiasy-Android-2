@@ -190,6 +190,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
 
             fragmentManager?.beginTransaction()
                     ?.replace((getView()?.parent as ViewGroup).id, fragment)
+                    ?.addToBackStack(fragment.javaClass.simpleName)
                     ?.commit()
         }else {
             execute(TYPE_RELAXATION)

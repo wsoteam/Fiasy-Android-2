@@ -75,15 +75,19 @@ class ExercisesDialogFragment : DialogFragment() {
     private fun next(){
         trainingDay?.apply {
             val size = exercises?.size ?: 0
-            if (number < size) number++
-            updateUI(number)
+            if (number < size) {
+                number++
+                updateUI(number)
+            }
         }
     }
 
     private fun prev(){
         trainingDay?.apply {
-            if (number > 1) number--
-            updateUI(number)
+            if (number > 1) {
+                number--
+                updateUI(number)
+            }
         }
     }
 
