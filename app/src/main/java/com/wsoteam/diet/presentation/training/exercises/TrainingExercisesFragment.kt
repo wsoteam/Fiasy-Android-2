@@ -56,6 +56,7 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
 
                 fragmentManager?.beginTransaction()
                         ?.replace((getView()?.parent as ViewGroup).id, fragment)
+                        ?.addToBackStack(fragment.javaClass.simpleName)
                         ?.commit()
             }
         }
@@ -109,6 +110,7 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
 
                     fragmentManager?.beginTransaction()
                             ?.replace((view?.parent as ViewGroup).id, fragment)
+                            ?.addToBackStack(fragment.javaClass.simpleName)
                             ?.commit()
                 }
                 NewTrainingDialogFragment.REQUEST_CODE_START_NEW -> {
@@ -116,6 +118,7 @@ class TrainingExercisesFragment : Fragment(R.layout.fragment_training_exercises)
 
                     fragmentManager?.beginTransaction()
                             ?.replace((view?.parent as ViewGroup).id, fragment)
+                            ?.addToBackStack(fragment.javaClass.simpleName)
                             ?.commit()
                 }
             }

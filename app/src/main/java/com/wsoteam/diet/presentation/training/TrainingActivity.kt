@@ -24,23 +24,12 @@ class TrainingActivity : AppCompatActivity() {
 
     private fun tellFragments() {
         val fragments = supportFragmentManager.fragments
+//        Log.i("kkk", "------------------------------------- ")
         for (f in fragments) {
+//            Log.d("kkk", f.javaClass.simpleName)
             if (f != null && f is OnBackPressed)
                 f.onBackPressed()
         }
 
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        supportFragmentManager.addOnBackStackChangedListener {
-            val fm = supportFragmentManager
-            Log.i("kkk", "------------------------------------- ")
-            for (entry in 0 until fm.backStackEntryCount) {
-                Log.i("kkk", "Found fragment: " + fm.getBackStackEntryAt(entry).name)
-            }
-
-        }
     }
 }

@@ -19,6 +19,7 @@ import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.presentation.training.*
+import com.wsoteam.diet.presentation.training.day.TrainingDayFragment
 import com.wsoteam.diet.presentation.training.dialog.AbortExerciseDialogFragment
 import kotlinx.android.synthetic.main.fragment_exercise_executor.*
 import java.lang.Exception
@@ -215,7 +216,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
                 setChildFragment(ExecuteTimeFragment.newInstance(trainingDay?.exercises?.get(Prefix.exercises + exerciseExecute)))
             }
             TYPE_REPEAT ->{
-                Log.d("kkk", approacheExecute.toString())
+//                Log.d("kkk", approacheExecute.toString())
                 setChildFragment(ExecuteRepeatFragment.newInstance(trainingDay?.exercises?.get(Prefix.exercises + exerciseExecute), approacheExecute))
             }
             else ->{throw IllegalArgumentException("$type - is not valid type")}
@@ -267,7 +268,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 AbortExerciseDialogFragment.REQUEST_CODE_LEAVE -> {
-                            fragmentManager?.popBackStack()
+                            fragmentManager?.popBackStack(TrainingDayFragment::class.java.simpleName, 0)
                 }
             }
         }

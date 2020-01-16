@@ -8,7 +8,6 @@ import android.view.View
 
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.training.Exercises
-import com.wsoteam.diet.presentation.training.ExercisesDrawable
 import com.wsoteam.diet.presentation.training.TrainingViewModel
 import com.wsoteam.diet.utils.CountDownTimer
 import kotlinx.android.synthetic.main.fragment_execute_time.*
@@ -80,7 +79,6 @@ class ExecuteTimeFragment : Fragment(R.layout.fragment_execute_time) {
     private fun updateUi(exercises: Exercises?){
         val exerciseType =  TrainingViewModel.getExercisesType().value?.get(exercises?.type)
         textView70.text = exerciseType?.title
-        imageEx.setImageResource(ExercisesDrawable.get(exerciseType?.uid))
     }
 
     private fun updateTimer(milliseconds: Long){
