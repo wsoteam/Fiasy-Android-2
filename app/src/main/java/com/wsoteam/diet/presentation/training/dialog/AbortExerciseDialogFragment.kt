@@ -40,7 +40,7 @@ class AbortExerciseDialogFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("kkk", "001")
-        setStyle(STYLE_NO_TITLE, R.style.TeachDialog)
+        setStyle(STYLE_NO_TITLE, R.style.FullScreenDialog)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
