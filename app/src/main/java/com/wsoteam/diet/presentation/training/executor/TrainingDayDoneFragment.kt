@@ -91,7 +91,7 @@ class TrainingDayDoneFragment : Fragment(R.layout.fragment_training_day_done), O
         TrainingViewModel.getTrainingResult().value?.get(trainingUid)?.days
                 ?.get(Prefix.day + trainingDay.day)?.values?.forEach {
 
-            Log.d("kkk","${trainingDay.day} - $it")
+//            Log.d("kkk","${trainingDay.day} - $it")
             timeSum += it
         }
 

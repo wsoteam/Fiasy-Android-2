@@ -11,6 +11,7 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.training.Training
+import com.wsoteam.diet.presentation.training.TrainingViewModel
 import com.wsoteam.diet.utils.Img
 import kotlinx.android.synthetic.main.training_view_holder.view.*
 
@@ -30,7 +31,7 @@ class TrainingViewHolder(parent: ViewGroup,private var clickListener: TrainingAd
         this.training = training
         if (training != null) {
             val days = training.days?.size ?: 0
-            val progressCurrent = 5
+            val progressCurrent = TrainingViewModel.getTrainingResult().value?.get(training.uid)?.finishedDays ?: 0
             val progressMax = training.days?.size ?: 0
             setImg(itemView.imageTVH, training.url, itemView.backgroundTVH)
             itemView.nameTVH.text = training.name

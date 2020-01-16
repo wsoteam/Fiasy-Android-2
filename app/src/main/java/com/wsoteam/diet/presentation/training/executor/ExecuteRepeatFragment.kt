@@ -56,7 +56,7 @@ class ExecuteRepeatFragment : Fragment(R.layout.fragment_execute_repeat) {
 
         arguments?.apply {
 
-            Log.d("kkk", "arguments?")
+//            Log.d("kkk", "arguments?")
             approaches = getInt(EXERCISE_ITERATION_BUNDLE_KEY, 1)
 
             getParcelable<Exercises>(EXERCISE_REPEAT_BUNDLE_KEY)?.apply {

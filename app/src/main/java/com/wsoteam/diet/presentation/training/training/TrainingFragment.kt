@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
 import kotlinx.android.synthetic.main.fragment_training.*
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -143,5 +143,11 @@ class TrainingFragment : Fragment(R.layout.fragment_training), OnBackPressed {
     override fun onBackPressed() {
         fragmentManager?.popBackStack()
         activity?.finish()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+
     }
 }

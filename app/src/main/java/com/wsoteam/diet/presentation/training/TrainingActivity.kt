@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.training
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.training.training.TrainingFragment
 
@@ -28,5 +29,18 @@ class TrainingActivity : AppCompatActivity() {
                 f.onBackPressed()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            val fm = supportFragmentManager
+            Log.i("kkk", "------------------------------------- ")
+            for (entry in 0 until fm.backStackEntryCount) {
+                Log.i("kkk", "Found fragment: " + fm.getBackStackEntryAt(entry).name)
+            }
+
+        }
     }
 }

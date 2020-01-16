@@ -256,7 +256,6 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
     private fun setChildFragment(fragment : Fragment){
         childFragmentManager.beginTransaction()
                 .replace(R.id.exercisesContainer, fragment)
-                .addToBackStack(null)
                 .commit()
     }
 
