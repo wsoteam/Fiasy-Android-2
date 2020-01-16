@@ -577,6 +577,6 @@ public class WorkWithFirebaseDB {
 
         Log.d("kkk", trainingsUid + "  " +finishedDays);
         myRef.child("finishedDays").setValue(finishedDays);
-        myRef.child("timestamp").setValue(Calendar.getInstance().getTimeInMillis());
+//        myRef.child("timestamp").setValue(Calendar.getInstance().getTimeInMillis());
     }
 }

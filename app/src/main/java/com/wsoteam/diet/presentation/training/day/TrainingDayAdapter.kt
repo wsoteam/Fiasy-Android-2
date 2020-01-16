@@ -28,17 +28,17 @@ class TrainingDayAdapter(private var training: Training?, private var clickListe
 
         for (i in unlockedDays..(training?.days?.size ?: 28)) {
 //            Log.d("kkk", "$i -- ${Calendar.getInstance().get(Calendar.DAY_OF_WEEK)}")
+            unlockedDays++
+
             if ((training?.days?.get(Prefix.day + (i + 1))?.exercises?.size ?: 0) > 0) break
-
-            unlockedDays++
         }
 
-        val day: Long = TimeUnit.MILLISECONDS.toDays(Calendar.getInstance().timeInMillis - (TrainingViewModel.getTrainingResult().value?.get(training?.uid)?.timestamp
-                ?: Calendar.getInstance().timeInMillis))
-
-        if (day > 1) {
-            unlockedDays++
-        }
+//        val day: Long = TimeUnit.MILLISECONDS.toDays(Calendar.getInstance().timeInMillis - (TrainingViewModel.getTrainingResult().value?.get(training?.uid)?.timestamp
+//                ?: Calendar.getInstance().timeInMillis))
+//
+//        if (day > 1) {
+//            unlockedDays++
+//        }
 
 //        Log.d("kkk", "unlockedDays ==")
         if (unlockedDays == 0) unlockedDays = 1
