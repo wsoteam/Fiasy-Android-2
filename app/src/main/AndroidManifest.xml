@@ -27,6 +27,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".presentation.teach.TeachActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TeachDialog.TransparentActivity"/>
         <activity android:name=".presentation.training.TrainingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Article"/>
@@ -164,6 +167,18 @@
         -->
         <activity
             android:name=".InApp.ActivitySubscription"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/PremiumActivity" />
+
+        <activity
+            android:name=".presentation.premium.AnastasiaStoryFragment"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/PremiumActivity" />
+
+        <activity
+            android:name=".presentation.premium.WheelFortuneActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/PremiumActivity" />

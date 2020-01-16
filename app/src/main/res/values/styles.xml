@@ -348,17 +348,25 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <style name="TeachDialog" parent="Base.Theme.AppCompat.Light.Dialog">
+    <style name="FullScreenDialog" parent="Base.Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">false</item>
     </style>
 
-    <style name="TeachDialog.NoStatusBar" parent="TeachDialog">
+    <style name="FullScreenDialog.NoStatusBar" parent="FullScreenDialog">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="TeachDialog.TransparentActivity" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
     <style name="CollapsedAppBar" parent="@android:style/TextAppearance.Medium">

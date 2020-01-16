@@ -169,7 +169,6 @@ public class Config {
     /////
     public static final String AFTER_PREM_ROAD = "AFTER_PREM_ROAD";
 
-
-
+    public static final String HARD_VERSION = "8";
 
 }

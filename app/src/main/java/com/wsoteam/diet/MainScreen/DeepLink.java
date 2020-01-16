@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
-import java.util.Calendar;
-
 import androidx.annotation.NonNull;
 
 public class DeepLink {
@@ -72,32 +70,6 @@ public class DeepLink {
                 return true;
             }
         }
-
         return false;
-    }
-
-    public static String getDate(){
-        String date;
-        int day, month, year;
-
-        day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        month = Calendar.getInstance().get(Calendar.MONTH);
-        year = Calendar.getInstance().get(Calendar.YEAR);
-
-        if (day < 10) {
-            date = "0" + String.valueOf(day) + ".";
-        } else {
-            date = String.valueOf(day) + ".";
-        }
-
-        if (month < 10) {
-            date += "0" + String.valueOf(month + 1) + ".";
-        } else {
-            date += String.valueOf(month) + ".";
-        }
-
-        date += String.valueOf(year);
-
-        return date;
     }
 }

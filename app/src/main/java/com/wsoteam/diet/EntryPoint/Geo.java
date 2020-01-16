@@ -36,11 +36,11 @@ public class Geo {
         objectCall.enqueue(new Callback<IPCheckObject>() {
             @Override
             public void onResponse(Call<IPCheckObject> call, Response<IPCheckObject> response) {
-                if (response.body().getCountryCode().equals(Config.UA_GEO)){
+                /*if (response.body().getCountryCode().equals(Config.UA_GEO)){
                     setABTestConfig(ABConfig.C_VERSION, context);
                 }else {
                     getABVersion(context);
-                }
+                }*/
 
             }
 

@@ -8,12 +8,14 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnPreDrawListener
 import android.widget.FrameLayout
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
 import androidx.core.widget.NestedScrollView
 import androidx.core.widget.NestedScrollView.OnScrollChangeListener
 import androidx.customview.widget.ViewDragHelper
@@ -31,9 +33,11 @@ import com.wsoteam.diet.InApp.ActivitySubscription
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.common.Analytics.EventProperties
+import com.wsoteam.diet.presentation.fab.MainFabMenu
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Hiden
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Revealed
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
+import com.wsoteam.diet.presentation.fab.FabMenuViewModel
 import com.wsoteam.diet.utils.FiasyDateUtils
 import com.wsoteam.diet.utils.ImageSpan
 import com.wsoteam.diet.utils.RichTextUtils.replaceWithIcon
@@ -207,6 +211,10 @@ class DiaryFragment : Fragment() {
                 val scrollingDown = scrollY > oldScrollY
                 val spaceLeft = premiumContainer.height + premiumContainer.translationY
 
+                 FabMenuViewModel.fabState.value = if (scrollingDown)
+                     FabMenuViewModel.FAB_HIDE else  FabMenuViewModel.FAB_SHOW
+
+
                 currentState = if (spaceLeft == 0f) Hiden else Revealed
 
                 var nextState = currentState
@@ -249,6 +257,7 @@ class DiaryFragment : Fragment() {
                     currentState = nextState
                 }
                 animator.start()
+
             }
         })
 
@@ -335,9 +344,25 @@ class DiaryFragment : Fragment() {
         })
 
         updateTitle()
+
+        ViewCompat.setNestedScrollingEnabled(container, false)
+
+        DiaryViewModel.scrollToPosition.observe(this, waterObserver)
+
     }
 
+
     private var oldStatusBarColor = 0
+
+    private val waterObserver = androidx.lifecycle.Observer<Int> {position ->
+        Log.d("kkk", "position = $position")
+        if(position != null)
+        container.post {
+            val y = container.y + container.getChildAt(position).y - premiumContainer.height
+            root.smoothScrollTo(0, y.toInt())
+            DiaryViewModel.scrollToPosition.value = null
+        }
+    }
 
     override fun onResume() {
         super.onResume()
@@ -363,6 +388,7 @@ class DiaryFragment : Fragment() {
         if (oldStatusBarColor != 0) {
             activity?.window?.statusBarColor = oldStatusBarColor
         }
+
     }
 
     private fun toggleCalendar() {

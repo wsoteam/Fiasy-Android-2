@@ -57,7 +57,7 @@ class TeachSearchDialogFragment : DialogFragment() {
     private var isCanSpeak = true
 
     private var _style = STYLE_NO_TITLE
-    private var _theme = R.style.TeachDialog_NoStatusBar
+    private var _theme = R.style.FullScreenDialog_NoStatusBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,7 +108,7 @@ class TeachSearchDialogFragment : DialogFragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 s?.apply {  changeSpeakButton(s)}
-                val str = s.toString().replace("\\s+", " ")
+                val str = s.toString().trim().replace("\\s+", " ")
                 hideSearchResult(str.isEmpty())
                 if (str.isNotEmpty()) showSuggestions(str)
 
