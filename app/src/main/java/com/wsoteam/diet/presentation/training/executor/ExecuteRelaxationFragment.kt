@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.training.executor
 
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -23,9 +24,13 @@ class ExecuteRelaxationFragment : Fragment(R.layout.fragment_execute_relaxation)
     private var timerCounter: CountDownTimer? = null
     private var result = 0L
 
+    private var startTime = 0L
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        startTime = SystemClock.elapsedRealtime()
+        timer?.text = (time / 1000).toString()
         circularProgressBar.progressMax = time.toFloat()
 
         timerCounter = object : CountDownTimer(timerMax, 1) {
@@ -34,13 +39,15 @@ class ExecuteRelaxationFragment : Fragment(R.layout.fragment_execute_relaxation)
 //                Log.d("kkk", "timer - ${millisUntilFinished}")
                 result = (timerMax - millisUntilFinished)
                 circularProgressBar?.progress = result.toFloat()
-                timer?.text = TextUtils.concat((circularProgressBar.progress / 1000).toInt().toString(), "\"")
+                timer?.text = TextUtils.concat(((time - circularProgressBar.progress) / 1000).toInt().toString(), "\"")
 //                Log.d("kkk", "progress - ${circularProgressBar.progress}")
                 if ((circularProgressBar?.progress ?: 0F) >= time) {
                     cancel()
                     buttonAddTime?.isClickable = false
                     buttonPause?.isClickable = false
-                    parentFragment?.apply { if(this is ExerciseExecutorFragment) setResult(time.toLong(), ExerciseExecutorFragment.TYPE_RELAXATION) }
+                    parentFragment?.apply { if(this is ExerciseExecutorFragment) setResult(
+                            (SystemClock.elapsedRealtime() - startTime),
+                            ExerciseExecutorFragment.TYPE_RELAXATION) }
                 }
             }
 
@@ -63,7 +70,9 @@ class ExecuteRelaxationFragment : Fragment(R.layout.fragment_execute_relaxation)
 
         start.setOnClickListener {
             timerCounter?.cancel()
-            parentFragment?.apply { if(this is ExerciseExecutorFragment) setResult(result, ExerciseExecutorFragment.TYPE_RELAXATION) }
+            parentFragment?.apply { if(this is ExerciseExecutorFragment) setResult(
+                    (SystemClock.elapsedRealtime() - startTime),
+                    ExerciseExecutorFragment.TYPE_RELAXATION) }
         }
     }
 
