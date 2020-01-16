@@ -148,10 +148,13 @@ class TeachHostFragment : Fragment() {
         }
 
         if (resultCode == Activity.RESULT_CANCELED) {
-
-            //TODO
+            try {
+                //TODO
 //            TeachUtil.setOpen(context, false)
-            blur.dismiss()
+                blur?.dismiss()
+            }catch (e : Exception){
+                e.printStackTrace()
+            }
         }
     }
 
