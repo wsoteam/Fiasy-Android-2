@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.training.executor
 
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -38,11 +39,13 @@ class ExecuteTimeFragment : Fragment(R.layout.fragment_execute_time) {
     private var timerCount = 0L
 
     private var exercises: Exercises? = null
+    private var startTime = 0L
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        startTime = SystemClock.elapsedRealtime()
         arguments?.apply {
 
             getParcelable<Exercises>(EXERCISE_TIME_BUNDLE_KEY)?.apply {
@@ -69,7 +72,10 @@ class ExecuteTimeFragment : Fragment(R.layout.fragment_execute_time) {
 
 
         buttonDone.setOnClickListener {
-            parentFragment?.apply { if(this is ExerciseExecutorFragment) setResult(timerCount, ExerciseExecutorFragment.TYPE_TIME) }
+            parentFragment?.apply { if(this is ExerciseExecutorFragment) setResult(
+                    (SystemClock.elapsedRealtime() - startTime),
+                    ExerciseExecutorFragment.TYPE_TIME) }
+
             timerCounter?.cancel()
         }
         buttonAddTime.setOnClickListener {
@@ -88,7 +94,9 @@ class ExecuteTimeFragment : Fragment(R.layout.fragment_execute_time) {
 
         if (milliseconds <= 0) {
             timerCounter?.cancel()
-           parentFragment?.apply { if(this is ExerciseExecutorFragment) setResult(userTime, ExerciseExecutorFragment.TYPE_TIME) }
+           parentFragment?.apply { if(this is ExerciseExecutorFragment) setResult(
+                   (SystemClock.elapsedRealtime() - startTime),
+                   ExerciseExecutorFragment.TYPE_TIME) }
         }
 
         val minutes = milliseconds / 1000 / 60
