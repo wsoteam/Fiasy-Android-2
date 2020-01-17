@@ -91,6 +91,8 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
 
                     exerciseNumber?.text = concat(exerciseExecute.toString(), "/", (trainingDay?.exercises?.size ?: 0).toString())
                 }
+
+                setAnimation(null)
             }else {
                 setAnimation(1)
                 setChildFragment(ExecuteStartFragment())
