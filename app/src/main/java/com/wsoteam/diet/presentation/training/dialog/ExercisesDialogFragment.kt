@@ -104,16 +104,20 @@ class ExercisesDialogFragment : DialogFragment() {
             nameEx.text = exercisesType?.title
             currentEx.text = number.toString()
 
-            animated = AnimatedVectorDrawableCompat.create(context!!,
-                    ExercisesDrawable.get(exercises?.get(Prefix.exercises + i)?.type ?: ""))
-            animated?.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
-                override fun onAnimationEnd(drawable: Drawable?) {
-                    imageView97?.post { animated?.start() }
-                }
+            try {
+                animated = AnimatedVectorDrawableCompat.create(context!!,
+                        ExercisesDrawable.get(exercises?.get(Prefix.exercises + i)?.type ?: ""))
+                animated?.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
+                    override fun onAnimationEnd(drawable: Drawable?) {
+                        imageView97?.post { animated?.start() }
+                    }
 
-            })
-            imageView97.setImageDrawable(animated)
-            animated?.start()
+                })
+                imageView97?.setImageDrawable(animated)
+                animated?.start()
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
 
         }
     }
