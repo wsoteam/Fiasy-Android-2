@@ -132,6 +132,7 @@ public class EventProperties {
   public static final String trial_from_meas = "meas";
   public static final String trial_from_plans = "plans";
   public static final String trial_from_nec = "nec";
+  public static final String trial_from_exercises = "exercises";
 
   public static final String auto_renewal = "auto_renewal";
   public static final String auto_renewal_false = "false";

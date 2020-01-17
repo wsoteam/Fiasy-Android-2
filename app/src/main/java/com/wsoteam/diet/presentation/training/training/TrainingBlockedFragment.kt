@@ -69,7 +69,7 @@ class TrainingBlockedFragment : Fragment(R.layout.fragment_training_blocked), On
         box.isOpenFromPremPart = true
         box.isOpenFromIntrodaction = false
         box.comeFrom = AmplitudaEvents.view_prem_content
-        box.buyFrom = EventProperties.trial_from_articles //TODO поменять ивент проперти
+        box.buyFrom = EventProperties.trial_from_exercises
         val intent = Intent(context, ActivitySubscription::class.java).putExtra(Config.TAG_BOX, box)
         startActivity(intent)
     }
