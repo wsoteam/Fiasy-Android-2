@@ -2,7 +2,6 @@ package com.wsoteam.diet.presentation.training.training
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.Observer
@@ -18,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.wsoteam.diet.presentation.training.*
 import com.wsoteam.diet.presentation.training.day.TrainingDayFragment
-
+import com.wsoteam.diet.utils.Subscription
 
 
 class TrainingFragment : Fragment(R.layout.fragment_training), OnBackPressed {
@@ -80,7 +79,7 @@ class TrainingFragment : Fragment(R.layout.fragment_training), OnBackPressed {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-//                Log.d("kkk", "onDataChange")
+
                 val result = p0.getValue(Result::class.java)
 
                 if (result != null) {
@@ -100,12 +99,6 @@ class TrainingFragment : Fragment(R.layout.fragment_training), OnBackPressed {
         }
         trainingRV.layoutManager = LinearLayoutManager(context)
         trainingRV.adapter = adapter
-
-
-        button3.setOnClickListener {
-
-
-        }
 
 
         trainingRV.addOnScrollListener(object : RecyclerView.OnScrollListener(){
@@ -128,8 +121,9 @@ class TrainingFragment : Fragment(R.layout.fragment_training), OnBackPressed {
             override fun onClick(training: Training?) {
                 training?.apply {
 
-                    val fragment = if (id.equals("0")) TrainingBlockedFragment()
-                    else TrainingDayFragment.newInstance(training)
+
+                    val fragment : Fragment = if (Subscription.check(context)) TrainingDayFragment.newInstance(training)
+                    else TrainingBlockedFragment.newInstance(training)
 
                     fragmentManager?.beginTransaction()
                             ?.replace((getView()?.parent as ViewGroup).id, fragment)
@@ -145,9 +139,4 @@ class TrainingFragment : Fragment(R.layout.fragment_training), OnBackPressed {
         activity?.finish()
     }
 
-    override fun onResume() {
-        super.onResume()
-
-
-    }
 }

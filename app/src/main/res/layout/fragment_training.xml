@@ -23,13 +23,6 @@
         android:theme="?attr/actionBarTheme" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:visibility="gone" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trainingRV"
         android:layout_width="match_parent"
