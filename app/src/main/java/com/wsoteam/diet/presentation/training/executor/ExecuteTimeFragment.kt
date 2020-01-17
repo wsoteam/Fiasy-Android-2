@@ -30,11 +30,12 @@ class ExecuteTimeFragment : Fragment(R.layout.fragment_execute_time) {
 
     private var timerCounter: CountDownTimer? = null
 
-    val timerInit = 5000_000L
+    private val timerInit = 5000_000L
 
-    var userTime = 60_000L
+    private var userTime = 60_000L
+    private val MAX_USER_TIME = 300_000L
 
-    var timerCount = 0L
+    private var timerCount = 0L
 
     private var exercises: Exercises? = null
 
@@ -73,6 +74,8 @@ class ExecuteTimeFragment : Fragment(R.layout.fragment_execute_time) {
         }
         buttonAddTime.setOnClickListener {
             userTime += 30_000
+
+            if (userTime >= MAX_USER_TIME) buttonAddTime.isClickable = false
         }
     }
 

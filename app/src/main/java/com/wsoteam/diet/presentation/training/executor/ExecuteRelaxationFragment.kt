@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_execute_start.timer
 class ExecuteRelaxationFragment : Fragment(R.layout.fragment_execute_relaxation) {
 
     private var time = 30000
-    private var timerMax = 5_000_000L
+    private var timerMax = 500_000_000L
 
     private var timerCounter: CountDownTimer? = null
     private var result = 0L
@@ -63,8 +63,10 @@ class ExecuteRelaxationFragment : Fragment(R.layout.fragment_execute_relaxation)
             else timerCounter?.pause()
         }
         buttonAddTime.setOnClickListener {
+
             time += 15000
             circularProgressBar.progressMax = time.toFloat()
+            if (time >= 60_000) buttonAddTime.isClickable = false
 
         }
 
