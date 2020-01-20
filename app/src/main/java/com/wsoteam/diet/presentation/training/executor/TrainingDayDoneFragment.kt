@@ -49,6 +49,9 @@ class TrainingDayDoneFragment : Fragment(R.layout.fragment_training_day_done), O
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Log.d("kkk", "fr created")
+
         continueTraining.setOnClickListener {
             fragmentManager?.popBackStack(TrainingDayFragment::class.java.simpleName, 0)
         }
