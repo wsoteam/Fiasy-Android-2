@@ -23,6 +23,13 @@
         android:theme="?attr/actionBarTheme" />
     </com.google.android.material.appbar.AppBarLayout>
 
+    <ImageView
+        android:id="@+id/imageView97"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/advanced_scissor_kicks"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trainingRV"
         android:layout_width="match_parent"

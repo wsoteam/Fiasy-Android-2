@@ -84,33 +84,3 @@ data class Result(
         var trainings: MutableMap<String, TrainingResult>? = mutableMapOf()
 ) : Parcelable
 
-class ExercisesDrawable{
-    companion object{
-
-        fun get(key: String?): Int = map[key] ?: R.drawable.btn_elements_prem
-
-
-        private val map = mapOf(
-                "advanced_scissor_kicks" to R.drawable.advanced_scissor_kicks,
-                "alternating_superman" to R.drawable.alternating_superman,
-                "balanced_crunch" to R.drawable.balanced_crunch,
-                "bent_knee_raise" to R.drawable.straight_leg_dead_lifts,
-                "butt_lift_bridge" to R.drawable.butt_lift_bridge,
-                "floor_back_extension" to R.drawable.floor_back_extension,
-                "flutter_kicks" to R.drawable.flutter_kicks,
-                "glute_kickback" to R.drawable.glute_kickback,
-                "inner_thigh_lifts" to R.drawable.inner_thigh_lifts,
-                "lying_back_extension" to R.drawable.lying_back_extension,
-                "lying_butterfly" to R.drawable.lying_butterfly,
-                "lying_leg_raise" to R.drawable.lying_leg_raise,
-                "lying_side_leg_ift" to R.drawable.lying_side_leg_lift,
-                "mountain_climbers" to R.drawable.mountain_climbers,
-                "plank" to R.drawable.exercise_wall_push_up,
-                "single_leg_push_up" to R.drawable.single_leg_push_up,
-                "squat" to R.drawable.squat,
-                "standing_leg_kick_back" to R.drawable.standing_leg_kick_back,
-                "sumo_squats" to R.drawable.sumo_squats,
-                "wall_push_up" to R.drawable.wall_push_up
-        )
-    }
-}

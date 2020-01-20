@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_training.*
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.wsoteam.diet.presentation.training.*
@@ -100,6 +101,9 @@ class TrainingFragment : Fragment(R.layout.fragment_training), OnBackPressed {
         trainingRV.layoutManager = LinearLayoutManager(context)
         trainingRV.adapter = adapter
 
+        Glide.with(context!!)
+                .load("https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/test%2FMountain%20Climbers.gif?alt=media&token=37082fb4-027d-4f8e-bf48-d4c6024c3530")
+                .into(imageView97)
 
         trainingRV.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

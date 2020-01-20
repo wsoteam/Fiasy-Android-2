@@ -1,22 +1,27 @@
 package com.wsoteam.diet.presentation.training.dialog
 
 
+import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils.concat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
+import com.bumptech.glide.Glide
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.training.ExercisesDrawable
 import com.wsoteam.diet.presentation.training.Prefix
 import com.wsoteam.diet.presentation.training.TrainingDay
 import com.wsoteam.diet.presentation.training.TrainingViewModel
 import kotlinx.android.synthetic.main.exercises_dialog_fragment.*
+import kotlinx.android.synthetic.main.fragment_training.*
 
 class ExercisesDialogFragment : DialogFragment() {
 
@@ -104,21 +109,42 @@ class ExercisesDialogFragment : DialogFragment() {
             nameEx.text = exercisesType?.title
             currentEx.text = number.toString()
 
-            try {
-                animated = AnimatedVectorDrawableCompat.create(context!!,
-                        ExercisesDrawable.get(exercises?.get(Prefix.exercises + i)?.type ?: ""))
-                animated?.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
-                    override fun onAnimationEnd(drawable: Drawable?) {
-                        imageView97?.post { animated?.start() }
-                    }
+            ExercisesDrawable.setImage(
+                    exercises?.get(Prefix.exercises + i)?.type ?: "",
+                    context!!,
+                    exercisesAnimation)
 
-                })
-                imageView97?.setImageDrawable(animated)
-                animated?.start()
-            }catch (e: Exception){
-                e.printStackTrace()
-            }
+//            if(ExercisesDrawable.mapGif.containsKey(exercises?.get(Prefix.exercises + i)?.type ?: "")){
+//                startGif(ExercisesDrawable.mapGif[exercises?.get(Prefix.exercises + i)?.type ?: ""])
+//            } else{
+//                startVectorAnimation(ExercisesDrawable.get(exercises?.get(Prefix.exercises + i)?.type ?: ""))
+//            }
+
+
 
         }
+    }
+
+    private fun startVectorAnimation(resId: Int){
+        try {
+            animated = AnimatedVectorDrawableCompat.create(context!!, resId)
+            animated?.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
+                override fun onAnimationEnd(drawable: Drawable?) {
+                    exercisesAnimation?.post { animated?.start() }
+                }
+
+            })
+            exercisesAnimation?.setImageDrawable(animated)
+            animated?.start()
+
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+    }
+
+    private fun startGif(url : String?){
+        Glide.with(this)
+                .load(url)
+                .into(exercisesAnimation)
     }
 }

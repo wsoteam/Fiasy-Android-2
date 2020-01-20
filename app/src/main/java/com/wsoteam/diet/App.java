@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
 import androidx.room.Room;
 import com.adjust.sdk.Adjust;
@@ -42,7 +44,7 @@ public class App extends MultiDexApplication {
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         Bugsee.launch(this, "ec43078d-e5d9-4e97-9912-4f293e315bdf");
-
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         FirebaseRemoteConfig.getInstance().setDefaults(new HashMap<String, Object>() {{
             put("premium_theme", "dark");
             put("premium_with_trial", true);
