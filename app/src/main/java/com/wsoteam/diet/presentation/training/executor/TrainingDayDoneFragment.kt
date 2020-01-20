@@ -108,11 +108,12 @@ class TrainingDayDoneFragment : Fragment(R.layout.fragment_training_day_done), O
 
 
     private fun shareImageFromURI(uri: Uri?) {
-
+        if(uri == null) return
+        
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "image/*"
         intent.putExtra(Intent.EXTRA_STREAM, uri)
-        startActivity(Intent.createChooser(intent, "Share Image"))
+        startActivity(Intent.createChooser(intent, ""))
 
     }
 
