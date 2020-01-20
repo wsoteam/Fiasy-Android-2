@@ -3,10 +3,8 @@ package com.wsoteam.diet.presentation.training.executor
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils.concat
-import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -14,7 +12,6 @@ import android.view.ViewGroup
 
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
@@ -22,7 +19,7 @@ import com.wsoteam.diet.presentation.training.*
 import com.wsoteam.diet.presentation.training.day.TrainingDayFragment
 import com.wsoteam.diet.presentation.training.dialog.AbortExerciseDialogFragment
 import kotlinx.android.synthetic.main.fragment_exercise_executor.*
-import java.lang.Exception
+
 
 
 class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), OnBackPressed {
@@ -49,7 +46,6 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
         }
     }
 
-    private var animated : AnimatedVectorDrawableCompat? = null
     private val progressList = mutableListOf<ProgressBar>()
     private var trainingDay: TrainingDay? = null
     private var trainingUid: String? = null
@@ -132,19 +128,8 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
     }
 
     private fun setAnimation(exercise: Int?){
-        try {
-            animated = AnimatedVectorDrawableCompat.create(context!!, ExercisesDrawable.get(getExercise(exercise)?.type))
-            animated?.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
-                override fun onAnimationEnd(drawable: Drawable?) {
-                    imageEx?.post { animated?.start() }
-                }
 
-            })
-            imageEx.setImageDrawable(animated)
-            animated?.start()
-        }catch (e: Exception){
-            e.printStackTrace()
-        }
+        ExercisesDrawable.setImage(getExercise(exercise)?.type, context, imageEx, progressBarE)
     }
 
     fun setResult(result: Long, from: String) {
@@ -191,7 +176,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
             val fragment = TrainingDayDoneFragment.newInstance(trainingDay, trainingUid)
 
             fragmentManager?.beginTransaction()
-                    ?.replace((getView()?.parent as ViewGroup).id, fragment)
+                    ?.replace((view?.parent as ViewGroup).id, fragment)
                     ?.addToBackStack(fragment.javaClass.simpleName)
                     ?.commit()
         }else {

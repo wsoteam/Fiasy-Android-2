@@ -2,19 +2,45 @@ package com.wsoteam.diet.presentation.training
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.wsoteam.diet.R
 
 class ExercisesDrawable{
     companion object{
 
-        fun setImage(type: String?, context: Context, imageView: ImageView): AnimatedVectorDrawableCompat?{
+        fun setImage(type: String?, context: Context?, imageView: ImageView, progressBar: ProgressBar?): AnimatedVectorDrawableCompat?{
+            if (context == null) {
+                imageView.setImageResource(R.drawable.white_radius)
+                return null
+            }
+            progressBar?.visibility = View.VISIBLE
+
             if(mapGif.containsKey(type)){
+
                 Glide.with(context)
                         .load(mapGif[type])
+                        .listener(object : RequestListener<Drawable> {
+                            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                                progressBar?.visibility = View.INVISIBLE
+                                return false
+                            }
+
+                            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                                progressBar?.visibility = View.INVISIBLE
+                                return false
+                            }
+
+                        })
+//                        .thumbnail()
                         .into(imageView)
                 return null
             } else{
@@ -33,6 +59,8 @@ class ExercisesDrawable{
                 }catch (e: Exception){
                     e.printStackTrace()
                     return null
+                } finally {
+                    progressBar?.visibility = View.INVISIBLE
                 }
 
             }
@@ -71,7 +99,8 @@ class ExercisesDrawable{
                 "butt_lift_bridge" to "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/exercises%2FButt%20Lift%20Bridge.gif?alt=media&token=dd9d77d3-439d-4b6c-8b23-d6afadefef7e",
                 "lying_leg_raise" to "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/exercises%2FLying%20Leg%20Raise1.gif?alt=media&token=a9585d74-8f4b-4386-a447-cc67b56d2676",
                 "squat" to "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/exercises%2FSquat1.gif?alt=media&token=3f973868-a06c-43ef-b078-8dfc008cda97",
-                "mountain_climbers" to "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/exercises%2FMountain%20Climbers.gif?alt=media&token=72874282-c253-4082-a40f-59b4f9cff855"
+                "mountain_climbers" to "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/exercises%2FMountain%20Climbers.gif?alt=media&token=72874282-c253-4082-a40f-59b4f9cff855",
+                "sumo_squats" to "https://firebasestorage.googleapis.com/v0/b/diet-for-test.appspot.com/o/exercises%2FSumo%20Squats.gif?alt=media&token=3dc90781-54eb-4bf0-9219-1bc1aba9fdbd"
         )
     }
 }
