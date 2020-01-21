@@ -1,10 +1,14 @@
 package com.wsoteam.diet.common.Analytics;
 
 import android.content.Context;
+import android.util.Log;
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Identify;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.wsoteam.diet.App;
+import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.utils.AbTests;
@@ -137,12 +141,38 @@ public class UserProperty {
                 .set(name_const, name)
                 .set(user_id, id);
         Amplitude.getInstance().identify(identify);
+
+        App.getFAInstance()
+            .setUserProperty(q_male_status, sex);
+
+        Log.e("LOL", "call fb");
+        App.getFAInstance()
+            .setUserProperty(q_height_status, height);
+        App.getFAInstance()
+            .setUserProperty(q_weight_status, weight);
+        App.getFAInstance()
+            .setUserProperty(q_age_status, age);
+        App.getFAInstance()
+            .setUserProperty(q_goal_status, goal);
+        App.getFAInstance()
+            .setUserProperty(calorie, kcal);
+        App.getFAInstance()
+            .setUserProperty(proteins, prot);
+        App.getFAInstance()
+            .setUserProperty(fats, fat);
+        App.getFAInstance()
+            .setUserProperty(сarbohydrates, carbo);
+        App.getFAInstance()
+            .setUserProperty(name_const, name);
     }
 
     public static void setPremStatus(String status) {
         Identify identify = new Identify()
                 .set(premium_status, status);
         Amplitude.getInstance().identify(identify);
+
+        App.getFAInstance()
+            .setUserProperty(premium_status, status);
     }
 
     public static void setPremState(String price, String duration) {
@@ -157,6 +187,9 @@ public class UserProperty {
         Identify identify = new Identify()
                 .set(registration, provider);
         Amplitude.getInstance().identify(identify);
+
+        App.getFAInstance()
+            .setUserProperty(registration, provider);
     }
 
     public static void setDate(String day, String week, String month) {
@@ -165,11 +198,21 @@ public class UserProperty {
                 .set(first_week, week)
                 .set(first_month, month);
         Amplitude.getInstance().identify(identify);
+
+        App.getFAInstance()
+            .setUserProperty(first_day, day);
+        App.getFAInstance()
+            .setUserProperty(first_week, week);
+        App.getFAInstance()
+            .setUserProperty(first_month, month);
     }
 
     private static void analLogIn() {
         Identify identify = new Identify()
                 .set(EMAIL, FirebaseAuth.getInstance().getCurrentUser().getEmail());
         Amplitude.getInstance().identify(identify);
+
+        App.getFAInstance()
+            .setUserProperty(EMAIL, FirebaseAuth.getInstance().getCurrentUser().getEmail());
     }
 }

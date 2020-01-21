@@ -10,6 +10,7 @@ import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
 import com.amplitude.api.Amplitude;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.onesignal.OneSignal;
@@ -22,6 +23,7 @@ import static com.wsoteam.diet.EventsAdjust.app_token;
 public class App extends MultiDexApplication {
 
     public static App instance;
+    private static FirebaseAnalytics analytics;
 
     private FoodDatabase foodDatabase;
     private boolean setupOnDemand = true;
@@ -31,6 +33,10 @@ public class App extends MultiDexApplication {
 
     public static App getInstance() {
         return instance;
+    }
+
+    public static FirebaseAnalytics getFAInstance(){
+        return analytics;
     }
 
     @Override
@@ -53,6 +59,7 @@ public class App extends MultiDexApplication {
         Amplitude.getInstance().initialize(this, "b148a2e64cc862b4efb10865dfd4d579")
                 .enableForegroundTracking(this);
         instance = this;
+        analytics = FirebaseAnalytics.getInstance(this);
         foodDatabase = Room.databaseBuilder(this, FoodDatabase.class, "foodDB.db")
                 .fallbackToDestructiveMigration()
                 .build();
