@@ -16,6 +16,8 @@ import android.os.Build
 import android.text.TextUtils.concat
 import android.util.Log
 import android.view.ViewGroup
+import androidx.core.content.FileProvider
+import com.wsoteam.diet.BuildConfig
 import com.wsoteam.diet.presentation.training.*
 import com.wsoteam.diet.presentation.training.day.TrainingDayFragment
 import com.wsoteam.diet.utils.getBitmap
@@ -126,7 +128,9 @@ class TrainingDayDoneFragment : Fragment(R.layout.fragment_training_day_done), O
             bmp?.compress(CompressFormat.JPEG, 90, out)
             out.flush()
             out.close()
-            bmpUri = Uri.fromFile(file)
+            bmpUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+            FileProvider.getUriForFile(context!!, BuildConfig.APPLICATION_ID + ".provider", file)
+            else Uri.fromFile(file)
 
         } catch (e: IOException) {
             e.printStackTrace()
