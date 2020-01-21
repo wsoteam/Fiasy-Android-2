@@ -1,9 +1,11 @@
 package com.wsoteam.diet.common.Analytics;
 
+import android.os.Bundle;
 import android.util.Log;
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Revenue;
 import com.android.billingclient.api.BillingClient;
+import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
 
 import java.util.List;
@@ -117,6 +119,11 @@ public class Events {
             exception.printStackTrace();
         }
         Amplitude.getInstance().logEvent(REVIEW_SUCCESS, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putDouble(EventProperties.review_star, stars);
+        bundle.putString(EventProperties.review_comment, comment);
+        App.getFAInstance().logEvent(REVIEW_SUCCESS, bundle);
     }
 
 
@@ -129,6 +136,10 @@ public class Events {
             exception.printStackTrace();
         }
         Amplitude.getInstance().logEvent(TEACH_NEXT, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.teach_screen, screen);
+        App.getFAInstance().logEvent(TEACH_NEXT, bundle);
     }
 
     public static void logAddRecipeInDiaryPlan(String eating, String nameRecipe, String namePlan) {
@@ -141,6 +152,12 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(RECIPE_ADD_SUCCES, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.recipe_intake, eating);
+        bundle.putString(EventProperties.recipe_id_add, nameRecipe);
+        bundle.putString(EventProperties.diet_plans_choose, convertedNamePlan);
+        App.getFAInstance().logEvent(RECIPE_ADD_SUCCES, bundle);
     }
 
 
@@ -153,6 +170,11 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(VIEW_RECIPE, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.recipe_item, name);
+        bundle.putString(EventProperties.diet_plans_choose, convertedNamePlan);
+        App.getFAInstance().logEvent(VIEW_RECIPE, bundle);
     }
 
 
@@ -165,6 +187,11 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(LEAVE_PLAN, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.diet_plans_choose, convertedNamePlan);
+        bundle.putInt(EventProperties.active_day, activeDays);
+        App.getFAInstance().logEvent(LEAVE_PLAN, bundle);
     }
 
     public static void logSetUserPropertyError(String message) {
@@ -174,10 +201,17 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent("prop_error", eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("message", message);
+        App.getFAInstance().logEvent("prop_error", bundle);
     }
 
     public static void logChangeGoal() {
         Amplitude.getInstance().logEvent(CHANGE_GOAL);
+
+        Bundle bundle = new Bundle();
+        App.getFAInstance().logEvent(CHANGE_GOAL, bundle);
     }
 
 
@@ -190,6 +224,11 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(PLAN_COMPLETE, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.diet_plans_choose, convertedNamePlan);
+        bundle.putInt(EventProperties.recipe_added, countRecipes);
+        App.getFAInstance().logEvent(PLAN_COMPLETE, bundle);
     }
 
     public static void logAddPlanRecipe(String intake, String recipe, String from) {
@@ -201,6 +240,12 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ADD_PLAN_RECIPE_SUCCESS, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.plan_intake, intake);
+        bundle.putString(EventProperties.recipe_id_plan, recipe);
+        bundle.putString(EventProperties.plan_intake_from, from);
+        App.getFAInstance().logEvent(ADD_PLAN_RECIPE_SUCCESS, bundle);
     }
 
     public static void logConnectPlan(String namePlan, String watchPlan, int activeDays) {
@@ -213,6 +258,12 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CONNECT_PLAN_SUCCES, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.diet_plans_choose, convertedNamePlan);
+        bundle.putString(EventProperties.watch_plan, watchPlan);
+        bundle.putInt(EventProperties.active_day, activeDays);
+        App.getFAInstance().logEvent(CONNECT_PLAN_SUCCES, bundle);
     }
 
 
@@ -271,14 +322,24 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CHOOSE_PLAN, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.diet_plans_choose, convertedNamePlan);
+        App.getFAInstance().logEvent(CHOOSE_PLAN, bundle);
     }
 
     public static void logViewArticlesDiet() {
         Amplitude.getInstance().logEvent(SELECT_DIET);
+
+        Bundle bundle = new Bundle();
+        App.getFAInstance().logEvent(SELECT_DIET, bundle);
     }
 
     public static void logViewArticlesTraining() {
         Amplitude.getInstance().logEvent(SELECT_TRAINING);
+
+        Bundle bundle = new Bundle();
+        App.getFAInstance().logEvent(SELECT_TRAINING, bundle);
     }
 
     public static void logAddCustomRecipe(String nameRecipe) {
@@ -288,6 +349,10 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ADD_CUSTOM_RECIPE, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.recipe_id_add, nameRecipe);
+        App.getFAInstance().logEvent(ADD_CUSTOM_RECIPE, bundle);
     }
 
     public static void logSearch(String nameFood) {
@@ -297,6 +362,10 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(SEARCH_SUCCESS, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.search_item, nameFood);
+        App.getFAInstance().logEvent(SEARCH_SUCCESS, bundle);
     }
 
     public static void logDiaryNext(int number) {
@@ -322,6 +391,10 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(DIARY_NEXT, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.add_intake, eating);
+        App.getFAInstance().logEvent(DIARY_NEXT, bundle);
     }
 
     public static void logTrackRevenue(double price) {
@@ -331,6 +404,9 @@ public class Events {
 
     public static void logPurchaseSuccess() {
         Amplitude.getInstance().logEvent(PURCHASE_SUCCESS);
+
+        Bundle bundle = new Bundle();
+        App.getFAInstance().logEvent(PURCHASE_SUCCESS, bundle);
     }
 
     public static void logBillingError(int responseCode) {
@@ -368,32 +444,44 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(TRIAL_ERROR, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.trial_error, eventDecryption);
+        App.getFAInstance().logEvent(TRIAL_ERROR, bundle);
     }
 
     public static void logViewSettings() {
         Amplitude.getInstance().logEvent(VIEW_SETTINGS);
-    }
 
-    public static void logBugSend() {
-        Amplitude.getInstance().logEvent(Events.PRODUCT_PAGE_BUGSEND);
+        Bundle bundle = new Bundle();
+        App.getFAInstance().logEvent(VIEW_SETTINGS, bundle);
     }
 
     public static void logDeleteFood() {
         Amplitude.getInstance().logEvent(DELETE_FOOD);
+
+        Bundle bundle = new Bundle();
+        App.getFAInstance().logEvent(DELETE_FOOD, bundle);
     }
 
     public static void logEditFood() {
         Amplitude.getInstance().logEvent(EDIT_FOOD);
+
+        Bundle bundle = new Bundle();
+        App.getFAInstance().logEvent(EDIT_FOOD, bundle);
     }
 
     public static void logPushButtonReg(String whichButton) {
-        Log.e("LOL", whichButton);
         JSONObject eventProperties = new JSONObject();
         try {
             eventProperties.put(EventProperties.enter_push_button, whichButton);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(REGISTRATION_NEXT, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.enter_push_button, whichButton);
+        App.getFAInstance().logEvent(REGISTRATION_NEXT, bundle);
     }
 
 
@@ -404,6 +492,10 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ONBOARDING_SUCCESS, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.onboarding_success_from, how);
+        App.getFAInstance().logEvent(ONBOARDING_SUCCESS, bundle);
     }
 
     public static void logPushButton(String whichButton, String from) {
@@ -418,10 +510,11 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(PREMIUM_NEXT, eventProperties);
-    }
 
-    public static void logOpenChat() {
-        Amplitude.getInstance().logEvent(INTERCOM_CHAT);
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.push_button, whichButton);
+        bundle.putString(EventProperties.push_button_from, from);
+        App.getFAInstance().logEvent(PREMIUM_NEXT, bundle);
     }
 
 
@@ -433,6 +526,11 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(TRIAL_SUCCESS, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.trial_from, from);
+        bundle.putString(EventProperties.auto_renewal, autoRenewing);
+        App.getFAInstance().logEvent(TRIAL_SUCCESS, bundle);
     }
 
     public static void logNewBuy(String from, String autoRenewing, String id) {
@@ -444,6 +542,12 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(TRIAL_SUCCESS, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.trial_from, from);
+        bundle.putString(EventProperties.auto_renewal, autoRenewing);
+        bundle.putString(EventProperties.purchase_id, id);
+        App.getFAInstance().logEvent(TRIAL_SUCCESS, bundle);
     }
 
     public static void logSetBuyError(String message) {
@@ -453,6 +557,10 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent("settings_error", eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("error", message);
+        App.getFAInstance().logEvent("settings_error", bundle);
     }
 
 
@@ -463,6 +571,10 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(VIEW_PRODUCT_PAGE, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.product_item, id);
+        App.getFAInstance().logEvent(VIEW_PRODUCT_PAGE, bundle);
     }
 
 
@@ -473,6 +585,10 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(PRODUCT_PAGE_FAVORITES, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.favorites, id);
+        App.getFAInstance().logEvent(PRODUCT_PAGE_FAVORITES, bundle);
     }
 
 
@@ -483,6 +599,10 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(FOOD_SEARCH, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(EventProperties.results, count);
+        App.getFAInstance().logEvent(FOOD_SEARCH, bundle);
     }
 
     public static void logCreateCustomFood(String from, String name) {
@@ -493,6 +613,11 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CUSTOM_PRODUCT_SUCCESS, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.product_from, from);
+        bundle.putString(EventProperties.product_id, name);
+        App.getFAInstance().logEvent(CUSTOM_PRODUCT_SUCCESS, bundle);
     }
 
     public static void logViewArticle(String name) {
@@ -502,6 +627,10 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(VIEW_ARTICLES, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.articles_item, name);
+        App.getFAInstance().logEvent(VIEW_ARTICLES, bundle);
     }
 
     public static void logCreateRecipe(String from, String name) {
@@ -512,6 +641,11 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CUSTOM_RECIPE_SUCCESS, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.recipe_from, from);
+        bundle.putString(EventProperties.recipe_id, name);
+        App.getFAInstance().logEvent(CUSTOM_RECIPE_SUCCESS, bundle);
     }
 
     public static void logCreateTemplate(String from, String template_intake, List<Food> foodList) {
@@ -527,6 +661,12 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CUSTOM_TEMPLATE_SUCCESS, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.template_from, from);
+        bundle.putString(EventProperties.template_intake, template_intake);
+        bundle.putString(EventProperties.product_inside, namesLine);
+        App.getFAInstance().logEvent(CUSTOM_TEMPLATE_SUCCESS, bundle);
     }
 
     public static void logAddFood(String food_intake, String food_category, String food_date, String food_item, int kcals, int weight) {
@@ -537,16 +677,21 @@ public class Events {
             eventProperties.put(EventProperties.food_date, food_date);
             eventProperties.put(EventProperties.food_item, food_item);
             eventProperties.put(EventProperties.calorie_value, kcals);
-            eventProperties.put(EventProperties.calorie_value, kcals);
             eventProperties.put(EventProperties.product_weight, weight);
         } catch (JSONException exception) {
         }
 
         Amplitude.getInstance().logEvent(ADD_FOOD_SUCCESS, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.food_intake, food_intake);
+        bundle.putString(EventProperties.food_category, food_category);
+        bundle.putString(EventProperties.food_date, food_date);
+        bundle.putString(EventProperties.food_item, food_item);
+        bundle.putInt(EventProperties.calorie_value, kcals);
+        bundle.putInt(EventProperties.product_weight, weight);
+        App.getFAInstance().logEvent(ADD_FOOD_SUCCESS, bundle);
     }
-
-
-
 
     public static void logViewRecipe(String name) {
         JSONObject eventProperties = new JSONObject();
@@ -556,6 +701,11 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(VIEW_RECIPE, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.recipe_item, name);
+        bundle.putString(EventProperties.diet_plans_choose, EventProperties.diet_plans_without);
+        App.getFAInstance().logEvent(VIEW_RECIPE, bundle);
     }
 
     public static void logAddFavoriteRecipe(String name) {
@@ -565,6 +715,10 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(RECIPE_FAVORITES, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.favorites_recipe, name);
+        App.getFAInstance().logEvent(RECIPE_FAVORITES, bundle);
     }
 
 
@@ -578,6 +732,12 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(RECIPE_ADD_SUCCES, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.recipe_intake, eating);
+        bundle.putString(EventProperties.recipe_id_add, nameRecipe);
+        bundle.putString(EventProperties.diet_plans_choose, EventProperties.diet_plans_without);
+        App.getFAInstance().logEvent(RECIPE_ADD_SUCCES, bundle);
     }
 
     public static void logChoiseRecipeCategory(String categoryName) {
@@ -587,6 +747,10 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(RECIPE_CATEGORY, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.recipe_category, categoryName);
+        App.getFAInstance().logEvent(RECIPE_CATEGORY, bundle);
     }
 
     public static void logMoveOnboard(int page) {
@@ -603,6 +767,10 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ONBOARING_NEXT, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.go_onboard, eventName);
+        App.getFAInstance().logEvent(ONBOARING_NEXT, bundle);
     }
 
     public static void logSkipOnboard(int page) {
@@ -615,24 +783,20 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ONBOARING_SKIP, eventProperties);
+
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.skip_onboard, name);
+        App.getFAInstance().logEvent(ONBOARING_SKIP, bundle);
     }
 
     public static void logOpenPolitic() {
         Amplitude.getInstance().logEvent(REGISRTATION_PRIVACY);
+
+        Bundle bundle = new Bundle();
+        App.getFAInstance().logEvent(REGISRTATION_PRIVACY, bundle);
     }
 
-    public static void logRestorePassword() {
-        Amplitude.getInstance().logEvent(RESEND_SUCCESS);
-    }
-
-    public static void logRegistrationError(String error_type) {
-        JSONObject eventProperties = new JSONObject();
-        try {
-            eventProperties.put(EventProperties.error_type, error_type);
-        } catch (JSONException exception) {
-        }
-        Amplitude.getInstance().logEvent(REGISTRATION_ERROR, eventProperties);
-    }
 
     public static void logRegistration(String typeRegistration) {
         JSONObject eventProperties = new JSONObject();
@@ -641,6 +805,10 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(REGISTRATION_SUCCESS, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.registration, typeRegistration);
+        App.getFAInstance().logEvent(REGISTRATION_SUCCESS, bundle);
     }
 
     public static void logEnter(String typeEnter) {
@@ -650,10 +818,10 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ENTER_SUCCESS, eventProperties);
-    }
 
-    public static void logEnterError() {
-        Amplitude.getInstance().logEvent(ENTER_ERROR);
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.registration, typeEnter);
+        App.getFAInstance().logEvent(ENTER_SUCCESS, bundle);
     }
 
     public static void logMoveQuestions(String page) {
@@ -663,9 +831,16 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(QUESTION_NEXT, eventProperties);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(EventProperties.question, page);
+        App.getFAInstance().logEvent(QUESTION_NEXT, bundle);
     }
 
     public static void logLogout() {
         Amplitude.getInstance().logEvent(PROFILE_LOGOUT);
+
+        Bundle bundle = new Bundle();
+        App.getFAInstance().logEvent(PROFILE_LOGOUT, bundle);
     }
 }
