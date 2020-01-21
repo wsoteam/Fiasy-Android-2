@@ -128,7 +128,7 @@ class TrainingDayDoneFragment : Fragment(R.layout.fragment_training_day_done), O
             bmp?.compress(CompressFormat.JPEG, 90, out)
             out.flush()
             out.close()
-            bmpUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+            bmpUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             FileProvider.getUriForFile(context!!, BuildConfig.APPLICATION_ID + ".provider", file)
             else Uri.fromFile(file)
 
