@@ -124,7 +124,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
             exerciseExecuteTime = 0
             approacheExecute = 1
             exerciseNumber?.text = concat(exerciseExecute.toString(), "/", (trainingDay?.exercises?.size ?: 0).toString())
-            setAnimation(null)
+//            setAnimation(null)
         }
     }
 
@@ -138,7 +138,6 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
         updateProgressBars()
         exerciseExecuteTime += result
 
-//        Log.d("kkk", "result = $result;  exerciseExecuteTime = $exerciseExecuteTime;")
 
         when (from) {
 
@@ -182,6 +181,9 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
                     ?.addToBackStack(fragment.javaClass.simpleName)
                     ?.commit()
         }else {
+            if(approacheExecute >= getExercise()?.approaches ?: 0){
+                setAnimation(exerciseExecute + 1)
+            }
             execute(TYPE_RELAXATION)
         }
     }
