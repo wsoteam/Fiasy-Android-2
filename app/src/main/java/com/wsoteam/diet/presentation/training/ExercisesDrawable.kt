@@ -2,6 +2,8 @@ package com.wsoteam.diet.presentation.training
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.os.Build
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -14,18 +16,18 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.wsoteam.diet.R
 
-class ExercisesDrawable{
-    companion object{
+class ExercisesDrawable {
+    companion object {
 
-        fun setImage(type: String?, context: Context?, imageView: ImageView, progressBar: ProgressBar?): AnimatedVectorDrawableCompat?{
+        fun setImage(type: String?, context: Context?, imageView: ImageView, progressBar: ProgressBar?): AnimatedVectorDrawableCompat? {
             if (context == null) {
                 imageView.setImageResource(R.drawable.white_radius)
                 return null
             }
             progressBar?.visibility = View.VISIBLE
 
-            if(mapGif.containsKey(type)){
 
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N && mapGif.containsKey(type)) {
                 Glide.with(context)
                         .load(mapGif[type])
                         .listener(object : RequestListener<Drawable> {
@@ -40,10 +42,9 @@ class ExercisesDrawable{
                             }
 
                         })
-//                        .thumbnail()
                         .into(imageView)
                 return null
-            } else{
+            } else {
                 try {
                     val animated = AnimatedVectorDrawableCompat.create(context, get(type))
                     animated?.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
@@ -56,15 +57,13 @@ class ExercisesDrawable{
                     animated?.start()
 
                     return animated
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                     return null
                 } finally {
                     progressBar?.visibility = View.INVISIBLE
                 }
-
             }
-
         }
 
         fun get(key: String?): Int = map[key] ?: R.drawable.btn_elements_prem

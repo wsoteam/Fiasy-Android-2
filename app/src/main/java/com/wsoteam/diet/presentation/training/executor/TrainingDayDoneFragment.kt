@@ -50,7 +50,7 @@ class TrainingDayDoneFragment : Fragment(R.layout.fragment_training_day_done), O
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("kkk", "fr created")
+//        Log.d("kkk", "fr created")
 
         continueTraining.setOnClickListener {
             fragmentManager?.popBackStack(TrainingDayFragment::class.java.simpleName, 0)
@@ -109,7 +109,7 @@ class TrainingDayDoneFragment : Fragment(R.layout.fragment_training_day_done), O
 
     private fun shareImageFromURI(uri: Uri?) {
         if(uri == null) return
-        
+
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "image/*"
         intent.putExtra(Intent.EXTRA_STREAM, uri)

@@ -176,7 +176,7 @@ class ExerciseExecutorFragment : Fragment(R.layout.fragment_exercise_executor), 
 
             val fragment = TrainingDayDoneFragment.newInstance(trainingDay, trainingUid)
 
-            Log.d("kkk", "start fr")
+
             fragmentManager?.beginTransaction()
                     ?.replace((view?.parent as ViewGroup).id, fragment)
                     ?.addToBackStack(fragment.javaClass.simpleName)
