@@ -61,7 +61,7 @@
         android:fontFamily="sans-serif-medium"
         android:lineSpacingExtra="4sp"
         android:textColor="#f49231"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
