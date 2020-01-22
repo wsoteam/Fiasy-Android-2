@@ -18,6 +18,7 @@ data class Training(
         var uid: String? = "",
         var name: String? = "",
         var url: String? = "",
+        var event_tag: String? = "",
         var days: MutableMap<String, TrainingDay>? = mutableMapOf()
 ) : Parcelable
 

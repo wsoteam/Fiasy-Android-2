@@ -4,6 +4,7 @@ package com.wsoteam.diet.presentation.training.training
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils.concat
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import com.squareup.picasso.Picasso
@@ -69,7 +70,7 @@ class TrainingBlockedFragment : Fragment(R.layout.fragment_training_blocked), On
         box.isOpenFromPremPart = true
         box.isOpenFromIntrodaction = false
         box.comeFrom = AmplitudaEvents.view_prem_content
-        box.buyFrom = EventProperties.trial_from_exercises
+        box.buyFrom = training?.event_tag ?: EventProperties.trial_from_exercises
         val intent = Intent(context, ActivitySubscription::class.java).putExtra(Config.TAG_BOX, box)
         startActivity(intent)
     }
