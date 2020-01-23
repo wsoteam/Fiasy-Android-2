@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
     <uses-permission android:name="com.android.vending.BILLING" />
@@ -28,12 +28,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.teach.TeachActivity"
+        <activity android:name=".presentation.starvation.StarvationSettingsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TeachDialog.TransparentActivity"/>
-        <activity android:name=".presentation.training.TrainingActivity"
+            android:theme="@style/DetailFood"/>
+
+
+        <activity
+            android:name=".presentation.teach.TeachActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Article"/>
+            android:theme="@style/TeachDialog.TransparentActivity" />
+        <activity
+            android:name=".presentation.training.TrainingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Article" />
         <activity
             android:name=".articles.ArticleSeriesActivity"
             android:screenOrientation="portrait"
@@ -171,13 +178,11 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/PremiumActivity" />
-
         <activity
             android:name=".presentation.premium.AnastasiaStoryFragment"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/PremiumActivity" />
-
         <activity
             android:name=".presentation.premium.WheelFortuneActivity"
             android:exported="true"
@@ -347,7 +352,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
     </application>
 
