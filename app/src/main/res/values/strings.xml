@@ -1182,10 +1182,61 @@ Share your accomplishments with friends:</string>
     <string name="wheel_fortune_title">Испытай удачу!</string>
     <string name="wheel_fortune_txt">Получи скидку</string>
     <string name="wheel_fortune_start">Старт</string>
-    
+
     <string name="fiasy_discount_title">Поздравляем!</string>
     <string name="fiasy_discount_txt">Вы выиграли скидку</string>
     <string name="fiasy_discount_fifty">50%</string>
     <string name="fiasy_discount_for_fiasy">на Fiasy Premium</string>
 
+    <string name="img">img</string>
+
+    <string name="training_progress">Выполнено %d/%d</string>
+    <string name="training_toolbar_title">Тренировки</string>
+
+    <string name="training_blocked_txt">Оформи подписку и получи доступ к готовым планам тренировок</string>
+
+    <plurals name="exercises">
+        <item quantity="one">упражнение</item>
+        <item quantity="few">упражнения</item>
+        <item quantity="many">упражнений</item>
+        <item quantity="other">упражнений</item>
+    </plurals>
+
+    <string name="exercises_alert_title">Вы не закончили тренировку.</string>
+    <string name="exercises_alert_txt">Хотите продолжить тренировку или начать сначала?</string>
+    <string name="exercises_alert_continue">Продолжить</string>
+    <string name="exercises_alert_start">Начать сначала</string>
+    <string name="training_start">Начать тренировку</string>
+
+    <string name="training_prepare">Приготовьтесь</string>
+    <string name="training_relaxation">Отдых</string>
+
+
+    <string name="repeat_training">Повторить тренировку</string>
+    <string name="training_day">день</string>
+
+    <string name="training_exercise">Упражнений</string>
+    <string name="training_duration">Длительность</string>
+    <string name="training_done">Выполнено</string>
+
+    <string name="relax">Отдых</string>
+
+    <plurals name="repetition">
+        <item quantity="one">повторение</item>
+        <item quantity="few">повторения</item>
+        <item quantity="many">повторений</item>
+        <item quantity="other">повторений</item>
+    </plurals>
+
+    <string name="training_time_min">мин.</string>
+
+    <plurals name="circle">
+        <item quantity="one">круг</item>
+        <item quantity="few">круга</item>
+        <item quantity="many">кругов</item>
+        <item quantity="other">кругов</item>
+    </plurals>
+
+    <string name="exercise_alert_txt">Вы хотите покинуть тренировку без завершения?</string>
+    <string name="exercises_round_number">Круг</string>
 </resources>

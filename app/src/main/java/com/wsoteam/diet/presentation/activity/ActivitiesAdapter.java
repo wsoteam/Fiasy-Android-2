@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -27,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.presentation.training.TrainingActivity;
 import com.wsoteam.diet.utils.Metrics;
 import com.wsoteam.diet.utils.RichTextUtils;
 import com.wsoteam.diet.utils.ViewsExtKt;
@@ -41,16 +44,21 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
   final static int VIEW_TYPE_ACTIVITY = R.layout.item_user_activity_view;
   final static int VIEW_TYPE_HEADER = R.layout.item_activity_section_header;
   final static int VIEW_TYPE_EMPTY_VIEW = R.layout.item_activity_empty_section;
+  final static int VIEW_TYPE_TRAINING_BANNER = R.layout.item_training_banner;
 
   private final static int INTERACTION_SECTION_CLICK = 0;
   private final static int INTERACTION_ITEM_CLICK = 1;
   private final static int INTERACTION_ITEM_OVERFLOW_CLICK = 2;
+  private final static int INTERACTION_ITEM_BANNER_CLICK = 3;
 
   // utility for headers
   private int headers = 0;
 
   // search row index
   private final int searchRow = headers++;
+
+  // banner index
+  private final int banner = headers++;
 
   // search row included immediately
   private int total = headers;
@@ -60,6 +68,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
   private final List<AdapterItemsClickListener> clickListeners = new ArrayList<>();
 
   private OnSearchQueryChanged searchListener;
+  private View.OnClickListener bannerListener;
 
   private RecyclerView attachedRoot;
 
@@ -97,6 +106,10 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     return attachedRoot.getContext();
   }
 
+  public void setBannerListener(View.OnClickListener listener){
+    this.bannerListener = listener;
+  }
+
   /**
    * Attach listener to listen for search events
    *
@@ -130,6 +143,11 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
   public void dispatchInteractionEvent(RecyclerView.ViewHolder view, int interactionType) {
     if (clickListeners.isEmpty()) {
       return;
+    }
+
+    if (interactionType == INTERACTION_ITEM_BANNER_CLICK && bannerListener != null){
+        bannerListener.onClick(view.itemView);
+        return;
     }
 
     final Section section = getSectionAt(view.getAdapterPosition() - headers);
@@ -491,6 +509,8 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
       return new SearchView(target);
     } else if (viewType == VIEW_TYPE_EMPTY_VIEW) {
       return new EmptyView(target);
+    } else if (viewType == VIEW_TYPE_TRAINING_BANNER){
+      return new BannerView(target);
     }
 
     return null;
@@ -499,6 +519,10 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
   @Override public int getItemViewType(int position) {
     if (position == searchRow) {
       return VIEW_TYPE_SEARCH;
+    }
+
+    if (position == banner){
+      return VIEW_TYPE_TRAINING_BANNER;
     }
 
     position = position - headers;
@@ -564,6 +588,8 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         dispatchInteractionEvent(holder, INTERACTION_SECTION_CLICK);
       } else if (holder instanceof UserActivityView) {
         dispatchInteractionEvent(holder, INTERACTION_ITEM_CLICK);
+      } else if (holder instanceof BannerView){
+        dispatchInteractionEvent(holder, INTERACTION_ITEM_BANNER_CLICK);
       }
     });
 
@@ -677,6 +703,13 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
       } else {
         icon.setRotation(180);
       }
+    }
+  }
+
+  static class BannerView extends RecyclerView.ViewHolder{
+
+    public BannerView(@NonNull View itemView) {
+      super(itemView);
     }
   }
 

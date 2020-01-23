@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
 import androidx.room.Room;
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
 import com.amplitude.api.Amplitude;
+import com.bugsee.library.Bugsee;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.FirebaseDatabase;
@@ -46,8 +49,8 @@ public class App extends MultiDexApplication {
         FirebaseApp.initializeApp(this);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-        //Bugsee.launch(this, "ec43078d-e5d9-4e97-9912-4f293e315bdf");
-
+        Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         FirebaseRemoteConfig.getInstance().setDefaults(new HashMap<String, Object>() {{
             put("premium_theme", "dark");
             put("premium_with_trial", true);
@@ -85,7 +88,7 @@ public class App extends MultiDexApplication {
         if (setupOnDemand) {
             setupOnDemand = false;
 
-            //Bugsee.launch(this, "ec43078d-e5d9-4e97-9912-4f293e315bdf");
+            Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
 
             Adjust.onCreate(new AdjustConfig(this, app_token, ENVIRONMENT_PRODUCTION));
             registerActivityLifecycleCallbacks(new AdjustLifecycleCallbacks());

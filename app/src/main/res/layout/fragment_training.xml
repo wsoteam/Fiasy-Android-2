@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.wsoteam.diet.presentation.training.training.TrainingFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/training_toolbar_title"
+        app:titleTextColor="@color/toolbar_title"
+        android:backgroundTint="@android:color/white"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ImageView
+        android:id="@+id/imageView97"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/advanced_scissor_kicks"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/trainingRV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white" />
+
+
+</LinearLayout>

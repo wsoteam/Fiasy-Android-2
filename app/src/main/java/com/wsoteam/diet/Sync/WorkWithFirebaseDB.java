@@ -1,11 +1,12 @@
 package com.wsoteam.diet.Sync;
 
 import androidx.annotation.NonNull;
+
 import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,10 +44,13 @@ import com.wsoteam.diet.presentation.measurment.POJO.Hips;
 import com.wsoteam.diet.presentation.measurment.POJO.Waist;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 
-import com.wsoteam.diet.utils.FirebaseExtKt;
+import com.wsoteam.diet.presentation.training.Prefix;
+
 import com.wsoteam.diet.utils.RxFirebase;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
+
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -547,5 +551,32 @@ public class WorkWithFirebaseDB {
         grade.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
         String key = myRef.push().getKey();
         myRef.child(key).setValue(grade);
+    }
+
+
+
+    public static void saveExerciseProgress(String trainingsUid, int day, int exercise, long time){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("USER_LIST")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("trainings")
+                .child(trainingsUid)
+                .child("days")
+                .child(Prefix.day + day)
+                .child(Prefix.exercises + exercise);
+        Log.d("kkk", trainingsUid + "  " + day + "  "+ exercise + "  " + time + " " + FirebaseAuth.getInstance().getCurrentUser().getUid());
+        myRef.setValue(time);
+    }
+
+    public static void setFinishedDaysProgress(String trainingsUid, int finishedDays){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("USER_LIST")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("trainings")
+                .child(trainingsUid);
+
+        Log.d("kkk", trainingsUid + "  " +finishedDays);
+        myRef.child("finishedDays").setValue(finishedDays);
+//        myRef.child("timestamp").setValue(Calendar.getInstance().getTimeInMillis());
     }
 }

@@ -1,0 +1,132 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.wsoteam.diet.presentation.training.dialog.ExercisesDialogFragment">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="308dp"
+        android:layout_height="329dp"
+        android:layout_gravity="center">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="11dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_cancel" />
+
+            <View
+                android:id="@+id/view7"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:background="@color/active_drop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/exercisesAnimation"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/close"
+                tools:src="@tools:sample/avatars[11]" />
+
+            <TextView
+                android:id="@+id/nameEx"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:lineSpacingExtra="4sp"
+                android:text="Внутренние подъемы бедра"
+                android:textAlignment="center"
+                android:textColor="#c0000000"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toTopOf="@+id/view7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/exercisesAnimation"
+                tools:text="Внутренние подъемы бедра" />
+
+            <ImageView
+                android:id="@+id/goRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="22dp"
+                android:src="@drawable/ic_go_righ"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/view7"
+                app:layout_constraintTop_toTopOf="@+id/view7" />
+
+            <ImageView
+                android:id="@+id/goLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:src="@drawable/ic_go_left"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/view7" />
+
+            <TextView
+                android:id="@+id/currentEx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:gravity="bottom"
+                app:layout_constraintBottom_toBottomOf="@+id/view7"
+                app:layout_constraintEnd_toStartOf="@+id/totalEx"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@+id/goLeft"
+                app:layout_constraintTop_toTopOf="@+id/view7"
+                app:layout_constraintVertical_bias="1.0"
+                tools:text="1" />
+
+            <TextView
+                android:id="@+id/totalEx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@android:color/white"
+                android:gravity="bottom"
+                app:layout_constraintBottom_toBottomOf="@+id/view7"
+                app:layout_constraintEnd_toStartOf="@+id/goRight"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/currentEx"
+                app:layout_constraintTop_toTopOf="@+id/view7"
+                app:layout_constraintVertical_bias="1.0"
+                tools:text="/6" />
+
+            <ProgressBar
+                android:id="@+id/progressBarExercise"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:indeterminateDrawable="@drawable/spinner"
+                android:indeterminateOnly="true"
+                app:layout_constraintBottom_toBottomOf="@+id/exercisesAnimation"
+                app:layout_constraintEnd_toEndOf="@+id/exercisesAnimation"
+                app:layout_constraintStart_toStartOf="@+id/exercisesAnimation"
+                app:layout_constraintTop_toTopOf="@+id/exercisesAnimation" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</FrameLayout>
