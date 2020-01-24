@@ -1242,6 +1242,7 @@ Share your accomplishments with friends:</string>
 
     <string name="starvation_title">16:8 Голодание</string>
     <string name="starvition_start">начать</string>
+    <string name="starvation_select">Выбрать</string>
 
     <string name="starvition_time">Время приема пищи?</string>
     <string name="starvition_days">Выберите дни голодания:</string>
@@ -1254,5 +1255,17 @@ Share your accomplishments with friends:</string>
     <string name="friday_f">Пятница</string>
     <string name="saturday_f">Суббота</string>
     <string name="sunday_f">Воскресенье</string>
+
+    <string-array name="days_week">
+        <item>@string/sunday_f</item>
+        <item>@string/monday_f</item>
+        <item>@string/tuesday_f</item>
+        <item>@string/wednesday_f</item>
+        <item>@string/thursday_f</item>
+        <item>@string/friday_f</item>
+        <item>@string/saturday_f</item>
+    </string-array>
+
+    <string name="starvation_all_days">Ежедневно</string>
 
 </resources>
