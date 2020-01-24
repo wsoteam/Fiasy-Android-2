@@ -382,4 +382,9 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
+    <style name="StarvationCheckBox" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:colorControlNormal">#80f2994a</item>
+        <item name="android:colorControlActivated">#f2994a</item>
+    </style>
+
 </resources>

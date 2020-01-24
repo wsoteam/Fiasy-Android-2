@@ -33,10 +33,10 @@
                 android:id="@+id/imageView98"
                 android:layout_width="234dp"
                 android:layout_height="120dp"
-                android:src="@drawable/img_starvation_start"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/starvationTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/starvationTitle"
+                app:srcCompat="@drawable/img_starvation_start" />
 
             <TextView
                 android:id="@+id/textBtn"
