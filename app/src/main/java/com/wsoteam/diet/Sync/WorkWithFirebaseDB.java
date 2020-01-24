@@ -44,6 +44,7 @@ import com.wsoteam.diet.presentation.measurment.POJO.Hips;
 import com.wsoteam.diet.presentation.measurment.POJO.Waist;
 import com.wsoteam.diet.presentation.measurment.POJO.Weight;
 
+import com.wsoteam.diet.presentation.starvation.Starvation;
 import com.wsoteam.diet.presentation.training.Prefix;
 
 import com.wsoteam.diet.utils.RxFirebase;
@@ -52,6 +53,7 @@ import io.reactivex.Single;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -578,5 +580,22 @@ public class WorkWithFirebaseDB {
         Log.d("kkk", trainingsUid + "  " +finishedDays);
         myRef.child("finishedDays").setValue(finishedDays);
 //        myRef.child("timestamp").setValue(Calendar.getInstance().getTimeInMillis());
+    }
+
+    public static void setStarvationDays(List<Integer> days){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("USER_LIST")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("starvation")
+                .child("days");
+        myRef.setValue(days);
+    }
+    public static void setStarvationTimeMillis(Long timeMillis){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("USER_LIST")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("starvation")
+                .child("timeMillis");
+        myRef.setValue(timeMillis);
     }
 }

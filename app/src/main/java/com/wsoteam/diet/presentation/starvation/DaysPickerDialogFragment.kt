@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import kotlinx.android.synthetic.main.fragment_days_picker_dialog.*
-
+import java.util.*
 
 
 class DaysPickerDialogFragment : DialogFragment() {
@@ -32,10 +33,16 @@ class DaysPickerDialogFragment : DialogFragment() {
     private var _style = STYLE_NO_TITLE
     private var _theme = R.style.FullScreenDialog_NoStatusBar
 
+    private val starvationDays = mutableSetOf<Int>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(_style, _theme)
+        StarvationViewModel.getStarvation().observe(this, Observer {
+            starvationDays.clear()
+            it.days?.forEach { d -> starvationDays.add(d) }
+        })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +61,7 @@ class DaysPickerDialogFragment : DialogFragment() {
 
         ok.setOnClickListener {
 
-            WorkWithFirebaseDB.setStarvation(Starvation(timeMillis = 9999, days = mutableListOf(1,2,7)))
+            WorkWithFirebaseDB.setStarvationDays(mutableListOf(1, 5, 6, 7))
         }
 
         checkBoxMonday.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -83,5 +90,14 @@ class DaysPickerDialogFragment : DialogFragment() {
 
         }
 
+    }
+
+    private fun upadteUi(){
+        starvationDays.forEach { d ->
+            when(d){
+                Calendar.MONDAY -> checkBoxMonday.isEnabled = true
+                Calendar.TUESDAY -> checkBoxTuesday.isEnabled = true
+            }
+        }
     }
 }
