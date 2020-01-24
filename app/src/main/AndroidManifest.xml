@@ -30,7 +30,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".presentation.starvation.StarvationSettingsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/DetailFood"/>
+            android:theme="@style/ProfileActivity"/>
 
 
         <activity
