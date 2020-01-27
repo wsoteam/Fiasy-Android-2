@@ -1271,8 +1271,8 @@ Share your accomplishments with friends:</string>
 
     <string name="starvation_on">Сейчас идет голодание</string>
     <string name="starvation_off">Сейчас идет прием пищи</string>
-    <string name="starvation_on_subtitle">Прием пищи закончится через:</string>
-    <string name="starvation_off_subtitle">Период голодания закончится через:</string>
+    <string name="starvation_off_subtitle">Прием пищи закончится через:</string>
+    <string name="starvation_on_subtitle">Период голодания закончится через:</string>
 
     <string name="hours_short">ч.</string>
     <string name="minutes_short">мин.</string>
