@@ -16,11 +16,9 @@ import java.util.concurrent.TimeUnit
 import kotlin.time.ExperimentalTime
 
 
-
 class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activated) {
 
-    private val millisInDay = 86400_000L
-    private val starvationHours = 1
+    private val starvationHours = 8
 
     private val timeFormat = "%02d"
 
@@ -52,7 +50,7 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
 
     }
 
-    private fun check(){
+    private fun check() {
         Log.d("kkk", "check")
 
         val starvationMillis = StarvationViewModel.getStarvation().value?.timeMillis ?: 0
@@ -72,22 +70,22 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
 //        endStarvation.add(Calendar.MINUTE, -1)
 //
 
-        if(current.after(startStarvation) && current.before(endStarvation)){
+        if (current.after(startStarvation) && current.before(endStarvation)) {
             Log.d("kkk", "if TRUE starvation time")
             starvationStatus.text = getString(R.string.starvation_on)
             subTile.text = getString(R.string.starvation_on_subtitle)
 
             setTimeTo(endStarvation)
 
-        } else{
+        } else {
             Log.d("kkk", "if FALSE starvation time")
 
-            for (i in 1..7){
-                if (starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))){
+            for (i in 1..7) {
+
+                startStarvation.add(Calendar.DAY_OF_WEEK, 1)
+                endStarvation.add(Calendar.DAY_OF_WEEK, 1)
+                if (starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) {
                     break
-                }else{
-                    startStarvation.add(Calendar.DAY_OF_WEEK, 1)
-                    endStarvation.add(Calendar.DAY_OF_WEEK, 1)
                 }
             }
 
@@ -101,7 +99,7 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
         Log.d("kkk", "${endStarvation.time}")
     }
 
-    private fun setTimeTo(calendar: Calendar){
+    private fun setTimeTo(calendar: Calendar) {
         val time = calendar.timeInMillis - System.currentTimeMillis()
         hour.text = timeFormat.format(TimeUnit.MILLISECONDS.toHours(time))
         minute.text = timeFormat.format(Util.getMinutes(time))

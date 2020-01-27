@@ -7,15 +7,20 @@ import android.view.View
 import com.wsoteam.diet.R
 import kotlinx.android.synthetic.main.fragment_starvation_settings.*
 import android.app.TimePickerDialog
+import android.graphics.Color
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import java.text.SimpleDateFormat
 import java.util.*
+
+import androidx.core.graphics.drawable.DrawableCompat
 
 
 class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_settings) {
 
     private lateinit var daysWeek: List<String>
+    private var isStart = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +32,11 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        start.setOnClickListener {
+            isStart = true
+            activity?.onBackPressed()
+        }
 
         days.setOnClickListener {
             DaysPickerDialogFragment.show(fragmentManager)
@@ -88,5 +98,25 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
                 days.text = dayResult
             }
         }
+
+        val buttonDrawable = DrawableCompat.wrap(start.background)
+
+        if(starvation.timeMillis > 0 && daysList.size > 0){
+            DrawableCompat.setTint(buttonDrawable,Color.parseColor("#ef7d02"))
+            start.isClickable = true
+
+        }else{
+            DrawableCompat.setTint(buttonDrawable,Color.parseColor("#acacac"))
+            start.isClickable = false
+        }
+        start.background = buttonDrawable
+    }
+
+    override fun onPause() {
+        if (!isStart) {
+            (StarvationViewModel.getStarvation() as MutableLiveData).value = Starvation()
+            WorkWithFirebaseDB.deleteStarvation()
+        }
+        super.onPause()
     }
 }

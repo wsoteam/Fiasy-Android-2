@@ -40,15 +40,15 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
         super.onViewCreated(view, savedInstanceState)
 
         textBtn.setOnClickListener {
-           startActivity(Intent(context, StarvationSettingsActivity::class.java))
-            Log.d("kkk", "${Util.timeToMillis(24,0, 0)}")
+            startActivity(Intent(context, StarvationSettingsActivity::class.java))
+            Log.d("kkk", "${Util.timeToMillis(24, 0, 0)}")
         }
 
         StarvationViewModel.getStarvation().observe(this, Observer {
-            if(it.timeMillis  >= 0){
+            if (it.timeMillis >= 0) {
                 starvationNotActivated.visibility = View.GONE
                 starvationActivatedL.visibility = View.VISIBLE
-            }else{
+            } else {
                 starvationNotActivated.visibility = View.VISIBLE
                 starvationActivatedL.visibility = View.GONE
             }
