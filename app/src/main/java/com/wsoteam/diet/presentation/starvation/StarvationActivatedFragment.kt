@@ -51,7 +51,6 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
     }
 
     private fun check() {
-        Log.d("kkk", "check")
 
         val starvationMillis = StarvationViewModel.getStarvation().value?.timeMillis ?: 0
         val starvationDays = StarvationViewModel.getStarvation().value?.days ?: mutableListOf()
@@ -68,30 +67,36 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
         endStarvation.set(Calendar.MINUTE, Util.getMinutes(starvationMillis).toInt())
         endStarvation.add(Calendar.HOUR_OF_DAY, starvationHours)
 //        endStarvation.add(Calendar.MINUTE, -1)
-//
 
-        if (current.after(startStarvation) && current.before(endStarvation)) {
+
+        if (current.after(startStarvation) && current.before(endStarvation) && starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) {
             Log.d("kkk", "if TRUE starvation time")
             starvationStatus.text = getString(R.string.starvation_on)
             subTile.text = getString(R.string.starvation_on_subtitle)
 
             setTimeTo(endStarvation)
 
-        } else {
-            Log.d("kkk", "if FALSE starvation time")
-
-            for (i in 1..7) {
-
-                startStarvation.add(Calendar.DAY_OF_WEEK, 1)
-                endStarvation.add(Calendar.DAY_OF_WEEK, 1)
-                if (starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) {
-                    break
-                }
-            }
-
+        } else if(current.before(startStarvation) && starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) {
             starvationStatus.text = getString(R.string.starvation_off)
             subTile.text = getString(R.string.starvation_off_subtitle)
             setTimeTo(startStarvation)
+
+        }else{
+                Log.d("kkk", "if FALSE starvation time")
+
+                for (i in 1..7) {
+
+                    startStarvation.add(Calendar.DAY_OF_WEEK, 1)
+                    endStarvation.add(Calendar.DAY_OF_WEEK, 1)
+                    if (starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) {
+                        break
+                    }
+                }
+
+                starvationStatus.text = getString(R.string.starvation_off)
+                subTile.text = getString(R.string.starvation_off_subtitle)
+                setTimeTo(startStarvation)
+
         }
 
         Log.d("kkk", "${current.time}")
