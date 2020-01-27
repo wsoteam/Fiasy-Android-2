@@ -600,4 +600,12 @@ public class WorkWithFirebaseDB {
                 .child("timeMillis");
         myRef.setValue(timeMillis);
     }
+    public static void deleteStarvation(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("USER_LIST")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("starvation");
+        myRef.removeValue();
+    }
+
 }

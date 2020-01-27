@@ -41,6 +41,7 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
 
         textBtn.setOnClickListener {
            startActivity(Intent(context, StarvationSettingsActivity::class.java))
+            Log.d("kkk", "${Util.timeToMillis(24,0, 0)}")
         }
 
         StarvationViewModel.getStarvation().observe(this, Observer {
