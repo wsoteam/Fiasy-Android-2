@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.wsoteam.diet.R
@@ -27,9 +28,10 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
 
             override fun onDataChange(p0: DataSnapshot) {
                 val starvation: Starvation? = p0.getValue(Starvation::class.java)
-                if (starvation != null) Log.d("kkk", "time - ${starvation.timeMillis}; days - ${starvation.days}")
-                (StarvationViewModel.getStarvation() as MutableLiveData).value = starvation
-
+                if (starvation != null) {
+                    Log.d("kkk", "time - ${starvation.timeMillis}; days - ${starvation.days}; uid - ${FirebaseAuth.getInstance().currentUser!!.uid}")
+                    (StarvationViewModel.getStarvation() as MutableLiveData).value = starvation
+                }
             }
         })
     }
@@ -41,5 +43,15 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
            startActivity(Intent(context, StarvationSettingsActivity::class.java))
         }
 
+        StarvationViewModel.getStarvation().observe(this, Observer {
+            if(it.timeMillis  >= 0){
+                starvationNotActivated.visibility = View.GONE
+                starvationActivatedL.visibility = View.VISIBLE
+            }else{
+                starvationNotActivated.visibility = View.VISIBLE
+                starvationActivatedL.visibility = View.GONE
+            }
+        })
     }
+
 }

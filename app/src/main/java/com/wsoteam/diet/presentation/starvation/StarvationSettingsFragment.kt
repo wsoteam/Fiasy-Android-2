@@ -44,8 +44,10 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, minute)
             time.text = SimpleDateFormat("HH:mm").format(cal.time)
-            WorkWithFirebaseDB.setStarvationTime(hour, minute)
-            Log.d("kkk", "time - ${cal.time} \nSimpleDateFormat - ${SimpleDateFormat("HH:mm").format(cal.time)}")
+            WorkWithFirebaseDB.setStarvationTimeMillis(Util.timeToMillis(hour.toLong(), minute.toLong(), 0 ))
+            val millis = Util.timeToMillis(hour.toLong(), minute.toLong(), 0 )
+            Log.d("kkk", "millis - ${millis}; hours - ${Util.getHours(millis)}; minutes - ${Util.getMinutes(millis)}; seconds - ${Util.getSeconds(millis )}")
+//            Log.d("kkk", "time - ${cal.time} \nSimpleDateFormat - ${SimpleDateFormat("HH:mm").format(cal.time)}")
 
         }
         TimePickerDialog(context, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
@@ -57,12 +59,12 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
         val dayResult = StringBuffer()
         val daysList = starvation.days.toMutableList()
 
-        if (starvation.hour < 0 || starvation.minute < 0){
+        if (starvation.timeMillis < 0 ){
             time.text = getString(R.string.starvation_select)
         }else{
             val cal = Calendar.getInstance()
-                cal.set(Calendar.HOUR_OF_DAY, starvation.hour)
-                cal.set(Calendar.MINUTE, starvation.minute)
+                cal.set(Calendar.HOUR_OF_DAY, Util.getHours(starvation.timeMillis).toInt())
+                cal.set(Calendar.MINUTE, Util.getMinutes(starvation.timeMillis).toInt())
                 time.text = SimpleDateFormat("HH:mm").format(cal.time)
         }
 

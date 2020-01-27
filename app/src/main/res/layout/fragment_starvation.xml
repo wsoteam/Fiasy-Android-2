@@ -9,53 +9,75 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="200dp">
 
-            <TextView
-                android:id="@+id/starvationTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="14dp"
-                android:fontFamily="sans-serif-medium"
-                android:lineSpacingExtra="4.5sp"
-                android:text="@string/starvation_title"
-                android:textColor="#c0000000"
-                android:textSize="18sp"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <FrameLayout
+                android:id="@+id/starvationActivatedL"
+                android:layout_width="match_parent"
+                android:background="@android:color/white"
+                android:layout_height="200dp">
 
-            <ImageView
-                android:id="@+id/imageView98"
-                android:layout_width="234dp"
-                android:layout_height="120dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/starvationTitle"
-                app:srcCompat="@drawable/img_starvation_start" />
+                <fragment
+                    android:id="@+id/starvationActivated"
+                    android:name="com.wsoteam.diet.presentation.starvation.StarvationActivatedFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+            </FrameLayout>
 
-            <TextView
-                android:id="@+id/textBtn"
-                android:layout_width="100dp"
-                android:layout_height="0dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:lineSpacingExtra="4sp"
-                android:text="@string/starvition_start"
-                android:textColor="#f49231"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:clickable="true"
-                android:focusable="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView98"
-                tools:text="начать" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/starvationNotActivated"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <TextView
+                    android:id="@+id/starvationTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:lineSpacingExtra="4.5sp"
+                    android:text="@string/starvation_title"
+                    android:textColor="#c0000000"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView98"
+                    android:layout_width="234dp"
+                    android:layout_height="120dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/starvationTitle"
+                    app:srcCompat="@drawable/img_starvation_start" />
+
+                <TextView
+                    android:id="@+id/textBtn"
+                    android:layout_width="100dp"
+                    android:layout_height="0dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:lineSpacingExtra="4sp"
+                    android:text="@string/starvation_start"
+                    android:textColor="#f49231"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView98"
+                    tools:text="начать" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+
     </androidx.cardview.widget.CardView>
 </FrameLayout>

@@ -591,14 +591,6 @@ public class WorkWithFirebaseDB {
         myRef.setValue(days);
     }
 
-    public static void setStarvationTime(int hour, int minute){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("USER_LIST")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("starvation");
-        myRef.child("hour").setValue(hour);
-        myRef.child("minute").setValue(minute);
-    }
 
     public static void setStarvationTimeMillis(Long timeMillis){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
