@@ -384,12 +384,9 @@ public class ActivitySplash extends BaseActivity {
   private void setABTestConfig(String responseString) {
     Identify abStatus = new Identify().set(ABConfig.AB_VERSION, responseString);
     Amplitude.getInstance().identify(abStatus);
-    /*getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
-        edit().putString(ABConfig.KEY_FOR_SAVE_STATE, responseString).
-        apply();*/
     getSharedPreferences(ABConfig.KEY_FOR_SAVE_STATE, MODE_PRIVATE).
-            edit().putString(ABConfig.KEY_FOR_SAVE_STATE, "trial_stat_long_result_2k").
-            apply();
+        edit().putString(ABConfig.KEY_FOR_SAVE_STATE, responseString).
+        apply();
     ABLiveData.getInstance().setData(responseString);
   }
 
