@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.wsoteam.diet.R
+import com.wsoteam.diet.utils.Subscription
 
 import kotlinx.android.synthetic.main.fragment_starvation.*
 
@@ -40,7 +41,13 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
         super.onViewCreated(view, savedInstanceState)
 
         textBtn.setOnClickListener {
-            startActivity(Intent(context, StarvationSettingsActivity::class.java))
+
+            if(Subscription.check(context)){
+                startActivity(Intent(context, StarvationSettingsActivity::class.java))
+            }else{
+                BlockedStarvationDialogFragment.show(fragmentManager)
+            }
+
             Log.d("kkk", "${Util.timeToMillis(24, 0, 0)}")
         }
 

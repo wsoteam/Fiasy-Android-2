@@ -1280,5 +1280,11 @@ Share your accomplishments with friends:</string>
 
     <string name="starvation_exit">Выйти</string>
     <string name="starvation_alert_txt">Вы действительно не хотите учавствовать в испытании?</string>
+    <string name="starvation">Голодание</string>
+
+    <string name="starvation_blocked_title">16-часовое голодание</string>
+    <string name="starvation_blocked_part1">Простой и действенный способ сбросить лишние килограммы. Данный метод голодания предлагает всего-лишь отказаться от завтрака или ужина и тем самым сократить объем потребляемых калорий, запустив процессы жиросжигания.</string>
+    <string name="starvation_blocked_part2">Оформите подписку PREMIUM и активируйте функцию автоматического отсчета, которая все будет делать за вас!</string>
+    <string name="starvation_blocked_buy">Оформить</string>
 
 </resources>
