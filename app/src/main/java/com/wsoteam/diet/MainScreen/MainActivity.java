@@ -325,7 +325,6 @@ public class MainActivity extends AppCompatActivity {
       fab.hide();
     }
 
-    startActivity(new Intent(this, GraphPrePremium.class));
   }
 
   @Override protected void onDestroy() {

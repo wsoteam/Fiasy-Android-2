@@ -99,7 +99,7 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/btnBuyPrem"
+            android:id="@+id/btnNext"
             android:layout_width="134dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"

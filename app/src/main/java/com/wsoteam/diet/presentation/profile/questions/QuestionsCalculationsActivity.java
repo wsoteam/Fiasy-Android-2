@@ -26,6 +26,7 @@ import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.UserProperty;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.presentation.premium.AnastasiaStoryFragment;
+import com.wsoteam.diet.presentation.premium.GraphPrePremium;
 import com.wsoteam.diet.presentation.premium.WheelFortuneActivity;
 import com.wsoteam.diet.utils.NetworkService;
 
@@ -170,6 +171,9 @@ public class QuestionsCalculationsActivity extends AppCompatActivity {
       case ABConfig.G:
       case ABConfig.H:
         intent = new Intent(this, WheelFortuneActivity.class);
+        break;
+      case ABConfig.I:
+        intent = new Intent(this, GraphPrePremium.class);
         break;
     }
     intent.putExtra(Config.TAG_BOX, box);

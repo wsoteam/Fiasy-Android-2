@@ -15,6 +15,7 @@ import com.wsoteam.diet.InApp.bigtest.FragmentD;
 import com.wsoteam.diet.InApp.bigtest.FragmentF;
 import com.wsoteam.diet.InApp.bigtest.FragmentG;
 import com.wsoteam.diet.InApp.bigtest.FragmentH;
+import com.wsoteam.diet.InApp.bigtest.FragmentI;
 import com.wsoteam.diet.R;
 
 public class ActivitySubscription extends AppCompatActivity {
@@ -30,6 +31,7 @@ public class ActivitySubscription extends AppCompatActivity {
     box = (Box) getIntent().getSerializableExtra(Config.TAG_BOX);
 
     switch (abVersion) {
+      default:
       case ABConfig.A:
         getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
             FragmentA.newInstance(box)).commit();
@@ -61,6 +63,10 @@ public class ActivitySubscription extends AppCompatActivity {
       case ABConfig.H:
         getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
             FragmentH.newInstance(box)).commit();
+        break;
+      case ABConfig.I:
+        getSupportFragmentManager().beginTransaction().add(R.id.clContainer,
+                FragmentI.newInstance(box)).commit();
         break;
     }
 
