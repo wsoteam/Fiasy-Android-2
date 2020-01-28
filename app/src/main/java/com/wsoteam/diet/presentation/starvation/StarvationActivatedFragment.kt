@@ -1,10 +1,13 @@
 package com.wsoteam.diet.presentation.starvation
 
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.MutableLiveData
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
@@ -13,7 +16,9 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-import kotlin.time.ExperimentalTime
+
+
+
 
 
 class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activated) {
@@ -22,7 +27,7 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
 
     private val timeFormat = "%02d"
 
-    @ExperimentalTime
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -30,7 +35,7 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
         val runnable = object : Runnable {
             override fun run() {
                 val seconds = 59 - ((System.currentTimeMillis() / 1000) % 60)
-                second.text = timeFormat.format(seconds)
+                second?.text = timeFormat.format(seconds)
 
                 if (seconds == 0L) check()
 
@@ -39,10 +44,7 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
         }.run()
 
 
-        cancel.setOnClickListener {
-            (StarvationViewModel.getStarvation() as MutableLiveData).value = Starvation()
-            WorkWithFirebaseDB.deleteStarvation()
-        }
+        cancel.setOnClickListener { closingDialog(context) }
 
         StarvationViewModel.getStarvation().observe(this, androidx.lifecycle.Observer {
             check()
@@ -108,5 +110,36 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
         val time = calendar.timeInMillis - System.currentTimeMillis()
         hour.text = timeFormat.format(TimeUnit.MILLISECONDS.toHours(time))
         minute.text = timeFormat.format(Util.getMinutes(time))
+    }
+
+    private fun closingDialog(context: Context?) : AlertDialog?{
+        if (context == null) return null
+
+
+        val dialog = AlertDialog.Builder(context)
+                .setTitle(R.string.starvation_exit)
+                .setMessage(R.string.starvation_alert_txt)
+                .setPositiveButton(R.string.starvation_exit) { dialog, which ->
+                    (StarvationViewModel.getStarvation() as MutableLiveData).value = Starvation()
+                    WorkWithFirebaseDB.deleteStarvation()
+                    dialog.dismiss()
+                }
+                .setNegativeButton(R.string.starvation_cancle) { dialog, which ->
+                    dialog.dismiss()
+                }
+                .create()
+
+        dialog.setCanceledOnTouchOutside(false)
+//        dialog.setCancelable(false)
+
+        dialog.show()
+
+
+        val positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE)
+        positiveButton.isAllCaps = false
+        val negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE)
+        negativeButton.isAllCaps = false
+
+        return dialog
     }
 }

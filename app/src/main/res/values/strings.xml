@@ -1241,8 +1241,8 @@ Share your accomplishments with friends:</string>
     <string name="exercises_round_number">Круг</string>
 
     <string name="starvation_title">16:8 Голодание</string>
-    <string name="starvation_start">начать</string>
-    <string name="starvation_cancle">отменить</string>
+    <string name="starvation_start">Начать</string>
+    <string name="starvation_cancle">Отменить</string>
     <string name="starvation_select">Выбрать</string>
 
     <string name="starvation_time">Время приема пищи?</string>
@@ -1277,5 +1277,8 @@ Share your accomplishments with friends:</string>
     <string name="hours_short">ч.</string>
     <string name="minutes_short">мин.</string>
     <string name="seconds_short">сек.</string>
+
+    <string name="starvation_exit">Выйти</string>
+    <string name="starvation_alert_txt">Вы действительно не хотите учавствовать в испытании?</string>
 
 </resources>
