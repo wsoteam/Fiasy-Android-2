@@ -57,6 +57,8 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
         val starvationMillis = StarvationViewModel.getStarvation().value?.timeMillis ?: 0
         val starvationDays = StarvationViewModel.getStarvation().value?.days ?: mutableListOf()
 
+        if(starvationMillis < 0 || starvationDays.isEmpty()) return
+
         val current = Calendar.getInstance()
         val startStarvation = Calendar.getInstance()
         val endStarvation = Calendar.getInstance()
@@ -73,14 +75,14 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
 
         if (current.after(startStarvation) && current.before(endStarvation) && starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) {
             Log.d("kkk", "if TRUE starvation time")
-            starvationStatus.text = getString(R.string.starvation_on)
-            subTile.text = getString(R.string.starvation_on_subtitle)
+            starvationStatus?.text = getString(R.string.starvation_on)
+            subTile?.text = getString(R.string.starvation_on_subtitle)
 
             setTimeTo(endStarvation)
 
         } else if(current.before(startStarvation) && starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) {
-            starvationStatus.text = getString(R.string.starvation_off)
-            subTile.text = getString(R.string.starvation_off_subtitle)
+            starvationStatus?.text = getString(R.string.starvation_off)
+            subTile?.text = getString(R.string.starvation_off_subtitle)
             setTimeTo(startStarvation)
 
         }else{
@@ -95,8 +97,8 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
                     }
                 }
 
-                starvationStatus.text = getString(R.string.starvation_off)
-                subTile.text = getString(R.string.starvation_off_subtitle)
+                starvationStatus?.text = getString(R.string.starvation_off)
+                subTile?.text = getString(R.string.starvation_off_subtitle)
                 setTimeTo(startStarvation)
 
         }
@@ -108,8 +110,8 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
 
     private fun setTimeTo(calendar: Calendar) {
         val time = calendar.timeInMillis - System.currentTimeMillis()
-        hour.text = timeFormat.format(TimeUnit.MILLISECONDS.toHours(time))
-        minute.text = timeFormat.format(Util.getMinutes(time))
+        hour?.text = timeFormat.format(TimeUnit.MILLISECONDS.toHours(time))
+        minute?.text = timeFormat.format(Util.getMinutes(time))
     }
 
     private fun closingDialog(context: Context?) : AlertDialog?{
@@ -136,9 +138,9 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
 
 
         val positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE)
-        positiveButton.isAllCaps = false
+        positiveButton?.isAllCaps = false
         val negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE)
-        negativeButton.isAllCaps = false
+        negativeButton?.isAllCaps = false
 
         return dialog
     }
