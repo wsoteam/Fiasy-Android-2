@@ -65,7 +65,7 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
 
         if (Util.getHours(starvationMillis) > (24 - starvationHours) && starvationDays.contains(prevDay.get(Calendar.DAY_OF_WEEK))) {
             startStarvation.add(Calendar.DAY_OF_WEEK, -1)
-            Log.e("kkk", "true!!!")
+//            Log.e("kkk", "true!!!")
         } else {
             for (i in 1..7) {
                 if (starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) break
@@ -83,20 +83,20 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
         endStarvation.time = startStarvation.time
         endStarvation.add(Calendar.HOUR_OF_DAY, starvationHours)
 
-        Log.d("kkk", "cur - ${currentDay.time}")
-        Log.d("kkk", "start - ${startStarvation.time}")
-        Log.d("kkk", "end - ${endStarvation.time}")
+//        Log.d("kkk", "cur - ${currentDay.time}")
+//        Log.d("kkk", "start - ${startStarvation.time}")
+//        Log.d("kkk", "end - ${endStarvation.time}")
 
 
         if (currentDay.after(startStarvation) && currentDay.before(endStarvation) && starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) {
-            Log.d("kkk", "if TRUE starvation time")
+//            Log.d("kkk", "if TRUE starvation time")
             starvationStatus?.text = getString(R.string.starvation_on)
             subTile?.text = getString(R.string.starvation_on_subtitle)
 
             setTimeTo(endStarvation)
 
         } else {
-            Log.d("kkk", "if FALSE starvation time")
+//            Log.d("kkk", "if FALSE starvation time")
 
             starvationStatus?.text = getString(R.string.starvation_off)
             subTile?.text = getString(R.string.starvation_off_subtitle)
@@ -107,7 +107,7 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
 
     private fun setTimeTo(calendar: Calendar) {
         val time = calendar.timeInMillis - System.currentTimeMillis()
-        Log.e("kkk", "time = $time; system = ${System.currentTimeMillis()}; calendar = ${calendar.timeInMillis}")
+//        Log.e("kkk", "time = $time; system = ${System.currentTimeMillis()}; calendar = ${calendar.timeInMillis}")
         hour?.text = timeFormat.format(TimeUnit.MILLISECONDS.toHours(time))
         minute?.text = timeFormat.format(Util.getMinutes(time))
     }

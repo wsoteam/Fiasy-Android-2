@@ -3,9 +3,11 @@ package com.wsoteam.diet.MainScreen;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -66,6 +68,7 @@ import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 
+import com.wsoteam.diet.presentation.teach.TeachActivity;
 import com.wsoteam.diet.presentation.teach.TeachHostFragment;
 import com.wsoteam.diet.presentation.teach.TeachUtil;
 
@@ -230,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
     box.setOpenFromIntrodaction(false);
     //TODO trial_from_* метка для амплитуды
     box.setComeFrom(AmplitudaEvents.view_prem_content);
-    box.setBuyFrom(EventProperties.trial_from_articles);
+    box.setBuyFrom("main_screen");
     Intent intent = new Intent(this, ActivitySubscription.class).putExtra(Config.TAG_BOX, box);
     startActivity(intent);
   }
@@ -249,7 +252,10 @@ public class MainActivity extends AppCompatActivity {
     Log.e("LOL", FirebaseAuth.getInstance().getCurrentUser().getUid());
     Log.e("LOL", String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getMetadata().getCreationTimestamp()));
     hideFabMenu();
+
+
   }
+
 
   private void handlGrade(long currentTime) {
     long timeStartingPoint =
@@ -269,6 +275,7 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
     setContentView(R.layout.activity_drawer);
     ButterKnife.bind(this);
     abLiveData = ABLiveData.getInstance().getData();
@@ -306,12 +313,37 @@ public class MainActivity extends AppCompatActivity {
     BodyCalculates.handleProfile();
 
     checkDeepLink(getApplicationContext());
-
-    if (TeachUtil.isNeedOpen(getApplicationContext()) && Locale.getDefault()
+//TODO
+    if (true || TeachUtil.isNeedOpen(getApplicationContext()) && Locale.getDefault()
         .getLanguage()
         .equals("ru")) {
-      getSupportFragmentManager().beginTransaction()
-          .add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
+
+    View rootView = constraintLayout;
+    rootView.getViewTreeObserver().addOnGlobalLayoutListener(
+            new ViewTreeObserver.OnGlobalLayoutListener() {
+              public void onGlobalLayout() {
+                //Remove the listener before proceeding
+                rootView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                TeachUtil.blurBitmap.setValue(BlurBuilder.blur(getApplicationContext(), rootView));
+//                  startActivity(new Intent(MainActivity.this, TeachActivity.class));
+                // measure your views here
+              }
+            }
+    );
+
+
+//      BlurBuilder.takeSnapShot(getWindow().getDecorView().findViewById(android.R.id.content));
+
+//      TeachUtil.blurBitmap.setValue(BlurBuilder.blur(getApplicationContext(), constraintLayout));
+    startActivity(new Intent(this, TeachActivity.class));
+      // inflate your main layout here (use RelativeLayout or whatever your root ViewGroup type is
+//    LinearLayout mainLayout = (LinearLayout ) this.getLayoutInflater().inflate(R.layout.main, null);
+
+      // set a global layout listener which will be called when the layout pass is completed and the view is drawn
+
+
+//      getSupportFragmentManager().beginTransaction()
+//          .add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
     }
 
     if (Locale.getDefault().getLanguage().equals("ru")) {

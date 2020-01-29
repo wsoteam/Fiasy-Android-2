@@ -37,7 +37,7 @@ public class BlurBuilder {
         }
     }
 
-    private static Bitmap takeSnapShot(View view) {
+    public static Bitmap takeSnapShot(View view) {
         if (view == null) return null;
 
         // configuramos para que la view almacene la cache en una imagen

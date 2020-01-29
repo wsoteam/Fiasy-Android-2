@@ -5,10 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -66,6 +63,10 @@ class TeachActivity : AppCompatActivity() {
         startDialog(TeachMealDialogFragment(), REQUEST_MEAL)
 
         finalSave = AnimationUtils.loadAnimation(this, R.anim.anim_meas_update)
+
+        TeachUtil.blurBitmap.observe(this, androidx.lifecycle.Observer {
+            if (it != null) teachBlurImg.setImageBitmap(it)
+        })
     }
 
 

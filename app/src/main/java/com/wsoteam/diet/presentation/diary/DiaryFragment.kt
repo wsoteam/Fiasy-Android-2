@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.view.ViewTreeObserver.OnPreDrawListener
 import android.widget.FrameLayout
 import androidx.appcompat.widget.Toolbar
@@ -23,6 +24,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.recyclerview.widget.RecyclerView.State
+import com.facebook.FacebookSdk.getApplicationContext
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
@@ -38,11 +40,10 @@ import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.
 import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Revealed
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
 import com.wsoteam.diet.presentation.fab.FabMenuViewModel
-import com.wsoteam.diet.utils.FiasyDateUtils
-import com.wsoteam.diet.utils.ImageSpan
+import com.wsoteam.diet.presentation.teach.TeachActivity
+import com.wsoteam.diet.presentation.teach.TeachUtil
+import com.wsoteam.diet.utils.*
 import com.wsoteam.diet.utils.RichTextUtils.replaceWithIcon
-import com.wsoteam.diet.utils.dp
-import com.wsoteam.diet.utils.getVectorIcon
 import com.wsoteam.diet.views.CompactCalendarView
 import com.wsoteam.diet.views.CompactCalendarView.CompactCalendarViewListener
 import com.wsoteam.diet.views.GuardNestedScrollView

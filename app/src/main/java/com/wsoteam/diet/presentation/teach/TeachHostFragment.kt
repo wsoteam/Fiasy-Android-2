@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -129,7 +130,9 @@ class TeachHostFragment : Fragment() {
                     when (data?.getStringExtra(ACTION)) {
                         ACTION_SAVE_FOOD -> {
                             val calendar = Calendar.getInstance()
+                            Log.d("kkk", "${basketEntity?.name}")
                             basketEntity?.apply {
+
                                 FoodWork.saveItem(this,
                                         calendar.get(Calendar.DAY_OF_MONTH),
                                         calendar.get(Calendar.MONTH),

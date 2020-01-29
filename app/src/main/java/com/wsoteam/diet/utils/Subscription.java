@@ -20,7 +20,6 @@ public class Subscription {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
         return sharedPreferences.getBoolean(Config.STATE_BILLING, false);
-//
 //        return true;
     }
 }

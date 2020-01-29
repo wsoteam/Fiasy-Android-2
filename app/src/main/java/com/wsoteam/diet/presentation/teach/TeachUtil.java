@@ -2,12 +2,17 @@ package com.wsoteam.diet.presentation.teach;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+
+import androidx.lifecycle.MutableLiveData;
 
 public class TeachUtil {
 
     private static final String APP_PREFERENCES = "TEACH_CONFIG";
     private static final String OPENED = "isNeedOpen";
 
+
+    public static MutableLiveData<Bitmap> blurBitmap = new MutableLiveData<Bitmap>();
 
     public static void setOpen(Context context, boolean opened){
         if (context != null) {
