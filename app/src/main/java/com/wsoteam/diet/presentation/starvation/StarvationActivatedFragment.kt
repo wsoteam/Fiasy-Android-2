@@ -16,11 +16,6 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-
-
-
-
-
 class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activated) {
 
     private val starvationHours = 16
@@ -57,64 +52,67 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
         val starvationMillis = StarvationViewModel.getStarvation().value?.timeMillis ?: 0
         val starvationDays = StarvationViewModel.getStarvation().value?.days ?: mutableListOf()
 
-        if(starvationMillis < 0 || starvationDays.isEmpty()) return
+        if (starvationMillis < 0 || starvationDays.isEmpty()) return
 
-        val current = Calendar.getInstance()
+        val currentDay = Calendar.getInstance()
         val startStarvation = Calendar.getInstance()
         val endStarvation = Calendar.getInstance()
 
+//        Log.d("kkk", "getHours(starvationMillis) - ${Util.getHours(starvationMillis)}  /// ${24 - starvationHours}")
+
+        val prevDay = Calendar.getInstance()
+        prevDay.add(Calendar.DAY_OF_WEEK, -1)
+
+        if (Util.getHours(starvationMillis) > (24 - starvationHours) && starvationDays.contains(prevDay.get(Calendar.DAY_OF_WEEK))) {
+            startStarvation.add(Calendar.DAY_OF_WEEK, -1)
+            Log.e("kkk", "true!!!")
+        } else {
+            for (i in 1..7) {
+                if (starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) break
+                startStarvation.add(Calendar.DAY_OF_WEEK, 1)
+            }
+        }
+
+
         startStarvation.set(Calendar.HOUR_OF_DAY, Util.getHours(starvationMillis).toInt())
         startStarvation.set(Calendar.MINUTE, Util.getMinutes(starvationMillis).toInt())
+        startStarvation.set(Calendar.SECOND, 0)
+        startStarvation.set(Calendar.MILLISECOND, 0)
         startStarvation.add(Calendar.SECOND, -1)
 
-        endStarvation.set(Calendar.HOUR_OF_DAY, Util.getHours(starvationMillis).toInt())
-        endStarvation.set(Calendar.MINUTE, Util.getMinutes(starvationMillis).toInt())
+        endStarvation.time = startStarvation.time
         endStarvation.add(Calendar.HOUR_OF_DAY, starvationHours)
-//        endStarvation.add(Calendar.MINUTE, -1)
+
+        Log.d("kkk", "cur - ${currentDay.time}")
+        Log.d("kkk", "start - ${startStarvation.time}")
+        Log.d("kkk", "end - ${endStarvation.time}")
 
 
-        if (current.after(startStarvation) && current.before(endStarvation) && starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) {
+        if (currentDay.after(startStarvation) && currentDay.before(endStarvation) && starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) {
             Log.d("kkk", "if TRUE starvation time")
             starvationStatus?.text = getString(R.string.starvation_on)
             subTile?.text = getString(R.string.starvation_on_subtitle)
 
             setTimeTo(endStarvation)
 
-        } else if(current.before(startStarvation) && starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) {
+        } else {
+            Log.d("kkk", "if FALSE starvation time")
+
             starvationStatus?.text = getString(R.string.starvation_off)
             subTile?.text = getString(R.string.starvation_off_subtitle)
             setTimeTo(startStarvation)
 
-        }else{
-                Log.d("kkk", "if FALSE starvation time")
-
-                for (i in 1..7) {
-
-                    startStarvation.add(Calendar.DAY_OF_WEEK, 1)
-                    endStarvation.add(Calendar.DAY_OF_WEEK, 1)
-                    if (starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) {
-                        break
-                    }
-                }
-
-                starvationStatus?.text = getString(R.string.starvation_off)
-                subTile?.text = getString(R.string.starvation_off_subtitle)
-                setTimeTo(startStarvation)
-
         }
-
-        Log.d("kkk", "${current.time}")
-        Log.d("kkk", "${startStarvation.time}")
-        Log.d("kkk", "${endStarvation.time}")
     }
 
     private fun setTimeTo(calendar: Calendar) {
         val time = calendar.timeInMillis - System.currentTimeMillis()
+        Log.e("kkk", "time = $time; system = ${System.currentTimeMillis()}; calendar = ${calendar.timeInMillis}")
         hour?.text = timeFormat.format(TimeUnit.MILLISECONDS.toHours(time))
         minute?.text = timeFormat.format(Util.getMinutes(time))
     }
 
-    private fun closingDialog(context: Context?) : AlertDialog?{
+    private fun closingDialog(context: Context?): AlertDialog? {
         if (context == null) return null
 
 
