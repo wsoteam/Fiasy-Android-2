@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -314,36 +315,51 @@ public class MainActivity extends AppCompatActivity {
 
     checkDeepLink(getApplicationContext());
 //TODO
-    if (true || TeachUtil.isNeedOpen(getApplicationContext()) && Locale.getDefault()
+    if (/*true ||*/ TeachUtil.isNeedOpen(getApplicationContext()) && Locale.getDefault()
         .getLanguage()
         .equals("ru")) {
-
-    View rootView = constraintLayout;
-    rootView.getViewTreeObserver().addOnGlobalLayoutListener(
-            new ViewTreeObserver.OnGlobalLayoutListener() {
-              public void onGlobalLayout() {
-                //Remove the listener before proceeding
-                rootView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                TeachUtil.blurBitmap.setValue(BlurBuilder.blur(getApplicationContext(), rootView));
-//                  startActivity(new Intent(MainActivity.this, TeachActivity.class));
-                // measure your views here
-              }
-            }
-    );
+//
+//    View rootView = constraintLayout;
+//    rootView.getViewTreeObserver().addOnGlobalLayoutListener(
+//            new ViewTreeObserver.OnGlobalLayoutListener() {
+//              public void onGlobalLayout() {
+//                //Remove the listener before proceeding
+//                rootView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                Handler h = new Handler();
+//                Runnable r = new Runnable() {
+//                  @Override
+//                  public void run() {
+////                    MainActivity.this.
+//                    try {
+//                      TeachUtil.blurBitmap.setValue(BlurBuilder.blur(getApplicationContext(), rootView));
+//                      startActivity(new Intent(MainActivity.this, TeachActivity.class));
+//                    } catch (Exception e){
+//                      e.printStackTrace();
+//                    }
+//
+//                  }
+//                };
+//                h.postDelayed(r,2_000);
+////                TeachUtil.blurBitmap.setValue(BlurBuilder.blur(getApplicationContext(), rootView));
+////                  startActivity(new Intent(MainActivity.this, TeachActivity.class));
+//                // measure your views here
+//              }
+//            }
+//    );
 
 
 //      BlurBuilder.takeSnapShot(getWindow().getDecorView().findViewById(android.R.id.content));
 
 //      TeachUtil.blurBitmap.setValue(BlurBuilder.blur(getApplicationContext(), constraintLayout));
-    startActivity(new Intent(this, TeachActivity.class));
+//    startActivity(new Intent(this, TeachActivity.class));
       // inflate your main layout here (use RelativeLayout or whatever your root ViewGroup type is
 //    LinearLayout mainLayout = (LinearLayout ) this.getLayoutInflater().inflate(R.layout.main, null);
 
       // set a global layout listener which will be called when the layout pass is completed and the view is drawn
 
 
-//      getSupportFragmentManager().beginTransaction()
-//          .add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
+      getSupportFragmentManager().beginTransaction()
+          .add(new TeachHostFragment(), TeachHostFragment.class.getName()).commit();
     }
 
     if (Locale.getDefault().getLanguage().equals("ru")) {
