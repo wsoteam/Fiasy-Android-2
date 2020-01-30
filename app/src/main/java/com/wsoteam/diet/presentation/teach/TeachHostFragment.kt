@@ -52,7 +52,7 @@ class TeachHostFragment : Fragment() {
     }
 
 
-    private val blur = BlurDialogFragment()
+//    private val blur :BlurDialogFragment? = BlurDialogFragment()
     private var basketEntity: BasketEntity? = null
     private var finalSave: Animation? = null
 
@@ -64,7 +64,7 @@ class TeachHostFragment : Fragment() {
         super.onCreate(savedInstanceState)
         retainInstance = true
 
-        startDialog(blur, REQUEST_BLUR)
+//        startDialog(blur, REQUEST_BLUR)
         startDialog(TeachMealDialogFragment(), REQUEST_MEAL)
 
         finalSave = AnimationUtils.loadAnimation(activity, R.anim.anim_meas_update)
@@ -72,6 +72,8 @@ class TeachHostFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        Log.d("kkk", "result")
 
         if (resultCode == Activity.RESULT_OK) {
 
@@ -154,7 +156,9 @@ class TeachHostFragment : Fragment() {
             try {
                 //TODO
 //            TeachUtil.setOpen(context, false)
-                blur?.dismiss()
+//                blur?.dismiss()
+                Log.d("kkk", "cancel")
+                activity?.finish()
             }catch (e : Exception){
                 e.printStackTrace()
             }
@@ -188,10 +192,16 @@ class TeachHostFragment : Fragment() {
             }
 
             override fun onFinish() {
-                blur.dismiss()
+//                blur?.dismiss()
+
                 startDialog(AchievementDialogFragment(), REQUEST_ACHIEVEMENT)
+
             }
         }.start()
     }
 
+    override fun onStop() {
+        super.onStop()
+        activity?.finish()
+    }
 }

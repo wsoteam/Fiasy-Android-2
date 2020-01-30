@@ -4,6 +4,7 @@ package com.wsoteam.diet.presentation.teach.fragments
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,6 +61,8 @@ class TeachMealDialogFragment : DialogFragment() {
 
     override fun onDetach() {
         super.onDetach()
+
+        Log.d("kkk", "teach")
         if (isCanceled)
         targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, Intent())
     }

@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.teach.fragments
 
 
+import android.app.Activity
 import android.os.Bundle
 
 import android.view.LayoutInflater
@@ -31,5 +32,10 @@ class AchievementDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         okBtn.setOnClickListener { dismiss() }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, null)
     }
 }

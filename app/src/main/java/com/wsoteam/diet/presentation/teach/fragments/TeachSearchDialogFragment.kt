@@ -68,10 +68,10 @@ class TeachSearchDialogFragment : DialogFragment() {
     private fun changeSpeakButton(charSequence: CharSequence) {
         if (charSequence.isNotEmpty() && isCanSpeak) {
             isCanSpeak = false
-            ibActivityListAndSearchCollapsingCancelButton.setImageDrawable(resources.getDrawable(R.drawable.ic_cancel))
+            ibActivityListAndSearchCollapsingCancelButton.setImageDrawable(resources.getDrawable(R.drawable.ic_cancel, null))
         } else if (charSequence.isEmpty() && !isCanSpeak) {
             isCanSpeak = true
-            ibActivityListAndSearchCollapsingCancelButton.setImageDrawable(resources.getDrawable(R.drawable.ic_speak))
+            ibActivityListAndSearchCollapsingCancelButton.setImageDrawable(resources.getDrawable(R.drawable.ic_speak, null))
         }
     }
 

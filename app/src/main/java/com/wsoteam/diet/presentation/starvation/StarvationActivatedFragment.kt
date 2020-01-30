@@ -57,28 +57,32 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
         val currentDay = Calendar.getInstance()
         val startStarvation = Calendar.getInstance()
         val endStarvation = Calendar.getInstance()
-
-//        Log.d("kkk", "getHours(starvationMillis) - ${Util.getHours(starvationMillis)}  /// ${24 - starvationHours}")
-
-        val prevDay = Calendar.getInstance()
-        prevDay.add(Calendar.DAY_OF_WEEK, -1)
-
-        if (Util.getHours(starvationMillis) > (24 - starvationHours) && starvationDays.contains(prevDay.get(Calendar.DAY_OF_WEEK))) {
-            startStarvation.add(Calendar.DAY_OF_WEEK, -1)
-//            Log.e("kkk", "true!!!")
-        } else {
-            for (i in 1..7) {
-                if (starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) break
-                startStarvation.add(Calendar.DAY_OF_WEEK, 1)
-            }
-        }
-
-
         startStarvation.set(Calendar.HOUR_OF_DAY, Util.getHours(starvationMillis).toInt())
         startStarvation.set(Calendar.MINUTE, Util.getMinutes(starvationMillis).toInt())
         startStarvation.set(Calendar.SECOND, 0)
         startStarvation.set(Calendar.MILLISECOND, 0)
         startStarvation.add(Calendar.SECOND, -1)
+
+//        Log.d("kkk", "getHours(starvationMillis) - ${Util.getHours(starvationMillis)}  /// ${24 - starvationHours}")
+
+        val prevDay = Calendar.getInstance()
+        prevDay.time = startStarvation.time
+        prevDay.add(Calendar.DAY_OF_WEEK, -1)
+
+        if (Util.getHours(starvationMillis) > (24 - starvationHours) && starvationDays.contains(prevDay.get(Calendar.DAY_OF_WEEK))) {
+
+            if (Util.getHours(currentDay.timeInMillis - prevDay.timeInMillis) < starvationHours)
+            startStarvation.add(Calendar.DAY_OF_WEEK, -1)
+//            Log.e("kkk", "true!!!")
+        }
+
+        for (i in 1..7) {
+            if (starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) break
+            startStarvation.add(Calendar.DAY_OF_WEEK, 1)
+//            Log.d("kkk", "+1 day")
+        }
+
+
 
         endStarvation.time = startStarvation.time
         endStarvation.add(Calendar.HOUR_OF_DAY, starvationHours)
@@ -88,7 +92,7 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
 //        Log.d("kkk", "end - ${endStarvation.time}")
 
 
-        if (currentDay.after(startStarvation) && currentDay.before(endStarvation) && starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) {
+        if (currentDay.after(startStarvation) && currentDay.before(endStarvation)) {
 //            Log.d("kkk", "if TRUE starvation time")
             starvationStatus?.text = getString(R.string.starvation_on)
             subTile?.text = getString(R.string.starvation_on_subtitle)
@@ -107,6 +111,7 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
 
     private fun setTimeTo(calendar: Calendar) {
         val time = calendar.timeInMillis - System.currentTimeMillis()
+//        if(time < 0) throw IllegalArgumentException("incorrect time!!!")
 //        Log.e("kkk", "time = $time; system = ${System.currentTimeMillis()}; calendar = ${calendar.timeInMillis}")
         hour?.text = timeFormat.format(TimeUnit.MILLISECONDS.toHours(time))
         minute?.text = timeFormat.format(Util.getMinutes(time))
