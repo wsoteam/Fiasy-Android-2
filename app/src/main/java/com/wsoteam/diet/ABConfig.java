@@ -11,6 +11,7 @@ public class ABConfig {
     public static final String F = "trial_article_long_result_stop_2k";
     public static final String G = "trial_fortune_long_result_2k";
     public static final String H = "trial_fortune_long_result_stop_2k";
+    public static final String I = "trial_stat_long_result_2k";
 
 
     //Amplituda key

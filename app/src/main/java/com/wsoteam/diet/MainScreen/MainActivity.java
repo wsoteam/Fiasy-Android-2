@@ -64,6 +64,7 @@ import com.wsoteam.diet.model.ArticleViewModel;
 import com.wsoteam.diet.presentation.fab.SelectMealDialogFragment;
 import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
+import com.wsoteam.diet.presentation.premium.GraphPrePremium;
 import com.wsoteam.diet.presentation.profile.section.ProfileFragment;
 
 import com.wsoteam.diet.presentation.teach.TeachHostFragment;
@@ -323,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
       fabBackground.setVisibility(View.GONE);
       fab.hide();
     }
+
   }
 
   @Override protected void onDestroy() {

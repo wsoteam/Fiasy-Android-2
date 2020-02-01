@@ -51,6 +51,7 @@ public class App extends MultiDexApplication {
 
         Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+
         FirebaseRemoteConfig.getInstance().setDefaults(new HashMap<String, Object>() {{
             put("premium_theme", "dark");
             put("premium_with_trial", true);
@@ -87,9 +88,6 @@ public class App extends MultiDexApplication {
     public void setupOnDemand() {
         if (setupOnDemand) {
             setupOnDemand = false;
-
-            Bugsee.launch(this, "b9f4ece5-898c-48fe-9938-ef42d8593a95");
-
             Adjust.onCreate(new AdjustConfig(this, app_token, ENVIRONMENT_PRODUCTION));
             registerActivityLifecycleCallbacks(new AdjustLifecycleCallbacks());
         }
