@@ -178,6 +178,11 @@ public class FragmentEatingScroll extends Fragment {
         return dayInString + "." + monthInString + "." + yearInString;
     }
 
+
+    public static String setDateTitleV2(int day, int month, int year) {
+        return String.format("%02d.%02d.%d",day, month, year);
+    }
+
     private Integer[] getChooseDate(int position) {
         int dateIndex = position - Config.COUNT_PAGE / 2;
         Calendar cal = Calendar.getInstance();
@@ -367,6 +372,8 @@ public class FragmentEatingScroll extends Fragment {
         @Override
         protected void onPostExecute(List<List<Eating>> lists) {
             super.onPostExecute(lists);
+
+            Log.d("kkkt", "FragmentEatingScroll: onPostExecute month  = " + month );
             eatingAdapter = new EatingAdapter(lists, getActivity(), setDateTitle(day, month, year), updateCallback);
             rvMainScreen.setAdapter(eatingAdapter);
         }

@@ -38,10 +38,13 @@ public class FoodWork {
     public static final int SIZE = 10;
 
     public static void saveMixedList(List<ISearchResult> foods, String date) {
+        Log.d("kkkt", "FoodWork: MixedList date = " + date);
         String[] arrayOfNumbersForDate = date.split("\\.");
         int day = Integer.parseInt(arrayOfNumbersForDate[0]);
         int month = Integer.parseInt(arrayOfNumbersForDate[1]);
         int year = Integer.parseInt(arrayOfNumbersForDate[2]);
+
+        Log.d("kkkt", "FoodWork: MixedList day = " + day + "; month = " + month + "; year = " + year);
         List<HistoryEntity> forSave = new ArrayList<>();
         for (int i = 0; i < foods.size(); i++) {
             if (foods.get(i) instanceof BasketEntity) {
@@ -54,10 +57,13 @@ public class FoodWork {
 
 
     public static void saveClearList(List<BasketEntity> foods, String date) {
+        Log.d("kkkt", "FoodWork: ClearList date = " + date);
         String[] arrayOfNumbersForDate = date.split("\\.");
         int day = Integer.parseInt(arrayOfNumbersForDate[0]);
         int month = Integer.parseInt(arrayOfNumbersForDate[1]);
         int year = Integer.parseInt(arrayOfNumbersForDate[2]);
+
+        Log.d("kkkt", "FoodWork: ClearList day = " + day + "; month = " + month + "; year = " + year);
         List<HistoryEntity> forSave = new ArrayList<>();
         for (int i = 0; i < foods.size(); i++) {
             forSave.add(new HistoryEntity(foods.get(i)));
@@ -79,9 +85,7 @@ public class FoodWork {
     }
 
     public static void saveItem(BasketEntity basketEntity, int day, int month, int year) {
-        if (month < 10){
-            month --;
-        }
+
         String food_intake = "";
         String food_category = EventProperties.food_category_base;
         String food_date = getDateType(day, month, year);
