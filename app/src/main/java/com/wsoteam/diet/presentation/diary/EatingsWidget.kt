@@ -41,8 +41,8 @@ class EatingsWidget(itemView: View) : WidgetView(itemView), UpdateCallback {
 
   override fun update() {
     val today = DiaryViewModel.currentDate
-    val dateTitle = FragmentEatingScroll.setDateTitle(today.day, today.month, today.year)
 
+    val dateTitle = FragmentEatingScroll.setDateTitleV2(today.day, today.month, today.year)
     if (!Meals.hasMeals()) {
       container.adapter = EatingAdapter(emptyMeals, itemView.context, dateTitle, this)
     }

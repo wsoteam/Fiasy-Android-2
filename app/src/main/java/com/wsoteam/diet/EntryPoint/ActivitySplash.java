@@ -388,7 +388,6 @@ public class ActivitySplash extends BaseActivity {
         edit().putString(ABConfig.KEY_FOR_SAVE_STATE, responseString).
         apply();
     ABLiveData.getInstance().setData(responseString);
-    Log.e("LOL", "вызов из сплэш - " + responseString);
   }
 
   private void checkFirstLaunch() {

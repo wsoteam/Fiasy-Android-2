@@ -1,6 +1,5 @@
 package com.wsoteam.diet.common.diary;
 
-import android.util.Log;
 
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
@@ -22,11 +21,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import static com.wsoteam.diet.common.helpers.DateAndTime.getDateType;
 
@@ -79,9 +74,7 @@ public class FoodWork {
     }
 
     public static void saveItem(BasketEntity basketEntity, int day, int month, int year) {
-//        if (month < 10){
-//            month --;
-//        }
+
         String food_intake = "";
         String food_category = EventProperties.food_category_base;
         String food_date = getDateType(day, month, year);

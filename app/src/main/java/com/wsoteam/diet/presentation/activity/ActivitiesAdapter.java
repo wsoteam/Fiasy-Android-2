@@ -29,7 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.presentation.training.TrainingActivity;
+
 import com.wsoteam.diet.utils.Metrics;
 import com.wsoteam.diet.utils.RichTextUtils;
 import com.wsoteam.diet.utils.ViewsExtKt;
@@ -58,7 +58,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
   private final int searchRow = headers++;
 
   // banner index
-  private final int banner = headers++;
+  private int banner = -1;
 
   // search row included immediately
   private int total = headers;
@@ -74,6 +74,16 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
   private Section head;
   private Section tail;
+
+  public ActivitiesAdapter(boolean isNeeDTraining) {
+   if (isNeeDTraining){
+     // banner index
+     banner = headers++;
+
+     // search row included immediately
+     total = headers;
+   }
+  }
 
   private TextWatcher searchWatcher = new TextWatcher() {
     @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -710,6 +720,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public BannerView(@NonNull View itemView) {
       super(itemView);
+
     }
   }
 

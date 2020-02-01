@@ -34,6 +34,8 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
+
 import org.jetbrains.annotations.NotNull;
 
 import static com.wsoteam.diet.presentation.activity.ActivitiesAdapter.VIEW_TYPE_ACTIVITY;
@@ -72,7 +74,7 @@ public class UserActivityFragment extends DialogFragment implements
 
     container = view.findViewById(R.id.container);
 
-    container.setAdapter(adapter = new ActivitiesAdapter());
+    container.setAdapter(adapter = new ActivitiesAdapter(Locale.getDefault().getLanguage().equals("ru")));
     container.addItemDecoration(new DividerDecoration(requireContext()));
     container.setLayoutManager(new LinearLayoutManager(requireContext()));
 
