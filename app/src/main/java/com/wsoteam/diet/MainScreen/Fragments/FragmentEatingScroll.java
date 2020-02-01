@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -180,7 +181,7 @@ public class FragmentEatingScroll extends Fragment {
 
 
     public static String setDateTitleV2(int day, int month, int year) {
-        return String.format("%02d.%02d.%d",day, month, year);
+        return String.format(new Locale("ru","RU"),"%02d.%02d.%d",day, month, year);
     }
 
     private Integer[] getChooseDate(int position) {

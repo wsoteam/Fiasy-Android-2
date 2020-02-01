@@ -1,6 +1,5 @@
 package com.wsoteam.diet.common.diary;
 
-import android.util.Log;
 
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
@@ -22,11 +21,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import static com.wsoteam.diet.common.helpers.DateAndTime.getDateType;
 
@@ -38,13 +33,10 @@ public class FoodWork {
     public static final int SIZE = 10;
 
     public static void saveMixedList(List<ISearchResult> foods, String date) {
-        Log.d("kkkt", "FoodWork: MixedList date = " + date);
         String[] arrayOfNumbersForDate = date.split("\\.");
         int day = Integer.parseInt(arrayOfNumbersForDate[0]);
         int month = Integer.parseInt(arrayOfNumbersForDate[1]);
         int year = Integer.parseInt(arrayOfNumbersForDate[2]);
-
-        Log.d("kkkt", "FoodWork: MixedList day = " + day + "; month = " + month + "; year = " + year);
         List<HistoryEntity> forSave = new ArrayList<>();
         for (int i = 0; i < foods.size(); i++) {
             if (foods.get(i) instanceof BasketEntity) {
@@ -57,13 +49,10 @@ public class FoodWork {
 
 
     public static void saveClearList(List<BasketEntity> foods, String date) {
-        Log.d("kkkt", "FoodWork: ClearList date = " + date);
         String[] arrayOfNumbersForDate = date.split("\\.");
         int day = Integer.parseInt(arrayOfNumbersForDate[0]);
         int month = Integer.parseInt(arrayOfNumbersForDate[1]);
         int year = Integer.parseInt(arrayOfNumbersForDate[2]);
-
-        Log.d("kkkt", "FoodWork: ClearList day = " + day + "; month = " + month + "; year = " + year);
         List<HistoryEntity> forSave = new ArrayList<>();
         for (int i = 0; i < foods.size(); i++) {
             forSave.add(new HistoryEntity(foods.get(i)));
