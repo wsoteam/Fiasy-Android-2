@@ -32,7 +32,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="sans-serif-medium"
         android:lineSpacingExtra="4.5sp"
@@ -42,7 +42,7 @@
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbar" />
+        app:layout_constraintTop_toBottomOf="@+id/date" />
 
     <TextView
         android:id="@+id/time"
@@ -62,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/timeTitle" />
 
     <TextView
-        android:id="@+id/daysTitle"
+        android:id="@+id/dateTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -70,16 +70,16 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="sans-serif-medium"
         android:lineSpacingExtra="4.5sp"
-        android:text="@string/starvation_days"
+        android:text="@string/starvation_date"
         android:textColor="@color/black_for_txt"
         android:textSize="18sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView107" />
 
     <TextView
-        android:id="@+id/days"
+        android:id="@+id/date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -93,7 +93,7 @@
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/daysTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/dateTitle" />
 
     <Button
         android:id="@+id/start"
@@ -112,6 +112,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/days"
+        app:layout_constraintTop_toBottomOf="@+id/time"
         app:layout_constraintVertical_bias="0.78" />
+
+    <ImageView
+        android:id="@+id/imageView107"
+        android:layout_width="0dp"
+        android:layout_height="125dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbar"
+        app:srcCompat="@drawable/img_starvation_blocked"
+        tools:src="@tools:sample/avatars[0]" />
 </androidx.constraintlayout.widget.ConstraintLayout>

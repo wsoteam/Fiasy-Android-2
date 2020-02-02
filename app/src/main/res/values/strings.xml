@@ -1244,8 +1244,10 @@ Share your accomplishments with friends:</string>
     <string name="starvation_start">Начать</string>
     <string name="starvation_cancle">Отменить</string>
     <string name="starvation_select">Выбрать</string>
+    <string name="starvation_close">Закрыть</string>
 
-    <string name="starvation_time">Время приема пищи?</string>
+    <string name="starvation_time">Выберите время начала голодания:</string>
+    <string name="starvation_date">Выберите дату начала голодания:</string>
     <string name="starvation_days">Выберите дни голодания:</string>
     <string name="starvation_week_days">Дни недели</string>
 
