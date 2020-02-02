@@ -17,8 +17,11 @@ import java.util.concurrent.TimeUnit
 
 
 class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activated) {
+    companion object{
+        const val starvationHours = 16
+    }
 
-    private val starvationHours = 16
+
 
     private val timeFormat = "%02d"
 

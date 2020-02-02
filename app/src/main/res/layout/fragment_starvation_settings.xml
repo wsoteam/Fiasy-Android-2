@@ -5,26 +5,20 @@
     android:layout_height="match_parent"
     tools:context="com.wsoteam.diet.presentation.starvation.StarvationSettingsFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:liftOnScroll="false"
+        android:background="?attr/colorPrimary"
+        android:backgroundTint="@color/white"
+        android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:backgroundTint="@color/white"
-            android:minHeight="?attr/actionBarSize"
-            app:navigationIcon="@drawable/arrow_back_gray"
-            app:title="@string/starvation_title"
-            app:titleTextColor="@color/black_for_txt" />
-    </com.google.android.material.appbar.AppBarLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/arrow_back_gray"
+        app:title="@string/starvation_title"
+        app:titleTextColor="@color/black_for_txt" />
 
 
     <TextView
@@ -119,9 +113,10 @@
         android:id="@+id/imageView107"
         android:layout_width="0dp"
         android:layout_height="125dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbar"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:srcCompat="@drawable/img_starvation_blocked"
         tools:src="@tools:sample/avatars[0]" />
 </androidx.constraintlayout.widget.ConstraintLayout>

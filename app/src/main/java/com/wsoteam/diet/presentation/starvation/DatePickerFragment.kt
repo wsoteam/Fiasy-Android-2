@@ -34,6 +34,7 @@ class DatePickerFragment: DialogFragment() {
     private lateinit var datePicker: DatePicker
 
 
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         val date = Calendar.getInstance()
@@ -67,7 +68,6 @@ class DatePickerFragment: DialogFragment() {
     }
 
     private fun sendResult(resultCode: Int, date: Long){
-
         val intent = Intent()
         intent.putExtra(EXTRA_DATE, date)
         targetFragment?.onActivityResult(targetRequestCode, resultCode, intent)

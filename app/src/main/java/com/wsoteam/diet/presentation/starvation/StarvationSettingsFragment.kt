@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.fragment_starvation_settings.*
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.graphics.Color
+import android.text.TextUtils.concat
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
@@ -17,6 +18,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 import androidx.core.graphics.drawable.DrawableCompat
+import com.wsoteam.diet.utils.RichTextUtils
 
 
 class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_settings) {
@@ -26,6 +28,9 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
     private val REQUEST_DATE = 0
     private lateinit var daysWeek: List<String>
     private var isStart = false
+
+    private var isDateSelected = false
+    private var isTimeSelected = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +43,11 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val selectTxt = RichTextUtils.RichText("Выбрать")
+                .underline()
+        time.text = selectTxt.text()
+        date.text = selectTxt.text()
+
         start.setOnClickListener {
             isStart = true
             activity?.onBackPressed()
@@ -49,9 +59,6 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
             dialog.setTargetFragment(this, REQUEST_DATE)
             fm?.let { dialog.show(fm, dialog.javaClass.name) }
 
-//            val dialog = DatePickerFragment.newInstance(Calendar.getInstance())
-//            dialog.setTargetFragment(this, REQUEST_DATE)
-//            dialog.show(fragmentManager!!, DatePickerFragment::class.java.simpleName)
         }
 
         time.setOnClickListener { openDialog() }
@@ -64,12 +71,17 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
     private fun openDialog() {
         val cal = Calendar.getInstance()
         val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
-            cal.set(Calendar.HOUR_OF_DAY, hour)
-            cal.set(Calendar.MINUTE, minute)
-            time.text = SimpleDateFormat("HH:mm").format(cal.time)
-            WorkWithFirebaseDB.setStarvationTimeMillis(Util.timeToMillis(hour.toLong(), minute.toLong(), 0 ))
-            val millis = Util.timeToMillis(hour.toLong(), minute.toLong(), 0 )
-            Log.d("kkk", "millis - ${millis}; hours - ${Util.getHours(millis)}; minutes - ${Util.getMinutes(millis)}; seconds - ${Util.getSeconds(millis )}")
+
+            startDate.set(Calendar.HOUR_OF_DAY, hour)
+            startDate.set(Calendar.MINUTE, minute)
+            startDate.set(Calendar.SECOND, 0)
+            updateTime()
+//            cal.set(Calendar.HOUR_OF_DAY, hour)
+//            cal.set(Calendar.MINUTE, minute)
+//            time.text = SimpleDateFormat("HH:mm").format(cal.time)
+//            WorkWithFirebaseDB.setStarvationTimeMillis(Util.timeToMillis(hour.toLong(), minute.toLong(), 0 ))
+//            val millis = Util.timeToMillis(hour.toLong(), minute.toLong(), 0 )
+//            Log.d("kkk", "millis - ${millis}; hours - ${Util.getHours(millis)}; minutes - ${Util.getMinutes(millis)}; seconds - ${Util.getSeconds(millis )}")
 //            Log.d("kkk", "time - ${cal.time} \nSimpleDateFormat - ${SimpleDateFormat("HH:mm").format(cal.time)}")
 
         }
@@ -130,7 +142,41 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
 
     private fun updateDate(){
         val dateFormat = SimpleDateFormat("E, d MMM", Locale.getDefault())
-        date.text = dateFormat.format(startDate.time)
+        val dateText = RichTextUtils.RichText(dateFormat.format(startDate.time))
+                .underline()
+
+        date.text = dateText.text()
+        isDateSelected = true
+        checkSelected()
+    }
+
+    private fun updateTime(){
+        val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val finishTime = Calendar.getInstance()
+        finishTime.time = startDate.time
+        finishTime.add(Calendar.HOUR_OF_DAY, StarvationActivatedFragment.starvationHours)
+
+        val from = RichTextUtils.RichText(getString(R.string.starvation_time_from))
+                .color(Color.parseColor("#c0000000"))
+
+        val startTime = RichTextUtils.RichText(dateFormat.format(startDate.time))
+                .color(Color.parseColor("#f2994a"))
+                .underline()
+
+        val till = RichTextUtils.RichText(getString(R.string.starvation_time_till) + " " + dateFormat.format(finishTime.time))
+                .color(Color.parseColor("#51000000"))
+
+        time.text = concat(from.text(), " ", startTime.text(), "  ", till.text())
+        isTimeSelected = true
+        checkSelected()
+    }
+
+    private fun checkSelected(){
+        if (isDateSelected && isTimeSelected) {
+            val buttonDrawable = DrawableCompat.wrap(start.background)
+            DrawableCompat.setTint(buttonDrawable,Color.parseColor("#ef7d02"))
+            start.isClickable = true
+        }
     }
 
     override fun onPause() {

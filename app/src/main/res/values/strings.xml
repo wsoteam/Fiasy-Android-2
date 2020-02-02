@@ -1289,4 +1289,7 @@ Share your accomplishments with friends:</string>
     <string name="starvation_blocked_part2">Оформите подписку PREMIUM и активируйте функцию автоматического отсчета, которая все будет делать за вас!</string>
     <string name="starvation_blocked_buy">Оформить</string>
 
+    <string name="starvation_time_from">с</string>
+    <string name="starvation_time_till">до</string>
+
 </resources>
