@@ -8,16 +8,18 @@ import android.view.View
 import com.wsoteam.diet.R
 import kotlinx.android.synthetic.main.fragment_starvation_settings.*
 import android.app.TimePickerDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.text.TextUtils.concat
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
+import androidx.appcompat.app.AlertDialog
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import java.text.SimpleDateFormat
 import java.util.*
 
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.lifecycle.MutableLiveData
 import com.wsoteam.diet.utils.RichTextUtils
 
 
@@ -60,14 +62,16 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
 
         }
 
-        time.setOnClickListener { openDialog() }
+        time.setOnClickListener { openTimePicker() }
 
-        toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
+        toolbar.setNavigationOnClickListener {
+            if (isTimeSelected || isDateSelected) closingDialog(context)
+            else activity?.onBackPressed() }
 
         daysWeek = resources.getStringArray(R.array.days_week).toList()
     }
 
-    private fun openDialog() {
+    private fun openTimePicker() {
         val cal = Calendar.getInstance()
         val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
 
@@ -178,13 +182,7 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
         }
     }
 
-    override fun onPause() {
-//        if (!isStart) {
-//            (StarvationViewModel.getStarvation() as MutableLiveData).value = Starvation()
-//            WorkWithFirebaseDB.deleteStarvation()
-//        }
-        super.onPause()
-    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode != Activity.RESULT_OK) return
@@ -201,5 +199,33 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
                }
            }
        }
+    }
+
+    private fun closingDialog(context: Context?): AlertDialog? {
+        if (context == null) return null
+
+
+        val dialog = AlertDialog.Builder(context)
+                .setMessage(R.string.starvation_exit_without_saving)
+                .setPositiveButton(R.string.starvation_exit) { dialog, which ->
+                    activity?.onBackPressed()
+//                    dialog.dismiss()
+                }
+                .setNegativeButton(R.string.starvation_back) { dialog, which ->
+//                    dialog.dismiss()
+                }
+                .create()
+
+        dialog.setCanceledOnTouchOutside(false)
+//        dialog.setCancelable(false)
+
+        dialog.show()
+
+
+        val positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE)
+        positiveButton.setTextColor(Color.parseColor("#8a000000"))
+        val negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE)
+
+        return dialog
     }
 }

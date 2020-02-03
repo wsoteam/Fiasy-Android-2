@@ -1281,6 +1281,7 @@ Share your accomplishments with friends:</string>
     <string name="seconds_short">сек.</string>
 
     <string name="starvation_exit">Выйти</string>
+    <string name="starvation_back">Назад</string>
     <string name="starvation_alert_txt">Вы хотите покинуть испытание?</string>
     <string name="starvation">Голодание</string>
 
@@ -1291,5 +1292,7 @@ Share your accomplishments with friends:</string>
 
     <string name="starvation_time_from">с</string>
     <string name="starvation_time_till">до</string>
+
+    <string name="starvation_exit_without_saving">Выйти без сохранения настроек голодания?</string>
 
 </resources>
