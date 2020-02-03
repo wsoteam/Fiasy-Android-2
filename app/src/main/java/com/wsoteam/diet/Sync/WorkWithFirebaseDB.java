@@ -592,12 +592,12 @@ public class WorkWithFirebaseDB {
     }
 
 
-    public static void setStarvationTimeMillis(Long timeMillis){
+    public static void setStarvationTimestamp(Long timeMillis){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("USER_LIST")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("starvation")
-                .child("timeMillis");
+                .child("timestamp");
         myRef.setValue(timeMillis);
     }
     public static void deleteStarvation(){

@@ -34,7 +34,7 @@ class DaysPickerDialogFragment : DialogFragment() {
     private var _theme = R.style.FullScreenDialog_NoStatusBar
 
     private lateinit var checkBoxMap: Map<Int, CheckBox>
-    private val starvationDays: MutableSet<Int> = StarvationViewModel.getStarvation().value?.days?.toMutableSet()
+    private val starvationDays: MutableSet<Long> = StarvationViewModel.getStarvation().value?.days?.toMutableSet()
             ?: mutableSetOf()
 
 
@@ -57,7 +57,7 @@ class DaysPickerDialogFragment : DialogFragment() {
         cancel.setOnClickListener { dismiss() }
 
         ok.setOnClickListener {
-            WorkWithFirebaseDB.setStarvationDays(starvationDays.toList())
+//            WorkWithFirebaseDB.setStarvationDays(starvationDays.toList())
             dismiss()
         }
 
@@ -71,14 +71,14 @@ class DaysPickerDialogFragment : DialogFragment() {
                 Calendar.SUNDAY to checkBoxSunday
         )
 
-        for (i in 1..7) {
-            checkBoxMap[i]?.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (isChecked) starvationDays.add(i)
-                else starvationDays.remove(i)
-            }
-        }
+//        for (i in 1..7) {
+//            checkBoxMap[i]?.setOnCheckedChangeListener { buttonView, isChecked ->
+//                if (isChecked) starvationDays.add(i)
+//                else starvationDays.remove(i)
+//            }
+//        }
 
-        starvationDays.forEach { checkBoxMap[it]?.isChecked = true }
+//        starvationDays.forEach { checkBoxMap[it]?.isChecked = true }
     }
 
 }

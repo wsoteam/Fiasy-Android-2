@@ -27,7 +27,6 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
 
     private val REQUEST_DATE = 0
     private lateinit var daysWeek: List<String>
-    private var isStart = false
 
     private var isDateSelected = false
     private var isTimeSelected = false
@@ -43,13 +42,13 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val selectTxt = RichTextUtils.RichText("Выбрать")
+        val selectTxt = RichTextUtils.RichText(getString(R.string.starvation_select))
                 .underline()
         time.text = selectTxt.text()
         date.text = selectTxt.text()
 
         start.setOnClickListener {
-            isStart = true
+            WorkWithFirebaseDB.setStarvationTimestamp(startDate.timeInMillis)
             activity?.onBackPressed()
         }
 
@@ -96,12 +95,12 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
         val dayResult = StringBuffer()
         val daysList = starvation.days.toMutableList()
 
-        if (starvation.timeMillis < 0 ){
+        if (starvation.timestamp < 0 ){
             time.text = getString(R.string.starvation_select)
         }else{
             val cal = Calendar.getInstance()
-                cal.set(Calendar.HOUR_OF_DAY, Util.getHours(starvation.timeMillis).toInt())
-                cal.set(Calendar.MINUTE, Util.getMinutes(starvation.timeMillis).toInt())
+                cal.set(Calendar.HOUR_OF_DAY, Util.getHours(starvation.timestamp).toInt())
+                cal.set(Calendar.MINUTE, Util.getMinutes(starvation.timestamp).toInt())
                 time.text = SimpleDateFormat("HH:mm").format(cal.time)
         }
 
@@ -129,7 +128,7 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
 
         val buttonDrawable = DrawableCompat.wrap(start.background)
 
-        if(starvation.timeMillis > 0 && daysList.size > 0){
+        if(starvation.timestamp > 0 && daysList.size > 0){
             DrawableCompat.setTint(buttonDrawable,Color.parseColor("#ef7d02"))
             start.isClickable = true
 
@@ -180,10 +179,10 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
     }
 
     override fun onPause() {
-        if (!isStart) {
-            (StarvationViewModel.getStarvation() as MutableLiveData).value = Starvation()
-            WorkWithFirebaseDB.deleteStarvation()
-        }
+//        if (!isStart) {
+//            (StarvationViewModel.getStarvation() as MutableLiveData).value = Starvation()
+//            WorkWithFirebaseDB.deleteStarvation()
+//        }
         super.onPause()
     }
 

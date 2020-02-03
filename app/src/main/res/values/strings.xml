@@ -1281,7 +1281,7 @@ Share your accomplishments with friends:</string>
     <string name="seconds_short">сек.</string>
 
     <string name="starvation_exit">Выйти</string>
-    <string name="starvation_alert_txt">Вы действительно не хотите учавствовать в испытании?</string>
+    <string name="starvation_alert_txt">Вы хотите покинуть испытание?</string>
     <string name="starvation">Голодание</string>
 
     <string name="starvation_blocked_title">16-часовое голодание</string>
