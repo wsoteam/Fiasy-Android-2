@@ -52,69 +52,59 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
 
     private fun check() {
 
-//        val starvationMillis = StarvationViewModel.getStarvation().value?.timeMillis ?: 0
-        val starvationDays = StarvationViewModel.getStarvation().value?.days ?: mutableListOf()
+        val starvationMillis = StarvationViewModel.getStarvation().value?.timestamp ?: 0
 
-//        if (starvationMillis < 0 || starvationDays.isEmpty()) return
+        if (starvationMillis < 0) return
 
         val currentDay = Calendar.getInstance()
-        val startStarvation = Calendar.getInstance()
-        val endStarvation = Calendar.getInstance()
-//        startStarvation.set(Calendar.HOUR_OF_DAY, Util.getHours(starvationMillis).toInt())
-//        startStarvation.set(Calendar.MINUTE, Util.getMinutes(starvationMillis).toInt())
-        startStarvation.set(Calendar.SECOND, 0)
-        startStarvation.set(Calendar.MILLISECOND, 0)
-        startStarvation.add(Calendar.SECOND, -1)
+        val startDay = Calendar.getInstance()
+        val startTime = Calendar.getInstance()
+        val endTime = Calendar.getInstance()
 
-//        Log.d("kkk", "getHours(starvationMillis) - ${Util.getHours(starvationMillis)}  /// ${24 - starvationHours}")
+        startDay.timeInMillis = starvationMillis
+        if (currentDay.before(startDay)) return
 
-        val prevDay = Calendar.getInstance()
-        prevDay.time = startStarvation.time
-        prevDay.add(Calendar.DAY_OF_WEEK, -1)
+        startTime.set(Calendar.HOUR_OF_DAY, startDay.get(Calendar.HOUR_OF_DAY))
+        startTime.set(Calendar.MINUTE, startDay.get(Calendar.MINUTE))
+        startTime.set(Calendar.SECOND, startDay.get(Calendar.SECOND))
 
-//        if (Util.getHours(starvationMillis) > (24 - starvationHours) && starvationDays.contains(prevDay.get(Calendar.DAY_OF_WEEK))) {
-//
-//            if (Util.getHours(currentDay.timeInMillis - prevDay.timeInMillis) < starvationHours)
-//            startStarvation.add(Calendar.DAY_OF_WEEK, -1)
-////            Log.e("kkk", "true!!!")
-//        }
-//
-//        for (i in 1..7) {
-//            if (starvationDays.contains(startStarvation.get(Calendar.DAY_OF_WEEK))) break
-//            startStarvation.add(Calendar.DAY_OF_WEEK, 1)
-////            Log.d("kkk", "+1 day")
-//        }
+        Log.d("kkk","HOUR_OF_DAY - ${startTime.get(Calendar.HOUR_OF_DAY)} // (24 - starvationHours) - ${(24 - starvationHours)}")
 
+        startTime.add(Calendar.DATE, -1)
+        endTime.time = startTime.time
+        endTime.add(Calendar.HOUR_OF_DAY, starvationHours)
+        if (currentDay.after(endTime)){
+            startTime.add(Calendar.DATE, 1)
+            endTime.time = startTime.time
+            endTime.add(Calendar.HOUR_OF_DAY, starvationHours)
+        }
 
-
-        endStarvation.time = startStarvation.time
-        endStarvation.add(Calendar.HOUR_OF_DAY, starvationHours)
-
-//        Log.d("kkk", "cur - ${currentDay.time}")
-//        Log.d("kkk", "start - ${startStarvation.time}")
-//        Log.d("kkk", "end - ${endStarvation.time}")
+        Log.e("kkk", "curDay - ${currentDay.time}")
+        Log.e("kkk", "startDay - ${startDay.time}")
+        Log.e("kkk", "startTime - ${startTime.time}")
+        Log.e("kkk", "endTime - ${endTime.time}")
 
 
-        if (currentDay.after(startStarvation) && currentDay.before(endStarvation)) {
-//            Log.d("kkk", "if TRUE starvation time")
+        if (currentDay.after(startTime) && currentDay.before(endTime)) {
+            Log.d("kkk", "if TRUE starvation time")
             starvationStatus?.text = getString(R.string.starvation_on)
             subTile?.text = getString(R.string.starvation_on_subtitle)
 
-            setTimeTo(endStarvation)
+            setTimeTo(endTime)
 
         } else {
-//            Log.d("kkk", "if FALSE starvation time")
+            Log.d("kkk", "if FALSE starvation time")
 
             starvationStatus?.text = getString(R.string.starvation_off)
             subTile?.text = getString(R.string.starvation_off_subtitle)
-            setTimeTo(startStarvation)
+            setTimeTo(startTime)
 
         }
     }
 
     private fun setTimeTo(calendar: Calendar) {
         val time = calendar.timeInMillis - System.currentTimeMillis()
-//        if(time < 0) throw IllegalArgumentException("incorrect time!!!")
+        if(time < 0) throw IllegalArgumentException("incorrect time!!!")
 //        Log.e("kkk", "time = $time; system = ${System.currentTimeMillis()}; calendar = ${calendar.timeInMillis}")
         hour?.text = timeFormat.format(TimeUnit.MILLISECONDS.toHours(time))
         minute?.text = timeFormat.format(Util.getMinutes(time))

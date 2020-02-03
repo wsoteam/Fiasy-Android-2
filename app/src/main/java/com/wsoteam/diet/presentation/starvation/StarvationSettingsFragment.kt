@@ -79,6 +79,7 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
             startDate.set(Calendar.MINUTE, minute)
             startDate.set(Calendar.SECOND, 0)
             updateTime()
+
 //            cal.set(Calendar.HOUR_OF_DAY, hour)
 //            cal.set(Calendar.MINUTE, minute)
 //            time.text = SimpleDateFormat("HH:mm").format(cal.time)
@@ -99,14 +100,14 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
         val dayResult = StringBuffer()
         val daysList = starvation.days.toMutableList()
 
-        if (starvation.timestamp < 0 ){
-            time.text = getString(R.string.starvation_select)
-        }else{
-            val cal = Calendar.getInstance()
-                cal.set(Calendar.HOUR_OF_DAY, Util.getHours(starvation.timestamp).toInt())
-                cal.set(Calendar.MINUTE, Util.getMinutes(starvation.timestamp).toInt())
-                time.text = SimpleDateFormat("HH:mm").format(cal.time)
-        }
+//        if (starvation.timestamp < 0 ){
+//            time.text = getString(R.string.starvation_select)
+//        }else{
+//            val cal = Calendar.getInstance()
+//                cal.set(Calendar.HOUR_OF_DAY, Util.getHours(starvation.timestamp).toInt())
+//                cal.set(Calendar.MINUTE, Util.getMinutes(starvation.timestamp).toInt())
+//                time.text = SimpleDateFormat("HH:mm").format(cal.time)
+//        }
 
 
 

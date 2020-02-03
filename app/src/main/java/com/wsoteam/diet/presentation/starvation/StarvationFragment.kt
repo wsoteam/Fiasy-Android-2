@@ -52,13 +52,13 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
         }
 
         StarvationViewModel.getStarvation().observe(this, Observer {
-//            if (it.timeMillis >= 0) {
-//                starvationNotActivated.visibility = View.GONE
-//                starvationActivatedL.visibility = View.VISIBLE
-//            } else {
-//                starvationNotActivated.visibility = View.VISIBLE
-//                starvationActivatedL.visibility = View.GONE
-//            }
+            if (it.timestamp >= 0) {
+                starvationNotActivated.visibility = View.GONE
+                starvationActivatedL.visibility = View.VISIBLE
+            } else {
+                starvationNotActivated.visibility = View.VISIBLE
+                starvationActivatedL.visibility = View.GONE
+            }
         })
     }
 

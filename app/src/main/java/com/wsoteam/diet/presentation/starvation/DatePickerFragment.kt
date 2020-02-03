@@ -13,6 +13,9 @@ import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.R
 import java.util.*
+import com.adjust.sdk.Adjust.setEnabled
+
+
 
 class DatePickerFragment: DialogFragment() {
 
@@ -38,16 +41,20 @@ class DatePickerFragment: DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         val date = Calendar.getInstance()
-        val prevDate = Calendar.getInstance()
+        val minDate = Calendar.getInstance()
+        val maxDate = Calendar.getInstance()
 
         arguments?.getLong(ARG_DATE)?.apply { date.timeInMillis = this }
-        prevDate.time = date.time
-        prevDate.add(Calendar.DATE, -3)
+        minDate.time = date.time
+        minDate.add(Calendar.DATE, -3)
+        maxDate.time = date.time
+        maxDate.add(Calendar.MONTH, 3)
 
         val view = LayoutInflater.from(context).inflate(R.layout.starvation_date_picker, null)
 
         datePicker = view.findViewById(R.id.starvation_date_picker)
-        datePicker.minDate = prevDate.timeInMillis
+        datePicker.minDate = minDate.timeInMillis
+        datePicker.maxDate = maxDate.timeInMillis
         datePicker.init(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH), null)
 
         val dialog = AlertDialog.Builder(context)
@@ -60,10 +67,6 @@ class DatePickerFragment: DialogFragment() {
                 .create()
 
         dialog.setCanceledOnTouchOutside(false)
-
-        val negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE)
-        negativeButton?.setTextColor(Color.parseColor("#717171"))
-        negativeButton?.isAllCaps = false
         return dialog
     }
 
@@ -71,5 +74,15 @@ class DatePickerFragment: DialogFragment() {
         val intent = Intent()
         intent.putExtra(EXTRA_DATE, date)
         targetFragment?.onActivityResult(targetRequestCode, resultCode, intent)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val d = dialog as AlertDialog?
+        if (d != null) {
+            val negativeButton = d.getButton(DialogInterface.BUTTON_NEGATIVE)
+            negativeButton?.setTextColor(Color.parseColor("#717171"))
+            negativeButton?.isAllCaps = false
+        }
     }
 }
