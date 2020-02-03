@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.View
 
 import com.wsoteam.diet.R
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.utils.Subscription
 import kotlinx.android.synthetic.main.state_not_started.*
 
@@ -18,8 +17,7 @@ class StateNotStarted : Fragment(R.layout.state_not_started) {
         super.onViewCreated(view, savedInstanceState)
         textBtn.setOnClickListener {
 
-            if(Subscription.check(context))
-                WorkWithFirebaseDB.setStarvationTimestamp(System.currentTimeMillis() - 1_000)
+            if(Subscription.check(context)) StarvationFragment.setTimestamp(System.currentTimeMillis() - 1_000)
             else BlockedStarvationDialogFragment.show(fragmentManager)
 
         }

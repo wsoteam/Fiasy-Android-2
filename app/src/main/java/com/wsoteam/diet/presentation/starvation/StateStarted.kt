@@ -9,18 +9,13 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.MutableLiveData
 import com.wsoteam.diet.R
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import kotlinx.android.synthetic.main.fragment_starvation_started.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 
 class StateStarted : Fragment(R.layout.fragment_starvation_started) {
-    companion object{
-        const val starvationHours = 16
-    }
 
     private val timeFormat = "%02d"
 
@@ -69,32 +64,32 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
         startTime.set(Calendar.MINUTE, startDay.get(Calendar.MINUTE))
         startTime.set(Calendar.SECOND, startDay.get(Calendar.SECOND))
 
-        Log.d("kkk","HOUR_OF_DAY - ${startTime.get(Calendar.HOUR_OF_DAY)} // (24 - starvationHours) - ${(24 - starvationHours)}")
+//        Log.d("kkk","HOUR_OF_DAY - ${startTime.get(Calendar.HOUR_OF_DAY)} // (24 - starvationHours) - ${(24 - StarvationFragment.STARVATION_HOURS)}")
 
         startTime.add(Calendar.DATE, -1)
         endTime.time = startTime.time
-        endTime.add(Calendar.HOUR_OF_DAY, starvationHours)
+        endTime.add(Calendar.HOUR_OF_DAY, StarvationFragment.STARVATION_HOURS)
         if (currentDay.after(endTime)){
             startTime.add(Calendar.DATE, 1)
             endTime.time = startTime.time
-            endTime.add(Calendar.HOUR_OF_DAY, starvationHours)
+            endTime.add(Calendar.HOUR_OF_DAY, StarvationFragment.STARVATION_HOURS)
         }
 
-        Log.e("kkk", "curDay - ${currentDay.time}")
-        Log.e("kkk", "startDay - ${startDay.time}")
-        Log.e("kkk", "startTime - ${startTime.time}")
-        Log.e("kkk", "endTime - ${endTime.time}")
+//        Log.e("kkk", "curDay - ${currentDay.time}")
+//        Log.e("kkk", "startDay - ${startDay.time}")
+//        Log.e("kkk", "startTime - ${startTime.time}")
+//        Log.e("kkk", "endTime - ${endTime.time}")
 
 
         if (currentDay.after(startTime) && currentDay.before(endTime)) {
-            Log.d("kkk", "if TRUE starvation time")
+//            Log.d("kkk", "if TRUE starvation time")
             starvationStatus?.text = getString(R.string.starvation_on)
             subTile?.text = getString(R.string.starvation_on_subtitle)
 
             setTimeTo(endTime)
 
         } else {
-            Log.d("kkk", "if FALSE starvation time")
+//            Log.d("kkk", "if FALSE starvation time")
 
             starvationStatus?.text = getString(R.string.starvation_off)
             subTile?.text = getString(R.string.starvation_off_subtitle)
@@ -118,12 +113,11 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
         val dialog = AlertDialog.Builder(context)
                 .setTitle(R.string.starvation_exit)
                 .setMessage(R.string.starvation_alert_txt)
-                .setPositiveButton(R.string.starvation_exit) { dialog, which ->
-                    (StarvationViewModel.getStarvation() as MutableLiveData).value = Starvation()
-                    WorkWithFirebaseDB.deleteStarvation()
+                .setPositiveButton(R.string.starvation_exit) { dialog, _ ->
+                    StarvationFragment.deleteStarvation()
                     dialog.dismiss()
                 }
-                .setNegativeButton(R.string.starvation_cancle) { dialog, which ->
+                .setNegativeButton(R.string.starvation_cancle) { dialog, _ ->
                     dialog.dismiss()
                 }
                 .create()

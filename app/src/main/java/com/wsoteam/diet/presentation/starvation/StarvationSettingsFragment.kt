@@ -14,7 +14,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.text.TextUtils.concat
 import androidx.appcompat.app.AlertDialog
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -49,7 +48,7 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
         date.text = selectTxt.text()
 
         start.setOnClickListener {
-            WorkWithFirebaseDB.setStarvationTimestamp(startDate.timeInMillis)
+            StarvationFragment.setTimestamp(startDate.timeInMillis)
             activity?.onBackPressed()
         }
 
@@ -72,21 +71,12 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
 
     private fun openTimePicker() {
         val cal = Calendar.getInstance()
-        val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+        val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
 
             startDate.set(Calendar.HOUR_OF_DAY, hour)
             startDate.set(Calendar.MINUTE, minute)
             startDate.set(Calendar.SECOND, 0)
             updateTime()
-
-//            cal.set(Calendar.HOUR_OF_DAY, hour)
-//            cal.set(Calendar.MINUTE, minute)
-//            time.text = SimpleDateFormat("HH:mm").format(cal.time)
-//            WorkWithFirebaseDB.setStarvationTimeMillis(Util.timeToMillis(hour.toLong(), minute.toLong(), 0 ))
-//            val millis = Util.timeToMillis(hour.toLong(), minute.toLong(), 0 )
-//            Log.d("kkk", "millis - ${millis}; hours - ${Util.getHours(millis)}; minutes - ${Util.getMinutes(millis)}; seconds - ${Util.getSeconds(millis )}")
-//            Log.d("kkk", "time - ${cal.time} \nSimpleDateFormat - ${SimpleDateFormat("HH:mm").format(cal.time)}")
-
         }
         TimePickerDialog(context, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
 
@@ -95,44 +85,9 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
     private fun updateUi(starvation: Starvation) {
 
 
-
-        val dayResult = StringBuffer()
-        val daysList = starvation.days.toMutableList()
-
-//        if (starvation.timestamp < 0 ){
-//            time.text = getString(R.string.starvation_select)
-//        }else{
-//            val cal = Calendar.getInstance()
-//                cal.set(Calendar.HOUR_OF_DAY, Util.getHours(starvation.timestamp).toInt())
-//                cal.set(Calendar.MINUTE, Util.getMinutes(starvation.timestamp).toInt())
-//                time.text = SimpleDateFormat("HH:mm").format(cal.time)
-//        }
-
-
-
-/*        when {
-            daysList.size == 0 -> days.text = getString(R.string.starvation_select)
-            daysList.size == Calendar.DAY_OF_WEEK -> days.text = getString(R.string.starvation_all_days)
-            else -> {
-                daysList.sortWith(compareBy { it })
-                if (daysList[0] == Calendar.SUNDAY) {
-                    daysList.remove(Calendar.SUNDAY)
-                    daysList.add(Calendar.SUNDAY)
-                }
-
-                daysList.forEach {
-                    Log.d("kkk", "day - $it")
-                    dayResult.append(", ").append(daysWeek[it - 1])
-                }
-
-                dayResult.delete(0, 2)
-                days.text = dayResult
-            }
-        }*/
-
         val buttonDrawable = DrawableCompat.wrap(start.background)
 
-        if(starvation.timestamp > 0 && daysList.size > 0){
+        if(starvation.timestamp > 0){
             DrawableCompat.setTint(buttonDrawable,Color.parseColor("#ef7d02"))
             start.isClickable = true
 
@@ -157,7 +112,7 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
         val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         val finishTime = Calendar.getInstance()
         finishTime.time = startDate.time
-        finishTime.add(Calendar.HOUR_OF_DAY, StateStarted.starvationHours)
+        finishTime.add(Calendar.HOUR_OF_DAY, StarvationFragment.STARVATION_HOURS)
 
         val from = RichTextUtils.RichText(getString(R.string.starvation_time_from))
                 .color(Color.parseColor("#c0000000"))
@@ -207,24 +162,19 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
 
         val dialog = AlertDialog.Builder(context)
                 .setMessage(R.string.starvation_exit_without_saving)
-                .setPositiveButton(R.string.starvation_exit) { dialog, which ->
+                .setPositiveButton(R.string.starvation_exit) { _, _ ->
                     activity?.onBackPressed()
-//                    dialog.dismiss()
                 }
-                .setNegativeButton(R.string.starvation_back) { dialog, which ->
-//                    dialog.dismiss()
-                }
+                .setNegativeButton(R.string.starvation_back, null)
                 .create()
 
         dialog.setCanceledOnTouchOutside(false)
-//        dialog.setCancelable(false)
 
         dialog.show()
 
 
         val positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE)
         positiveButton.setTextColor(Color.parseColor("#8a000000"))
-        val negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE)
 
         return dialog
     }

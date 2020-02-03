@@ -59,7 +59,7 @@ class StateTimerBeforeStarted : Fragment(R.layout.fragment_state_timer_before_st
 
 
         start.setOnClickListener {
-            WorkWithFirebaseDB.setStarvationTimestamp(System.currentTimeMillis() - 1_000)
+            StarvationFragment.setTimestamp(System.currentTimeMillis() - 1_000)
         }
 
         edit.setOnClickListener {

@@ -4,17 +4,36 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.wsoteam.diet.R
+import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import java.util.*
 
 
 class StarvationFragment : Fragment(R.layout.fragment_starvation) {
 
+    companion object{
+
+            const val STARVATION_HOURS = 16
+
+        fun setTimestamp(millis: Long){
+            (StarvationViewModel.getStarvation() as MutableLiveData).value?.timestamp = millis
+            WorkWithFirebaseDB.setStarvationTimestamp(millis)
+        }
+
+        fun deleteStarvation(){
+            (StarvationViewModel.getStarvation() as MutableLiveData).value = Starvation()
+            WorkWithFirebaseDB.deleteStarvation()
+        }
+
+    }
+
     private lateinit var database: DatabaseReference
+    private var tagCurrentState = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +59,6 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
             val startDate = Calendar.getInstance()
             startDate.timeInMillis = it.timestamp
 
-            Log.d("kkk", "Observer --- ")
-
             when {
                 it.timestamp < 0 -> setFragment(StateNotStarted())
                 currentDate.before(startDate) -> setFragment(StateTimerBeforeStarted())
@@ -51,11 +68,15 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
     }
 
     private fun setFragment(fragment: Fragment){
-        childFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                .replace(R.id.stateContainer, fragment)
-                .commit()
+
+        if (tagCurrentState != fragment::class.java.simpleName) {
+            childFragmentManager
+                    .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .replace(R.id.stateContainer, fragment, fragment::class.java.simpleName)
+                    .commit()
+            tagCurrentState = fragment::class.java.simpleName
+        }
     }
 
 }
