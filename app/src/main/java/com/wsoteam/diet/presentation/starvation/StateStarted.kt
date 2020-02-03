@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.starvation
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -21,8 +22,6 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
         const val starvationHours = 16
     }
 
-
-
     private val timeFormat = "%02d"
 
 
@@ -30,7 +29,7 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
         super.onViewCreated(view, savedInstanceState)
 
         val handler = Handler()
-        val runnable = object : Runnable {
+        object : Runnable {
             override fun run() {
                 val seconds = 59 - ((System.currentTimeMillis() / 1000) % 60)
                 second?.text = timeFormat.format(seconds)
@@ -43,6 +42,8 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
 
 
         cancel.setOnClickListener { closingDialog(context) }
+
+        edit.setOnClickListener { startActivity(Intent(context, StarvationSettingsActivity::class.java)) }
 
         StarvationViewModel.getStarvation().observe(this, androidx.lifecycle.Observer {
             check()

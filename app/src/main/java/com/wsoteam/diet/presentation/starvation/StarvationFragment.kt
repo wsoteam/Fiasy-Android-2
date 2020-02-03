@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.wsoteam.diet.R
+import java.util.*
 
 
 class StarvationFragment : Fragment(R.layout.fragment_starvation) {
@@ -24,11 +25,7 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                val starvation: Starvation? = p0.getValue(Starvation::class.java)
-                if (starvation != null) {
-//                    Log.d("kkk", "time - ${starvation.timeMillis}; days - ${starvation.days}; uid - ${FirebaseAuth.getInstance().currentUser!!.uid}")
-                    (StarvationViewModel.getStarvation() as MutableLiveData).value = starvation
-                }
+                p0.getValue(Starvation::class.java)?.apply { (StarvationViewModel.getStarvation() as MutableLiveData).value = this }
             }
         })
     }
@@ -39,9 +36,17 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
         setFragment(StateNotStarted())
         StarvationViewModel.getStarvation().observe(this, Observer {
 
-            if (it.timestamp >= 0) setFragment(StateStarted())
-            else setFragment(StateNotStarted())
+            val currentDate = Calendar.getInstance()
+            val startDate = Calendar.getInstance()
+            startDate.timeInMillis = it.timestamp
 
+            Log.d("kkk", "Observer --- ")
+
+            when {
+                it.timestamp < 0 -> setFragment(StateNotStarted())
+                currentDate.before(startDate) -> setFragment(StateTimerBeforeStarted())
+                else -> setFragment(StateStarted())
+            }
         })
     }
 
