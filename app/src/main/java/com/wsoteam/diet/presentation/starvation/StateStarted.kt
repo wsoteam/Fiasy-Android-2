@@ -11,12 +11,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.MutableLiveData
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
-import kotlinx.android.synthetic.main.fragment_starvation_activated.*
+import kotlinx.android.synthetic.main.fragment_starvation_started.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activated) {
+class StateStarted : Fragment(R.layout.fragment_starvation_started) {
     companion object{
         const val starvationHours = 16
     }
@@ -107,7 +107,7 @@ class StarvationActivatedFragment : Fragment(R.layout.fragment_starvation_activa
         if(time < 0) throw IllegalArgumentException("incorrect time!!!")
 //        Log.e("kkk", "time = $time; system = ${System.currentTimeMillis()}; calendar = ${calendar.timeInMillis}")
         hour?.text = timeFormat.format(TimeUnit.MILLISECONDS.toHours(time))
-        minute?.text = timeFormat.format(Util.getMinutes(time))
+        minute?.text = timeFormat.format((TimeUnit.MILLISECONDS.toMinutes(time) % 60))
     }
 
     private fun closingDialog(context: Context?): AlertDialog? {

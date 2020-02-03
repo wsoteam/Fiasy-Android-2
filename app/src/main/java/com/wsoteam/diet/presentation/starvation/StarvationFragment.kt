@@ -1,6 +1,5 @@
 package com.wsoteam.diet.presentation.starvation
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,9 +9,6 @@ import androidx.lifecycle.Observer
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.wsoteam.diet.R
-import com.wsoteam.diet.utils.Subscription
-
-import kotlinx.android.synthetic.main.fragment_starvation.*
 
 
 class StarvationFragment : Fragment(R.layout.fragment_starvation) {
@@ -40,26 +36,21 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        textBtn.setOnClickListener {
-
-            if(Subscription.check(context)){
-                startActivity(Intent(context, StarvationSettingsActivity::class.java))
-            }else{
-                BlockedStarvationDialogFragment.show(fragmentManager)
-            }
-
-            Log.d("kkk", "${Util.timeToMillis(24, 0, 0)}")
-        }
-
+        setFragment(StateNotStarted())
         StarvationViewModel.getStarvation().observe(this, Observer {
-            if (it.timestamp >= 0) {
-                starvationNotActivated.visibility = View.GONE
-                starvationActivatedL.visibility = View.VISIBLE
-            } else {
-                starvationNotActivated.visibility = View.VISIBLE
-                starvationActivatedL.visibility = View.GONE
-            }
+
+            if (it.timestamp >= 0) setFragment(StateStarted())
+            else setFragment(StateNotStarted())
+
         })
+    }
+
+    private fun setFragment(fragment: Fragment){
+        childFragmentManager
+                .beginTransaction()
+                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                .replace(R.id.stateContainer, fragment)
+                .commit()
     }
 
 }

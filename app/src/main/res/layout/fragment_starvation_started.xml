@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:background="@android:color/white"
-    tools:context="com.wsoteam.diet.presentation.starvation.StarvationActivatedFragment">
+    tools:context="com.wsoteam.diet.presentation.starvation.StateStarted">
 
     <TextView
         android:id="@+id/starvationTitle2"

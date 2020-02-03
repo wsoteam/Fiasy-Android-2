@@ -19,7 +19,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 import androidx.core.graphics.drawable.DrawableCompat
-import androidx.lifecycle.MutableLiveData
 import com.wsoteam.diet.utils.RichTextUtils
 
 
@@ -158,7 +157,7 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
         val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         val finishTime = Calendar.getInstance()
         finishTime.time = startDate.time
-        finishTime.add(Calendar.HOUR_OF_DAY, StarvationActivatedFragment.starvationHours)
+        finishTime.add(Calendar.HOUR_OF_DAY, StateStarted.starvationHours)
 
         val from = RichTextUtils.RichText(getString(R.string.starvation_time_from))
                 .color(Color.parseColor("#c0000000"))
