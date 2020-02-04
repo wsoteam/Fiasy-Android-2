@@ -14,6 +14,10 @@ import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.R
 import java.util.*
 import com.adjust.sdk.Adjust.setEnabled
+import android.view.ViewGroup
+import android.view.WindowManager
+
+
 
 
 
@@ -36,6 +40,14 @@ class DatePickerFragment: DialogFragment() {
 
     private lateinit var datePicker: DatePicker
 
+    private var _style = STYLE_NO_TITLE
+    private var _theme = R.style.FullScreenDialog_NoStatusBar
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(_style, _theme)
+
+    }
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -43,6 +55,8 @@ class DatePickerFragment: DialogFragment() {
         val date = Calendar.getInstance()
         val minDate = Calendar.getInstance()
         val maxDate = Calendar.getInstance()
+
+
 
         arguments?.getLong(ARG_DATE)?.apply { date.timeInMillis = this }
         minDate.time = date.time
@@ -67,6 +81,7 @@ class DatePickerFragment: DialogFragment() {
                 .create()
 
         dialog.setCanceledOnTouchOutside(false)
+
         return dialog
     }
 
@@ -83,6 +98,9 @@ class DatePickerFragment: DialogFragment() {
             val negativeButton = d.getButton(DialogInterface.BUTTON_NEGATIVE)
             negativeButton?.setTextColor(Color.parseColor("#717171"))
             negativeButton?.isAllCaps = false
+            
+            d.window?.setLayout(resources.getDimension(R.dimen.starvation_date_picker_width).toInt(),
+                    resources.getDimension(R.dimen.starvation_date_picker_height).toInt())
         }
     }
 }
