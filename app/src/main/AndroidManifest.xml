@@ -28,6 +28,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <receiver android:name=".presentation.starvation.notification.BootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".presentation.starvation.notification.AlarmNotificationReceiver"/>
+
+        <service
+            android:name=".presentation.starvation.notification.StarvationService"
+            android:enabled="true"
+            android:exported="true"/>
+
         <activity android:name=".presentation.starvation.StarvationSettingsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ProfileActivity"/>

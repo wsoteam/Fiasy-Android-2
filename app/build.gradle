@@ -190,7 +190,9 @@ dependencies {
     implementation 'fr.tvbarthel.blurdialogfragment:lib:2.2.0'
     implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
 
-//    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    //Work
+    implementation "androidx.work:work-runtime-ktx:2.3.0"
+    implementation 'com.google.guava:guava:27.0.1-android'
 
 }
 

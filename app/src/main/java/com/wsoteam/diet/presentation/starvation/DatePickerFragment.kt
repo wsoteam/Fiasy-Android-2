@@ -98,7 +98,7 @@ class DatePickerFragment: DialogFragment() {
             val negativeButton = d.getButton(DialogInterface.BUTTON_NEGATIVE)
             negativeButton?.setTextColor(Color.parseColor("#717171"))
             negativeButton?.isAllCaps = false
-            
+
             d.window?.setLayout(resources.getDimension(R.dimen.starvation_date_picker_width).toInt(),
                     resources.getDimension(R.dimen.starvation_date_picker_height).toInt())
         }
