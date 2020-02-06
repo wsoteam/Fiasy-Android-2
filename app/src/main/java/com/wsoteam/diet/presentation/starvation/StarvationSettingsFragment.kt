@@ -13,6 +13,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.text.TextUtils.concat
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import java.text.SimpleDateFormat
 import java.util.*
@@ -41,6 +42,19 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        toolbar.inflateMenu(R.menu.starvation_menu)
+
+        toolbar.menu.findItem(R.id.action_notification).setOnMenuItemClickListener {
+
+            fragmentManager?.beginTransaction()?.apply {
+                replace((getView()?.parent as ViewGroup).id, StarvationNotificationFragment())
+                addToBackStack(StarvationNotificationFragment::class.java.simpleName)
+                commit()
+            }
+//            StarvationNotificationFragment.show(childFragmentManager)
+            true
+        }
 
         val selectTxt = RichTextUtils.RichText(getString(R.string.starvation_select))
                 .underline()

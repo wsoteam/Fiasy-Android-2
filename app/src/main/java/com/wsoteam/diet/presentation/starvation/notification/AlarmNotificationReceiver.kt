@@ -13,32 +13,70 @@ import androidx.core.app.NotificationCompat
 
 import com.wsoteam.diet.MainScreen.MainActivity
 import com.wsoteam.diet.R
+import com.wsoteam.diet.presentation.starvation.StarvationFragment
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class AlarmNotificationReceiver: BroadcastReceiver() {
 
-    companion object{
-        fun startAlarm(context: Context?) {
+    companion object {
 
+        private const val EXTRA_ID = "NotificationId"
+
+        fun startBasic(context: Context?, startTimeMillis: Long, endTimeMillis: Long) {
+
+            Log.e("kkk", "StarvationService Basic - ${TimeUnit.HOURS.toMillis(StarvationFragment.STARVATION_HOURS.toLong())}")
             if (context == null) return
+//            val endTime = timeMillis + TimeUnit.HOURS.toMillis(StarvationFragment.STARVATION_HOURS.toLong())
+            startAlarm(context, R.string.starvation_notification_basic_start, startTimeMillis)
+            startAlarm(context, R.string.starvation_notification_basic_end, endTimeMillis)
+        }
 
-            Log.e("kkk", "StarvationService")
-            //THIS IS WHERE YOU SET NOTIFICATION TIME FOR CASES WHEN THE NOTIFICATION NEEDS TO BE RESCHEDULED
-            val calendar = Calendar.getInstance()
-            calendar.add(Calendar.MINUTE, 1)
-//        calendar.set(Calendar.HOUR_OF_DAY, 16)
-//        calendar.set(Calendar.MINUTE, 30)
+        fun startAdvance(context: Context?, startTimeMillis: Long, endTimeMillis: Long) {
+            Log.e("kkk", "StarvationService Advance - ${TimeUnit.HOURS.toMillis(StarvationFragment.STARVATION_HOURS.toLong())}")
+            if (context == null) return
+            startAlarm(context, R.string.starvation_notification_advance_start, startTimeMillis)
+            startAlarm(context, R.string.starvation_notification_advance_end, endTimeMillis)
+        }
 
+        private fun startAlarm(context: Context, id: Int, timeMillis: Long) {
 
             val manager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            val myIntent = Intent(context, AlarmNotificationReceiver::class.java)
-            val pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent, 0)
-//
-//            if (!isRepeat)
-//                manager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime() + 3000, pendingIntent)
-//            else
-                manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent)
+
+            manager.setRepeating(AlarmManager.RTC_WAKEUP, timeMillis,
+                    AlarmManager.INTERVAL_FIFTEEN_MINUTES,
+                    getPendingIntent(context, id))
+        }
+
+        private fun getPendingIntent(context: Context, id: Int): PendingIntent {
+
+            val intent = Intent(context, AlarmNotificationReceiver::class.java)
+            intent.putExtra(EXTRA_ID, id)
+            return PendingIntent.getBroadcast(context, id, intent, 0)
+        }
+
+        fun stopAdvance(context: Context?) {
+            context?.apply {
+                Log.e("kkk", "stopAdvance")
+                getPendingIntent(context, R.string.starvation_notification_advance_start).cancel()
+                getPendingIntent(context, R.string.starvation_notification_advance_end).cancel()
+
+                val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                notificationManager.cancel(R.string.starvation_notification_advance_start)
+                notificationManager.cancel(R.string.starvation_notification_advance_end)
+            }
+        }
+
+        fun stopBasic(context: Context?) {
+            context?.apply {
+                getPendingIntent(context, R.string.starvation_notification_basic_start).cancel()
+                getPendingIntent(context, R.string.starvation_notification_basic_end).cancel()
+                Log.e("kkk", "stopBasic")
+                val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                notificationManager.cancel(R.string.starvation_notification_basic_start)
+                notificationManager.cancel(R.string.starvation_notification_basic_end)
+            }
         }
     }
 
@@ -46,8 +84,10 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
         Log.e("kkk", "AlarmNotificationReceiver !=")
         context?.apply {
             Log.e("kkk", "AlarmNotificationReceiver")
-            val builder = NotificationCompat.Builder(this, "default")
-
+            val builder = NotificationCompat.Builder(this, "fiasy.starvation")
+            val notificationId = intent?.getIntExtra(EXTRA_ID, 0)
+                    ?: return
+            Log.d("kkk", getString(notificationId))
             val myIntent = Intent(context, MainActivity::class.java)
             val pendingIntent = PendingIntent.getActivity(
                     context,
@@ -58,14 +98,14 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
             builder.setAutoCancel(true)
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setWhen(System.currentTimeMillis())
-                    .setSmallIcon(R.mipmap.ic_launcher_round)
-                    .setContentTitle("Zodiac")
+                    .setSmallIcon(R.drawable.ic_notifiation)
+                    .setContentTitle(getString(R.string.app_name))
                     .setContentIntent(pendingIntent)
-                    .setContentText("Check out your horoscope")
+                    .setContentText(getString(notificationId))
                     .setDefaults(Notification.DEFAULT_LIGHTS or Notification.DEFAULT_SOUND)
-                    .setContentInfo("Info")
+//                    .setContentInfo("Info")
 
             val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.notify(1, builder.build()) }
+            notificationManager.notify(notificationId, builder.build()) }
     }
 }

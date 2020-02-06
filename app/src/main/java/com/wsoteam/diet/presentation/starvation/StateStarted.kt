@@ -50,7 +50,7 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
 
         val starvationMillis = StarvationViewModel.getStarvation(context).value?.timestamp ?: 0
 
-        if (starvationMillis < 0) return
+        if (starvationMillis <= 0) return
 
         val currentDay = Calendar.getInstance()
         val startDay = Calendar.getInstance()
@@ -115,10 +115,10 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
                 .setMessage(R.string.starvation_alert_txt)
                 .setPositiveButton(R.string.starvation_exit) { dialog, _ ->
                     StarvationFragment.deleteStarvation(context)
-                    dialog.dismiss()
+
                 }
                 .setNegativeButton(R.string.starvation_cancle) { dialog, _ ->
-                    dialog.dismiss()
+
                 }
                 .create()
 

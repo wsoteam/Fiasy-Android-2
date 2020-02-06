@@ -1297,4 +1297,16 @@ Share your accomplishments with friends:</string>
 
     <string name="starvation_exit_without_saving">Выйти без сохранения настроек голодания?</string>
 
+
+    <string name="starvation_notification_basic_start">Отсчет голодания начался.</string>
+    <string name="starvation_notification_basic_end">Голодание окончено, пора кушать.</string>
+
+    <string name="starvation_notification_advance_start">15 минуть до начала голодания.</string>
+    <string name="starvation_notification_advance_end">15 минут до окончания голодания.</string>
+
+    <string name="starvation_notification">Напоминания</string>
+
+    <string name="starvation_notification_setting_basic">Напомнить о начал и окончании голодания</string>
+    <string name="starvation_notification_setting_advance">Напомнить за 15 минут до начала и окончания голодания</string>
+
 </resources>

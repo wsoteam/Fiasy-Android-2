@@ -33,19 +33,29 @@ class SharedPreferencesUtility {
             return 0
         }
 
-        fun setNotificationSetting(context: Context?, basicNotification: Boolean,  advanceNotification: Boolean){
+        fun setAdvanceNotification(context: Context?,  advanceNotification: Boolean){
             context?.apply {
                 val sharedPref = context.getSharedPreferences(STARVATION_PREFERENCES, Context.MODE_PRIVATE)
                         ?: return
                 with(sharedPref.edit()) {
-                    putBoolean(BASIC_NOTIFICATION, basicNotification)
                     putBoolean(ADVANCE_NOTIFICATION, advanceNotification)
                     apply()
                 }
             }
         }
 
-        fun isNeedBasicNotification(context: Context?): Boolean{
+        fun setBasicNotification(context: Context?, basicNotification: Boolean){
+            context?.apply {
+                val sharedPref = context.getSharedPreferences(STARVATION_PREFERENCES, Context.MODE_PRIVATE)
+                        ?: return
+                with(sharedPref.edit()) {
+                    putBoolean(BASIC_NOTIFICATION, basicNotification)
+                    apply()
+                }
+            }
+        }
+
+        fun isBasicNotification(context: Context?): Boolean{
             context?.apply {
                 val sharedPref = context.getSharedPreferences(STARVATION_PREFERENCES, Context.MODE_PRIVATE)
                         ?: return false
@@ -54,7 +64,7 @@ class SharedPreferencesUtility {
             return false
         }
 
-        fun isNeedAdvanceNotification(context: Context?): Boolean{
+        fun isAdvanceNotification(context: Context?): Boolean{
             context?.apply {
                 val sharedPref = context.getSharedPreferences(STARVATION_PREFERENCES, Context.MODE_PRIVATE)
                         ?: return false
