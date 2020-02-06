@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.starvation
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -20,13 +21,15 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
 
             const val STARVATION_HOURS = 16
 
-        fun setTimestamp(millis: Long){
-            (StarvationViewModel.getStarvation() as MutableLiveData).value?.timestamp = millis
+        fun setTimestamp(context: Context?, millis: Long){
+            SharedPreferencesUtility.setStarvationTime(context, millis)
+            (StarvationViewModel.getStarvation(context) as MutableLiveData).value?.timestamp = millis
             WorkWithFirebaseDB.setStarvationTimestamp(millis)
         }
 
-        fun deleteStarvation(){
-            (StarvationViewModel.getStarvation() as MutableLiveData).value = Starvation()
+        fun deleteStarvation(context: Context?){
+            SharedPreferencesUtility.setStarvationTime(context, 0)
+            (StarvationViewModel.getStarvation(context) as MutableLiveData).value = Starvation()
             WorkWithFirebaseDB.deleteStarvation()
         }
 
@@ -44,7 +47,7 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                p0.getValue(Starvation::class.java)?.apply { (StarvationViewModel.getStarvation() as MutableLiveData).value = this }
+                p0.getValue(Starvation::class.java)?.apply { (StarvationViewModel.getStarvation(context) as MutableLiveData).value = this }
             }
         })
     }
@@ -53,7 +56,7 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
         super.onViewCreated(view, savedInstanceState)
 
         setFragment(StateNotStarted())
-        StarvationViewModel.getStarvation().observe(this, Observer {
+        StarvationViewModel.getStarvation(context).observe(this, Observer {
 
             val currentDate = Calendar.getInstance()
             val startDate = Calendar.getInstance()

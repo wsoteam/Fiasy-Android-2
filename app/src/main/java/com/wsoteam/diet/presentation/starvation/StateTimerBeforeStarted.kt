@@ -30,9 +30,9 @@ class StateTimerBeforeStarted : Fragment(R.layout.fragment_state_timer_before_st
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        StarvationViewModel.getStarvation().observe(this, androidx.lifecycle.Observer {
+        StarvationViewModel.getStarvation(context).observe(this, androidx.lifecycle.Observer {
             startTime = Calendar.getInstance()
-            startTime.timeInMillis = StarvationViewModel.getStarvation().value?.timestamp ?: System.currentTimeMillis()
+            startTime.timeInMillis = StarvationViewModel.getStarvation(context).value?.timestamp ?: System.currentTimeMillis()
 
             val dateFormat = SimpleDateFormat(dateFormat, Locale.getDefault())
             date.text = dateFormat.format(startTime.time)
@@ -54,12 +54,12 @@ class StateTimerBeforeStarted : Fragment(R.layout.fragment_state_timer_before_st
         }.run()
 
         val startDate = Calendar.getInstance()
-        startDate.timeInMillis = StarvationViewModel.getStarvation().value?.timestamp ?: System.currentTimeMillis()
+        startDate.timeInMillis = StarvationViewModel.getStarvation(context).value?.timestamp ?: System.currentTimeMillis()
 
 
 
         start.setOnClickListener {
-            StarvationFragment.setTimestamp(System.currentTimeMillis() - 1_000)
+            StarvationFragment.setTimestamp(context, System.currentTimeMillis() - 1_000)
         }
 
         edit.setOnClickListener {

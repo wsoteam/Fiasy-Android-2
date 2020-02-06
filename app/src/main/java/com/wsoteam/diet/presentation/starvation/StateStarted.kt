@@ -40,7 +40,7 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
 
         edit.setOnClickListener { startActivity(Intent(context, StarvationSettingsActivity::class.java)) }
 
-        StarvationViewModel.getStarvation().observe(this, androidx.lifecycle.Observer {
+        StarvationViewModel.getStarvation(context).observe(this, androidx.lifecycle.Observer {
             check()
         })
 
@@ -48,7 +48,7 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
 
     private fun check() {
 
-        val starvationMillis = StarvationViewModel.getStarvation().value?.timestamp ?: 0
+        val starvationMillis = StarvationViewModel.getStarvation(context).value?.timestamp ?: 0
 
         if (starvationMillis < 0) return
 
@@ -114,7 +114,7 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
                 .setTitle(R.string.starvation_exit)
                 .setMessage(R.string.starvation_alert_txt)
                 .setPositiveButton(R.string.starvation_exit) { dialog, _ ->
-                    StarvationFragment.deleteStarvation()
+                    StarvationFragment.deleteStarvation(context)
                     dialog.dismiss()
                 }
                 .setNegativeButton(R.string.starvation_cancle) { dialog, _ ->

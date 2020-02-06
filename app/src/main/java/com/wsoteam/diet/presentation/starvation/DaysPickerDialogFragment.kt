@@ -34,7 +34,7 @@ class DaysPickerDialogFragment : DialogFragment() {
     private var _theme = R.style.FullScreenDialog_NoStatusBar
 
     private lateinit var checkBoxMap: Map<Int, CheckBox>
-    private val starvationDays: MutableSet<Long> = StarvationViewModel.getStarvation().value?.days?.toMutableSet()
+    private val starvationDays: MutableSet<Long> = StarvationViewModel.getStarvation(context).value?.days?.toMutableSet()
             ?: mutableSetOf()
 
 

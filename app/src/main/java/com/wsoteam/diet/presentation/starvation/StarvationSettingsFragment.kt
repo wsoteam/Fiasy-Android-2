@@ -34,7 +34,7 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        StarvationViewModel.getStarvation().observe(this, androidx.lifecycle.Observer {
+        StarvationViewModel.getStarvation(context).observe(this, androidx.lifecycle.Observer {
             updateUi(it)
         })
     }
@@ -48,7 +48,7 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
         date.text = selectTxt.text()
 
         start.setOnClickListener {
-            StarvationFragment.setTimestamp(startDate.timeInMillis)
+            StarvationFragment.setTimestamp(context, startDate.timeInMillis)
             activity?.onBackPressed()
         }
 

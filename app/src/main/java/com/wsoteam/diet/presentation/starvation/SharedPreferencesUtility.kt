@@ -1,8 +1,9 @@
 package com.wsoteam.diet.presentation.starvation
 
 import android.content.Context
+import android.util.Log
 
-class Utility {
+class SharedPreferencesUtility {
     companion object{
 
         const val STARVATION_PREFERENCES = "com.wsoteam.diet.presentation.starvation"
@@ -10,10 +11,11 @@ class Utility {
         const val BASIC_NOTIFICATION = "BASIC_NOTIFICATION"
         const val ADVANCE_NOTIFICATION = "ADVANCE_NOTIFICATION"
 
-        fun setLocalStarvationTime(context: Context?, timestamp: Long) {
+        fun setStarvationTime(context: Context?, timestamp: Long) {
             context?.apply {
                 val sharedPref = context.getSharedPreferences(STARVATION_PREFERENCES, Context.MODE_PRIVATE)
                         ?: return
+                Log.d("kkk","SharedPreferencesUtility - setStarvationTime")
                 with(sharedPref.edit()) {
                     putLong(TIMESTAMP, timestamp)
                     apply()
@@ -21,10 +23,11 @@ class Utility {
             }
         }
 
-        fun getLocalStarvationTime(context: Context?): Long{
+        fun getStarvationTime(context: Context?): Long{
             context?.apply {
                 val sharedPref = context.getSharedPreferences(STARVATION_PREFERENCES, Context.MODE_PRIVATE)
                         ?: return 0
+                Log.d("kkk","SharedPreferencesUtility - getStarvationTime")
                 return sharedPref.getLong(TIMESTAMP, 0)
             }
             return 0

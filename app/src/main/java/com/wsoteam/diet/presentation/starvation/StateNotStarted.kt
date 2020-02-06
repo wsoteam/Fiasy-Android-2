@@ -19,7 +19,7 @@ class StateNotStarted : Fragment(R.layout.state_not_started) {
 
             AlarmNotificationReceiver.startAlarm(context)
 
-            if (Subscription.check(context)) StarvationFragment.setTimestamp(System.currentTimeMillis() - 1_000)
+            if (Subscription.check(context)) StarvationFragment.setTimestamp(context, System.currentTimeMillis() - 1_000)
             else BlockedStarvationDialogFragment.show(fragmentManager)
 
         }
