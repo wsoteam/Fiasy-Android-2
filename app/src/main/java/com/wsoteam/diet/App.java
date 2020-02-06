@@ -18,6 +18,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.onesignal.OneSignal;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
+import com.yandex.metrica.YandexMetrica;
+import com.yandex.metrica.YandexMetricaConfig;
+
 import java.util.HashMap;
 
 import static com.adjust.sdk.AdjustConfig.ENVIRONMENT_PRODUCTION;
@@ -82,6 +85,10 @@ public class App extends MultiDexApplication {
         }
 
         context = this;
+
+        YandexMetricaConfig config = YandexMetricaConfig.newConfigBuilder("29344c16-aee8-4945-b2bb-df19320f37e5").build();
+        YandexMetrica.activate(getApplicationContext(), config);
+        YandexMetrica.enableActivityAutoTracking(this);
     }
 
 

@@ -192,6 +192,9 @@ dependencies {
 
 //    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
+    implementation 'com.yandex.android:mobmetricalib:3.6.4'
+    implementation 'com.android.installreferrer:installreferrer:1.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
