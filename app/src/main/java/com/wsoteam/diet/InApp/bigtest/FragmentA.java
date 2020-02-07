@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
@@ -25,7 +23,6 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
-import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.Fragments.slides.SlideFragment;
 import com.wsoteam.diet.InApp.IDs;
 import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
@@ -196,7 +193,6 @@ public class FragmentA extends Fragment
 
             new CheckAndSetPurchase(getActivity()).execute(p.getSku(), p.getPurchaseToken(), p.getPackageName(), BUY_NOW);
 
-            Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
             try {
                 if (p.isAutoRenewing()) {
                     Events.logNewBuy(box.getBuyFrom(), EventProperties.auto_renewal_true, currentSKU);

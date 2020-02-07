@@ -8,16 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
+
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
@@ -32,7 +23,6 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
-import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.Fragments.slides.SlideFragment;
 import com.wsoteam.diet.InApp.Fragments.slides.TopSlideFragment;
 import com.wsoteam.diet.InApp.IDs;
@@ -45,8 +35,18 @@ import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
 import com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity;
 import com.wsoteam.diet.views.DotIndicatorView;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class FragmentF extends Fragment
     implements PurchasesUpdatedListener {
@@ -232,7 +232,7 @@ public class FragmentF extends Fragment
 
       new CheckAndSetPurchase(getActivity()).execute(p.getSku(), p.getPurchaseToken(), p.getPackageName(), BUY_NOW);
 
-      Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
+
       try {
         if (p.isAutoRenewing()) {
           Events.logNewBuy(box.getBuyFrom(), EventProperties.auto_renewal_true, currentSKU);

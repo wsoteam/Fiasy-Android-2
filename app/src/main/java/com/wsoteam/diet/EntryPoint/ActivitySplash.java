@@ -16,10 +16,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustAttribution;
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
@@ -33,7 +29,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.Amplitude.SetUserProperties;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BuildConfig;
@@ -63,6 +58,13 @@ import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
 import com.wsoteam.diet.utils.RxFirebase;
 import com.wsoteam.diet.utils.UserNotAuthorized;
 import com.wsoteam.diet.views.SplashBackground;
+
+import java.util.Calendar;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
@@ -70,9 +72,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import java.util.Calendar;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static com.wsoteam.diet.Sync.WorkWithFirebaseDB.getUserData;
@@ -259,19 +258,6 @@ public class ActivitySplash extends BaseActivity {
     finish();
   }
 
-  private void setTrackInfoInDatabase(AdjustAttribution aa) {
-      TrackInfo trackInfo = new TrackInfo();
-      trackInfo.setTt(aa.trackerToken);
-      trackInfo.setTn(aa.trackerName);
-      trackInfo.setNet(aa.network);
-      trackInfo.setCam(aa.campaign);
-      trackInfo.setCre(aa.creative);
-      trackInfo.setCl(aa.clickLabel);
-      trackInfo.setAdid(aa.adid);
-      trackInfo.setAdg(aa.adgroup);
-      WorkWithFirebaseDB.setTrackInfo(trackInfo);
-  }
-
   private boolean isHasPromo() {
       if (UserDataHolder.getUserData() != null && UserDataHolder.getUserData().getUserPromo() != null) {
           UserPromo userPromo = UserDataHolder.getUserData().getUserPromo();
@@ -393,8 +379,6 @@ public class ActivitySplash extends BaseActivity {
   private void checkFirstLaunch() {
     SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
 
-    App.getInstance().setupOnDemand();
-
     if (!sharedPreferences.getBoolean(TAG_FIRST_RUN, false)) {
       Calendar calendar = Calendar.getInstance();
       String day = String.valueOf(calendar.get(Calendar.DAY_OF_YEAR));
@@ -450,12 +434,6 @@ public class ActivitySplash extends BaseActivity {
     @Override public void subscribe(SingleEmitter<FirebaseUser> emitter) throws Exception {
       final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
       if (user != null) {
-        try {
-          SetUserProperties.setUserProperties(Adjust.getAttribution());
-          setTrackInfoInDatabase(Adjust.getAttribution());
-        } catch (Exception e) {
-
-        }
         FirebaseAnalytics.getInstance(context)
             .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
 
@@ -465,19 +443,6 @@ public class ActivitySplash extends BaseActivity {
       }
     }
 
-    private void setTrackInfoInDatabase(AdjustAttribution aa) {
-      TrackInfo trackInfo = new TrackInfo();
-      trackInfo.setTt(aa.trackerToken);
-      trackInfo.setTn(aa.trackerName);
-      trackInfo.setNet(aa.network);
-      trackInfo.setCam(aa.campaign);
-      trackInfo.setCre(aa.creative);
-      trackInfo.setCl(aa.clickLabel);
-      trackInfo.setAdid(aa.adid);
-      trackInfo.setAdg(aa.adgroup);
-
-      WorkWithFirebaseDB.setTrackInfo(trackInfo);
-    }
   }
 
   public class FalseWait extends AsyncTask<Void, Void, Void> {

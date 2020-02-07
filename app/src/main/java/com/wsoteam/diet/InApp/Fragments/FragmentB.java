@@ -3,11 +3,7 @@ package com.wsoteam.diet.InApp.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
@@ -35,7 +25,6 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
-import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.IDs;
 import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
@@ -49,6 +38,9 @@ import com.wsoteam.diet.utils.IntentUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -174,7 +166,7 @@ public class FragmentB extends Fragment
 
             new CheckAndSetPurchase(getActivity()).execute(p.getSku(), p.getPurchaseToken(), p.getPackageName(), BUY_NOW);
 
-            Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
+
             try {
                 if (p.isAutoRenewing()) {
                     Events.logBuy(box.getBuyFrom(), EventProperties.auto_renewal_true);

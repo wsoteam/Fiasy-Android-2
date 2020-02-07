@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import com.adjust.sdk.Adjust
-import com.adjust.sdk.AdjustEvent
 import com.amplitude.api.Amplitude
 import com.amplitude.api.Revenue
 import com.android.billingclient.api.BillingClient
@@ -20,7 +18,6 @@ import com.facebook.appevents.AppEventsLogger
 import com.wsoteam.diet.App
 import com.wsoteam.diet.BuildConfig
 import com.wsoteam.diet.Config
-import com.wsoteam.diet.EventsAdjust
 import com.wsoteam.diet.InApp.Fragments.FragmentA
 import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase
@@ -62,7 +59,6 @@ object SubscriptionManager {
           p.getPackageName(),
           FragmentA.BUY_NOW)
 
-      Adjust.trackEvent(AdjustEvent(EventsAdjust.buy_trial))
 
       try {
         if (p.isAutoRenewing()) {
