@@ -2,7 +2,6 @@ package com.wsoteam.diet.presentation.starvation
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -14,7 +13,6 @@ import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.presentation.starvation.notification.AlarmNotificationReceiver
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 
 class StarvationFragment : Fragment(R.layout.fragment_starvation) {
@@ -25,26 +23,22 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
 
         fun setTimestamp(context: Context?, millis: Long) {
             SharedPreferencesUtility.setStarvationTime(context, millis)
-//            SharedPreferencesUtility.setNotificationSetting(context, true, true)
+
             (StarvationViewModel.getStarvation(context) as MutableLiveData).value?.timestamp = millis
             WorkWithFirebaseDB.setStarvationTimestamp(millis)
+            AlarmNotificationReceiver.update(context)
 
-            val startTime = SharedPreferencesUtility.getStarvationTime(context)
-            val endTime = startTime + 2 * 60_000
-//            val endTime = startTime + TimeUnit.HOURS.toMillis(StarvationFragment.STARVATION_HOURS.toLong())
-
-            AlarmNotificationReceiver.startBasic( context, startTime, endTime)
-            AlarmNotificationReceiver.startAdvance(context, startTime - 60_000, endTime - 60_000)
         }
 
         fun deleteStarvation(context: Context?) {
             SharedPreferencesUtility.setStarvationTime(context, 0)
-//            SharedPreferencesUtility.setNotificationSetting(context, false, false)
             (StarvationViewModel.getStarvation(context) as MutableLiveData).value = Starvation()
             WorkWithFirebaseDB.deleteStarvation()
 
-            AlarmNotificationReceiver.stopAdvance(context)
-            AlarmNotificationReceiver.stopBasic(context)
+            SharedPreferencesUtility.setBasicNotification(context, false)
+            SharedPreferencesUtility.setAdvanceNotification(context, false)
+            AlarmNotificationReceiver.update(context)
+
         }
 
     }

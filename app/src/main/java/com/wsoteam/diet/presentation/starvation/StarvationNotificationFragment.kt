@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.wsoteam.diet.R
+import com.wsoteam.diet.presentation.starvation.notification.AlarmNotificationReceiver
 import kotlinx.android.synthetic.main.fragment_starvation_notification.*
+
 
 
 class StarvationNotificationFragment : Fragment() {
@@ -33,5 +35,11 @@ class StarvationNotificationFragment : Fragment() {
         switchAdvance.setOnCheckedChangeListener { _, isChecked ->
             SharedPreferencesUtility.setAdvanceNotification(context, isChecked)
         }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+
+        AlarmNotificationReceiver.update(context)
     }
 }
