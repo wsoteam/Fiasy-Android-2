@@ -30,6 +30,7 @@ import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.AMRevenue;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
@@ -243,7 +244,11 @@ public class FragmentC extends Fragment
 
 
       logTrial();
-
+      try {
+        AMRevenue.Companion.trackRevenue(purchases.get(0));
+      }catch (Exception ex){
+        Log.e("LOL", "YM revenue error");
+      }
       requireContext().getSharedPreferences(Config.STATE_BILLING, Context.MODE_PRIVATE).
           edit().
           putBoolean(Config.STATE_BILLING, true).
