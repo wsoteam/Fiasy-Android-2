@@ -161,11 +161,6 @@
             android:name=".OtherActivity.ActivityPrivacyPolicy"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemePolicy" />
-        <!--
-<activity-alias
-            android:name=".InApp.ActivitySubscription"
-            android:targetActivity=".presentation.premium.PremiumFeaturesActivity" />
-        -->
         <activity
             android:name=".InApp.ActivitySubscription"
             android:exported="true"
@@ -295,15 +290,6 @@
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider1234"
             android:exported="true" />
-
-        <receiver
-            android:name="com.adjust.sdk.AdjustReferrerReceiver"
-            android:exported="true"
-            android:permission="android.permission.INSTALL_PACKAGES">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
 
         <activity
             android:name=".presentation.profile.settings.ProfileSettingsActivity"
