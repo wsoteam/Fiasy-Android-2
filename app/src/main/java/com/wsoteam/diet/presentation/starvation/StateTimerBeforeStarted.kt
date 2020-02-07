@@ -8,7 +8,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 
 import com.wsoteam.diet.R
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 
 import kotlinx.android.synthetic.main.fragment_state_timer_before_started.*
 import java.text.SimpleDateFormat
@@ -70,6 +69,8 @@ class StateTimerBeforeStarted : Fragment(R.layout.fragment_state_timer_before_st
     private fun updateTime(){
 
         val time = startTime.timeInMillis - System.currentTimeMillis()
+
+        if (time < 0) (parentFragment as StarvationFragment).updateState()
 
         hour = TimeUnit.MILLISECONDS.toHours(time).toInt()
         minute = TimeUnit.MILLISECONDS.toMinutes(time).toInt() % 60

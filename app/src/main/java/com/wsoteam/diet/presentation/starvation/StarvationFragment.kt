@@ -65,17 +65,24 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
 
         setFragment(StateNotStarted())
         StarvationViewModel.getStarvation(context).observe(this, Observer {
-
-            val currentDate = Calendar.getInstance()
-            val startDate = Calendar.getInstance()
-            startDate.timeInMillis = it.timestamp
-
-            when {
-                it.timestamp <= 0 -> setFragment(StateNotStarted())
-                currentDate.before(startDate) -> setFragment(StateTimerBeforeStarted())
-                else -> setFragment(StateStarted())
-            }
+            updateState(it.timestamp)
         })
+    }
+
+    fun updateState(){
+        updateState(StarvationViewModel.getStarvation(context).value?.timestamp ?: 0)
+    }
+
+    private fun updateState(timestamp: Long){
+        val currentDate = Calendar.getInstance()
+        val startDate = Calendar.getInstance()
+        startDate.timeInMillis = timestamp
+
+        when {
+            timestamp <= 0 -> setFragment(StateNotStarted())
+            currentDate.before(startDate) -> setFragment(StateTimerBeforeStarted())
+            else -> setFragment(StateStarted())
+        }
     }
 
     private fun setFragment(fragment: Fragment){
