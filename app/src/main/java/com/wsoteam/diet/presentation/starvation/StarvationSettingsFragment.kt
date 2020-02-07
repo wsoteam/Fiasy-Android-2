@@ -13,6 +13,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.text.TextUtils.concat
+import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import java.text.SimpleDateFormat
@@ -32,6 +33,8 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
     private var isDateSelected = false
     private var isTimeSelected = false
 
+    private lateinit var notificationMenuItem: MenuItem
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,7 +48,10 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
 
         toolbar.inflateMenu(R.menu.starvation_menu)
 
-        toolbar.menu.findItem(R.id.action_notification).setOnMenuItemClickListener {
+
+        notificationMenuItem = toolbar.menu.findItem(R.id.action_notification)
+
+        notificationMenuItem.setOnMenuItemClickListener {
 
             fragmentManager?.beginTransaction()?.apply {
                 replace((getView()?.parent as ViewGroup).id, StarvationNotificationFragment())
@@ -110,6 +116,8 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
             start.isClickable = false
         }
         start.background = buttonDrawable
+
+
     }
 
     private fun updateDate(){
@@ -191,5 +199,13 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
         positiveButton.setTextColor(Color.parseColor("#8a000000"))
 
         return dialog
+    }
+
+    override fun onResume() {
+        super.onResume()
+        notificationMenuItem.icon.setTint(Color.parseColor(
+                if (SharedPreferencesUtility.isAdvanceNotification(context)
+                        || SharedPreferencesUtility.isBasicNotification(context)) "#f49231"
+                else "#9b9b9b"))
     }
 }

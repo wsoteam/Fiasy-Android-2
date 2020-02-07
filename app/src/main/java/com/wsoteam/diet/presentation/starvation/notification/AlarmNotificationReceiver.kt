@@ -127,7 +127,7 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
             builder.setAutoCancel(true)
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setWhen(System.currentTimeMillis())
-                    .setSmallIcon(R.drawable.ic_notifiation)
+                    .setSmallIcon(R.drawable.ic_notification)
                     .setContentTitle(getString(R.string.app_name))
                     .setContentIntent(pendingIntent)
                     .setContentText(getString(notificationId))
