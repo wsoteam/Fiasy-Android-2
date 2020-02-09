@@ -19,14 +19,18 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
 
     private val timeFormat = "%02d"
 
+    var sec = 0
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        check()
         val handler = Handler()
         object : Runnable {
             override fun run() {
-                val seconds = 59 - ((System.currentTimeMillis() / 1000) % 60)
+//                val seconds = ((timeTo - System.currentTimeMillis()) / 1000) % 60
+                val seconds = (60 + sec - ((System.currentTimeMillis() / 1000) % 60)) %60
                 second?.text = timeFormat.format(seconds)
 
                 if (seconds == 0L) check()
@@ -41,6 +45,7 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
         edit.setOnClickListener { startActivity(Intent(context, StarvationSettingsActivity::class.java)) }
 
         StarvationViewModel.getStarvation(context).observe(this, androidx.lifecycle.Observer {
+            Log.d("kkkk", "StarvationViewModel")
             check()
         })
 
@@ -57,8 +62,11 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
         val startTime = Calendar.getInstance()
         val endTime = Calendar.getInstance()
 
+
         startDay.timeInMillis = starvationMillis
         if (currentDay.before(startDay)) return
+
+        sec = startDay.get(Calendar.SECOND)
 
         startTime.set(Calendar.HOUR_OF_DAY, startDay.get(Calendar.HOUR_OF_DAY))
         startTime.set(Calendar.MINUTE, startDay.get(Calendar.MINUTE))
@@ -100,6 +108,7 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
 
     private fun setTimeTo(calendar: Calendar) {
         val time = calendar.timeInMillis - System.currentTimeMillis()
+        Log.d("kkk", "setTimeTo - $time")
         if(time < 0) throw IllegalArgumentException("incorrect time!!!")
 //        Log.e("kkk", "time = $time; system = ${System.currentTimeMillis()}; calendar = ${calendar.timeInMillis}")
         hour?.text = timeFormat.format(TimeUnit.MILLISECONDS.toHours(time))

@@ -16,7 +16,7 @@ class StarvationViewModel {
                 Log.d("kkk", "StarvationViewModel == null")
                 starvation.value = Starvation(timestamp = SharedPreferencesUtility.getStarvationTime(context))
             }
-            Log.d("kkk", "StarvationViewModel")
+//            Log.d("kkk", "StarvationViewModel")
             return starvation
         }
     }
