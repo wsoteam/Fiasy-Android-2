@@ -7,8 +7,12 @@ import com.amplitude.api.Revenue;
 import com.android.billingclient.api.BillingClient;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
+import com.yandex.metrica.YandexMetrica;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -110,6 +114,10 @@ public class Events {
     //окно оценки приложения
     private static final String REVIEW_SUCCESS = "review_success";
 
+    public static void  logYM(JSONObject jsonObject, String name){
+        YandexMetrica.reportEvent(name, jsonObject.toString());
+    }
+
     public static void  logReview(double stars, String comment){
         JSONObject eventProperties = new JSONObject();
         try {
@@ -119,6 +127,7 @@ public class Events {
             exception.printStackTrace();
         }
         Amplitude.getInstance().logEvent(REVIEW_SUCCESS, eventProperties);
+        logYM(eventProperties, REVIEW_SUCCESS);
 
         Bundle bundle = new Bundle();
         bundle.putDouble(EventProperties.review_star, stars);
@@ -136,6 +145,7 @@ public class Events {
             exception.printStackTrace();
         }
         Amplitude.getInstance().logEvent(TEACH_NEXT, eventProperties);
+        logYM(eventProperties, TEACH_NEXT);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.teach_screen, screen);
