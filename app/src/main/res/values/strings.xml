@@ -1283,6 +1283,7 @@ Share your accomplishments with friends:</string>
     <string name="seconds_short">сек.</string>
 
     <string name="starvation_exit">Выйти</string>
+    <string name="starvation_save">Сохранить</string>
     <string name="starvation_back">Назад</string>
     <string name="starvation_alert_txt">Вы хотите покинуть испытание?</string>
     <string name="starvation">Голодание</string>

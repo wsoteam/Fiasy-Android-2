@@ -99,7 +99,7 @@
         android:ellipsize="middle"
         android:fontFamily="sans-serif"
         android:lineSpacingExtra="7sp"
-        android:text="@string/starvation_start"
+        android:text="@string/starvation_save"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="bold"

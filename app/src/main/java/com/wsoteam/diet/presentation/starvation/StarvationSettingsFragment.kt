@@ -13,6 +13,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.text.TextUtils.concat
+import android.util.Log
 import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
@@ -28,10 +29,10 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
     private val startDate = Calendar.getInstance()
 
     private val REQUEST_DATE = 0
-    private lateinit var daysWeek: List<String>
 
     private var isDateSelected = false
     private var isTimeSelected = false
+    private var isEdit = false
 
     private lateinit var notificationMenuItem: MenuItem
 
@@ -47,7 +48,6 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
         super.onViewCreated(view, savedInstanceState)
 
         toolbar.inflateMenu(R.menu.starvation_menu)
-
 
         notificationMenuItem = toolbar.menu.findItem(R.id.action_notification)
 
@@ -86,7 +86,16 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
             if (isTimeSelected || isDateSelected) closingDialog(context)
             else activity?.onBackPressed() }
 
-        daysWeek = resources.getStringArray(R.array.days_week).toList()
+        if (StarvationViewModel.getStarvation(context).value?.timestamp ?: 0 > 0) {
+            Log.d("kkk", "<= 0")
+
+            isEdit = true
+            updateDate()
+            updateTime()
+            isTimeSelected = false
+            isDateSelected = false
+        }
+
     }
 
     private fun openTimePicker() {
@@ -107,7 +116,7 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
 
         val buttonDrawable = DrawableCompat.wrap(start.background)
 
-        if(starvation.timestamp > 0){
+        if(starvation.timestamp > 0 && (isTimeSelected || isDateSelected)){
             DrawableCompat.setTint(buttonDrawable,Color.parseColor("#ef7d02"))
             start.isClickable = true
 
@@ -151,11 +160,22 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
         checkSelected()
     }
 
-    private fun checkSelected(){
-        if (isDateSelected && isTimeSelected) {
-            val buttonDrawable = DrawableCompat.wrap(start.background)
-            DrawableCompat.setTint(buttonDrawable,Color.parseColor("#ef7d02"))
-            start.isClickable = true
+    private fun checkSelected() {
+        when (isEdit) {
+            true -> {
+                if (isDateSelected || isTimeSelected) {
+                    val buttonDrawable = DrawableCompat.wrap(start.background)
+                    DrawableCompat.setTint(buttonDrawable, Color.parseColor("#ef7d02"))
+                    start.isClickable = true
+                }
+            }
+            false -> {
+                if (isDateSelected && isTimeSelected) {
+                    val buttonDrawable = DrawableCompat.wrap(start.background)
+                    DrawableCompat.setTint(buttonDrawable, Color.parseColor("#ef7d02"))
+                    start.isClickable = true
+                }
+            }
         }
     }
 
