@@ -115,7 +115,7 @@ public class Events {
     private static final String REVIEW_SUCCESS = "review_success";
 
     public static void  logYM(JSONObject jsonObject, String name){
-        YandexMetrica.reportEvent(name, jsonObject.toString());
+        //YandexMetrica.reportEvent(name, jsonObject.toString());
     }
 
     public static void  logReview(double stars, String comment){

@@ -168,7 +168,7 @@ public class UserProperty {
         App.getFAInstance()
             .setUserProperty(name_const, name);
 
-        UserProfile profile = UserProfile.newBuilder()
+        /*UserProfile profile = UserProfile.newBuilder()
                 .apply(Attribute.name().withValue(name))
                 .apply(Attribute.customString(q_male_status).withValue(sex))
                 .apply(Attribute.customString(q_height_status).withValue(height))
@@ -185,7 +185,7 @@ public class UserProperty {
                 .build();
 
         YandexMetrica.setUserProfileID(id);
-        YandexMetrica.reportUserProfile(profile);
+        YandexMetrica.reportUserProfile(profile);*/
     }
 
     public static void setPremStatus(String status) {
@@ -196,10 +196,10 @@ public class UserProperty {
         App.getFAInstance()
             .setUserProperty(premium_status, status);
 
-        UserProfile profile = UserProfile.newBuilder()
+        /*UserProfile profile = UserProfile.newBuilder()
                 .apply(Attribute.customString(premium_status).withValue(status))
                 .build();
-        YandexMetrica.reportUserProfile(profile);
+        YandexMetrica.reportUserProfile(profile);*/
     }
 
     public static void setPremState(String price, String duration) {
@@ -207,12 +207,12 @@ public class UserProperty {
             .set(premium_duration, price)
             .set(premium_price, duration);
 
-        Amplitude.getInstance().identify(identify);
+        /*Amplitude.getInstance().identify(identify);
         UserProfile profile = UserProfile.newBuilder()
                 .apply(Attribute.customString(premium_duration).withValue(price))
                 .apply(Attribute.customString(premium_price).withValue(duration))
                 .build();
-        YandexMetrica.reportUserProfile(profile);
+        YandexMetrica.reportUserProfile(profile);*/
     }
 
     public static void setUserProvider(String provider) {
@@ -222,10 +222,10 @@ public class UserProperty {
 
         App.getFAInstance()
             .setUserProperty(registration, provider);
-        UserProfile profile = UserProfile.newBuilder()
+        /*UserProfile profile = UserProfile.newBuilder()
                 .apply(Attribute.customString(registration).withValue(provider))
                 .build();
-        YandexMetrica.reportUserProfile(profile);
+        YandexMetrica.reportUserProfile(profile);*/
     }
 
     public static void setDate(String day, String week, String month) {
@@ -242,12 +242,12 @@ public class UserProperty {
         App.getFAInstance()
             .setUserProperty(first_month, month);
 
-        UserProfile profile = UserProfile.newBuilder()
+        /*UserProfile profile = UserProfile.newBuilder()
                 .apply(Attribute.customString(first_day).withValue(day))
                 .apply(Attribute.customString(first_week).withValue(week))
                 .apply(Attribute.customString(first_month).withValue(month))
                 .build();
-        YandexMetrica.reportUserProfile(profile);
+        YandexMetrica.reportUserProfile(profile);*/
     }
 
     private static void analLogIn() {
@@ -259,9 +259,9 @@ public class UserProperty {
         App.getFAInstance()
             .setUserProperty(EMAIL, email);
 
-        UserProfile profile = UserProfile.newBuilder()
+        /*UserProfile profile = UserProfile.newBuilder()
                 .apply(Attribute.customString(EMAIL).withValue(email))
                 .build();
-        YandexMetrica.reportUserProfile(profile);
+        YandexMetrica.reportUserProfile(profile);*/
     }
 }
