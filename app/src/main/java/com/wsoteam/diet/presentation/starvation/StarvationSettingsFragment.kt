@@ -54,11 +54,10 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
         notificationMenuItem.setOnMenuItemClickListener {
 
             fragmentManager?.beginTransaction()?.apply {
-                replace((getView()?.parent as ViewGroup).id, StarvationNotificationFragment())
+                add((getView()?.parent as ViewGroup).id, StarvationNotificationFragment())
                 addToBackStack(StarvationNotificationFragment::class.java.simpleName)
                 commit()
             }
-//            StarvationNotificationFragment.show(childFragmentManager)
             true
         }
 
