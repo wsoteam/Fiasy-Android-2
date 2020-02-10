@@ -169,6 +169,7 @@ public class UserProperty {
             .setUserProperty(name_const, name);
 
         UserProfile profile = UserProfile.newBuilder()
+                .apply(Attribute.name().withValue(name))
                 .apply(Attribute.customString(q_male_status).withValue(sex))
                 .apply(Attribute.customString(q_height_status).withValue(height))
                 .apply(Attribute.customString(q_weight_status).withValue(weight))
@@ -180,6 +181,7 @@ public class UserProperty {
                 .apply(Attribute.customString(fats).withValue(fats))
                 .apply(Attribute.customString(сarbohydrates).withValue(сarbohydrates))
                 .apply(Attribute.customString(name_const).withValue(name))
+                .apply(Attribute.customString(user_id).withValue(id))
                 .build();
 
         YandexMetrica.setUserProfileID(id);
