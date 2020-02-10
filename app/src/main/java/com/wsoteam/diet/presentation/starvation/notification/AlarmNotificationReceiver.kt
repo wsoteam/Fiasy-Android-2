@@ -17,6 +17,7 @@ import com.wsoteam.diet.presentation.starvation.SharedPreferencesUtility
 import com.wsoteam.diet.presentation.starvation.StarvationFragment
 import java.util.*
 import java.util.concurrent.TimeUnit
+import androidx.core.app.NotificationManagerCompat
 
 
 class AlarmNotificationReceiver: BroadcastReceiver() {
@@ -123,7 +124,6 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
                     0,
                     myIntent,
                     FLAG_ONE_SHOT)
-
             builder.setAutoCancel(true)
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setWhen(System.currentTimeMillis())
@@ -134,9 +134,15 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
                     .setDefaults(Notification.DEFAULT_LIGHTS or Notification.DEFAULT_SOUND)
 //                    .setContentInfo("Info")
 
-            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.notify(notificationId, builder.build()) }
+           NotificationManagerCompat.from(applicationContext).notify(notificationId, builder.build())
+
+
+        }
+
+
+
     }
+    
 
     private fun isStop(context: Context, id: Int): Boolean{
 

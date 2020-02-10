@@ -1307,7 +1307,7 @@ Share your accomplishments with friends:</string>
 
     <string name="starvation_notification">Напоминания</string>
 
-    <string name="starvation_notification_setting_basic">Напомнить о начал и окончании голодания</string>
+    <string name="starvation_notification_setting_basic">Напомнить о начале и окончании голодания</string>
     <string name="starvation_notification_setting_advance">Напомнить за 15 минут до начала и окончания голодания</string>
 
 </resources>
