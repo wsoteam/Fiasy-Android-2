@@ -142,7 +142,7 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
 
 
     }
-    
+
 
     private fun isStop(context: Context, id: Int): Boolean{
 

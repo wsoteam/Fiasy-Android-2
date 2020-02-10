@@ -1,19 +1,29 @@
 package com.wsoteam.diet.presentation.starvation
 
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import com.wsoteam.diet.R
 import com.wsoteam.diet.presentation.starvation.notification.AlarmNotificationReceiver
 import kotlinx.android.synthetic.main.fragment_starvation_notification.*
+import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+import android.os.Build
+import android.provider.Settings.EXTRA_APP_PACKAGE
+import android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS
+
+
 
 
 
 class StarvationNotificationFragment : Fragment() {
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -22,6 +32,8 @@ class StarvationNotificationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        checkNotification(context)
 
         toolbar3.setNavigationOnClickListener { fragmentManager?.popBackStack() }
 
@@ -41,5 +53,34 @@ class StarvationNotificationFragment : Fragment() {
         super.onDetach()
 
         AlarmNotificationReceiver.update(context)
+    }
+
+    private fun checkNotification(context: Context?) {
+        context?.apply {
+            val mNotificationManagerCompat: NotificationManagerCompat = NotificationManagerCompat.from(context)
+            val areNotificationsEnabled = mNotificationManagerCompat.areNotificationsEnabled()
+            if (!areNotificationsEnabled) openNotificationSettingsForApp(context)
+        }
+    }
+
+    private fun openNotificationSettingsForApp(context: Context) {
+        val intent = Intent()
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> {
+                intent.action = ACTION_APP_NOTIFICATION_SETTINGS
+                intent.putExtra(EXTRA_APP_PACKAGE, context.packageName)
+            }
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
+                intent.action = "android.settings.APP_NOTIFICATION_SETTINGS"
+                intent.putExtra("app_package", context.packageName)
+                intent.putExtra("app_uid", context.applicationInfo.uid)
+            }
+            else -> {
+                intent.action = ACTION_APPLICATION_DETAILS_SETTINGS
+                intent.addCategory(Intent.CATEGORY_DEFAULT)
+                intent.data = Uri.parse("package:" + context.packageName)
+            }
+        }
+        context.startActivity(intent)
     }
 }
