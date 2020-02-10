@@ -86,7 +86,7 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
             else activity?.onBackPressed() }
 
         if (StarvationViewModel.getStarvation(context).value?.timestamp ?: 0 > 0) {
-            Log.d("kkk", "<= 0")
+//            Log.d("kkk", "<= 0")
 
             isEdit = true
             updateDate()
@@ -222,6 +222,8 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
 
     override fun onResume() {
         super.onResume()
+
+        Log.d("kkk", "onResume()")
         notificationMenuItem.icon.setTint(Color.parseColor(
                 if (SharedPreferencesUtility.isAdvanceNotification(context)
                         || SharedPreferencesUtility.isBasicNotification(context)) "#f49231"
