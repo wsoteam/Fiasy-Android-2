@@ -16,7 +16,7 @@ class StateNotStarted : Fragment(R.layout.state_not_started) {
         super.onViewCreated(view, savedInstanceState)
         textBtn.setOnClickListener {
 
-            if (Subscription.check(context)) StarvationFragment.setTimestamp(context, System.currentTimeMillis() - 1_000)
+            if (Subscription.check(context)) StarvationFragment.setTimestamp(context, System.currentTimeMillis())
             else BlockedStarvationDialogFragment.show(fragmentManager)
 
         }

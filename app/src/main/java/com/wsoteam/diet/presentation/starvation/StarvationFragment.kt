@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.starvation
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -22,10 +23,15 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
         const val STARVATION_HOURS = 16
 
         fun setTimestamp(context: Context?, millis: Long) {
-            SharedPreferencesUtility.setStarvationTime(context, millis)
 
-            (StarvationViewModel.getStarvation(context) as MutableLiveData).value?.timestamp = millis
-            WorkWithFirebaseDB.setStarvationTimestamp(millis)
+            Log.d("kkk", "setTimestamp millis - $millis  ((millis / 1000) * 1000) - ${((millis / 1000) * 1000)}")
+
+            val millisApr = ((millis / 1000) * 1000)
+
+            SharedPreferencesUtility.setStarvationTime(context, millisApr)
+
+            (StarvationViewModel.getStarvation(context) as MutableLiveData).value?.timestamp = millisApr
+            WorkWithFirebaseDB.setStarvationTimestamp(millisApr)
             AlarmNotificationReceiver.update(context)
 
         }
@@ -78,8 +84,11 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
         val startDate = Calendar.getInstance()
         startDate.timeInMillis = timestamp
 
+        currentDate.set(Calendar.MILLISECOND, 0)
+        startDate.set(Calendar.MILLISECOND, 0)
+
         when {
-            timestamp <= 0 -> setFragment(StateNotStarted())
+            timestamp <= 999 -> setFragment(StateNotStarted())
             currentDate.before(startDate) -> setFragment(StateTimerBeforeStarted())
             else -> setFragment(StateStarted())
         }
@@ -89,8 +98,8 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
 
         if (tagCurrentState != fragment::class.java.simpleName) {
             childFragmentManager
-                    .beginTransaction()
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    ?.beginTransaction()
+                    ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .replace(R.id.stateContainer, fragment, fragment::class.java.simpleName)
                     .commit()
             tagCurrentState = fragment::class.java.simpleName
