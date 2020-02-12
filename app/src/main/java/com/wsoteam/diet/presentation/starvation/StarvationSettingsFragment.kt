@@ -89,6 +89,7 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
 //            Log.d("kkk", "<= 0")
 
             isEdit = true
+            startDate.timeInMillis = StarvationViewModel.getStarvation(context).value?.timestamp ?: startDate.timeInMillis
             updateDate()
             updateTime()
             isTimeSelected = false
@@ -101,9 +102,10 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
         val cal = Calendar.getInstance()
         val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
 
-            startDate = Calendar.getInstance()
+            Log.d("kkk", " hour - $hour // min - $minute")
             startDate.set(Calendar.HOUR_OF_DAY, hour)
             startDate.set(Calendar.MINUTE, minute)
+            startDate.set(Calendar.SECOND, Calendar.getInstance().get(Calendar.SECOND))
             updateTime()
         }
         TimePickerDialog(context, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()

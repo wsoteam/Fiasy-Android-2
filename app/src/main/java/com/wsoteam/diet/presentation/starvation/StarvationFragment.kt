@@ -24,6 +24,10 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
 
         fun setTimestamp(context: Context?, millis: Long) {
 
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = millis
+            Log.d("kkk", "setTimestamp - ${calendar.time}")
+
 //            Log.d("kkk", "setTimestamp millis - $millis  ((millis / 1000) * 1000) - ${((millis / 1000) * 1000)}")
 
             val millisApr = ((millis / 1000) * 1000)
@@ -77,6 +81,7 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
 
     fun updateState(){
         updateState(StarvationViewModel.getStarvation(context).value?.timestamp ?: 0)
+        Log.d("kkk", "updateState()")
     }
 
     private fun updateState(timestamp: Long){
@@ -86,6 +91,9 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
 
         currentDate.set(Calendar.MILLISECOND, 0)
         startDate.set(Calendar.MILLISECOND, 0)
+
+        Log.d("kkk", "updateState currentDate - ${currentDate.time}")
+        Log.d("kkk", "updateState startDate - ${startDate.time}")
 
         when {
             timestamp <= 999 -> setFragment(StateNotStarted())
