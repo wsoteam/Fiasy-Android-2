@@ -96,14 +96,17 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
 
     private fun setFragment(fragment: Fragment){
 
-        if (tagCurrentState != fragment::class.java.simpleName) {
+        if (isAdded && tagCurrentState != fragment::class.java.simpleName) {
             childFragmentManager
                     ?.beginTransaction()
                     ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .replace(R.id.stateContainer, fragment, fragment::class.java.simpleName)
-                    .commit()
+//                    .commit()
+                    .commitAllowingStateLoss()
             tagCurrentState = fragment::class.java.simpleName
         }
     }
+
+
 
 }
