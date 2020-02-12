@@ -8,6 +8,7 @@ import android.app.Notification
 import android.app.PendingIntent.FLAG_ONE_SHOT
 import android.app.PendingIntent
 import android.content.Context
+import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 
@@ -18,6 +19,11 @@ import com.wsoteam.diet.presentation.starvation.StarvationFragment
 import java.util.*
 import java.util.concurrent.TimeUnit
 import androidx.core.app.NotificationManagerCompat
+import android.R.drawable
+import android.app.NotificationChannel
+import android.R.string
+
+
 
 
 class AlarmNotificationReceiver: BroadcastReceiver() {
@@ -107,35 +113,42 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.e("kkk", "AlarmNotificationReceiver !=")
         context?.apply {
-            Log.e("kkk", "AlarmNotificationReceiver")
-            val builder = NotificationCompat.Builder(this, "fiasy.starvation")
-            val notificationId = intent?.getIntExtra(EXTRA_ID, 0)
-                    ?: return
+//            Log.e("kkk", "AlarmNotificationReceiver")
 
-            if (isStop(context, notificationId)){
+            val notifyID = intent?.getIntExtra(EXTRA_ID, 0) ?: return
+            val CHANNEL_ID = "starvation_channel_01"
+            val name = getString(R.string.starvation_channel_name)// The user-visible name of the channel.
+
+            if (isStop(context, notifyID) || notifyID == 0){
                 Log.d("kkk", "return true")
                 return
             }
-
-            Log.d("kkk", getString(notificationId))
-            val myIntent = Intent(context, MainActivity::class.java)
+//
+            Log.d("kkk", getString(notifyID))
             val pendingIntent = PendingIntent.getActivity(
                     context,
                     0,
-                    myIntent,
+                    Intent(context, MainActivity::class.java),
                     FLAG_ONE_SHOT)
-            builder.setAutoCancel(true)
-                    .setDefaults(Notification.DEFAULT_ALL)
-                    .setWhen(System.currentTimeMillis())
-                    .setSmallIcon(R.drawable.ic_notification)
+
+
+            val notification = NotificationCompat.Builder(this, CHANNEL_ID)
                     .setContentTitle(getString(R.string.app_name))
+                    .setContentText(getString(notifyID))
+                    .setSmallIcon(R.drawable.ic_notification)
+                    .setChannelId(CHANNEL_ID)
                     .setContentIntent(pendingIntent)
-                    .setContentText(getString(notificationId))
-                    .setDefaults(Notification.DEFAULT_LIGHTS or Notification.DEFAULT_SOUND)
-//                    .setContentInfo("Info")
+                    .build()
 
-           NotificationManagerCompat.from(applicationContext).notify(notificationId, builder.build())
+            val notificationManager = NotificationManagerCompat.from(applicationContext)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val importance = NotificationManager.IMPORTANCE_HIGH
+                val mChannel = NotificationChannel(CHANNEL_ID, name, importance)
+                notificationManager.createNotificationChannel(mChannel)
+            }
 
+            // Issue the notification.
+            notificationManager.notify(notifyID , notification)
 
         }
 

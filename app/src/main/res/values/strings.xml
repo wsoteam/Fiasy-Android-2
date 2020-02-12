@@ -1315,4 +1315,6 @@ Share your accomplishments with friends:</string>
     <string name="starvation_notification_alert_title">Уведомления отключены</string>
     <string name="starvation_notification_alert_txt">Включить уведомления вы можете в настройках Android для приложения Fiasy.</string>
 
+    <string name="starvation_channel_name">Голодание в Fiasy</string>
+
 </resources>

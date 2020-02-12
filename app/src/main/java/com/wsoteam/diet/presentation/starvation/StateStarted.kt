@@ -53,7 +53,7 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
     private fun check() {
 
         val starvationMillis = StarvationViewModel.getStarvation(context).value?.timestamp ?: 0
-        Log.d("kkk", "StateStarted starvationMillis <= 0  -- $starvationMillis")
+//        Log.d("kkk", "StateStarted starvationMillis <= 0  -- $starvationMillis")
         if (starvationMillis <= 0) return
 
 //        startDay.set(Calendar.MILLISECOND, 0)
@@ -69,7 +69,7 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
         startDay.timeInMillis = starvationMillis
 
 
-        Log.d("kkk", "StateStarted currentDay.before(startDay)  -- ${currentDay.timeInMillis} // ${startDay.timeInMillis}")
+//        Log.d("kkk", "StateStarted currentDay.before(startDay)  -- ${currentDay.timeInMillis} // ${startDay.timeInMillis}")
         if (currentDay.before(startDay)) return
 //        if (currentDay.timeInMillis < startDay.timeInMillis ) return
 
@@ -79,35 +79,35 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
         startTime.set(Calendar.MINUTE, startDay.get(Calendar.MINUTE))
         startTime.set(Calendar.SECOND, startDay.get(Calendar.SECOND))
 
-        Log.d("kkk","HOUR_OF_DAY - ${startTime.get(Calendar.HOUR_OF_DAY)} // (24 - starvationHours) - ${(24 - StarvationFragment.STARVATION_HOURS)}")
+//        Log.d("kkk","HOUR_OF_DAY - ${startTime.get(Calendar.HOUR_OF_DAY)} // (24 - starvationHours) - ${(24 - StarvationFragment.STARVATION_HOURS)}")
 
         startTime.add(Calendar.DATE, -1)
         endTime.time = startTime.time
         endTime.add(Calendar.HOUR_OF_DAY, StarvationFragment.STARVATION_HOURS)
 //        currentDay.after(endTime)
         while (currentDay.timeInMillis >= endTime.timeInMillis){
-            Log.d("kkk", "day++")
+//            Log.d("kkk", "day++")
             startTime.add(Calendar.DATE, 1)
             endTime.time = startTime.time
             endTime.add(Calendar.HOUR_OF_DAY, StarvationFragment.STARVATION_HOURS)
         }
 
-        Log.e("kkk", "curDay - ${currentDay.time}")
-        Log.e("kkk", "startDay - ${startDay.time}")
-        Log.e("kkk", "startTime - ${startTime.time}")
-        Log.e("kkk", "endTime - ${endTime.time}")
+//        Log.e("kkk", "curDay - ${currentDay.time}")
+//        Log.e("kkk", "startDay - ${startDay.time}")
+//        Log.e("kkk", "startTime - ${startTime.time}")
+//        Log.e("kkk", "endTime - ${endTime.time}")
 
 
         if (currentDay.timeInMillis >= startTime.timeInMillis
                 && currentDay.timeInMillis <= endTime.timeInMillis) {
-            Log.d("kkk", "if TRUE starvation time")
+//            Log.d("kkk", "if TRUE starvation time")
             starvationStatus?.text = getString(R.string.starvation_on)
             subTile?.text = getString(R.string.starvation_on_subtitle)
 
             setTimeTo(endTime)
 
         } else {
-            Log.d("kkk", "if FALSE starvation time")
+//            Log.d("kkk", "if FALSE starvation time")
 
             starvationStatus?.text = getString(R.string.starvation_off)
             subTile?.text = getString(R.string.starvation_off_subtitle)
@@ -118,9 +118,9 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
 
     private fun setTimeTo(calendar: Calendar) {
         val time = (calendar.timeInMillis / 1000) - (System.currentTimeMillis() / 1000) - 1
-        Log.d("kkk", "setTimeTo - $time")
+//        Log.d("kkk", "setTimeTo - $time")
         if(time < 0) throw IllegalArgumentException("incorrect time!!!")
-        Log.e("kkk", "time = $time; system = ${System.currentTimeMillis()}; calendar = ${calendar.timeInMillis}")
+//        Log.e("kkk", "time = $time; system = ${System.currentTimeMillis()}; calendar = ${calendar.timeInMillis}")
         hour?.text = timeFormat.format(TimeUnit.SECONDS.toHours(time))
         minute?.text = timeFormat.format((TimeUnit.SECONDS.toMinutes(time) % 60))
     }

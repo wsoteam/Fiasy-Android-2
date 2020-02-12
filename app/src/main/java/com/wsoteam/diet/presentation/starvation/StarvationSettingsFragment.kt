@@ -26,7 +26,7 @@ import com.wsoteam.diet.utils.RichTextUtils
 
 class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_settings) {
 
-    private val startDate = Calendar.getInstance()
+    private var startDate = Calendar.getInstance()
 
     private val REQUEST_DATE = 0
 
@@ -101,9 +101,9 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
         val cal = Calendar.getInstance()
         val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
 
+            startDate = Calendar.getInstance()
             startDate.set(Calendar.HOUR_OF_DAY, hour)
             startDate.set(Calendar.MINUTE, minute)
-            startDate.set(Calendar.SECOND, 0)
             updateTime()
         }
         TimePickerDialog(context, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()

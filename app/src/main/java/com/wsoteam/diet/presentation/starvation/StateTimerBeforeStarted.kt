@@ -36,13 +36,13 @@ class StateTimerBeforeStarted : Fragment(R.layout.fragment_state_timer_before_st
             seconds = startTime.get(Calendar.SECOND)
             val dateFormat = SimpleDateFormat(dateFormat, Locale.getDefault())
             date.text = dateFormat.format(startTime.time)
-            Log.d("kkk", "StateTimerBeforeStarted .observe")
+//            Log.d("kkk", "StateTimerBeforeStarted .observe")
             updateTime()
         })
 
         startTime.timeInMillis = SharedPreferencesUtility.getStarvationTime(context)
         updateTime()
-        Log.d("kkk", "StateTimerBeforeStarted 00")
+//        Log.d("kkk", "StateTimerBeforeStarted 00")
         val handler = Handler()
         object : Runnable {
             override fun run() {

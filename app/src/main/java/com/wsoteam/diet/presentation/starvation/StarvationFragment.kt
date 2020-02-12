@@ -24,7 +24,7 @@ class StarvationFragment : Fragment(R.layout.fragment_starvation) {
 
         fun setTimestamp(context: Context?, millis: Long) {
 
-            Log.d("kkk", "setTimestamp millis - $millis  ((millis / 1000) * 1000) - ${((millis / 1000) * 1000)}")
+//            Log.d("kkk", "setTimestamp millis - $millis  ((millis / 1000) * 1000) - ${((millis / 1000) * 1000)}")
 
             val millisApr = ((millis / 1000) * 1000)
 
