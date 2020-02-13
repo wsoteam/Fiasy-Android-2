@@ -4,7 +4,6 @@ import android.app.AlarmManager
 import android.content.BroadcastReceiver
 import android.content.Intent
 import android.app.NotificationManager
-import android.app.Notification
 import android.app.PendingIntent.FLAG_ONE_SHOT
 import android.app.PendingIntent
 import android.content.Context
@@ -19,11 +18,8 @@ import com.wsoteam.diet.presentation.starvation.StarvationFragment
 import java.util.*
 import java.util.concurrent.TimeUnit
 import androidx.core.app.NotificationManagerCompat
-import android.R.drawable
 import android.app.NotificationChannel
-import android.R.string
-
-
+import java.lang.Math.abs
 
 
 class AlarmNotificationReceiver: BroadcastReceiver() {
@@ -161,18 +157,68 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
 
         val timestamp = SharedPreferencesUtility.getStarvationTime(context)
         if (timestamp <= 0) return  true
-        val startDate = Calendar.getInstance()
-        startDate.timeInMillis = timestamp
-        val startTime = Calendar.getInstance()
-        startTime.set(Calendar.HOUR_OF_DAY, startDate.get(Calendar.HOUR_OF_DAY))
-        startTime.set(Calendar.MINUTE, startDate.get(Calendar.MINUTE))
-        startTime.set(Calendar.SECOND, startDate.get(Calendar.SECOND))
+        val startDate = Calendar.getInstance().apply { timeInMillis = timestamp }
+//        startDate.timeInMillis = timestamp
+        val time = Calendar.getInstance()
+
+        time.set(Calendar.HOUR_OF_DAY, startDate.get(Calendar.HOUR_OF_DAY))
+        time.set(Calendar.MINUTE, startDate.get(Calendar.MINUTE))
+        time.set(Calendar.SECOND, startDate.get(Calendar.SECOND))
         val currentDate = Calendar.getInstance()
 
-        if (id == R.string.starvation_notification_advance_start && currentDate.after(startTime))
-            return true
+        return when(id){
+            R.string.starvation_notification_advance_start -> {
+                time.add(Calendar.MINUTE, -15)
+                val difference = abs(currentDate.timeInMillis - time.timeInMillis)
+                val minutes = TimeUnit.MILLISECONDS.toMinutes(difference)
 
+                Log.d("kkk", "isStop advance_start $minutes ")
+                minutes > 10
+            }
 
-        return false
+            R.string.starvation_notification_advance_end -> {
+                time.add(Calendar.HOUR_OF_DAY, StarvationFragment.STARVATION_HOURS)
+                time.add(Calendar.MINUTE, -15)
+                val workTime = Calendar.getInstance()
+
+                workTime.set(Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY))
+                workTime.set(Calendar.MINUTE, time.get(Calendar.MINUTE))
+                workTime.set(Calendar.SECOND, time.get(Calendar.SECOND))
+
+                val difference = abs(currentDate.timeInMillis - workTime.timeInMillis)
+                val minutes = TimeUnit.MILLISECONDS.toMinutes(difference)
+
+                Log.d("kkk", "isStop advance_end $minutes ")
+
+                minutes > 10
+            }
+
+            R.string.starvation_notification_basic_start -> {
+                val difference = abs(currentDate.timeInMillis - time.timeInMillis)
+                val minutes = TimeUnit.MILLISECONDS.toMinutes(difference)
+
+                Log.d("kkk", "isStop basic_start $minutes ")
+                minutes > 10
+            }
+
+            R.string.starvation_notification_basic_end -> {
+                time.add(Calendar.HOUR_OF_DAY, StarvationFragment.STARVATION_HOURS)
+                val workTime = Calendar.getInstance()
+
+                workTime.set(Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY))
+                workTime.set(Calendar.MINUTE, time.get(Calendar.MINUTE))
+                workTime.set(Calendar.SECOND, time.get(Calendar.SECOND))
+
+                val difference = abs(currentDate.timeInMillis - workTime.timeInMillis)
+                val minutes = TimeUnit.MILLISECONDS.toMinutes(difference)
+
+                Log.d("kkk", "isStop basic_end $minutes ")
+
+                minutes > 10
+            }
+
+            else -> false
+        }
+
     }
 }
