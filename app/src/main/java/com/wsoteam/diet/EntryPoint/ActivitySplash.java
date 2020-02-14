@@ -1,5 +1,6 @@
 package com.wsoteam.diet.EntryPoint;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -55,12 +57,14 @@ import com.wsoteam.diet.presentation.auth.AuthStrategy;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
+import com.wsoteam.diet.utils.DynamicUnitUtils;
 import com.wsoteam.diet.utils.RxFirebase;
 import com.wsoteam.diet.utils.UserNotAuthorized;
 import com.wsoteam.diet.views.SplashBackground;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.Nullable;
@@ -82,6 +86,13 @@ public class ActivitySplash extends BaseActivity {
   private BillingClient mBillingClient;
   private View noticeContainer;
   private View retryFrame;
+
+  private View retryFrameFirst;
+  private View retryFrameChecking;
+  private View retryFrameBad;
+
+
+  private boolean isNoticeContainerHide = false;
 
   private final CompositeDisposable disposables = new CompositeDisposable();
 
@@ -108,13 +119,27 @@ public class ActivitySplash extends BaseActivity {
       findViewById(R.id.root).setBackground(new SplashBackground());
 
       retryFrame = findViewById(R.id.retry_frame);
+      retryFrameFirst = retryFrame.findViewById(R.id.retry_frame_first);
+      retryFrameChecking = retryFrame.findViewById(R.id.retry_frame_checking);
+      retryFrameBad  = retryFrame.findViewById(R.id.retry_frame_bad_internet);
+
       retryFrame.setVisibility(View.GONE);
       retryFrame.setOnClickListener(v -> {
+
+        ObjectAnimator animation = ObjectAnimator.ofFloat(noticeContainer, "translationY", DynamicUnitUtils.convertDpToPixels(-200));
+        animation.setDuration(400);
+        animation.start();
+        isNoticeContainerHide = true;
+
+        retryFrameFirst.setVisibility(View.GONE);
+        retryFrameBad.setVisibility(View.GONE);
+        retryFrameChecking.setVisibility(View.VISIBLE);
+
         if (checkUserNetworkAvailable()) {
           checkRegistrationAndRun();
 
-          Toast.makeText(v.getContext(),
-              "Так интенрнет появился, пробуем снова", LENGTH_SHORT).show();
+//          Toast.makeText(v.getContext(),
+//              "Так интенрнет появился, пробуем снова", LENGTH_SHORT).show();
         }
       });
 
@@ -145,12 +170,28 @@ public class ActivitySplash extends BaseActivity {
     if (!hasNetwork()) {
       retryFrame.setVisibility(View.VISIBLE);
       noticeContainer.setVisibility(View.VISIBLE);
+
+      if (isNoticeContainerHide){
+        new Handler().postDelayed(this::openView, (new Random().nextInt(5 - 2 + 1) + 2) * 1000);
+      }
+
       return false;
     } else {
-      retryFrame.setVisibility(View.GONE);
+//      retryFrame.setVisibility(View.GONE);
       noticeContainer.setVisibility(View.GONE);
       return true;
     }
+  }
+
+  private void openView(){
+    ObjectAnimator animation = ObjectAnimator.ofFloat(noticeContainer, "translationY", DynamicUnitUtils.convertDpToPixels(0));
+    animation.setDuration(400);
+    animation.start();
+    isNoticeContainerHide = false;
+
+    retryFrameChecking.setVisibility(View.GONE);
+    retryFrameBad.setVisibility(View.VISIBLE);
+
   }
 
   private boolean hasNetwork() {

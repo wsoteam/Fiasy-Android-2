@@ -1239,4 +1239,7 @@ Share your accomplishments with friends:</string>
 
     <string name="exercise_alert_txt">Вы хотите покинуть тренировку без завершения?</string>
     <string name="exercises_round_number">Круг</string>
+
+    <string name="splash_internet_check">Пробуем подключиться...</string>
+    <string name="splash_internet_bad">Не удалось, попробовать снова</string>
 </resources>
