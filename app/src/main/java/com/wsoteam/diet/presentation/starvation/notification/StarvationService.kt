@@ -3,7 +3,6 @@ package com.wsoteam.diet.presentation.starvation.notification
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-import android.util.Log
 
 class StarvationService: Service() {
 
@@ -13,8 +12,6 @@ class StarvationService: Service() {
 
     override fun onCreate() {
         super.onCreate()
-
-        Log.d("kkk", "StarvationService")
 
         AlarmNotificationReceiver.update(this)
     }

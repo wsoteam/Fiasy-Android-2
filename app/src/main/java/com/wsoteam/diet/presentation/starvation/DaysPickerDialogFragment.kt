@@ -10,7 +10,6 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.wsoteam.diet.R
-import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import kotlinx.android.synthetic.main.fragment_days_picker_dialog.*
 import java.util.*
 

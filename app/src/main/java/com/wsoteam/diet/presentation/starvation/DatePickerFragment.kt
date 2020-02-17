@@ -8,14 +8,12 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.widget.Button
+
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import com.wsoteam.diet.R
 import java.util.*
-import com.adjust.sdk.Adjust.setEnabled
-import android.view.ViewGroup
-import android.view.WindowManager
+
 
 
 
@@ -73,7 +71,7 @@ class DatePickerFragment: DialogFragment() {
 
         val dialog = AlertDialog.Builder(context)
                 .setView(view)
-                .setPositiveButton(android.R.string.ok) { dialog, which ->
+                .setPositiveButton(android.R.string.ok) { _, _ ->
                     val calendar = GregorianCalendar(datePicker.year, datePicker.month, datePicker.dayOfMonth)
                     sendResult(Activity.RESULT_OK, calendar.timeInMillis)
                 }

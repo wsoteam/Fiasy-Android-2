@@ -15,7 +15,7 @@ class SharedPreferencesUtility {
             context?.apply {
                 val sharedPref = context.getSharedPreferences(STARVATION_PREFERENCES, Context.MODE_PRIVATE)
                         ?: return
-                Log.d("kkk","SharedPreferencesUtility - setStarvationTime")
+//                Log.d("kkk","SharedPreferencesUtility - setStarvationTime")
                 with(sharedPref.edit()) {
                     putLong(TIMESTAMP, timestamp)
                     apply()
@@ -27,7 +27,7 @@ class SharedPreferencesUtility {
             context?.apply {
                 val sharedPref = context.getSharedPreferences(STARVATION_PREFERENCES, Context.MODE_PRIVATE)
                         ?: return 0
-                Log.d("kkk","SharedPreferencesUtility - getStarvationTime")
+//                Log.d("kkk","SharedPreferencesUtility - getStarvationTime")
                 return sharedPref.getLong(TIMESTAMP, 0)
             }
             return 0

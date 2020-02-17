@@ -13,7 +13,7 @@ class StarvationViewModel {
         fun getStarvation(context: Context?): LiveData<Starvation> {
             val value = starvation.value
             if (value == null) {
-                Log.d("kkk", "StarvationViewModel == null")
+//                Log.d("kkk", "StarvationViewModel == null")
                 starvation.value = Starvation(timestamp = SharedPreferencesUtility.getStarvationTime(context))
             }
 //            Log.d("kkk", "StarvationViewModel")

@@ -44,7 +44,7 @@ class StateStarted : Fragment(R.layout.fragment_starvation_started) {
         edit.setOnClickListener { startActivity(Intent(context, StarvationSettingsActivity::class.java)) }
 
         StarvationViewModel.getStarvation(context).observe(this, androidx.lifecycle.Observer {
-            Log.d("kkkk", "StarvationViewModel")
+//            Log.d("kkkk", "StarvationViewModel")
             check()
         })
 

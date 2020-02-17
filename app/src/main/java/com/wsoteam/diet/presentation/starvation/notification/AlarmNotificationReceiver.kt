@@ -29,7 +29,7 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
         private const val EXTRA_ID = "NotificationId"
 
         fun update(context: Context?){
-            Log.d("kkk", "AlarmNotificationReceiver.update ")
+//            Log.d("kkk", "AlarmNotificationReceiver.update ")
             stopBasic(context)
             stopAdvance(context)
 
@@ -39,20 +39,20 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
                 val startTime = SharedPreferencesUtility.getStarvationTime(context)
                 val endTime = startTime + TimeUnit.HOURS.toMillis(StarvationFragment.STARVATION_HOURS.toLong())
                 startBasic( context, startTime, endTime)
-                Log.d("kkk", "AlarmNotificationReceiver.update startBasic")
+//                Log.d("kkk", "AlarmNotificationReceiver.update startBasic")
             }
 
             if (SharedPreferencesUtility.isAdvanceNotification(context) && time > 0){
                 val startTime = SharedPreferencesUtility.getStarvationTime(context) - TimeUnit.MINUTES.toMillis(15)
                 val endTime = startTime + TimeUnit.HOURS.toMillis(StarvationFragment.STARVATION_HOURS.toLong())
                 startAdvance( context, startTime, endTime)
-                Log.d("kkk", "AlarmNotificationReceiver.update startAdvance")
+//                Log.d("kkk", "AlarmNotificationReceiver.update startAdvance")
             }
         }
 
         private fun startBasic(context: Context?, startTimeMillis: Long, endTimeMillis: Long) {
 
-            Log.e("kkk", "StarvationService Basic - ${TimeUnit.HOURS.toMillis(StarvationFragment.STARVATION_HOURS.toLong())}")
+//            Log.e("kkk", "StarvationService Basic - ${TimeUnit.HOURS.toMillis(StarvationFragment.STARVATION_HOURS.toLong())}")
             if (context == null) return
 //            val endTime = timeMillis + TimeUnit.HOURS.toMillis(StarvationFragment.STARVATION_HOURS.toLong())
             startAlarm(context, R.string.starvation_notification_basic_start, startTimeMillis)
@@ -60,7 +60,7 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
         }
 
         private fun startAdvance(context: Context?, startTimeMillis: Long, endTimeMillis: Long) {
-            Log.e("kkk", "StarvationService Advance - ${TimeUnit.HOURS.toMillis(StarvationFragment.STARVATION_HOURS.toLong())}")
+//            Log.e("kkk", "StarvationService Advance - ${TimeUnit.HOURS.toMillis(StarvationFragment.STARVATION_HOURS.toLong())}")
             if (context == null) return
             startAlarm(context, R.string.starvation_notification_advance_start, startTimeMillis)
             startAlarm(context, R.string.starvation_notification_advance_end, endTimeMillis)
@@ -84,7 +84,7 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
 
         private fun stopAdvance(context: Context?) {
             context?.apply {
-                Log.e("kkk", "stopAdvance")
+//                Log.e("kkk", "stopAdvance")
                 getPendingIntent(context, R.string.starvation_notification_advance_start).cancel()
                 getPendingIntent(context, R.string.starvation_notification_advance_end).cancel()
 
@@ -98,7 +98,7 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
             context?.apply {
                 getPendingIntent(context, R.string.starvation_notification_basic_start).cancel()
                 getPendingIntent(context, R.string.starvation_notification_basic_end).cancel()
-                Log.e("kkk", "stopBasic")
+//                Log.e("kkk", "stopBasic")
                 val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.cancel(R.string.starvation_notification_basic_start)
                 notificationManager.cancel(R.string.starvation_notification_basic_end)
@@ -107,7 +107,7 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        Log.e("kkk", "AlarmNotificationReceiver !=")
+//        Log.e("kkk", "AlarmNotificationReceiver !=")
         context?.apply {
 //            Log.e("kkk", "AlarmNotificationReceiver")
 
@@ -120,7 +120,7 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
                 return
             }
 //
-            Log.d("kkk", getString(notifyID))
+//            Log.d("kkk", getString(notifyID))
             val pendingIntent = PendingIntent.getActivity(
                     context,
                     0,
@@ -172,7 +172,7 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
                 val difference = abs(currentDate.timeInMillis - time.timeInMillis)
                 val minutes = TimeUnit.MILLISECONDS.toMinutes(difference)
 
-                Log.d("kkk", "isStop advance_start $minutes ")
+//                Log.d("kkk", "isStop advance_start $minutes ")
                 minutes > 10
             }
 
@@ -188,7 +188,7 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
                 val difference = abs(currentDate.timeInMillis - workTime.timeInMillis)
                 val minutes = TimeUnit.MILLISECONDS.toMinutes(difference)
 
-                Log.d("kkk", "isStop advance_end $minutes ")
+//                Log.d("kkk", "isStop advance_end $minutes ")
 
                 minutes > 10
             }
@@ -197,7 +197,7 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
                 val difference = abs(currentDate.timeInMillis - time.timeInMillis)
                 val minutes = TimeUnit.MILLISECONDS.toMinutes(difference)
 
-                Log.d("kkk", "isStop basic_start $minutes ")
+//                Log.d("kkk", "isStop basic_start $minutes ")
                 minutes > 10
             }
 
@@ -212,7 +212,7 @@ class AlarmNotificationReceiver: BroadcastReceiver() {
                 val difference = abs(currentDate.timeInMillis - workTime.timeInMillis)
                 val minutes = TimeUnit.MILLISECONDS.toMinutes(difference)
 
-                Log.d("kkk", "isStop basic_end $minutes ")
+//                Log.d("kkk", "isStop basic_end $minutes ")
 
                 minutes > 10
             }

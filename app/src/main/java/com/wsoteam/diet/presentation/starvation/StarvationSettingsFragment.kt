@@ -102,7 +102,7 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
         val cal = Calendar.getInstance()
         val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
 
-            Log.d("kkk", " hour - $hour // min - $minute")
+//            Log.d("kkk", " hour - $hour // min - $minute")
             startDate.set(Calendar.HOUR_OF_DAY, hour)
             startDate.set(Calendar.MINUTE, minute)
             startDate.set(Calendar.SECOND, Calendar.getInstance().get(Calendar.SECOND))
@@ -225,7 +225,7 @@ class StarvationSettingsFragment : Fragment(R.layout.fragment_starvation_setting
     override fun onResume() {
         super.onResume()
 
-        Log.d("kkk", "onResume()")
+//        Log.d("kkk", "onResume()")
         notificationMenuItem.icon.setTint(Color.parseColor(
                 if (SharedPreferencesUtility.isAdvanceNotification(context)
                         || SharedPreferencesUtility.isBasicNotification(context)) "#f49231"

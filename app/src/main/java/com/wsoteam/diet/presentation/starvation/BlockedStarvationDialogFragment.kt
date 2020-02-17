@@ -19,8 +19,6 @@ import com.wsoteam.diet.Config
 import com.wsoteam.diet.InApp.ActivitySubscription
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy
 import com.wsoteam.diet.R
-import com.wsoteam.diet.common.Analytics.EventProperties
-import com.wsoteam.diet.common.Analytics.Events
 import kotlinx.android.synthetic.main.dialog_fragment_blocked_starvation.*
 
 

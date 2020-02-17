@@ -21,7 +21,6 @@ import android.os.Build
 import android.provider.Settings.EXTRA_APP_PACKAGE
 import android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.dialog_fragment_abort_exercise.*
 
 
 class StarvationNotificationFragment : Fragment() {
@@ -61,7 +60,7 @@ class StarvationNotificationFragment : Fragment() {
         context?.apply {
             val mNotificationManagerCompat: NotificationManagerCompat = NotificationManagerCompat.from(context)
             val areNotificationsEnabled = mNotificationManagerCompat.areNotificationsEnabled()
-            Log.d("kkk", "check = ${!areNotificationsEnabled}")
+//            Log.d("kkk", "check = ${!areNotificationsEnabled}")
             if (!areNotificationsEnabled) notificationDialog(context)
         }
     }
@@ -90,7 +89,7 @@ class StarvationNotificationFragment : Fragment() {
     private fun notificationDialog(context: Context): AlertDialog? {
 
         if (nDialog == null) {
-            Log.d("kkk", "nDialog == null")
+//            Log.d("kkk", "nDialog == null")
             val dialog = AlertDialog.Builder(context)
                     .setTitle(R.string.starvation_notification_alert_title)
                     .setMessage(R.string.starvation_notification_alert_txt)
@@ -114,7 +113,7 @@ class StarvationNotificationFragment : Fragment() {
             positiveButton.setTextColor(Color.parseColor("#8a000000"))
 
             dialog.setOnCancelListener {
-                Log.d("kkk", "setOnCancelListener")
+//                Log.d("kkk", "setOnCancelListener")
                 nDialog = null
 
                 fragmentManager?.popBackStack()
@@ -124,14 +123,14 @@ class StarvationNotificationFragment : Fragment() {
             nDialog = dialog
             return dialog
         } else {
-            Log.d("kkk", "nDialog != null")
+//            Log.d("kkk", "nDialog != null")
             return null
         }
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d("kkk", "res++++")
+//        Log.d("kkk", "res++++")
         checkNotification(context)
     }
 }
