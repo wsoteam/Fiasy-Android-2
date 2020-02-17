@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
@@ -86,37 +87,99 @@
 
   </LinearLayout>
 
-  <LinearLayout
+  <FrameLayout
       android:id="@+id/retry_frame"
-      android:background="#c5000000"
-      android:padding="10dp"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
+      android:layout_height="46dp"
       android:layout_gravity="bottom"
-      android:gravity="center"
-      android:visibility="gone"
-      >
+      android:background="#30000000"
+      android:animateLayoutChanges="true">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        app:srcCompat="@drawable/ic_refresh_white_24dp"
-        />
+    <LinearLayout
+        android:id="@+id/retry_frame_first"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:visibility="visible"
+        tools:visibility="visible">
+
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerVertical="true"
+          app:srcCompat="@drawable/ic_refresh_white_24dp" />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="16dp"
-        android:textColor="#fff"
-        android:textStyle="bold"
-        android:text="Попробовать снова"
-        />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginLeft="16dp"
+          android:text="Попробовать снова"
+          android:textColor="#fff"
+          android:textStyle="bold" />
 
-  </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/retry_frame_checking"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:visibility="gone">
+
+      <ProgressBar
+          style="@android:style/Widget.Material.Light.ProgressBar.Large"
+          android:layout_width="21dp"
+          android:layout_height="21dp"
+          android:layout_centerVertical="true"
+          android:indeterminateTint="@color/white" />
+
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginLeft="16dp"
+          android:text="@string/splash_internet_check"
+          android:textColor="#fff"
+          android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/retry_frame_bad_internet"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerVertical="true"
+          app:srcCompat="@drawable/ic_refresh_white_24dp" />
+
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginLeft="16dp"
+          android:text="@string/splash_internet_bad"
+          android:textColor="#fff"
+          android:textStyle="bold" />
+
+    </LinearLayout>
+
+  </FrameLayout>
 
 
 </FrameLayout>

@@ -1,15 +1,8 @@
 package com.wsoteam.diet;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
 import android.util.Log;
 
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.multidex.MultiDexApplication;
-import androidx.room.Room;
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustConfig;
 import com.amplitude.api.Amplitude;
 import com.bugsee.library.Bugsee;
 import com.google.firebase.FirebaseApp;
@@ -18,18 +11,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.onesignal.OneSignal;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
+import com.yandex.metrica.YandexMetrica;
+import com.yandex.metrica.YandexMetricaConfig;
+
 import java.util.HashMap;
 
-import static com.adjust.sdk.AdjustConfig.ENVIRONMENT_PRODUCTION;
-import static com.wsoteam.diet.EventsAdjust.app_token;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.multidex.MultiDexApplication;
+import androidx.room.Room;
+
 
 public class App extends MultiDexApplication {
-
     public static App instance;
     private static FirebaseAnalytics analytics;
 
     private FoodDatabase foodDatabase;
-    private boolean setupOnDemand = true;
 
     public long now;
     private static Context context;
@@ -67,7 +63,6 @@ public class App extends MultiDexApplication {
         foodDatabase = Room.databaseBuilder(this, FoodDatabase.class, "foodDB.db")
                 .fallbackToDestructiveMigration()
                 .build();
-        //SetUserProperties.setUserProperties(Adjust.getAttribution());
 
         // OneSignal Initialization
         OneSignal.startInit(this)
@@ -82,16 +77,12 @@ public class App extends MultiDexApplication {
         }
 
         context = this;
+
+        YandexMetricaConfig config = YandexMetricaConfig.newConfigBuilder("29344c16-aee8-4945-b2bb-df19320f37e5").build();
+        YandexMetrica.activate(getApplicationContext(), config);
+        YandexMetrica.enableActivityAutoTracking(this);
     }
 
-
-    public void setupOnDemand() {
-        if (setupOnDemand) {
-            setupOnDemand = false;
-            Adjust.onCreate(new AdjustConfig(this, app_token, ENVIRONMENT_PRODUCTION));
-            registerActivityLifecycleCallbacks(new AdjustLifecycleCallbacks());
-        }
-    }
 
     public static Context getContext() {
         return context;
@@ -101,44 +92,7 @@ public class App extends MultiDexApplication {
         return foodDatabase;
     }
 
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-    }
 
-    private static final class AdjustLifecycleCallbacks implements ActivityLifecycleCallbacks {
-        @Override
-        public void onActivityCreated(Activity activity, Bundle bundle) {
 
-        }
 
-        @Override
-        public void onActivityStarted(Activity activity) {
-
-        }
-
-        @Override
-        public void onActivityResumed(Activity activity) {
-            Adjust.onResume();
-        }
-
-        @Override
-        public void onActivityPaused(Activity activity) {
-            Adjust.onPause();
-        }
-
-        @Override
-        public void onActivityStopped(Activity activity) {
-        }
-
-        @Override
-        public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
-
-        }
-
-        @Override
-        public void onActivityDestroyed(Activity activity) {
-
-        }
-    }
 }

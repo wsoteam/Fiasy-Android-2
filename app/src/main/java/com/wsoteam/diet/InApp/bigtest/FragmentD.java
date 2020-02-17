@@ -9,9 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
@@ -26,7 +23,6 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.EntryPoint.ActivitySplash;
-import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.Fragments.slides.SlideFragment;
 import com.wsoteam.diet.InApp.Fragments.slides.TopSlideFragment;
 import com.wsoteam.diet.InApp.IDs;
@@ -35,6 +31,7 @@ import com.wsoteam.diet.InApp.properties.CheckAndSetPurchase;
 import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.common.Analytics.AMRevenue;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.Analytics.SavedConst;
@@ -48,6 +45,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -265,7 +263,7 @@ public class FragmentD extends Fragment
       new CheckAndSetPurchase(getActivity()).execute(p.getSku(), p.getPurchaseToken(),
           p.getPackageName(), BUY_NOW);
 
-      Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy_trial));
+
       try {
         if (p.isAutoRenewing()) {
           Events.logNewBuy(box.getBuyFrom(), EventProperties.auto_renewal_true, currentSKU);
@@ -277,6 +275,11 @@ public class FragmentD extends Fragment
       }
 
       logTrial();
+      try {
+        AMRevenue.Companion.trackRevenue(purchases.get(0));
+      }catch (Exception ex){
+        Log.e("LOL", "YM revenue error");
+      }
 
       requireContext().getSharedPreferences(Config.STATE_BILLING, Context.MODE_PRIVATE).
           edit().

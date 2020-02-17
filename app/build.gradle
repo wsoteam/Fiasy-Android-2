@@ -116,12 +116,8 @@ dependencies {
     implementation 'com.android.billingclient:billing:1.2'
     implementation 'com.amplitude:android-sdk:2.23.2'
     implementation 'me.relex:circleindicator:1.2.2'
-    implementation 'com.adjust.sdk:adjust-android:4.17.0'
-    implementation 'com.android.installreferrer:installreferrer:1.0'
-
     implementation 'com.bugsee:bugsee-android:+'
 
-    //implementation 'com.google.apis:google-api-services-androidpublisher:v2-rev159-1.25.0'
     implementation 'com.google.apis:google-api-services-androidpublisher:v3-rev130-1.25.0'
 
     implementation 'org.sufficientlysecure:html-textview:3.6'
@@ -190,6 +186,9 @@ dependencies {
     implementation 'fr.tvbarthel.blurdialogfragment:lib:2.2.0'
     implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
 
+
+    implementation 'com.yandex.android:mobmetricalib:3.6.4'
+    implementation 'com.android.installreferrer:installreferrer:1.0'
 
 }
 

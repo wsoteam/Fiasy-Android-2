@@ -37,11 +37,11 @@
         android:id="@+id/ivImage"
         android:layout_width="wrap_content"
         android:layout_height="180dp"
-        app:layout_constraintBottom_toTopOf="@+id/pbActivity"
+        app:layout_constraintBottom_toTopOf="@+id/tvActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSubTitle"
-        app:srcCompat="@drawable/ic_activity0"/>
+        app:srcCompat="@drawable/ic_activity0" />
 
     <View
         android:id="@+id/line1"
@@ -126,8 +126,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="254dp"
+        android:layout_marginTop="340dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:max="6"
         android:maxHeight="12dp"
         android:minHeight="12dp"
@@ -135,29 +136,30 @@
         android:splitTrack="false"
         android:thumb="@drawable/thumb_seekbar"
         android:thumbOffset="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSubTitle"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvSubTitle"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvActivity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="254dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:textAlignment="center"
         android:textColor="@color/water_text_black"
         android:textSize="16sp"
         android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/btnNext"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pbActivity"
-        app:layout_constraintVertical_bias="0.01999998"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubTitle"
         tools:text="@string/first_activity" />
 
     <Button

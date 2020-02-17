@@ -12,6 +12,9 @@ import com.wsoteam.diet.FirebaseUserProperties;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.utils.AbTests;
+import com.yandex.metrica.YandexMetrica;
+import com.yandex.metrica.profile.Attribute;
+import com.yandex.metrica.profile.UserProfile;
 
 public class UserProperty {
     public static final String registration = "registration";
@@ -145,7 +148,7 @@ public class UserProperty {
         App.getFAInstance()
             .setUserProperty(q_male_status, sex);
 
-        Log.e("LOL", "call fb");
+
         App.getFAInstance()
             .setUserProperty(q_height_status, height);
         App.getFAInstance()
@@ -164,6 +167,25 @@ public class UserProperty {
             .setUserProperty(сarbohydrates, carbo);
         App.getFAInstance()
             .setUserProperty(name_const, name);
+
+        /*UserProfile profile = UserProfile.newBuilder()
+                .apply(Attribute.name().withValue(name))
+                .apply(Attribute.customString(q_male_status).withValue(sex))
+                .apply(Attribute.customString(q_height_status).withValue(height))
+                .apply(Attribute.customString(q_weight_status).withValue(weight))
+                .apply(Attribute.customString(q_age_status).withValue(age))
+                .apply(Attribute.customString(q_active_status).withValue(active))
+                .apply(Attribute.customString(q_goal_status).withValue(goal))
+                .apply(Attribute.customString(calorie).withValue(calorie))
+                .apply(Attribute.customString(proteins).withValue(proteins))
+                .apply(Attribute.customString(fats).withValue(fats))
+                .apply(Attribute.customString(сarbohydrates).withValue(сarbohydrates))
+                .apply(Attribute.customString(name_const).withValue(name))
+                .apply(Attribute.customString(user_id).withValue(id))
+                .build();
+
+        YandexMetrica.setUserProfileID(id);
+        YandexMetrica.reportUserProfile(profile);*/
     }
 
     public static void setPremStatus(String status) {
@@ -173,6 +195,11 @@ public class UserProperty {
 
         App.getFAInstance()
             .setUserProperty(premium_status, status);
+
+        /*UserProfile profile = UserProfile.newBuilder()
+                .apply(Attribute.customString(premium_status).withValue(status))
+                .build();
+        YandexMetrica.reportUserProfile(profile);*/
     }
 
     public static void setPremState(String price, String duration) {
@@ -180,7 +207,12 @@ public class UserProperty {
             .set(premium_duration, price)
             .set(premium_price, duration);
 
-        Amplitude.getInstance().identify(identify);
+        /*Amplitude.getInstance().identify(identify);
+        UserProfile profile = UserProfile.newBuilder()
+                .apply(Attribute.customString(premium_duration).withValue(price))
+                .apply(Attribute.customString(premium_price).withValue(duration))
+                .build();
+        YandexMetrica.reportUserProfile(profile);*/
     }
 
     public static void setUserProvider(String provider) {
@@ -190,6 +222,10 @@ public class UserProperty {
 
         App.getFAInstance()
             .setUserProperty(registration, provider);
+        /*UserProfile profile = UserProfile.newBuilder()
+                .apply(Attribute.customString(registration).withValue(provider))
+                .build();
+        YandexMetrica.reportUserProfile(profile);*/
     }
 
     public static void setDate(String day, String week, String month) {
@@ -205,14 +241,27 @@ public class UserProperty {
             .setUserProperty(first_week, week);
         App.getFAInstance()
             .setUserProperty(first_month, month);
+
+        /*UserProfile profile = UserProfile.newBuilder()
+                .apply(Attribute.customString(first_day).withValue(day))
+                .apply(Attribute.customString(first_week).withValue(week))
+                .apply(Attribute.customString(first_month).withValue(month))
+                .build();
+        YandexMetrica.reportUserProfile(profile);*/
     }
 
     private static void analLogIn() {
+        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         Identify identify = new Identify()
-                .set(EMAIL, FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                .set(EMAIL, email);
         Amplitude.getInstance().identify(identify);
 
         App.getFAInstance()
-            .setUserProperty(EMAIL, FirebaseAuth.getInstance().getCurrentUser().getEmail());
+            .setUserProperty(EMAIL, email);
+
+        /*UserProfile profile = UserProfile.newBuilder()
+                .apply(Attribute.customString(EMAIL).withValue(email))
+                .build();
+        YandexMetrica.reportUserProfile(profile);*/
     }
 }

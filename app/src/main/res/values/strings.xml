@@ -1317,4 +1317,7 @@ Share your accomplishments with friends:</string>
 
     <string name="starvation_channel_name">Голодание в Fiasy</string>
 
+
+    <string name="splash_internet_check">Пробуем подключиться...</string>
+    <string name="splash_internet_bad">Не удалось, попробовать снова</string>
 </resources>

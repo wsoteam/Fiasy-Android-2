@@ -1,5 +1,6 @@
 package com.wsoteam.diet.EntryPoint;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,16 +11,13 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustAttribution;
 import com.amplitude.api.Amplitude;
 import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
@@ -33,7 +31,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
-import com.wsoteam.diet.Amplitude.SetUserProperties;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.BuildConfig;
@@ -60,9 +57,18 @@ import com.wsoteam.diet.presentation.auth.AuthStrategy;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
 import com.wsoteam.diet.presentation.profile.questions.QuestionsActivity;
+import com.wsoteam.diet.utils.DynamicUnitUtils;
 import com.wsoteam.diet.utils.RxFirebase;
 import com.wsoteam.diet.utils.UserNotAuthorized;
 import com.wsoteam.diet.views.SplashBackground;
+
+import java.util.Calendar;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
@@ -70,9 +76,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import java.util.Calendar;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static com.wsoteam.diet.Sync.WorkWithFirebaseDB.getUserData;
@@ -83,6 +86,13 @@ public class ActivitySplash extends BaseActivity {
   private BillingClient mBillingClient;
   private View noticeContainer;
   private View retryFrame;
+
+  private View retryFrameFirst;
+  private View retryFrameChecking;
+  private View retryFrameBad;
+
+
+  private boolean isNoticeContainerHide = false;
 
   private final CompositeDisposable disposables = new CompositeDisposable();
 
@@ -109,13 +119,27 @@ public class ActivitySplash extends BaseActivity {
       findViewById(R.id.root).setBackground(new SplashBackground());
 
       retryFrame = findViewById(R.id.retry_frame);
+      retryFrameFirst = retryFrame.findViewById(R.id.retry_frame_first);
+      retryFrameChecking = retryFrame.findViewById(R.id.retry_frame_checking);
+      retryFrameBad  = retryFrame.findViewById(R.id.retry_frame_bad_internet);
+
       retryFrame.setVisibility(View.GONE);
       retryFrame.setOnClickListener(v -> {
+
+        ObjectAnimator animation = ObjectAnimator.ofFloat(noticeContainer, "translationY", DynamicUnitUtils.convertDpToPixels(-200));
+        animation.setDuration(400);
+        animation.start();
+        isNoticeContainerHide = true;
+
+        retryFrameFirst.setVisibility(View.GONE);
+        retryFrameBad.setVisibility(View.GONE);
+        retryFrameChecking.setVisibility(View.VISIBLE);
+
         if (checkUserNetworkAvailable()) {
           checkRegistrationAndRun();
 
-          Toast.makeText(v.getContext(),
-              "Так интенрнет появился, пробуем снова", LENGTH_SHORT).show();
+//          Toast.makeText(v.getContext(),
+//              "Так интенрнет появился, пробуем снова", LENGTH_SHORT).show();
         }
       });
 
@@ -146,12 +170,28 @@ public class ActivitySplash extends BaseActivity {
     if (!hasNetwork()) {
       retryFrame.setVisibility(View.VISIBLE);
       noticeContainer.setVisibility(View.VISIBLE);
+
+      if (isNoticeContainerHide){
+        new Handler().postDelayed(this::openView, (new Random().nextInt(5 - 2 + 1) + 2) * 1000);
+      }
+
       return false;
     } else {
-      retryFrame.setVisibility(View.GONE);
+//      retryFrame.setVisibility(View.GONE);
       noticeContainer.setVisibility(View.GONE);
       return true;
     }
+  }
+
+  private void openView(){
+    ObjectAnimator animation = ObjectAnimator.ofFloat(noticeContainer, "translationY", DynamicUnitUtils.convertDpToPixels(0));
+    animation.setDuration(400);
+    animation.start();
+    isNoticeContainerHide = false;
+
+    retryFrameChecking.setVisibility(View.GONE);
+    retryFrameBad.setVisibility(View.VISIBLE);
+
   }
 
   private boolean hasNetwork() {
@@ -257,19 +297,6 @@ public class ActivitySplash extends BaseActivity {
   private void openMainScreen() {
     startActivity(new Intent(this, MainActivity.class));
     finish();
-  }
-
-  private void setTrackInfoInDatabase(AdjustAttribution aa) {
-      TrackInfo trackInfo = new TrackInfo();
-      trackInfo.setTt(aa.trackerToken);
-      trackInfo.setTn(aa.trackerName);
-      trackInfo.setNet(aa.network);
-      trackInfo.setCam(aa.campaign);
-      trackInfo.setCre(aa.creative);
-      trackInfo.setCl(aa.clickLabel);
-      trackInfo.setAdid(aa.adid);
-      trackInfo.setAdg(aa.adgroup);
-      WorkWithFirebaseDB.setTrackInfo(trackInfo);
   }
 
   private boolean isHasPromo() {
@@ -393,8 +420,6 @@ public class ActivitySplash extends BaseActivity {
   private void checkFirstLaunch() {
     SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
 
-    App.getInstance().setupOnDemand();
-
     if (!sharedPreferences.getBoolean(TAG_FIRST_RUN, false)) {
       Calendar calendar = Calendar.getInstance();
       String day = String.valueOf(calendar.get(Calendar.DAY_OF_YEAR));
@@ -450,12 +475,6 @@ public class ActivitySplash extends BaseActivity {
     @Override public void subscribe(SingleEmitter<FirebaseUser> emitter) throws Exception {
       final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
       if (user != null) {
-        try {
-          SetUserProperties.setUserProperties(Adjust.getAttribution());
-          setTrackInfoInDatabase(Adjust.getAttribution());
-        } catch (Exception e) {
-
-        }
         FirebaseAnalytics.getInstance(context)
             .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
 
@@ -465,19 +484,6 @@ public class ActivitySplash extends BaseActivity {
       }
     }
 
-    private void setTrackInfoInDatabase(AdjustAttribution aa) {
-      TrackInfo trackInfo = new TrackInfo();
-      trackInfo.setTt(aa.trackerToken);
-      trackInfo.setTn(aa.trackerName);
-      trackInfo.setNet(aa.network);
-      trackInfo.setCam(aa.campaign);
-      trackInfo.setCre(aa.creative);
-      trackInfo.setCl(aa.clickLabel);
-      trackInfo.setAdid(aa.adid);
-      trackInfo.setAdg(aa.adgroup);
-
-      WorkWithFirebaseDB.setTrackInfo(trackInfo);
-    }
   }
 
   public class FalseWait extends AsyncTask<Void, Void, Void> {

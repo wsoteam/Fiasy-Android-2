@@ -3,12 +3,9 @@ package com.wsoteam.diet.InApp.properties;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.adjust.sdk.Adjust;
-import com.adjust.sdk.AdjustEvent;
 import com.facebook.appevents.AppEventsConstants;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.api.services.androidpublisher.model.SubscriptionPurchase;
-import com.wsoteam.diet.EventsAdjust;
 import com.wsoteam.diet.InApp.IDs;
 import com.wsoteam.diet.POJOProfile.SubInfo;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
@@ -79,7 +76,6 @@ public class CheckAndSetPurchase extends AsyncTask<String, Void, Void> {
     private void logPayment() {
         Context context = contextRef.get();
         if (context != null){
-            Adjust.trackEvent(new AdjustEvent(EventsAdjust.buy));
             AppEventsLogger appEventsLogger = AppEventsLogger.newLogger(context);
             appEventsLogger.logEvent(AppEventsConstants.EVENT_NAME_PURCHASED);
         }

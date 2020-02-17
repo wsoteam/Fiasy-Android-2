@@ -78,6 +78,8 @@ import com.wsoteam.diet.presentation.search.ParentActivity;
 import com.wsoteam.diet.utils.BlurBuilder;
 import com.wsoteam.diet.views.fabmenu.FloatingActionMenu;
 
+import org.json.JSONObject;
+
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -356,6 +358,8 @@ public class MainActivity extends AppCompatActivity {
       fab.hide();
     }
 
+
+    Events.logReview(5, "kek");
   }
 
   @Override protected void onDestroy() {

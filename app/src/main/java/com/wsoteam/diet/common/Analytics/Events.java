@@ -7,8 +7,12 @@ import com.amplitude.api.Revenue;
 import com.android.billingclient.api.BillingClient;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.Food;
+import com.yandex.metrica.YandexMetrica;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -110,6 +114,10 @@ public class Events {
     //окно оценки приложения
     private static final String REVIEW_SUCCESS = "review_success";
 
+    public static void  logYM(JSONObject jsonObject, String name){
+        //YandexMetrica.reportEvent(name, jsonObject.toString());
+    }
+
     public static void  logReview(double stars, String comment){
         JSONObject eventProperties = new JSONObject();
         try {
@@ -119,6 +127,7 @@ public class Events {
             exception.printStackTrace();
         }
         Amplitude.getInstance().logEvent(REVIEW_SUCCESS, eventProperties);
+        logYM(eventProperties, REVIEW_SUCCESS);
 
         Bundle bundle = new Bundle();
         bundle.putDouble(EventProperties.review_star, stars);
@@ -136,6 +145,7 @@ public class Events {
             exception.printStackTrace();
         }
         Amplitude.getInstance().logEvent(TEACH_NEXT, eventProperties);
+        logYM(eventProperties, TEACH_NEXT);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.teach_screen, screen);
@@ -152,6 +162,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(RECIPE_ADD_SUCCES, eventProperties);
+        logYM(eventProperties, RECIPE_ADD_SUCCES);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.recipe_intake, eating);
@@ -170,6 +181,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(VIEW_RECIPE, eventProperties);
+        logYM(eventProperties, VIEW_RECIPE);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.recipe_item, name);
@@ -187,6 +199,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(LEAVE_PLAN, eventProperties);
+        logYM(eventProperties, LEAVE_PLAN);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.diet_plans_choose, convertedNamePlan);
@@ -201,6 +214,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent("prop_error", eventProperties);
+        logYM(eventProperties, "prop_error");
 
         Bundle bundle = new Bundle();
         bundle.putString("message", message);
@@ -209,6 +223,7 @@ public class Events {
 
     public static void logChangeGoal() {
         Amplitude.getInstance().logEvent(CHANGE_GOAL);
+        YandexMetrica.reportEvent(CHANGE_GOAL);
 
         Bundle bundle = new Bundle();
         App.getFAInstance().logEvent(CHANGE_GOAL, bundle);
@@ -224,6 +239,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(PLAN_COMPLETE, eventProperties);
+        logYM(eventProperties, PLAN_COMPLETE);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.diet_plans_choose, convertedNamePlan);
@@ -240,6 +256,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ADD_PLAN_RECIPE_SUCCESS, eventProperties);
+        logYM(eventProperties, ADD_PLAN_RECIPE_SUCCESS);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.plan_intake, intake);
@@ -258,6 +275,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CONNECT_PLAN_SUCCES, eventProperties);
+        logYM(eventProperties, CONNECT_PLAN_SUCCES);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.diet_plans_choose, convertedNamePlan);
@@ -322,6 +340,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CHOOSE_PLAN, eventProperties);
+        logYM(eventProperties, CHOOSE_PLAN);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.diet_plans_choose, convertedNamePlan);
@@ -330,6 +349,7 @@ public class Events {
 
     public static void logViewArticlesDiet() {
         Amplitude.getInstance().logEvent(SELECT_DIET);
+        YandexMetrica.reportEvent(SELECT_DIET);
 
         Bundle bundle = new Bundle();
         App.getFAInstance().logEvent(SELECT_DIET, bundle);
@@ -337,6 +357,7 @@ public class Events {
 
     public static void logViewArticlesTraining() {
         Amplitude.getInstance().logEvent(SELECT_TRAINING);
+        YandexMetrica.reportEvent(SELECT_TRAINING);
 
         Bundle bundle = new Bundle();
         App.getFAInstance().logEvent(SELECT_TRAINING, bundle);
@@ -349,6 +370,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ADD_CUSTOM_RECIPE, eventProperties);
+        logYM(eventProperties, ADD_CUSTOM_RECIPE);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.recipe_id_add, nameRecipe);
@@ -362,6 +384,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(SEARCH_SUCCESS, eventProperties);
+        logYM(eventProperties, SEARCH_SUCCESS);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.search_item, nameFood);
@@ -384,13 +407,13 @@ public class Events {
                 eating = EventProperties.add_intake_snack;
                 break;
         }
-        Log.e("LOL", eating);
         JSONObject eventProperties = new JSONObject();
         try {
             eventProperties.put(EventProperties.add_intake, eating);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(DIARY_NEXT, eventProperties);
+        logYM(eventProperties, DIARY_NEXT);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.add_intake, eating);
@@ -404,6 +427,7 @@ public class Events {
 
     public static void logPurchaseSuccess() {
         Amplitude.getInstance().logEvent(PURCHASE_SUCCESS);
+        YandexMetrica.reportEvent(PURCHASE_SUCCESS);
 
         Bundle bundle = new Bundle();
         App.getFAInstance().logEvent(PURCHASE_SUCCESS, bundle);
@@ -444,6 +468,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(TRIAL_ERROR, eventProperties);
+        logYM(eventProperties, TRIAL_ERROR);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.trial_error, eventDecryption);
@@ -452,6 +477,7 @@ public class Events {
 
     public static void logViewSettings() {
         Amplitude.getInstance().logEvent(VIEW_SETTINGS);
+        YandexMetrica.reportEvent(VIEW_SETTINGS);
 
         Bundle bundle = new Bundle();
         App.getFAInstance().logEvent(VIEW_SETTINGS, bundle);
@@ -459,6 +485,7 @@ public class Events {
 
     public static void logDeleteFood() {
         Amplitude.getInstance().logEvent(DELETE_FOOD);
+        YandexMetrica.reportEvent(DELETE_FOOD);
 
         Bundle bundle = new Bundle();
         App.getFAInstance().logEvent(DELETE_FOOD, bundle);
@@ -466,6 +493,7 @@ public class Events {
 
     public static void logEditFood() {
         Amplitude.getInstance().logEvent(EDIT_FOOD);
+        YandexMetrica.reportEvent(EDIT_FOOD);
 
         Bundle bundle = new Bundle();
         App.getFAInstance().logEvent(EDIT_FOOD, bundle);
@@ -478,6 +506,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(REGISTRATION_NEXT, eventProperties);
+        logYM(eventProperties, REGISTRATION_NEXT);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.enter_push_button, whichButton);
@@ -492,6 +521,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ONBOARDING_SUCCESS, eventProperties);
+        logYM(eventProperties, ONBOARDING_SUCCESS);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.onboarding_success_from, how);
@@ -510,6 +540,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(PREMIUM_NEXT, eventProperties);
+        logYM(eventProperties, PREMIUM_NEXT);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.push_button, whichButton);
@@ -526,6 +557,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(TRIAL_SUCCESS, eventProperties);
+        logYM(eventProperties, TRIAL_SUCCESS);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.trial_from, from);
@@ -542,6 +574,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(TRIAL_SUCCESS, eventProperties);
+        logYM(eventProperties, TRIAL_SUCCESS);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.trial_from, from);
@@ -557,6 +590,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent("settings_error", eventProperties);
+        logYM(eventProperties, "settings_error");
 
         Bundle bundle = new Bundle();
         bundle.putString("error", message);
@@ -571,6 +605,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(VIEW_PRODUCT_PAGE, eventProperties);
+        logYM(eventProperties, VIEW_PRODUCT_PAGE);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.product_item, id);
@@ -585,6 +620,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(PRODUCT_PAGE_FAVORITES, eventProperties);
+        logYM(eventProperties, PRODUCT_PAGE_FAVORITES);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.favorites, id);
@@ -599,6 +635,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(FOOD_SEARCH, eventProperties);
+        logYM(eventProperties, FOOD_SEARCH);
 
         Bundle bundle = new Bundle();
         bundle.putInt(EventProperties.results, count);
@@ -613,6 +650,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CUSTOM_PRODUCT_SUCCESS, eventProperties);
+        logYM(eventProperties, CUSTOM_PRODUCT_SUCCESS);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.product_from, from);
@@ -627,6 +665,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(VIEW_ARTICLES, eventProperties);
+        logYM(eventProperties, VIEW_ARTICLES);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.articles_item, name);
@@ -641,6 +680,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CUSTOM_RECIPE_SUCCESS, eventProperties);
+        logYM(eventProperties, CUSTOM_RECIPE_SUCCESS);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.recipe_from, from);
@@ -661,6 +701,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(CUSTOM_TEMPLATE_SUCCESS, eventProperties);
+        logYM(eventProperties, CUSTOM_TEMPLATE_SUCCESS);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.template_from, from);
@@ -682,6 +723,7 @@ public class Events {
         }
 
         Amplitude.getInstance().logEvent(ADD_FOOD_SUCCESS, eventProperties);
+        logYM(eventProperties, ADD_FOOD_SUCCESS);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.food_intake, food_intake);
@@ -701,6 +743,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(VIEW_RECIPE, eventProperties);
+        logYM(eventProperties, VIEW_RECIPE);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.recipe_item, name);
@@ -715,6 +758,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(RECIPE_FAVORITES, eventProperties);
+        logYM(eventProperties, RECIPE_FAVORITES);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.favorites_recipe, name);
@@ -732,6 +776,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(RECIPE_ADD_SUCCES, eventProperties);
+        logYM(eventProperties, RECIPE_ADD_SUCCES);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.recipe_intake, eating);
@@ -747,6 +792,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(RECIPE_CATEGORY, eventProperties);
+        logYM(eventProperties, RECIPE_CATEGORY);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.recipe_category, categoryName);
@@ -760,13 +806,13 @@ public class Events {
         } else {
             eventName = EventProperties.go_onboard_reg_name;
         }
-        Log.e("LOL", eventName);
         JSONObject eventProperties = new JSONObject();
         try {
             eventProperties.put(EventProperties.go_onboard, eventName);
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ONBOARING_NEXT, eventProperties);
+        logYM(eventProperties, ONBOARING_NEXT);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.go_onboard, eventName);
@@ -783,7 +829,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ONBOARING_SKIP, eventProperties);
-
+        logYM(eventProperties, ONBOARING_SKIP);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.skip_onboard, name);
@@ -792,7 +838,7 @@ public class Events {
 
     public static void logOpenPolitic() {
         Amplitude.getInstance().logEvent(REGISRTATION_PRIVACY);
-
+        YandexMetrica.reportEvent(REGISRTATION_PRIVACY);
         Bundle bundle = new Bundle();
         App.getFAInstance().logEvent(REGISRTATION_PRIVACY, bundle);
     }
@@ -805,6 +851,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(REGISTRATION_SUCCESS, eventProperties);
+        logYM(eventProperties, REGISTRATION_SUCCESS);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.registration, typeRegistration);
@@ -818,6 +865,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(ENTER_SUCCESS, eventProperties);
+        logYM(eventProperties, ENTER_SUCCESS);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.registration, typeEnter);
@@ -831,6 +879,7 @@ public class Events {
         } catch (JSONException exception) {
         }
         Amplitude.getInstance().logEvent(QUESTION_NEXT, eventProperties);
+        logYM(eventProperties, QUESTION_NEXT);
 
         Bundle bundle = new Bundle();
         bundle.putString(EventProperties.question, page);
@@ -839,6 +888,7 @@ public class Events {
 
     public static void logLogout() {
         Amplitude.getInstance().logEvent(PROFILE_LOGOUT);
+        YandexMetrica.reportEvent(PROFILE_LOGOUT);
 
         Bundle bundle = new Bundle();
         App.getFAInstance().logEvent(PROFILE_LOGOUT, bundle);
