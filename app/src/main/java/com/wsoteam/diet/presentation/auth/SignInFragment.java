@@ -1,5 +1,6 @@
 package com.wsoteam.diet.presentation.auth;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -26,6 +27,7 @@ import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.ResetPasswordFragment;
 import com.wsoteam.diet.presentation.auth.EmailLoginAuthStrategy.Account;
+import com.wsoteam.diet.presentation.auth.restore.ActivityForgotPassword;
 import com.wsoteam.diet.utils.InputValidation;
 import com.wsoteam.diet.utils.InputValidation.EmailValidation;
 import com.wsoteam.diet.utils.InputValidation.MinLengthValidation;
@@ -128,6 +130,11 @@ public class SignInFragment extends AuthStrategyFragment {
 
     view.findViewById(R.id.backButton)
         .setOnClickListener(v -> getFragmentManager().popBackStack());
+
+
+    view.findViewById(R.id.resetPass)
+            .setOnClickListener(v ->
+              startActivity(new Intent(getContext(), ActivityForgotPassword.class)));
 
     signInButton = view.findViewById(R.id.auth_strategy_login);
     signInButton.setClickable(true);
