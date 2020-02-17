@@ -19,6 +19,7 @@ import com.wsoteam.diet.Config
 import com.wsoteam.diet.InApp.ActivitySubscription
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy
 import com.wsoteam.diet.R
+import com.wsoteam.diet.common.Analytics.EventProperties
 import kotlinx.android.synthetic.main.dialog_fragment_blocked_starvation.*
 
 
@@ -67,7 +68,7 @@ class BlockedStarvationDialogFragment : DialogFragment() {
             box.isOpenFromPremPart = true
             box.isOpenFromIntrodaction = false
             box.comeFrom = AmplitudaEvents.view_prem_content
-            box.buyFrom = "Starvation" //TODO
+            box.buyFrom = EventProperties.trial_from_fasting
             val intent = Intent(context, ActivitySubscription::class.java).putExtra(Config.TAG_BOX, box)
             startActivity(intent)
         }
