@@ -2,6 +2,7 @@ package com.wsoteam.diet.presentation.auth;
 
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,7 @@ public class AuthFirstFragment extends AuthStrategyFragment {
   }
 
   protected void signIn(){
+      Log.d("kkk", "signIn()");
     Events.logPushButtonReg(EventProperties.enter_push_button_enter);
     requireFragmentManager()
         .beginTransaction()

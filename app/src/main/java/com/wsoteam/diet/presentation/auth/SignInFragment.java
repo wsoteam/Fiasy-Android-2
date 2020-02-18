@@ -1,12 +1,10 @@
 package com.wsoteam.diet.presentation.auth;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,18 +18,12 @@ import androidx.collection.SparseArrayCompat;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-import com.google.firebase.auth.FirebaseUser;
 import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.common.Analytics.EventProperties;
-import com.wsoteam.diet.common.Analytics.Events;
-import com.wsoteam.diet.presentation.ResetPasswordFragment;
 import com.wsoteam.diet.presentation.auth.EmailLoginAuthStrategy.Account;
-import com.wsoteam.diet.presentation.auth.restore.ActivityForgotPassword;
 import com.wsoteam.diet.utils.InputValidation;
 import com.wsoteam.diet.utils.InputValidation.EmailValidation;
 import com.wsoteam.diet.utils.InputValidation.MinLengthValidation;
-import com.wsoteam.diet.utils.RichTextUtils.RichText;
 import com.wsoteam.diet.utils.ViewsExtKt;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -116,25 +108,15 @@ public class SignInFragment extends AuthStrategyFragment {
 
     bindAuthStrategies();
 
-    final TextView forgetPassword = view.findViewById(R.id.forget_password);
+    final TextView forgetPassword = view.findViewById(R.id.resetPass);
 
     if (forgetPassword != null) {
-      forgetPassword.setText(TextUtils.concat(getString(R.string.forgot_password), " ",
-          new RichText(getString(R.string.restore))
-              .colorRes(requireContext(), R.color.orange)
-              .onClick(v -> restorePassword())
-              .text()));
-
-      forgetPassword.setVisibility(View.GONE);
+      forgetPassword.setOnClickListener( v -> resetPass());
     }
 
     view.findViewById(R.id.backButton)
         .setOnClickListener(v -> getFragmentManager().popBackStack());
 
-
-    view.findViewById(R.id.resetPass)
-            .setOnClickListener(v ->
-              startActivity(new Intent(getContext(), ActivityForgotPassword.class)));
 
     signInButton = view.findViewById(R.id.auth_strategy_login);
     signInButton.setClickable(true);
@@ -154,13 +136,6 @@ public class SignInFragment extends AuthStrategyFragment {
     }
   }
 
-  private void restorePassword() {
-    requireFragmentManager()
-        .beginTransaction()
-        .replace(R.id.container, new ResetPasswordFragment())
-        .addToBackStack(ResetPasswordFragment.class.getName())
-        .commitAllowingStateLoss();
-  }
 
   @Override protected void prepareAuthStrategy(AuthStrategy strategy) {
     super.prepareAuthStrategy(strategy);
@@ -249,5 +224,14 @@ public class SignInFragment extends AuthStrategyFragment {
     }
 
     return !hasErrors;
+  }
+
+  private void resetPass(){
+//    Events.logPushButtonReg(EventProperties.enter_push_button_enter);
+    requireFragmentManager()
+            .beginTransaction()
+            .replace(R.id.container, new ResetPassFragment())
+            .addToBackStack(ResetPassFragment.class.getName())
+            .commitAllowingStateLoss();
   }
 }
