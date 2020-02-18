@@ -58,6 +58,7 @@ android:layout_height="match_parent">
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/write_email"
@@ -68,7 +69,7 @@ android:layout_height="match_parent">
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/auth_strategy_login"
+        android:id="@+id/resetPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
@@ -76,6 +77,8 @@ android:layout_height="match_parent">
         android:minHeight="44dp"
         app:cardBackgroundColor="@color/auth_enter_button_background_stateful"
         app:cardCornerRadius="24dp"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

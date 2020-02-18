@@ -1,5 +1,6 @@
 package com.wsoteam.diet.utils;
 
+import android.text.TextUtils;
 import android.widget.EditText;
 
 public interface InputValidation {
@@ -52,7 +53,7 @@ public interface InputValidation {
     }
 
     @Override protected boolean checkValid(EditText input) {
-      return input.getText().toString().contains("@");
+      return !TextUtils.isEmpty(input.getText()) && android.util.Patterns.EMAIL_ADDRESS.matcher(input.getText()).matches();
     }
   }
 
