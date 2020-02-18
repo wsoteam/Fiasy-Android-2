@@ -5,11 +5,14 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.facebook.FacebookSdk.getApplicationContext
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.wsoteam.diet.R
 import com.wsoteam.diet.utils.InputValidation
+import com.wsoteam.diet.utils.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_reset_pass.*
 
 class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
@@ -45,32 +48,42 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
             }
         })
 
-        resetPass.setOnClickListener { resetPassword() }
+        resetPass.setOnClickListener {
+            resetPassword()
+            emailEdit?.hideKeyboard()
+        }
     }
 
     private fun resetPassword() {
 
         mAuth.sendPasswordResetEmail(emailEdit.text.toString())
                 .addOnCompleteListener { task ->
-
                     if (task.isSuccessful) {
                         Log.d("kkk", "Email sent." + emailEdit.text.toString())
-        //                        showToastMessage(getString(R.string.forgot_pass_check_email))
-        //                        finish()
+                        showToastMessage(getString(R.string.forgot_pass_check_email))
+                        this.fragmentManager?.popBackStack()
                     } else {
                         Log.d("kkk", "Error")
                     }
                 }.addOnFailureListener { e ->
                     if (e is FirebaseAuthInvalidUserException) {
 
-                        e.errorCode
+                        when (e.errorCode) {
+                            "ERROR_USER_NOT_FOUND" -> showToastMessage(getString(R.string.forgot_pass_wrong_user))
+
+                        }
 
                         Log.d("kkk", "e.errorCode = ${e.errorCode}  --- ${e.localizedMessage}")
-        //                        showToastMessage(getString(R.string.forgot_pass_wrong_user))
+                        //                        showToastMessage(getString(R.string.forgot_pass_wrong_user))
                     }
 
-
-                    Log.d("kkk", e.javaClass.toString())
+                    Log.d("kkk", "e.errorCode = ${e.message}")
                 }
+    }
+
+    private fun showToastMessage(charSequence: CharSequence){
+        Toast.makeText(getApplicationContext(),
+                charSequence,
+                Toast.LENGTH_LONG).show()
     }
 }
