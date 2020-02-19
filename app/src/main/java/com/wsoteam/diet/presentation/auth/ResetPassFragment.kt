@@ -68,14 +68,18 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
 
     private fun resetPassword() {
 
+        stateProgress()
         mAuth.sendPasswordResetEmail(emailEdit.text.toString())
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Log.d("kkk", "Email sent." + emailEdit.text.toString())
                         showToastMessage(getString(R.string.forgot_pass_check_email))
-                        this.fragmentManager?.popBackStack()
+//                        this.fragmentManager?.popBackStack()
+
+                        stateDone()
                     } else {
                         Log.d("kkk", "Error")
+                        stateStart()
                     }
                 }.addOnFailureListener { e ->
                     if (e is FirebaseAuthInvalidUserException) {
@@ -126,5 +130,25 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
             internetBad?.show()
             false
         }
+    }
+
+    private fun stateStart(){
+        progressBar2.visibility = View.GONE
+        imageCheckMark.visibility = View.GONE
+        btnTxt.visibility = View.VISIBLE
+        btnTxt.text = getString(R.string.reset_send)
+    }
+
+    private fun stateProgress(){
+        progressBar2.visibility = View.VISIBLE
+        imageCheckMark.visibility = View.GONE
+        btnTxt.visibility = View.GONE
+    }
+
+    private fun stateDone(){
+        progressBar2.visibility = View.GONE
+        imageCheckMark.visibility = View.VISIBLE
+        btnTxt.visibility = View.VISIBLE
+        btnTxt.text = "ОТПРАВЛЕННО"
     }
 }
