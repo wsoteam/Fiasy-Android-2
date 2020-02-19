@@ -1,6 +1,8 @@
 package com.wsoteam.diet.presentation.auth
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.text.Editable
@@ -17,6 +19,10 @@ import com.wsoteam.diet.R
 import com.wsoteam.diet.utils.InputValidation
 import com.wsoteam.diet.utils.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_reset_pass.*
+import android.view.Gravity
+import android.widget.TextView
+import androidx.annotation.ColorInt
+
 
 class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
 
@@ -73,7 +79,8 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Log.d("kkk", "Email sent." + emailEdit.text.toString())
-                        showToastMessage(getString(R.string.forgot_pass_check_email))
+//                        showToastMessage(getString(R.string.forgot_pass_check_email))
+                        showToastMessage("Письмо отправлено на указанный адресс электронной почты. Проверьте почту.")
 //                        this.fragmentManager?.popBackStack()
 
                         stateDone()
@@ -85,7 +92,7 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
                     if (e is FirebaseAuthInvalidUserException) {
 
                         when (e.errorCode) {
-                            "ERROR_USER_NOT_FOUND" -> showToastMessage(getString(R.string.forgot_pass_wrong_user))
+                            "ERROR_USER_NOT_FOUND" -> showToastMessage("Введенный Email адрес не зарегистрирован или заблокирован. Пройдите регистрацию.", Color.parseColor("#73cc0808"))
 
                         }
 
@@ -98,9 +105,19 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
     }
 
     private fun showToastMessage(charSequence: CharSequence){
-        Toast.makeText(getApplicationContext(),
+        showToastMessage(charSequence, Color.parseColor("#73000000"))
+    }
+
+    private fun showToastMessage(charSequence: CharSequence, @ColorInt color: Int){
+        val toast = Toast.makeText(getApplicationContext(),
                 charSequence,
-                Toast.LENGTH_LONG).show()
+                Toast.LENGTH_LONG)
+        toast.setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 100)
+        toast.view.backgroundTintList = ColorStateList.valueOf(color)
+        val text: TextView = toast.view.findViewById(android.R.id.message)
+        text.setTextColor(Color.WHITE)
+
+        toast.show()
     }
 
     override fun onAttach(context: Context) {
