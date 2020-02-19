@@ -1,11 +1,14 @@
 package com.wsoteam.diet.presentation.auth
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.facebook.FacebookSdk.getApplicationContext
 import com.google.firebase.auth.FirebaseAuth
@@ -18,8 +21,9 @@ import kotlinx.android.synthetic.main.fragment_reset_pass.*
 class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
 
 
-    private val emailValidator = InputValidation.EmailValidation(R.string.write_email)
+    private val emailValidator = InputValidation.EmailValidation(R.string.auth_user_email_missmatch)
     private lateinit var mAuth: FirebaseAuth
+    private var internetBad: InternetBad? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,12 +49,20 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
                 Log.d("kkk", "${error?.isNotEmpty()}")
 
                 resetPass.isActivated = error?.isEmpty() ?: true
+
+                if(error == null) email.isErrorEnabled = false
             }
         })
 
+        resetPass.isActivated = false
         resetPass.setOnClickListener {
-            resetPassword()
-            emailEdit?.hideKeyboard()
+            if (resetPass.isActivated && hasNetwork(context)) {
+                resetPassword()
+                emailEdit?.hideKeyboard()
+            } else{
+                val error = emailValidator.validate(emailEdit)
+                if (error != null) email.error = error
+            }
         }
     }
 
@@ -85,5 +97,34 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
         Toast.makeText(getApplicationContext(),
                 charSequence,
                 Toast.LENGTH_LONG).show()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (activity is InternetBad) {
+            internetBad = activity as InternetBad?
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        internetBad = null
+    }
+
+    private fun hasNetwork(context: Context?): Boolean {
+        if (context == null) return false
+        val activeNetwork = ContextCompat.getSystemService(context, ConnectivityManager::class.java)!!
+                .activeNetworkInfo
+
+
+        val reesult =  activeNetwork != null && activeNetwork.isConnected
+
+        return  if (reesult){
+            true
+        }else{
+            internetBad?.show()
+            false
+        }
     }
 }

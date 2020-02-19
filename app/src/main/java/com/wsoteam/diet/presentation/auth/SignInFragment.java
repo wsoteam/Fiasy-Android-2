@@ -1,5 +1,8 @@
 package com.wsoteam.diet.presentation.auth;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -15,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.collection.SparseArrayCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
@@ -32,6 +37,8 @@ import java.util.List;
 public class SignInFragment extends AuthStrategyFragment {
   private static final SparseArrayCompat<List<InputValidation>> formValidators =
       new SparseArrayCompat<>();
+
+  private InternetBad internetBad;
 
   static {
     formValidators.put(R.id.username, Arrays.asList(
@@ -122,12 +129,32 @@ public class SignInFragment extends AuthStrategyFragment {
     signInButton.setClickable(true);
     signInButton.setActivated(false);
     signInButton.setOnClickListener(v -> {
-      if (validateForm(true)) {
+      if (validateForm(true) && isInternet()) {
         clearInputErrors();
 
         authorize(strategy.get(R.id.auth_strategy_login));
       }
     });
+
+
+  }
+
+  private boolean isInternet(){
+    if (hasNetwork(getContext())){
+      return true;
+    }else {
+      if (internetBad != null) internetBad.show();
+      return false;
+    }
+  }
+
+  private boolean hasNetwork(Context context) {
+    if (context == null) return false;
+    final NetworkInfo activeNetwork =
+            ContextCompat.getSystemService(context, ConnectivityManager.class)
+                    .getActiveNetworkInfo();
+
+    return activeNetwork != null && activeNetwork.isConnected();
   }
 
   private void clearInputErrors() {
@@ -136,6 +163,20 @@ public class SignInFragment extends AuthStrategyFragment {
     }
   }
 
+  @Override
+  public void onAttach(@NonNull Context context) {
+    super.onAttach(context);
+
+    if(getActivity() instanceof InternetBad){
+      internetBad = ((InternetBad)getActivity());
+    }
+  }
+
+  @Override
+  public void onDetach() {
+    super.onDetach();
+    internetBad = null;
+  }
 
   @Override protected void prepareAuthStrategy(AuthStrategy strategy) {
     super.prepareAuthStrategy(strategy);
