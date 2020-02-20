@@ -18,6 +18,7 @@
   <string name="account_available">Уже есть аккаунт?</string>
   <string name="registration_by_mail">РЕГИСТРАЦИЯ ПО EMAIL</string>
 
+
   <!-- Sign In Screen -->
   <string name="signIn_title">Войти</string>
   <string name="login">Логин</string>
