@@ -23,6 +23,11 @@ import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -93,6 +98,7 @@ public class ActivitySplash extends BaseActivity {
 
 
   private boolean isNoticeContainerHide = false;
+  private InterstitialAd mInterstitialAd;
 
   private final CompositeDisposable disposables = new CompositeDisposable();
 
@@ -150,6 +156,19 @@ public class ActivitySplash extends BaseActivity {
     if (BuildConfig.DEBUG) {
       Log.d("ActivitySplash", "Inflated in " + (System.currentTimeMillis() - App.instance.now));
     }
+
+    MobileAds.initialize(this, initializationStatus -> {
+      Log.d("kkk", initializationStatus.toString());
+      mInterstitialAd = new InterstitialAd(this);
+      mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+      mInterstitialAd.loadAd(new AdRequest.Builder().build());
+      if (mInterstitialAd.isLoaded()) {
+        mInterstitialAd.show();
+      } else {
+        Log.d("TAG", "The interstitial wasn't loaded yet.");
+      }
+    });
+
   }
 
   @Override protected void onStart() {

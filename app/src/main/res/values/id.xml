@@ -6,4 +6,6 @@
     <string name="instagram_client_id" translatable="false">f9ecb6690966457d88a02b0ea758bc58</string>
     <string name="instagram_callback_url" translatable="false">http://fiasy.com/</string>
     <string name="base_url" translatable="false">https://api.instagram.com/</string>
+
+    <string name="admob_id" translatable="false">ca-app-pub-3050564412171997~8774716406</string>
 </resources>
