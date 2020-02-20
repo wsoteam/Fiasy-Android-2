@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -56,7 +57,10 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
 
                 resetPass.isActivated = error?.isEmpty() ?: true
 
-                if(error == null) email.isErrorEnabled = false
+                if(error == null) {
+                    email.isErrorEnabled = false
+                    stateStart()
+                }
             }
         })
 
@@ -81,6 +85,7 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
                         Log.d("kkk", "Email sent." + emailEdit.text.toString())
 //                        showToastMessage(getString(R.string.forgot_pass_check_email))
                         showToastMessage("Письмо отправлено на указанный адресс электронной почты. Проверьте почту.")
+                        Handler().postDelayed({ this.fragmentManager?.popBackStack() }, 3_000)
 //                        this.fragmentManager?.popBackStack()
 
                         stateDone()
