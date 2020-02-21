@@ -5,6 +5,9 @@ import android.util.Log;
 
 import com.amplitude.api.Amplitude;
 import com.bugsee.library.Bugsee;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.FirebaseDatabase;
@@ -26,6 +29,7 @@ public class App extends MultiDexApplication {
     private static FirebaseAnalytics analytics;
 
     private FoodDatabase foodDatabase;
+
 
     public long now;
     private static Context context;
@@ -81,6 +85,11 @@ public class App extends MultiDexApplication {
         YandexMetricaConfig config = YandexMetricaConfig.newConfigBuilder("29344c16-aee8-4945-b2bb-df19320f37e5").build();
         YandexMetrica.activate(getApplicationContext(), config);
         YandexMetrica.enableActivityAutoTracking(this);
+
+        MobileAds.initialize(this, initializationStatus -> {
+            Log.d("kkk", initializationStatus.toString());
+
+        });
     }
 
 
@@ -91,8 +100,5 @@ public class App extends MultiDexApplication {
     public FoodDatabase getFoodDatabase() {
         return foodDatabase;
     }
-
-
-
 
 }

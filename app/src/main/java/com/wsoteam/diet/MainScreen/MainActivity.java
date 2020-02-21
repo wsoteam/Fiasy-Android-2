@@ -28,6 +28,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.amplitude.api.Amplitude;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -86,6 +88,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
   private final long TIMESTAMP = 1577705306338l; //30.12.2019
+  private InterstitialAd mInterstitialAd;
 
   @BindView(R.id.flFragmentContainer)
   FrameLayout flFragmentContainer;
@@ -171,6 +174,13 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
     hideFab();
+
+    if (mInterstitialAd.isLoaded()) {
+      mInterstitialAd.show();
+    } else {
+      mInterstitialAd.loadAd(new AdRequest.Builder().build());
+      Log.d("TAG", "The interstitial wasn't loaded yet.");
+    }
 
     switch (id) {
       case R.id.bnv_main_diary: {
@@ -357,6 +367,10 @@ public class MainActivity extends AppCompatActivity {
       fabBackground.setVisibility(View.GONE);
       fab.hide();
     }
+
+    mInterstitialAd = new InterstitialAd(this);
+    mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+    mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
 
     Events.logReview(5, "kek");

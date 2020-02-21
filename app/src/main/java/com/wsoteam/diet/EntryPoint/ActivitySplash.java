@@ -23,11 +23,6 @@ import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -49,7 +44,6 @@ import com.wsoteam.diet.InApp.properties.SingletonMakePurchase;
 import com.wsoteam.diet.MainScreen.DeepLink;
 import com.wsoteam.diet.MainScreen.MainActivity;
 import com.wsoteam.diet.POJOProfile.SubInfo;
-import com.wsoteam.diet.POJOProfile.TrackInfo;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
@@ -82,7 +76,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-import static android.widget.Toast.LENGTH_SHORT;
 import static com.wsoteam.diet.Sync.WorkWithFirebaseDB.getUserData;
 
 public class ActivitySplash extends BaseActivity {
@@ -98,7 +91,7 @@ public class ActivitySplash extends BaseActivity {
 
 
   private boolean isNoticeContainerHide = false;
-  private InterstitialAd mInterstitialAd;
+
 
   private final CompositeDisposable disposables = new CompositeDisposable();
 
@@ -157,17 +150,7 @@ public class ActivitySplash extends BaseActivity {
       Log.d("ActivitySplash", "Inflated in " + (System.currentTimeMillis() - App.instance.now));
     }
 
-    MobileAds.initialize(this, initializationStatus -> {
-      Log.d("kkk", initializationStatus.toString());
-      mInterstitialAd = new InterstitialAd(this);
-      mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-      mInterstitialAd.loadAd(new AdRequest.Builder().build());
-      if (mInterstitialAd.isLoaded()) {
-        mInterstitialAd.show();
-      } else {
-        Log.d("TAG", "The interstitial wasn't loaded yet.");
-      }
-    });
+
 
   }
 
