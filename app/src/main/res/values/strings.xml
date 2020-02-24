@@ -1320,4 +1320,6 @@ Share your accomplishments with friends:</string>
 
     <string name="splash_internet_check">Пробуем подключиться...</string>
     <string name="splash_internet_bad">Не удалось, попробовать снова</string>
+
+    <string name="ad_attribution">Ad</string>
 </resources>

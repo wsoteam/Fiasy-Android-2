@@ -1,14 +1,9 @@
 package com.wsoteam.diet.presentation.profile.questions.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,10 +14,10 @@ import butterknife.OnClick;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.ads.FiasyAds;
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle;
+import com.wsoteam.diet.ads.nativetemplates.TemplateView;
 import com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity;
-import com.wsoteam.diet.utils.RichTextUtils;
-
-import static android.text.TextUtils.concat;
 
 public class IndividualPlanFragments extends Fragment {
 
@@ -30,6 +25,7 @@ public class IndividualPlanFragments extends Fragment {
   @BindView(R.id.tvProtein) TextView tvProtein;
   @BindView(R.id.tvFat) TextView tvFat;
   @BindView(R.id.tvCarbo) TextView tvCarbo;
+  @BindView(R.id.nativeAd) TemplateView nativeAd;
   //@BindView(R.id.tvTxt) TextView tvTxt;
   //@BindView(R.id.ivMan) ImageView ivMan;
   //@BindView(R.id.ivWoman) ImageView ivWoman;
@@ -54,6 +50,12 @@ public class IndividualPlanFragments extends Fragment {
     profile = (Profile) getActivity().getIntent().getSerializableExtra(Config.INTENT_PROFILE);
 
     setData(profile);
+
+    FiasyAds.getLiveDataAdView().observe(this, ad -> {
+      nativeAd.setVisibility(View.VISIBLE);
+      nativeAd.setStyles( new NativeTemplateStyle.Builder().build());
+      nativeAd.setNativeAd(ad);
+    });
 
     return view;
   }

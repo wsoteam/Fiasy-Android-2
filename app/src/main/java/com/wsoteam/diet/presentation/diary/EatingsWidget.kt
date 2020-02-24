@@ -9,6 +9,9 @@ import com.wsoteam.diet.MainScreen.Controller.UpdateCallback
 import com.wsoteam.diet.MainScreen.Fragments.FragmentEatingScroll
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
+import com.wsoteam.diet.ads.FiasyAds
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle
+import com.wsoteam.diet.ads.nativetemplates.TemplateView
 import com.wsoteam.diet.model.Eating
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
 import com.wsoteam.diet.presentation.diary.WidgetsAdapter.WidgetView
@@ -34,6 +37,8 @@ class EatingsWidget(itemView: View) : WidgetView(itemView), UpdateCallback {
       update()
     }
   }
+
+  private val nativeAd: TemplateView = itemView.findViewById(R.id.nativeAd)
 
   init {
     container.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -65,8 +70,22 @@ class EatingsWidget(itemView: View) : WidgetView(itemView), UpdateCallback {
     )
   }
 
+  private fun updateNativeAd(){
+
+    val ad = FiasyAds.getLiveDataAdView().value
+
+    if (ad != null) {
+      nativeAd.visibility = View.VISIBLE
+      nativeAd.setStyles(NativeTemplateStyle.Builder().build())
+      nativeAd.setNativeAd(ad)
+    } else{
+      nativeAd.visibility = View.GONE
+    }
+  }
+
   override fun onBind(parent: RecyclerView, position: Int) {
     super.onBind(parent, position)
+    updateNativeAd()
   }
 
   override fun onAttached(parent: RecyclerView) {
@@ -76,6 +95,7 @@ class EatingsWidget(itemView: View) : WidgetView(itemView), UpdateCallback {
     WorkWithFirebaseDB.liveUpdates().observeForever(eatingsObserver)
 
     update()
+    updateNativeAd()
   }
 
   override fun onDetached(parent: RecyclerView) {

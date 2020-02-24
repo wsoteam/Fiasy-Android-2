@@ -21,7 +21,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
@@ -53,6 +52,7 @@ import com.wsoteam.diet.MainScreen.Support.AsyncWriteFoodDB;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.v2.GroupsFragment;
+import com.wsoteam.diet.ads.FiasyAds;
 import com.wsoteam.diet.articles.ArticleSeriesActivity;
 import com.wsoteam.diet.common.Analytics.ABLiveData;
 import com.wsoteam.diet.common.Analytics.EventProperties;
@@ -88,7 +88,6 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
   private final long TIMESTAMP = 1577705306338l; //30.12.2019
-  private InterstitialAd mInterstitialAd;
 
   @BindView(R.id.flFragmentContainer)
   FrameLayout flFragmentContainer;
@@ -174,14 +173,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
     hideFab();
-
-    if (mInterstitialAd.isLoaded()) {
-      mInterstitialAd.show();
-    } else {
-      mInterstitialAd.loadAd(new AdRequest.Builder().build());
-      Log.d("TAG", "The interstitial wasn't loaded yet.");
-    }
-
+    FiasyAds.refreshAd(this);
     switch (id) {
       case R.id.bnv_main_diary: {
         isMainFragment = true;
@@ -368,12 +360,10 @@ public class MainActivity extends AppCompatActivity {
       fab.hide();
     }
 
-    mInterstitialAd = new InterstitialAd(this);
-    mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-    mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
 
     Events.logReview(5, "kek");
+
+    FiasyAds.openInter();
   }
 
   @Override protected void onDestroy() {

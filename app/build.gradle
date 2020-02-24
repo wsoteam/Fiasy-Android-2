@@ -192,6 +192,8 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-ads:18.3.0'
 
+//    implementation project(':nativetemplates')
+
 }
 
 apply plugin: 'com.google.gms.google-services'

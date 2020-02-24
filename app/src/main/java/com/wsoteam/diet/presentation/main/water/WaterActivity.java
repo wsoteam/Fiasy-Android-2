@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.main.water;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
@@ -11,6 +12,9 @@ import butterknife.OnClick;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.ads.FiasyAds;
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle;
+import com.wsoteam.diet.ads.nativetemplates.TemplateView;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 
 public class WaterActivity extends BaseActivity implements WaterView {
@@ -23,6 +27,7 @@ public class WaterActivity extends BaseActivity implements WaterView {
   @BindView(R.id.pbWater) SeekBar pbWater;
   @BindView(R.id.tvWater) TextView tvWater;
   @BindView(R.id.cardTitle) CardView cardTitle;
+  @BindView(R.id.nativeAd) TemplateView nativeAd;
 
   @InjectPresenter
   WaterPresenter presenter;
@@ -60,7 +65,16 @@ public class WaterActivity extends BaseActivity implements WaterView {
       }
     });
     setDefaultProgress();
+
+
+    FiasyAds.getLiveDataAdView().observe(this, ad -> {
+      nativeAd.setVisibility(View.VISIBLE);
+      nativeAd.setStyles( new NativeTemplateStyle.Builder().build());
+      nativeAd.setNativeAd(ad);
+    });
+
   }
+
 
   @Override protected void onPause() {
     presenter.saveUsersMaxWater((float) (pbWater.getProgress() * PROGRESS_STEP + 1.5));
@@ -87,6 +101,7 @@ public class WaterActivity extends BaseActivity implements WaterView {
   @OnClick(R.id.tvDefault)
   void clicked(){
     pbWater.setProgress((int) ((DEFAULT_NORMA - PROGRESS_MIN) / PROGRESS_STEP));
+    FiasyAds.openInter();
   }
 
   @Override

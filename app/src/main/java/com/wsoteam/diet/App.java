@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.onesignal.OneSignal;
 import com.wsoteam.diet.BranchOfAnalyzer.POJOFoodSQL.FoodDatabase;
+import com.wsoteam.diet.ads.FiasyAds;
 import com.yandex.metrica.YandexMetrica;
 import com.yandex.metrica.YandexMetricaConfig;
 
@@ -86,10 +87,7 @@ public class App extends MultiDexApplication {
         YandexMetrica.activate(getApplicationContext(), config);
         YandexMetrica.enableActivityAutoTracking(this);
 
-        MobileAds.initialize(this, initializationStatus -> {
-            Log.d("kkk", initializationStatus.toString());
-
-        });
+        FiasyAds.init(this);
     }
 
 

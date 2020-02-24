@@ -8,4 +8,6 @@
     <string name="base_url" translatable="false">https://api.instagram.com/</string>
 
     <string name="admob_id" translatable="false">ca-app-pub-3050564412171997~8774716406</string>
+    <string name="admob_native" translatable="false">ca-app-pub-3050564412171997/5271765877</string>
+    <string name="admob_interstitial" translatable="false">ca-app-pub-3050564412171997/9644935786</string>
 </resources>
