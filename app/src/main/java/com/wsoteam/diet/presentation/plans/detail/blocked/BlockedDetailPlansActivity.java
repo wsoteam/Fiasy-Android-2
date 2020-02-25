@@ -17,6 +17,9 @@ import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.ads.FiasyAds;
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle;
+import com.wsoteam.diet.ads.nativetemplates.TemplateView;
 import com.wsoteam.diet.di.CiceroneModule;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 
@@ -35,6 +38,7 @@ public class BlockedDetailPlansActivity extends BaseActivity implements BlockedD
     @BindView(R.id.tvPlansRecipes) TextView recipes;
     @BindView(R.id.tvTime) TextView days;
     @BindView(R.id.tvTimeCount) TextView dayAfterStart;
+    @BindView(R.id.my_template) TemplateView nativeAd;
 
     @InjectPresenter
     BlockedDetailPlansPresenter presenter;
@@ -68,6 +72,16 @@ public class BlockedDetailPlansActivity extends BaseActivity implements BlockedD
         shareMenu.setOnMenuItemClickListener(menuListener);
         leaveMenu.setOnMenuItemClickListener(menuListener);
 
+        FiasyAds.getLiveDataAdView().observe(this, ad -> {
+            if (ad != null) {
+                nativeAd.setVisibility(View.VISIBLE);
+                nativeAd.setStyles(new NativeTemplateStyle.Builder().build());
+                nativeAd.setNativeAd(ad);
+
+            } else{
+                nativeAd.setVisibility(View.GONE);
+            }
+        });
     }
 
     View.OnClickListener navigationListener = new View.OnClickListener() {

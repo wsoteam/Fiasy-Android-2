@@ -20,6 +20,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.ads.AdmobWrapperAdapter;
 
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -87,7 +88,7 @@ public class ListRecipesFragment extends Fragment {
     private void updateUI() {
         mToolbar.setTitle(GroupsHolder.getGroupsRecipes().getGroups().get(position).getName());
         adapter = new ListRecipesAdapter(GroupsHolder.getGroupsRecipes().getGroups().get(position).getListrecipes());
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(new AdmobWrapperAdapter(adapter));
     }
 
     public void searchAndShow(CharSequence s){

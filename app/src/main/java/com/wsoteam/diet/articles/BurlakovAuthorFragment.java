@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.ads.FiasyAds;
 import com.wsoteam.diet.model.OpenArticles;
 import java.util.Date;
 import java.util.HashMap;
@@ -65,5 +66,11 @@ public class BurlakovAuthorFragment extends Fragment {
 
   public void setClickListener(View.OnClickListener clickListener){
     this.clickListener = clickListener;
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    FiasyAds.openInter();
   }
 }

@@ -20,6 +20,9 @@ import androidx.lifecycle.ViewModelProviders;
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.ads.FiasyAds;
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle;
+import com.wsoteam.diet.ads.nativetemplates.TemplateView;
 import com.wsoteam.diet.articles.Util.HtmlTagHandler;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
@@ -45,6 +48,7 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
     @BindView(R.id.testID) LinearLayout layout;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.author) ConstraintLayout authorLabel;
+    @BindView(R.id.my_template) TemplateView nativeAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,16 +82,22 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
 
         toolbar.setPadding(0, dpToPx(24), 0, 0);
         toolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         authorLabel.setOnClickListener(v ->
                 startActivity(new Intent(this, BurlakovAuthorActivity.class)
                         .putExtra(BurlakovAuthorActivity.HIDE_BTN, true)));
+
+        FiasyAds.getLiveDataAdView().observe(this, ad -> {
+            if (ad != null) {
+                nativeAd.setVisibility(View.VISIBLE);
+                nativeAd.setStyles(new NativeTemplateStyle.Builder().build());
+                nativeAd.setNativeAd(ad);
+
+            } else{
+                nativeAd.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void setValue(Article article){
@@ -125,5 +135,4 @@ public class ItemArticleWithoutPremActivity extends AppCompatActivity {
                 .density;
         return Math.round((float) dp * density);
     }
-
 }

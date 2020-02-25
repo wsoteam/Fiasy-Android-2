@@ -33,7 +33,13 @@ public class AdmobWrapperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public AdmobWrapperAdapter(RecyclerView.Adapter<RecyclerView.ViewHolder> userAdapter, int nativeStep) {
         this.userAdapter = userAdapter;
-        this.nativeStep = nativeStep + 1;
+
+        if (nativeStep < getUserAdapterItemCount()){
+            this.nativeStep = nativeStep + 1;
+        } else {
+            this.nativeStep = getUserAdapterItemCount();
+        }
+
 
         userAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
 
@@ -167,6 +173,7 @@ public class AdmobWrapperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     private int findNextAdPosition() {
+
         if (nativeAdList.size() > 0) {
             return nativeAdList.keyAt(nativeAdList.size() - 1) + nativeStep;
         }

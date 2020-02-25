@@ -12,8 +12,12 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.ads.FiasyAds;
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle;
+import com.wsoteam.diet.ads.nativetemplates.TemplateView;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -21,6 +25,8 @@ import butterknife.OnClick;
 public class BlockedRecipeActivity extends AppCompatActivity {
 
     private Window window;
+
+    @BindView(R.id.my_template) TemplateView nativeAd;
 
 
     @Override
@@ -35,6 +41,17 @@ public class BlockedRecipeActivity extends AppCompatActivity {
         window.setStatusBarColor(Color.parseColor("#66000000"));
 
         findViewById(R.id.imageView6).setOnClickListener(view -> onBackPressed());
+
+        FiasyAds.getLiveDataAdView().observe(this, ad -> {
+            if (ad != null) {
+                nativeAd.setVisibility(View.VISIBLE);
+                nativeAd.setStyles(new NativeTemplateStyle.Builder().build());
+                nativeAd.setNativeAd(ad);
+
+            } else{
+                nativeAd.setVisibility(View.GONE);
+            }
+        });
     }
 
     @OnClick(R.id.goPrem)

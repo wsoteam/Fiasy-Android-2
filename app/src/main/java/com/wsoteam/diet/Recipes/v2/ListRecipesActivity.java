@@ -21,6 +21,8 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.ads.AdmobWrapperAdapter;
+import com.wsoteam.diet.ads.FiasyAds;
 import com.wsoteam.diet.common.Analytics.Events;
 
 import java.util.LinkedHashSet;
@@ -95,7 +97,7 @@ public class ListRecipesActivity extends AppCompatActivity {
         Events.logChoiseRecipeCategory(GroupsHolder.getGroupsRecipes().getGroups().get(position).getName());
         mToolbar.setTitle(GroupsHolder.getGroupsRecipes().getGroups().get(position).getName());
         adapter = new ListRecipesAdapter(GroupsHolder.getGroupsRecipes().getGroups().get(position).getListrecipes());
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(new AdmobWrapperAdapter(adapter));
     }
 
     public void searchAndShow(CharSequence s) {
@@ -126,5 +128,11 @@ public class ListRecipesActivity extends AppCompatActivity {
         super.onResume();
         if (recyclerView.getAdapter() != null)
             recyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void onBackPressed() {
+        FiasyAds.openInter();
+        super.onBackPressed();
     }
 }
