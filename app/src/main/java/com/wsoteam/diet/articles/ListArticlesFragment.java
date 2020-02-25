@@ -27,6 +27,7 @@ import butterknife.Unbinder;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.ads.AdmobWrapperAdapter;
 import com.wsoteam.diet.articles.recycler.HorizontalArticlesAdapter;
 import com.wsoteam.diet.articles.recycler.ListArticlesAdapter;
 import com.wsoteam.diet.articles.recycler.VerticalArticlesAdapter;
@@ -91,7 +92,8 @@ public class ListArticlesFragment extends Fragment implements Observer {
           subList = listArticles.getListArticles();
           isSubSection = true;
           adapter.updateData(listArticles.getListArticles());
-          recyclerView.setAdapter(adapter);
+          recyclerView.setAdapter(new AdmobWrapperAdapter(adapter));
+//          recyclerView.setAdapter(adapter);
           mToolbar.setNavigationIcon(R.drawable.back_arrow_icon);
           mToolbar.setTitle(listArticles.getName());
         }

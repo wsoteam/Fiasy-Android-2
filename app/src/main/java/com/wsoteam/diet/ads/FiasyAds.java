@@ -22,6 +22,8 @@ import androidx.lifecycle.MutableLiveData;
 
 public class FiasyAds {
 
+    public static final int NATIVE_STEP_IN_RECYCLER = 8;
+
     private static final String ADMOB_AD_UNIT_ID = "ca-app-pub-3050564412171997/5271765877";
 
     private static InterstitialAd mInterstitialAd;
