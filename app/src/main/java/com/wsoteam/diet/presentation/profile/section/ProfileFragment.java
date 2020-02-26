@@ -366,6 +366,7 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibSettings:
+                FiasyAds.openInter();
                 startActivity(new Intent(getActivity(), ProfileSettingsActivity.class));
                 break;
             case R.id.ibExpandable:

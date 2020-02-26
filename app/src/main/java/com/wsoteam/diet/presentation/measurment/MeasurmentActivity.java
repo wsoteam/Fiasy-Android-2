@@ -30,6 +30,9 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.ads.FiasyAds;
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle;
+import com.wsoteam.diet.ads.nativetemplates.TemplateView;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.presentation.measurment.POJO.Chest;
 import com.wsoteam.diet.presentation.measurment.POJO.Hips;
@@ -63,6 +66,7 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
   @BindView(R.id.ivRefreshHips) ImageView ivRefreshHips;
   @BindView(R.id.tvTicker) TextView tvTicker;
   @BindView(R.id.cvPseudoToast) CardView cvPseudoToast;
+  @BindView(R.id.nativeAd) TemplateView nativeAd;
   private int position = 0;
   private Animation show, hide;
 
@@ -169,7 +173,18 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
     presenter = new MeasurmentPresenter(this);
     presenter.attachView(this);
     loadAnimations();
+
+    FiasyAds.getLiveDataAdView().observe(this, ad -> {
+      if (ad != null) {
+        nativeAd.setVisibility(View.VISIBLE);
+        nativeAd.setStyles(new NativeTemplateStyle.Builder().build());
+        nativeAd.setNativeAd(ad);
+      }else {
+        nativeAd.setVisibility(View.GONE);
+      }
+    });
   }
+
 
   private void loadAnimations() {
     show = AnimationUtils.loadAnimation(this, R.anim.anim_from_right);

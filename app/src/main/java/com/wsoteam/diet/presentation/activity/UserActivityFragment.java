@@ -74,7 +74,7 @@ public class UserActivityFragment extends DialogFragment implements
 
     container = view.findViewById(R.id.container);
 
-    container.setAdapter(adapter = new ActivitiesAdapter(Locale.getDefault().getLanguage().equals("ru")));
+    container.setAdapter(adapter = new ActivitiesAdapter(Locale.getDefault().getLanguage().equals("ru"), getContext()));
     container.addItemDecoration(new DividerDecoration(requireContext()));
     container.setLayoutManager(new LinearLayoutManager(requireContext()));
 

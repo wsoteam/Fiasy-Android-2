@@ -23,10 +23,15 @@ import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
+import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.google.firebase.database.FirebaseDatabase
 import com.wsoteam.diet.R
+import com.wsoteam.diet.ads.FiasyAds
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle
 import com.wsoteam.diet.presentation.activity.ExercisesSource.AssetsSource
 import com.wsoteam.diet.utils.RichTextUtils.RichText
+import kotlinx.android.synthetic.main.view_lock_premium.*
 import kotlin.math.max
 
 class CreateUserActivityFragment : DialogFragment() {
@@ -112,6 +117,16 @@ class CreateUserActivityFragment : DialogFragment() {
     }
 
     onExerciseSelected(selected)
+
+    FiasyAds.getLiveDataAdView().observe(this, Observer<UnifiedNativeAd> { ad: UnifiedNativeAd? ->
+      if (ad != null) {
+        nativeAd.visibility = View.VISIBLE
+        nativeAd.setStyles(NativeTemplateStyle.Builder().build())
+        nativeAd.setNativeAd(ad)
+      } else {
+        nativeAd.visibility = View.GONE
+      }
+    })
   }
 
   private fun onExerciseSelected(exercise: UserActivityExercise) {

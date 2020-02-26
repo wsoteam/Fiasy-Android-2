@@ -1,6 +1,7 @@
 package com.wsoteam.diet.presentation.measurment.history;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -11,6 +12,9 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.ads.FiasyAds;
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle;
+import com.wsoteam.diet.ads.nativetemplates.TemplateView;
 import com.wsoteam.diet.presentation.measurment.history.fragment.MeasHistoryFragment;
 
 import java.util.ArrayList;
@@ -24,6 +28,8 @@ public class HistoryActivity extends AppCompatActivity {
     @BindView(R.id.vpHistory) ViewPager vpHistory;
     List<Fragment> fragments;
     @BindView(R.id.rgrpType) RadioGroup rgrpType;
+    @BindView(R.id.nativeAd)
+    TemplateView nativeAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +38,16 @@ public class HistoryActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         createFragmentList();
         bindPagerAndTopTapper();
+
+        FiasyAds.getLiveDataAdView().observe(this, ad -> {
+            if (ad != null) {
+                nativeAd.setVisibility(View.VISIBLE);
+                nativeAd.setStyles(new NativeTemplateStyle.Builder().build());
+                nativeAd.setNativeAd(ad);
+            }else {
+                nativeAd.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void createFragmentList() {

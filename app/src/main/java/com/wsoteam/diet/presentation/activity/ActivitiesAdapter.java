@@ -1,7 +1,6 @@
 package com.wsoteam.diet.presentation.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -27,11 +25,17 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
+
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.wsoteam.diet.BuildConfig;
 import com.wsoteam.diet.R;
 
+import com.wsoteam.diet.ads.FiasyAds;
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle;
+import com.wsoteam.diet.ads.nativetemplates.TemplateView;
 import com.wsoteam.diet.utils.Metrics;
 import com.wsoteam.diet.utils.RichTextUtils;
+import com.wsoteam.diet.utils.Subscription;
 import com.wsoteam.diet.utils.ViewsExtKt;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,6 +49,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
   final static int VIEW_TYPE_HEADER = R.layout.item_activity_section_header;
   final static int VIEW_TYPE_EMPTY_VIEW = R.layout.item_activity_empty_section;
   final static int VIEW_TYPE_TRAINING_BANNER = R.layout.item_training_banner;
+  final static int VIEW_TYPE_ADMOB_BANNER = R.layout.ad_native_small;
 
   private final static int INTERACTION_SECTION_CLICK = 0;
   private final static int INTERACTION_ITEM_CLICK = 1;
@@ -59,6 +64,9 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
   // banner index
   private int banner = -1;
+
+  // admob
+  private int admobNative = -1;
 
   // search row included immediately
   private int total = headers;
@@ -75,7 +83,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
   private Section head;
   private Section tail;
 
-  public ActivitiesAdapter(boolean isNeeDTraining) {
+  public ActivitiesAdapter(boolean isNeeDTraining, Context context) {
    if (isNeeDTraining){
      // banner index
      banner = headers++;
@@ -83,6 +91,13 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      // search row included immediately
      total = headers;
    }
+
+   if (!Subscription.check(context)){
+     admobNative = headers++;
+
+     total = headers;
+   }
+
   }
 
   private TextWatcher searchWatcher = new TextWatcher() {
@@ -520,7 +535,9 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     } else if (viewType == VIEW_TYPE_EMPTY_VIEW) {
       return new EmptyView(target);
     } else if (viewType == VIEW_TYPE_TRAINING_BANNER){
-      return new BannerView(target);
+      return new TrainingBannerView(target);
+    } else if (viewType == VIEW_TYPE_ADMOB_BANNER){
+      return new AdmobBannerView(target);
     }
 
     return null;
@@ -533,6 +550,10 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     if (position == banner){
       return VIEW_TYPE_TRAINING_BANNER;
+    }
+
+    if (position == admobNative){
+      return VIEW_TYPE_ADMOB_BANNER;
     }
 
     position = position - headers;
@@ -561,6 +582,10 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
   @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
     if (position >= headers) {
       position -= headers;
+    }
+
+    if (holder instanceof AdmobBannerView){
+     ((AdmobBannerView) holder).bind();
     }
 
     if (holder instanceof HeaderView) {
@@ -598,7 +623,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         dispatchInteractionEvent(holder, INTERACTION_SECTION_CLICK);
       } else if (holder instanceof UserActivityView) {
         dispatchInteractionEvent(holder, INTERACTION_ITEM_CLICK);
-      } else if (holder instanceof BannerView){
+      } else if (holder instanceof TrainingBannerView){
         dispatchInteractionEvent(holder, INTERACTION_ITEM_BANNER_CLICK);
       }
     });
@@ -716,11 +741,37 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
   }
 
-  static class BannerView extends RecyclerView.ViewHolder{
+  static class TrainingBannerView extends RecyclerView.ViewHolder{
 
-    public BannerView(@NonNull View itemView) {
+    public TrainingBannerView(@NonNull View itemView) {
       super(itemView);
 
+    }
+  }
+
+  static class AdmobBannerView extends RecyclerView.ViewHolder{
+
+    TemplateView nativeAd;
+
+    public AdmobBannerView(@NonNull View itemView) {
+      super(itemView);
+      nativeAd = itemView.findViewById(R.id.my_template);
+      nativeAd.setVisibility(View.VISIBLE);
+    }
+
+    public void bind(){
+
+      UnifiedNativeAd ad = FiasyAds.getLiveDataAdView().getValue();
+
+      Log.d("kkk", "" + ad);
+
+      if (ad != null) {
+        itemView.setVisibility(View.VISIBLE);
+        nativeAd.setStyles(new NativeTemplateStyle.Builder().build());
+        nativeAd.setNativeAd(ad);
+      }else {
+        itemView.setVisibility(View.GONE);
+      }
     }
   }
 

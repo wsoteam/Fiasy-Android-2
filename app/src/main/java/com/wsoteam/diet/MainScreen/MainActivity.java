@@ -115,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
   private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
       = item -> setActiveTab(item.getItemId());
 
+  private int interCounter = 0;
+
   private Observer<String> abObserver = new Observer<String>() {
     @Override public void onChanged(String s) {
         checkSub();
@@ -173,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
     hideFab();
-    FiasyAds.refreshAd(this);
+    interstitialFromMainScreen();
     switch (id) {
       case R.id.bnv_main_diary: {
         isMainFragment = true;
@@ -598,4 +600,13 @@ public class MainActivity extends AppCompatActivity {
       }
     }
   };
+
+  private void interstitialFromMainScreen(){
+    interCounter++;
+
+    if (interCounter > 2){
+      FiasyAds.openInter();
+      interCounter = 0;
+    }
+  }
 }

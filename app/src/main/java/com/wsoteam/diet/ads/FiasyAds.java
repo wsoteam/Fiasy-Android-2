@@ -22,9 +22,9 @@ import androidx.lifecycle.MutableLiveData;
 
 public class FiasyAds {
 
-    public static final int NATIVE_STEP_IN_RECYCLER = 8;
+    public static final int NATIVE_STEP_IN_RECYCLER = 6;
 
-    private static final String ADMOB_AD_UNIT_ID = "ca-app-pub-3050564412171997/5271765877";
+    private static final String ADMOB_AD_UNIT_ID = "ca-app-pub-3940256099942544/2247696110";
 
     private static InterstitialAd mInterstitialAd;
 //    private static UnifiedNativeAdView adView;
@@ -65,6 +65,7 @@ public class FiasyAds {
                 nativeAd.destroy();
             }
             nativeAd = unifiedNativeAd;
+            Log.d("kkk", "++" + unifiedNativeAd);
             nativeAdView.setValue(unifiedNativeAd);
             isRefreshLocked = false;
 

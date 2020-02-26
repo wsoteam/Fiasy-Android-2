@@ -13,13 +13,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
+import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.wsoteam.diet.R
+import com.wsoteam.diet.ads.FiasyAds
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle
 import com.wsoteam.diet.presentation.diary.DiaryViewModel
 import com.wsoteam.diet.utils.FiasyDateUtils
 import com.wsoteam.diet.utils.RichTextUtils.RichText
 import com.wsoteam.diet.utils.argument
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.view_lock_premium.*
 import java.util.Calendar
 
 class EditUserActivityFragment : DialogFragment() {
@@ -142,6 +147,17 @@ class EditUserActivityFragment : DialogFragment() {
       setEfficiency(30, 0)
       doneButton.isEnabled = false
     }
+
+
+    FiasyAds.getLiveDataAdView().observe(this, Observer<UnifiedNativeAd> { ad: UnifiedNativeAd? ->
+      if (ad != null) {
+        nativeAd.visibility = View.VISIBLE
+        nativeAd.setStyles(NativeTemplateStyle.Builder().build())
+        nativeAd.setNativeAd(ad)
+      } else {
+        nativeAd.visibility = View.GONE
+      }
+    })
   }
 
   fun getTodayTimestamp(): Long {

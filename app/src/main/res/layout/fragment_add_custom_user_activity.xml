@@ -112,18 +112,17 @@
 
     <TextView
         android:id="@+id/activity_ccal_title"
+        style="@style/TextAppearance.AppCompat.Body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/activity_duration"
+        android:layout_below="@id/nativeAd"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginTop="24dp"
-        android:textSize="18sp"
+        android:layout_marginRight="16dp"
         android:fontFamily="@font/roboto_medium"
         android:gravity="left"
         android:text="@string/calories_count"
-        style="@style/TextAppearance.AppCompat.Body2"
-        />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/activity_ccal_description"
@@ -186,5 +185,14 @@
         android:gravity="center"
         android:text="@string/attention_description"
         />
+
+    <com.wsoteam.diet.ads.nativetemplates.TemplateView
+        android:id="@+id/nativeAd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_duration"
+        android:visibility="gone"
+        app:gnt_template_type="@layout/gnt_small_template_view"
+        tools:visibility="visible" />
   </RelativeLayout>
 </androidx.core.widget.NestedScrollView>
