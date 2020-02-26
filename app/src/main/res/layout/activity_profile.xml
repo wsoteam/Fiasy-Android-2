@@ -186,7 +186,8 @@
             app:layout_constraintEnd_toStartOf="@+id/tvFatCount"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tvProtCount"
-            app:layout_constraintTop_toTopOf="@+id/tvProtCount" />
+            app:layout_constraintTop_toTopOf="@+id/tvProtCount"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/tvFatCount"
@@ -202,7 +203,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tvCarboCount"
-            app:layout_constraintTop_toTopOf="@+id/tvCarboCount" />
+            app:layout_constraintTop_toTopOf="@+id/tvCarboCount"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/tvProtCount"
@@ -222,7 +224,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvPlan"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/textView87"
@@ -280,6 +283,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView87"
             app:layout_constraintVertical_bias="0.0"
             />
+
         <TextView
             android:id="@+id/tvLabelProt"
             android:layout_width="wrap_content"
@@ -291,7 +295,8 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/tvProtCount"
             app:layout_constraintStart_toStartOf="@+id/tvProtCount"
-            app:layout_constraintTop_toBottomOf="@+id/tvProtCount" />
+            app:layout_constraintTop_toBottomOf="@+id/tvProtCount"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/tvLabelCarbo"
@@ -304,7 +309,8 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/tvCarboCount"
             app:layout_constraintStart_toStartOf="@+id/tvCarboCount"
-            app:layout_constraintTop_toBottomOf="@+id/tvCarboCount" />
+            app:layout_constraintTop_toBottomOf="@+id/tvCarboCount"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/tvLabelFats"
@@ -317,20 +323,21 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/tvFatCount"
             app:layout_constraintStart_toStartOf="@+id/tvFatCount"
-            app:layout_constraintTop_toBottomOf="@+id/tvFatCount" />
+            app:layout_constraintTop_toBottomOf="@+id/tvFatCount"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/textView91"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="41dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/reports"
             android:textColor="#d9424242"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLabelProt" />
+            app:layout_constraintTop_toBottomOf="@+id/nativeAd" />
 
         <TextView
             android:id="@+id/tvTopDateSwitcher"
@@ -481,6 +488,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/gv" />
+
+        <com.wsoteam.diet.ads.nativetemplates.TemplateView
+            android:id="@+id/nativeAd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="41dp"
+            android:visibility="gone"
+            app:gnt_template_type="@layout/gnt_small_template_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLabelProt"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

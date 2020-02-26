@@ -13,12 +13,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
+import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.wsoteam.diet.AmplitudaEvents
 import com.wsoteam.diet.Authenticate.POJO.Box
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.InApp.ActivitySubscription
 import com.wsoteam.diet.OtherActivity.ActivityPrivacyPolicy
 import com.wsoteam.diet.R
+import com.wsoteam.diet.ads.FiasyAds
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle
 import com.wsoteam.diet.common.Analytics.EventProperties
 import kotlinx.android.synthetic.main.dialog_fragment_blocked_starvation.*
 
@@ -82,6 +86,16 @@ class BlockedStarvationDialogFragment : DialogFragment() {
             val intent = Intent(activity, ActivityPrivacyPolicy::class.java)
             startActivity(intent)
         }
+
+        FiasyAds.getLiveDataAdView().observe(this, Observer<UnifiedNativeAd> { ad: UnifiedNativeAd? ->
+            if (ad != null) {
+                nativeAd.visibility = View.VISIBLE
+                nativeAd.setStyles(NativeTemplateStyle.Builder().build())
+                nativeAd.setNativeAd(ad)
+            } else {
+                nativeAd.visibility = View.GONE
+            }
+        })
 
     }
 }

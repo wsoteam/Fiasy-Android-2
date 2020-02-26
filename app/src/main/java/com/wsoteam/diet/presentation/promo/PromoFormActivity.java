@@ -14,6 +14,9 @@ import androidx.appcompat.app.AlertDialog;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.ads.FiasyAds;
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle;
+import com.wsoteam.diet.ads.nativetemplates.TemplateView;
 import com.wsoteam.diet.utils.IntentUtils;
 
 import butterknife.BindView;
@@ -25,6 +28,7 @@ public class PromoFormActivity extends MvpAppCompatActivity implements PromoForm
     @BindView(R.id.btnSendPromo) Button btnSendPromo;
     @BindView(R.id.edtPromo) EditText edtPromo;
     @BindView(R.id.tilPromo) TextInputLayout tilPromo;
+    @BindView(R.id.nativeAd) TemplateView nativeAd;
     private PromoFormPresenter presenter;
     private boolean isError = false;
 
@@ -47,6 +51,16 @@ public class PromoFormActivity extends MvpAppCompatActivity implements PromoForm
         presenter.attachView(this);
         tilPromo.setError(getString(R.string.enter_your_promotional_code));
         tilPromo.setErrorTextColor(getResources().getColorStateList(R.color.hint_promo));
+
+        FiasyAds.getLiveDataAdView().observe(this, ad -> {
+            if (ad != null) {
+                nativeAd.setVisibility(View.VISIBLE);
+                nativeAd.setStyles(new NativeTemplateStyle.Builder().build());
+                nativeAd.setNativeAd(ad);
+            }else {
+                nativeAd.setVisibility(View.GONE);
+            }
+        });
     }
 
     @OnTextChanged(value = R.id.edtPromo, callback = OnTextChanged.Callback.TEXT_CHANGED)

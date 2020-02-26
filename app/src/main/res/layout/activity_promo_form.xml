@@ -30,11 +30,11 @@
         android:background="@drawable/filter_state"
         android:elevation="10dp"
         android:padding="16dp"
+        android:tint="#ef7d02"
         app:layout_constraintBottom_toBottomOf="@+id/imageView13"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrow_back_white"
-        android:tint="#ef7d02"/>
+        app:srcCompat="@drawable/ic_arrow_back_white" />
 
     <ImageView
         android:id="@+id/imageView13"
@@ -52,7 +52,6 @@
         android:id="@+id/btnSendPromo"
         android:layout_width="wrap_content"
         android:layout_height="44dp"
-        android:layout_marginTop="96dp"
         android:background="@drawable/unactive_promo_btn"
         android:enabled="false"
         android:fontFamily="@font/roboto_bold"
@@ -61,20 +60,21 @@
         android:text="@string/active_promode"
         android:textColor="@color/white"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/nativeAd"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilPromo"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tilPromo" />
 
     <ImageView
         android:id="@+id/imageView59"
         android:layout_width="228dp"
         android:layout_height="177dp"
         android:layout_marginStart="72dp"
-        android:layout_marginTop="50dp"
         android:layout_marginEnd="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/tilPromo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView13"
         app:srcCompat="@drawable/ic_main_promo" />
@@ -84,11 +84,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
-        android:layout_marginTop="46dp"
         android:layout_marginEnd="19dp"
         app:errorTextAppearance="@style/TextInputStyle.Error.ChangeNorm"
         app:hintTextAppearance="@style/TextInputStyle.Hint.ChangeNorm"
+        app:layout_constraintBottom_toTopOf="@+id/btnSendPromo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView59">
 
@@ -102,5 +103,20 @@
             android:textColor="#c0000000"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.wsoteam.diet.ads.nativetemplates.TemplateView
+        android:id="@+id/nativeAd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:gnt_template_type="@layout/gnt_small_template_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSendPromo"
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

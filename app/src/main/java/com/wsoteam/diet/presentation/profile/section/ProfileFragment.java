@@ -49,6 +49,9 @@ import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.ads.FiasyAds;
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle;
+import com.wsoteam.diet.ads.nativetemplates.TemplateView;
 import com.wsoteam.diet.common.views.graph.BarRenderer;
 import com.wsoteam.diet.common.views.graph.LineRenderer;
 import com.wsoteam.diet.common.views.graph.formater.XMonthFormatter;
@@ -99,6 +102,9 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     TextView tvBottomDateSwitcher;
     @BindView(R.id.rgrpInterval)
     RadioGroup rgrpInterval;
+
+    @BindView(R.id.nativeAd)
+    TemplateView nativeAd;
     private boolean isOpen = false;
     private float MAX_PROGRESS = 100;
     private long time = 500, periodTick = 5, countTick = 100;
@@ -311,7 +317,23 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
         unbinder = ButterKnife.bind(this, view);
         profilePresenter = new ProfilePresenter(requireContext());
         profilePresenter.attachView(this);
+
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        FiasyAds.getLiveDataAdView().observe(this, ad -> {
+            if (ad != null) {
+                nativeAd.setVisibility(View.VISIBLE);
+                nativeAd.setStyles(new NativeTemplateStyle.Builder().build());
+                nativeAd.setNativeAd(ad);
+            }else {
+                nativeAd.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override

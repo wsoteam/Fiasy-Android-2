@@ -209,14 +209,14 @@
                             android:id="@+id/edtGoal"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
+                            android:layout_marginLeft="3dp"
+                            android:background="@color/transparent"
                             android:focusableInTouchMode="false"
                             android:fontFamily="@font/roboto_medium"
                             android:hint="@string/target"
                             android:inputType="textCapSentences"
                             android:text="@string/fourth_target"
-                            android:background="@color/transparent"
                             android:textColor="#d9424242"
-                            android:layout_marginLeft="3dp"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
@@ -224,10 +224,21 @@
 
 
             <include
+                android:id="@+id/include5"
                 layout="@layout/premium_norm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/cardView18" />
+                app:layout_constraintTop_toBottomOf="@+id/nativeAd" />
+
+            <com.wsoteam.diet.ads.nativetemplates.TemplateView
+                android:id="@+id/nativeAd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:gnt_template_type="@layout/gnt_small_template_view"
+                app:layout_constraintTop_toBottomOf="@+id/cardView18"
+                tools:layout_editor_absoluteX="0dp"
+                tools:visibility="visible" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

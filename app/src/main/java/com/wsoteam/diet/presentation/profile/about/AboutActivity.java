@@ -32,6 +32,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.ads.FiasyAds;
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle;
+import com.wsoteam.diet.ads.nativetemplates.TemplateView;
 
 import java.util.ArrayList;
 
@@ -62,6 +65,8 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
     TextInputLayout tilSecondName;
     @BindView(R.id.tilEmail)
     TextInputLayout tilEmail;
+    @BindView(R.id.nativeAd)
+    TemplateView nativeAd;
 
     AboutPresenter aboutPresenter;
 
@@ -78,6 +83,16 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
 
         aboutPresenter = new AboutPresenter(this);
         aboutPresenter.attachView(this);
+
+        FiasyAds.getLiveDataAdView().observe(this, ad -> {
+            if (ad != null) {
+                nativeAd.setVisibility(View.VISIBLE);
+                nativeAd.setStyles(new NativeTemplateStyle.Builder().build());
+                nativeAd.setNativeAd(ad);
+            }else {
+                nativeAd.setVisibility(View.GONE);
+            }
+        });
     }
 
     @OnTextChanged(value = R.id.edtName, callback = OnTextChanged.Callback.TEXT_CHANGED)

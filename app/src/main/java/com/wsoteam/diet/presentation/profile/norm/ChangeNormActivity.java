@@ -22,6 +22,9 @@ import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.ads.FiasyAds;
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle;
+import com.wsoteam.diet.ads.nativetemplates.TemplateView;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.profile.norm.choise.activity.ActivActivity;
@@ -58,6 +61,9 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     @BindView(R.id.tilProt) TextInputLayout tilProt;
     @BindView(R.id.tilCarbo) TextInputLayout tilCarbo;
     @BindView(R.id.tilFats) TextInputLayout tilFats;
+
+    @BindView(R.id.nativeAd) TemplateView nativeAd;
+
     private boolean isPremUser = false;
 
     private final double PROTEIN_COUNT = 0.1, FAT_COUNT = 0.027, CARBO_COUNT = 0.0875;
@@ -206,6 +212,16 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
 
         presenter = new ChangeNormPresenter(this);
         presenter.attachView(this);
+
+        FiasyAds.getLiveDataAdView().observe(this, ad -> {
+            if (ad != null) {
+                nativeAd.setVisibility(View.VISIBLE);
+                nativeAd.setStyles(new NativeTemplateStyle.Builder().build());
+                nativeAd.setNativeAd(ad);
+            }else {
+                nativeAd.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void bindPremiumUI() {
