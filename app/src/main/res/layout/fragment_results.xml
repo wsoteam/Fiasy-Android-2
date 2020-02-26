@@ -8,6 +8,16 @@
     android:id="@+id/clRoot"
     >
 
+  <com.wsoteam.diet.ads.nativetemplates.TemplateView
+      android:id="@+id/nativeAd"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      app:gnt_template_type="@layout/gnt_small_template_view"
+      app:layout_constraintBottom_toTopOf="@+id/cvBasket"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:visibility="visible" />
+
   <include
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -131,8 +141,6 @@
     </FrameLayout>
 
   </androidx.cardview.widget.CardView>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,25 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="16dp"
     android:elevation="3dp"
     app:cardElevation="1dp"
     android:translationY="-80dp"
-    android:id="@+id/cvLock"
-    >
+    android:id="@+id/cvLock">
 
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:orientation="vertical"
+      android:paddingTop="80dp"
       >
 
 
+    <com.wsoteam.diet.ads.nativetemplates.TemplateView
+        android:id="@+id/nativeAd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:gnt_template_type="@layout/gnt_small_template_view"
+        tools:visibility="visible" />
+
     <ImageView
+        android:layout_marginTop="60dp"
         android:layout_width="98dp"
         android:layout_height="98dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="140dp"
         android:src="@drawable/srch_star"
         />
 

@@ -13,12 +13,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.ads.FiasyAds;
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle;
+import com.wsoteam.diet.ads.nativetemplates.TemplateView;
 import com.wsoteam.diet.presentation.search.sections.controller.SectionAdapter;
 
 public class SectionFragment extends Fragment {
   //@BindView(R.id.rvSections) RecyclerView rvSections;
   private SectionAdapter adapter;
   private Unbinder unbinder;
+
+  @BindView(R.id.nativeAd) TemplateView nativeAd;
 
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -29,6 +34,21 @@ public class SectionFragment extends Fragment {
     //updateUI();
 
     return view;
+  }
+
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+
+    FiasyAds.getLiveDataAdView().observe(this, ad -> {
+      if (ad != null) {
+        nativeAd.setVisibility(View.VISIBLE);
+        nativeAd.setStyles(new NativeTemplateStyle.Builder().build());
+        nativeAd.setNativeAd(ad);
+      }else {
+        nativeAd.setVisibility(View.GONE);
+      }
+    });
   }
 
   private void updateUI() {

@@ -14,14 +14,18 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.amplitude.api.Amplitude
 import com.arellomobile.mvp.MvpAppCompatActivity
+import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.wsoteam.diet.AmplitudaEvents
 import com.wsoteam.diet.Authenticate.POJO.Box
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.InApp.ActivitySubscription
 import com.wsoteam.diet.R
 import com.wsoteam.diet.R.array
+import com.wsoteam.diet.ads.FiasyAds
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle
 import com.wsoteam.diet.common.Analytics.EventProperties
 import com.wsoteam.diet.common.Analytics.Events
 import com.wsoteam.diet.common.diary.BasketWork
@@ -92,6 +96,17 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
                 calculate(s)
             }
         })
+
+        FiasyAds.getLiveDataAdView().observe(this, Observer<UnifiedNativeAd> { ad: UnifiedNativeAd? ->
+            if (ad != null) {
+                nativeAd.visibility = View.VISIBLE
+                nativeAd.setStyles(NativeTemplateStyle.Builder().build())
+                nativeAd.setNativeAd(ad)
+            } else {
+                nativeAd.visibility = View.GONE
+            }
+        })
+
     }
 
     fun calculate(s: CharSequence?) {

@@ -40,6 +40,9 @@ import com.bumptech.glide.Glide;
 import com.wsoteam.diet.App;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.R;
+import com.wsoteam.diet.ads.FiasyAds;
+import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle;
+import com.wsoteam.diet.ads.nativetemplates.TemplateView;
 import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.common.diary.BasketWork;
 import com.wsoteam.diet.common.networking.food.FoodResultAPI;
@@ -102,6 +105,8 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
   FrameLayout flSuggestParent;
   @BindView(R.id.clRoot)
   ConstraintLayout clRoot;
+
+  @BindView(R.id.nativeAd) TemplateView nativeAd;
 
   private ProgressBar pbLoad;
   private Spinner parentSpinner;
@@ -261,6 +266,21 @@ public class ResultsFragment extends MvpAppCompatFragment implements ResultsView
     }
     spinnerId = ((ParentActivity) getActivity()).spinnerId;
     return view;
+  }
+
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+
+    FiasyAds.getLiveDataAdView().observe(this, ad -> {
+      if (ad != null) {
+        nativeAd.setVisibility(View.VISIBLE);
+        nativeAd.setStyles(new NativeTemplateStyle.Builder().build());
+        nativeAd.setNativeAd(ad);
+      }else {
+        nativeAd.setVisibility(View.GONE);
+      }
+    });
   }
 
   @Override public void onSaveInstanceState(Bundle outState) {
