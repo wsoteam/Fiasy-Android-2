@@ -24,6 +24,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.wsoteam.diet.BuildConfig;
+import com.wsoteam.diet.OtherActivity.AnyFragmentActivity;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.auth.EmailLoginAuthStrategy.Account;
 import com.wsoteam.diet.utils.InputValidation;
@@ -269,10 +270,7 @@ public class SignInFragment extends AuthStrategyFragment {
 
   private void resetPass(){
 //    Events.logPushButtonReg(EventProperties.enter_push_button_enter);
-    requireFragmentManager()
-            .beginTransaction()
-            .replace(R.id.container, new ResetPassFragment())
-            .addToBackStack(ResetPassFragment.class.getName())
-            .commitAllowingStateLoss();
+
+    startActivity(AnyFragmentActivity.Companion.getIntent(getContext(), new ResetPassFragment()));
   }
 }

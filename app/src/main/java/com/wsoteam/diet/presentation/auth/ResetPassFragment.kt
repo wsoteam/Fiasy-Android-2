@@ -41,7 +41,7 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        backButton.setOnClickListener { fragmentManager?.popBackStack() }
+        backButton.setOnClickListener { activity?.onBackPressed() }
 
         emailEdit.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(s: Editable?) {
@@ -85,7 +85,7 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
                         Log.d("kkk", "Email sent." + emailEdit.text.toString().trim())
 //                        showToastMessage(getString(R.string.forgot_pass_check_email))
                         showToastMessage("Письмо отправлено на указанный адресс электронной почты. Проверьте почту.")
-                        Handler().postDelayed({ this.fragmentManager?.popBackStack() }, 3_000)
+                        Handler().postDelayed({ activity?.onBackPressed() }, 3_000)
 //                        this.fragmentManager?.popBackStack()
 
                         stateDone()
