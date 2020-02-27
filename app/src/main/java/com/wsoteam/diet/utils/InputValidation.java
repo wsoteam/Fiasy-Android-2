@@ -53,7 +53,7 @@ public interface InputValidation {
     }
 
     @Override protected boolean checkValid(EditText input) {
-      return !TextUtils.isEmpty(input.getText()) && android.util.Patterns.EMAIL_ADDRESS.matcher(input.getText()).matches();
+      return !TextUtils.isEmpty(input.getText()) && android.util.Patterns.EMAIL_ADDRESS.matcher(input.getText().toString().trim()).matches();
     }
   }
 

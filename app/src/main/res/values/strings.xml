@@ -1244,4 +1244,6 @@ Share your accomplishments with friends:</string>
     <string name="splash_internet_bad">Не удалось, попробовать снова</string>
     <string name="sign_in_facebook">Войти через Facebook</string>
     <string name="sign_in_google">Войти через Google</string>
+
+    <string name="sent">отправлено</string>
 </resources>

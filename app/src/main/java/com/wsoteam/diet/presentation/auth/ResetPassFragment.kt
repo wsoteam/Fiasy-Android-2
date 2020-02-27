@@ -79,10 +79,10 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
     private fun resetPassword() {
 
         stateProgress()
-        mAuth.sendPasswordResetEmail(emailEdit.text.toString())
+        mAuth.sendPasswordResetEmail(emailEdit.text.toString().trim())
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Log.d("kkk", "Email sent." + emailEdit.text.toString())
+                        Log.d("kkk", "Email sent." + emailEdit.text.toString().trim())
 //                        showToastMessage(getString(R.string.forgot_pass_check_email))
                         showToastMessage("Письмо отправлено на указанный адресс электронной почты. Проверьте почту.")
                         Handler().postDelayed({ this.fragmentManager?.popBackStack() }, 3_000)
@@ -171,6 +171,6 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
         progressBar2.visibility = View.GONE
         imageCheckMark.visibility = View.VISIBLE
         btnTxt.visibility = View.VISIBLE
-        btnTxt.text = "ОТПРАВЛЕНО"
+        btnTxt.text = getString(R.string.sent)
     }
 }
