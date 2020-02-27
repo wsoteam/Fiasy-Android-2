@@ -199,7 +199,7 @@ public class SignInFragment extends AuthStrategyFragment {
       setInputException(R.id.username, getString(R.string.auth_user_not_found));
     } else if (error instanceof FirebaseAuthInvalidCredentialsException) {
       setInputException(R.id.password, getString(R.string.auth_user_password_missmatch));
-      setInputException(R.id.username, getString(R.string.auth_user_email_missmatch));
+//      setInputException(R.id.username, getString(R.string.auth_user_email_missmatch));
     } else {
       handleDefaultErrors(error);
     }
