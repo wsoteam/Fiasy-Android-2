@@ -171,6 +171,6 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
         progressBar2.visibility = View.GONE
         imageCheckMark.visibility = View.VISIBLE
         btnTxt.visibility = View.VISIBLE
-        btnTxt.text = "ОТПРАВЛЕННО"
+        btnTxt.text = "ОТПРАВЛЕНО"
     }
 }
