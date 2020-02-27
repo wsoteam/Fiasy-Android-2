@@ -97,7 +97,7 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
                     if (e is FirebaseAuthInvalidUserException) {
 
                         when (e.errorCode) {
-                            "ERROR_USER_NOT_FOUND" -> showToastMessage("Введенный Email адрес не зарегистрирован или заблокирован. Пройдите регистрацию.", Color.parseColor("#73cc0808"))
+                            "ERROR_USER_NOT_FOUND" -> showToastMessage("Введенный Email адрес не зарегистрирован или заблокирован. Пройдите регистрацию.", Color.parseColor("#e89090"))
 
                         }
 
@@ -110,7 +110,7 @@ class ResetPassFragment : Fragment(R.layout.fragment_reset_pass) {
     }
 
     private fun showToastMessage(charSequence: CharSequence){
-        showToastMessage(charSequence, Color.parseColor("#73000000"))
+        showToastMessage(charSequence, Color.parseColor("#bababa"))
     }
 
     private fun showToastMessage(charSequence: CharSequence, @ColorInt color: Int){
