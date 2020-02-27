@@ -44,7 +44,7 @@ public class SignInFragment extends AuthStrategyFragment {
   static {
     formValidators.put(R.id.username, Arrays.asList(
         new MinLengthValidation(R.string.constraint_error_username_min_length, 5),
-        new EmailValidation(R.string.write_email)
+        new EmailValidation(R.string.wrong_mail_error)
     ));
 
     formValidators.put(R.id.password, Arrays.asList(
