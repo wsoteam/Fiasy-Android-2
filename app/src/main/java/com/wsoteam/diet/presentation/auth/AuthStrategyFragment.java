@@ -2,6 +2,8 @@ package com.wsoteam.diet.presentation.auth;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.collection.SparseArrayCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
@@ -223,7 +226,21 @@ public abstract class AuthStrategyFragment extends Fragment {
         notification.show(getView(), InAppNotification.DURATION_LONG);
     }
 
+    private boolean hasNetwork() {
+        final NetworkInfo activeNetwork =
+                ContextCompat.getSystemService(getContext(), ConnectivityManager.class)
+                        .getActiveNetworkInfo();
+
+        return activeNetwork != null && activeNetwork.isConnected();
+    }
+
     protected void authorize(Class<? extends AuthStrategy> strategyType) {
+
+        if (!hasNetwork()) {
+            if (getActivity() instanceof InternetBad) ((InternetBad)getActivity()).show();
+            return;
+        }
+
         if (getNotification().isAttached()) {
             getNotification().dismiss();
         }
