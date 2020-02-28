@@ -44,7 +44,7 @@ public class FiasyAds {
         if (Subscription.check(context)) return;
 
         MobileAds.initialize(context.getApplicationContext(), initializationStatus -> {
-            Log.d("kkk", initializationStatus.toString());
+//            Log.d("kkk", initializationStatus.toString());
             initInterstitial(context);
             refreshAd(context);
         });
@@ -65,7 +65,7 @@ public class FiasyAds {
                 nativeAd.destroy();
             }
             nativeAd = unifiedNativeAd;
-            Log.d("kkk", "++" + unifiedNativeAd);
+//            Log.d("kkk", "++" + unifiedNativeAd);
             nativeAdView.setValue(unifiedNativeAd);
             isRefreshLocked = false;
 
@@ -85,8 +85,8 @@ public class FiasyAds {
             @Override
             public void onAdFailedToLoad(int errorCode) {
                 isRefreshLocked = false;
-                Toast.makeText(context, "Failed to load native ad: "
-                        + errorCode, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "Failed to load native ad: "
+//                        + errorCode, Toast.LENGTH_SHORT).show();
             }
         }).build();
 
@@ -109,7 +109,7 @@ public class FiasyAds {
             mInterstitialAd.show();
         } else {
             mInterstitialAd.loadAd(new AdRequest.Builder().build());
-            Log.d("TAG", "The interstitial wasn't loaded yet.");
+//            Log.d("TAG", "The interstitial wasn't loaded yet.");
         }
 
     }
