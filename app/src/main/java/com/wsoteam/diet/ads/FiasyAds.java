@@ -24,7 +24,7 @@ public class FiasyAds {
 
     public static final int NATIVE_STEP_IN_RECYCLER = 6;
 
-    private static final String ADMOB_AD_UNIT_ID = "ca-app-pub-3940256099942544/2247696110";
+//    private static final String ADMOB_AD_UNIT_ID = "ca-app-pub-3940256099942544/2247696110";
 
     private static InterstitialAd mInterstitialAd;
 //    private static UnifiedNativeAdView adView;
@@ -55,7 +55,7 @@ public class FiasyAds {
 
         isRefreshLocked = true;
 
-        AdLoader.Builder builder = new AdLoader.Builder(context.getApplicationContext(), ADMOB_AD_UNIT_ID /*context.getString(R.string.admob_native)*/);
+        AdLoader.Builder builder = new AdLoader.Builder(context.getApplicationContext(), /*ADMOB_AD_UNIT_ID*/ context.getString(R.string.admob_native));
 
         // OnUnifiedNativeAdLoadedListener implementation.
         builder.forUnifiedNativeAd(unifiedNativeAd -> {
@@ -97,7 +97,7 @@ public class FiasyAds {
 
     private static void initInterstitial(Context context){
         mInterstitialAd = new InterstitialAd(context.getApplicationContext());
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId(context.getString(R.string.admob_native));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
