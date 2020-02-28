@@ -14,8 +14,8 @@ android {
         applicationId "com.wild.diet"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 113
-        versionName "3.0.1.5dev"
+        versionCode 116
+        versionName "3.0.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         renderscriptTargetApi 27
@@ -116,7 +116,7 @@ dependencies {
     implementation 'com.android.billingclient:billing:1.2'
     implementation 'com.amplitude:android-sdk:2.23.2'
     implementation 'me.relex:circleindicator:1.2.2'
-    implementation 'com.bugsee:bugsee-android:+'
+//    implementation 'com.bugsee:bugsee-android:+'
 
     implementation 'com.google.apis:google-api-services-androidpublisher:v3-rev130-1.25.0'
 
