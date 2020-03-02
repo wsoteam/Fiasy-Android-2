@@ -350,7 +350,7 @@
     <string name="signIn">ANMELDEN</string>
     <string name="authorization_with">REGISTRIEREN MIT</string>
     <string name="account_available">Haben Sie bereits ein Konto?</string>
-    <string name="registration_by_mail">MIT EMAIL REGISTRIEREN</string>
+    <string name="registration_by_mail">Mit email registrieren</string>
     <string name="login">Login</string>
     <string name="password">Passwort</string>
     <string name="restore">Passwort wiederherstellen</string>

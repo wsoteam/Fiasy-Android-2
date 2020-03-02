@@ -16,7 +16,7 @@
   <string name="signIn">Войти</string>
   <string name="authorization_with">Зарегистрироваться \nс помощью</string>
   <string name="account_available">Уже есть аккаунт?</string>
-  <string name="registration_by_mail">РЕГИСТРАЦИЯ ПО EMAIL</string>
+  <string name="registration_by_mail">Регистрация по email</string>
 
 
   <!-- Sign In Screen -->

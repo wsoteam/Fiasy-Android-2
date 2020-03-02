@@ -366,7 +366,7 @@
     <string name="signIn">INICIAR SESIÓN</string>
     <string name="authorization_with">INICIAR SESIÓN CON</string>
     <string name="account_available">¿Ya tiene una cuenta?</string>
-    <string name="registration_by_mail">INICIAR SESIÓN CON CORREO ELECTRÓNICO</string>
+    <string name="registration_by_mail">Iniciar sesión con correo electrónico</string>
     <string name="login">Iniciar sesión</string>
     <string name="password">Contraseña</string>
     <string name="restore">Recuperar contraseña</string>

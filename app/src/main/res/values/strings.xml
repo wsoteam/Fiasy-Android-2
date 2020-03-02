@@ -483,7 +483,7 @@ Share your accomplishments with friends:</string>
     <string name="signIn">LOG IN</string>
     <string name="authorization_with">SIGN UP WITH</string>
     <string name="account_available">Already have an account?</string>
-    <string name="registration_by_mail">SIGN UP VIA EMAIL</string>
+    <string name="registration_by_mail">Sign up via email</string>
 
 
     <!-- Sign In Screen -->
