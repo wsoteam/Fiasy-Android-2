@@ -1,11 +1,13 @@
 package com.wsoteam.diet.presentation.auth;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,20 +18,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.collection.SparseArrayCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-import com.google.firebase.auth.FirebaseUser;
 import com.wsoteam.diet.BuildConfig;
+import com.wsoteam.diet.OtherActivity.AnyFragmentActivity;
 import com.wsoteam.diet.R;
-import com.wsoteam.diet.common.Analytics.EventProperties;
-import com.wsoteam.diet.common.Analytics.Events;
-import com.wsoteam.diet.presentation.ResetPasswordFragment;
 import com.wsoteam.diet.presentation.auth.EmailLoginAuthStrategy.Account;
 import com.wsoteam.diet.utils.InputValidation;
 import com.wsoteam.diet.utils.InputValidation.EmailValidation;
 import com.wsoteam.diet.utils.InputValidation.MinLengthValidation;
-import com.wsoteam.diet.utils.RichTextUtils.RichText;
 import com.wsoteam.diet.utils.ViewsExtKt;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,10 +39,12 @@ public class SignInFragment extends AuthStrategyFragment {
   private static final SparseArrayCompat<List<InputValidation>> formValidators =
       new SparseArrayCompat<>();
 
+  private InternetBad internetBad;
+
   static {
     formValidators.put(R.id.username, Arrays.asList(
         new MinLengthValidation(R.string.constraint_error_username_min_length, 5),
-        new EmailValidation(R.string.write_email)
+        new EmailValidation(R.string.wrong_mail_error)
     ));
 
     formValidators.put(R.id.password, Arrays.asList(
@@ -114,31 +116,46 @@ public class SignInFragment extends AuthStrategyFragment {
 
     bindAuthStrategies();
 
-    final TextView forgetPassword = view.findViewById(R.id.forget_password);
+    final TextView forgetPassword = view.findViewById(R.id.resetPass);
 
     if (forgetPassword != null) {
-      forgetPassword.setText(TextUtils.concat(getString(R.string.forgot_password), " ",
-          new RichText(getString(R.string.restore))
-              .colorRes(requireContext(), R.color.orange)
-              .onClick(v -> restorePassword())
-              .text()));
-
-      forgetPassword.setVisibility(View.GONE);
+      forgetPassword.setOnClickListener( v -> resetPass());
     }
 
     view.findViewById(R.id.backButton)
         .setOnClickListener(v -> getFragmentManager().popBackStack());
 
+
     signInButton = view.findViewById(R.id.auth_strategy_login);
     signInButton.setClickable(true);
     signInButton.setActivated(false);
     signInButton.setOnClickListener(v -> {
-      if (validateForm(true)) {
+      if (validateForm(true) && isInternet()) {
         clearInputErrors();
 
         authorize(strategy.get(R.id.auth_strategy_login));
       }
     });
+
+
+  }
+
+  private boolean isInternet(){
+    if (hasNetwork(getContext())){
+      return true;
+    }else {
+      if (internetBad != null) internetBad.show();
+      return false;
+    }
+  }
+
+  private boolean hasNetwork(Context context) {
+    if (context == null) return false;
+    final NetworkInfo activeNetwork =
+            ContextCompat.getSystemService(context, ConnectivityManager.class)
+                    .getActiveNetworkInfo();
+
+    return activeNetwork != null && activeNetwork.isConnected();
   }
 
   private void clearInputErrors() {
@@ -147,12 +164,19 @@ public class SignInFragment extends AuthStrategyFragment {
     }
   }
 
-  private void restorePassword() {
-    requireFragmentManager()
-        .beginTransaction()
-        .replace(R.id.container, new ResetPasswordFragment())
-        .addToBackStack(ResetPasswordFragment.class.getName())
-        .commitAllowingStateLoss();
+  @Override
+  public void onAttach(@NonNull Context context) {
+    super.onAttach(context);
+
+    if(getActivity() instanceof InternetBad){
+      internetBad = ((InternetBad)getActivity());
+    }
+  }
+
+  @Override
+  public void onDetach() {
+    super.onDetach();
+    internetBad = null;
   }
 
   @Override protected void prepareAuthStrategy(AuthStrategy strategy) {
@@ -175,7 +199,7 @@ public class SignInFragment extends AuthStrategyFragment {
       setInputException(R.id.username, getString(R.string.auth_user_not_found));
     } else if (error instanceof FirebaseAuthInvalidCredentialsException) {
       setInputException(R.id.password, getString(R.string.auth_user_password_missmatch));
-      setInputException(R.id.username, getString(R.string.auth_user_email_missmatch));
+//      setInputException(R.id.username, getString(R.string.auth_user_email_missmatch));
     } else {
       handleDefaultErrors(error);
     }
@@ -242,5 +266,11 @@ public class SignInFragment extends AuthStrategyFragment {
     }
 
     return !hasErrors;
+  }
+
+  private void resetPass(){
+//    Events.logPushButtonReg(EventProperties.enter_push_button_enter);
+
+    startActivity(AnyFragmentActivity.Companion.getIntent(getContext(), new ResetPassFragment()));
   }
 }

@@ -345,7 +345,7 @@
     <string name="signIn">ENTRAR</string>
     <string name="authorization_with">REGISTRAR-SE COM</string>
     <string name="account_available">Já possui uma conta?</string>
-    <string name="registration_by_mail">REGISTRAR-SE COM E-MAIL</string>
+    <string name="registration_by_mail">Registrar-se com e-mail</string>
     <string name="login">Nome de acesso</string>
     <string name="password">Senha</string>
     <string name="restore">Recuperar senha</string>

@@ -29,6 +29,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".OtherActivity.AnyFragmentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ActivityAuthMain"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_id"/>
@@ -126,7 +132,8 @@
         <activity
             android:name=".presentation.auth.MainAuthNewActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ActivityAuthMain" />
+            android:theme="@style/ActivityAuthMain"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.intro_tut.NewIntroActivity"
             android:screenOrientation="portrait"

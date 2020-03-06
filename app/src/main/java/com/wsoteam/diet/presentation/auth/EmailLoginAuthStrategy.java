@@ -45,8 +45,8 @@ public class EmailLoginAuthStrategy extends AuthStrategy {
     private final boolean existing;
 
     public Account(String email, String password, boolean existing) {
-      this.email = email;
-      this.password = password;
+      this.email = email.trim();
+      this.password = password.trim();
       this.existing = existing;
     }
 
