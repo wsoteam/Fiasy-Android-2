@@ -2,9 +2,14 @@ package com.wsoteam.diet.presentation.auth;
 
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.wsoteam.diet.utils.RxFirebase;
+
+import java.util.Objects;
 
 public class EmailLoginAuthStrategy extends AuthStrategy {
 
@@ -29,8 +34,17 @@ public class EmailLoginAuthStrategy extends AuthStrategy {
       authTask = FirebaseAuth.getInstance()
           .signInWithEmailAndPassword(account.email, account.password);
     } else {
-      authTask = FirebaseAuth.getInstance()
+
+      AuthCredential credential = EmailAuthProvider.getCredential(account.email, account.password);
+      FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+      if (user == null){
+        authTask = FirebaseAuth.getInstance()
           .createUserWithEmailAndPassword(account.email, account.password);
+      }else {
+        authTask = user.linkWithCredential(credential);
+      }
+
     }
 
     disposeOnRelease(RxFirebase.from(authTask).subscribe(

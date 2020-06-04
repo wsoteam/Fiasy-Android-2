@@ -130,7 +130,7 @@ public abstract class AuthStrategyFragment extends Fragment {
         notification.show(getView(), InAppNotification.DURATION_FOREVER);
     }
 
-    protected void onAuthorized(FirebaseUser user, boolean newUser) {
+    protected void  onAuthorized(FirebaseUser user, boolean newUser) {
         if (BuildConfig.DEBUG) {
             Log.d("AuthStrategy", "Logged in as: " + user.getDisplayName());
         }

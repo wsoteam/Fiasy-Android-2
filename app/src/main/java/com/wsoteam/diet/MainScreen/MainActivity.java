@@ -41,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.wsoteam.diet.ABConfig;
 import com.wsoteam.diet.AmplitudaEvents;
 import com.wsoteam.diet.InApp.ActivitySubscription;
+import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
@@ -61,12 +62,14 @@ import com.wsoteam.diet.common.Analytics.SavedConst;
 import com.wsoteam.diet.common.helpers.BodyCalculates;
 import com.wsoteam.diet.common.remote.UpdateChecker;
 import com.wsoteam.diet.presentation.activity.UserActivityFragment;
+import com.wsoteam.diet.presentation.auth.MainAuthNewActivity;
 import com.wsoteam.diet.presentation.diary.DiaryViewModel;
 import com.wsoteam.diet.presentation.fab.FabMenuViewModel;
 import com.wsoteam.diet.presentation.fab.MainFabMenu;
 import com.wsoteam.diet.presentation.diary.DiaryFragment;
 import com.wsoteam.diet.model.ArticleViewModel;
 import com.wsoteam.diet.presentation.fab.SelectMealDialogFragment;
+import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
 import com.wsoteam.diet.presentation.measurment.MeasurmentActivity;
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansFragment;
 import com.wsoteam.diet.presentation.premium.GraphPrePremium;
@@ -285,6 +288,14 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_drawer);
+
+    findViewById(R.id.button3).setOnClickListener(v -> {
+
+      startActivity(new Intent(this, MainAuthNewActivity.class).putExtra(Config.CREATE_PROFILE, true)
+              .putExtra(Config.INTENT_PROFILE, new Profile()));
+
+    });
+
     ButterKnife.bind(this);
     abLiveData = ABLiveData.getInstance().getData();
     abLiveData.observeForever(abObserver);

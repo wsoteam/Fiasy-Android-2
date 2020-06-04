@@ -12,6 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -26,6 +27,8 @@ import com.wsoteam.diet.Authenticate.Valid;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.presentation.global.BasePresenter;
 import com.wsoteam.diet.presentation.global.Screens;
+
+import java.util.Objects;
 
 import ru.terrakok.cicerone.Router;
 
@@ -86,7 +89,11 @@ public class MainAuthPresenter extends BasePresenter<MainAuthView> {
         email = email.trim();
         if (checkCredentials(email, password)) {
             getViewState().showProgress(true);
+
+            AuthCredential credential = EmailAuthProvider.getCredential(email, password);
+
             mAuth.createUserWithEmailAndPassword(email, password)
+//            Objects.requireNonNull(mAuth.getCurrentUser()).linkWithCredential(credential)
                     .addOnCompleteListener(task -> {
                         getViewState().showProgress(false);
                         if (task.isSuccessful()) {

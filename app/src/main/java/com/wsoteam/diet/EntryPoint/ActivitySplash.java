@@ -23,7 +23,14 @@ import com.amplitude.api.Identify;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -52,6 +59,7 @@ import com.wsoteam.diet.common.Analytics.ABLiveData;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.UserProperty;
 import com.wsoteam.diet.common.promo.POJO.UserPromo;
+import com.wsoteam.diet.model.ModelFactory;
 import com.wsoteam.diet.presentation.auth.AuthStrategy;
 import com.wsoteam.diet.presentation.global.BaseActivity;
 import com.wsoteam.diet.presentation.intro_tut.NewIntroActivity;
@@ -64,8 +72,10 @@ import com.wsoteam.diet.views.SplashBackground;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import io.reactivex.Single;
@@ -95,10 +105,17 @@ public class ActivitySplash extends BaseActivity {
 
   private final CompositeDisposable disposables = new CompositeDisposable();
 
+  private void test(){
+
+  }
+
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     getABVersion();
+
+    test();
+
     Intent intent = getIntent();
     String action = intent.getAction();
     Uri data = intent.getData();
@@ -158,9 +175,61 @@ public class ActivitySplash extends BaseActivity {
     super.onStart();
 
     checkFirstLaunch();
-
+    Log.d("kkk", "addOnCompleteListener 11");
     if (checkUserNetworkAvailable()) {
-      checkRegistrationAndRun();
+      Log.d("kkk", "addOnCompleteListener 222");
+      final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+      final FirebaseUser user = mAuth.getCurrentUser();
+
+      if (user == null){
+        mAuth.signInAnonymously()
+                .addOnFailureListener(e -> {
+                  Log.d("kkk", "addOnFailure");
+                })
+                .addOnCompleteListener(task -> {
+
+                  Log.d("kkk", "addOnCompleteListener");
+
+                  if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("kkk", "signInAnonymously:success");
+                    Log.d("kkk", "user id " + mAuth.getCurrentUser().getUid());
+                    WorkWithFirebaseDB.putProfileValue(ModelFactory.getDefaultProfile());
+                    Log.d("kkk", "signInAnonymous-------------------");
+                    checkRegistrationAndRun();
+                  } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("kkk", "signInAnonymously:failure", task.getException());
+
+                  }
+
+                });
+      }else {
+        Log.d("kkk", "user id " + mAuth.getCurrentUser().getUid());
+        Log.d("kkk", "user id " + mAuth.getCurrentUser().getUid());
+//        AuthCredential credential = EmailAuthProvider.getCredential("testll@ttt.tt", "123456");
+//        Log.d("kkk", "user id " + mAuth.getCurrentUser().getUid());
+//        mAuth.getCurrentUser().linkWithCredential(credential)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                  @Override
+//                  public void onComplete(@NonNull Task<AuthResult> task) {
+//                    if (task.isSuccessful()) {
+//                      Log.d("kkk", "linkWithCredential:success");
+//                      FirebaseUser user = task.getResult().getUser();
+//                    } else {
+//                      Log.w("kkk", "linkWithCredential:failure", task.getException());
+//                      Toast.makeText(ActivitySplash.this, "Authentication failed.",
+//                              Toast.LENGTH_SHORT).show();
+//
+//                    }
+//
+//                    // ...
+//                  }
+//                });
+
+        Log.d("kkk", "user id " + mAuth.getCurrentUser().getUid());
+        checkRegistrationAndRun();
+      }
     }
   }
 
@@ -250,7 +319,12 @@ public class ActivitySplash extends BaseActivity {
             error -> {
               AuthStrategy.signOut(ActivitySplash.this);
 
-              onUserNotAuthorized();
+//              new Handler().postDelayed(() -> {
+//                WorkWithFirebaseDB.putProfileValue(ModelFactory.getDefaultProfile());
+//                checkRegistrationAndRun();
+//              }, 3000);
+
+//              onUserNotAuthorized();
             }
         );
 
@@ -475,14 +549,18 @@ public class ActivitySplash extends BaseActivity {
     }
 
     @Override public void subscribe(SingleEmitter<FirebaseUser> emitter) throws Exception {
-      final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+      final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+      final FirebaseUser user = mAuth.getCurrentUser();
       if (user != null) {
+        String id = user.getUid();
         FirebaseAnalytics.getInstance(context)
             .setUserProperty(FirebaseUserProperties.REG_STATUS, FirebaseUserProperties.reg);
 
         emitter.onSuccess(user);
       } else {
+        Log.d("kkk", "else");
         emitter.tryOnError(new UserNotAuthorized());
+
       }
     }
 

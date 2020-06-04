@@ -28,7 +28,7 @@ import com.wsoteam.diet.POJOProfile.TrackInfo;
 import com.wsoteam.diet.Recipes.POJO.ListRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
 import com.wsoteam.diet.Sync.POJO.UserData;
-import com.wsoteam.diet.Sync.POJO.WeightDiaryObject;
+//import com.wsoteam.diet.Sync.POJO.WeightDiaryObject;
 import com.wsoteam.diet.common.promo.POJO.Promo;
 import com.wsoteam.diet.common.promo.POJO.UserPromo;
 import com.wsoteam.diet.model.Breakfast;
@@ -225,7 +225,7 @@ public class WorkWithFirebaseDB {
         myRef.setValue(profile);
     }
 
-    public static void addWeightDiaryItem(WeightDiaryObject data) {
+/*    public static void addWeightDiaryItem(WeightDiaryObject data) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("diaryDataList");
@@ -237,7 +237,7 @@ public class WorkWithFirebaseDB {
         DatabaseReference myRef = database.getReference(Config.NAME_OF_USER_DATA_LIST_ENTITY).
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("diaryDataList").child(key);
         myRef.setValue(data);
-    }
+    }*/
 
     public static void saveListRecipes(ListRecipes data) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
