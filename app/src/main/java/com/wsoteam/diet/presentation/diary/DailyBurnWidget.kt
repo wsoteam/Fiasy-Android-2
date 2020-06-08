@@ -1,31 +1,38 @@
 package com.wsoteam.diet.presentation.diary
 
+import android.content.DialogInterface
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.text.SpannableString
 import android.text.TextUtils
+import android.text.style.ClickableSpan
 import android.text.style.ImageSpan
-import android.view.View
+import android.util.Log
+import android.view.*
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.presentation.activity.DiaryActivitiesSource
 import com.wsoteam.diet.presentation.diary.Meals.MealsDetailedResult
-import com.wsoteam.diet.utils.dp
-import com.wsoteam.diet.utils.getVectorIcon
+import com.wsoteam.diet.utils.*
 import com.wsoteam.diet.utils.RichTextUtils.setTextColor
 import com.wsoteam.diet.views.ExperienceProgressView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlin.math.abs
+
 
 open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
   companion object {
@@ -81,6 +88,13 @@ open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView)
     if (!::progressDrawable.isInitialized) {
       throw NullPointerException("couldn't find progress bar's -> progress drawable for tint")
     }
+
+    val info = itemView.findViewById<View>(R.id.info)
+    info.visibility = if (FirebaseAuth.getInstance().currentUser?.isAnonymous == false) View.INVISIBLE else View.VISIBLE
+    info.setOnClickListener {
+      showAlert(it)
+    }
+
   }
 
   override fun onBind(parent: RecyclerView, position: Int) {
@@ -185,6 +199,45 @@ open class DailyBurnWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView)
     DiaryActivitiesSource.burnedLive.removeObserver(activityObserver)
 
     disposables.clear()
+  }
+
+  private fun showAlert(view: View){
+
+    val v: View = LayoutInflater.from(context).inflate(R.layout.sign_in_alert, null)
+    val textView: TextView = v.findViewById(R.id.textView)
+
+    val actionSignIn = RichTextUtils.RichText(getString(R.string.signIn).toUpperCase())
+            .onClick(View.OnClickListener {
+              Log.d("kkk", "click")
+            })
+            .color(Color.parseColor("#EF7D02"))
+
+
+
+    val spannable = getString(R.string.sign_in_alert).formatSpannable(actionSignIn.text())
+
+    textView.text = spannable
+
+    val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setView(v)
+
+    val dialog: AlertDialog = builder.create()
+    dialog.window?.setDimAmount(0F)
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    val wmlp: WindowManager.LayoutParams? = dialog.window?.attributes
+
+
+    val location = IntArray(2)
+    view.getLocationOnScreen(location)
+    val x = location[0]
+    val y = location[1]
+
+    wmlp?.gravity = Gravity.TOP or Gravity.LEFT
+    wmlp?.x = 100 //x position
+
+    wmlp?.y = y
+
+    dialog.show()
   }
 
 }

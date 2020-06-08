@@ -14,14 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wsoteam.diet.R
 import com.wsoteam.diet.common.Analytics.Events
-import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity.Companion
 import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity.PlanHolder
 import com.wsoteam.diet.presentation.premium.PremiumFeaturesActivity.PlansAdapter
 import com.wsoteam.diet.utils.AbTests
-import com.wsoteam.diet.utils.IntentUtils
 import com.wsoteam.diet.utils.RichTextUtils.RichText
 import com.wsoteam.diet.utils.dp
-import io.reactivex.disposables.CompositeDisposable
 
 class SubscriptionsListFragment : Fragment() {
 

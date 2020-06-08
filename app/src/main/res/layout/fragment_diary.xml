@@ -47,7 +47,31 @@
               android:textColor="@color/white"
               android:textSize="8dp" />
 
+          <ImageView
+              android:id="@+id/premium"
+              android:layout_width="30dp"
+              android:layout_height="30dp"
+              android:layout_gravity="right"
+              android:layout_marginRight="16dp"
+              app:srcCompat="@drawable/ic_mdi_crown" />
+
+          <Button
+              android:id="@+id/logIn"
+              android:layout_width="wrap_content"
+              android:layout_height="30dp"
+              android:layout_gravity="right"
+              android:layout_marginRight="16dp"
+              android:background="@drawable/shape_login_button"
+              android:paddingHorizontal="8dp"
+              android:stateListAnimator="@null"
+              android:text="@string/signIn"
+              android:textAllCaps="true"
+              android:textColor="#EF7D02"
+              android:textSize="12sp" />
+
+
         </androidx.appcompat.widget.Toolbar>
+
 
         <com.wsoteam.diet.views.CompactCalendarView
             android:id="@+id/calendar"
@@ -75,6 +99,7 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_below="@id/toolbar_container"
+          android:paddingTop="4dp"
           android:layout_marginTop="56dp"
           android:background="@drawable/widget_container_background"
           app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -83,6 +108,6 @@
     </FrameLayout>
   </com.wsoteam.diet.views.GuardNestedScrollView>
 
-  <include layout="@layout/view_premium_banner" />
+<!--  <include layout="@layout/view_premium_banner" />-->
 
 </FrameLayout>

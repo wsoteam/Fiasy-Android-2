@@ -289,13 +289,6 @@ public class MainActivity extends AppCompatActivity {
 
     setContentView(R.layout.activity_drawer);
 
-    findViewById(R.id.button3).setOnClickListener(v -> {
-
-      startActivity(new Intent(this, MainAuthNewActivity.class).putExtra(Config.CREATE_PROFILE, true)
-              .putExtra(Config.INTENT_PROFILE, new Profile()));
-
-    });
-
     ButterKnife.bind(this);
     abLiveData = ABLiveData.getInstance().getData();
     abLiveData.observeForever(abObserver);

@@ -1326,4 +1326,9 @@ Share your accomplishments with friends:</string>
     <string name="sent">отправлено</string>
 
     <string name="ad_attribution">Ad</string>
+    
+    
+    <string name="sign_in_widget">Необходимо %s в приложение чтобы отображалась ваша реальная норма калорий</string>
+    <string name="sign_in_alert">В режиме Гостя расчет калорий производится по усредненным показателям. Чтобы изменить норму калорий необходимо %s в приложение</string>
+
 </resources>

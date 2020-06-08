@@ -123,8 +123,8 @@ public class ListRecipesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 like.setImageResource(R.drawable.ic_like_off);
             }
 
-            premiumLabel.setVisibility(listRecipes.get(position).isPremium() ?
-                    View.VISIBLE: View.GONE);
+//            premiumLabel.setVisibility(listRecipes.get(position).isPremium() ?
+//                    View.VISIBLE: View.GONE);
 
             textView.setText(name);
             textViewKK.setText(String.valueOf(kk));

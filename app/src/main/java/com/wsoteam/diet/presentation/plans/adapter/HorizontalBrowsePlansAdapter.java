@@ -133,7 +133,7 @@ public class HorizontalBrowsePlansAdapter extends RecyclerView.Adapter<RecyclerV
 
       this.dietPlan = dietPlan;
 
-      premLabel.setVisibility(dietPlan.isPremium() ? View.VISIBLE : View.GONE);
+//      premLabel.setVisibility(dietPlan.isPremium() ? View.VISIBLE : View.GONE);
       tvName.setText(dietPlan.getName());
       tvTime.setText(concat(String.valueOf(dietPlan.getCountDays()), " ",
           context.getResources()

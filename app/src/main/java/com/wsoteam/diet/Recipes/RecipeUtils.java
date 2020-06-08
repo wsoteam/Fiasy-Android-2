@@ -15,11 +15,11 @@ public class RecipeUtils {
 
         Intent intent;
 
-        if (!Subscription.check(context) && recipeItem.isPremium()) {
-            intent = new Intent(context, BlockedRecipeActivity.class);
-        } else {
+//        if (!Subscription.check(context) && recipeItem.isPremium()) {
+//            intent = new Intent(context, BlockedRecipeActivity.class);
+//        } else {
             intent = new Intent(context, RecipeActivity.class);
-        }
+//        }
         intent.putExtra(Config.RECIPE_INTENT, recipeItem);
 
         context.startActivity(intent);

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.SpannableStringBuilder
 import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
@@ -12,6 +13,7 @@ import android.text.style.RelativeSizeSpan
 import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
@@ -140,4 +142,29 @@ object RichTextUtils {
       }, 0, length, 0)
     }
   }
+}
+
+fun String.formatSpannable(vararg spans: CharSequence?): Spannable {
+  val result = SpannableStringBuilder()
+  when {
+    spans.size != this.split("%s").size - 1 ->
+      Log.e("formatSpannable",
+              "cannot format '$this' with ${spans.size} arguments")
+    !this.contains("%s") -> result.append(this)
+    else -> {
+      var str = this
+      var spanIndex = 0
+      while (str.contains("%s")) {
+        val preStr = str.substring(0, str.indexOf("%s"))
+        result.append(preStr)
+        result.append(spans[spanIndex] ?: "")
+        str = str.substring(str.indexOf("%s") + 2)
+        spanIndex++
+      }
+      if (str.isNotEmpty()) {
+        result.append(str)
+      }
+    }
+  }
+  return result
 }

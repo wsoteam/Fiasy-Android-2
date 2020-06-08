@@ -3,28 +3,31 @@ package com.wsoteam.diet.presentation.diary
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams
-import android.widget.LinearLayout
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.wsoteam.diet.R
-import com.wsoteam.diet.model.Eating
 import com.wsoteam.diet.presentation.activity.DiaryActivityWidget
-import com.wsoteam.diet.utils.dp
 import com.wsoteam.diet.utils.inflate
 
 class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
 
+
+
   private var parent: RecyclerView? = null
 
-  private val widgets = intArrayOf(
+  private val widgets = mutableListOf(
       R.layout.widget_daily_calories,
+          R.layout.widget_sign_in,
       R.layout.ms_item_water_list,
       R.layout.fragment_current_day_plan,
       R.layout.widget_eatings,
       R.layout.widget_user_weight,
       R.layout.widget_user_activities
   )
+
+  init {
+    if (FirebaseAuth.getInstance().currentUser?.isAnonymous == false) widgets.remove(R.layout.widget_sign_in)
+  }
 
   protected fun requestParent(): RecyclerView =
     parent ?: throw IllegalArgumentException("Parent not attached")
@@ -42,6 +45,7 @@ class WidgetsAdapter : RecyclerView.Adapter<WidgetsAdapter.WidgetView>() {
 
     return when (viewType) {
       R.layout.fragment_current_day_plan -> MealPlanWidgetKt(root)
+      R.layout.widget_sign_in -> SignInWidget(root)
       R.layout.widget_daily_calories -> DailyBurnWidget(root)
       R.layout.widget_user_weight -> UserWeightWidget(root)
       R.layout.widget_user_activities -> DiaryActivityWidget(root)

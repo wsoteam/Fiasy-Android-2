@@ -1,52 +1,43 @@
 package com.wsoteam.diet.presentation.diary
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.Rect
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
-import android.view.ViewTreeObserver.OnPreDrawListener
-import android.widget.FrameLayout
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
-import androidx.core.widget.NestedScrollView
 import androidx.core.widget.NestedScrollView.OnScrollChangeListener
 import androidx.customview.widget.ViewDragHelper
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.recyclerview.widget.RecyclerView.State
-import com.facebook.FacebookSdk.getApplicationContext
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Picasso.LoadedFrom
+import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Target
 import com.wsoteam.diet.AmplitudaEvents
 import com.wsoteam.diet.Authenticate.POJO.Box
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.InApp.ActivitySubscription
+import com.wsoteam.diet.POJOProfile.Profile
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.common.Analytics.EventProperties
-import com.wsoteam.diet.presentation.fab.MainFabMenu
-import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Hiden
-import com.wsoteam.diet.presentation.diary.DiaryFragment.Companion.PremiumState.Revealed
+import com.wsoteam.diet.presentation.auth.MainAuthNewActivity
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
 import com.wsoteam.diet.presentation.fab.FabMenuViewModel
-import com.wsoteam.diet.presentation.teach.TeachActivity
-import com.wsoteam.diet.presentation.teach.TeachUtil
-import com.wsoteam.diet.utils.*
+import com.wsoteam.diet.utils.FiasyDateUtils
+import com.wsoteam.diet.utils.ImageSpan
 import com.wsoteam.diet.utils.RichTextUtils.replaceWithIcon
+import com.wsoteam.diet.utils.dp
+import com.wsoteam.diet.utils.getVectorIcon
 import com.wsoteam.diet.views.CompactCalendarView
 import com.wsoteam.diet.views.CompactCalendarView.CompactCalendarViewListener
 import com.wsoteam.diet.views.GuardNestedScrollView
+import kotlinx.android.synthetic.main.fragment_diary.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -65,7 +56,7 @@ class DiaryFragment : Fragment() {
     private val calendar = Calendar.getInstance()
     protected val targets = hashMapOf<View, Target>()
 
-    private lateinit var premiumContainer: View
+
 
     private lateinit var root: GuardNestedScrollView
     private lateinit var toolbar: Toolbar
@@ -132,10 +123,29 @@ class DiaryFragment : Fragment() {
 
         WorkWithFirebaseDB.setFirebaseStateListener()
 
+        logIn.visibility = if (FirebaseAuth.getInstance().currentUser?.isAnonymous == false) View.INVISIBLE else View.VISIBLE
+        logIn.setOnClickListener {
+            startActivity(Intent(context, MainAuthNewActivity::class.java).putExtra(Config.CREATE_PROFILE, true)
+                    .putExtra(Config.INTENT_PROFILE, Profile()))
+
+        }
+        premium.setOnClickListener {
+            val box = Box()
+            box.isSubscribe = false
+            box.isOpenFromPremPart = true
+            box.isOpenFromIntrodaction = false
+            box.comeFrom = AmplitudaEvents.view_prem_content
+            box.buyFrom = EventProperties.trial_from_header
+            val intent: Intent = Intent(context, ActivitySubscription::class.java).putExtra(Config.TAG_BOX, box)
+            startActivity(intent)
+        }
+
         root = view.findViewById(R.id.root)
 
         toolbar = view.findViewById(R.id.toolbar)
         toolbar.setOnClickListener { toggleCalendar() }
+
+
 
         val p = toolbar.parent as View
         p.setOnTouchListener { v, event ->
@@ -143,7 +153,6 @@ class DiaryFragment : Fragment() {
             dragHelper.capturedView != null
         }
 
-        premiumContainer = view.findViewById<View>(R.id.premium_banner_root)
 
         smallCalendarView = toolbar.findViewById(R.id.small_calendar)
         smallCalendarView.visibility = View.GONE
@@ -200,149 +209,13 @@ class DiaryFragment : Fragment() {
             }
         })
 
-        root.setOnScrollChangeListener(object : OnScrollChangeListener {
-            private var currentState = Revealed
+        root.setOnScrollChangeListener(OnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+            val scrollingDown = scrollY > oldScrollY
 
-            override fun onScrollChange(v: NestedScrollView,
-                                        scrollX: Int,
-                                        scrollY: Int,
-                                        oldScrollX: Int,
-                                        oldScrollY: Int) {
-
-                val scrollingDown = scrollY > oldScrollY
-                val spaceLeft = premiumContainer.height + premiumContainer.translationY
-
-                 FabMenuViewModel.fabState.value = if (scrollingDown)
-                     FabMenuViewModel.FAB_HIDE else  FabMenuViewModel.FAB_SHOW
-
-
-                currentState = if (spaceLeft == 0f) Hiden else Revealed
-
-                var nextState = currentState
-
-                if (scrollingDown && spaceLeft > 0f && !(spaceLeft == 1f * premiumContainer.height && scrollY > spaceLeft)) {
-                    premiumContainer.translationY = -1f * Math.min(scrollY, premiumContainer.height)
-
-                } else if (scrollY <= premiumContainer.height) {
-                    premiumContainer.animate().cancel()
-
-                    if (spaceLeft != 1f * premiumContainer.height) {
-                        premiumContainer.translationY = -1f * Math.min(scrollY, premiumContainer.height)
-                    }
-                } else {
-                    if (scrollingDown && spaceLeft != 0f) {
-                        nextState = Hiden
-                    }
-
-                    if (!scrollingDown && spaceLeft == 0f) {
-                        nextState = Revealed
-                    }
-                }
-
-                if (nextState == currentState) {
-                    return
-                }
-
-                premiumContainer.animate().cancel()
-
-                val animator = premiumContainer.animate()
-
-                if (nextState == Revealed) {
-                    animator.translationY(0f)
-                } else if (nextState == Hiden) {
-                    animator.translationY(-1f * premiumContainer.height)
-                }
-
-                animator.duration = 120
-                animator.withEndAction {
-                    currentState = nextState
-                }
-                animator.start()
-
-            }
+            FabMenuViewModel.fabState.value = if (scrollingDown)
+                FabMenuViewModel.FAB_HIDE else  FabMenuViewModel.FAB_SHOW
         })
 
-        calendarView.viewTreeObserver.addOnPreDrawListener(object : OnPreDrawListener {
-            override fun onPreDraw(): Boolean {
-                calendarView.viewTreeObserver.removeOnPreDrawListener(this)
-
-                smallCalendarView.translationX = 1f * toolbar.width - smallCalendarView.left
-
-                val isPremium = requireContext()
-                        .getSharedPreferences(Config.STATE_BILLING, Context.MODE_PRIVATE)
-                        .getBoolean(Config.STATE_BILLING, false)
-
-                var box = Box()
-                box.comeFrom = AmplitudaEvents.view_prem_header
-                box.buyFrom = EventProperties.trial_from_header
-                box.isOpenFromIntrodaction = false
-                box.isOpenFromPremPart = true
-                premiumContainer.setOnClickListener {
-                    startActivity(Intent(requireContext(), ActivitySubscription::class.java)
-                            .putExtra(Config.TAG_BOX, box))
-                }
-
-                if (!isPremium) {
-                    premiumContainer.visibility = View.VISIBLE
-
-                    val target = object : Target {
-                        override fun onBitmapLoaded(bitmap: Bitmap, from: LoadedFrom) {
-                            premiumContainer.background = BitmapDrawable(premiumContainer.resources, bitmap)
-                            targets.remove(premiumContainer)
-                        }
-
-                        override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) = Unit
-                        override fun onPrepareLoad(placeHolderDrawable: Drawable?) = Unit
-                    }
-
-                    targets[premiumContainer] = target
-
-                    if (premiumContainer.width > 0 && premiumContainer.height > 0) {
-                        Picasso.get()
-                                .load(R.drawable.banner_prem_main)
-                                .resize(premiumContainer.width, premiumContainer.height)
-                                .centerCrop()
-                                .into(target)
-                    }
-                    view.findViewById<View>(R.id.gift_image).let { i ->
-                        val giftTarget = object : Target {
-                            override fun onBitmapLoaded(bitmap: Bitmap, from: LoadedFrom) {
-                                i.background = BitmapDrawable(premiumContainer.resources, bitmap)
-
-                                targets.remove(i)
-                            }
-
-                            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) = Unit
-                            override fun onPrepareLoad(placeHolderDrawable: Drawable?) = Unit
-                        }
-
-                        targets[i] = giftTarget
-
-                        try {
-                            Picasso.get()
-                                    .load(R.drawable.star_1)
-                                    .resize(premiumContainer.width, premiumContainer.height)
-                                    .into(giftTarget)
-                        }catch (e: java.lang.Exception){
-
-                        }
-                    }
-                } else {
-                    premiumContainer.visibility = View.GONE
-                }
-
-                val toolbarContainer = toolbar.parent as View
-                (toolbarContainer.layoutParams as FrameLayout.LayoutParams).apply {
-                    topMargin = premiumContainer.height
-                }
-
-                (container.layoutParams as FrameLayout.LayoutParams).apply {
-                    topMargin = premiumContainer.height + toolbar.height
-                }
-
-                return false
-            }
-        })
 
         updateTitle()
 
@@ -359,7 +232,7 @@ class DiaryFragment : Fragment() {
         Log.d("kkk", "position = $position")
         if(position != null)
         container.post {
-            val y = container.y + container.getChildAt(position).y - premiumContainer.height
+            val y = container.y + container.getChildAt(position).y
             root.smoothScrollTo(0, y.toInt())
             DiaryViewModel.scrollToPosition.value = null
         }
@@ -373,12 +246,6 @@ class DiaryFragment : Fragment() {
         if (oldStatusBarColor != 0) {
             activity?.window?.statusBarColor = 0xFF12061C.toInt()
         }
-
-        val isPremium = requireContext()
-                .getSharedPreferences(Config.STATE_BILLING, Context.MODE_PRIVATE)
-                .getBoolean(Config.STATE_BILLING, false)
-
-        premiumContainer.visibility = if (isPremium) View.GONE else View.VISIBLE
 
         container.translationY = 0f
     }
