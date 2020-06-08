@@ -3,6 +3,8 @@ package com.wsoteam.diet.presentation.profile.settings.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.util.SparseArray;
+import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -25,6 +27,8 @@ import com.wsoteam.diet.presentation.profile.help.HelpActivity;
 import com.wsoteam.diet.presentation.profile.norm.ChangeNormActivity;
 import com.wsoteam.diet.presentation.promo.PromoFormActivity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
@@ -38,6 +42,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
     private boolean isLogOut;
     private int textColor;
     private int drawableArrow;
+
+
 
     private final int
         PREMIUM = 0,
@@ -56,6 +62,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
 
         if (Locale.getDefault().getLanguage().equals("ru")){
             if (isNotPrem) {
+
                 names = context.getResources().getStringArray(R.array.settings_items_ru);
                 ids = new int[] { PREMIUM, PROMO, PERSONAL, KCAL, HELP, LOGOUT };
                 this.drawablesLeft = context.getResources().obtainTypedArray(R.array.left_drawables);
@@ -101,16 +108,34 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
 
     @Override
     public void onBindViewHolder(@NonNull ItemsViewHolders itemsViewHolders, int i) {
-        if (isNotPrem && i == 0) {
-            textColor = context.getResources().getColor(R.color.prem_settings);
-            drawableArrow = R.drawable.ic_settings_item_prem;
-        } else if (i != names.length - 1) {
-            textColor = context.getResources().getColor(R.color.unprem_settings);
-            drawableArrow = R.drawable.ic_settings_item_arrow_normal;
-        } else {
-            textColor = context.getResources().getColor(R.color.logout_settings);
-            drawableArrow = R.drawable.ic_settings_item_arrow_normal;
+
+
+        switch (i){
+            case PREMIUM:
+                textColor = context.getResources().getColor(R.color.prem_settings);
+                drawableArrow = R.drawable.ic_settings_item_prem;
+                break;
+            case LOGOUT:
+                textColor = context.getResources().getColor(R.color.unprem_settings);
+                drawableArrow = R.drawable.ic_settings_item_arrow_normal;
+                break;
+            default:
+                textColor = context.getResources().getColor(R.color.logout_settings);
+                drawableArrow = R.drawable.ic_settings_item_arrow_normal;
+
         }
+
+
+//        if (isNotPrem && i == 0) {
+//            textColor = context.getResources().getColor(R.color.prem_settings);
+//            drawableArrow = R.drawable.ic_settings_item_prem;
+//        } else if (i != names.length - 1) {
+//            textColor = context.getResources().getColor(R.color.unprem_settings);
+//            drawableArrow = R.drawable.ic_settings_item_arrow_normal;
+//        } else {
+//            textColor = context.getResources().getColor(R.color.logout_settings);
+//            drawableArrow = R.drawable.ic_settings_item_arrow_normal;
+//        }
         if (i == names.length - 1) {
             isLogOut = true;
         } else {
@@ -121,9 +146,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolders> {
     }
 
     private void goToItemSettings(int position) {
-        int actionId = ids[position];
 
-        switch (actionId) {
+
+        switch (position) {
             case PREMIUM:
                 final Box box = new Box();
                 box.setComeFrom(AmplitudaEvents.view_prem_settings);

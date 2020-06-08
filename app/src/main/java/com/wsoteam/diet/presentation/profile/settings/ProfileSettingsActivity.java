@@ -23,11 +23,10 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.settings.PremiumCloseStateSingleton;
 import com.wsoteam.diet.common.Analytics.Events;
-import com.wsoteam.diet.presentation.profile.settings.controller.ItemsAdapter;
+import com.wsoteam.diet.presentation.profile.settings.controller.ItemsAdapterKt;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 public class ProfileSettingsActivity extends MvpAppCompatActivity implements ProfileSettingsView {
@@ -58,7 +57,7 @@ public class ProfileSettingsActivity extends MvpAppCompatActivity implements Pro
         profileSettingsPresenter = new ProfileSettingsPresenter();
         profileSettingsPresenter.attachView(this);
         rvSettingsItems.setLayoutManager(new LinearLayoutManager(this));
-        rvSettingsItems.setAdapter(new ItemsAdapter(this, !getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE)
+        rvSettingsItems.setAdapter(new ItemsAdapterKt(this, !getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE)
                 .getBoolean(Config.STATE_BILLING, false)));
         cvPremium.setBackgroundResource(R.drawable.shape_prem_settings);
 
