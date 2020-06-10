@@ -1,17 +1,27 @@
 package com.wsoteam.diet.presentation.auth;
 
-import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.wsoteam.diet.Config;
+import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.utils.DynamicUnitUtils;
 
 public class MainAuthNewActivity extends AppCompatActivity implements InternetBad {
+
+
+  public static Intent getIntent(Context context){
+    return new Intent(context, MainAuthNewActivity.class).putExtra(Config.CREATE_PROFILE, true)
+            .putExtra(Config.INTENT_PROFILE, new Profile());
+  }
 
   private View internetBad;
 

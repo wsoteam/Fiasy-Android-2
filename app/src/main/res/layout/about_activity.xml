@@ -33,7 +33,7 @@
             android:elevation="9dp"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/personal_data"
-            android:textColor="@color/white"
+            android:textColor="@color/black_for_txt"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView13"
             app:layout_constraintStart_toEndOf="@+id/ibBack"
@@ -50,7 +50,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/imageView13"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_arrow_back_white" />
+            app:srcCompat="@drawable/arrow_back_gray" />
 
         <ImageView
             android:id="@+id/imageView13"
@@ -58,6 +58,8 @@
             android:layout_height="60dp"
             android:background="@color/white"
             android:elevation="8dp"
+            android:visibility="invisible"
+            android:tint="@color/black_for_txt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -182,13 +184,48 @@
             android:id="@+id/nativeAd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:visibility="gone"
             app:gnt_template_type="@layout/gnt_small_template_view"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilEmail"
             tools:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/signInContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nativeAd">
+
+            <TextView
+                android:id="@+id/infoForAnonim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:padding="16dp"
+                android:textAlignment="center"
+                android:textColor="@color/black_for_txt"
+                tools:text="TextView" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/signIn"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:textColor="@color/pumpkin_orange"
+                android:text="@string/signIn"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/unactive_promo_btn"
+                app:backgroundTint="@android:color/white"
+                android:layout_gravity="center_horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

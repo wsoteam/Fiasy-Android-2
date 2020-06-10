@@ -12,6 +12,7 @@ import com.wsoteam.diet.Authenticate.POJO.Box
 import com.wsoteam.diet.Config
 import com.wsoteam.diet.EntryPoint.ActivitySplash
 import com.wsoteam.diet.InApp.ActivitySubscription
+import com.wsoteam.diet.OtherActivity.AnyFragmentActivity
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.common.Analytics.EventProperties
@@ -19,6 +20,7 @@ import com.wsoteam.diet.common.Analytics.Events
 import com.wsoteam.diet.presentation.auth.AuthStrategy
 import com.wsoteam.diet.presentation.profile.about.AboutActivity
 import com.wsoteam.diet.presentation.profile.help.HelpActivity
+import com.wsoteam.diet.presentation.profile.norm.BlockedNormFragment
 import com.wsoteam.diet.presentation.profile.norm.ChangeNormActivity
 import com.wsoteam.diet.presentation.promo.PromoFormActivity
 import java.util.*
@@ -84,7 +86,7 @@ class ItemsAdapterKt(val context: Context, isNotPrem: Boolean): RecyclerView.Ada
             PREMIUM -> openPremium()
             PROMO -> context.startActivity(Intent(context, PromoFormActivity::class.java))
             PERSONAL -> context.startActivity(Intent(context, AboutActivity::class.java))
-            KCAL -> context.startActivity(Intent(context, ChangeNormActivity::class.java))
+            KCAL -> openNormal()
             HELP -> context.startActivity(Intent(context, HelpActivity::class.java))
             LOGOUT -> openLogOutAlert()
         }
@@ -95,6 +97,16 @@ class ItemsAdapterKt(val context: Context, isNotPrem: Boolean): RecyclerView.Ada
         UserDataHolder.clearObject()
         val intent = Intent(context, ActivitySplash::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         context.startActivity(intent)
+    }
+
+    private fun openNormal(){
+        if(FirebaseAuth.getInstance().currentUser?.isAnonymous == true){
+            context.startActivity(AnyFragmentActivity.getIntent(context, BlockedNormFragment.newInstance()))
+        }else{
+            context.startActivity(Intent(context, ChangeNormActivity::class.java))
+        }
+
+
     }
 
     private fun openPremium(){
@@ -117,6 +129,4 @@ class ItemsAdapterKt(val context: Context, isNotPrem: Boolean): RecyclerView.Ada
                 .setNegativeButton(context.getString(R.string.no), null)
                 .show()
     }
-
-
 }

@@ -26,7 +26,7 @@
             <ImageView
                 android:id="@+id/imgArticle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="230dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@android:color/holo_blue_bright"
                 tools:srcCompat="@drawable/background_item_profile_fat" />

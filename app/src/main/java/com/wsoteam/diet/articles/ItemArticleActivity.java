@@ -91,6 +91,7 @@ public class ItemArticleActivity extends AppCompatActivity {
         authorLabel.setVisibility(article.getCategory().getId() == 4 ? View.VISIBLE : View.GONE);
 
         Picasso.get().load(article.getImage()).config(Bitmap.Config.RGB_565).into(imgArticle);
+//        Picasso.get().load(article.getImage()).fit().centerCrop().into(imgArticle);
 
         tvTitle.setText(article.getTitle(Locale.getDefault()).replaceAll("\\<.*?\\>", ""));
         //tvTitle.setText();

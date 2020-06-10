@@ -83,7 +83,6 @@ public class App extends MultiDexApplication {
         YandexMetrica.activate(getApplicationContext(), config);
         YandexMetrica.enableActivityAutoTracking(this);
 
-        FiasyAds.init(this);
     }
 
 

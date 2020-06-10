@@ -14,7 +14,7 @@ class AnyFragmentActivity : AppCompatActivity(R.layout.activity_any_fragment) {
     companion object{
         private val fragmentLiveData = MutableLiveData<Fragment>()
 
-        public  fun getIntent(context: Context?, fragment: Fragment): Intent?{
+        fun getIntent(context: Context?, fragment: Fragment): Intent?{
             if (context == null) return null
 
             fragmentLiveData.value = fragment

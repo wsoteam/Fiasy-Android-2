@@ -63,7 +63,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
     this.article = article;
 
     tvName.setText(article.getTitle().replaceAll("\\<.*?\\>", ""));
-    premiumLabel.setVisibility(article.isPremium() ? View.VISIBLE : View.GONE);
+//    premiumLabel.setVisibility(article.isPremium() ? View.VISIBLE : View.GONE);
     setImg(imageView, article.getImage(), llBackground);
 
   }

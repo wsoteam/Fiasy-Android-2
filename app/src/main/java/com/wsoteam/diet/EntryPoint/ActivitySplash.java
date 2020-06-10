@@ -55,6 +55,7 @@ import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.POJO.UserData;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB;
+import com.wsoteam.diet.ads.FiasyAds;
 import com.wsoteam.diet.common.Analytics.ABLiveData;
 import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.Analytics.UserProperty;
@@ -113,6 +114,8 @@ public class ActivitySplash extends BaseActivity {
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     getABVersion();
+
+    FiasyAds.init(this);
 
     test();
 
@@ -175,58 +178,34 @@ public class ActivitySplash extends BaseActivity {
     super.onStart();
 
     checkFirstLaunch();
-    Log.d("kkk", "addOnCompleteListener 11");
+
     if (checkUserNetworkAvailable()) {
-      Log.d("kkk", "addOnCompleteListener 222");
+
       final FirebaseAuth mAuth = FirebaseAuth.getInstance();
       final FirebaseUser user = mAuth.getCurrentUser();
 
       if (user == null){
         mAuth.signInAnonymously()
                 .addOnFailureListener(e -> {
-                  Log.d("kkk", "addOnFailure");
+
                 })
                 .addOnCompleteListener(task -> {
 
-                  Log.d("kkk", "addOnCompleteListener");
-
                   if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d("kkk", "signInAnonymously:success");
-                    Log.d("kkk", "user id " + mAuth.getCurrentUser().getUid());
+
+//                    Log.d("user_id", "user id " + mAuth.getCurrentUser().getUid());
                     WorkWithFirebaseDB.putProfileValue(ModelFactory.getDefaultProfile());
-                    Log.d("kkk", "signInAnonymous-------------------");
+
                     checkRegistrationAndRun();
                   } else {
                     // If sign in fails, display a message to the user.
-                    Log.w("kkk", "signInAnonymously:failure", task.getException());
+
 
                   }
 
                 });
       }else {
-        Log.d("kkk", "user id " + mAuth.getCurrentUser().getUid());
-        Log.d("kkk", "user id " + mAuth.getCurrentUser().getUid());
-//        AuthCredential credential = EmailAuthProvider.getCredential("testll@ttt.tt", "123456");
-//        Log.d("kkk", "user id " + mAuth.getCurrentUser().getUid());
-//        mAuth.getCurrentUser().linkWithCredential(credential)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                  @Override
-//                  public void onComplete(@NonNull Task<AuthResult> task) {
-//                    if (task.isSuccessful()) {
-//                      Log.d("kkk", "linkWithCredential:success");
-//                      FirebaseUser user = task.getResult().getUser();
-//                    } else {
-//                      Log.w("kkk", "linkWithCredential:failure", task.getException());
-//                      Toast.makeText(ActivitySplash.this, "Authentication failed.",
-//                              Toast.LENGTH_SHORT).show();
-//
-//                    }
-//
-//                    // ...
-//                  }
-//                });
-
         Log.d("kkk", "user id " + mAuth.getCurrentUser().getUid());
         checkRegistrationAndRun();
       }

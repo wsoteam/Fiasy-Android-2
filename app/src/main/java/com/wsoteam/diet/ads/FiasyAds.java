@@ -24,7 +24,6 @@ public class FiasyAds {
 
     public static final int NATIVE_STEP_IN_RECYCLER = 6;
 
-//    private static final String ADMOB_AD_UNIT_ID = "ca-app-pub-3940256099942544/2247696110";
 
     private static InterstitialAd mInterstitialAd;
 //    private static UnifiedNativeAdView adView;
@@ -44,10 +43,12 @@ public class FiasyAds {
         if (Subscription.check(context)) return;
 
         MobileAds.initialize(context.getApplicationContext(), initializationStatus -> {
-//            Log.d("kkk", initializationStatus.toString());
-            initInterstitial(context);
+
+            Log.d("TAGi", initializationStatus.toString());
+
             refreshAd(context);
         });
+        initInterstitial(context);
     }
 
     public static void refreshAd(Context context) {
@@ -65,7 +66,7 @@ public class FiasyAds {
                 nativeAd.destroy();
             }
             nativeAd = unifiedNativeAd;
-//            Log.d("kkk", "++" + unifiedNativeAd);
+            Log.d("kkk", "++" + unifiedNativeAd);
             nativeAdView.setValue(unifiedNativeAd);
             isRefreshLocked = false;
 
@@ -97,19 +98,59 @@ public class FiasyAds {
 
     private static void initInterstitial(Context context){
         mInterstitialAd = new InterstitialAd(context.getApplicationContext());
-        mInterstitialAd.setAdUnitId(context.getString(R.string.admob_native));
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                Log.d("TAGi", "onAdLoaded() ");
+                // Code to be executed when an ad finishes loading.
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                Log.d("TAGi", "onAdFailedToLoad(errorCode " + errorCode + ")");
+                // Code to be executed when an ad request fails.
+            }
+
+            @Override
+            public void onAdOpened() {
+                Log.d("TAGi", "onAdOpened()");
+                // Code to be executed when the ad is displayed.
+            }
+
+            @Override
+            public void onAdClicked() {
+                Log.d("TAGi", "onAdClicked()");
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                Log.d("TAGi", "onAdLeftApplication()");
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                Log.d("TAGi", " onAdClosed()");
+                // Code to be executed when the interstitial ad is closed.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+            }
+        });
+        mInterstitialAd.setAdUnitId(context.getString(R.string.admob_interstitial));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
     public static void openInter(){
-
+        Log.d("TAGi", "openInter() 1");
         if (mInterstitialAd == null) return;
 
+        Log.d("TAGi", "openInter() 2");
         if (mInterstitialAd.isLoaded()) {
+            Log.d("TAGi", "openInter() 3");
             mInterstitialAd.show();
         } else {
             mInterstitialAd.loadAd(new AdRequest.Builder().build());
-//            Log.d("TAG", "The interstitial wasn't loaded yet.");
+            Log.d("TAGi", "The interstitial wasn't loaded yet.");
         }
 
     }

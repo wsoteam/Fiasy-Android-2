@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 
+import android.text.Spannable;
 import android.text.TextUtils;
 import androidx.annotation.Nullable;
 
@@ -23,20 +24,28 @@ import androidx.appcompat.app.AlertDialog;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.ads.FiasyAds;
 import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle;
 import com.wsoteam.diet.ads.nativetemplates.TemplateView;
+import com.wsoteam.diet.presentation.auth.MainAuthNewActivity;
+import com.wsoteam.diet.utils.RichTextUtils;
+import com.wsoteam.diet.utils.RichTextUtilsKt;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 import butterknife.BindView;
@@ -67,6 +76,12 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
     TextInputLayout tilEmail;
     @BindView(R.id.nativeAd)
     TemplateView nativeAd;
+    @BindView(R.id.signInContainer)
+    LinearLayout signInContainer;
+    @BindView(R.id.infoForAnonim)
+    TextView infoForAnonim;
+    @BindView(R.id.signIn)
+    Button signIn;
 
     AboutPresenter aboutPresenter;
 
@@ -84,6 +99,8 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         aboutPresenter = new AboutPresenter(this);
         aboutPresenter.attachView(this);
 
+        prepareForAnonymous();
+
         FiasyAds.getLiveDataAdView().observe(this, ad -> {
             if (ad != null) {
                 nativeAd.setVisibility(View.VISIBLE);
@@ -93,6 +110,30 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
                 nativeAd.setVisibility(View.GONE);
             }
         });
+    }
+
+
+    private void prepareForAnonymous(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null && user.isAnonymous()){
+            tilEmail.setVisibility(View.GONE);
+            signInContainer.setVisibility(View.VISIBLE);
+
+
+            RichTextUtils.RichText actionSignIn = new  RichTextUtils.RichText(getString(R.string.signIn).toUpperCase())
+                   .colorRes(this, R.color.pumpkin_orange);
+            Spannable spannable = RichTextUtilsKt.formatSpannable(getString(R.string.fragment_blocked_normal_text), actionSignIn.text());
+            infoForAnonim.setText(spannable);
+
+            signIn.setOnClickListener(v -> {
+                startActivity(MainAuthNewActivity.getIntent(this));
+            });
+
+        } else {
+            tilEmail.setVisibility(View.VISIBLE);
+            signInContainer.setVisibility(View.GONE);
+        }
+
     }
 
     @OnTextChanged(value = R.id.edtName, callback = OnTextChanged.Callback.TEXT_CHANGED)
