@@ -258,9 +258,9 @@ public class GroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                 textViewList.get(i).setText(name);
                 textViewsKK.get(i).setText(String.valueOf(kk));
-                premiumList.get(i).setVisibility(
-                        groupsRecipes.get(listIndex).getListrecipes().get(i).isPremium() ?
-                        View.VISIBLE : View.GONE);
+//                premiumList.get(i).setVisibility(
+//                        groupsRecipes.get(listIndex).getListrecipes().get(i).isPremium() ?
+//                        View.VISIBLE : View.GONE);
             }
         }
 

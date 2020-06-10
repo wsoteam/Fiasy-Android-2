@@ -45,7 +45,10 @@ public class FiasyAds {
         MobileAds.initialize(context.getApplicationContext(), initializationStatus -> {
 
             Log.d("TAGi", initializationStatus.toString());
+            AdWorker.INSTANCE.loadNative(context, isLoaded ->{
 
+                return null;
+            } );
             refreshAd(context);
         });
         initInterstitial(context);

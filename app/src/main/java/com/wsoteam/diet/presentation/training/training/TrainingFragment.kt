@@ -126,8 +126,10 @@ class TrainingFragment : Fragment(R.layout.fragment_training), OnBackPressed {
                 training?.apply {
 
 
-                    val fragment : Fragment = if (Subscription.check(context)) TrainingDayFragment.newInstance(training)
-                    else TrainingBlockedFragment.newInstance(training)
+                    val fragment : Fragment =
+//                            if (Subscription.check(context))
+                        TrainingDayFragment.newInstance(training)
+//                    else TrainingBlockedFragment.newInstance(training)
 
                     fragmentManager?.beginTransaction()
                             ?.replace((getView()?.parent as ViewGroup).id, fragment)

@@ -29,11 +29,8 @@ import com.wsoteam.diet.common.Analytics.EventProperties
 import com.wsoteam.diet.presentation.auth.MainAuthNewActivity
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
 import com.wsoteam.diet.presentation.fab.FabMenuViewModel
-import com.wsoteam.diet.utils.FiasyDateUtils
-import com.wsoteam.diet.utils.ImageSpan
+import com.wsoteam.diet.utils.*
 import com.wsoteam.diet.utils.RichTextUtils.replaceWithIcon
-import com.wsoteam.diet.utils.dp
-import com.wsoteam.diet.utils.getVectorIcon
 import com.wsoteam.diet.views.CompactCalendarView
 import com.wsoteam.diet.views.CompactCalendarView.CompactCalendarViewListener
 import com.wsoteam.diet.views.GuardNestedScrollView
@@ -117,6 +114,7 @@ class DiaryFragment : Fragment() {
 
         return inflater.inflate(R.layout.fragment_diary, parent, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -248,6 +246,8 @@ class DiaryFragment : Fragment() {
         }
 
         container.translationY = 0f
+
+        premium.visibility = if (Subscription.check(context)) View.INVISIBLE else View.VISIBLE
     }
 
     override fun onPause() {

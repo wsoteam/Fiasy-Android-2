@@ -125,9 +125,7 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
             Spannable spannable = RichTextUtilsKt.formatSpannable(getString(R.string.fragment_blocked_normal_text), actionSignIn.text());
             infoForAnonim.setText(spannable);
 
-            signIn.setOnClickListener(v -> {
-                startActivity(MainAuthNewActivity.getIntent(this));
-            });
+            signIn.setOnClickListener(v -> startActivity(MainAuthNewActivity.getIntent(this)));
 
         } else {
             tilEmail.setVisibility(View.VISIBLE);

@@ -29,6 +29,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.background) LinearLayout llBackground;
   @BindView(R.id.premiumLabel) ConstraintLayout premiumLabel;
   @BindView(R.id.parentrLayout) ConstraintLayout parentrLayout;
+  private ListArticlesAdapter.OnItemClickListener onItemClickListener;
   private HorizontalArticlesAdapter.OnItemClickListener mItemClickListener;
 
   private Consumer<Palette> paletteConsumer = p -> {
@@ -38,6 +39,16 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
   };
 
   private Article article;
+
+  public ArticleViewHolder(ViewGroup parent, ListArticlesAdapter.OnItemClickListener onItemClickListener) {
+    super(LayoutInflater.from(parent.getContext()).inflate(R.layout.article_view_holder, parent, false));
+    ButterKnife.bind(this, itemView);
+    this.onItemClickListener = onItemClickListener;
+
+    itemView.setOnClickListener(view -> {
+      if (onItemClickListener != null) onItemClickListener.onItemClick(view, article);
+    });
+  }
 
   public ArticleViewHolder(ViewGroup parent, HorizontalArticlesAdapter.OnItemClickListener mItemClickListener) {
     super(LayoutInflater.from(parent.getContext()).inflate(R.layout.article_view_holder, parent, false));
@@ -49,10 +60,15 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
     });
   }
 
-  public ArticleViewHolder(ViewGroup parent, int layout) {
+  public ArticleViewHolder(ViewGroup parent, int layout, ListArticlesAdapter.OnItemClickListener onItemClickListener) {
     super(LayoutInflater.from(parent.getContext()).inflate(layout, parent, false));
     ButterKnife.bind(this, itemView);
 
+    this.onItemClickListener = onItemClickListener;
+
+    itemView.setOnClickListener(view -> {
+      if (onItemClickListener != null) onItemClickListener.onItemClick(view, article);
+    });
 
   }
   public void setOnClickListener(View.OnClickListener listener){

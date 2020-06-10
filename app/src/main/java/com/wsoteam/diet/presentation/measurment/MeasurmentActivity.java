@@ -212,8 +212,9 @@ public class MeasurmentActivity extends MvpAppCompatActivity implements Measurme
   }
 
   private boolean isPremiumUser() {
-    SharedPreferences sharedPreferences = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
-    return sharedPreferences.getBoolean(Config.STATE_BILLING, false);
+//    SharedPreferences sharedPreferences = getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
+//    return sharedPreferences.getBoolean(Config.STATE_BILLING, false);
+    return true;
   }
 
   private void bindViewPager() {

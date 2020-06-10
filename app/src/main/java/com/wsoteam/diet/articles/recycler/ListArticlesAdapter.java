@@ -31,14 +31,12 @@ public class ListArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
     if (context == null) this.context = viewGroup.getContext();
 
-    switch (i) {
-        case EMPTY_VH: return new EmptyViewHolder(viewGroup);
-        default:
-        ArticleViewHolder viewHolder = new ArticleViewHolder(viewGroup, R.layout.article_view_holder_2);
-        viewHolder.setOnClickListener((View v) ->
-                onItemClickListener.onItemClick(v, listItem.get(viewHolder.getAdapterPosition() - 1)));
-        return viewHolder;
+    if (i == EMPTY_VH) {
+      return new EmptyViewHolder(viewGroup);
     }
+    ArticleViewHolder viewHolder = new ArticleViewHolder(viewGroup, R.layout.article_view_holder_2, onItemClickListener);
+//        viewHolder.setOnClickListener(onItemClickListener);
+    return viewHolder;
   }
 
   @Override
