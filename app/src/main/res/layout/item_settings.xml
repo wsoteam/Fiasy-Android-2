@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="50dp"
+    android:gravity="center_vertical">
 
     <ImageView
         android:id="@+id/ivIconItem"
@@ -13,19 +15,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/ivArrow"
-        android:layout_width="9dp"
-        android:layout_height="19dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView89"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView89"
-        app:layout_constraintVertical_bias="0.0" />
+        tools:src="@drawable/arrow_back" />
 
     <TextView
         android:id="@+id/textView89"
@@ -34,8 +24,15 @@
         android:layout_marginStart="16dp"
         android:fontFamily="@font/roboto_medium"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivIconItem"
-        app:layout_constraintStart_toEndOf="@+id/ivIconItem"
-        app:layout_constraintTop_toTopOf="@+id/ivIconItem" />
+        android:layout_weight="1"
+        tools:text="menuItem"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/ivArrow"
+        android:layout_width="9dp"
+        android:layout_height="19dp"
+        android:layout_marginEnd="16dp"
+        app:srcCompat="@drawable/ic_settings_item_arrow_normal" />
+
+</LinearLayout>

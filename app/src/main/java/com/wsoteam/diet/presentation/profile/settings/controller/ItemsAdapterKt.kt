@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.wsoteam.diet.AmplitudaEvents
@@ -49,9 +50,7 @@ class ItemsAdapterKt(val context: Context, isNotPrem: Boolean): RecyclerView.Ada
     override fun onBindViewHolder(itemsViewHolders: ItemsViewHolders, position: Int) {
         itemsViewHolders.bind(context.getString(listItems[position].first),
                 listItems[position].second,
-                context.resources.getColor(getTextColorForPosition(position)),
-                getDrawableArrowForPosition(position),
-                (position == listItems.size - 1)
+                ContextCompat.getColor(context, getTextColorForPosition(position))
         )
     }
 
@@ -62,11 +61,6 @@ class ItemsAdapterKt(val context: Context, isNotPrem: Boolean): RecyclerView.Ada
         else -> R.color.unprem_settings
     }
 
-    private fun getDrawableArrowForPosition(position: Int) = when(listItems[position]){
-        PREMIUM -> R.drawable.ic_settings_item_prem
-        LOGOUT -> R.drawable.ic_settings_item_arrow_normal
-        else -> R.drawable.ic_settings_item_arrow_normal
-    }
 
     override fun getItemCount() = listItems.size
 
@@ -105,8 +99,6 @@ class ItemsAdapterKt(val context: Context, isNotPrem: Boolean): RecyclerView.Ada
         }else{
             context.startActivity(Intent(context, ChangeNormActivity::class.java))
         }
-
-
     }
 
     private fun openPremium(){

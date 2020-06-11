@@ -7,7 +7,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.utils.DrawableUtilsKt;
 
@@ -21,16 +20,12 @@ public class ItemsViewHolders extends RecyclerView.ViewHolder{
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(String name, int drawable, int color, int drawableArrow,
-        boolean isLogOut) {
+    public void bind(String name, int drawable, int color) {
 
         tvName.setText(name);
         tvName.setTextColor(color);
 
         ivIconItem.setImageDrawable(DrawableUtilsKt.getVectorIcon(itemView.getContext(), drawable));
 
-        if (!isLogOut){
-            Picasso.get().load(drawableArrow).into(ivArrow);
-        }
     }
 }
