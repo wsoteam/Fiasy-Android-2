@@ -6,34 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvClickablePrem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="@string/premium_norm_prem"
-        android:textColor="#ef7d02"
-        android:textSize="12sp"
-        android:fontFamily="@font/roboto_medium"
-        app:layout_constraintBottom_toBottomOf="@+id/tvPropPremium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/tvPropPremium"
-        app:layout_constraintTop_toTopOf="@+id/tvPropPremium" />
-
-    <TextView
-        android:id="@+id/tvPropPremium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/set_your_norm_description"
-        android:textColor="#80424242"
-        android:textSize="12sp"
-        android:fontFamily="@font/roboto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.27"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPremiumTitle" />
 
     <TextView
         android:id="@+id/tvPremiumTitle"
@@ -60,7 +32,7 @@
         app:errorTextAppearance="@style/TextInputStyle.Error.ChangeNorm"
         app:hintTextAppearance="@style/TextInputStyle.Hint.ChangeNorm"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPropPremium">
+        app:layout_constraintTop_toBottomOf="@+id/tvPremiumTitle">
 
         <EditText
             android:id="@+id/edtKcal"

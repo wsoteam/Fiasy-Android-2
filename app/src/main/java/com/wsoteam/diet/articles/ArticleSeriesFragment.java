@@ -86,13 +86,13 @@ public class ArticleSeriesFragment extends Fragment {
 
     Intent intent;
 
-//    if (!Subscription.check(getContext()) && article.isPremium()) { TODO
-//      intent = new Intent(getActivity(), ItemArticleWithoutPremActivity.class);
-//    } else {
+    if (!Subscription.check(getContext()) && article.isPremium()) {
+      intent = new Intent(getActivity(), ItemArticleWithoutPremActivity.class);
+    } else {
       intent = new Intent(getActivity(), ItemArticleActivity.class);
-//    }
+    }
     intent.putExtra(Config.ARTICLE_INTENT, article.getId());
 
-    getActivity().startActivity(intent);
+    startActivity(intent);
   }
 }

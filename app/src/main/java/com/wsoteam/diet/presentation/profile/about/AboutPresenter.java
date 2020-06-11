@@ -74,7 +74,9 @@ public class AboutPresenter extends MvpPresenter<AboutView> {
         return true;
     }
 
-
+    public Profile getProfile(){
+        return UserDataHolder.getUserData().getProfile();
+    }
 
 
 }

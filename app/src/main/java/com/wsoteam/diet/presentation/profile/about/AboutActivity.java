@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AlertDialog;
 
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,9 +46,8 @@ import com.wsoteam.diet.presentation.auth.MainAuthNewActivity;
 import com.wsoteam.diet.utils.RichTextUtils;
 import com.wsoteam.diet.utils.RichTextUtilsKt;
 
-import java.util.ArrayList;
-import java.util.Objects;
 
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,8 +83,11 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
     TextView infoForAnonim;
     @BindView(R.id.signIn)
     Button signIn;
+    @BindView(R.id.personalSave)
+    TextView personalSave;
 
     AboutPresenter aboutPresenter;
+    private boolean isPhotoUpdate = false;
 
     @ProvidePresenter
     AboutPresenter providePresenter() {
@@ -122,7 +126,7 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
 
             RichTextUtils.RichText actionSignIn = new  RichTextUtils.RichText(getString(R.string.signIn).toUpperCase())
                    .colorRes(this, R.color.pumpkin_orange);
-            Spannable spannable = RichTextUtilsKt.formatSpannable(getString(R.string.fragment_blocked_normal_text), actionSignIn.text());
+            Spannable spannable = RichTextUtilsKt.formatSpannable(getString(R.string.personal_info_text), actionSignIn.text());
             infoForAnonim.setText(spannable);
 
             signIn.setOnClickListener(v -> startActivity(MainAuthNewActivity.getIntent(this)));
@@ -133,6 +137,7 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         }
 
     }
+
 
     @OnTextChanged(value = R.id.edtName, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void nameChanged(CharSequence text) {
@@ -147,17 +152,39 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
     @OnTextChanged(value = R.id.edtEmail, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void emailChanged(CharSequence text) {
         checkTextInputLayout(tilEmail);
+
     }
 
     private void checkTextInputLayout(TextInputLayout currentTextInputLayout) {
+        isDataChanged();
         if (currentTextInputLayout.getError() != null) {
             currentTextInputLayout.setError("");
         }
     }
 
+    private boolean isDataChanged(){
+        boolean result = isPhotoUpdate;
+        Profile profile = aboutPresenter.getProfile();
+
+        if (!edtName.getText().toString().equals(profile.getFirstName())
+                && !edtName.getText().toString().trim().equals("")) result = true;
+
+        if (!edtSecondName.getText().toString().equals(profile.getLastName())
+                && !edtSecondName.getText().toString().trim().equals("")) result = true;
+
+        if (!edtEmail.getText().toString().equals(profile.getEmail())
+                && !edtEmail.getText().toString().trim().equals("")) result = true;
+
+        personalSave.setEnabled(result);
+        if (result) personalSave.setTextColor(ContextCompat.getColor(this, R.color.pumpkin_orange));
+        else personalSave.setTextColor(ContextCompat.getColor(this, R.color.search_icon_grey));
+
+        return result;
+    }
+
     @Override
     public void bindFields(Profile profile) {
-        if (profile.getFirstName() != null && !profile.getFirstName().equals("default")) {
+        if (profile.getFirstName() != null && !profile.getFirstName().equals("")) {
             edtName.setText(profile.getFirstName());
         }
         if (profile.getLastName() != null && !profile.getLastName().equals("default")) {
@@ -182,7 +209,7 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         }
     }
 
-    @OnClick({R.id.ibBack, R.id.ibMakeImage, R.id.ibSave})
+    @OnClick({R.id.ibBack, R.id.ibMakeImage, R.id.personalSave})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibBack:
@@ -191,8 +218,8 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
             case R.id.ibMakeImage:
                 callCamera();
                 break;
-            case R.id.ibSave:
-                if (checkInputData()) {
+            case R.id.personalSave:
+                if (checkValidInputData()) {
                     if (aboutPresenter.calculateAndSave(edtName.getText().toString(),
                             edtSecondName.getText().toString(), edtEmail.getText().toString())) {
                         Toast.makeText(this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
@@ -203,19 +230,20 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
         }
     }
 
-    private boolean checkInputData() {
-        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        if (!edtName.getText().toString().equals("") && !edtName.getText().toString().replaceAll("\\s+", " ").equals(" ")) {
-            if (edtEmail.getText().toString().matches(emailPattern)) {
-                return true;
-            } else {
-                tilEmail.setError(getString(R.string.check_your_email));
-                return false;
-            }
-        } else {
+    private boolean checkValidInputData() {
+        boolean result = true;
+        Pattern patternEmail = Patterns.EMAIL_ADDRESS;
+        if (edtName.getText().toString().equals("") || edtName.getText().toString().replaceAll("\\s+", " ").equals(" ")) {
             tilName.setError(getString(R.string.check_your_name));
-            return false;
+            result = false;
         }
+
+        if (!patternEmail.matcher(edtEmail.getText().toString()).matches()) {
+            tilEmail.setError(getString(R.string.check_your_email));
+            result = false;
+        }
+
+        return result;
     }
 
     private void callCamera() {
@@ -263,6 +291,8 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
                 aboutPresenter.uploadPhoto((Bitmap) data.getExtras().get("data"));
                 //Glide.with(this).load((Bitmap) data.getExtras().get("data")).into(civProfile);
                 civProfile.setImageBitmap((Bitmap) data.getExtras().get("data"));
+                isPhotoUpdate = true;
+                isDataChanged();
                 //TODO check
                 Log.e("LOL", data.getExtras().toString());
                 Log.e("LOL", FirebaseAuth.getInstance().getUid());

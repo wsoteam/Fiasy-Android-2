@@ -45,22 +45,28 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.renderer.CombinedChartRenderer;
 import com.github.mikephil.charting.renderer.DataRenderer;
 import com.squareup.picasso.Picasso;
+import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.POJOProfile.Profile;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.ads.FiasyAds;
 import com.wsoteam.diet.ads.nativetemplates.NativeTemplateStyle;
 import com.wsoteam.diet.ads.nativetemplates.TemplateView;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.common.views.graph.BarRenderer;
 import com.wsoteam.diet.common.views.graph.LineRenderer;
 import com.wsoteam.diet.common.views.graph.formater.XMonthFormatter;
 import com.wsoteam.diet.common.views.graph.formater.XWeekFormatter;
 import com.wsoteam.diet.common.views.graph.formater.XYearFormatter;
 import com.wsoteam.diet.common.views.graph.marker.BarMarker;
+import com.wsoteam.diet.presentation.auth.AuthUtil;
 import com.wsoteam.diet.presentation.profile.settings.ProfileSettingsActivity;
 
 import com.wsoteam.diet.utils.DrawableUtilsKt;
+import com.wsoteam.diet.utils.Subscription;
 import com.wsoteam.diet.utils.ViewUtils;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -102,6 +108,9 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     TextView tvBottomDateSwitcher;
     @BindView(R.id.rgrpInterval)
     RadioGroup rgrpInterval;
+
+    @BindView(R.id.profilePremium)
+    View profilePremium;
 
     @BindView(R.id.nativeAd)
     TemplateView nativeAd;
@@ -301,6 +310,8 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     @Override
     public void onResume() {
         super.onResume();
+        if (Subscription.check(getContext())) profilePremium.setVisibility(View.INVISIBLE );
+        else profilePremium.setVisibility(View.VISIBLE);
         profilePresenter.attachPresenter();
         clearSwitch();
     }
@@ -324,6 +335,18 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        AuthUtil.Companion.prepareLogInView(getContext(), view.findViewById(R.id.profileLogIn));
+        profilePremium.setOnClickListener(v -> {
+            Box box = new Box();
+            box.setSubscribe(false);
+            box.setOpenFromPremPart(true);
+            box.setOpenFromIntrodaction(false);
+            box.setComeFrom(AmplitudaEvents.view_prem_content);
+            box.setBuyFrom(EventProperties.trial_from_header);  // TODO проверить правильность флагов
+            Intent intent = new Intent(getContext(), ActivitySubscription.class).putExtra(com.wsoteam.diet.Config.TAG_BOX, box);
+            startActivity(intent);
+        });
 
         FiasyAds.getLiveDataAdView().observe(this, ad -> {
             if (ad != null) {

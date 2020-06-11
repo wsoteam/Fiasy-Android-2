@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,7 +21,6 @@ import butterknife.ButterKnife;
 public class ProfileSettingsActivity extends MvpAppCompatActivity implements ProfileSettingsView {
     ProfileSettingsPresenter profileSettingsPresenter;
     @BindView(R.id.rvSettingsItems) RecyclerView rvSettingsItems;
-    @BindView(R.id.mlParent) MotionLayout mlParent;
     ImageButton  ibBack;
 
 

@@ -46,6 +46,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
       //long day = (new Date().getTime() - UserDataHolder.getUserData().getArticleSeries().get("burlakov")) / (60*60*24*1000);
       int day = UserDataHolder.getUserData().getArticleSeries().get("burlakov").getUnlockedArticles();
        isActive = day > position - 1;
+//      isActive = true;
     }
 
     ((SeriesViewHolder)holder).bind(articles.get(position - 1), position, isActive,

@@ -26,6 +26,7 @@ import com.wsoteam.diet.POJOProfile.Profile
 import com.wsoteam.diet.R
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
 import com.wsoteam.diet.common.Analytics.EventProperties
+import com.wsoteam.diet.presentation.auth.AuthUtil
 import com.wsoteam.diet.presentation.auth.MainAuthNewActivity
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
 import com.wsoteam.diet.presentation.fab.FabMenuViewModel
@@ -121,19 +122,15 @@ class DiaryFragment : Fragment() {
 
         WorkWithFirebaseDB.setFirebaseStateListener()
 
-        logIn.visibility = if (FirebaseAuth.getInstance().currentUser?.isAnonymous == false) View.INVISIBLE else View.VISIBLE
-        logIn.setOnClickListener {
-            startActivity(Intent(context, MainAuthNewActivity::class.java).putExtra(Config.CREATE_PROFILE, true)
-                    .putExtra(Config.INTENT_PROFILE, Profile()))
+        AuthUtil.prepareLogInView(context, logIn)
 
-        }
         premium.setOnClickListener {
             val box = Box()
             box.isSubscribe = false
             box.isOpenFromPremPart = true
             box.isOpenFromIntrodaction = false
             box.comeFrom = AmplitudaEvents.view_prem_content
-            box.buyFrom = EventProperties.trial_from_header
+            box.buyFrom = EventProperties.trial_from_header // TODO проверить правильность флагов
             val intent: Intent = Intent(context, ActivitySubscription::class.java).putExtra(Config.TAG_BOX, box)
             startActivity(intent)
         }

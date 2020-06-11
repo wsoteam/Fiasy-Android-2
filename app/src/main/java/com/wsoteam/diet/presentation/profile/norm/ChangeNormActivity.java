@@ -30,6 +30,7 @@ import com.wsoteam.diet.common.Analytics.Events;
 import com.wsoteam.diet.presentation.profile.norm.choise.activity.ActivActivity;
 import com.wsoteam.diet.presentation.profile.norm.choise.goal.GoalActivity;
 
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -48,8 +49,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     @BindView(R.id.edtGoal) EditText edtGoal;
     private ChangeNormPresenter presenter;
 
-    @BindView(R.id.tvPropPremium) TextView tvPropPremium;
-    @BindView(R.id.tvClickablePrem) TextView tvClickablePrem;
+
     @BindView(R.id.edtKcal) EditText edtKcal;
     @BindView(R.id.edtProt) EditText edtProt;
     @BindView(R.id.edtCarbo) EditText edtCarbo;
@@ -62,9 +62,18 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     @BindView(R.id.tilCarbo) TextInputLayout tilCarbo;
     @BindView(R.id.tilFats) TextInputLayout tilFats;
 
+    @BindView(R.id.normalSave) TextView normalSave;
+
     @BindView(R.id.nativeAd) TemplateView nativeAd;
 
-    private boolean isPremUser = false;
+    private boolean isResumed = false;
+
+    private void datChanged(){
+        if (isResumed) {
+            normalSave.setEnabled(true);
+            normalSave.setTextColor(ContextCompat.getColor(this, R.color.pumpkin_orange));
+        }
+    }
 
     private final double PROTEIN_COUNT = 0.1, FAT_COUNT = 0.027, CARBO_COUNT = 0.0875;
     private TextWatcher kcalTW = new TextWatcher() {
@@ -83,6 +92,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
                 recountMainParams(Integer.parseInt(charSequence.toString()));
             }
 
+
             if (tvFormulaHint.getVisibility() == View.VISIBLE) {
                 setDropModeOn();
             }
@@ -90,7 +100,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
 
         @Override
         public void afterTextChanged(Editable editable) {
-
+            datChanged();
         }
     };
 
@@ -110,7 +120,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
 
         @Override
         public void afterTextChanged(Editable editable) {
-
+            datChanged();
         }
     };
 
@@ -130,7 +140,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
 
         @Override
         public void afterTextChanged(Editable editable) {
-
+            datChanged();
         }
     };
 
@@ -150,7 +160,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
 
         @Override
         public void afterTextChanged(Editable editable) {
-
+            datChanged();
         }
     };
 
@@ -182,7 +192,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         edtCarbo.setText(String.valueOf(profile.getMaxCarbo()));
         edtFats.setText(String.valueOf(profile.getMaxFat()));
         edtProt.setText(String.valueOf(profile.getMaxProt()));
-        bindPremiumUI();
+//        bindPremiumUI();
         if (!presenter.isDefaultParams()) {
             setDropModeOn();
         }
@@ -205,6 +215,12 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
 
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        isResumed = true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_norm);
@@ -224,39 +240,23 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         });
     }
 
-    private void bindPremiumUI() {
-        isPremUser = getSharedPreferences(com.wsoteam.diet.Config.STATE_BILLING, MODE_PRIVATE)
-                .getBoolean(com.wsoteam.diet.Config.STATE_BILLING, false);
-        if (isPremUser) {
-            tvPropPremium.setVisibility(View.GONE);
-            tvClickablePrem.setVisibility(View.GONE);
-            edtKcal.setEnabled(true);
-            edtProt.setEnabled(true);
-            edtCarbo.setEnabled(true);
-            edtFats.setEnabled(true);
-        } else {
-            tvPropPremium.setVisibility(View.VISIBLE);
-            tvClickablePrem.setVisibility(View.VISIBLE);
-            edtKcal.setEnabled(false);
-            edtProt.setEnabled(false);
-            edtCarbo.setEnabled(false);
-            edtFats.setEnabled(false);
-        }
-    }
 
     @OnTextChanged(value = R.id.edtHeight, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void heightChanged(CharSequence text) {
         removeError(tilHeight);
+        datChanged();
     }
 
     @OnTextChanged(value = R.id.edtWeight, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void weightChanged(CharSequence text) {
         removeError(tilWeight);
+        datChanged();
     }
 
     @OnTextChanged(value = R.id.edtAge, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void ageChanged(CharSequence text) {
         removeError(tilAge);
+        datChanged();
     }
 
     private void setDropModeOn() {
@@ -287,13 +287,13 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         }
     }
 
-    @OnClick({R.id.ibSave, R.id.ibBack, R.id.edtSex, R.id.edtActivity, R.id.edtGoal, R.id.tvPropPremium, R.id.tvClickablePrem, R.id.btnReturnParametrs})
+    @OnClick({R.id.normalSave, R.id.ibBack, R.id.edtSex, R.id.edtActivity, R.id.edtGoal, R.id.btnReturnParametrs})
     public void onViewClicked(View view) {
 
         switch (view.getId()) {
-            case R.id.ibSave:
+            case R.id.normalSave:
                 if (isNoErrorInMainParams() && isNoErrorInPremParams()) {
-                    if (isPremUser && isDropModeOn()) {
+                    if (isDropModeOn()) {
                         presenter.onlySave(edtHeight.getText().toString(), edtWeight.getText().toString(),
                                 edtAge.getText().toString(), edtSex.getText().toString(), edtActivity.getText().toString(),
                                 edtGoal.getText().toString(), edtKcal.getText().toString(), edtProt.getText().toString(),
@@ -315,14 +315,12 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
             case R.id.edtActivity:
                 hideKeayboard();
                 startActivityForResult(new Intent(this, ActivActivity.class).putExtra(Config.ACTIVITY, edtActivity.getText().toString()), Config.ACTIVITY_CHANGE);
+                datChanged();
                 break;
             case R.id.edtGoal:
                 hideKeayboard();
                 startActivityForResult(new Intent(this, GoalActivity.class).putExtra(Config.GOAL, edtGoal.getText().toString()), Config.GOAL_CHANGE);
-                break;
-            case R.id.tvPropPremium:
-            case R.id.tvClickablePrem:
-                openPrem();
+                datChanged();
                 break;
             case R.id.btnReturnParametrs:
                 setDefaultPremParameters();
@@ -344,14 +342,6 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         presenter.dropParams();
     }
 
-    private void openPrem() {
-        Box box = new Box();
-        box.setComeFrom(AmplitudaEvents.view_prem_settings);
-        box.setBuyFrom(EventProperties.trial_from_norm);
-        box.setOpenFromPremPart(true);
-        box.setOpenFromIntrodaction(false);
-        startActivity(new Intent(this, ActivitySubscription.class).putExtra(com.wsoteam.diet.Config.TAG_BOX, box));
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
