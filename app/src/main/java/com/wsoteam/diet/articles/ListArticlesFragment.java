@@ -26,6 +26,9 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Authenticate.POJO.Box;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.Sync.UserDataHolder;
 import com.wsoteam.diet.ads.AdVH;
 import com.wsoteam.diet.ads.AdWorker;
@@ -34,6 +37,7 @@ import com.wsoteam.diet.ads.FiasyAds;
 import com.wsoteam.diet.articles.recycler.HorizontalArticlesAdapter;
 import com.wsoteam.diet.articles.recycler.ListArticlesAdapter;
 import com.wsoteam.diet.articles.recycler.VerticalArticlesAdapter;
+import com.wsoteam.diet.common.Analytics.EventProperties;
 import com.wsoteam.diet.model.Article;
 import com.wsoteam.diet.articles.POJO.ListArticles;
 import com.wsoteam.diet.articles.POJO.SectionArticles;
@@ -42,6 +46,7 @@ import com.wsoteam.diet.R;
 
 import com.wsoteam.diet.model.ApiResult;
 import com.wsoteam.diet.model.ArticleViewModel;
+import com.wsoteam.diet.presentation.auth.AuthUtil;
 import com.wsoteam.diet.utils.Subscription;
 
 import java.util.ArrayList;
@@ -58,6 +63,8 @@ public class ListArticlesFragment extends Fragment implements Observer {
   @BindView(R.id.rvArticle) RecyclerView recyclerView;
   @BindView(R.id.toolbar) Toolbar mToolbar;
   @BindView(R.id.appbar) AppBarLayout appBarLayout;
+  @BindView(R.id.articlePremium) View articlePremium;
+
   private Unbinder unbinder;
   private ListArticlesAdapter adapter;
   private VerticalArticlesAdapter verticalArticlesAdapter;
@@ -116,11 +123,8 @@ public class ListArticlesFragment extends Fragment implements Observer {
       };
 
   private ListArticlesAdapter.OnItemClickListener clickListener =
-      new ListArticlesAdapter.OnItemClickListener() {
-        @Override public void onItemClick(View view, Article article) {
-          startDetailActivity(article);
-        }
-      };
+          (view, article) -> startDetailActivity(article);
+
   private View.OnClickListener onClickListener = new View.OnClickListener() {
     @Override public void onClick(View view) {
       isSubSection = false;
@@ -129,6 +133,12 @@ public class ListArticlesFragment extends Fragment implements Observer {
       mToolbar.setNavigationIcon(null);
     }
   };
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    Subscription.setVisibility(articlePremium);
+  }
 
   private SearchView.OnQueryTextListener textListener = new SearchView.OnQueryTextListener() {
     @Override
@@ -172,6 +182,8 @@ public class ListArticlesFragment extends Fragment implements Observer {
     SearchView mSearchView = (SearchView) mSearch.getActionView();
     mSearchView.setOnQueryTextListener(textListener);
 
+    AuthUtil.Companion.prepareLogInView(getContext(), view.findViewById(R.id.articleLogIn));
+
     adapter = new ListArticlesAdapter(null, clickListener);
     verticalArticlesAdapter = new VerticalArticlesAdapter(null);
 
@@ -205,6 +217,19 @@ public class ListArticlesFragment extends Fragment implements Observer {
           firstVisibleItem = linearLayoutManager1.findFirstVisibleItemPosition();
         appBarLayout.setLiftable(firstVisibleItem == 0);
       }
+    });
+
+    articlePremium.setOnClickListener(v -> {
+
+      Box box = new Box();
+        box.setSubscribe(false);
+        box.setOpenFromPremPart(true);
+        box.setOpenFromIntrodaction(false);
+        box.setComeFrom(AmplitudaEvents.view_prem_content);
+        box.setBuyFrom(EventProperties.trial_from_header); // TODO проверить правильность флагов
+        Intent intent = new Intent(getContext(), ActivitySubscription.class).putExtra(Config.TAG_BOX, box);
+        startActivity(intent);
+
     });
 
   }

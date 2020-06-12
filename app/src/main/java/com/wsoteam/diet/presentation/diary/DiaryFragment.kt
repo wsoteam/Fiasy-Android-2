@@ -244,7 +244,8 @@ class DiaryFragment : Fragment() {
 
         container.translationY = 0f
 
-        premium.visibility = if (Subscription.check(context)) View.INVISIBLE else View.VISIBLE
+        Subscription.setVisibility(premium)
+
     }
 
     override fun onPause() {

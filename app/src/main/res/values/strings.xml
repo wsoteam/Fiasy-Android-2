@@ -1334,4 +1334,10 @@ Share your accomplishments with friends:</string>
     <string name="fragment_blocked_normal_text">Необходимо %s в приложение, чтобы появилась возможность менять КБЖУ</string>
     <string name="personal_info_text">Необходимо %s в приложение, чтобы личная информация отображалась полностью</string>
 
+    <string name="premium_text_g">Худеть легко вместе с %s, комфортное ведение дневника и персональный подход </string>
+    <string name="premium_G_field_1">Отсутствие банерной рекламы</string>
+    <string name="premium_G_field_2">Отсутствие всплывающей рекламы</string>
+    <string name="premium_G_field_3">Эксклюзивные статьи от диетолога</string>
+    <string name="premium_g_button_txt">Продолжить бесплатно 7 дней</string>
+
 </resources>

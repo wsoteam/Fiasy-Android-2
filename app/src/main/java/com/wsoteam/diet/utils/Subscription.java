@@ -3,6 +3,7 @@ package com.wsoteam.diet.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.View;
 
 import com.wsoteam.diet.Config;
 
@@ -21,5 +22,13 @@ public class Subscription {
         SharedPreferences sharedPreferences = context.getSharedPreferences(Config.STATE_BILLING, MODE_PRIVATE);
         return sharedPreferences.getBoolean(Config.STATE_BILLING, false);
 //        return true;
+    }
+
+    public static void setVisibility(View view){
+        if (Subscription.check(view.getContext())){
+            view.setVisibility(View.INVISIBLE);
+        }else {
+            view.setVisibility(View.VISIBLE);
+        }
     }
 }

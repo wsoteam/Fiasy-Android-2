@@ -29,7 +29,7 @@ import com.wsoteam.diet.presentation.global.Screens
 import com.wsoteam.diet.presentation.plans.DateHelper
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansActivity
 import com.wsoteam.diet.presentation.plans.detail.DetailPlansActivity
-import com.wsoteam.diet.presentation.plans.detail.day.CurrentDayPlanAdapter
+import com.wsoteam.diet.presentation.plans.detail.day.CurrentDayPlanAdapterKt
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
@@ -50,7 +50,7 @@ class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
 
   private var day: Int = 0
   private var daysPicked: Int = 0
-  private val adapter = CurrentDayPlanAdapter()
+  private val adapter = CurrentDayPlanAdapterKt()
   private val layoutManager = LinearLayoutManager(context)
   private var recipeForDay: RecipeForDay? = null
   private var updateCallback: UpdateCallback? = null
@@ -73,12 +73,14 @@ class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
     recyclerView.layoutManager = layoutManager
     recyclerView.adapter = adapter
 
-    adapter.SetOnItemClickListener(object : CurrentDayPlanAdapter.OnItemClickListener {
+//    adapter.mItemClickListener
+
+    adapter.mItemClickListener = object : CurrentDayPlanAdapterKt.OnItemClickListener {
       override fun onItemClick(
-        recipeItem: RecipeItem?,
-        days: String?,
+        recipeItem: RecipeItem,
+        days: String,
         meal: String?,
-        recipeNumber: String?
+        recipeNumber: String
       ) {
         val screen = Screens.PlanRecipeScreen(
             recipeItem,
@@ -91,13 +93,13 @@ class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
       override fun onButtonClick(
         recipeItem: RecipeItem,
         day: String,
-        meal: String,
+        meal: String?,
         recipeNumber: String
       ) {
-        savePortion(recipeItem, day, meal, recipeNumber)
+        savePortion(recipeItem, day, meal ?: "", recipeNumber)
         updateCallback?.update()
       }
-    })
+    }
 
     planName.setOnClickListener {
       val intent = Intent(context, DetailPlansActivity::class.java)
@@ -232,11 +234,11 @@ class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
     val isCurrentDay = daysPicked == day
     if (recipeForDay != null) {
       when (tab?.position) {
-        1 -> adapter.updateList(recipeForDay?.lunch, isCurrentDay, daysPicked, "lunch")
-        2 -> adapter.updateList(recipeForDay?.dinner, isCurrentDay, daysPicked, "dinner")
-        3 -> adapter.updateList(recipeForDay?.snack, isCurrentDay, daysPicked, "snack")
+        1 -> adapter.updateList(recipeForDay!!.lunch, isCurrentDay, daysPicked, "lunch")
+        2 -> adapter.updateList(recipeForDay!!.dinner, isCurrentDay, daysPicked, "dinner")
+        3 -> adapter.updateList(recipeForDay!!.snack, isCurrentDay, daysPicked, "snack")
         else -> adapter.updateList(
-            recipeForDay?.breakfast, isCurrentDay, daysPicked, "breakfast"
+            recipeForDay!!.breakfast, isCurrentDay, daysPicked, "breakfast"
         )
       }
     }
@@ -322,7 +324,7 @@ class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
   }
 
   private fun setAddedInDiaryFromPlan(recipeNumber: String) {
-    val recipeItemList = adapter.lisrRecipe
+    val recipeItemList = adapter.currentList
 
     if (recipeItemList != null) {
       val recipeItem = recipeItemList[Integer.parseInt(recipeNumber)]

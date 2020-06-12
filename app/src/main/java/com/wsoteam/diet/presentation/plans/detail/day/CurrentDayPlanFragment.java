@@ -58,7 +58,7 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
   @BindView(R.id.textView154) TextView dayTextView;
 
   private LinearLayoutManager layoutManager;
-  private CurrentDayPlanAdapter adapter;
+  private CurrentDayPlanAdapterKt adapter;
   private RecipeForDay recipeForDay;
   private int day;
   private int daysPicked;
@@ -79,8 +79,9 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
     layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
     recyclerView.setLayoutManager(layoutManager);
 
-    adapter = new CurrentDayPlanAdapter();
-    adapter.SetOnItemClickListener(mItemClickListener);
+    adapter = new CurrentDayPlanAdapterKt();
+    adapter.setMItemClickListener(mItemClickListener);
+//    adapter.SetOnItemClickListener(mItemClickListener);
 
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setAdapter(adapter);
@@ -162,8 +163,8 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
     }
   }
 
-  CurrentDayPlanAdapter.OnItemClickListener mItemClickListener =
-      new CurrentDayPlanAdapter.OnItemClickListener() {
+  CurrentDayPlanAdapterKt.OnItemClickListener mItemClickListener =
+      new CurrentDayPlanAdapterKt.OnItemClickListener() {
         @Override
         public void onItemClick(RecipeItem recipeItem, String days, String meal,
             String recipeNumber) {
@@ -305,7 +306,7 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
 
   private void setAddedInDiaryFromPlan(String recipeNumber) {
 
-    List<RecipeItem> recipeItemList = adapter.getLisrRecipe();
+    List<RecipeItem> recipeItemList = adapter.getCurrentList();
 
     if (recipeItemList != null){
       RecipeItem recipeItem = recipeItemList.get(Integer.parseInt(recipeNumber));
