@@ -64,6 +64,16 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
     ConstraintLayout clReminderBack;
     @BindView(R.id.layoutCommonInfo)
     ConstraintLayout layoutCommonInfo;
+    @BindView(R.id.divider5)
+    View divider;
+    @BindView(R.id.allCalories)
+    TextView allCalories;
+    @BindView(R.id.allProt)
+    TextView allProt;
+    @BindView(R.id.allCarbo)
+    TextView allCarbo;
+    @BindView(R.id.allFat)
+    TextView allFat;
     private boolean isButtonPressed = true;
     private final int BREAKFAST = 0, LUNCH = 1, DINNER = 2, SNACK = 3;
     private final int BREAKFAST_TIME = 9, LUNCH_TIME = 13, DINNER_TIME = 18, SNACK_TIME = 24;
@@ -84,7 +94,7 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         this.updateCallback = updateCallback;
     }
 
-    public void bind(List<Eating> eatingGroup, Context context, String nameOfEatingGroup) {
+    public void bind(List<Eating> eatingGroup, Context context, String nameOfEatingGroup, boolean isHideDivider) {
         this.eatingGroup = eatingGroup;
         setCPFC();
         setIconAndTime();
@@ -93,6 +103,26 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         rvListOfFoodEatingCard.setAdapter(new InsideAdapter(eatingGroup,
                 context, true, getAdapterPosition(), this::refreshUI).setUpdateCallback(updateCallback));
         setExpandableView();
+        if (isHideDivider) divider.setVisibility(View.INVISIBLE);
+        else divider.setVisibility(View.VISIBLE);
+
+        int proteins = 0, fats = 0, carbohydrates = 0, calories = 0;
+        for (Eating e: eatingGroup) {
+            calories += e.getCalories();
+            proteins += e.getProtein();
+            fats += e.getFat();
+            carbohydrates += e.getCarbohydrates();
+        }
+        if (calories > 0){
+            allCalories.setText(String.format(context.getString(R.string.n_KCal), calories));
+            allProt.setText(String.format(context.getString(R.string.search_food_activity_prot), proteins));
+            allFat.setText(String.format(context.getString(R.string.search_food_activity_fat), fats));
+            allCarbo.setText(String.format(context.getString(R.string.search_food_activity_carbo), carbohydrates));
+        }
+        else{
+            allCalories.setText("");
+        }
+
 //        if (isNeedRemind()) remind(nameOfEatingGroup);
     }
 

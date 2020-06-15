@@ -71,7 +71,7 @@ public class EatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
 
         if (holder instanceof EatingViewHolder) {
-            ((EatingViewHolder) holder).bind(allEatingGroups.get(position), context, nameOfGroup);
+            ((EatingViewHolder) holder).bind(allEatingGroups.get(position), context, nameOfGroup, position == getItemCount() - 1);
         } else if (holder instanceof WaterViewHolder) {
             ((WaterViewHolder) holder).bind(allEatingGroups.get(position).size() == 0 ? null :
                 (Water) (allEatingGroups.get(position).get(0)), context, nameOfGroup);

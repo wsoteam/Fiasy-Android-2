@@ -3,6 +3,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
@@ -61,10 +62,63 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:backgroundTint="@color/white"
-            app:srcCompat="@drawable/close_eating_list"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTitleOfEatingCard"
             app:layout_constraintStart_toEndOf="@+id/tvCount"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/tvTitleOfEatingCard"
+            app:layout_constraintVertical_bias="0.5"
+            app:srcCompat="@drawable/close_eating_list" />
+
+        <TextView
+            android:id="@+id/allCalories"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:textAlignment="textEnd"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/allCarbo"
+            tools:text="666 Ккал" />
+
+        <TextView
+            android:id="@+id/allProt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/allFat"
+            app:layout_constraintHorizontal_bias="0.46"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="666 Ккал" />
+
+        <TextView
+            android:id="@+id/allFat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/allCarbo"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/allProt"
+            tools:text="666 Ккал" />
+
+        <TextView
+            android:id="@+id/allCarbo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/allCalories"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/allFat"
+            tools:text="666 Ккал" />
 
         <ImageButton
             android:id="@+id/ibtnOpenMenu"
@@ -73,10 +127,11 @@
             android:layout_marginEnd="12dp"
             android:background="@drawable/filter_state"
             android:padding="10dp"
-            app:srcCompat="@drawable/ic_open_menu"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_open_menu" />
 
         <ImageButton
             android:id="@+id/imbAddFood"
@@ -85,10 +140,10 @@
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/white"
             android:padding="10dp"
-            app:srcCompat="@drawable/ic_eating_fab"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/allCalories"
             app:layout_constraintEnd_toStartOf="@+id/ibtnOpenMenu"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_eating_fab" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -273,6 +328,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
 
 </LinearLayout>
 
