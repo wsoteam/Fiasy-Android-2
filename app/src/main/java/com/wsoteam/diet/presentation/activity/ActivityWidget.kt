@@ -1,35 +1,29 @@
 package com.wsoteam.diet.presentation.activity
 
 import android.content.Context
-import android.text.TextUtils
-import android.text.method.LinkMovementMethod
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.FrameLayout
 import androidx.appcompat.widget.PopupMenu
-import androidx.cardview.widget.CardView
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.wsoteam.diet.R
-import com.wsoteam.diet.R.string
 import com.wsoteam.diet.presentation.diary.DiaryViewModel
-import com.wsoteam.diet.utils.RichTextUtils.RichText
-import com.wsoteam.diet.utils.getVectorIcon
-import com.wsoteam.diet.utils.tint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ActivityWidget(context: Context) : CardView(context) {
-  private val actionShowAll: TextView
+class ActivityWidget(context: Context) : FrameLayout(context) {
+
   private val activityContainer: ViewGroup
-  private val emptyState: View
-  private val emptyStateText: TextView
+  private val actionAddActivity: ViewGroup
+  private val divider: View
 
   private val disposables = CompositeDisposable()
   private val myActivitySource = DiaryActivitiesSource
@@ -43,27 +37,10 @@ class ActivityWidget(context: Context) : CardView(context) {
     inflate(context, R.layout.widget_user_activity, this)
 
     activityContainer = findViewById(R.id.activities_container)
-    emptyState = findViewById(R.id.empty_state)
-    emptyStateText = findViewById(R.id.empty_description)
+    actionAddActivity = findViewById(R.id.action_add_activity)
+    divider = findViewById(R.id.divider3)
 
-    val addAction = RichText(context.getString(string.add))
-      .onClick(OnClickListener {
-        display(UserActivityFragment())
-      })
-      .colorRes(context, R.color.orange_light3)
-      .textScale(1.2f)
-      .text()
-
-    emptyStateText.text = TextUtils.concat(emptyStateText.text, "\n", addAction)
-    emptyStateText.movementMethod = LinkMovementMethod.getInstance()
-
-    val d = context.getVectorIcon(R.drawable.ic_arrow_forward_black_24dp)
-
-    actionShowAll = findViewById(R.id.action_show_all)
-    actionShowAll.setCompoundDrawablesWithIntrinsicBounds(null, null,
-        d.tint(context, R.color.orange_light3), null)
-
-    actionShowAll.setOnClickListener {
+    actionAddActivity.setOnClickListener {
       display(UserActivityFragment())
     }
   }
@@ -87,7 +64,7 @@ class ActivityWidget(context: Context) : CardView(context) {
   }
 
   private fun displayActivities(activities: List<ActivityModel>) {
-    emptyState.visibility = if (activities.isEmpty()) View.VISIBLE else View.GONE
+    divider.visibility = if (activities.isEmpty()) View.INVISIBLE else View.VISIBLE
 
     activityContainer.removeAllViewsInLayout()
 
@@ -105,6 +82,7 @@ class ActivityWidget(context: Context) : CardView(context) {
 
     activityContainer.requestLayout()
     activityContainer.invalidate()
+
   }
 
   private fun openMenu(v: View, activity: ActivityModel) {
@@ -126,7 +104,7 @@ class ActivityWidget(context: Context) : CardView(context) {
           disposables.add(myActivitySource.remove(activity)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe())
+            .subscribe { _ -> Log.d("kkk", "delete + ${activityContainer.isEmpty()}")})
         }
       }
 

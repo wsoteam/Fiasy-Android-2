@@ -31,45 +31,46 @@
         android:id="@+id/weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="36sp"
+        android:layout_gravity="center"
         android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-medium"
-        android:textStyle="normal"
-        android:textColor="#d9424242"
         android:lineSpacingExtra="16sp"
-        android:layout_gravity="center"
-        tools:text="75.4 кг"
-        />
+        android:textColor="#d9424242"
+        android:textSize="36sp"
+        android:textStyle="normal"
+        tools:text="-" />
 
     <TextView
         android:id="@+id/last_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:fontFamily="sans-serif"
-        android:textStyle="normal"
-        android:textColor="#51000000"
-        android:lineSpacingExtra="7sp"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:text="@string/meas_without_meas"
-        />
+        android:fontFamily="sans-serif"
+        android:lineSpacingExtra="7sp"
+        android:text="@string/set_your_weight"
+        android:textColor="#51000000"
+        android:textSize="14sp"
+        android:textStyle="normal" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/action_refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:fontFamily="sans-serif-medium"
-        android:textStyle="normal"
-        android:textColor="@color/orange_light3"
-        android:lineSpacingExtra="8sp"
         android:layout_gravity="center"
-        android:paddingTop="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:lineSpacingExtra="8sp"
         android:paddingLeft="8dp"
+        android:paddingTop="4dp"
         android:paddingRight="8dp"
         android:paddingBottom="8dp"
+        android:drawableStart="@drawable/ic_repeat"
+        app:drawableTint="#51000000"
+        android:drawablePadding="8dp"
         android:text="@string/go_update"
-        />
+        android:textAllCaps="true"
+        android:textColor="#51000000"
+        android:textSize="16sp"
+        android:textStyle="normal" />
   </LinearLayout>
 </androidx.cardview.widget.CardView>
