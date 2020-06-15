@@ -3,11 +3,12 @@ package com.wsoteam.diet.presentation.diary
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.CountDownTimer
-import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.cardview.widget.CardView
+import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,15 +24,21 @@ import com.wsoteam.diet.Recipes.POJO.RecipeItem
 import com.wsoteam.diet.Recipes.POJO.plan.RecipeForDay
 import com.wsoteam.diet.Sync.UserDataHolder
 import com.wsoteam.diet.Sync.WorkWithFirebaseDB
-import com.wsoteam.diet.model.*
+import com.wsoteam.diet.common.Analytics.Events
+import com.wsoteam.diet.model.Breakfast
+import com.wsoteam.diet.model.Dinner
+import com.wsoteam.diet.model.Lunch
+import com.wsoteam.diet.model.Snack
 import com.wsoteam.diet.presentation.diary.DiaryViewModel.DiaryDay
 import com.wsoteam.diet.presentation.global.Screens
 import com.wsoteam.diet.presentation.plans.DateHelper
 import com.wsoteam.diet.presentation.plans.browse.BrowsePlansActivity
 import com.wsoteam.diet.presentation.plans.detail.DetailPlansActivity
 import com.wsoteam.diet.presentation.plans.detail.day.CurrentDayPlanAdapterKt
-import java.util.Calendar
+import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.HashMap
+import kotlin.collections.set
 
 class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
   TabLayout.BaseOnTabSelectedListener<Tab> {
@@ -40,13 +47,15 @@ class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
   private val tabLayout: TabLayout = itemView.findViewById(R.id.tabs)
   private val activePlan: ConstraintLayout = itemView.findViewById(R.id.clRecipes)
   private val notActivePlan: ConstraintLayout = itemView.findViewById(R.id.clNotActivePlan)
-  private val finishPlan: CardView = itemView.findViewById(R.id.cvFinishPlan)
+  private val finishPlan: ConstraintLayout = itemView.findViewById(R.id.clFinishPlan)
   private val planName: TextView = itemView.findViewById(R.id.tvPlanName)
   private val dayText: TextView = itemView.findViewById(R.id.textView154)
   private val titleFinishPlan: TextView = itemView.findViewById(R.id.titleFinishPlan)
   private val viewPlans: TextView = itemView.findViewById(R.id.tvViewPlans)
   private val closePlansWindw: ImageView = itemView.findViewById(R.id.ivClosePlan)
   private val viewOtherPlans: TextView = itemView.findViewById(R.id.tvViewcOtherPlans)
+  private val openMenu: View = itemView.findViewById(R.id.openMenu)
+  private val llRecycler: LinearLayout = itemView.findViewById(R.id.llRecycler)
 
   private var day: Int = 0
   private var daysPicked: Int = 0
@@ -55,6 +64,8 @@ class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
   private var recipeForDay: RecipeForDay? = null
   private var updateCallback: UpdateCallback? = null
   private var currentTask: CountDownTimer? = null
+
+  private val ARG_COLLAPSE = "ARG_COLAPSE"
 
   private val calendarChangesObserver = Observer<DiaryDay> {
     checkStatus()
@@ -120,6 +131,60 @@ class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
       UserDataHolder.getUserData()?.plan = null
       context.startActivity(Intent(context, BrowsePlansActivity::class.java))
     }
+
+    openMenu.setOnClickListener { showPopupMenu(it) }
+  }
+
+  private fun collapseRecycler(){
+    llRecycler.visibility = View.GONE
+  }
+
+  private fun showRecycler(){
+
+    llRecycler.visibility = View.VISIBLE
+  }
+
+  private fun showPopupMenu(view: View){
+
+    val popupMenu = PopupMenu(context, view)
+    popupMenu.inflate(
+            if (isWidgetCollapsed()) R.menu.diet_plan_widget_collapsed
+            else R.menu.diet_plan_widget_opened)
+
+    popupMenu.setOnMenuItemClickListener { item: MenuItem ->
+      when (item.itemId) {
+        R.id.stop -> {
+          Events.logPlanLeave(UserDataHolder.getUserData().plan.flag, UserDataHolder.getUserData().plan.daysAfterStart)
+          WorkWithFirebaseDB.leaveDietPlan()
+          UserDataHolder.getUserData().plan = null
+          checkStatus()
+          true
+        }
+        R.id.hideWidget -> {
+          collapseRecycler()
+          setWidgetCollapsed(true)
+          true
+        }
+        R.id.showWidget -> {
+          showRecycler()
+          setWidgetCollapsed(false)
+          true
+        }
+        else -> false
+      }
+    }
+
+    popupMenu.show()
+  }
+
+  private fun isWidgetCollapsed(): Boolean{
+    val sharedPref = context.getSharedPreferences("${context.packageName}.widgetPref", MODE_PRIVATE)
+    return sharedPref.getBoolean(ARG_COLLAPSE, false)
+  }
+
+  private fun setWidgetCollapsed(isCollapse: Boolean){
+    val sharedPref = context.getSharedPreferences("${context.packageName}.widgetPref", MODE_PRIVATE)
+    sharedPref.edit().putBoolean(ARG_COLLAPSE, isCollapse).apply()
   }
 
   override fun onAttached(parent: RecyclerView) {
@@ -159,6 +224,8 @@ class   MealPlanWidgetKt(itemView: View) : WidgetsAdapter.WidgetView(itemView),
           (currentDate.time.minus(startDay.time.time)),
           TimeUnit.MILLISECONDS
       ).toInt()
+
+      if (isWidgetCollapsed()) collapseRecycler() else showRecycler()
 
       if (!DiaryViewModel.isToday) {
         if (currentDate.before(startDay.time) || currentDate.after(endDay.time)) {

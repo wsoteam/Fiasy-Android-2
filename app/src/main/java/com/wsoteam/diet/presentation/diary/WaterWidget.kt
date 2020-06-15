@@ -5,9 +5,9 @@ import android.content.Intent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
-import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.wsoteam.diet.R
@@ -30,11 +30,14 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
   private val waterAchievement: FrameLayout = itemView.findViewById(R.id.waterAchievement)
   private val waterReminder: TextView = itemView.findViewById(R.id.tvEatingReminder)
   private val openWaterSettings: ImageButton = itemView.findViewById(R.id.ibtnOpenMenu)
+  private val clReminderBack: LinearLayout = itemView.findViewById(R.id.clReminderBack)
 
   private val waterStep = WaterActivity.PROGRESS_STEP
   private val waterMaxValue = 5
   private val disposables = CompositeDisposable()
   private var water: Water? = null
+
+  private val ARG_COLLAPSE = "ARG_COLLAPSE_WATER_WIDGET"
 
   private val dateObserver = Observer<DiaryDay> { date ->
     if (date != null) {
@@ -50,6 +53,11 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
 
   init {
     stepView.setMaxProgress((waterMaxValue / waterStep).toInt())
+
+    if (isWidgetCollapsed()) {
+      clReminderBack.visibility = View.GONE
+    }
+
   }
 
   override fun onAttached(parent: RecyclerView) {
@@ -121,14 +129,40 @@ class WaterWidget(itemView: View) : WidgetsAdapter.WidgetView(itemView) {
 
   private fun createPopupMenu(context: Context, button: ImageButton) {
     val popupMenu = PopupMenu(context, button)
-    popupMenu.inflate(R.menu.dots_popup_menu_water)
+    popupMenu.inflate(
+            if (isWidgetCollapsed()) R.menu.water_widget_collapsed
+            else R.menu.water_widget_opened)
+
     popupMenu.show()
     popupMenu.setOnMenuItemClickListener { menuItem ->
       when (menuItem.itemId) {
-        R.id.water_settings -> context.startActivity(Intent(context, WaterActivity::class.java))
+        R.id.waterSettings -> {
+          context.startActivity(Intent(context, WaterActivity::class.java))
+          true
+        }
+        R.id.hideWidget -> {
+          clReminderBack.visibility = View.GONE
+          setWidgetCollapsed(true)
+          true
+        }
+        R.id.showWidget -> {
+          clReminderBack.visibility = View.VISIBLE
+          setWidgetCollapsed(false)
+          true
+        }
       }
       false
     }
+  }
+
+  private fun isWidgetCollapsed(): Boolean{
+    val sharedPref = context.getSharedPreferences("${context.packageName}.widgetPref", Context.MODE_PRIVATE)
+    return sharedPref.getBoolean(ARG_COLLAPSE, false)
+  }
+
+  private fun setWidgetCollapsed(isCollapse: Boolean){
+    val sharedPref = context.getSharedPreferences("${context.packageName}.widgetPref", Context.MODE_PRIVATE)
+    sharedPref.edit().putBoolean(ARG_COLLAPSE, isCollapse).apply()
   }
 
 }

@@ -1340,4 +1340,7 @@ Share your accomplishments with friends:</string>
     <string name="premium_G_field_3">Эксклюзивные статьи от диетолога</string>
     <string name="premium_g_button_txt">Продолжить бесплатно 7 дней</string>
 
+    <string name="hide">Скрыть</string>
+    <string name="show">Раскрыть</string>
+
 </resources>

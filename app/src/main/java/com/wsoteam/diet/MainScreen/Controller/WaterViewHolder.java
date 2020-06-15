@@ -108,11 +108,11 @@ public class WaterViewHolder extends RecyclerView.ViewHolder {
 
   private void createPopupMenu(Context context, ImageButton ibtnOpenMenu) {
     final PopupMenu popupMenu = new PopupMenu(context, ibtnOpenMenu);
-    popupMenu.inflate(R.menu.dots_popup_menu_water);
+    popupMenu.inflate(R.menu.water_widget_opened);
     popupMenu.show();
     popupMenu.setOnMenuItemClickListener(menuItem -> {
       switch (menuItem.getItemId()) {
-        case R.id.water_settings:
+        case R.id.waterSettings:
           context.startActivity(new Intent(context, WaterActivity.class));
           break;
       }

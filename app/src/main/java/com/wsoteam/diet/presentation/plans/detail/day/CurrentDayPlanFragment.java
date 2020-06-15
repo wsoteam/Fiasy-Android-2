@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,6 +50,7 @@ import java.util.List;
 import ru.terrakok.cicerone.Router;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabLayout.OnTabSelectedListener {
 
@@ -53,9 +58,10 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
   @BindView(R.id.tabs) TabLayout tabLayout;
   @BindView(R.id.clRecipes) ConstraintLayout activePlan;
   @BindView(R.id.clNotActivePlan) ConstraintLayout notActivePlan;
-  @BindView(R.id.cvFinishPlan) CardView finishPlan;
+  @BindView(R.id.clFinishPlan) ConstraintLayout finishPlan;
   @BindView(R.id.tvPlanName) TextView planName;
   @BindView(R.id.textView154) TextView dayTextView;
+
 
   private LinearLayoutManager layoutManager;
   private CurrentDayPlanAdapterKt adapter;
@@ -90,6 +96,8 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
     return view;
   }
 
+
+
   public void setUpdateCallback(@NonNull UpdateCallback updateCallback){
     this.updateCallback = updateCallback;
   }
@@ -100,14 +108,13 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
     initData(UserDataHolder.getUserData().getPlan());
   }
 
-  View.OnClickListener planListener = new View.OnClickListener() {
-    @Override public void onClick(View v) {
-      //TODO тут открываются рецепты плана с виджета на главном экране
-      Intent intent = new Intent(getContext(), DetailPlansActivity.class);
-      intent.putExtra(Config.DIETS_PLAN_INTENT, UserDataHolder.getUserData().getPlan());
-      startActivity(intent);
-    }
+  View.OnClickListener planListener = v -> {
+    //TODO тут открываются рецепты плана с виджета на главном экране
+    Intent intent = new Intent(getContext(), DetailPlansActivity.class);
+    intent.putExtra(Config.DIETS_PLAN_INTENT, UserDataHolder.getUserData().getPlan());
+    startActivity(intent);
   };
+
 
   private void initData(DietPlan plan){
 
@@ -217,12 +224,47 @@ public class CurrentDayPlanFragment extends MvpAppCompatFragment implements TabL
   void clickedOther(){
     WorkWithFirebaseDB.leaveDietPlan();
     UserDataHolder.getUserData().setPlan(null);
-    getActivity().startActivity(new Intent(getContext(), BrowsePlansActivity.class));
+    startActivity(new Intent(getContext(), BrowsePlansActivity.class));
   }
 
   @OnClick(R.id.tvViewPlans)
   void clickedViewPlans(){
-    getActivity().startActivity(new Intent(getContext(), BrowsePlansActivity.class));
+    startActivity(new Intent(getContext(), BrowsePlansActivity.class));
+  }
+
+  @OnClick(R.id.openMenu)
+  void showPopupMenu(View view){
+
+    Log.d("kkk", "click");
+
+    PopupMenu popupMenu = new PopupMenu(getContext(), view);
+    popupMenu.inflate(R.menu.diet_plan_widget_opened);
+
+    popupMenu.setOnMenuItemClickListener(item -> {
+      switch (item.getItemId()) {
+        case R.id.stop:
+          Toast.makeText(getApplicationContext(),
+                  "Вы выбрали PopupMenu 1",
+                  Toast.LENGTH_SHORT).show();
+          return true;
+        case R.id.hideWidget:
+          Toast.makeText(getApplicationContext(),
+                  "Вы выбрали PopupMenu 2",
+                  Toast.LENGTH_SHORT).show();
+          return true;
+        case R.id.showWidget:
+          Toast.makeText(getApplicationContext(),
+                  "Вы выбрали PopupMenu 3",
+                  Toast.LENGTH_SHORT).show();
+          return true;
+        default:
+          return false;
+      }
+    });
+
+    popupMenu.setOnDismissListener(menu -> Toast.makeText(getApplicationContext(), "onDismiss",
+            Toast.LENGTH_SHORT).show());
+    popupMenu.show();
   }
 
   @Override public void onTabUnselected(TabLayout.Tab tab) {
