@@ -87,7 +87,7 @@ public class DetailPlansPresenter extends BasePresenter<DetailPlansView> {
             plansRecipe = new PlansGroupsRecipe(RecipesHolder.get(), dietPlan, context);
             recipeForDays = plansRecipe.getRecipeForDays();
             dietPlan.setRecipes(getList(), plansRecipe.size());
-            adapter = new VerticalDetailPlansAdapter(dietPlan);
+            adapter = new VerticalDetailPlansAdapter(dietPlan, v -> clickedJoin());
             isCurrentPlan = false;
             getViewState().visibilityButtonLeave(false);
 

@@ -91,9 +91,10 @@
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="25dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp"
                     app:tabContentStart="32dp"
                     app:tabIndicatorColor="@color/orange1"
                     app:tabMode="scrollable"

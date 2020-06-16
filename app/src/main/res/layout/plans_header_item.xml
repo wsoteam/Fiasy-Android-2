@@ -5,6 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <View
+        android:id="@+id/background"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:background="#0FF49231"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivDietsPlan" />
+
     <ImageView
         android:id="@+id/ivDietsPlan"
         android:layout_width="0dp"
@@ -21,8 +30,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="sans-serif"
+        android:textAlignment="center"
         android:textColor="#212121"
         android:textSize="20sp"
         android:textStyle="normal"
@@ -32,74 +42,89 @@
         app:layout_constraintTop_toBottomOf="@+id/ivDietsPlan"
         tools:text="Худеем за 28 дней" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvPlansRecipes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="sans-serif"
         android:text="@string/plans_header_item_n_recipes"
         android:textColor="#777777"
         android:textSize="14sp"
         android:textStyle="normal"
-        app:layout_constraintStart_toStartOf="parent"
+        app:drawableStartCompat="@drawable/ic_knife_fork"
+        android:drawablePadding="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/tvTimeCount"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvTime"
         app:layout_constraintTop_toBottomOf="@+id/tvPlansName" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="sans-serif"
         android:text="@string/plans_header_item_n_days"
         android:textColor="#777777"
         android:textSize="14sp"
         android:textStyle="normal"
-        app:layout_constraintStart_toEndOf="@+id/imageView46"
+        app:drawableStartCompat="@drawable/ic_calendar_2"
+        android:drawablePadding="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/tvPlansRecipes"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/background"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPlansName" />
 
-    <ImageView
-        android:id="@+id/imageView46"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="14dp"
-        app:srcCompat="@drawable/ic_access_time"
-        app:layout_constraintStart_toEndOf="@+id/tvPlansRecipes"
-        app:layout_constraintTop_toBottomOf="@+id/tvPlansName" />
-
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTimeCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="sans-serif"
         android:text="@string/plans_header_item_n_day_of_x"
-        android:textColor="#777777"
+        android:textColor="@color/pumpkin_orange"
         android:textSize="14sp"
         android:textStyle="normal"
-        android:visibility="gone"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        app:drawableStartCompat="@drawable/ic_flag"
+        android:drawablePadding="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvPlansRecipes"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlansName" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/startPlan"
+        android:layout_width="200dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/unactive_promo_btn"
+        android:text="@string/join"
+        android:textColor="@android:color/white"
+        app:backgroundTint="@color/pumpkin_orange"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPlansRecipes"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/background" />
+
     <Button
         android:id="@+id/btnLoadRecipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:background="@color/transparent"
-        android:drawablePadding="10dp"
         android:drawableRight="@drawable/ic_load_plan_recipe_up"
+        android:drawablePadding="10dp"
         android:text="@string/load_recipe_plan_up"
         android:textAllCaps="false"
         android:textColor="#8a000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPlansRecipes"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/background" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,8 +34,6 @@ public class Img {
     public static void setImg(ImageView img, String url, View view){
         Picasso.get()
                 .load(url)
-//                .resizeDimen(R.dimen.diet_card_width, R.dimen.diet_card_height)
-//                .centerCrop()
                 .into(img, new Callback() {
                     @Override
                     public void onSuccess() {

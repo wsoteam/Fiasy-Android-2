@@ -13,8 +13,7 @@ class AuthUtil {
         fun <T: View>prepareLogInView(context: Context?, view: T) {
             view.visibility = if (FirebaseAuth.getInstance().currentUser?.isAnonymous == false) View.INVISIBLE else View.VISIBLE
             view.setOnClickListener {
-                context?.startActivity(Intent(context, MainAuthNewActivity::class.java).putExtra(Config.CREATE_PROFILE, true)
-                        .putExtra(Config.INTENT_PROFILE, Profile()))
+                context?.startActivity(MainAuthNewActivity.getIntent(context))
 
             }
         }

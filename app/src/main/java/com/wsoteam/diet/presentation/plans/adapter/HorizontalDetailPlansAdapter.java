@@ -15,6 +15,8 @@ import butterknife.ButterKnife;
 import com.squareup.picasso.Picasso;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.utils.Img;
+
 import java.util.List;
 
 import static android.text.TextUtils.concat;
@@ -92,6 +94,7 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerV
     @BindView(R.id.tvCalories) TextView tvCalories;
     @BindView(R.id.clBackground) ConstraintLayout constraintLayout;
     @BindView(R.id.tvRecipeAdded) TextView tvRecipeAdded;
+    @BindView(R.id.background) View background;
 
     private RecipeItem recipeItem;
     private OnItemClickListener clickListener;
@@ -113,23 +116,20 @@ public class HorizontalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerV
       tvName.setText(recipeItem.getName());
       //tvCalories.setText(
           //recipeItem.getCalories() + " " + context.getResources().getString(R.string.kcal));
-      tvCalories.setText(concat(String.valueOf(recipeItem.getCalories()), " ", context.getString(R.string.calories_unit)));
+      tvCalories.setText(String.valueOf(recipeItem.getCalories()));
 
       if (isCurrentDay && recipeItem.isAddedInDiaryFromPlan()) {
-        //Glide.with(context)
-        //    .load(recipeItem.getUrl())
-        //    .apply(RequestOptions.bitmapTransform(new BlurTransformation(10, 1)))
-        //    .into(imageView);
-        Picasso.get()
-            .load(recipeItem.getUrl())
-            .transform(new jp.wasabeef.picasso.transformations.BlurTransformation(context, 25, 1))
-            .into(imageView);
-
+//        Picasso.get()
+//            .load(recipeItem.getUrl())
+//            .transform(new jp.wasabeef.picasso.transformations.BlurTransformation(context, 25, 1))
+//            .into(imageView);
+        Img.setBlurImg(imageView, recipeItem.getUrl(), background);
         tvRecipeAdded.setVisibility(View.VISIBLE);
       } else {
-        Picasso.get()
-            .load(recipeItem.getUrl())
-            .into(imageView);
+        Img.setImg(imageView, recipeItem.getUrl(), background);
+//        Picasso.get()
+//            .load(recipeItem.getUrl())
+//            .into(imageView);
         tvRecipeAdded.setVisibility(View.INVISIBLE);
       }
 

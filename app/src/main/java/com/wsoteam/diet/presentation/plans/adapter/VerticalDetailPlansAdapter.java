@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,15 +46,18 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
   private int indexUp;
   private int indexDown;
 
+  private View.OnClickListener listener;
+
   public VerticalDetailPlansAdapter(DietPlan dietPlan, boolean isCurrentPlan){
-    this(dietPlan);
+    this(dietPlan, null);
     this.isCurrentPlan = isCurrentPlan;
     initIndex();
   }
 
-  public VerticalDetailPlansAdapter(DietPlan dietPlan) {
+  public VerticalDetailPlansAdapter(DietPlan dietPlan, View.OnClickListener listener) {
     this.recipeForDays = dietPlan.getRecipeForDays();
     this.dietPlan = dietPlan;
+    this.listener = listener;
     viewPool = new RecyclerView.RecycledViewPool();
 
     Date currentDate = new Date();
@@ -166,7 +170,7 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       case R.layout.plans_header_item:
         View v1 = LayoutInflater.from(viewGroup.getContext())
             .inflate(R.layout.plans_header_item, viewGroup, false);
-        return new HeaderViewHolder(v1, upListener, dietPlan, mContext, isCurrentPlan, daysAfterStart);
+        return new HeaderViewHolder(v1, upListener, dietPlan, mContext, isCurrentPlan, daysAfterStart, listener);
       case R.layout.plans_footer_item:
         View v3 = LayoutInflater.from(viewGroup.getContext())
             .inflate(R.layout.plans_footer_item, viewGroup, false);
@@ -358,10 +362,11 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
     @BindView(R.id.tvTime) TextView tvTime;
     @BindView(R.id.tvTimeCount) TextView tvTimeCount;
     @BindView(R.id.btnLoadRecipe) Button btnLoadRecipe;
+    @BindView(R.id.startPlan) AppCompatButton startPlan;
 
     private final View.OnClickListener listener;
 
-    public HeaderViewHolder(@NonNull View itemView, View.OnClickListener listener, DietPlan dietPlan, Context mContext, boolean isCurrentPlan, int day) {
+    public HeaderViewHolder(@NonNull View itemView, View.OnClickListener listener, DietPlan dietPlan, Context mContext, boolean isCurrentPlan, int day, View.OnClickListener listenerBtnJoin) {
       super(itemView);
       ButterKnife.bind(this, itemView);
 
@@ -380,10 +385,13 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
           .into(imageView);
 
       if (isCurrentPlan){
+        startPlan.setVisibility(View.GONE);
         tvTimeCount.setVisibility(View.VISIBLE);
         tvTimeCount.setText(String.format(mContext.getString(R.string.vertical_detail_plan_adapter_day_of_days),
             day < dietPlan.getRecipeForDays().size() ? day + 1 : dietPlan.getRecipeForDays().size()
             , dietPlan.getCountDays()));
+      } else {
+        startPlan.setOnClickListener(listenerBtnJoin);
       }
     }
 

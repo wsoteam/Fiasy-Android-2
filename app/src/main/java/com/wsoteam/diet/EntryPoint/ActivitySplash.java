@@ -335,6 +335,9 @@ public class ActivitySplash extends BaseActivity {
   }
 
   private void onSignedIn() {
+
+    Log.d("kkk", "onClick " + QuestionsActivity.hasNotAskedQuestionsLeft(this));
+
     checkBilling();
     if (QuestionsActivity.hasNotAskedQuestionsLeft(this)) {
       startActivity(new Intent(this, QuestionsActivity.class));

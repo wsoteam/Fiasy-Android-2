@@ -49,6 +49,13 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView {
                 .getBoolean(KEY_QUESTIONS_STARTED, false);
     }
 
+    public static void setFlagQuestionsStart(Context context){
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putBoolean(KEY_QUESTIONS_STARTED, true)
+                .apply();
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

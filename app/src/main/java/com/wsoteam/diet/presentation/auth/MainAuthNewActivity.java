@@ -43,7 +43,6 @@ public class MainAuthNewActivity extends AppCompatActivity implements InternetBa
 
     long delay = 2000;
 
-    Log.d("kkk" , "show()");
     ObjectAnimator animation = ObjectAnimator.ofFloat(internetBad, "translationY", DynamicUnitUtils.convertDpToPixels(0));
     animation.setDuration(400);
     animation.start();

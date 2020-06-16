@@ -24,6 +24,7 @@ import com.wsoteam.diet.presentation.profile.help.HelpActivity
 import com.wsoteam.diet.presentation.profile.norm.BlockedNormFragment
 import com.wsoteam.diet.presentation.profile.norm.ChangeNormActivity
 import com.wsoteam.diet.presentation.promo.PromoFormActivity
+import com.wsoteam.diet.utils.IntentUtils
 import java.util.*
 
 class ItemsAdapterKt(val context: Context, isNotPrem: Boolean): RecyclerView.Adapter<ItemsViewHolders>() {
@@ -33,10 +34,11 @@ class ItemsAdapterKt(val context: Context, isNotPrem: Boolean): RecyclerView.Ada
     val PERSONAL = Pair(R.string.personal_data, R.drawable.ic_left_settings_item_man)
     val KCAL = Pair(R.string.calorie_intake, R.drawable.ic_left_settings_item_kcal_en)
     val HELP = Pair(R.string.help_activity_title, R.drawable.ic_left_settings_item_help)
+    val POLICY = Pair(R.string.policy_action_title, R.drawable.ic_mdi_ballot)
     val LOGOUT = Pair(R.string.exit, R.drawable.ic_left_settings_item_exit)
 
 
-    private val listItems = mutableListOf(PREMIUM, PROMO, PERSONAL, KCAL, HELP, LOGOUT)
+    private val listItems = mutableListOf(PREMIUM, PROMO, PERSONAL, KCAL, HELP, POLICY, LOGOUT)
 
     init {
         if (!isNotPrem) listItems.remove(PREMIUM)
@@ -83,6 +85,7 @@ class ItemsAdapterKt(val context: Context, isNotPrem: Boolean): RecyclerView.Ada
             KCAL -> openNormal()
             HELP -> context.startActivity(Intent(context, HelpActivity::class.java))
             LOGOUT -> openLogOutAlert()
+            POLICY -> openPolicy()
         }
     }
 
@@ -99,6 +102,10 @@ class ItemsAdapterKt(val context: Context, isNotPrem: Boolean): RecyclerView.Ada
         }else{
             context.startActivity(Intent(context, ChangeNormActivity::class.java))
         }
+    }
+
+    private fun openPolicy(){
+        IntentUtils.openWebLink(context, context.getString(R.string.url_privacy_police))
     }
 
     private fun openPremium(){

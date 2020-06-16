@@ -26,7 +26,6 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
 
   @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.recycler) RecyclerView recycler;
-  @BindView(R.id.btnJoin) Button btnJoin;
 
 
   Router router = CiceroneModule.router();
@@ -92,10 +91,6 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
     recycler.setLayoutManager(new LinearLayoutManager(this));
   }
 
-  @OnClick({ R.id.btnJoin })
-  void onClicked() {
-    presenter.clickedJoin();
-  }
 
   @Override
   public void showProgress(boolean show) {
@@ -113,7 +108,7 @@ public class DetailPlansActivity extends BaseActivity implements DetailPlansView
   }
 
   @Override public void visibilityButtonJoin(boolean value) {
-    btnJoin.setVisibility(value ? View.VISIBLE : View.GONE);
+
     leaveMenu.setVisible(!value);
   }
 
