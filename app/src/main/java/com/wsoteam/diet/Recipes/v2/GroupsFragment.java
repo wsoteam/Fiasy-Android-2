@@ -14,6 +14,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,12 +23,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Authenticate.POJO.Box;
+import com.wsoteam.diet.Config;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Recipes.POJO.GroupsHolder;
 import com.wsoteam.diet.Recipes.POJO.GroupsRecipes;
 import com.wsoteam.diet.Recipes.POJO.RecipeItem;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.presentation.auth.AuthUtil;
+import com.wsoteam.diet.utils.Subscription;
 
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -43,8 +52,9 @@ public class GroupsFragment extends Fragment implements Observer {
     private GroupsAdapter adapter;
     ListRecipesAdapter adapterSearch;
 
-    @BindView(R.id.appbar)
-    AppBarLayout appBarLayout;
+    @BindView(R.id.appbar) AppBarLayout appBarLayout;
+    @BindView(R.id.recipeLogIn) Button recipeLogIn;
+    @BindView(R.id.recipePremium) View recipePremium;
 
     private Window window;
 
@@ -63,6 +73,26 @@ public class GroupsFragment extends Fragment implements Observer {
     public void onPause() {
         super.onPause();
         GroupsHolder.unsubscribe(this);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        AuthUtil.Companion.prepareLogInView(getContext(), recipeLogIn);
+
+    }
+
+    @OnClick(R.id.recipePremium)
+    void premium(){
+        Box box = new Box();
+        box.setSubscribe(false);
+        box.setOpenFromPremPart(true);
+        box.setOpenFromIntrodaction(false);
+        box.setComeFrom(AmplitudaEvents.view_prem_content);
+        box.setBuyFrom(EventProperties.trial_from_recipe); // TODO проверить правильность флагов
+        Intent intent = new Intent(getContext(), ActivitySubscription.class).putExtra(Config.TAG_BOX, box);
+        startActivity(intent);
     }
 
     @Nullable
@@ -181,7 +211,10 @@ public class GroupsFragment extends Fragment implements Observer {
     @Override
     public void onResume() {
         super.onResume();
-        if (recyclerView.getAdapter() != null)
-            recyclerView.getAdapter().notifyDataSetChanged();
+
+        Subscription.setVisibility(recipePremium);
+
+        if (recyclerView.getAdapter() != null) recyclerView.getAdapter().notifyDataSetChanged();
+
     }
 }

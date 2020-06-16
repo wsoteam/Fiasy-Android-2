@@ -35,6 +35,7 @@ import com.wsoteam.diet.model.Snack;
 
 import java.util.Calendar;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -46,7 +47,7 @@ public class UsersRecipesActivity extends AppCompatActivity implements Toolbar.O
     @BindView(R.id.tvUsers) TextView tvTime;
     @BindView(R.id.llIngedientsItem) LinearLayout llIngredients;
     @BindView(R.id.llInstructions) LinearLayout llInstructions;
-    @BindView(R.id.cvIngedients) CardView cvIngredients;
+    @BindView(R.id.clIngredients) ConstraintLayout cvIngredients;
     @BindView(R.id.cvInstructions) CardView cvInstructions;
     @BindView(R.id.tvCarbohydrates) TextView tvCarbohydrates;
     @BindView(R.id.tvCellulose) TextView tvCellulose;

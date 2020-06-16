@@ -41,9 +41,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.text.TextUtils.concat;
 
 public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener{
     private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2, SNACK_POSITION = 3, EMPTY_FIELD = -1;
@@ -52,8 +55,8 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
     @BindView(R.id.tvUsers) TextView tvTime;
     @BindView(R.id.llIngedientsItem) LinearLayout llIngredients;
     @BindView(R.id.llInstructions) LinearLayout llInstructions;
-    @BindView(R.id.cvIngedients) CardView cvIngredients;
-    @BindView(R.id.cvInstructions) CardView cvInstructions;
+    @BindView(R.id.clIngredients) ConstraintLayout cvIngredients;
+    @BindView(R.id.clInstructions) ConstraintLayout cvInstructions;
     @BindView(R.id.tvCarbohydrates) TextView tvCarbohydrates;
     @BindView(R.id.tvCellulose) TextView tvCellulose;
     @BindView(R.id.tvSugar) TextView tvSugar;
@@ -67,8 +70,6 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.tvRecipeKK) TextView tvKkal;
 
-    @BindView(R.id.tvComplexityField) TextView tvComplexityField;
-    @BindView(R.id.tvComplexity) TextView tvComplexity;
 
     RecipeItem recipeItem;
     Window window;
@@ -89,13 +90,13 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         window.setStatusBarColor(Color.parseColor("#66000000"));
         recipeItem = (RecipeItem) getIntent().getSerializableExtra(Config.RECIPE_INTENT);
-//        Log.d("kkk", "onCreate: " + recipeItem.getName());
+
         Events.logViewRecipe(recipeItem.getName());
 
-        //tvKkal.setText(recipeItem.getCalories() + " ккал на порцию");
-        tvKkal.setText(String.format(getString(R.string.user_recipe_activity_for_portion), recipeItem.getCalories()));
+
+        tvKkal.setText(concat(String.valueOf(recipeItem.getCalories()), " ", getString(R.string.srch_kcal)));
         tvName.setText(recipeItem.getName());
-        tvTime.setText(String.valueOf(recipeItem.getTime()));
+        tvTime.setText(concat(String.valueOf(recipeItem.getTime()), " ", getString(R.string.minutes)));
         tvCarbohydrates.setText(String.valueOf(recipeItem.getCarbohydrates()));
         tvCellulose.setText(String.valueOf(recipeItem.getCellulose()));
         tvSugar.setText(String.valueOf(recipeItem.getSugar()));
@@ -107,11 +108,7 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
         tvSodium.setText(String.valueOf(recipeItem.getSodium()));
         tvPotassium.setText(String.valueOf(recipeItem.getPotassium()));
 
-        if (recipeItem.getComplexity() != null && !"".equals(recipeItem.getComplexity())){
-            tvComplexityField.setVisibility(View.VISIBLE);
-            tvComplexity.setVisibility(View.VISIBLE);
-            tvComplexity.setText(recipeItem.getComplexity());
-        }
+
 
         mToolbar.setTitleTextColor(0xFFFFFFFF);
         mToolbar.setPadding(0, dpToPx(24), 0, 0);
@@ -138,14 +135,14 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
                     recipeItem.getIngredients()) {
                 indexIngredients++;
                 View view = getLayoutInflater().inflate(R.layout.plan_recipes_ingredient, null);
-                View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
-                line.setPadding(0, 0, 0, 0);
+//                View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
+//                line.setPadding(0, 0, 0, 0);
                 TextView textView = view.findViewById(R.id.tvIngredient);
                 textView.setText(ingredient);
                 llIngredients.addView(view);
-                if (indexIngredients < borderIngredients) {
-                    llIngredients.addView(line);
-                }
+//                if (indexIngredients < borderIngredients) {
+//                    llIngredients.addView(line);
+//                }
             }
         } else {cvIngredients.setVisibility(View.GONE);}
 
@@ -156,14 +153,14 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
                     recipeItem.getInstruction()) {
                 indexInstruction++;
                 View view = getLayoutInflater().inflate(R.layout.plan_recipes_instruction, null);
-                View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
-                line.setPadding(dpToPx(70), 0, 0, 0);
+//                View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
+//                line.setPadding(dpToPx(70), 0, 0, 0);
                 TextView textView = view.findViewById(R.id.tvInstruction);
                 textView.setText(instruction);
                 llInstructions.addView(view);
-                if (indexInstruction < borderInstruction) {
-                    llInstructions.addView(line);
-                }
+//                if (indexInstruction < borderInstruction) {
+//                    llInstructions.addView(line);
+//                }
             }
         } else {cvInstructions.setVisibility(View.GONE);}
 

@@ -189,16 +189,12 @@ public class ListArticlesFragment extends Fragment implements Observer {
 
     model = ViewModelProviders.of(this).get(ArticleViewModel.class);
     data = model.getData();
-    data.observe(this,
-            new androidx.lifecycle.Observer<ApiResult<Article>>() {
-              @Override
-              public void onChanged(ApiResult<Article> articleApiResult) {
-
-                sectionArticles = new SectionArticles(articleApiResult.getResults(), getContext());
-                adapter.updateData(articleApiResult.getResults());
-                verticalArticlesAdapter.updateData(sectionArticles.getGroups());
-                verticalArticlesAdapter.SetOnItemClickListener(onItemClickListener);
-              }
+    data.observe(getViewLifecycleOwner(),
+            articleApiResult -> {
+              sectionArticles = new SectionArticles(articleApiResult.getResults(), getContext());
+              adapter.updateData(articleApiResult.getResults());
+              verticalArticlesAdapter.updateData(sectionArticles.getGroups());
+              verticalArticlesAdapter.SetOnItemClickListener(onItemClickListener);
             });
 
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

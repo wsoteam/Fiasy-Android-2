@@ -1,7 +1,6 @@
 package com.wsoteam.diet.presentation.plans.browse;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,7 +31,6 @@ import com.wsoteam.diet.presentation.auth.AuthUtil;
 import com.wsoteam.diet.presentation.plans.adapter.HorizontalBrowsePlansAdapter;
 import com.wsoteam.diet.presentation.plans.adapter.VerticalBrowsePlansAdapter;
 import com.wsoteam.diet.presentation.plans.detail.DetailPlansActivity;
-import com.wsoteam.diet.presentation.plans.detail.blocked.BlockedDetailPlansActivity;
 import com.wsoteam.diet.utils.Subscription;
 
 import butterknife.BindView;
@@ -45,7 +43,6 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import static android.content.Context.MODE_PRIVATE;
 
 public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowsePlansView, Observer {
 
