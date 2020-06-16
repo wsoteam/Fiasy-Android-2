@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,12 +18,17 @@ import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.google.android.material.appbar.AppBarLayout;
+import com.wsoteam.diet.AmplitudaEvents;
+import com.wsoteam.diet.Authenticate.POJO.Box;
 import com.wsoteam.diet.Config;
 import com.wsoteam.diet.DietPlans.POJO.DietPlan;
 import com.wsoteam.diet.DietPlans.POJO.DietPlansHolder;
 import com.wsoteam.diet.DietPlans.POJO.DietsList;
+import com.wsoteam.diet.InApp.ActivitySubscription;
 import com.wsoteam.diet.R;
 import com.wsoteam.diet.Sync.UserDataHolder;
+import com.wsoteam.diet.common.Analytics.EventProperties;
+import com.wsoteam.diet.presentation.auth.AuthUtil;
 import com.wsoteam.diet.presentation.plans.adapter.HorizontalBrowsePlansAdapter;
 import com.wsoteam.diet.presentation.plans.adapter.VerticalBrowsePlansAdapter;
 import com.wsoteam.diet.presentation.plans.detail.DetailPlansActivity;
@@ -31,6 +37,7 @@ import com.wsoteam.diet.utils.Subscription;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -45,6 +52,9 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.recycler) RecyclerView recyclerView;
     @BindView(R.id.appbar) AppBarLayout appBarLayout;
+    @BindView(R.id.plansLogIn) Button plansLogIn;
+    @BindView(R.id.plansPremium) View plansPremium;
+
     @InjectPresenter
     BrowsePlansPresenter presenter;
 
@@ -97,6 +107,24 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
         });
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        AuthUtil.Companion.prepareLogInView(getContext(), plansLogIn);
+    }
+
+    @OnClick(R.id.plansPremium)
+    void buyPremium(){
+        Box box = new Box();
+        box.setSubscribe(false);
+        box.setOpenFromPremPart(true);
+        box.setOpenFromIntrodaction(false);
+        box.setComeFrom(AmplitudaEvents.view_prem_content);
+        box.setBuyFrom(EventProperties.trial_from_plans); // TODO проверить правильность флагов
+        Intent intent = new Intent(getContext(), ActivitySubscription.class).putExtra(Config.TAG_BOX, box);
+        startActivity(intent);
     }
 
     private List<DietsList> prepareList(){
@@ -167,6 +195,7 @@ public class BrowsePlansFragment extends MvpAppCompatFragment implements BrowseP
     @Override public void onResume() {
         super.onResume();
         adapter.updateList(prepareList());
+        Subscription.setVisibility(plansPremium);
     }
 
     @Override

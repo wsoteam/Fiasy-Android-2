@@ -226,13 +226,13 @@ public class EatingViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    @OnClick({R.id.ibtnOpenMenu, R.id.imbAddFood})
+    @OnClick({R.id.ibtnOpenMenu, R.id.view8})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ibtnOpenMenu:
                 createPopupMenu(context, ibtnOpenMenu);
                 break;
-            case R.id.imbAddFood:
+            case R.id.view8:
                 openSearch();
                 Events.logDiaryNext(getAdapterPosition());
                 break;

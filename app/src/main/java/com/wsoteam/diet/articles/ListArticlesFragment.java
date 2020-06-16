@@ -226,7 +226,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
         box.setOpenFromPremPart(true);
         box.setOpenFromIntrodaction(false);
         box.setComeFrom(AmplitudaEvents.view_prem_content);
-        box.setBuyFrom(EventProperties.trial_from_header); // TODO проверить правильность флагов
+        box.setBuyFrom(EventProperties.trial_from_articles); // TODO проверить правильность флагов
         Intent intent = new Intent(getContext(), ActivitySubscription.class).putExtra(Config.TAG_BOX, box);
         startActivity(intent);
 

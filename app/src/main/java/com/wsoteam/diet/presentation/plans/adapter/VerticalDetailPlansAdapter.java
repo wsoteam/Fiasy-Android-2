@@ -487,7 +487,6 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
       getAddedRecipe(recipeForDays.get(position).getSnack());
 
       if (recipeItemList.size() > 0) {
-        tvDays.setTextColor(Color.parseColor("#8a000000"));
         tvYouAdded.setText(mContext.getString(R.string.vertical_detail_plan_adapter_in_diary));
         for (RecipeItem recipe :
             recipeItemList) {
@@ -501,7 +500,6 @@ public class VerticalDetailPlansAdapter extends RecyclerView.Adapter<RecyclerVie
           recipeContainer.addView(view);
         }
       } else {
-        tvDays.setTextColor(Color.parseColor("#8acc0808"));
         tvYouAdded.setText(mContext.getString(R.string.vertical_detail_plan_adapter_not_selected));
       }
     }
