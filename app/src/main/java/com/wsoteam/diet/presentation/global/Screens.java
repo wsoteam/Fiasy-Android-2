@@ -18,7 +18,6 @@ import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActi
 import com.wsoteam.diet.presentation.food.template.create.detail.DetailFoodActivity;
 import com.wsoteam.diet.presentation.food.template.create.search.SearchFoodActivity;
 import com.wsoteam.diet.presentation.plans.detail.PlanRecipeActivity;
-import com.wsoteam.diet.presentation.plans.detail.PlanRecipeActivityOld;
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 
 public class Screens {

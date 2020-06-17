@@ -68,11 +68,9 @@ open class PlanRecipeActivity: RecipeActivity() {
         val name = recipe.name
         val urlOfImage = recipe.url
         when (idOfEating) {
-            BREAKFAST_POSITION -> WorkWithFirebaseDB.addBreakfast(
-                    Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year))
+            BREAKFAST_POSITION -> WorkWithFirebaseDB.addBreakfast(Breakfast(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year))
             LUNCH_POSITION -> WorkWithFirebaseDB.addLunch(Lunch(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year))
-            DINNER_POSITION -> WorkWithFirebaseDB.addDinner(
-                    Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year))
+            DINNER_POSITION -> WorkWithFirebaseDB.addDinner(Dinner(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year))
             SNACK_POSITION -> WorkWithFirebaseDB.addSnack(Snack(name, urlOfImage, kcal, carbo, prot, fat, weight, day, month, year))
         }
         WorkWithFirebaseDB.setRecipeInDiaryFromPlan(recipePath[0], recipePath[1], recipePath[2], true)

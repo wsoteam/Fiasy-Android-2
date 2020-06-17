@@ -344,10 +344,7 @@
             android:name=".presentation.plans.browse.BrowsePlansActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
-        <activity
-            android:name=".presentation.plans.detail.PlanRecipeActivityOld"
-            android:screenOrientation="portrait"
-            android:theme="@style/Menu" />
+
         <activity
             android:name=".presentation.plans.detail.PlanRecipeActivity"
             android:screenOrientation="portrait"

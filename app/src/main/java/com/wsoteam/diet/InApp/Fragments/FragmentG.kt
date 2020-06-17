@@ -5,14 +5,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.wsoteam.diet.Authenticate.POJO.Box
-import com.wsoteam.diet.InApp.BasePemiumFragment
+import com.wsoteam.diet.InApp.BasePremiumFragment
 import com.wsoteam.diet.R
 import com.wsoteam.diet.utils.RichTextUtils
 import com.wsoteam.diet.utils.formatSpannable
 import kotlinx.android.synthetic.main.fragment_g.*
 
 
-class FragmentG : BasePemiumFragment(R.layout.fragment_g) {
+class FragmentG : BasePremiumFragment(R.layout.fragment_g) {
 
     companion object {
         @JvmStatic
@@ -26,11 +26,14 @@ class FragmentG : BasePemiumFragment(R.layout.fragment_g) {
     }
 
     override fun getCurrentSKU(): String = "trial_long_pic_3d_3m_2k"
+    override fun setPrice(sku: com.android.billingclient.api.SkuDetails) {
+        priceText.text = getString(R.string.mount_premium, sku.price)
+
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        initBilling()
 
         cardViewPremG.setBackgroundResource(R.drawable.prem_card_backgound)
         premiumGClose.setOnClickListener {
