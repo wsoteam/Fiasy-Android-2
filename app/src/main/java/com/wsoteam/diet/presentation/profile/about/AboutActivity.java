@@ -219,7 +219,7 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
                 callCamera();
                 break;
             case R.id.personalSave:
-               
+
                 if (checkValidInputData()) {
                     if (aboutPresenter.calculateAndSave(edtName.getText().toString().trim(),
                             edtSecondName.getText().toString().trim(), edtEmail.getText().toString().trim())) {

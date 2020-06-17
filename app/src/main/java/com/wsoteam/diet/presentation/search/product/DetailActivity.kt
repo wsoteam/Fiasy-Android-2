@@ -335,11 +335,8 @@ class DetailActivity : MvpAppCompatActivity(), DetailView, View.OnClickListener 
         startActivity(intent)
     }
 
-    private fun isPremUser(): Boolean {
-        return getSharedPreferences(Config.STATE_BILLING, Context.MODE_PRIVATE).getBoolean(
-                Config.STATE_BILLING, false
-        )
-    }
+    private fun isPremUser(): Boolean = true
+
 
     private fun paintPremText() {
         tvPremText.text = resources.getString(R.string.srch_text_prem)
