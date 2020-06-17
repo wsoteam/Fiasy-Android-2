@@ -18,6 +18,7 @@ import com.wsoteam.diet.presentation.food.template.create.CreateFoodTemplateActi
 import com.wsoteam.diet.presentation.food.template.create.detail.DetailFoodActivity;
 import com.wsoteam.diet.presentation.food.template.create.search.SearchFoodActivity;
 import com.wsoteam.diet.presentation.plans.detail.PlanRecipeActivity;
+import com.wsoteam.diet.presentation.plans.detail.PlanRecipeActivityOld;
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 
 public class Screens {
@@ -45,10 +46,11 @@ public class Screens {
 
     @Override
     public Intent getActivityIntent(Context context) {
-      return new Intent(context, PlanRecipeActivity.class)
-          .putExtra(Config.RECIPE_INTENT, recipeItem)
-          .putExtra("RecipePath", path)
-          .putExtra("VisibilityButton", visibility);
+//      return new Intent(context, PlanRecipeActivityOld.class)
+//          .putExtra(Config.RECIPE_INTENT, recipeItem)
+//          .putExtra("RecipePath", path)
+//          .putExtra("VisibilityButton", visibility);
+      return PlanRecipeActivity.Companion.newIntent(context, recipeItem, path, visibility);
     }
   }
 

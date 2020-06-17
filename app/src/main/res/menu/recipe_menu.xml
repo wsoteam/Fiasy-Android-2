@@ -7,9 +7,9 @@
         android:title="@string/recipe_menu_share"
         android:icon="@drawable/icon_share"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/mFavorites"
-        android:title="@string/recipe_menu_favorites"
-        android:icon="@drawable/icon_favorites"
-        app:showAsAction="always" />
+<!--    <item-->
+<!--        android:id="@+id/mFavorites"-->
+<!--        android:title="@string/recipe_menu_favorites"-->
+<!--        android:icon="@drawable/icon_favorites"-->
+<!--        app:showAsAction="always" />-->
 </menu>

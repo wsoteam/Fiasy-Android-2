@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
@@ -70,14 +71,21 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.tvRecipeKK) TextView tvKkal;
     @BindView(R.id.tvCaloriesCount) TextView tvCaloriesCount;
+    @BindView(R.id.addDiary) protected AppCompatButton addDiary;
 
 
-    RecipeItem recipeItem;
+    protected RecipeItem recipeItem;
     Window window;
     MenuItem favoriteMenuItem;
 
     private String key;
     HashMap<String, RecipeItem> favoriteRecipes;
+
+    public static Intent newIntent(Context context, RecipeItem recipeItem){
+        Intent intent = new Intent(context, RecipeActivity.class);
+        intent.putExtra(Config.RECIPE_INTENT, recipeItem);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +98,7 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         window.setStatusBarColor(Color.parseColor("#66000000"));
-        recipeItem = (RecipeItem) getIntent().getSerializableExtra(Config.RECIPE_INTENT);
+        getDataFromIntent();
 
         Events.logViewRecipe(recipeItem.getName());
 
@@ -116,8 +124,8 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
         mToolbar.setPadding(0, dpToPx(24), 0, 0);
         mToolbar.setBackgroundColor(Color.parseColor("#32000000"));
         mToolbar.inflateMenu(R.menu.recipe_menu);
-        Menu menu = mToolbar.getMenu();
-        favoriteMenuItem = menu.findItem(R.id.mFavorites);
+//        Menu menu = mToolbar.getMenu();
+//        favoriteMenuItem = menu.findItem(R.id.mFavorites);
 
 
         mToolbar.setOnMenuItemClickListener(this);
@@ -131,38 +139,25 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
 
 
         if (recipeItem.getIngredients() != null) {
-            int indexIngredients = 0;
-            int borderIngredients = recipeItem.getIngredients().size();
             for (String ingredient :
                     recipeItem.getIngredients()) {
-                indexIngredients++;
                 View view = getLayoutInflater().inflate(R.layout.plan_recipes_ingredient, null);
-//                View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
-//                line.setPadding(0, 0, 0, 0);
                 TextView textView = view.findViewById(R.id.tvIngredient);
                 textView.setText(ingredient);
                 llIngredients.addView(view);
-//                if (indexIngredients < borderIngredients) {
-//                    llIngredients.addView(line);
-//                }
             }
         } else {cvIngredients.setVisibility(View.GONE);}
 
         if (recipeItem.getInstruction() != null) {
-            int indexInstruction = 0;
-            int borderInstruction = recipeItem.getInstruction().size();
+
             for (String instruction :
                     recipeItem.getInstruction()) {
-                indexInstruction++;
                 View view = getLayoutInflater().inflate(R.layout.plan_recipes_instruction, null);
-//                View line = getLayoutInflater().inflate(R.layout.line_horizontal, null);
-//                line.setPadding(dpToPx(70), 0, 0, 0);
+
                 TextView textView = view.findViewById(R.id.tvInstruction);
                 textView.setText(instruction);
                 llInstructions.addView(view);
-//                if (indexInstruction < borderInstruction) {
-//                    llInstructions.addView(line);
-//                }
+
             }
         } else {cvInstructions.setVisibility(View.GONE);}
 
@@ -178,6 +173,14 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
 
 
         checkFavorite();
+    }
+
+    protected void getDataFromIntent(){
+        recipeItem = (RecipeItem) getIntent().getSerializableExtra(Config.RECIPE_INTENT);
+    }
+
+    protected void actionAddRecipe(){
+        new AlertDialogChoiseEating().createChoiseEatingAlertDialog(this).show();
     }
 
     private void checkFavorite(){
@@ -216,7 +219,7 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
                 i.putExtra(android.content.Intent.EXTRA_TEXT, recipeToString(recipeItem));
                 startActivity(Intent.createChooser(i, getResources().getString(R.string.titleShareDialogRecipe)));
                 return true;
-            case R.id.mFavorites:
+/*            case R.id.mFavorites:
                 if (key == null) {
                     Events.logAddFavoriteRecipe(recipeItem.getName());
                     key = WorkWithFirebaseDB.addFavoriteRecipe(recipeItem);
@@ -230,7 +233,7 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
                     key = null;
                 }
 
-                return true;
+                return true;*/
         }
         return false;
 
@@ -251,10 +254,10 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
 
     @OnClick(R.id.addDiary)
     public void onViewClicked(View view) {
-
-        new AlertDialogChoiseEating().createChoiseEatingAlertDialog(this).show();
-
+                actionAddRecipe();
     }
+
+
 
 
     public class AlertDialogChoiseEating {

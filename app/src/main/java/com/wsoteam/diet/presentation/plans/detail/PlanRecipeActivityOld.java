@@ -41,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PlanRecipeActivity extends MvpAppCompatActivity
+public class PlanRecipeActivityOld extends MvpAppCompatActivity
     implements Toolbar.OnMenuItemClickListener {
   private final int BREAKFAST_POSITION = 0, LUNCH_POSITION = 1, DINNER_POSITION = 2,
       SNACK_POSITION = 3, EMPTY_FIELD = -1;
@@ -125,8 +125,8 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
     mToolbar.setPadding(0, dpToPx(24), 0, 0);
     mToolbar.setBackgroundColor(Color.parseColor("#32000000"));
     mToolbar.inflateMenu(R.menu.recipe_menu);
-    Menu menu = mToolbar.getMenu();
-    favoriteMenuItem = menu.findItem(R.id.mFavorites);
+//    Menu menu = mToolbar.getMenu();
+//    favoriteMenuItem = menu.findItem(R.id.mFavorites);
 
     mToolbar.setOnMenuItemClickListener(this);
     mToolbar.setNavigationIcon(R.drawable.back_arrow_icon_white);
@@ -237,7 +237,7 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
         startActivity(
             Intent.createChooser(i, getResources().getString(R.string.titleShareDialogRecipe)));
         return true;
-      case R.id.mFavorites:
+     /* case R.id.mFavorites:
         if (key == null) {
           key = WorkWithFirebaseDB.addFavoriteRecipe(recipeItem);
           favoriteMenuItem.setIcon(R.drawable.icon_favorites_delete);
@@ -250,7 +250,7 @@ public class PlanRecipeActivity extends MvpAppCompatActivity
           key = null;
         }
 
-        return true;
+        return true;*/
     }
     return false;
   }
