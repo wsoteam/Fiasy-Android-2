@@ -219,9 +219,10 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
                 callCamera();
                 break;
             case R.id.personalSave:
+               
                 if (checkValidInputData()) {
-                    if (aboutPresenter.calculateAndSave(edtName.getText().toString(),
-                            edtSecondName.getText().toString(), edtEmail.getText().toString())) {
+                    if (aboutPresenter.calculateAndSave(edtName.getText().toString().trim(),
+                            edtSecondName.getText().toString().trim(), edtEmail.getText().toString().trim())) {
                         Toast.makeText(this, R.string.profile_saved, Toast.LENGTH_SHORT).show();
                         finish();
                     }
@@ -233,12 +234,14 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
     private boolean checkValidInputData() {
         boolean result = true;
         Pattern patternEmail = Patterns.EMAIL_ADDRESS;
+        String email = edtEmail.getText().toString().trim();
         if (edtName.getText().toString().equals("") || edtName.getText().toString().replaceAll("\\s+", " ").equals(" ")) {
             tilName.setError(getString(R.string.check_your_name));
             result = false;
         }
 
-        if (!patternEmail.matcher(edtEmail.getText().toString()).matches()) {
+
+        if (!email.equals("") && !patternEmail.matcher(email).matches()) {
             tilEmail.setError(getString(R.string.check_your_email));
             result = false;
         }
