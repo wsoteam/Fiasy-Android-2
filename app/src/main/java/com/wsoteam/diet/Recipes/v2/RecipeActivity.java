@@ -69,6 +69,7 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
     @BindView(R.id.tvPotassium) TextView tvPotassium;
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.tvRecipeKK) TextView tvKkal;
+    @BindView(R.id.tvCaloriesCount) TextView tvCaloriesCount;
 
 
     RecipeItem recipeItem;
@@ -95,6 +96,7 @@ public class RecipeActivity extends AppCompatActivity implements Toolbar.OnMenuI
 
 
         tvKkal.setText(concat(String.valueOf(recipeItem.getCalories()), " ", getString(R.string.srch_kcal)));
+        tvCaloriesCount.setText(concat(String.valueOf(recipeItem.getCalories()), " ", getString(R.string.srch_kcal)));
         tvName.setText(recipeItem.getName());
         tvTime.setText(concat(String.valueOf(recipeItem.getTime()), " ", getString(R.string.minutes)));
         tvCarbohydrates.setText(String.valueOf(recipeItem.getCarbohydrates()));
