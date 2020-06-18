@@ -8,6 +8,42 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:588344798889:android:de01177340de44b00b83b8",
+        "android_client_info": {
+          "package_name": "com.losing.weight"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588344798889-cr28eaof07tfndusqa5a51bjfkqj9tla.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5dv1L0W_85lcFrEcyqZ0KyGZeRn6wOTE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588344798889-qgvcgvd72rlh3t6t1ef92pktq4dv7ugq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "588344798889-ucqhmdmq5m5isj591c2rl6ul6fuqp36a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.fiasy.fiasyapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:588344798889:android:1a8d48dbe2fdbaa2",
         "android_client_info": {
           "package_name": "com.wild.artestmlkit"
@@ -21,14 +57,14 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDS15atgMhaM1AklHvC-3rUMKloZvqgSgA"
+          "current_key": "AIzaSyB5dv1L0W_85lcFrEcyqZ0KyGZeRn6wOTE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "588344798889-cr28eaof07tfndusqa5a51bjfkqj9tla.apps.googleusercontent.com",
+              "client_id": "588344798889-qgvcgvd72rlh3t6t1ef92pktq4dv7ugq.apps.googleusercontent.com",
               "client_type": 3
             },
             {
@@ -51,27 +87,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "588344798889-vkrheuiu8p5gqi04q0e0o3om5k04ha1n.apps.googleusercontent.com",
+          "client_id": "588344798889-fu6t3n3qjvba4ac1sg5r76uf9khs3392.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.wild.diet",
-            "certificate_hash": "795c1bcbff986e08bd6643d13e8b221dc595c140"
+            "certificate_hash": "0cd161d3d77082dbf70f682b2bfbb945cbe4619b"
           }
         },
         {
-          "client_id": "588344798889-pkni1gigt333vofgdleb49scbbl3fq04.apps.googleusercontent.com",
+          "client_id": "588344798889-qicp5phttdt3itcvh9t1roe9fijfvvmr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.wild.diet",
-            "certificate_hash": "4bc011909dc2d72cedd03ce985928daba7bf1c85"
-          }
-        },
-        {
-          "client_id": "588344798889-3fhr087b9oavkt4ljv7i3bm2ssn1rnjr.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.wild.diet",
-            "certificate_hash": "000e783dd4ee68f9ce143e738bb73160cf420260"
+            "certificate_hash": "1cd20dcd2a7a2f19deb7c290e39d398d4082afc5"
           }
         },
         {
@@ -83,20 +111,44 @@
           }
         },
         {
+          "client_id": "588344798889-3fhr087b9oavkt4ljv7i3bm2ssn1rnjr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wild.diet",
+            "certificate_hash": "000e783dd4ee68f9ce143e738bb73160cf420260"
+          }
+        },
+        {
+          "client_id": "588344798889-pkni1gigt333vofgdleb49scbbl3fq04.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wild.diet",
+            "certificate_hash": "4bc011909dc2d72cedd03ce985928daba7bf1c85"
+          }
+        },
+        {
+          "client_id": "588344798889-vkrheuiu8p5gqi04q0e0o3om5k04ha1n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wild.diet",
+            "certificate_hash": "795c1bcbff986e08bd6643d13e8b221dc595c140"
+          }
+        },
+        {
           "client_id": "588344798889-cr28eaof07tfndusqa5a51bjfkqj9tla.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDS15atgMhaM1AklHvC-3rUMKloZvqgSgA"
+          "current_key": "AIzaSyB5dv1L0W_85lcFrEcyqZ0KyGZeRn6wOTE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "588344798889-cr28eaof07tfndusqa5a51bjfkqj9tla.apps.googleusercontent.com",
+              "client_id": "588344798889-qgvcgvd72rlh3t6t1ef92pktq4dv7ugq.apps.googleusercontent.com",
               "client_type": 3
             },
             {
@@ -108,7 +160,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-3050564412171997~8774716406"
     }
   ],
   "configuration_version": "1"

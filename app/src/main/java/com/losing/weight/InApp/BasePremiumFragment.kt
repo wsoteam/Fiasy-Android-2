@@ -60,7 +60,7 @@ abstract class BasePremiumFragment(@LayoutRes id: Int): Fragment(id), PurchasesU
 
     internal abstract fun getCurrentSKU() : String
 
-    internal abstract fun setPrice(sku: SkuDetails)
+    internal abstract fun setPrice(sku: SkuDetails?)
 
     override fun onPurchasesUpdated(responseCode: Int, purchases: MutableList<Purchase>?) {
         if (responseCode != BillingClient.BillingResponse.OK) {
@@ -114,7 +114,7 @@ abstract class BasePremiumFragment(@LayoutRes id: Int): Fragment(id), PurchasesU
 
         billingClient!!.querySkuDetailsAsync(params.build()) { responseCode, skuDetailsList ->
             if (responseCode == BillingClient.BillingResponse.OK && skuDetailsList != null) {
-                Log.e("LOL", skuDetailsList[0].toString())
+                Log.e("LOL", skuDetailsList[0]?.toString() + "")
                 try {
                     setPrice(skuDetailsList[0])
                 } catch (ex: java.lang.Exception) {

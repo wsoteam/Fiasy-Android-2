@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.widget.PopupMenu
-import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
@@ -104,7 +103,7 @@ class ActivityWidget(context: Context) : FrameLayout(context) {
           disposables.add(myActivitySource.remove(activity)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { _ -> Log.d("kkk", "delete + ${activityContainer.isEmpty()}")})
+            .subscribe())
         }
       }
 

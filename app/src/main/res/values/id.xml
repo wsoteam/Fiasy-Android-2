@@ -7,9 +7,9 @@
     <string name="instagram_callback_url" translatable="false">http://fiasy.com/</string>
     <string name="base_url" translatable="false">https://api.instagram.com/</string>
 
-<!--    <string name="admob_id" translatable="false">ca-app-pub-3050564412171997~8774716406</string>-->
-<!--    <string name="admob_native" translatable="false">ca-app-pub-3050564412171997/5271765877</string>-->
-<!--    <string name="admob_interstitial" translatable="false">ca-app-pub-3050564412171997/9644935786</string>-->
+<!--    <string name="admob_id" translatable="false">ca-app-pub-3050564412171997~8362891043</string>-->
+<!--    <string name="admob_native" translatable="false">ca-app-pub-3050564412171997/1195681618</string>-->
+<!--    <string name="admob_interstitial" translatable="false">ca-app-pub-3050564412171997/1387253305</string>-->
 
 
     <!--TEST IDS-->

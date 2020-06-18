@@ -29,8 +29,8 @@ class FragmentG : BasePremiumFragment(R.layout.fragment_g) {
     }
 
     override fun getCurrentSKU(): String = "trial_long_pic_3d_3m_2k"
-    override fun setPrice(sku: com.android.billingclient.api.SkuDetails) {
-        priceText.text = getString(R.string.mount_premium, sku.price)
+    override fun setPrice(sku: com.android.billingclient.api.SkuDetails?) {
+        priceText.text = getString(R.string.mount_premium, sku?.price)
 
     }
 
