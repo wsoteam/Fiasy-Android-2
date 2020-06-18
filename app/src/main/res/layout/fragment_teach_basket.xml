@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wsoteam.diet.presentation.teach.fragments.TeachBasketDialogFragment">
+    tools:context="com.losing.weight.presentation.teach.fragments.TeachBasketDialogFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvBasket"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.wsoteam.diet.presentation.training.executor.TrainingDayDoneFragment">
+    tools:context="com.losing.weight.presentation.training.executor.TrainingDayDoneFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/resultImg"

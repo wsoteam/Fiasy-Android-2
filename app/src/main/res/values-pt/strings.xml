@@ -33,7 +33,7 @@
         <item quantity="other">%d porções</item>
     </plurals>
 
-    <string name="app_name">Fiasy</string>
+    <string name="app_name">Losing weight</string>
 
     <string name="srch_basket_alet_text">Deseja voltar para trás sem \nadicionar os alimentos seleccionados </string>
     <string name="srch_cancel_basket">Cancelar</string>
@@ -848,5 +848,30 @@ Parabéns!</string>
     <string name="abt_5_arrow">Medidas do corpo</string>
     <string name="abt_bottom_prem">Experimente 3 dias gratuitamente \nPróximos %s por ano</string>
     <string name="abt_bottom_prem_week">Experimente 3 dias gratuitamente \nPróximos %s por semana</string>
+
+    <string name="splash_internet_check">Tentando se conectar…</string>
+    <string name="splash_internet_bad">Falha, tente novamente</string>
+    <string name="sign_in_facebook">Entrar com o Facebook</string>
+    <string name="sign_in_google">Entrar com o Google</string>
+
+    <string name="sent">enviei</string>
+    <string name="sign_in_widget">Você deve estar %s para ver sua verdadeira taxa calórica</string>
+    <string name="sign_in_alert">No modo Convidado, as calorias são calculadas com base nas médias. Para alterar a ingestão de calorias, você deve %s o aplicativo</string>
+
+    <string name="fragment_blocked_normal_text">Você deve estar %s para poder alterar calorias, proteínas, gorduras e carboidratos</string>
+    <string name="personal_info_text">Você deve estar %s às informações pessoais para serem exibidas na íntegra</string>
+
+    <string name="premium_text_g">Perca peso facilmente com %s, diário confortável e uma abordagem pessoal</string>
+    <string name="premium_G_field_1">Falta de publicidade em banner</string>
+    <string name="premium_G_field_2">Nenhum anúncio pop-up</string>
+    <string name="premium_G_field_3">Artigos exclusivos de um nutricionista</string>
+    <string name="premium_g_button_txt">Continue de graça por 7 dias.</string>
+
+    <string name="hide">Ocultar</string>
+    <string name="show">Desmascarar</string>
+
+    <string name="set_your_weight">Carregue seu peso</string>
+
+    <string name="mount_premium">Mais longe %s/mês</string>
 
 </resources>

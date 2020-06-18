@@ -96,7 +96,7 @@
         android:layout_below="@id/activity_duration_description"
         />
 
-    <com.wsoteam.diet.views.RulerSeekBar
+    <com.losing.weight.views.RulerSeekBar
         android:id="@+id/activity_duration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -142,7 +142,7 @@
         />
 
     <view
-        class="com.wsoteam.diet.presentation.activity.CreateUserActivityFragment$BlockedEditText"
+        class="com.losing.weight.presentation.activity.CreateUserActivityFragment$BlockedEditText"
         android:id="@+id/activity_ccal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -186,7 +186,7 @@
         android:text="@string/attention_description"
         />
 
-    <com.wsoteam.diet.ads.nativetemplates.TemplateView
+    <com.losing.weight.ads.nativetemplates.TemplateView
         android:id="@+id/nativeAd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

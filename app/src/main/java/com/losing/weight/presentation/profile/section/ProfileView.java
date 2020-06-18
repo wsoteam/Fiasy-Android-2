@@ -1,0 +1,17 @@
+package com.losing.weight.presentation.profile.section;
+
+import com.arellomobile.mvp.MvpView;
+import com.github.mikephil.charting.data.BarEntry;
+import com.losing.weight.DietPlans.POJO.DietPlan;
+import com.losing.weight.POJOProfile.Profile;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public interface ProfileView extends MvpView {
+    void fillViewsIfProfileNotNull(Profile profile, DietPlan plan);
+    void bindCircleProgressBar(float progress);
+    void drawWeekGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText);
+    void drawYearGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText);
+    void drawMonthGraphs(List<BarEntry> pairs, int[] colors, String bottomText, String topText, ArrayList<String> namesIntervals);
+}

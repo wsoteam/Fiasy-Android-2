@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="16dp"
     tools:layout_height="wrap_content"
-    tools:parentTag="com.wsoteam.diet.views.PremiumPlanCardView"
+    tools:parentTag="com.losing.weight.views.PremiumPlanCardView"
     tools:layout_marginLeft="16dp"
     tools:layout_marginRight="16dp"
     tools:layout_marginTop="16dp"

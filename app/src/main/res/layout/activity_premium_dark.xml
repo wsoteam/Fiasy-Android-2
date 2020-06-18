@@ -35,7 +35,7 @@
         android:text="@string/premium_black_friday_days_remained_hint"
         />
 
-    <com.wsoteam.diet.views.TimerView
+    <com.losing.weight.views.TimerView
         android:id="@+id/timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
         android:text="@string/action_buy"
         />
 
-    <com.wsoteam.diet.views.FeatureDescribeView
+    <com.losing.weight.views.FeatureDescribeView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:icon="@drawable/ic_feature_premium_article"
@@ -104,7 +104,7 @@
         app:titleText="@string/premium_feature_exclusive_articles"
         />
 
-    <com.wsoteam.diet.views.FeatureDescribeView
+    <com.losing.weight.views.FeatureDescribeView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -115,7 +115,7 @@
         app:titleText="@string/premium_feature_exclusive_recipes"
         />
 
-    <com.wsoteam.diet.views.FeatureDescribeView
+    <com.losing.weight.views.FeatureDescribeView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -126,7 +126,7 @@
         app:titleText="@string/premium_feature_personal_settings"
         />
 
-    <com.wsoteam.diet.views.FeatureDescribeView
+    <com.losing.weight.views.FeatureDescribeView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -137,7 +137,7 @@
         app:titleText="@string/premium_feature_exclusive_plans"
         />
 
-    <com.wsoteam.diet.views.FeatureDescribeView
+    <com.losing.weight.views.FeatureDescribeView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -234,7 +234,7 @@
           android:orientation="horizontal"
           />
 
-      <com.wsoteam.diet.views.DotIndicatorView
+      <com.losing.weight.views.DotIndicatorView
           android:id="@+id/reviews_page_indicator"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -289,7 +289,7 @@
 
     </LinearLayout>
 
-    <com.wsoteam.diet.views.PremiumFeatureRowView
+    <com.losing.weight.views.PremiumFeatureRowView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?overlayColor"
@@ -299,14 +299,14 @@
         app:premium="true"
         />
 
-    <com.wsoteam.diet.views.PremiumFeatureRowView
+    <com.losing.weight.views.PremiumFeatureRowView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="@string/black_prem_features_elements"
         app:titleStyle="?titleStyle"
         />
 
-    <com.wsoteam.diet.views.PremiumFeatureRowView
+    <com.losing.weight.views.PremiumFeatureRowView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?overlayColor"
@@ -314,14 +314,14 @@
         app:titleStyle="?titleStyle"
         />
 
-    <com.wsoteam.diet.views.PremiumFeatureRowView
+    <com.losing.weight.views.PremiumFeatureRowView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="@string/black_prem_features_articles"
         app:titleStyle="?titleStyle"
         />
 
-    <com.wsoteam.diet.views.PremiumFeatureRowView
+    <com.losing.weight.views.PremiumFeatureRowView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?overlayColor"
@@ -329,14 +329,14 @@
         app:titleStyle="?titleStyle"
         />
 
-    <com.wsoteam.diet.views.PremiumFeatureRowView
+    <com.losing.weight.views.PremiumFeatureRowView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="@string/black_prem_features_statistic"
         app:titleStyle="?titleStyle"
         />
 
-    <com.wsoteam.diet.views.PremiumFeatureRowView
+    <com.losing.weight.views.PremiumFeatureRowView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?overlayColor"

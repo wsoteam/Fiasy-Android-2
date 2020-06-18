@@ -32,7 +32,7 @@
         <item quantity="other">%d Portionen</item>
     </plurals>
 
-    <string name="app_name">Fiasy</string>
+    <string name="app_name">Losing weight</string>
 
     <string name="srch_basket_alet_text">Möchten Sie zurückdrehen, \nohne ausgewählte Lebensmittel </string>
     <string name="srch_cancel_basket">Abbrechen</string>
@@ -844,5 +844,31 @@ Teilen Sie Ihre Erfolge mit Freunden:</string>
     <string name="abt_5_arrow">Körpermaße</string>
     <string name="abt_bottom_prem">Probieren Sie 3 Tage kostenlos aus \nNächste %s pro Jahr</string>
     <string name="abt_bottom_prem_week">Probieren Sie 3 Tage kostenlos aus \nNächste %s pro Woche</string>
+
+
+    <string name="splash_internet_check">Versuche zu verbinden…</string>
+    <string name="splash_internet_bad">Fehlgeschlagen, versuchen Sie es erneut</string>
+    <string name="sign_in_facebook">Mit Facebook anmelden</string>
+    <string name="sign_in_google">Mit Google anmelden</string>
+
+    <string name="sent">geschickt</string>
+    <string name="sign_in_widget">Sie müssen %s sein, um Ihre wahre Kalorienrate zu sehen</string>
+    <string name="sign_in_alert">Im Gastmodus werden die Kalorien anhand der Durchschnittswerte berechnet. Um die Kalorienaufnahme zu ändern, müssen Sie die %s eingeben</string>
+
+    <string name="fragment_blocked_normal_text">Sie müssen %s sein, um Kalorien, Proteine, Fette und Kohlenhydrate ändern zu können</string>
+    <string name="personal_info_text">Sie müssen bei persönlichen Informationen %s sein, um vollständig angezeigt zu werden</string>
+
+    <string name="premium_text_g">Mit %s, bequemem Tagebuch und persönlichem Ansatz leicht abnehmen</string>
+    <string name="premium_G_field_1">Fehlende Bannerwerbung</string>
+    <string name="premium_G_field_2">Keine Popup-Anzeigen</string>
+    <string name="premium_G_field_3">Exklusive Artikel von einem Ernährungsberater</string>
+    <string name="premium_g_button_txt">Fahren Sie 7 Tage lang kostenlos fort</string>
+
+    <string name="hide">Ausblenden</string>
+    <string name="show">Aufdecken</string>
+
+    <string name="set_your_weight">Tragen Sie Ihr Gewicht</string>
+
+    <string name="mount_premium">Des Weiteren %s/Monat</string>
 
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wsoteam.diet.presentation.promo.PromoFormActivity">
+    tools:context="com.losing.weight.presentation.promo.PromoFormActivity">
 
     <TextView
         android:id="@+id/textView54"
@@ -104,7 +104,7 @@
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.wsoteam.diet.ads.nativetemplates.TemplateView
+    <com.losing.weight.ads.nativetemplates.TemplateView
         android:id="@+id/nativeAd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

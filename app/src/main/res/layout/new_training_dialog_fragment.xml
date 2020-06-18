@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    tools:context="com.wsoteam.diet.presentation.training.dialog.NewTrainingDialogFragment">
+    tools:context="com.losing.weight.presentation.training.dialog.NewTrainingDialogFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wsoteam.diet.Recipes.v1.ItemActivity">
+    tools:context="com.losing.weight.Recipes.v1.ItemActivity">
     <Button
         android:id="@+id/backButtonItemRecipe"
         android:layout_width="52dp"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="app_name">Fiasy</string>
+    <string name="app_name">Losing weight</string>
 
 
     <string name="srch_basket_alet_text">¿Quieres volver atrás sin \nagregar comidas Estambul?</string>
@@ -865,5 +865,31 @@ Comparta sus logros con sus amigos:</string>
     <string name="abt_5_arrow">Medidas corporales</string>
     <string name="abt_bottom_prem">Prueba 3 días gratisn \nPróximos %s por año</string>
     <string name="abt_bottom_prem_week">Prueba 3 días gratisn \nPróximos %s por semana</string>
+
+
+    <string name="splash_internet_check">Intentando conectar…</string>
+    <string name="splash_internet_bad">Falló, intente nuevamente</string>
+    <string name="sign_in_facebook">Iniciar sesión usando Facebook</string>
+    <string name="sign_in_google">Iniciar sesión usando Google</string>
+
+    <string name="sent">expedidoо</string>
+    <string name="sign_in_widget">Debe %s sesión para ver su verdadera tasa de calorías</string>
+    <string name="sign_in_alert">En el modo Invitado, las calorías se calculan en función de los promedios. Para cambiar la ingesta de calorías debes %s a la aplicación</string>
+
+    <string name="fragment_blocked_normal_text">Debe %s sesión para poder cambiar calorías, proteínas, grasas y carbohidratos.</string>
+    <string name="personal_info_text">Debe %s sesión en la información personal para que se muestre en su totalidad</string>
+
+    <string name="premium_text_g">Pierda peso fácilmente con %s, diario cómodo y un enfoque personal</string>
+    <string name="premium_G_field_1">Falta de publicidad publicitaria</string>
+    <string name="premium_G_field_2">No hay anuncios emergentes</string>
+    <string name="premium_G_field_3">Artículos exclusivos de un nutricionista.</string>
+    <string name="premium_g_button_txt">Continuar de forma gratuita durante 7 días</string>
+
+    <string name="hide">Esconder</string>
+    <string name="show">Para descubrir</string>
+
+    <string name="set_your_weight">Lleva tu peso</string>
+
+    <string name="mount_premium">Más lejos %s/mes</string>
 
 </resources>

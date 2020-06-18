@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wsoteam.diet.presentation.training.executor.ExecuteStartFragment">
+    tools:context="com.losing.weight.presentation.training.executor.ExecuteStartFragment">
 
 
     <TextView
@@ -70,7 +70,7 @@
             android:focusable="false" />
     </FrameLayout>
 
-    <com.wsoteam.diet.views.CircularProgressBar
+    <com.losing.weight.views.CircularProgressBar
         android:id="@+id/circularProgressBar"
         android:layout_width="85dp"
         android:layout_height="85dp"

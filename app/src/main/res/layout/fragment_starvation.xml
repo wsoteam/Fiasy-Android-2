@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingVertical="20dp"
-    tools:context="com.wsoteam.diet.presentation.starvation.StarvationFragment">
+    tools:context="com.losing.weight.presentation.starvation.StarvationFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

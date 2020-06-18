@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/clContainer"
-    tools:context="com.wsoteam.diet.presentation.profile.norm.choise.goal.GoalActivity">
+    tools:context="com.losing.weight.presentation.profile.norm.choise.goal.GoalActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

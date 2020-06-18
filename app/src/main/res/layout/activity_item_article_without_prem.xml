@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wsoteam.diet.articles.ItemArticleActivity">
+    tools:context="com.losing.weight.articles.ItemArticleActivity">
 
     <ScrollView
         android:layout_width="0dp"
@@ -185,7 +185,7 @@
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.wsoteam.diet.ads.nativetemplates.TemplateView
+            <com.losing.weight.ads.nativetemplates.TemplateView
                 android:id="@+id/my_template"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

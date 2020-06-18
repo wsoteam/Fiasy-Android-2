@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wsoteam.diet"
+    package="com.losing.weight"
     android:installLocation="internalOnly">
 
     <uses-feature
@@ -20,7 +20,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".App"
+        android:name="com.losing.weight.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -29,7 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".OtherActivity.AnyFragmentActivity"
+        <activity android:name="com.losing.weight.OtherActivity.AnyFragmentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityAuthMain"
             android:windowSoftInputMode="adjustResize"/>
@@ -38,7 +38,7 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_id"/>
 
-        <receiver android:name=".presentation.starvation.notification.BootReceiver"
+        <receiver android:name="com.losing.weight.presentation.starvation.notification.BootReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -47,178 +47,178 @@
                 <category android:name="android.intent.category.HOME" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".presentation.starvation.notification.AlarmNotificationReceiver"/>
+        <receiver android:name="com.losing.weight.presentation.starvation.notification.AlarmNotificationReceiver"/>
 
         <service
-            android:name=".presentation.starvation.notification.StarvationService"
+            android:name="com.losing.weight.presentation.starvation.notification.StarvationService"
             android:enabled="true"
             android:exported="true"/>
 
-        <activity android:name=".presentation.starvation.StarvationSettingsActivity"
+        <activity android:name="com.losing.weight.presentation.starvation.StarvationSettingsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ProfileActivity"/>
 
 
         <activity
-            android:name=".presentation.teach.TeachActivity"
+            android:name="com.losing.weight.presentation.teach.TeachActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TeachDialog.TransparentActivity" />
         <activity
-            android:name=".presentation.training.TrainingActivity"
+            android:name="com.losing.weight.presentation.training.TrainingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Article" />
         <activity
-            android:name=".articles.ArticleSeriesActivity"
+            android:name="com.losing.weight.articles.ArticleSeriesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Article" />
         <activity
-            android:name=".articles.BurlakovAuthorActivity"
+            android:name="com.losing.weight.articles.BurlakovAuthorActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Article" />
         <activity
-            android:name=".presentation.promo.PromoFormActivity"
+            android:name="com.losing.weight.presentation.promo.PromoFormActivity"
             android:screenOrientation="portrait"
             android:theme="@style/PromoScreen" />
         <activity
-            android:name=".presentation.measurment.help.HelpActivity"
+            android:name="com.losing.weight.presentation.measurment.help.HelpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DetailFood" />
         <activity
-            android:name=".presentation.measurment.history.HistoryActivity"
+            android:name="com.losing.weight.presentation.measurment.history.HistoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MeasurmentsStyle" />
         <activity
-            android:name=".presentation.search.product.DetailActivity"
+            android:name="com.losing.weight.presentation.search.product.DetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AnalyzerTheme" />
         <activity
-            android:name=".presentation.search.basket.BasketActivity"
+            android:name="com.losing.weight.presentation.search.basket.BasketActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AnalyzerTheme" />
         <activity
-            android:name=".presentation.search.ParentActivity"
+            android:name="com.losing.weight.presentation.search.ParentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AnalyzerTheme" />
         <activity
-            android:name=".presentation.profile.norm.choise.activity.ActivActivity"
+            android:name="com.losing.weight.presentation.profile.norm.choise.activity.ActivActivity"
             android:theme="@style/ChangeGoalActivity" />
         <activity
-            android:name=".presentation.profile.norm.choise.goal.GoalActivity"
+            android:name="com.losing.weight.presentation.profile.norm.choise.goal.GoalActivity"
             android:theme="@style/ChangeGoalActivity" />
         <activity
-            android:name=".presentation.profile.norm.ChangeNormActivity"
+            android:name="com.losing.weight.presentation.profile.norm.ChangeNormActivity"
             android:theme="@style/ChangeNorm"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".BranchOfAnalyzer.CustomFood.ActivityCreateFood"
+            android:name="com.losing.weight.BranchOfAnalyzer.CustomFood.ActivityCreateFood"
             android:screenOrientation="portrait"
             android:theme="@style/CreateFood"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".presentation.food.template.create.search.SearchFoodActivity"
+            android:name="com.losing.weight.presentation.food.template.create.search.SearchFoodActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
         <activity
-            android:name=".Recipes.v2.ListRecipesActivity"
+            android:name="com.losing.weight.Recipes.v2.ListRecipesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Recipe" />
         <activity
-            android:name=".presentation.profile.questions.AfterQuestionsActivity"
+            android:name="com.losing.weight.presentation.profile.questions.AfterQuestionsActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/EditProfile" />
         <activity
-            android:name=".presentation.auth.MainAuthNewActivity"
+            android:name="com.losing.weight.presentation.auth.MainAuthNewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityAuthMain"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".presentation.intro_tut.NewIntroActivity"
+            android:name="com.losing.weight.presentation.intro_tut.NewIntroActivity"
             android:screenOrientation="portrait"
             android:theme="@style/EditProfile" />
         <activity
-            android:name=".presentation.profile.questions.QuestionsCalculationsActivity"
+            android:name="com.losing.weight.presentation.profile.questions.QuestionsCalculationsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityAuthMain" />
         <activity
-            android:name=".presentation.food.template.create.CreateFoodTemplateActivity"
+            android:name="com.losing.weight.presentation.food.template.create.CreateFoodTemplateActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".presentation.main.water.WaterActivity"
+            android:name="com.losing.weight.presentation.main.water.WaterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AddWaterStyle" />
         <activity
-            android:name=".Recipes.adding.UsersRecipesActivity"
+            android:name="com.losing.weight.Recipes.adding.UsersRecipesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
         <activity
-            android:name=".presentation.food.template.create.detail.DetailFoodActivity"
+            android:name="com.losing.weight.presentation.food.template.create.detail.DetailFoodActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DetailFood" />
         <activity
-            android:name=".Recipes.adding.ActivityDetailFood"
+            android:name="com.losing.weight.Recipes.adding.ActivityDetailFood"
             android:screenOrientation="portrait"
             android:theme="@style/DetailFood" />
         <activity
-            android:name=".Recipes.adding.ProductSearchActivity"
+            android:name="com.losing.weight.Recipes.adding.ProductSearchActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
         <activity
-            android:name=".Recipes.adding.AddingRecipeActivity"
+            android:name="com.losing.weight.Recipes.adding.AddingRecipeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Recipes.v2.BlockedRecipeActivity"
+            android:name="com.losing.weight.Recipes.v2.BlockedRecipeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
         <activity
-            android:name=".articles.ItemArticleWithoutPremActivity"
+            android:name="com.losing.weight.articles.ItemArticleWithoutPremActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TransparentStatusBar" />
         <activity
-            android:name=".articles.ItemArticleActivity"
+            android:name="com.losing.weight.articles.ItemArticleActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TransparentStatusBar" />
         <activity
-            android:name=".Recipes.v2.RecipeActivity"
+            android:name="com.losing.weight.Recipes.v2.RecipeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
         <activity
-            android:name=".presentation.auth.restore.ActivityForgotPassword"
+            android:name="com.losing.weight.presentation.auth.restore.ActivityForgotPassword"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".OtherActivity.ActivityPrivacyPolicy"
+            android:name="com.losing.weight.OtherActivity.ActivityPrivacyPolicy"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemePolicy" />
         <activity
-            android:name=".InApp.ActivitySubscription"
+            android:name="com.losing.weight.InApp.ActivitySubscription"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/PremiumActivity" />
         <activity
-            android:name=".presentation.premium.AnastasiaStoryFragment"
+            android:name="com.losing.weight.presentation.premium.AnastasiaStoryFragment"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/PremiumActivity" />
         <activity
-            android:name=".presentation.premium.GraphPrePremium"
+            android:name="com.losing.weight.presentation.premium.GraphPrePremium"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/PremiumActivity" />
 
         <activity
-            android:name=".presentation.premium.WheelFortuneActivity"
+            android:name="com.losing.weight.presentation.premium.WheelFortuneActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/PremiumActivity" />
         <activity
-            android:name=".presentation.auth.main.MainAuthActivity"
-            android:parentActivityName=".presentation.intro.IntroActivity"
+            android:name="com.losing.weight.presentation.auth.main.MainAuthActivity"
+            android:parentActivityName="com.losing.weight.presentation.intro.IntroActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityAuthMain" />
         <activity
@@ -238,15 +238,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.intro.IntroActivity"
+            android:name="com.losing.weight.presentation.intro.IntroActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".presentation.measurment.MeasurmentActivity"
+            android:name="com.losing.weight.presentation.measurment.MeasurmentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MeasurmentsStyle" />
         <activity
-            android:name=".EntryPoint.ActivitySplash"
+            android:name="com.losing.weight.EntryPoint.ActivitySplash"
             android:screenOrientation="unspecified"
             android:theme="@style/Theme.AppCompat.Translucent">
 
@@ -266,7 +266,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainScreen.MainActivity"
+            android:name="com.losing.weight.MainScreen.MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2">
@@ -279,19 +279,19 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".BranchOfAnalyzer.ActivityListAndSearch"
+            android:name="com.losing.weight.BranchOfAnalyzer.ActivityListAndSearch"
             android:screenOrientation="portrait"
             android:theme="@style/AnalyzerTheme" />
         <activity
-            android:name=".BranchOfAnalyzer.ActivityDetailOfFood"
+            android:name="com.losing.weight.BranchOfAnalyzer.ActivityDetailOfFood"
             android:screenOrientation="portrait"
             android:theme="@style/DetailFood" />
         <activity
-            android:name=".BranchOfAnalyzer.ActivityDetailSavedFood"
+            android:name="com.losing.weight.BranchOfAnalyzer.ActivityDetailSavedFood"
             android:screenOrientation="portrait"
             android:theme="@style/DetailFood" />
         <activity
-            android:name=".presentation.profile.questions.QuestionsActivity"
+            android:name="com.losing.weight.presentation.profile.questions.QuestionsActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityAuthMain" />
@@ -324,45 +324,45 @@
             android:exported="true" />
 
         <activity
-            android:name=".presentation.profile.settings.ProfileSettingsActivity"
+            android:name="com.losing.weight.presentation.profile.settings.ProfileSettingsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ProfileActivity" />
         <activity
-            android:name=".presentation.profile.about.AboutActivity"
+            android:name="com.losing.weight.presentation.profile.about.AboutActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ChangeNorm"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".presentation.profile.help.HelpActivity"
+            android:name="com.losing.weight.presentation.profile.help.HelpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DetailFood" />
         <activity
-            android:name=".presentation.profile.help.detail.DetailActivity"
+            android:name="com.losing.weight.presentation.profile.help.detail.DetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DetailFood" />
         <activity
-            android:name=".presentation.plans.browse.BrowsePlansActivity"
+            android:name="com.losing.weight.presentation.plans.browse.BrowsePlansActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
 
         <activity
-            android:name=".presentation.plans.detail.PlanRecipeActivity"
+            android:name="com.losing.weight.presentation.plans.detail.PlanRecipeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
         <activity
-            android:name=".presentation.plans.detail.blocked.BlockedDetailPlansActivity"
+            android:name="com.losing.weight.presentation.plans.detail.blocked.BlockedDetailPlansActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
         <activity
-            android:name=".presentation.plans.detail.DetailPlansActivity"
+            android:name="com.losing.weight.presentation.plans.detail.DetailPlansActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Menu" />
         <activity
-            android:name=".BarcodeScanner.BaseScanner"
+            android:name="com.losing.weight.BarcodeScanner.BaseScanner"
             android:screenOrientation="portrait"
             android:theme="@style/DetailFood" />
         <activity
-            android:name=".presentation.premium.PremiumFeaturesActivity"
+            android:name="com.losing.weight.presentation.premium.PremiumFeaturesActivity"
             android:exported="true" />
 
         <provider

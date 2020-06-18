@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:visibility="visible"
-    tools:context="com.wsoteam.diet.presentation.teach.TeachHostFragment">
+    tools:context="com.losing.weight.presentation.teach.TeachHostFragment">
 
     <ImageView
         android:id="@+id/teachBlurImg"

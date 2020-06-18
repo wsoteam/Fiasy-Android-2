@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    tools:context="com.wsoteam.diet.presentation.training.exercises.TrainingExercisesHeaderViewHolder">
+    tools:context="com.losing.weight.presentation.training.exercises.TrainingExercisesHeaderViewHolder">
 
     <ImageView
         android:id="@+id/imageView100"

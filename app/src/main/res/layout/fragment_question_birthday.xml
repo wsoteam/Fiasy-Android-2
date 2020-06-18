@@ -48,7 +48,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvDateDescription"/>
 
-    <com.wsoteam.diet.common.views.wheels.WheelDatePicker
+    <com.losing.weight.common.views.wheels.WheelDatePicker
         android:id="@+id/wheelDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

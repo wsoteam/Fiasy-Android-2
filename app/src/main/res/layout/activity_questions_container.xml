@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <com.wsoteam.diet.presentation.profile.questions.fragments.QuestionsTabsView
+    <com.losing.weight.presentation.profile.questions.fragments.QuestionsTabsView
         android:id="@+id/tabDots"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         app:srcCompat="@drawable/back_arrow_icon"
         tools:visibility="visible"/>
 
-    <com.wsoteam.diet.views.CustomizedViewPager
+    <com.losing.weight.views.CustomizedViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

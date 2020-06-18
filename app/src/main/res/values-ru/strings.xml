@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <string name="app_name" translatable="false">Fiasy</string>
+  <string name="app_name">Losing weight</string>
   <!-- Unboarding Screen -->
   <string name="unboarding_welcome">Добро пожаловать в</string>
   <string name="unboarding_first_screen">Множество научных статей о правильном питании</string>
@@ -1098,4 +1098,32 @@
   <string name="abt_5_arrow">Измерения тела</string>
   <string name="abt_bottom_prem">Попробуйте 3 дня бесплатно \nДалее %s в год</string>
   <string name="abt_bottom_prem_week">Попробуйте 3 дня бесплатно \nДалее %s в неделю</string>
+
+
+  <string name="splash_internet_check">Пробуем подключиться...</string>
+  <string name="splash_internet_bad">Не удалось, попробовать снова</string>
+  <string name="sign_in_facebook">Войти через Facebook</string>
+  <string name="sign_in_google">Войти через Google</string>
+
+  <string name="sent">отправлено</string>
+
+
+  <string name="sign_in_widget">Необходимо %s в приложение чтобы отображалась ваша реальная норма калорий</string>
+  <string name="sign_in_alert">В режиме Гостя расчет калорий производится по усредненным показателям. Чтобы изменить норму калорий необходимо %s в приложение</string>
+
+  <string name="fragment_blocked_normal_text">Необходимо %s в приложение, чтобы появилась возможность менять КБЖУ</string>
+  <string name="personal_info_text">Необходимо %s в приложение, чтобы личная информация отображалась полностью</string>
+
+  <string name="premium_text_g">Худеть легко вместе с %s, комфортное ведение дневника и персональный подход </string>
+  <string name="premium_G_field_1">Отсутствие баннерной рекламы</string>
+  <string name="premium_G_field_2">Отсутствие всплывающей рекламы</string>
+  <string name="premium_G_field_3">Эксклюзивные статьи от диетолога</string>
+  <string name="premium_g_button_txt">Продолжить бесплатно 7 дней</string>
+
+  <string name="hide">Скрыть</string>
+  <string name="show">Раскрыть</string>
+
+  <string name="set_your_weight">Занесите свой вес</string>
+
+  <string name="mount_premium">Далее %s/месяц</string>
 </resources>

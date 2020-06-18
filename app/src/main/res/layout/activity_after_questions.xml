@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wsoteam.diet.presentation.profile.questions.AfterQuestionsActivity"
+    tools:context="com.losing.weight.presentation.profile.questions.AfterQuestionsActivity"
     >
 
-  <com.wsoteam.diet.presentation.profile.questions.CustomViewPager
+  <com.losing.weight.presentation.profile.questions.CustomViewPager
       android:id="@+id/pager"
       android:layout_width="match_parent"
       android:layout_height="0dp"

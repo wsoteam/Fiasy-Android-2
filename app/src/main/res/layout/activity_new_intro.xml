@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wsoteam.diet.presentation.intro_tut.NewIntroActivity">
+    tools:context="com.losing.weight.presentation.intro_tut.NewIntroActivity">
 
     <TextView
         android:id="@+id/tvWelcome"
@@ -53,7 +53,7 @@
 
     </LinearLayout>
 
-    <com.wsoteam.diet.views.CustomizedViewPager
+    <com.losing.weight.views.CustomizedViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

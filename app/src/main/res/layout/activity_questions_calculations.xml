@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/clBackground"
     android:background="@color/white"
-    tools:context="com.wsoteam.diet.presentation.profile.questions.QuestionsCalculationsActivity">
+    tools:context="com.losing.weight.presentation.profile.questions.QuestionsCalculationsActivity">
 
     <TextView
         android:id="@+id/tvTitle"

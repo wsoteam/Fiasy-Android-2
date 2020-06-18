@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.wsoteam.diet.presentation.starvation.StarvationNotificationFragment">
+    tools:context="com.losing.weight.presentation.starvation.StarvationNotificationFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"

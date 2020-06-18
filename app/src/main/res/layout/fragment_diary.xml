@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     >
 
-  <com.wsoteam.diet.views.GuardNestedScrollView
+  <com.losing.weight.views.GuardNestedScrollView
       android:id="@+id/root"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             app:title="@string/today"
             app:titleTextColor="@color/white">
 
-          <com.wsoteam.diet.views.CalendarDateView
+          <com.losing.weight.views.CalendarDateView
               android:id="@+id/small_calendar"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
         </androidx.appcompat.widget.Toolbar>
 
 
-        <com.wsoteam.diet.views.CompactCalendarView
+        <com.losing.weight.views.CompactCalendarView
             android:id="@+id/calendar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/diary_calendar_height"
@@ -107,7 +107,7 @@
           />
 
     </FrameLayout>
-  </com.wsoteam.diet.views.GuardNestedScrollView>
+  </com.losing.weight.views.GuardNestedScrollView>
 
 <!--  <include layout="@layout/view_premium_banner" />-->
 

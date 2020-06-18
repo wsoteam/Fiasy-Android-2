@@ -61,7 +61,7 @@
         app:layout_constraintStart_toStartOf="@+id/textView145"
         app:layout_constraintTop_toBottomOf="@+id/textView145"/>
 
-    <com.wsoteam.diet.common.views.ruler.RulerValuePicker
+    <com.losing.weight.common.views.ruler.RulerValuePicker
         android:id="@+id/rulerPicker"
         android:layout_width="wrap_content"
         android:layout_height="100dp"

@@ -365,7 +365,7 @@ Share your accomplishments with friends:</string>
 
     <!--test-->
     <string name="todo" translatable="false">TODO</string>
-    <string name="app_name">Fiasy</string>
+    <string name="app_name" translatable="false">Losing weight</string>
     <string name="app_name_fiasy" translatable="false">Fiasy</string>
 
     <!--Privacy Policy-->
@@ -1316,35 +1316,32 @@ Share your accomplishments with friends:</string>
     <string name="starvation_notification_alert_txt">Включить уведомления вы можете в настройках Android для приложения Fiasy.</string>
 
     <string name="starvation_channel_name">Голодание в Fiasy</string>
+    <string name="ad_attribution" translatable="false">Ad</string>
 
 
-    <string name="splash_internet_check">Пробуем подключиться...</string>
-    <string name="splash_internet_bad">Не удалось, попробовать снова</string>
-    <string name="sign_in_facebook">Войти через Facebook</string>
-    <string name="sign_in_google">Войти через Google</string>
+    <string name="splash_internet_check">Try to connect…</string>
+    <string name="splash_internet_bad">Failed, try again</string>
+    <string name="sign_in_facebook">Sign in with Facebook</string>
+    <string name="sign_in_google">Sign in with Google</string>
 
-    <string name="sent">отправлено</string>
+    <string name="sent">sent</string>
+    <string name="sign_in_widget">You must be %s in to see your true calorie rate</string>
+    <string name="sign_in_alert">In Guest mode, calories are calculated based on averages. To change the calorie intake you must %s the application</string>
 
-    <string name="ad_attribution">Ad</string>
+    <string name="fragment_blocked_normal_text">You must be %s in to be able to change calories, proteins, fats and carbohydrates</string>
+    <string name="personal_info_text">You must be %s in to personal information to be displayed in full</string>
 
+    <string name="premium_text_g">Lose weight easily with %s, comfortable diary and a personal approach</string>
+    <string name="premium_G_field_1">Lack of banner advertising</string>
+    <string name="premium_G_field_2">No pop-up ads</string>
+    <string name="premium_G_field_3">Exclusive articles from a nutritionist</string>
+    <string name="premium_g_button_txt">Continue for free for 7 days</string>
 
-    <string name="sign_in_widget">Необходимо %s в приложение чтобы отображалась ваша реальная норма калорий</string>
-    <string name="sign_in_alert">В режиме Гостя расчет калорий производится по усредненным показателям. Чтобы изменить норму калорий необходимо %s в приложение</string>
+    <string name="hide">Hide</string>
+    <string name="show">Disclose</string>
 
-    <string name="fragment_blocked_normal_text">Необходимо %s в приложение, чтобы появилась возможность менять КБЖУ</string>
-    <string name="personal_info_text">Необходимо %s в приложение, чтобы личная информация отображалась полностью</string>
+    <string name="set_your_weight">Carry your weight</string>
 
-    <string name="premium_text_g">Худеть легко вместе с %s, комфортное ведение дневника и персональный подход </string>
-    <string name="premium_G_field_1">Отсутствие баннерной рекламы</string>
-    <string name="premium_G_field_2">Отсутствие всплывающей рекламы</string>
-    <string name="premium_G_field_3">Эксклюзивные статьи от диетолога</string>
-    <string name="premium_g_button_txt">Продолжить бесплатно 7 дней</string>
-
-    <string name="hide">Скрыть</string>
-    <string name="show">Раскрыть</string>
-
-    <string name="set_your_weight">Занесите свой вес</string>
-
-    <string name="mount_premium">Далее %s/месяц</string>
+    <string name="mount_premium">Further %s/month</string>
 
 </resources>

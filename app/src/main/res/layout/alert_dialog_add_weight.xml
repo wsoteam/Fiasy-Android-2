@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <com.wsoteam.diet.common.views.wheels.WheelWeightKiloPicker
+            <com.losing.weight.common.views.wheels.WheelWeightKiloPicker
                 android:id="@+id/whlWeightKiloPicker"
                 android:layout_width="109dp"
                 android:layout_height="140dp"
@@ -35,7 +35,7 @@
                 app:wheel_selected_item_text_color="#2e2e2e"
                 app:wheel_visible_item_count="3" />
 
-            <com.wsoteam.diet.common.views.wheels.WheelWeightGrammPicker
+            <com.losing.weight.common.views.wheels.WheelWeightGrammPicker
                 android:id="@+id/whlWeightGrammPicker"
                 android:layout_width="109dp"
                 android:layout_height="140dp"

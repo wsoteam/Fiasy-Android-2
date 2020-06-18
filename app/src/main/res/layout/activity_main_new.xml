@@ -545,7 +545,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <com.wsoteam.diet.presentation.activity.ActivityWidget
+            <com.losing.weight.presentation.activity.ActivityWidget
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

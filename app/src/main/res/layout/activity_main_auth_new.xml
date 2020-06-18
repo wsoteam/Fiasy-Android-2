@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    tools:context="com.wsoteam.diet.presentation.auth.MainAuthNewActivity">
+    tools:context="com.losing.weight.presentation.auth.MainAuthNewActivity">
 
         <FrameLayout
             android:id="@+id/container"

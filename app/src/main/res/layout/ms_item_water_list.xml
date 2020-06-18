@@ -87,7 +87,7 @@
         android:padding="4dp"
         >
 
-      <com.wsoteam.diet.common.views.water_step.WaterStepView
+      <com.losing.weight.common.views.water_step.WaterStepView
           android:id="@+id/waterStepView"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"

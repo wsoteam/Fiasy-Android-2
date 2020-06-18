@@ -38,7 +38,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFAE5F"
-    tools:context="com.wsoteam.diet.InApp.Fragments.FragmentG">
+    tools:context="com.losing.weight.InApp.Fragments.FragmentG">
 
 
     <ImageView

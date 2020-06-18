@@ -7,7 +7,7 @@
     app:cardCornerRadius="15dp"
     android:minHeight="50dp">
 
-    <com.wsoteam.diet.presentation.activity.ActivityWidget
+    <com.losing.weight.presentation.activity.ActivityWidget
         android:id="@+id/activityWidget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

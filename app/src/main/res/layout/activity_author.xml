@@ -16,7 +16,7 @@
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      tools:context="com.wsoteam.diet.articles.BurlakovAuthorActivity">
+      tools:context="com.losing.weight.articles.BurlakovAuthorActivity">
 
     <ImageView
         android:id="@+id/imageView61"
