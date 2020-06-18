@@ -108,7 +108,7 @@
     <string name="yesterday">ontem</string>
     <string name="tomorrow">amanhã</string>
     <string name="daily_burn_widget_title">Taxa diária</string>
-    <string name="url_privacy_police">https://fiasy.com/privacypolicy_en</string>
+<!--    <string name="url_privacy_police">https://fiasy.com/privacypolicy_en</string>-->
     <string name="today">hoje</string>
     <string name="daily_rate_2">Taxa diária =</string>
 

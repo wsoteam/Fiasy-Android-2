@@ -14,8 +14,10 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.losing.weight.App;
 import com.losing.weight.Config;
 import com.losing.weight.Sync.UserDataHolder;
+import com.losing.weight.presentation.profile.questions.QuestionsActivity;
 import com.losing.weight.utils.RxFirebase;
 
 import java.util.Objects;
@@ -101,6 +103,7 @@ public abstract class AuthStrategy {
                 .subscribe(this::onAuthenticated, this::onAuthException));
       }).addOnCompleteListener(task1 -> {
         if (task1.isSuccessful()) {
+          QuestionsActivity.setFlagQuestionsStart(App.getContext());
           Log.d("kkk","complete isSucc");
           onAuthenticated(Objects.requireNonNull(task1.getResult()));
         }

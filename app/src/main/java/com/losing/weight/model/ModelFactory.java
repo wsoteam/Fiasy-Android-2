@@ -1,15 +1,18 @@
 package com.losing.weight.model;
 
+import android.content.Context;
+
 import com.losing.weight.POJOProfile.Profile;
+import com.losing.weight.R;
 
 public class ModelFactory {
 
-    public static Profile getDefaultProfile(){
+    public static Profile getDefaultProfile(Context context){
         Profile profile = new Profile();
         profile.setAge(22);
         profile.setDifficultyLevel("Средняя");
         profile.setExerciseStress("Малоактивный");
-        profile.setFirstName("Гость");
+        profile.setFirstName(context.getString(R.string.default_name));
         profile.setLastName("default");
         profile.setGoLevel(0);
         profile.setGoal(0);

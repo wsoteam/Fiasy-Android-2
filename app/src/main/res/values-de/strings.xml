@@ -113,7 +113,7 @@
         <item quantity="other">Kostenlos für %d Tage</item>
     </plurals>
 
-    <string name="url_privacy_police">https://fiasy.com/privacypolicy_en</string>
+<!--    <string name="url_privacy_police">https://fiasy.com/privacypolicy_en</string>-->
     <string name="today">Heute</string>
 
     <string name="camera">Kamera</string>

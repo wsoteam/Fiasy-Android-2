@@ -113,14 +113,15 @@ abstract class BasePremiumFragment(@LayoutRes id: Int): Fragment(id), PurchasesU
 
 
         billingClient!!.querySkuDetailsAsync(params.build()) { responseCode, skuDetailsList ->
-            if (responseCode == BillingClient.BillingResponse.OK && skuDetailsList != null) {
-                Log.e("LOL", skuDetailsList[0]?.toString() + "")
+            if (responseCode == BillingClient.BillingResponse.OK && !skuDetailsList.isNullOrEmpty()) {
+                Log.e("LOL", skuDetailsList[0].toString())
                 try {
                     setPrice(skuDetailsList[0])
                 } catch (ex: java.lang.Exception) {
                     Log.d("kkk", "onSkuDetailsResponse: FAIL")
                 }
             } else {
+                setPrice(null)
                 Log.d("kkk", "onSkuDetailsResponse: FAIL")
             }
         }

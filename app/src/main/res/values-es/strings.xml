@@ -84,7 +84,7 @@
     <string name="user_activity_time_elapsed_wh" formatted="false">%dh %d m</string>
     <string name="user_activity_time_elapsed_wh_wm">%dh</string>
     <string name="daily_burn_widget_title">Cálculo diario</string>
-    <string name="url_privacy_police">https://fiasy.com/privacypolicy_en</string>
+<!--    <string name="url_privacy_police">https://fiasy.com/privacypolicy_en</string>-->
     <string name="today">hoy</string>
     <string name="camera">Cámara</string>
     <string name="load_photo">Subir foto</string>

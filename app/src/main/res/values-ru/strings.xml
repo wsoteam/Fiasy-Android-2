@@ -1061,7 +1061,7 @@
   <string name="question_name_title">Давайте знакомиться.\nКак вас зовут?</string>
   <string name="subscription_not_found">Подписка не найдена, возможно она не доступна в вашей стране</string>
 
-  <string name="url_privacy_police">http://fiasy.com/PrivacyPolice</string>
+<!--  <string name="url_privacy_police">http://fiasy.com/PrivacyPolice</string>-->
 
   <plurals name="trial_days">
     <item quantity="one">%d день бесплатно</item>
@@ -1126,4 +1126,6 @@
   <string name="set_your_weight">Занесите свой вес</string>
 
   <string name="mount_premium">Далее %s/месяц</string>
+
+  <string name="default_name">Гость</string>
 </resources>

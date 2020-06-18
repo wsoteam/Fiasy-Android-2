@@ -1091,7 +1091,7 @@ Share your accomplishments with friends:</string>
     <string name="phone_memory">Phone memory</string>
 
     <string name="widget_activity_question">Have you been active today?</string>
-    <string name="url_privacy_police">https://fiasy.com/privacypolicy_en</string>
+    <string name="url_privacy_police" translatable="false">https://ny0110.wixsite.com/fiasy</string>
 
 
     <string name="my_meals">My meals</string>
@@ -1343,5 +1343,6 @@ Share your accomplishments with friends:</string>
     <string name="set_your_weight">Carry your weight</string>
 
     <string name="mount_premium">Further %s/month</string>
+    <string name="default_name">Guest</string>
 
 </resources>
