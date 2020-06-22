@@ -1,6 +1,6 @@
 package com.losing.weight.presentation.diary
 
-import android.app.Application
+
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,6 +40,11 @@ class EatingsWidget(itemView: View) : WidgetView(itemView), UpdateCallback {
     }
   }
 
+  private val adObserver = Observer<Boolean> {
+    if (it)  nativeAd?.visibility = View.VISIBLE
+    else  nativeAd?.visibility = View.GONE
+  }
+
   private val nativeAd: TemplateView = itemView.findViewById(R.id.nativeAd)
 
   init {
@@ -76,10 +81,10 @@ class EatingsWidget(itemView: View) : WidgetView(itemView), UpdateCallback {
 
     val ad = FiasyAds.getLiveDataAdView().value
 
-    FiasyAds.adStatus.observeForever{
-      if (it)  nativeAd?.visibility = View.VISIBLE
-      else  nativeAd?.visibility = View.GONE
-    }
+//    FiasyAds.adStatus.observeForever{
+//      if (it)  nativeAd?.visibility = View.VISIBLE
+//      else  nativeAd?.visibility = View.GONE
+//    }
 
     if (ad != null && !Subscription.check(context)) {
       nativeAd.visibility = View.VISIBLE
@@ -100,6 +105,7 @@ class EatingsWidget(itemView: View) : WidgetView(itemView), UpdateCallback {
 
     DiaryViewModel.selectedDate.observeForever(dateChangeObserver)
     WorkWithFirebaseDB.liveUpdates().observeForever(eatingsObserver)
+    FiasyAds.adStatus.observeForever(adObserver)
 
     update()
     updateNativeAd()
@@ -109,6 +115,7 @@ class EatingsWidget(itemView: View) : WidgetView(itemView), UpdateCallback {
     super.onDetached(parent)
     DiaryViewModel.selectedDate.removeObserver(dateChangeObserver)
     WorkWithFirebaseDB.liveUpdates().removeObserver(eatingsObserver)
+    FiasyAds.adStatus.removeObserver(adObserver)
 
     disposables.clear()
   }
