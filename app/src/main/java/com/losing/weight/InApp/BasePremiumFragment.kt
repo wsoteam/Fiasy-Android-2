@@ -92,7 +92,7 @@ abstract class BasePremiumFragment(@LayoutRes id: Int): Fragment(id), PurchasesU
             editor.apply()
             if (box!!.isOpenFromIntrodaction) {
                 box!!.isSubscribe = true
-                context?.getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE)?.edit()?.putString(SavedConst.HOW_END, EventProperties.onboarding_success_trial)?.commit()
+                context?.getSharedPreferences(SavedConst.HOW_END, Context.MODE_PRIVATE)?.edit()?.putString(SavedConst.HOW_END, EventProperties.onboarding_success_trial)?.apply()
             }
             IntentUtils.openMainActivity(requireContext())
         }

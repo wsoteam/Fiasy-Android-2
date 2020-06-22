@@ -31,7 +31,7 @@ public class FiasyAds {
 
     private static boolean isRefreshLocked = false;
 
-    public static MutableLiveData<Boolean> adStatus= new MutableLiveData<>(true);
+    public static MutableLiveData<Boolean> adStatus = new MutableLiveData<>(true);
 
 
     private static MutableLiveData<UnifiedNativeAd> nativeAdView = new MutableLiveData<>();

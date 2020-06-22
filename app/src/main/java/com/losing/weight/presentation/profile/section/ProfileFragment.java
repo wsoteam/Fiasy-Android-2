@@ -355,6 +355,10 @@ public class ProfileFragment extends MvpAppCompatFragment implements ProfileView
                 nativeAd.setVisibility(View.GONE);
             }
         });
+
+        FiasyAds.adStatus.observe(getViewLifecycleOwner(), isOpen ->{
+            if (!isOpen) nativeAd.setVisibility(View.GONE);
+        });
     }
 
     @Override

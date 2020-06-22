@@ -320,7 +320,7 @@
 
         <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider1234"
+            android:authorities="com.losing.weight.FacebookContentProvider"
             android:exported="true" />
 
         <activity
@@ -367,7 +367,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
+            android:authorities="com.losing.weight.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

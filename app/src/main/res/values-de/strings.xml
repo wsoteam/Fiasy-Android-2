@@ -871,4 +871,75 @@ Teilen Sie Ihre Erfolge mit Freunden:</string>
 
     <string name="mount_premium">Des Weiteren %s/Monat</string>
 
+    //
+
+    <string name="starvation_title">16:8 Hunger</string>
+    <string name="starvation_start">Beginnen</string>
+    <string name="starvation_cancle">Stornieren</string>
+    <string name="starvation_select">Wählen</string>
+    <string name="starvation_close">Schließen</string>
+
+    <string name="starvation_time">Wählen Sie eine Zeit, um mit dem Fasten zu beginnen:</string>
+    <string name="starvation_date">Wählen Sie einen Starttermin für das Fasten:</string>
+    <string name="starvation_days">Wählen Sie Fastentage:</string>
+    <string name="starvation_week_days">Wochentage</string>
+
+    <string name="monday_f">Montag</string>
+    <string name="tuesday_f">Dienstag</string>
+    <string name="wednesday_f">Mittwoch</string>
+    <string name="thursday_f">Donnerstag</string>
+    <string name="friday_f">Freitag</string>
+    <string name="saturday_f">Samstag</string>
+    <string name="sunday_f">Sonntag</string>
+
+
+    <string name="starvation_all_days">Täglich</string>
+
+    <string name="starvation_on">Fasten jetzt</string>
+    <string name="starvation_off">Jetzt gibt es eine Mahlzeit</string>
+    <string name="starvation_started">Der Hunger wird beginnen</string>
+    <string name="starvation_time_left">Übrige Zeit:</string>
+    <string name="starvation_off_subtitle">Die Mahlzeit endet in:</string>
+    <string name="starvation_on_subtitle">Die Fastenzeit endet in:</string>
+
+    <string name="hours_short">Std</string>
+    <string name="minutes_short">Protokoll</string>
+    <string name="seconds_short">Sekunden</string>
+
+    <string name="starvation_exit">Abmelden</string>
+    <string name="starvation_save">Speichern</string>
+    <string name="starvation_cancel">Stornieren</string>
+    <string name="starvation_setting">die Einstellungen</string>
+    <string name="starvation_back">Zurück</string>
+    <string name="starvation_alert_txt">Möchten Sie den Test verlassen?</string>
+    <string name="starvation">Hunger</string>
+
+    <string name="starvation_blocked_title">16 Stunden schnell</string>
+    <string name="starvation_blocked_part1">Ein einfacher und effektiver Weg, um zusätzliche Pfunde zu verlieren. Diese Fastenmethode bietet nur die Möglichkeit, das Frühstück oder Abendessen abzulehnen und dadurch den Kalorienverbrauch zu reduzieren, wodurch der Prozess der Fettverbrennung beginnt.</string>
+    <string name="starvation_blocked_part2">Abonnieren Sie PREMIUM und aktivieren Sie die Auto-Count-Funktion, die alles für Sie erledigt!</string>
+    <string name="starvation_blocked_buy">Auschecken</string>
+
+    <string name="starvation_time_from">von</string>
+    <string name="starvation_time_till">Vor</string>
+
+    <string name="starvation_exit_without_saving">Beenden ohne Fasteneinstellungen zu speichern?</string>
+
+
+    <string name="starvation_notification_basic_start">Der Fasten-Countdown hat begonnen.</string>
+    <string name="starvation_notification_basic_end">Das Fasten ist vorbei, es ist Zeit zu essen.</string>
+
+    <string name="starvation_notification_advance_start">15 Minuten vor dem Fasten.</string>
+    <string name="starvation_notification_advance_end">15 Minuten vor dem Ende des Fastens.</string>
+
+    <string name="starvation_notification">Erinnerungen</string>
+
+    <string name="starvation_notification_setting_basic">Erinnern Sie an den Beginn und das Ende des Fastens</string>
+    <string name="starvation_notification_setting_advance">15 Minuten vor und nach dem Fasten erinnern</string>
+
+    <string name="starvation_notification_alert_title">Benachrichtigungen deaktiviertы</string>
+    <string name="starvation_notification_alert_txt">Sie können Benachrichtigungen in den Android-Einstellungen für die Fiasy-App aktivieren.</string>
+
+    <string name="starvation_channel_name">Fasten in Fiasy</string>
+
+
 </resources>

@@ -584,7 +584,6 @@ public class MainActivity extends AppCompatActivity {
   };
 
   private Observer<String> fabState = state -> {
-    Log.d("kkk", " state - " + state);
     if (state != null) {
       switch (state) {
         case FabMenuViewModel.FAB_HIDE: {
