@@ -37,6 +37,8 @@ import com.losing.weight.utils.Metrics;
 import com.losing.weight.utils.RichTextUtils;
 import com.losing.weight.utils.Subscription;
 import com.losing.weight.utils.ViewsExtKt;
+import com.losing.weight.views.SearchCardView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -637,16 +639,11 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     if (holder instanceof SearchView) {
       final SearchView view = ((SearchView) holder);
-      view.searchView.addTextChangedListener(searchWatcher);
-      view.searchView.setOnEditorActionListener((v, actionId, event) -> {
-        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-          ViewsExtKt.hideKeyboard(v);
 
-          searchListener.onSearch(v.getText().toString());
-          return true;
-        }
-        return false;
-      });
+        view.searchCardView.setOnTextChangeListener((string, isButton) -> {
+          searchListener.onSearch(string);
+          return null;
+        });
     }
   }
 
@@ -662,8 +659,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     if (holder instanceof SearchView) {
       final SearchView view = ((SearchView) holder);
-      view.searchView.removeTextChangedListener(searchWatcher);
-      view.searchView.setOnEditorActionListener(null);
+      view.searchCardView.setOnTextChangeListener(null);
     }
   }
 
@@ -685,37 +681,11 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
   static class SearchView extends RecyclerView.ViewHolder {
 
-    private final EditText searchView;
-    private final View actionClear;
-    private final TextWatcher watcher = new TextWatcher() {
-      @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-      }
-
-      @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-        actionClear.setVisibility(TextUtils.isEmpty(s) ? View.GONE : View.VISIBLE);
-      }
-
-      @Override public void afterTextChanged(Editable s) {
-
-      }
-    };
+    private final SearchCardView searchCardView;
 
     public SearchView(@NonNull View itemView) {
       super(itemView);
-
-      final Context c = itemView.getContext();
-      final VectorDrawableCompat d = VectorDrawableCompat.create(c.getResources(),
-          R.drawable.search_icon, c.getTheme());
-
-      d.setTint(ContextCompat.getColor(c, R.color.search_icon_grey));
-
-      searchView = itemView.findViewById(R.id.search_view);
-      searchView.setCompoundDrawablesWithIntrinsicBounds(d, null, null, null);
-      searchView.addTextChangedListener(watcher);
-
-      actionClear = itemView.findViewById(R.id.action_clear);
-      actionClear.setOnClickListener(v -> searchView.setText(""));
+      searchCardView = itemView.findViewById(R.id.search_bar);
     }
   }
 
