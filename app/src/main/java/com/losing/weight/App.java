@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.amplitude.api.Amplitude;
+import com.bugsee.library.Bugsee;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.FirebaseDatabase;
@@ -45,7 +46,7 @@ public class App extends MultiDexApplication {
         FirebaseApp.initializeApp(this);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-//        Bugsee.launch(this, "ec43078d-e5d9-4e97-9912-4f293e315bdf");
+        Bugsee.launch(this, "ec43078d-e5d9-4e97-9912-4f293e315bdf");
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         FirebaseRemoteConfig.getInstance().setDefaults(new HashMap<String, Object>() {{
@@ -78,7 +79,7 @@ public class App extends MultiDexApplication {
 
         context = this;
 
-        YandexMetricaConfig config = YandexMetricaConfig.newConfigBuilder("29344c16-aee8-4945-b2bb-df19320f37e5").build();
+        YandexMetricaConfig config = YandexMetricaConfig.newConfigBuilder(getString(R.string.yandex_app_metrica_key)).build();
         YandexMetrica.activate(getApplicationContext(), config);
         YandexMetrica.enableActivityAutoTracking(this);
 
