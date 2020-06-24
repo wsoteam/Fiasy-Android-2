@@ -14,8 +14,8 @@ android {
         applicationId "com.losing.weight"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 4
-        versionName "1.3dev"
+        versionCode 5
+        versionName "1.4dev"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         renderscriptTargetApi 27
