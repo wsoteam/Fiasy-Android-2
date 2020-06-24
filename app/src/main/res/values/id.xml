@@ -7,15 +7,15 @@
     <string name="instagram_callback_url" translatable="false">http://fiasy.com/</string>
     <string name="base_url" translatable="false">https://api.instagram.com/</string>
 
-<!--    <string name="admob_id" translatable="false">ca-app-pub-2565194561479895~3536125683</string>-->
-<!--    <string name="admob_native" translatable="false">ca-app-pub-2565194561479895/6412488894</string>-->
-<!--    <string name="admob_interstitial" translatable="false">ca-app-pub-2565194561479895/2118020663</string>-->
+    <string name="admob_id" translatable="false">ca-app-pub-2565194561479895~3536125683</string>
+    <string name="admob_native" translatable="false">ca-app-pub-2565194561479895/6412488894</string>
+    <string name="admob_interstitial" translatable="false">ca-app-pub-2565194561479895/2118020663</string>
 
 
     <!--TEST IDS-->
-    <string name="admob_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="admob_native" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
-    <string name="admob_interstitial" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+<!--    <string name="admob_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>-->
+<!--    <string name="admob_native" translatable="false">ca-app-pub-3940256099942544/2247696110</string>-->
+<!--    <string name="admob_interstitial" translatable="false">ca-app-pub-3940256099942544/1033173712</string>-->
 
 
     <string name="yandex_app_metrica_key" translatable="false">9ad531c0-eac1-44b8-97f9-d086eeac073f</string>

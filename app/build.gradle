@@ -14,8 +14,8 @@ android {
         applicationId "com.losing.weight"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 3
-        versionName "1.2dev"
+        versionCode 4
+        versionName "1.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         renderscriptTargetApi 27
@@ -117,7 +117,7 @@ dependencies {
     implementation 'com.android.billingclient:billing:1.2'
     implementation 'com.amplitude:android-sdk:2.23.2'
     implementation 'me.relex:circleindicator:1.2.2'
-    implementation 'com.bugsee:bugsee-android:+'
+//    implementation 'com.bugsee:bugsee-android:+'
 
     implementation 'com.google.apis:google-api-services-androidpublisher:v3-rev130-1.25.0'
 

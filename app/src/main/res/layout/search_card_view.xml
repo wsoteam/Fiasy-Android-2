@@ -18,7 +18,6 @@
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:fontFamily="@font/roboto"
-        android:cursorVisible="false"
         android:drawablePadding="8dp"
         android:drawableStart="@drawable/ic_search_gray"
         android:inputType="textAutoComplete"

@@ -35,8 +35,8 @@ class SearchCardView @JvmOverloads constructor(
     }
 
     private val editText: EditText
-    private val cleanEditText: ImageView
-    private val speak: ImageView
+    private val actionClean: ImageView
+    private val actionSpeak: ImageView
 
     private var hint = ""
     private var speakEnable = false
@@ -45,8 +45,8 @@ class SearchCardView @JvmOverloads constructor(
         inflate(context, LAYOUT_ID, this)
         radius = dp(context, CORNER_RADIUS_DP).toFloat()
         editText = findViewById(R.id.searchText)
-        cleanEditText = findViewById(R.id.actionCleanText)
-        speak = findViewById(R.id.actionSpeak)
+        actionClean = findViewById(R.id.actionCleanText)
+        actionSpeak = findViewById(R.id.actionSpeak)
 
         context.theme.obtainStyledAttributes(
                 attrs,
@@ -60,8 +60,8 @@ class SearchCardView @JvmOverloads constructor(
             }
         }
 
-        speak.visibility = if (speakEnable) View.VISIBLE else View.GONE
-        speak.setOnClickListener { speakOnClickListener?.onClick(it) }
+        actionSpeak.visibility = if (speakEnable) View.VISIBLE else View.GONE
+        actionSpeak.setOnClickListener { speakOnClickListener?.onClick(it) }
 
         editText.hint = hint
         editText.addTextChangedListener(object : TextWatcher {
@@ -74,7 +74,7 @@ class SearchCardView @JvmOverloads constructor(
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                cleanEditText.visibility = if (s?.length ?: 0 > 0) View.VISIBLE else View.GONE
+                actionClean.visibility = if (s?.length ?: 0 > 0) View.VISIBLE else View.GONE
                 onTextChangeListener?.invoke(s.toString(), false)
             }
         })
@@ -88,9 +88,10 @@ class SearchCardView @JvmOverloads constructor(
             return@setOnEditorActionListener false
         }
 
-        cleanEditText.setOnClickListener {
+        actionClean.setOnClickListener {
             editText.text = null
             hideKeyboard()
+            editText.clearFocus()
         }
     }
 }
