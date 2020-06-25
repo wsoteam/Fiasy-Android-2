@@ -20,11 +20,15 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.collection.SparseArrayCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.appbar.AppBarLayout;
 import com.losing.weight.R;
 import com.losing.weight.presentation.training.TrainingActivity;
 import com.losing.weight.utils.Metrics;
+import com.losing.weight.utils.RecyclerExtKt;
 import com.losing.weight.utils.ViewsExtKt;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -50,6 +54,7 @@ public class UserActivityFragment extends DialogFragment implements
   private final static int ADD_ACTIVITY_2_DIARY = 1;
 
   private Toolbar toolbar;
+  private AppBarLayout appbar;
 
   private RecyclerView container;
   private ActivitiesAdapter adapter;
@@ -72,11 +77,15 @@ public class UserActivityFragment extends DialogFragment implements
     toolbar.setOnMenuItemClickListener(this);
     toolbar.setNavigationOnClickListener(v -> dismissAllowingStateLoss());
 
+    appbar = view.findViewById(R.id.appbar);
     container = view.findViewById(R.id.container);
 
     container.setAdapter(adapter = new ActivitiesAdapter(Locale.getDefault().getLanguage().equals("ru"), getContext()));
     container.addItemDecoration(new DividerDecoration(requireContext()));
     container.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+    RecyclerExtKt.appBarLiftable(container, appbar);
+
 
     adapter.setSearchListener(this::search);
     adapter.setBannerListener(v ->

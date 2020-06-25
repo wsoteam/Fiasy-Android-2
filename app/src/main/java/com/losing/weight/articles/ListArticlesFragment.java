@@ -47,6 +47,7 @@ import com.losing.weight.R;
 import com.losing.weight.model.ApiResult;
 import com.losing.weight.model.ArticleViewModel;
 import com.losing.weight.presentation.auth.AuthUtil;
+import com.losing.weight.utils.RecyclerExtKt;
 import com.losing.weight.utils.Subscription;
 
 import java.util.ArrayList;
@@ -163,7 +164,6 @@ public class ListArticlesFragment extends Fragment implements Observer {
 
     View view = inflater.inflate(R.layout.fragment_list_articles, container, false);
     unbinder = ButterKnife.bind(this, view);
-    appBarLayout.setLiftable(true);
     mToolbar.setTitle(getString(R.string.bnv_main_articles));
     mToolbar.inflateMenu(R.menu.menu_article);
     mToolbar.setNavigationIcon(null);
@@ -199,21 +199,7 @@ public class ListArticlesFragment extends Fragment implements Observer {
 
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(verticalArticlesAdapter);
-    recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-      @Override
-      public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-        super.onScrollStateChanged(recyclerView, newState);
-      }
-      @Override
-      public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        super.onScrolled(recyclerView, dx, dy);
-        LinearLayoutManager linearLayoutManager1 = (LinearLayoutManager) recyclerView.getLayoutManager();
-        int firstVisibleItem = 0;
-        if (linearLayoutManager1 != null)
-          firstVisibleItem = linearLayoutManager1.findFirstVisibleItemPosition();
-        appBarLayout.setLiftable(firstVisibleItem == 0);
-      }
-    });
+    RecyclerExtKt.appBarLiftable(recyclerView, appBarLayout);
 
     articlePremium.setOnClickListener(v -> {
 
