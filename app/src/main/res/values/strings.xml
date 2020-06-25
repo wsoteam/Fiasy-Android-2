@@ -1348,4 +1348,6 @@ Share your accomplishments with friends:</string>
     <string name="mount_premium">Further %s/month</string>
     <string name="default_name">Guest</string>
 
+    <string name="error_big_value">Больше доспустимого</string>
+
 </resources>

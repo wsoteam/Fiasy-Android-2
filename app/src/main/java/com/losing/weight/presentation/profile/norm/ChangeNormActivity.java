@@ -72,6 +72,8 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
     }
 
     private final double PROTEIN_COUNT = 0.1, FAT_COUNT = 0.027, CARBO_COUNT = 0.0875;
+    private final double MAX_NORMA_CALORIES = 9999;
+
     private TextWatcher kcalTW = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -80,14 +82,16 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            if (edtKcal.isFocused())
             if (charSequence.toString().equals("-")) {
                 edtKcal.setText("");
             } else if (charSequence.toString().equals("")) {
-                recountMainParams(0);
+                recountForCalories(0);
             } else {
-                recountMainParams(Integer.parseInt(charSequence.toString()));
+                recountForCalories(Integer.parseInt(charSequence.toString()));
             }
 
+            removeError(tilKcal);
 
             if (tvFormulaHint.getVisibility() == View.VISIBLE) {
                 setDropModeOn();
@@ -109,6 +113,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             removeError(tilProt);
+            if (edtProt.isFocused()) recountForProtein(charSequence.toString().equals("") ? 0 : Integer.parseInt(charSequence.toString()));
             if (tvFormulaHint.getVisibility() == View.VISIBLE) {
                 setDropModeOn();
             }
@@ -129,6 +134,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             removeError(tilCarbo);
+            if (edtCarbo.isFocused()) recountForCarbo(charSequence.toString().equals("") ? 0 : Integer.parseInt(charSequence.toString()));
             if (tvFormulaHint.getVisibility() == View.VISIBLE) {
                 setDropModeOn();
             }
@@ -149,6 +155,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             removeError(tilFats);
+            if (edtFats.isFocused()) recountForFat(charSequence.toString().equals("") ? 0 : Integer.parseInt(charSequence.toString()));
             if (tvFormulaHint.getVisibility() == View.VISIBLE) {
                 setDropModeOn();
             }
@@ -267,7 +274,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         btnReturnParametrs.setEnabled(false);
     }
 
-    private void recountMainParams(int parseInt) {
+    private void recountForCalories(int parseInt) {
         double fat = parseInt * FAT_COUNT;
         double prot = parseInt * PROTEIN_COUNT;
         double carbo = parseInt * CARBO_COUNT;
@@ -275,6 +282,36 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
         edtProt.setText(String.valueOf(Math.round(prot)));
         edtFats.setText(String.valueOf(Math.round(fat)));
         edtCarbo.setText(String.valueOf(Math.round(carbo)));
+    }
+
+    private void recountForFat(int parseFat) {
+        double calories = parseFat / FAT_COUNT;
+        double prot = calories * PROTEIN_COUNT;
+        double carbo = calories * CARBO_COUNT;
+
+        edtProt.setText(String.valueOf(Math.round(prot)));
+        edtCarbo.setText(String.valueOf(Math.round(carbo)));
+        edtKcal.setText(String.valueOf(Math.round(calories)));
+    }
+
+    private void recountForProtein(int parseProtein) {
+        double calories = parseProtein / PROTEIN_COUNT;
+        double fat = calories * FAT_COUNT;
+        double carbo = calories * CARBO_COUNT;
+
+        edtFats.setText(String.valueOf(Math.round(fat)));
+        edtCarbo.setText(String.valueOf(Math.round(carbo)));
+        edtKcal.setText(String.valueOf(Math.round(calories)));
+    }
+
+    private void recountForCarbo(int parseCarbo) {
+        double calories = parseCarbo / CARBO_COUNT;
+        double fat = calories * FAT_COUNT;
+        double prot = calories * PROTEIN_COUNT;
+
+        edtProt.setText(String.valueOf(Math.round(prot)));
+        edtFats.setText(String.valueOf(Math.round(fat)));
+        edtKcal.setText(String.valueOf(Math.round(calories)));
     }
 
     private void removeError(TextInputLayout currentTextInputLayout) {
@@ -391,7 +428,7 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
             if (!edtProt.getText().toString().equals("") && !edtProt.getText().toString().contains("-")) {
                 if (!edtCarbo.getText().toString().equals("") && !edtCarbo.getText().toString().contains("-")) {
                     if (!edtFats.getText().toString().equals("") && !edtFats.getText().toString().contains("-")) {
-                        return true;
+                        return checkValidValue();
                     } else {
                         tilFats.setError(getString(R.string.enter_multi_params));
                         return false;
@@ -408,5 +445,33 @@ public class ChangeNormActivity extends MvpAppCompatActivity implements ChangeNo
             tilKcal.setError(getResources().getString(R.string.enter_multi_params));
             return false;
         }
+
+
+
+    }
+
+    private boolean checkValidValue(){
+//        double fat = parseInt * FAT_COUNT;
+//        double prot = parseInt * PROTEIN_COUNT;
+//        double carbo = parseInt * CARBO_COUNT;
+        boolean result = true;
+        if (Integer.parseInt(edtKcal.getText().toString()) >= MAX_NORMA_CALORIES ){
+            tilKcal.setError(getResources().getString(R.string.error_big_value));
+            result = false;
+        }
+        if (Integer.parseInt(edtFats.getText().toString()) >= MAX_NORMA_CALORIES * FAT_COUNT){
+            tilFats.setError(getString(R.string.error_big_value));
+            result = false;
+        }
+        if (Integer.parseInt(edtCarbo.getText().toString()) >= MAX_NORMA_CALORIES * CARBO_COUNT){
+            tilCarbo.setError(getString(R.string.error_big_value));
+            result = false;
+        }
+        if (Integer.parseInt(edtProt.getText().toString()) >= MAX_NORMA_CALORIES * PROTEIN_COUNT){
+            tilProt.setError(getString(R.string.error_big_value));
+            result = false;
+        }
+
+        return result;
     }
 }
