@@ -14,6 +14,8 @@ import android.provider.MediaStore;
 
 import android.text.Spannable;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -35,6 +37,7 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.losing.weight.utils.toasts.PermissionTosts;
 import com.squareup.picasso.Picasso;
 import com.losing.weight.POJOProfile.Profile;
 import com.losing.weight.R;
@@ -254,32 +257,47 @@ public class AboutActivity extends MvpAppCompatActivity implements AboutView {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CAMERA}, 1);
         } else {
-            AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(this);
-            myAlertDialog.setTitle(getString(R.string.load_photo));
-            myAlertDialog.setMessage(getString(R.string.where_photo));
+            showPhotoDialog();
+        }
+    }
 
-            myAlertDialog.setPositiveButton(getString(R.string.phone_memory),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                                    MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                            startActivityForResult(galleryIntent, GALLERY_PICTURE);
-                        }
-                    });
+    private void showPhotoDialog() {
+        AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(this);
+        myAlertDialog.setTitle(getString(R.string.load_photo));
+        myAlertDialog.setMessage(getString(R.string.where_photo));
 
-            myAlertDialog.setNegativeButton(getString(R.string.camera),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        myAlertDialog.setPositiveButton(getString(R.string.phone_memory),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                        startActivityForResult(galleryIntent, GALLERY_PICTURE);
+                    }
+                });
+
+        myAlertDialog.setNegativeButton(getString(R.string.camera),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                             /*if (hasImageCaptureBug()) {
                                 i.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File("/sdcard/tmp")));
                             } else {
                                 i.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             }*/
-                            startActivityForResult(i, CAMERA_REQUEST);
-                        }
-                    });
-            myAlertDialog.show();
+                        startActivityForResult(i, CAMERA_REQUEST);
+                    }
+                });
+        myAlertDialog.show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.e("LOL", "call camera");
+        if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            showPhotoDialog();
+        }else {
+            PermissionTosts.INSTANCE.showDeniedPhoto(this);
         }
     }
 
